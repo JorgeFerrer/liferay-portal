@@ -157,6 +157,8 @@ if (showLinkedAssets) {
 	}
 }
 
+boolean showAssetEntries = !showLinkedAssets || (mainJournalArticle != null);
+
 String displayStyle = GetterUtil.getString(preferences.getValue("displayStyle", "abstracts"));
 
 if (Validator.isNull(displayStyle)) {
