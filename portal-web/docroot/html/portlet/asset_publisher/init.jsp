@@ -143,8 +143,10 @@ if (showOnlyLayoutAssets) {
 
 boolean showLinkedAssets = GetterUtil.getBoolean(preferences.getValue("showLinkedAssets", null), false);
 
+JournalArticle mainJournalArticle = null;
+	
 if (showLinkedAssets) {
-	JournalArticle mainJournalArticle = themeDisplay.getMainJournalArticle();
+	mainJournalArticle = themeDisplay.getMainJournalArticle();
 
 	if (mainJournalArticle != null) {
 		AssetEntry mainAssetEntry = AssetEntryLocalServiceUtil.getEntry(JournalArticle.class.getName(), mainJournalArticle.getResourcePrimKey());
@@ -155,6 +157,7 @@ if (showLinkedAssets) {
 
 boolean mergeUrlTags = GetterUtil.getBoolean(preferences.getValue("mergeUrlTags", null), true);
 boolean mergeLayoutTags = GetterUtil.getBoolean(preferences.getValue("mergeLayoutTags", null), false);
+boolean showAssetEntries = !showLinkedAssets || (mainJournalArticle != null);
 
 String displayStyle = GetterUtil.getString(preferences.getValue("displayStyle", "abstracts"));
 
