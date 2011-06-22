@@ -200,12 +200,14 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						</span>
 					</c:if>
 
-					<div class="entry-links">
-						<liferay-ui:asset-links
-							className="<%= DLFileEntryConstants.getClassName() %>"
-							classPK="<%= assetClassPK %>"
-						/>
-					</div>
+					<c:if test="<%= ((folder == null) || folder.isSupportsMetadata()) %>">
+						<div class="entry-links">
+							<liferay-ui:asset-links
+								className="<%= DLFileEntryConstants.getClassName() %>"
+								classPK="<%= assetClassPK %>"
+							/>
+						</div>
+					</c:if>
 
 					<span class="document-description">
 						<%= HtmlUtil.escape(fileEntry.getDescription()) %>
