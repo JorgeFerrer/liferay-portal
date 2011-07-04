@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -59,7 +60,10 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -75,6 +79,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Brian Wing Shun Chan
+ * @author Juan Fernández
  */
 public class MBUtil {
 
@@ -338,6 +343,99 @@ public class MBUtil {
 			return ContentUtil.get(
 				PropsValues.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT_PREFIX);
 		}
+	}
+
+	public static Map<Locale, String> getEmailMessageBodyMap(
+		PortletPreferences preferences, boolean update) {
+
+		String bodyProperty = "emailMessageAddedBody";
+		String bodyPropertyKey =
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_BODY;
+		String signatureProperty = "emailMessageAddedSignature";
+		String signaturePropertyKey =
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SIGNATURE;
+
+		if (update) {
+			bodyProperty = "emailMessageUpdatedBody";
+			bodyPropertyKey =
+				PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_BODY;
+
+			signatureProperty = "emailMessageUpdatedSignature";
+			signaturePropertyKey =
+				PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SIGNATURE;
+		}
+
+		Map<Locale, String> bodyMap = LocalizationUtil.getLocalizationMap(
+				preferences, bodyProperty);
+
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String defaultValue = bodyMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			bodyMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				bodyPropertyKey)));
+		}
+
+		Map<Locale, String> signatureMap = LocalizationUtil.getLocalizationMap(
+			preferences, signatureProperty);
+
+		defaultValue = signatureMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			signatureMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				signaturePropertyKey)));
+		}
+
+		Map<Locale, String> map = new HashMap<Locale, String>(bodyMap.size());
+
+		for(Map.Entry<Locale, String> body : bodyMap.entrySet()) {
+
+			String completeBody = body.getValue();
+			String signature = signatureMap.get(body.getKey());
+
+			if (Validator.isNotNull(signature)) {
+				completeBody +=  "\n--\n" + signature;
+			}
+
+			map.put(body.getKey(), completeBody);
+		}
+
+		return map;
+	}
+
+	public static Map<Locale, String> getEmailMessageSubjectMap(
+		PortletPreferences preferences, String subject, boolean update) {
+
+		String subjectProperty = "emailMessageAddedSubjectPrefix";
+		String subjectPropertyKey =
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT_PREFIX;
+
+		if (update) {
+			subjectProperty = "emailMessageUpdatedSubjectPrefix";
+			subjectPropertyKey =
+				PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SUBJECT_PREFIX;
+		}
+
+		Map<Locale, String> subjectMap = LocalizationUtil.getLocalizationMap(
+			preferences, subjectProperty);
+
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String defaultValue = subjectMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			subjectMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				subjectPropertyKey)));
+		}
+
+		for(Map.Entry<Locale, String> prefix : subjectMap.entrySet()) {
+			String finalSubject = prefix.getValue().trim() + StringPool.SPACE +
+				subject.trim();
+			prefix.setValue(finalSubject);
+		}
+
+		return subjectMap;
 	}
 
 	public static String getEmailMessageUpdatedBody(

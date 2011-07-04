@@ -93,6 +93,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.portlet.PortletPreferences;
@@ -1834,32 +1836,12 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 				message.getMessageId(), company.getMx(), fromAddress);
 		}
 
-		String subjectPrefix = null;
-		String body = null;
-		String signature = null;
+		Map<Locale, String> localizedSubjectMap = null;
+		Map<Locale, String> localizedBodyMap = null;
 
-		if (update) {
-			subjectPrefix = MBUtil.getEmailMessageUpdatedSubjectPrefix(
-				preferences);
-			body = MBUtil.getEmailMessageUpdatedBody(preferences);
-			signature = MBUtil.getEmailMessageUpdatedSignature(preferences);
-		}
-		else {
-			subjectPrefix = MBUtil.getEmailMessageAddedSubjectPrefix(
-				preferences);
-			body = MBUtil.getEmailMessageAddedBody(preferences);
-			signature = MBUtil.getEmailMessageAddedSignature(preferences);
-		}
-
-		String subject = message.getSubject();
-
-		if (subject.indexOf(subjectPrefix) == -1) {
-			subject = subjectPrefix.trim() + " " + subject.trim();
-		}
-
-		if (Validator.isNotNull(signature)) {
-			body +=  "\n--\n" + signature;
-		}
+		localizedSubjectMap = MBUtil.getEmailMessageSubjectMap(
+			preferences, message.getSubject(), update);
+		localizedBodyMap = MBUtil.getEmailMessageBodyMap(preferences, update);
 
 		String inReplyTo = null;
 
@@ -1874,7 +1856,6 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 		SubscriptionSender subscriptionSenderPrototype =
 			new MBSubscriptionSender();
 
-		subscriptionSenderPrototype.setBody(body);
 		subscriptionSenderPrototype.setBulk(true);
 		subscriptionSenderPrototype.setCompanyId(message.getCompanyId());
 		subscriptionSenderPrototype.setContextAttributes(
@@ -1889,12 +1870,13 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 		subscriptionSenderPrototype.setHtmlFormat(
 			MBUtil.getEmailHtmlFormat(preferences));
 		subscriptionSenderPrototype.setInReplyTo(inReplyTo);
+		subscriptionSenderPrototype.setLocalizedBodyMap(localizedBodyMap);
+		subscriptionSenderPrototype.setLocalizedSubjectMap(localizedSubjectMap);
 		subscriptionSenderPrototype.setMailId(
 			MBUtil.MESSAGE_POP_PORTLET_PREFIX, message.getCategoryId(),
 			message.getMessageId());
 		subscriptionSenderPrototype.setPortletId(PortletKeys.MESSAGE_BOARDS);
 		subscriptionSenderPrototype.setReplyToAddress(mailingListAddress);
-		subscriptionSenderPrototype.setSubject(subject);
 		subscriptionSenderPrototype.setUserId(message.getUserId());
 
 		SubscriptionSender subscriptionSender =
