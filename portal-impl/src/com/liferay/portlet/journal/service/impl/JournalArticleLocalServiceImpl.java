@@ -2943,21 +2943,22 @@ public class JournalArticleLocalServiceImpl
 		String fromName = JournalUtil.getEmailFromName(preferences);
 		String fromAddress = JournalUtil.getEmailFromAddress(preferences);
 
-		String subject = null;
-		String body = null;
+		boolean update = true;
 
 		if (article.getVersion() == 1.0) {
-			subject = JournalUtil.getEmailArticleAddedSubject(preferences);
-			body = JournalUtil.getEmailArticleAddedBody(preferences);
+			update = false;
 		}
-		else {
-			subject = JournalUtil.getEmailArticleUpdatedSubject(preferences);
-			body = JournalUtil.getEmailArticleUpdatedBody(preferences);
-		}
+
+		Map<Locale, String> localizedSubjectMap = null;
+		Map<Locale, String> localizedBodyMap = null;
+
+		localizedSubjectMap = JournalUtil.getEmailArticleSubjectMap(
+			preferences, update);
+		localizedBodyMap = JournalUtil.getEmailArticleBodyMap(
+			preferences, update);
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
 
-		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(article.getCompanyId());
 		subscriptionSender.setContextAttributes(
 			"[$ARTICLE_ID$]", article.getArticleId(), "[$ARTICLE_TITLE$]",
@@ -2967,10 +2968,11 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.setFrom(fromAddress, fromName);
 		subscriptionSender.setGroupId(article.getGroupId());
 		subscriptionSender.setHtmlFormat(true);
+		subscriptionSender.setLocalizedBodyMap(localizedBodyMap);
+		subscriptionSender.setLocalizedSubjectMap(localizedSubjectMap);
 		subscriptionSender.setMailId("journal_article", article.getId());
 		subscriptionSender.setPortletId(PortletKeys.JOURNAL);
 		subscriptionSender.setReplyToAddress(fromAddress);
-		subscriptionSender.setSubject(subject);
 		subscriptionSender.setUserId(article.getUserId());
 
 		subscriptionSender.addPersistedSubscribers(
@@ -3054,26 +3056,31 @@ public class JournalArticleLocalServiceImpl
 		String subject = null;
 		String body = null;
 
+		String userLanguageId = LocaleUtil.toLanguageId(user.getLocale());
+
 		if (emailType.equals("denied")) {
-			subject =
-				JournalUtil.getEmailArticleApprovalDeniedSubject(preferences);
-			body = JournalUtil.getEmailArticleApprovalDeniedBody(preferences);
+			subject = JournalUtil.getEmailArticleApprovalDeniedSubject(
+				preferences, userLanguageId);
+			body = JournalUtil.getEmailArticleApprovalDeniedBody(
+				preferences, userLanguageId);
 		}
 		else if (emailType.equals("granted")) {
-			subject =
-				JournalUtil.getEmailArticleApprovalGrantedSubject(preferences);
-			body = JournalUtil.getEmailArticleApprovalGrantedBody(preferences);
+			subject = JournalUtil.getEmailArticleApprovalGrantedSubject(
+				preferences, userLanguageId);
+			body = JournalUtil.getEmailArticleApprovalGrantedBody(
+				preferences, userLanguageId);
 		}
 		else if (emailType.equals("requested")) {
-			subject =
-				JournalUtil.getEmailArticleApprovalRequestedSubject(
-				preferences);
+			subject = JournalUtil.getEmailArticleApprovalRequestedSubject(
+				preferences, userLanguageId);
 			body = JournalUtil.getEmailArticleApprovalRequestedBody(
-				preferences);
+				preferences, userLanguageId);
 		}
 		else if (emailType.equals("review")) {
-			subject = JournalUtil.getEmailArticleReviewSubject(preferences);
-			body = JournalUtil.getEmailArticleReviewBody(preferences);
+			subject = JournalUtil.getEmailArticleReviewSubject(
+				preferences, userLanguageId);
+			body = JournalUtil.getEmailArticleReviewBody(
+				preferences, userLanguageId);
 		}
 
 		subject = StringUtil.replace(

@@ -21,6 +21,12 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "email-from");
 
 String redirect = ParamUtil.getString(request, "redirect");
 
+String currentLanguageId = LanguageUtil.getLanguageId(request);
+
+if (Validator.isNotNull(request.getParameter("currentLanguageId"))) {
+	currentLanguageId = request.getParameter("currentLanguageId");
+}
+
 String portletResource = ParamUtil.getString(request, "portletResource");
 
 PortletPreferences portletSetup = PortletPreferencesFactoryUtil.getPortletSetup(request, portletResource);
@@ -28,8 +34,8 @@ PortletPreferences portletSetup = PortletPreferencesFactoryUtil.getPortletSetup(
 String emailFromName = ParamUtil.getString(request, "emailFromName", JournalUtil.getEmailFromName(portletSetup));
 String emailFromAddress = ParamUtil.getString(request, "emailFromAddress", JournalUtil.getEmailFromAddress(portletSetup));
 
-String emailArticleAddedSubject = ParamUtil.getString(request, "emailArticleAddedSubject", JournalUtil.getEmailArticleAddedSubject(portletSetup));
-String emailArticleAddedBody = ParamUtil.getString(request, "emailArticleAddedBody", JournalUtil.getEmailArticleAddedBody(portletSetup));
+String emailArticleAddedSubject = PrefsParamUtil.getString(portletSetup, request, "emailArticleAddedSubject_" + currentLanguageId, JournalUtil.getEmailArticleAddedSubject(portletSetup));
+String emailArticleAddedBody = PrefsParamUtil.getString(portletSetup, request, "emailArticleAddedBody_" + currentLanguageId, JournalUtil.getEmailArticleAddedBody(portletSetup));
 
 String emailArticleApprovalDeniedSubject = ParamUtil.getString(request, "emailArticleApprovalDeniedSubject", JournalUtil.getEmailArticleApprovalDeniedSubject(portletSetup));
 String emailArticleApprovalDeniedBody = ParamUtil.getString(request, "emailArticleApprovalDeniedBody", JournalUtil.getEmailArticleApprovalDeniedBody(portletSetup));
@@ -43,14 +49,14 @@ String emailArticleApprovalRequestedBody = ParamUtil.getString(request, "emailAr
 String emailArticleReviewSubject = ParamUtil.getString(request, "emailArticleReviewSubject", JournalUtil.getEmailArticleReviewSubject(portletSetup));
 String emailArticleReviewBody = ParamUtil.getString(request, "emailArticleReviewBody", JournalUtil.getEmailArticleReviewBody(portletSetup));
 
-String emailArticleUpdatedSubject = ParamUtil.getString(request, "emailArticleUpdatedSubject", JournalUtil.getEmailArticleUpdatedSubject(portletSetup));
-String emailArticleUpdatedBody = ParamUtil.getString(request, "emailArticleUpdatedBody", JournalUtil.getEmailArticleUpdatedBody(portletSetup));
+String emailArticleUpdatedSubject = PrefsParamUtil.getString(portletSetup, request, "emailArticleUpdatedSubject_" + currentLanguageId, JournalUtil.getEmailArticleUpdatedSubject(portletSetup));
+String emailArticleUpdatedBody = PrefsParamUtil.getString(portletSetup, request, "emailArticleUpdatedBody_" + currentLanguageId, JournalUtil.getEmailArticleUpdatedBody(portletSetup));
 
 String editorParam = StringPool.BLANK;
 String editorContent = StringPool.BLANK;
 
 if (tabs2.equals("web-content-added-email")) {
-	editorParam = "emailArticleAddedBody";
+	editorParam = "emailArticleAddedBody_" + currentLanguageId;
 	editorContent = emailArticleAddedBody;
 }
 else if (tabs2.equals("web-content-approval-denied-email")) {
@@ -70,7 +76,7 @@ else if (tabs2.equals("web-content-review-email")) {
 	editorContent = emailArticleReviewBody;
 }
 else if (tabs2.equals("web-content-updated-email")) {
-	editorParam = "emailArticleUpdatedBody";
+	editorParam = "emailArticleUpdatedBody_" + currentLanguageId;
 	editorContent = emailArticleUpdatedBody;
 }
 %>
@@ -140,8 +146,28 @@ else if (tabs2.equals("web-content-updated-email")) {
 				</c:choose>
 
 				<c:choose>
+					<c:when test='<%= tabs2.equals("web-content-added-email") || tabs2.equals("web-content-updated-email")  %>'>
+						<aui:select label="language" name="currentLanguageId" id="currentLanguageId">
+							<%
+							Locale[] locales = LanguageUtil.getAvailableLocales();
+
+							for (int i = 0; i < locales.length; i++) {
+								String style = StringPool.BLANK;
+							%>
+
+								<aui:option label="<%= locales[i].getDisplayName(locale) %>" selected="<%= currentLanguageId.equals(LocaleUtil.toLanguageId(locales[i])) %>" style="<%= style %>" value="<%= LocaleUtil.toLanguageId(locales[i]) %>" />
+
+							<%
+							}
+							%>
+
+						</aui:select>
+					</c:when>
+				</c:choose>
+
+				<c:choose>
 					<c:when test='<%= tabs2.equals("web-content-added-email") %>'>
-						<aui:input cssClass="lfr-input-text-container" label="subject" name="preferences--emailArticleAddedSubject--" type="text" value="<%= emailArticleAddedSubject %>" />
+						<aui:input cssClass="lfr-input-text-container" label="subject" name='<%= "preferences--emailArticleAddedSubject_"  + currentLanguageId + "--" %>' type="text" value="<%= emailArticleAddedSubject %>" />
 					</c:when>
 					<c:when test='<%= tabs2.equals("web-content-approval-denied-email") %>'>
 						<aui:input cssClass="lfr-input-text-container" label="subject" name="preferences--emailArticleApprovalDeniedSubject--" type="text" value="<%= emailArticleApprovalDeniedSubject %>" />
@@ -156,7 +182,7 @@ else if (tabs2.equals("web-content-updated-email")) {
 						<aui:input cssClass="lfr-input-text-container" label="subject" name="preferences--emailArticleReviewSubject--" type="text" value="<%= emailArticleReviewSubject %>" />
 					</c:when>
 					<c:when test='<%= tabs2.equals("web-content-updated-email") %>'>
-						<aui:input cssClass="lfr-input-text-container" label="subject" name="preferences--emailArticleUpdatedSubject--" type="text" value="<%= emailArticleUpdatedSubject %>" />
+						<aui:input cssClass="lfr-input-text-container" label="subject" name='<%= "preferences--emailArticleUpdatedSubject_"  + currentLanguageId + "--" %>' type="text" value="<%= emailArticleUpdatedSubject %>" />
 					</c:when>
 				</c:choose>
 
@@ -256,6 +282,20 @@ else if (tabs2.equals("web-content-updated-email")) {
 		</c:if>
 
 		submitForm(document.<portlet:namespace />fm);
+	}
+</aui:script>
+
+<aui:script use="aui-base">
+	var selectCurrentLanguageId = A.one('#<portlet:namespace />currentLanguageId');
+
+	if (selectCurrentLanguageId) {
+		selectCurrentLanguageId.on(
+			'change',
+			function(event) {
+				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = 'updateLanguage';
+				submitForm(document.<portlet:namespace />fm);
+			}
+		);
 	}
 </aui:script>
 
