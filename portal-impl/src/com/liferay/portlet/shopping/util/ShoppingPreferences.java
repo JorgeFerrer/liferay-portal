@@ -333,10 +333,9 @@ public class ShoppingPreferences {
 			String.valueOf(emailOrderConfirmationEnabled));
 	}
 
-	public String getEmailOrderConfirmationBody(String currentLanguageId) {
+	public String getEmailOrderConfirmationBody() {
 		String emailOrderConfirmationBody = _preferences.getValue(
-			"email-order-confirmation-body_" + currentLanguageId,
-			StringPool.BLANK);
+			"email-order-confirmation-body", StringPool.BLANK);
 
 		if (Validator.isNotNull(emailOrderConfirmationBody)) {
 			return emailOrderConfirmationBody;
@@ -347,19 +346,16 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setEmailOrderConfirmationBody(
-			String emailOrderConfirmationBody, String currentLanguageId)
+	public void setEmailOrderConfirmationBody(String emailOrderConfirmationBody)
 		throws ReadOnlyException {
 
 		_preferences.setValue(
-			"email-order-confirmation-body_" + currentLanguageId,
-				emailOrderConfirmationBody);
+			"email-order-confirmation-body", emailOrderConfirmationBody);
 	}
 
-	public String getEmailOrderConfirmationSubject(String currentLanguageId) {
+	public String getEmailOrderConfirmationSubject() {
 		String emailOrderConfirmationSubject = _preferences.getValue(
-			"email-order-confirmation-subject_" + currentLanguageId,
-			StringPool.BLANK);
+			"email-order-confirmation-subject", StringPool.BLANK);
 
 		if (Validator.isNotNull(emailOrderConfirmationSubject)) {
 			return emailOrderConfirmationSubject;
@@ -371,12 +367,11 @@ public class ShoppingPreferences {
 	}
 
 	public void setEmailOrderConfirmationSubject(
-			String emailOrderConfirmationSubject, String currentLanguageId)
+			String emailOrderConfirmationSubject)
 		throws ReadOnlyException {
 
 		_preferences.setValue(
-			"email-order-confirmation-subject_" + currentLanguageId,
-			emailOrderConfirmationSubject);
+			"email-order-confirmation-subject", emailOrderConfirmationSubject);
 	}
 
 	public boolean getEmailOrderShippingEnabled() {
@@ -400,9 +395,9 @@ public class ShoppingPreferences {
 			String.valueOf(emailOrderShippingEnabled));
 	}
 
-	public String getEmailOrderShippingBody(String currentLanguageId) {
+	public String getEmailOrderShippingBody() {
 		String emailOrderShippingBody = _preferences.getValue(
-			"email-order-shipping-body_" + currentLanguageId, StringPool.BLANK);
+			"email-order-shipping-body", StringPool.BLANK);
 
 		if (Validator.isNotNull(emailOrderShippingBody)) {
 			return emailOrderShippingBody;
@@ -413,19 +408,16 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setEmailOrderShippingBody(
-			String emailOrderShippingBody, String currentLanguageId)
+	public void setEmailOrderShippingBody(String emailOrderShippingBody)
 		throws ReadOnlyException {
 
 		_preferences.setValue(
-			"email-order-shipping-body_" + currentLanguageId,
-			emailOrderShippingBody);
+			"email-order-shipping-body", emailOrderShippingBody);
 	}
 
-	public String getEmailOrderShippingSubject(String currentLanguageId) {
+	public String getEmailOrderShippingSubject() {
 		String emailOrderShippingSubject = _preferences.getValue(
-			"email-order-shipping-subject_" + currentLanguageId,
-			StringPool.BLANK);
+			"email-order-shipping-subject", StringPool.BLANK);
 
 		if (Validator.isNotNull(emailOrderShippingSubject)) {
 			return emailOrderShippingSubject;
@@ -436,13 +428,11 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setEmailOrderShippingSubject(
-			String emailOrderShippingSubject, String currentLanguageId)
+	public void setEmailOrderShippingSubject(String emailOrderShippingSubject)
 		throws ReadOnlyException {
 
 		_preferences.setValue(
-			"email-order-shipping-subject_" + currentLanguageId,
-			emailOrderShippingSubject);
+			"email-order-shipping-subject", emailOrderShippingSubject);
 	}
 
 	public void store() throws IOException, ValidatorException {

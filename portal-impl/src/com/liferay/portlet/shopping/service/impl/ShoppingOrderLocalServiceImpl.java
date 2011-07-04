@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -633,17 +632,13 @@ public class ShoppingOrderLocalServiceImpl
 		String subject = null;
 		String body = null;
 
-		String userLanguageId = LocaleUtil.toLanguageId(user.getLocale());
-
 		if (emailType.equals("confirmation")) {
-			subject =
-				shoppingPrefs.getEmailOrderConfirmationSubject(userLanguageId);
-			body = shoppingPrefs.getEmailOrderConfirmationBody(userLanguageId);
+			subject = shoppingPrefs.getEmailOrderConfirmationSubject();
+			body = shoppingPrefs.getEmailOrderConfirmationBody();
 		}
 		else if (emailType.equals("shipping")) {
-			subject =
-				shoppingPrefs.getEmailOrderShippingSubject(userLanguageId);
-			body = shoppingPrefs.getEmailOrderShippingBody(userLanguageId);
+			subject = shoppingPrefs.getEmailOrderShippingSubject();
+			body = shoppingPrefs.getEmailOrderShippingBody();
 		}
 
 		subject = StringUtil.replace(

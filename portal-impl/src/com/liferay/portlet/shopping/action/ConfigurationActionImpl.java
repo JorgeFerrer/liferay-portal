@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.shopping.action;
 
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -110,20 +109,12 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 			ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String currentLanguageId = LanguageUtil.getLanguageId(actionRequest);
-
-		if (Validator.isNotNull(
-			actionRequest.getParameter("currentLanguageId"))) {
-			currentLanguageId = actionRequest.getParameter("currentLanguageId");
-		}
-
 		boolean emailOrderConfirmationEnabled = ParamUtil.getBoolean(
 			actionRequest, "emailOrderConfirmationEnabled");
 		String emailOrderConfirmationSubject = ParamUtil.getString(
-			actionRequest, "emailOrderConfirmationSubject_" +
-				currentLanguageId);
+			actionRequest, "emailOrderConfirmationSubject");
 		String emailOrderConfirmationBody = ParamUtil.getString(
-			actionRequest, "emailOrderConfirmationBody_" + currentLanguageId);
+			actionRequest, "emailOrderConfirmationBody");
 
 		if (Validator.isNull(emailOrderConfirmationSubject)) {
 			SessionErrors.add(actionRequest, "emailOrderConfirmationSubject");
@@ -135,9 +126,9 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 			preferences.setEmailOrderConfirmationEnabled(
 				emailOrderConfirmationEnabled);
 			preferences.setEmailOrderConfirmationSubject(
-				emailOrderConfirmationSubject, currentLanguageId);
+				emailOrderConfirmationSubject);
 			preferences.setEmailOrderConfirmationBody(
-				emailOrderConfirmationBody, currentLanguageId);
+				emailOrderConfirmationBody);
 		}
 	}
 
@@ -145,19 +136,12 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 			ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String currentLanguageId = LanguageUtil.getLanguageId(actionRequest);
-
-		if (Validator.isNotNull(
-			actionRequest.getParameter("currentLanguageId"))) {
-			currentLanguageId = actionRequest.getParameter("currentLanguageId");
-		}
-
 		boolean emailOrderShippingEnabled = ParamUtil.getBoolean(
 			actionRequest, "emailOrderShippingEnabled");
 		String emailOrderShippingSubject = ParamUtil.getString(
-			actionRequest, "emailOrderShippingSubject_" + currentLanguageId);
+			actionRequest, "emailOrderShippingSubject");
 		String emailOrderShippingBody = ParamUtil.getString(
-			actionRequest, "emailOrderShippingBody_" + currentLanguageId);
+			actionRequest, "emailOrderShippingBody");
 
 		if (Validator.isNull(emailOrderShippingSubject)) {
 			SessionErrors.add(actionRequest, "emailOrderShippingSubject");
@@ -167,10 +151,8 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 		}
 		else {
 			preferences.setEmailOrderShippingEnabled(emailOrderShippingEnabled);
-			preferences.setEmailOrderShippingSubject(
-				emailOrderShippingSubject, currentLanguageId);
-			preferences.setEmailOrderShippingBody(
-				emailOrderShippingBody, currentLanguageId);
+			preferences.setEmailOrderShippingSubject(emailOrderShippingSubject);
+			preferences.setEmailOrderShippingBody(emailOrderShippingBody);
 		}
 	}
 
