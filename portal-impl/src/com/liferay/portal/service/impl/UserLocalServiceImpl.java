@@ -3220,11 +3220,28 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String toName = user.getFullName();
 		String toAddress = emailAddress;
 
-		String subject = PrefsPropsUtil.getContent(
-			user.getCompanyId(), PropsKeys.ADMIN_EMAIL_VERIFICATION_SUBJECT);
+		String subject;
+		String body;
 
-		String body = PrefsPropsUtil.getContent(
-			user.getCompanyId(), PropsKeys.ADMIN_EMAIL_VERIFICATION_BODY);
+		try {
+			subject = PrefsPropsUtil.getContent(
+				user.getCompanyId(),
+				PropsKeys.ADMIN_EMAIL_VERIFICATION_SUBJECT + "_" +
+					user.getLocale().toString());
+
+			body = PrefsPropsUtil.getContent(
+				user.getCompanyId(),
+				PropsKeys.ADMIN_EMAIL_VERIFICATION_BODY + "_" +
+					user.getLocale().toString());
+		}
+		catch (Exception e) {
+			subject = PrefsPropsUtil.getContent(
+				user.getCompanyId(),
+				PropsKeys.ADMIN_EMAIL_VERIFICATION_SUBJECT);
+
+			body = PrefsPropsUtil.getContent(
+				user.getCompanyId(), PropsKeys.ADMIN_EMAIL_VERIFICATION_BODY);
+		}
 
 		subject = StringUtil.replace(
 			subject,
@@ -4987,24 +5004,39 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String toAddress = user.getEmailAddress();
 
 		if (Validator.isNull(subject)) {
+			String subjectProperty =
+				PropsKeys.ADMIN_EMAIL_PASSWORD_SENT_SUBJECT;
+
 			if (company.isSendPasswordResetLink()) {
-				subject = PrefsPropsUtil.getContent(
-					companyId, PropsKeys.ADMIN_EMAIL_PASSWORD_RESET_SUBJECT);
+				subjectProperty = PropsKeys.ADMIN_EMAIL_PASSWORD_RESET_SUBJECT;
 			}
-			else {
+
+			try {
 				subject = PrefsPropsUtil.getContent(
-					companyId, PropsKeys.ADMIN_EMAIL_PASSWORD_SENT_SUBJECT);
+					companyId, subjectProperty + "_" +
+					user.getLocale().toString());
+			}
+			catch (Exception e) {
+				subject = PrefsPropsUtil.getContent(
+					companyId, subjectProperty);
 			}
 		}
 
 		if (Validator.isNull(body)) {
+			String bodyProperty = PropsKeys.ADMIN_EMAIL_PASSWORD_SENT_BODY;
+
 			if (company.isSendPasswordResetLink()) {
-				body = PrefsPropsUtil.getContent(
-					companyId, PropsKeys.ADMIN_EMAIL_PASSWORD_RESET_BODY);
+				bodyProperty = PropsKeys.ADMIN_EMAIL_PASSWORD_RESET_BODY;
 			}
-			else {
+
+			try {
 				body = PrefsPropsUtil.getContent(
-					companyId, PropsKeys.ADMIN_EMAIL_PASSWORD_SENT_BODY);
+					companyId, bodyProperty + "_" +
+					user.getLocale().toString());
+			}
+			catch (Exception e) {
+				body = PrefsPropsUtil.getContent(
+					companyId, bodyProperty);
 			}
 		}
 
@@ -5116,19 +5148,34 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String toName = user.getFullName();
 		String toAddress = user.getEmailAddress();
 
-		String subject = PrefsPropsUtil.getContent(
-			user.getCompanyId(), PropsKeys.ADMIN_EMAIL_USER_ADDED_SUBJECT);
+		Locale userLocale = user.getLocale();
+
+		String subject;
+
+		try {
+			subject = PrefsPropsUtil.getContent(
+				company.getCompanyId(),
+				PropsKeys.ADMIN_EMAIL_USER_ADDED_SUBJECT + "_" +
+					userLocale.toString());
+		}
+		catch (Exception e) {
+			subject = PrefsPropsUtil.getContent(
+				user.getCompanyId(), PropsKeys.ADMIN_EMAIL_USER_ADDED_SUBJECT);
+		}
 
 		String body = null;
+		String bodyProperty = PropsKeys.ADMIN_EMAIL_USER_ADDED_BODY;
 
-		if (Validator.isNotNull(password)) {
-			body = PrefsPropsUtil.getContent(
-				user.getCompanyId(), PropsKeys.ADMIN_EMAIL_USER_ADDED_BODY);
+		if (Validator.isNull(password)) {
+			bodyProperty = PropsKeys.ADMIN_EMAIL_USER_ADDED_NO_PASSWORD_BODY;
 		}
-		else {
-			body = PrefsPropsUtil.getContent(
-				user.getCompanyId(),
-				PropsKeys.ADMIN_EMAIL_USER_ADDED_NO_PASSWORD_BODY);
+
+		try {
+			body = PrefsPropsUtil.getContent(user.getCompanyId(),
+				bodyProperty + "_" + userLocale.toString());
+		}
+		catch (Exception e) {
+			body = PrefsPropsUtil.getContent(user.getCompanyId(), bodyProperty);
 		}
 
 		subject = StringUtil.replace(

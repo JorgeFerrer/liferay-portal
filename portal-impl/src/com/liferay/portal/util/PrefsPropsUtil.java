@@ -190,6 +190,33 @@ public class PrefsPropsUtil {
 		return getInteger(preferences, 0, name, defaultValue);
 	}
 
+	public static String getLocalizedContent(long companyId, String name)
+		throws SystemException {
+
+		PortletPreferences preferences = getPreferences(companyId);
+
+		return getLocalizedContent(preferences, companyId, name);
+	}
+
+	public static String getLocalizedContent(
+		PortletPreferences preferences, long companyId, String name) {
+
+		String value = preferences.getValue(name, StringPool.BLANK);
+
+		if (Validator.isNotNull(value)) {
+			return value;
+		}
+		else {
+			try {
+				return ContentUtil.get(PropsUtil.get(name));
+			}
+			catch (Exception e) {
+				name = name.substring(0, name.indexOf("_"));
+				return ContentUtil.get(PropsUtil.get(name));
+			}
+		}
+	}
+
 	public static long getLong(long companyId, String name)
 		throws SystemException {
 
