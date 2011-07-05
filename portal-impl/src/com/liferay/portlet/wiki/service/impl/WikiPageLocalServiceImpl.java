@@ -53,6 +53,7 @@ import com.liferay.portlet.documentlibrary.NoSuchDirectoryException;
 import com.liferay.portlet.documentlibrary.NoSuchFileException;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portlet.messageboards.util.MBUtil;
 import com.liferay.portlet.wiki.DuplicatePageException;
 import com.liferay.portlet.wiki.NoSuchPageException;
 import com.liferay.portlet.wiki.NoSuchPageResourceException;
@@ -83,6 +84,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -1596,36 +1598,15 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		String fromName = WikiUtil.getEmailFromName(preferences);
 		String fromAddress = WikiUtil.getEmailFromAddress(preferences);
 
-		String subjectPrefix = null;
-		String body = null;
-		String signature = null;
+		Map<Locale, String> localizedSubjectMap = null;
+		Map<Locale, String> localizedBodyMap = null;
 
-		if (update) {
-			subjectPrefix = WikiUtil.getEmailPageUpdatedSubjectPrefix(
-				preferences);
-			body = WikiUtil.getEmailPageUpdatedBody(preferences);
-			signature = WikiUtil.getEmailPageUpdatedSignature(preferences);
-		}
-		else {
-			subjectPrefix = WikiUtil.getEmailPageAddedSubjectPrefix(
-				preferences);
-			body = WikiUtil.getEmailPageAddedBody(preferences);
-			signature = WikiUtil.getEmailPageAddedSignature(preferences);
-		}
-
-		String subject = page.getTitle();
-
-		if (subject.indexOf(subjectPrefix) == -1) {
-			subject = subjectPrefix + StringPool.SPACE + subject;
-		}
-
-		if (Validator.isNotNull(signature)) {
-			body += "\n" + signature;
-		}
+		localizedSubjectMap = WikiUtil.getEmailPageSubjectMap(
+				preferences, page.getTitle(), update);
+		localizedBodyMap = WikiUtil.getEmailPageBodyMap(preferences, update);
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
 
-		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(page.getCompanyId());
 		subscriptionSender.setContextAttributes(
 			"[$DIFFS_URL$]", diffsURL, "[$NODE_NAME$]", node.getName(),
@@ -1638,11 +1619,12 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		subscriptionSender.setFrom(fromAddress, fromName);
 		subscriptionSender.setGroupId(node.getGroupId());
 		subscriptionSender.setHtmlFormat(true);
+		subscriptionSender.setLocalizedBodyMap(localizedBodyMap);
+		subscriptionSender.setLocalizedSubjectMap(localizedSubjectMap);
 		subscriptionSender.setMailId(
 			"wiki_page", page.getNodeId(), page.getPageId());
 		subscriptionSender.setPortletId(PortletKeys.WIKI);
 		subscriptionSender.setReplyToAddress(fromAddress);
-		subscriptionSender.setSubject(subject);
 		subscriptionSender.setUserId(page.getUserId());
 
 		subscriptionSender.addPersistedSubscribers(
