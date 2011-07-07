@@ -44,7 +44,7 @@ Group scopeGroup = themeDisplay.getScopeGroup();
 
 	<c:if test="<%= typeSelection.equals(StringPool.BLANK) %>">
 		<c:choose>
-			<c:when test="<%= portletName.equals(PortletKeys.RELATED_ASSETS) %>" >
+			<c:when test="<%= PortletConstants.getRootPortletId(portletResource).equals(PortletKeys.RELATED_ASSETS) %>" >
 				<aui:input name="preferences--selectionStyle--" type="hidden" value="dynamic" />
 			</c:when>
 			<c:otherwise>
@@ -54,13 +54,6 @@ Group scopeGroup = themeDisplay.getScopeGroup();
 				</aui:select>
 			</c:otherwise>
 		</c:choose>
-		<aui:select label="asset-selection" name="preferences--selectionStyle--" onChange='<%= renderResponse.getNamespace() + "chooseSelectionStyle();" %>'>
-			<aui:option label="dynamic" selected='<%= selectionStyle.equals("dynamic") %>'/>
-
-			<c:if test="<%= !showLinkedAssets %>">
-				<aui:option label="manual" selected='<%= selectionStyle.equals("manual") %>'/>
-			</c:if>
-		</aui:select>
 
 		<liferay-util:buffer var="selectAssetTypeInput">
 			<aui:select label='<%= selectionStyle.equals("manual") ? "asset-type" : StringPool.BLANK %>' name="preferences--anyAssetType--">
