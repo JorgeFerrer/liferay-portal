@@ -17,6 +17,7 @@ package com.liferay.portlet.messageboards.action;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -48,20 +49,24 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 		String tabs2 = ParamUtil.getString(actionRequest, "tabs2");
 
-		if (tabs2.equals("email-from")) {
-			validateEmailFrom(actionRequest);
-		}
-		else if (tabs2.equals("message-added-email")) {
-			validateEmailMessageAdded(actionRequest);
-		}
-		else if (tabs2.equals("message-updated-email")) {
-			validateEmailMessageUpdated(actionRequest);
-		}
-		else if (tabs2.equals("thread-priorities")) {
-			updateThreadPriorities(actionRequest);
-		}
-		else if (tabs2.equals("user-ranks")) {
-			updateUserRanks(actionRequest);
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+		if (!cmd.equals("updateLanguage")) {
+			if (tabs2.equals("email-from")) {
+				validateEmailFrom(actionRequest);
+			}
+			else if (tabs2.equals("message-added-email")) {
+				validateEmailMessageAdded(actionRequest);
+			}
+			else if (tabs2.equals("message-updated-email")) {
+				validateEmailMessageUpdated(actionRequest);
+			}
+			else if (tabs2.equals("thread-priorities")) {
+				updateThreadPriorities(actionRequest);
+			}
+			else if (tabs2.equals("user-ranks")) {
+				updateUserRanks(actionRequest);
+			}
 		}
 
 		super.processAction(portletConfig, actionRequest, actionResponse);
@@ -88,10 +93,18 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 	protected void validateEmailMessageAdded(ActionRequest actionRequest)
 		throws Exception {
 
+		String currentLanguageId = LanguageUtil.getLanguageId(actionRequest);
+
+		if (Validator.isNotNull(
+			actionRequest.getParameter("currentLanguageId"))) {
+			currentLanguageId = actionRequest.getParameter("currentLanguageId");
+		}
+
 		String emailMessageAddedSubjectPrefix = getParameter(
-			actionRequest, "emailMessageAddedSubjectPrefix");
+			actionRequest,
+			"emailMessageAddedSubjectPrefix_" + currentLanguageId);
 		String emailMessageAddedBody = getParameter(
-			actionRequest, "emailMessageAddedBody");
+			actionRequest, "emailMessageAddedBody_" + currentLanguageId);
 
 		if (Validator.isNull(emailMessageAddedSubjectPrefix)) {
 			SessionErrors.add(actionRequest, "emailMessageAddedSubjectPrefix");
@@ -104,10 +117,18 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 	protected void validateEmailMessageUpdated(ActionRequest actionRequest)
 		throws Exception {
 
+		String currentLanguageId = LanguageUtil.getLanguageId(actionRequest);
+
+		if (Validator.isNotNull(
+			actionRequest.getParameter("currentLanguageId"))) {
+			currentLanguageId = actionRequest.getParameter("currentLanguageId");
+		}
+
 		String emailMessageUpdatedSubjectPrefix = getParameter(
-			actionRequest, "emailMessageUpdatedSubjectPrefix");
+			actionRequest,
+			"emailMessageUpdatedSubjectPrefix_" + currentLanguageId);
 		String emailMessageUpdatedBody = getParameter(
-			actionRequest, "emailMessageUpdatedBody");
+			actionRequest, "emailMessageUpdatedBody_" + currentLanguageId);
 
 		if (Validator.isNull(emailMessageUpdatedSubjectPrefix)) {
 			SessionErrors.add(
