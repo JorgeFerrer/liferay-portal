@@ -24,6 +24,8 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.InstancePool;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
@@ -51,8 +53,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
@@ -65,6 +69,7 @@ import javax.portlet.PortletURL;
 /**
  * @author Brian Wing Shun Chan
  * @author Jorge Ferrer
+ * @author Juan Fernández
  */
 public class WikiUtil {
 
@@ -188,6 +193,100 @@ public class WikiUtil {
 			return ContentUtil.get(PropsUtil.get(
 				PropsKeys.WIKI_EMAIL_PAGE_UPDATED_BODY));
 		}
+	}
+
+
+	public static Map<Locale, String> getEmailPageBodyMap(
+		PortletPreferences preferences, boolean update) {
+
+		String bodyProperty = "emailPageAddedBody";
+		String bodyPropertyKey =
+			PropsKeys.WIKI_EMAIL_PAGE_ADDED_BODY;
+		String signatureProperty = "emailPageAddedSignature";
+		String signaturePropertyKey =
+			PropsKeys.WIKI_EMAIL_PAGE_ADDED_SIGNATURE;
+
+		if (update) {
+			bodyProperty = "emailPageUpdatedBody";
+			bodyPropertyKey =
+				PropsKeys.WIKI_EMAIL_PAGE_UPDATED_BODY;
+
+			signatureProperty = "emailPageUpdatedSignature";
+			signaturePropertyKey =
+				PropsKeys.WIKI_EMAIL_PAGE_UPDATED_SIGNATURE;
+		}
+
+		Map<Locale, String> bodyMap = LocalizationUtil.getLocalizationMap(
+				preferences, bodyProperty);
+
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String defaultValue = bodyMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			bodyMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				bodyPropertyKey)));
+		}
+
+		Map<Locale, String> signatureMap = LocalizationUtil.getLocalizationMap(
+			preferences, signatureProperty);
+
+		defaultValue = signatureMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			signatureMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				signaturePropertyKey)));
+		}
+
+		Map<Locale, String> map = new HashMap<Locale, String>(bodyMap.size());
+
+		for(Map.Entry<Locale, String> body : bodyMap.entrySet()) {
+
+			String completeBody = body.getValue();
+			String signature = signatureMap.get(body.getKey());
+
+			if (Validator.isNotNull(signature)) {
+				completeBody +=  "\n" + signature;
+			}
+
+			map.put(body.getKey(), completeBody);
+		}
+
+		return map;
+	}
+
+	public static Map<Locale, String> getEmailPageSubjectMap(
+		PortletPreferences preferences, String subject, boolean update) {
+
+		String subjectProperty = "emailPageAddedSubjectPrefix";
+		String subjectPropertyKey =
+			PropsKeys.WIKI_EMAIL_PAGE_ADDED_SUBJECT_PREFIX;
+
+		if (update) {
+			subjectProperty = "emailPageUpdatedSubjectPrefix";
+			subjectPropertyKey =
+				PropsKeys.WIKI_EMAIL_PAGE_UPDATED_SUBJECT_PREFIX;
+		}
+
+		Map<Locale, String> subjectMap = LocalizationUtil.getLocalizationMap(
+			preferences, subjectProperty);
+
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String defaultValue = subjectMap.get(defaultLocale);
+
+		if (Validator.isNull(defaultValue)) {
+			subjectMap.put(defaultLocale, ContentUtil.get(PropsUtil.get(
+				subjectPropertyKey)));
+		}
+
+		for(Map.Entry<Locale, String> prefix : subjectMap.entrySet()) {
+			String finalSubject = prefix.getValue().trim() + StringPool.SPACE +
+				subject.trim();
+			prefix.setValue(finalSubject);
+		}
+
+		return subjectMap;
 	}
 
 	public static boolean getEmailPageUpdatedEnabled(

@@ -21,16 +21,22 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "email-from");
 
 String redirect = ParamUtil.getString(request, "redirect");
 
+String currentLanguageId = LanguageUtil.getLanguageId(request);
+
+if (Validator.isNotNull(request.getParameter("currentLanguageId"))) {
+	currentLanguageId = request.getParameter("currentLanguageId");
+}
+
 String emailFromName = ParamUtil.getString(request, "emailFromName", WikiUtil.getEmailFromName(preferences));
 String emailFromAddress = ParamUtil.getString(request, "emailFromAddress", WikiUtil.getEmailFromAddress(preferences));
 
-String emailPageAddedSubjectPrefix = ParamUtil.getString(request, "emailPageAddedSubjectPrefix", WikiUtil.getEmailPageAddedSubjectPrefix(preferences));
-String emailPageAddedBody = ParamUtil.getString(request, "emailPageAddedBody", WikiUtil.getEmailPageAddedBody(preferences));
-String emailPageAddedSignature = ParamUtil.getString(request, "emailPageAddedSignature", WikiUtil.getEmailPageAddedSignature(preferences));
+String emailPageAddedSubjectPrefix = PrefsParamUtil.getString(preferences, request, "emailPageAddedSubjectPrefix_" + currentLanguageId, WikiUtil.getEmailPageAddedSubjectPrefix(preferences));
+String emailPageAddedBody = PrefsParamUtil.getString(preferences, request, "emailPageAddedBody_" + currentLanguageId, WikiUtil.getEmailPageAddedBody(preferences));
+String emailPageAddedSignature = PrefsParamUtil.getString(preferences, request, "emailPageAddedSignature_" + currentLanguageId, WikiUtil.getEmailPageAddedSignature(preferences));
 
-String emailPageUpdatedSubjectPrefix = ParamUtil.getString(request, "emailPageUpdatedSubjectPrefix", WikiUtil.getEmailPageUpdatedSubjectPrefix(preferences));
-String emailPageUpdatedBody = ParamUtil.getString(request, "emailPageUpdatedBody", WikiUtil.getEmailPageUpdatedBody(preferences));
-String emailPageUpdatedSignature = ParamUtil.getString(request, "emailPageUpdatedSignature", WikiUtil.getEmailPageUpdatedSignature(preferences));
+String emailPageUpdatedSubjectPrefix = PrefsParamUtil.getString(preferences, request, "emailPageUpdatedSubjectPrefix_" + currentLanguageId, WikiUtil.getEmailPageUpdatedSubjectPrefix(preferences));
+String emailPageUpdatedBody = PrefsParamUtil.getString(preferences, request, "emailPageUpdatedBody_" + currentLanguageId, WikiUtil.getEmailPageUpdatedBody(preferences));
+String emailPageUpdatedSignature = PrefsParamUtil.getString(preferences, request, "emailPageUpdatedSignature_" + currentLanguageId, WikiUtil.getEmailPageUpdatedSignature(preferences));
 
 String bodyEditorParam = StringPool.BLANK;
 String bodyEditorBody = StringPool.BLANK;
@@ -148,17 +154,37 @@ else if (tabs2.equals("page-updated-email")) {
 				</c:choose>
 
 				<c:choose>
-					<c:when test='<%= tabs2.equals("page-added-email") %>'>
-						<aui:input cssClass="lfr-input-text-container" label="subject-prefix" name="preferences--emailPageAddedSubjectPrefix--" type="text" value="<%= emailPageAddedSubjectPrefix %>" />
-					</c:when>
-					<c:when test='<%= tabs2.equals("page-updated-email") %>'>
-						<aui:input cssClass="lfr-input-text-container" label="subject-prefix" name="preferences--emailPageUpdatedSubjectPrefix--" type="text" value="<%= emailPageUpdatedSubjectPrefix %>" />
+					<c:when test='<%= tabs2.endsWith("-email") %>'>
+						<aui:select label="language" name="currentLanguageId">
+							<%
+							Locale[] locales = LanguageUtil.getAvailableLocales();
+
+							for (int i = 0; i < locales.length; i++) {
+								String style = StringPool.BLANK;
+							%>
+
+								<aui:option label="<%= locales[i].getDisplayName(locale) %>" selected="<%= currentLanguageId.equals(LocaleUtil.toLanguageId(locales[i])) %>" style="<%= style %>" value="<%= LocaleUtil.toLanguageId(locales[i]) %>" />
+
+							<%
+							}
+							%>
+
+						</aui:select>
 					</c:when>
 				</c:choose>
 
-				<aui:input cssClass="lfr-textarea-container" label="body" name='<%= "preferences--" + bodyEditorParam + "--" %>' type="textarea" value="<%= bodyEditorBody %>" />
+				<c:choose>
+					<c:when test='<%= tabs2.equals("page-added-email") %>'>
+						<aui:input cssClass="lfr-input-text-container" label="subject-prefix" name='<%= "preferences--emailPageAddedSubjectPrefix_" + currentLanguageId + "--" %>'  type="text" value="<%= emailPageAddedSubjectPrefix %>" />
+					</c:when>
+					<c:when test='<%= tabs2.equals("page-updated-email") %>'>
+						<aui:input cssClass="lfr-input-text-container" label="subject-prefix" name='<%= "preferences--emailPageUpdatedSubjectPrefix_" + currentLanguageId + "--" %>' type="text" value="<%= emailPageUpdatedSubjectPrefix %>" />
+					</c:when>
+				</c:choose>
 
-				<aui:input cssClass="lfr-textarea-container" label="signature" name='<%= "preferences--" + signatureEditorParam + "--" %>' type="textarea" value="<%= signatureEditorBody %>" wrap="soft" />
+				<aui:input cssClass="lfr-textarea-container" label="body" name='<%= "preferences--" + bodyEditorParam + "_" + currentLanguageId + "--" %>' type="textarea" value="<%= bodyEditorBody %>" />
+
+				<aui:input cssClass="lfr-textarea-container" label="signature" name='<%= "preferences--" + signatureEditorParam +  "_" + currentLanguageId + "--" %>' type="textarea" value="<%= signatureEditorBody %>" wrap="soft" />
 			</aui:fieldset>
 
 			<div class="definition-of-terms">
@@ -416,4 +442,18 @@ else if (tabs2.equals("page-updated-email")) {
 		},
 		['liferay-util-list-fields']
 	);
+</aui:script>
+
+<aui:script use="aui-base">
+	var selectCurrentLanguageId = A.one('#<portlet:namespace />currentLanguageId');
+
+	if (selectCurrentLanguageId) {
+		selectCurrentLanguageId.on(
+			'change',
+			function(event) {
+				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = 'updateLanguage';
+				submitForm(document.<portlet:namespace />fm);
+			}
+		);
+	}
 </aui:script>
