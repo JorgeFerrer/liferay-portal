@@ -22,24 +22,30 @@ String tabs3 = ParamUtil.getString(request, "tabs3", "email-from");
 
 String redirect = ParamUtil.getString(request, "redirect");
 
+String currentLanguageId = LanguageUtil.getLanguageId(request);
+
+if (Validator.isNotNull(request.getParameter("currentLanguageId"))) {
+	currentLanguageId = request.getParameter("currentLanguageId");
+}
+
 String emailFromName = ParamUtil.getString(request, "emailFromName", shoppingPrefs.getEmailFromName());
 String emailFromAddress = ParamUtil.getString(request, "emailFromAddress", shoppingPrefs.getEmailFromAddress());
 
-String emailOrderConfirmationSubject = ParamUtil.getString(request, "emailOrderConfirmationSubject", shoppingPrefs.getEmailOrderConfirmationSubject());
-String emailOrderConfirmationBody = ParamUtil.getString(request, "emailOrderConfirmationBody", shoppingPrefs.getEmailOrderConfirmationBody());
+String emailOrderConfirmationSubject = ParamUtil.getString(request, "emailOrderConfirmationSubject_" + currentLanguageId, shoppingPrefs.getEmailOrderConfirmationSubject(currentLanguageId));
+String emailOrderConfirmationBody = ParamUtil.getString(request, "emailOrderConfirmationBody_" + currentLanguageId, shoppingPrefs.getEmailOrderConfirmationBody(currentLanguageId));
 
-String emailOrderShippingSubject = ParamUtil.getString(request, "emailOrderShippingSubject", shoppingPrefs.getEmailOrderShippingSubject());
-String emailOrderShippingBody = ParamUtil.getString(request, "emailOrderShippingBody", shoppingPrefs.getEmailOrderShippingBody());
+String emailOrderShippingSubject = ParamUtil.getString(request, "emailOrderShippingSubject_" + currentLanguageId, shoppingPrefs.getEmailOrderShippingSubject(currentLanguageId));
+String emailOrderShippingBody = ParamUtil.getString(request, "emailOrderShippingBody_" + currentLanguageId, shoppingPrefs.getEmailOrderShippingBody(currentLanguageId));
 
 String editorParam = StringPool.BLANK;
 String editorContent = StringPool.BLANK;
 
 if (tabs3.equals("confirmation-email")) {
-	editorParam = "emailOrderConfirmationBody";
+	editorParam = "emailOrderConfirmationBody_" + currentLanguageId;
 	editorContent = emailOrderConfirmationBody;
 }
 else if (tabs3.equals("shipping-email")) {
-	editorParam = "emailOrderShippingBody";
+	editorParam = "emailOrderShippingBody_" + currentLanguageId;
 	editorContent = emailOrderShippingBody;
 }
 %>
@@ -260,11 +266,30 @@ else if (tabs3.equals("shipping-email")) {
 							</c:when>
 						</c:choose>
 						<c:choose>
+							<c:when test='<%= tabs3.equals("confirmation-email") || tabs3.equals("shipping-email") %>'>
+								<aui:select label="language" name="currentLanguageId">
+									<%
+									Locale[] locales = LanguageUtil.getAvailableLocales();
+
+									for (int i = 0; i < locales.length; i++) {
+										String style = StringPool.BLANK;
+									%>
+
+										<aui:option label="<%= locales[i].getDisplayName(locale) %>" selected="<%= currentLanguageId.equals(LocaleUtil.toLanguageId(locales[i])) %>" style="<%= style %>" value="<%= LocaleUtil.toLanguageId(locales[i]) %>" />
+
+									<%
+									}
+									%>
+
+								</aui:select>
+							</c:when>
+						</c:choose>
+						<c:choose>
 							<c:when test='<%= tabs3.equals("confirmation-email") %>'>
-								<aui:input cssClass="lfr-input-text-container" label="subject" name="emailOrderConfirmationSubject" type="text" value="<%= emailOrderConfirmationSubject %>" />
+								<aui:input cssClass="lfr-input-text-container" label="subject" name='<%= "emailOrderConfirmationSubject_" + currentLanguageId %>' type="text" value="<%= emailOrderConfirmationSubject %>" />
 							</c:when>
 							<c:when test='<%= tabs3.equals("shipping-email") %>'>
-								<aui:input cssClass="lfr-input-text-container" label="subject" name="emailOrderShippingSubject" type="text" value="<%= emailOrderShippingSubject %>" />
+								<aui:input cssClass="lfr-input-text-container" label="subject" name='<%= "emailOrderShippingSubject_" + currentLanguageId %>' type="text" value="<%= emailOrderShippingSubject %>" />
 							</c:when>
 						</c:choose>
 
@@ -385,6 +410,20 @@ else if (tabs3.equals("shipping-email")) {
 		},
 		['liferay-util-list-fields']
 	);
+</aui:script>
+
+<aui:script use="aui-base">
+	var selectCurrentLanguageId = A.one('#<portlet:namespace />currentLanguageId');
+
+	if (selectCurrentLanguageId) {
+		selectCurrentLanguageId.on(
+			'change',
+			function(event) {
+				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = 'updateLanguage';
+				submitForm(document.<portlet:namespace />fm);
+			}
+		);
+	}
 </aui:script>
 
 <%!
