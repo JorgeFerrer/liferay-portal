@@ -2068,7 +2068,7 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 					JournalStructureLocalServiceUtil.addStructure(
 						userId, portletDataContext.getScopeGroupId(),
 						structureId, autoStructureId, parentStructureId,
-						structure.getName(), structure.getDescription(),
+						structure.getNameMap(), structure.getDescriptionMap(),
 						structure.getXsd(), serviceContext);
 			}
 			else {
@@ -2076,15 +2076,15 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 					JournalStructureLocalServiceUtil.updateStructure(
 						existingStructure.getGroupId(),
 						existingStructure.getStructureId(), parentStructureId,
-						structure.getName(), structure.getDescription(),
+						structure.getNameMap(), structure.getDescriptionMap(),
 						structure.getXsd(), serviceContext);
 			}
 		}
 		else {
 			importedStructure = JournalStructureLocalServiceUtil.addStructure(
 				userId, portletDataContext.getScopeGroupId(), structureId,
-				autoStructureId, parentStructureId, structure.getName(),
-				structure.getDescription(), structure.getXsd(),
+				autoStructureId, parentStructureId, structure.getNameMap(),
+				structure.getDescriptionMap(), structure.getXsd(),
 				serviceContext);
 		}
 
