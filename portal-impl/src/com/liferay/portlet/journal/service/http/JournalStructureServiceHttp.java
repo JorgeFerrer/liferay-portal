@@ -57,8 +57,10 @@ public class JournalStructureServiceHttp {
 	public static com.liferay.portlet.journal.model.JournalStructure addStructure(
 		HttpPrincipal httpPrincipal, long groupId,
 		java.lang.String structureId, boolean autoStructureId,
-		java.lang.String parentStructureId, java.lang.String name,
-		java.lang.String description, java.lang.String xsd,
+		java.lang.String parentStructureId,
+		java.util.Map<java.util.Locale, java.lang.String> nameMap,
+		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.lang.String xsd,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -67,8 +69,8 @@ public class JournalStructureServiceHttp {
 					"addStructure", _addStructureParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					structureId, autoStructureId, parentStructureId, name,
-					description, xsd, serviceContext);
+					structureId, autoStructureId, parentStructureId, nameMap,
+					descriptionMap, xsd, serviceContext);
 
 			Object returnObj = null;
 
@@ -208,7 +210,8 @@ public class JournalStructureServiceHttp {
 	public static com.liferay.portlet.journal.model.JournalStructure updateStructure(
 		HttpPrincipal httpPrincipal, long groupId,
 		java.lang.String structureId, java.lang.String parentStructureId,
-		java.lang.String name, java.lang.String description,
+		java.util.Map<java.util.Locale, java.lang.String> nameMap,
+		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.lang.String xsd,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -218,8 +221,8 @@ public class JournalStructureServiceHttp {
 					"updateStructure", _updateStructureParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					structureId, parentStructureId, name, description, xsd,
-					serviceContext);
+					structureId, parentStructureId, nameMap, descriptionMap,
+					xsd, serviceContext);
 
 			Object returnObj = null;
 
@@ -250,8 +253,8 @@ public class JournalStructureServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(JournalStructureServiceHttp.class);
 	private static final Class<?>[] _addStructureParameterTypes0 = new Class[] {
 			long.class, java.lang.String.class, boolean.class,
-			java.lang.String.class, java.lang.String.class,
-			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.util.Map.class, java.util.Map.class,
+			java.lang.String.class,
 			com.liferay.portal.service.ServiceContext.class
 		};
 	private static final Class<?>[] _copyStructureParameterTypes1 = new Class[] {
@@ -266,8 +269,7 @@ public class JournalStructureServiceHttp {
 		};
 	private static final Class<?>[] _updateStructureParameterTypes4 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,
-			java.lang.String.class, java.lang.String.class,
-			java.lang.String.class,
+			java.util.Map.class, java.util.Map.class, java.lang.String.class,
 			com.liferay.portal.service.ServiceContext.class
 		};
 }

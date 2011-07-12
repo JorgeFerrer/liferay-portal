@@ -176,10 +176,10 @@ portletURL.setParameter("tabs1", tabs1);
 				// Name and description
 
 				if (Validator.isNotNull(structure.getDescription())) {
-					row.addText(structure.getName().concat("<br />").concat(structure.getDescription()), rowURL);
+					row.addText(structure.getName(locale).concat("<br />").concat(structure.getDescription(locale)), rowURL);
 				}
 				else {
-					row.addText(structure.getName(), rowURL);
+					row.addText(structure.getName(locale), rowURL);
 				}
 
 				// Action
@@ -439,7 +439,7 @@ portletURL.setParameter("tabs1", tabs1);
 								<aui:a href="<%= editStructureURL %>"><%= structure.getId() %></aui:a>
 							</td>
 							<td>
-								<aui:a href="<%= editStructureURL %>"><%= structure.getName() %></aui:a>
+								<aui:a href="<%= editStructureURL %>"><%= structure.getName(locale) %></aui:a>
 							</td>
 						</tr>
 

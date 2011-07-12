@@ -23,6 +23,9 @@ import com.liferay.portlet.journal.service.base.JournalStructureServiceBaseImpl;
 import com.liferay.portlet.journal.service.permission.JournalPermission;
 import com.liferay.portlet.journal.service.permission.JournalStructurePermission;
 
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * @author Brian Wing Shun Chan
  * @author Raymond Augé
@@ -32,8 +35,9 @@ public class JournalStructureServiceImpl
 
 	public JournalStructure addStructure(
 			long groupId, String structureId, boolean autoStructureId,
-			String parentStructureId, String name, String description,
-			String xsd, ServiceContext serviceContext)
+			String parentStructureId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, String xsd,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		JournalPermission.check(
@@ -41,7 +45,7 @@ public class JournalStructureServiceImpl
 
 		return journalStructureLocalService.addStructure(
 			getUserId(), groupId, structureId, autoStructureId,
-			parentStructureId, name, description, xsd, serviceContext);
+			parentStructureId, nameMap, descriptionMap, xsd, serviceContext);
 	}
 
 	public JournalStructure copyStructure(
@@ -77,16 +81,16 @@ public class JournalStructureServiceImpl
 
 	public JournalStructure updateStructure(
 			long groupId, String structureId, String parentStructureId,
-			String name, String description, String xsd,
-			ServiceContext serviceContext)
+			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
+			String xsd, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		JournalStructurePermission.check(
 			getPermissionChecker(), groupId, structureId, ActionKeys.UPDATE);
 
 		return journalStructureLocalService.updateStructure(
-			groupId, structureId, parentStructureId, name, description, xsd,
-			serviceContext);
+			groupId, structureId, parentStructureId, nameMap, descriptionMap,
+			xsd, serviceContext);
 	}
 
 }
