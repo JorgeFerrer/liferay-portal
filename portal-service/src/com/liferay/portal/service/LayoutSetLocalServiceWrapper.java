@@ -262,6 +262,12 @@ public class LayoutSetLocalServiceWrapper implements LayoutSetLocalService {
 		return _layoutSetLocalService.getLayoutSet(virtualHostname);
 	}
 
+	public java.util.List<com.liferay.portal.model.LayoutSet> getLayoutSetsByPrototypeUuid(
+		java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _layoutSetLocalService.getLayoutSetsByPrototypeUuid(uuid);
+	}
+
 	public void updateLogo(long groupId, boolean privateLayout, boolean logo,
 		java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,

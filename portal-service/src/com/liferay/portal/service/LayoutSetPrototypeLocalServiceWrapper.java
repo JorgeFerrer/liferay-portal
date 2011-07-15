@@ -248,11 +248,13 @@ public class LayoutSetPrototypeLocalServiceWrapper
 		long userId, long companyId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String description, boolean active,
+		boolean allowModifications, boolean allowPageAddition,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _layoutSetPrototypeLocalService.addLayoutSetPrototype(userId,
-			companyId, nameMap, description, active, serviceContext);
+			companyId, nameMap, description, active, allowModifications,
+			allowPageAddition, serviceContext);
 	}
 
 	public com.liferay.portal.model.LayoutSetPrototype getLayoutSetPrototypeByUuid(
@@ -279,11 +281,13 @@ public class LayoutSetPrototypeLocalServiceWrapper
 		long layoutSetPrototypeId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String description, boolean active,
+		boolean allowModifications, boolean allowPageAddition,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _layoutSetPrototypeLocalService.updateLayoutSetPrototype(layoutSetPrototypeId,
-			nameMap, description, active, serviceContext);
+			nameMap, description, active, allowModifications,
+			allowPageAddition, serviceContext);
 	}
 
 	public com.liferay.portal.model.LayoutSetPrototype updateLayoutSetPrototype(
