@@ -35,6 +35,22 @@ Locale defaultLocale = LocaleUtil.getDefault();
 String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 
 Locale[] locales = LanguageUtil.getAvailableLocales();
+
+boolean allowModifications = true;
+boolean allowPageAdditions = true;
+
+UnicodeProperties typeSettings = layoutSetPrototype.getSettingsProperties();
+
+String allowModificationsProperty = typeSettings.get("allowModifications");
+String allowPageAdditionProperty = typeSettings.get("allowPageAddition");
+
+if (allowModificationsProperty != null) {
+	allowModifications = Boolean.parseBoolean(allowModificationsProperty);
+}
+
+if (allowPageAdditionProperty != null) {
+	allowPageAdditions = Boolean.parseBoolean(allowPageAdditionProperty);
+}
 %>
 
 <liferay-util:include page="/html/portlet/layout_set_prototypes/toolbar.jsp">
@@ -59,6 +75,9 @@ Locale[] locales = LanguageUtil.getAvailableLocales();
 		<aui:input name="description" />
 
 		<aui:input inlineLabel="left" name="active" />
+
+		<aui:input inlineLabel="left" name="allowModifications" type="checkbox" value="<%= allowModifications %>" />
+		<aui:input inlineLabel="left" name="allowPageAddition" type="checkbox" value="<%= allowPageAdditions %>" />
 
 		<c:if test="<%= !layoutSetPrototype.isNew() %>">
 			<aui:field-wrapper label="configuration">
