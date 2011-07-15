@@ -136,6 +136,7 @@ import com.liferay.portal.service.persistence.LayoutPersistence;
 import com.liferay.portal.service.persistence.LayoutPrototypePersistence;
 import com.liferay.portal.service.persistence.LayoutRevisionPersistence;
 import com.liferay.portal.service.persistence.LayoutSetBranchPersistence;
+import com.liferay.portal.service.persistence.LayoutSetFinder;
 import com.liferay.portal.service.persistence.LayoutSetPersistence;
 import com.liferay.portal.service.persistence.LayoutSetPrototypePersistence;
 import com.liferay.portal.service.persistence.ListTypePersistence;
@@ -1112,6 +1113,24 @@ public abstract class GroupServiceBaseImpl extends PrincipalBean
 	public void setLayoutSetPersistence(
 		LayoutSetPersistence layoutSetPersistence) {
 		this.layoutSetPersistence = layoutSetPersistence;
+	}
+
+	/**
+	 * Returns the layout set finder.
+	 *
+	 * @return the layout set finder
+	 */
+	public LayoutSetFinder getLayoutSetFinder() {
+		return layoutSetFinder;
+	}
+
+	/**
+	 * Sets the layout set finder.
+	 *
+	 * @param layoutSetFinder the layout set finder
+	 */
+	public void setLayoutSetFinder(LayoutSetFinder layoutSetFinder) {
+		this.layoutSetFinder = layoutSetFinder;
 	}
 
 	/**
@@ -4921,6 +4940,8 @@ public abstract class GroupServiceBaseImpl extends PrincipalBean
 	protected LayoutSetService layoutSetService;
 	@BeanReference(type = LayoutSetPersistence.class)
 	protected LayoutSetPersistence layoutSetPersistence;
+	@BeanReference(type = LayoutSetFinder.class)
+	protected LayoutSetFinder layoutSetFinder;
 	@BeanReference(type = LayoutSetBranchLocalService.class)
 	protected LayoutSetBranchLocalService layoutSetBranchLocalService;
 	@BeanReference(type = LayoutSetBranchService.class)

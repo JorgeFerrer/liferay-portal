@@ -41,6 +41,11 @@ public class LayoutFinderUtil {
 			preferencesValue);
 	}
 
+	public static java.util.List<com.liferay.portal.model.Layout> findBySetPrototypeLayoutPlid(
+		long plid) throws com.liferay.portal.kernel.exception.SystemException {
+		return getFinder().findBySetPrototypeLayoutPlid(plid);
+	}
+
 	public static LayoutFinder getFinder() {
 		if (_finder == null) {
 			_finder = (LayoutFinder)PortalBeanLocatorUtil.locate(LayoutFinder.class.getName());
