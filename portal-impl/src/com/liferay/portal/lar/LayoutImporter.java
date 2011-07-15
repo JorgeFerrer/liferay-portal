@@ -1104,12 +1104,13 @@ public class LayoutImporter {
 
 			serviceContext.setUuid(layoutSetPrototypeUuid);
 
+			// TODO review true here
 			layoutSetPrototype =
 				LayoutSetPrototypeLocalServiceUtil.addLayoutSetPrototype(
 					user.getUserId(), user.getCompanyId(),
 					layoutSetPrototype.getNameMap(),
 					layoutSetPrototype.getDescription(),
-					layoutSetPrototype.getActive(), serviceContext);
+					layoutSetPrototype.getActive(), true, true, serviceContext);
 		}
 
 		InputStream inputStream = portletDataContext.getZipEntryAsInputStream(
