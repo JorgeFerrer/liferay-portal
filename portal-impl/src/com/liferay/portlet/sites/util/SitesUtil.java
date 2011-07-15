@@ -19,8 +19,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.lar.UserIdStrategy;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutSet;
@@ -31,6 +33,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutServiceUtil;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.LayoutSetPrototypeLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
@@ -43,7 +46,9 @@ import com.liferay.portal.util.WebKeys;
 import java.io.File;
 import java.io.InputStream;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
@@ -102,6 +107,32 @@ public class SitesUtil {
 		}
 	}
 
+	public static void copyLayout(
+			Layout sourceLayout, Layout targetLayout,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		Map<String, String[]> parameterMap =
+			getLayoutSetPrototypeParameters(serviceContext);
+
+		parameterMap.put(
+			PortletDataHandlerKeys.DELETE_MISSING_LAYOUTS,
+			new String[] {Boolean.FALSE.toString()});
+
+		File f = LayoutLocalServiceUtil.exportLayoutsAsFile(
+			sourceLayout.getGroupId(), sourceLayout.isPrivateLayout(),
+			new long[] {sourceLayout.getLayoutId()}, parameterMap, null, null);
+
+		try {
+			LayoutServiceUtil.importLayouts(
+				targetLayout.getGroupId(), targetLayout.isPrivateLayout(),
+				parameterMap, f);
+		}
+		finally {
+			f.delete();
+		}
+	}
+
 	public static void copyLayoutSet(
 			LayoutSet sourceLayoutSet, LayoutSet targetLayoutSet,
 			ServiceContext serviceContext)
@@ -124,6 +155,33 @@ public class SitesUtil {
 			LayoutServiceUtil.importLayouts(
 				targetLayoutSet.getGroupId(), targetLayoutSet.isPrivateLayout(),
 				parameterMap, file);
+
+			Group sourceGroup = sourceLayoutSet.getGroup();
+			Group targetGroup = targetLayoutSet.getGroup();
+
+			List<Layout> sourceLayouts = LayoutLocalServiceUtil.getLayouts(
+					sourceGroup.getGroupId(),
+					sourceLayoutSet.isPrivateLayout());
+			List<Layout> targetLayouts = LayoutLocalServiceUtil.getLayouts(
+					targetGroup.getGroupId(),
+					targetLayoutSet.isPrivateLayout());
+
+			for (Layout layout : targetLayouts) {
+				for (Layout source : sourceLayouts) {
+
+					if (layout.getFriendlyURL().equals(
+							source.getFriendlyURL())) {
+
+						UnicodeProperties typeSettings =
+							layout.getTypeSettingsProperties();
+
+						typeSettings.put("prototypeLayoutPlid",
+								String.valueOf(source.getPlid()));
+
+						LayoutLocalServiceUtil.updateLayout(layout);
+					}
+				}
+			}
 		}
 		finally {
 			file.delete();
@@ -200,6 +258,23 @@ public class SitesUtil {
 				PropsKeys.LAYOUT_CONFIGURATION_ACTION_DELETE,
 				layoutSettings.getConfigurationActionDelete(), request,
 				response);
+		}
+
+		//delete inherited children
+		LayoutSet layoutSet = layout.getLayoutSet();
+		Group layoutSetGroup = layoutSet.getGroup();
+
+		if (layoutSetGroup.isLayoutSetPrototype()) {
+
+			List<Layout> layouts =
+				LayoutLocalServiceUtil.getLayoutsBySetPrototypeLayoutPlid(
+					layout.getPlid());
+
+			for (Layout l : layouts) {
+				if (isLayoutToBeUpdatedFromTemplate(layout)) {
+					LayoutServiceUtil.deleteLayout(l.getPlid());
+				}
+			}
 		}
 
 		LayoutServiceUtil.deleteLayout(groupId, privateLayout, layoutId);
@@ -307,6 +382,167 @@ public class SitesUtil {
 		LayoutServiceUtil.importLayouts(
 			layoutSet.getGroupId(), layoutSet.isPrivateLayout(),
 			parameterMap, inputStream);
+	}
+
+	public static boolean isLayoutLocked(Layout layout) {
+
+		UnicodeProperties typeSettings = layout.getTypeSettingsProperties();
+
+		String prototypeLayoutPlid = typeSettings.get("prototypeLayoutPlid");
+
+		if (prototypeLayoutPlid != null) {
+			try {
+				Layout setPrototypeLayout = LayoutLocalServiceUtil.getLayout(
+					GetterUtil.getLong(prototypeLayoutPlid));
+
+				typeSettings = setPrototypeLayout.getTypeSettingsProperties();
+
+				if (typeSettings.get("locked") != null) {
+					return GetterUtil.getBoolean(typeSettings.get("locked"));
+				}
+				else {
+					LayoutSet layoutSet = layout.getLayoutSet();
+					UnicodeProperties layoutSettings =
+						layoutSet.getSettingsProperties();
+
+					String layoutSetPrototypeUuid = layoutSettings.get(
+						"layoutSetPrototypeUuid");
+
+					if (layoutSetPrototypeUuid != null) {
+						LayoutSetPrototype layoutSetPrototype =
+							LayoutSetPrototypeLocalServiceUtil.
+								getLayoutSetPrototypeByUuid(
+									layoutSetPrototypeUuid);
+
+						layoutSettings =
+							layoutSetPrototype.getSettingsProperties();
+
+						String allowModifications = layoutSettings.get(
+							"allowModifications");
+
+						if (allowModifications != null) {
+							return !GetterUtil.getBoolean(allowModifications);
+						}
+					}
+				}
+			}
+			catch (Exception e) {
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean isLayoutSetLocked(LayoutSet layoutSet) {
+
+		UnicodeProperties layoutSetProperties =
+			layoutSet.getSettingsProperties();
+
+		String layoutSetPrototypeUuid = layoutSetProperties.get(
+			"layoutSetPrototypeUuid");
+
+		if (layoutSetPrototypeUuid != null) {
+			try {
+				LayoutSetPrototype layoutSetPrototype =
+					LayoutSetPrototypeLocalServiceUtil.
+						getLayoutSetPrototypeByUuid(
+							layoutSetPrototypeUuid);
+
+				layoutSetProperties =
+					layoutSetPrototype.getSettingsProperties();
+
+				String allowModifications = layoutSetProperties.get(
+					"allowModifications");
+
+				if (allowModifications != null) {
+					return !GetterUtil.getBoolean(allowModifications);
+				}
+			}
+			catch (Exception e) {
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean isLayoutToBeUpdatedFromTemplate(Layout layout)
+		throws Exception {
+
+		if (layout == null) {
+			return false;
+		}
+
+		UnicodeProperties typeSettings = layout.getTypeSettingsProperties();
+
+		if (typeSettings.get("prototypeLayoutPlid") != null) {
+
+			String layoutSetPrototypeLayoutPlid = typeSettings.get(
+				"prototypeLayoutPlid");
+
+			Layout layoutSetPrototypeLayout = LayoutLocalServiceUtil.getLayout(
+				GetterUtil.getLong(layoutSetPrototypeLayoutPlid));
+
+			Date layoutSetPrototypeLayoutModifiedDate =
+				layoutSetPrototypeLayout.getModifiedDate();
+
+			Date layoutModifiedDate = layout.getModifiedDate();
+
+			if (layoutModifiedDate == null) {
+				layoutModifiedDate = new Date();
+			}
+
+			Date layoutLastImportDate = null;
+
+			String lastImportDateString = typeSettings.get("last-import-date");
+
+			if (lastImportDateString != null) {
+				layoutLastImportDate = new Date(GetterUtil.getLong(
+					lastImportDateString));
+			}
+
+			if (SitesUtil.isLayoutLocked(layout)) {
+				if (layoutLastImportDate == null || layoutLastImportDate.before(
+					layoutSetPrototypeLayoutModifiedDate)) {
+
+					return true;
+				}
+			} else if (!layoutModifiedDate.after(
+				layoutSetPrototypeLayoutModifiedDate)) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean isModificationsAllowed(
+		Group group, boolean isPrivate) {
+
+		try {
+			LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+				group.getGroupId(), isPrivate);
+
+			String uuid = layoutSet.getSettingsProperty(
+				"layoutSetPrototypeUuid");
+
+			LayoutSetPrototype layoutSetPrototype =
+				LayoutSetPrototypeLocalServiceUtil.getLayoutSetPrototypeByUuid(
+					uuid);
+
+			UnicodeProperties settings =
+				layoutSetPrototype.getSettingsProperties();
+
+			String allowModifications = settings.get("allowModifications");
+
+			if (allowModifications != null) {
+				return GetterUtil.getBoolean(allowModifications);
+			}
+		}
+		catch (Exception e) {
+		}
+
+		return true;
 	}
 
 }
