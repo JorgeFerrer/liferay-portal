@@ -48,7 +48,8 @@ public interface LayoutService {
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.util.Map<java.util.Locale, java.lang.String> keywordsMap,
 		java.util.Map<java.util.Locale, java.lang.String> robotsMap,
-		java.lang.String type, boolean hidden, java.lang.String friendlyURL,
+		java.lang.String type, boolean hidden, boolean locked,
+		java.lang.String friendlyURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -56,7 +57,8 @@ public interface LayoutService {
 	public com.liferay.portal.model.Layout addLayout(long groupId,
 		boolean privateLayout, long parentLayoutId, java.lang.String name,
 		java.lang.String title, java.lang.String description,
-		java.lang.String type, boolean hidden, java.lang.String friendlyURL,
+		java.lang.String type, boolean hidden, boolean locked,
+		java.lang.String friendlyURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -199,8 +201,9 @@ public interface LayoutService {
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.util.Map<java.util.Locale, java.lang.String> keywordsMap,
 		java.util.Map<java.util.Locale, java.lang.String> robotsMap,
-		java.lang.String type, boolean hidden, java.lang.String friendlyURL,
-		java.lang.Boolean iconImage, byte[] iconBytes,
+		java.lang.String type, boolean hidden, boolean locked,
+		java.lang.String friendlyURL, java.lang.Boolean iconImage,
+		byte[] iconBytes,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

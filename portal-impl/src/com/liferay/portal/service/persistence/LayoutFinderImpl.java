@@ -45,6 +45,9 @@ public class LayoutFinderImpl
 	public static String FIND_BY_C_P_P =
 		LayoutFinder.class.getName() + ".findByC_P_P";
 
+	public static String FIND_BY_SET_PROTOTYPE_LAYOUT_PLID =
+		LayoutFinder.class.getName() + ".findBySetPrototypeLayoutPlid";
+
 	public List<Layout> findByNullFriendlyURL() throws SystemException {
 		Session session = null;
 
@@ -144,6 +147,34 @@ public class LayoutFinderImpl
 			}
 
 			return layoutReferences;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	public List<Layout> findBySetPrototypeLayoutPlid(long plid)
+		throws SystemException {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = CustomSQLUtil.get(FIND_BY_SET_PROTOTYPE_LAYOUT_PLID);
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addEntity("Layout", LayoutImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add("%prototypeLayoutPlid=" + plid + "%");
+
+			return q.list();
 		}
 		catch (Exception e) {
 			throw new SystemException(e);

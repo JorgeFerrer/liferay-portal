@@ -274,6 +274,12 @@ public class LayoutSetLocalServiceUtil {
 		return getService().getLayoutSet(virtualHostname);
 	}
 
+	public static java.util.List<com.liferay.portal.model.LayoutSet> getLayoutSetsByPrototypeUuid(
+		java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLayoutSetsByPrototypeUuid(uuid);
+	}
+
 	public static void updateLogo(long groupId, boolean privateLayout,
 		boolean logo, java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,

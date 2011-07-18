@@ -376,6 +376,7 @@ create index IX_9329C9D6 on LayoutRevision (plid);
 
 create index IX_A40B8BEC on LayoutSet (groupId);
 create unique index IX_48550691 on LayoutSet (groupId, privateLayout);
+create index IX_ACEF080E on LayoutSet (settings_);
 
 create index IX_8FF5D6EA on LayoutSetBranch (groupId);
 create index IX_C4079FD3 on LayoutSetBranch (groupId, privateLayout);

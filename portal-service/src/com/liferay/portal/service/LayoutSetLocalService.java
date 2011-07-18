@@ -241,6 +241,11 @@ public interface LayoutSetLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.portal.model.LayoutSet> getLayoutSetsByPrototypeUuid(
+		java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void updateLogo(long groupId, boolean privateLayout, boolean logo,
 		java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,

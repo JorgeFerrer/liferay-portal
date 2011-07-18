@@ -39,6 +39,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -139,6 +140,17 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 		return layoutSetPersistence.findByPrimaryKey(
 			virtualHost.getLayoutSetId());
+	}
+
+	public List<LayoutSet> getLayoutSetsByPrototypeUuid(String uuid)
+		throws SystemException {
+
+		if (Validator.isNotNull(uuid)) {
+			return layoutSetFinder.findByPrototypeUuid(uuid);
+		}
+		else {
+			return new ArrayList<LayoutSet>();
+		}
 	}
 
 	public void updateLogo(

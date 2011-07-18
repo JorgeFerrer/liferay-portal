@@ -105,10 +105,12 @@ import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.journal.NoSuchArticleException;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.service.JournalArticleServiceUtil;
+import com.liferay.portlet.sites.util.SitesUtil;
 
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -200,8 +202,8 @@ public class ServicePreAction extends Action {
 		Layout layout = LayoutLocalServiceUtil.addLayout(
 			userId, groupId, true, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			PropsValues.DEFAULT_USER_PRIVATE_LAYOUT_NAME, StringPool.BLANK,
-			StringPool.BLANK, LayoutConstants.TYPE_PORTLET, false, friendlyURL,
-			serviceContext);
+			StringPool.BLANK, LayoutConstants.TYPE_PORTLET, false,
+			false,friendlyURL, serviceContext);
 
 		LayoutTypePortlet layoutTypePortlet =
 			(LayoutTypePortlet)layout.getLayoutType();
@@ -298,8 +300,8 @@ public class ServicePreAction extends Action {
 		Layout layout = LayoutLocalServiceUtil.addLayout(
 			userId, groupId, false, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			PropsValues.DEFAULT_USER_PUBLIC_LAYOUT_NAME, StringPool.BLANK,
-			StringPool.BLANK, LayoutConstants.TYPE_PORTLET, false, friendlyURL,
-			serviceContext);
+			StringPool.BLANK, LayoutConstants.TYPE_PORTLET, false,
+			false, friendlyURL, serviceContext);
 
 		LayoutTypePortlet layoutTypePortlet =
 			(LayoutTypePortlet)layout.getLayoutType();
@@ -1197,6 +1199,21 @@ public class ServicePreAction extends Action {
 			if ((groupId > 0) && layoutId > 0) {
 				layout = LayoutLocalServiceUtil.getLayout(
 					groupId, privateLayout, layoutId);
+			}
+		}
+
+		// Dynamic Site Template
+		if (layout != null) {
+			try {
+				if (processDynamicSiteTemplates(layout)) {
+					layout = LayoutLocalServiceUtil.getLayout(layout.getPlid());
+				}
+			}
+			catch (Exception e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn("Failed to process dynamic site templates: " +
+						e.getMessage());
+				}
 			}
 		}
 
@@ -2107,6 +2124,34 @@ public class ServicePreAction extends Action {
 		if (deleteDefaultUserPublicLayouts && user.hasPublicLayouts()) {
 			deleteDefaultUserPublicLayouts(user);
 		}
+	}
+
+	protected boolean processDynamicSiteTemplates(Layout layout)
+		throws Exception {
+
+		if (SitesUtil.isLayoutToBeUpdatedFromTemplate(layout)) {
+			String layoutSetPrototypeLayoutPlid =
+				layout.getTypeSettingsProperties().get("prototypeLayoutPlid");
+
+			SitesUtil.copyLayout(LayoutLocalServiceUtil.getLayout(
+				GetterUtil.getLong(layoutSetPrototypeLayoutPlid)), layout,
+				new ServiceContext());
+
+			layout = LayoutLocalServiceUtil.getLayout(layout.getPlid());
+
+			UnicodeProperties typeSettings = layout.getTypeSettingsProperties();
+
+			typeSettings.put(
+				"prototypeLayoutPlid", layoutSetPrototypeLayoutPlid);
+			typeSettings.put(
+				"last-import-date", String.valueOf((new Date()).getTime()));
+
+			LayoutLocalServiceUtil.updateLayout(layout);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	protected File privateLARFile;

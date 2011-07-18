@@ -354,6 +354,26 @@
 				(PortletPreferences.preferences LIKE ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.service.persistence.LayoutFinder.findBySetPrototypeLayoutPlid">
+		<![CDATA[
+			SELECT
+				Layout.*
+			FROM
+				Layout
+			WHERE
+				Layout.typeSettings LIKE ?
+		]]>
+	</sql>
+	<sql id="com.liferay.portal.service.persistence.LayoutSetFinder.findByPrototypeUuid">
+		<![CDATA[
+			SELECT
+				LayoutSet.*
+			FROM
+				LayoutSet
+			WHERE
+				(LayoutSet.settings_ LIKE ?)
+		]]>		
+	</sql>
 	<sql id="com.liferay.portal.service.persistence.OrganizationFinder.countByOrganizationId">
 		<![CDATA[
 			SELECT
