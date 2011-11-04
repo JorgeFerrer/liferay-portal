@@ -18,11 +18,11 @@ import com.liferay.portal.NoSuchOrganizationException;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -599,9 +599,13 @@ public class UsersAdminImpl implements UsersAdmin {
 			catch (NoSuchOrganizationException nsoe) {
 				corruptIndex = true;
 
-				_log.error(
-					"Organization " + organizationId + " does not exist in " +
-						"the search index");
+				Indexer indexer = IndexerRegistryUtil.getIndexer(
+					Organization.class);
+
+				long companyId = GetterUtil.getLong(
+					document.get(Field.COMPANY_ID));
+
+				indexer.delete(companyId, document.getUID());
 			}
 		}
 
@@ -865,8 +869,12 @@ public class UsersAdminImpl implements UsersAdmin {
 			catch (NoSuchUserException nsue) {
 				corruptIndex = true;
 
-				_log.error(
-					"User " + userId + " does not exist in the search index");
+				Indexer indexer = IndexerRegistryUtil.getIndexer(User.class);
+
+				long companyId = GetterUtil.getLong(
+					document.get(Field.COMPANY_ID));
+
+				indexer.delete(companyId, document.getUID());
 			}
 		}
 
@@ -1202,7 +1210,5 @@ public class UsersAdminImpl implements UsersAdmin {
 			}
 		}
 	}
-
-	private static Log _log = LogFactoryUtil.getLog(UsersAdminImpl.class);
 
 }

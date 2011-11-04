@@ -145,8 +145,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		for (ResourceCode resourceCode : resourceCodes) {
 			if (EntityCacheUtil.getResult(
 						ResourceCodeModelImpl.ENTITY_CACHE_ENABLED,
-						ResourceCodeImpl.class, resourceCode.getPrimaryKey(),
-						this) == null) {
+						ResourceCodeImpl.class, resourceCode.getPrimaryKey()) == null) {
 				cacheResult(resourceCode);
 			}
 		}
@@ -181,6 +180,8 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	public void clearCache(ResourceCode resourceCode) {
 		EntityCacheUtil.removeResult(ResourceCodeModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceCodeImpl.class, resourceCode.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N_S,
 			new Object[] {
@@ -449,7 +450,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	public ResourceCode fetchByPrimaryKey(long codeId)
 		throws SystemException {
 		ResourceCode resourceCode = (ResourceCode)EntityCacheUtil.getResult(ResourceCodeModelImpl.ENTITY_CACHE_ENABLED,
-				ResourceCodeImpl.class, codeId, this);
+				ResourceCodeImpl.class, codeId);
 
 		if (resourceCode == _nullResourceCode) {
 			return null;
@@ -537,8 +538,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<ResourceCode> list = (List<ResourceCode>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -738,17 +738,17 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -767,6 +767,8 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -803,7 +805,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceCode);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceCode);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -865,12 +867,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	 */
 	public List<ResourceCode> findByName(String name, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				name,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { name, start, end, orderByComparator };
 
 		List<ResourceCode> list = (List<ResourceCode>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_NAME,
 				finderArgs, this);
@@ -1090,17 +1087,17 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1119,6 +1116,8 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1157,7 +1156,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceCode);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceCode);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1379,10 +1378,7 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	 */
 	public List<ResourceCode> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<ResourceCode> list = (List<ResourceCode>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1697,10 +1693,8 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1720,8 +1714,8 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

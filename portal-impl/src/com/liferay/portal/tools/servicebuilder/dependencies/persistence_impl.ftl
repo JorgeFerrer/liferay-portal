@@ -212,7 +212,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 */
 	public void cacheResult(List<${entity.name}> ${entity.varNames}) {
 		for (${entity.name} ${entity.varName} : ${entity.varNames}) {
-			if (EntityCacheUtil.getResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, ${entity.varName}.getPrimaryKey(), this) == null) {
+			if (EntityCacheUtil.getResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, ${entity.varName}.getPrimaryKey()) == null) {
 				cacheResult(${entity.varName});
 			}
 
@@ -252,6 +252,8 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	@Override
 	public void clearCache(${entity.name} ${entity.varName}) {
 		EntityCacheUtil.removeResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, ${entity.varName}.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		<#list entity.getUniqueFinderList() as finder>
 			<#assign finderColsList = finder.getColumns()>
@@ -735,7 +737,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	public ${entity.name} fetchByPrimaryKey(${entity.PKClassName} ${entity.PKVarName}) throws SystemException {
-		${entity.name} ${entity.varName} = (${entity.name})EntityCacheUtil.getResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, ${entity.PKVarName}, this);
+		${entity.name} ${entity.varName} = (${entity.name})EntityCacheUtil.getResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, ${entity.PKVarName});
 
 		if (${entity.varName} == _null${entity.name}) {
 			return null;
@@ -875,7 +877,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 						${finderCol.name},
 					</#list>
 
-					String.valueOf(start), String.valueOf(end), String.valueOf(orderByComparator)
+					start, end, orderByComparator
 				};
 
 				List<${entity.name}> list = (List<${entity.name}>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_${finder.name?upper_case}, finderArgs, this);
@@ -1119,7 +1121,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 				<#include "persistence_impl_finder_qpos.ftl">
 
 				if (orderByComparator != null) {
-					Object[] values = orderByComparator.getOrderByValues(${entity.varName});
+					Object[] values = orderByComparator.getOrderByConditionValues(${entity.varName});
 
 					for (Object value : values) {
 						qPos.add(value);
@@ -1266,7 +1268,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 							</#if>
 						</#list>
 
-						String.valueOf(start), String.valueOf(end), String.valueOf(orderByComparator)
+						start, end, orderByComparator
 					};
 
 					List<${entity.name}> list = (List<${entity.name}>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_${finder.name?upper_case}, finderArgs, this);
@@ -1596,7 +1598,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 						<#include "persistence_impl_finder_qpos.ftl">
 
 						if (orderByComparator != null) {
-							Object[] values = orderByComparator.getOrderByValues(${entity.varName});
+							Object[] values = orderByComparator.getOrderByConditionValues(${entity.varName});
 
 							for (Object value : values) {
 								qPos.add(value);
@@ -1635,13 +1637,13 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 						}
 
 						if (orderByComparator != null) {
-							String[] orderByFields = orderByComparator.getOrderByFields();
+							String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-							if (orderByFields.length > 0) {
+							if (orderByConditionFields.length > 0) {
 								query.append(WHERE_AND);
 							}
 
-							for (int i = 0; i < orderByFields.length; i++) {
+							for (int i = 0; i < orderByConditionFields.length; i++) {
 								if (getDB().isSupportsInlineDistinct()) {
 									query.append(_ORDER_BY_ENTITY_ALIAS);
 								}
@@ -1649,9 +1651,9 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 									query.append(_ORDER_BY_ENTITY_TABLE);
 								}
 
-								query.append(orderByFields[i]);
+								query.append(orderByConditionFields[i]);
 
-								if ((i + 1) < orderByFields.length) {
+								if ((i + 1) < orderByConditionFields.length) {
 									if (orderByComparator.isAscending() ^ previous) {
 										query.append(WHERE_GREATER_THAN_HAS_NEXT);
 									}
@@ -1670,6 +1672,8 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 							}
 
 							query.append(ORDER_BY_CLAUSE);
+
+							String[] orderByFields = orderByComparator.getOrderByFields();
 
 							for (int i = 0; i < orderByFields.length; i++) {
 								if (getDB().isSupportsInlineDistinct()) {
@@ -1730,7 +1734,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 						<#include "persistence_impl_finder_qpos.ftl">
 
 						if (orderByComparator != null) {
-							Object[] values = orderByComparator.getOrderByValues(${entity.varName});
+							Object[] values = orderByComparator.getOrderByConditionValues(${entity.varName});
 
 							for (Object value : values) {
 								qPos.add(value);
@@ -2239,7 +2243,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	public List<${entity.name}> findAll(int start, int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {String.valueOf(start), String.valueOf(end), String.valueOf(orderByComparator)};
+		Object[] finderArgs = new Object[] {start, end, orderByComparator};
 
 		List<${entity.name}> list = (List<${entity.name}>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL, finderArgs, this);
 
@@ -2770,9 +2774,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL, finderArgs, this);
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2792,7 +2794,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs, count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -2873,7 +2875,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 			 */
 			public List<${tempEntity.packagePath}.model.${tempEntity.name}> get${tempEntity.names}(${entity.PKClassName} pk, int start, int end, OrderByComparator orderByComparator) throws SystemException {
 				Object[] finderArgs = new Object[] {
-					pk, String.valueOf(start), String.valueOf(end), String.valueOf(orderByComparator)
+					pk, start, end, orderByComparator
 				};
 
 				List<${tempEntity.packagePath}.model.${tempEntity.name}> list = (List<${tempEntity.packagePath}.model.${tempEntity.name}>)FinderCacheUtil.getResult(FINDER_PATH_GET_${tempEntity.names?upper_case}, finderArgs, this);

@@ -136,7 +136,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		for (UserTracker userTracker : userTrackers) {
 			if (EntityCacheUtil.getResult(
 						UserTrackerModelImpl.ENTITY_CACHE_ENABLED,
-						UserTrackerImpl.class, userTracker.getPrimaryKey(), this) == null) {
+						UserTrackerImpl.class, userTracker.getPrimaryKey()) == null) {
 				cacheResult(userTracker);
 			}
 		}
@@ -171,6 +171,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	public void clearCache(UserTracker userTracker) {
 		EntityCacheUtil.removeResult(UserTrackerModelImpl.ENTITY_CACHE_ENABLED,
 			UserTrackerImpl.class, userTracker.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -395,7 +397,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	public UserTracker fetchByPrimaryKey(long userTrackerId)
 		throws SystemException {
 		UserTracker userTracker = (UserTracker)EntityCacheUtil.getResult(UserTrackerModelImpl.ENTITY_CACHE_ENABLED,
-				UserTrackerImpl.class, userTrackerId, this);
+				UserTrackerImpl.class, userTrackerId);
 
 		if (userTracker == _nullUserTracker) {
 			return null;
@@ -483,8 +485,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<UserTracker> list = (List<UserTracker>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -684,17 +685,17 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -713,6 +714,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -749,7 +752,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(userTracker);
+			Object[] values = orderByComparator.getOrderByConditionValues(userTracker);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -812,12 +815,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	 */
 	public List<UserTracker> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<UserTracker> list = (List<UserTracker>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -1015,17 +1013,17 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1044,6 +1042,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1080,7 +1080,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(userTracker);
+			Object[] values = orderByComparator.getOrderByConditionValues(userTracker);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1147,8 +1147,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		Object[] finderArgs = new Object[] {
 				sessionId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<UserTracker> list = (List<UserTracker>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_SESSIONID,
@@ -1370,17 +1369,17 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1399,6 +1398,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1437,7 +1438,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(userTracker);
+			Object[] values = orderByComparator.getOrderByConditionValues(userTracker);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1496,10 +1497,7 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	 */
 	public List<UserTracker> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<UserTracker> list = (List<UserTracker>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1788,10 +1786,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1811,8 +1807,8 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.OSDetector;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
@@ -127,11 +128,32 @@ public class PDFProcessor extends DLPreviewableProcessor {
 		return hasImages;
 	}
 
+	public static boolean isImageMagickEnabled() {
+		if (PropsValues.IMAGEMAGICK_ENABLED) {
+			return true;
+		}
+
+		if (!_warned) {
+			StringBundler sb = new StringBundler(5);
+
+			sb.append("Liferay is not configured to use ImageMagick for ");
+			sb.append("generating Document Library previews and will default ");
+			sb.append("to PDFBox. For better quality previews, install ");
+			sb.append("ImageMagick and enable it in portal-ext.properties.");
+
+			_log.warn(sb.toString());
+
+			_warned = true;
+		}
+
+		return false;
+	}
+
 	public PDFProcessor() {
 		FileUtil.mkdirs(PREVIEW_TMP_PATH);
 		FileUtil.mkdirs(THUMBNAIL_TMP_PATH);
 
-		if (PropsValues.IMAGEMAGICK_ENABLED && (_convertCmd == null)) {
+		if (isImageMagickEnabled() && (_convertCmd == null)) {
 			String filterName = null;
 
 			if (OSDetector.isApple()) {
@@ -231,7 +253,7 @@ public class PDFProcessor extends DLPreviewableProcessor {
 	private void _generateImages(FileVersion fileVersion, File file)
 		throws Exception {
 
-		if (PropsValues.IMAGEMAGICK_ENABLED) {
+		if (isImageMagickEnabled()) {
 			_generateImagesIM(fileVersion, file);
 		}
 		else {
@@ -243,7 +265,7 @@ public class PDFProcessor extends DLPreviewableProcessor {
 			FileVersion fileVersion, InputStream inputStream)
 		throws Exception {
 
-		if (PropsValues.IMAGEMAGICK_ENABLED) {
+		if (isImageMagickEnabled()) {
 			_generateImagesIM(fileVersion, inputStream);
 		}
 		else {
@@ -254,7 +276,38 @@ public class PDFProcessor extends DLPreviewableProcessor {
 	private void _generateImagesIM(FileVersion fileVersion, File file)
 		throws Exception {
 
-		_generateImages(fileVersion, new FileInputStream(file));
+		if (_isGeneratePreview(fileVersion)) {
+			_generateImagesIM(
+				fileVersion, file,
+				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_DEPTH,
+				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_DPI,
+				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_HEIGHT,
+				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_WIDTH, false);
+
+			if (_log.isInfoEnabled()) {
+				int previewFileCount = getPreviewFileCount(fileVersion);
+
+				_log.info(
+					"ImageMagick generated " + previewFileCount +
+						" preview pages for " +
+							fileVersion.getFileVersionId());
+			}
+		}
+
+		if (_isGenerateThumbnail(fileVersion)) {
+			_generateImagesIM(
+				fileVersion, file,
+				PropsValues.DL_FILE_ENTRY_THUMBNAIL_DEPTH,
+				PropsValues.DL_FILE_ENTRY_THUMBNAIL_DPI,
+				PropsValues.DL_FILE_ENTRY_THUMBNAIL_HEIGHT,
+				PropsValues.DL_FILE_ENTRY_THUMBNAIL_WIDTH, true);
+
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"ImageMagick generated a thumbnail for " +
+						fileVersion.getFileVersionId());
+			}
+		}
 	}
 
 	private void _generateImagesIM(
@@ -268,6 +321,10 @@ public class PDFProcessor extends DLPreviewableProcessor {
 			fileVersion.getFileEntryId(), fileVersion.getVersion());
 
 		IMOperation imOperation = new IMOperation();
+
+		imOperation.background("White");
+
+		imOperation.flatten();
 
 		imOperation.density(dpi, dpi);
 
@@ -339,67 +396,20 @@ public class PDFProcessor extends DLPreviewableProcessor {
 			FileVersion fileVersion, InputStream inputStream)
 		throws Exception {
 
-		String tempFileId = DLUtil.getTempFileId(
-			fileVersion.getFileEntryId(), fileVersion.getVersion());
+		File file = FileUtil.createTempFile(inputStream);
 
-		String extension = fileVersion.getExtension();
-
-		if (extension.equals("pdf")) {
-			String filePath = DocumentConversionUtil.getFilePath(
-				tempFileId, "pdf");
-
-			File file = new File(filePath);
-
-			try {
-				FileUtil.write(file, inputStream);
-
-				_generateImages(fileVersion, file);
-			}
-			finally {
-				FileUtil.delete(file);
-			}
+		try {
+			_generateImagesIM(fileVersion, file);
 		}
-		else {
-			File file = DocumentConversionUtil.convert(
-				tempFileId, inputStream, extension, "pdf");
-
-			_generateImages(fileVersion, file);
+		finally {
+			FileUtil.delete(file);
 		}
 	}
 
 	private void _generateImagesPB(FileVersion fileVersion, File file)
 		throws Exception {
 
-		if (_isGeneratePreview(fileVersion)) {
-			_generateImagesIM(
-				fileVersion, file,
-				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_DEPTH,
-				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_DPI,
-				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_HEIGHT,
-				PropsValues.DL_FILE_ENTRY_PREVIEW_DOCUMENT_WIDTH, false);
-
-			if (_log.isInfoEnabled()) {
-				int previewFileCount = getPreviewFileCount(fileVersion);
-
-				_log.info(
-					"ImageMagick generated " + previewFileCount +
-						" preview pages for " + fileVersion.getFileVersionId());
-			}
-		}
-
-		if (_isGenerateThumbnail(fileVersion)) {
-			_generateImagesIM(
-				fileVersion, file, PropsValues.DL_FILE_ENTRY_THUMBNAIL_DEPTH,
-				PropsValues.DL_FILE_ENTRY_THUMBNAIL_DPI,
-				PropsValues.DL_FILE_ENTRY_THUMBNAIL_HEIGHT,
-				PropsValues.DL_FILE_ENTRY_THUMBNAIL_WIDTH, true);
-
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					"ImageMagick generated a thumbnail for " +
-						fileVersion.getFileVersionId());
-			}
-		}
+		_generateImagesPB(fileVersion, new FileInputStream(file));
 	}
 
 	private void _generateImagesPB(
@@ -620,5 +630,6 @@ public class PDFProcessor extends DLPreviewableProcessor {
 
 	private static ConvertCmd _convertCmd;
 	private static List<Long> _fileVersionIds = new Vector<Long>();
+	private static boolean _warned;
 
 }

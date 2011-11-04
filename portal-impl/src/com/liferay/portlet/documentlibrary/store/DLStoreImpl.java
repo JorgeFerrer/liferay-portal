@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.io.ByteArrayFileInputStream;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
@@ -76,7 +77,9 @@ public class DLStoreImpl implements DLStore, IdentifiableBean {
 
 		validate(fileName, validateFileExtension, bytes);
 
-		AntivirusScannerUtil.scan(bytes);
+		if (!PropsValues.DL_STORE_ANTIVIRUS_ENABLED) {
+			AntivirusScannerUtil.scan(bytes);
+		}
 
 		store.addFile(companyId, repositoryId, fileName, bytes);
 	}
@@ -88,7 +91,9 @@ public class DLStoreImpl implements DLStore, IdentifiableBean {
 
 		validate(fileName, validateFileExtension, file);
 
-		AntivirusScannerUtil.scan(file);
+		if (PropsValues.DL_STORE_ANTIVIRUS_ENABLED) {
+			AntivirusScannerUtil.scan(file);
+		}
 
 		store.addFile(companyId, repositoryId, fileName, file);
 	}
@@ -98,9 +103,23 @@ public class DLStoreImpl implements DLStore, IdentifiableBean {
 			boolean validateFileExtension, InputStream is)
 		throws PortalException, SystemException {
 
+		if (is instanceof ByteArrayFileInputStream) {
+			ByteArrayFileInputStream byteArrayFileInputStream =
+				(ByteArrayFileInputStream)is;
+
+			File file = byteArrayFileInputStream.getFile();
+
+			addFile(
+				companyId, repositoryId, fileName, validateFileExtension, file);
+
+			return;
+		}
+
 		validate(fileName, validateFileExtension, is);
 
-		if (!AntivirusScannerUtil.isActive()) {
+		if (!PropsValues.DL_STORE_ANTIVIRUS_ENABLED ||
+			!AntivirusScannerUtil.isActive()) {
+
 			store.addFile(companyId, repositoryId, fileName, is);
 		}
 		else {
@@ -390,7 +409,9 @@ public class DLStoreImpl implements DLStore, IdentifiableBean {
 			fileName, fileExtension, sourceFileName,
 			validateFileExtension, file);
 
-		AntivirusScannerUtil.scan(file);
+		if (!PropsValues.DL_STORE_ANTIVIRUS_ENABLED) {
+			AntivirusScannerUtil.scan(file);
+		}
 
 		store.updateFile(companyId, repositoryId, fileName, versionLabel, file);
 	}
@@ -401,11 +422,26 @@ public class DLStoreImpl implements DLStore, IdentifiableBean {
 			String versionLabel, String sourceFileName, InputStream is)
 		throws PortalException, SystemException {
 
+		if (is instanceof ByteArrayFileInputStream) {
+			ByteArrayFileInputStream byteArrayFileInputStream =
+				(ByteArrayFileInputStream)is;
+
+			File file = byteArrayFileInputStream.getFile();
+
+			updateFile(
+				companyId, repositoryId, fileName, fileExtension,
+				validateFileExtension, versionLabel, sourceFileName, file);
+
+			return;
+		}
+
 		validate(
 			fileName, fileExtension, sourceFileName,
 			validateFileExtension, is);
 
-		if (!AntivirusScannerUtil.isActive()) {
+		if (!PropsValues.DL_STORE_ANTIVIRUS_ENABLED ||
+			!AntivirusScannerUtil.isActive()) {
+
 			store.updateFile(
 				companyId, repositoryId, fileName, versionLabel, is);
 		}

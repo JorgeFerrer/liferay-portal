@@ -23,7 +23,22 @@ import java.util.List;
 public interface ChannelHubManager {
 
 	public void confirmDelivery(
+			long companyId, long userId,
+			Collection<String> notificationEventUuids)
+		throws ChannelException;
+
+	public void confirmDelivery(
+			long companyId, long userId,
+			Collection<String> notificationEventUuids, boolean archive)
+		throws ChannelException;
+
+	public void confirmDelivery(
 			long companyId, long userId, String notificationEventUuid)
+		throws ChannelException;
+
+	public void confirmDelivery(
+			long companyId, long userId, String notificationEventUuid,
+			boolean archive)
 		throws ChannelException;
 
 	public Channel createChannel(long companyId, long userId)
@@ -31,10 +46,24 @@ public interface ChannelHubManager {
 
 	public ChannelHub createChannelHub(long companyId) throws ChannelException;
 
+	public void deleteUserNotificiationEvent(
+			long companyId, long userId, String notificationEventUuid)
+		throws ChannelException;
+
+	public void deleteUserNotificiationEvents(
+			long companyId, long userId,
+			Collection<String> notificationEventUuids)
+		throws ChannelException;
+
 	public void destroyChannel(long companyId, long userId)
 		throws ChannelException;
 
 	public void destroyChannelHub(long companyId) throws ChannelException;
+
+	public ChannelHub fetchChannelHub(long companyId) throws ChannelException;
+
+	public ChannelHub fetchChannelHub(long companyId, boolean createIfAbsent)
+		throws ChannelException;
 
 	public void flush() throws ChannelException;
 

@@ -30,7 +30,7 @@ public class AssertCannotEditAPEntryTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isElementPresent("link=Asset Publisher Test Page")) {
+				if (selenium.isElementPresent("link=Site Name")) {
 					break;
 				}
 			}
@@ -41,12 +41,17 @@ public class AssertCannotEditAPEntryTest extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=Asset Publisher Test Page",
-			RuntimeVariables.replace(""));
+		selenium.clickAt("link=Site Name", RuntimeVariables.replace("Site Name"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		Thread.sleep(5000);
-		assertFalse(selenium.isElementPresent("//div[1]/span/a/img"));
-		assertFalse(selenium.isElementPresent("link=Edit AP Blogs Entry Title"));
+		selenium.clickAt("link=Asset Publisher Test Page",
+			RuntimeVariables.replace("Asset Publisher Test Page"));
+		selenium.waitForPageToLoad("30000");
+		selenium.saveScreenShotAndSource();
+		assertEquals(RuntimeVariables.replace("Blogs Entry Title"),
+			selenium.getText("//h3[@class='asset-title']/a"));
+		assertFalse(selenium.isElementPresent("link=Edit Blogs Entry Title"));
+		assertEquals(RuntimeVariables.replace("Blogs Entry Content"),
+			selenium.getText("//div[@class='asset-summary']"));
 	}
 }

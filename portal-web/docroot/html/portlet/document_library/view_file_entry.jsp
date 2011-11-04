@@ -106,8 +106,8 @@ if (portletDisplay.isWebDAVEnabled()) {
 	webDavUrl = themeDisplay.getPortalURL() + "/tunnel-web/secure/webdav" + group.getFriendlyURL() + "/document_library" + sb.toString();
 }
 
-Image smallImage = ImageLocalServiceUtil.getImage(fileEntry.getSmallImageId());
-Image largeImage = ImageLocalServiceUtil.getImage(fileEntry.getLargeImageId());
+Image smallImage = ImageLocalServiceUtil.getImage(fileVersion.getSmallImageId());
+Image largeImage = ImageLocalServiceUtil.getImage(fileVersion.getLargeImageId());
 
 boolean hasAudio = AudioProcessor.hasAudio(fileEntry, fileVersion.getVersion());
 boolean hasImages = ImageProcessor.hasImages(fileVersion);
@@ -116,7 +116,7 @@ boolean hasVideo = VideoProcessor.hasVideo(fileEntry, fileVersion.getVersion());
 
 User userDisplay = UserLocalServiceUtil.getUserById(fileEntry.getUserId());
 
-AssetEntry layoutAssetEntry = AssetEntryLocalServiceUtil.getEntry(DLFileEntryConstants.getClassName(), assetClassPK);
+AssetEntry layoutAssetEntry = AssetEntryLocalServiceUtil.fetchEntry(DLFileEntryConstants.getClassName(), assetClassPK);
 
 request.setAttribute(WebKeys.LAYOUT_ASSET_ENTRY, layoutAssetEntry);
 
@@ -221,6 +221,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						else if (hasVideo){
 							thumbnailSrc = themeDisplay.getPortalURL() + themeDisplay.getPathContext() + "/documents/" + themeDisplay.getScopeGroupId() + StringPool.SLASH + fileEntry.getFolderId() + StringPool.SLASH + HttpUtil.encodeURL(title) + "?version=" + fileVersion.getVersion() + "&videoThumbnail=1";
 						}
+
+						AssetEntry incrementAssetEntry = AssetEntryServiceUtil.incrementViewCounter(layoutAssetEntry.getClassName(), assetClassPK);
+
+						if (incrementAssetEntry != null) {
+							layoutAssetEntry = incrementAssetEntry;
+						}
 						%>
 
 						<img alt="" border="no" class="thumbnail" src="<%= thumbnailSrc %>" />
@@ -276,12 +282,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 					<div>
 
 						<%
+						boolean supportedAudio = AudioProcessor.isSupportedAudio(fileEntry, fileVersion.getVersion());
+						boolean supportedVideo = VideoProcessor.isSupportedVideo(fileEntry, fileVersion.getVersion());
+
 						int previewFileCount = 0;
 						String previewFileURL = null;
 						String videoThumbnailURL = null;
-
-						boolean supportedAudio = AudioProcessor.isSupportedAudio(fileEntry, fileVersion.getVersion());
-						boolean supportedVideo = VideoProcessor.isSupportedVideo(fileEntry, fileVersion.getVersion());
 
 						if (hasImages) {
 							previewFileURL = themeDisplay.getPathImage() + "/image_gallery?img_id=" + largeImage.getImageId() + "&t=" + WebServerServletTokenUtil.getToken(largeImage.getImageId());
@@ -307,6 +313,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							previewFileCount = PDFProcessor.getPreviewFileCount(fileEntry, fileVersion.getVersion());
 							previewFileURL = themeDisplay.getPortalURL() + themeDisplay.getPathContext() + "/documents/" + themeDisplay.getScopeGroupId() + StringPool.SLASH + fileEntry.getFolderId() + StringPool.SLASH + HttpUtil.encodeURL(title) + "?version=" + fileVersion.getVersion() + "&previewFileIndex=";
 						}
+
+						request.setAttribute("view_file_entry.jsp-supportedAudio", String.valueOf(supportedAudio));
+						request.setAttribute("view_file_entry.jsp-supportedVideo", String.valueOf(supportedVideo));
+
+						request.setAttribute("view_file_entry.jsp-previewFileURL", previewFileURL);
+						request.setAttribute("view_file_entry.jsp-videoThumbnailURL", videoThumbnailURL);
 						%>
 
 						<c:choose>
@@ -367,32 +379,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											<div class="lfr-preview-file-content lfr-preview-video-content" id="<portlet:namespace />previewFileContent"></div>
 										</div>
 
-										<script src="<%= themeDisplay.getPathJavaScript() %>/misc/swfobject.js" type="text/javascript"></script>
-
-										<aui:script use="aui-base">
-											var previewDivObject = A.one('#<portlet:namespace />previewFileContent');
-
-											var so = new SWFObject(
-												'<%= themeDisplay.getPathJavaScript() %>/misc/video_player/mpw_player.swf',
-												'<portlet:namespace />previewFileContent',
-												previewDivObject.getStyle('width'),
-												previewDivObject.getStyle('height'),
-												'9',
-												'#000000'
-											);
-
-											so.addParam('allowFullScreen', 'true');
-
-											if (<%= supportedAudio %>) {
-												so.addVariable('<%= AudioProcessor.PREVIEW_TYPE %>', '<%= previewFileURL %>');
-											}
-											else if (<%= supportedVideo %>) {
-												so.addVariable('<%= VideoProcessor.PREVIEW_TYPE %>', '<%= previewFileURL %>');
-												so.addVariable('<%= VideoProcessor.THUMBNAIL_TYPE %>', '<%= videoThumbnailURL %>');
-											}
-
-											so.write('<portlet:namespace />previewFileContent');
-										</aui:script>
+										<liferay-util:include page="/html/portlet/document_library/player.jsp" />
 									</c:when>
 								</c:choose>
 							</c:otherwise>
@@ -520,18 +507,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							</aui:field-wrapper>
 						</div>
 					</c:if>
-
-
-					<aui:workflow-status model="<%= DLFileEntry.class %>" status="<%= fileVersion.getStatus() %>" />
-
-					<liferay-ui:custom-attributes-available className="<%= DLFileEntryConstants.getClassName() %>">
-						<liferay-ui:custom-attribute-list
-							className="<%= DLFileEntryConstants.getClassName() %>"
-							classPK="<%= fileVersionId %>"
-							editable="<%= false %>"
-							label="<%= true %>"
-						/>
-					</liferay-ui:custom-attributes-available>
 				</div>
 
 				<%
@@ -572,7 +547,20 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							catch (Exception e) {
 							}
 						}
+						%>
 
+						<liferay-ui:custom-attributes-available className="<%= DLFileEntryConstants.getClassName() %>" classPK="<%= fileVersionId %>" editable="<%= false %>">
+							<liferay-ui:panel collapsible="<%= true %>" cssClass="custom-fields" id="documentLibraryCustomAttributesPanel" persistState="<%= true %>" title="custom-fields">
+								<liferay-ui:custom-attribute-list
+									className="<%= DLFileEntryConstants.getClassName() %>"
+									classPK="<%= fileVersionId %>"
+									editable="<%= false %>"
+									label="<%= true %>"
+								/>
+							</liferay-ui:panel>
+						</liferay-ui:custom-attributes-available>
+
+						<%
 						try {
 							List<DDMStructure> ddmStructures = DDMStructureLocalServiceUtil.getClassStructures(PortalUtil.getClassNameId(DLFileEntry.class));
 
@@ -630,6 +618,14 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							headerNames.add(StringPool.BLANK);
 
 							searchContainer.setHeaderNames(headerNames);
+
+							PortletURL viewFileEntryURL = renderResponse.createRenderURL();
+
+							viewFileEntryURL.setParameter("struts_action", "/document_library/view_file_entry");
+							viewFileEntryURL.setParameter("redirect", currentURL);
+							viewFileEntryURL.setParameter("fileEntryId", String.valueOf(fileEntry.getFileEntryId()));
+
+							searchContainer.setIteratorURL(viewFileEntryURL);
 
 							if (comparableFileEntry) {
 								RowChecker rowChecker = new RowChecker(renderResponse);
@@ -782,25 +778,29 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 <aui:script use="aui-base">
 	var showURLFile = A.one('.show-url-file');
-	var showWebdavFile = A.one('.show-webdav-file-url');
+	var showWebDavFile = A.one('.show-webdav-url-file');
 
-	A.one('.show-url-file').on(
-		'click',
-		function(event) {
-			var URLFileContainer = A.one('.url-file-container');
+	if (showURLFile) {
+		showURLFile.on(
+			'click',
+			function(event) {
+				var URLFileContainer = A.one('.url-file-container');
 
-			URLFileContainer.toggleClass('aui-helper-hidden');
-		}
-	);
+				URLFileContainer.toggleClass('aui-helper-hidden');
+			}
+		);
+	}
 
-	A.one('.show-webdav-url-file').on(
-		'click',
-		function(event) {
-			var WebdavFileContainer = A.one('.webdav-url-file-container');
+	if (showWebDavFile) {
+		showWebDavFile.on(
+			'click',
+			function(event) {
+				var WebDavFileContainer = A.one('.webdav-url-file-container');
 
-			WebdavFileContainer.toggleClass('aui-helper-hidden');
-		}
-	);
+				WebDavFileContainer.toggleClass('aui-helper-hidden');
+			}
+		);
+	}
 
 	var buttonRow = A.one('#<portlet:namespace />fileEntryToolbar');
 
@@ -913,5 +913,5 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 </aui:script>
 
 <%
-DLUtil.addPortletBreadcrumbEntries(fileEntry, request, renderResponse);
+DLUtil.addPortletBreadcrumbEntries(fileEntry, request, renderResponse, true);
 %>

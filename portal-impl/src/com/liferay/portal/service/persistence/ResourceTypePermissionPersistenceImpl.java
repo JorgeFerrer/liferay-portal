@@ -158,7 +158,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 			if (EntityCacheUtil.getResult(
 						ResourceTypePermissionModelImpl.ENTITY_CACHE_ENABLED,
 						ResourceTypePermissionImpl.class,
-						resourceTypePermission.getPrimaryKey(), this) == null) {
+						resourceTypePermission.getPrimaryKey()) == null) {
 				cacheResult(resourceTypePermission);
 			}
 		}
@@ -194,6 +194,8 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		EntityCacheUtil.removeResult(ResourceTypePermissionModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceTypePermissionImpl.class,
 			resourceTypePermission.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_G_N_R,
 			new Object[] {
@@ -483,7 +485,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 	public ResourceTypePermission fetchByPrimaryKey(
 		long resourceTypePermissionId) throws SystemException {
 		ResourceTypePermission resourceTypePermission = (ResourceTypePermission)EntityCacheUtil.getResult(ResourceTypePermissionModelImpl.ENTITY_CACHE_ENABLED,
-				ResourceTypePermissionImpl.class, resourceTypePermissionId, this);
+				ResourceTypePermissionImpl.class, resourceTypePermissionId);
 
 		if (resourceTypePermission == _nullResourceTypePermission) {
 			return null;
@@ -568,12 +570,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 	 */
 	public List<ResourceTypePermission> findByRoleId(long roleId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				roleId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { roleId, start, end, orderByComparator };
 
 		List<ResourceTypePermission> list = (List<ResourceTypePermission>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ROLEID,
 				finderArgs, this);
@@ -773,17 +770,17 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		query.append(_FINDER_COLUMN_ROLEID_ROLEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -802,6 +799,8 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -838,7 +837,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		qPos.add(roleId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceTypePermission);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceTypePermission);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -912,8 +911,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		Object[] finderArgs = new Object[] {
 				companyId, name, roleId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<ResourceTypePermission> list = (List<ResourceTypePermission>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_N_R,
@@ -1167,17 +1165,17 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		query.append(_FINDER_COLUMN_C_N_R_ROLEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1196,6 +1194,8 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1238,7 +1238,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		qPos.add(roleId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceTypePermission);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceTypePermission);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1474,10 +1474,7 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 	 */
 	public List<ResourceTypePermission> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<ResourceTypePermission> list = (List<ResourceTypePermission>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1816,10 +1813,8 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1839,8 +1834,8 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

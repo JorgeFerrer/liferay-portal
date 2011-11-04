@@ -239,6 +239,12 @@
 			font-size: 13px;
 			padding-top: 5px;
 		}
+
+		.structure-field .structure-field {
+			border-left: 10px solid #E0E0E0;
+			margin: 7px 0 0 5px;
+			padding: 7px 0 0 10px;
+		}
 	}
 
 	.component-group .aui-tree-placeholder {
@@ -409,17 +415,54 @@
 			}
 		}
 	}
+
+	.display-page-item-container {
+		margin-bottom: 1em;
+		margin-top: 1em;
+
+		.display-page-item {
+			background-color: #DEE7F8;
+			border-radius: 14px;
+			border: 1px solid #CAD8F3;
+			padding: 5px 28px 5px 11px;
+			position: relative;
+
+			.display-page-item-remove {
+				border-radius: 14px;
+				cursor: pointer;
+				display: block;
+				height: 16px;
+				overflow: hidden;
+				position: absolute;
+				right: 8px;
+				top: 3px;
+				width: 16px;
+
+				&:hover {
+					background-color: #CAD8F3;
+				}
+			}
+		}
+	}
+
+	.display-page-toolbar {
+		margin-top: 0.5em;
+	}
 }
 
 .portlet-journal-edit-mode {
 	.structure-tree {
 		li {
 			background: url(<%= themeImagesPath %>/journal/form_builder_bg.png);
-			border: 1px #C6D9F0 solid;
+			border: 1px solid #C6D9F0;
 			margin: 15px;
 			padding: 10px 10px 10px 22px;
 
 			&.structure-field {
+				.structure-field {
+					border-left: 10px solid #C6D9F0;
+				}
+
 				&.repeated-field {
 					background: #F7FAFB;
 					border: 1px dashed #C6D9F0;
@@ -494,7 +537,6 @@
 		}
 
 		li {
-			border-top: 1px solid #CCC;
 			margin: 10px;
 			padding-top: 5px;
 			position: relative;
@@ -535,6 +577,23 @@
 
 	.taglib-form-navigator .form-navigator, .lfr-table .article-translation-toolbar, .journal-article-general-fields, .article-toolbar {
 		display: none;
+	}
+}
+
+.display-page-dialog {
+	.aui-tree-label {
+		a {
+			color: black;
+		}
+
+		.layout-page-invalid {
+			color: #AAA;
+			font-style: italic;
+		}
+	}
+
+	.selected-page-message {
+		margin: 5px 0;
 	}
 }
 

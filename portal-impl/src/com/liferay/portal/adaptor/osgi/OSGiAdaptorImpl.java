@@ -14,23 +14,20 @@
 
 package com.liferay.portal.adaptor.osgi;
 
+import aQute.libg.header.OSGiHeader;
+
 import com.liferay.portal.kernel.adaptor.Adaptor;
 import com.liferay.portal.kernel.adaptor.AdaptorException;
-import com.liferay.portal.kernel.adaptor.AdaptorUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.ServiceLoader;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.impl.CompanyImpl;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.taglib.util.ThemeUtil;
 import com.liferay.util.UniqueList;
-import com.liferay.util.bridges.mvc.MVCPortlet;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import java.net.URL;
@@ -46,8 +43,6 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import javax.servlet.ServletContext;
-
 import org.aopalliance.intercept.MethodInterceptor;
 
 import org.osgi.framework.BundleContext;
@@ -62,14 +57,15 @@ import org.springframework.context.ApplicationContext;
 /**
  * @author Raymond Augé
  */
-public class OSGiAdaptorImpl implements Adaptor {
+public class OSGiAdaptorImpl implements Adaptor, OSGiAdaptor {
 
-	public void init(
-			ServletContext servletContext, Object applicationContext)
-		throws AdaptorException {
+	public Framework getFramework() {
+		return _framework;
+	}
 
+	public void init(Object applicationContext) throws AdaptorException {
 		try {
-			doInit(servletContext, applicationContext);
+			doInit(applicationContext);
 		}
 		catch (Exception e) {
 			throw new AdaptorException(e);
@@ -107,6 +103,9 @@ public class OSGiAdaptorImpl implements Adaptor {
 		properties.put(Constants.BUNDLE_VENDOR, ReleaseInfo.getVendor());
 		properties.put(Constants.BUNDLE_VERSION, ReleaseInfo.getVersion());
 		properties.put(
+			Constants.FRAMEWORK_BEGINNING_STARTLEVEL,
+			String.valueOf(PropsValues.OSGI_FRAMEWORK_BEGINNING_START_LEVEL));
+		properties.put(
 			Constants.FRAMEWORK_BUNDLE_PARENT,
 			Constants.FRAMEWORK_BUNDLE_PARENT_APP);
 		properties.put(
@@ -114,16 +113,13 @@ public class OSGiAdaptorImpl implements Adaptor {
 
 		UniqueList<String> packages = new UniqueList<String>();
 
-		getBundleExportPackages(
-			Company.class, "com.liferay.portal.service", packages);
-		getBundleExportPackages(
-			CompanyImpl.class, "com.liferay.portal.impl", packages);
-		getBundleExportPackages(
-			MVCPortlet.class, "com.liferay.util.bridges", packages);
-		getBundleExportPackages(
-			ThemeUtil.class, "com.liferay.util.taglib", packages);
-		getBundleExportPackages(
-			UniqueList.class, "com.liferay.util.java", packages);
+		try {
+			getBundleExportPackages(
+				PropsValues.OSGI_SYSTEM_BUNDLE_EXPORT_PACKAGES, packages);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
 
 		packages.addAll(Arrays.asList(PropsValues.OSGI_SYSTEM_PACKAGES_EXTRA));
 
@@ -136,10 +132,7 @@ public class OSGiAdaptorImpl implements Adaptor {
 		return properties;
 	}
 
-	protected void doInit(
-			ServletContext servletContext, Object applicationContext)
-		throws Exception {
-
+	protected void doInit(Object applicationContext) throws Exception {
 		List<FrameworkFactory> frameworkFactories = ServiceLoader.load(
 			FrameworkFactory.class);
 
@@ -157,59 +150,74 @@ public class OSGiAdaptorImpl implements Adaptor {
 
 		BundleContext bundleContext = _framework.getBundleContext();
 
+		BundleListener bundleListener = new BundleListener();
+
+		bundleContext.addBundleListener(bundleListener);
+
+		FrameworkListener frameworkListener = new FrameworkListener();
+
+		bundleContext.addFrameworkListener(frameworkListener);
+
+		ServiceListener serviceListener = new ServiceListener(bundleContext);
+
 		bundleContext.addServiceListener(
-			new ServiceListener(bundleContext), _PORTAL_SERVICE_FILTER);
+			serviceListener, _PORTAL_SERVICE_FILTER);
 
 		registerApplicationContext((ApplicationContext)applicationContext);
 	}
 
 	protected void getBundleExportPackages(
-		Class<?> clazz, String bundleSymbolicName, List<String> packages) {
+			String[] bundleSymbolicNames, List<String> packages)
+		throws Exception {
 
-		Manifest manifest = getBundleManifest(clazz, bundleSymbolicName);
+		ClassLoader classLoader = PortalClassLoaderUtil.getClassLoader();
 
-		if (manifest != null) {
+		Enumeration<URL> enu = classLoader.getResources("META-INF/MANIFEST.MF");
+
+		while (enu.hasMoreElements()) {
+			URL url = enu.nextElement();
+
+			Manifest manifest = new Manifest(url.openStream());
+
 			Attributes attributes = manifest.getMainAttributes();
 
-			String value = attributes.getValue(Constants.EXPORT_PACKAGE);
+			String bundleSymbolicName = attributes.getValue(
+				Constants.BUNDLE_SYMBOLICNAME);
 
-			String[] values = StringUtil.split(value);
+			if (Validator.isNull(bundleSymbolicName)) {
+				continue;
+			}
 
-			packages.addAll(Arrays.asList(values));
-		}
-	}
-
-	protected Manifest getBundleManifest(
-		Class<?> clazz, String bundleSymbolicName) {
-
-		try {
-			ClassLoader classLoader = clazz.getClassLoader();
-
-			Enumeration<URL> enu = classLoader.getResources(
-				"META-INF/MANIFEST.MF");
-
-			while (enu.hasMoreElements()) {
-				URL url = enu.nextElement();
-
-				Manifest manifest = new Manifest(url.openStream());
-
-				Attributes attributes = manifest.getMainAttributes();
-
-				String curBundleSymoblicName = attributes.getValue(
-					Constants.BUNDLE_SYMBOLICNAME);
-
-				if (Validator.isNotNull(curBundleSymoblicName) &&
-					curBundleSymoblicName.startsWith(bundleSymbolicName)) {
-
-					return manifest;
+			for (String curBundleSymbolicName : bundleSymbolicNames) {
+				if (!bundleSymbolicName.startsWith(curBundleSymbolicName)) {
+					continue;
 				}
+
+				String exportPackage = attributes.getValue(
+					Constants.EXPORT_PACKAGE);
+
+				Map<String, Map<String, String>> exportPackageMap =
+					OSGiHeader.parseHeader(exportPackage);
+
+				for (Map.Entry<String, Map<String, String>> entry :
+						exportPackageMap.entrySet()) {
+
+					String javaPackage = entry.getKey();
+					Map<String, String> javaPackageMap = entry.getValue();
+
+					if (javaPackageMap.containsKey("version")) {
+						String version = javaPackageMap.get("version");
+
+						javaPackage = javaPackage.concat(
+							";version=\"").concat(version).concat("\"");
+					}
+
+					packages.add(javaPackage);
+				}
+
+				break;
 			}
 		}
-		catch (IOException ioe) {
-			_log.error(ioe, ioe);
-		}
-
-		return null;
 	}
 
 	protected List<Class<?>> getInterfaces(Class<?> clazz) {
@@ -237,7 +245,7 @@ public class OSGiAdaptorImpl implements Adaptor {
 				bean = applicationContext.getBean(beanName);
 			}
 			catch (Exception e) {
-				_log.error(e.getMessage());
+				_log.error(e, e);
 			}
 
 			if (bean != null) {
@@ -298,7 +306,7 @@ public class OSGiAdaptorImpl implements Adaptor {
 		"(&(portal.service=*)(!(portal.service.core=*))" +
 			"(!(portal.service.previous=*)))";
 
-	private static Log _log = LogFactoryUtil.getLog(AdaptorUtil.class);
+	private static Log _log = LogFactoryUtil.getLog(OSGiAdaptorImpl.class);
 
 	private Framework _framework;
 

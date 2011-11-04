@@ -157,7 +157,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		for (DDLRecord ddlRecord : ddlRecords) {
 			if (EntityCacheUtil.getResult(
 						DDLRecordModelImpl.ENTITY_CACHE_ENABLED,
-						DDLRecordImpl.class, ddlRecord.getPrimaryKey(), this) == null) {
+						DDLRecordImpl.class, ddlRecord.getPrimaryKey()) == null) {
 				cacheResult(ddlRecord);
 			}
 		}
@@ -192,6 +192,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 	public void clearCache(DDLRecord ddlRecord) {
 		EntityCacheUtil.removeResult(DDLRecordModelImpl.ENTITY_CACHE_ENABLED,
 			DDLRecordImpl.class, ddlRecord.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] {
@@ -468,7 +470,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 	 */
 	public DDLRecord fetchByPrimaryKey(long recordId) throws SystemException {
 		DDLRecord ddlRecord = (DDLRecord)EntityCacheUtil.getResult(DDLRecordModelImpl.ENTITY_CACHE_ENABLED,
-				DDLRecordImpl.class, recordId, this);
+				DDLRecordImpl.class, recordId);
 
 		if (ddlRecord == _nullDDLRecord) {
 			return null;
@@ -551,12 +553,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 	 */
 	public List<DDLRecord> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<DDLRecord> list = (List<DDLRecord>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -776,17 +773,17 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -805,6 +802,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -843,7 +842,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(ddlRecord);
+			Object[] values = orderByComparator.getOrderByConditionValues(ddlRecord);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1062,8 +1061,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		Object[] finderArgs = new Object[] {
 				recordSetId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<DDLRecord> list = (List<DDLRecord>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RECORDSETID,
@@ -1263,17 +1261,17 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		query.append(_FINDER_COLUMN_RECORDSETID_RECORDSETID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1292,6 +1290,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1328,7 +1328,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		qPos.add(recordSetId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(ddlRecord);
+			Object[] values = orderByComparator.getOrderByConditionValues(ddlRecord);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1398,8 +1398,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		Object[] finderArgs = new Object[] {
 				recordSetId, userId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<DDLRecord> list = (List<DDLRecord>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_R_U,
@@ -1614,17 +1613,17 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		query.append(_FINDER_COLUMN_R_U_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1643,6 +1642,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1681,7 +1682,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(ddlRecord);
+			Object[] values = orderByComparator.getOrderByConditionValues(ddlRecord);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1740,10 +1741,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 	 */
 	public List<DDLRecord> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<DDLRecord> list = (List<DDLRecord>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2125,10 +2123,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2148,8 +2144,8 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

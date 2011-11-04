@@ -492,6 +492,11 @@ public class UserFinderImpl
 			Map.Entry<String, Object> entry = itr.next();
 
 			String key = entry.getKey();
+
+			if (key.equals("expandoAttributes")) {
+				continue;
+			}
+
 			Object value = entry.getValue();
 
 			if (Validator.isNotNull(value)) {
@@ -584,6 +589,11 @@ public class UserFinderImpl
 			Map.Entry<String, Object> entry = itr.next();
 
 			String key = entry.getKey();
+
+			if (key.equals("expandoAttributes")) {
+				continue;
+			}
+
 			Object value = entry.getValue();
 
 			if (Validator.isNotNull(value)) {
@@ -716,61 +726,64 @@ public class UserFinderImpl
 	protected void setJoin(
 		QueryPos qPos, LinkedHashMap<String, Object> params) {
 
-		if (params != null) {
-			Iterator<Map.Entry<String, Object>> itr =
-				params.entrySet().iterator();
+		if (params == null) {
+			return;
+		}
 
-			while (itr.hasNext()) {
-				Map.Entry<String, Object> entry = itr.next();
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+			String key = entry.getKey();
 
-				Object value = entry.getValue();
+			if (key.equals("expandoAttributes")) {
+				continue;
+			}
 
-				if (value instanceof Long) {
-					Long valueLong = (Long)value;
+			Object value = entry.getValue();
 
-					if (Validator.isNotNull(valueLong)) {
+			if (value instanceof Long) {
+				Long valueLong = (Long)value;
+
+				if (Validator.isNotNull(valueLong)) {
+					qPos.add(valueLong);
+				}
+			}
+			else if (value instanceof Long[]) {
+				Long[] valueArray = (Long[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (Validator.isNotNull(valueArray[i])) {
+						qPos.add(valueArray[i]);
+					}
+				}
+			}
+			else if (value instanceof Long[][]) {
+				Long[][] valueDoubleArray = (Long[][])value;
+
+				for (Long[] valueArray : valueDoubleArray) {
+					for (Long valueLong : valueArray) {
 						qPos.add(valueLong);
 					}
 				}
-				else if (value instanceof Long[]) {
-					Long[] valueArray = (Long[])value;
+			}
+			else if (value instanceof String) {
+				String valueString = (String)value;
 
-					for (int i = 0; i < valueArray.length; i++) {
-						if (Validator.isNotNull(valueArray[i])) {
-							qPos.add(valueArray[i]);
-						}
+				if (Validator.isNotNull(valueString)) {
+					qPos.add(valueString);
+				}
+			}
+			else if (value instanceof String[]) {
+				String[] valueArray = (String[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (Validator.isNotNull(valueArray[i])) {
+						qPos.add(valueArray[i]);
 					}
 				}
-				else if (value instanceof Long[][]) {
-					Long[][] valueDoubleArray = (Long[][])value;
+			}
+			else if (value instanceof CustomSQLParam) {
+				CustomSQLParam customSQLParam = (CustomSQLParam)value;
 
-					for (Long[] valueArray : valueDoubleArray) {
-						for (Long valueLong : valueArray) {
-							qPos.add(valueLong);
-						}
-					}
-				}
-				else if (value instanceof String) {
-					String valueString = (String)value;
-
-					if (Validator.isNotNull(valueString)) {
-						qPos.add(valueString);
-					}
-				}
-				else if (value instanceof String[]) {
-					String[] valueArray = (String[])value;
-
-					for (int i = 0; i < valueArray.length; i++) {
-						if (Validator.isNotNull(valueArray[i])) {
-							qPos.add(valueArray[i]);
-						}
-					}
-				}
-				else if (value instanceof CustomSQLParam) {
-					CustomSQLParam customSQLParam = (CustomSQLParam)value;
-
-					customSQLParam.process(qPos);
-				}
+				customSQLParam.process(qPos);
 			}
 		}
 	}

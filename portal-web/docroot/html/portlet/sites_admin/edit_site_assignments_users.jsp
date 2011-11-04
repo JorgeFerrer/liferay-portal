@@ -32,7 +32,7 @@ PortletURL viewUsersURL = renderResponse.createRenderURL();
 
 viewUsersURL.setParameter("struts_action", "/sites_admin/edit_site_assignments");
 viewUsersURL.setParameter("tabs1", "users");
-viewUsersURL.setParameter("tabs2", "current");
+viewUsersURL.setParameter("tabs2", tabs2);
 viewUsersURL.setParameter("redirect", redirect);
 viewUsersURL.setParameter("groupId", String.valueOf(group.getGroupId()));
 
@@ -53,6 +53,7 @@ UserSearch userSearch = new UserSearch(renderRequest, viewUsersURL);
 userSearch.setEmptyResultsMessage(emptyResultsMessage);
 %>
 
+<aui:input name="tabs1" type="hidden" value="users" />
 <aui:input name="addUserIds" type="hidden" />
 <aui:input name="removeUserIds" type="hidden" />
 
@@ -73,7 +74,7 @@ userSearch.setEmptyResultsMessage(emptyResultsMessage);
 
 	LinkedHashMap userParams = new LinkedHashMap();
 
-	if (tabs2.equals("current")) {
+	if (tabs1.equals("summary")) {
 		userParams.put("usersGroups", new Long(group.getGroupId()));
 	}
 	%>

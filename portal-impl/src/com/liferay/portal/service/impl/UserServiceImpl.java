@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
 import com.liferay.portal.model.Address;
@@ -531,8 +532,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			boolean sendEmail, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Company company = companyPersistence.findByPrimaryKey(companyId);
-
 		long creatorUserId = 0;
 
 		try {
@@ -541,24 +540,9 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		catch (PrincipalException pe) {
 		}
 
-		if ((creatorUserId != 0) || !company.isStrangers()) {
-			if (!PortalPermissionUtil.contains(
-					getPermissionChecker(), ActionKeys.ADD_USER) &&
-				!OrganizationPermissionUtil.contains(
-					getPermissionChecker(), organizationIds,
-					ActionKeys.ASSIGN_MEMBERS)) {
-
-				throw new PrincipalException();
-			}
-		}
-
-		if (creatorUserId == 0) {
-			if (!company.isStrangersWithMx() &&
-				company.hasCompanyMx(emailAddress)) {
-
-				throw new ReservedUserEmailAddressException();
-			}
-		}
+		checkAddUserPermission(
+			creatorUserId, companyId, emailAddress, organizationIds,
+			serviceContext);
 
 		return userLocalService.addUserWithWorkflow(
 			creatorUserId, companyId, autoPassword, password1, password2,
@@ -666,9 +650,16 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the primary keys of the users belonging to the group
+	 * @throws PortalException if the current user did not have permission to
+	 *         view group assignments
 	 * @throws SystemException if a system exception occurred
 	 */
-	public long[] getGroupUserIds(long groupId) throws SystemException {
+	public long[] getGroupUserIds(long groupId)
+		throws PortalException, SystemException {
+
+		GroupPermissionUtil.check(
+			getPermissionChecker(), groupId, ActionKeys.VIEW_MEMBERS);
+
 		return userLocalService.getGroupUserIds(groupId);
 	}
 
@@ -677,10 +668,15 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *
 	 * @param  organizationId the primary key of the organization
 	 * @return the primary keys of the users belonging to the organization
+	 * @throws PortalException if the current user did not have permission to
+	 *         view organization assignments
 	 * @throws SystemException if a system exception occurred
 	 */
 	public long[] getOrganizationUserIds(long organizationId)
-		throws SystemException {
+		throws PortalException, SystemException {
+
+		OrganizationPermissionUtil.check(
+			getPermissionChecker(), organizationId, ActionKeys.VIEW_MEMBERS);
 
 		return userLocalService.getOrganizationUserIds(organizationId);
 	}
@@ -690,9 +686,16 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *
 	 * @param  roleId the primary key of the role
 	 * @return the primary keys of the users belonging to the role
+	 * @throws PortalException if the current user did not have permission to
+	 *         view role members
 	 * @throws SystemException if a system exception occurred
 	 */
-	public long[] getRoleUserIds(long roleId) throws SystemException {
+	public long[] getRoleUserIds(long roleId) throws
+		PortalException, SystemException {
+
+		RolePermissionUtil.check(
+			getPermissionChecker(), roleId, ActionKeys.VIEW);
+
 		return userLocalService.getRoleUserIds(roleId);
 	}
 
@@ -900,8 +903,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			boolean sendEmail, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Company company = companyPersistence.findByPrimaryKey(companyId);
-
 		long creatorUserId = 0;
 
 		try {
@@ -910,13 +911,8 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		catch (PrincipalException pe) {
 		}
 
-		if (creatorUserId == 0) {
-			if (!company.isStrangersWithMx() &&
-				company.hasCompanyMx(emailAddress)) {
-
-				throw new ReservedUserEmailAddressException();
-			}
-		}
+		checkAddUserPermission(
+			creatorUserId, companyId, emailAddress, null, serviceContext);
 
 		return userLocalService.updateIncompleteUser(
 			creatorUserId, companyId, autoPassword, password1, password2,
@@ -1563,6 +1559,38 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			icqSn, jabberSn, msnSn, mySpaceSn, skypeSn, twitterSn, ymSn,
 			jobTitle, groupIds, organizationIds, roleIds, userGroupRoles,
 			userGroupIds, serviceContext);
+	}
+
+	protected void checkAddUserPermission(
+			long creatorUserId, long companyId, String emailAddress,
+			long[] organizationIds, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Company company = companyPersistence.findByPrimaryKey(companyId);
+
+		boolean anonymousUser = GetterUtil.getBoolean(
+			serviceContext.getAttribute("anonymousUser"));
+
+		if ((creatorUserId != 0) ||
+			(!company.isStrangers() && !anonymousUser)) {
+
+			if (!PortalPermissionUtil.contains(
+					getPermissionChecker(), ActionKeys.ADD_USER) ||
+				!OrganizationPermissionUtil.contains(
+					getPermissionChecker(), organizationIds,
+					ActionKeys.ASSIGN_MEMBERS)) {
+
+				throw new PrincipalException();
+			}
+		}
+
+		if (creatorUserId == 0) {
+			if (!company.isStrangersWithMx() &&
+				company.hasCompanyMx(emailAddress)) {
+
+				throw new ReservedUserEmailAddressException();
+			}
+		}
 	}
 
 	protected long[] checkGroups(long userId, long[] groupIds)

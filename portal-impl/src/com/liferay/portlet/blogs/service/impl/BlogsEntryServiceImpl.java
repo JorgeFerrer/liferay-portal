@@ -46,7 +46,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.io.FeedException;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +63,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, boolean allowPingbacks,
 			boolean allowTrackbacks, String[] trackbacks, boolean smallImage,
-			String smallImageURL, File smallFile, ServiceContext serviceContext)
+			String smallImageURL, String smallImageFileName,
+			InputStream smallImageInputStream, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		BlogsPermission.check(
@@ -74,7 +75,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			getUserId(), title, description, content, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			allowPingbacks, allowTrackbacks, trackbacks, smallImage,
-			smallImageURL, smallFile, serviceContext);
+			smallImageURL, smallImageFileName, smallImageInputStream,
+			serviceContext);
 	}
 
 	public void deleteEntry(long entryId)
@@ -322,7 +324,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, boolean allowPingbacks,
 			boolean allowTrackbacks, String[] trackbacks, boolean smallImage,
-			String smallImageURL, File smallFile, ServiceContext serviceContext)
+			String smallImageURL, String smallImageFileName,
+			InputStream smallImageInputStream, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		BlogsEntryPermission.check(
@@ -332,7 +335,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			getUserId(), entryId, title, description, content, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			allowPingbacks, allowTrackbacks, trackbacks, smallImage,
-			smallImageURL, smallFile, serviceContext);
+			smallImageURL, smallImageFileName, smallImageInputStream,
+			serviceContext);
 	}
 
 	protected String exportToRSS(
@@ -408,7 +412,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 			SyndContent syndContent = new SyndContentImpl();
 
-			syndContent.setType(RSSUtil.DEFAULT_ENTRY_TYPE);
+			syndContent.setType(RSSUtil.ENTRY_TYPE_DEFAULT);
 			syndContent.setValue(value);
 
 			syndEntry.setDescription(syndContent);

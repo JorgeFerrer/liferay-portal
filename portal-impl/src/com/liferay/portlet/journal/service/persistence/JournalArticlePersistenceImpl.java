@@ -465,8 +465,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		for (JournalArticle journalArticle : journalArticles) {
 			if (EntityCacheUtil.getResult(
 						JournalArticleModelImpl.ENTITY_CACHE_ENABLED,
-						JournalArticleImpl.class,
-						journalArticle.getPrimaryKey(), this) == null) {
+						JournalArticleImpl.class, journalArticle.getPrimaryKey()) == null) {
 				cacheResult(journalArticle);
 			}
 		}
@@ -501,6 +500,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	public void clearCache(JournalArticle journalArticle) {
 		EntityCacheUtil.removeResult(JournalArticleModelImpl.ENTITY_CACHE_ENABLED,
 			JournalArticleImpl.class, journalArticle.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] {
@@ -888,7 +889,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	 */
 	public JournalArticle fetchByPrimaryKey(long id) throws SystemException {
 		JournalArticle journalArticle = (JournalArticle)EntityCacheUtil.getResult(JournalArticleModelImpl.ENTITY_CACHE_ENABLED,
-				JournalArticleImpl.class, id, this);
+				JournalArticleImpl.class, id);
 
 		if (journalArticle == _nullJournalArticle) {
 			return null;
@@ -972,12 +973,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	 */
 	public List<JournalArticle> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -1201,17 +1197,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1230,6 +1226,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1272,7 +1270,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1494,8 +1492,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				resourcePrimKey,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RESOURCEPRIMKEY,
@@ -1699,17 +1696,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_RESOURCEPRIMKEY_RESOURCEPRIMKEY_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1728,6 +1725,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1768,7 +1767,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(resourcePrimKey);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1834,8 +1833,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -2039,17 +2037,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2068,6 +2066,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2108,7 +2108,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2323,13 +2323,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -2337,9 +2337,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2358,6 +2358,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -2418,7 +2420,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2485,8 +2487,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -2690,17 +2691,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2719,6 +2720,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2759,7 +2762,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2827,8 +2830,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				smallImageId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_SMALLIMAGEID,
@@ -3032,17 +3034,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_SMALLIMAGEID_SMALLIMAGEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3061,6 +3063,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3101,7 +3105,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(smallImageId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3172,8 +3176,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				resourcePrimKey, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_R_ST,
@@ -3392,17 +3395,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_R_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3421,6 +3424,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3463,7 +3468,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3534,8 +3539,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, articleId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_A,
@@ -3776,17 +3780,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3805,6 +3809,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3849,7 +3855,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4098,13 +4104,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -4112,9 +4118,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4133,6 +4139,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -4197,7 +4205,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4268,8 +4276,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, urlTitle,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_UT,
@@ -4510,17 +4517,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4539,6 +4546,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -4583,7 +4592,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4832,13 +4841,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -4846,9 +4855,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4867,6 +4876,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -4931,7 +4942,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5002,8 +5013,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, structureId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_S,
@@ -5244,17 +5254,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5273,6 +5283,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -5317,7 +5329,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5566,13 +5578,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -5580,9 +5592,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5601,6 +5613,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -5665,7 +5679,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5736,8 +5750,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, templateId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_T,
@@ -5978,17 +5991,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6007,6 +6020,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6051,7 +6066,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6300,13 +6315,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -6314,9 +6329,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6335,6 +6350,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -6399,7 +6416,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6470,8 +6487,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, layoutUuid,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_L,
@@ -6712,17 +6728,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6741,6 +6757,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6785,7 +6803,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7034,13 +7052,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -7048,9 +7066,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7069,6 +7087,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -7133,7 +7153,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7203,8 +7223,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_ST,
@@ -7423,17 +7442,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_G_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7452,6 +7471,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -7494,7 +7515,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7720,13 +7741,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -7734,9 +7755,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7755,6 +7776,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -7817,7 +7840,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7888,8 +7911,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				companyId, version,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_V,
@@ -8108,17 +8130,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_C_V_VERSION_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8137,6 +8159,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -8179,7 +8203,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(version);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -8250,8 +8274,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				companyId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_ST,
@@ -8470,17 +8493,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_C_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8499,6 +8522,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -8541,7 +8566,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -8615,8 +8640,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_C,
@@ -8850,17 +8874,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_G_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8879,6 +8903,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -8923,7 +8949,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -9163,13 +9189,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -9177,9 +9203,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -9198,6 +9224,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -9262,7 +9290,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -9503,8 +9531,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, classNameId, templateId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_T,
@@ -9760,17 +9787,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -9789,6 +9816,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -9835,7 +9864,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10098,13 +10127,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -10112,9 +10141,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10133,6 +10162,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -10199,7 +10230,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10273,8 +10304,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, classNameId, layoutUuid,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_L,
@@ -10530,17 +10560,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10559,6 +10589,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -10605,7 +10637,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10868,13 +10900,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -10882,9 +10914,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10903,6 +10935,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -10969,7 +11003,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -11208,8 +11242,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, articleId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_A_ST,
@@ -11465,17 +11498,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_G_A_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -11494,6 +11527,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -11540,7 +11575,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -11802,13 +11837,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -11816,9 +11851,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -11837,6 +11872,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -11903,7 +11940,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -11977,8 +12014,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				groupId, urlTitle, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_UT_ST,
@@ -12234,17 +12270,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_G_UT_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -12263,6 +12299,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -12309,7 +12347,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -12571,13 +12609,13 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -12585,9 +12623,9 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -12606,6 +12644,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -12672,7 +12712,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -12746,8 +12786,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		Object[] finderArgs = new Object[] {
 				companyId, version, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_V_ST,
@@ -12981,17 +13020,17 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		query.append(_FINDER_COLUMN_C_V_ST_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -13010,6 +13049,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -13054,7 +13095,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticle);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticle);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -13113,10 +13154,7 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	 */
 	public List<JournalArticle> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<JournalArticle> list = (List<JournalArticle>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -15826,10 +15864,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -15849,8 +15885,8 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

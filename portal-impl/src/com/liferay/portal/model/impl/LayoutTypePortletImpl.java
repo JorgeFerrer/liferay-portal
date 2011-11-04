@@ -57,6 +57,7 @@ import com.liferay.portal.service.PluginSettingLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
+import com.liferay.portal.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
@@ -123,7 +124,7 @@ public class LayoutTypePortletImpl
 			}
 
 			return LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(
-				layout.getUuid(), group.getGroupId());
+				layout.getTemplateLayoutUuid(), group.getGroupId());
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -1008,9 +1009,8 @@ public class LayoutTypePortletImpl
 			PermissionChecker permissionChecker =
 				PermissionThreadLocal.getPermissionChecker();
 
-			if (!PortletPermissionUtil.contains(
-					permissionChecker, getLayout(), portlet,
-					ActionKeys.ADD_TO_PAGE) &&
+			if (!LayoutPermissionUtil.contains(
+					permissionChecker, getLayout(), ActionKeys.UPDATE) &&
 				!isCustomizable()) {
 
 				return;
@@ -1356,21 +1356,30 @@ public class LayoutTypePortletImpl
 	}
 
 	protected String getColumnValue(String columnId) {
-		String columnValue = StringPool.BLANK;
+		Boolean customizable = null;
+		Boolean columnDisabled = null;
 
-		if (isCustomizable() && isColumnDisabled(columnId) && hasTemplate()) {
-			columnValue = getTemplateProperty(columnId);
-		}
-		else if (isCustomizable() && !isColumnDisabled(columnId) &&
-				 hasUserPreferences()) {
+		if (hasTemplate()) {
+			customizable = isCustomizable();
 
-			columnValue = getUserPreference(columnId);
-		}
-		else {
-			columnValue = getTypeSettingsProperties().getProperty(columnId);
+			if (customizable) {
+				columnDisabled = isColumnDisabled(columnId);
+
+				if (columnDisabled) {
+					return getTemplateProperty(columnId);
+				}
+			}
 		}
 
-		return columnValue;
+		if (hasUserPreferences() &&
+			((customizable == null) ? isCustomizable() : customizable) &&
+			((columnDisabled == null) ?
+				!isColumnDisabled(columnId) : columnDisabled)) {
+
+			return getUserPreference(columnId);
+		}
+
+		return getTypeSettingsProperties().getProperty(columnId);
 	}
 
 	protected long getCompanyId() {

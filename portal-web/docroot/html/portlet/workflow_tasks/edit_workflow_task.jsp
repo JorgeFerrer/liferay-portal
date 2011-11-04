@@ -32,8 +32,6 @@ long groupId = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.
 String className = (String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_NAME);
 long classPK = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
-long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getCompanyId(), workflowTask.getWorkflowTaskId());
-
 WorkflowHandler workflowHandler = WorkflowHandlerRegistryUtil.getWorkflowHandler(className);
 
 AssetRenderer assetRenderer = workflowHandler.getAssetRenderer(classPK);
@@ -116,10 +114,15 @@ request.setAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW, Boolean.TRUE);
 								<portlet:param name="assigneeUserId" value="<%= String.valueOf(user.getUserId()) %>" />
 							</portlet:actionURL>
 
-							<span class="workflow-task- task-assign-to-me-link"><aui:a href="<%= assignToMeURL %>" id='<%= randomId + "taskAssignToMeLink" %>' label="assign-to-me" /></span>
+							<span class="workflow-task task-assign-to-me-link"><aui:a href="<%= assignToMeURL %>" id='<%= randomId + "taskAssignToMeLink" %>' label="assign-to-me" /></span>
 						</c:if>
 
 						&nbsp;
+
+
+						<%
+						long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getCompanyId(), workflowTask.getWorkflowTaskId());
+						%>
 
 						<c:if test="<%= _hasOtherAssignees(pooledActorsIds, workflowTask, user) %>">
 							<%= StringPool.DASH %>
@@ -131,7 +134,7 @@ request.setAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW, Boolean.TRUE);
 								<portlet:param name="workflowTaskId" value="<%= String.valueOf(workflowTask.getWorkflowTaskId()) %>" />
 							</portlet:actionURL>
 
-							<span class="workflow-task- task-assign-link"><aui:a href="<%= assignURL %>" id='<%= randomId + "taskAssignLink" %>' label="assign-to-..." /></span>
+							<span class="workflow-task task-assign-link"><aui:a href="<%= assignURL %>" id='<%= randomId + "taskAssignLink" %>' label="assign-to-..." /></span>
 						</c:if>
 					</aui:field-wrapper>
 				</div>
@@ -162,7 +165,7 @@ request.setAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW, Boolean.TRUE);
 								<portlet:param name="workflowTaskId" value="<%= StringUtil.valueOf(workflowTask.getWorkflowTaskId()) %>" />
 							</portlet:actionURL>
 
-							<%= StringPool.DASH %> (<span class="workflow-task- task-due-date-link"><aui:a href="<%= updateDueDateURL %>" id='<%= randomId + "taskDueDateLink" %>' label="change" />)
+							<%= StringPool.DASH %> (<span class="workflow-task task-due-date-link"><aui:a href="<%= updateDueDateURL %>" id='<%= randomId + "taskDueDateLink" %>' label="change" />)
 						</c:if>
 					</aui:field-wrapper>
 				</div>
@@ -360,7 +363,7 @@ request.setAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW, Boolean.TRUE);
 		<div class="lfr-asset-summary">
 			<liferay-ui:icon
 				cssClass="lfr-asset-avatar"
-				image='../file_system/large/task'
+				image="../file_system/large/task"
 				message="download"
 			/>
 

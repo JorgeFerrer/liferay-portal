@@ -168,7 +168,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		for (Website website : websites) {
 			if (EntityCacheUtil.getResult(
 						WebsiteModelImpl.ENTITY_CACHE_ENABLED,
-						WebsiteImpl.class, website.getPrimaryKey(), this) == null) {
+						WebsiteImpl.class, website.getPrimaryKey()) == null) {
 				cacheResult(website);
 			}
 		}
@@ -203,6 +203,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	public void clearCache(Website website) {
 		EntityCacheUtil.removeResult(WebsiteModelImpl.ENTITY_CACHE_ENABLED,
 			WebsiteImpl.class, website.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -426,7 +428,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	 */
 	public Website fetchByPrimaryKey(long websiteId) throws SystemException {
 		Website website = (Website)EntityCacheUtil.getResult(WebsiteModelImpl.ENTITY_CACHE_ENABLED,
-				WebsiteImpl.class, websiteId, this);
+				WebsiteImpl.class, websiteId);
 
 		if (website == _nullWebsite) {
 			return null;
@@ -514,8 +516,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -717,17 +718,17 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -746,6 +747,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -786,7 +789,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(website);
+			Object[] values = orderByComparator.getOrderByConditionValues(website);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -848,12 +851,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	 */
 	public List<Website> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -1053,17 +1051,17 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1082,6 +1080,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1122,7 +1122,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(website);
+			Object[] values = orderByComparator.getOrderByConditionValues(website);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1192,8 +1192,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C,
@@ -1411,17 +1410,17 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		query.append(_FINDER_COLUMN_C_C_CLASSNAMEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1440,6 +1439,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1482,7 +1483,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		qPos.add(classNameId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(website);
+			Object[] values = orderByComparator.getOrderByConditionValues(website);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1556,8 +1557,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_C,
@@ -1790,17 +1790,17 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		query.append(_FINDER_COLUMN_C_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1819,6 +1819,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1863,7 +1865,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(website);
+			Object[] values = orderByComparator.getOrderByConditionValues(website);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1942,8 +1944,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId, classPK, primary,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_C_P,
@@ -2192,17 +2193,17 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		query.append(_FINDER_COLUMN_C_C_C_P_PRIMARY_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2221,6 +2222,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2267,7 +2270,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		qPos.add(primary);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(website);
+			Object[] values = orderByComparator.getOrderByConditionValues(website);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2325,10 +2328,7 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	 */
 	public List<Website> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Website> list = (List<Website>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2780,10 +2780,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2803,8 +2801,8 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

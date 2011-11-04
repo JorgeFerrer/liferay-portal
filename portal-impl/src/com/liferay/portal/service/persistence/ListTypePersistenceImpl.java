@@ -110,7 +110,7 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 		for (ListType listType : listTypes) {
 			if (EntityCacheUtil.getResult(
 						ListTypeModelImpl.ENTITY_CACHE_ENABLED,
-						ListTypeImpl.class, listType.getPrimaryKey(), this) == null) {
+						ListTypeImpl.class, listType.getPrimaryKey()) == null) {
 				cacheResult(listType);
 			}
 		}
@@ -145,6 +145,8 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	public void clearCache(ListType listType) {
 		EntityCacheUtil.removeResult(ListTypeModelImpl.ENTITY_CACHE_ENABLED,
 			ListTypeImpl.class, listType.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -360,7 +362,7 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	 */
 	public ListType fetchByPrimaryKey(int listTypeId) throws SystemException {
 		ListType listType = (ListType)EntityCacheUtil.getResult(ListTypeModelImpl.ENTITY_CACHE_ENABLED,
-				ListTypeImpl.class, listTypeId, this);
+				ListTypeImpl.class, listTypeId);
 
 		if (listType == _nullListType) {
 			return null;
@@ -443,12 +445,7 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	 */
 	public List<ListType> findByType(String type, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				type,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { type, start, end, orderByComparator };
 
 		List<ListType> list = (List<ListType>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_TYPE,
 				finderArgs, this);
@@ -672,17 +669,17 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -701,6 +698,8 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -743,7 +742,7 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(listType);
+			Object[] values = orderByComparator.getOrderByConditionValues(listType);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -801,10 +800,7 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	 */
 	public List<ListType> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<ListType> list = (List<ListType>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -963,10 +959,8 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -986,8 +980,8 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

@@ -117,12 +117,12 @@ rssURL.setCacheability(ResourceURL.FULL);
 
 rssURL.setParameter("struts_action", "/message_boards/rss");
 
-if ((rssDelta != SearchContainer.DEFAULT_DELTA) || !rssFormatType.equals(RSSUtil.DEFAULT_TYPE) || (rssFormatVersion != RSSUtil.VERSION_DEFAULT) || !rssDisplayStyle.equals(RSSUtil.DISPLAY_STYLE_FULL_CONTENT)) {
+if ((rssDelta != SearchContainer.DEFAULT_DELTA) || !rssFormatType.equals(RSSUtil.TYPE_DEFAULT) || (rssFormatVersion != RSSUtil.VERSION_DEFAULT) || !rssDisplayStyle.equals(RSSUtil.DISPLAY_STYLE_FULL_CONTENT)) {
 	if (rssDelta != SearchContainer.DEFAULT_DELTA) {
 		rssURL.setParameter("max", String.valueOf(rssDelta));
 	}
 
-	if (!rssFormatType.equals(RSSUtil.DEFAULT_TYPE)) {
+	if (!rssFormatType.equals(RSSUtil.TYPE_DEFAULT)) {
 		rssURL.setParameter("type", rssFormatType);
 	}
 

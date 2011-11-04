@@ -163,8 +163,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		for (Subscription subscription : subscriptions) {
 			if (EntityCacheUtil.getResult(
 						SubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-						SubscriptionImpl.class, subscription.getPrimaryKey(),
-						this) == null) {
+						SubscriptionImpl.class, subscription.getPrimaryKey()) == null) {
 				cacheResult(subscription);
 			}
 		}
@@ -199,6 +198,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	public void clearCache(Subscription subscription) {
 		EntityCacheUtil.removeResult(SubscriptionModelImpl.ENTITY_CACHE_ENABLED,
 			SubscriptionImpl.class, subscription.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_U_C_C,
 			new Object[] {
@@ -475,7 +476,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	public Subscription fetchByPrimaryKey(long subscriptionId)
 		throws SystemException {
 		Subscription subscription = (Subscription)EntityCacheUtil.getResult(SubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-				SubscriptionImpl.class, subscriptionId, this);
+				SubscriptionImpl.class, subscriptionId);
 
 		if (subscription == _nullSubscription) {
 			return null;
@@ -560,12 +561,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	 */
 	public List<Subscription> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<Subscription> list = (List<Subscription>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -763,17 +759,17 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -792,6 +788,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -828,7 +826,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(subscription);
+			Object[] values = orderByComparator.getOrderByConditionValues(subscription);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -899,8 +897,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		Object[] finderArgs = new Object[] {
 				userId, classNameId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Subscription> list = (List<Subscription>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C,
@@ -1115,17 +1112,17 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		query.append(_FINDER_COLUMN_U_C_CLASSNAMEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1144,6 +1141,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1182,7 +1181,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		qPos.add(classNameId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(subscription);
+			Object[] values = orderByComparator.getOrderByConditionValues(subscription);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1256,8 +1255,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Subscription> list = (List<Subscription>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_C,
@@ -1488,17 +1486,17 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		query.append(_FINDER_COLUMN_C_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1517,6 +1515,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1557,7 +1557,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(subscription);
+			Object[] values = orderByComparator.getOrderByConditionValues(subscription);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1782,10 +1782,7 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	 */
 	public List<Subscription> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Subscription> list = (List<Subscription>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2173,10 +2170,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2196,8 +2191,8 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

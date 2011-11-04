@@ -96,18 +96,18 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 			MDRActionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST, "countByUUID_G",
 			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_FIND_BY_RULEID = new FinderPath(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FIND_BY_RULEGROUPINSTANCEID = new FinderPath(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
 			MDRActionModelImpl.FINDER_CACHE_ENABLED, MDRActionImpl.class,
-			FINDER_CLASS_NAME_LIST, "findByRuleId",
+			FINDER_CLASS_NAME_LIST, "findByRuleGroupInstanceId",
 			new String[] {
 				Long.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_COUNT_BY_RULEID = new FinderPath(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_RULEGROUPINSTANCEID = new FinderPath(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
 			MDRActionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST, "countByRuleId",
+			FINDER_CLASS_NAME_LIST, "countByRuleGroupInstanceId",
 			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
 			MDRActionModelImpl.FINDER_CACHE_ENABLED, MDRActionImpl.class,
@@ -142,7 +142,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		for (MDRAction mdrAction : mdrActions) {
 			if (EntityCacheUtil.getResult(
 						MDRActionModelImpl.ENTITY_CACHE_ENABLED,
-						MDRActionImpl.class, mdrAction.getPrimaryKey(), this) == null) {
+						MDRActionImpl.class, mdrAction.getPrimaryKey()) == null) {
 				cacheResult(mdrAction);
 			}
 		}
@@ -177,6 +177,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	public void clearCache(MDRAction mdrAction) {
 		EntityCacheUtil.removeResult(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
 			MDRActionImpl.class, mdrAction.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] {
@@ -383,8 +385,9 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		mdrActionImpl.setUserName(mdrAction.getUserName());
 		mdrActionImpl.setCreateDate(mdrAction.getCreateDate());
 		mdrActionImpl.setModifiedDate(mdrAction.getModifiedDate());
-		mdrActionImpl.setRuleGroupId(mdrAction.getRuleGroupId());
-		mdrActionImpl.setRuleId(mdrAction.getRuleId());
+		mdrActionImpl.setClassNameId(mdrAction.getClassNameId());
+		mdrActionImpl.setClassPK(mdrAction.getClassPK());
+		mdrActionImpl.setRuleGroupInstanceId(mdrAction.getRuleGroupInstanceId());
 		mdrActionImpl.setName(mdrAction.getName());
 		mdrActionImpl.setDescription(mdrAction.getDescription());
 		mdrActionImpl.setType(mdrAction.getType());
@@ -453,7 +456,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	 */
 	public MDRAction fetchByPrimaryKey(long actionId) throws SystemException {
 		MDRAction mdrAction = (MDRAction)EntityCacheUtil.getResult(MDRActionModelImpl.ENTITY_CACHE_ENABLED,
-				MDRActionImpl.class, actionId, this);
+				MDRActionImpl.class, actionId);
 
 		if (mdrAction == _nullMDRAction) {
 			return null;
@@ -536,12 +539,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	 */
 	public List<MDRAction> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<MDRAction> list = (List<MDRAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -761,17 +759,17 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -790,6 +788,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -828,7 +828,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mdrAction);
+			Object[] values = orderByComparator.getOrderByConditionValues(mdrAction);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -998,58 +998,60 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Returns all the m d r actions where ruleId = &#63;.
+	 * Returns all the m d r actions where ruleGroupInstanceId = &#63;.
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @return the matching m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<MDRAction> findByRuleId(long ruleId) throws SystemException {
-		return findByRuleId(ruleId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<MDRAction> findByRuleGroupInstanceId(long ruleGroupInstanceId)
+		throws SystemException {
+		return findByRuleGroupInstanceId(ruleGroupInstanceId,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the m d r actions where ruleId = &#63;.
+	 * Returns a range of all the m d r actions where ruleGroupInstanceId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @param start the lower bound of the range of m d r actions
 	 * @param end the upper bound of the range of m d r actions (not inclusive)
 	 * @return the range of matching m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<MDRAction> findByRuleId(long ruleId, int start, int end)
-		throws SystemException {
-		return findByRuleId(ruleId, start, end, null);
+	public List<MDRAction> findByRuleGroupInstanceId(long ruleGroupInstanceId,
+		int start, int end) throws SystemException {
+		return findByRuleGroupInstanceId(ruleGroupInstanceId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the m d r actions where ruleId = &#63;.
+	 * Returns an ordered range of all the m d r actions where ruleGroupInstanceId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @param start the lower bound of the range of m d r actions
 	 * @param end the upper bound of the range of m d r actions (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<MDRAction> findByRuleId(long ruleId, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+	public List<MDRAction> findByRuleGroupInstanceId(long ruleGroupInstanceId,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
 		Object[] finderArgs = new Object[] {
-				ruleId,
+				ruleGroupInstanceId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
-		List<MDRAction> list = (List<MDRAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RULEID,
+		List<MDRAction> list = (List<MDRAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RULEGROUPINSTANCEID,
 				finderArgs, this);
 
 		if (list == null) {
@@ -1065,7 +1067,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 			query.append(_SQL_SELECT_MDRACTION_WHERE);
 
-			query.append(_FINDER_COLUMN_RULEID_RULEID_2);
+			query.append(_FINDER_COLUMN_RULEGROUPINSTANCEID_RULEGROUPINSTANCEID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -1083,7 +1085,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(ruleId);
+				qPos.add(ruleGroupInstanceId);
 
 				list = (List<MDRAction>)QueryUtil.list(q, getDialect(), start,
 						end);
@@ -1093,13 +1095,13 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 			}
 			finally {
 				if (list == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_RULEID,
+					FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_RULEGROUPINSTANCEID,
 						finderArgs);
 				}
 				else {
 					cacheResult(list);
 
-					FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_RULEID,
+					FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_RULEGROUPINSTANCEID,
 						finderArgs, list);
 				}
 
@@ -1111,30 +1113,31 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Returns the first m d r action in the ordered set where ruleId = &#63;.
+	 * Returns the first m d r action in the ordered set where ruleGroupInstanceId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching m d r action
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a matching m d r action could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public MDRAction findByRuleId_First(long ruleId,
+	public MDRAction findByRuleGroupInstanceId_First(long ruleGroupInstanceId,
 		OrderByComparator orderByComparator)
 		throws NoSuchActionException, SystemException {
-		List<MDRAction> list = findByRuleId(ruleId, 0, 1, orderByComparator);
+		List<MDRAction> list = findByRuleGroupInstanceId(ruleGroupInstanceId,
+				0, 1, orderByComparator);
 
 		if (list.isEmpty()) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("ruleId=");
-			msg.append(ruleId);
+			msg.append("ruleGroupInstanceId=");
+			msg.append(ruleGroupInstanceId);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1146,33 +1149,33 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Returns the last m d r action in the ordered set where ruleId = &#63;.
+	 * Returns the last m d r action in the ordered set where ruleGroupInstanceId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching m d r action
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a matching m d r action could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public MDRAction findByRuleId_Last(long ruleId,
+	public MDRAction findByRuleGroupInstanceId_Last(long ruleGroupInstanceId,
 		OrderByComparator orderByComparator)
 		throws NoSuchActionException, SystemException {
-		int count = countByRuleId(ruleId);
+		int count = countByRuleGroupInstanceId(ruleGroupInstanceId);
 
-		List<MDRAction> list = findByRuleId(ruleId, count - 1, count,
-				orderByComparator);
+		List<MDRAction> list = findByRuleGroupInstanceId(ruleGroupInstanceId,
+				count - 1, count, orderByComparator);
 
 		if (list.isEmpty()) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("ruleId=");
-			msg.append(ruleId);
+			msg.append("ruleGroupInstanceId=");
+			msg.append(ruleGroupInstanceId);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1184,21 +1187,21 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Returns the m d r actions before and after the current m d r action in the ordered set where ruleId = &#63;.
+	 * Returns the m d r actions before and after the current m d r action in the ordered set where ruleGroupInstanceId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
 	 * @param actionId the primary key of the current m d r action
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next m d r action
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a m d r action with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public MDRAction[] findByRuleId_PrevAndNext(long actionId, long ruleId,
-		OrderByComparator orderByComparator)
+	public MDRAction[] findByRuleGroupInstanceId_PrevAndNext(long actionId,
+		long ruleGroupInstanceId, OrderByComparator orderByComparator)
 		throws NoSuchActionException, SystemException {
 		MDRAction mdrAction = findByPrimaryKey(actionId);
 
@@ -1209,13 +1212,13 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 			MDRAction[] array = new MDRActionImpl[3];
 
-			array[0] = getByRuleId_PrevAndNext(session, mdrAction, ruleId,
-					orderByComparator, true);
+			array[0] = getByRuleGroupInstanceId_PrevAndNext(session, mdrAction,
+					ruleGroupInstanceId, orderByComparator, true);
 
 			array[1] = mdrAction;
 
-			array[2] = getByRuleId_PrevAndNext(session, mdrAction, ruleId,
-					orderByComparator, false);
+			array[2] = getByRuleGroupInstanceId_PrevAndNext(session, mdrAction,
+					ruleGroupInstanceId, orderByComparator, false);
 
 			return array;
 		}
@@ -1227,9 +1230,9 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		}
 	}
 
-	protected MDRAction getByRuleId_PrevAndNext(Session session,
-		MDRAction mdrAction, long ruleId, OrderByComparator orderByComparator,
-		boolean previous) {
+	protected MDRAction getByRuleGroupInstanceId_PrevAndNext(Session session,
+		MDRAction mdrAction, long ruleGroupInstanceId,
+		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1242,20 +1245,20 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 		query.append(_SQL_SELECT_MDRACTION_WHERE);
 
-		query.append(_FINDER_COLUMN_RULEID_RULEID_2);
+		query.append(_FINDER_COLUMN_RULEGROUPINSTANCEID_RULEGROUPINSTANCEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1274,6 +1277,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1307,10 +1312,10 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(ruleId);
+		qPos.add(ruleGroupInstanceId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mdrAction);
+			Object[] values = orderByComparator.getOrderByConditionValues(mdrAction);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1369,10 +1374,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	 */
 	public List<MDRAction> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<MDRAction> list = (List<MDRAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1463,13 +1465,15 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Removes all the m d r actions where ruleId = &#63; from the database.
+	 * Removes all the m d r actions where ruleGroupInstanceId = &#63; from the database.
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByRuleId(long ruleId) throws SystemException {
-		for (MDRAction mdrAction : findByRuleId(ruleId)) {
+	public void removeByRuleGroupInstanceId(long ruleGroupInstanceId)
+		throws SystemException {
+		for (MDRAction mdrAction : findByRuleGroupInstanceId(
+				ruleGroupInstanceId)) {
 			mdrActionPersistence.remove(mdrAction);
 		}
 	}
@@ -1622,16 +1626,17 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	}
 
 	/**
-	 * Returns the number of m d r actions where ruleId = &#63;.
+	 * Returns the number of m d r actions where ruleGroupInstanceId = &#63;.
 	 *
-	 * @param ruleId the rule ID
+	 * @param ruleGroupInstanceId the rule group instance ID
 	 * @return the number of matching m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByRuleId(long ruleId) throws SystemException {
-		Object[] finderArgs = new Object[] { ruleId };
+	public int countByRuleGroupInstanceId(long ruleGroupInstanceId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { ruleGroupInstanceId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_RULEID,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_RULEGROUPINSTANCEID,
 				finderArgs, this);
 
 		if (count == null) {
@@ -1639,7 +1644,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 			query.append(_SQL_COUNT_MDRACTION_WHERE);
 
-			query.append(_FINDER_COLUMN_RULEID_RULEID_2);
+			query.append(_FINDER_COLUMN_RULEGROUPINSTANCEID_RULEGROUPINSTANCEID_2);
 
 			String sql = query.toString();
 
@@ -1652,7 +1657,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(ruleId);
+				qPos.add(ruleGroupInstanceId);
 
 				count = (Long)q.uniqueResult();
 			}
@@ -1664,7 +1669,7 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_RULEID,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_RULEGROUPINSTANCEID,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1681,10 +1686,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1704,8 +1707,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -1751,6 +1754,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	protected MDRRulePersistence mdrRulePersistence;
 	@BeanReference(type = MDRRuleGroupPersistence.class)
 	protected MDRRuleGroupPersistence mdrRuleGroupPersistence;
+	@BeanReference(type = MDRRuleGroupInstancePersistence.class)
+	protected MDRRuleGroupInstancePersistence mdrRuleGroupInstancePersistence;
 	@BeanReference(type = ResourcePersistence.class)
 	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserPersistence.class)
@@ -1766,7 +1771,8 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "mdrAction.uuid = ? AND ";
 	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(mdrAction.uuid IS NULL OR mdrAction.uuid = ?) AND ";
 	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "mdrAction.groupId = ?";
-	private static final String _FINDER_COLUMN_RULEID_RULEID_2 = "mdrAction.ruleId = ?";
+	private static final String _FINDER_COLUMN_RULEGROUPINSTANCEID_RULEGROUPINSTANCEID_2 =
+		"mdrAction.ruleGroupInstanceId = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "mdrAction.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No MDRAction exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No MDRAction exists with the key {";

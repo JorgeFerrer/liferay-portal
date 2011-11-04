@@ -129,8 +129,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 		for (PasswordPolicy passwordPolicy : passwordPolicies) {
 			if (EntityCacheUtil.getResult(
 						PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED,
-						PasswordPolicyImpl.class,
-						passwordPolicy.getPrimaryKey(), this) == null) {
+						PasswordPolicyImpl.class, passwordPolicy.getPrimaryKey()) == null) {
 				cacheResult(passwordPolicy);
 			}
 		}
@@ -165,6 +164,8 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	public void clearCache(PasswordPolicy passwordPolicy) {
 		EntityCacheUtil.removeResult(PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED,
 			PasswordPolicyImpl.class, passwordPolicy.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_DP,
 			new Object[] {
@@ -492,7 +493,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	public PasswordPolicy fetchByPrimaryKey(long passwordPolicyId)
 		throws SystemException {
 		PasswordPolicy passwordPolicy = (PasswordPolicy)EntityCacheUtil.getResult(PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED,
-				PasswordPolicyImpl.class, passwordPolicyId, this);
+				PasswordPolicyImpl.class, passwordPolicyId);
 
 		if (passwordPolicy == _nullPasswordPolicy) {
 			return null;
@@ -864,10 +865,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 */
 	public List<PasswordPolicy> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<PasswordPolicy> list = (List<PasswordPolicy>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1107,10 +1105,8 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1130,8 +1126,8 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

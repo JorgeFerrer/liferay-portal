@@ -19,10 +19,10 @@
 <%
 String emailAddress = ParamUtil.getString(request, "emailAddress");
 
-boolean anonymousAccount = ParamUtil.getBoolean(request, "anonymousAccount");
+boolean anonymousAccount = ParamUtil.getBoolean(request, "anonymousUser");
 %>
 
-<c:if test="<%= anonymousAccount %>">
+<c:if test="<%= anonymousAccount && company.isStrangers() %>">
 	<div class="aui-helper-hidden lfr-message-response" id="<portlet:namespace />login-status-messages"></div>
 
 	<div class="anonymous-account">
@@ -141,6 +141,10 @@ boolean anonymousAccount = ParamUtil.getBoolean(request, "anonymousAccount");
 		},
 		['aui-base']
 	);
+
+	<c:if test="<%= !company.isStrangers() %>">
+		<portlet:namespace />closeDialog();
+	</c:if>
 </aui:script>
 
 <aui:script use="aui-base">

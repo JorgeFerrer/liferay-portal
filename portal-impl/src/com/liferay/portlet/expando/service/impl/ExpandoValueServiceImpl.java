@@ -24,7 +24,7 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portlet.expando.model.ExpandoColumn;
 import com.liferay.portlet.expando.model.ExpandoValue;
 import com.liferay.portlet.expando.service.base.ExpandoValueServiceBaseImpl;
-import com.liferay.portlet.expando.service.permission.ExpandoColumnPermission;
+import com.liferay.portlet.expando.service.permission.ExpandoColumnPermissionUtil;
 
 import java.io.Serializable;
 
@@ -44,7 +44,7 @@ public class ExpandoValueServiceImpl extends ExpandoValueServiceBaseImpl {
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
 
-		ExpandoColumnPermission.check(
+		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), column, ActionKeys.UPDATE);
 
 		return expandoValueLocalService.addValue(
@@ -59,7 +59,7 @@ public class ExpandoValueServiceImpl extends ExpandoValueServiceBaseImpl {
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
 
-		ExpandoColumnPermission.check(
+		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), column, ActionKeys.UPDATE);
 
 		return expandoValueLocalService.addValue(
@@ -88,7 +88,7 @@ public class ExpandoValueServiceImpl extends ExpandoValueServiceBaseImpl {
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
 
-		if (ExpandoColumnPermission.contains(
+		if (ExpandoColumnPermissionUtil.contains(
 				getPermissionChecker(), column, ActionKeys.VIEW)) {
 
 			return expandoValueLocalService.getData(
@@ -112,7 +112,7 @@ public class ExpandoValueServiceImpl extends ExpandoValueServiceBaseImpl {
 			ExpandoColumn column = expandoColumnLocalService.getColumn(
 				companyId, className, tableName, columnName);
 
-			if (!ExpandoColumnPermission.contains(
+			if (!ExpandoColumnPermissionUtil.contains(
 					getPermissionChecker(), column, ActionKeys.VIEW)) {
 
 				attributeValues.remove(columnName);
@@ -130,7 +130,7 @@ public class ExpandoValueServiceImpl extends ExpandoValueServiceBaseImpl {
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
 
-		if (ExpandoColumnPermission.contains(
+		if (ExpandoColumnPermissionUtil.contains(
 				getPermissionChecker(), column, ActionKeys.VIEW)) {
 
 			String data = expandoValueLocalService.getData(

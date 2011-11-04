@@ -28,7 +28,7 @@ import com.liferay.portlet.messageboards.model.MBCategory;
 import com.liferay.portlet.messageboards.model.MBCategoryConstants;
 import com.liferay.portlet.messageboards.model.MBMessageConstants;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +146,8 @@ public class MBMessageServiceTest extends BaseServiceTestCase {
 		@Override
 		protected void doRun() throws Exception {
 			String body = "This is a test message.";
-			List<ObjectValuePair<String, File>> files =
-				new ArrayList<ObjectValuePair<String, File>>();
+			List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
+				new ArrayList<ObjectValuePair<String, InputStream>>();
 			boolean anonymous = false;
 			double priority = 0.0;
 			boolean allowPingbacks = false;
@@ -159,8 +159,8 @@ public class MBMessageServiceTest extends BaseServiceTestCase {
 
 			MBMessageServiceUtil.addMessage(
 				_category.getGroupId(), _category.getCategoryId(), _subject,
-				body, MBMessageConstants.DEFAULT_FORMAT, files, anonymous,
-				priority, allowPingbacks, serviceContext);
+				body, MBMessageConstants.DEFAULT_FORMAT, inputStreamOVPs,
+				anonymous, priority, allowPingbacks, serviceContext);
 		}
 
 		private String _subject;

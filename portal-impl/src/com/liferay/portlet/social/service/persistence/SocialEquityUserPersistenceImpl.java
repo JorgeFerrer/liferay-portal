@@ -185,7 +185,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			if (EntityCacheUtil.getResult(
 						SocialEquityUserModelImpl.ENTITY_CACHE_ENABLED,
 						SocialEquityUserImpl.class,
-						socialEquityUser.getPrimaryKey(), this) == null) {
+						socialEquityUser.getPrimaryKey()) == null) {
 				cacheResult(socialEquityUser);
 			}
 		}
@@ -220,6 +220,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	public void clearCache(SocialEquityUser socialEquityUser) {
 		EntityCacheUtil.removeResult(SocialEquityUserModelImpl.ENTITY_CACHE_ENABLED,
 			SocialEquityUserImpl.class, socialEquityUser.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_U,
 			new Object[] {
@@ -485,7 +487,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	public SocialEquityUser fetchByPrimaryKey(long equityUserId)
 		throws SystemException {
 		SocialEquityUser socialEquityUser = (SocialEquityUser)EntityCacheUtil.getResult(SocialEquityUserModelImpl.ENTITY_CACHE_ENABLED,
-				SocialEquityUserImpl.class, equityUserId, this);
+				SocialEquityUserImpl.class, equityUserId);
 
 		if (socialEquityUser == _nullSocialEquityUser) {
 			return null;
@@ -573,8 +575,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -774,17 +775,17 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -803,6 +804,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -839,7 +842,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquityUser);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquityUser);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -906,8 +909,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPRANKED,
@@ -1107,17 +1109,17 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		query.append(_FINDER_COLUMN_GROUPRANKED_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1136,6 +1138,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1172,7 +1176,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquityUser);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquityUser);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1235,12 +1239,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	 */
 	public List<SocialEquityUser> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -1439,17 +1438,17 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1468,6 +1467,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1504,7 +1505,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquityUser);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquityUser);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1567,12 +1568,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	 */
 	public List<SocialEquityUser> findByRank(int rank, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				rank,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { rank, start, end, orderByComparator };
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RANK,
 				finderArgs, this);
@@ -1770,17 +1766,17 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		query.append(_FINDER_COLUMN_RANK_RANK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1799,6 +1795,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1835,7 +1833,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		qPos.add(rank);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquityUser);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquityUser);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2044,8 +2042,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		Object[] finderArgs = new Object[] {
 				groupId, rank,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_R,
@@ -2260,17 +2257,17 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		query.append(_FINDER_COLUMN_G_R_RANK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2289,6 +2286,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2327,7 +2326,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 		qPos.add(rank);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquityUser);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquityUser);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2386,10 +2385,7 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	 */
 	public List<SocialEquityUser> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SocialEquityUser> list = (List<SocialEquityUser>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2874,10 +2870,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2897,8 +2891,8 @@ public class SocialEquityUserPersistenceImpl extends BasePersistenceImpl<SocialE
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

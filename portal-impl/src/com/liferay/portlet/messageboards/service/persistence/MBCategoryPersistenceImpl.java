@@ -174,7 +174,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		for (MBCategory mbCategory : mbCategories) {
 			if (EntityCacheUtil.getResult(
 						MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
-						MBCategoryImpl.class, mbCategory.getPrimaryKey(), this) == null) {
+						MBCategoryImpl.class, mbCategory.getPrimaryKey()) == null) {
 				cacheResult(mbCategory);
 			}
 		}
@@ -209,6 +209,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public void clearCache(MBCategory mbCategory) {
 		EntityCacheUtil.removeResult(MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
 			MBCategoryImpl.class, mbCategory.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] {
@@ -487,7 +489,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public MBCategory fetchByPrimaryKey(long categoryId)
 		throws SystemException {
 		MBCategory mbCategory = (MBCategory)EntityCacheUtil.getResult(MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
-				MBCategoryImpl.class, categoryId, this);
+				MBCategoryImpl.class, categoryId);
 
 		if (mbCategory == _nullMBCategory) {
 			return null;
@@ -570,12 +572,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	 */
 	public List<MBCategory> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -799,17 +796,17 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -828,6 +825,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -870,7 +869,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1090,8 +1089,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -1294,17 +1292,17 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1323,6 +1321,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1363,7 +1363,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1578,13 +1578,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -1592,9 +1592,9 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1613,6 +1613,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -1673,7 +1675,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1740,8 +1742,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -1945,17 +1946,17 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1974,6 +1975,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2014,7 +2017,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2085,8 +2088,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		Object[] finderArgs = new Object[] {
 				groupId, parentCategoryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P,
@@ -2305,17 +2307,17 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2334,6 +2336,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2376,7 +2380,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		qPos.add(parentCategoryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2451,8 +2455,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		Object[] finderArgs = new Object[] {
 				groupId, StringUtil.merge(parentCategoryIds),
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P,
@@ -2754,13 +2757,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -2768,9 +2771,9 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2789,6 +2792,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -2851,7 +2856,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		qPos.add(parentCategoryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbCategory);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbCategory);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3065,10 +3070,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	 */
 	public List<MBCategory> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<MBCategory> list = (List<MBCategory>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -3788,10 +3790,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -3811,8 +3811,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

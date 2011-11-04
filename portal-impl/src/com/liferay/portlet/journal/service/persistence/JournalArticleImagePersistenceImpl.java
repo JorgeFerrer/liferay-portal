@@ -183,7 +183,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 			if (EntityCacheUtil.getResult(
 						JournalArticleImageModelImpl.ENTITY_CACHE_ENABLED,
 						JournalArticleImageImpl.class,
-						journalArticleImage.getPrimaryKey(), this) == null) {
+						journalArticleImage.getPrimaryKey()) == null) {
 				cacheResult(journalArticleImage);
 			}
 		}
@@ -218,6 +218,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 	public void clearCache(JournalArticleImage journalArticleImage) {
 		EntityCacheUtil.removeResult(JournalArticleImageModelImpl.ENTITY_CACHE_ENABLED,
 			JournalArticleImageImpl.class, journalArticleImage.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_A_V_E_E_L,
 			new Object[] {
@@ -533,7 +535,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 	public JournalArticleImage fetchByPrimaryKey(long articleImageId)
 		throws SystemException {
 		JournalArticleImage journalArticleImage = (JournalArticleImage)EntityCacheUtil.getResult(JournalArticleImageModelImpl.ENTITY_CACHE_ENABLED,
-				JournalArticleImageImpl.class, articleImageId, this);
+				JournalArticleImageImpl.class, articleImageId);
 
 		if (journalArticleImage == _nullJournalArticleImage) {
 			return null;
@@ -621,8 +623,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticleImage> list = (List<JournalArticleImage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -822,17 +823,17 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -851,6 +852,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -887,7 +890,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticleImage);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticleImage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -955,8 +958,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		Object[] finderArgs = new Object[] {
 				tempImage,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticleImage> list = (List<JournalArticleImage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_TEMPIMAGE,
@@ -1157,17 +1159,17 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		query.append(_FINDER_COLUMN_TEMPIMAGE_TEMPIMAGE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1186,6 +1188,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1222,7 +1226,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		qPos.add(tempImage);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticleImage);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticleImage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1297,8 +1301,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		Object[] finderArgs = new Object[] {
 				groupId, articleId, version,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalArticleImage> list = (List<JournalArticleImage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_A_V,
@@ -1552,17 +1555,17 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		query.append(_FINDER_COLUMN_G_A_V_VERSION_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1581,6 +1584,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1623,7 +1628,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		qPos.add(version);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalArticleImage);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalArticleImage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1926,10 +1931,7 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 	 */
 	public List<JournalArticleImage> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<JournalArticleImage> list = (List<JournalArticleImage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2384,10 +2386,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2407,8 +2407,8 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

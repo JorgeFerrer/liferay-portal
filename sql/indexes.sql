@@ -41,7 +41,10 @@ create index IX_B2A61B55 on AssetEntries_AssetTags (tagId);
 create unique index IX_1E9D371D on AssetEntry (classNameId, classPK);
 create index IX_FC1F9C7B on AssetEntry (classUuid);
 create index IX_7306C60 on AssetEntry (companyId);
+create index IX_75D42FF9 on AssetEntry (expirationDate);
 create index IX_1EBA6821 on AssetEntry (groupId, classUuid);
+create index IX_2E4E3885 on AssetEntry (publishDate);
+create index IX_9029E15A on AssetEntry (visible);
 
 create index IX_128516C8 on AssetLink (entryId1);
 create index IX_56E0AB21 on AssetLink (entryId1, entryId2);
@@ -345,6 +348,7 @@ create index IX_705F5AA3 on Layout (groupId, privateLayout);
 create unique index IX_BC2C4231 on Layout (groupId, privateLayout, friendlyURL);
 create unique index IX_7162C27C on Layout (groupId, privateLayout, layoutId);
 create index IX_6DE88B06 on Layout (groupId, privateLayout, parentLayoutId);
+create index IX_D18D85F6 on Layout (groupId, privateLayout, templateLayoutUuid);
 create index IX_1A1B61D2 on Layout (groupId, privateLayout, type_);
 create index IX_23922F7D on Layout (iconImageId);
 create index IX_D0822724 on Layout (uuid_);
@@ -448,7 +452,7 @@ create index IX_8CB0A24A on MBThreadFlag (threadId);
 create index IX_A28004B on MBThreadFlag (userId);
 create index IX_33781904 on MBThreadFlag (userId, threadId);
 
-create index IX_4D306B22 on MDRAction (ruleId);
+create index IX_FD90786C on MDRAction (ruleGroupInstanceId);
 create index IX_77BB5E9D on MDRAction (uuid_);
 create unique index IX_75BE36AD on MDRAction (uuid_, groupId);
 
@@ -459,6 +463,12 @@ create unique index IX_F3EFDCB3 on MDRRule (uuid_, groupId);
 create index IX_5849891C on MDRRuleGroup (groupId);
 create index IX_7F26B2A6 on MDRRuleGroup (uuid_);
 create unique index IX_46665CC4 on MDRRuleGroup (uuid_, groupId);
+
+create index IX_C95A08D8 on MDRRuleGroupInstance (classNameId, classPK);
+create unique index IX_808A0036 on MDRRuleGroupInstance (classNameId, classPK, ruleGroupId);
+create index IX_BF3E642B on MDRRuleGroupInstance (ruleGroupId);
+create index IX_B6A6BD91 on MDRRuleGroupInstance (uuid_);
+create unique index IX_9CBC6A39 on MDRRuleGroupInstance (uuid_, groupId);
 
 create index IX_8A1CC4B on MembershipRequest (groupId);
 create index IX_C28C72EC on MembershipRequest (groupId, statusId);
@@ -565,6 +575,7 @@ create index IX_C94C7708 on ResourcePermission (companyId, name, primKey, roleId
 create index IX_60B99860 on ResourcePermission (companyId, name, scope);
 create index IX_2200AA69 on ResourcePermission (companyId, name, scope, primKey);
 create unique index IX_8D83D0CE on ResourcePermission (companyId, name, scope, primKey, roleId);
+create index IX_D2E2B644 on ResourcePermission (companyId, name, scope, primKey, roleId, actionIds);
 create unique index IX_4A1F4402 on ResourcePermission (companyId, name, scope, primKey, roleId, ownerId, actionIds);
 create index IX_A37A0588 on ResourcePermission (roleId);
 create index IX_F4555981 on ResourcePermission (scope);
@@ -732,6 +743,7 @@ create index IX_E60EA987 on UserIdMapper (userId);
 create unique index IX_D1C44A6E on UserIdMapper (userId, type_);
 
 create index IX_3E5D78C4 on UserNotificationEvent (userId);
+create index IX_3DBB361A on UserNotificationEvent (userId, archived);
 create index IX_ECD8CFEA on UserNotificationEvent (uuid_);
 
 create index IX_29BA1CF5 on UserTracker (companyId);

@@ -208,6 +208,8 @@ public class ActionKeys {
 
 	public static final String SUBSCRIBE = "SUBSCRIBE";
 
+	public static final String SUBMIT = "SUBMIT";
+
 	public static final String UPDATE = "UPDATE";
 
 	public static final String UPDATE_DISCUSSION = "UPDATE_DISCUSSION";
@@ -220,6 +222,10 @@ public class ActionKeys {
 	public static final String VIEW = "VIEW";
 
 	public static final String VIEW_CONTROL_PANEL = "VIEW_CONTROL_PANEL";
+
+	public static final String VIEW_MEMBERS = "VIEW_MEMBERS";
+
+	public static final String VIEW_TREE = "VIEW_TREE";
 
 	public static final String VIEW_USER = "VIEW_USER";
 

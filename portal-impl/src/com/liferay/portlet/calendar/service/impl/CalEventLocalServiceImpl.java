@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.StreamUtil;
@@ -70,8 +71,8 @@ import com.liferay.util.TimeZoneSensitive;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import java.text.Format;
@@ -688,18 +689,15 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 		}
 	}
 
-	public void importICal4j(long userId, long groupId, File file)
+	public void importICal4j(long userId, long groupId, InputStream inputStream)
 		throws PortalException, SystemException {
 
-		FileReader fileReader = null;
-
 		try {
-			fileReader = new FileReader(file);
 
 			CalendarBuilder builder = new CalendarBuilder();
 
 			net.fortuna.ical4j.model.Calendar calendar = builder.build(
-				fileReader);
+				inputStream);
 
 			Iterator<VEvent> itr = calendar.getComponents(
 				Component.VEVENT).iterator();
@@ -716,16 +714,6 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 		catch (ParserException pe) {
 			throw new SystemException(pe.getMessage(), pe);
 		}
-		finally {
-			try {
-				if (fileReader != null) {
-					fileReader.close();
-				}
-			}
-			catch (IOException ioe) {
-				_log.error(ioe, ioe);
-			}
-		}
 	}
 
 	public void updateAsset(
@@ -735,7 +723,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, event.getGroupId(), CalEvent.class.getName(),
-			event.getEventId(), event.getUuid(), assetCategoryIds,
+			event.getEventId(), event.getUuid(), 0, assetCategoryIds,
 			assetTagNames, true, null, null, null, null, ContentTypes.TEXT_HTML,
 			event.getTitle(), event.getDescription(), null, null, null, 0, 0,
 			null, false);
@@ -1220,8 +1208,10 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 			String portletName = PortalUtil.getPortletTitle(
 				PortletKeys.CALENDAR, user);
 
-			String fromName = CalUtil.getEmailFromName(preferences);
-			String fromAddress = CalUtil.getEmailFromAddress(preferences);
+			String fromName = CalUtil.getEmailFromName(
+				preferences, event.getCompanyId());
+			String fromAddress = CalUtil.getEmailFromAddress(
+				preferences, event.getCompanyId());
 
 			String toName = user.getFullName();
 			String toAddress = user.getEmailAddress();
@@ -1257,8 +1247,8 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 					fromName,
 					company.getVirtualHostname(),
 					portletName,
-					toAddress,
-					toName,
+					HtmlUtil.escape(toAddress),
+					HtmlUtil.escape(toName),
 				});
 
 			body = StringUtil.replace(
@@ -1282,8 +1272,8 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 					fromName,
 					company.getVirtualHostname(),
 					portletName,
-					toAddress,
-					toName,
+					HtmlUtil.escape(toAddress),
+					HtmlUtil.escape(toName),
 				});
 
 			if ((remindBy == CalEventConstants.REMIND_BY_EMAIL) ||

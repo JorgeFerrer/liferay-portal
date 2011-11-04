@@ -386,10 +386,11 @@ public class MBThreadLocalServiceUtil {
 		return getService().hasAnswerMessage(threadId);
 	}
 
-	public static void incrementViewCounter(long threadId, int increment)
+	public static com.liferay.portlet.messageboards.model.MBThread incrementViewCounter(
+		long threadId, int increment)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().incrementViewCounter(threadId, increment);
+		return getService().incrementViewCounter(threadId, increment);
 	}
 
 	public static com.liferay.portlet.messageboards.model.MBThread moveThread(

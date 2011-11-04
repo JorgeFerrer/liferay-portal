@@ -23,7 +23,10 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.Repository;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
@@ -36,7 +39,9 @@ import com.liferay.portal.kernel.util.TempFileUtil;
 import com.liferay.portal.model.Lock;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.spring.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
+import com.liferay.portlet.documentlibrary.model.DLFileEntryConstants;
 import com.liferay.portlet.documentlibrary.model.DLFileShortcut;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.base.DLAppServiceBaseImpl;
@@ -48,7 +53,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.Callable;
 
 /**
  * The document library remote service. All portlets should interact with the
@@ -72,6 +81,7 @@ import java.util.List;
  *
  * @author Alexander Chow
  * @author Mika Koivisto
+ * @author Shuyang Zhou
  * @see    DLAppLocalServiceImpl
  */
 public class DLAppServiceImpl extends DLAppServiceBaseImpl {
@@ -197,11 +207,20 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(repositoryId);
 
-		FileEntry fileEntry = repository.addFileEntry(
+		final FileEntry fileEntry = repository.addFileEntry(
 			folderId, sourceFileName, mimeType, title, description,
 			changeLog, file, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -261,11 +280,20 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(repositoryId);
 
-		FileEntry fileEntry = repository.addFileEntry(
+		final FileEntry fileEntry = repository.addFileEntry(
 			folderId, sourceFileName, mimeType, title, description, changeLog,
 			is, size, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -352,6 +380,18 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		return TempFileUtil.addTempFile(
 			getUserId(), fileName, tempFolderName, file);
+	}
+
+	public String addTempFileEntry(
+			long groupId, long folderId, String fileName, String tempFolderName,
+			InputStream inputStream)
+		throws IOException, PortalException, SystemException {
+
+		DLFolderPermission.check(
+			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_DOCUMENT);
+
+		return TempFileUtil.addTempFile(
+			getUserId(), fileName, tempFolderName, inputStream);
 	}
 
 	/**
@@ -1861,6 +1901,25 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	public Hits search(
+			long repositoryId, SearchContext searchContext)
+		throws SearchException {
+
+		try {
+			Repository repository = getRepository(repositoryId);
+
+			Indexer indexer = IndexerRegistryUtil.getIndexer(
+				DLFileEntryConstants.getClassName());
+
+			BooleanQuery fullQuery = indexer.getFullQuery(searchContext);
+
+			return repository.search(searchContext, fullQuery);
+		}
+		catch (Exception e) {
+			throw new SearchException(e);
+		}
+	}
+
+	public Hits search(
 			long repositoryId, SearchContext searchContext, Query query)
 		throws SearchException {
 
@@ -2036,11 +2095,20 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(0, fileEntryId, 0);
 
-		FileEntry fileEntry = repository.updateFileEntry(
+		final FileEntry fileEntry = repository.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
 			changeLog, majorVersion, file, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -2098,11 +2166,20 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(0, fileEntryId, 0);
 
-		FileEntry fileEntry = repository.updateFileEntry(
+		final FileEntry fileEntry = repository.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
 			changeLog, majorVersion, is, size, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -2121,14 +2198,23 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(0, fileEntryId, 0);
 
-		FileEntry fileEntry = repository.updateFileEntry(
+		final FileEntry fileEntry = repository.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
 			changeLog, majorVersion, file, serviceContext);
 
 		repository.checkInFileEntry(
 			fileEntryId, majorVersion, changeLog, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -2142,14 +2228,23 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		Repository repository = getRepository(0, fileEntryId, 0);
 
-		FileEntry fileEntry = repository.updateFileEntry(
+		final FileEntry fileEntry = repository.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
 			changeLog, majorVersion, is, size, serviceContext);
 
 		repository.checkInFileEntry(
 			fileEntryId, majorVersion, changeLog, serviceContext);
 
-		DLProcessorRegistryUtil.trigger(fileEntry);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				public Void call() throws Exception {
+					DLProcessorRegistryUtil.trigger(fileEntry);
+
+					return null;
+				}
+
+			});
 
 		return fileEntry;
 	}
@@ -2219,7 +2314,14 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Repository repository = getRepository(folderId, 0, 0);
+		Repository repository = null;
+
+		if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+			repository = getRepository(serviceContext.getScopeGroupId());
+		}
+		else {
+			repository = getRepository(folderId, 0, 0);
+		}
 
 		return repository.updateFolder(
 			folderId, name, description, serviceContext);
@@ -2273,36 +2375,68 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		List<FileEntry> srcFileEntries = repository.getFileEntries(
-			srcFolder.getFolderId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		Queue<Folder[]> folders = new LinkedList<Folder[]>();
+		final List<FileEntry> fileEntries = new ArrayList<FileEntry>();
 
-		for (FileEntry srcFileEntry : srcFileEntries) {
-			try {
-				FileEntry fileEntry = repository.copyFileEntry(
-					destFolder.getGroupId(), srcFileEntry.getFileEntryId(),
-					destFolder.getFolderId(), serviceContext);
+		Folder curSrcFolder = srcFolder;
+		Folder curDestFolder = destFolder;
 
-				DLProcessorRegistryUtil.trigger(fileEntry);
+		while (true) {
+			List<FileEntry> srcFileEntries = repository.getFileEntries(
+				curSrcFolder.getFolderId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+			for (FileEntry srcFileEntry : srcFileEntries) {
+				try {
+					FileEntry fileEntry = repository.copyFileEntry(
+						curDestFolder.getGroupId(),
+						srcFileEntry.getFileEntryId(),
+						curDestFolder.getFolderId(), serviceContext);
+
+					fileEntries.add(fileEntry);
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+
+					continue;
+				}
 			}
-			catch (Exception e) {
-				_log.error(e, e);
 
-				continue;
+			List<Folder> srcSubfolders = repository.getFolders(
+				curSrcFolder.getFolderId(), false, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null);
+
+			for (Folder srcSubfolder : srcSubfolders) {
+				Folder destSubfolder = repository.addFolder(
+					curDestFolder.getFolderId(), srcSubfolder.getName(),
+					srcSubfolder.getDescription(), serviceContext);
+
+				folders.offer(new Folder[] {srcSubfolder, destSubfolder});
+			}
+
+			Folder[] next = folders.poll();
+
+			if (next == null) {
+				break;
+			}
+			else {
+				curSrcFolder = next[0];
+				curDestFolder = next[1];
 			}
 		}
 
-		List<Folder> srcSubfolders = repository.getFolders(
-			srcFolder.getFolderId(), false, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
 
-		for (Folder srcSubfolder : srcSubfolders) {
-			Folder destSubfolder = repository.addFolder(
-				destFolder.getFolderId(), srcSubfolder.getName(),
-				srcSubfolder.getDescription(), serviceContext);
+				public Void call() throws Exception {
+					for (FileEntry fileEntry : fileEntries) {
+						DLProcessorRegistryUtil.trigger(fileEntry);
+					}
 
-			copyFolder(repository, srcSubfolder, destSubfolder, serviceContext);
-		}
+					return null;
+				}
+
+			});
 	}
 
 	protected Repository getRepository(long repositoryId)

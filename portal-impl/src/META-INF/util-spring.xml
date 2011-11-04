@@ -183,14 +183,14 @@
 			<bean class="com.liferay.portal.management.BasePortalManager" />
 		</property>
 	</bean>
-    <bean id="com.liferay.portal.kernel.metadata.RawMetadataProcessor" class="com.liferay.portal.metadata.TikaRawMetadataProcessor">
-        <property name="tika">
+	<bean id="com.liferay.portal.kernel.metadata.RawMetadataProcessor" class="com.liferay.portal.metadata.TikaRawMetadataProcessor">
+		<property name="tika">
 			<bean class="org.apache.tika.Tika" />
 		</property>
-    </bean>
-    <bean id="com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil" class="com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil">
-           <property name="rawMetadataProcessor" ref="com.liferay.portal.kernel.metadata.RawMetadataProcessor" />
-    </bean>
+	</bean>
+	<bean id="com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil" class="com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil">
+		   <property name="rawMetadataProcessor" ref="com.liferay.portal.kernel.metadata.RawMetadataProcessor" />
+	</bean>
 	<bean id="com.liferay.portal.kernel.oauth.OAuthFactoryUtil" class="com.liferay.portal.kernel.oauth.OAuthFactoryUtil">
 		<property name="OAuthFactory">
 			<bean class="com.liferay.portal.oauth.OAuthFactoryImpl" />
@@ -581,6 +581,11 @@
 	<bean id="com.liferay.portlet.dynamicdatamapping.util.DDMXSDUtil" class="com.liferay.portlet.dynamicdatamapping.util.DDMXSDUtil">
 		<property name="DDMXSD">
 			<bean class="com.liferay.portlet.dynamicdatamapping.util.DDMXSDImpl" />
+		</property>
+	</bean>
+	<bean id="com.liferay.portlet.expando.service.permission.ExpandoColumnPermissionUtil" class="com.liferay.portlet.expando.service.permission.ExpandoColumnPermissionUtil">
+		<property name="expandoColumnPermission">
+			<bean class="com.liferay.portlet.expando.service.permission.ExpandoColumnPermissionImpl" />
 		</property>
 	</bean>
 	<bean id="com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil" class="com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil">

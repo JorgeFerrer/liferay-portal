@@ -168,8 +168,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		for (EmailAddress emailAddress : emailAddresses) {
 			if (EntityCacheUtil.getResult(
 						EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
-						EmailAddressImpl.class, emailAddress.getPrimaryKey(),
-						this) == null) {
+						EmailAddressImpl.class, emailAddress.getPrimaryKey()) == null) {
 				cacheResult(emailAddress);
 			}
 		}
@@ -204,6 +203,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	public void clearCache(EmailAddress emailAddress) {
 		EntityCacheUtil.removeResult(EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
 			EmailAddressImpl.class, emailAddress.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -432,7 +433,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	public EmailAddress fetchByPrimaryKey(long emailAddressId)
 		throws SystemException {
 		EmailAddress emailAddress = (EmailAddress)EntityCacheUtil.getResult(EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
-				EmailAddressImpl.class, emailAddressId, this);
+				EmailAddressImpl.class, emailAddressId);
 
 		if (emailAddress == _nullEmailAddress) {
 			return null;
@@ -521,8 +522,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -726,17 +726,17 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -755,6 +755,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -795,7 +797,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(emailAddress);
+			Object[] values = orderByComparator.getOrderByConditionValues(emailAddress);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -858,12 +860,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 */
 	public List<EmailAddress> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -1065,17 +1062,17 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1094,6 +1091,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1134,7 +1133,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(emailAddress);
+			Object[] values = orderByComparator.getOrderByConditionValues(emailAddress);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1205,8 +1204,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C,
@@ -1425,17 +1423,17 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		query.append(_FINDER_COLUMN_C_C_CLASSNAMEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1454,6 +1452,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1496,7 +1496,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		qPos.add(classNameId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(emailAddress);
+			Object[] values = orderByComparator.getOrderByConditionValues(emailAddress);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1570,8 +1570,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_C,
@@ -1806,17 +1805,17 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		query.append(_FINDER_COLUMN_C_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1835,6 +1834,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1879,7 +1880,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(emailAddress);
+			Object[] values = orderByComparator.getOrderByConditionValues(emailAddress);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1958,8 +1959,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		Object[] finderArgs = new Object[] {
 				companyId, classNameId, classPK, primary,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_C_P,
@@ -2212,17 +2212,17 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		query.append(_FINDER_COLUMN_C_C_C_P_PRIMARY_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2241,6 +2241,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2287,7 +2289,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		qPos.add(primary);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(emailAddress);
+			Object[] values = orderByComparator.getOrderByConditionValues(emailAddress);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2346,10 +2348,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 */
 	public List<EmailAddress> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<EmailAddress> list = (List<EmailAddress>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2802,10 +2801,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2825,8 +2822,8 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

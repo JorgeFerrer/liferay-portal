@@ -253,7 +253,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	public void cacheResult(List<Group> groups) {
 		for (Group group : groups) {
 			if (EntityCacheUtil.getResult(GroupModelImpl.ENTITY_CACHE_ENABLED,
-						GroupImpl.class, group.getPrimaryKey(), this) == null) {
+						GroupImpl.class, group.getPrimaryKey()) == null) {
 				cacheResult(group);
 			}
 		}
@@ -288,6 +288,8 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	public void clearCache(Group group) {
 		EntityCacheUtil.removeResult(GroupModelImpl.ENTITY_CACHE_ENABLED,
 			GroupImpl.class, group.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_LIVEGROUPID,
 			new Object[] { Long.valueOf(group.getLiveGroupId()) });
@@ -791,7 +793,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	 */
 	public Group fetchByPrimaryKey(long groupId) throws SystemException {
 		Group group = (Group)EntityCacheUtil.getResult(GroupModelImpl.ENTITY_CACHE_ENABLED,
-				GroupImpl.class, groupId, this);
+				GroupImpl.class, groupId);
 
 		if (group == _nullGroup) {
 			return null;
@@ -879,8 +881,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Group> list = (List<Group>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -1081,17 +1082,17 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1110,6 +1111,8 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1150,7 +1153,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(group);
+			Object[] values = orderByComparator.getOrderByConditionValues(group);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1657,8 +1660,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		Object[] finderArgs = new Object[] {
 				type, active,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Group> list = (List<Group>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_T_A,
@@ -1875,17 +1877,17 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		query.append(_FINDER_COLUMN_T_A_ACTIVE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1904,6 +1906,8 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1946,7 +1950,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(group);
+			Object[] values = orderByComparator.getOrderByConditionValues(group);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2501,10 +2505,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	 */
 	public List<Group> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Group> list = (List<Group>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -3228,10 +3229,8 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -3251,8 +3250,8 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -3317,10 +3316,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	public List<com.liferay.portal.model.Organization> getOrganizations(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.Organization> list = (List<com.liferay.portal.model.Organization>)FinderCacheUtil.getResult(FINDER_PATH_GET_ORGANIZATIONS,
 				finderArgs, this);
@@ -3794,10 +3790,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	public List<com.liferay.portal.model.Permission> getPermissions(long pk,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.Permission> list = (List<com.liferay.portal.model.Permission>)FinderCacheUtil.getResult(FINDER_PATH_GET_PERMISSIONS,
 				finderArgs, this);
@@ -4270,10 +4263,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	 */
 	public List<com.liferay.portal.model.Role> getRoles(long pk, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.Role> list = (List<com.liferay.portal.model.Role>)FinderCacheUtil.getResult(FINDER_PATH_GET_ROLES,
 				finderArgs, this);
@@ -4734,10 +4724,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	public List<com.liferay.portal.model.UserGroup> getUserGroups(long pk,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.UserGroup> list = (List<com.liferay.portal.model.UserGroup>)FinderCacheUtil.getResult(FINDER_PATH_GET_USERGROUPS,
 				finderArgs, this);
@@ -5207,10 +5194,7 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	 */
 	public List<com.liferay.portal.model.User> getUsers(long pk, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.User> list = (List<com.liferay.portal.model.User>)FinderCacheUtil.getResult(FINDER_PATH_GET_USERS,
 				finderArgs, this);

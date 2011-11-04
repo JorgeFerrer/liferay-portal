@@ -144,7 +144,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 		for (Country country : countries) {
 			if (EntityCacheUtil.getResult(
 						CountryModelImpl.ENTITY_CACHE_ENABLED,
-						CountryImpl.class, country.getPrimaryKey(), this) == null) {
+						CountryImpl.class, country.getPrimaryKey()) == null) {
 				cacheResult(country);
 			}
 		}
@@ -179,6 +179,8 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	public void clearCache(Country country) {
 		EntityCacheUtil.removeResult(CountryModelImpl.ENTITY_CACHE_ENABLED,
 			CountryImpl.class, country.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_NAME,
 			new Object[] { country.getName() });
@@ -399,6 +401,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 		countryImpl.setA3(country.getA3());
 		countryImpl.setNumber(country.getNumber());
 		countryImpl.setIdd(country.getIdd());
+		countryImpl.setZipRequired(country.isZipRequired());
 		countryImpl.setActive(country.isActive());
 
 		return countryImpl;
@@ -464,7 +467,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	 */
 	public Country fetchByPrimaryKey(long countryId) throws SystemException {
 		Country country = (Country)EntityCacheUtil.getResult(CountryModelImpl.ENTITY_CACHE_ENABLED,
-				CountryImpl.class, countryId, this);
+				CountryImpl.class, countryId);
 
 		if (country == _nullCountry) {
 			return null;
@@ -973,12 +976,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	 */
 	public List<Country> findByActive(boolean active, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				active,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { active, start, end, orderByComparator };
 
 		List<Country> list = (List<Country>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVE,
 				finderArgs, this);
@@ -1178,17 +1176,17 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 		query.append(_FINDER_COLUMN_ACTIVE_ACTIVE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1207,6 +1205,8 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1247,7 +1247,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(country);
+			Object[] values = orderByComparator.getOrderByConditionValues(country);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1305,10 +1305,7 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	 */
 	public List<Country> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Country> list = (List<Country>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1689,10 +1686,8 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1712,8 +1707,8 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

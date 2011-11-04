@@ -205,7 +205,8 @@ public class StripFilter extends BasePortalFilter {
 	}
 
 	protected void processCSS(
-			HttpServletResponse response, CharBuffer charBuffer, Writer writer)
+			HttpServletRequest request, HttpServletResponse response,
+			CharBuffer charBuffer, Writer writer)
 		throws IOException {
 
 		outputOpenTag(charBuffer, writer, _MARKER_STYLE_OPEN);
@@ -238,7 +239,7 @@ public class StripFilter extends BasePortalFilter {
 
 			if (minifiedContent == null) {
 				try {
-					content = DynamicCSSUtil.parseSass(key, content);
+					content = DynamicCSSUtil.parseSass(request, key, content);
 				}
 				catch (ScriptingException se) {
 					_log.error("Unable to parse SASS on CSS " + key, se);
@@ -309,7 +310,9 @@ public class StripFilter extends BasePortalFilter {
 
 		response.setContentType(contentType);
 
-		if (contentType.startsWith(ContentTypes.TEXT_HTML)) {
+		if (contentType.startsWith(ContentTypes.TEXT_HTML) &&
+			(stringResponse.getStatus() == HttpServletResponse.SC_OK)) {
+
 			CharBuffer oldCharBuffer = CharBuffer.wrap(
 				stringResponse.getString());
 
@@ -321,7 +324,7 @@ public class StripFilter extends BasePortalFilter {
 					new UnsyncByteArrayOutputStream();
 
 				strip(
-					response, oldCharBuffer,
+					request, response, oldCharBuffer,
 					new OutputStreamWriter(unsyncByteArrayOutputStream));
 
 				response.setContentLength(unsyncByteArrayOutputStream.size());
@@ -329,7 +332,7 @@ public class StripFilter extends BasePortalFilter {
 				unsyncByteArrayOutputStream.writeTo(response.getOutputStream());
 			}
 			else {
-				strip(response, oldCharBuffer, response.getWriter());
+				strip(request, response, oldCharBuffer, response.getWriter());
 			}
 		}
 		else {
@@ -367,7 +370,28 @@ public class StripFilter extends BasePortalFilter {
 			CharBuffer charBuffer, Writer writer, char[] openTag)
 		throws IOException {
 
-		outputOpenTag(charBuffer, writer, openTag);
+		int endPos = 0;
+
+		for (int i = openTag.length; i < charBuffer.length(); i++) {
+			char c = charBuffer.charAt(i);
+
+			if (c == CharPool.GREATER_THAN) {
+				endPos = i + 1;
+
+				break;
+			}
+			else if (c == CharPool.LESS_THAN) {
+				return;
+			}
+		}
+
+		if (endPos <= 0) {
+			return;
+		}
+
+		writer.append(charBuffer, 0, endPos);
+
+		charBuffer.position(charBuffer.position() + endPos);
 
 		int length = KMPSearch.search(
 			charBuffer, _MARKER_SCRIPT_CLOSE, _MARKER_SCRIPT_CLOSE_NEXTS);
@@ -508,7 +532,8 @@ public class StripFilter extends BasePortalFilter {
 	}
 
 	protected void strip(
-			HttpServletResponse response, CharBuffer charBuffer, Writer writer)
+			HttpServletRequest request, HttpServletResponse response,
+			CharBuffer charBuffer, Writer writer)
 		throws IOException {
 
 		skipWhiteSpace(charBuffer, writer, false);
@@ -534,18 +559,13 @@ public class StripFilter extends BasePortalFilter {
 
 					continue;
 				}
-				else if (hasMarker(charBuffer, _MARKER_JS_OPEN)) {
-					processJavaScript(charBuffer, writer, _MARKER_JS_OPEN);
-
-					continue;
-				}
 				else if (hasMarker(charBuffer, _MARKER_SCRIPT_OPEN)) {
 					processJavaScript(charBuffer, writer, _MARKER_SCRIPT_OPEN);
 
 					continue;
 				}
 				else if (hasMarker(charBuffer, _MARKER_STYLE_OPEN)) {
-					processCSS(response, charBuffer, writer);
+					processCSS(request, response, charBuffer, writer);
 
 					continue;
 				}
@@ -573,9 +593,6 @@ public class StripFilter extends BasePortalFilter {
 
 	private static final char[] _MARKER_INPUT_OPEN = "input".toCharArray();
 
-	private static final char[] _MARKER_JS_OPEN =
-		"script type=\"text/javascript\">".toCharArray();
-
 	private static final String _MARKER_PRE_CLOSE = "/pre>";
 
 	private static final int[] _MARKER_PRE_CLOSE_NEXTS =
@@ -588,7 +605,7 @@ public class StripFilter extends BasePortalFilter {
 	private static final int[] _MARKER_SCRIPT_CLOSE_NEXTS =
 		KMPSearch.generateNexts(_MARKER_SCRIPT_CLOSE);
 
-	private static final char[] _MARKER_SCRIPT_OPEN = "script>".toCharArray();
+	private static final char[] _MARKER_SCRIPT_OPEN = "script".toCharArray();
 
 	private static final String _MARKER_STYLE_CLOSE = "</style>";
 

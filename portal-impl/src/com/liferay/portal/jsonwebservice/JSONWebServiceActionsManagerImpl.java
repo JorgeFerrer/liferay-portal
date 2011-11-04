@@ -28,6 +28,7 @@ import com.liferay.portal.util.PortalUtil;
 import java.lang.reflect.Method;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,13 +125,39 @@ public class JSONWebServiceActionsManagerImpl
 	}
 
 	public void registerJSONWebServiceAction(
-		Class<?> actionClass, Method actionMethod, String path, String method) {
+		String servletContextName, Class<?> actionClass, Method actionMethod,
+		String path, String method) {
 
 		JSONWebServiceActionConfig jsonWebServiceActionConfig =
 			new JSONWebServiceActionConfig(
-				actionClass, actionMethod, path, method);
+				servletContextName, actionClass, actionMethod, path, method);
 
 		_jsonWebServiceActionConfigs.add(jsonWebServiceActionConfig);
+	}
+
+	public int unregisterJSONWebServiceActions(String servletContextName) {
+		if (servletContextName == null) {
+			return 0;
+		}
+
+		int count = 0;
+
+		Iterator<JSONWebServiceActionConfig> itr =
+			_jsonWebServiceActionConfigs.iterator();
+
+		while (itr.hasNext()) {
+			JSONWebServiceActionConfig jsonWebServiceActionConfig = itr.next();
+
+			if (servletContextName.equals(
+					jsonWebServiceActionConfig.getServletContextName())) {
+
+				itr.remove();
+
+				count++;
+			}
+		}
+
+		return count;
 	}
 
 	private int _countMatchedElements(

@@ -22,6 +22,12 @@ String redirect = ParamUtil.getString(request, "redirect");
 questionId = ParamUtil.getLong(request, "questionId", questionId);
 
 List<PollsQuestion> questions = PollsQuestionLocalServiceUtil.getQuestions(scopeGroupId);
+
+if (scopeGroupId != themeDisplay.getCompanyGroupId()) {
+	questions = ListUtil.copy(questions);
+
+	questions.addAll(PollsQuestionLocalServiceUtil.getQuestions(themeDisplay.getCompanyGroupId()));
+}
 %>
 
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />

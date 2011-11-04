@@ -18,9 +18,10 @@ import com.liferay.portal.kernel.bean.ClassLoaderBeanHandler;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -41,7 +42,8 @@ import org.springframework.aop.target.SingletonTargetSource;
 /**
  * @author Raymond Augé
  */
-public class ServiceListener implements org.osgi.framework.ServiceListener {
+public class ServiceListener
+	extends BaseListener implements org.osgi.framework.ServiceListener {
 
 	public ServiceListener(BundleContext bundleContext) {
 		_bundleContext = bundleContext;
@@ -49,11 +51,16 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 
 	public void serviceChanged(ServiceEvent serviceEvent) {
 		try {
-			if (serviceEvent.getType() == ServiceEvent.REGISTERED) {
-				eventRegistered(serviceEvent);
+			int type = serviceEvent.getType();
+
+			if (type == ServiceEvent.MODIFIED) {
+				serviceEventModified(serviceEvent);
 			}
-			else if (serviceEvent.getType() == ServiceEvent.UNREGISTERING) {
-				eventUnregistering(serviceEvent);
+			else if (type == ServiceEvent.REGISTERED) {
+				serviceEventRegistered(serviceEvent);
+			}
+			else if (type == ServiceEvent.UNREGISTERING) {
+				serviceEventUnregistering(serviceEvent);
 			}
 		}
 		catch (Exception e) {
@@ -61,29 +68,16 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 		}
 	}
 
-	protected void eventRegistered(ServiceEvent event) throws Exception {
-		ServiceReference serviceReference = event.getServiceReference();
+	protected String getLogMessage(
+		String state, ServiceReference<?> serviceReference) {
 
-		Boolean portalServiceWrapper = (Boolean)serviceReference.getProperty(
-			OSGiConstants.PORTAL_SERVICE_WRAPPER);
+		String message = StringUtil.merge(
+			(String[])serviceReference.getProperty(Constants.OBJECTCLASS));
 
-		if ((portalServiceWrapper != null) && portalServiceWrapper) {
-			registerServiceWrapper(serviceReference);
-		}
+		return getLogMessage(state, message);
 	}
 
-	protected void eventUnregistering(ServiceEvent event) throws Exception {
-		ServiceReference serviceReference = event.getServiceReference();
-
-		Boolean portalServiceWrapper = (Boolean)serviceReference.getProperty(
-			OSGiConstants.PORTAL_SERVICE_WRAPPER);
-
-		if ((portalServiceWrapper != null) && portalServiceWrapper) {
-			unregisterServiceWrapper(serviceReference);
-		}
-	}
-
-	protected void registerServiceWrapper(ServiceReference serviceReference)
+	protected void registerServiceWrapper(ServiceReference<?> serviceReference)
 		throws Exception {
 
 		Bundle bundle = serviceReference.getBundle();
@@ -118,7 +112,7 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 				"Service must be an instance of Advised");
 		}
 
-		if (!Proxy.isProxyClass(serviceProxy.getClass())) {
+		if (!ProxyUtil.isProxyClass(serviceProxy.getClass())) {
 			return;
 		}
 
@@ -131,7 +125,7 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 
 		ClassLoader classLoader = serviceTypeClass.getClassLoader();
 
-		Object nextTarget = Proxy.newProxyInstance(
+		Object nextTarget = ProxyUtil.newProxyInstance(
 			classLoader, new Class<?>[] {serviceTypeClass},
 			new ClassLoaderBeanHandler(nextService, classLoader));
 
@@ -146,7 +140,7 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 		properties.put(OSGiConstants.PORTAL_SERVICE, Boolean.TRUE);
 		properties.put(OSGiConstants.PORTAL_SERVICE_PREVIOUS, Boolean.TRUE);
 
-		ServiceRegistration serviceRegistration =
+		ServiceRegistration<?> serviceRegistration =
 			_bundleContext.registerService(
 				serviceType, previousService, properties);
 
@@ -154,13 +148,60 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 			serviceRegistration.getReference(), serviceRegistration);
 	}
 
-	protected void unregisterServiceWrapper(ServiceReference serviceReference)
+	protected void serviceEventModified(ServiceEvent serviceEvent)
+		throws Exception {
+
+		ServiceReference<?> serviceReference =
+			serviceEvent.getServiceReference();
+
+		if (_log.isInfoEnabled()) {
+			_log.info(getLogMessage("[MODIFIED]", serviceReference));
+		}
+	}
+
+	protected void serviceEventRegistered(ServiceEvent serviceEvent)
+		throws Exception {
+
+		ServiceReference<?> serviceReference =
+			serviceEvent.getServiceReference();
+
+		if (_log.isInfoEnabled()) {
+			_log.info(getLogMessage("[REGISTERED]", serviceReference));
+		}
+
+		Boolean portalServiceWrapper = (Boolean)serviceReference.getProperty(
+			OSGiConstants.PORTAL_SERVICE_WRAPPER);
+
+		if ((portalServiceWrapper != null) && portalServiceWrapper) {
+			registerServiceWrapper(serviceReference);
+		}
+	}
+
+	protected void serviceEventUnregistering(ServiceEvent serviceEvent)
+		throws Exception {
+
+		ServiceReference<?> serviceReference =
+			serviceEvent.getServiceReference();
+
+		if (_log.isInfoEnabled()) {
+			_log.info(getLogMessage("[UNREGISTERING]", serviceReference));
+		}
+
+		Boolean portalServiceWrapper = (Boolean)serviceReference.getProperty(
+			OSGiConstants.PORTAL_SERVICE_WRAPPER);
+
+		if ((portalServiceWrapper != null) && portalServiceWrapper) {
+			unregisterServiceWrapper(serviceReference);
+		}
+	}
+	protected void unregisterServiceWrapper(
+			ServiceReference<?> serviceReference)
 		throws Exception {
 
 		String serviceType = (String)serviceReference.getProperty(
 			OSGiConstants.PORTAL_SERVICE_TYPE);
 
-		ServiceReference[] previousServiceReferences =
+		ServiceReference<?>[] previousServiceReferences =
 			_bundleContext.getServiceReferences(
 				serviceType, _PREVIOUS_SERVICE_FILTER);
 
@@ -170,7 +211,7 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 			return;
 		}
 
-		ServiceReference previousServiceReference =
+		ServiceReference<?> previousServiceReference =
 			previousServiceReferences[0];
 
 		Object previousService = _bundleContext.getService(
@@ -186,7 +227,7 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 
 		advisedSupport.setTargetSource(previousTargetSource);
 
-		ServiceRegistration serviceRegistration = _serviceRegistrations.get(
+		ServiceRegistration<?> serviceRegistration = _serviceRegistrations.get(
 			previousServiceReference);
 
 		serviceRegistration.unregister();
@@ -200,7 +241,8 @@ public class ServiceListener implements org.osgi.framework.ServiceListener {
 	private static Log _log = LogFactoryUtil.getLog(ServiceListener.class);
 
 	private BundleContext _bundleContext;
-	private Map<ServiceReference, ServiceRegistration> _serviceRegistrations =
-		new HashMap<ServiceReference, ServiceRegistration>();
+	private Map<ServiceReference<?>, ServiceRegistration<?>>
+		_serviceRegistrations =
+			new HashMap<ServiceReference<?>, ServiceRegistration<?>>();
 
 }

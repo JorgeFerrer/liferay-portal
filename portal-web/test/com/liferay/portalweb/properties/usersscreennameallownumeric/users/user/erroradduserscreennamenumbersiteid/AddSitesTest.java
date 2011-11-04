@@ -68,8 +68,11 @@ public class AddSitesTest extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a",
-			RuntimeVariables.replace("Custom Site"));
+		assertEquals(RuntimeVariables.replace("Site"),
+			selenium.getText(
+				"//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a"));
+		selenium.click(RuntimeVariables.replace(
+				"//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		selenium.type("//input[@id='_134_name']",
@@ -84,5 +87,11 @@ public class AddSitesTest extends BaseTestCase {
 			selenium.getText("//div[@class='portlet-msg-success']"));
 		assertEquals(RuntimeVariables.replace("Site Name"),
 			selenium.getText("//td[1]/a"));
+		assertEquals(RuntimeVariables.replace("Open"),
+			selenium.getText("//td[2]/a"));
+		assertTrue(selenium.isElementPresent("//tr[3]/td[3]"));
+		assertTrue(selenium.isElementPresent("//tr[3]/td[4]"));
+		assertEquals(RuntimeVariables.replace("Yes"),
+			selenium.getText("//tr[3]/td[5]"));
 	}
 }

@@ -18,12 +18,15 @@ import com.liferay.portal.AccountNameException;
 import com.liferay.portal.CompanyMxException;
 import com.liferay.portal.CompanyVirtualHostException;
 import com.liferay.portal.CompanyWebIdException;
+import com.liferay.portal.LocaleException;
 import com.liferay.portal.NoSuchShardException;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.NoSuchVirtualHostException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
@@ -31,9 +34,11 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchEngineUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TimeZoneUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -323,8 +328,18 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			String password2 = password1;
 			boolean autoScreenName = false;
 			String screenName = PropsValues.DEFAULT_ADMIN_SCREEN_NAME;
-			String emailAddress =
-				PropsValues.DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX + "@" + mx;
+
+			String emailAddress = null;
+
+			if (companyPersistence.countAll() == 1) {
+				emailAddress = PropsValues.DEFAULT_ADMIN_EMAIL_ADDRESS;
+			}
+
+			if (Validator.isNull(emailAddress)) {
+				emailAddress =
+					PropsValues.DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX + "@" + mx;
+			}
+
 			long facebookId = 0;
 			String openId = StringPool.BLANK;
 			Locale locale = defaultUser.getLocale();
@@ -497,6 +512,31 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		return companyPersistence.findByWebId(webId);
+	}
+
+	public long getCompanyIdByUserId(long userId) throws Exception {
+		long[] companyIds = PortalInstances.getCompanyIds();
+
+		long companyId = 0;
+
+		if (companyIds.length == 1) {
+			companyId = companyIds[0];
+		}
+		else if (companyIds.length > 1) {
+			try {
+				User user = userLocalService.getUserById(userId);
+
+				companyId = user.getCompanyId();
+			}
+			catch (Exception e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to get the company id for user " + userId, e);
+				}
+			}
+		}
+
+		return companyId;
 	}
 
 	public void removePreferences(long companyId, String[] keys)
@@ -711,7 +751,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	public void updatePreferences(long companyId, UnicodeProperties properties)
-		throws SystemException {
+		throws PortalException, SystemException {
 
 		PortletPreferences preferences = PrefsPropsUtil.getPreferences(
 			companyId);
@@ -724,6 +764,8 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 					PropsKeys.LOCALES, StringPool.BLANK);
 
 				if (!Validator.equals(oldLocales, newLocales)) {
+					validateLocales(newLocales);
+
 					LanguageUtil.resetAvailableLocales(companyId);
 				}
 			}
@@ -757,6 +799,9 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			}
 
 			preferences.store();
+		}
+		catch (LocaleException le) {
+			throw le;
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -895,6 +940,19 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			throw new CompanyMxException();
 		}
 	}
+
+	protected void validateLocales(String locales) throws PortalException {
+		String[] localesArray = StringUtil.split(locales, StringPool.COMMA);
+
+		for (String locale : localesArray) {
+			if (!ArrayUtil.contains(PropsValues.LOCALES, locale)) {
+				throw new LocaleException();
+			}
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		CompanyLocalServiceImpl.class);
 
 	private static final String _DEFAULT_VIRTUAL_HOST = "localhost";
 

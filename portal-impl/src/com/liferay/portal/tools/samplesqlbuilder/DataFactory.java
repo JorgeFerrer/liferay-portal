@@ -691,10 +691,6 @@ public class DataFactory {
 		return _dlFileEntryClassName;
 	}
 
-	public ClassName getDLFileEntryMetadataClassName() {
-		return _dlFileEntryMetadataClassName;
-	}
-
 	public ClassName getGroupClassName() {
 		return _groupClassName;
 	}
@@ -796,9 +792,6 @@ public class DataFactory {
 			}
 			else if (model.equals(DLFileEntry.class.getName())) {
 				_dlFileEntryClassName = className;
-			}
-			else if (model.equals(DLFileEntryMetadata.class.getName())) {
-				_dlFileEntryMetadataClassName = className;
 			}
 			else if (model.equals(Group.class.getName())) {
 				_groupClassName = className;
@@ -1162,7 +1155,6 @@ public class DataFactory {
 	private ClassName _ddmContentClassName;
 	private User _defaultUser;
 	private ClassName _dlFileEntryClassName;
-	private ClassName _dlFileEntryMetadataClassName;
 	private ClassName _groupClassName;
 	private List<Group> _groups;
 	private Group _guestGroup;

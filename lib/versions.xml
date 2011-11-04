@@ -72,7 +72,7 @@
 	</library>
 	<library>
 		<file-name>development/catalina.jar</file-name>
-		<version>7.0.20</version>
+		<version>7.0.21</version>
 		<project-name>Tomcat</project-name>
 		<project-url>http://tomcat.apache.org</project-url>
 		<licenses>
@@ -283,7 +283,7 @@
 	</library>
 	<library>
 		<file-name>development/jasper.jar</file-name>
-		<version>7.0.20</version>
+		<version>7.0.21</version>
 		<project-name>Tomcat</project-name>
 		<project-url>http://tomcat.apache.org</project-url>
 		<licenses>
@@ -351,24 +351,30 @@
 		</licenses>
 	</library>
 	<library>
-		<file-name>development/jetty.jar</file-name>
-		<version>6.1.26</version>
+		<file-name>development/jetty-server.jar</file-name>
+		<version>7.5.1</version>
 		<project-name>Jetty</project-name>
-		<project-url>http://www.mortbay.org/jetty</project-url>
+		<project-url>http://www.eclipse.org/jetty</project-url>
 		<licenses>
 			<license>
 				<license-name>Apache License 2.0</license-name>
+			</license>
+			<license>
+				<license-name>Eclipse Public License 1.0</license-name>
 			</license>
 		</licenses>
 	</library>
 	<library>
 		<file-name>development/jetty-util.jar</file-name>
-		<version>6.1.26</version>
+		<version>7.5.1</version>
 		<project-name>Jetty</project-name>
-		<project-url>http://www.mortbay.org/jetty</project-url>
+		<project-url>http://www.eclipse.org/jetty</project-url>
 		<licenses>
 			<license>
 				<license-name>Apache License 2.0</license-name>
+			</license>
+			<license>
+				<license-name>Eclipse Public License 1.0</license-name>
 			</license>
 		</licenses>
 	</library>
@@ -832,7 +838,7 @@
 	</library>
 	<library>
 		<file-name>development/tomcat-coyote.jar</file-name>
-		<version>7.0.20</version>
+		<version>7.0.21</version>
 		<project-name>Tomcat</project-name>
 		<project-url>http://tomcat.apache.org</project-url>
 		<licenses>
@@ -1127,6 +1133,17 @@
 		<licenses>
 			<license>
 				<license-name>BSD Style License</license-name>
+			</license>
+		</licenses>
+	</library>
+	<library>
+		<file-name>portal/bnd.jar</file-name>
+		<version>1.44.0</version>
+		<project-name>Bnd</project-name>
+		<project-url>http://www.aqute.biz/Bnd</project-url>
+		<licenses>
+			<license>
+				<license-name>Apache License 2.0</license-name>
 			</license>
 		</licenses>
 	</library>
@@ -1628,6 +1645,17 @@
 		<version>1.4.0</version>
 		<project-name>Ehcache</project-name>
 		<project-url>http://ehcache.sourceforge.net</project-url>
+		<licenses>
+			<license>
+				<license-name>Apache License 2.0</license-name>
+			</license>
+		</licenses>
+	</library>
+	<library>
+		<file-name>portal/equinox.jar</file-name>
+		<version>3.7.0.v20110613</version>
+		<project-name>Eclipse OSGi Platform</project-name>
+		<project-url>http://www.eclipse.org/equinox/</project-url>
 		<licenses>
 			<license>
 				<license-name>Apache License 2.0</license-name>
@@ -2138,7 +2166,7 @@
 	</library>
 	<library>
 		<file-name>portal/jodd.jar</file-name>
-		<version>3.2.7 B2</version>
+		<version>3.2.8-20110918</version>
 		<project-name>Jodd</project-name>
 		<project-url>http://jodd.org</project-url>
 		<licenses>
@@ -2149,7 +2177,7 @@
 	</library>
 	<library>
 		<file-name>portal/jodd-wot.jar</file-name>
-		<version>3.2.7 B2</version>
+		<version>3.2.8-20110918</version>
 		<project-name>Jodd</project-name>
 		<project-url>http://jodd.org</project-url>
 		<licenses>
@@ -2171,7 +2199,7 @@
 	</library>
 	<library>
 		<file-name>portal/jruby.jar</file-name>
-		<version>1.5.6</version>
+		<version>1.6.4</version>
 		<project-name>JRuby</project-name>
 		<project-url>http://jruby.codehaus.org</project-url>
 		<licenses>
@@ -2179,9 +2207,6 @@
 				<license-name>LGPL 2.1</license-name>
 			</license>
 		</licenses>
-		<comments>
-			This includes a public patch from JRUBY-4774.
-		</comments>
 	</library>
 	<library>
 		<file-name>portal/json-java.jar</file-name>
@@ -2488,18 +2513,6 @@
 			<license>
 				<license-name>Apache License 1.1</license-name>
 				<copyright-notice>Copyright (c) 2000-2002 The Apache Software Foundation. All rights reserved.</copyright-notice>
-			</license>
-		</licenses>
-	</library>
-
-	<library>
-		<file-name>portal/osgi.core.jar</file-name>
-		<version>4.2</version>
-		<project-name>OSGi Service Platform</project-name>
-		<project-url>http://www.osgi.org</project-url>
-		<licenses>
-			<license>
-				<license-name>Apache License 2.0</license-name>
 			</license>
 		</licenses>
 	</library>
@@ -3069,7 +3082,7 @@
 	</library>
 	<library>
 		<file-name>portal/tomcat-juli.jar</file-name>
-		<version>7.0.20</version>
+		<version>7.0.21</version>
 		<project-name>Tomcat</project-name>
 		<project-url>http://tomcat.apache.org</project-url>
 		<licenses>

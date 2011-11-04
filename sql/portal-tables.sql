@@ -129,6 +129,7 @@ create table AssetEntry (
 	classNameId LONG,
 	classPK LONG,
 	classUuid VARCHAR(75) null,
+	classTypeId LONG,
 	visible BOOLEAN,
 	startDate DATE null,
 	endDate DATE null,
@@ -377,6 +378,7 @@ create table Country (
 	a3 VARCHAR(75) null,
 	number_ VARCHAR(75) null,
 	idd_ VARCHAR(75) null,
+	zipRequired BOOLEAN,
 	active_ BOOLEAN
 );
 
@@ -920,7 +922,8 @@ create table Layout (
 	css STRING null,
 	priority INTEGER,
 	layoutPrototypeUuid VARCHAR(75) null,
-	layoutPrototypeLinkEnabled BOOLEAN
+	layoutPrototypeLinkEnabled BOOLEAN,
+	templateLayoutUuid VARCHAR(75) null
 );
 
 create table LayoutBranch (
@@ -1179,8 +1182,9 @@ create table MDRAction (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	ruleGroupId LONG,
-	ruleId LONG,
+	classNameId LONG,
+	classPK LONG,
+	ruleGroupInstanceId LONG,
 	name STRING null,
 	description STRING null,
 	type_ VARCHAR(255) null,
@@ -1214,6 +1218,21 @@ create table MDRRuleGroup (
 	modifiedDate DATE null,
 	name STRING null,
 	description STRING null
+);
+
+create table MDRRuleGroupInstance (
+	uuid_ VARCHAR(75) null,
+	ruleGroupInstanceId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	classNameId LONG,
+	classPK LONG,
+	ruleGroupId LONG,
+	priority INTEGER
 );
 
 create table MembershipRequest (
@@ -2066,7 +2085,8 @@ create table UserNotificationEvent (
 	type_ VARCHAR(75) null,
 	timestamp LONG,
 	deliverBy LONG,
-	payload TEXT null
+	payload TEXT null,
+	archived BOOLEAN
 );
 
 create table Users_Groups (

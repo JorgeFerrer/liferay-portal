@@ -251,7 +251,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		int displayDateYear, int displayDateHour, int displayDateMinute,
 		boolean allowPingbacks, boolean allowTrackbacks,
 		java.lang.String[] trackbacks, boolean smallImage,
-		java.lang.String smallImageURL, java.io.File smallFile,
+		java.lang.String smallImageURL, java.lang.String smallImageFileName,
+		java.io.InputStream smallImageInputStream,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -391,7 +392,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		int displayDateYear, int displayDateHour, int displayDateMinute,
 		boolean allowPingbacks, boolean allowTrackbacks,
 		java.lang.String[] trackbacks, boolean smallImage,
-		java.lang.String smallImageURL, java.io.File smallFile,
+		java.lang.String smallImageURL, java.lang.String smallImageFileName,
+		java.io.InputStream smallImageInputStream,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

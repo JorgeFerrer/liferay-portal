@@ -42,8 +42,15 @@ if (Validator.isNull(displayStyle)) {
 	displayStyle = portalPreferences.getValue(PortletKeys.DOCUMENT_LIBRARY, "display-style", "icon");
 }
 
-long entryStart = ParamUtil.getLong(request, "entryStart");
-long entryEnd = ParamUtil.getLong(request, "entryEnd", SearchContainer.DEFAULT_DELTA);
+int entryStart = ParamUtil.getInteger(request, "entryStart");
+int entryEnd = ParamUtil.getInteger(request, "entryEnd", SearchContainer.DEFAULT_DELTA);
+
+int entryRowsPerPage = entryEnd - entryStart;
+
+int folderStart = ParamUtil.getInteger(request, "folderStart");
+int folderEnd = ParamUtil.getInteger(request, "folderEnd", SearchContainer.DEFAULT_DELTA);
+
+int folderRowsPerPage = folderEnd - folderStart;
 
 String orderByCol = ParamUtil.getString(request, "orderByCol");
 String orderByType = ParamUtil.getString(request, "orderByType");
@@ -71,7 +78,9 @@ request.setAttribute("view.jsp-repositoryId", String.valueOf(repositoryId));
 		<aui:column columnWidth="<%= showFolderMenu ? 80 : 100 %>" cssClass="context-pane" last="<%= true %>">
 			<div class="lfr-header-row">
 				<div class="lfr-header-row-content">
-					<liferay-util:include page="/html/portlet/document_library/file_entry_search.jsp" />
+					<c:if test="<%= showFoldersSearch %>">
+						<liferay-util:include page="/html/portlet/document_library/file_entry_search.jsp" />
+					</c:if>
 
 					<div class="toolbar">
 						<liferay-util:include page="/html/portlet/document_library/toolbar.jsp" />
@@ -114,7 +123,7 @@ int entriesTotal = GetterUtil.getInteger((String)request.getAttribute("view_entr
 int foldersTotal = GetterUtil.getInteger((String)request.getAttribute("view_folders.jsp-total"));
 
 if (folder != null) {
-	DLUtil.addPortletBreadcrumbEntries(folder, request, renderResponse);
+	DLUtil.addPortletBreadcrumbEntries(folder, request, renderResponse, true);
 
 	if (portletName.equals(PortletKeys.DOCUMENT_LIBRARY)) {
 		PortalUtil.setPageSubtitle(folder.getName(), request);
@@ -217,15 +226,15 @@ if (folder != null) {
 			defaultParentFolderId: '<%= DLFolderConstants.DEFAULT_PARENT_FOLDER_ID %>',
 			displayStyle: '<%= HtmlUtil.escapeJS(displayStyle) %>',
 			entriesTotal: <%= entriesTotal %>,
-			entryEnd: <%= SearchContainer.DEFAULT_DELTA %>,
-			entryRowsPerPage: <%= SearchContainer.DEFAULT_DELTA %>,
+			entryEnd: <%= entryEnd %>,
+			entryRowsPerPage: <%= entryRowsPerPage %>,
 			entryRowsPerPageOptions: [<%= StringUtil.merge(PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES) %>],
-			entryStart: 0,
-			folderEnd: <%= SearchContainer.DEFAULT_DELTA %>,
+			entryStart: <%= entryStart %>,
+			folderEnd: <%= folderEnd %>,
 			folderId: '<%= folderId %>',
-			folderRowsPerPage: <%= SearchContainer.DEFAULT_DELTA %>,
+			folderRowsPerPage: <%= folderRowsPerPage %>,
 			folderRowsPerPageOptions: [<%= StringUtil.merge(PropsValues.SEARCH_CONTAINER_PAGE_DELTA_VALUES) %>],
-			folderStart: 0,
+			folderStart: <%= folderStart %>,
 			foldersTotal: <%= foldersTotal %>,
 			mainUrl: '<%= mainURL %>',
 			namespace: '<portlet:namespace />',

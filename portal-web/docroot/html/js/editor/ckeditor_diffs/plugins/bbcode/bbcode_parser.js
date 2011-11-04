@@ -1,57 +1,260 @@
-(function() {
-	var IMAGE = 1;
+;(function() {
+	var REGEX_BBCODE = /(?:\[((?:[a-z]|\*){1,16})(?:=([^\x00-\x1F"'\(\)<>\[\]]{1,256}))?\])|(?:\[\/([a-z]{1,16})\])/ig;
 
-	var IMAGE_ATTR_SRC = '<img src="';
+	var Lexer = function(data) {
+		var instance = this;
 
-	var LIST = 'list';
+		instance._data = data;
+	};
 
-	var REGEX_COLOR = /^(:?aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|#(?:[0-9a-f]{3})?[0-9a-f]{3})$/i;
+	Lexer.prototype = {
+		constructor: Lexer,
 
-	var REGEX_IMAGE = /^(\/|https?:\/\/)/i;
+		getLastIndex: function() {
+			return REGEX_BBCODE.lastIndex;
+		},
 
-	var REGEX_MAIN = /((?:\r\n){2}|(?:\n\n)|\r\n|\n)|(?:\[((?:[a-z]|\*){1,16})(?:=([^\x00-\x1F"'\(\)<>\[\]]{1,256}))?\])|(?:\[\/([a-z]{1,16})\])/ig;
+		getNextToken: function() {
+			var instance = this;
 
-	var REGEX_NUMBER = /^[\\.0-9]{1,8}$/i;
+			return REGEX_BBCODE.exec(instance._data);
+		}
+	};
 
-	var REGEX_TAG_NAME = /^\/?(?:b|center|code|colou?r|i|img|justify|left|pre|q|quote|right|\*|s|samp|size|table|tr|th|td|list|font|u|url)$/;
+	Liferay.BBCodeLexer = Lexer;
+})();;(function() {
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-	var REGEX_URI = /^[-;\/\?:@&=\+\$,_\.!~\*'\(\)%0-9a-z]{1,512}$/i;
+	var isString = function(val) {
+		return (typeof val == 'string');
+	};
 
-	var STR_BLANK = '';
+	var ELEMENTS_BLOCK = {
+		'*': 1,
+		'center': 1,
+		'code': 1,
+		'justify': 1,
+		'left': 1,
+		'li': 1,
+		'list': 1,
+		'q': 1,
+		'quote': 1,
+		'right': 1,
+		'table': 1,
+		'td': 1,
+		'th': 1,
+		'tr': 1
+	};
 
-	var STR_BBCODE_CLOSE = ']';
+	var ELEMENTS_CLOSE_SELF = {
+		'*': 1
+	};
 
-	var STR_BBCODE_OPEN = '[';
+	var ELEMENTS_INLINE = {
+		'b': 1,
+		'color': 1,
+		'font': 1,
+		'i': 1,
+		'img': 1,
+		's': 1,
+		'size': 1,
+		'u': 1,
+		'url': 1
+	};
 
-	var STR_BBCODE_END_OPEN = '[/';
+	var STR_TAG_CODE = 'code';
 
-	var STR_IMG = 'img';
+	var Parser = function(config) {
+		var instance = this;
 
-	var STR_TAG_A_CLOSE = '</a>';
+		config = config || {};
 
-	var STR_TAG_ATTR_CLOSE = '">';
+		instance._config = config;
 
-	var STR_TAG_ATTR_HREF_OPEN = '<a href="';
+		instance.init();
+	};
 
-	var STR_TAG_ATTR_STYLE_OPEN = '<span style="';
+	Parser.prototype = {
+		constructor: Parser,
 
-	var STR_TAG_BR = '<br>';
+		init: function() {
+			var instance = this;
 
-	var STR_TAG_END_CLOSE = '>';
+			var stack = [];
 
-	var STR_TAG_END_OPEN = '</';
+			stack.last = stack.last || function() {
+				var instance = this;
 
-	var STR_TAG_INVALID_OPEN = '<span style="color: red">';
+				return instance[instance.length - 1];
+			};
 
-	var STR_TAG_P_OPEN = '<p>';
+			instance._result = [];
 
-	var STR_TAG_OPEN = '<';
+			instance._stack = stack;
 
-	var STR_TAG_SPAN_CLOSE = '</span>';
+			instance._dataPointer = 0;
+		},
 
-	var STR_URL = 'url';
+		parse: function(data) {
+			var instance = this;
 
-	var TPL_LIST_INVALID = STR_TAG_INVALID_OPEN + STR_BBCODE_OPEN + LIST + STR_BBCODE_CLOSE + STR_TAG_SPAN_CLOSE;
+			var lexer = new Liferay.BBCodeLexer(data);
+
+			instance._lexer = lexer;
+
+			var token;
+
+			while((token = lexer.getNextToken())) {
+				instance._handleData(token, data);
+
+				if (token[1]) {
+					instance._handleTagStart(token);
+
+					if (token[1].toLowerCase() == STR_TAG_CODE) {
+						while((token = lexer.getNextToken()) && token[3] != STR_TAG_CODE);
+
+						instance._handleData(token, data);
+
+						if (token) {
+							instance._handleTagEnd(token);
+						}
+						else {
+							break;
+						}
+					}
+				}
+				else {
+					instance._handleTagEnd(token);
+				}
+			}
+
+			instance._handleData(null, data);
+
+			instance._handleTagEnd();
+
+			var result = instance._result.slice(0);
+
+			instance._reset();
+
+			return result;
+		},
+
+		_handleData: function(token, data) {
+			var instance = this;
+
+			var length = data.length;
+
+			var lastIndex = length;
+
+			if (token) {
+				length = token.index;
+
+				lastIndex = instance._lexer.getLastIndex();
+			}
+
+			if (length > instance._dataPointer) {
+				instance._result.push(
+					{
+						type: Parser.TOKEN_DATA,
+						value: data.substring(instance._dataPointer, length)
+					}
+				);
+			}
+
+			instance._dataPointer = lastIndex;
+		},
+
+		_handleTagEnd: function(token) {
+			var instance = this;
+
+			var pos = 0;
+
+			var stack = instance._stack;
+
+			if (token) {
+				var tagName;
+
+				if (isString(token)) {
+					tagName = token;
+				}
+				else {
+					tagName = token[3];
+				}
+
+				tagName = tagName.toLowerCase();
+
+				for (pos = stack.length - 1; pos >= 0; pos--) {
+					if (stack[pos] == tagName) {
+						break;
+					}
+				}
+			}
+
+			if (pos >= 0) {
+				var tokenTagEnd = Parser.TOKEN_TAG_END;
+
+				for (var i = stack.length - 1; i >= pos; i--) {
+					instance._result.push(
+						{
+							type: tokenTagEnd,
+							value: stack[i]
+						}
+					);
+				}
+
+				stack.length = pos;
+			}
+		},
+
+		_handleTagStart: function(token) {
+			var instance = this;
+
+			var tagName = token[1].toLowerCase();
+
+			var stack = instance._stack;
+
+			if (hasOwnProperty.call(ELEMENTS_BLOCK, tagName)) {
+				var lastTag;
+
+				while ((lastTag = stack.last()) && hasOwnProperty.call(ELEMENTS_INLINE, lastTag)) {
+					instance._handleTagEnd(lastTag);
+				}
+			}
+
+			if (hasOwnProperty.call(ELEMENTS_CLOSE_SELF, tagName) && stack.last() == tagName) {
+				instance._handleTagEnd(tagName);
+			}
+
+			stack.push(tagName);
+
+			instance._result.push(
+				{
+					attribute: token[2],
+					type: Parser.TOKEN_TAG_START,
+					value: tagName
+				}
+			);
+		},
+
+		_reset: function() {
+			var instance = this;
+
+			instance._stack.length = 0;
+			instance._result.length = 0;
+
+			instance._dataPointer = 0;
+		}
+	};
+
+	Parser.TOKEN_DATA = 4;
+	Parser.TOKEN_TAG_END = 2;
+	Parser.TOKEN_TAG_START = 1;
+
+	Liferay.BBCodeParser = Parser;
+})();;(function() {
+	var Parser = Liferay.BBCodeParser;
+
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 	var MAP_FONT_SIZE = {
 		1: 10,
@@ -64,258 +267,296 @@
 		defaultSize: 12
 	};
 
+	var MAP_HANDLERS = {
+		b: '_handleStrong',
+		code: '_handleCode',
+		email: '_handleEmail',
+		font: '_handleFont',
+		i: '_handleEm',
+		img: '_handleImage',
+		list: '_handleList',
+		s: '_handleStrikeThrough',
+		size: '_handleSize',
+		table: '_handleTable',
+		td: '_handleTableCell',
+		th: '_handleTableHeader',
+		tr: '_handleTableRow',
+		url: '_handleURL',
+
+		color: '_handleColor',
+		colour: '_handleColor',
+
+		'*': '_handleListItem',
+		li: '_handleListItem',
+
+		q: '_handleQuote',
+		quote: '_handleQuote',
+
+		center: '_handleTextAlign',
+		justify: '_handleTextAlign',
+		left: '_handleTextAlign',
+		right: '_handleTextAlign'
+	};
+
 	var MAP_LIST_STYLES = {
 		1: 'list-style-type: decimal;',
 		a: 'list-style-type: lower-alpha;'
 	};
 
-	var MAP_NEW_LINES = {
-		'\r\n\r\n': STR_TAG_P_OPEN,
-		'\n\n': STR_TAG_P_OPEN,
-		'\r\n': STR_TAG_BR,
-		'\n': STR_TAG_BR,
-		'\r': STR_TAG_BR
+	var MAP_TOKENS_EXCLUDE_NEW_LINE = {
+		'*': 3,
+		li: 3,
+		tr: 3,
+		td: 3,
+		th: 3,
+		table: 2
 	};
 
-	var BBCodeParser = function(config) {
+	var REGEX_COLOR = /^(:?aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow|#(?:[0-9a-f]{3})?[0-9a-f]{3})$/i;
+
+	var REGEX_IMAGE_SRC = /^(?:https?:\/\/|\/)[-;\/\?:@&=\+\$,_\.!~\*'\(\)%0-9a-z]{1,512}$/i;
+
+	var REGEX_LASTCHAR_NEWLINE = /\r?\n$/;
+
+	var REGEX_NEW_LINE = /\r?\n/g;
+
+	var REGEX_NUMBER = /^[\\.0-9]{1,8}$/;
+
+	var REGEX_STRING_IS_NEW_LINE = /^\r?\n$/;
+
+	var REGEX_TAG_NAME = /^\/?(?:b|center|code|colou?r|email|i|img|justify|left|pre|q|quote|right|\*|s|size|table|tr|th|td|li|list|font|u|url)$/i;
+
+	var REGEX_URI = /^[-;\/\?:@&=\+\$,_\.!~\*'\(\)%0-9a-z#]{1,512}$/i;
+
+	var STR_BLANK = '';
+
+	var STR_CODE = 'code';
+
+	var STR_EMAIL = 'email';
+
+	var STR_IMG = 'img';
+
+	var STR_MAILTO = 'mailto:';
+
+	var STR_NEW_LINE = '\n';
+
+	var STR_TAG_ATTR_CLOSE = '">';
+
+	var STR_TAG_ATTR_HREF_OPEN = '<a href="';
+
+	var STR_TAG_A_CLOSE = '</a>';
+
+	var STR_TAG_END_CLOSE = '>';
+
+	var STR_TAG_END_OPEN = '</';
+
+	var STR_TAG_LIST_ITEM_SHORT = '*';
+
+	var STR_TAG_OPEN = '<';
+
+	var STR_TAG_P_CLOSE = '</p>';
+
+	var STR_TAG_SPAN_CLOSE = '</span>';
+
+	var STR_TAG_SPAN_STYLE_OPEN = '<span style="';
+
+	var STR_TAG_URL = 'url';
+
+	var STR_TEXT_ALIGN = '<p style="text-align: ';
+
+	var TOKEN_DATA = Parser.TOKEN_DATA;
+
+	var TOKEN_TAG_END = Parser.TOKEN_TAG_END;
+
+	var TOKEN_TAG_START = Parser.TOKEN_TAG_START;
+
+	var Converter = function(config) {
 		var instance = this;
 
-		instance._reset();
+		config = config || {};
+
+		instance.init(config);
 
 		instance._config = config;
 	};
 
-	BBCodeParser.prototype = {
-		constructor: BBCodeParser,
+	Converter.prototype = {
+		constructor: Converter,
 
-		parse: function(data) {
+		convert: function(data) {
 			var instance = this;
 
-			var endTags = instance._endTags;
-			var openTags = instance._openTags;
+			var parsedData = instance._parser.parse(data);
 
-			instance._dataOffset = 0;
-			instance._dataMap = [];
+			instance._parsedData = parsedData;
 
-			if (!openTags || openTags.length) {
-				openTags = [];
+			var length = parsedData.length;
 
-				instance._openTags = openTags;
-			}
+			for (instance._tokenPointer = 0; instance._tokenPointer < length; instance._tokenPointer++) {
+				var token = parsedData[instance._tokenPointer];
 
-			var process = instance._process;
+				var type = token.type;
 
-			var result = data.replace(
-				REGEX_MAIN,
-				function() {
-					return process.apply(instance, arguments);
+				if (type == TOKEN_TAG_START) {
+					instance._handleTagStart(token);
 				}
-			);
-
-			if (instance._noParse) {
-				instance._noParse = false;
-			}
-
-			if (openTags.length) {
-				var lastBBTag = openTags[openTags.length - 1].bbTag;
-
-				if ( lastBBTag == STR_URL) {
-					openTags.pop();
-
-					var urlStart = instance._urlStart;
-
-					var url = data.substr(urlStart, data.length - urlStart);
-
-					url = CKEDITOR.tools.htmlEncodeAttr(url);
-
-					endTags.push(STR_TAG_ATTR_CLOSE, url, STR_TAG_A_CLOSE);
+				else if (type == TOKEN_TAG_END) {
+					instance._handleTagEnd(token);
 				}
-				else if (lastBBTag == STR_IMG) {
-					openTags.pop();
-
-					endTags.push(STR_TAG_ATTR_CLOSE);
+				else if (type == TOKEN_DATA) {
+					instance._handleData(token);
 				}
-
-				while (openTags.length) {
-					endTags.push(openTags.pop().endTag);
+				else {
+					throw 'Internal error. Invalid token type';
 				}
 			}
 
-			if (endTags.length) {
-				result = result + endTags.join(STR_BLANK);
-			}
-
-			result = instance._escapeData(result);
+			var result = instance._result.join(STR_BLANK);
 
 			instance._reset();
 
 			return result;
 		},
 
-		_escapeData: function(data) {
+		init: function(config) {
 			var instance = this;
 
-			var htmlEscape = instance._escapeHTML;
+			instance._parser = new Parser(config.parser);
 
-			var dataMap = instance._dataMap;
-
-			if (dataMap.length === 0) {
-				data = htmlEscape(data);
-
-				return data;
-			}
-
-			var currentElement;
-
-			var item;
-
-			var dataValue;
-
-			var tagValue;
-
-			var result = [];
-
-			for (var i = 0, j = 0, length = dataMap.length; i < length; i++) {
-				item = dataMap[i];
-
-				dataValue = data.substring(j, item.startIndex);
-
-				tagValue = data.substr(item.startIndex, item.length);
-
-				if (tagValue === IMAGE_ATTR_SRC) {
-					currentElement = IMAGE;
-				}
-
-				if (tagValue === STR_TAG_ATTR_CLOSE && currentElement === IMAGE) {
-					dataValue = instance._validateImage(dataValue);
-
-					dataValue = CKEDITOR.tools.htmlEncodeAttr(dataValue);
-				}
-				else {
-					dataValue = htmlEscape(dataValue);
-				}
-
-				result.push(dataValue, tagValue);
-
-				j = item.startIndex + item.length;
-			}
-
-			var lastTagOffset = item.startIndex + item.length;
-
-			if (lastTagOffset < data.length) {
-				dataValue = data.substr(lastTagOffset);
-
-				dataValue = htmlEscape(dataValue);
-
-				result.push(dataValue);
-			}
-
-			result = result.join(STR_BLANK);
-
-			return result;
+			instance._result = [];
+			instance._stack = [];
 		},
 
 		_escapeHTML: Liferay.Util.escapeHTML,
+
+		_extractData: function(toTagName, consume) {
+			var instance = this;
+
+			var result = [];
+
+			var index = instance._tokenPointer + 1;
+
+			var token;
+
+			do {
+				token = instance._parsedData[index++];
+
+				if (token.type == TOKEN_DATA) {
+					result.push(token.value);
+				}
+
+			} while((token.type != TOKEN_TAG_END) && (token.value != toTagName));
+
+			if (consume) {
+				instance._tokenPointer = index - 1;
+			}
+
+			return result.join(STR_BLANK);
+		},
 
 		_getFontSize: function(fontSize) {
 			return MAP_FONT_SIZE[fontSize] || MAP_FONT_SIZE.defaultSize;
 		},
 
-		_handleCode: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleCode: function(token) {
 			var instance = this;
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</pre>'
-				}
-			);
 
 			instance._noParse = true;
 
-			return '<pre>';
+			instance._handleSimpleTag('pre');
+
+			instance._result.push(STR_NEW_LINE);
 		},
 
-		_handleColor: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleColor: function(token) {
 			var instance = this;
 
-			if (!tagOption || !REGEX_COLOR.test(tagOption)) {
-				tagOption = 'inherit';
+			var colorName = token.attribute;
+
+			if (!colorName || !REGEX_COLOR.test(colorName)) {
+				colorName = 'inherit';
 			}
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_SPAN_CLOSE
-				}
-			);
+			instance._result.push(STR_TAG_SPAN_STYLE_OPEN + 'color: ' + colorName + STR_TAG_ATTR_CLOSE);
 
-			return STR_TAG_ATTR_STYLE_OPEN + 'color: ' + tagOption + STR_TAG_ATTR_CLOSE;
+			instance._stack.push(STR_TAG_SPAN_CLOSE);
 		},
 
-		_handleEm: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleData: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</em>'
-				}
-			);
+			var value = instance._escapeHTML(token.value);
 
-			return '<em>';
+			value = instance._handleNewLine(value);
+
+			instance._result.push(value);
 		},
 
-		_handleFont: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleEm: function(token) {
 			var instance = this;
 
-			tagOption = CKEDITOR.tools.htmlEncodeAttr(tagOption);
-
-			var result = STR_TAG_ATTR_STYLE_OPEN + 'font-family: ' + tagOption + STR_TAG_ATTR_CLOSE;
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_SPAN_CLOSE
-				}
-			);
-
-			return result;
+			instance._handleSimpleTag('em');
 		},
 
-		_handleImage: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleEmail: function(token) {
 			var instance = this;
 
-			var result = '<img src="';
+			var href = STR_BLANK;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_ATTR_CLOSE
+			var hrefInput = token.attribute || instance._extractData(STR_EMAIL, false);
+
+			if (REGEX_URI.test(hrefInput)) {
+				if (hrefInput.indexOf(STR_MAILTO) != 0) {
+					hrefInput = STR_MAILTO + hrefInput;
 				}
-			);
 
-			return result;
+				href = CKEDITOR.tools.htmlEncodeAttr(hrefInput);
+			}
+
+			instance._result.push(STR_TAG_ATTR_HREF_OPEN + href + STR_TAG_ATTR_CLOSE);
+
+			instance._stack.push(STR_TAG_A_CLOSE);
 		},
 
-		_handleList: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleFont: function(token) {
+			var instance = this;
+
+			var fontName = token.attribute;
+
+			fontName = CKEDITOR.tools.htmlEncodeAttr(fontName);
+
+			instance._result.push(STR_TAG_SPAN_STYLE_OPEN + 'font-family: ' + fontName + STR_TAG_ATTR_CLOSE);
+
+			instance._stack.push(STR_TAG_SPAN_CLOSE);
+		},
+
+		_handleImage: function(token) {
+			var instance = this;
+
+			var imageSrc = STR_BLANK;
+
+			var imageSrcInput = instance._extractData(STR_IMG, true);
+
+			if (REGEX_IMAGE_SRC.test(imageSrcInput)) {
+				imageSrc = CKEDITOR.tools.htmlEncodeAttr(imageSrcInput);
+			}
+
+			instance._result.push('<img src="', imageSrc, STR_TAG_ATTR_CLOSE);
+		},
+
+		_handleList: function(token) {
 			var instance = this;
 
 			var tag = 'ul';
 			var styleAttr;
 
-			if (tagOption) {
+			var listAttribute = token.attribute;
+
+			if (listAttribute) {
 				tag = 'ol';
 
-				styleAttr = MAP_LIST_STYLES[tagOption];
+				styleAttr = MAP_LIST_STYLES[listAttribute];
 			}
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_END_OPEN + tag + STR_TAG_END_CLOSE
-				}
-			);
 
 			var result = STR_TAG_OPEN + tag + STR_TAG_END_CLOSE;
 
@@ -323,472 +564,208 @@
 				result = STR_TAG_OPEN + tag + ' style="' + styleAttr + STR_TAG_ATTR_CLOSE;
 			}
 
-			return result;
+			instance._result.push(result);
+
+			instance._stack.push(STR_TAG_END_OPEN + tag + STR_TAG_END_CLOSE);
 		},
 
-		_handleListItem: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleNewLine: function(value) {
 			var instance = this;
 
-			var result = null;
+			var nextToken;
 
-			if (!instance._hasOpenTag(LIST)) {
-				result = TPL_LIST_INVALID;
-			}
-			else {
-				result = '<li>';
-			}
+			if (!instance._noParse) {
+				if (REGEX_STRING_IS_NEW_LINE.test(value)) {
+					nextToken = instance._parsedData[instance._tokenPointer + 1];
 
-			return result;
-		},
+					if (nextToken &&
+						hasOwnProperty.call(MAP_TOKENS_EXCLUDE_NEW_LINE, nextToken.value) &&
+						(nextToken.type & MAP_TOKENS_EXCLUDE_NEW_LINE[nextToken.value])) {
 
-		_handleQuote: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</blockquote>'
+							value = STR_BLANK;
+					}
 				}
-			);
+				else if(REGEX_LASTCHAR_NEWLINE.test(value)) {
+					nextToken = instance._parsedData[instance._tokenPointer + 1];
+
+					if (nextToken &&
+						(nextToken.type == TOKEN_TAG_END) &&
+						(nextToken.value == STR_TAG_LIST_ITEM_SHORT)) {
+
+						value = value.substring(0, value.length - 1);
+					}
+				}
+
+				if (value) {
+					value = value.replace(
+						REGEX_NEW_LINE,
+						'<br>'
+					);
+				}
+			}
+
+			return value;
+		},
+
+		_handleTagStart: function(token) {
+			var instance = this;
+
+			var tagName = token.value;
+
+			if (instance._isValidTag(tagName)) {
+				var handlerName = MAP_HANDLERS[tagName] || '_handleSimpleTags';
+
+				instance[handlerName](token);
+			}
+		},
+
+		_handleTagEnd: function(token) {
+			var instance = this;
+
+			var tagName = token.value;
+
+			if (instance._isValidTag(tagName)) {
+				instance._result.push(instance._stack.pop());
+
+				if (tagName == STR_CODE) {
+					instance._noParse = false;
+				}
+			}
+		},
+
+		_handleTextAlign: function(token) {
+			var instance = this;
+
+			instance._result.push(STR_TEXT_ALIGN, token.value, STR_TAG_ATTR_CLOSE);
+
+			instance._stack.push(STR_TAG_P_CLOSE);
+		},
+
+		_handleListItem: function(token) {
+			var instance = this;
+
+			instance._handleSimpleTag('li');
+		},
+
+		_handleQuote: function(token) {
+			var instance = this;
+
+			var cite = token.attribute;
 
 			var result = '<blockquote>';
 
-			if (tagOption && tagOption.length) {
-				tagOption = instance._escapeHTML(tagOption);
+			if (cite && cite.length) {
+				cite = instance._escapeHTML(cite);
 
-				result = '<blockquote><cite>' + tagOption + '</cite>';
+				result = '<blockquote><cite>' + cite + '</cite>';
 			}
 
-			return result;
+			instance._result.push(result);
+
+			instance._stack.push('</blockquote>');
 		},
 
-		_handleSimpleTags: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleSize: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_END_OPEN + openTag + STR_TAG_END_CLOSE
-				}
-			);
+			var size = token.attribute;
 
-			return STR_TAG_OPEN + openTag + STR_TAG_END_CLOSE;
-		},
-
-		_handleSize: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			if (!tagOption || !REGEX_NUMBER.test(tagOption)) {
-				tagOption = '1';
+			if (!size || !REGEX_NUMBER.test(size)) {
+				size = '1';
 			}
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_SPAN_CLOSE
-				}
-			);
+			instance._result.push(STR_TAG_SPAN_STYLE_OPEN, 'font-size: ', instance._getFontSize(size), 'px', STR_TAG_ATTR_CLOSE);
 
-			return STR_TAG_ATTR_STYLE_OPEN + 'font-size: ' + instance._getFontSize(tagOption) + 'px' + STR_TAG_ATTR_CLOSE;
+			instance._stack.push(STR_TAG_SPAN_CLOSE);
 		},
 
-		_handleStrikeThrough: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleSimpleTag: function(tagName) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</strike>'
-				}
-			);
+			instance._result.push(STR_TAG_OPEN, tagName, STR_TAG_END_CLOSE);
 
-			return '<strike>';
+			instance._stack.push(STR_TAG_END_OPEN + tagName + STR_TAG_END_CLOSE);
 		},
 
-		_handleStrong: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleSimpleTags: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</strong>'
-				}
-			);
-
-			return '<strong>';
+			instance._handleSimpleTag(token.value);
 		},
 
-		_handleTable: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleStrikeThrough: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</table>'
-				}
-			);
-
-			return '<table>';
+			instance._handleSimpleTag('strike');
 		},
 
-		_handleTableCell: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleStrong: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</td>'
-				}
-			);
-
-			return '<td>';
+			instance._handleSimpleTag('strong');
 		},
 
-		_handleTableHeader: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleTable: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</th>'
-				}
-			);
-
-			return '<th>';
+			instance._handleSimpleTag('table');
 		},
 
-		_handleTableRow: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleTableCell: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</tr>'
-				}
-			);
-
-			return '<tr>';
+			instance._handleSimpleTag('td');
 		},
 
-		_handleTextAlignCenter: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleTableHeader: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</p>'
-				}
-			);
-
-			return '<p style="text-align: center">';
+			instance._handleSimpleTag('th');
 		},
 
-		_handleTextAlignJustify: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleTableRow: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</p>'
-				}
-			);
-
-			return '<p style="text-align: justify">';
+			instance._handleSimpleTag('tr');
 		},
 
-		_handleTextAlignLeft: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
+		_handleURL: function(token) {
 			var instance = this;
 
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</span>'
-				}
-			);
+			var href = STR_BLANK;
 
-			return '<p style="text-align: left">';
-		},
+			var hrefInput = token.attribute || instance._extractData(STR_TAG_URL, false);
 
-		_handleTextAlignRight: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: '</p>'
-				}
-			);
-
-			return '<p style="text-align: right">';
-		},
-
-		_handleURL: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			var result = null;
-
-			instance._openTags.push(
-				{
-					bbTag: openTag,
-					endTag: STR_TAG_A_CLOSE
-				}
-			);
-
-			if (tagOption && REGEX_URI.test(tagOption)) {
-				instance._urlStart = -1;
-
-				tagOption = CKEDITOR.tools.htmlEncodeAttr(tagOption);
-
-				result = STR_TAG_ATTR_HREF_OPEN + tagOption + STR_TAG_ATTR_CLOSE;
-			}
-			else {
-				instance._urlStart = matchedStr.length + offset;
-
-				result = STR_TAG_ATTR_HREF_OPEN;
+			if (REGEX_URI.test(hrefInput)) {
+				href = CKEDITOR.tools.htmlEncodeAttr(hrefInput);
 			}
 
-			return result;
+			instance._result.push(STR_TAG_ATTR_HREF_OPEN + href + STR_TAG_ATTR_CLOSE);
+
+			instance._stack.push(STR_TAG_A_CLOSE);
 		},
 
-		_hasOpenTag: function(tagName) {
-			var instance = this;
-
-			var openTags = instance._openTags;
-
-			if (!openTags) {
-				return false;
-			}
-
-			for (var i = openTags.length - 1; i >= 0; i--) {
-				if (openTags[i].bbTag === tagName) {
-					return true;
-				}
-			}
-
-			return false;
-		},
-
-		_isValidTag: function(str) {
+		_isValidTag: function(tagName) {
 			var valid = false;
 
-			if (str && str.length) {
-				valid = REGEX_TAG_NAME.test(str);
+			if (tagName && tagName.length) {
+				valid = REGEX_TAG_NAME.test(tagName);
 			}
 
 			return valid;
 		},
 
-		_process: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			var result = null;
-
-			if (crlf && crlf.length) {
-				result = instance._processNewLines(matchedStr, crlf, openTag, tagOption, closeTag, offset, str);
-			}
-			else {
-				result = instance._processStartTag(matchedStr, crlf, openTag, tagOption, closeTag, offset, str);
-
-				if (result === null) {
-					result = instance._processEndTag(matchedStr, crlf, openTag, tagOption, closeTag, offset, str);
-				}
-			}
-
-			return result;
-		},
-
-		_processEndTag: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			var openTags = instance._openTags;
-			var result = null;
-
-			if (instance._isValidTag(closeTag)) {
-				if (instance._noParse) {
-					if (closeTag == 'code') {
-						instance._noParse = false;
-
-						result = openTags.pop().endTag;
-					}
-					else {
-						result = STR_BBCODE_END_OPEN + closeTag + STR_BBCODE_CLOSE;
-					}
-				}
-				else {
-					if (!openTags.length || openTags[openTags.length - 1].bbTag != closeTag) {
-						result = STR_TAG_INVALID_OPEN + STR_BBCODE_END_OPEN + closeTag + STR_BBCODE_CLOSE + STR_TAG_SPAN_CLOSE;
-					}
-					else if (closeTag == STR_URL) {
-						var urlStart = instance._urlStart;
-
-						if (urlStart > 0) {
-							var url = str.substr(urlStart, offset - urlStart);
-
-							url = CKEDITOR.tools.htmlEncodeAttr(url);
-
-							result = STR_TAG_ATTR_CLOSE + url + openTags.pop().endTag;
-						}
-						else {
-							result = openTags.pop().endTag;
-						}
-					}
-					else {
-						result = openTags.pop().endTag;
-					}
-				}
-			}
-
-			if (result) {
-				instance._updateDataMap(matchedStr, result, offset);
-			}
-
-			return result;
-		},
-
-		_processNewLines: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			var result = null;
-
-			if (instance._noParse) {
-				result = matchedStr;
-			}
-			else {
-				result = MAP_NEW_LINES[crlf];
-
-				if (!result) {
-					throw 'Internal error. Invalid regular expression';
-				}
-			}
-
-			instance._updateDataMap(matchedStr, result, offset);
-
-			return result;
-		},
-
-		_processStartTag: function(matchedStr, crlf, openTag, tagOption, closeTag, offset, str) {
-			var instance = this;
-
-			var openTags = instance._openTags;
-			var result = null;
-
-			if (instance._isValidTag(openTag)) {
-				if (instance._noParse) {
-					result = STR_BBCODE_OPEN + openTag + STR_BBCODE_CLOSE;
-				}
-				else if ((openTags.length && openTags[openTags.length - 1].bbTag == STR_URL && instance._urlStart >= 0) ||
-					(openTags.length && openTags[openTags.length - 1].bbTag == STR_IMG)) {
-
-					result = STR_BBCODE_OPEN + openTag + STR_BBCODE_CLOSE;
-				}
-				else {
-					var handler = instance._handleSimpleTags;
-
-					if (openTag == 'b') {
-						handler = instance._handleStrong;
-					}
-					else if (openTag == 'center') {
-						handler = instance._handleTextAlignCenter;
-					}
-					else if (openTag == 'code') {
-						handler = instance._handleCode;
-					}
-					else if (openTag == 'color' || openTag == 'colour') {
-						handler = instance._handleColor;
-					}
-					else if (openTag == 'font') {
-						handler = instance._handleFont;
-					}
-					else if (openTag == 'i') {
-						handler = instance._handleEm;
-					}
-					else if (openTag == STR_IMG) {
-						handler = instance._handleImage;
-					}
-					else if (openTag == 'justify') {
-						handler = instance._handleTextAlignJustify;
-					}
-					else if (openTag == LIST) {
-						handler = instance._handleList;
-					}
-					else if (openTag == 'left') {
-						handler = instance._handleTextAlignLeft;
-					}
-					else if (openTag == 'right') {
-						handler = instance._handleTextAlignRight;
-					}
-					else if (openTag == 'q' || openTag == 'quote') {
-						handler = instance._handleQuote;
-					}
-					else if (openTag == '*') {
-						handler = instance._handleListItem;
-					}
-					else if (openTag == 's') {
-						handler = instance._handleStrikeThrough;
-					}
-					else if (openTag == 'size') {
-						handler = instance._handleSize;
-					}
-					else if (openTag == 'table') {
-						handler = instance._handleTable;
-					}
-					else if (openTag == 'td') {
-						handler = instance._handleTableCell;
-					}
-					else if (openTag == 'th') {
-						handler = instance._handleTableHeader;
-					}
-					else if (openTag == 'tr') {
-						handler = instance._handleTableRow;
-					}
-					else if (openTag == STR_URL) {
-						handler = instance._handleURL;
-					}
-
-					result = handler.apply(instance, arguments);
-
-					if (result) {
-						instance._updateDataMap(matchedStr, result, offset);
-					}
-				}
-			}
-
-			return result;
-		},
-
 		_reset: function() {
 			var instance = this;
 
-			instance._dataMap = [];
-			instance._dataOffset = 0;
-			instance._endTags = [];
-			instance._fontStart = -1;
+			instance._result.length = 0;
+			instance._stack.length = 0;
+
+			instance._parsedData = null;
+
 			instance._noParse = false;
-			instance._openTags = null;
-			instance._urlStart = -1;
-		},
-
-		_updateDataMap: function(matchedStr, tagHTML, offset) {
-			var instance = this;
-
-			instance._dataMap.push(
-				{
-					length: tagHTML.length,
-					startIndex: offset + instance._dataOffset
-				}
-			);
-
-			instance._dataOffset += tagHTML.length - matchedStr.length;
-		},
-
-		_validateImage: function(imageValue) {
-			if (REGEX_IMAGE.test(imageValue)) {
-				return imageValue;
-			}
-
-			return STR_BLANK;
 		}
 	};
 
-	CKEDITOR.BBCodeParser = BBCodeParser;
+	CKEDITOR.BBCode2HTML = Converter;
 })();

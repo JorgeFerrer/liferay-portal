@@ -276,7 +276,8 @@ public class BlogsEntryLocalServiceUtil {
 		int displayDateYear, int displayDateHour, int displayDateMinute,
 		boolean allowPingbacks, boolean allowTrackbacks,
 		java.lang.String[] trackbacks, boolean smallImage,
-		java.lang.String smallImageURL, java.io.File smallFile,
+		java.lang.String smallImageURL, java.lang.String smallImageFileName,
+		java.io.InputStream smallImageInputStream,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -284,7 +285,8 @@ public class BlogsEntryLocalServiceUtil {
 				   .addEntry(userId, title, description, content,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, allowPingbacks, allowTrackbacks, trackbacks,
-			smallImage, smallImageURL, smallFile, serviceContext);
+			smallImage, smallImageURL, smallImageFileName,
+			smallImageInputStream, serviceContext);
 	}
 
 	public static void addEntryResources(
@@ -470,7 +472,8 @@ public class BlogsEntryLocalServiceUtil {
 		int displayDateHour, int displayDateMinute, boolean allowPingbacks,
 		boolean allowTrackbacks, java.lang.String[] trackbacks,
 		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallFile,
+		java.lang.String smallImageFileName,
+		java.io.InputStream smallImageInputStream,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -478,7 +481,8 @@ public class BlogsEntryLocalServiceUtil {
 				   .updateEntry(userId, entryId, title, description, content,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, allowPingbacks, allowTrackbacks, trackbacks,
-			smallImage, smallImageURL, smallFile, serviceContext);
+			smallImage, smallImageURL, smallImageFileName,
+			smallImageInputStream, serviceContext);
 	}
 
 	public static void updateEntryResources(

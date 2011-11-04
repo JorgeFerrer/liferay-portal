@@ -155,10 +155,13 @@ public class AssetEntryServiceSoap {
 		}
 	}
 
-	public static void incrementViewCounter(java.lang.String className,
-		long classPK) throws RemoteException {
+	public static com.liferay.portlet.asset.model.AssetEntrySoap incrementViewCounter(
+		java.lang.String className, long classPK) throws RemoteException {
 		try {
-			AssetEntryServiceUtil.incrementViewCounter(className, classPK);
+			com.liferay.portlet.asset.model.AssetEntry returnValue = AssetEntryServiceUtil.incrementViewCounter(className,
+					classPK);
+
+			return com.liferay.portlet.asset.model.AssetEntrySoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -202,7 +205,7 @@ public class AssetEntryServiceSoap {
 
 	public static com.liferay.portlet.asset.model.AssetEntrySoap updateEntry(
 		long groupId, java.lang.String className, long classPK,
-		java.lang.String classUuid, long[] categoryIds,
+		java.lang.String classUuid, long classTypeId, long[] categoryIds,
 		java.lang.String[] tagNames, boolean visible, java.util.Date startDate,
 		java.util.Date endDate, java.util.Date publishDate,
 		java.util.Date expirationDate, java.lang.String mimeType,
@@ -212,10 +215,10 @@ public class AssetEntryServiceSoap {
 		java.lang.Integer priority, boolean sync) throws RemoteException {
 		try {
 			com.liferay.portlet.asset.model.AssetEntry returnValue = AssetEntryServiceUtil.updateEntry(groupId,
-					className, classPK, classUuid, categoryIds, tagNames,
-					visible, startDate, endDate, publishDate, expirationDate,
-					mimeType, title, description, summary, url, layoutUuid,
-					height, width, priority, sync);
+					className, classPK, classUuid, classTypeId, categoryIds,
+					tagNames, visible, startDate, endDate, publishDate,
+					expirationDate, mimeType, title, description, summary, url,
+					layoutUuid, height, width, priority, sync);
 
 			return com.liferay.portlet.asset.model.AssetEntrySoap.toSoapModel(returnValue);
 		}

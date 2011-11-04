@@ -263,6 +263,15 @@
 		</if>
 	</target>
 
+	<target name="build-ckeditor-plugins-bbcode">
+		<concat destfile="docroot/html/js/editor/ckeditor_diffs/plugins/bbcode/bbcode_parser.js">
+			<filelist
+				dir="docroot/html/js/editor/ckeditor_diffs/plugins/bbcode"
+				files="lexer.js,parser.js,converter.js"
+			/>
+		</concat>
+	</target>
+
 	<target name="build-ckeditor-plugins-creole">
 		<get
 			dest="docroot/html/js/editor/ckeditor_diffs/plugins/creole/creole_parser.js"
@@ -912,10 +921,24 @@ var defaultTypes = []]>
 	<target name="compile-common-jsp">
 		<delete dir="${jspc.classes.dir}" quiet="true" />
 
+		<if>
+			<and>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+				<equals arg1="${ant.java.version}" arg2="1.5" />
+			</and>
+			<then>
+				<var name="jspc.java.home" value="${jdk.windows.home}" />
+			</then>
+			<else>
+				<var name="jspc.java.home" value="${env.JAVA_HOME}" />
+			</else>
+		</if>
+
 		<java
 			classname="org.apache.jasper.JspC"
 			classpathref="jspc.classpath"
 			fork="true"
+			jvm="${jspc.java.home}/bin/java"
 			newenvironment="true"
 			outputproperty="jspc.output"
 		>
@@ -943,34 +966,14 @@ var defaultTypes = []]>
 		/>
 	</target>
 
-	<target name="compile-jboss">
-		<property name="jspc.classes.dir" value="classes/${app.server.type}" />
-
-		<path id="jspc.classpath">
-			<pathelement location="${env.JAVA_HOME}/jre/lib/rt.jar" />
-			<path refid="jspc.common.classpath" />
-			<pathelement location="${app.server.dir}/lib/jboss-logging-spi.jar" />
-			<pathelement location="${app.server.deploy.dir}/jbossweb.sar/jasper-jdt.jar" />
-			<pathelement location="${app.server.deploy.dir}/jbossweb.sar/jbossweb.jar" />
-			<pathelement location="${app.server.deploy.dir}/jbossweb.sar/jstl.jar" />
-			<pathelement location="${app.server.dir}/common/lib/el-api.jar" />
-			<pathelement location="${app.server.dir}/common/lib/jsp-api.jar" />
-			<pathelement location="${app.server.dir}/common/lib/servlet-api.jar" />
-		</path>
-
-		<antcall target="compile-common-jsp" inheritrefs="true">
-			<param name="arg.line" value="-d ${jspc.classes.dir} -webapp ${jsp.precompile.dir}" />
-		</antcall>
-	</target>
-
 	<target name="compile-jonas">
 		<property name="jspc.classes.dir" value="classes/${app.server.type}" />
 
 		<path id="jspc.classpath">
 			<pathelement location="${env.JAVA_HOME}/jre/lib/rt.jar" />
 			<path refid="jspc.common.classpath" />
-			<pathelement location="${app.server.dir}/repositories/maven2-internal/org/ow2/jonas/jonas-web-container-tomcat-6.0/5.1.2/jonas-web-container-tomcat-6.0-5.1.2-ipojo.jar" />
-			<pathelement location="${app.server.dir}/repositories/maven2-internal/org/ow2/jonas/osgi/javaee-api/5.1.2/javaee-api-5.1.2.jar" />
+			<pathelement location="${app.server.dir}/repositories/maven2-internal/org/ow2/jonas/jonas-web-container-tomcat-6.0/${app.server.jonas.version}/jonas-web-container-tomcat-6.0-${app.server.jonas.version}-ipojo.jar" />
+			<pathelement location="${app.server.dir}/repositories/maven2-internal/org/ow2/jonas/osgi/javaee-api/${app.server.jonas.version}/javaee-api-${app.server.jonas.version}.jar" />
 		</path>
 
 		<antcall target="compile-common-jsp" inheritrefs="true">
@@ -1034,8 +1037,21 @@ Please set the property "jdk.6.home" in build.properties.
 	<target name="compile-tomcat">
 		<property name="jspc.classes.dir" value="classes/${app.server.type}" />
 
+		<if>
+			<and>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+				<equals arg1="${ant.java.version}" arg2="1.5" />
+			</and>
+			<then>
+				<var name="jspc.java.home" value="${jdk.windows.home}" />
+			</then>
+			<else>
+				<var name="jspc.java.home" value="${env.JAVA_HOME}" />
+			</else>
+		</if>
+
 		<path id="jspc.classpath">
-			<pathelement location="${env.JAVA_HOME}/jre/lib/rt.jar" />
+			<pathelement location="${jspc.java.home}/jre/lib/rt.jar" />
 			<path refid="jspc.common.classpath" />
 			<pathelement location="${app.server.dir}/lib/el-api.jar" />
 			<pathelement location="${app.server.dir}/lib/jasper.jar" />
@@ -1070,30 +1086,17 @@ Please set the property "jdk.6.home" in build.properties.
 			<equals arg1="${jsp.precompile}" arg2="on" />
 			<then>
 				<if>
-					<equals arg1="${app.server.type}" arg2="jboss" />
+					<equals arg1="${app.server.type}" arg2="jonas" />
 					<then>
-						<antcall target="compile-jboss" />
+						<antcall target="compile-jonas" />
 
-						<copy todir="${app.server.instance.dir}/work/jboss.web/localhost/_">
+						<copy todir="${app.server.dir}/work/jonas/localhost/_">
 							<fileset dir="classes/${app.server.type}">
 								<exclude name="**/*.jspc_error" />
 								<exclude name="**/*.java" />
 							</fileset>
 						</copy>
 					</then>
-					<elseif>
-						<equals arg1="${app.server.type}" arg2="jonas" />
-						<then>
-							<antcall target="compile-jonas" />
-
-							<copy todir="${app.server.dir}/work/jonas/localhost/_">
-								<fileset dir="classes/${app.server.type}">
-									<exclude name="**/*.jspc_error" />
-									<exclude name="**/*.java" />
-								</fileset>
-							</copy>
-						</then>
-					</elseif>
 					<elseif>
 						<equals arg1="${app.server.type}" arg2="resin" />
 						<then>

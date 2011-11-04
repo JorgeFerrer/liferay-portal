@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.templateparser.Transformer;
 import com.liferay.portal.kernel.templateparser.TransformerListener;
 import com.liferay.portal.kernel.util.CharPool;
@@ -49,6 +51,7 @@ import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.FriendlyURLNormalizer;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
@@ -353,31 +356,17 @@ public class JournalUtil {
 			catch (NoSuchArticleException nsae) {
 				corruptIndex = true;
 
-				_log.error(
-					"Article " + articleId +
-						" does not exist in the search index");
+				Indexer indexer = IndexerRegistryUtil.getIndexer(
+					JournalArticle.class);
+
+				long companyId = GetterUtil.getLong(
+					document.get(Field.COMPANY_ID));
+
+				indexer.delete(companyId, document.getUID());
 			}
 		}
 
 		return new Tuple(articles, corruptIndex);
-	}
-
-	public static List<Layout> getDefaultAssetPublisherLayouts(
-			long groupId, boolean privateLayout)
-		throws SystemException {
-
-		List<Layout> defaultAssetPublisherLayouts = new ArrayList<Layout>();
-
-		List<Layout> layouts = LayoutLocalServiceUtil.getLayouts(
-			groupId, privateLayout);
-
-		for (Layout layout : layouts) {
-			if (layout.isContentDisplayPage()) {
-				defaultAssetPublisherLayouts.add(layout);
-			}
-		}
-
-		return defaultAssetPublisherLayouts;
 	}
 
 	public static String getEmailArticleAddedBody(
@@ -650,18 +639,20 @@ public class JournalUtil {
 		}
 	}
 
-	public static String getEmailFromAddress(PortletPreferences preferences) {
-		String emailFromAddress = PropsUtil.get(
-			PropsKeys.JOURNAL_EMAIL_FROM_ADDRESS);
+	public static String getEmailFromAddress(
+			PortletPreferences preferences, long companyId)
+		throws SystemException {
 
-		return preferences.getValue("emailFromAddress", emailFromAddress);
+		return PortalUtil.getEmailFromAddress(
+			preferences, companyId, PropsKeys.JOURNAL_EMAIL_FROM_ADDRESS);
 	}
 
-	public static String getEmailFromName(PortletPreferences preferences) {
-		String emailFromName = PropsUtil.get(
-			PropsKeys.JOURNAL_EMAIL_FROM_NAME);
+	public static String getEmailFromName(
+			PortletPreferences preferences, long companyId)
+		throws SystemException {
 
-		return preferences.getValue("emailFromName", emailFromName);
+		return PortalUtil.getEmailFromName(
+			preferences, companyId, PropsKeys.JOURNAL_EMAIL_FROM_NAME);
 	}
 
 	public static Stack<JournalArticle> getRecentArticles(

@@ -225,7 +225,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		for (CalEvent calEvent : calEvents) {
 			if (EntityCacheUtil.getResult(
 						CalEventModelImpl.ENTITY_CACHE_ENABLED,
-						CalEventImpl.class, calEvent.getPrimaryKey(), this) == null) {
+						CalEventImpl.class, calEvent.getPrimaryKey()) == null) {
 				cacheResult(calEvent);
 			}
 		}
@@ -260,6 +260,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	public void clearCache(CalEvent calEvent) {
 		EntityCacheUtil.removeResult(CalEventModelImpl.ENTITY_CACHE_ENABLED,
 			CalEventImpl.class, calEvent.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] { calEvent.getUuid(), Long.valueOf(
@@ -574,7 +576,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	 */
 	public CalEvent fetchByPrimaryKey(long eventId) throws SystemException {
 		CalEvent calEvent = (CalEvent)EntityCacheUtil.getResult(CalEventModelImpl.ENTITY_CACHE_ENABLED,
-				CalEventImpl.class, eventId, this);
+				CalEventImpl.class, eventId);
 
 		if (calEvent == _nullCalEvent) {
 			return null;
@@ -657,12 +659,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	 */
 	public List<CalEvent> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -886,17 +883,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -915,6 +912,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -957,7 +956,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1178,8 +1177,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -1382,17 +1380,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1411,6 +1409,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1451,7 +1451,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1516,8 +1516,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -1720,17 +1719,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1749,6 +1748,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1789,7 +1790,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2003,13 +2004,13 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -2017,9 +2018,9 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2038,6 +2039,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -2098,7 +2101,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2165,8 +2168,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				remindBy,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_NOTREMINDBY,
@@ -2370,17 +2372,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		query.append(_FINDER_COLUMN_NOTREMINDBY_REMINDBY_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2399,6 +2401,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2439,7 +2443,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(remindBy);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2509,8 +2513,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId, type,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_T,
@@ -2750,17 +2753,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2779,6 +2782,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2823,7 +2828,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2897,8 +2902,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId, StringUtil.merge(types),
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_T,
@@ -3232,13 +3236,13 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -3246,9 +3250,9 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3267,6 +3271,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -3331,7 +3337,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3567,8 +3573,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId, repeating,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_R,
@@ -3787,17 +3792,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		query.append(_FINDER_COLUMN_G_R_REPEATING_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3816,6 +3821,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3858,7 +3865,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(repeating);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4084,13 +4091,13 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -4098,9 +4105,9 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4119,6 +4126,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -4181,7 +4190,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(repeating);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4255,8 +4264,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId, type, repeating,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_T_R,
@@ -4512,17 +4520,17 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		query.append(_FINDER_COLUMN_G_T_R_REPEATING_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4541,6 +4549,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -4587,7 +4597,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(repeating);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4665,8 +4675,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		Object[] finderArgs = new Object[] {
 				groupId, StringUtil.merge(types), repeating,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_T_R,
@@ -5022,13 +5031,13 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -5036,9 +5045,9 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5057,6 +5066,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -5123,7 +5134,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		qPos.add(repeating);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(calEvent);
+			Object[] values = orderByComparator.getOrderByConditionValues(calEvent);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5361,10 +5372,7 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	 */
 	public List<CalEvent> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<CalEvent> list = (List<CalEvent>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -6700,10 +6708,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -6723,8 +6729,8 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

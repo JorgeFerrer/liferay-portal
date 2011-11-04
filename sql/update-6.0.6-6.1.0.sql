@@ -1,5 +1,6 @@
 alter table AssetCategory add description STRING null;
 
+alter table AssetEntry add classTypeId LONG;
 alter table AssetEntry add layoutUuid VARCHAR(75) null;
 
 update AssetEntry set classUuid = (select uuid_ from JournalArticleResource where AssetEntry.classPK = JournalArticleResource.resourcePrimKey) where visible = TRUE and classNameId = (select classNameId from ClassName_ where value = 'com.liferay.portlet.journal.model.JournalArticle');
@@ -31,6 +32,12 @@ alter table Company add active_ BOOLEAN;
 COMMIT_TRANSACTION;
 
 update Company set active_ = TRUE;
+
+alter table Country add zipRequired BOOLEAN;
+
+COMMIT_TRANSACTION;
+
+update Country set zipRequired = TRUE;
 
 create table DDLRecord (
 	uuid_ VARCHAR(75) null,
@@ -264,6 +271,7 @@ alter table Layout add keywords STRING null;
 alter table Layout add robots STRING null;
 alter table Layout add layoutPrototypeUuid VARCHAR(75) null;
 alter table Layout add layoutPrototypeLinkEnabled BOOLEAN null;
+alter table Layout add templateLayoutUuid VARCHAR(75) null;
 alter table Layout drop column layoutPrototypeId;
 alter table Layout drop column dlFolderId;
 
@@ -323,10 +331,6 @@ create table LayoutRevision (
 
 drop index IX_5ABC2905 on LayoutSet;
 
-alter table LayoutSet add layoutSetPrototypeLinkEnabled BOOLEAN null;
-alter table LayoutSet add layoutSetPrototypeUuid VARCHAR(75) null;
-alter table LayoutSet drop column layoutSetPrototypeId;
-
 create table LayoutSetBranch (
 	layoutSetBranchId LONG not null primary key,
 	groupId LONG,
@@ -378,8 +382,9 @@ create table MDRAction (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	ruleGroupId LONG,
-	ruleId LONG,
+	classNameId LONG,
+	classPK LONG,
+	ruleGroupInstanceId LONG,
 	name STRING null,
 	description STRING null,
 	type_ VARCHAR(255) null,
@@ -519,8 +524,11 @@ create table UserNotificationEvent (
 	type_ VARCHAR(75) null,
 	timestamp LONG,
 	deliverBy LONG,
-	payload TEXT null
+	payload TEXT null,
+	archived BOOLEAN
 );
+
+alter table UserNotificationEvent add archived BOOLEAN;
 
 create table VirtualHost (
 	virtualHostId LONG not null primary key,

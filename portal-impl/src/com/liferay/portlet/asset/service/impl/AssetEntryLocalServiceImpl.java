@@ -129,6 +129,18 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		}
 	}
 
+	public AssetEntry fetchEntry(long entryId) throws SystemException {
+		return assetEntryPersistence.fetchByPrimaryKey(entryId);
+	}
+
+	public AssetEntry fetchEntry(String className, long classPK)
+		throws SystemException {
+
+		long classNameId = PortalUtil.getClassNameId(className);
+
+		return assetEntryPersistence.fetchByC_C(classNameId, classPK);
+	}
+
 	public List<AssetEntry> getAncestorEntries(long entryId)
 		throws PortalException, SystemException {
 
@@ -321,16 +333,16 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@BufferedIncrement(incrementClass = NumberIncrement.class)
-	public void incrementViewCounter(
+	public AssetEntry incrementViewCounter(
 			long userId, String className, long classPK, int increment)
 		throws PortalException, SystemException {
 
 		if (!PropsValues.ASSET_ENTRY_INCREMENT_VIEW_COUNTER_ENABLED) {
-			return;
+			return null;
 		}
 
 		if (classPK <= 0) {
-			return;
+			return null;
 		}
 
 		long classNameId = PortalUtil.getClassNameId(className);
@@ -338,19 +350,22 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		AssetEntry entry = assetEntryPersistence.fetchByC_C(
 			classNameId, classPK);
 
-		if (entry != null) {
-			entry.setViewCount(entry.getViewCount() + increment);
-
-			assetEntryPersistence.update(entry, false);
-
-			// Social
-
-			if ((userId > 0) && (entry.getUserId() != userId)) {
-				socialEquityLogLocalService.addEquityLogs(
-					userId, entry.getEntryId(), ActionKeys.VIEW,
-					StringPool.BLANK);
-			}
+		if (entry == null) {
+			return null;
 		}
+
+		entry.setViewCount(entry.getViewCount() + increment);
+
+		assetEntryPersistence.update(entry, false);
+
+		// Social
+
+		if ((userId > 0) && (entry.getUserId() != userId)) {
+			socialEquityLogLocalService.addEquityLogs(
+				userId, entry.getEntryId(), ActionKeys.VIEW, StringPool.BLANK);
+		}
+
+		return entry;
 	}
 
 	public void reindex(List<AssetEntry> entries) throws PortalException {
@@ -530,28 +545,29 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		if (entry != null) {
 			return updateEntry(
 				userId, groupId, className, classPK, entry.getClassUuid(),
-				categoryIds, tagNames, entry.getVisible(), entry.getStartDate(),
-				entry.getEndDate(), entry.getPublishDate(),
-				entry.getExpirationDate(), entry.getMimeType(),
-				entry.getTitle(), entry.getDescription(), entry.getSummary(),
-				entry.getUrl(), entry.getLayoutUuid(), entry.getHeight(),
-				entry.getWidth(), GetterUtil.getInteger(entry.getPriority()),
-				false);
+				entry.getClassTypeId(), categoryIds, tagNames,
+				entry.isVisible(), entry.getStartDate(), entry.getEndDate(),
+				entry.getPublishDate(), entry.getExpirationDate(),
+				entry.getMimeType(), entry.getTitle(), entry.getDescription(),
+				entry.getSummary(), entry.getUrl(), entry.getLayoutUuid(),
+				entry.getHeight(), entry.getWidth(),
+				GetterUtil.getInteger(entry.getPriority()), false);
 		}
 
 		return updateEntry(
-			userId, groupId, className, classPK, null, categoryIds, tagNames,
+			userId, groupId, className, classPK, null, 0, categoryIds, tagNames,
 			true, null, null, null, null, null, null, null, null, null, null, 0,
 			0, null, false);
 	}
 
 	public AssetEntry updateEntry(
 			long userId, long groupId, String className, long classPK,
-			String classUuid, long[] categoryIds, String[] tagNames,
-			boolean visible, Date startDate, Date endDate, Date publishDate,
-			Date expirationDate, String mimeType, String title,
-			String description, String summary, String url, String layoutUuid,
-			int height, int width, Integer priority, boolean sync)
+			String classUuid, long classTypeId, long[] categoryIds,
+			String[] tagNames, boolean visible, Date startDate, Date endDate,
+			Date publishDate, Date expirationDate, String mimeType,
+			String title, String description, String summary, String url,
+			String layoutUuid, int height, int width, Integer priority,
+			boolean sync)
 		throws PortalException, SystemException {
 
 		// Entry
@@ -585,6 +601,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 			entry.setClassNameId(classNameId);
 			entry.setClassPK(classPK);
 			entry.setClassUuid(classUuid);
+			entry.setClassTypeId(classTypeId);
 			entry.setVisible(visible);
 			entry.setPublishDate(publishDate);
 			entry.setExpirationDate(expirationDate);

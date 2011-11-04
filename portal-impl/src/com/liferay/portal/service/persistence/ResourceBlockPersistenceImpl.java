@@ -155,8 +155,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		for (ResourceBlock resourceBlock : resourceBlocks) {
 			if (EntityCacheUtil.getResult(
 						ResourceBlockModelImpl.ENTITY_CACHE_ENABLED,
-						ResourceBlockImpl.class, resourceBlock.getPrimaryKey(),
-						this) == null) {
+						ResourceBlockImpl.class, resourceBlock.getPrimaryKey()) == null) {
 				cacheResult(resourceBlock);
 			}
 		}
@@ -191,6 +190,8 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public void clearCache(ResourceBlock resourceBlock) {
 		EntityCacheUtil.removeResult(ResourceBlockModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceBlockImpl.class, resourceBlock.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_G_N_P,
 			new Object[] {
@@ -477,7 +478,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public ResourceBlock fetchByPrimaryKey(long resourceBlockId)
 		throws SystemException {
 		ResourceBlock resourceBlock = (ResourceBlock)EntityCacheUtil.getResult(ResourceBlockModelImpl.ENTITY_CACHE_ENABLED,
-				ResourceBlockImpl.class, resourceBlockId, this);
+				ResourceBlockImpl.class, resourceBlockId);
 
 		if (resourceBlock == _nullResourceBlock) {
 			return null;
@@ -570,8 +571,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		Object[] finderArgs = new Object[] {
 				companyId, name,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<ResourceBlock> list = (List<ResourceBlock>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_N,
@@ -808,17 +808,17 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -837,6 +837,8 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -877,7 +879,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceBlock);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceBlock);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -951,8 +953,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		Object[] finderArgs = new Object[] {
 				companyId, groupId, name,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<ResourceBlock> list = (List<ResourceBlock>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_G_N,
@@ -1205,17 +1206,17 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1234,6 +1235,8 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1276,7 +1279,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceBlock);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceBlock);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1528,10 +1531,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	 */
 	public List<ResourceBlock> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<ResourceBlock> list = (List<ResourceBlock>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1902,10 +1902,8 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1925,8 +1923,8 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

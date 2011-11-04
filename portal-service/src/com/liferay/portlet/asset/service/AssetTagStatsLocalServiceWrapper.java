@@ -248,46 +248,123 @@ public class AssetTagStatsLocalServiceWrapper
 		_assetTagStatsLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	/**
+	* Adds an asset tag statistics instance.
+	*
+	* @param tagId the primary key of the tag
+	* @param classNameId the asset entry's class name ID
+	* @return the asset tag statistics instance
+	* @throws SystemException if a system exception occurred
+	*/
 	public com.liferay.portlet.asset.model.AssetTagStats addTagStats(
 		long tagId, long classNameId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _assetTagStatsLocalService.addTagStats(tagId, classNameId);
 	}
 
+	/**
+	* Deletes the asset tag statistics instance.
+	*
+	* @param tagStats the asset tag statistics instance
+	* @throws SystemException if a system exception occurred
+	*/
 	public void deleteTagStats(
 		com.liferay.portlet.asset.model.AssetTagStats tagStats)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_assetTagStatsLocalService.deleteTagStats(tagStats);
 	}
 
+	/**
+	* Deletes the asset tag statistics instance matching the tag statistics
+	* ID.
+	*
+	* @param tagStatsId the primary key of the asset tag statistics instance
+	* @throws PortalException if the assetTagStats with the primary key could
+	not be found
+	* @throws SystemException if a system exception occurred
+	*/
 	public void deleteTagStats(long tagStatsId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_assetTagStatsLocalService.deleteTagStats(tagStatsId);
 	}
 
+	/**
+	* Deletes all asset tag statistics instances associated with the asset
+	* entry matching the class name ID.
+	*
+	* @param classNameId the asset entry's class name ID
+	* @throws SystemException if a system exception occurred
+	*/
 	public void deleteTagStatsByClassNameId(long classNameId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_assetTagStatsLocalService.deleteTagStatsByClassNameId(classNameId);
 	}
 
+	/**
+	* Deletes all asset tag statistics instances associated with the tag.
+	*
+	* @param tagId the primary key of the tag
+	* @throws SystemException if a system exception occurred
+	*/
 	public void deleteTagStatsByTagId(long tagId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_assetTagStatsLocalService.deleteTagStatsByTagId(tagId);
 	}
 
+	/**
+	* Returns a range of all the asset tag statistics instances associated
+	* with the asset entry matching the class name ID.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end -
+	* start</code> instances. <code>start</code> and <code>end</code> are not
+	* primary keys, they are indexes in the result set. Thus, <code>0</code>
+	* refers to the first result in the set. Setting both <code>start</code>
+	* and <code>end</code> to {@link
+	* com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the
+	* full result set.
+	* </p>
+	*
+	* @param classNameId the asset entry's class name ID
+	* @param start the lower bound of the range of results
+	* @param end the upper bound of the range of results (not inclusive)
+	* @return the range of asset tag statistics associated with the asset
+	entry matching the class name ID
+	* @throws SystemException if a system exception occurred
+	*/
 	public java.util.List<com.liferay.portlet.asset.model.AssetTagStats> getTagStats(
 		long classNameId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _assetTagStatsLocalService.getTagStats(classNameId, start, end);
 	}
 
+	/**
+	* Returns the asset tag statistics instance with the tag and asset entry
+	* matching the class name ID
+	*
+	* @param tagId the primary key of the tag
+	* @param classNameId the asset entry's class name ID
+	* @return Returns the asset tag statistics instance with the tag and asset
+	entry  matching the class name ID
+	* @throws SystemException if a system exception occurred
+	*/
 	public com.liferay.portlet.asset.model.AssetTagStats getTagStats(
 		long tagId, long classNameId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _assetTagStatsLocalService.getTagStats(tagId, classNameId);
 	}
 
+	/**
+	* Updates the asset tag statistics instance.
+	*
+	* @param tagId the primary key of the tag
+	* @param classNameId the asset entry's class name ID
+	* @return the updated asset tag statistics instance
+	* @throws PortalException if an asset tag with the tag ID could not be
+	found
+	* @throws SystemException if a system exception occurred
+	*/
 	public com.liferay.portlet.asset.model.AssetTagStats updateTagStats(
 		long tagId, long classNameId)
 		throws com.liferay.portal.kernel.exception.PortalException,

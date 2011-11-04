@@ -74,6 +74,7 @@ import com.liferay.portal.util.ShutdownUtil;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.ActionResponseImpl;
 import com.liferay.portlet.admin.util.CleanUpPermissionsUtil;
+import com.liferay.portlet.documentlibrary.util.DLPreviewableProcessor;
 import com.liferay.util.log4j.Log4JUtil;
 
 import java.io.File;
@@ -145,6 +146,9 @@ public class EditServerAction extends PortletAction {
 		}
 		else if (cmd.startsWith("convertProcess.")) {
 			redirect = convertProcess(actionRequest, actionResponse, cmd);
+		}
+		else if (cmd.equals("dlPreviews")) {
+			DLPreviewableProcessor.deleteFiles();
 		}
 		else if (cmd.equals("gc")) {
 			gc();
@@ -371,6 +375,7 @@ public class EditServerAction extends PortletAction {
 		portletObjects.put("out", unsyncPrintWriter);
 
 		try {
+			SessionMessages.add(actionRequest, "language", language);
 			SessionMessages.add(actionRequest, "script", script);
 
 			ScriptingUtil.exec(null, portletObjects, language, script);

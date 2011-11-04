@@ -243,6 +243,15 @@ public interface AssetEntryLocalService extends PersistedModelLocalService {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portlet.asset.model.AssetEntry fetchEntry(long entryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portlet.asset.model.AssetEntry fetchEntry(
+		java.lang.String className, long classPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portlet.asset.model.AssetEntry> getAncestorEntries(
 		long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -322,8 +331,8 @@ public interface AssetEntryLocalService extends PersistedModelLocalService {
 		java.lang.String[] className, boolean asc, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	public void incrementViewCounter(long userId, java.lang.String className,
-		long classPK, int increment)
+	public com.liferay.portlet.asset.model.AssetEntry incrementViewCounter(
+		long userId, java.lang.String className, long classPK, int increment)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -372,7 +381,7 @@ public interface AssetEntryLocalService extends PersistedModelLocalService {
 
 	public com.liferay.portlet.asset.model.AssetEntry updateEntry(long userId,
 		long groupId, java.lang.String className, long classPK,
-		java.lang.String classUuid, long[] categoryIds,
+		java.lang.String classUuid, long classTypeId, long[] categoryIds,
 		java.lang.String[] tagNames, boolean visible, java.util.Date startDate,
 		java.util.Date endDate, java.util.Date publishDate,
 		java.util.Date expirationDate, java.lang.String mimeType,

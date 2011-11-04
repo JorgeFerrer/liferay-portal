@@ -929,84 +929,86 @@ public class GroupFinderImpl
 	protected void setJoin(
 		QueryPos qPos, LinkedHashMap<String, Object> params) {
 
-		if (params != null) {
-			for (Map.Entry<String, Object> entry : params.entrySet()) {
-				String key = entry.getKey();
+		if (params == null) {
+			return;
+		}
 
-				if (key.equals("active") || key.equals("layoutSet") ||
-					key.equals("site")) {
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+			String key = entry.getKey();
 
-					Boolean value = (Boolean)entry.getValue();
+			if (key.equals("active") || key.equals("layoutSet") ||
+				key.equals("site")) {
+
+				Boolean value = (Boolean)entry.getValue();
+
+				qPos.add(value);
+			}
+			else if (key.equals("pageCount")) {
+			}
+			else if (key.equals("rolePermissions")) {
+				List<Object> values = (List<Object>)entry.getValue();
+
+				String name = (String)values.get(0);
+				Integer scope = (Integer)values.get(1);
+				String actionId = (String)values.get(2);
+				Long roleId = (Long)values.get(3);
+
+				if ((PropsValues.PERMISSIONS_USER_CHECK_ALGORITHM == 6) &&
+					ResourceBlockLocalServiceUtil.isSupported(name)) {
+
+					// Scope is assumed to always be group
+
+					qPos.add(name);
+					qPos.add(roleId);
+					qPos.add(actionId);
+				}
+				else {
+					qPos.add(name);
+					qPos.add(scope);
+					qPos.add(actionId);
+					qPos.add(roleId);
+				}
+			}
+			else if (key.equals("types")) {
+				List<Integer> values = (List<Integer>)entry.getValue();
+
+				for (int i = 0; i < values.size(); i++) {
+					Integer value = values.get(i);
 
 					qPos.add(value);
 				}
-				else if (key.equals("pageCount")) {
-				}
-				else if (key.equals("rolePermissions")) {
-					List<Object> values = (List<Object>)entry.getValue();
+			}
+			else if (key.equals("userGroupRole")) {
+				List<Long> values = (List<Long>)entry.getValue();
 
-					String name = (String)values.get(0);
-					Integer scope = (Integer)values.get(1);
-					String actionId = (String)values.get(2);
-					Long roleId = (Long)values.get(3);
+				Long userId = values.get(0);
+				Long roleId = values.get(1);
 
-					if ((PropsValues.PERMISSIONS_USER_CHECK_ALGORITHM == 6) &&
-						ResourceBlockLocalServiceUtil.isSupported(name)) {
+				qPos.add(userId);
+				qPos.add(roleId);
+			}
+			else {
+				Object value = entry.getValue();
 
-						// Scope is assumed to always be group
+				if (value instanceof Integer) {
+					Integer valueInteger = (Integer)value;
 
-						qPos.add(name);
-						qPos.add(roleId);
-						qPos.add(actionId);
-					}
-					else {
-						qPos.add(name);
-						qPos.add(scope);
-						qPos.add(actionId);
-						qPos.add(roleId);
+					if (Validator.isNotNull(valueInteger)) {
+						qPos.add(valueInteger);
 					}
 				}
-				else if (key.equals("types")) {
-					List<Integer> values = (List<Integer>)entry.getValue();
+				else if (value instanceof Long) {
+					Long valueLong = (Long)value;
 
-					for (int i = 0; i < values.size(); i++) {
-						Integer value = values.get(i);
-
-						qPos.add(value);
+					if (Validator.isNotNull(valueLong)) {
+						qPos.add(valueLong);
 					}
 				}
-				else if (key.equals("userGroupRole")) {
-					List<Long> values = (List<Long>)entry.getValue();
+				else if (value instanceof String) {
+					String valueString = (String)value;
 
-					Long userId = values.get(0);
-					Long roleId = values.get(1);
-
-					qPos.add(userId);
-					qPos.add(roleId);
-				}
-				else {
-					Object value = entry.getValue();
-
-					if (value instanceof Integer) {
-						Integer valueInteger = (Integer)value;
-
-						if (Validator.isNotNull(valueInteger)) {
-							qPos.add(valueInteger);
-						}
-					}
-					else if (value instanceof Long) {
-						Long valueLong = (Long)value;
-
-						if (Validator.isNotNull(valueLong)) {
-							qPos.add(valueLong);
-						}
-					}
-					else if (value instanceof String) {
-						String valueString = (String)value;
-
-						if (Validator.isNotNull(valueString)) {
-							qPos.add(valueString);
-						}
+					if (Validator.isNotNull(valueString)) {
+						qPos.add(valueString);
 					}
 				}
 			}

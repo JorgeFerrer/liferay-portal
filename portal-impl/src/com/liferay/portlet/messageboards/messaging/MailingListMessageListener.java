@@ -19,8 +19,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mail.Account;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
-import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ObjectValuePair;
+import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionCheckerUtil;
@@ -38,7 +38,7 @@ import com.liferay.portlet.messageboards.util.MBUtil;
 import com.liferay.portlet.messageboards.util.MailingListThreadLocal;
 import com.liferay.util.mail.MailEngine;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.List;
 
@@ -218,9 +218,9 @@ public class MailingListMessageListener extends BaseMessageListener {
 			_log.debug("Parent message " + parentMessage);
 		}
 
-		MBMailMessage collector = new MBMailMessage();
+		MBMailMessage mbMailMessage = new MBMailMessage();
 
-		MBUtil.collectPartContent(mailMessage, collector);
+		MBUtil.collectPartContent(mailMessage, mbMailMessage);
 
 		PermissionCheckerUtil.setThreadValues(user);
 
@@ -236,28 +236,31 @@ public class MailingListMessageListener extends BaseMessageListener {
 			PortalUtil.getLayoutFullURL(groupId, PortletKeys.MESSAGE_BOARDS));
 		serviceContext.setScopeGroupId(groupId);
 
-		List<ObjectValuePair<String, File>> files = collector.getFiles();
+		List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
+			mbMailMessage.getInputStreamOVPs();
 
 		try {
 			if (parentMessage == null) {
 				MBMessageServiceUtil.addMessage(
-					groupId, categoryId, subject, collector.getBody(),
-					MBMessageConstants.DEFAULT_FORMAT, files, anonymous, 0.0,
-					true, serviceContext);
+					groupId, categoryId, subject, mbMailMessage.getBody(),
+					MBMessageConstants.DEFAULT_FORMAT, inputStreamOVPs,
+					anonymous, 0.0, true, serviceContext);
 			}
 			else {
 				MBMessageServiceUtil.addMessage(
 					groupId, categoryId, parentMessage.getThreadId(),
-					parentMessage.getMessageId(), subject, collector.getBody(),
-					MBMessageConstants.DEFAULT_FORMAT, files, anonymous, 0.0,
-					true, serviceContext);
+					parentMessage.getMessageId(), subject,
+					mbMailMessage.getBody(), MBMessageConstants.DEFAULT_FORMAT,
+					inputStreamOVPs, anonymous, 0.0, true, serviceContext);
 			}
 		}
 		finally {
-			for (ObjectValuePair<String, File> ovp : files) {
-				File file = ovp.getValue();
+			for (ObjectValuePair<String, InputStream> inputStreamOVP :
+					inputStreamOVPs) {
 
-				FileUtil.delete(file);
+				InputStream inputStream = inputStreamOVP.getValue();
+
+				StreamUtil.cleanUp(inputStream);
 			}
 		}
 	}

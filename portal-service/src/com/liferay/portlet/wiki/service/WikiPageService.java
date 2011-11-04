@@ -58,19 +58,19 @@ public interface WikiPageService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	public void addPageAttachments(long nodeId, java.lang.String title,
-		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.File>> files)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
 	public void addPageAttachment(long nodeId, java.lang.String title,
 		java.lang.String fileName, java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void addPageAttachments(long nodeId, java.lang.String title,
+		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.InputStream>> inputStream)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	public java.lang.String addTempPageAttachment(long nodeId,
 		java.lang.String fileName, java.lang.String tempFolderName,
-		java.io.File file)
+		java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException,
 			java.io.IOException;

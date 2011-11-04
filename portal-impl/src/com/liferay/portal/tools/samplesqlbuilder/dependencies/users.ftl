@@ -31,10 +31,10 @@
 
 		${sampleSQLBuilder.insertMBStatsUser(mbStatsUser)}
 
-		${usersCsvWriter.write(user.getScreenName() + "," + userGroup.groupId + ",")}
+		${writerUsersCSV.write(user.getScreenName() + "," + userGroup.groupId + ",")}
 
 		<#if (userCounter.value < maxUserCount)>
-			${usersCsvWriter.write("\n")}
+			${writerUsersCSV.write("\n")}
 		</#if>
 
 		<#if (lastName_index = 0) && (firstName_index = 0)>
@@ -42,7 +42,7 @@
 		</#if>
 
 		<#if (userCounter.value >= maxUserCount)>
-			${usersCsvWriter.write("\n")}
+			${writerUsersCSV.write("\n")}
 
 			<#break>
 		</#if>

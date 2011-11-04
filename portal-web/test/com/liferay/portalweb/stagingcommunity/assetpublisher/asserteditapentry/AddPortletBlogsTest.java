@@ -22,7 +22,7 @@ import com.liferay.portalweb.portal.util.RuntimeVariables;
  */
 public class AddPortletBlogsTest extends BaseTestCase {
 	public void testAddPortletBlogs() throws Exception {
-		selenium.open("/web/staging/");
+		selenium.open("/web/guest/home/");
 
 		for (int second = 0;; second++) {
 			if (second >= 60) {
@@ -30,7 +30,7 @@ public class AddPortletBlogsTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isVisible("link=Blogs Test Page")) {
+				if (selenium.isElementPresent("link=Site Name")) {
 					break;
 				}
 			}
@@ -41,11 +41,17 @@ public class AddPortletBlogsTest extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=Blogs Test Page", RuntimeVariables.replace(""));
+		selenium.clickAt("link=Site Name", RuntimeVariables.replace("Site Name"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("_145_addApplication", RuntimeVariables.replace(""));
-		Thread.sleep(5000);
+		selenium.clickAt("link=Blogs Test Page",
+			RuntimeVariables.replace("Blogs Test Page"));
+		selenium.waitForPageToLoad("30000");
+		selenium.saveScreenShotAndSource();
+		assertTrue(selenium.isPartialText("//a[@id='_145_addApplication']",
+				"More"));
+		selenium.clickAt("//a[@id='_145_addApplication']",
+			RuntimeVariables.replace("More"));
 
 		for (int second = 0;; second++) {
 			if (second >= 60) {
@@ -53,28 +59,7 @@ public class AddPortletBlogsTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isVisible("layout_configuration_content")) {
-					break;
-				}
-			}
-			catch (Exception e) {
-			}
-
-			Thread.sleep(1000);
-		}
-
-		selenium.saveScreenShotAndSource();
-		selenium.typeKeys("layout_configuration_content",
-			RuntimeVariables.replace("b"));
-		selenium.saveScreenShotAndSource();
-
-		for (int second = 0;; second++) {
-			if (second >= 60) {
-				fail("timeout");
-			}
-
-			try {
-				if (selenium.isVisible("//div[@title='Blogs']/p/a")) {
+				if (selenium.isElementPresent("//div[@title='Blogs']/p/a")) {
 					break;
 				}
 			}
@@ -86,7 +71,7 @@ public class AddPortletBlogsTest extends BaseTestCase {
 
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("//div[@title='Blogs']/p/a",
-			RuntimeVariables.replace(""));
+			RuntimeVariables.replace("Blogs"));
 
 		for (int second = 0;; second++) {
 			if (second >= 60) {

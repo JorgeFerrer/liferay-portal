@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,13 +71,36 @@ public class UploadPortletRequestImpl
 	}
 
 	public File getFile(String name) {
-		File file = _uploadServletRequest.getFile(_namespace.concat(name));
+		return getFile(name, false);
+	}
+
+	public File getFile(String name, boolean forceCreate) {
+		File file = _uploadServletRequest.getFile(
+			_namespace.concat(name), forceCreate);
 
 		if (file == null) {
-			file = _uploadServletRequest.getFile(name);
+			file = _uploadServletRequest.getFile(name, forceCreate);
 		}
 
 		return file;
+	}
+
+	public InputStream getFileAsStream(String name) throws IOException {
+		return getFileAsStream(name, true);
+	}
+
+	public InputStream getFileAsStream(String name, boolean deleteOnClose)
+		throws IOException {
+
+		InputStream inputStream = _uploadServletRequest.getFileAsStream(
+			_namespace.concat(name), deleteOnClose);
+
+		if (inputStream == null) {
+			inputStream = _uploadServletRequest.getFileAsStream(
+				name, deleteOnClose);
+		}
+
+		return inputStream;
 	}
 
 	public String getFileName(String name) {
@@ -108,6 +133,24 @@ public class UploadPortletRequestImpl
 		}
 
 		return files;
+	}
+
+	public InputStream[] getFilesAsStream(String name) throws IOException {
+		return getFilesAsStream(name, true);
+	}
+
+	public InputStream[] getFilesAsStream(String name, boolean deleteOnClose)
+		throws IOException {
+
+		InputStream[] inputStreams = _uploadServletRequest.getFilesAsStream(
+			_namespace.concat(name), deleteOnClose);
+
+		if (inputStreams == null) {
+			inputStreams = _uploadServletRequest.getFilesAsStream(
+				name, deleteOnClose);
+		}
+
+		return inputStreams;
 	}
 
 	public String getFullFileName(String name) {
@@ -179,6 +222,20 @@ public class UploadPortletRequestImpl
 		}
 
 		return parameterValues;
+	}
+
+	public long getSize(String name) {
+		Long size = _uploadServletRequest.getSize(_namespace.concat(name));
+
+		if (size == null) {
+			size = _uploadServletRequest.getSize(name);
+		}
+
+		if (size == null) {
+			return 0;
+		}
+
+		return size;
 	}
 
 	public boolean isFormField(String name) {

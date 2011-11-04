@@ -29,7 +29,7 @@ import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 import com.liferay.portlet.wiki.service.WikiPageServiceUtil;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +52,8 @@ public class AttachmentCommandReceiver extends BaseCommandReceiver {
 
 	@Override
 	protected String fileUpload(
-		CommandArgument commandArgument, String fileName, File file,
-		String extension) {
+		CommandArgument commandArgument, String fileName,
+		InputStream inputStream, String extension, long size) {
 
 		try {
 			HttpServletRequest request =
@@ -68,15 +68,16 @@ public class AttachmentCommandReceiver extends BaseCommandReceiver {
 
 			long nodeId = page.getNodeId();
 
-			List<ObjectValuePair<String, File>> files =
-				new ArrayList<ObjectValuePair<String, File>>();
+			List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
+				new ArrayList<ObjectValuePair<String, InputStream>>(1);
 
-			ObjectValuePair<String, File> ovp =
-				new ObjectValuePair<String, File>(fileName, file);
+			ObjectValuePair<String, InputStream> inputStreamOVP =
+				new ObjectValuePair<String, InputStream>(fileName, inputStream);
 
-			files.add(ovp);
+			inputStreamOVPs.add(inputStreamOVP);
 
-			WikiPageServiceUtil.addPageAttachments(nodeId, title, files);
+			WikiPageServiceUtil.addPageAttachments(
+				nodeId, title, inputStreamOVPs);
 		}
 		catch (Exception e) {
 			throw new FCKException(e);

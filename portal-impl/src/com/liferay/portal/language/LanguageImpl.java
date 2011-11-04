@@ -330,16 +330,39 @@ public class LanguageImpl implements Language {
 	}
 
 	public String get(Locale locale, String key, String defaultValue) {
-		try {
-			return _get(null, null, locale, key, defaultValue);
+		if (PropsValues.TRANSLATIONS_DISABLED) {
+			return key;
 		}
-		catch (Exception e) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(e, e);
+
+		if (key == null) {
+			return null;
+		}
+
+		String value = LanguageResources.getMessage(locale, key);
+
+		while ((value == null) || value.equals(defaultValue)) {
+			if ((key.length() > 0) &&
+				(key.charAt(key.length() - 1) == CharPool.CLOSE_BRACKET)) {
+
+				int pos = key.lastIndexOf(CharPool.OPEN_BRACKET);
+
+				if (pos != -1) {
+					key = key.substring(0, pos);
+
+					value = LanguageResources.getMessage(locale, key);
+
+					continue;
+				}
 			}
 
-			return defaultValue;
+			break;
 		}
+
+		if (value == null) {
+			value = defaultValue;
+		}
+
+		return value;
 	}
 
 	public String get(PageContext pageContext, String key) {
@@ -535,14 +558,17 @@ public class LanguageImpl implements Language {
 		for (int i = 0; i < localesArray.length; i++) {
 			String languageId = localesArray[i];
 
-			int pos = languageId.indexOf(CharPool.UNDERLINE);
-
-			String language = languageId.substring(0, pos);
-			//String country = languageId.substring(pos + 1);
-
 			Locale locale = LocaleUtil.fromLanguageId(languageId);
 
 			_charEncodings.put(locale.toString(), StringPool.UTF8);
+
+			String language = languageId;
+
+			int pos = languageId.indexOf(CharPool.UNDERLINE);
+
+			if (pos > 0) {
+				language = languageId.substring(0, pos);
+			}
 
 			if (_localesMap.containsKey(language)) {
 				_duplicateLanguageCodes.add(language);
@@ -627,7 +653,9 @@ public class LanguageImpl implements Language {
 		}
 
 		if ((value == null) || value.equals(defaultValue)) {
-			if (key.endsWith(StringPool.CLOSE_BRACKET)) {
+			if ((key.length() > 0) &&
+				(key.charAt(key.length() - 1) == CharPool.CLOSE_BRACKET)) {
+
 				int pos = key.lastIndexOf(CharPool.OPEN_BRACKET);
 
 				if (pos != -1) {

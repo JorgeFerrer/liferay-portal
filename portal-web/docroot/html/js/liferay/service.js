@@ -41,6 +41,7 @@ Liferay.Service.registerClass(
 	Liferay.Service.Portal, "Country",
 	{
 		addCountry: true,
+		fetchCountry: true,
 		getCountries: true,
 		getCountry: true,
 		getCountryByA2: true,
@@ -308,6 +309,7 @@ Liferay.Service.registerClass(
 Liferay.Service.registerClass(
 	Liferay.Service.Portal, "Repository",
 	{
+		addRepository: true,
 		checkRepository: true,
 		getLocalRepositoryImpl: true,
 		getRepository: true,
@@ -315,7 +317,6 @@ Liferay.Service.registerClass(
 		getSupportedConfigurations: true,
 		getSupportedParameters: true,
 		getTypeSettingsProperties: true,
-		mountRepository: true,
 		unmountRepositories: true,
 		unmountRepository: true,
 		updateRepository: true
@@ -852,6 +853,7 @@ Liferay.Service.registerClass(
 	{
 		addTemplate: true,
 		deleteTemplate: true,
+		getTemplate: true,
 		getTemplates: true,
 		updateTemplate: true
 	}
@@ -1153,6 +1155,7 @@ Liferay.Service.registerClass(
 		addNode: true,
 		deleteNode: true,
 		getNode: true,
+		importPages: true,
 		subscribeNode: true,
 		unsubscribeNode: true,
 		updateNode: true

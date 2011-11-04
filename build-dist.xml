@@ -47,9 +47,9 @@
 		<delete file="app.server.${user.name}.properties" />
 
 		<antcall target="deploy-plugins">
-			<param name="deployer.dest.dir" value="${app.server.parent.dir}/jboss-5.1.0/server/default/deploy" />
+			<param name="deployer.dest.dir" value="${app.server.parent.dir}/jboss-${app.server.jboss.version}/server/default/deploy" />
 			<param name="deployer.app.server.type" value="jboss" />
-			<param name="deployer.app.server.lib.portal.dir" value="${app.server.parent.dir}/jboss-5.1.0/server/default/deploy/ROOT.war/WEB-INF/lib" />
+			<param name="deployer.app.server.lib.portal.dir" value="${app.server.parent.dir}/jboss-${app.server.jboss.version}/server/default/deploy/ROOT.war/WEB-INF/lib" />
 		</antcall>
 	</target>
 
@@ -211,6 +211,8 @@
 				<available file="${app.server.parent.dir}/${tcat.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${tcat.zip.name}"
 					src="${tcat.zip.url}"
@@ -794,6 +796,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.geronimo.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.geronimo.zip.name}"
 					src="${app.server.geronimo.zip.url}"
@@ -808,10 +812,16 @@ release was successful.</echo>
 		>
 			<mapper
 				type="glob"
-				from="geronimo-tomcat6-minimal-2.2.1/*"
-				to="geronimo-2.2.1/*"
+				from="geronimo-tomcat6-minimal-${app.server.geronimo.version}/*"
+				to="geronimo-${app.server.geronimo.version}/*"
 			/>
 		</unzip>
+
+		<chmod perm="a+x">
+			<fileset dir="${app.server.geronimo.bin.dir}">
+				<include name="*.sh"/>
+			</fileset>
+		</chmod>
 	</target>
 
 	<target name="unzip-glassfish">
@@ -822,6 +832,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.glassfish.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.glassfish.zip.name}"
 					src="${app.server.glassfish.zip.url}"
@@ -843,16 +855,24 @@ release was successful.</echo>
 				to="${app.server.glassfish.dir}/*"
 			/>
 		</unzip>
+
+		<chmod perm="a+x">
+			<fileset dir="${app.server.glassfish.bin.dir}">
+				<exclude name="*.bat"/>
+			</fileset>
+		</chmod>
 	</target>
 
 	<target name="unzip-jboss">
-		<delete dir="${app.server.parent.dir}/jboss-5.1.0" />
+		<delete dir="${app.server.jboss.dir}" />
 
 		<if>
 			<not>
 				<available file="${app.server.parent.dir}/${app.server.jboss.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.jboss.zip.name}"
 					src="${app.server.jboss.zip.url}"
@@ -865,34 +885,39 @@ release was successful.</echo>
 			dest="${app.server.parent.dir}"
 			src="${app.server.parent.dir}/${app.server.jboss.zip.name}"
 		>
-			<patternset
-				excludes="jboss-5.1.0.GA/server/all/**,jboss-5.1.0.GA/server/default/**,jboss-5.1.0.GA/server/minimal/**,jboss-5.1.0.GA/server/standard/**"
-			/>
 			<mapper
 				type="glob"
-				from="jboss-5.1.0.GA/*"
-				to="jboss-5.1.0/*"
+				from="jboss-as-${app.server.jboss.version}.Final/*"
+				to="jboss-${app.server.jboss.version}/*"
 			/>
 		</unzip>
 
-		<replace file="${app.server.parent.dir}/jboss-5.1.0/server/web/conf/jboss-service.xml">
-			<replacetoken><![CDATA[<attribute name="Port">-1</attribute>]]></replacetoken>
-			<replacevalue><![CDATA[<attribute name="Port"><value-factory bean="ServiceBindingManager" method="getIntBinding"><parameter>jboss:service=Naming</parameter><parameter>Port</parameter></value-factory></attribute>]]></replacevalue>
+		<chmod perm="a+x">
+			<fileset dir="${app.server.jboss.bin.dir}">
+				<include name="*.sh"/>
+			</fileset>
+		</chmod>
+
+		<replace file="${app.server.jboss.dir}/standalone/configuration/standalone.xml">
+			<replacetoken><![CDATA[enable-welcome-root="true"]]></replacetoken>
+			<replacevalue><![CDATA[enable-welcome-root="false"]]></replacevalue>
 		</replace>
 
-		<replace file="${app.server.parent.dir}/jboss-5.1.0/server/web/conf/login-config.xml">
-			<replacetoken><![CDATA[</policy>]]></replacetoken>
-			<replacevalue><![CDATA[
-					<application-policy name="PortalRealm">
-						<authentication>
-							<login-module code="com.liferay.portal.security.jaas.PortalLoginModule" flag="required" />
-						</authentication>
-					</application-policy>
-				</policy>]]>
+		<replace file="${app.server.jboss.dir}/standalone/configuration/standalone.xml">
+			<replacetoken><![CDATA[<deployment-scanner scan-interval="]]></replacetoken>
+			<replacevalue><![CDATA[<deployment-scanner deployment-timeout="120" scan-interval="]]></replacevalue>
+		</replace>
+
+		<replace file="${app.server.jboss.dir}/standalone/configuration/standalone.xml">
+			<replacetoken><![CDATA[<security-domains>]]></replacetoken>
+			<replacevalue><![CDATA[<security-domains>
+				<security-domain name="PortalRealm">
+					<authentication>
+						<login-module code="com.liferay.portal.security.jaas.PortalLoginModule" flag="required"/>
+					</authentication>
+				</security-domain>]]>
 			</replacevalue>
 		</replace>
-
-		<move file="${app.server.parent.dir}/jboss-5.1.0/server/web" tofile="${app.server.parent.dir}/jboss-5.1.0/server/default" />
 	</target>
 
 	<target name="unzip-jetty">
@@ -903,6 +928,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.jetty.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.jetty.zip.name}"
 					src="${app.server.jetty.zip.url}"
@@ -916,13 +943,19 @@ release was successful.</echo>
 			src="${app.server.parent.dir}/${app.server.jetty.zip.name}"
 		>
 			<patternset
-				excludes="jetty-6.1.26/bin/**,jetty-6.1.26/contexts/**,jetty-6.1.26/contrib/**,jetty-6.1.26/distribution/**,jetty-6.1.26/examples/**,jetty-6.1.26/extras/**,jetty-6.1.26/javadoc/**,jetty-6.1.26/jxr/**,jetty-6.1.26/modules/**,jetty-6.1.26/patches/**,jetty-6.1.26/patches/**,jetty-6.1.26/project-website/**,jetty-6.1.26/webapps/**"
+				excludes="jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/bin/**,jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/contexts/**,jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/contexts-available/**,jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/javadoc/**,jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/overlays/**,jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/webapps/**"
+			/>
+			<mapper
+				type="glob"
+				from="jetty-hightide-${app.server.jetty.version}.v${app.server.jetty.version.date}/*"
+				to="jetty-${app.server.jetty.version}/*"
 			/>
 		</unzip>
 
-		<mkdir dir="${app.server.parent.dir}/jetty-6.1.26/bin" />
-		<mkdir dir="${app.server.parent.dir}/jetty-6.1.26/contexts" />
-		<mkdir dir="${app.server.parent.dir}/jetty-6.1.26/webapps" />
+		<mkdir dir="${app.server.parent.dir}/jetty-${app.server.jetty.version}/bin" />
+		<mkdir dir="${app.server.parent.dir}/jetty-${app.server.jetty.version}/contexts" />
+		<mkdir dir="${app.server.parent.dir}/jetty-${app.server.jetty.version}/temp" />
+		<mkdir dir="${app.server.parent.dir}/jetty-${app.server.jetty.version}/webapps" />
 	</target>
 
 	<target name="unzip-jonas">
@@ -933,6 +966,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.jonas.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.jonas.zip.name}"
 					src="${app.server.jonas.zip.url}"
@@ -946,40 +981,50 @@ release was successful.</echo>
 			src="${app.server.parent.dir}/${app.server.jonas.zip.name}"
 		>
 			<patternset
-				excludes="jonas-full-5.1.2/examples/**,jonas-full-5.1.2/tutorial/**"
+				excludes="jonas-full-${app.server.jonas.version}/examples/**,jonas-full-${app.server.jonas.version}/tutorial/**"
 			/>
 			<mapper
 				type="glob"
-				from="jonas-full-5.1.2/*"
-				to="jonas-5.1.2/*"
+				from="jonas-full-${app.server.jonas.version}/*"
+				to="jonas-${app.server.jonas.version}/*"
 			/>
 		</unzip>
 
+		<chmod perm="a+x">
+			<fileset dir="${app.server.jonas.bin.dir}">
+				<exclude name="*.bat"/>
+			</fileset>
+		</chmod>
+
 		<delete includeemptydirs="true" failonerror="false">
 			<fileset
-				dir="${app.server.parent.dir}/jonas-5.1.2/conf"
+				dir="${app.server.parent.dir}/jonas-${app.server.jonas.version}/conf"
 				includes="db2.properties,FirebirdSQL.properties,HSQL1.properties,jetty*.xml,InstantDB1.properties,InterBase1.properties,MailMimePartDS1.properties,MailSession1.properties,McKoi1.properties,MySQL.properties,Oracle1.properties,PostgreSQL1.properties,spy.properties,Sybase1.properties"
 			/>
 			<fileset
-				dir="${app.server.parent.dir}/jonas-5.1.2/deploy"
-				includes="ctxroot.xml,doc.xml,jonasAdmin.xml"
+				dir="${app.server.parent.dir}/jonas-${app.server.jonas.version}/deploy"
+				includes="ctxroot.xml,doc.xml,jdbc-ds.xml,jonasAdmin.xml"
 			/>
 			<fileset
-				dir="${app.server.parent.dir}/jonas-5.1.2/repositories/maven2-internal"
+				dir="${app.server.parent.dir}/jonas-${app.server.jonas.version}/repositories/maven2-internal"
 				includes="org/mortbay/**,org/ow2/jonas/documentation/**,org/ow2/jonas/jonas-admin/**,org/ow2/jonas/jonas-ctxroot/**"
 			/>
 		</delete>
 
-		<replace
-			file="${app.server.parent.dir}/jonas-5.1.2/conf/jonas.properties"
-			token="HSQL1"
-			value=""
-		/>
+		<replace file="${app.server.parent.dir}/jonas-${app.server.jonas.version}/conf/jonas.properties">
+			<replacefilter token="HSQL1" value="" />
+			<replacefilter token="jtm,db,resource,ejb3,jaxws,web,ear,depmonitor" value="jtm,resource,ejb3,jaxws,web,ear,validation,depmonitor" />
+		</replace>
 
-		<replace file="${app.server.parent.dir}/jonas-5.1.2/conf/tomcat6-server.xml">
+		<replace file="${app.server.parent.dir}/jonas-${app.server.jonas.version}/conf/tomcat6-server.xml">
 			<replacefilter token="9000" value="8080" />
 			<replacefilter token="9009" value="8009" />
 			<replacefilter token="9043" value="8443" />
+		</replace>
+
+		<replace file="${app.server.parent.dir}/jonas-${app.server.jonas.version}/conf/osgi/defaults.properties">
+			<replacetoken><![CDATA[javase-packages ${javase-${javase.version}}]]></replacetoken>
+			<replacevalue><![CDATA[javase-packages ${javase-${javase.version}}, com.sun.jmx.mbeanserver, com.sun.crypto.provider, org.apache.felix.framework]]></replacevalue>
 		</replace>
 	</target>
 
@@ -991,6 +1036,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.resin.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.resin.zip.name}"
 					src="${app.server.resin.zip.url}"
@@ -1019,6 +1066,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.tomcat.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.tomcat.zip.name}"
 					src="${app.server.tomcat.zip.url}"
@@ -1058,6 +1107,12 @@ release was successful.</echo>
 			/>
 		</unzip>
 
+		<chmod perm="a+x">
+			<fileset dir="${app.server.tomcat.bin.dir}">
+				<include name="*.sh"/>
+			</fileset>
+		</chmod>
+
 		<mkdir dir="${app.server.tomcat.dir}/webapps" />
 	</target>
 
@@ -1071,6 +1126,8 @@ release was successful.</echo>
 				<available file="${app.server.parent.dir}/${app.server.weblogic.zip.name}" />
 			</not>
 			<then>
+				<mkdir dir="${app.server.parent.dir}" />
+
 				<get
 					dest="${app.server.parent.dir}/${app.server.weblogic.zip.name}"
 					src="${app.server.weblogic.zip.url}"

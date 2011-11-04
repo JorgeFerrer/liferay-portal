@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
@@ -119,20 +120,17 @@ public class VideoProcessor extends DLPreviewableProcessor {
 		return false;
 	}
 
+	public static boolean isSupportedVideo(String mimeType) {
+		return _instance._isSupportedVideo(mimeType);
+	}
+
 	public VideoProcessor() {
 		FileUtil.mkdirs(PREVIEW_TMP_PATH);
 		FileUtil.mkdirs(THUMBNAIL_TMP_PATH);
 	}
 
-	public void trigger(FileEntry fileEntry) {
-		try {
-			FileVersion fileVersion = fileEntry.getLatestFileVersion();
-
-			_instance._queueGeneration(fileVersion);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+	public void trigger(FileVersion fileVersion) {
+		_instance._queueGeneration(fileVersion);
 	}
 
 	@Override
@@ -167,7 +165,15 @@ public class VideoProcessor extends DLPreviewableProcessor {
 
 			iMediaReader.addListener(captureFrameListener);
 
-			while (iMediaReader.readPacket() == null) {
+			try {
+				while (iMediaReader.readPacket() == null) {
+					if (captureFrameListener.isWritten()) {
+						break;
+					}
+				}
+			}
+			catch (Exception e) {
+				_log.error(e, e);
 			}
 
 			addFileToStore(
@@ -179,6 +185,12 @@ public class VideoProcessor extends DLPreviewableProcessor {
 		}
 		finally {
 			FileUtil.delete(thumbnailTempFile);
+		}
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Xuggler generated a thumbnail for " +
+					fileVersion.getFileVersionId());
 		}
 	}
 
@@ -198,41 +210,53 @@ public class VideoProcessor extends DLPreviewableProcessor {
 				return;
 			}
 
+			File file = null;
+
+			if (_isGeneratePreview(fileVersion) ||
+				_isGenerateThumbnail(fileVersion)) {
+
+				if (fileVersion instanceof LiferayFileVersion) {
+					try {
+						LiferayFileVersion liferayFileVersion =
+							(LiferayFileVersion)fileVersion;
+
+						file = liferayFileVersion.getFile(false);
+					}
+					catch (UnsupportedOperationException uoe) {
+					}
+				}
+
+				if (file == null) {
+					InputStream inputStream = fileVersion.getContentStream(
+						false);
+
+					FileUtil.write(videoTempFile, inputStream);
+
+					file = videoTempFile;
+				}
+			}
+
 			if (_isGeneratePreview(fileVersion)) {
-				InputStream inputStream = fileVersion.getContentStream(false);
-
-				FileUtil.write(videoTempFile, inputStream);
-
 				try {
 					_generateVideoXuggler(
-						fileVersion, videoTempFile, previewTempFile,
+						fileVersion, file, previewTempFile,
 						PropsValues.DL_FILE_ENTRY_PREVIEW_VIDEO_HEIGHT,
 						PropsValues.DL_FILE_ENTRY_PREVIEW_VIDEO_WIDTH);
 				}
 				catch (Exception e) {
-					_log.error(e);
-				}
-
-				if (_log.isInfoEnabled()) {
-					_log.info(
-						"Xuggler generated a preview video for " + tempFileId);
+					_log.error(e, e);
 				}
 			}
 
 			if (_isGenerateThumbnail(fileVersion)) {
 				try {
 					_generateThumbnailXuggler(
-						fileVersion, previewTempFile,
+						fileVersion, file,
 						PropsValues.DL_FILE_ENTRY_THUMBNAIL_HEIGHT,
 						PropsValues.DL_FILE_ENTRY_THUMBNAIL_WIDTH);
 				}
 				catch (Exception e) {
-					_log.error(e);
-				}
-
-				if (_log.isInfoEnabled()) {
-					_log.info(
-						"Xuggler generated a thumbnail for " + tempFileId);
+					_log.error(e, e);
 				}
 			}
 		}
@@ -271,12 +295,23 @@ public class VideoProcessor extends DLPreviewableProcessor {
 
 		iMediaWriter.addListener(videoListener);
 
-		while (iMediaReader.readPacket() == null) {
+		try {
+			while (iMediaReader.readPacket() == null) {
+			}
+		}
+		catch (Exception e) {
+			_log.error(e, e);
 		}
 
 		addFileToStore(
 			fileVersion.getCompanyId(), PREVIEW_PATH,
 			getPreviewFilePath(fileVersion), destFile);
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Xuggler generated a preview video for " +
+					fileVersion.getFileVersionId());
+		}
 	}
 
 	private File _getVideoTempFile(String tempFileId, String targetExtension) {
@@ -368,7 +403,11 @@ public class VideoProcessor extends DLPreviewableProcessor {
 			return false;
 		}
 
-		return _videoMimeTypes.contains(fileVersion.getMimeType());
+		return _isSupportedVideo(fileVersion.getMimeType());
+	}
+
+	public boolean _isSupportedVideo(String mimeType) {
+		return _videoMimeTypes.contains(mimeType);
 	}
 
 	private void _queueGeneration(FileVersion fileVersion) {

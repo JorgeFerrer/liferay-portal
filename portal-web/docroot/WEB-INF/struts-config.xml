@@ -732,11 +732,15 @@
 			<forward name="portlet.document_library.error" path="portlet.document_library.error" />
 		</action>
 
+		<action path="/image_gallery_display/embedded_player" forward="portlet.image_gallery_display.embedded_player" />
+
 		<action path="/image_gallery_display/find_folder" type="com.liferay.portlet.documentlibrary.action.FindFolderAction" />
 
 		<action path="/image_gallery_display/find_image" type="com.liferay.portlet.imagegallerydisplay.action.FindImageAction" />
 
 		<action path="/image_gallery_display/search" forward="portlet.image_gallery_display.search" />
+
+		<action path="/image_gallery_display/select_file_entry_type" forward="portlet.document_library_display.select_file_entry_type" />
 
 		<action path="/image_gallery_display/select_folder" type="com.liferay.portlet.documentlibrary.action.EditFolderAction">
 			<forward name="portlet.document_library.edit_folder" path="portlet.document_library.select_folder" />
@@ -827,6 +831,8 @@
 		<action path="/journal/get_template_content" type="com.liferay.portlet.journal.action.GetTemplateContentAction" />
 
 		<action path="/journal/rss" type="com.liferay.portlet.journal.action.RSSAction" />
+
+		<action path="/journal/select_display_page" type="com.liferay.portlet.layoutsadmin.action.EditLayoutsAction" />
 
 		<action path="/journal/select_document_library" type="com.liferay.portlet.documentlibrary.action.ViewAction">
 			<forward name="portlet.document_library.error" path="portlet.document_library.error" />

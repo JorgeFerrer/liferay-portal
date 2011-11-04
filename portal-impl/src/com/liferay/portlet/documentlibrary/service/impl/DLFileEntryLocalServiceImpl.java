@@ -23,13 +23,9 @@ import com.liferay.portal.kernel.image.ImageBag;
 import com.liferay.portal.kernel.image.ImageProcessorUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.messaging.DestinationNames;
-import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchException;
-import com.liferay.portal.kernel.transaction.Propagation;
-import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -75,6 +71,7 @@ import com.liferay.portlet.documentlibrary.model.FileModel;
 import com.liferay.portlet.documentlibrary.model.impl.DLFileEntryImpl;
 import com.liferay.portlet.documentlibrary.service.base.DLFileEntryLocalServiceBaseImpl;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
+import com.liferay.portlet.documentlibrary.util.DLPreviewableProcessor;
 import com.liferay.portlet.documentlibrary.util.DLUtil;
 import com.liferay.portlet.documentlibrary.util.comparator.RepositoryModelModifiedDateComparator;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
@@ -113,7 +110,6 @@ import java.util.Map;
 public class DLFileEntryLocalServiceImpl
 	extends DLFileEntryLocalServiceBaseImpl {
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public DLFileEntry addFileEntry(
 			long userId, long groupId, long repositoryId, long folderId,
 			String sourceFileName, String mimeType, String title,
@@ -189,9 +185,8 @@ public class DLFileEntryLocalServiceImpl
 		// Folder
 
 		if (folderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
-			MessageBusUtil.sendMessage(
-				DestinationNames.DOCUMENT_LIBRARY_FOLDER_LAST_POST_DATE,
-				dlFileEntry);
+			dlFolderLocalService.updateLastPostDate(
+				dlFileEntry.getFolderId(), dlFileEntry.getModifiedDate());
 		}
 
 		// Asset
@@ -291,6 +286,9 @@ public class DLFileEntryLocalServiceImpl
 		catch (NoSuchFileException nsfe) {
 		}
 
+		DLPreviewableProcessor.deleteFiles(
+			new LiferayFileVersion(dlFileVersion));
+
 		lockLocalService.unlock(DLFileEntry.class.getName(), fileEntryId);
 	}
 
@@ -333,9 +331,8 @@ public class DLFileEntryLocalServiceImpl
 		if (dlFileEntry.getFolderId() !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
-			MessageBusUtil.sendMessage(
-				DestinationNames.DOCUMENT_LIBRARY_FOLDER_LAST_POST_DATE,
-				dlFileEntry);
+			dlFolderLocalService.updateLastPostDate(
+				dlFileEntry.getFolderId(), dlFileEntry.getModifiedDate());
 		}
 
 		// File
@@ -927,7 +924,6 @@ public class DLFileEntryLocalServiceImpl
 			addDraftAssetEntry, visible, height, width);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public DLFileEntry updateFileEntry(
 			long userId, long fileEntryId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,

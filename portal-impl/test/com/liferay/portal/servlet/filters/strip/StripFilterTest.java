@@ -76,7 +76,7 @@ public class StripFilterTest extends TestCase {
 
 		StringWriter stringWriter = new StringWriter();
 
-		stripFilter.processCSS(null, charBuffer, stringWriter);
+		stripFilter.processCSS(null, null, charBuffer, stringWriter);
 
 		assertEquals("style type=\"text/css\">", stringWriter.toString());
 		assertEquals(22, charBuffer.position());
@@ -86,7 +86,7 @@ public class StripFilterTest extends TestCase {
 		charBuffer = CharBuffer.wrap("style type=\"text/css\"></style>");
 		stringWriter = new StringWriter();
 
-		stripFilter.processCSS(null, charBuffer, stringWriter);
+		stripFilter.processCSS(null, null, charBuffer, stringWriter);
 
 		assertEquals(
 			"style type=\"text/css\"></style>", stringWriter.toString());
@@ -97,7 +97,7 @@ public class StripFilterTest extends TestCase {
 		charBuffer = CharBuffer.wrap("style type=\"text/css\"> \r\t\n</style>");
 		stringWriter = new StringWriter();
 
-		stripFilter.processCSS(null, charBuffer, stringWriter);
+		stripFilter.processCSS(null, null, charBuffer, stringWriter);
 
 		assertEquals(
 			"style type=\"text/css\"></style>", stringWriter.toString());
@@ -114,7 +114,7 @@ public class StripFilterTest extends TestCase {
 			"style type=\"text/css\">" + code + "</style>");
 		stringWriter = new StringWriter();
 
-		stripFilter.processCSS(null, charBuffer, stringWriter);
+		stripFilter.processCSS(null, null, charBuffer, stringWriter);
 
 		assertEquals(
 			"style type=\"text/css\">" + minifiedCode + "</style>",
@@ -127,7 +127,7 @@ public class StripFilterTest extends TestCase {
 			"style type=\"text/css\">" + code + "</style> \r\t\n");
 		stringWriter = new StringWriter();
 
-		stripFilter.processCSS(null, charBuffer, stringWriter);
+		stripFilter.processCSS(null, null, charBuffer, stringWriter);
 
 		assertEquals(
 			"style type=\"text/css\">" + minifiedCode + "</style> ",
@@ -144,7 +144,7 @@ public class StripFilterTest extends TestCase {
 		StringWriter stringWriter = new StringWriter();
 
 		stripFilter.processJavaScript(
-			charBuffer, stringWriter, "script>".toCharArray());
+			charBuffer, stringWriter, "script".toCharArray());
 
 		assertEquals("script>", stringWriter.toString());
 		assertEquals(7, charBuffer.position());
@@ -155,7 +155,7 @@ public class StripFilterTest extends TestCase {
 		stringWriter = new StringWriter();
 
 		stripFilter.processJavaScript(
-			charBuffer, stringWriter, "script>".toCharArray());
+			charBuffer, stringWriter, "script".toCharArray());
 
 		assertEquals("script></script>", stringWriter.toString());
 		assertEquals(16, charBuffer.position());
@@ -166,7 +166,7 @@ public class StripFilterTest extends TestCase {
 		stringWriter = new StringWriter();
 
 		stripFilter.processJavaScript(
-			charBuffer, stringWriter, "script>".toCharArray());
+			charBuffer, stringWriter, "script".toCharArray());
 
 		assertEquals("script></script>", stringWriter.toString());
 		assertEquals(20, charBuffer.position());
@@ -180,7 +180,7 @@ public class StripFilterTest extends TestCase {
 		stringWriter = new StringWriter();
 
 		stripFilter.processJavaScript(
-			charBuffer, stringWriter, "script>".toCharArray());
+			charBuffer, stringWriter, "script".toCharArray());
 
 		assertEquals(
 			"script>/*<![CDATA[*/" + minifiedCode + "/*]]>*/</script>",
@@ -193,7 +193,7 @@ public class StripFilterTest extends TestCase {
 		stringWriter = new StringWriter();
 
 		stripFilter.processJavaScript(
-			charBuffer, stringWriter, "script>".toCharArray());
+			charBuffer, stringWriter, "script".toCharArray());
 
 		assertEquals(
 			"script>/*<![CDATA[*/" + minifiedCode + "/*]]>*/</script> ",

@@ -169,7 +169,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 			if (EntityCacheUtil.getResult(
 						PortletPreferencesModelImpl.ENTITY_CACHE_ENABLED,
 						PortletPreferencesImpl.class,
-						portletPreferences.getPrimaryKey(), this) == null) {
+						portletPreferences.getPrimaryKey()) == null) {
 				cacheResult(portletPreferences);
 			}
 		}
@@ -204,6 +204,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 	public void clearCache(PortletPreferences portletPreferences) {
 		EntityCacheUtil.removeResult(PortletPreferencesModelImpl.ENTITY_CACHE_ENABLED,
 			PortletPreferencesImpl.class, portletPreferences.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_O_O_P_P,
 			new Object[] {
@@ -488,7 +490,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 	public PortletPreferences fetchByPrimaryKey(long portletPreferencesId)
 		throws SystemException {
 		PortletPreferences portletPreferences = (PortletPreferences)EntityCacheUtil.getResult(PortletPreferencesModelImpl.ENTITY_CACHE_ENABLED,
-				PortletPreferencesImpl.class, portletPreferencesId, this);
+				PortletPreferencesImpl.class, portletPreferencesId);
 
 		if (portletPreferences == _nullPortletPreferences) {
 			return null;
@@ -573,12 +575,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 	 */
 	public List<PortletPreferences> findByPlid(long plid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				plid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { plid, start, end, orderByComparator };
 
 		List<PortletPreferences> list = (List<PortletPreferences>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PLID,
 				finderArgs, this);
@@ -777,17 +774,17 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		query.append(_FINDER_COLUMN_PLID_PLID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -806,6 +803,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -842,7 +841,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		qPos.add(plid);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(portletPreferences);
+			Object[] values = orderByComparator.getOrderByConditionValues(portletPreferences);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -913,8 +912,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		Object[] finderArgs = new Object[] {
 				plid, portletId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<PortletPreferences> list = (List<PortletPreferences>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_P_P,
@@ -1152,17 +1150,17 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1181,6 +1179,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1221,7 +1221,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(portletPreferences);
+			Object[] values = orderByComparator.getOrderByConditionValues(portletPreferences);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1295,8 +1295,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		Object[] finderArgs = new Object[] {
 				ownerId, ownerType, plid,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<PortletPreferences> list = (List<PortletPreferences>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_O_O_P,
@@ -1527,17 +1526,17 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		query.append(_FINDER_COLUMN_O_O_P_PLID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1556,6 +1555,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1596,7 +1597,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 		qPos.add(plid);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(portletPreferences);
+			Object[] values = orderByComparator.getOrderByConditionValues(portletPreferences);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1832,10 +1833,7 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 	 */
 	public List<PortletPreferences> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<PortletPreferences> list = (List<PortletPreferences>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2246,10 +2244,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2269,8 +2265,8 @@ public class PortletPreferencesPersistenceImpl extends BasePersistenceImpl<Portl
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

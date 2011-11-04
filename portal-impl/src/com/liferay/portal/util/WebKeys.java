@@ -148,8 +148,6 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 
 	public static final String JOURNAL_ARTICLE_CONTENT_EL = "JOURNAL_ARTICLE_CONTENT_EL";
 
-	public static final String JOURNAL_ARTICLE_DISPLAY = "JOURNAL_ARTICLE_DISPLAY";
-
 	public static final String JOURNAL_ARTICLE_GROUP_ID = "JOURNAL_ARTICLE_GROUP_ID";
 
 	public static final String JOURNAL_FEED = "JOURNAL_FEED";
@@ -350,6 +348,12 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 
 	public static final String SESSION_LISTENER = "SESSION_LISTENER";
 
+	public static final String SETUP_WIZARD_FINISHED = "SETUP_WIZARD_FINISHED";
+
+	public static final String SETUP_WIZARD_PROPERTIES = "SETUP_WIZARD_PROPERTIES";
+
+	public static final String SETUP_WIZARD_PROPERTIES_UPDATED = "SETUP_WIZARD_PROPERTIES_UPDATED";
+	
 	public static final String SHOPPING_CATEGORY = "SHOPPING_CATEGORY";
 
 	public static final String SHOPPING_COUPON = "SHOPPING_COUPON";
@@ -375,6 +379,8 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 	public static final String SOURCE_VERSION = "SOURCE_VERSION";
 
 	public static final String STALE_SESSION = "STALE_SESSION";
+
+	public static final String STARTUP_FINISHED = "STARTUP_FINISHED";
 
 	public static final String STRING_SERVLET_RESPONSE = "STRING_SERVLET_RESPONSE";
 

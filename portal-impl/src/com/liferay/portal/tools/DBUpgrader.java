@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.model.Release;
 import com.liferay.portal.model.ReleaseConstants;
@@ -82,7 +83,19 @@ public class DBUpgrader {
 
 		int buildNumber = ReleaseLocalServiceUtil.getBuildNumberOrCreate();
 
-		if (buildNumber < ReleaseInfo.RELEASE_5_0_0_BUILD_NUMBER) {
+		if (buildNumber > ReleaseInfo.getBuildNumber()) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append("Attempting to deploy an older Liferay Portal version. ");
+			sb.append("Current build version is ");
+			sb.append(buildNumber);
+			sb.append(" and attempting to deploy version ");
+			sb.append(ReleaseInfo.getBuildNumber());
+			sb.append(".");
+
+			throw new IllegalStateException(sb.toString());
+		}
+		else if (buildNumber < ReleaseInfo.RELEASE_5_0_0_BUILD_NUMBER) {
 			String msg = "You must first upgrade to Liferay Portal 5.0.0";
 
 			System.out.println(msg);

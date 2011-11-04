@@ -411,7 +411,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		for (WikiPage wikiPage : wikiPages) {
 			if (EntityCacheUtil.getResult(
 						WikiPageModelImpl.ENTITY_CACHE_ENABLED,
-						WikiPageImpl.class, wikiPage.getPrimaryKey(), this) == null) {
+						WikiPageImpl.class, wikiPage.getPrimaryKey()) == null) {
 				cacheResult(wikiPage);
 			}
 		}
@@ -446,6 +446,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	public void clearCache(WikiPage wikiPage) {
 		EntityCacheUtil.removeResult(WikiPageModelImpl.ENTITY_CACHE_ENABLED,
 			WikiPageImpl.class, wikiPage.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] { wikiPage.getUuid(), Long.valueOf(
@@ -834,7 +836,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 */
 	public WikiPage fetchByPrimaryKey(long pageId) throws SystemException {
 		WikiPage wikiPage = (WikiPage)EntityCacheUtil.getResult(WikiPageModelImpl.ENTITY_CACHE_ENABLED,
-				WikiPageImpl.class, pageId, this);
+				WikiPageImpl.class, pageId);
 
 		if (wikiPage == _nullWikiPage) {
 			return null;
@@ -917,12 +919,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 */
 	public List<WikiPage> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -1146,17 +1143,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1175,6 +1172,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1217,7 +1216,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1433,12 +1432,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 */
 	public List<WikiPage> findByNodeId(long nodeId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				nodeId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { nodeId, start, end, orderByComparator };
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_NODEID,
 				finderArgs, this);
@@ -1640,17 +1634,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_NODEID_NODEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1669,6 +1663,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1709,7 +1705,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(nodeId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1771,12 +1767,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 */
 	public List<WikiPage> findByFormat(String format, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				format,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { format, start, end, orderByComparator };
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_FORMAT,
 				finderArgs, this);
@@ -2000,17 +1991,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2029,6 +2020,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2071,7 +2064,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2142,8 +2135,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				resourcePrimKey, nodeId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_R_N,
@@ -2362,17 +2354,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_R_N_NODEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2391,6 +2383,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2433,7 +2427,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(nodeId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2503,8 +2497,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, title,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_T,
@@ -2744,17 +2737,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2773,6 +2766,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2817,7 +2812,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2887,8 +2882,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, head,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_H,
@@ -3106,17 +3100,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_H_HEAD_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3135,6 +3129,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3177,7 +3173,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(head);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3247,8 +3243,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, parentTitle,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_P,
@@ -3489,17 +3484,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3518,6 +3513,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3562,7 +3559,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3633,8 +3630,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, redirectTitle,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_R,
@@ -3875,17 +3871,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3904,6 +3900,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3948,7 +3946,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4018,8 +4016,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_S,
@@ -4237,17 +4234,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4266,6 +4263,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -4308,7 +4307,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4534,8 +4533,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				resourcePrimKey, nodeId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_R_N_S,
@@ -4770,17 +4768,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_R_N_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4799,6 +4797,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -4843,7 +4843,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4917,8 +4917,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				userId, nodeId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_N_S,
@@ -5152,17 +5151,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_U_N_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5181,6 +5180,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -5225,7 +5226,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5464,8 +5465,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, title, head,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_T_H,
@@ -5721,17 +5721,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_T_H_HEAD_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5750,6 +5750,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -5796,7 +5798,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(head);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5870,8 +5872,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, title, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_T_S,
@@ -6127,17 +6128,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_T_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6156,6 +6157,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6202,7 +6205,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6276,8 +6279,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, head, parentTitle,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_H_P,
@@ -6533,17 +6535,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6562,6 +6564,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6608,7 +6612,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6682,8 +6686,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, head, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_H_S,
@@ -6917,17 +6920,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_H_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6946,6 +6949,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6990,7 +6995,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7068,8 +7073,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		Object[] finderArgs = new Object[] {
 				nodeId, head, parentTitle, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_N_H_P_S,
@@ -7341,17 +7345,17 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		query.append(_FINDER_COLUMN_N_H_P_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7370,6 +7374,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -7418,7 +7424,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(wikiPage);
+			Object[] values = orderByComparator.getOrderByConditionValues(wikiPage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7476,10 +7482,7 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 */
 	public List<WikiPage> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<WikiPage> list = (List<WikiPage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -9112,10 +9115,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -9135,8 +9136,8 @@ public class WikiPagePersistenceImpl extends BasePersistenceImpl<WikiPage>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

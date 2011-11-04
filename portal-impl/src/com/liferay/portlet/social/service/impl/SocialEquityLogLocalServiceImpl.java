@@ -21,13 +21,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.increment.BufferedIncrement;
 import com.liferay.portal.kernel.increment.SocialEquityIncrement;
-import com.liferay.portal.kernel.transaction.Propagation;
-import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
+import com.liferay.portal.spring.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.asset.NoSuchEntryException;
 import com.liferay.portlet.asset.model.AssetEntry;
@@ -48,6 +47,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.sql.DataSource;
 
@@ -57,6 +57,21 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
 /**
+ * The Social Equity main service. All portlets should interact with this
+ * service to use the Social Equity framework.
+ *
+ * <p>
+ * This class is responsible for recording and removing social actions that
+ * affect a user's social equity scores. It also contains methods for ranking
+ * and cleanup.
+ * </p>
+ *
+ * <p>
+ * Social Equity actions always have an actor (the user executing the action)
+ * and an asset (the target of the action). The asset can be identified by
+ * either its primary key or a className/classPK pair.
+ * </p>
+ *
  * @author Zsolt Berentey
  * @author Brian Wing Shun Chan
  */
@@ -64,7 +79,15 @@ public class SocialEquityLogLocalServiceImpl
 	extends SocialEquityLogLocalServiceBaseImpl {
 
 	/**
-	 * @deprecated {@link #addEquityLogs(long, long, String, String)}
+	 * Records the social equity action and adjusts social equity scores.
+	 *
+	 * @param      userId the primary key of the acting user
+	 * @param      assetEntryId the primary key of the target asset entry
+	 * @param      actionId the ID of the action
+	 * @throws     PortalException if the asset entry could not be found
+	 * @throws     SystemException if a system exception occurred
+	 * @deprecated Replaced by {@link #addEquityLogs(long, long, String,
+	 *             String)} to support the <code>extraData</code> parameter
 	 */
 	public void addEquityLogs(
 			long userId, long assetEntryId, String actionId)
@@ -73,6 +96,24 @@ public class SocialEquityLogLocalServiceImpl
 		addEquityLogs(userId, assetEntryId, actionId, StringPool.BLANK);
 	}
 
+	/**
+	 * Records the social equity action and adjusts social equity scores based
+	 * on the user's action done on the target asset entry.
+	 *
+	 * <p>
+	 * The <code>extraData</code> parameter can contain further information
+	 * about the action such as the file name for a download action. It is used
+	 * to distinguish between otherwise equal actions, such as multiple
+	 * downloads of message boards attachments.
+	 * </p>
+	 *
+	 * @param  userId the primary key of the acting user
+	 * @param  assetEntryId the primary key of the target asset entry
+	 * @param  actionId the ID of the action
+	 * @param  extraData the extra data associated with the action
+	 * @throws PortalException if the asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void addEquityLogs(
 			long userId, long assetEntryId, String actionId, String extraData)
 		throws PortalException, SystemException {
@@ -110,6 +151,27 @@ public class SocialEquityLogLocalServiceImpl
 		}
 	}
 
+	/**
+	 * Records the social equity action and adjusts social equity scores based
+	 * on the user's action done on the target asset entry identified by the
+	 * className/classPK pair.
+	 *
+	 * <p>
+	 * The <code>extraData</code> parameter can contain further information
+	 * about the action such as the file name for a download action. It is used
+	 * to distinguish between otherwise equal actions, such as multiple
+	 * downloads of message boards attachments.
+	 * </p>
+	 *
+	 * @param  userId the primary key of the acting user
+	 * @param  className the class name of the target asset
+	 * @param  classPK the primary key of the target asset (not the asset entry
+	 *         referring to it)
+	 * @param  actionId the ID of the action
+	 * @param  extraData the extra data associated with the action
+	 * @throws PortalException if the asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void addEquityLogs(
 			long userId, String className, long classPK, String actionId,
 			String extraData)
@@ -132,7 +194,19 @@ public class SocialEquityLogLocalServiceImpl
 		addEquityLogs(userId, assetEntry.getEntryId(), actionId, extraData);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	/**
+	 * Inserts a new row for the asset entry into the
+	 * <code>SocialEquityAssetEntry</code> table.
+	 *
+	 * <p>
+	 * This method should not be used directly by portlets. It is made public
+	 * so that it can be in its own transaction to safeguard against
+	 * concurrency issues.
+	 * </p>
+	 *
+	 * @param  assetEntry the asset entry
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void addSocialEquityAssetEntry(AssetEntry assetEntry)
 		throws SystemException {
 
@@ -158,7 +232,21 @@ public class SocialEquityLogLocalServiceImpl
 		runSQL(sql);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	/**
+	 * Inserts a new row for the user into the <code>SocialEquityUser</code>
+	 * table.
+	 *
+	 * <p>
+	 * This method should not be used directly by portlets. It is made public
+	 * so that it can be in its own transaction to safeguard against
+	 * concurrency issues.
+	 * </p>
+	 *
+	 * @param  groupId the primary key of the group the user is currently
+	 *         acting in
+	 * @param  user the acting user
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void addSocialEquityUser(long groupId, User user)
 		throws SystemException {
 
@@ -182,6 +270,23 @@ public class SocialEquityLogLocalServiceImpl
 		runSQL(sql);
 	}
 
+	/**
+	 * This is a cleanup method to remove expired actions and any data
+	 * associated with them.
+	 *
+	 * <p>
+	 * <i>This method should normally only be called by the portal.</i>
+	 * </p>
+	 *
+	 * <p>
+	 * By default it is run by the scheduler once a day, but the frequency can
+	 * be modified by overriding the
+	 * <code>social.equity.equity.log.check.interval</code> property found in
+	 * <code>portal.properties</code>.
+	 * </p>
+	 *
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void checkEquityLogs() throws SystemException {
 		int validity = getEquityDate();
 
@@ -206,6 +311,18 @@ public class SocialEquityLogLocalServiceImpl
 		updateRanks();
 	}
 
+	/**
+	 * Removes all actions associated with the asset and adjusts equity scores
+	 * accordingly.
+	 *
+	 * <p>
+	 * This method is called by the <code>AssetEntry</code> service
+	 * automatically when an asset entry is deleted.
+	 * </p>
+	 *
+	 * @param  assetEntryId the primary key of the asset entry
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void deactivateEquityLogs(long assetEntryId) throws SystemException {
 		if (!PropsValues.SOCIAL_EQUITY_EQUITY_LOG_ENABLED) {
 			return;
@@ -263,8 +380,17 @@ public class SocialEquityLogLocalServiceImpl
 	}
 
 	/**
-	 * @deprecated {@link #deactivateEquityLogs(long, String, long, String,
-	 *             String)}
+	 * Removes actions identified by the acting user, the action ID and the
+	 * target asset's primary key.
+	 *
+	 * @param      userId the primary key of the acting user
+	 * @param      assetEntryId the primary key of the target asset entry
+	 * @param      actionId the ID of the action
+	 * @throws     PortalException if the asset entry could not be found
+	 * @throws     SystemException if a system exception occurred
+	 * @deprecated Replaced by {@link #deactivateEquityLogs(long, String, long,
+	 *             String, String)} to support the <code>extraData</code>
+	 *             parameter
 	 */
 	public void deactivateEquityLogs(
 			long userId, long assetEntryId, String actionId)
@@ -279,8 +405,19 @@ public class SocialEquityLogLocalServiceImpl
 	}
 
 	/**
-	 * @deprecated {@link #deactivateEquityLogs(long, String, long, String,
-	 *             String)}
+	 * Removes actions identified by the acting user, the action ID and the
+	 * target asset's className/classPK pair.
+	 *
+	 * @param      userId the primary key of the acting user
+	 * @param      className the class name of the target asset
+	 * @param      classPK the primary key of the target asset (not the asset
+	 *             entry referring to it)
+	 * @param      actionId the ID of the action
+	 * @throws     PortalException if the asset entry cannot be retrieved
+	 * @throws     SystemException if a system exception occurred
+	 * @deprecated Replaced by {@link #deactivateEquityLogs(long, String, long,
+	 *             String, String)} to support the <code>extraData</code>
+	 *             parameter
 	 */
 	public void deactivateEquityLogs(
 			long userId, String className, long classPK, String actionId)
@@ -290,6 +427,24 @@ public class SocialEquityLogLocalServiceImpl
 			userId, className, classPK, actionId, StringPool.BLANK);
 	}
 
+	/**
+	 * Removes actions identified by the acting user, the action ID and the
+	 * target asset's className/classPK pair.
+	 *
+	 * <p>
+	 * The <code>extraData</code> parameter can be used to further identify the
+	 * action.
+	 * </p>
+	 *
+	 * @param  userId the primary key of the acting user
+	 * @param  className the class name of the target asset
+	 * @param  classPK the primary key of the target asset (not the asset entry
+	 *         referring to it)
+	 * @param  actionId the ID of the action
+	 * @param  extraData the extra data associated with the action
+	 * @throws PortalException if the asset entry cannot be retrieved
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void deactivateEquityLogs(
 			long userId, String className, long classPK, String actionId,
 			String extraData)
@@ -309,6 +464,17 @@ public class SocialEquityLogLocalServiceImpl
 		deactivateEquityLogs(equityLogs);
 	}
 
+	/**
+	 * Removes actions identified by action ID done on an asset by any user.
+	 *
+	 * @param  className the class name of the target asset
+	 * @param  classPK the primary key of the target asset (not the asset entry
+	 *         referring to it)
+	 * @param  actionId the ID of the action
+	 * @param  extraData the extra data associated with the action
+	 * @throws PortalException if the asset entry cannot be retrieved
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void deactivateEquityLogs(
 			String className, long classPK, String actionId, String extraData)
 		throws PortalException, SystemException {
@@ -327,16 +493,47 @@ public class SocialEquityLogLocalServiceImpl
 		deactivateEquityLogs(equityLogs);
 	}
 
+	/**
+	 * Removes all actions done by the user.
+	 *
+	 * <p>
+	 * This method is called by the portal when a user is deleted.
+	 * </p>
+	 *
+	 * @param  userId the primary key of the user
+	 * @throws SystemException if a system exception occurred
+	 */
 	public void deactivateUserEquityLogs(long userId) throws SystemException {
 		socialEquityLogPersistence.removeByUserId(userId);
 	}
 
+	/**
+	 * Increments the information equity value of the asset by the number set
+	 * in the equity payload.
+	 *
+	 * <p>
+	 * This method is annotated with the <code>BufferedIncrement</code>
+	 * annotation, which means that in case of heavy load, invocations of this
+	 * method can be aggregated into one method call containing the sum of the
+	 * individual increments.
+	 * </p>
+	 *
+	 * <p>
+	 * <i>This method should not be called directly by portlets. It is made
+	 * public only to accommodate the <code>BufferedIncrement</code>
+	 * annotation.</i>
+	 * </p>
+	 *
+	 * @param  assetEntryId the primary key of the target asset entry
+	 * @param  equityPayload the equity payload containing the increments
+	 * @throws SystemException if a system exception occurred
+	 */
 	@BufferedIncrement(incrementClass = SocialEquityIncrement.class)
 	public void incrementSocialEquityAssetEntry_IQ(
 			long assetEntryId, SocialEquityIncrementPayload equityPayload)
 		throws SystemException {
 
-		AssetEntry assetEntry = equityPayload.getAssetEntry();
+		final AssetEntry assetEntry = equityPayload.getAssetEntry();
 
 		SocialEquityValue equityValue = equityPayload.getEquityValue();
 
@@ -346,12 +543,17 @@ public class SocialEquityLogLocalServiceImpl
 			assetEntryId);
 
 		if (count == 0) {
-			try {
-				socialEquityLogLocalService.addSocialEquityAssetEntry(
-					assetEntry);
-			}
-			catch (SystemException se) {
-			}
+			TransactionCommitCallbackUtil.registerCallback(
+				new Callable<Void>() {
+
+					public Void call() throws Exception {
+						socialEquityLogLocalService.addSocialEquityAssetEntry(
+							assetEntry);
+
+						return null;
+					}
+
+				});
 		}
 
 		String sql = CustomSQLUtil.get(_UPDATE_SOCIAL_EQUITY_ASSET_ENTRY_IQ);
@@ -372,22 +574,50 @@ public class SocialEquityLogLocalServiceImpl
 		runSQL(sql);
 	}
 
+	/**
+	 * Increments the contribution equity value of the user by the number set
+	 * in the equity payload.
+	 *
+	 * <p>
+	 * This method is annotated with the <code>BufferedIncrement</code>
+	 * annotation, which means that in case of heavy load, invocations of this
+	 * method can be aggregated into one method call containing the sum of the
+	 * individual increments.
+	 * </p>
+	 *
+	 * <P>
+	 * <i>This method should not be called directly by portlets. It is made
+	 * public only to accommodate the <code>BufferedIncrement</code>
+	 * annotation.</i>
+	 * </p>
+	 *
+	 * @param  groupId the primary key of the group in which the user is acting
+	 * @param  userId the primary key of the acting user
+	 * @param  equityPayload the equity payload containing the increments
+	 * @throws SystemException if a system exception occurred
+	 */
 	@BufferedIncrement(incrementClass = SocialEquityIncrement.class)
 	public void incrementSocialEquityUser_CQ(
-			long groupId, long userId,
+			final long groupId, long userId,
 			SocialEquityIncrementPayload equityPayload)
 		throws SystemException {
 
-		User user = equityPayload.getUser();
+		final User user = equityPayload.getUser();
 
 		int count = socialEquityUserPersistence.countByG_U(groupId, userId);
 
 		if (count == 0) {
-			try {
-				socialEquityLogLocalService.addSocialEquityUser(groupId, user);
-			}
-			catch (SystemException se) {
-			}
+			TransactionCommitCallbackUtil.registerCallback(
+				new Callable<Void>() {
+
+					public Void call() throws Exception {
+						socialEquityLogLocalService.addSocialEquityUser(
+						groupId, user);
+
+						return null;
+					}
+
+				});
 		}
 
 		SocialEquityValue equityValue = equityPayload.getEquityValue();
@@ -414,22 +644,50 @@ public class SocialEquityLogLocalServiceImpl
 		runSQL(sql);
 	}
 
+	/**
+	 * Increments the participation equity value of the user by the number set
+	 * in the equity payload.
+	 *
+	 * <p>
+	 * This method is annotated with the <code>BufferedIncrement</code>
+	 * annotation, which means that in case of heavy load, invocations of this
+	 * method can be aggregated into one method call containing the sum of the
+	 * individual increments.
+	 * </p>
+	 *
+	 * <p>
+	 * <i>This method should not be called directly by portlets. It is made
+	 * public only to accommodate the <code>BufferedIncrement</code>
+	 * annotation. </i>
+	 * </p>
+	 *
+	 * @param  groupId the primary key of the group in which the user is acting
+	 * @param  userId the primary key of the acting user
+	 * @param  equityPayload the equity payload containing the increments
+	 * @throws SystemException if a system exception occurred
+	 */
 	@BufferedIncrement(incrementClass = SocialEquityIncrement.class)
 	public void incrementSocialEquityUser_PQ(
-			long groupId, long userId,
+			final long groupId, long userId,
 			SocialEquityIncrementPayload equityPayload)
 		throws SystemException {
 
-		User user = equityPayload.getUser();
+		final User user = equityPayload.getUser();
 
 		int count = socialEquityUserPersistence.countByG_U(groupId, userId);
 
 		if (count == 0) {
-			try {
-				socialEquityLogLocalService.addSocialEquityUser(groupId, user);
-			}
-			catch (SystemException se) {
-			}
+			TransactionCommitCallbackUtil.registerCallback(
+				new Callable<Void>() {
+
+					public Void call() throws Exception {
+						socialEquityLogLocalService.addSocialEquityUser(
+							groupId, user);
+
+						return null;
+					}
+
+				});
 		}
 
 		SocialEquityValue equityValue = equityPayload.getEquityValue();
@@ -456,6 +714,9 @@ public class SocialEquityLogLocalServiceImpl
 		runSQL(sql);
 	}
 
+	/**
+	 * Updates user ranking for all groups.
+	 */
 	public void updateRanks() {
 		DataSource dataSource = socialEquityLogPersistence.getDataSource();
 
@@ -474,6 +735,11 @@ public class SocialEquityLogLocalServiceImpl
 		updateRanksHandler.flush();
 	}
 
+	/**
+	 * Updates user ranking for a group.
+	 *
+	 * @param groupId the primary key of the group
+	 */
 	public void updateRanks(long groupId) {
 		DataSource dataSource = socialEquityLogPersistence.getDataSource();
 
@@ -657,7 +923,9 @@ public class SocialEquityLogLocalServiceImpl
 			String extraData)
 		throws SystemException {
 
-		if (equitySetting.getDailyLimit() < 0) {
+		if ((equitySetting.getDailyLimit() < 0) ||
+			(equitySetting.getLifespan() == 0)) {
+
 			return false;
 		}
 
@@ -815,7 +1083,9 @@ public class SocialEquityLogLocalServiceImpl
 			double equityValue = rs.getDouble("equityValue");
 			int status = rs.getInt("status");
 
-			if (status != WorkflowConstants.STATUS_APPROVED) {
+			if ((status != WorkflowConstants.STATUS_APPROVED) ||
+				(equityValue == 0)) {
+
 				_updateRanksSetter.add(equityUserId, 0);
 			}
 			else {

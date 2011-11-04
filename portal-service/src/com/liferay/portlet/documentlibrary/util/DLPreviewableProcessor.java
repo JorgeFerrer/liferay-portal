@@ -17,11 +17,13 @@ package com.liferay.portlet.documentlibrary.util;
 import com.liferay.portal.kernel.io.FileFilter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.model.CompanyConstants;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.DuplicateDirectoryException;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 
@@ -33,11 +35,77 @@ import java.io.InputStream;
  */
 public abstract class DLPreviewableProcessor implements DLProcessor {
 
+	public static final String PREVIEW_PATH = "document_preview/";
+
+	public static final String PREVIEW_TMP_PATH =
+		SystemProperties.get(SystemProperties.TMP_DIR) +
+			"/liferay/" + PREVIEW_PATH;
+
+	public static final long REPOSITORY_ID = CompanyConstants.SYSTEM;
+
+	public static final String THUMBNAIL_PATH = "document_thumbnail/";
+
+	public static final String THUMBNAIL_TMP_PATH =
+		SystemProperties.get(SystemProperties.TMP_DIR) +
+			"/liferay/" + THUMBNAIL_PATH;
+
+	public static void deleteFiles() {
+		long[] companyIds = PortalUtil.getCompanyIds();
+
+		for (long companyId : companyIds) {
+			try {
+				DLStoreUtil.deleteDirectory(
+					companyId, REPOSITORY_ID, PREVIEW_PATH);
+			}
+			catch (Exception e) {
+			}
+
+			try {
+				DLStoreUtil.deleteDirectory(
+					companyId, REPOSITORY_ID, THUMBNAIL_PATH);
+			}
+			catch (Exception e) {
+			}
+		}
+	}
+
+	public static void deleteFiles(FileEntry fileEntry) {
+		deleteFiles(
+			fileEntry.getCompanyId(), fileEntry.getGroupId(),
+			fileEntry.getFileEntryId(), -1);
+	}
+
+	public static void deleteFiles(FileVersion fileVersion) {
+		deleteFiles(
+			fileVersion.getCompanyId(), fileVersion.getGroupId(),
+			fileVersion.getFileEntryId(), fileVersion.getFileVersionId());
+	}
+
+	public static void deleteFiles(
+		long companyId, long groupId, long fileEntryId, long fileVersionId) {
+
+		try {
+			DLStoreUtil.deleteDirectory(
+				companyId, REPOSITORY_ID,
+				_getPathSegment(groupId, fileEntryId, fileVersionId, true));
+		}
+		catch (Exception e) {
+		}
+
+		try {
+			DLStoreUtil.deleteDirectory(
+				companyId, REPOSITORY_ID,
+				_getPathSegment(groupId, fileEntryId, fileVersionId, false));
+		}
+		catch (Exception e) {
+		}
+	}
+
 	protected void addFileToStore(
 			long companyId, String dirName, String filePath, File srcFile)
 		throws Exception {
 
-		try{
+		try {
 			DLStoreUtil.addDirectory(companyId, REPOSITORY_ID, dirName);
 		}
 		catch (DuplicateDirectoryException dde) {
@@ -104,25 +172,13 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 			getThumbnailFilePath(fileVersion));
 	}
 
-	protected String getPathSegment(FileVersion fileVersion) {
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(fileVersion.getGroupId());
-		sb.append(StringPool.SLASH);
-		sb.append(fileVersion.getFileEntryId());
-		sb.append(StringPool.SLASH);
-		sb.append(fileVersion.getFileVersionId());
-
-		return sb.toString();
-	}
-
 	protected int getPreviewFileCount(FileVersion fileVersion)
 		throws Exception {
 
 		try {
 			String[] fileNames = DLStoreUtil.getFileNames(
 				fileVersion.getCompanyId(), REPOSITORY_ID,
-				PREVIEW_PATH.concat(getPathSegment(fileVersion)));
+				_getPathSegment(fileVersion, true));
 
 			return fileNames.length;
 		}
@@ -140,14 +196,13 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 		StringBundler sb = null;
 
 		if (index > 0) {
-			sb = new StringBundler(6);
-		}
-		else {
 			sb = new StringBundler(5);
 		}
+		else {
+			sb = new StringBundler(3);
+		}
 
-		sb.append(PREVIEW_PATH);
-		sb.append(getPathSegment(fileVersion));
+		sb.append(_getPathSegment(fileVersion, true));
 
 		if (index > 0) {
 			sb.append(StringPool.SLASH);
@@ -226,14 +281,8 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 	protected abstract String getPreviewType();
 
 	protected String getThumbnailFilePath(FileVersion fileVersion) {
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(THUMBNAIL_PATH);
-		sb.append(getPathSegment(fileVersion));
-		sb.append(StringPool.PERIOD);
-		sb.append(getThumbnailType());
-
-		return sb.toString();
+		return _getPathSegment(fileVersion, false).concat(
+			StringPool.PERIOD).concat(getThumbnailType());
 	}
 
 	protected File getThumbnailTempFile(String id) {
@@ -257,21 +306,43 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 		return null;
 	}
 
-	protected static final String PREVIEW_PATH =
-		"document_preview/";
+	private static String _getPathSegment(
+		FileVersion fileVersion, boolean preview) {
 
-	protected static final String PREVIEW_TMP_PATH =
-		SystemProperties.get(SystemProperties.TMP_DIR) +
-			"/liferay/" + PREVIEW_PATH;
+		return _getPathSegment(
+			fileVersion.getGroupId(), fileVersion.getFileEntryId(),
+			fileVersion.getFileVersionId(), preview);
+	}
 
-	protected static final long REPOSITORY_ID = CompanyConstants.SYSTEM;
+	private static String _getPathSegment(
+		long groupId, long fileEntryId, long fileVersionId, boolean preview) {
 
-	protected static final String THUMBNAIL_PATH =
-		"document_thumbnail/";
+		StringBundler sb = null;
 
-	protected static final String THUMBNAIL_TMP_PATH =
-		SystemProperties.get(SystemProperties.TMP_DIR) +
-			"/liferay/" + THUMBNAIL_PATH;
+		if (fileVersionId > 0) {
+			sb = new StringBundler(5);
+		}
+		else {
+			sb = new StringBundler(3);
+		}
+
+		if (preview) {
+			sb.append(PREVIEW_PATH);
+		}
+		else {
+			sb.append(THUMBNAIL_PATH);
+		}
+
+		sb.append(groupId);
+		sb.append(DLUtil.getDividedPath(fileEntryId));
+
+		if (fileVersionId > 0) {
+			sb.append(StringPool.SLASH);
+			sb.append(fileVersionId);
+		}
+
+		return sb.toString();
+	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		DLPreviewableProcessor.class);

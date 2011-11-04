@@ -78,6 +78,7 @@ public class IndexAccessorImpl implements IndexAccessor {
 		_initDialect();
 		_checkLuceneDir();
 		_initIndexWriter();
+		_initCleanupJdbcScheduler();
 		_initCommitScheduler();
 	}
 
@@ -217,6 +218,22 @@ public class IndexAccessorImpl implements IndexAccessor {
 		}
 		catch (Exception e) {
 			_log.error("Check Lucene directory failed for " + _companyId, e);
+		}
+	}
+
+	private void _cleanUpJdbcDirectories() {
+		for (String tableName : _jdbcDirectories.keySet()) {
+			JdbcDirectory jdbcDirectory = (JdbcDirectory)_jdbcDirectories.get(
+				tableName);
+
+			try {
+				jdbcDirectory.deleteMarkDeleted(60000);
+			}
+			catch (IOException e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn("Could not clean up JDBC directory " + tableName);
+				}
+			}
 		}
 	}
 
@@ -451,6 +468,30 @@ public class IndexAccessorImpl implements IndexAccessor {
 		scheduledExecutorService.scheduleWithFixedDelay(
 			runnable, 0, PropsValues.LUCENE_COMMIT_TIME_INTERVAL,
 			TimeUnit.MILLISECONDS);
+	}
+
+	private void _initCleanupJdbcScheduler() {
+		if (!PropsValues.LUCENE_STORE_TYPE.equals(_LUCENE_STORE_TYPE_JDBC) ||
+			!PropsValues.LUCENE_STORE_JDBC_AUTO_CLEAN_UP_ENABLED) {
+
+			return;
+		}
+
+		ScheduledExecutorService scheduledExecutorService =
+			Executors.newSingleThreadScheduledExecutor();
+
+		Runnable runnable = new Runnable() {
+
+			public void run() {
+				_cleanUpJdbcDirectories();
+			}
+
+		};
+
+		scheduledExecutorService.scheduleWithFixedDelay(
+			runnable, 0,
+			PropsValues.LUCENE_STORE_JDBC_AUTO_CLEAN_UP_INTERVAL * 60L,
+			TimeUnit.SECONDS);
 	}
 
 	private void _initDialect() {

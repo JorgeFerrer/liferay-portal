@@ -40,8 +40,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Sergio González
+ *  @author Miguel Pastor
  */
 public class UpgradeImageGallery extends UpgradeProcess {
 
@@ -232,6 +236,11 @@ public class UpgradeImageGallery extends UpgradeProcess {
 		updateIGImagePermissions();
 
 		migrateImageFiles();
+
+		UpgradeDocumentLibrary upgradeDocumentLibrary =
+			new UpgradeDocumentLibrary();
+
+		upgradeDocumentLibrary.updateSyncs();
 	}
 
 	protected Object[] getImage(long imageId) throws Exception {
@@ -378,9 +387,12 @@ public class UpgradeImageGallery extends UpgradeProcess {
 		try {
 			con = DataAccess.getConnection();
 
-			ps = con.prepareStatement("select * from IGFolder");
+			ps = con.prepareStatement(
+				"select * from IGFolder order by folderId asc");
 
 			rs = ps.executeQuery();
+
+			Map<Long, Long> folderIds = new HashMap<Long, Long>();
 
 			while (rs.next()) {
 				String uuid = rs.getString("uuid_");
@@ -395,10 +407,19 @@ public class UpgradeImageGallery extends UpgradeProcess {
 				String name = rs.getString("name");
 				String description = rs.getString("description");
 
-				addDLFolderEntry(
-					uuid, folderId, groupId, companyId, userId, userName,
-					createDate, modifiedDate, groupId, parentFolderId, name,
-					description, modifiedDate);
+				if (folderIds.containsKey(parentFolderId)) {
+					parentFolderId = folderIds.get(parentFolderId);
+				}
+
+				boolean update = updateIGImageFolderId(
+					groupId, name, parentFolderId, folderId, folderIds);
+
+				if (!update) {
+					addDLFolderEntry(
+						uuid, folderId, groupId, companyId, userId, userName,
+						createDate, modifiedDate, groupId, parentFolderId, name,
+						description, modifiedDate);
+				}
 			}
 
 			runSQL("drop table IGFolder");
@@ -412,6 +433,11 @@ public class UpgradeImageGallery extends UpgradeProcess {
 		if (PropsValues.PERMISSIONS_USER_CHECK_ALGORITHM != 6) {
 			return;
 		}
+
+		runSQL(
+			"delete from ResourcePermission where " +
+				"name = 'com.liferay.portlet.imagegallery.model.IGFolder' " +
+					"and primKey = '0'");
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -503,10 +529,10 @@ public class UpgradeImageGallery extends UpgradeProcess {
 		}
 	}
 
-	protected void updateIGImagePermissions() throws Exception {
-		if (PropsValues.PERMISSIONS_USER_CHECK_ALGORITHM != 6) {
-			return;
-		}
+	protected boolean updateIGImageFolderId(
+			long groupId, String name, long parentFolderId, long folderId,
+			Map<Long, Long> folderIds)
+		throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -515,22 +541,48 @@ public class UpgradeImageGallery extends UpgradeProcess {
 		try {
 			con = DataAccess.getConnection();
 
-			StringBundler sb = new StringBundler(4);
+			ps = con.prepareStatement(
+				"select folderId from DLFolder where groupId = " + groupId +
+					" and parentFolderId = " + parentFolderId +
+						" and name = '" + name + "'");
 
-			sb.append("update ResourcePermission set name = '");
-			sb.append(DLFileEntry.class.getName());
-			sb.append("' where name = 'com.liferay.portlet.imagegallery.");
-			sb.append("model.IGImage'");
+			rs = ps.executeQuery();
 
-			String sql = sb.toString();
+			if (rs.next()) {
+				long newFolderId = rs.getLong("folderId");
 
-			ps = con.prepareStatement(sql);
+				runSQL(
+					"update IGImage set folderId = " + newFolderId +
+						" where folderId = " + folderId);
 
-			ps.executeUpdate();
+				folderIds.put(folderId, newFolderId);
+
+				return true;
+			}
 		}
 		finally {
 			DataAccess.cleanUp(con, ps, rs);
 		}
+
+		return false;
 	}
+
+	protected void updateIGImagePermissions() throws Exception {
+		if (PropsValues.PERMISSIONS_USER_CHECK_ALGORITHM != 6) {
+			return;
+		}
+
+		runSQL(
+			"delete from ResourcePermission where name = '" +
+				_IG_IMAGE_CLASS_NAME + "' and primKey = '0'");
+
+		runSQL(
+			"update ResourcePermission set name = '" +
+				DLFileEntry.class.getName() + "' where name = '" +
+					_IG_IMAGE_CLASS_NAME + "'");
+	}
+
+	private static final String _IG_IMAGE_CLASS_NAME =
+		"com.liferay.portlet.imagegallery.model.IGImage";
 
 }

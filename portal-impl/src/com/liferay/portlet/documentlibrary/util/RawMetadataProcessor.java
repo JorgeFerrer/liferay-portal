@@ -17,13 +17,11 @@ package com.liferay.portlet.documentlibrary.util;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil;
-import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
+import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
@@ -32,6 +30,7 @@ import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
 import com.liferay.portlet.dynamicdatamapping.service.DDMStructureLocalServiceUtil;
 import com.liferay.portlet.dynamicdatamapping.storage.Fields;
 
+import java.io.File;
 import java.io.InputStream;
 
 import java.util.List;
@@ -57,21 +56,21 @@ public class RawMetadataProcessor implements DLProcessor {
 	/**
 	 * Generates the raw metadata associated with the file entry.
 	 *
-	 * @param  fileEntry the file entry	from which the raw metatada is to be
-	 *         generated
+	 * @param  fileVersion the file version from which the raw metatada is to
+	 *         be generated
 	 * @throws PortalException if an error occurred in the metadata extraction
 	 * @throws SystemException if a system exception occurred
 	 */
-	public static void generateMetadata(FileEntry fileEntry)
+	public static void generateMetadata(FileVersion fileVersion)
 		throws PortalException, SystemException {
 
 		long fileEntryMetadataCount =
 			DLFileEntryMetadataLocalServiceUtil.getFileEntryMetadataCount(
-				fileEntry.getFileEntryId(),
-				fileEntry.getLatestFileVersion().getFileVersionId());
+				fileVersion.getFileEntryId(),
+				fileVersion.getFileVersionId());
 
 		if (fileEntryMetadataCount == 0) {
-			_instance.trigger(fileEntry);
+			_instance.trigger(fileVersion);
 		}
 	}
 
@@ -91,10 +90,30 @@ public class RawMetadataProcessor implements DLProcessor {
 	public static void saveMetadata(FileVersion fileVersion)
 		throws PortalException, SystemException {
 
-		InputStream inputStream = fileVersion.getContentStream(false);
+		Map<String, Fields> rawMetadataMap = null;
 
-		Map<String, Fields> rawMetadataMap =
-			RawMetadataProcessorUtil.getRawMetadataMap(inputStream);
+		if (fileVersion instanceof LiferayFileVersion) {
+			try {
+				LiferayFileVersion liferayFileVersion =
+					(LiferayFileVersion)fileVersion;
+
+				File file = liferayFileVersion.getFile(false);
+
+				rawMetadataMap = RawMetadataProcessorUtil.getRawMetadataMap(
+					fileVersion.getExtension(), fileVersion.getMimeType(),
+					file);
+			}
+			catch (UnsupportedOperationException uoe) {
+			}
+		}
+
+		if (rawMetadataMap == null) {
+			InputStream inputStream = fileVersion.getContentStream(false);
+
+			rawMetadataMap = RawMetadataProcessorUtil.getRawMetadataMap(
+				fileVersion.getExtension(), fileVersion.getMimeType(),
+				inputStream);
+		}
 
 		List<DDMStructure> ddmStructures =
 			DDMStructureLocalServiceUtil.getClassStructures(
@@ -113,28 +132,20 @@ public class RawMetadataProcessor implements DLProcessor {
 	}
 
 	/**
-	 * Launches extraction of raw metadata from the file entry.
+	 * Launches extraction of raw metadata from the file version.
 	 *
 	 * <p>
 	 * The raw metadata extraction is done asynchronously.
 	 * </p>
 	 *
-	 * @param fileEntry the file entry from which the raw metadata is to be
-	 *        generated
+	 * @param fileVersion the latest file version from which the raw metadata is
+	 *        to be generated
 	 */
-	public void trigger(FileEntry fileEntry) {
-		try {
-			MessageBusUtil.sendMessage(
-				DestinationNames.DOCUMENT_LIBRARY_RAW_METADATA_PROCESSOR,
-				fileEntry.getLatestFileVersion());
-		}
-		catch (Exception e) {
-			_log.error(e,e);
-		}
+	public void trigger(FileVersion fileVersion) {
+		MessageBusUtil.sendMessage(
+			DestinationNames.DOCUMENT_LIBRARY_RAW_METADATA_PROCESSOR,
+			fileVersion);
 	}
-
-	private static Log _log = LogFactoryUtil.getLog(
-		RawMetadataProcessor.class);
 
 	private static RawMetadataProcessor _instance = new RawMetadataProcessor();
 

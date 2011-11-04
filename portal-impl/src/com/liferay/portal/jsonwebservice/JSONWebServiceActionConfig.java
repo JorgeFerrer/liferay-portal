@@ -29,8 +29,10 @@ public class JSONWebServiceActionConfig
 	JSONWebServiceActionMapping {
 
 	public JSONWebServiceActionConfig(
-		Class<?> actionClass, Method actionMethod, String path, String method) {
+		String servletContextName, Class<?> actionClass, Method actionMethod,
+		String path, String method) {
 
+		_servletContextName = servletContextName;
 		_actionClass = actionClass;
 		_actionMethod = actionMethod;
 		_path = path;
@@ -85,6 +87,10 @@ public class JSONWebServiceActionConfig
 		return _path;
 	}
 
+	public String getServletContextName() {
+		return _servletContextName;
+	}
+
 	public String getSignature() {
 		return _fullPath;
 	}
@@ -119,5 +125,6 @@ public class JSONWebServiceActionConfig
 	private String[] _parameterNames;
 	private Class<?>[] _parameterTypes;
 	private String _path;
+	private String _servletContextName;
 
 }

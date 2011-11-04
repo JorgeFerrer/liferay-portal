@@ -16,7 +16,7 @@ package com.liferay.portal.jsonwebservice;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
-import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceActionsManager;
+import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceActionsManagerUtil;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceMode;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -52,10 +52,27 @@ import org.objectweb.asm.ClassReader;
  */
 public class JSONWebServiceConfigurator extends ClassFinder {
 
-	public JSONWebServiceConfigurator() {
+	public JSONWebServiceConfigurator(String servletContextName) {
 		setIncludedJars(
 			"*portal-impl.jar", "*portal-service.jar", "*_wl_cls_gen.jar",
 			"*-portlet-service.jar");
+
+		_servletContextName = servletContextName;
+	}
+
+	public void clean() {
+		int count =
+			JSONWebServiceActionsManagerUtil.unregisterJSONWebServiceActions(
+				_servletContextName);
+
+		_registeredActionsCount -= count;
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Removed " + count +
+					" existing JSON Web Service actions that belonged to " +
+						_servletContextName);
+		}
 	}
 
 	public void configure(ClassLoader classLoader) throws PortalException {
@@ -87,7 +104,6 @@ public class JSONWebServiceConfigurator extends ClassFinder {
 				classPathFile = servicePropertiesFile.getParentFile();
 
 				libDir = new File(classPathFile.getParent(), "lib");
-
 			}
 
 			classPathFiles = new File[2];
@@ -130,38 +146,7 @@ public class JSONWebServiceConfigurator extends ClassFinder {
 
 		_classLoader = classLoader;
 
-		configure(classPathFiles);
-	}
-
-	public void configure(File... classPathFiles) throws PortalException {
-		StopWatch stopWatch = null;
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Configure JSON web service actions");
-
-			stopWatch = new StopWatch();
-
-			stopWatch.start();
-		}
-
-		try {
-			scanPaths(classPathFiles);
-		}
-		catch (Exception e) {
-			throw new PortalException(e.getMessage(), e);
-		}
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Configuring " + _registeredActionsCount +
-					" actions in " + stopWatch.getTime() + " ms");
-		}
-	}
-
-	public void setJSONWebServiceActionsManager(
-		JSONWebServiceActionsManager jsonWebServiceActionsManager) {
-
-		_jsonWebServiceActionsManager = jsonWebServiceActionsManager;
+		_configure(classPathFiles);
 	}
 
 	@Override
@@ -203,6 +188,31 @@ public class JSONWebServiceConfigurator extends ClassFinder {
 			}
 
 			_onJSONWebServiceClass(className);
+		}
+	}
+
+	private void _configure(File... classPathFiles) throws PortalException {
+		StopWatch stopWatch = null;
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Configure JSON web service actions");
+
+			stopWatch = new StopWatch();
+
+			stopWatch.start();
+		}
+
+		try {
+			scanPaths(classPathFiles);
+		}
+		catch (Exception e) {
+			throw new PortalException(e.getMessage(), e);
+		}
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Configured " + _registeredActionsCount + " actions in " +
+					stopWatch.getTime() + " ms");
 		}
 	}
 
@@ -360,8 +370,9 @@ public class JSONWebServiceConfigurator extends ClassFinder {
 			return;
 		}
 
-		_jsonWebServiceActionsManager.registerJSONWebServiceAction(
-			method.getDeclaringClass(), method, path, httpMethod);
+		JSONWebServiceActionsManagerUtil.registerJSONWebServiceAction(
+			_servletContextName, method.getDeclaringClass(), method, path,
+			httpMethod);
 
 		_registeredActionsCount++;
 	}
@@ -370,12 +381,12 @@ public class JSONWebServiceConfigurator extends ClassFinder {
 		JSONWebServiceConfigurator.class);
 
 	private ClassLoader _classLoader;
-	private JSONWebServiceActionsManager _jsonWebServiceActionsManager;
 	private byte[] _jsonWebServiceAnnotationBytes =
 		getTypeSignatureBytes(JSONWebService.class);
 	private JSONWebServiceMappingResolver _jsonWebServiceMappingResolver =
 		new JSONWebServiceMappingResolver();
 	private int _registeredActionsCount;
+	private String _servletContextName;
 	private Map<Class<?>, Class<?>> _utilClasses =
 		new HashMap<Class<?>, Class<?>>();
 

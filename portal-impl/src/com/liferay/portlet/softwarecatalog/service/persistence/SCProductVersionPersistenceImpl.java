@@ -139,7 +139,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 			if (EntityCacheUtil.getResult(
 						SCProductVersionModelImpl.ENTITY_CACHE_ENABLED,
 						SCProductVersionImpl.class,
-						scProductVersion.getPrimaryKey(), this) == null) {
+						scProductVersion.getPrimaryKey()) == null) {
 				cacheResult(scProductVersion);
 			}
 		}
@@ -174,6 +174,8 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	public void clearCache(SCProductVersion scProductVersion) {
 		EntityCacheUtil.removeResult(SCProductVersionModelImpl.ENTITY_CACHE_ENABLED,
 			SCProductVersionImpl.class, scProductVersion.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DIRECTDOWNLOADURL,
 			new Object[] { scProductVersion.getDirectDownloadURL() });
@@ -444,7 +446,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	public SCProductVersion fetchByPrimaryKey(long productVersionId)
 		throws SystemException {
 		SCProductVersion scProductVersion = (SCProductVersion)EntityCacheUtil.getResult(SCProductVersionModelImpl.ENTITY_CACHE_ENABLED,
-				SCProductVersionImpl.class, productVersionId, this);
+				SCProductVersionImpl.class, productVersionId);
 
 		if (scProductVersion == _nullSCProductVersion) {
 			return null;
@@ -534,8 +536,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 		Object[] finderArgs = new Object[] {
 				productEntryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCProductVersion> list = (List<SCProductVersion>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PRODUCTENTRYID,
@@ -741,17 +742,17 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 		query.append(_FINDER_COLUMN_PRODUCTENTRYID_PRODUCTENTRYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -770,6 +771,8 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -810,7 +813,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 		qPos.add(productEntryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductVersion);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductVersion);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1013,10 +1016,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	 */
 	public List<SCProductVersion> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SCProductVersion> list = (List<SCProductVersion>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1245,10 +1245,8 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1268,8 +1266,8 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -1335,10 +1333,7 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	public List<com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion> getSCFrameworkVersions(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion> list = (List<com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion>)FinderCacheUtil.getResult(FINDER_PATH_GET_SCFRAMEWORKVERSIONS,
 				finderArgs, this);

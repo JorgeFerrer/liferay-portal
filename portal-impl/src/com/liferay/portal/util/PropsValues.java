@@ -309,6 +309,8 @@ public class PropsValues {
 
 	public static final String DATABASE_MYSQL_ENGINE = PropsUtil.get(PropsKeys.DATABASE_MYSQL_ENGINE);
 
+	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS = PropsUtil.get(PropsKeys.DEFAULT_ADMIN_EMAIL_ADDRESS);
+
 	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX = PropsUtil.get(PropsKeys.DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX);
 
 	public static final String DEFAULT_ADMIN_FIRST_NAME = PropsUtil.get(PropsKeys.DEFAULT_ADMIN_FIRST_NAME);
@@ -451,6 +453,8 @@ public class PropsValues {
 
 	public static final String[] DL_REPOSITORY_IMPL = PropsUtil.getArray(PropsKeys.DL_REPOSITORY_IMPL);
 
+	public static boolean DL_STORE_ANTIVIRUS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DL_STORE_ANTIVIRUS_ENABLED), false);
+
 	public static final String DL_STORE_ANTIVIRUS_IMPL = PropsUtil.get(PropsKeys.DL_STORE_ANTIVIRUS_IMPL);
 
 	public static final String DL_STORE_CMIS_CREDENTIALS_PASSWORD = PropsUtil.get(PropsKeys.DL_STORE_CMIS_CREDENTIALS_PASSWORD);
@@ -589,7 +593,7 @@ public class PropsValues {
 
 	public static final boolean INDEX_DUMP_COMPRESSION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.INDEX_DUMP_COMPRESSION_ENABLED));
 
-	public static final boolean INDEX_ON_STARTUP = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.INDEX_ON_STARTUP));
+	public static boolean INDEX_ON_STARTUP = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.INDEX_ON_STARTUP));
 
 	public static final int INDEX_ON_STARTUP_DELAY = GetterUtil.getInteger(PropsUtil.get(PropsKeys.INDEX_ON_STARTUP_DELAY));
 
@@ -758,6 +762,12 @@ public class PropsValues {
 	public static final String LDAP_USER_IMPL = PropsUtil.get(PropsKeys.LDAP_USER_IMPL);
 
 	public static final String LIFERAY_HOME = PropsUtil.get(PropsKeys.LIFERAY_HOME);
+
+	public static final String LIFERAY_LIB_GLOBAL_DIR = PropsUtil.get(PropsKeys.LIFERAY_LIB_GLOBAL_DIR);
+
+	public static final String LIFERAY_LIB_PORTAL_DIR = PropsUtil.get(PropsKeys.LIFERAY_LIB_PORTAL_DIR);
+
+	public static final String LIFERAY_WEB_PORTAL_DIR = PropsUtil.get(PropsKeys.LIFERAY_WEB_PORTAL_DIR);
 
 	public static final boolean LIVE_USERS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.LIVE_USERS_ENABLED));
 
@@ -989,7 +999,11 @@ public class PropsValues {
 
 	public static final boolean ORGANIZATIONS_USER_GROUP_MEMBERSHIP_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.ORGANIZATIONS_USER_GROUP_MEMBERSHIP_ENABLED));
 
+	public static final int OSGI_FRAMEWORK_BEGINNING_START_LEVEL = GetterUtil.getInteger(PropsUtil.get(PropsKeys.OSGI_FRAMEWORK_BEGINNING_START_LEVEL));
+
 	public static final String OSGI_FRAMEWORK_STORAGE = PropsUtil.get(PropsKeys.OSGI_FRAMEWORK_STORAGE);
+
+	public static final String[] OSGI_SYSTEM_BUNDLE_EXPORT_PACKAGES = PropsUtil.getArray(PropsKeys.OSGI_SYSTEM_BUNDLE_EXPORT_PACKAGES);
 
 	public static final String[] OSGI_SYSTEM_PACKAGES_EXTRA = PropsUtil.getArray(PropsKeys.OSGI_SYSTEM_PACKAGES_EXTRA);
 
@@ -1020,6 +1034,10 @@ public class PropsValues {
 	public static final String PERMISSIONS_LIST_FILTER = PropsUtil.get(PropsKeys.PERMISSIONS_LIST_FILTER);
 
 	public static final boolean PERMISSIONS_OBJECT_BLOCKING_CACHE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.PERMISSIONS_OBJECT_BLOCKING_CACHE));
+
+	public static final boolean PERMISSIONS_PROPAGATION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.PERMISSIONS_PROPAGATION_ENABLED));
+
+	public static final int PERMISSIONS_ROLE_RESOURCE_PERMISSION_QUERY_THRESHOLD = GetterUtil.getInteger(PropsUtil.get(PropsKeys.PERMISSIONS_ROLE_RESOURCE_PERMISSION_QUERY_THRESHOLD));
 
 	public static final int PERMISSIONS_THREAD_LOCAL_CACHE_MAX_SIZE = GetterUtil.getInteger(PropsUtil.get(PropsKeys.PERMISSIONS_THREAD_LOCAL_CACHE_MAX_SIZE));
 
@@ -1149,6 +1167,8 @@ public class PropsValues {
 
 	public static final int SCRIPTING_JRUBY_COMPILE_THRESHOLD = GetterUtil.getInteger(PropsUtil.get(PropsKeys.SCRIPTING_JRUBY_COMPILE_THRESHOLD), 50);
 
+	public static final String[] SCRIPTING_JRUBY_LOAD_PATHS = PropsUtil.getArray(PropsKeys.SCRIPTING_JRUBY_LOAD_PATHS);
+
 	public static final int SEARCH_CONTAINER_PAGE_DEFAULT_DELTA = GetterUtil.getInteger(PropsUtil.get(PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA), 20);
 
 	public static final int[] SEARCH_CONTAINER_PAGE_DELTA_VALUES = GetterUtil.getIntegerValues(PropsUtil.getArray(PropsKeys.SEARCH_CONTAINER_PAGE_DELTA_VALUES));
@@ -1206,6 +1226,10 @@ public class PropsValues {
 	public static final boolean SESSION_TRACKER_MEMORY_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SESSION_TRACKER_MEMORY_ENABLED));
 
 	public static final boolean SESSION_TRACKER_PERSISTENCE_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SESSION_TRACKER_PERSISTENCE_ENABLED));
+
+	public static final String[] SETUP_DATABASE_DRIVERS_LIST = PropsUtil.getArray(PropsUtil.get(PropsKeys.SETUP_DATABASE_DRIVERS_LIST));
+
+	public static final boolean SETUP_WIZARD_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SETUP_WIZARD_ENABLED));
 
 	public static final String SHARD_DEFAULT_NAME = PropsUtil.get(PropsKeys.SHARD_DEFAULT_NAME);
 
@@ -1299,7 +1323,7 @@ public class PropsValues {
 
 	public static boolean USER_GROUPS_NAME_ALLOW_NUMERIC = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USER_GROUPS_NAME_ALLOW_NUMERIC));
 
-	public static final boolean USER_NOTIFICATION_EVENT_CONFIRMATION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USER_NOTIFICATION_EVENT_CONFIRMATION_ENABLED));
+	public static boolean USER_NOTIFICATION_EVENT_CONFIRMATION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USER_NOTIFICATION_EVENT_CONFIRMATION_ENABLED));
 
 	public static final boolean USERS_DELETE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USERS_DELETE));
 
@@ -1340,8 +1364,6 @@ public class PropsValues {
 	public static boolean USERS_LAST_NAME_REQUIRED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USERS_LAST_NAME_REQUIRED));
 
 	public static final String[] USERS_LIST_VIEWS = PropsUtil.getArray(PropsKeys.USERS_LIST_VIEWS);
-
-	public static final String USERS_LIST_VIEWS_DEFAULT = PropsUtil.get(PropsKeys.USERS_LIST_VIEWS_DEFAULT);
 
 	public static final boolean USERS_REMINDER_QUERIES_CUSTOM_QUESTION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USERS_REMINDER_QUERIES_CUSTOM_QUESTION_ENABLED));
 

@@ -38,12 +38,14 @@ portletURL.setParameter("recordSetId", String.valueOf(recordSet.getRecordSetId()
 
 DDMStructure ddmStructure = recordSet.getDDMStructure(detailDDMTemplateId);
 
-Map<String, Map<String, String>> fieldsMap = ddmStructure.getFieldsMap();
+String languageId = LanguageUtil.getLanguageId(request);
+
+Map<String, Map<String, String>> fieldsMap = ddmStructure.getFieldsMap(languageId);
 
 List<String> headerNames = new ArrayList();
 
 for (Map<String, String> fields : fieldsMap.values()) {
-	String label = fields.get(DDMFieldConstants.LABEL);
+	String label = fields.get(FieldConstants.LABEL);
 
 	headerNames.add(label);
 }
@@ -93,20 +95,26 @@ for (int i = 0; i < results.size(); i++) {
 	// Columns
 
 	for (Map<String, String> fields : fieldsMap.values()) {
-		String name = fields.get(DDMFieldConstants.NAME);
+		String dataType = fields.get(FieldConstants.DATA_TYPE);
+		String name = fields.get(FieldConstants.NAME);
 
 		String value = null;
 
 		if (fieldsModel.contains(name)) {
 			com.liferay.portlet.dynamicdatamapping.storage.Field field = fieldsModel.get(name);
 
-			value = String.valueOf(field.getValue());
+			if (dataType.equals(FieldConstants.DATE)) {
+				value = dateFormatDate.format(field.getValue());
+			}
+			else {
+				value = String.valueOf(field.getValue());
+			}
 
 			if (ddmStructure.getFieldDisplayChildLabelAsValue(name)) {
-				Map<String, String> childFields = ddmStructure.getFields(name, DDMFieldConstants.VALUE, value);
+				Map<String, String> childFields = ddmStructure.getFields(name, FieldConstants.VALUE, value);
 
 				if (childFields != null) {
-					value = childFields.get(DDMFieldConstants.LABEL);
+					value = childFields.get(FieldConstants.LABEL);
 				}
 			}
 		}

@@ -407,6 +407,8 @@ public interface PropsKeys {
 
 	public static final String DATABASE_MYSQL_ENGINE = "database.mysql.engine";
 
+	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS = "default.admin.email.address";
+
 	public static final String DEFAULT_ADMIN_EMAIL_ADDRESS_PREFIX = "default.admin.email.address.prefix";
 
 	public static final String DEFAULT_ADMIN_FIRST_NAME = "default.admin.first.name";
@@ -568,6 +570,8 @@ public interface PropsKeys {
 	public static final String DL_REPOSITORY_CMIS_DELETE_DEPTH = "dl.repository.cmis.delete.depth";
 
 	public static final String DL_REPOSITORY_IMPL = "dl.repository.impl";
+
+	public static final String DL_STORE_ANTIVIRUS_ENABLED = "dl.store.antivirus.enabled";
 
 	public static final String DL_STORE_ANTIVIRUS_IMPL = "dl.store.antivirus.impl";
 
@@ -829,7 +833,15 @@ public interface PropsKeys {
 
 	public static final String JCR_WORKSPACE_NAME = "jcr.workspace.name";
 
+	public static final String JDBC_DEFAULT_DRIVER_CLASS_NAME = "jdbc.default.driverClassName";
+
 	public static final String JDBC_DEFAULT_LIFERAY_POOL_PROVIDER = "jdbc.default.liferay.pool.provider";
+
+	public static final String JDBC_DEFAULT_PASSWORD = "jdbc.default.password";
+
+	public static final String JDBC_DEFAULT_URL = "jdbc.default.url";
+
+	public static final String JDBC_DEFAULT_USERNAME = "jdbc.default.username";
 
 	public static final String JOURNAL_ARTICLE_CHECK_INTERVAL = "journal.article.check.interval";
 
@@ -1132,6 +1144,12 @@ public interface PropsKeys {
 	public static final String LIBRARY_DOWNLOAD_URL = "library.download.url.";
 
 	public static final String LIFERAY_HOME = "liferay.home";
+
+	public static final String LIFERAY_LIB_GLOBAL_DIR = "liferay.lib.global.dir";
+
+	public static final String LIFERAY_LIB_PORTAL_DIR = "liferay.lib.portal.dir";
+
+	public static final String LIFERAY_WEB_PORTAL_DIR = "liferay.web.portal.dir";
 
 	public static final String LIVE_USERS_ENABLED = "live.users.enabled";
 
@@ -1437,7 +1455,11 @@ public interface PropsKeys {
 
 	public static final String ORGANIZATIONS_USER_GROUP_MEMBERSHIP_ENABLED = "organizations.user.group.membership.enabled";
 
+	public static final String OSGI_FRAMEWORK_BEGINNING_START_LEVEL = "osgi.framework.beginning.start.level";
+
 	public static final String OSGI_FRAMEWORK_STORAGE = "osgi.framework.storage";
+
+	public static final String OSGI_SYSTEM_BUNDLE_EXPORT_PACKAGES = "osgi.system.bundle.export.packages";
 
 	public static final String OSGI_SYSTEM_PACKAGES_EXTRA = "osgi.system.packages.extra";
 
@@ -1478,6 +1500,10 @@ public interface PropsKeys {
 	public static final String PERMISSIONS_LIST_FILTER = "permissions.list.filter";
 
 	public static final String PERMISSIONS_OBJECT_BLOCKING_CACHE = "permissions.object.blocking.cache";
+
+	public static final String PERMISSIONS_PROPAGATION_ENABLED = "permissions.propagation.enabled";
+
+	public static final String PERMISSIONS_ROLE_RESOURCE_PERMISSION_QUERY_THRESHOLD = "permissions.role.resource.permission.query.threshold";
 
 	public static final String PERMISSIONS_THREAD_LOCAL_CACHE_MAX_SIZE = "permissions.thread.local.cache.max.size";
 
@@ -1627,6 +1653,8 @@ public interface PropsKeys {
 
 	public static final String SCRIPTING_JRUBY_COMPILE_THRESHOLD = "scripting.jruby.compile.threshold";
 
+	public static final String SCRIPTING_JRUBY_LOAD_PATHS = "scripting.jruby.load.paths";
+
 	public static final String SEARCH_CONTAINER_PAGE_DEFAULT_DELTA = "search.container.page.default.delta";
 
 	public static final String SEARCH_CONTAINER_PAGE_DELTA_VALUES = "search.container.page.delta.values";
@@ -1688,6 +1716,10 @@ public interface PropsKeys {
 	public static final String SESSION_TRACKER_PERSISTENCE_ENABLED = "session.tracker.persistence.enabled";
 
 	public static final String SESSION_VERIFY_SERIALIZABLE_ATTRIBUTE = "session.verify.serializable.attribute";
+
+	public static final String SETUP_DATABASE_DRIVERS_LIST = "setup.database.drivers.list";
+
+	public static final String SETUP_WIZARD_ENABLED = "setup.wizard.enabled";
 
 	public static final String SHARD_DEFAULT_NAME = "shard.default.name";
 
@@ -1916,8 +1948,6 @@ public interface PropsKeys {
 	public static final String USERS_LAST_NAME_REQUIRED = "users.last.name.required";
 
 	public static final String USERS_LIST_VIEWS = "users.list.views";
-
-	public static final String USERS_LIST_VIEWS_DEFAULT = "users.list.views.default";
 
 	public static final String USERS_REMINDER_QUERIES_CUSTOM_QUESTION_ENABLED = "users.reminder.queries.custom.question.enabled";
 

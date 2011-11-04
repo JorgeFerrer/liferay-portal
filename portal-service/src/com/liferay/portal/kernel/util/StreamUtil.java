@@ -36,6 +36,9 @@ public class StreamUtil {
 		System.getProperty(StreamUtil.class.getName() + ".buffer.size"),
 		8192);
 
+	public static final boolean FORCE_TIO = GetterUtil.getBoolean(
+		System.getProperty(StreamUtil.class.getName() + ".force.tio"));
+
 	public static void cleanUp(Channel channel) {
 		try {
 			if (channel != null) {
@@ -136,30 +139,28 @@ public class StreamUtil {
 			bufferSize = BUFFER_SIZE;
 		}
 
-		if ((inputStream instanceof FileInputStream) &&
-			(outputStream instanceof FileOutputStream)) {
+		try {
+			if (!FORCE_TIO && (inputStream instanceof FileInputStream) &&
+				(outputStream instanceof FileOutputStream)) {
 
-			FileInputStream fileInputStream = (FileInputStream)inputStream;
+				FileInputStream fileInputStream = (FileInputStream)inputStream;
 
-			FileChannel sourceChannel = fileInputStream.getChannel();
+				FileChannel sourceFileChannel = fileInputStream.getChannel();
 
-			FileOutputStream fileOutputStream = (FileOutputStream)outputStream;
+				FileOutputStream fileOutputStream =
+					(FileOutputStream)outputStream;
 
-			FileChannel targetChannel = fileOutputStream.getChannel();
+				FileChannel targetFileChannel = fileOutputStream.getChannel();
 
-			long position = 0;
+				long position = 0;
 
-			while (position < sourceChannel.size()) {
-				position += sourceChannel.transferTo(
-					position, sourceChannel.size() - position, targetChannel);
+				while (position < sourceFileChannel.size()) {
+					position += sourceFileChannel.transferTo(
+						position, sourceFileChannel.size() - position,
+						targetFileChannel);
+				}
 			}
-
-			if (cleanUp) {
-				cleanUp(fileInputStream, fileOutputStream);
-			}
-		}
-		else {
-			try {
+			else {
 				byte[] bytes = new byte[bufferSize];
 
 				int value = -1;
@@ -168,10 +169,10 @@ public class StreamUtil {
 					outputStream.write(bytes, 0 , value);
 				}
 			}
-			finally {
-				if (cleanUp) {
-					cleanUp(inputStream, outputStream);
-				}
+		}
+		finally {
+			if (cleanUp) {
+				cleanUp(inputStream, outputStream);
 			}
 		}
 	}

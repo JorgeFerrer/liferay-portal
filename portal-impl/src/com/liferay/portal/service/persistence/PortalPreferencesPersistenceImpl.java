@@ -115,7 +115,7 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 			if (EntityCacheUtil.getResult(
 						PortalPreferencesModelImpl.ENTITY_CACHE_ENABLED,
 						PortalPreferencesImpl.class,
-						portalPreferences.getPrimaryKey(), this) == null) {
+						portalPreferences.getPrimaryKey()) == null) {
 				cacheResult(portalPreferences);
 			}
 		}
@@ -150,6 +150,8 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 	public void clearCache(PortalPreferences portalPreferences) {
 		EntityCacheUtil.removeResult(PortalPreferencesModelImpl.ENTITY_CACHE_ENABLED,
 			PortalPreferencesImpl.class, portalPreferences.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_O_O,
 			new Object[] {
@@ -414,7 +416,7 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 	public PortalPreferences fetchByPrimaryKey(long portalPreferencesId)
 		throws SystemException {
 		PortalPreferences portalPreferences = (PortalPreferences)EntityCacheUtil.getResult(PortalPreferencesModelImpl.ENTITY_CACHE_ENABLED,
-				PortalPreferencesImpl.class, portalPreferencesId, this);
+				PortalPreferencesImpl.class, portalPreferencesId);
 
 		if (portalPreferences == _nullPortalPreferences) {
 			return null;
@@ -634,10 +636,7 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 	 */
 	public List<PortalPreferences> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<PortalPreferences> list = (List<PortalPreferences>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -792,10 +791,8 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -815,8 +812,8 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

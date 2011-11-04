@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchEngineUtil;
@@ -64,6 +63,10 @@ public class UserIndexer extends BaseIndexer {
 		return CLASS_NAMES;
 	}
 
+	public String getPortletId() {
+		return PORTLET_ID;
+	}
+
 	@Override
 	public void postProcessContextQuery(
 			BooleanQuery contextQuery, SearchContext searchContext)
@@ -73,7 +76,9 @@ public class UserIndexer extends BaseIndexer {
 			searchContext.getAttribute(Field.STATUS),
 			WorkflowConstants.STATUS_APPROVED);
 
-		contextQuery.addRequiredTerm(Field.STATUS, status);
+		if (status != WorkflowConstants.STATUS_ANY) {
+			contextQuery.addRequiredTerm(Field.STATUS, status);
+		}
 
 		LinkedHashMap<String, Object> params =
 			(LinkedHashMap<String, Object>)searchContext.getAttribute("params");
@@ -166,12 +171,7 @@ public class UserIndexer extends BaseIndexer {
 	protected void doDelete(Object obj) throws Exception {
 		User user = (User)obj;
 
-		Document document = new DocumentImpl();
-
-		document.addUID(PORTLET_ID, user.getUserId());
-
-		SearchEngineUtil.deleteDocument(
-			user.getCompanyId(), document.get(Field.UID));
+		deleteDocument(user.getCompanyId(), user.getUserId());
 	}
 
 	@Override

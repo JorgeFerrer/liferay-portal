@@ -148,7 +148,7 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 			if (EntityCacheUtil.getResult(
 						SocialEquitySettingModelImpl.ENTITY_CACHE_ENABLED,
 						SocialEquitySettingImpl.class,
-						socialEquitySetting.getPrimaryKey(), this) == null) {
+						socialEquitySetting.getPrimaryKey()) == null) {
 				cacheResult(socialEquitySetting);
 			}
 		}
@@ -183,6 +183,8 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 	public void clearCache(SocialEquitySetting socialEquitySetting) {
 		EntityCacheUtil.removeResult(SocialEquitySettingModelImpl.ENTITY_CACHE_ENABLED,
 			SocialEquitySettingImpl.class, socialEquitySetting.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_C_A_T,
 			new Object[] {
@@ -471,7 +473,7 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 	public SocialEquitySetting fetchByPrimaryKey(long equitySettingId)
 		throws SystemException {
 		SocialEquitySetting socialEquitySetting = (SocialEquitySetting)EntityCacheUtil.getResult(SocialEquitySettingModelImpl.ENTITY_CACHE_ENABLED,
-				SocialEquitySettingImpl.class, equitySettingId, this);
+				SocialEquitySettingImpl.class, equitySettingId);
 
 		if (socialEquitySetting == _nullSocialEquitySetting) {
 			return null;
@@ -568,8 +570,7 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 		Object[] finderArgs = new Object[] {
 				groupId, classNameId, actionId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SocialEquitySetting> list = (List<SocialEquitySetting>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_A,
@@ -823,17 +824,17 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -852,6 +853,8 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -894,7 +897,7 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(socialEquitySetting);
+			Object[] values = orderByComparator.getOrderByConditionValues(socialEquitySetting);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1130,10 +1133,7 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 	 */
 	public List<SocialEquitySetting> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SocialEquitySetting> list = (List<SocialEquitySetting>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1406,10 +1406,8 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1429,8 +1427,8 @@ public class SocialEquitySettingPersistenceImpl extends BasePersistenceImpl<Soci
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

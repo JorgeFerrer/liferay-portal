@@ -52,7 +52,7 @@ Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);
 		<%
 		SyndFeed syndFeed = new SyndFeedImpl();
 
-		syndFeed.setFeedType(RSSUtil.DEFAULT_FEED_TYPE);
+		syndFeed.setFeedType(RSSUtil.FEED_TYPE_DEFAULT);
 		syndFeed.setLink(feedLink);
 		syndFeed.setTitle(HtmlUtil.extractText(feedTitle));
 		syndFeed.setDescription(HtmlUtil.extractText(feedTitle));
@@ -80,7 +80,7 @@ Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);
 
 			SyndContent syndContent = new SyndContentImpl();
 
-			syndContent.setType(RSSUtil.DEFAULT_ENTRY_TYPE);
+			syndContent.setType(RSSUtil.ENTRY_TYPE_DEFAULT);
 			syndContent.setValue(activityFeedEntry.getBody());
 
 			syndEntry.setDescription(syndContent);

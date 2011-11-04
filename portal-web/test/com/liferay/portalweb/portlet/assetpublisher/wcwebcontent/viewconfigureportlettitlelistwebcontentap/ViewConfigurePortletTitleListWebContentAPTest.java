@@ -31,7 +31,7 @@ public class ViewConfigurePortletTitleListWebContentAPTest extends BaseTestCase 
 			}
 
 			try {
-				if (selenium.isElementPresent("link=Asset Publisher Test Page")) {
+				if (selenium.isVisible("link=Asset Publisher Test Page")) {
 					break;
 				}
 			}
@@ -46,13 +46,13 @@ public class ViewConfigurePortletTitleListWebContentAPTest extends BaseTestCase 
 			RuntimeVariables.replace("Asset Publisher Test Page"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("WC Web Content Name"),
+		assertEquals(RuntimeVariables.replace("WC Web Content Title"),
 			selenium.getText("//ul[@class='title-list']/li/span/a/span"));
 		selenium.clickAt("//ul[@class='title-list']/li/span/a/span",
-			RuntimeVariables.replace("WC Web Content Name"));
+			RuntimeVariables.replace("WC Web Content Title"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("WC Web Content Name"),
+		assertEquals(RuntimeVariables.replace("WC Web Content Title"),
 			selenium.getText("//h1[@class='header-title']/span"));
 		assertEquals(RuntimeVariables.replace("WC Web Content Content"),
 			selenium.getText("//div[@class='journal-content-article']/p"));

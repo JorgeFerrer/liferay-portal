@@ -48,14 +48,10 @@
 <%@ page import="com.liferay.portlet.assetpublisher.util.AssetPublisherUtil" %>
 <%@ page import="com.liferay.portlet.documentlibrary.model.DLFileEntry" %>
 <%@ page import="com.liferay.portlet.documentlibrary.model.DLFileEntryConstants" %>
-<%@ page import="com.liferay.portlet.documentlibrary.model.DLFileEntryType" %>
 <%@ page import="com.liferay.portlet.documentlibrary.model.DLFolderConstants" %>
 <%@ page import="com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil" %>
-<%@ page import="com.liferay.portlet.documentlibrary.service.DLFileEntryTypeLocalServiceUtil" %>
 <%@ page import="com.liferay.portlet.documentlibrary.util.DocumentConversionUtil" %>
 <%@ page import="com.liferay.portlet.journal.model.JournalArticle" %>
-<%@ page import="com.liferay.portlet.journal.model.JournalStructure" %>
-<%@ page import="com.liferay.portlet.journal.service.JournalStructureServiceUtil" %>
 <%@ page import="com.liferay.util.RSSUtil" %>
 <%@ page import="com.liferay.util.xml.DocUtil" %>
 
@@ -90,6 +86,8 @@ boolean anyAssetType = GetterUtil.getBoolean(preferences.getValue("anyAssetType"
 
 long[] classNameIds = AssetPublisherUtil.getClassNameIds(preferences, availableClassNameIds);
 
+long[] classTypeIds = GetterUtil.getLongValues(portletPreferences.getValues("classTypeIds", null));
+
 String customUserAttributes = GetterUtil.getString(preferences.getValue("customUserAttributes", StringPool.BLANK));
 
 AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
@@ -105,6 +103,8 @@ if (selectionStyle.equals("dynamic")) {
 	}
 
 	allAssetTagNames = AssetPublisherUtil.getAssetTagNames(preferences, scopeGroupId);
+
+	assetEntryQuery.setClassTypeIds(classTypeIds);
 
 	AssetPublisherUtil.addUserAttributes(user, StringUtil.split(customUserAttributes), assetEntryQuery);
 }

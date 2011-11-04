@@ -16,6 +16,7 @@ package com.liferay.portlet.documentlibrary.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
@@ -30,8 +31,6 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
-
-import java.lang.reflect.Proxy;
 
 import java.sql.Blob;
 import java.sql.Types;
@@ -229,16 +228,18 @@ public class DLContentModelImpl extends BaseModelImpl<DLContent>
 		if (_dataBlobModel == null) {
 			try {
 				_dataBlobModel = DLContentLocalServiceUtil.getDataBlobModel(getPrimaryKey());
-
-				if (_dataBlobModel != null) {
-					return _dataBlobModel.getDataBlob();
-				}
 			}
 			catch (Exception e) {
 			}
 		}
 
-		return null;
+		Blob blob = null;
+
+		if (_dataBlobModel != null) {
+			blob = _dataBlobModel.getDataBlob();
+		}
+
+		return blob;
 	}
 
 	public void setData(Blob data) {
@@ -265,7 +266,7 @@ public class DLContentModelImpl extends BaseModelImpl<DLContent>
 		}
 		else {
 			if (_escapedModelProxy == null) {
-				_escapedModelProxy = (DLContent)Proxy.newProxyInstance(_classLoader,
+				_escapedModelProxy = (DLContent)ProxyUtil.newProxyInstance(_classLoader,
 						_escapedModelProxyInterfaces,
 						new AutoEscapeBeanHandler(this));
 			}

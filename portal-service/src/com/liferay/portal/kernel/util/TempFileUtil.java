@@ -16,11 +16,11 @@ package com.liferay.portal.kernel.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.io.ByteArrayFileInputStream;
 import com.liferay.portal.kernel.io.FileFilter;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -35,13 +35,11 @@ public class TempFileUtil {
 
 		String tempFileName = FileUtil.createTempFileName();
 
-		InputStream inputStream = new FileInputStream(file);
-
-		DLStoreUtil.validate(tempFileName, true, inputStream);
+		DLStoreUtil.validate(tempFileName, true, file);
 
 		File tempFile = getTempFile(tempFileName, tempPathName);
 
-		FileUtil.write(tempFile, inputStream);
+		FileUtil.copyFile(file, tempFile);
 
 		return tempFileName;
 	}
@@ -50,13 +48,42 @@ public class TempFileUtil {
 			long userId, String fileName, String tempPathName, File file)
 		throws IOException, PortalException, SystemException {
 
-		InputStream inputStream = new FileInputStream(file);
-
-		DLStoreUtil.validate(fileName, true, inputStream);
+		DLStoreUtil.validate(fileName, true, file);
 
 		File tempFile = getTempFile(userId, fileName, tempPathName);
 
-		FileUtil.write(tempFile, inputStream);
+		FileUtil.copyFile(file, tempFile);
+
+		return fileName;
+	}
+
+	public static String addTempFile(
+			long userId, String fileName, String tempPathName,
+			InputStream inputStream)
+		throws IOException, PortalException, SystemException {
+
+		File file = null;
+
+		if (inputStream instanceof ByteArrayFileInputStream) {
+			ByteArrayFileInputStream byteArrayFileInputStream =
+				(ByteArrayFileInputStream)inputStream;
+
+			file = byteArrayFileInputStream.getFile();
+
+			DLStoreUtil.validate(fileName, true, file);
+		}
+		else {
+			DLStoreUtil.validate(fileName, true, inputStream);
+		}
+
+		File tempFile = getTempFile(userId, fileName, tempPathName);
+
+		if (file != null) {
+			FileUtil.copyFile(file, tempFile);
+		}
+		else {
+			FileUtil.write(tempFile, inputStream);
+		}
 
 		return fileName;
 	}
@@ -66,13 +93,11 @@ public class TempFileUtil {
 
 		String tempFileName = FileUtil.createTempFileName();
 
-		InputStream inputStream = new FileInputStream(file);
-
-		DLStoreUtil.validate(tempFileName, false, inputStream);
+		DLStoreUtil.validate(tempFileName, false, file);
 
 		File tempFile = getTempFile(tempFileName, tempPathName);
 
-		FileUtil.write(tempFile, inputStream);
+		FileUtil.copyFile(file, tempFile);
 
 		return tempFileName;
 	}
@@ -81,13 +106,11 @@ public class TempFileUtil {
 			String fileName, String tempPathName, File file)
 		throws IOException, PortalException, SystemException {
 
-		InputStream inputStream = new FileInputStream(file);
-
-		DLStoreUtil.validate(fileName, true, inputStream);
+		DLStoreUtil.validate(fileName, true, file);
 
 		File tempFile = getTempFile(fileName, tempPathName);
 
-		FileUtil.write(tempFile, inputStream);
+		FileUtil.copyFile(file, tempFile);
 
 		return fileName;
 	}

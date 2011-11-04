@@ -89,6 +89,29 @@ public class ClassPathUtil {
 			}
 		}
 
+		if (ServerDetector.isJBoss()) {
+			path = StringUtil.replace(
+				path, CharPool.BACK_SLASH, CharPool.SLASH);
+
+			String protocol = url.getProtocol();
+
+			if (protocol.equals("vfs")) {
+				int pos = path.indexOf(".jar/");
+
+				if (pos != -1) {
+					String jarFilePath = path.substring(0, pos + 4);
+
+					File jarFile = new File(jarFilePath);
+
+					if (jarFile.isFile()) {
+						path = jarFilePath + '!' + path.substring(pos + 4);
+					}
+				}
+
+				path = "file:".concat(path);
+			}
+		}
+
 		File dir = null;
 
 		int pos = -1;

@@ -16,6 +16,7 @@ package com.liferay.portal.upgrade.v6_1_0;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.StringBundler;
 
 /**
  * @author Miguel Pastor
@@ -41,10 +42,19 @@ public class UpgradeCommunityProperties extends UpgradeProcess {
 			String tableName, String oldValue, String newValue)
 		throws Exception {
 
-		runSQL(
-			"update " + tableName + " set preferences = " +
-			   	"replace(preferences, \"" + oldValue + "\", \"" + newValue +
-			   		"\") where preferences like \"%" + oldValue + "%\"");
+		StringBundler sb = new StringBundler();
+
+		sb.append("update ");
+		sb.append(tableName);
+		sb.append(" set preferences = replace(CAST_TEXT(preferences), '");
+		sb.append(oldValue);
+		sb.append("', '");
+		sb.append(newValue);
+		sb.append("') where preferences like '%");
+		sb.append(oldValue);
+		sb.append("%'");
+
+		runSQL(sb.toString());
 	}
 
 	private static final String[] _NEW_PORTAL_PREFERENCES = {

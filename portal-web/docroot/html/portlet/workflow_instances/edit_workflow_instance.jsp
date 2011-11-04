@@ -335,7 +335,7 @@ request.setAttribute(WebKeys.WORKFLOW_ASSET_PREVIEW, Boolean.TRUE);
 		<div class="lfr-asset-summary">
 			<liferay-ui:icon
 				cssClass="lfr-asset-avatar"
-				image='../file_system/large/task'
+				image="../file_system/large/task"
 				message="download"
 			/>
 

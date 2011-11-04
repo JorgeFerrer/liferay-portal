@@ -1,7 +1,49 @@
-(function() {
-	var NEW_LINE = '\n';
+;(function() {
+	var toHex = function(val) {
+		val = parseInt(val, 10).toString(16);
 
-	var REGEX_BR = /<br>(<\/?(?:li|ol|ul|tr|td|th|table)(?: |>))/gi;
+		if (val.length == 1) {
+			val = '0' + val;
+		}
+
+		return val;
+	};
+
+	var MAP_HANDLERS = {
+		a: '_handleLink',
+		blockquote: '_handleQuote',
+		br: '_handleBreak',
+		caption: '_handleTableCaption',
+		cite: '_handleCite',
+		font: '_handleFont',
+		img: '_handleImage',
+		li: '_handleListItem',
+		ol: '_handleOrderedList',
+		table: '_handleTable',
+		td: '_handleTableCell',
+		th: '_handleTableHeader',
+		tr: '_handleTableRow',
+		u: '_handleUnderline',
+		ul: '_handleUnorderedList',
+
+		em: '_handleEm',
+		i: '_handleEm',
+
+		s: '_handleLineThrough',
+		strike: '_handleLineThrough',
+
+		code: '_handlePre',
+		pre: '_handlePre',
+
+		b: '_handleStrong',
+		strong: '_handleStrong'
+	};
+
+	var MAP_LINK_HANDLERS = {
+		0: 'email'
+	};
+
+	var NEW_LINE = '\n';
 
 	var REGEX_COLOR_RGB = /^rgb\s*\(\s*([01]?\d\d?|2[0-4]\d|25[0-5])\,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*\)$/;
 
@@ -9,7 +51,7 @@
 
 	var REGEX_ESCAPE_REGEX = /[-[\]{}()*+?.,\\^$|#\s]/g;
 
-	var REGEX_LASTCHAR_NEWLINE = /(\r?\n\s*)$/;
+	var REGEX_LASTCHAR_NEWLINE_WHITESPACE = /(\r?\n\s*)$/;
 
 	var REGEX_LIST_ALPHA = /(upper|lower)-alpha/i;
 
@@ -19,9 +61,15 @@
 
 	var REGEX_PERCENT = /%$/i;
 
+	var REGEX_PRE = /<pre>/ig;
+
 	var REGEX_PX = /px$/i;
 
+	var STR_MAILTO = 'mailto:';
+
 	var TAG_BLOCKQUOTE = 'blockquote';
+
+	var TAG_BR = 'br';
 
 	var TAG_CODE = 'code';
 
@@ -31,11 +79,15 @@
 
 	var TAG_LI = 'li';
 
+	var TAG_LINK = 'a';
+
 	var TAG_PARAGRAPH = 'p';
 
 	var TAG_PRE = 'pre';
 
 	var TAG_TABLE = 'table';
+
+	var TAG_TD = 'td';
 
 	var TEMPLATE_IMAGE = '<img src="{image}">';
 
@@ -46,15 +98,6 @@
 
 			init: function(editor) {
 				editor.dataProcessor = new CKEDITOR.htmlDataProcessor(editor);
-
-				var writer = editor.dataProcessor.writer;
-
-				writer.setRules(
-					TAG_PARAGRAPH,
-					{
-						breakBeforeClose: false
-					}
-				);
 
 				editor.on(
 					'paste',
@@ -79,6 +122,8 @@
 		toDataFormat: function(html, fixForBody ) {
 			var instance = this;
 
+			html = html.replace(REGEX_PRE, '$&\n');
+
 			var data = instance._convert(html);
 
 			return data;
@@ -87,12 +132,11 @@
 		toHtml: function(data, fixForBody) {
 			var instance = this;
 
-			if (!instance._bbcodeParser) {
-				instance._bbcodeParser = new CKEDITOR.BBCodeParser();
+			if (!instance._bbcodeConverter) {
+				instance._bbcodeConverter = new CKEDITOR.BBCode2HTML();
 			}
 
-			data = instance._bbcodeParser.parse(data);
-			data = data.replace(REGEX_BR, '$1');
+			data = instance._bbcodeConverter.convert(data);
 
 			var emoticonImages = CKEDITOR.config.smiley_images;
 			var emoticonSymbols = CKEDITOR.config.smiley_symbols;
@@ -103,7 +147,7 @@
 			for (var i = 0; i < length; i++) {
 				var image = TEMPLATE_IMAGE.replace('{image}', imagePath + emoticonImages[i]);
 
-				var escapedSymbol = emoticonSymbols[i].replace(REGEX_ESCAPE_REGEX, "\\$&");
+				var escapedSymbol = emoticonSymbols[i].replace(REGEX_ESCAPE_REGEX, '\\$&');
 
 				data = data.replace(new RegExp(escapedSymbol, 'g'), image);
 			}
@@ -125,7 +169,9 @@
 					if (parentTagName) {
 						parentTagName = parentTagName.toLowerCase();
 
-						if (parentTagName == TAG_PARAGRAPH && parentNode.style.cssText ) {
+						if ((parentTagName == TAG_PARAGRAPH && parentNode.style.cssText) ||
+							(CKEDITOR.env.gecko && element.tagName && element.tagName.toLowerCase() == TAG_BR && parentTagName == TAG_TD && !element.nextSibling)) {
+
 							allowNewLine = false;
 						}
 					}
@@ -135,10 +181,19 @@
 			return allowNewLine;
 		},
 
+		_checkParentElement: function(element, tagName) {
+			var instance = this;
+
+			var parentNode = element.parentNode;
+
+			return (parentNode && parentNode.tagName && (parentNode.tagName.toLowerCase() == tagName));
+		},
+
 		_convert: function(data) {
 			var instance = this;
 
 			var node = document.createElement(TAG_DIV);
+
 			node.innerHTML = data;
 
 			instance._handle(node);
@@ -151,20 +206,14 @@
 		},
 
 		_convertRGBToHex: function(color) {
-			var red, green, blue;
-
 			color = color.replace(
 				REGEX_COLOR_RGB,
-				function(mstr, red, green, blue, offset, string) {
-					var r = parseInt(red, 10).toString(16);
-					var g = parseInt(green, 10).toString(16);
-					var b = parseInt(blue, 10).toString(16);
+				function(match, red, green, blue, offset, string) {
+					var r = toHex(red);
+					var g = toHex(green);
+					var b = toHex(blue);
 
-					r = r.length == 1 ? '0' + r : r;
-					g = g.length == 1 ? '0' + g : g;
-					b = b.length == 1 ? '0' + b : b;
-
-					color = "#" + r + g + b;
+					color = '#' + r + g + b;
 
 					return color;
 				}
@@ -175,6 +224,7 @@
 
 		_getBodySize: function() {
 			var body = document.body;
+
 			var style;
 
 			if (document.defaultView.getComputedStyle) {
@@ -190,18 +240,21 @@
 		_getEmoticonSymbol: function(element) {
 			var instance = this;
 
+			var emoticonSymbol = null;
+
 			var imagePath = element.getAttribute('src');
 
 			if (imagePath) {
 				var image = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+
 				var imageIndex = instance._getImageIndex(CKEDITOR.config.smiley_images, image);
 
 				if (imageIndex >= 0) {
-					return CKEDITOR.config.smiley_symbols[imageIndex];
+					emoticonSymbol = CKEDITOR.config.smiley_symbols[imageIndex];
 				}
 			}
 
-			return null;
+			return emoticonSymbol;
 		},
 
 		_getFontSize: function(fontSize) {
@@ -210,15 +263,16 @@
 			var bodySize;
 
 			if (REGEX_PX.test(fontSize)) {
-				return instance._getFontSizePX(fontSize);
+				fontSize = instance._getFontSizePX(fontSize);
 			}
 			else if (REGEX_EM.test(fontSize)) {
 				bodySize = instance._getBodySize();
 
 				fontSize = parseFloat(fontSize, 10);
+
 				fontSize = Math.round((fontSize * bodySize)) + 'px';
 
-				return instance._getFontSize(fontSize);
+				fontSize = instance._getFontSize(fontSize);
 			}
 			else if (REGEX_PERCENT.test(fontSize)) {
 				bodySize = instance._getBodySize();
@@ -226,53 +280,59 @@
 				fontSize = parseFloat(fontSize, 10);
 				fontSize = Math.round(((fontSize * bodySize) / 100)) + 'px';
 
-				return instance._getFontSize(fontSize);
+				fontSize = instance._getFontSize(fontSize);
 			}
 
 			return fontSize;
 		},
 
 		_getFontSizePX: function(fontSize) {
-			fontSize = parseInt(fontSize, 10);
+			var sizeValue = parseInt(fontSize, 10);
 
-			if (fontSize <= 10) {
-				return '1';
+			if (sizeValue <= 10) {
+				sizeValue = '1';
 			}
-			else if (fontSize <= 12) {
-				return '2';
+			else if (sizeValue <= 12) {
+				sizeValue = '2';
 			}
-			else if (fontSize <= 16) {
-				return '3';
+			else if (sizeValue <= 16) {
+				sizeValue = '3';
 			}
-			else if (fontSize <= 18) {
-				return '4';
+			else if (sizeValue <= 18) {
+				sizeValue = '4';
 			}
-			else if (fontSize <= 24) {
-				return '5';
+			else if (sizeValue <= 24) {
+				sizeValue = '5';
 			}
-			else if (fontSize <= 32) {
-				return '6';
+			else if (sizeValue <= 32) {
+				sizeValue = '6';
 			}
 			else {
-				return '7';
+				sizeValue = '7';
 			}
+
+			return sizeValue;
 		},
 
 		_getImageIndex: function(array, image) {
+			var index = -1;
+
 			if (array.lastIndexOf) {
-				return array.lastIndexOf(image);
+				index = array.lastIndexOf(image);
 			}
 			else {
 				for (var i = array.length - 1; i >= 0; i--) {
 					var item = array[i];
 
 					if (image === item) {
-						return i;
+						index = i;
+
+						break;
 					}
 				}
 			}
 
-			return -1;
+			return index;
 		},
 
 		_isAllWS: function(node) {
@@ -284,10 +344,8 @@
 
 			var nodeType = node.nodeType;
 
-			var result = (node.isElementContentWhitespace || nodeType == 8) ||
+			return (node.isElementContentWhitespace || nodeType == 8) ||
 				((nodeType == 3) && instance._isAllWS(node));
-
-			return result;
 		},
 
 		_isLastItemNewLine: function() {
@@ -295,7 +353,7 @@
 
 			var endResult = instance._endResult;
 
-			return (endResult && REGEX_LASTCHAR_NEWLINE.test(endResult.slice(-1)));
+			return (endResult && REGEX_LASTCHAR_NEWLINE_WHITESPACE.test(endResult.slice(-1)));
 		},
 
 		_handle: function(node) {
@@ -306,8 +364,10 @@
 			}
 
 			var children = node.childNodes;
-			var length = children.length;
+
 			var pushTagList = instance._pushTagList;
+
+			var length = children.length;
 
 			for (var i = 0; i < length; i++) {
 				var listTagsIn = [];
@@ -318,22 +378,20 @@
 
 				var child = children[i];
 
-				if (instance._isIgnorable(child) && !instance._inPRE) {
-					continue;
+				if (instance._inPRE || !instance._isIgnorable(child)) {
+					instance._handleElementStart(child, listTagsIn, listTagsOut);
+					instance._handleStyles(child, stylesTagsIn, stylesTagsOut);
+
+					pushTagList.call(instance, listTagsIn);
+					pushTagList.call(instance, stylesTagsIn);
+
+					instance._handle(child);
+
+					instance._handleElementEnd(child, listTagsIn, listTagsOut);
+
+					pushTagList.call(instance, stylesTagsOut.reverse());
+					pushTagList.call(instance, listTagsOut);
 				}
-
-				instance._handleElementStart(child, listTagsIn, listTagsOut);
-				instance._handleStyles(child, stylesTagsIn, stylesTagsOut);
-
-				pushTagList.call(instance, listTagsIn);
-				pushTagList.call(instance, stylesTagsIn);
-
-				instance._handle(child);
-
-				instance._handleElementEnd(child, listTagsIn, listTagsOut);
-
-				pushTagList.call(instance, stylesTagsOut.reverse());
-				pushTagList.call(instance, listTagsOut);
 			}
 
 			instance._handleData(node.data, node);
@@ -345,10 +403,8 @@
 			if (instance._inPRE) {
 				listTagsIn.push(NEW_LINE);
 			}
-			else {
-				if (instance._allowNewLine(element)) {
-					listTagsIn.push(NEW_LINE);
-				}
+			else if (instance._allowNewLine(element)) {
+				listTagsIn.push(NEW_LINE);
 			}
 		},
 
@@ -357,18 +413,20 @@
 
 			var parentNode = element.parentNode;
 
-			if (parentNode && (parentNode.tagName.toLowerCase() === TAG_BLOCKQUOTE)) {
-				if (!parentNode.getAttribute(TAG_CITE)) {
-					var endResult = instance._endResult;
+			if (parentNode &&
+				parentNode.tagName &&
+				(parentNode.tagName.toLowerCase() == TAG_BLOCKQUOTE) &&
+				!parentNode.getAttribute(TAG_CITE)) {
 
-					for (var i = (endResult.length - 1); i >= 0; i--) {
-						if (endResult[i] === '[quote]') {
-							endResult[i] = '[quote=';
+				var endResult = instance._endResult;
 
-							listTagsOut.push(']');
+				for (var i = (endResult.length - 1); i >= 0; i--) {
+					if (endResult[i] === '[quote]') {
+						endResult[i] = '[quote=';
 
-							break;
-						}
+						listTagsOut.push(']');
+
+						break;
 					}
 				}
 			}
@@ -380,6 +438,11 @@
 			if (data) {
 				if (!instance._allowNewLine(element)) {
 					data = data.replace(REGEX_NEWLINE, '');
+				}
+				else if (instance._checkParentElement(element, TAG_LINK) &&
+					data.indexOf(STR_MAILTO) == 0) {
+
+					data = data.substring(STR_MAILTO.length);
 				}
 
 				instance._endResult.push(data);
@@ -413,71 +476,17 @@
 			if (tagName) {
 				tagName = tagName.toLowerCase();
 
-				if (tagName == TAG_PARAGRAPH) {
-					instance._handleParagraph(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'br') {
-					instance._handleBreak(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'strong' || tagName == 'b') {
-					instance._handleStrong(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'em' || tagName == 'i') {
-					instance._handleEm(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'u') {
-					instance._handleUnderline(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'a') {
-					instance._handleLink(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'img') {
-					instance._handleImage(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'strike' || tagName == 's') {
-					instance._handleLineThrough(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'font') {
-					instance._handleFont(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == TAG_BLOCKQUOTE) {
-					instance._handleQuote(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == TAG_CITE) {
-					instance._handleCite(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'ul') {
-					instance._handleUnorderedList(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'ol') {
-					instance._handleOrderedList(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == TAG_LI) {
-					instance._handleListItem(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == TAG_PRE || tagName == TAG_CODE) {
-					instance._handlePre(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == TAG_TABLE) {
-					instance._handleTable(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'th') {
-					instance._handleTableHeader(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'tr') {
-					instance._handleTableRow(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'td') {
-					instance._handleTableCell(element, listTagsIn, listTagsOut);
-				}
-				else if (tagName == 'caption') {
-					instance._handleTableCaption(element, listTagsIn, listTagsOut);
+				var handlerName = MAP_HANDLERS[tagName];
+
+				if (handlerName) {
+					instance[handlerName](element, listTagsIn, listTagsOut);
 				}
 			}
 		},
 
 		_handleEm: function(element, listTagsIn, listTagsOut) {
 			listTagsIn.push('[i]');
+
 			listTagsOut.push('[/i]');
 		},
 
@@ -491,6 +500,7 @@
 
 				if (size >= 1 && size <= 7) {
 					listTagsIn.push('[size=', size, ']');
+
 					listTagsIn.push('[/size]');
 				}
 			}
@@ -501,6 +511,7 @@
 				color = instance._convertRGBToHex(color);
 
 				listTagsIn.push('[color=', color, ']');
+
 				listTagsIn.push('[/color]');
 			}
 		},
@@ -533,9 +544,11 @@
 				hrefAttribute = decodedLink;
 			}
 
-			listTagsIn.push('[url=', hrefAttribute, ']');
+			var linkHandler = MAP_LINK_HANDLERS[hrefAttribute.indexOf(STR_MAILTO)] || 'url';
 
-			listTagsOut.push('[/url]');
+			listTagsIn.push('[' + linkHandler + '=', hrefAttribute, ']');
+
+			listTagsOut.push('[/' + linkHandler + ']');
 		},
 
 		_handleListItem: function(element, listTagsIn, listTagsOut) {
@@ -550,15 +563,12 @@
 
 		_handleLineThrough: function(element, listTagsIn, listTagsOut) {
 			listTagsIn.push('[s]');
+
 			listTagsOut.push('[/s]');
 		},
 
 		_handleOrderedList: function(element, listTagsIn, listTagsOut) {
 			var instance = this;
-
-			if (!instance._isLastItemNewLine()) {
-				listTagsIn.push(NEW_LINE);
-			}
 
 			listTagsIn.push('[list=');
 
@@ -574,36 +584,23 @@
 			listTagsOut.push('[/list]');
 		},
 
-		_handleParagraph: function(element, listTagsIn, listTagsOut) {
-			var instance = this;
-
-			var newLinesAtEnd = REGEX_LASTCHAR_NEWLINE.exec(instance._endResult.slice(-2).join(''));
-			var count = newLinesAtEnd ? newLinesAtEnd[1].length : 0;
-
-			while (count++ < 2) {
-				listTagsIn.push(NEW_LINE);
-			}
-		},
-
 		_handlePre: function(element, listTagsIn, listTagsOut) {
 			var instance = this;
 
 			instance._inPRE = true;
 
 			listTagsIn.push('[code]');
+
 			listTagsOut.push('[/code]');
 		},
 
 		_handleQuote: function(element, listTagsIn, listTagsOut) {
 			var cite = element.getAttribute(TAG_CITE);
 
-			var openTag;
+			var openTag = '[quote]';
 
 			if (cite) {
-				openTag = '[quote=', cite, ']';
-			}
-			else {
-				openTag = '[quote]';
+				openTag = '[quote=' + cite + ']';
 			}
 
 			listTagsIn.push(openTag);
@@ -613,6 +610,7 @@
 
 		_handleStrong: function(element, listTagsIn, listTagsOut) {
 			listTagsIn.push('[b]');
+
 			listTagsOut.push('[/b]');
 		},
 
@@ -623,6 +621,7 @@
 
 			if (alignment == 'center') {
 				stylesTagsIn.push('[center]');
+
 				stylesTagsOut.push('[/center]');
 			}
 		},
@@ -634,6 +633,7 @@
 
 			if (alignment == 'justify') {
 				stylesTagsIn.push('[justify]');
+
 				stylesTagsOut.push('[/justify]');
 			}
 		},
@@ -645,6 +645,7 @@
 
 			if (alignment == 'left') {
 				stylesTagsIn.push('[left]');
+
 				stylesTagsOut.push('[/left]');
 			}
 		},
@@ -656,6 +657,7 @@
 
 			if (alignment == 'right') {
 				stylesTagsIn.push('[right]');
+
 				stylesTagsOut.push('[/right]');
 			}
 		},
@@ -667,6 +669,7 @@
 
 			if (fontWeight.toLowerCase() == 'bold') {
 				stylesTagsIn.push('[b]');
+
 				stylesTagsOut.push('[/b]');
 			}
 		},
@@ -682,6 +685,7 @@
 				color = instance._convertRGBToHex(color);
 
 				stylesTagsIn.push('[color=', color, ']');
+
 				stylesTagsOut.push('[/color]');
 			}
 		},
@@ -693,6 +697,7 @@
 
 			if (fontFamily) {
 				stylesTagsIn.push('[font=', fontFamily, ']');
+
 				stylesTagsOut.push('[/font]');
 			}
 		},
@@ -708,6 +713,7 @@
 				fontSize = instance._getFontSize(fontSize);
 
 				stylesTagsIn.push('[size=', fontSize, ']');
+
 				stylesTagsOut.push('[/size]');
 			}
 		},
@@ -719,6 +725,7 @@
 
 			if (fontStyle.toLowerCase() == 'italic') {
 				stylesTagsIn.push('[i]');
+
 				stylesTagsOut.push('[/i]');
 			}
 		},
@@ -730,10 +737,12 @@
 
 			if (textDecoration == 'line-through') {
 				stylesTagsIn.push('[s]');
+
 				stylesTagsOut.push('[/s]');
 			}
 			else if (textDecoration == 'underline') {
 				stylesTagsIn.push('[u]');
+
 				stylesTagsOut.push('[/u]');
 			}
 		},
@@ -743,90 +752,87 @@
 
 			var tagName = element.tagName;
 
-			if (tagName && tagName.toLowerCase() == 'a') {
-				return;
-			}
-
-			var style = element.style;
-
-			if (style) {
+			if ((!tagName || tagName.toLowerCase() != TAG_LINK) && element.style) {
 				instance._handleStyleAlignCenter(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleAlignJustify(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleAlignLeft(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleAlignRight(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleBold(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleColor(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleFontFamily(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleFontSize(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleItalic(element, stylesTagsIn, stylesTagsOut);
-
 				instance._handleStyleTextDecoration(element, stylesTagsIn, stylesTagsOut);
 			}
 		},
 
 		_handleTable: function(element, listTagsIn, listTagsOut) {
-			listTagsIn.push(NEW_LINE, '[table]', NEW_LINE);
-			listTagsOut.push('[/table]', NEW_LINE);
+			var instance = this;
+
+			listTagsIn.push('[table]', NEW_LINE);
+
+			listTagsOut.push('[/table]');
 		},
 
 		_handleTableCaption: function(element, listTagsIn, listTagsOut) {
-			var parentNode = element.parentNode;
+			var instance = this;
 
-			if (parentNode && parentNode.tagName === TAG_TABLE) {
+			if (instance._checkParentElement(element, TAG_TABLE)) {
 				listTagsIn.push('[tr]', NEW_LINE, '[th]');
+
 				listTagsOut.push('[/th]', NEW_LINE, '[/tr]', NEW_LINE);
 			}
 		},
 
 		_handleTableCell: function(element, listTagsIn, listTagsOut) {
+			var instance = this;
+
 			listTagsIn.push('[td]');
+
 			listTagsOut.push('[/td]', NEW_LINE);
 		},
 
 		_handleTableHeader: function(element, listTagsIn, listTagsOut) {
+			var instance = this;
+
 			listTagsIn.push('[th]');
+
 			listTagsOut.push('[/th]', NEW_LINE);
 		},
 
 		_handleTableRow: function(element, listTagsIn, listTagsOut) {
+			var instance = this;
+
 			listTagsIn.push('[tr]', NEW_LINE);
+
 			listTagsOut.push('[/tr]', NEW_LINE);
 		},
 
 		_handleUnderline: function(element, listTagsIn, listTagsOut) {
+			var instance = this;
+
 			listTagsIn.push('[u]');
+
 			listTagsOut.push('[/u]');
 		},
 
 		_handleUnorderedList: function(element, listTagsIn, listTagsOut) {
 			var instance = this;
 
-			if (!instance._isLastItemNewLine()) {
-				listTagsIn.push(NEW_LINE);
-			}
-
 			listTagsIn.push('[list]');
+
 			listTagsOut.push('[/list]');
 		},
 
 		_pushTagList: function(tagsList) {
 			var instance = this;
 
-			var endResult, i, length, tag;
+			var endResult = instance._endResult;
 
-			endResult = instance._endResult;
-			length = tagsList.length;
+			var length = tagsList.length;
 
-			for (i = 0; i < length; i++) {
-				tag = tagsList[i];
+			for (var i = 0; i < length; i++) {
+				var tag = tagsList[i];
 
 				endResult.push(tag);
 			}

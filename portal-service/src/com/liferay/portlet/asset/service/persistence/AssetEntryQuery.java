@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
@@ -47,6 +49,7 @@ public class AssetEntryQuery {
 		setAnyCategoryIds(assetEntryQuery.getAnyCategoryIds());
 		setAnyTagIds(assetEntryQuery.getAnyTagIds());
 		setClassNameIds(assetEntryQuery.getClassNameIds());
+		setClassTypeIds(assetEntryQuery.getClassTypeIds());
 		setEnd(assetEntryQuery.getEnd());
 		setExcludeZeroViewCount(assetEntryQuery.isExcludeZeroViewCount());
 		setExpirationDate(assetEntryQuery.getExpirationDate());
@@ -171,6 +174,10 @@ public class AssetEntryQuery {
 		return _classNameIds;
 	}
 
+	public long[] getClassTypeIds() {
+		return _classTypeIds;
+	}
+
 	public Layout getLayout() {
 		return _layout;
 	}
@@ -249,96 +256,213 @@ public class AssetEntryQuery {
 
 	public void setAllCategoryIds(long[] allCategoryIds) {
 		_allCategoryIds = allCategoryIds;
+
+		_toString = null;
 	}
 
 	public void setAllTagIds(long[] allTagIds) {
 		_allTagIds = allTagIds;
+
+		_toString = null;
 	}
 
 	public void setAnyCategoryIds(long[] anyCategoryIds) {
 		_anyCategoryIds = anyCategoryIds;
+
+		_toString = null;
 	}
 
 	public void setAnyTagIds(long[] anyTagIds) {
 		_anyTagIds = anyTagIds;
+
+		_toString = null;
 	}
 
 	public void setClassName(String className) {
 		long classNameId = PortalUtil.getClassNameId(className);
 
 		_classNameIds = new long[] {classNameId};
+
+		_toString = null;
 	}
 
 	public void setClassNameIds(long[] classNameIds) {
 		_classNameIds = classNameIds;
+
+		_toString = null;
+	}
+
+	public void setClassTypeIds(long[] classTypeIds) {
+		_classTypeIds = classTypeIds;
+
+		_toString = null;
 	}
 
 	public void setLayout(Layout layout) {
 		_layout = layout;
+
+		_toString = null;
 	}
 
 	public void setLinkedAssetEntryId(long linkedAssetEntryId) {
 		_linkedAssetEntryId = linkedAssetEntryId;
+
+		_toString = null;
 	}
 
 	public void setEnd(int end) {
 		_end = end;
+
+		_toString = null;
 	}
 
 	public void setExcludeZeroViewCount(boolean excludeZeroViewCount) {
 		_excludeZeroViewCount = excludeZeroViewCount;
+
+		_toString = null;
 	}
 
 	public void setExpirationDate(Date expirationDate) {
 		_expirationDate = expirationDate;
+
+		_toString = null;
 	}
 
 	public void setGroupIds(long[] groupIds) {
 		_groupIds = groupIds;
+
+		_toString = null;
 	}
 
 	public void setNotAllCategoryIds(long[] notAllCategoryIds) {
 		_notAllCategoryIds = notAllCategoryIds;
+
+		_toString = null;
 	}
 
 	public void setNotAllTagIds(long[] notAllTagIds) {
 		_notAllTagIds = notAllTagIds;
+
+		_toString = null;
 	}
 
 	public void setNotAnyCategoryIds(long[] notAnyCategoryIds) {
 		_notAnyCategoryIds = notAnyCategoryIds;
+
+		_toString = null;
 	}
 
 	public void setNotAnyTagIds(long[] notAnyTagIds) {
 		_notAnyTagIds = notAnyTagIds;
+
+		_toString = null;
 	}
 
 	public void setOrderByCol1(String orderByCol1) {
 		_orderByCol1 = orderByCol1;
+
+		_toString = null;
 	}
 
 	public void setOrderByCol2(String orderByCol2) {
 		_orderByCol2 = orderByCol2;
+
+		_toString = null;
 	}
 
 	public void setOrderByType1(String orderByType1) {
 		_orderByType1 = orderByType1;
+
+		_toString = null;
 	}
 
 	public void setOrderByType2(String orderByType2) {
 		_orderByType2 = orderByType2;
+
+		_toString = null;
 	}
 
 	public void setPublishDate(Date publishDate) {
 		_publishDate = publishDate;
+
+		_toString = null;
 	}
 
 	public void setStart(int start) {
 		_start = start;
+
+		_toString = null;
 	}
 
 	public void setVisible(Boolean visible) {
 		_visible = visible;
+
+		_toString = null;
+	}
+
+	@Override
+	public String toString() {
+		if (_toString != null) {
+			return _toString;
+		}
+
+		StringBundler sb = new StringBundler(47);
+
+		sb.append("{allCategoryIds=");
+		sb.append(StringUtil.merge(_allCategoryIds));
+		sb.append(", allTagIds");
+		sb.append(StringUtil.merge(_allTagIds));
+		sb.append(", anyCategoryIds");
+		sb.append(StringUtil.merge(_anyCategoryIds));
+		sb.append(", anyTagIds");
+		sb.append(StringUtil.merge(_anyTagIds));
+		sb.append(", classNameIds");
+		sb.append(StringUtil.merge(_classNameIds));
+		sb.append(", classTypeIds");
+		sb.append(StringUtil.merge(_classTypeIds));
+
+		if (_layout != null) {
+			sb.append(", layout");
+			sb.append(_layout.getPlid());
+		}
+
+		sb.append(", end");
+		sb.append(_end);
+		sb.append(", excludeZeroViewCount");
+		sb.append(_excludeZeroViewCount);
+		sb.append(", expirationDate");
+		sb.append(_expirationDate);
+		sb.append(", groupIds");
+		sb.append(StringUtil.merge(_groupIds));
+		sb.append(", linkedAssetEntryId");
+		sb.append(_linkedAssetEntryId);
+		sb.append(", notAllCategoryIds");
+		sb.append(StringUtil.merge(_notAllCategoryIds));
+		sb.append(", notAllTagIds");
+		sb.append(StringUtil.merge(_notAllTagIds));
+		sb.append(", notAnyCategoryIds");
+		sb.append(StringUtil.merge(_notAnyCategoryIds));
+		sb.append(", notAnyTagIds");
+		sb.append(StringUtil.merge(_notAnyTagIds));
+		sb.append(", orderByCol1");
+		sb.append(_orderByCol1);
+		sb.append(", orderByCol2");
+		sb.append(_orderByCol2);
+		sb.append(", orderByType1");
+		sb.append(_orderByType1);
+		sb.append(", orderByType2");
+		sb.append(_orderByType2);
+		sb.append(", publishDate");
+		sb.append(_publishDate);
+		sb.append(", start");
+		sb.append(_start);
+		sb.append(", visible");
+		sb.append(_visible);
+		sb.append("}");
+
+		_toString = sb.toString();
+
+		return _toString;
 	}
 
 	private long[] _getLeftAndRightCategoryIds(long[] categoryIds) {
@@ -370,6 +494,7 @@ public class AssetEntryQuery {
 	private long[] _anyCategoryIds = new long[0];
 	private long[] _anyTagIds = new long[0];
 	private long[] _classNameIds = new long[0];
+	private long[] _classTypeIds = new long[0];
 	private Layout _layout;
 	private int _end = QueryUtil.ALL_POS;
 	private boolean _excludeZeroViewCount;
@@ -386,6 +511,7 @@ public class AssetEntryQuery {
 	private String _orderByType2;
 	private Date _publishDate;
 	private int _start = QueryUtil.ALL_POS;
+	private String _toString;
 	private Boolean _visible = Boolean.TRUE;
 
 }

@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -30,7 +31,9 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.AssetTagException;
+import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
 import com.liferay.portlet.assetpublisher.util.AssetPublisherUtil;
 
@@ -115,6 +118,70 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 					throw e;
 				}
 			}
+		}
+	}
+
+	protected String[] getClassTypeIds(
+		ActionRequest actionRequest, String[] classNameIds) throws Exception {
+
+		String anyAssetTypeString = getParameter(
+			actionRequest, "anyAssetType");
+
+		boolean anyAssetType = GetterUtil.getBoolean(anyAssetTypeString);
+
+		if (anyAssetType) {
+			return null;
+		}
+
+		long defaultAssetTypeId = GetterUtil.getLong(anyAssetTypeString);
+
+		if ((defaultAssetTypeId == 0) && (classNameIds.length == 1)) {
+			defaultAssetTypeId = GetterUtil.getLong(classNameIds[0]);
+		}
+
+		if (defaultAssetTypeId <= 0 ) {
+			return null;
+		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String className = PortalUtil.getClassName(defaultAssetTypeId);
+
+		AssetRendererFactory assetRendererFactory =
+			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
+				className);
+
+		long[] groupdIds = {
+			themeDisplay.getCompanyGroupId(), themeDisplay.getScopeGroupId()
+		};
+
+		if (assetRendererFactory.getClassTypes(groupdIds) == null) {
+			return null;
+		}
+
+		String assetClassName = AssetPublisherUtil.getClassName(
+			assetRendererFactory);
+
+		String anyAssetClassTypeString = getParameter(
+			actionRequest, "anyClassType" + assetClassName);
+
+		boolean anyAssetClassType = GetterUtil.getBoolean(
+			anyAssetClassTypeString);
+
+		if (anyAssetClassType) {
+			return null;
+		}
+
+		long defaultAssetClassTypeId = GetterUtil.getLong(
+			anyAssetClassTypeString);
+
+		if (defaultAssetClassTypeId > 0) {
+			return new String[] {String.valueOf(defaultAssetClassTypeId)};
+		}
+		else {
+			return StringUtil.split(
+				getParameter(actionRequest, "classTypeIds" + assetClassName));
 		}
 	}
 
@@ -261,13 +328,13 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 		String[] classNameIds = StringUtil.split(
 			getParameter(actionRequest, "classNameIds"));
-
+		String[] classTypeIds = getClassTypeIds(actionRequest, classNameIds);
 		String[] extensions = actionRequest.getParameterValues("extensions");
-
 		String[] scopeIds = StringUtil.split(
 			getParameter(actionRequest, "scopeIds"));
 
 		setPreference(actionRequest, "classNameIds", classNameIds);
+		setPreference(actionRequest, "classTypeIds", classTypeIds);
 		setPreference(actionRequest, "extensions", extensions);
 		setPreference(actionRequest, "scopeIds", scopeIds);
 	}

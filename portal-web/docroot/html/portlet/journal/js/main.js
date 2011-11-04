@@ -944,13 +944,13 @@ AUI().add(
 							buttons: [
 								{
 									handler: saveCallback,
-									text: Liferay.Language.get('save')
+									label: Liferay.Language.get('save')
 								},
 								{
 									handler: function() {
 										this.close();
 									},
-									text: Liferay.Language.get('cancel')
+									label: Liferay.Language.get('cancel')
 								}
 							],
 							centered: true,
@@ -1733,7 +1733,7 @@ AUI().add(
 				var selector = '> span.folder > ul > li';
 
 				if (!generateArticleContent) {
-					selector += '.structure-field:not(.repeated-field,.parent-structure-field)';
+					selector += '.structure-field:not(.repeated-field):not(.parent-structure-field)';
 				}
 
 				var children = source.all(selector);
@@ -1843,41 +1843,57 @@ AUI().add(
 
 					if (!generateArticleContent) {
 						buffer.push(metadata.openTag);
-							var displayAsTooltipVal = instance.normalizeValue(
-								fieldInstance.get('displayAsTooltip')
-							);
-							buffer.push(displayAsTooltip.openTag);
-							buffer.push('<![CDATA[' + displayAsTooltipVal + ']]>');
-							buffer.push(displayAsTooltip.closeTag);
 
-							var requiredVal = instance.normalizeValue(
-								fieldInstance.get('required')
-							);
-							buffer.push(entryRequired.openTag);
-							buffer.push('<![CDATA[' + requiredVal + ']]>');
-							buffer.push(entryRequired.closeTag);
+						var displayAsTooltipVal = instance.normalizeValue(
+							fieldInstance.get('displayAsTooltip')
+						);
 
-							var instructionsVal = instance.normalizeValue(
-								fieldInstance.get('instructions')
-							);
-							buffer.push(entryInstructions.openTag);
-							buffer.push('<![CDATA[' + instructionsVal + ']]>');
-							buffer.push(entryInstructions.closeTag);
+						buffer.push(
+							displayAsTooltip.openTag,
+							'<![CDATA[' + displayAsTooltipVal + ']]>',
+							displayAsTooltip.closeTag
+						);
 
-							var fieldLabelVal = instance.normalizeValue(
-								fieldInstance.get('fieldLabel')
-							);
-							buffer.push(label.openTag);
-							buffer.push('<![CDATA[' + fieldLabelVal + ']]>');
-							buffer.push(label.closeTag);
+						var requiredVal = instance.normalizeValue(
+							fieldInstance.get('required')
+						);
 
-							var predefinedValueVal = instance.normalizeValue(
-								fieldInstance.get('predefinedValue')
-							);
-							buffer.push(predefinedValue.openTag);
-							buffer.push('<![CDATA[' + predefinedValueVal + ']]>');
-							buffer.push(predefinedValue.closeTag);
-						buffer.push(metadata.closeTag);
+						buffer.push(
+							entryRequired.openTag,
+							'<![CDATA[' + requiredVal + ']]>',
+							entryRequired.closeTag
+						);
+
+						var instructionsVal = instance.normalizeValue(
+							fieldInstance.get('instructions')
+						);
+
+						buffer.push(
+							entryInstructions.openTag,
+							'<![CDATA[' + instructionsVal + ']]>',
+							entryInstructions.closeTag
+						);
+
+						var fieldLabelVal = instance.normalizeValue(
+							fieldInstance.get('fieldLabel')
+						);
+
+						buffer.push(
+							label.openTag,
+							'<![CDATA[' + fieldLabelVal + ']]>',
+							label.closeTag
+						);
+
+						var predefinedValueVal = instance.normalizeValue(
+							fieldInstance.get('predefinedValue')
+						);
+
+						buffer.push(
+							predefinedValue.openTag,
+							'<![CDATA[' + predefinedValueVal + ']]>',
+							predefinedValue.closeTag,
+							metadata.closeTag
+						);
 					}
 					else if (generateArticleContent) {
 						buffer.push(typeContent.openTag);
@@ -2121,27 +2137,21 @@ AUI().add(
 					'.journal-image-link'
 				);
 
-				var _attachButtonInputSelector = function(id, title, handlerName) {
-					var buttonId = '.journal-' + id + '-button .aui-button-input';
+				container.delegate(
+					'click',
+					function(event) {
+						var button = event.currentTarget;
+						var input = button.ancestor('.journal-article-component-container').one('.aui-field-input');
+						var selectUrl = button.attr('data-documentlibraryUrl');
 
-					container.delegate(
-						'click',
-						function(event) {
-							var button = event.currentTarget;
-							var input = button.ancestor('.journal-article-component-container').one('.aui-field-input');
-							var selectUrl = button.attr('data-' + id + 'Url');
+						window[instance.portletNamespace + 'selectDocumentLibrary'] = function(url) {
+							input.val(url);
+						};
 
-							window[instance.portletNamespace + handlerName] = function(url) {
-								input.val(url);
-							};
-
-							instance.openPopupWindow(selectUrl, title);
-						},
-						buttonId
-					);
-				};
-
-				_attachButtonInputSelector('documentlibrary', 'DocumentLibrary', 'selectDocumentLibrary');
+						instance.openPopupWindow(selectUrl, Liferay.Language.get('javax.portlet.title.20'));
+					},
+					'.journal-documentlibrary-button .aui-button-input'
+				);
 
 				container.delegate(
 					'mouseover',

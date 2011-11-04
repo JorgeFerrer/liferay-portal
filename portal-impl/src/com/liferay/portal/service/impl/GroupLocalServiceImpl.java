@@ -1812,7 +1812,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		assetEntryLocalService.updateEntry(
 			userId, companyGroup.getGroupId(), Group.class.getName(),
-			group.getGroupId(), null, assetCategoryIds, assetTagNames, false,
+			group.getGroupId(), null, 0, assetCategoryIds, assetTagNames, false,
 			null, null, null, null, null, group.getDescriptiveName(),
 			group.getDescription(), null, null, null, 0, 0, null, false);
 	}
@@ -2148,29 +2148,31 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		friendlyURL = getFriendlyURL(friendlyURL);
 
-		if (Validator.isNull(friendlyURL)) {
-			friendlyURL = StringPool.SLASH + getFriendlyURL(friendlyName);
+		if (Validator.isNotNull(friendlyURL)) {
+			return friendlyURL;
+		}
 
-			String originalFriendlyURL = friendlyURL;
+		friendlyURL = StringPool.SLASH + getFriendlyURL(friendlyName);
 
-			for (int i = 1;; i++) {
-				try {
-					validateFriendlyURL(
-						companyId, groupId, classNameId, classPK, friendlyURL);
+		String originalFriendlyURL = friendlyURL;
+
+		for (int i = 1;; i++) {
+			try {
+				validateFriendlyURL(
+					companyId, groupId, classNameId, classPK, friendlyURL);
+
+				break;
+			}
+			catch (GroupFriendlyURLException gfurle) {
+				int type = gfurle.getType();
+
+				if (type == GroupFriendlyURLException.DUPLICATE) {
+					friendlyURL = originalFriendlyURL + i;
+				}
+				else {
+					friendlyURL = StringPool.SLASH + classPK;
 
 					break;
-				}
-				catch (GroupFriendlyURLException gfurle) {
-					int type = gfurle.getType();
-
-					if (type == GroupFriendlyURLException.DUPLICATE) {
-						friendlyURL = originalFriendlyURL + i;
-					}
-					else {
-						friendlyURL = StringPool.SLASH + classPK;
-
-						break;
-					}
 				}
 			}
 		}

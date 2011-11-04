@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CharPool;
-import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ObjectValuePair;
+import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
@@ -55,11 +55,10 @@ import com.liferay.portlet.messageboards.service.persistence.MBMessageUtil;
 import com.liferay.portlet.messageboards.service.persistence.MBThreadFlagUtil;
 import com.liferay.portlet.messageboards.service.persistence.MBThreadUtil;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -428,59 +427,43 @@ public class MBPortletDataHandlerImpl extends BasePortletDataHandler {
 			threadFlagElement, path, threadFlag, _NAMESPACE);
 	}
 
-	protected List<ObjectValuePair<String, File>> getAttachments(
-			PortletDataContext portletDataContext, Element messageElement,
-			MBMessage message)
-		throws IOException {
-
-		List<ObjectValuePair<String, File>> ovps =
-			new ArrayList<ObjectValuePair<String, File>>();
+	protected List<ObjectValuePair<String, InputStream>> getAttachments(
+		PortletDataContext portletDataContext, Element messageElement,
+		MBMessage message) {
 
 		if (!message.isAttachments() &&
 			portletDataContext.getBooleanParameter(_NAMESPACE, "attachments")) {
 
-			return ovps;
+			return Collections.emptyList();
 		}
 
-		List<File> files = new ArrayList<File>();
+		List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
+			new ArrayList<ObjectValuePair<String, InputStream>>();
 
-		try {
-			List<Element> attachmentElements = messageElement.elements(
-				"attachment");
+		List<Element> attachmentElements = messageElement.elements(
+			"attachment");
 
-			for (Element attachmentElement : attachmentElements) {
-				String name = attachmentElement.attributeValue("name");
-				String binPath = attachmentElement.attributeValue(
-					"bin-path");
+		for (Element attachmentElement : attachmentElements) {
+			String name = attachmentElement.attributeValue("name");
+			String binPath = attachmentElement.attributeValue(
+				"bin-path");
 
-				InputStream is = portletDataContext.getZipEntryAsInputStream(
-					binPath);
+			InputStream inputStream =
+				portletDataContext.getZipEntryAsInputStream(binPath);
 
-				File file = FileUtil.createTempFile(
-					FileUtil.getExtension(name));
+			ObjectValuePair<String, InputStream> inputStreamOVP =
+				new ObjectValuePair<String, InputStream>(name, inputStream);
 
-				files.add(file);
-
-				FileUtil.write(file, is);
-
-				ovps.add(new ObjectValuePair<String, File>(name, file));
-			}
-
-			if (ovps.isEmpty()) {
-				_log.error(
-					"Could not find attachments for message " +
-						message.getMessageId());
-			}
-
-			return ovps;
+			inputStreamOVPs.add(inputStreamOVP);
 		}
-		catch (IOException ioe) {
-			for (File file : files) {
-				FileUtil.delete(file);
-			}
 
-			throw ioe;
+		if (inputStreamOVPs.isEmpty()) {
+			_log.error(
+				"Could not find attachments for message " +
+					message.getMessageId());
 		}
+
+		return inputStreamOVPs;
 	}
 
 	protected long getCategoryId(
@@ -750,8 +733,8 @@ public class MBPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		List<String> existingFiles = new ArrayList<String>();
 
-		List<ObjectValuePair<String, File>> files = getAttachments(
-			portletDataContext, messageElement, message);
+		List<ObjectValuePair<String, InputStream>> inputStreamOVPs =
+			getAttachments(portletDataContext, messageElement, message);
 
 		try {
 			ServiceContext serviceContext =
@@ -779,15 +762,15 @@ public class MBPortletDataHandlerImpl extends BasePortletDataHandler {
 						userId, userName, portletDataContext.getScopeGroupId(),
 						categoryId, threadId, parentMessageId,
 						message.getSubject(), message.getBody(),
-						message.getFormat(), files, message.getAnonymous(),
-						message.getPriority(), message.getAllowPingbacks(),
-						serviceContext);
+						message.getFormat(), inputStreamOVPs,
+						message.getAnonymous(), message.getPriority(),
+						message.getAllowPingbacks(), serviceContext);
 				}
 				else {
 					importedMessage = MBMessageLocalServiceUtil.updateMessage(
 						userId, existingMessage.getMessageId(),
-						message.getSubject(), message.getBody(), files,
-						existingFiles, message.getPriority(),
+						message.getSubject(), message.getBody(),
+						inputStreamOVPs, existingFiles, message.getPriority(),
 						message.getAllowPingbacks(), serviceContext);
 				}
 			}
@@ -795,7 +778,7 @@ public class MBPortletDataHandlerImpl extends BasePortletDataHandler {
 				importedMessage = MBMessageLocalServiceUtil.addMessage(
 					userId, userName, portletDataContext.getScopeGroupId(),
 					categoryId, threadId, parentMessageId, message.getSubject(),
-					message.getBody(), message.getFormat(), files,
+					message.getBody(), message.getFormat(), inputStreamOVPs,
 					message.getAnonymous(), message.getPriority(),
 					message.getAllowPingbacks(), serviceContext);
 			}
@@ -806,10 +789,12 @@ public class MBPortletDataHandlerImpl extends BasePortletDataHandler {
 				message, importedMessage, _NAMESPACE);
 		}
 		finally {
-			for (ObjectValuePair<String, File> ovp : files) {
-				File file = ovp.getValue();
+			for (ObjectValuePair<String, InputStream> inputStreamOVP :
+					inputStreamOVPs) {
 
-				FileUtil.delete(file);
+				InputStream inputStream = inputStreamOVP.getValue();
+
+				StreamUtil.cleanUp(inputStream);
 			}
 		}
 	}

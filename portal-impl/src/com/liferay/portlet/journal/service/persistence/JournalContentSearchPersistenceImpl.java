@@ -232,7 +232,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			if (EntityCacheUtil.getResult(
 						JournalContentSearchModelImpl.ENTITY_CACHE_ENABLED,
 						JournalContentSearchImpl.class,
-						journalContentSearch.getPrimaryKey(), this) == null) {
+						journalContentSearch.getPrimaryKey()) == null) {
 				cacheResult(journalContentSearch);
 			}
 		}
@@ -267,6 +267,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 	public void clearCache(JournalContentSearch journalContentSearch) {
 		EntityCacheUtil.removeResult(JournalContentSearchModelImpl.ENTITY_CACHE_ENABLED,
 			JournalContentSearchImpl.class, journalContentSearch.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_P_L_P_A,
 			new Object[] {
@@ -565,7 +567,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 	public JournalContentSearch fetchByPrimaryKey(long contentSearchId)
 		throws SystemException {
 		JournalContentSearch journalContentSearch = (JournalContentSearch)EntityCacheUtil.getResult(JournalContentSearchModelImpl.ENTITY_CACHE_ENABLED,
-				JournalContentSearchImpl.class, contentSearchId, this);
+				JournalContentSearchImpl.class, contentSearchId);
 
 		if (journalContentSearch == _nullJournalContentSearch) {
 			return null;
@@ -655,8 +657,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				articleId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ARTICLEID,
@@ -879,17 +880,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -908,6 +909,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -946,7 +949,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1017,8 +1020,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				groupId, privateLayout,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P,
@@ -1234,17 +1236,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		query.append(_FINDER_COLUMN_G_P_PRIVATELAYOUT_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1263,6 +1265,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1301,7 +1305,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		qPos.add(privateLayout);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1372,8 +1376,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				groupId, articleId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_A,
@@ -1610,17 +1613,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1639,6 +1642,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1679,7 +1684,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1754,8 +1759,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				groupId, privateLayout, layoutId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P_L,
@@ -1989,17 +1993,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		query.append(_FINDER_COLUMN_G_P_L_LAYOUTID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2018,6 +2022,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2058,7 +2064,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		qPos.add(layoutId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2133,8 +2139,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				groupId, privateLayout, articleId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P_A,
@@ -2390,17 +2395,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2419,6 +2424,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2461,7 +2468,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2541,8 +2548,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		Object[] finderArgs = new Object[] {
 				groupId, privateLayout, layoutId, portletId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_P_L_P,
@@ -2815,17 +2821,17 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2844,6 +2850,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2888,7 +2896,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(journalContentSearch);
+			Object[] values = orderByComparator.getOrderByConditionValues(journalContentSearch);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3154,10 +3162,7 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 	 */
 	public List<JournalContentSearch> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<JournalContentSearch> list = (List<JournalContentSearch>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -3869,10 +3874,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -3892,8 +3895,8 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

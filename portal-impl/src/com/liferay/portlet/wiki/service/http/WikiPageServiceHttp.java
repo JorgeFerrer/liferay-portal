@@ -135,40 +135,6 @@ public class WikiPageServiceHttp {
 		}
 	}
 
-	public static void addPageAttachments(HttpPrincipal httpPrincipal,
-		long nodeId, java.lang.String title,
-		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.File>> files)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		try {
-			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class.getName(),
-					"addPageAttachments", _addPageAttachmentsParameterTypes2);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
-					title, files);
-
-			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
-					throw (com.liferay.portal.kernel.exception.SystemException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	public static void addPageAttachment(HttpPrincipal httpPrincipal,
 		long nodeId, java.lang.String title, java.lang.String fileName,
 		java.io.File file)
@@ -176,7 +142,7 @@ public class WikiPageServiceHttp {
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class.getName(),
-					"addPageAttachment", _addPageAttachmentParameterTypes3);
+					"addPageAttachment", _addPageAttachmentParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
 					title, fileName, file);
@@ -203,9 +169,43 @@ public class WikiPageServiceHttp {
 		}
 	}
 
+	public static void addPageAttachments(HttpPrincipal httpPrincipal,
+		long nodeId, java.lang.String title,
+		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.InputStream>> inputStream)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class.getName(),
+					"addPageAttachments", _addPageAttachmentsParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
+					title, inputStream);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static java.lang.String addTempPageAttachment(
 		HttpPrincipal httpPrincipal, long nodeId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.File file)
+		java.lang.String tempFolderName, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException,
 			java.io.IOException {
@@ -215,7 +215,7 @@ public class WikiPageServiceHttp {
 					_addTempPageAttachmentParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
-					fileName, tempFolderName, file);
+					fileName, tempFolderName, inputStream);
 
 			Object returnObj = null;
 
@@ -912,16 +912,16 @@ public class WikiPageServiceHttp {
 			java.lang.String.class, java.lang.String.class,
 			com.liferay.portal.service.ServiceContext.class
 		};
-	private static final Class<?>[] _addPageAttachmentsParameterTypes2 = new Class[] {
-			long.class, java.lang.String.class, java.util.List.class
-		};
-	private static final Class<?>[] _addPageAttachmentParameterTypes3 = new Class[] {
+	private static final Class<?>[] _addPageAttachmentParameterTypes2 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,
 			java.io.File.class
+		};
+	private static final Class<?>[] _addPageAttachmentsParameterTypes3 = new Class[] {
+			long.class, java.lang.String.class, java.util.List.class
 		};
 	private static final Class<?>[] _addTempPageAttachmentParameterTypes4 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,
-			java.io.File.class
+			java.io.InputStream.class
 		};
 	private static final Class<?>[] _changeParentParameterTypes5 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,

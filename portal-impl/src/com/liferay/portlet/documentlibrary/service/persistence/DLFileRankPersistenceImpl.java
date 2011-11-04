@@ -160,7 +160,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		for (DLFileRank dlFileRank : dlFileRanks) {
 			if (EntityCacheUtil.getResult(
 						DLFileRankModelImpl.ENTITY_CACHE_ENABLED,
-						DLFileRankImpl.class, dlFileRank.getPrimaryKey(), this) == null) {
+						DLFileRankImpl.class, dlFileRank.getPrimaryKey()) == null) {
 				cacheResult(dlFileRank);
 			}
 		}
@@ -195,6 +195,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	public void clearCache(DLFileRank dlFileRank) {
 		EntityCacheUtil.removeResult(DLFileRankModelImpl.ENTITY_CACHE_ENABLED,
 			DLFileRankImpl.class, dlFileRank.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_U_F,
 			new Object[] {
@@ -460,7 +462,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	public DLFileRank fetchByPrimaryKey(long fileRankId)
 		throws SystemException {
 		DLFileRank dlFileRank = (DLFileRank)EntityCacheUtil.getResult(DLFileRankModelImpl.ENTITY_CACHE_ENABLED,
-				DLFileRankImpl.class, fileRankId, this);
+				DLFileRankImpl.class, fileRankId);
 
 		if (dlFileRank == _nullDLFileRank) {
 			return null;
@@ -543,12 +545,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 */
 	public List<DLFileRank> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<DLFileRank> list = (List<DLFileRank>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -750,17 +747,17 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -779,6 +776,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -819,7 +818,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(dlFileRank);
+			Object[] values = orderByComparator.getOrderByConditionValues(dlFileRank);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -886,8 +885,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		Object[] finderArgs = new Object[] {
 				fileEntryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<DLFileRank> list = (List<DLFileRank>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_FILEENTRYID,
@@ -1091,17 +1089,17 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		query.append(_FINDER_COLUMN_FILEENTRYID_FILEENTRYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1120,6 +1118,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1160,7 +1160,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		qPos.add(fileEntryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(dlFileRank);
+			Object[] values = orderByComparator.getOrderByConditionValues(dlFileRank);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1230,8 +1230,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		Object[] finderArgs = new Object[] {
 				groupId, userId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<DLFileRank> list = (List<DLFileRank>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_U,
@@ -1450,17 +1449,17 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		query.append(_FINDER_COLUMN_G_U_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1479,6 +1478,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1521,7 +1522,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(dlFileRank);
+			Object[] values = orderByComparator.getOrderByConditionValues(dlFileRank);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1732,10 +1733,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 */
 	public List<DLFileRank> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<DLFileRank> list = (List<DLFileRank>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2098,10 +2096,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2121,8 +2117,8 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

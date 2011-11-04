@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
@@ -37,8 +38,6 @@ import com.liferay.portlet.mobiledevicerules.model.MDRActionModel;
 import com.liferay.portlet.mobiledevicerules.model.MDRActionSoap;
 
 import java.io.Serializable;
-
-import java.lang.reflect.Proxy;
 
 import java.sql.Types;
 
@@ -79,14 +78,15 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "ruleGroupId", Types.BIGINT },
-			{ "ruleId", Types.BIGINT },
+			{ "classNameId", Types.BIGINT },
+			{ "classPK", Types.BIGINT },
+			{ "ruleGroupInstanceId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
 			{ "type_", Types.VARCHAR },
 			{ "typeSettings", Types.CLOB }
 		};
-	public static final String TABLE_SQL_CREATE = "create table MDRAction (uuid_ VARCHAR(75) null,actionId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ruleGroupId LONG,ruleId LONG,name STRING null,description STRING null,type_ VARCHAR(255) null,typeSettings TEXT null)";
+	public static final String TABLE_SQL_CREATE = "create table MDRAction (uuid_ VARCHAR(75) null,actionId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,classNameId LONG,classPK LONG,ruleGroupInstanceId LONG,name STRING null,description STRING null,type_ VARCHAR(255) null,typeSettings TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table MDRAction";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -115,8 +115,9 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setRuleGroupId(soapModel.getRuleGroupId());
-		model.setRuleId(soapModel.getRuleId());
+		model.setClassNameId(soapModel.getClassNameId());
+		model.setClassPK(soapModel.getClassPK());
+		model.setRuleGroupInstanceId(soapModel.getRuleGroupInstanceId());
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
 		model.setType(soapModel.getType());
@@ -279,22 +280,39 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getClassName() {
+		if (getClassNameId() <= 0) {
+			return StringPool.BLANK;
+		}
+
+		return PortalUtil.getClassName(getClassNameId());
+	}
+
 	@JSON
-	public long getRuleGroupId() {
-		return _ruleGroupId;
+	public long getClassNameId() {
+		return _classNameId;
 	}
 
-	public void setRuleGroupId(long ruleGroupId) {
-		_ruleGroupId = ruleGroupId;
+	public void setClassNameId(long classNameId) {
+		_classNameId = classNameId;
 	}
 
 	@JSON
-	public long getRuleId() {
-		return _ruleId;
+	public long getClassPK() {
+		return _classPK;
 	}
 
-	public void setRuleId(long ruleId) {
-		_ruleId = ruleId;
+	public void setClassPK(long classPK) {
+		_classPK = classPK;
+	}
+
+	@JSON
+	public long getRuleGroupInstanceId() {
+		return _ruleGroupInstanceId;
+	}
+
+	public void setRuleGroupInstanceId(long ruleGroupInstanceId) {
+		_ruleGroupInstanceId = ruleGroupInstanceId;
 	}
 
 	@JSON
@@ -514,7 +532,7 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		}
 		else {
 			if (_escapedModelProxy == null) {
-				_escapedModelProxy = (MDRAction)Proxy.newProxyInstance(_classLoader,
+				_escapedModelProxy = (MDRAction)ProxyUtil.newProxyInstance(_classLoader,
 						_escapedModelProxyInterfaces,
 						new AutoEscapeBeanHandler(this));
 			}
@@ -550,8 +568,9 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		mdrActionImpl.setUserName(getUserName());
 		mdrActionImpl.setCreateDate(getCreateDate());
 		mdrActionImpl.setModifiedDate(getModifiedDate());
-		mdrActionImpl.setRuleGroupId(getRuleGroupId());
-		mdrActionImpl.setRuleId(getRuleId());
+		mdrActionImpl.setClassNameId(getClassNameId());
+		mdrActionImpl.setClassPK(getClassPK());
+		mdrActionImpl.setRuleGroupInstanceId(getRuleGroupInstanceId());
 		mdrActionImpl.setName(getName());
 		mdrActionImpl.setDescription(getDescription());
 		mdrActionImpl.setType(getType());
@@ -663,9 +682,11 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 			mdrActionCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		mdrActionCacheModel.ruleGroupId = getRuleGroupId();
+		mdrActionCacheModel.classNameId = getClassNameId();
 
-		mdrActionCacheModel.ruleId = getRuleId();
+		mdrActionCacheModel.classPK = getClassPK();
+
+		mdrActionCacheModel.ruleGroupInstanceId = getRuleGroupInstanceId();
 
 		mdrActionCacheModel.name = getName();
 
@@ -704,7 +725,7 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -722,10 +743,12 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", ruleGroupId=");
-		sb.append(getRuleGroupId());
-		sb.append(", ruleId=");
-		sb.append(getRuleId());
+		sb.append(", classNameId=");
+		sb.append(getClassNameId());
+		sb.append(", classPK=");
+		sb.append(getClassPK());
+		sb.append(", ruleGroupInstanceId=");
+		sb.append(getRuleGroupInstanceId());
 		sb.append(", name=");
 		sb.append(getName());
 		sb.append(", description=");
@@ -740,7 +763,7 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portlet.mobiledevicerules.model.MDRAction");
@@ -779,12 +802,16 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>ruleGroupId</column-name><column-value><![CDATA[");
-		sb.append(getRuleGroupId());
+			"<column><column-name>classNameId</column-name><column-value><![CDATA[");
+		sb.append(getClassNameId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>ruleId</column-name><column-value><![CDATA[");
-		sb.append(getRuleId());
+			"<column><column-name>classPK</column-name><column-value><![CDATA[");
+		sb.append(getClassPK());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>ruleGroupInstanceId</column-name><column-value><![CDATA[");
+		sb.append(getRuleGroupInstanceId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
@@ -824,8 +851,9 @@ public class MDRActionModelImpl extends BaseModelImpl<MDRAction>
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _ruleGroupId;
-	private long _ruleId;
+	private long _classNameId;
+	private long _classPK;
+	private long _ruleGroupInstanceId;
 	private String _name;
 	private String _description;
 	private String _type;

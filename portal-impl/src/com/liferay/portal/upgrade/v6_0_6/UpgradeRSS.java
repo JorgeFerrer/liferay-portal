@@ -69,7 +69,7 @@ public class UpgradeRSS extends BaseUpgradePortletPreferences {
 		return new String[] {"39_INSTANCE_%"};
 	}
 
-	protected void upgradeFooterValues(PortletPreferences portletPreferences)
+	protected void updateFooterValues(PortletPreferences portletPreferences)
 		throws Exception {
 
 		String[] footerArticleResouceValues = portletPreferences.getValues(
@@ -84,7 +84,7 @@ public class UpgradeRSS extends BaseUpgradePortletPreferences {
 		portletPreferences.reset("footer-article-resource-values");
 	}
 
-	protected void upgradeHeaderValues(PortletPreferences portletPreferences)
+	protected void updateHeaderValues(PortletPreferences portletPreferences)
 		throws Exception {
 
 		String[] headerArticleResouceValues = portletPreferences.getValues(
@@ -109,8 +109,8 @@ public class UpgradeRSS extends BaseUpgradePortletPreferences {
 			PortletPreferencesFactoryUtil.fromXML(
 				companyId, ownerId, ownerType, plid, portletId, xml);
 
-		upgradeFooterValues(portletPreferences);
-		upgradeHeaderValues(portletPreferences);
+		updateFooterValues(portletPreferences);
+		updateHeaderValues(portletPreferences);
 
 		return PortletPreferencesFactoryUtil.toXML(portletPreferences);
 	}

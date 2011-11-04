@@ -22,8 +22,11 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.util.Normalizer;
 
+import java.util.Arrays;
+
 /**
  * @author Brian Wing Shun Chan
+ * @author Shuyang Zhou
  */
 public class FriendlyURLNormalizer {
 
@@ -40,31 +43,42 @@ public class FriendlyURLNormalizer {
 		friendlyURL = friendlyURL.toLowerCase();
 		friendlyURL = Normalizer.normalizeToAscii(friendlyURL);
 
-		char[] chars = friendlyURL.toCharArray();
+		StringBuilder sb = null;
 
-		for (int i = 0; i < chars.length; i++) {
-			char oldChar = chars[i];
+		int index = 0;
 
-			char newChar = oldChar;
+		for (int i = 0; i < friendlyURL.length(); i++) {
+			char c = friendlyURL.charAt(i);
 
-			if (ArrayUtil.contains(_REPLACE_CHARS, oldChar) ||
+			if ((Arrays.binarySearch(_REPLACE_CHARS, c) >= 0) ||
 				((replaceChars != null) &&
-				 ArrayUtil.contains(replaceChars, oldChar))) {
+				 ArrayUtil.contains(replaceChars, c))) {
 
-				newChar = CharPool.DASH;
-			}
+				if (sb == null) {
+					sb = new StringBuilder();
+				}
 
-			if (oldChar != newChar) {
-				chars[i] = newChar;
+				if (i > index) {
+					sb.append(friendlyURL.substring(index, i));
+				}
+
+				sb.append(CharPool.DASH);
+
+				index = i + 1;
 			}
 		}
 
-		friendlyURL = new String(chars);
+		if (sb != null) {
+			if (index < friendlyURL.length()) {
+				sb.append(friendlyURL.substring(index));
+			}
 
-		while (friendlyURL.contains(StringPool.DASH + StringPool.DASH)) {
+			friendlyURL = sb.toString();
+		}
+
+		while (friendlyURL.indexOf(StringPool.DOUBLE_DASH) >= 0) {
 			friendlyURL = StringUtil.replace(
-				friendlyURL, StringPool.DASH + StringPool.DASH,
-				StringPool.DASH);
+				friendlyURL, StringPool.DOUBLE_DASH, StringPool.DASH);
 		}
 
 		/*if (friendlyURL.startsWith(StringPool.DASH)) {
@@ -78,9 +92,17 @@ public class FriendlyURLNormalizer {
 		return friendlyURL;
 	}
 
-	private static final char[] _REPLACE_CHARS = new char[] {
-		' ', ',', '\\', '\'', '\"', '(', ')', '{', '}', '?', '#', '@', '+',
-		'~', ';', '$', '%'
-	};
+	private static final char[] _REPLACE_CHARS;
+
+	static {
+		char[] replaceChars = new char[] {
+			' ', ',', '\\', '\'', '\"', '(', ')', '{', '}', '?', '#', '@', '+',
+			'~', ';', '$', '%'
+		};
+
+		Arrays.sort(replaceChars);
+
+		_REPLACE_CHARS = replaceChars;
+	}
 
 }

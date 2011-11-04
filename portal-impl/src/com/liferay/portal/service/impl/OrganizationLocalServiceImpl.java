@@ -211,8 +211,13 @@ public class OrganizationLocalServiceImpl
 			Indexer indexer = IndexerRegistryUtil.getIndexer(
 				Organization.class);
 
-			indexer.reindex(
-				new String[] {String.valueOf(organization.getCompanyId())});
+			if (parentOrganizationId > 0) {
+				indexer.reindex(
+					new String[] {String.valueOf(organization.getCompanyId())});
+			}
+			else {
+				indexer.reindex(organization);
+			}
 		}
 
 		return organization;
@@ -1548,7 +1553,7 @@ public class OrganizationLocalServiceImpl
 
 		assetEntryLocalService.updateEntry(
 			userId, companyGroup.getGroupId(), Organization.class.getName(),
-			organization.getOrganizationId(), null, assetCategoryIds,
+			organization.getOrganizationId(), null, 0, assetCategoryIds,
 			assetTagNames, false, null, null, null, null, null,
 			organization.getName(), StringPool.BLANK, null, null, null, 0, 0,
 			null, false);
@@ -1601,6 +1606,7 @@ public class OrganizationLocalServiceImpl
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
 
+		long oldParentOrganizationId = organization.getParentOrganizationId();
 		String oldName = organization.getName();
 
 		organization.setParentOrganizationId(parentOrganizationId);
@@ -1648,8 +1654,13 @@ public class OrganizationLocalServiceImpl
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(Organization.class);
 
-		indexer.reindex(
-			new String[] {String.valueOf(organization.getCompanyId())});
+		if (oldParentOrganizationId != parentOrganizationId) {
+			indexer.reindex(
+				new String[] {String.valueOf(organization.getCompanyId())});
+		}
+		else {
+			indexer.reindex(organization);
+		}
 
 		return organization;
 	}

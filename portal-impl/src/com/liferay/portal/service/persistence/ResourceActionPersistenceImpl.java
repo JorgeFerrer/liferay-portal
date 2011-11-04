@@ -125,8 +125,7 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 		for (ResourceAction resourceAction : resourceActions) {
 			if (EntityCacheUtil.getResult(
 						ResourceActionModelImpl.ENTITY_CACHE_ENABLED,
-						ResourceActionImpl.class,
-						resourceAction.getPrimaryKey(), this) == null) {
+						ResourceActionImpl.class, resourceAction.getPrimaryKey()) == null) {
 				cacheResult(resourceAction);
 			}
 		}
@@ -161,6 +160,8 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	public void clearCache(ResourceAction resourceAction) {
 		EntityCacheUtil.removeResult(ResourceActionModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceActionImpl.class, resourceAction.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_N_A,
 			new Object[] { resourceAction.getName(), resourceAction.getActionId() });
@@ -425,7 +426,7 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	public ResourceAction fetchByPrimaryKey(long resourceActionId)
 		throws SystemException {
 		ResourceAction resourceAction = (ResourceAction)EntityCacheUtil.getResult(ResourceActionModelImpl.ENTITY_CACHE_ENABLED,
-				ResourceActionImpl.class, resourceActionId, this);
+				ResourceActionImpl.class, resourceActionId);
 
 		if (resourceAction == _nullResourceAction) {
 			return null;
@@ -510,12 +511,7 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	 */
 	public List<ResourceAction> findByName(String name, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				name,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { name, start, end, orderByComparator };
 
 		List<ResourceAction> list = (List<ResourceAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_NAME,
 				finderArgs, this);
@@ -739,17 +735,17 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -768,6 +764,8 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -810,7 +808,7 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(resourceAction);
+			Object[] values = orderByComparator.getOrderByConditionValues(resourceAction);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1036,10 +1034,7 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	 */
 	public List<ResourceAction> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<ResourceAction> list = (List<ResourceAction>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1295,10 +1290,8 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1318,8 +1311,8 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

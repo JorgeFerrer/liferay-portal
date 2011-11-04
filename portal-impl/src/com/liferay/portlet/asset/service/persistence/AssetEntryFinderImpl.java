@@ -285,6 +285,12 @@ public class AssetEntryFinderImpl
 			sb.append(") ");
 		}
 
+		// Asset entry subtypes
+
+		if (entryQuery.getClassTypeIds().length > 0) {
+			buildClassTypeIdsSQL(entryQuery.getClassTypeIds(), sb);
+		}
+
 		// Tag conditions
 
 		if (entryQuery.getAllTagIds().length > 0) {
@@ -414,6 +420,22 @@ public class AssetEntryFinderImpl
 		return q;
 	}
 
+	protected void buildClassTypeIdsSQL(long[] classTypeIds, StringBundler sb) {
+		sb.append(" AND (");
+
+		for (int i = 0; i < classTypeIds.length; i++) {
+			sb.append(" AssetEntry.classTypeId = ");
+			sb.append(classTypeIds[i]);
+
+			if ((i + 1) < classTypeIds.length) {
+				sb.append(" OR ");
+			}
+			else {
+				sb.append(StringPool.CLOSE_PARENTHESIS);
+			}
+		}
+	}
+
 	protected void buildNotAnyCategoriesSQL(
 		String sqlId, long[] categoryIds, StringBundler sb) {
 
@@ -475,10 +497,10 @@ public class AssetEntryFinderImpl
 
 		StringBundler sb = new StringBundler(classNameIds.length + 2);
 
-		sb.append(" AND (classNameId = ?");
+		sb.append(" AND (AssetEntry.classNameId = ?");
 
 		for (int i = 1; i < classNameIds.length; i++) {
-			sb.append(" OR classNameId = ? ");
+			sb.append(" OR AssetEntry.classNameId = ? ");
 		}
 
 		sb.append(") ");
@@ -487,14 +509,16 @@ public class AssetEntryFinderImpl
 	}
 
 	protected String getDates(Date publishDate, Date expirationDate) {
-		StringBundler sb = new StringBundler(2);
+		StringBundler sb = new StringBundler(4);
 
 		if (publishDate != null) {
-			sb.append(" AND (publishDate IS NULL OR publishDate < ?)");
+			sb.append(" AND (AssetEntry.publishDate IS NULL OR ");
+			sb.append("AssetEntry.publishDate < ?)");
 		}
 
 		if (expirationDate != null) {
-			sb.append(" AND (expirationDate IS NULL OR expirationDate > ?)");
+			sb.append(" AND (AssetEntry.expirationDate IS NULL OR ");
+			sb.append("AssetEntry.expirationDate > ?)");
 		}
 
 		return sb.toString();

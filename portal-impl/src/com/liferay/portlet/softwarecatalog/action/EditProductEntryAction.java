@@ -43,7 +43,7 @@ import com.liferay.portlet.softwarecatalog.model.SCProductScreenshot;
 import com.liferay.portlet.softwarecatalog.service.SCProductEntryServiceUtil;
 import com.liferay.portlet.softwarecatalog.service.SCProductScreenshotLocalServiceUtil;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -163,15 +163,14 @@ public class EditProductEntryAction extends PortletAction {
 			int priority = GetterUtil.getInteger(
 				name.substring(imagePrefix.length(), name.length()));
 
-			File file = uploadPortletRequest.getFile(name);
-			byte[] bytes = FileUtil.getBytes(file);
-
 			boolean preserveScreenshot = ParamUtil.getBoolean(
 				uploadPortletRequest, "preserveScreenshot" + priority);
 
+			byte[] bytes = null;
+
 			if (preserveScreenshot) {
-				SCProductScreenshot productScreenshot = getProductScreenshot(
-					uploadPortletRequest, priority);
+				SCProductScreenshot productScreenshot =
+					getProductScreenshot(uploadPortletRequest, priority);
 
 				Image image = null;
 
@@ -185,6 +184,14 @@ public class EditProductEntryAction extends PortletAction {
 				}
 
 				bytes = image.getTextObj();
+			}
+			else {
+				InputStream inputStream = uploadPortletRequest.getFileAsStream(
+					name);
+
+				if (inputStream != null) {
+					bytes = FileUtil.getBytes(inputStream);
+				}
 			}
 
 			if ((bytes != null) && (bytes.length > 0)) {

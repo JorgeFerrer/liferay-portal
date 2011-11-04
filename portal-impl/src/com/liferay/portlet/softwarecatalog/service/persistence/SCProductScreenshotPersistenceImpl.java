@@ -158,7 +158,7 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 			if (EntityCacheUtil.getResult(
 						SCProductScreenshotModelImpl.ENTITY_CACHE_ENABLED,
 						SCProductScreenshotImpl.class,
-						scProductScreenshot.getPrimaryKey(), this) == null) {
+						scProductScreenshot.getPrimaryKey()) == null) {
 				cacheResult(scProductScreenshot);
 			}
 		}
@@ -193,6 +193,8 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 	public void clearCache(SCProductScreenshot scProductScreenshot) {
 		EntityCacheUtil.removeResult(SCProductScreenshotModelImpl.ENTITY_CACHE_ENABLED,
 			SCProductScreenshotImpl.class, scProductScreenshot.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_THUMBNAILID,
 			new Object[] { Long.valueOf(scProductScreenshot.getThumbnailId()) });
@@ -510,7 +512,7 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 	public SCProductScreenshot fetchByPrimaryKey(long productScreenshotId)
 		throws SystemException {
 		SCProductScreenshot scProductScreenshot = (SCProductScreenshot)EntityCacheUtil.getResult(SCProductScreenshotModelImpl.ENTITY_CACHE_ENABLED,
-				SCProductScreenshotImpl.class, productScreenshotId, this);
+				SCProductScreenshotImpl.class, productScreenshotId);
 
 		if (scProductScreenshot == _nullSCProductScreenshot) {
 			return null;
@@ -600,8 +602,7 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 		Object[] finderArgs = new Object[] {
 				productEntryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCProductScreenshot> list = (List<SCProductScreenshot>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PRODUCTENTRYID,
@@ -808,17 +809,17 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 		query.append(_FINDER_COLUMN_PRODUCTENTRYID_PRODUCTENTRYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -837,6 +838,8 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -877,7 +880,7 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 		qPos.add(productEntryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductScreenshot);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductScreenshot);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1338,10 +1341,7 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 	 */
 	public List<SCProductScreenshot> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SCProductScreenshot> list = (List<SCProductScreenshot>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1697,10 +1697,8 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1720,8 +1718,8 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

@@ -578,6 +578,10 @@ numberFormat.setMinimumIntegerDigits(2);
 				<%
 				String language = ParamUtil.getString(renderRequest, "language", "javascript");
 
+				if (SessionMessages.contains(renderRequest, "language")) {
+					language = (String)SessionMessages.get(renderRequest, "language");
+				}
+
 				String script = "// ### Javascript Sample ###\n\nnumber = Packages.com.liferay.portal.service.UserLocalServiceUtil.getUsersCount();\n\nout.println(number);";
 
 				if (SessionMessages.contains(renderRequest, "script")) {
@@ -751,6 +755,14 @@ numberFormat.setMinimumIntegerDigits(2);
 							</td>
 							<td>
 								<input type="button" value="<liferay-ui:message key="execute" />" onClick="<portlet:namespace />saveServer('reindex');" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<liferay-ui:message key="reset-document-library-preview-and-thumbnail-files" />
+							</td>
+							<td>
+								<input type="button" value="<liferay-ui:message key="execute" />" onClick="<portlet:namespace />saveServer('dlPreviews');" />
 							</td>
 						</tr>
 						<tr>

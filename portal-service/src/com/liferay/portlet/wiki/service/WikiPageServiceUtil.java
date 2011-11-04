@@ -60,13 +60,6 @@ public class WikiPageServiceUtil {
 			parentTitle, redirectTitle, serviceContext);
 	}
 
-	public static void addPageAttachments(long nodeId, java.lang.String title,
-		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.File>> files)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		getService().addPageAttachments(nodeId, title, files);
-	}
-
 	public static void addPageAttachment(long nodeId, java.lang.String title,
 		java.lang.String fileName, java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -74,14 +67,22 @@ public class WikiPageServiceUtil {
 		getService().addPageAttachment(nodeId, title, fileName, file);
 	}
 
+	public static void addPageAttachments(long nodeId, java.lang.String title,
+		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.InputStream>> inputStream)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().addPageAttachments(nodeId, title, inputStream);
+	}
+
 	public static java.lang.String addTempPageAttachment(long nodeId,
 		java.lang.String fileName, java.lang.String tempFolderName,
-		java.io.File file)
+		java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException,
 			java.io.IOException {
 		return getService()
-				   .addTempPageAttachment(nodeId, fileName, tempFolderName, file);
+				   .addTempPageAttachment(nodeId, fileName, tempFolderName,
+			inputStream);
 	}
 
 	public static void changeParent(long nodeId, java.lang.String title,

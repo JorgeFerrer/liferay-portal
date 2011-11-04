@@ -136,7 +136,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		for (SCLicense scLicense : scLicenses) {
 			if (EntityCacheUtil.getResult(
 						SCLicenseModelImpl.ENTITY_CACHE_ENABLED,
-						SCLicenseImpl.class, scLicense.getPrimaryKey(), this) == null) {
+						SCLicenseImpl.class, scLicense.getPrimaryKey()) == null) {
 				cacheResult(scLicense);
 			}
 		}
@@ -171,6 +171,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	public void clearCache(SCLicense scLicense) {
 		EntityCacheUtil.removeResult(SCLicenseModelImpl.ENTITY_CACHE_ENABLED,
 			SCLicenseImpl.class, scLicense.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -402,7 +404,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	public SCLicense fetchByPrimaryKey(long licenseId)
 		throws SystemException {
 		SCLicense scLicense = (SCLicense)EntityCacheUtil.getResult(SCLicenseModelImpl.ENTITY_CACHE_ENABLED,
-				SCLicenseImpl.class, licenseId, this);
+				SCLicenseImpl.class, licenseId);
 
 		if (scLicense == _nullSCLicense) {
 			return null;
@@ -486,12 +488,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	 */
 	public List<SCLicense> findByActive(boolean active, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				active,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { active, start, end, orderByComparator };
 
 		List<SCLicense> list = (List<SCLicense>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVE,
 				finderArgs, this);
@@ -693,17 +690,17 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		query.append(_FINDER_COLUMN_ACTIVE_ACTIVE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -722,6 +719,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -762,7 +761,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scLicense);
+			Object[] values = orderByComparator.getOrderByConditionValues(scLicense);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -975,13 +974,13 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -989,9 +988,9 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1010,6 +1009,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -1069,7 +1070,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scLicense);
+			Object[] values = orderByComparator.getOrderByConditionValues(scLicense);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1140,8 +1141,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		Object[] finderArgs = new Object[] {
 				active, recommended,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCLicense> list = (List<SCLicense>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_A_R,
@@ -1360,17 +1360,17 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		query.append(_FINDER_COLUMN_A_R_RECOMMENDED_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1389,6 +1389,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1431,7 +1433,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		qPos.add(recommended);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scLicense);
+			Object[] values = orderByComparator.getOrderByConditionValues(scLicense);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1656,13 +1658,13 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -1670,9 +1672,9 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1691,6 +1693,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -1752,7 +1756,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		qPos.add(recommended);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scLicense);
+			Object[] values = orderByComparator.getOrderByConditionValues(scLicense);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1811,10 +1815,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	 */
 	public List<SCLicense> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SCLicense> list = (List<SCLicense>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2134,10 +2135,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2157,8 +2156,8 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -2224,10 +2223,7 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	public List<com.liferay.portlet.softwarecatalog.model.SCProductEntry> getSCProductEntries(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portlet.softwarecatalog.model.SCProductEntry> list = (List<com.liferay.portlet.softwarecatalog.model.SCProductEntry>)FinderCacheUtil.getResult(FINDER_PATH_GET_SCPRODUCTENTRIES,
 				finderArgs, this);

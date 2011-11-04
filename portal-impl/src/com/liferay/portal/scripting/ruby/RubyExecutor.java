@@ -17,9 +17,9 @@ package com.liferay.portal.scripting.ruby;
 import com.liferay.portal.kernel.scripting.BaseScriptingExecutor;
 import com.liferay.portal.kernel.scripting.ExecutionException;
 import com.liferay.portal.kernel.scripting.ScriptingException;
-import com.liferay.portal.kernel.servlet.WebDirDetector;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 
 import java.io.File;
@@ -73,16 +73,14 @@ public class RubyExecutor extends BaseScriptingExecutor {
 		rubyInstanceConfig.setJitThreshold(
 			PropsValues.SCRIPTING_JRUBY_COMPILE_THRESHOLD);
 
-		_basePath = WebDirDetector.getRootDir(
-			PortalClassLoaderUtil.getClassLoader());
+		_basePath = PortalUtil.getPortalLibDir();
 
-		_loadPaths = new ArrayList<String>(3);
+		_loadPaths = new ArrayList<String>(
+			PropsValues.SCRIPTING_JRUBY_LOAD_PATHS.length);
 
-		// Order of load paths matters
-
-		_loadPaths.add("META-INF/jruby.home/lib/ruby/site_ruby/1.8");
-		_loadPaths.add("META-INF/jruby.home/lib/ruby/site_ruby/shared");
-		_loadPaths.add("META-INF/jruby.home/lib/ruby/1.8");
+		for (String gemLibPath : PropsValues.SCRIPTING_JRUBY_LOAD_PATHS) {
+			_loadPaths.add(gemLibPath);
+		}
 
 		rubyInstanceConfig.setLoadPaths(_loadPaths);
 

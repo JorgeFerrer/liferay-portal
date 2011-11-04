@@ -36,12 +36,38 @@ import java.util.concurrent.ConcurrentMap;
 public class ChannelHubManagerImpl implements ChannelHubManager {
 
 	public void confirmDelivery(
-			long companyId, long userId, String notificationEventUuid)
+			long companyId, long userId,
+			Collection<String> notificationEventUuids)
+		throws ChannelException {
+
+		confirmDelivery(companyId, userId, notificationEventUuids, false);
+	}
+
+	public void confirmDelivery(
+			long companyId, long userId,
+			Collection<String> notificationEventUuids, boolean archive)
 		throws ChannelException {
 
 		ChannelHub channelHub = getChannelHub(companyId);
 
-		channelHub.confirmDelivery(userId, notificationEventUuid);
+		channelHub.confirmDelivery(userId, notificationEventUuids, archive);
+	}
+
+	public void confirmDelivery(
+			long companyId, long userId, String notificationEventUuid)
+		throws ChannelException {
+
+		confirmDelivery(companyId, userId, notificationEventUuid, false);
+	}
+
+	public void confirmDelivery(
+			long companyId, long userId, String notificationEventUuid,
+			boolean archive)
+		throws ChannelException {
+
+		ChannelHub channelHub = getChannelHub(companyId);
+
+		channelHub.confirmDelivery(userId, notificationEventUuid, archive);
 	}
 
 	public Channel createChannel(long companyId, long userId)
@@ -65,6 +91,26 @@ public class ChannelHubManagerImpl implements ChannelHubManager {
 		return channelHub;
 	}
 
+	public void deleteUserNotificiationEvent(
+			long companyId, long userId, String notificationEventUuid)
+		throws ChannelException {
+
+		ChannelHub channelHub = getChannelHub(companyId);
+
+		channelHub.deleteUserNotificiationEvent(userId, notificationEventUuid);
+	}
+
+	public void deleteUserNotificiationEvents(
+			long companyId, long userId,
+			Collection<String> notificationEventUuids)
+		throws ChannelException {
+
+		ChannelHub channelHub = getChannelHub(companyId);
+
+		channelHub.deleteUserNotificiationEvents(
+			userId, notificationEventUuids);
+	}
+
 	public void destroyChannel(long companyId, long userId)
 		throws ChannelException {
 
@@ -81,6 +127,30 @@ public class ChannelHubManagerImpl implements ChannelHubManager {
 		}
 	}
 
+	public ChannelHub fetchChannelHub(long companyId) throws ChannelException {
+		return fetchChannelHub(companyId, false);
+	}
+
+	public ChannelHub fetchChannelHub(long companyId, boolean createIfAbsent)
+		throws ChannelException {
+
+		ChannelHub channelHub = _channelHubs.get(companyId);
+
+		if (channelHub == null) {
+			synchronized(_channelHubs) {
+				channelHub = _channelHubs.get(companyId);
+
+				if (channelHub == null) {
+					if (createIfAbsent) {
+						channelHub = createChannelHub(companyId);
+					}
+				}
+			}
+		}
+
+		return channelHub;
+	}
+
 	public void flush() throws ChannelException {
 		for (ChannelHub channelHub : _channelHubs.values()) {
 			channelHub.flush();
@@ -88,17 +158,21 @@ public class ChannelHubManagerImpl implements ChannelHubManager {
 	}
 
 	public void flush(long companyId) throws ChannelException {
-		ChannelHub channelHub = getChannelHub(companyId);
+		ChannelHub channelHub = fetchChannelHub(companyId);
 
-		channelHub.flush();
+		if (channelHub != null) {
+			channelHub.flush();
+		}
 	}
 
 	public void flush(long companyId, long userId, long timestamp)
 		throws ChannelException {
 
-		ChannelHub channelHub = getChannelHub(companyId);
+		ChannelHub channelHub = fetchChannelHub(companyId);
 
-		channelHub.flush(userId, timestamp);
+		if (channelHub != null) {
+			channelHub.flush(userId, timestamp);
+		}
 	}
 
 	public Channel getChannel(long companyId, long userId)
@@ -123,22 +197,11 @@ public class ChannelHubManagerImpl implements ChannelHubManager {
 	public ChannelHub getChannelHub(long companyId, boolean createIfAbsent)
 		throws ChannelException {
 
-		ChannelHub channelHub = _channelHubs.get(companyId);
+		ChannelHub channelHub = fetchChannelHub(companyId, createIfAbsent);
 
 		if (channelHub == null) {
-			synchronized(_channelHubs) {
-				channelHub = _channelHubs.get(companyId);
-
-				if (channelHub == null) {
-					if (createIfAbsent) {
-						channelHub = createChannelHub(companyId);
-					}
-					else {
-						throw new UnknownChannelHubException(
-							"No channel exists with company id " + companyId);
-					}
-				}
-			}
+			throw new UnknownChannelHubException(
+				"No channel exists with company id " + companyId);
 		}
 
 		return channelHub;
@@ -230,7 +293,7 @@ public class ChannelHubManagerImpl implements ChannelHubManager {
 	}
 
 	private ChannelHub _channelHub;
-	private final ConcurrentMap<Long, ChannelHub> _channelHubs =
+	private ConcurrentMap<Long, ChannelHub> _channelHubs =
 		new ConcurrentHashMap<Long, ChannelHub>();
 
 }

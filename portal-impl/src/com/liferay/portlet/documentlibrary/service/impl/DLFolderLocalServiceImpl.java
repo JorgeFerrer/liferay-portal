@@ -18,8 +18,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.transaction.Propagation;
-import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -51,7 +49,6 @@ import java.util.List;
  */
 public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public DLFolder addFolder(
 			long userId, long groupId, long repositoryId, boolean mountPoint,
 			long parentFolderId, String name, String description,
@@ -377,12 +374,17 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 		// File entry types
 
-		DLFolder dlFolder = dlFolderLocalService.updateFolderAndFileEntryTypes(
-			folderId, parentFolderId, name, description, defaultFileEntryTypeId,
-			fileEntryTypeIds, overrideFileEntryTypes, serviceContext);
+		DLFolder dlFolder = null;
 
-		dlFileEntryTypeLocalService.cascadeFileEntryTypes(
-			serviceContext.getUserId(), dlFolder);
+		if (folderId > DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+			dlFolder = dlFolderLocalService.updateFolderAndFileEntryTypes(
+				folderId, parentFolderId, name, description,
+				defaultFileEntryTypeId, fileEntryTypeIds,
+				overrideFileEntryTypes, serviceContext);
+
+			dlFileEntryTypeLocalService.cascadeFileEntryTypes(
+				serviceContext.getUserId(), dlFolder);
+		}
 
 		// Workflow definitions
 
@@ -409,8 +411,8 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 		workflowDefinitionLinkLocalService.updateWorkflowDefinitionLinks(
 			serviceContext.getUserId(), serviceContext.getCompanyId(),
-			dlFolder.getGroupId(), DLFolder.class.getName(), folderId,
-			workflowDefinitions);
+			serviceContext.getScopeGroupId(), DLFolder.class.getName(),
+			folderId, workflowDefinitions);
 
 		return dlFolder;
 	}
@@ -426,7 +428,6 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 			fileEntryTypeIds, overrideFileEntryTypes, serviceContext);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public DLFolder updateFolderAndFileEntryTypes(
 			long folderId, long parentFolderId, String name, String description,
 			long defaultFileEntryTypeId, List<Long> fileEntryTypeIds,

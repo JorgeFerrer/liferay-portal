@@ -263,8 +263,8 @@ public class AssetEntryServiceHttp {
 		}
 	}
 
-	public static void incrementViewCounter(HttpPrincipal httpPrincipal,
-		java.lang.String className, long classPK)
+	public static com.liferay.portlet.asset.model.AssetEntry incrementViewCounter(
+		HttpPrincipal httpPrincipal, java.lang.String className, long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -274,8 +274,10 @@ public class AssetEntryServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					className, classPK);
 
+			Object returnObj = null;
+
 			try {
-				TunnelUtil.invoke(httpPrincipal, methodHandler);
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
 				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -288,6 +290,8 @@ public class AssetEntryServiceHttp {
 
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
+
+			return (com.liferay.portlet.asset.model.AssetEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -367,14 +371,14 @@ public class AssetEntryServiceHttp {
 
 	public static com.liferay.portlet.asset.model.AssetEntry updateEntry(
 		HttpPrincipal httpPrincipal, long groupId, java.lang.String className,
-		long classPK, java.lang.String classUuid, long[] categoryIds,
-		java.lang.String[] tagNames, boolean visible, java.util.Date startDate,
-		java.util.Date endDate, java.util.Date publishDate,
-		java.util.Date expirationDate, java.lang.String mimeType,
-		java.lang.String title, java.lang.String description,
-		java.lang.String summary, java.lang.String url,
-		java.lang.String layoutUuid, int height, int width,
-		java.lang.Integer priority, boolean sync)
+		long classPK, java.lang.String classUuid, long classTypeId,
+		long[] categoryIds, java.lang.String[] tagNames, boolean visible,
+		java.util.Date startDate, java.util.Date endDate,
+		java.util.Date publishDate, java.util.Date expirationDate,
+		java.lang.String mimeType, java.lang.String title,
+		java.lang.String description, java.lang.String summary,
+		java.lang.String url, java.lang.String layoutUuid, int height,
+		int width, java.lang.Integer priority, boolean sync)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -382,10 +386,10 @@ public class AssetEntryServiceHttp {
 					"updateEntry", _updateEntryParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					className, classPK, classUuid, categoryIds, tagNames,
-					visible, startDate, endDate, publishDate, expirationDate,
-					mimeType, title, description, summary, url, layoutUuid,
-					height, width, priority, sync);
+					className, classPK, classUuid, classTypeId, categoryIds,
+					tagNames, visible, startDate, endDate, publishDate,
+					expirationDate, mimeType, title, description, summary, url,
+					layoutUuid, height, width, priority, sync);
 
 			Object returnObj = null;
 
@@ -445,12 +449,12 @@ public class AssetEntryServiceHttp {
 		};
 	private static final Class<?>[] _updateEntryParameterTypes9 = new Class[] {
 			long.class, java.lang.String.class, long.class,
-			java.lang.String.class, long[].class, java.lang.String[].class,
-			boolean.class, java.util.Date.class, java.util.Date.class,
-			java.util.Date.class, java.util.Date.class, java.lang.String.class,
+			java.lang.String.class, long.class, long[].class,
+			java.lang.String[].class, boolean.class, java.util.Date.class,
+			java.util.Date.class, java.util.Date.class, java.util.Date.class,
 			java.lang.String.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class,
-			java.lang.String.class, int.class, int.class,
+			java.lang.String.class, java.lang.String.class, int.class, int.class,
 			java.lang.Integer.class, boolean.class
 		};
 }

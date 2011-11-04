@@ -66,10 +66,11 @@ public class AssetEntryServiceWrapper implements AssetEntryService {
 		return _assetEntryService.getEntry(entryId);
 	}
 
-	public void incrementViewCounter(java.lang.String className, long classPK)
+	public com.liferay.portlet.asset.model.AssetEntry incrementViewCounter(
+		java.lang.String className, long classPK)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_assetEntryService.incrementViewCounter(className, classPK);
+		return _assetEntryService.incrementViewCounter(className, classPK);
 	}
 
 	public com.liferay.portlet.asset.model.AssetEntryDisplay[] searchEntryDisplays(
@@ -90,7 +91,7 @@ public class AssetEntryServiceWrapper implements AssetEntryService {
 
 	public com.liferay.portlet.asset.model.AssetEntry updateEntry(
 		long groupId, java.lang.String className, long classPK,
-		java.lang.String classUuid, long[] categoryIds,
+		java.lang.String classUuid, long classTypeId, long[] categoryIds,
 		java.lang.String[] tagNames, boolean visible, java.util.Date startDate,
 		java.util.Date endDate, java.util.Date publishDate,
 		java.util.Date expirationDate, java.lang.String mimeType,
@@ -101,9 +102,9 @@ public class AssetEntryServiceWrapper implements AssetEntryService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _assetEntryService.updateEntry(groupId, className, classPK,
-			classUuid, categoryIds, tagNames, visible, startDate, endDate,
-			publishDate, expirationDate, mimeType, title, description, summary,
-			url, layoutUuid, height, width, priority, sync);
+			classUuid, classTypeId, categoryIds, tagNames, visible, startDate,
+			endDate, publishDate, expirationDate, mimeType, title, description,
+			summary, url, layoutUuid, height, width, priority, sync);
 	}
 
 	public AssetEntryService getWrappedAssetEntryService() {

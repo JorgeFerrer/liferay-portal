@@ -379,10 +379,11 @@ public class MBThreadLocalServiceWrapper implements MBThreadLocalService {
 		return _mbThreadLocalService.hasAnswerMessage(threadId);
 	}
 
-	public void incrementViewCounter(long threadId, int increment)
+	public com.liferay.portlet.messageboards.model.MBThread incrementViewCounter(
+		long threadId, int increment)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_mbThreadLocalService.incrementViewCounter(threadId, increment);
+		return _mbThreadLocalService.incrementViewCounter(threadId, increment);
 	}
 
 	public com.liferay.portlet.messageboards.model.MBThread moveThread(

@@ -163,7 +163,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 			if (EntityCacheUtil.getResult(
 						AssetCategoryPropertyModelImpl.ENTITY_CACHE_ENABLED,
 						AssetCategoryPropertyImpl.class,
-						assetCategoryProperty.getPrimaryKey(), this) == null) {
+						assetCategoryProperty.getPrimaryKey()) == null) {
 				cacheResult(assetCategoryProperty);
 			}
 		}
@@ -199,6 +199,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		EntityCacheUtil.removeResult(AssetCategoryPropertyModelImpl.ENTITY_CACHE_ENABLED,
 			AssetCategoryPropertyImpl.class,
 			assetCategoryProperty.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_K,
 			new Object[] {
@@ -474,7 +476,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty fetchByPrimaryKey(long categoryPropertyId)
 		throws SystemException {
 		AssetCategoryProperty assetCategoryProperty = (AssetCategoryProperty)EntityCacheUtil.getResult(AssetCategoryPropertyModelImpl.ENTITY_CACHE_ENABLED,
-				AssetCategoryPropertyImpl.class, categoryPropertyId, this);
+				AssetCategoryPropertyImpl.class, categoryPropertyId);
 
 		if (assetCategoryProperty == _nullAssetCategoryProperty) {
 			return null;
@@ -564,8 +566,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<AssetCategoryProperty> list = (List<AssetCategoryProperty>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -770,17 +771,17 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -799,6 +800,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -839,7 +842,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(assetCategoryProperty);
+			Object[] values = orderByComparator.getOrderByConditionValues(assetCategoryProperty);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -907,8 +910,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		Object[] finderArgs = new Object[] {
 				categoryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<AssetCategoryProperty> list = (List<AssetCategoryProperty>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_CATEGORYID,
@@ -1113,17 +1115,17 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		query.append(_FINDER_COLUMN_CATEGORYID_CATEGORYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1142,6 +1144,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1182,7 +1186,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		qPos.add(categoryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(assetCategoryProperty);
+			Object[] values = orderByComparator.getOrderByConditionValues(assetCategoryProperty);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1253,8 +1257,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		Object[] finderArgs = new Object[] {
 				companyId, key,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<AssetCategoryProperty> list = (List<AssetCategoryProperty>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_K,
@@ -1496,17 +1499,17 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1525,6 +1528,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1569,7 +1574,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(assetCategoryProperty);
+			Object[] values = orderByComparator.getOrderByConditionValues(assetCategoryProperty);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1783,10 +1788,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	 */
 	public List<AssetCategoryProperty> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<AssetCategoryProperty> list = (List<AssetCategoryProperty>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2170,10 +2172,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2193,8 +2193,8 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

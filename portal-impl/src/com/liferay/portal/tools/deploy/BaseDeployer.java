@@ -380,7 +380,9 @@ public class BaseDeployer implements Deployer {
 					"/WEB-INF/classes/portlet.properties");
 
 			if (!portletPropertiesFile.exists()) {
-				FileUtil.write(portletPropertiesFile, StringPool.BLANK);
+				FileUtil.write(
+					portletPropertiesFile,
+					"plugin.package.name=" + pluginPackage.getName());
 			}
 		}
 	}
@@ -434,6 +436,10 @@ public class BaseDeployer implements Deployer {
 
 		if (appServerType.equals(ServerDetector.GERONIMO_ID)) {
 			copyDependencyXml("geronimo-web.xml", srcFile + "/WEB-INF");
+		}
+		else if (appServerType.equals(ServerDetector.JBOSS_ID)) {
+			copyDependencyXml(
+				"jboss-deployment-structure.xml", srcFile + "/WEB-INF");
 		}
 		else if (appServerType.equals(ServerDetector.WEBLOGIC_ID)) {
 			copyDependencyXml("weblogic.xml", srcFile + "/WEB-INF");
@@ -813,6 +819,13 @@ public class BaseDeployer implements Deployer {
 					}
 
 					PluginPackageUtil.endPluginPackageInstallation(context);
+				}
+				else {
+					if (appServerType.equals(ServerDetector.JBOSS_ID)) {
+						File doDeployFile = new File(deployDir + ".dodeploy");
+
+						FileUtil.write(doDeployFile, StringPool.BLANK);
+					}
 				}
 			}
 		}

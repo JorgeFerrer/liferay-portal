@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
-import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -38,7 +38,7 @@ import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
 import com.liferay.portlet.blogs.service.persistence.BlogsEntryUtil;
 import com.liferay.portlet.journal.lar.JournalPortletDataHandlerImpl;
 
-import java.io.File;
+import java.io.InputStream;
 
 import java.util.Calendar;
 import java.util.List;
@@ -318,59 +318,68 @@ public class BlogsPortletDataHandlerImpl extends BasePortletDataHandler {
 				WorkflowConstants.ACTION_SAVE_DRAFT);
 		}
 
-		File smallFile = null;
+		String smallImageFileName = null;
+		InputStream smallImageInputStream = null;
 
-		String smallImagePath = entryElement.attributeValue("small-image-path");
+		try {
+			String smallImagePath = entryElement.attributeValue(
+				"small-image-path");
 
-		if (entry.isSmallImage() && Validator.isNotNull(smallImagePath)) {
-			byte[] bytes = portletDataContext.getZipEntryAsByteArray(
-				smallImagePath);
+			if (entry.isSmallImage() && Validator.isNotNull(smallImagePath)) {
+				smallImageFileName =
+					String.valueOf(entry.getSmallImageId()).concat(
+						StringPool.PERIOD).concat(entry.getSmallImageType());
+				smallImageInputStream =
+					portletDataContext.getZipEntryAsInputStream(smallImagePath);
+			}
 
-			smallFile = File.createTempFile(
-				String.valueOf(entry.getSmallImageId()),
-				StringPool.PERIOD + entry.getSmallImageType());
+			BlogsEntry importedEntry = null;
 
-			FileUtil.write(smallFile, bytes);
-		}
+			if (portletDataContext.isDataStrategyMirror()) {
+				BlogsEntry existingEntry = BlogsEntryUtil.fetchByUUID_G(
+					entry.getUuid(), portletDataContext.getScopeGroupId());
 
-		BlogsEntry importedEntry = null;
+				if (existingEntry == null) {
+					serviceContext.setUuid(entry.getUuid());
 
-		if (portletDataContext.isDataStrategyMirror()) {
-			BlogsEntry existingEntry = BlogsEntryUtil.fetchByUUID_G(
-				entry.getUuid(), portletDataContext.getScopeGroupId());
-
-			if (existingEntry == null) {
-				serviceContext.setUuid(entry.getUuid());
-
+					importedEntry = BlogsEntryLocalServiceUtil.addEntry(
+						userId, entry.getTitle(), entry.getDescription(),
+						entry.getContent(), displayDateMonth, displayDateDay,
+						displayDateYear, displayDateHour, displayDateMinute,
+						allowPingbacks, allowTrackbacks, trackbacks,
+						entry.isSmallImage(), entry.getSmallImageURL(),
+						smallImageFileName, smallImageInputStream,
+						serviceContext);
+				}
+				else {
+					importedEntry = BlogsEntryLocalServiceUtil.updateEntry(
+						userId, existingEntry.getEntryId(), entry.getTitle(),
+						entry.getDescription(), entry.getContent(),
+						displayDateMonth, displayDateDay, displayDateYear,
+						displayDateHour, displayDateMinute, allowPingbacks,
+						allowTrackbacks, trackbacks, entry.getSmallImage(),
+						entry.getSmallImageURL(), smallImageFileName,
+						smallImageInputStream, serviceContext);
+				}
+			}
+			else {
 				importedEntry = BlogsEntryLocalServiceUtil.addEntry(
 					userId, entry.getTitle(), entry.getDescription(),
 					entry.getContent(), displayDateMonth, displayDateDay,
 					displayDateYear, displayDateHour, displayDateMinute,
 					allowPingbacks, allowTrackbacks, trackbacks,
-					entry.isSmallImage(), entry.getSmallImageURL(), smallFile,
+					entry.getSmallImage(), entry.getSmallImageURL(),
+					smallImageFileName, smallImageInputStream,
 					serviceContext);
 			}
-			else {
-				importedEntry = BlogsEntryLocalServiceUtil.updateEntry(
-					userId, existingEntry.getEntryId(), entry.getTitle(),
-					entry.getDescription(), entry.getContent(),
-					displayDateMonth, displayDateDay, displayDateYear,
-					displayDateHour, displayDateMinute, allowPingbacks,
-					allowTrackbacks, trackbacks, entry.getSmallImage(),
-					entry.getSmallImageURL(), smallFile, serviceContext);
-			}
+
+			portletDataContext.importClassedModel(
+				entry, importedEntry, _NAMESPACE);
 		}
-		else {
-			importedEntry = BlogsEntryLocalServiceUtil.addEntry(
-				userId, entry.getTitle(), entry.getDescription(),
-				entry.getContent(), displayDateMonth, displayDateDay,
-				displayDateYear, displayDateHour, displayDateMinute,
-				allowPingbacks, allowTrackbacks, trackbacks,
-				entry.getSmallImage(), entry.getSmallImageURL(), smallFile,
-				serviceContext);
+		finally {
+			StreamUtil.cleanUp(smallImageInputStream);
 		}
 
-		portletDataContext.importClassedModel(entry, importedEntry, _NAMESPACE);
 	}
 
 	private static final boolean _ALWAYS_EXPORTABLE = true;

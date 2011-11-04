@@ -22,6 +22,10 @@ public class UnicodeFormatter_IW {
 		return _instance;
 	}
 
+	public java.lang.String bytesToHex(byte[] bytes) {
+		return UnicodeFormatter.bytesToHex(bytes);
+	}
+
 	public java.lang.String byteToHex(byte b) {
 		return UnicodeFormatter.byteToHex(b);
 	}

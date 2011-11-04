@@ -136,7 +136,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		for (Region region : regions) {
 			if (EntityCacheUtil.getResult(
 						RegionModelImpl.ENTITY_CACHE_ENABLED, RegionImpl.class,
-						region.getPrimaryKey(), this) == null) {
+						region.getPrimaryKey()) == null) {
 				cacheResult(region);
 			}
 		}
@@ -171,6 +171,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public void clearCache(Region region) {
 		EntityCacheUtil.removeResult(RegionModelImpl.ENTITY_CACHE_ENABLED,
 			RegionImpl.class, region.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -388,7 +390,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	 */
 	public Region fetchByPrimaryKey(long regionId) throws SystemException {
 		Region region = (Region)EntityCacheUtil.getResult(RegionModelImpl.ENTITY_CACHE_ENABLED,
-				RegionImpl.class, regionId, this);
+				RegionImpl.class, regionId);
 
 		if (region == _nullRegion) {
 			return null;
@@ -476,8 +478,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		Object[] finderArgs = new Object[] {
 				countryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Region> list = (List<Region>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COUNTRYID,
@@ -678,17 +679,17 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		query.append(_FINDER_COLUMN_COUNTRYID_COUNTRYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -707,6 +708,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -747,7 +750,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		qPos.add(countryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(region);
+			Object[] values = orderByComparator.getOrderByConditionValues(region);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -809,12 +812,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	 */
 	public List<Region> findByActive(boolean active, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				active,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { active, start, end, orderByComparator };
 
 		List<Region> list = (List<Region>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVE,
 				finderArgs, this);
@@ -1014,17 +1012,17 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		query.append(_FINDER_COLUMN_ACTIVE_ACTIVE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1043,6 +1041,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1083,7 +1083,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(region);
+			Object[] values = orderByComparator.getOrderByConditionValues(region);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1153,8 +1153,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		Object[] finderArgs = new Object[] {
 				countryId, active,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Region> list = (List<Region>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_A,
@@ -1371,17 +1370,17 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		query.append(_FINDER_COLUMN_C_A_ACTIVE_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1400,6 +1399,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1442,7 +1443,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		qPos.add(active);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(region);
+			Object[] values = orderByComparator.getOrderByConditionValues(region);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1500,10 +1501,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	 */
 	public List<Region> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Region> list = (List<Region>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1788,10 +1786,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1811,8 +1807,8 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

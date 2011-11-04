@@ -478,7 +478,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		for (MBMessage mbMessage : mbMessages) {
 			if (EntityCacheUtil.getResult(
 						MBMessageModelImpl.ENTITY_CACHE_ENABLED,
-						MBMessageImpl.class, mbMessage.getPrimaryKey(), this) == null) {
+						MBMessageImpl.class, mbMessage.getPrimaryKey()) == null) {
 				cacheResult(mbMessage);
 			}
 		}
@@ -513,6 +513,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	public void clearCache(MBMessage mbMessage) {
 		EntityCacheUtil.removeResult(MBMessageModelImpl.ENTITY_CACHE_ENABLED,
 			MBMessageImpl.class, mbMessage.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] {
@@ -827,7 +829,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	public MBMessage fetchByPrimaryKey(long messageId)
 		throws SystemException {
 		MBMessage mbMessage = (MBMessage)EntityCacheUtil.getResult(MBMessageModelImpl.ENTITY_CACHE_ENABLED,
-				MBMessageImpl.class, messageId, this);
+				MBMessageImpl.class, messageId);
 
 		if (mbMessage == _nullMBMessage) {
 			return null;
@@ -910,12 +912,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	 */
 	public List<MBMessage> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				uuid,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { uuid, start, end, orderByComparator };
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_UUID,
 				finderArgs, this);
@@ -1139,17 +1136,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1168,6 +1165,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1210,7 +1209,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1430,8 +1429,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -1634,17 +1632,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1663,6 +1661,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1703,7 +1703,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1918,13 +1918,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -1932,9 +1932,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1953,6 +1953,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -2013,7 +2015,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2080,8 +2082,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -2285,17 +2286,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2314,6 +2315,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2354,7 +2357,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2421,8 +2424,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_THREADID,
@@ -2625,17 +2627,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_THREADID_THREADID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2654,6 +2656,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -2694,7 +2698,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(threadId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2761,8 +2765,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_THREADREPLIES,
@@ -2966,17 +2969,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_THREADREPLIES_THREADID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2995,6 +2998,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3035,7 +3040,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(threadId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3097,12 +3102,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	 */
 	public List<MBMessage> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				userId,
-				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { userId, start, end, orderByComparator };
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_USERID,
 				finderArgs, this);
@@ -3304,17 +3304,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3333,6 +3333,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3373,7 +3375,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3443,8 +3445,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, userId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_U,
@@ -3663,17 +3664,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_U_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3692,6 +3693,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -3734,7 +3737,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -3960,13 +3963,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -3974,9 +3977,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -3995,6 +3998,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -4057,7 +4062,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4127,8 +4132,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, categoryId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C,
@@ -4347,17 +4351,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_C_CATEGORYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4376,6 +4380,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -4418,7 +4424,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(categoryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4644,13 +4650,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -4658,9 +4664,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -4679,6 +4685,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -4741,7 +4749,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(categoryId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -4811,8 +4819,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_S,
@@ -5031,17 +5038,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5060,6 +5067,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -5102,7 +5111,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5327,13 +5336,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -5341,9 +5350,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5362,6 +5371,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -5424,7 +5435,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5494,8 +5505,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				companyId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_S,
@@ -5714,17 +5724,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -5743,6 +5753,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -5785,7 +5797,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -5855,8 +5867,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, classNameId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C,
@@ -6075,17 +6086,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_U_C_CLASSNAMEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6104,6 +6115,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6146,7 +6159,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(classNameId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6221,8 +6234,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, StringUtil.merge(classNameIds),
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C,
@@ -6367,8 +6379,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C,
@@ -6587,17 +6598,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6616,6 +6627,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -6658,7 +6671,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -6729,8 +6742,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId, parentMessageId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_T_P,
@@ -6949,17 +6961,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_T_P_PARENTMESSAGEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -6978,6 +6990,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -7020,7 +7034,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(parentMessageId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7090,8 +7104,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId, answer,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_T_A,
@@ -7310,17 +7323,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_T_A_ANSWER_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7339,6 +7352,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -7381,7 +7396,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(answer);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7451,8 +7466,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_T_S,
@@ -7671,17 +7685,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_T_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -7700,6 +7714,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -7742,7 +7758,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -7812,8 +7828,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				threadId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_TR_S,
@@ -8032,17 +8047,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_TR_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8061,6 +8076,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -8103,7 +8120,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -8177,8 +8194,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, userId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_U_S,
@@ -8412,17 +8428,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_U_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8441,6 +8457,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -8485,7 +8503,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -8723,13 +8741,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -8737,9 +8755,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -8758,6 +8776,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -8822,7 +8842,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -8896,8 +8916,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, categoryId, threadId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_T,
@@ -9131,17 +9150,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_C_T_THREADID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -9160,6 +9179,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -9204,7 +9225,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(threadId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -9442,13 +9463,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -9456,9 +9477,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -9477,6 +9498,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -9541,7 +9564,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(threadId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -9615,8 +9638,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, categoryId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_S,
@@ -9850,17 +9872,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -9879,6 +9901,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -9923,7 +9947,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10161,13 +10185,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -10175,9 +10199,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10196,6 +10220,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -10260,7 +10286,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10334,8 +10360,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, classNameId, classPK,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C_C,
@@ -10569,17 +10594,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_U_C_C_CLASSPK_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10598,6 +10623,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -10642,7 +10669,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(classPK);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -10716,8 +10743,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, classNameId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C_S,
@@ -10951,17 +10977,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_U_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -10980,6 +11006,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -11024,7 +11052,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -11102,8 +11130,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, StringUtil.merge(classNameIds), status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C_S,
@@ -11262,8 +11289,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				classNameId, classPK, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_C_C_S,
@@ -11498,17 +11524,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_C_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -11527,6 +11553,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -11571,7 +11599,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -11650,8 +11678,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				groupId, categoryId, threadId, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_C_T_S,
@@ -11901,17 +11928,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_G_C_T_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -11930,6 +11957,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -11976,7 +12005,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -12228,13 +12257,13 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -12242,9 +12271,9 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -12263,6 +12292,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -12329,7 +12360,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -12407,8 +12438,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		Object[] finderArgs = new Object[] {
 				userId, classNameId, classPK, status,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_U_C_C_S,
@@ -12658,17 +12688,17 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		query.append(_FINDER_COLUMN_U_C_C_S_STATUS_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -12687,6 +12717,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -12733,7 +12765,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		qPos.add(status);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(mbMessage);
+			Object[] values = orderByComparator.getOrderByConditionValues(mbMessage);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -12792,10 +12824,7 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	 */
 	public List<MBMessage> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<MBMessage> list = (List<MBMessage>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -15374,10 +15403,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -15397,8 +15424,8 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

@@ -64,7 +64,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 		long threadId = message.getThreadId();
 
-		if (threadId <= 0) {
+		if (!message.isRoot() || (threadId <= 0)) {
 			threadId = counterLocalService.increment();
 		}
 
@@ -101,7 +101,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 		if (categoryId >= 0) {
 			assetEntryLocalService.updateEntry(
 				message.getUserId(), message.getGroupId(),
-				MBThread.class.getName(), thread.getThreadId(), null,
+				MBThread.class.getName(), thread.getThreadId(), null, 0,
 				new long[0], new String[0], false, null, null, null, null, null,
 				String.valueOf(thread.getRootMessageId()), null, null, null,
 				null, 0, 0, null, false);
@@ -465,7 +465,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@BufferedIncrement(incrementClass = NumberIncrement.class)
-	public void incrementViewCounter(long threadId, int increment)
+	public MBThread incrementViewCounter(long threadId, int increment)
 		throws PortalException, SystemException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
@@ -473,6 +473,8 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 		thread.setViewCount(thread.getViewCount() + increment);
 
 		mbThreadPersistence.update(thread, false);
+
+		return thread;
 	}
 
 	public MBThread moveThread(long groupId, long categoryId, long threadId)

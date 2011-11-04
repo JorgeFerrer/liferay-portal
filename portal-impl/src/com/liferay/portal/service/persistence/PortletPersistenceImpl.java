@@ -126,7 +126,7 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 		for (Portlet portlet : portlets) {
 			if (EntityCacheUtil.getResult(
 						PortletModelImpl.ENTITY_CACHE_ENABLED,
-						PortletImpl.class, portlet.getPrimaryKey(), this) == null) {
+						PortletImpl.class, portlet.getPrimaryKey()) == null) {
 				cacheResult(portlet);
 			}
 		}
@@ -161,6 +161,8 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 	public void clearCache(Portlet portlet) {
 		EntityCacheUtil.removeResult(PortletModelImpl.ENTITY_CACHE_ENABLED,
 			PortletImpl.class, portlet.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_P,
 			new Object[] {
@@ -422,7 +424,7 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 	 */
 	public Portlet fetchByPrimaryKey(long id) throws SystemException {
 		Portlet portlet = (Portlet)EntityCacheUtil.getResult(PortletModelImpl.ENTITY_CACHE_ENABLED,
-				PortletImpl.class, id, this);
+				PortletImpl.class, id);
 
 		if (portlet == _nullPortlet) {
 			return null;
@@ -510,8 +512,7 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Portlet> list = (List<Portlet>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -709,17 +710,17 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -738,6 +739,8 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -774,7 +777,7 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(portlet);
+			Object[] values = orderByComparator.getOrderByConditionValues(portlet);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -984,10 +987,7 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 	 */
 	public List<Portlet> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Portlet> list = (List<Portlet>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1219,10 +1219,8 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1242,8 +1240,8 @@ public class PortletPersistenceImpl extends BasePersistenceImpl<Portlet>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}

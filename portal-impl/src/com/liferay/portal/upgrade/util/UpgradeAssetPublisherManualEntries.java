@@ -132,7 +132,7 @@ public class UpgradeAssetPublisherManualEntries
 	protected String getUpdatePortletPreferencesWhereClause() {
 		StringBundler sb = new StringBundler(5);
 
-		sb.append("(portletId like '101_INSTANCE_%') AND ((preferences like ");
+		sb.append("(portletId like '101_INSTANCE_%') and ((preferences like ");
 		sb.append("'%<preference><name>selection-style</name><value>manual");
 		sb.append("</value></preference>%') OR (preferences like ");
 		sb.append("'%<preference><name>selectionStyle</name><value>manual");

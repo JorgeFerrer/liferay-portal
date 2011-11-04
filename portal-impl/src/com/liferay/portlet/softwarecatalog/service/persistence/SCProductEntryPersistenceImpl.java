@@ -172,8 +172,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		for (SCProductEntry scProductEntry : scProductEntries) {
 			if (EntityCacheUtil.getResult(
 						SCProductEntryModelImpl.ENTITY_CACHE_ENABLED,
-						SCProductEntryImpl.class,
-						scProductEntry.getPrimaryKey(), this) == null) {
+						SCProductEntryImpl.class, scProductEntry.getPrimaryKey()) == null) {
 				cacheResult(scProductEntry);
 			}
 		}
@@ -208,6 +207,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	public void clearCache(SCProductEntry scProductEntry) {
 		EntityCacheUtil.removeResult(SCProductEntryModelImpl.ENTITY_CACHE_ENABLED,
 			SCProductEntryImpl.class, scProductEntry.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_RG_RA,
 			new Object[] {
@@ -498,7 +499,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	public SCProductEntry fetchByPrimaryKey(long productEntryId)
 		throws SystemException {
 		SCProductEntry scProductEntry = (SCProductEntry)EntityCacheUtil.getResult(SCProductEntryModelImpl.ENTITY_CACHE_ENABLED,
-				SCProductEntryImpl.class, productEntryId, this);
+				SCProductEntryImpl.class, productEntryId);
 
 		if (scProductEntry == _nullSCProductEntry) {
 			return null;
@@ -586,8 +587,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		Object[] finderArgs = new Object[] {
 				groupId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCProductEntry> list = (List<SCProductEntry>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_GROUPID,
@@ -791,17 +791,17 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -820,6 +820,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -860,7 +862,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductEntry);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductEntry);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1076,13 +1078,13 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -1090,9 +1092,9 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1111,6 +1113,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -1171,7 +1175,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		qPos.add(groupId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductEntry);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductEntry);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1238,8 +1242,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		Object[] finderArgs = new Object[] {
 				companyId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCProductEntry> list = (List<SCProductEntry>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_COMPANYID,
@@ -1443,17 +1446,17 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1472,6 +1475,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1512,7 +1517,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		qPos.add(companyId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductEntry);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductEntry);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1582,8 +1587,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		Object[] finderArgs = new Object[] {
 				groupId, userId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<SCProductEntry> list = (List<SCProductEntry>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_G_U,
@@ -1802,17 +1806,17 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		query.append(_FINDER_COLUMN_G_U_USERID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -1831,6 +1835,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -1873,7 +1879,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductEntry);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductEntry);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2100,13 +2106,13 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		}
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
 					query.append(_ORDER_BY_ENTITY_ALIAS);
 				}
@@ -2114,9 +2120,9 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 					query.append(_ORDER_BY_ENTITY_TABLE);
 				}
 
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -2135,6 +2141,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				if (getDB().isSupportsInlineDistinct()) {
@@ -2197,7 +2205,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		qPos.add(userId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(scProductEntry);
+			Object[] values = orderByComparator.getOrderByConditionValues(scProductEntry);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -2425,10 +2433,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	 */
 	public List<SCProductEntry> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<SCProductEntry> list = (List<SCProductEntry>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -2911,10 +2916,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -2934,8 +2937,8 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -3001,10 +3004,7 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	public List<com.liferay.portlet.softwarecatalog.model.SCLicense> getSCLicenses(
 		long pk, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portlet.softwarecatalog.model.SCLicense> list = (List<com.liferay.portlet.softwarecatalog.model.SCLicense>)FinderCacheUtil.getResult(FINDER_PATH_GET_SCLICENSES,
 				finderArgs, this);

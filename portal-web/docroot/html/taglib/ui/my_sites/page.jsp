@@ -40,19 +40,14 @@ List<Group> mySites = user.getMySites(max);
 		portletURL.setParameter("struts_action", "/my_sites/view");
 
 		for (Group mySite : mySites) {
-			mySite = mySite.toEscapedModel();
-
-			boolean regularSite = mySite.isRegularSite();
-			boolean userSite = mySite.isUser();
-			int publicLayoutsPageCount = mySite.getPublicLayoutsPageCount();
-			int privateLayoutsPageCount = mySite.getPrivateLayoutsPageCount();
+			String escapedSiteName = HtmlUtil.escape(mySite.getName());
 
 			Organization organization = null;
 
 			String publicAddPageHREF = null;
 			String privateAddPageHREF = null;
 
-			if (regularSite && GroupPermissionUtil.contains(permissionChecker, mySite.getGroupId(), ActionKeys.MANAGE_LAYOUTS)) {
+			if (mySite.isRegularSite() && GroupPermissionUtil.contains(permissionChecker, mySite.getGroupId(), ActionKeys.MANAGE_LAYOUTS)) {
 				PortletURL addPageURL = new PortletURLImpl(request, PortletKeys.MY_SITES, plid, PortletRequest.ACTION_PHASE);
 
 				addPageURL.setWindowState(WindowState.NORMAL);
@@ -69,7 +64,7 @@ List<Group> mySites = user.getMySites(max);
 
 				privateAddPageHREF = addPageURL.toString();
 			}
-			else if (userSite) {
+			else if (mySite.isUser()) {
 				PortletURL publicAddPageURL = new PortletURLImpl(request, PortletKeys.MY_ACCOUNT, plid, PortletRequest.RENDER_PHASE);
 
 				publicAddPageURL.setWindowState(WindowState.MAXIMIZED);
@@ -109,11 +104,11 @@ List<Group> mySites = user.getMySites(max);
 
 			boolean hasPowerUserRole = RoleLocalServiceUtil.hasUserRole(user.getUserId(), user.getCompanyId(), RoleConstants.POWER_USER, true);
 
-			if (publicLayoutsPageCount == 0) {
-				if (regularSite) {
+			if (mySite.getPublicLayoutsPageCount() == 0) {
+				if (mySite.isRegularSite()) {
 					showPublicSite = PropsValues.MY_SITES_SHOW_PUBLIC_SITES_WITH_NO_LAYOUTS;
 				}
-				else if (userSite) {
+				else if (mySite.isUser()) {
 					showPublicSite = PropsValues.MY_SITES_SHOW_USER_PUBLIC_SITES_WITH_NO_LAYOUTS;
 
 					if (!PropsValues.LAYOUT_USER_PUBLIC_LAYOUTS_MODIFIABLE || (PropsValues.LAYOUT_USER_PUBLIC_LAYOUTS_POWER_USER_REQUIRED && !hasPowerUserRole)) {
@@ -124,11 +119,11 @@ List<Group> mySites = user.getMySites(max);
 
 			boolean showPrivateSite = true;
 
-			if (privateLayoutsPageCount == 0) {
-				if (regularSite) {
+			if (mySite.getPrivateLayoutsPageCount() == 0) {
+				if (mySite.isRegularSite()) {
 					showPrivateSite = PropsValues.MY_SITES_SHOW_PRIVATE_SITES_WITH_NO_LAYOUTS;
 				}
-				else if (userSite) {
+				else if (mySite.isUser()) {
 					showPrivateSite = PropsValues.MY_SITES_SHOW_USER_PRIVATE_SITES_WITH_NO_LAYOUTS;
 
 					if (!PropsValues.LAYOUT_USER_PRIVATE_LAYOUTS_MODIFIABLE || (PropsValues.LAYOUT_USER_PRIVATE_LAYOUTS_POWER_USER_REQUIRED && !hasPowerUserRole)) {
@@ -196,17 +191,17 @@ List<Group> mySites = user.getMySites(max);
 								portletURL.setParameter("privateLayout", Boolean.FALSE.toString());
 								%>
 
-								<c:if test="<%= showPublicSite && publicLayoutsPageCount > 0 %>">
+								<c:if test="<%= showPublicSite && (mySite.getPublicLayoutsPageCount() > 0) %>">
 									<li class="<%= (selectedSite && layout.isPublicLayout()) ? "current-site" : "public-site" %> <%= cssClass %>">
 										<a href="<%= HtmlUtil.escape(portletURL.toString()) %>" onclick="Liferay.Util.forcePost(this); return false;">
 
 											<%
 											String siteName = StringPool.BLANK;
 
-											if (userSite) {
+											if (mySite.isUser()) {
 												siteName = LanguageUtil.get(pageContext, "my-public-pages");
 											}
-											else if (mySite.getName().equals(GroupConstants.GUEST)) {
+											else if (escapedSiteName.equals(GroupConstants.GUEST)) {
 												siteName = HtmlUtil.escape(themeDisplay.getAccount().getName());
 											}
 											else {
@@ -216,7 +211,7 @@ List<Group> mySites = user.getMySites(max);
 
 											<%@ include file="/html/taglib/ui/my_sites/page_site_name.jspf" %>
 
-											<c:if test="<%= privateLayoutsPageCount > 0 %>">
+											<c:if test="<%= mySite.getPrivateLayoutsPageCount() > 0 %>">
 												<span class="site-type"><liferay-ui:message key="public" /></span>
 											</c:if>
 										</a>
@@ -227,17 +222,17 @@ List<Group> mySites = user.getMySites(max);
 								portletURL.setParameter("privateLayout", Boolean.TRUE.toString());
 								%>
 
-								<c:if test="<%= showPrivateSite && privateLayoutsPageCount > 0 %>">
+								<c:if test="<%= showPrivateSite && (mySite.getPrivateLayoutsPageCount() > 0) %>">
 									<li class="<%= (selectedSite && layout.isPrivateLayout()) ? "current-site" : "private-site" %> <%= cssClass %>">
 										<a href="<%= HtmlUtil.escape(portletURL.toString()) %>" onclick="Liferay.Util.forcePost(this); return false;">
 
 											<%
 											String siteName = StringPool.BLANK;
 
-											if (userSite) {
+											if (mySite.isUser()) {
 												siteName = LanguageUtil.get(pageContext, "my-private-pages");
 											}
-											else if (mySite.getName().equals(GroupConstants.GUEST)) {
+											else if (escapedSiteName.equals(GroupConstants.GUEST)) {
 												siteName = HtmlUtil.escape(themeDisplay.getAccount().getName());
 											}
 											else {
@@ -247,7 +242,7 @@ List<Group> mySites = user.getMySites(max);
 
 											<%@ include file="/html/taglib/ui/my_sites/page_site_name.jspf" %>
 
-											<c:if test="<%= publicLayoutsPageCount > 0 %>">
+											<c:if test="<%= mySite.getPublicLayoutsPageCount() > 0 %>">
 												<span class="site-type"><liferay-ui:message key="private" /></span>
 											</c:if>
 										</a>
@@ -273,7 +268,7 @@ List<Group> mySites = user.getMySites(max);
 								<c:when test="<%= mySite.isControlPanel() %>">
 									<h3>
 										<a href="<%= themeDisplay.getURLControlPanel() %>">
-											<%= mySite.getName() %>
+											<%= escapedSiteName %>
 										</a>
 									</h3>
 								</c:when>
@@ -281,11 +276,11 @@ List<Group> mySites = user.getMySites(max);
 									<h3>
 										<a href="javascript:;">
 											<c:choose>
-												<c:when test="<%= userSite %>">
+												<c:when test="<%= mySite.isUser() %>">
 													<liferay-ui:message key="my-site" />
 												</c:when>
 												<c:otherwise>
-													<%= mySite.getName() %>
+													<%= escapedSiteName %>
 												</c:otherwise>
 											</c:choose>
 										</a>
@@ -300,17 +295,17 @@ List<Group> mySites = user.getMySites(max);
 
 										<c:if test="<%= showPublicSite %>">
 											<li>
-												<a href="<%= publicLayoutsPageCount > 0 ? HtmlUtil.escape(portletURL.toString()) : "javascript:;" %>"
+												<a href="<%= (mySite.getPublicLayoutsPageCount() > 0) ? HtmlUtil.escape(portletURL.toString()) : "javascript:;" %>"
 
-												<c:if test="<%= userSite %>">
+												<c:if test="<%= mySite.isUser() %>">
 													id="my-site-public-pages"
 												</c:if>
 
-												<c:if test="<%= publicLayoutsPageCount > 0 %>">
+												<c:if test="<%= (mySite.getPublicLayoutsPageCount() > 0) %>">
 													onclick="Liferay.Util.forcePost(this); return false;"
 												</c:if>
 
-												><liferay-ui:message key="public-pages" /> <span class="page-count">(<%= publicLayoutsPageCount %>)</span></a>
+												><liferay-ui:message key="public-pages" /> <span class="page-count">(<%= mySite.getPublicLayoutsPageCount() %>)</span></a>
 
 												<c:if test="<%= publicAddPageHREF != null %>">
 													<a class="add-page" href="<%= HtmlUtil.escape(publicAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;"><liferay-ui:message key="manage-pages" /></a>
@@ -325,17 +320,17 @@ List<Group> mySites = user.getMySites(max);
 
 										<c:if test="<%= showPrivateSite %>">
 											<li>
-												<a href="<%= privateLayoutsPageCount > 0 ? HtmlUtil.escape(portletURL.toString()) : "javascript:;" %>"
+												<a href="<%= (mySite.getPrivateLayoutsPageCount() > 0) ? HtmlUtil.escape(portletURL.toString()) : "javascript:;" %>"
 
-												<c:if test="<%= userSite %>">
+												<c:if test="<%= mySite.isUser() %>">
 													id="my-site-private-pages"
 												</c:if>
 
-												<c:if test="<%= privateLayoutsPageCount > 0 %>">
+												<c:if test="<%= mySite.getPrivateLayoutsPageCount() > 0 %>">
 													onclick="Liferay.Util.forcePost(this); return false;"
 												</c:if>
 
-												><liferay-ui:message key="private-pages" /> <span class="page-count">(<%= privateLayoutsPageCount %>)</span></a>
+												><liferay-ui:message key="private-pages" /> <span class="page-count">(<%= mySite.getPrivateLayoutsPageCount() %>)</span></a>
 
 												<c:if test="<%= privateAddPageHREF != null %>">
 													<a class="add-page" href="<%= HtmlUtil.escape(privateAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;"><liferay-ui:message key="manage-pages" /></a>

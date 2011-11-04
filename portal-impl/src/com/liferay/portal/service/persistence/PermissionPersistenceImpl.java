@@ -133,7 +133,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 		for (Permission permission : permissions) {
 			if (EntityCacheUtil.getResult(
 						PermissionModelImpl.ENTITY_CACHE_ENABLED,
-						PermissionImpl.class, permission.getPrimaryKey(), this) == null) {
+						PermissionImpl.class, permission.getPrimaryKey()) == null) {
 				cacheResult(permission);
 			}
 		}
@@ -168,6 +168,8 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	public void clearCache(Permission permission) {
 		EntityCacheUtil.removeResult(PermissionModelImpl.ENTITY_CACHE_ENABLED,
 			PermissionImpl.class, permission.getPrimaryKey());
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_A_R,
 			new Object[] {
@@ -457,7 +459,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	public Permission fetchByPrimaryKey(long permissionId)
 		throws SystemException {
 		Permission permission = (Permission)EntityCacheUtil.getResult(PermissionModelImpl.ENTITY_CACHE_ENABLED,
-				PermissionImpl.class, permissionId, this);
+				PermissionImpl.class, permissionId);
 
 		if (permission == _nullPermission) {
 			return null;
@@ -545,8 +547,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 		Object[] finderArgs = new Object[] {
 				resourceId,
 				
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
+				start, end, orderByComparator
 			};
 
 		List<Permission> list = (List<Permission>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_RESOURCEID,
@@ -746,17 +747,17 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 		query.append(_FINDER_COLUMN_RESOURCEID_RESOURCEID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByFields = orderByComparator.getOrderByFields();
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
 
-			if (orderByFields.length > 0) {
+			if (orderByConditionFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByFields.length; i++) {
+			for (int i = 0; i < orderByConditionFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
+				query.append(orderByConditionFields[i]);
 
-				if ((i + 1) < orderByFields.length) {
+				if ((i + 1) < orderByConditionFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -775,6 +776,8 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 			}
 
 			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -811,7 +814,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 		qPos.add(resourceId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByValues(permission);
+			Object[] values = orderByComparator.getOrderByConditionValues(permission);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -1022,10 +1025,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	 */
 	public List<Permission> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { start, end, orderByComparator };
 
 		List<Permission> list = (List<Permission>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -1257,10 +1257,8 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
-		Object[] finderArgs = new Object[0];
-
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				finderArgs, this);
+				FINDER_ARGS_EMPTY, this);
 
 		if (count == null) {
 			Session session = null;
@@ -1280,8 +1278,8 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
-					count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY, count);
 
 				closeSession(session);
 			}
@@ -1346,10 +1344,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	 */
 	public List<com.liferay.portal.model.Group> getGroups(long pk, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.Group> list = (List<com.liferay.portal.model.Group>)FinderCacheUtil.getResult(FINDER_PATH_GET_GROUPS,
 				finderArgs, this);
@@ -1814,10 +1809,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	 */
 	public List<com.liferay.portal.model.Role> getRoles(long pk, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.Role> list = (List<com.liferay.portal.model.Role>)FinderCacheUtil.getResult(FINDER_PATH_GET_ROLES,
 				finderArgs, this);
@@ -2280,10 +2272,7 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	 */
 	public List<com.liferay.portal.model.User> getUsers(long pk, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] {
-				pk, String.valueOf(start), String.valueOf(end),
-				String.valueOf(orderByComparator)
-			};
+		Object[] finderArgs = new Object[] { pk, start, end, orderByComparator };
 
 		List<com.liferay.portal.model.User> list = (List<com.liferay.portal.model.User>)FinderCacheUtil.getResult(FINDER_PATH_GET_USERS,
 				finderArgs, this);

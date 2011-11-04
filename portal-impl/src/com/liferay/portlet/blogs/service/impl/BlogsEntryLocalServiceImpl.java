@@ -61,8 +61,8 @@ import com.liferay.portlet.blogs.util.BlogsUtil;
 import com.liferay.portlet.blogs.util.LinkbackProducerUtil;
 import com.liferay.portlet.blogs.util.comparator.EntryDisplayDateComparator;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -92,7 +92,8 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			int displayDateMonth, int displayDateDay, int displayDateYear,
 			int displayDateHour, int displayDateMinute, boolean allowPingbacks,
 			boolean allowTrackbacks, String[] trackbacks, boolean smallImage,
-			String smallImageURL, File smallFile, ServiceContext serviceContext)
+			String smallImageURL, String smallImageFileName,
+			InputStream smallImageInputStream, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Entry
@@ -105,10 +106,12 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			displayDateMinute, user.getTimeZone(),
 			new EntryDisplayDateException());
 
-		byte[] smallBytes = null;
+		byte[] smallImageBytes = null;
 
 		try {
-			smallBytes = FileUtil.getBytes(smallFile);
+			if ((smallImageInputStream != null) && smallImage) {
+				smallImageBytes = FileUtil.getBytes(smallImageInputStream);
+			}
 		}
 		catch (IOException ioe) {
 		}
@@ -116,7 +119,8 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		Date now = new Date();
 
 		validate(
-			title, content, smallImage, smallImageURL, smallFile, smallBytes);
+			title, content, smallImage, smallImageURL, smallImageFileName,
+			smallImageBytes);
 
 		long entryId = counterLocalService.increment();
 
@@ -163,7 +167,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		// Small image
 
 		saveImages(
-			smallImage, entry.getSmallImageId(), smallFile, smallBytes);
+			smallImage, entry.getSmallImageId(), smallImageBytes);
 
 		// Asset
 
@@ -518,7 +522,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, entry.getGroupId(), BlogsEntry.class.getName(),
-			entry.getEntryId(), entry.getUuid(), assetCategoryIds,
+			entry.getEntryId(), entry.getUuid(), 0, assetCategoryIds,
 			assetTagNames, visible, null, null, entry.getDisplayDate(), null,
 			ContentTypes.TEXT_HTML, entry.getTitle(), null, summary, null, null,
 			0, 0, null, false);
@@ -534,7 +538,8 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			boolean allowPingbacks,	boolean allowTrackbacks,
 			String[] trackbacks, boolean smallImage, String smallImageURL,
-			File smallFile, ServiceContext serviceContext)
+			String smallImageFileName, InputStream smallImageInputStream,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Entry
@@ -546,16 +551,19 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			displayDateMinute, user.getTimeZone(),
 			new EntryDisplayDateException());
 
-		byte[] smallBytes = null;
+		byte[] smallImageBytes = null;
 
 		try {
-			smallBytes = FileUtil.getBytes(smallFile);
+			if ((smallImageInputStream != null) && smallImage) {
+				smallImageBytes = FileUtil.getBytes(smallImageInputStream);
+			}
 		}
 		catch (IOException ioe) {
 		}
 
 		validate(
-			title, content, smallImage, smallImageURL, smallFile, smallBytes);
+			title, content, smallImage, smallImageURL, smallImageFileName,
+			smallImageBytes);
 
 		BlogsEntry entry = blogsEntryPersistence.findByPrimaryKey(entryId);
 
@@ -599,7 +607,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		// Small image
 
 		saveImages(
-			smallImage, entry.getSmallImageId(), smallFile, smallBytes);
+			smallImage, entry.getSmallImageId(), smallImageBytes);
 
 		// Asset
 
@@ -806,8 +814,10 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			layoutFullURL + Portal.FRIENDLY_URL_SEPARATOR + "blogs" +
 				StringPool.SLASH + entry.getEntryId();
 
-		String fromName = BlogsUtil.getEmailFromName(preferences);
-		String fromAddress = BlogsUtil.getEmailFromAddress(preferences);
+		String fromName = BlogsUtil.getEmailFromName(
+			preferences, entry.getCompanyId());
+		String fromAddress = BlogsUtil.getEmailFromAddress(
+			preferences, entry.getCompanyId());
 
 		Map<Locale, String> localizedSubjectMap = null;
 		Map<Locale, String> localizedBodyMap = null;
@@ -1025,13 +1035,12 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	protected void saveImages(
-			boolean smallImage, long smallImageId, File smallFile,
-			byte[] smallBytes)
+			boolean smallImage, long smallImageId, byte[] smallImageBytes)
 		throws PortalException, SystemException {
 
 		if (smallImage) {
-			if ((smallFile != null) && (smallBytes != null)) {
-				imageLocalService.updateImage(smallImageId, smallBytes);
+			if (smallImageBytes != null) {
+				imageLocalService.updateImage(smallImageId, smallImageBytes);
 			}
 		}
 		else {
@@ -1039,8 +1048,10 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		}
 	}
 
-	protected void validate(String title, String content, boolean smallImage,
-			String smallImageURL, File smallFile, byte[] smallBytes)
+	protected void validate(
+			String title, String content, boolean smallImage,
+			String smallImageURL, String smallImageFileName,
+			byte[] smallImageBytes)
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(title)) {
@@ -1054,16 +1065,15 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA);
 
 		if (smallImage && Validator.isNull(smallImageURL) &&
-			(smallFile != null) && (smallBytes != null)) {
+			(smallImageBytes != null)) {
 
-			String smallImageName = smallFile.getName();
-
-			if (smallImageName != null) {
+			if (smallImageFileName != null) {
 				boolean validSmallImageExtension = false;
 
 				for (String _imageExtension : imageExtensions) {
 					if (StringPool.STAR.equals(_imageExtension) ||
-						StringUtil.endsWith(smallImageName, _imageExtension)) {
+						StringUtil.endsWith(
+							smallImageFileName, _imageExtension)) {
 
 						validSmallImageExtension = true;
 
@@ -1072,7 +1082,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				}
 
 				if (!validSmallImageExtension) {
-					throw new EntrySmallImageNameException(smallImageName);
+					throw new EntrySmallImageNameException(smallImageFileName);
 				}
 			}
 
@@ -1080,8 +1090,8 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				PropsKeys.BLOGS_IMAGE_SMALL_MAX_SIZE);
 
 			if ((smallImageMaxSize > 0) &&
-				((smallBytes == null) ||
-					(smallBytes.length > smallImageMaxSize))) {
+				((smallImageBytes == null) ||
+				 (smallImageBytes.length > smallImageMaxSize))) {
 
 				throw new EntrySmallImageSizeException();
 			}
