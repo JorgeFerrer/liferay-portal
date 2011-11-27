@@ -173,6 +173,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws PortalException if any one of the users could not be found or if
 	 *         a portal exception occurred
 	 * @throws SystemException if a system exception occurred
+	 * @deprecated
 	 */
 	public void copyUserGroupLayouts(long userGroupId, long userIds[])
 		throws PortalException, SystemException {
@@ -207,6 +208,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found or if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
+	 * @deprecated
 	 */
 	public void copyUserGroupLayouts(long userGroupIds[], long userId)
 		throws PortalException, SystemException {
@@ -226,6 +228,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found or if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
+	 * @deprecated
 	 */
 	public void copyUserGroupLayouts(long userGroupId, long userId)
 		throws PortalException, SystemException {
