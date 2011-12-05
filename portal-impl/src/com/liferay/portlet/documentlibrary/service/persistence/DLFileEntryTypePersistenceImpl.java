@@ -296,6 +296,19 @@ public class DLFileEntryTypePersistenceImpl extends BasePersistenceImpl<DLFileEn
 	/**
 	 * Removes the document library file entry type with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileEntryTypeId the primary key of the document library file entry type
+	 * @return the document library file entry type that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryTypeException if a document library file entry type with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileEntryType remove(long fileEntryTypeId)
+		throws NoSuchFileEntryTypeException, SystemException {
+		return remove(Long.valueOf(fileEntryTypeId));
+	}
+
+	/**
+	 * Removes the document library file entry type with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file entry type
 	 * @return the document library file entry type that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryTypeException if a document library file entry type with the primary key could not be found
@@ -332,19 +345,6 @@ public class DLFileEntryTypePersistenceImpl extends BasePersistenceImpl<DLFileEn
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file entry type with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileEntryTypeId the primary key of the document library file entry type
-	 * @return the document library file entry type that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryTypeException if a document library file entry type with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileEntryType remove(long fileEntryTypeId)
-		throws NoSuchFileEntryTypeException, SystemException {
-		return remove(Long.valueOf(fileEntryTypeId));
 	}
 
 	@Override

@@ -194,6 +194,19 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 	/**
 	 * Removes the list type with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param listTypeId the primary key of the list type
+	 * @return the list type that was removed
+	 * @throws com.liferay.portal.NoSuchListTypeException if a list type with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ListType remove(int listTypeId)
+		throws NoSuchListTypeException, SystemException {
+		return remove(Integer.valueOf(listTypeId));
+	}
+
+	/**
+	 * Removes the list type with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the list type
 	 * @return the list type that was removed
 	 * @throws com.liferay.portal.NoSuchListTypeException if a list type with the primary key could not be found
@@ -230,19 +243,6 @@ public class ListTypePersistenceImpl extends BasePersistenceImpl<ListType>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the list type with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param listTypeId the primary key of the list type
-	 * @return the list type that was removed
-	 * @throws com.liferay.portal.NoSuchListTypeException if a list type with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ListType remove(int listTypeId)
-		throws NoSuchListTypeException, SystemException {
-		return remove(Integer.valueOf(listTypeId));
 	}
 
 	@Override

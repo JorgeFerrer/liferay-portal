@@ -227,6 +227,19 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 	/**
 	 * Removes the s c license with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param licenseId the primary key of the s c license
+	 * @return the s c license that was removed
+	 * @throws com.liferay.portlet.softwarecatalog.NoSuchLicenseException if a s c license with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SCLicense remove(long licenseId)
+		throws NoSuchLicenseException, SystemException {
+		return remove(Long.valueOf(licenseId));
+	}
+
+	/**
+	 * Removes the s c license with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the s c license
 	 * @return the s c license that was removed
 	 * @throws com.liferay.portlet.softwarecatalog.NoSuchLicenseException if a s c license with the primary key could not be found
@@ -263,19 +276,6 @@ public class SCLicensePersistenceImpl extends BasePersistenceImpl<SCLicense>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the s c license with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param licenseId the primary key of the s c license
-	 * @return the s c license that was removed
-	 * @throws com.liferay.portlet.softwarecatalog.NoSuchLicenseException if a s c license with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SCLicense remove(long licenseId)
-		throws NoSuchLicenseException, SystemException {
-		return remove(Long.valueOf(licenseId));
 	}
 
 	@Override

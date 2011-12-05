@@ -14,11 +14,14 @@
 
 package com.liferay.portlet.documentlibrary.util;
 
+import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.util.PropsUtil;
+import com.liferay.portal.util.PropsValues;
 
 import com.xuggle.xuggler.Configuration;
 import com.xuggle.xuggler.IAudioResampler;
@@ -36,12 +39,15 @@ import com.xuggle.xuggler.IVideoResampler;
 
 import java.io.File;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
  * @author Juan González
  * @author Sergio González
  * @author Brian Wing Shun Chan
+ * @author Alexander Chow
  */
 public class LiferayVideoConverter extends LiferayConverter {
 
@@ -55,6 +61,10 @@ public class LiferayVideoConverter extends LiferayConverter {
 		_outputURL = outputURL;
 		_height = height;
 		_width = width;
+
+		initVideoBitRateMap();
+
+		initVideoFrameRateMap();
 	}
 
 	public void convert() throws Exception {
@@ -68,6 +78,35 @@ public class LiferayVideoConverter extends LiferayConverter {
 
 			if (_outputIContainer.isOpened()) {
 				_outputIContainer.close();
+			}
+		}
+	}
+
+	protected void createMP4FastStart() {
+		IContainerFormat iContainerFormat =
+			_outputIContainer.getContainerFormat();
+
+		String outputFormat = iContainerFormat.getOutputFormatShortName();
+
+		File videoFile = new File(_outputURL);
+
+		if (outputFormat.equals("mp4") && videoFile.exists()) {
+			File tempFile = FileUtil.createTempFile();
+
+			try {
+				JQTFastStart.convert(videoFile, tempFile);
+
+				if (tempFile.exists() && tempFile.length() > 0) {
+					FileUtil.move(tempFile, videoFile);
+				}
+			}
+			catch (Exception e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn("Unable to move MOOV atom to front of MP4 file");
+				}
+			}
+			finally {
+				FileUtil.delete(tempFile);
 			}
 		}
 	}
@@ -106,11 +145,6 @@ public class LiferayVideoConverter extends LiferayConverter {
 		IStreamCoder[] outputIStreamCoders =
 			new IStreamCoder[inputStreamsCount];
 
-		IContainerFormat iContainerFormat =
-			_outputIContainer.getContainerFormat();
-
-		String outputFormat = iContainerFormat.getOutputFormatShortName();
-
 		for (int i = 0; i < inputStreamsCount; i++) {
 			IStream inputIStream = _inputIContainer.getStream(i);
 
@@ -129,8 +163,8 @@ public class LiferayVideoConverter extends LiferayConverter {
 			else if (inputICodecType == ICodec.Type.CODEC_TYPE_VIDEO) {
 				prepareVideo(
 					iVideoResamplers, inputIVideoPictures, outputIVideoPictures,
-					inputIStreamCoder, outputIStreamCoders, outputFormat,
-					outputIStreams, inputICodecType, i);
+					inputIStreamCoder, outputIStreamCoders, _outputIContainer,
+					outputIStreams, inputICodecType, _outputURL, i);
 			}
 
 			openStreamCoder(inputIStreamCoders[i]);
@@ -227,30 +261,7 @@ public class LiferayVideoConverter extends LiferayConverter {
 
 		cleanUp(inputIStreamCoders, outputIStreamCoders);
 
-		// Create MP4 fast start
-
-		File videoFile = new File(_outputURL);
-
-		if (outputFormat.equals("mp4") && videoFile.exists()) {
-			File tempFile = FileUtil.createTempFile();
-
-			try {
-				JQTFastStart.convert(videoFile, tempFile);
-
-				if (tempFile.exists() && tempFile.length() > 0) {
-					FileUtil.move(tempFile, videoFile);
-				}
-			}
-			catch (Exception e) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Error while moving MOOV atom to front of MP4 file");
-				}
-			}
-			finally {
-				FileUtil.delete(tempFile);
-			}
-		}
+		createMP4FastStart();
 	}
 
 	@Override
@@ -271,8 +282,10 @@ public class LiferayVideoConverter extends LiferayConverter {
 
 	@Override
 	protected ICodec getAudioEncodingICodec(IContainer outputIContainer) {
-		String outputFormat =
-			outputIContainer.getContainerFormat().getOutputFormatShortName();
+		IContainerFormat iContainerFormat =
+			outputIContainer.getContainerFormat();
+
+		String outputFormat = iContainerFormat.getOutputFormatShortName();
 
 		if (outputFormat.equals("ogg")) {
 			return ICodec.findEncodingCodec(ICodec.ID.CODEC_ID_VORBIS);
@@ -286,16 +299,90 @@ public class LiferayVideoConverter extends LiferayConverter {
 		return _inputIContainer;
 	}
 
+	protected void initVideoBitRateMap() {
+		if (_videoBitRateMap != null) {
+			return;
+		}
+
+		_videoBitRateMap = new HashMap<String, Integer>();
+
+		for (String previewVideoContainer :
+				PropsValues.DL_FILE_ENTRY_PREVIEW_VIDEO_CONTAINERS) {
+
+			Filter filter = new Filter(previewVideoContainer);
+
+			int videoBitRate = GetterUtil.getInteger(
+				PropsUtil.get(
+					PropsKeys.DL_FILE_ENTRY_PREVIEW_VIDEO_BIT_RATE, filter));
+
+			if (videoBitRate > _VIDEO_BIT_RATE_MAX) {
+				videoBitRate = _VIDEO_BIT_RATE_MAX;
+			}
+
+			if (videoBitRate > 0) {
+				_videoBitRateMap.put(previewVideoContainer, videoBitRate);
+
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"Bit rate for " + previewVideoContainer + " set to " +
+							videoBitRate);
+				}
+			}
+		}
+	}
+
+	protected void initVideoFrameRateMap() {
+		if (_videoFrameRateMap != null) {
+			return;
+		}
+
+		_videoFrameRateMap = new HashMap<String, IRational>();
+
+		for (String previewVideoContainer :
+				PropsValues.DL_FILE_ENTRY_PREVIEW_VIDEO_CONTAINERS) {
+
+			Filter filter = new Filter(previewVideoContainer);
+
+			int numerator = GetterUtil.getInteger(
+				PropsUtil.get(
+					PropsKeys.DL_FILE_ENTRY_PREVIEW_VIDEO_FRAME_RATE_NUMERATOR,
+					filter));
+			int denominator = GetterUtil.getInteger(
+				PropsUtil.get(
+					PropsKeys.
+						DL_FILE_ENTRY_PREVIEW_VIDEO_FRAME_RATE_DENOMINATOR,
+					filter));
+
+			if ((numerator > 0) && (denominator > 0)) {
+				IRational iRational = IRational.make(numerator, denominator);
+
+				_videoFrameRateMap.put(previewVideoContainer, iRational);
+
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"Frame rate for " + previewVideoContainer + " set to " +
+							iRational.getNumerator() + "/" +
+								iRational.getDenominator());
+				}
+			}
+		}
+	}
+
 	protected void prepareVideo(
 			IVideoResampler[] iVideoResamplers,
 			IVideoPicture[] inputIVideoPictures,
 			IVideoPicture[] outputIVideoPictures,
 			IStreamCoder inputIStreamCoder, IStreamCoder[] outputIStreamCoders,
-			String outputFormat, IStream[] outputIStreams,
-			ICodec.Type inputICodecType, int index)
+			IContainer outputIContainer, IStream[] outputIStreams,
+			ICodec.Type inputICodecType, String outputURL, int index)
 		throws Exception {
 
-		IStream outputIStream = _outputIContainer.addNewStream(index);
+		IContainerFormat iContainerFormat =
+			outputIContainer.getContainerFormat();
+
+		String outputFormat = iContainerFormat.getOutputFormatShortName();
+
+		IStream outputIStream = outputIContainer.addNewStream(index);
 
 		outputIStreams[index] = outputIStream;
 
@@ -305,14 +392,26 @@ public class LiferayVideoConverter extends LiferayConverter {
 
 		int bitRate = inputIStreamCoder.getBitRate();
 
-		if ((bitRate == 0) || (bitRate > VIDEO_BIT_RATE_MAX)) {
-			bitRate = VIDEO_BIT_RATE_DEFAULT;
+		if (_log.isInfoEnabled()) {
+			_log.info("Original video bitrate " + bitRate);
+		}
+
+		if (bitRate == 0) {
+			bitRate = GetterUtil.getInteger(
+				_videoBitRateMap.get(outputFormat), _VIDEO_BIT_RATE_DEFAULT);
+		}
+		else if (bitRate > _VIDEO_BIT_RATE_MAX) {
+			bitRate = _VIDEO_BIT_RATE_MAX;
+		}
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Modified video bitrate " + bitRate);
 		}
 
 		outputIStreamCoder.setBitRate(bitRate);
 
 		ICodec iCodec = ICodec.guessEncodingCodec(
-			null, null, _outputURL, null, inputICodecType);
+			null, null, outputURL, null, inputICodecType);
 
 		if (outputFormat.equals("mp4")) {
 			iCodec = ICodec.findEncodingCodec(ICodec.ID.CODEC_ID_H264);
@@ -321,10 +420,30 @@ public class LiferayVideoConverter extends LiferayConverter {
 		if (iCodec == null) {
 			throw new RuntimeException(
 				"Unable to determine " + inputICodecType + " encoder for " +
-					_outputURL);
+					outputURL);
 		}
 
 		outputIStreamCoder.setCodec(iCodec);
+
+		IRational iRational = inputIStreamCoder.getFrameRate();
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Original frame rate " + iRational.getNumerator() + "/" +
+					iRational.getDenominator());
+		}
+
+		if (_videoFrameRateMap.containsKey(outputFormat)) {
+			iRational = _videoFrameRateMap.get(outputFormat);
+		}
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Modified frame rate " + iRational.getNumerator() + "/" +
+					iRational.getDenominator());
+		}
+
+		outputIStreamCoder.setFrameRate(iRational);
 
 		if (inputIStreamCoder.getHeight() <= 0) {
 			throw new RuntimeException(
@@ -333,18 +452,10 @@ public class LiferayVideoConverter extends LiferayConverter {
 
 		outputIStreamCoder.setHeight(_height);
 
-		IRational frameRate = inputIStreamCoder.getFrameRate();
-
-		if (outputFormat.equals("mp4")) {
-			frameRate = IRational.make(30, 1);
-		}
-
-		outputIStreamCoder.setFrameRate(frameRate);
-
 		outputIStreamCoder.setPixelType(Type.YUV420P);
 		outputIStreamCoder.setTimeBase(
 			IRational.make(
-				frameRate.getDenominator(), frameRate.getNumerator()));
+				iRational.getDenominator(), iRational.getNumerator()));
 
 		if (inputIStreamCoder.getWidth() <= 0) {
 			throw new RuntimeException(
@@ -363,13 +474,22 @@ public class LiferayVideoConverter extends LiferayConverter {
 			outputIStreamCoder.getPixelType(), outputIStreamCoder.getWidth(),
 			outputIStreamCoder.getHeight());
 
-		if (iCodec.getID().equals(ICodec.ID.CODEC_ID_H264)) {
+		ICodec.ID iCodecID = iCodec.getID();
+
+		if (iCodecID.equals(ICodec.ID.CODEC_ID_H264)) {
 			Configuration.configure(_ffpresetProperties, outputIStreamCoder);
 		}
 	}
 
+	private static final int _VIDEO_BIT_RATE_DEFAULT = 250000;
+
+	private static final int _VIDEO_BIT_RATE_MAX = 1200000;
+
 	private static Log _log = LogFactoryUtil.getLog(
 		LiferayVideoConverter.class);
+
+	private static Map<String, Integer> _videoBitRateMap;
+	private static Map<String, IRational> _videoFrameRateMap;
 
 	private Properties _ffpresetProperties;
 	private int _height = 240;

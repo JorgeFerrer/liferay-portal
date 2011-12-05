@@ -433,6 +433,19 @@ public class DLFileEntryPersistenceImpl extends BasePersistenceImpl<DLFileEntry>
 	/**
 	 * Removes the document library file entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileEntryId the primary key of the document library file entry
+	 * @return the document library file entry that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryException if a document library file entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileEntry remove(long fileEntryId)
+		throws NoSuchFileEntryException, SystemException {
+		return remove(Long.valueOf(fileEntryId));
+	}
+
+	/**
+	 * Removes the document library file entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file entry
 	 * @return the document library file entry that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryException if a document library file entry with the primary key could not be found
@@ -469,19 +482,6 @@ public class DLFileEntryPersistenceImpl extends BasePersistenceImpl<DLFileEntry>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileEntryId the primary key of the document library file entry
-	 * @return the document library file entry that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryException if a document library file entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileEntry remove(long fileEntryId)
-		throws NoSuchFileEntryException, SystemException {
-		return remove(Long.valueOf(fileEntryId));
 	}
 
 	@Override

@@ -24,7 +24,7 @@ import java.io.RandomAccessFile;
  * movie file.
  *
  * @author Juan González
- * @see JQTFastStart
+ * @see    JQTFastStart
  */
 public class Atom {
 

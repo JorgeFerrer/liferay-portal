@@ -1276,9 +1276,6 @@ public class PortletImpl extends PortletBaseImpl {
 
 	/**
 	 * Sets the name of the permission propagator class of the portlet.
-	 *
-	 * @param pollerProcessorClass the name of the permission propagator class
-	 *        of the portlet
 	 */
 	public void setPermissionPropagatorClass(String permissionPropagatorClass) {
 		_permissionPropagatorClass = permissionPropagatorClass;

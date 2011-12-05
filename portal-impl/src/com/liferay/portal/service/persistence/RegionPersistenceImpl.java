@@ -234,6 +234,19 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	/**
 	 * Removes the region with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param regionId the primary key of the region
+	 * @return the region that was removed
+	 * @throws com.liferay.portal.NoSuchRegionException if a region with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region remove(long regionId)
+		throws NoSuchRegionException, SystemException {
+		return remove(Long.valueOf(regionId));
+	}
+
+	/**
+	 * Removes the region with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the region
 	 * @return the region that was removed
 	 * @throws com.liferay.portal.NoSuchRegionException if a region with the primary key could not be found
@@ -269,19 +282,6 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the region with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param regionId the primary key of the region
-	 * @return the region that was removed
-	 * @throws com.liferay.portal.NoSuchRegionException if a region with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Region remove(long regionId)
-		throws NoSuchRegionException, SystemException {
-		return remove(Long.valueOf(regionId));
 	}
 
 	@Override

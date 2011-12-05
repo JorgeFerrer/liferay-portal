@@ -63,8 +63,8 @@ public class RawMetadataProcessor implements DLProcessor {
 	/**
 	 * Generates the raw metadata associated with the file entry.
 	 *
-	 * @param  fileVersion the file version from which the raw metatada is to
-	 *         be generated
+	 * @param  fileVersion the file version from which the raw metatada is to be
+	 *         generated
 	 * @throws PortalException if an error occurred in the metadata extraction
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -97,8 +97,8 @@ public class RawMetadataProcessor implements DLProcessor {
 	 * using {@link com.liferay.portal.metadata.TikaRawMetadataProcessor}.
 	 * </p>
 	 *
-	 * @param  fileVersion the file version from which the raw metatada is to
-	 *         be extracted and persisted
+	 * @param  fileVersion the file version from which the raw metatada is to be
+	 *         extracted and persisted
 	 * @throws PortalException if an error occurred in the metadata extraction
 	 * @throws SystemException if a system exception occurred
 	 */

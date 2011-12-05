@@ -240,6 +240,19 @@ public class WikiPageResourcePersistenceImpl extends BasePersistenceImpl<WikiPag
 	/**
 	 * Removes the wiki page resource with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourcePrimKey the primary key of the wiki page resource
+	 * @return the wiki page resource that was removed
+	 * @throws com.liferay.portlet.wiki.NoSuchPageResourceException if a wiki page resource with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public WikiPageResource remove(long resourcePrimKey)
+		throws NoSuchPageResourceException, SystemException {
+		return remove(Long.valueOf(resourcePrimKey));
+	}
+
+	/**
+	 * Removes the wiki page resource with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the wiki page resource
 	 * @return the wiki page resource that was removed
 	 * @throws com.liferay.portlet.wiki.NoSuchPageResourceException if a wiki page resource with the primary key could not be found
@@ -276,19 +289,6 @@ public class WikiPageResourcePersistenceImpl extends BasePersistenceImpl<WikiPag
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the wiki page resource with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourcePrimKey the primary key of the wiki page resource
-	 * @return the wiki page resource that was removed
-	 * @throws com.liferay.portlet.wiki.NoSuchPageResourceException if a wiki page resource with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public WikiPageResource remove(long resourcePrimKey)
-		throws NoSuchPageResourceException, SystemException {
-		return remove(Long.valueOf(resourcePrimKey));
 	}
 
 	@Override

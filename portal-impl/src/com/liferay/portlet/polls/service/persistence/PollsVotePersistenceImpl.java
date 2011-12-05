@@ -247,6 +247,19 @@ public class PollsVotePersistenceImpl extends BasePersistenceImpl<PollsVote>
 	/**
 	 * Removes the polls vote with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param voteId the primary key of the polls vote
+	 * @return the polls vote that was removed
+	 * @throws com.liferay.portlet.polls.NoSuchVoteException if a polls vote with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PollsVote remove(long voteId)
+		throws NoSuchVoteException, SystemException {
+		return remove(Long.valueOf(voteId));
+	}
+
+	/**
+	 * Removes the polls vote with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the polls vote
 	 * @return the polls vote that was removed
 	 * @throws com.liferay.portlet.polls.NoSuchVoteException if a polls vote with the primary key could not be found
@@ -283,19 +296,6 @@ public class PollsVotePersistenceImpl extends BasePersistenceImpl<PollsVote>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the polls vote with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param voteId the primary key of the polls vote
-	 * @return the polls vote that was removed
-	 * @throws com.liferay.portlet.polls.NoSuchVoteException if a polls vote with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PollsVote remove(long voteId)
-		throws NoSuchVoteException, SystemException {
-		return remove(Long.valueOf(voteId));
 	}
 
 	@Override

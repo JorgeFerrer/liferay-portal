@@ -178,6 +178,19 @@ public class CounterPersistenceImpl extends BasePersistenceImpl<Counter>
 	/**
 	 * Removes the counter with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param name the primary key of the counter
+	 * @return the counter that was removed
+	 * @throws com.liferay.counter.NoSuchCounterException if a counter with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Counter remove(String name)
+		throws NoSuchCounterException, SystemException {
+		return remove((Serializable)name);
+	}
+
+	/**
+	 * Removes the counter with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the counter
 	 * @return the counter that was removed
 	 * @throws com.liferay.counter.NoSuchCounterException if a counter with the primary key could not be found
@@ -213,19 +226,6 @@ public class CounterPersistenceImpl extends BasePersistenceImpl<Counter>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the counter with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param name the primary key of the counter
-	 * @return the counter that was removed
-	 * @throws com.liferay.counter.NoSuchCounterException if a counter with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Counter remove(String name)
-		throws NoSuchCounterException, SystemException {
-		return remove(name);
 	}
 
 	@Override

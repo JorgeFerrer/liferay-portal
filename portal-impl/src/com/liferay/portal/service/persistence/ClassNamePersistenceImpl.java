@@ -197,6 +197,19 @@ public class ClassNamePersistenceImpl extends BasePersistenceImpl<ClassName>
 	/**
 	 * Removes the class name with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param classNameId the primary key of the class name
+	 * @return the class name that was removed
+	 * @throws com.liferay.portal.NoSuchClassNameException if a class name with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ClassName remove(long classNameId)
+		throws NoSuchClassNameException, SystemException {
+		return remove(Long.valueOf(classNameId));
+	}
+
+	/**
+	 * Removes the class name with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the class name
 	 * @return the class name that was removed
 	 * @throws com.liferay.portal.NoSuchClassNameException if a class name with the primary key could not be found
@@ -233,19 +246,6 @@ public class ClassNamePersistenceImpl extends BasePersistenceImpl<ClassName>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the class name with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param classNameId the primary key of the class name
-	 * @return the class name that was removed
-	 * @throws com.liferay.portal.NoSuchClassNameException if a class name with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ClassName remove(long classNameId)
-		throws NoSuchClassNameException, SystemException {
-		return remove(Long.valueOf(classNameId));
 	}
 
 	@Override

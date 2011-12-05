@@ -172,6 +172,15 @@ public class PortletPreferencesLocalServiceImpl
 	}
 
 	public List<PortletPreferences> getPortletPreferences(
+			long companyId, long groupId, long ownerId, int ownerType,
+			String portletId, boolean privateLayout)
+		throws SystemException {
+
+		return portletPreferencesFinder.findByC_G_O_O_P_P(
+			companyId, groupId, ownerId, ownerType, portletId, privateLayout);
+	}
+
+	public List<PortletPreferences> getPortletPreferences(
 			long plid, String portletId)
 		throws SystemException {
 

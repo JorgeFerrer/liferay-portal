@@ -259,6 +259,19 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	/**
 	 * Removes the social activity limit with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param activityLimitId the primary key of the social activity limit
+	 * @return the social activity limit that was removed
+	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityLimit remove(long activityLimitId)
+		throws NoSuchActivityLimitException, SystemException {
+		return remove(Long.valueOf(activityLimitId));
+	}
+
+	/**
+	 * Removes the social activity limit with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social activity limit
 	 * @return the social activity limit that was removed
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
@@ -295,19 +308,6 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social activity limit with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param activityLimitId the primary key of the social activity limit
-	 * @return the social activity limit that was removed
-	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialActivityLimit remove(long activityLimitId)
-		throws NoSuchActivityLimitException, SystemException {
-		return remove(Long.valueOf(activityLimitId));
 	}
 
 	@Override

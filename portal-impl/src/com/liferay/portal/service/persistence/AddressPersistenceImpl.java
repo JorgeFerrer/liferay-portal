@@ -316,6 +316,19 @@ public class AddressPersistenceImpl extends BasePersistenceImpl<Address>
 	/**
 	 * Removes the address with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param addressId the primary key of the address
+	 * @return the address that was removed
+	 * @throws com.liferay.portal.NoSuchAddressException if a address with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Address remove(long addressId)
+		throws NoSuchAddressException, SystemException {
+		return remove(Long.valueOf(addressId));
+	}
+
+	/**
+	 * Removes the address with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the address
 	 * @return the address that was removed
 	 * @throws com.liferay.portal.NoSuchAddressException if a address with the primary key could not be found
@@ -351,19 +364,6 @@ public class AddressPersistenceImpl extends BasePersistenceImpl<Address>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the address with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param addressId the primary key of the address
-	 * @return the address that was removed
-	 * @throws com.liferay.portal.NoSuchAddressException if a address with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Address remove(long addressId)
-		throws NoSuchAddressException, SystemException {
-		return remove(Long.valueOf(addressId));
 	}
 
 	@Override

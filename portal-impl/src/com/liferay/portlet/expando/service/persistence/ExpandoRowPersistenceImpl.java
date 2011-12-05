@@ -227,6 +227,19 @@ public class ExpandoRowPersistenceImpl extends BasePersistenceImpl<ExpandoRow>
 	/**
 	 * Removes the expando row with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param rowId the primary key of the expando row
+	 * @return the expando row that was removed
+	 * @throws com.liferay.portlet.expando.NoSuchRowException if a expando row with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoRow remove(long rowId)
+		throws NoSuchRowException, SystemException {
+		return remove(Long.valueOf(rowId));
+	}
+
+	/**
+	 * Removes the expando row with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the expando row
 	 * @return the expando row that was removed
 	 * @throws com.liferay.portlet.expando.NoSuchRowException if a expando row with the primary key could not be found
@@ -263,19 +276,6 @@ public class ExpandoRowPersistenceImpl extends BasePersistenceImpl<ExpandoRow>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the expando row with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param rowId the primary key of the expando row
-	 * @return the expando row that was removed
-	 * @throws com.liferay.portlet.expando.NoSuchRowException if a expando row with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ExpandoRow remove(long rowId)
-		throws NoSuchRowException, SystemException {
-		return remove(Long.valueOf(rowId));
 	}
 
 	@Override

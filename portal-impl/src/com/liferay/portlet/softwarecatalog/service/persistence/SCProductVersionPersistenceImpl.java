@@ -237,6 +237,19 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 	/**
 	 * Removes the s c product version with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param productVersionId the primary key of the s c product version
+	 * @return the s c product version that was removed
+	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductVersionException if a s c product version with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SCProductVersion remove(long productVersionId)
+		throws NoSuchProductVersionException, SystemException {
+		return remove(Long.valueOf(productVersionId));
+	}
+
+	/**
+	 * Removes the s c product version with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the s c product version
 	 * @return the s c product version that was removed
 	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductVersionException if a s c product version with the primary key could not be found
@@ -273,19 +286,6 @@ public class SCProductVersionPersistenceImpl extends BasePersistenceImpl<SCProdu
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the s c product version with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param productVersionId the primary key of the s c product version
-	 * @return the s c product version that was removed
-	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductVersionException if a s c product version with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SCProductVersion remove(long productVersionId)
-		throws NoSuchProductVersionException, SystemException {
-		return remove(Long.valueOf(productVersionId));
 	}
 
 	@Override

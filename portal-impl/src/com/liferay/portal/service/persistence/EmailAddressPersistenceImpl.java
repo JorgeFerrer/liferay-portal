@@ -287,6 +287,19 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	/**
 	 * Removes the email address with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param emailAddressId the primary key of the email address
+	 * @return the email address that was removed
+	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public EmailAddress remove(long emailAddressId)
+		throws NoSuchEmailAddressException, SystemException {
+		return remove(Long.valueOf(emailAddressId));
+	}
+
+	/**
+	 * Removes the email address with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the email address
 	 * @return the email address that was removed
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
@@ -323,19 +336,6 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the email address with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param emailAddressId the primary key of the email address
-	 * @return the email address that was removed
-	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public EmailAddress remove(long emailAddressId)
-		throws NoSuchEmailAddressException, SystemException {
-		return remove(Long.valueOf(emailAddressId));
 	}
 
 	@Override

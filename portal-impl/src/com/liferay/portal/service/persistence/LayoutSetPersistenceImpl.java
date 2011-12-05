@@ -246,6 +246,19 @@ public class LayoutSetPersistenceImpl extends BasePersistenceImpl<LayoutSet>
 	/**
 	 * Removes the layout set with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param layoutSetId the primary key of the layout set
+	 * @return the layout set that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutSetException if a layout set with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public LayoutSet remove(long layoutSetId)
+		throws NoSuchLayoutSetException, SystemException {
+		return remove(Long.valueOf(layoutSetId));
+	}
+
+	/**
+	 * Removes the layout set with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout set
 	 * @return the layout set that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutSetException if a layout set with the primary key could not be found
@@ -282,19 +295,6 @@ public class LayoutSetPersistenceImpl extends BasePersistenceImpl<LayoutSet>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout set with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param layoutSetId the primary key of the layout set
-	 * @return the layout set that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutSetException if a layout set with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public LayoutSet remove(long layoutSetId)
-		throws NoSuchLayoutSetException, SystemException {
-		return remove(Long.valueOf(layoutSetId));
 	}
 
 	@Override
@@ -439,6 +439,8 @@ public class LayoutSetPersistenceImpl extends BasePersistenceImpl<LayoutSet>
 		layoutSetImpl.setLayoutSetId(layoutSet.getLayoutSetId());
 		layoutSetImpl.setGroupId(layoutSet.getGroupId());
 		layoutSetImpl.setCompanyId(layoutSet.getCompanyId());
+		layoutSetImpl.setCreateDate(layoutSet.getCreateDate());
+		layoutSetImpl.setModifiedDate(layoutSet.getModifiedDate());
 		layoutSetImpl.setPrivateLayout(layoutSet.isPrivateLayout());
 		layoutSetImpl.setLogo(layoutSet.isLogo());
 		layoutSetImpl.setLogoId(layoutSet.getLogoId());

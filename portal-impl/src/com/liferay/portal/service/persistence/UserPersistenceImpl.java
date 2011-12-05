@@ -439,6 +439,18 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Removes the user with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userId the primary key of the user
+	 * @return the user that was removed
+	 * @throws com.liferay.portal.NoSuchUserException if a user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User remove(long userId) throws NoSuchUserException, SystemException {
+		return remove(Long.valueOf(userId));
+	}
+
+	/**
+	 * Removes the user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user
 	 * @return the user that was removed
 	 * @throws com.liferay.portal.NoSuchUserException if a user with the primary key could not be found
@@ -474,18 +486,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userId the primary key of the user
-	 * @return the user that was removed
-	 * @throws com.liferay.portal.NoSuchUserException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public User remove(long userId) throws NoSuchUserException, SystemException {
-		return remove(Long.valueOf(userId));
 	}
 
 	@Override

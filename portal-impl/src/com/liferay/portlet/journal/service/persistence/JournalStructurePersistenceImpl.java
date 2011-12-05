@@ -331,6 +331,19 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	/**
 	 * Removes the journal structure with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param id the primary key of the journal structure
+	 * @return the journal structure that was removed
+	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalStructure remove(long id)
+		throws NoSuchStructureException, SystemException {
+		return remove(Long.valueOf(id));
+	}
+
+	/**
+	 * Removes the journal structure with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the journal structure
 	 * @return the journal structure that was removed
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
@@ -367,19 +380,6 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the journal structure with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param id the primary key of the journal structure
-	 * @return the journal structure that was removed
-	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public JournalStructure remove(long id)
-		throws NoSuchStructureException, SystemException {
-		return remove(Long.valueOf(id));
 	}
 
 	@Override

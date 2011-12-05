@@ -294,6 +294,19 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	/**
 	 * Removes the message boards category with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param categoryId the primary key of the message boards category
+	 * @return the message boards category that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchCategoryException if a message boards category with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBCategory remove(long categoryId)
+		throws NoSuchCategoryException, SystemException {
+		return remove(Long.valueOf(categoryId));
+	}
+
+	/**
+	 * Removes the message boards category with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards category
 	 * @return the message boards category that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchCategoryException if a message boards category with the primary key could not be found
@@ -330,19 +343,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards category with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param categoryId the primary key of the message boards category
-	 * @return the message boards category that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchCategoryException if a message boards category with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBCategory remove(long categoryId)
-		throws NoSuchCategoryException, SystemException {
-		return remove(Long.valueOf(categoryId));
 	}
 
 	@Override

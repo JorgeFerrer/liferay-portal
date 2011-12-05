@@ -265,6 +265,18 @@ public class MBBanPersistenceImpl extends BasePersistenceImpl<MBBan>
 	/**
 	 * Removes the message boards ban with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param banId the primary key of the message boards ban
+	 * @return the message boards ban that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchBanException if a message boards ban with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBBan remove(long banId) throws NoSuchBanException, SystemException {
+		return remove(Long.valueOf(banId));
+	}
+
+	/**
+	 * Removes the message boards ban with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards ban
 	 * @return the message boards ban that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchBanException if a message boards ban with the primary key could not be found
@@ -300,18 +312,6 @@ public class MBBanPersistenceImpl extends BasePersistenceImpl<MBBan>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards ban with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param banId the primary key of the message boards ban
-	 * @return the message boards ban that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchBanException if a message boards ban with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBBan remove(long banId) throws NoSuchBanException, SystemException {
-		return remove(Long.valueOf(banId));
 	}
 
 	@Override

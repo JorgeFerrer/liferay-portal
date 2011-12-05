@@ -165,7 +165,7 @@ public class ServiceBuilder {
 				"\tservice.api.dir=${project.dir}/portal-service/src\n" +
 				"\tservice.impl.dir=src\n" +
 				"\tservice.json.file=${project.dir}/portal-web/docroot/html/js/liferay/service_unpacked.js\n" +
-				"\tservice.remoting.file=${project.dir}/tunnel-web/docroot/WEB-INF/remoting-servlet.xml\n" +
+				"\tservice.remoting.file=${project.dir}/portal-web/docroot/WEB-INF/remoting-servlet.xml\n" +
 				"\tservice.sql.dir=../sql\n" +
 				"\tservice.sql.file=portal-tables.sql\n" +
 				"\tservice.sql.indexes.file=indexes.sql\n" +

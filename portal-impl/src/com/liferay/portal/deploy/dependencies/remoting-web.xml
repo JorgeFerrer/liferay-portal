@@ -124,55 +124,55 @@
 </filter>
 <filter-mapping>
 	<filter-name>Thread Local Filter</filter-name>
-	<url-pattern>/atom/*</url-pattern>
+	<url-pattern>/api/atom/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Thread Local Filter</filter-name>
-	<url-pattern>/axis/*</url-pattern>
+	<url-pattern>/api/axis/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Thread Local Filter</filter-name>
-	<url-pattern>/json/*</url-pattern>
+	<url-pattern>/api/json/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Thread Local Filter</filter-name>
-	<url-pattern>/jsonws/*</url-pattern>
+	<url-pattern>/api/jsonws/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Thread Local Filter</filter-name>
-	<url-pattern>/secure/*</url-pattern>
+	<url-pattern>/api/secure/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Atom Servlet Filter</filter-name>
-	<url-pattern>/atom/*</url-pattern>
+	<url-pattern>/api/atom/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Axis Servlet Filter</filter-name>
-	<url-pattern>/axis/*</url-pattern>
+	<url-pattern>/api/axis/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>JSON Servlet Filter</filter-name>
-	<url-pattern>/json/*</url-pattern>
+	<url-pattern>/api/json/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>JSON Web Service Servlet Filter</filter-name>
-	<url-pattern>/jsonws/*</url-pattern>
+	<url-pattern>/api/jsonws/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Secure Atom Servlet Filter</filter-name>
-	<url-pattern>/secure/atom/*</url-pattern>
+	<url-pattern>/api/secure/atom/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Secure Axis Servlet Filter</filter-name>
-	<url-pattern>/secure/axis/*</url-pattern>
+	<url-pattern>/api/secure/axis/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Secure JSON Servlet Filter</filter-name>
-	<url-pattern>/secure/json/*</url-pattern>
+	<url-pattern>/api/secure/json/*</url-pattern>
 </filter-mapping>
 <filter-mapping>
 	<filter-name>Secure JSON Web Service Servlet Filter</filter-name>
-	<url-pattern>/secure/jsonws/*</url-pattern>
+	<url-pattern>/api/secure/jsonws/*</url-pattern>
 </filter-mapping>
 <servlet>
 	<servlet-name>Set Portlet Class Loader Servlet</servlet-name>
@@ -229,33 +229,33 @@
 </servlet>
 <servlet-mapping>
 	<servlet-name>Atom Servlet</servlet-name>
-	<url-pattern>/atom/*</url-pattern>
+	<url-pattern>/api/atom/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>Atom Servlet</servlet-name>
-	<url-pattern>/secure/atom/*</url-pattern>
+	<url-pattern>/api/secure/atom/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>Axis Servlet</servlet-name>
-	<url-pattern>/axis/*</url-pattern>
+	<url-pattern>/api/axis/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>Axis Servlet</servlet-name>
-	<url-pattern>/secure/axis/*</url-pattern>
+	<url-pattern>/api/secure/axis/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>JSON Servlet</servlet-name>
-	<url-pattern>/json/*</url-pattern>
+	<url-pattern>/api/json/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>JSON Servlet</servlet-name>
-	<url-pattern>/secure/json/*</url-pattern>
+	<url-pattern>/api/secure/json/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>JSON Web Service Servlet</servlet-name>
-	<url-pattern>/jsonws/*</url-pattern>
+	<url-pattern>/api/jsonws/*</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>JSON Web Service Servlet</servlet-name>
-	<url-pattern>/secure/jsonws/*</url-pattern>
+	<url-pattern>/api/secure/jsonws/*</url-pattern>
 </servlet-mapping>

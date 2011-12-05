@@ -35,6 +35,7 @@
 					data: {
 						cmd: 'delete',
 						doAsUserId: event.doAsUserId,
+						hostGroupId: themeDisplay.getGroupId(),
 						p_l_id: event.plid,
 						p_p_id: event.portletId
 					}
@@ -163,6 +164,7 @@
 				cmd: 'add',
 				dataType: 'json',
 				doAsUserId: doAsUserId,
+				hostGroupId: themeDisplay.getGroupId(),
 				p_l_id: plid,
 				p_p_col_id: currentColumnId,
 				p_p_col_pos: portletPosition,
@@ -433,6 +435,7 @@
 							data: {
 								cmd: 'minimize',
 								doAsUserId: doAsUserId,
+								hostGroupId: themeDisplay.getGroupId(),
 								p_l_id: plid,
 								p_p_id: portlet.portletId,
 								p_p_restore: restore
@@ -522,11 +525,11 @@
 			portlet = A.one(portlet);
 
 			if (portlet) {
-				data = data || {
-					portletAjaxable: true
-				};
+				data = data || {};
 
-				var ajaxable = data.portletAjaxable;
+                if (!A.Object.owns(data, 'portletAjaxable')) {
+                    data.portletAjaxable = true;
+                }
 
 				var id = portlet.attr('portlet');
 
@@ -534,7 +537,7 @@
 
 				var placeHolder = A.Node.create('<div class="loading-animation" id="p_load' + id + '" />');
 
-				if (ajaxable && url) {
+				if (data.portletAjaxable && url) {
 					portlet.placeBefore(placeHolder);
 
 					portlet.remove(true);

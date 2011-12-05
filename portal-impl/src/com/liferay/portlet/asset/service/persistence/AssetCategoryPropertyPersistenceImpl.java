@@ -283,6 +283,19 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	/**
 	 * Removes the asset category property with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param categoryPropertyId the primary key of the asset category property
+	 * @return the asset category property that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchCategoryPropertyException if a asset category property with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty remove(long categoryPropertyId)
+		throws NoSuchCategoryPropertyException, SystemException {
+		return remove(Long.valueOf(categoryPropertyId));
+	}
+
+	/**
+	 * Removes the asset category property with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset category property
 	 * @return the asset category property that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchCategoryPropertyException if a asset category property with the primary key could not be found
@@ -319,19 +332,6 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset category property with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param categoryPropertyId the primary key of the asset category property
-	 * @return the asset category property that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchCategoryPropertyException if a asset category property with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetCategoryProperty remove(long categoryPropertyId)
-		throws NoSuchCategoryPropertyException, SystemException {
-		return remove(Long.valueOf(categoryPropertyId));
 	}
 
 	@Override

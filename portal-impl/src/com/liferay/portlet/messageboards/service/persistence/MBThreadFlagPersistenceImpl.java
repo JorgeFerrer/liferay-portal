@@ -246,6 +246,19 @@ public class MBThreadFlagPersistenceImpl extends BasePersistenceImpl<MBThreadFla
 	/**
 	 * Removes the message boards thread flag with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param threadFlagId the primary key of the message boards thread flag
+	 * @return the message boards thread flag that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchThreadFlagException if a message boards thread flag with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThreadFlag remove(long threadFlagId)
+		throws NoSuchThreadFlagException, SystemException {
+		return remove(Long.valueOf(threadFlagId));
+	}
+
+	/**
+	 * Removes the message boards thread flag with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards thread flag
 	 * @return the message boards thread flag that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchThreadFlagException if a message boards thread flag with the primary key could not be found
@@ -282,19 +295,6 @@ public class MBThreadFlagPersistenceImpl extends BasePersistenceImpl<MBThreadFla
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards thread flag with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param threadFlagId the primary key of the message boards thread flag
-	 * @return the message boards thread flag that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchThreadFlagException if a message boards thread flag with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBThreadFlag remove(long threadFlagId)
-		throws NoSuchThreadFlagException, SystemException {
-		return remove(Long.valueOf(threadFlagId));
 	}
 
 	@Override

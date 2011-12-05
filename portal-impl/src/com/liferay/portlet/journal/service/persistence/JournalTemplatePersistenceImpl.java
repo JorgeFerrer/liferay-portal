@@ -348,6 +348,19 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Removes the journal template with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param id the primary key of the journal template
+	 * @return the journal template that was removed
+	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate remove(long id)
+		throws NoSuchTemplateException, SystemException {
+		return remove(Long.valueOf(id));
+	}
+
+	/**
+	 * Removes the journal template with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the journal template
 	 * @return the journal template that was removed
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
@@ -384,19 +397,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the journal template with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param id the primary key of the journal template
-	 * @return the journal template that was removed
-	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public JournalTemplate remove(long id)
-		throws NoSuchTemplateException, SystemException {
-		return remove(Long.valueOf(id));
 	}
 
 	@Override

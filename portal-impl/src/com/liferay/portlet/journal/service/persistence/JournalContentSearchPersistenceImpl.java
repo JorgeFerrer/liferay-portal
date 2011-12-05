@@ -392,6 +392,19 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 	/**
 	 * Removes the journal content search with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param contentSearchId the primary key of the journal content search
+	 * @return the journal content search that was removed
+	 * @throws com.liferay.portlet.journal.NoSuchContentSearchException if a journal content search with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalContentSearch remove(long contentSearchId)
+		throws NoSuchContentSearchException, SystemException {
+		return remove(Long.valueOf(contentSearchId));
+	}
+
+	/**
+	 * Removes the journal content search with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the journal content search
 	 * @return the journal content search that was removed
 	 * @throws com.liferay.portlet.journal.NoSuchContentSearchException if a journal content search with the primary key could not be found
@@ -428,19 +441,6 @@ public class JournalContentSearchPersistenceImpl extends BasePersistenceImpl<Jou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the journal content search with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param contentSearchId the primary key of the journal content search
-	 * @return the journal content search that was removed
-	 * @throws com.liferay.portlet.journal.NoSuchContentSearchException if a journal content search with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public JournalContentSearch remove(long contentSearchId)
-		throws NoSuchContentSearchException, SystemException {
-		return remove(Long.valueOf(contentSearchId));
 	}
 
 	@Override

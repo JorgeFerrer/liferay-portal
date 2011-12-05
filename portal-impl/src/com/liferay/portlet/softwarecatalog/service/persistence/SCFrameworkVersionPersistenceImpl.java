@@ -257,6 +257,19 @@ public class SCFrameworkVersionPersistenceImpl extends BasePersistenceImpl<SCFra
 	/**
 	 * Removes the s c framework version with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param frameworkVersionId the primary key of the s c framework version
+	 * @return the s c framework version that was removed
+	 * @throws com.liferay.portlet.softwarecatalog.NoSuchFrameworkVersionException if a s c framework version with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SCFrameworkVersion remove(long frameworkVersionId)
+		throws NoSuchFrameworkVersionException, SystemException {
+		return remove(Long.valueOf(frameworkVersionId));
+	}
+
+	/**
+	 * Removes the s c framework version with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the s c framework version
 	 * @return the s c framework version that was removed
 	 * @throws com.liferay.portlet.softwarecatalog.NoSuchFrameworkVersionException if a s c framework version with the primary key could not be found
@@ -293,19 +306,6 @@ public class SCFrameworkVersionPersistenceImpl extends BasePersistenceImpl<SCFra
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the s c framework version with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param frameworkVersionId the primary key of the s c framework version
-	 * @return the s c framework version that was removed
-	 * @throws com.liferay.portlet.softwarecatalog.NoSuchFrameworkVersionException if a s c framework version with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SCFrameworkVersion remove(long frameworkVersionId)
-		throws NoSuchFrameworkVersionException, SystemException {
-		return remove(Long.valueOf(frameworkVersionId));
 	}
 
 	@Override

@@ -254,6 +254,19 @@ public class UserGroupPersistenceImpl extends BasePersistenceImpl<UserGroup>
 	/**
 	 * Removes the user group with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userGroupId the primary key of the user group
+	 * @return the user group that was removed
+	 * @throws com.liferay.portal.NoSuchUserGroupException if a user group with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UserGroup remove(long userGroupId)
+		throws NoSuchUserGroupException, SystemException {
+		return remove(Long.valueOf(userGroupId));
+	}
+
+	/**
+	 * Removes the user group with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user group
 	 * @return the user group that was removed
 	 * @throws com.liferay.portal.NoSuchUserGroupException if a user group with the primary key could not be found
@@ -290,19 +303,6 @@ public class UserGroupPersistenceImpl extends BasePersistenceImpl<UserGroup>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user group with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userGroupId the primary key of the user group
-	 * @return the user group that was removed
-	 * @throws com.liferay.portal.NoSuchUserGroupException if a user group with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UserGroup remove(long userGroupId)
-		throws NoSuchUserGroupException, SystemException {
-		return remove(Long.valueOf(userGroupId));
 	}
 
 	@Override
@@ -484,8 +484,6 @@ public class UserGroupPersistenceImpl extends BasePersistenceImpl<UserGroup>
 		userGroupImpl.setParentUserGroupId(userGroup.getParentUserGroupId());
 		userGroupImpl.setName(userGroup.getName());
 		userGroupImpl.setDescription(userGroup.getDescription());
-		userGroupImpl.setPublicLayoutSetPrototypeId(userGroup.getPublicLayoutSetPrototypeId());
-		userGroupImpl.setPrivateLayoutSetPrototypeId(userGroup.getPrivateLayoutSetPrototypeId());
 		userGroupImpl.setAddedByLDAPImport(userGroup.isAddedByLDAPImport());
 
 		return userGroupImpl;

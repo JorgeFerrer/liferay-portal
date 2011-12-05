@@ -196,6 +196,19 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 	/**
 	 * Removes the image with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param imageId the primary key of the image
+	 * @return the image that was removed
+	 * @throws com.liferay.portal.NoSuchImageException if a image with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Image remove(long imageId)
+		throws NoSuchImageException, SystemException {
+		return remove(Long.valueOf(imageId));
+	}
+
+	/**
+	 * Removes the image with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the image
 	 * @return the image that was removed
 	 * @throws com.liferay.portal.NoSuchImageException if a image with the primary key could not be found
@@ -231,19 +244,6 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the image with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param imageId the primary key of the image
-	 * @return the image that was removed
-	 * @throws com.liferay.portal.NoSuchImageException if a image with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Image remove(long imageId)
-		throws NoSuchImageException, SystemException {
-		return remove(Long.valueOf(imageId));
 	}
 
 	@Override

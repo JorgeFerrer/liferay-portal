@@ -197,6 +197,19 @@ public class ReleasePersistenceImpl extends BasePersistenceImpl<Release>
 	/**
 	 * Removes the release with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param releaseId the primary key of the release
+	 * @return the release that was removed
+	 * @throws com.liferay.portal.NoSuchReleaseException if a release with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Release remove(long releaseId)
+		throws NoSuchReleaseException, SystemException {
+		return remove(Long.valueOf(releaseId));
+	}
+
+	/**
+	 * Removes the release with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the release
 	 * @return the release that was removed
 	 * @throws com.liferay.portal.NoSuchReleaseException if a release with the primary key could not be found
@@ -232,19 +245,6 @@ public class ReleasePersistenceImpl extends BasePersistenceImpl<Release>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the release with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param releaseId the primary key of the release
-	 * @return the release that was removed
-	 * @throws com.liferay.portal.NoSuchReleaseException if a release with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Release remove(long releaseId)
-		throws NoSuchReleaseException, SystemException {
-		return remove(Long.valueOf(releaseId));
 	}
 
 	@Override

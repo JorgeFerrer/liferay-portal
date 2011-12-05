@@ -202,6 +202,19 @@ public class UserTrackerPathPersistenceImpl extends BasePersistenceImpl<UserTrac
 	/**
 	 * Removes the user tracker path with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userTrackerPathId the primary key of the user tracker path
+	 * @return the user tracker path that was removed
+	 * @throws com.liferay.portal.NoSuchUserTrackerPathException if a user tracker path with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UserTrackerPath remove(long userTrackerPathId)
+		throws NoSuchUserTrackerPathException, SystemException {
+		return remove(Long.valueOf(userTrackerPathId));
+	}
+
+	/**
+	 * Removes the user tracker path with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user tracker path
 	 * @return the user tracker path that was removed
 	 * @throws com.liferay.portal.NoSuchUserTrackerPathException if a user tracker path with the primary key could not be found
@@ -238,19 +251,6 @@ public class UserTrackerPathPersistenceImpl extends BasePersistenceImpl<UserTrac
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user tracker path with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userTrackerPathId the primary key of the user tracker path
-	 * @return the user tracker path that was removed
-	 * @throws com.liferay.portal.NoSuchUserTrackerPathException if a user tracker path with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UserTrackerPath remove(long userTrackerPathId)
-		throws NoSuchUserTrackerPathException, SystemException {
-		return remove(Long.valueOf(userTrackerPathId));
 	}
 
 	@Override

@@ -299,6 +299,19 @@ public class DLContentPersistenceImpl extends BasePersistenceImpl<DLContent>
 	/**
 	 * Removes the document library content with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param contentId the primary key of the document library content
+	 * @return the document library content that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchContentException if a document library content with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLContent remove(long contentId)
+		throws NoSuchContentException, SystemException {
+		return remove(Long.valueOf(contentId));
+	}
+
+	/**
+	 * Removes the document library content with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library content
 	 * @return the document library content that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchContentException if a document library content with the primary key could not be found
@@ -335,19 +348,6 @@ public class DLContentPersistenceImpl extends BasePersistenceImpl<DLContent>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library content with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param contentId the primary key of the document library content
-	 * @return the document library content that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchContentException if a document library content with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLContent remove(long contentId)
-		throws NoSuchContentException, SystemException {
-		return remove(Long.valueOf(contentId));
 	}
 
 	@Override

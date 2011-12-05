@@ -196,6 +196,19 @@ public class OrgLaborPersistenceImpl extends BasePersistenceImpl<OrgLabor>
 	/**
 	 * Removes the org labor with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param orgLaborId the primary key of the org labor
+	 * @return the org labor that was removed
+	 * @throws com.liferay.portal.NoSuchOrgLaborException if a org labor with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrgLabor remove(long orgLaborId)
+		throws NoSuchOrgLaborException, SystemException {
+		return remove(Long.valueOf(orgLaborId));
+	}
+
+	/**
+	 * Removes the org labor with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the org labor
 	 * @return the org labor that was removed
 	 * @throws com.liferay.portal.NoSuchOrgLaborException if a org labor with the primary key could not be found
@@ -232,19 +245,6 @@ public class OrgLaborPersistenceImpl extends BasePersistenceImpl<OrgLabor>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the org labor with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param orgLaborId the primary key of the org labor
-	 * @return the org labor that was removed
-	 * @throws com.liferay.portal.NoSuchOrgLaborException if a org labor with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OrgLabor remove(long orgLaborId)
-		throws NoSuchOrgLaborException, SystemException {
-		return remove(Long.valueOf(orgLaborId));
 	}
 
 	@Override

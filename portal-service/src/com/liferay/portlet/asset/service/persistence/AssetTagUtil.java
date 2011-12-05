@@ -95,13 +95,6 @@ public class AssetTagUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#remove(com.liferay.portal.model.BaseModel)
-	 */
-	public static AssetTag remove(AssetTag assetTag) throws SystemException {
-		return getPersistence().remove(assetTag);
-	}
-
-	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
 	 */
 	public static AssetTag update(AssetTag assetTag, boolean merge)

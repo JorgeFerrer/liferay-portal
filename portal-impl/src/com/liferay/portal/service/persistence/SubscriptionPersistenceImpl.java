@@ -282,6 +282,19 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	/**
 	 * Removes the subscription with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param subscriptionId the primary key of the subscription
+	 * @return the subscription that was removed
+	 * @throws com.liferay.portal.NoSuchSubscriptionException if a subscription with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Subscription remove(long subscriptionId)
+		throws NoSuchSubscriptionException, SystemException {
+		return remove(Long.valueOf(subscriptionId));
+	}
+
+	/**
+	 * Removes the subscription with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the subscription
 	 * @return the subscription that was removed
 	 * @throws com.liferay.portal.NoSuchSubscriptionException if a subscription with the primary key could not be found
@@ -318,19 +331,6 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the subscription with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param subscriptionId the primary key of the subscription
-	 * @return the subscription that was removed
-	 * @throws com.liferay.portal.NoSuchSubscriptionException if a subscription with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Subscription remove(long subscriptionId)
-		throws NoSuchSubscriptionException, SystemException {
-		return remove(Long.valueOf(subscriptionId));
 	}
 
 	@Override

@@ -253,6 +253,19 @@ public class DDMStorageLinkPersistenceImpl extends BasePersistenceImpl<DDMStorag
 	/**
 	 * Removes the d d m storage link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param storageLinkId the primary key of the d d m storage link
+	 * @return the d d m storage link that was removed
+	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStorageLinkException if a d d m storage link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDMStorageLink remove(long storageLinkId)
+		throws NoSuchStorageLinkException, SystemException {
+		return remove(Long.valueOf(storageLinkId));
+	}
+
+	/**
+	 * Removes the d d m storage link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d m storage link
 	 * @return the d d m storage link that was removed
 	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStorageLinkException if a d d m storage link with the primary key could not be found
@@ -289,19 +302,6 @@ public class DDMStorageLinkPersistenceImpl extends BasePersistenceImpl<DDMStorag
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d m storage link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param storageLinkId the primary key of the d d m storage link
-	 * @return the d d m storage link that was removed
-	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStorageLinkException if a d d m storage link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDMStorageLink remove(long storageLinkId)
-		throws NoSuchStorageLinkException, SystemException {
-		return remove(Long.valueOf(storageLinkId));
 	}
 
 	@Override

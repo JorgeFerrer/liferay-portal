@@ -205,6 +205,19 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param itemFieldId the primary key of the shopping item field
+	 * @return the shopping item field that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingItemField remove(long itemFieldId)
+		throws NoSuchItemFieldException, SystemException {
+		return remove(Long.valueOf(itemFieldId));
+	}
+
+	/**
+	 * Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping item field
 	 * @return the shopping item field that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
@@ -241,19 +254,6 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param itemFieldId the primary key of the shopping item field
-	 * @return the shopping item field that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingItemField remove(long itemFieldId)
-		throws NoSuchItemFieldException, SystemException {
-		return remove(Long.valueOf(itemFieldId));
 	}
 
 	@Override

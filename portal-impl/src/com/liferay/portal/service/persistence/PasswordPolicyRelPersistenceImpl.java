@@ -261,6 +261,19 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 	/**
 	 * Removes the password policy rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param passwordPolicyRelId the primary key of the password policy rel
+	 * @return the password policy rel that was removed
+	 * @throws com.liferay.portal.NoSuchPasswordPolicyRelException if a password policy rel with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PasswordPolicyRel remove(long passwordPolicyRelId)
+		throws NoSuchPasswordPolicyRelException, SystemException {
+		return remove(Long.valueOf(passwordPolicyRelId));
+	}
+
+	/**
+	 * Removes the password policy rel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the password policy rel
 	 * @return the password policy rel that was removed
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyRelException if a password policy rel with the primary key could not be found
@@ -297,19 +310,6 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the password policy rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param passwordPolicyRelId the primary key of the password policy rel
-	 * @return the password policy rel that was removed
-	 * @throws com.liferay.portal.NoSuchPasswordPolicyRelException if a password policy rel with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PasswordPolicyRel remove(long passwordPolicyRelId)
-		throws NoSuchPasswordPolicyRelException, SystemException {
-		return remove(Long.valueOf(passwordPolicyRelId));
 	}
 
 	@Override

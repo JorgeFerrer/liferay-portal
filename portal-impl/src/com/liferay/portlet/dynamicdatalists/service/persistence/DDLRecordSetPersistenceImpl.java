@@ -277,6 +277,19 @@ public class DDLRecordSetPersistenceImpl extends BasePersistenceImpl<DDLRecordSe
 	/**
 	 * Removes the d d l record set with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param recordSetId the primary key of the d d l record set
+	 * @return the d d l record set that was removed
+	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordSetException if a d d l record set with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDLRecordSet remove(long recordSetId)
+		throws NoSuchRecordSetException, SystemException {
+		return remove(Long.valueOf(recordSetId));
+	}
+
+	/**
+	 * Removes the d d l record set with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d l record set
 	 * @return the d d l record set that was removed
 	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordSetException if a d d l record set with the primary key could not be found
@@ -313,19 +326,6 @@ public class DDLRecordSetPersistenceImpl extends BasePersistenceImpl<DDLRecordSe
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d l record set with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param recordSetId the primary key of the d d l record set
-	 * @return the d d l record set that was removed
-	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordSetException if a d d l record set with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDLRecordSet remove(long recordSetId)
-		throws NoSuchRecordSetException, SystemException {
-		return remove(Long.valueOf(recordSetId));
 	}
 
 	@Override

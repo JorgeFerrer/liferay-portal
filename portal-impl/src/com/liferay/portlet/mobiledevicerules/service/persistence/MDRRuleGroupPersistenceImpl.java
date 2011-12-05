@@ -252,6 +252,19 @@ public class MDRRuleGroupPersistenceImpl extends BasePersistenceImpl<MDRRuleGrou
 	/**
 	 * Removes the m d r rule group with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param ruleGroupId the primary key of the m d r rule group
+	 * @return the m d r rule group that was removed
+	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupException if a m d r rule group with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MDRRuleGroup remove(long ruleGroupId)
+		throws NoSuchRuleGroupException, SystemException {
+		return remove(Long.valueOf(ruleGroupId));
+	}
+
+	/**
+	 * Removes the m d r rule group with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the m d r rule group
 	 * @return the m d r rule group that was removed
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupException if a m d r rule group with the primary key could not be found
@@ -288,19 +301,6 @@ public class MDRRuleGroupPersistenceImpl extends BasePersistenceImpl<MDRRuleGrou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the m d r rule group with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param ruleGroupId the primary key of the m d r rule group
-	 * @return the m d r rule group that was removed
-	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupException if a m d r rule group with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MDRRuleGroup remove(long ruleGroupId)
-		throws NoSuchRuleGroupException, SystemException {
-		return remove(Long.valueOf(ruleGroupId));
 	}
 
 	@Override

@@ -446,6 +446,19 @@ public class SocialActivityPersistenceImpl extends BasePersistenceImpl<SocialAct
 	/**
 	 * Removes the social activity with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param activityId the primary key of the social activity
+	 * @return the social activity that was removed
+	 * @throws com.liferay.portlet.social.NoSuchActivityException if a social activity with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivity remove(long activityId)
+		throws NoSuchActivityException, SystemException {
+		return remove(Long.valueOf(activityId));
+	}
+
+	/**
+	 * Removes the social activity with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social activity
 	 * @return the social activity that was removed
 	 * @throws com.liferay.portlet.social.NoSuchActivityException if a social activity with the primary key could not be found
@@ -482,19 +495,6 @@ public class SocialActivityPersistenceImpl extends BasePersistenceImpl<SocialAct
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social activity with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param activityId the primary key of the social activity
-	 * @return the social activity that was removed
-	 * @throws com.liferay.portlet.social.NoSuchActivityException if a social activity with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialActivity remove(long activityId)
-		throws NoSuchActivityException, SystemException {
-		return remove(Long.valueOf(activityId));
 	}
 
 	@Override

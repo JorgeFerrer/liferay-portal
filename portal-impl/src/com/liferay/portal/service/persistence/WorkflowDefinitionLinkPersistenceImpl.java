@@ -279,6 +279,19 @@ public class WorkflowDefinitionLinkPersistenceImpl extends BasePersistenceImpl<W
 	/**
 	 * Removes the workflow definition link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param workflowDefinitionLinkId the primary key of the workflow definition link
+	 * @return the workflow definition link that was removed
+	 * @throws com.liferay.portal.NoSuchWorkflowDefinitionLinkException if a workflow definition link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public WorkflowDefinitionLink remove(long workflowDefinitionLinkId)
+		throws NoSuchWorkflowDefinitionLinkException, SystemException {
+		return remove(Long.valueOf(workflowDefinitionLinkId));
+	}
+
+	/**
+	 * Removes the workflow definition link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the workflow definition link
 	 * @return the workflow definition link that was removed
 	 * @throws com.liferay.portal.NoSuchWorkflowDefinitionLinkException if a workflow definition link with the primary key could not be found
@@ -315,19 +328,6 @@ public class WorkflowDefinitionLinkPersistenceImpl extends BasePersistenceImpl<W
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the workflow definition link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param workflowDefinitionLinkId the primary key of the workflow definition link
-	 * @return the workflow definition link that was removed
-	 * @throws com.liferay.portal.NoSuchWorkflowDefinitionLinkException if a workflow definition link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public WorkflowDefinitionLink remove(long workflowDefinitionLinkId)
-		throws NoSuchWorkflowDefinitionLinkException, SystemException {
-		return remove(Long.valueOf(workflowDefinitionLinkId));
 	}
 
 	@Override

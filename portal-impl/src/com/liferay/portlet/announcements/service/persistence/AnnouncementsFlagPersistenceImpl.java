@@ -243,6 +243,19 @@ public class AnnouncementsFlagPersistenceImpl extends BasePersistenceImpl<Announ
 	/**
 	 * Removes the announcements flag with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param flagId the primary key of the announcements flag
+	 * @return the announcements flag that was removed
+	 * @throws com.liferay.portlet.announcements.NoSuchFlagException if a announcements flag with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AnnouncementsFlag remove(long flagId)
+		throws NoSuchFlagException, SystemException {
+		return remove(Long.valueOf(flagId));
+	}
+
+	/**
+	 * Removes the announcements flag with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the announcements flag
 	 * @return the announcements flag that was removed
 	 * @throws com.liferay.portlet.announcements.NoSuchFlagException if a announcements flag with the primary key could not be found
@@ -279,19 +292,6 @@ public class AnnouncementsFlagPersistenceImpl extends BasePersistenceImpl<Announ
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the announcements flag with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param flagId the primary key of the announcements flag
-	 * @return the announcements flag that was removed
-	 * @throws com.liferay.portlet.announcements.NoSuchFlagException if a announcements flag with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AnnouncementsFlag remove(long flagId)
-		throws NoSuchFlagException, SystemException {
-		return remove(Long.valueOf(flagId));
 	}
 
 	@Override

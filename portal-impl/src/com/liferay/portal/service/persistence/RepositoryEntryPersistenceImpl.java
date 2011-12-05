@@ -281,6 +281,19 @@ public class RepositoryEntryPersistenceImpl extends BasePersistenceImpl<Reposito
 	/**
 	 * Removes the repository entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param repositoryEntryId the primary key of the repository entry
+	 * @return the repository entry that was removed
+	 * @throws com.liferay.portal.NoSuchRepositoryEntryException if a repository entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public RepositoryEntry remove(long repositoryEntryId)
+		throws NoSuchRepositoryEntryException, SystemException {
+		return remove(Long.valueOf(repositoryEntryId));
+	}
+
+	/**
+	 * Removes the repository entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the repository entry
 	 * @return the repository entry that was removed
 	 * @throws com.liferay.portal.NoSuchRepositoryEntryException if a repository entry with the primary key could not be found
@@ -317,19 +330,6 @@ public class RepositoryEntryPersistenceImpl extends BasePersistenceImpl<Reposito
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the repository entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param repositoryEntryId the primary key of the repository entry
-	 * @return the repository entry that was removed
-	 * @throws com.liferay.portal.NoSuchRepositoryEntryException if a repository entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public RepositoryEntry remove(long repositoryEntryId)
-		throws NoSuchRepositoryEntryException, SystemException {
-		return remove(Long.valueOf(repositoryEntryId));
 	}
 
 	@Override

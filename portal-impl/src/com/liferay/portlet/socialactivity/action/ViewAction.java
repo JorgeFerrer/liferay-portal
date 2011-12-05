@@ -50,8 +50,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 /**
-* @author Zsolt Szabó
-*/
+ * @author Zsolt Szabó
+ */
 public class ViewAction extends PortletAction {
 
 	@Override

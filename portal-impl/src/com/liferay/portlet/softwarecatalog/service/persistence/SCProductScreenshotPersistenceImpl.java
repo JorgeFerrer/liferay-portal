@@ -270,6 +270,19 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 	/**
 	 * Removes the s c product screenshot with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param productScreenshotId the primary key of the s c product screenshot
+	 * @return the s c product screenshot that was removed
+	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductScreenshotException if a s c product screenshot with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SCProductScreenshot remove(long productScreenshotId)
+		throws NoSuchProductScreenshotException, SystemException {
+		return remove(Long.valueOf(productScreenshotId));
+	}
+
+	/**
+	 * Removes the s c product screenshot with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the s c product screenshot
 	 * @return the s c product screenshot that was removed
 	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductScreenshotException if a s c product screenshot with the primary key could not be found
@@ -306,19 +319,6 @@ public class SCProductScreenshotPersistenceImpl extends BasePersistenceImpl<SCPr
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the s c product screenshot with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param productScreenshotId the primary key of the s c product screenshot
-	 * @return the s c product screenshot that was removed
-	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductScreenshotException if a s c product screenshot with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SCProductScreenshot remove(long productScreenshotId)
-		throws NoSuchProductScreenshotException, SystemException {
-		return remove(Long.valueOf(productScreenshotId));
 	}
 
 	@Override

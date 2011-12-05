@@ -204,6 +204,19 @@ public class WebDAVPropsPersistenceImpl extends BasePersistenceImpl<WebDAVProps>
 	/**
 	 * Removes the web d a v props with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param webDavPropsId the primary key of the web d a v props
+	 * @return the web d a v props that was removed
+	 * @throws com.liferay.portal.NoSuchWebDAVPropsException if a web d a v props with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public WebDAVProps remove(long webDavPropsId)
+		throws NoSuchWebDAVPropsException, SystemException {
+		return remove(Long.valueOf(webDavPropsId));
+	}
+
+	/**
+	 * Removes the web d a v props with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the web d a v props
 	 * @return the web d a v props that was removed
 	 * @throws com.liferay.portal.NoSuchWebDAVPropsException if a web d a v props with the primary key could not be found
@@ -240,19 +253,6 @@ public class WebDAVPropsPersistenceImpl extends BasePersistenceImpl<WebDAVProps>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the web d a v props with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param webDavPropsId the primary key of the web d a v props
-	 * @return the web d a v props that was removed
-	 * @throws com.liferay.portal.NoSuchWebDAVPropsException if a web d a v props with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public WebDAVProps remove(long webDavPropsId)
-		throws NoSuchWebDAVPropsException, SystemException {
-		return remove(Long.valueOf(webDavPropsId));
 	}
 
 	@Override

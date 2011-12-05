@@ -246,6 +246,19 @@ public class ShoppingCartPersistenceImpl extends BasePersistenceImpl<ShoppingCar
 	/**
 	 * Removes the shopping cart with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param cartId the primary key of the shopping cart
+	 * @return the shopping cart that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchCartException if a shopping cart with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingCart remove(long cartId)
+		throws NoSuchCartException, SystemException {
+		return remove(Long.valueOf(cartId));
+	}
+
+	/**
+	 * Removes the shopping cart with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping cart
 	 * @return the shopping cart that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchCartException if a shopping cart with the primary key could not be found
@@ -282,19 +295,6 @@ public class ShoppingCartPersistenceImpl extends BasePersistenceImpl<ShoppingCar
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping cart with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param cartId the primary key of the shopping cart
-	 * @return the shopping cart that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchCartException if a shopping cart with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingCart remove(long cartId)
-		throws NoSuchCartException, SystemException {
-		return remove(Long.valueOf(cartId));
 	}
 
 	@Override

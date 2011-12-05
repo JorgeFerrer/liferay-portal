@@ -314,6 +314,19 @@ public class DLFileShortcutPersistenceImpl extends BasePersistenceImpl<DLFileSho
 	/**
 	 * Removes the document library file shortcut with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileShortcutId the primary key of the document library file shortcut
+	 * @return the document library file shortcut that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileShortcutException if a document library file shortcut with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileShortcut remove(long fileShortcutId)
+		throws NoSuchFileShortcutException, SystemException {
+		return remove(Long.valueOf(fileShortcutId));
+	}
+
+	/**
+	 * Removes the document library file shortcut with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file shortcut
 	 * @return the document library file shortcut that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileShortcutException if a document library file shortcut with the primary key could not be found
@@ -350,19 +363,6 @@ public class DLFileShortcutPersistenceImpl extends BasePersistenceImpl<DLFileSho
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file shortcut with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileShortcutId the primary key of the document library file shortcut
-	 * @return the document library file shortcut that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileShortcutException if a document library file shortcut with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileShortcut remove(long fileShortcutId)
-		throws NoSuchFileShortcutException, SystemException {
-		return remove(Long.valueOf(fileShortcutId));
 	}
 
 	@Override

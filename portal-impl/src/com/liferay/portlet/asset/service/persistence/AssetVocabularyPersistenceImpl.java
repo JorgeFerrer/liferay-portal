@@ -309,6 +309,19 @@ public class AssetVocabularyPersistenceImpl extends BasePersistenceImpl<AssetVoc
 	/**
 	 * Removes the asset vocabulary with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param vocabularyId the primary key of the asset vocabulary
+	 * @return the asset vocabulary that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchVocabularyException if a asset vocabulary with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetVocabulary remove(long vocabularyId)
+		throws NoSuchVocabularyException, SystemException {
+		return remove(Long.valueOf(vocabularyId));
+	}
+
+	/**
+	 * Removes the asset vocabulary with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset vocabulary
 	 * @return the asset vocabulary that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchVocabularyException if a asset vocabulary with the primary key could not be found
@@ -345,19 +358,6 @@ public class AssetVocabularyPersistenceImpl extends BasePersistenceImpl<AssetVoc
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset vocabulary with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param vocabularyId the primary key of the asset vocabulary
-	 * @return the asset vocabulary that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchVocabularyException if a asset vocabulary with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetVocabulary remove(long vocabularyId)
-		throws NoSuchVocabularyException, SystemException {
-		return remove(Long.valueOf(vocabularyId));
 	}
 
 	@Override

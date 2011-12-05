@@ -121,6 +121,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		_publicPaths = new HashSet<String>();
 
 		_publicPaths.add(_PATH_C);
+		_publicPaths.add(_PATH_PORTAL_API_JSONWS);
 		_publicPaths.add(_PATH_PORTAL_EE_LICENSE);
 		_publicPaths.add(_PATH_PORTAL_FLASH);
 		_publicPaths.add(_PATH_PORTAL_J_LOGIN);
@@ -961,6 +962,8 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 	private static String _PATH_J_SECURITY_CHECK = "/j_security_check";
 
 	private static String _PATH_PORTAL = "/portal";
+
+	private static String _PATH_PORTAL_API_JSONWS = "/portal/api/jsonws";
 
 	private static String _PATH_PORTAL_EE_LICENSE = "/portal/ee/license";
 

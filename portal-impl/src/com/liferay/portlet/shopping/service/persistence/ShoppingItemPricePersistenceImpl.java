@@ -205,6 +205,19 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param itemPriceId the primary key of the shopping item price
+	 * @return the shopping item price that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingItemPrice remove(long itemPriceId)
+		throws NoSuchItemPriceException, SystemException {
+		return remove(Long.valueOf(itemPriceId));
+	}
+
+	/**
+	 * Removes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping item price
 	 * @return the shopping item price that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
@@ -241,19 +254,6 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param itemPriceId the primary key of the shopping item price
-	 * @return the shopping item price that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingItemPrice remove(long itemPriceId)
-		throws NoSuchItemPriceException, SystemException {
-		return remove(Long.valueOf(itemPriceId));
 	}
 
 	@Override

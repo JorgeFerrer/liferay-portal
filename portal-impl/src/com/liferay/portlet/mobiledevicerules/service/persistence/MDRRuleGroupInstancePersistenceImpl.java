@@ -344,6 +344,19 @@ public class MDRRuleGroupInstancePersistenceImpl extends BasePersistenceImpl<MDR
 	/**
 	 * Removes the m d r rule group instance with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param ruleGroupInstanceId the primary key of the m d r rule group instance
+	 * @return the m d r rule group instance that was removed
+	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupInstanceException if a m d r rule group instance with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MDRRuleGroupInstance remove(long ruleGroupInstanceId)
+		throws NoSuchRuleGroupInstanceException, SystemException {
+		return remove(Long.valueOf(ruleGroupInstanceId));
+	}
+
+	/**
+	 * Removes the m d r rule group instance with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the m d r rule group instance
 	 * @return the m d r rule group instance that was removed
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupInstanceException if a m d r rule group instance with the primary key could not be found
@@ -380,19 +393,6 @@ public class MDRRuleGroupInstancePersistenceImpl extends BasePersistenceImpl<MDR
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the m d r rule group instance with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param ruleGroupInstanceId the primary key of the m d r rule group instance
-	 * @return the m d r rule group instance that was removed
-	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleGroupInstanceException if a m d r rule group instance with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MDRRuleGroupInstance remove(long ruleGroupInstanceId)
-		throws NoSuchRuleGroupInstanceException, SystemException {
-		return remove(Long.valueOf(ruleGroupInstanceId));
 	}
 
 	@Override

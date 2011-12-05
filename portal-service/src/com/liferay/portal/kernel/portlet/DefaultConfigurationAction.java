@@ -117,11 +117,15 @@ public class DefaultConfigurationAction
 			portletPreferences.store();
 
 			SessionMessages.add(
-				actionRequest, portletConfig.getPortletName() + ".doConfigure");
+				actionRequest,
+				portletConfig.getPortletName() +
+					SessionMessages.KEY_SUFFIX_REFRESH_PORTLET,
+				portletResource);
 
 			SessionMessages.add(
-				actionRequest, portletConfig.getPortletName() + ".doRefresh",
-				portletResource);
+				actionRequest,
+				portletConfig.getPortletName() +
+					SessionMessages.KEY_SUFFIX_UPDATED_CONFIGURATION);
 		}
 	}
 

@@ -395,6 +395,19 @@ public class DLFolderPersistenceImpl extends BasePersistenceImpl<DLFolder>
 	/**
 	 * Removes the document library folder with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param folderId the primary key of the document library folder
+	 * @return the document library folder that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFolderException if a document library folder with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFolder remove(long folderId)
+		throws NoSuchFolderException, SystemException {
+		return remove(Long.valueOf(folderId));
+	}
+
+	/**
+	 * Removes the document library folder with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library folder
 	 * @return the document library folder that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFolderException if a document library folder with the primary key could not be found
@@ -431,19 +444,6 @@ public class DLFolderPersistenceImpl extends BasePersistenceImpl<DLFolder>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library folder with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param folderId the primary key of the document library folder
-	 * @return the document library folder that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFolderException if a document library folder with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFolder remove(long folderId)
-		throws NoSuchFolderException, SystemException {
-		return remove(Long.valueOf(folderId));
 	}
 
 	@Override

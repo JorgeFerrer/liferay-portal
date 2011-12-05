@@ -310,6 +310,19 @@ public class AssetLinkPersistenceImpl extends BasePersistenceImpl<AssetLink>
 	/**
 	 * Removes the asset link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param linkId the primary key of the asset link
+	 * @return the asset link that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchLinkException if a asset link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetLink remove(long linkId)
+		throws NoSuchLinkException, SystemException {
+		return remove(Long.valueOf(linkId));
+	}
+
+	/**
+	 * Removes the asset link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset link
 	 * @return the asset link that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchLinkException if a asset link with the primary key could not be found
@@ -346,19 +359,6 @@ public class AssetLinkPersistenceImpl extends BasePersistenceImpl<AssetLink>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param linkId the primary key of the asset link
-	 * @return the asset link that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchLinkException if a asset link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetLink remove(long linkId)
-		throws NoSuchLinkException, SystemException {
-		return remove(Long.valueOf(linkId));
 	}
 
 	@Override

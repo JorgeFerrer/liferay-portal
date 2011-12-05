@@ -246,6 +246,19 @@ public class CompanyPersistenceImpl extends BasePersistenceImpl<Company>
 	/**
 	 * Removes the company with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param companyId the primary key of the company
+	 * @return the company that was removed
+	 * @throws com.liferay.portal.NoSuchCompanyException if a company with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Company remove(long companyId)
+		throws NoSuchCompanyException, SystemException {
+		return remove(Long.valueOf(companyId));
+	}
+
+	/**
+	 * Removes the company with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the company
 	 * @return the company that was removed
 	 * @throws com.liferay.portal.NoSuchCompanyException if a company with the primary key could not be found
@@ -281,19 +294,6 @@ public class CompanyPersistenceImpl extends BasePersistenceImpl<Company>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the company with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param companyId the primary key of the company
-	 * @return the company that was removed
-	 * @throws com.liferay.portal.NoSuchCompanyException if a company with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Company remove(long companyId)
-		throws NoSuchCompanyException, SystemException {
-		return remove(Long.valueOf(companyId));
 	}
 
 	@Override

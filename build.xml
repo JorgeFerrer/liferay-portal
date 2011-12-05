@@ -23,7 +23,6 @@
 		<ant dir="portal-impl" target="clean" inheritAll="false" />
 
 		<ant dir="portal-web" target="clean" inheritAll="false" />
-		<ant dir="tunnel-web" target="clean" inheritAll="false" />
 
 		<ant dir="sql" target="clean" inheritAll="false" />
 
@@ -51,7 +50,6 @@
 			<equals arg1="${app.server.type}" arg2="glassfish" />
 			<then>
 				<delete dir="${app.server.instance.dir}/applications/liferay-portal" />
-				<delete dir="${app.server.instance.dir}/applications/tunnel-web" />
 			</then>
 		</if>
 
@@ -181,7 +179,6 @@ ${app.server.tomcat.dir}, then run "ant -buildfile build-dist.xml unzip-tomcat".
 		<ant dir="portal-impl" target="deploy" inheritAll="false" />
 
 		<ant dir="portal-web" target="deploy" inheritAll="false" />
-		<ant dir="tunnel-web" target="deploy" inheritAll="false" />
 
 		<copy todir="${liferay.home}/data/hsql">
 			<fileset dir="sql">
@@ -899,7 +896,6 @@ set JAVA_OPTS=-Dfile.encoding=UTF8 -Djava.net.preferIPv4Stack=true -Djonas.felix
 		<ant dir="portal-impl" target="jar" inheritAll="false" />
 
 		<ant dir="portal-web" target="war" inheritAll="false" />
-		<ant dir="tunnel-web" target="war" inheritAll="false" />
 
 		<ant dir="support-tomcat" target="jar" inheritAll="false" />
 	</target>

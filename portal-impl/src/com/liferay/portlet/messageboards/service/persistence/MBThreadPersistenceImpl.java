@@ -404,6 +404,19 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Removes the message boards thread with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param threadId the primary key of the message boards thread
+	 * @return the message boards thread that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchThreadException if a message boards thread with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread remove(long threadId)
+		throws NoSuchThreadException, SystemException {
+		return remove(Long.valueOf(threadId));
+	}
+
+	/**
+	 * Removes the message boards thread with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards thread
 	 * @return the message boards thread that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchThreadException if a message boards thread with the primary key could not be found
@@ -440,19 +453,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards thread with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param threadId the primary key of the message boards thread
-	 * @return the message boards thread that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchThreadException if a message boards thread with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBThread remove(long threadId)
-		throws NoSuchThreadException, SystemException {
-		return remove(Long.valueOf(threadId));
 	}
 
 	@Override

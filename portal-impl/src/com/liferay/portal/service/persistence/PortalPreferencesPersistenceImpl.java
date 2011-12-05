@@ -209,6 +209,19 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 	/**
 	 * Removes the portal preferences with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param portalPreferencesId the primary key of the portal preferences
+	 * @return the portal preferences that was removed
+	 * @throws com.liferay.portal.NoSuchPreferencesException if a portal preferences with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PortalPreferences remove(long portalPreferencesId)
+		throws NoSuchPreferencesException, SystemException {
+		return remove(Long.valueOf(portalPreferencesId));
+	}
+
+	/**
+	 * Removes the portal preferences with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the portal preferences
 	 * @return the portal preferences that was removed
 	 * @throws com.liferay.portal.NoSuchPreferencesException if a portal preferences with the primary key could not be found
@@ -245,19 +258,6 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the portal preferences with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param portalPreferencesId the primary key of the portal preferences
-	 * @return the portal preferences that was removed
-	 * @throws com.liferay.portal.NoSuchPreferencesException if a portal preferences with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PortalPreferences remove(long portalPreferencesId)
-		throws NoSuchPreferencesException, SystemException {
-		return remove(Long.valueOf(portalPreferencesId));
 	}
 
 	@Override

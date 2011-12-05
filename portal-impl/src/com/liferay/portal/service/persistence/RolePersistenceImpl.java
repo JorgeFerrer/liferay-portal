@@ -312,6 +312,18 @@ public class RolePersistenceImpl extends BasePersistenceImpl<Role>
 	/**
 	 * Removes the role with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param roleId the primary key of the role
+	 * @return the role that was removed
+	 * @throws com.liferay.portal.NoSuchRoleException if a role with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Role remove(long roleId) throws NoSuchRoleException, SystemException {
+		return remove(Long.valueOf(roleId));
+	}
+
+	/**
+	 * Removes the role with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the role
 	 * @return the role that was removed
 	 * @throws com.liferay.portal.NoSuchRoleException if a role with the primary key could not be found
@@ -347,18 +359,6 @@ public class RolePersistenceImpl extends BasePersistenceImpl<Role>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the role with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param roleId the primary key of the role
-	 * @return the role that was removed
-	 * @throws com.liferay.portal.NoSuchRoleException if a role with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Role remove(long roleId) throws NoSuchRoleException, SystemException {
-		return remove(Long.valueOf(roleId));
 	}
 
 	@Override

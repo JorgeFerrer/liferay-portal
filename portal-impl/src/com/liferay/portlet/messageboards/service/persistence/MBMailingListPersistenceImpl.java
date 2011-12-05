@@ -278,6 +278,19 @@ public class MBMailingListPersistenceImpl extends BasePersistenceImpl<MBMailingL
 	/**
 	 * Removes the message boards mailing list with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param mailingListId the primary key of the message boards mailing list
+	 * @return the message boards mailing list that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchMailingListException if a message boards mailing list with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBMailingList remove(long mailingListId)
+		throws NoSuchMailingListException, SystemException {
+		return remove(Long.valueOf(mailingListId));
+	}
+
+	/**
+	 * Removes the message boards mailing list with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards mailing list
 	 * @return the message boards mailing list that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchMailingListException if a message boards mailing list with the primary key could not be found
@@ -314,19 +327,6 @@ public class MBMailingListPersistenceImpl extends BasePersistenceImpl<MBMailingL
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards mailing list with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param mailingListId the primary key of the message boards mailing list
-	 * @return the message boards mailing list that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchMailingListException if a message boards mailing list with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBMailingList remove(long mailingListId)
-		throws NoSuchMailingListException, SystemException {
-		return remove(Long.valueOf(mailingListId));
 	}
 
 	@Override

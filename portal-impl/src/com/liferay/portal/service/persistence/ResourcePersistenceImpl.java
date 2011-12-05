@@ -225,6 +225,19 @@ public class ResourcePersistenceImpl extends BasePersistenceImpl<Resource>
 	/**
 	 * Removes the resource with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourceId the primary key of the resource
+	 * @return the resource that was removed
+	 * @throws com.liferay.portal.NoSuchResourceException if a resource with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Resource remove(long resourceId)
+		throws NoSuchResourceException, SystemException {
+		return remove(Long.valueOf(resourceId));
+	}
+
+	/**
+	 * Removes the resource with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource
 	 * @return the resource that was removed
 	 * @throws com.liferay.portal.NoSuchResourceException if a resource with the primary key could not be found
@@ -261,19 +274,6 @@ public class ResourcePersistenceImpl extends BasePersistenceImpl<Resource>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourceId the primary key of the resource
-	 * @return the resource that was removed
-	 * @throws com.liferay.portal.NoSuchResourceException if a resource with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Resource remove(long resourceId)
-		throws NoSuchResourceException, SystemException {
-		return remove(Long.valueOf(resourceId));
 	}
 
 	@Override

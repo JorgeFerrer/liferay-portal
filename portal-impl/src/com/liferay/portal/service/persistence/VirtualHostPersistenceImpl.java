@@ -219,6 +219,19 @@ public class VirtualHostPersistenceImpl extends BasePersistenceImpl<VirtualHost>
 	/**
 	 * Removes the virtual host with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param virtualHostId the primary key of the virtual host
+	 * @return the virtual host that was removed
+	 * @throws com.liferay.portal.NoSuchVirtualHostException if a virtual host with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public VirtualHost remove(long virtualHostId)
+		throws NoSuchVirtualHostException, SystemException {
+		return remove(Long.valueOf(virtualHostId));
+	}
+
+	/**
+	 * Removes the virtual host with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the virtual host
 	 * @return the virtual host that was removed
 	 * @throws com.liferay.portal.NoSuchVirtualHostException if a virtual host with the primary key could not be found
@@ -255,19 +268,6 @@ public class VirtualHostPersistenceImpl extends BasePersistenceImpl<VirtualHost>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the virtual host with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param virtualHostId the primary key of the virtual host
-	 * @return the virtual host that was removed
-	 * @throws com.liferay.portal.NoSuchVirtualHostException if a virtual host with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public VirtualHost remove(long virtualHostId)
-		throws NoSuchVirtualHostException, SystemException {
-		return remove(Long.valueOf(virtualHostId));
 	}
 
 	@Override

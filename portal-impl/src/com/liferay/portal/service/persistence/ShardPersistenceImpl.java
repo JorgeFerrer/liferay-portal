@@ -218,6 +218,19 @@ public class ShardPersistenceImpl extends BasePersistenceImpl<Shard>
 	/**
 	 * Removes the shard with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param shardId the primary key of the shard
+	 * @return the shard that was removed
+	 * @throws com.liferay.portal.NoSuchShardException if a shard with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Shard remove(long shardId)
+		throws NoSuchShardException, SystemException {
+		return remove(Long.valueOf(shardId));
+	}
+
+	/**
+	 * Removes the shard with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shard
 	 * @return the shard that was removed
 	 * @throws com.liferay.portal.NoSuchShardException if a shard with the primary key could not be found
@@ -253,19 +266,6 @@ public class ShardPersistenceImpl extends BasePersistenceImpl<Shard>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shard with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param shardId the primary key of the shard
-	 * @return the shard that was removed
-	 * @throws com.liferay.portal.NoSuchShardException if a shard with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Shard remove(long shardId)
-		throws NoSuchShardException, SystemException {
-		return remove(Long.valueOf(shardId));
 	}
 
 	@Override

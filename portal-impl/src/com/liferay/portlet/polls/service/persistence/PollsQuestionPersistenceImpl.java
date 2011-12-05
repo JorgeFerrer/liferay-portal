@@ -258,6 +258,19 @@ public class PollsQuestionPersistenceImpl extends BasePersistenceImpl<PollsQuest
 	/**
 	 * Removes the polls question with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param questionId the primary key of the polls question
+	 * @return the polls question that was removed
+	 * @throws com.liferay.portlet.polls.NoSuchQuestionException if a polls question with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PollsQuestion remove(long questionId)
+		throws NoSuchQuestionException, SystemException {
+		return remove(Long.valueOf(questionId));
+	}
+
+	/**
+	 * Removes the polls question with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the polls question
 	 * @return the polls question that was removed
 	 * @throws com.liferay.portlet.polls.NoSuchQuestionException if a polls question with the primary key could not be found
@@ -294,19 +307,6 @@ public class PollsQuestionPersistenceImpl extends BasePersistenceImpl<PollsQuest
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the polls question with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param questionId the primary key of the polls question
-	 * @return the polls question that was removed
-	 * @throws com.liferay.portlet.polls.NoSuchQuestionException if a polls question with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PollsQuestion remove(long questionId)
-		throws NoSuchQuestionException, SystemException {
-		return remove(Long.valueOf(questionId));
 	}
 
 	@Override

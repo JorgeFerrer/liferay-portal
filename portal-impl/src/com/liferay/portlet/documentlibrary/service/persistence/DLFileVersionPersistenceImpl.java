@@ -284,6 +284,19 @@ public class DLFileVersionPersistenceImpl extends BasePersistenceImpl<DLFileVers
 	/**
 	 * Removes the document library file version with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileVersionId the primary key of the document library file version
+	 * @return the document library file version that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileVersionException if a document library file version with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileVersion remove(long fileVersionId)
+		throws NoSuchFileVersionException, SystemException {
+		return remove(Long.valueOf(fileVersionId));
+	}
+
+	/**
+	 * Removes the document library file version with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file version
 	 * @return the document library file version that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileVersionException if a document library file version with the primary key could not be found
@@ -320,19 +333,6 @@ public class DLFileVersionPersistenceImpl extends BasePersistenceImpl<DLFileVers
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file version with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileVersionId the primary key of the document library file version
-	 * @return the document library file version that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileVersionException if a document library file version with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileVersion remove(long fileVersionId)
-		throws NoSuchFileVersionException, SystemException {
-		return remove(Long.valueOf(fileVersionId));
 	}
 
 	@Override

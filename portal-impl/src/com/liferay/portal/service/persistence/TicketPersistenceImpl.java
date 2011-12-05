@@ -197,6 +197,19 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 	/**
 	 * Removes the ticket with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param ticketId the primary key of the ticket
+	 * @return the ticket that was removed
+	 * @throws com.liferay.portal.NoSuchTicketException if a ticket with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Ticket remove(long ticketId)
+		throws NoSuchTicketException, SystemException {
+		return remove(Long.valueOf(ticketId));
+	}
+
+	/**
+	 * Removes the ticket with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the ticket
 	 * @return the ticket that was removed
 	 * @throws com.liferay.portal.NoSuchTicketException if a ticket with the primary key could not be found
@@ -232,19 +245,6 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the ticket with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param ticketId the primary key of the ticket
-	 * @return the ticket that was removed
-	 * @throws com.liferay.portal.NoSuchTicketException if a ticket with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Ticket remove(long ticketId)
-		throws NoSuchTicketException, SystemException {
-		return remove(Long.valueOf(ticketId));
 	}
 
 	@Override

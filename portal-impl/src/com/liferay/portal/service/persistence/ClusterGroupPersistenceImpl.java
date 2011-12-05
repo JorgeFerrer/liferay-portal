@@ -174,6 +174,19 @@ public class ClusterGroupPersistenceImpl extends BasePersistenceImpl<ClusterGrou
 	/**
 	 * Removes the cluster group with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param clusterGroupId the primary key of the cluster group
+	 * @return the cluster group that was removed
+	 * @throws com.liferay.portal.NoSuchClusterGroupException if a cluster group with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ClusterGroup remove(long clusterGroupId)
+		throws NoSuchClusterGroupException, SystemException {
+		return remove(Long.valueOf(clusterGroupId));
+	}
+
+	/**
+	 * Removes the cluster group with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the cluster group
 	 * @return the cluster group that was removed
 	 * @throws com.liferay.portal.NoSuchClusterGroupException if a cluster group with the primary key could not be found
@@ -210,19 +223,6 @@ public class ClusterGroupPersistenceImpl extends BasePersistenceImpl<ClusterGrou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the cluster group with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param clusterGroupId the primary key of the cluster group
-	 * @return the cluster group that was removed
-	 * @throws com.liferay.portal.NoSuchClusterGroupException if a cluster group with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ClusterGroup remove(long clusterGroupId)
-		throws NoSuchClusterGroupException, SystemException {
-		return remove(Long.valueOf(clusterGroupId));
 	}
 
 	@Override

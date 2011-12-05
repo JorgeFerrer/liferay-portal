@@ -1066,6 +1066,10 @@
 		<priority value="ERROR" />
 	</category>
 
+	<category name="org.springframework.aop.support.AopUtils">
+		<priority value="INFO" />
+	</category>
+
 	<category name="portal-web.docroot.errors.404.jsp">
 		<priority value="WARN" />
 	</category>

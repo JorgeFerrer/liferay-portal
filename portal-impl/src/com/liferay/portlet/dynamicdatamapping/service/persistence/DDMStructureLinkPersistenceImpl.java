@@ -250,6 +250,19 @@ public class DDMStructureLinkPersistenceImpl extends BasePersistenceImpl<DDMStru
 	/**
 	 * Removes the d d m structure link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param structureLinkId the primary key of the d d m structure link
+	 * @return the d d m structure link that was removed
+	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureLinkException if a d d m structure link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDMStructureLink remove(long structureLinkId)
+		throws NoSuchStructureLinkException, SystemException {
+		return remove(Long.valueOf(structureLinkId));
+	}
+
+	/**
+	 * Removes the d d m structure link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d m structure link
 	 * @return the d d m structure link that was removed
 	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureLinkException if a d d m structure link with the primary key could not be found
@@ -286,19 +299,6 @@ public class DDMStructureLinkPersistenceImpl extends BasePersistenceImpl<DDMStru
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d m structure link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param structureLinkId the primary key of the d d m structure link
-	 * @return the d d m structure link that was removed
-	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureLinkException if a d d m structure link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDMStructureLink remove(long structureLinkId)
-		throws NoSuchStructureLinkException, SystemException {
-		return remove(Long.valueOf(structureLinkId));
 	}
 
 	@Override

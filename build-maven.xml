@@ -168,10 +168,6 @@ Run "ant -f build-dist.xml all zip-portal-war" to generate that file.
 				includes="portal-service.jar,portal-service-javadoc.jar,portal-service-sources.jar"
 			/>
 			<fileset
-				dir="tunnel-web"
-				includes="tunnel-web.war"
-			/>
-			<fileset
 				dir="support-tomcat"
 				includes="support-tomcat.jar,support-tomcat-javadoc.jar,support-tomcat-sources.jar"
 			/>

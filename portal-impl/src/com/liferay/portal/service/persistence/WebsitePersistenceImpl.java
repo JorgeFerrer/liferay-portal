@@ -287,6 +287,19 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 	/**
 	 * Removes the website with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param websiteId the primary key of the website
+	 * @return the website that was removed
+	 * @throws com.liferay.portal.NoSuchWebsiteException if a website with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Website remove(long websiteId)
+		throws NoSuchWebsiteException, SystemException {
+		return remove(Long.valueOf(websiteId));
+	}
+
+	/**
+	 * Removes the website with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the website
 	 * @return the website that was removed
 	 * @throws com.liferay.portal.NoSuchWebsiteException if a website with the primary key could not be found
@@ -322,19 +335,6 @@ public class WebsitePersistenceImpl extends BasePersistenceImpl<Website>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the website with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param websiteId the primary key of the website
-	 * @return the website that was removed
-	 * @throws com.liferay.portal.NoSuchWebsiteException if a website with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Website remove(long websiteId)
-		throws NoSuchWebsiteException, SystemException {
-		return remove(Long.valueOf(websiteId));
 	}
 
 	@Override
