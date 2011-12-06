@@ -108,18 +108,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  bytes the file's data (optionally <code>null</code>)
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
@@ -174,18 +166,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  file the file's data (optionally <code>null</code>)
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
@@ -240,18 +224,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  size the file's size (optionally <code>0</code>)
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
@@ -344,7 +320,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 *         eventually reside
 	 * @param  fileName the file's original name
 	 * @param  tempFolderName the temporary folder's name
-	 * @param  file the file's data
+	 * @param  file Name the file's original name
 	 * @return the file's name
 	 * @throws IOException if a problem occurred in the access or storage of the
 	 *         file
@@ -453,8 +429,11 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		FileEntry fileEntry = getFileEntry(fileEntryId);
 
+		FileVersion fileVersion = fileEntry.getLatestFileVersion();
+
 		dlAppHelperLocalService.updateFileEntry(
-			getUserId(), fileEntry, fileEntry.getFileVersion(), serviceContext);
+			getUserId(), fileEntry, fileVersion,
+			fileVersion.getFileVersionId());
 	}
 
 	/**
@@ -489,12 +468,11 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		FileEntry fileEntry = getFileEntry(fileEntryId);
 
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
+		FileVersion fileVersion = fileEntry.getLatestFileVersion();
 
 		dlAppHelperLocalService.updateFileEntry(
-			getUserId(), fileEntry, fileEntry.getFileVersion(), serviceContext);
+			getUserId(), fileEntry, fileVersion,
+			fileVersion.getFileVersionId());
 	}
 
 	/**
@@ -524,9 +502,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		FileEntry fileEntry = repository.checkOutFileEntry(fileEntryId);
 
-		dlAppHelperLocalService.updateAsset(
-			getUserId(), fileEntry, fileEntry.getLatestFileVersion(),
-			fileEntryId);
+		FileVersion fileVersion = fileEntry.getLatestFileVersion();
+
+		dlAppHelperLocalService.updateFileEntry(
+			getUserId(), fileEntry, fileVersion, fileEntryId);
 	}
 
 	/**
@@ -564,9 +543,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 		FileEntry fileEntry = repository.checkOutFileEntry(
 			fileEntryId, owner, expirationTime);
 
-		dlAppHelperLocalService.updateAsset(
-			getUserId(), fileEntry, fileEntry.getLatestFileVersion(),
-			fileEntryId);
+		FileVersion fileVersion = fileEntry.getLatestFileVersion();
+
+		dlAppHelperLocalService.updateFileEntry(
+			getUserId(), fileEntry, fileVersion, fileEntryId);
 
 		return fileEntry;
 	}
@@ -595,7 +575,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 		Folder srcFolder = repository.getFolder(sourceFolderId);
 
 		Folder destFolder = repository.addFolder(
-			parentFolderId, name,description, serviceContext);
+			parentFolderId, name, description, serviceContext);
 
 		copyFolder(repository, srcFolder, destFolder, serviceContext);
 
@@ -2060,7 +2040,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  mimeType the file's MIME type (optionally <code>null</code>)
 	 * @param  title the new name to be assigned to the file (optionally <code>
-	 *         null</code>)
+	 *         <code>null</code></code>)
 	 * @param  description the file's new description
 	 * @param  changeLog the file's version change log (optionally
 	 *         <code>null</code>)
@@ -2068,18 +2048,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  bytes the file's data (optionally <code>null</code>)
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
 	 * @throws SystemException if a system exception occurred
@@ -2128,7 +2100,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  mimeType the file's MIME type (optionally <code>null</code>)
 	 * @param  title the new name to be assigned to the file (optionally <code>
-	 *         null</code>)
+	 *         <code>null</code></code>)
 	 * @param  description the file's new description
 	 * @param  changeLog the file's version change log (optionally
 	 *         <code>null</code>)
@@ -2136,18 +2108,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  file EntryId the primary key of the file entry
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
 	 * @throws SystemException if a system exception occurred
@@ -2197,7 +2161,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  mimeType the file's MIME type (optionally <code>null</code>)
 	 * @param  title the new name to be assigned to the file (optionally <code>
-	 *         null</code>)
+	 *         <code>null</code></code>)
 	 * @param  description the file's new description
 	 * @param  changeLog the file's version change log (optionally
 	 *         <code>null</code>)
@@ -2206,18 +2170,10 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  size the file's size (optionally <code>0</code>)
 	 * @param  serviceContext the service context to be applied. Can specify the
 	 *         file entry's asset category IDs, asset tag names, and expando
-	 *         bridge attributes. In a Liferay repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         fileEntryTypeId - ID for a custom file entry type
-	 *         </li>
-	 *         <li>
+	 *         bridge attributes. In a Liferay repository, it may include:  <ul>
+	 *         <li> fileEntryTypeId - ID for a custom file entry type </li> <li>
 	 *         fieldsMap - mapping for fields associated with a custom file
-	 *         entry type
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
 	 * @throws SystemException if a system exception occurred
@@ -2331,30 +2287,17 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @param  name the folder's new name
 	 * @param  description the folder's new description
 	 * @param  serviceContext the service context to be applied. In a Liferay
-	 *         repository, it may include:
-	 *
-	 *         <ul>
-	 *         <li>
-	 *         defaultFileEntryTypeId - the file entry type to default all
-	 *         Liferay file entries to
-	 *         </li>
-	 *         <li>
-	 *         fileEntryTypeSearchContainerPrimaryKeys - a comma-delimited list
-	 *         of file entry type primary keys allowed in the given folder and
-	 *         all descendants
-	 *         </li>
-	 *         <li>
-	 *         overrideFileEntryTypes - boolean specifying whether to override
-	 *         ancestral folder's restriction of file entry types allowed
-	 *         </li>
-	 *         <li>
-	 *         workflowDefinitionXYZ - the workflow definition name specified
-	 *         per file entry type. The parameter name must be the string
-	 *         <code>workflowDefinition</code> appended by the
-	 *         <code>fileEntryTypeId</code> (optionally <code>0</code>).
-	 *         </li>
-	 *         </ul>
-	 *
+	 *         repository, it may include:  <ul> <li> defaultFileEntryTypeId -
+	 *         the file entry type to default all Liferay file entries to </li>
+	 *         <li> fileEntryTypeSearchContainerPrimaryKeys - a comma-delimited
+	 *         list of file entry type primary keys allowed in the given folder
+	 *         and all descendants </li> <li> overrideFileEntryTypes - boolean
+	 *         specifying whether to override ancestral folder's restriction of
+	 *         file entry types allowed </li> <li> workflowDefinitionXYZ - the
+	 *         workflow definition name specified per file entry type. The
+	 *         parameter name must be the string <code>workflowDefinition</code>
+	 *         appended by the <code>fileEntryTypeId</code> (optionally
+	 *         <code>0</code>). </li> </ul>
 	 * @return the folder
 	 * @throws PortalException if the current or new parent folder could not be
 	 *         found or if the new parent folder's information was invalid

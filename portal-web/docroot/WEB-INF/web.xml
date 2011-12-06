@@ -2,6 +2,10 @@
 
 <web-app id="Liferay_Portal" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<context-param>
+		<param-name>axis.servicesPath</param-name>
+		<param-value>/axis/</param-value>
+	</context-param>
+	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>com.liferay.portal.spring.context.PortalApplicationContext</param-value>
 	</context-param>
@@ -98,6 +102,16 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>Atom Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.servlet.AtomServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Axis Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.servlet.AxisServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
 		<servlet-name>Combo Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.servlet.ComboServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
@@ -158,6 +172,16 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>JSON Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.servlet.JSONServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>JSON Web Service Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.jsonwebservice.JSONWebServiceServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
 		<servlet-name>Language Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.servlet.LanguageServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
@@ -208,6 +232,11 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>Remoting Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.spring.servlet.RemotingServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
 		<servlet-name>Robots Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.servlet.RobotsServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
@@ -238,12 +267,22 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>Tunnel Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.servlet.TunnelServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
 		<servlet-name>Web Server Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.webserver.WebServerServlet</servlet-class>
 		<init-param>
 			<param-name>last_modified</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>WebDAV Servlet</servlet-name>
+		<servlet-class>com.liferay.portal.webdav.WebDAVServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
@@ -681,6 +720,58 @@
 		<servlet-name>XML-RPC Servlet</servlet-name>
 		<url-pattern>/xmlrpc/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Atom Servlet</servlet-name>
+		<url-pattern>/api/atom/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Atom Servlet</servlet-name>
+		<url-pattern>/api/secure/atom/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Axis Servlet</servlet-name>
+		<url-pattern>/api/axis/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Axis Servlet</servlet-name>
+		<url-pattern>/api/secure/axis/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JSON Servlet</servlet-name>
+		<url-pattern>/api/json/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JSON Servlet</servlet-name>
+		<url-pattern>/api/secure/json/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JSON Web Service Servlet</servlet-name>
+		<url-pattern>/api/jsonws/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JSON Web Service Servlet</servlet-name>
+		<url-pattern>/api/secure/jsonws/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Remoting Servlet</servlet-name>
+		<url-pattern>/api/spring/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Remoting Servlet</servlet-name>
+		<url-pattern>/api/secure/spring/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Tunnel Servlet</servlet-name>
+		<url-pattern>/api/liferay/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Tunnel Servlet</servlet-name>
+		<url-pattern>/api/secure/liferay/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>WebDAV Servlet</servlet-name>
+		<url-pattern>/api/secure/webdav/*</url-pattern>
+	</servlet-mapping>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
@@ -723,7 +814,7 @@
 		</taglib>
 		<taglib>
 			<taglib-uri>http://liferay.com/tld/aui</taglib-uri>
-			<taglib-location>/WEB-INF/tld/liferay-aui.tld</taglib-location>
+			<taglib-location>/WEB-INF/tld/aui.tld</taglib-location>
 		</taglib>
 		<taglib>
 			<taglib-uri>http://liferay.com/tld/portlet</taglib-uri>

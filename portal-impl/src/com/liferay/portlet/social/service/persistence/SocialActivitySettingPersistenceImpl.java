@@ -281,6 +281,19 @@ public class SocialActivitySettingPersistenceImpl extends BasePersistenceImpl<So
 	/**
 	 * Removes the social activity setting with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param activitySettingId the primary key of the social activity setting
+	 * @return the social activity setting that was removed
+	 * @throws com.liferay.portlet.social.NoSuchActivitySettingException if a social activity setting with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivitySetting remove(long activitySettingId)
+		throws NoSuchActivitySettingException, SystemException {
+		return remove(Long.valueOf(activitySettingId));
+	}
+
+	/**
+	 * Removes the social activity setting with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social activity setting
 	 * @return the social activity setting that was removed
 	 * @throws com.liferay.portlet.social.NoSuchActivitySettingException if a social activity setting with the primary key could not be found
@@ -317,19 +330,6 @@ public class SocialActivitySettingPersistenceImpl extends BasePersistenceImpl<So
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social activity setting with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param activitySettingId the primary key of the social activity setting
-	 * @return the social activity setting that was removed
-	 * @throws com.liferay.portlet.social.NoSuchActivitySettingException if a social activity setting with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialActivitySetting remove(long activitySettingId)
-		throws NoSuchActivitySettingException, SystemException {
-		return remove(Long.valueOf(activitySettingId));
 	}
 
 	@Override

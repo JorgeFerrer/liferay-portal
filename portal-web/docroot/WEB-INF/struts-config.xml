@@ -31,6 +31,8 @@
 
 		<!-- Portal -->
 
+		<action path="/portal/api/jsonws" forward="portal.api.jsonws" />
+
 		<action path="/portal/emoticons" forward="/portal/emoticons.jsp" />
 
 		<action path="/portal/error" forward="portal.error" />
@@ -1186,10 +1188,14 @@
 			<forward name="portlet.mobile_device_rules.error" path="portlet.mobile_device_rules.error" />
 		</action>
 
+		<action path="/mobile_device_rules/edit_action_editor" type="com.liferay.portlet.mobiledevicerules.action.EditActionAction" />
+
 		<action path="/mobile_device_rules/edit_rule" type="com.liferay.portlet.mobiledevicerules.action.EditRuleAction">
 			<forward name="portlet.mobile_device_rules.edit_rule" path="portlet.mobile_device_rules.edit_rule" />
 			<forward name="portlet.mobile_device_rules.error" path="portlet.mobile_device_rules.error" />
 		</action>
+
+		<action path="/mobile_device_rules/edit_rule_editor" type="com.liferay.portlet.mobiledevicerules.action.EditRuleAction" />
 
 		<action path="/mobile_device_rules/edit_rule_group" type="com.liferay.portlet.mobiledevicerules.action.EditRuleGroupAction">
 			<forward name="portlet.mobile_device_rules.edit_rule_group" path="portlet.mobile_device_rules.edit_rule_group" />
@@ -1201,17 +1207,13 @@
 			<forward name="portlet.mobile_device_rules.error" path="portlet.mobile_device_rules.error" />
 		</action>
 
-		<action path="/mobile_device_rules/edit_action_editor" type="com.liferay.portlet.mobiledevicerules.action.EditActionAction" />
-
-		<action path="/mobile_device_rules/edit_rule_editor" type="com.liferay.portlet.mobiledevicerules.action.EditRuleAction" />
-
 		<action path="/mobile_device_rules/edit_rule_group_instance_editor" type="com.liferay.portlet.mobiledevicerules.action.EditRuleGroupInstanceAction" />
+
+		<action path="/mobile_device_rules/site_url_layouts" type="com.liferay.portlet.mobiledevicerules.action.SiteURLLayoutsAction" />
 
 		<action path="/mobile_device_rules/view" forward="portlet.mobile_device_rules.view" />
 
 		<action path="/mobile_device_rules/view_actions" forward="portlet.mobile_device_rules.view_actions" />
-
-		<action path="/mobile_device_rules/view_group_layouts" type="com.liferay.portlet.mobiledevicerules.action.SiteResourceAction" />
 
 		<action path="/mobile_device_rules/view_rules" forward="portlet.mobile_device_rules.view_rules" />
 

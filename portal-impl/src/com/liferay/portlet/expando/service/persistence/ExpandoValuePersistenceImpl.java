@@ -396,6 +396,19 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Removes the expando value with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param valueId the primary key of the expando value
+	 * @return the expando value that was removed
+	 * @throws com.liferay.portlet.expando.NoSuchValueException if a expando value with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue remove(long valueId)
+		throws NoSuchValueException, SystemException {
+		return remove(Long.valueOf(valueId));
+	}
+
+	/**
+	 * Removes the expando value with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the expando value
 	 * @return the expando value that was removed
 	 * @throws com.liferay.portlet.expando.NoSuchValueException if a expando value with the primary key could not be found
@@ -432,19 +445,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the expando value with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param valueId the primary key of the expando value
-	 * @return the expando value that was removed
-	 * @throws com.liferay.portlet.expando.NoSuchValueException if a expando value with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ExpandoValue remove(long valueId)
-		throws NoSuchValueException, SystemException {
-		return remove(Long.valueOf(valueId));
 	}
 
 	@Override

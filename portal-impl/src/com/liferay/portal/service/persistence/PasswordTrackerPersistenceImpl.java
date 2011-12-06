@@ -201,6 +201,19 @@ public class PasswordTrackerPersistenceImpl extends BasePersistenceImpl<Password
 	/**
 	 * Removes the password tracker with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param passwordTrackerId the primary key of the password tracker
+	 * @return the password tracker that was removed
+	 * @throws com.liferay.portal.NoSuchPasswordTrackerException if a password tracker with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PasswordTracker remove(long passwordTrackerId)
+		throws NoSuchPasswordTrackerException, SystemException {
+		return remove(Long.valueOf(passwordTrackerId));
+	}
+
+	/**
+	 * Removes the password tracker with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the password tracker
 	 * @return the password tracker that was removed
 	 * @throws com.liferay.portal.NoSuchPasswordTrackerException if a password tracker with the primary key could not be found
@@ -237,19 +250,6 @@ public class PasswordTrackerPersistenceImpl extends BasePersistenceImpl<Password
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the password tracker with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param passwordTrackerId the primary key of the password tracker
-	 * @return the password tracker that was removed
-	 * @throws com.liferay.portal.NoSuchPasswordTrackerException if a password tracker with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PasswordTracker remove(long passwordTrackerId)
-		throws NoSuchPasswordTrackerException, SystemException {
-		return remove(Long.valueOf(passwordTrackerId));
 	}
 
 	@Override

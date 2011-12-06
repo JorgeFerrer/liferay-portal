@@ -331,6 +331,19 @@ public class DLFileEntryMetadataPersistenceImpl extends BasePersistenceImpl<DLFi
 	/**
 	 * Removes the document library file entry metadata with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileEntryMetadataId the primary key of the document library file entry metadata
+	 * @return the document library file entry metadata that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryMetadataException if a document library file entry metadata with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileEntryMetadata remove(long fileEntryMetadataId)
+		throws NoSuchFileEntryMetadataException, SystemException {
+		return remove(Long.valueOf(fileEntryMetadataId));
+	}
+
+	/**
+	 * Removes the document library file entry metadata with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file entry metadata
 	 * @return the document library file entry metadata that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryMetadataException if a document library file entry metadata with the primary key could not be found
@@ -367,19 +380,6 @@ public class DLFileEntryMetadataPersistenceImpl extends BasePersistenceImpl<DLFi
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file entry metadata with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileEntryMetadataId the primary key of the document library file entry metadata
-	 * @return the document library file entry metadata that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileEntryMetadataException if a document library file entry metadata with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileEntryMetadata remove(long fileEntryMetadataId)
-		throws NoSuchFileEntryMetadataException, SystemException {
-		return remove(Long.valueOf(fileEntryMetadataId));
 	}
 
 	@Override

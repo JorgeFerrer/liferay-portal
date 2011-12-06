@@ -231,6 +231,19 @@ public class ServiceComponentPersistenceImpl extends BasePersistenceImpl<Service
 	/**
 	 * Removes the service component with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param serviceComponentId the primary key of the service component
+	 * @return the service component that was removed
+	 * @throws com.liferay.portal.NoSuchServiceComponentException if a service component with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ServiceComponent remove(long serviceComponentId)
+		throws NoSuchServiceComponentException, SystemException {
+		return remove(Long.valueOf(serviceComponentId));
+	}
+
+	/**
+	 * Removes the service component with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the service component
 	 * @return the service component that was removed
 	 * @throws com.liferay.portal.NoSuchServiceComponentException if a service component with the primary key could not be found
@@ -267,19 +280,6 @@ public class ServiceComponentPersistenceImpl extends BasePersistenceImpl<Service
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the service component with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param serviceComponentId the primary key of the service component
-	 * @return the service component that was removed
-	 * @throws com.liferay.portal.NoSuchServiceComponentException if a service component with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ServiceComponent remove(long serviceComponentId)
-		throws NoSuchServiceComponentException, SystemException {
-		return remove(Long.valueOf(serviceComponentId));
 	}
 
 	@Override

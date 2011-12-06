@@ -781,6 +781,19 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 	/**
 	 * Removes the message-boards message with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param messageId the primary key of the message-boards message
+	 * @return the message-boards message that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchMessageException if a message-boards message with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBMessage remove(long messageId)
+		throws NoSuchMessageException, SystemException {
+		return remove(Long.valueOf(messageId));
+	}
+
+	/**
+	 * Removes the message-boards message with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message-boards message
 	 * @return the message-boards message that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchMessageException if a message-boards message with the primary key could not be found
@@ -817,19 +830,6 @@ public class MBMessagePersistenceImpl extends BasePersistenceImpl<MBMessage>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message-boards message with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param messageId the primary key of the message-boards message
-	 * @return the message-boards message that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchMessageException if a message-boards message with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBMessage remove(long messageId)
-		throws NoSuchMessageException, SystemException {
-		return remove(Long.valueOf(messageId));
 	}
 
 	@Override

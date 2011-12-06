@@ -447,6 +447,19 @@ public class SocialRequestPersistenceImpl extends BasePersistenceImpl<SocialRequ
 	/**
 	 * Removes the social request with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param requestId the primary key of the social request
+	 * @return the social request that was removed
+	 * @throws com.liferay.portlet.social.NoSuchRequestException if a social request with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialRequest remove(long requestId)
+		throws NoSuchRequestException, SystemException {
+		return remove(Long.valueOf(requestId));
+	}
+
+	/**
+	 * Removes the social request with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social request
 	 * @return the social request that was removed
 	 * @throws com.liferay.portlet.social.NoSuchRequestException if a social request with the primary key could not be found
@@ -483,19 +496,6 @@ public class SocialRequestPersistenceImpl extends BasePersistenceImpl<SocialRequ
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social request with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param requestId the primary key of the social request
-	 * @return the social request that was removed
-	 * @throws com.liferay.portlet.social.NoSuchRequestException if a social request with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialRequest remove(long requestId)
-		throws NoSuchRequestException, SystemException {
-		return remove(Long.valueOf(requestId));
 	}
 
 	@Override

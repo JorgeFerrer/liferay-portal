@@ -251,6 +251,19 @@ public class AssetTagStatsPersistenceImpl extends BasePersistenceImpl<AssetTagSt
 	/**
 	 * Removes the asset tag stats with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param tagStatsId the primary key of the asset tag stats
+	 * @return the asset tag stats that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchTagStatsException if a asset tag stats with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetTagStats remove(long tagStatsId)
+		throws NoSuchTagStatsException, SystemException {
+		return remove(Long.valueOf(tagStatsId));
+	}
+
+	/**
+	 * Removes the asset tag stats with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset tag stats
 	 * @return the asset tag stats that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchTagStatsException if a asset tag stats with the primary key could not be found
@@ -287,19 +300,6 @@ public class AssetTagStatsPersistenceImpl extends BasePersistenceImpl<AssetTagSt
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset tag stats with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param tagStatsId the primary key of the asset tag stats
-	 * @return the asset tag stats that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchTagStatsException if a asset tag stats with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetTagStats remove(long tagStatsId)
-		throws NoSuchTagStatsException, SystemException {
-		return remove(Long.valueOf(tagStatsId));
 	}
 
 	@Override

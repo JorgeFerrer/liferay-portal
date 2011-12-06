@@ -241,6 +241,19 @@ public class PluginSettingPersistenceImpl extends BasePersistenceImpl<PluginSett
 	/**
 	 * Removes the plugin setting with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param pluginSettingId the primary key of the plugin setting
+	 * @return the plugin setting that was removed
+	 * @throws com.liferay.portal.NoSuchPluginSettingException if a plugin setting with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PluginSetting remove(long pluginSettingId)
+		throws NoSuchPluginSettingException, SystemException {
+		return remove(Long.valueOf(pluginSettingId));
+	}
+
+	/**
+	 * Removes the plugin setting with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the plugin setting
 	 * @return the plugin setting that was removed
 	 * @throws com.liferay.portal.NoSuchPluginSettingException if a plugin setting with the primary key could not be found
@@ -277,19 +290,6 @@ public class PluginSettingPersistenceImpl extends BasePersistenceImpl<PluginSett
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the plugin setting with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param pluginSettingId the primary key of the plugin setting
-	 * @return the plugin setting that was removed
-	 * @throws com.liferay.portal.NoSuchPluginSettingException if a plugin setting with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PluginSetting remove(long pluginSettingId)
-		throws NoSuchPluginSettingException, SystemException {
-		return remove(Long.valueOf(pluginSettingId));
 	}
 
 	@Override

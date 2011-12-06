@@ -290,6 +290,19 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 	/**
 	 * Removes the s c product entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param productEntryId the primary key of the s c product entry
+	 * @return the s c product entry that was removed
+	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductEntryException if a s c product entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SCProductEntry remove(long productEntryId)
+		throws NoSuchProductEntryException, SystemException {
+		return remove(Long.valueOf(productEntryId));
+	}
+
+	/**
+	 * Removes the s c product entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the s c product entry
 	 * @return the s c product entry that was removed
 	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductEntryException if a s c product entry with the primary key could not be found
@@ -326,19 +339,6 @@ public class SCProductEntryPersistenceImpl extends BasePersistenceImpl<SCProduct
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the s c product entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param productEntryId the primary key of the s c product entry
-	 * @return the s c product entry that was removed
-	 * @throws com.liferay.portlet.softwarecatalog.NoSuchProductEntryException if a s c product entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SCProductEntry remove(long productEntryId)
-		throws NoSuchProductEntryException, SystemException {
-		return remove(Long.valueOf(productEntryId));
 	}
 
 	@Override

@@ -277,6 +277,19 @@ public class AssetTagPropertyPersistenceImpl extends BasePersistenceImpl<AssetTa
 	/**
 	 * Removes the asset tag property with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param tagPropertyId the primary key of the asset tag property
+	 * @return the asset tag property that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchTagPropertyException if a asset tag property with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetTagProperty remove(long tagPropertyId)
+		throws NoSuchTagPropertyException, SystemException {
+		return remove(Long.valueOf(tagPropertyId));
+	}
+
+	/**
+	 * Removes the asset tag property with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset tag property
 	 * @return the asset tag property that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchTagPropertyException if a asset tag property with the primary key could not be found
@@ -313,19 +326,6 @@ public class AssetTagPropertyPersistenceImpl extends BasePersistenceImpl<AssetTa
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset tag property with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param tagPropertyId the primary key of the asset tag property
-	 * @return the asset tag property that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchTagPropertyException if a asset tag property with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetTagProperty remove(long tagPropertyId)
-		throws NoSuchTagPropertyException, SystemException {
-		return remove(Long.valueOf(tagPropertyId));
 	}
 
 	@Override

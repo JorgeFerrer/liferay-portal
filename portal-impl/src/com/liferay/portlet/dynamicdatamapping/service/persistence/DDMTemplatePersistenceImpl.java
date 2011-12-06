@@ -354,6 +354,19 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	/**
 	 * Removes the d d m template with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param templateId the primary key of the d d m template
+	 * @return the d d m template that was removed
+	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchTemplateException if a d d m template with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDMTemplate remove(long templateId)
+		throws NoSuchTemplateException, SystemException {
+		return remove(Long.valueOf(templateId));
+	}
+
+	/**
+	 * Removes the d d m template with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d m template
 	 * @return the d d m template that was removed
 	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchTemplateException if a d d m template with the primary key could not be found
@@ -390,19 +403,6 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d m template with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param templateId the primary key of the d d m template
-	 * @return the d d m template that was removed
-	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchTemplateException if a d d m template with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDMTemplate remove(long templateId)
-		throws NoSuchTemplateException, SystemException {
-		return remove(Long.valueOf(templateId));
 	}
 
 	@Override

@@ -227,6 +227,19 @@ public class DLSyncPersistenceImpl extends BasePersistenceImpl<DLSync>
 	/**
 	 * Removes the d l sync with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param syncId the primary key of the d l sync
+	 * @return the d l sync that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchSyncException if a d l sync with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLSync remove(long syncId)
+		throws NoSuchSyncException, SystemException {
+		return remove(Long.valueOf(syncId));
+	}
+
+	/**
+	 * Removes the d l sync with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d l sync
 	 * @return the d l sync that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchSyncException if a d l sync with the primary key could not be found
@@ -262,19 +275,6 @@ public class DLSyncPersistenceImpl extends BasePersistenceImpl<DLSync>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d l sync with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param syncId the primary key of the d l sync
-	 * @return the d l sync that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchSyncException if a d l sync with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLSync remove(long syncId)
-		throws NoSuchSyncException, SystemException {
-		return remove(Long.valueOf(syncId));
 	}
 
 	@Override

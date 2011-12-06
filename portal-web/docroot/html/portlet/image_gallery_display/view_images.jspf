@@ -125,14 +125,11 @@
 			</c:when>
 
 			<c:when test="<%= curFolder != null %>">
-
-				<%
-				PortletURL viewFolderURL = liferayPortletResponse.createRenderURL();
-
-				viewFolderURL.setParameter("struts_action", "/document_library/view");
-				viewFolderURL.setParameter("redirect", currentURL);
-				viewFolderURL.setParameter("folderId", String.valueOf(curFolder.getFolderId()));
-				%>
+				<portlet:renderURL var="viewFolderURL">
+					<portlet:param name="struts_action" value="/image_gallery_display/view" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+					<portlet:param name="folderId" value="<%= String.valueOf(curFolder.getFolderId()) %>" />
+				</portlet:renderURL>
 
 				<a class="image-thumbnail" href="<%= viewFolderURL.toString() %>" title="<%= HtmlUtil.escape(curFolder.getName()) + " - " + HtmlUtil.escape(curFolder.getDescription()) %>">
 

@@ -265,6 +265,19 @@ public class RatingsEntryPersistenceImpl extends BasePersistenceImpl<RatingsEntr
 	/**
 	 * Removes the ratings entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param entryId the primary key of the ratings entry
+	 * @return the ratings entry that was removed
+	 * @throws com.liferay.portlet.ratings.NoSuchEntryException if a ratings entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public RatingsEntry remove(long entryId)
+		throws NoSuchEntryException, SystemException {
+		return remove(Long.valueOf(entryId));
+	}
+
+	/**
+	 * Removes the ratings entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the ratings entry
 	 * @return the ratings entry that was removed
 	 * @throws com.liferay.portlet.ratings.NoSuchEntryException if a ratings entry with the primary key could not be found
@@ -301,19 +314,6 @@ public class RatingsEntryPersistenceImpl extends BasePersistenceImpl<RatingsEntr
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the ratings entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param entryId the primary key of the ratings entry
-	 * @return the ratings entry that was removed
-	 * @throws com.liferay.portlet.ratings.NoSuchEntryException if a ratings entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public RatingsEntry remove(long entryId)
-		throws NoSuchEntryException, SystemException {
-		return remove(Long.valueOf(entryId));
 	}
 
 	@Override

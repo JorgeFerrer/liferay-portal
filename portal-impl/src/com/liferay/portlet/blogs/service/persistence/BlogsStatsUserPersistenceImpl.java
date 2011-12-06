@@ -321,6 +321,19 @@ public class BlogsStatsUserPersistenceImpl extends BasePersistenceImpl<BlogsStat
 	/**
 	 * Removes the blogs stats user with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param statsUserId the primary key of the blogs stats user
+	 * @return the blogs stats user that was removed
+	 * @throws com.liferay.portlet.blogs.NoSuchStatsUserException if a blogs stats user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public BlogsStatsUser remove(long statsUserId)
+		throws NoSuchStatsUserException, SystemException {
+		return remove(Long.valueOf(statsUserId));
+	}
+
+	/**
+	 * Removes the blogs stats user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the blogs stats user
 	 * @return the blogs stats user that was removed
 	 * @throws com.liferay.portlet.blogs.NoSuchStatsUserException if a blogs stats user with the primary key could not be found
@@ -357,19 +370,6 @@ public class BlogsStatsUserPersistenceImpl extends BasePersistenceImpl<BlogsStat
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the blogs stats user with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param statsUserId the primary key of the blogs stats user
-	 * @return the blogs stats user that was removed
-	 * @throws com.liferay.portlet.blogs.NoSuchStatsUserException if a blogs stats user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public BlogsStatsUser remove(long statsUserId)
-		throws NoSuchStatsUserException, SystemException {
-		return remove(Long.valueOf(statsUserId));
 	}
 
 	@Override

@@ -455,6 +455,19 @@ public class LayoutPersistenceImpl extends BasePersistenceImpl<Layout>
 	/**
 	 * Removes the layout with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param plid the primary key of the layout
+	 * @return the layout that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutException if a layout with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Layout remove(long plid)
+		throws NoSuchLayoutException, SystemException {
+		return remove(Long.valueOf(plid));
+	}
+
+	/**
+	 * Removes the layout with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout
 	 * @return the layout that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutException if a layout with the primary key could not be found
@@ -490,19 +503,6 @@ public class LayoutPersistenceImpl extends BasePersistenceImpl<Layout>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param plid the primary key of the layout
-	 * @return the layout that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutException if a layout with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Layout remove(long plid)
-		throws NoSuchLayoutException, SystemException {
-		return remove(Long.valueOf(plid));
 	}
 
 	@Override

@@ -328,6 +328,19 @@ public class BookmarksFolderPersistenceImpl extends BasePersistenceImpl<Bookmark
 	/**
 	 * Removes the bookmarks folder with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param folderId the primary key of the bookmarks folder
+	 * @return the bookmarks folder that was removed
+	 * @throws com.liferay.portlet.bookmarks.NoSuchFolderException if a bookmarks folder with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public BookmarksFolder remove(long folderId)
+		throws NoSuchFolderException, SystemException {
+		return remove(Long.valueOf(folderId));
+	}
+
+	/**
+	 * Removes the bookmarks folder with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the bookmarks folder
 	 * @return the bookmarks folder that was removed
 	 * @throws com.liferay.portlet.bookmarks.NoSuchFolderException if a bookmarks folder with the primary key could not be found
@@ -364,19 +377,6 @@ public class BookmarksFolderPersistenceImpl extends BasePersistenceImpl<Bookmark
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the bookmarks folder with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param folderId the primary key of the bookmarks folder
-	 * @return the bookmarks folder that was removed
-	 * @throws com.liferay.portlet.bookmarks.NoSuchFolderException if a bookmarks folder with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public BookmarksFolder remove(long folderId)
-		throws NoSuchFolderException, SystemException {
-		return remove(Long.valueOf(folderId));
 	}
 
 	@Override

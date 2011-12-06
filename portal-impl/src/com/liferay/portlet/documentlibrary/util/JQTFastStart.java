@@ -26,8 +26,8 @@ import java.io.RandomAccessFile;
  * This class updates an MP4 to be a "fast start" movie. This allows the MP4 to
  * be more quickly read by a client player without needing to completely
  * download the file. It is achieved by moving the movie's MOOV atom to the
- * front of the file. This code is based on the public domain code of
- * <a href="http://www.wired-space.de/media/JQTFaststart.java">JQTFaststat</a>.
+ * front of the file. This code is based on the public domain code of <a
+ * href="http://www.wired-space.de/media/JQTFaststart.java">JQTFaststat</a>.
  *
  * @author Juan González
  */

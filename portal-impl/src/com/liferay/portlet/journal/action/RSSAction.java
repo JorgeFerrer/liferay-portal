@@ -298,10 +298,10 @@ public class RSSAction extends PortletAction {
 			Document document = SAXReaderUtil.read(
 				article.getContentByLocale(languageId));
 
-			XPath xpathSelector = SAXReaderUtil.createXPath(
+			XPath xPathSelector = SAXReaderUtil.createXPath(
 				"//dynamic-element[@name='" + contentField + "']");
 
-			List<Node> results = xpathSelector.selectNodes(document);
+			List<Node> results = xPathSelector.selectNodes(document);
 
 			if (results.size() == 0) {
 				return content;

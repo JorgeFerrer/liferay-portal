@@ -73,7 +73,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.portlet.PortletPreferences;
 
@@ -787,6 +786,12 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		return sb.toString();
 	}
 
+	/**
+	 * @see {@link PortletImporter#getAssetCategoryName(String, long, String,
+	 *      int)}
+	 * @see {@link PortletImporter#getAssetVocabularyName(String, long, String,
+	 *      int)}
+	 */
 	protected static String getFileEntryTypeName(
 			String uuid, long companyId, long groupId, String name, int count)
 		throws Exception {
@@ -804,21 +809,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			return name;
 		}
 
-		if (Pattern.matches(".* \\(\\d+\\)", name)) {
-			int pos = name.lastIndexOf(" (");
-
-			name = name.substring(0, pos);
-		}
-
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(name);
-		sb.append(StringPool.SPACE);
-		sb.append(StringPool.OPEN_PARENTHESIS);
-		sb.append(count);
-		sb.append(StringPool.CLOSE_PARENTHESIS);
-
-		name = sb.toString();
+		name = StringUtil.appendParentheticalSuffix(name, count);
 
 		return getFileEntryTypeName(uuid, companyId, groupId, name, ++count);
 	}
@@ -866,9 +857,15 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		return sb.toString();
 	}
 
+	/**
+	 * @see {@link PortletImporter#getAssetCategoryName(String, long, String,
+	 *      int)}
+	 * @see {@link PortletImporter#getAssetVocabularyName(String, long, String,
+	 *      int)}
+	 */
 	protected static String getFolderName(
-			String uuid, long companyId, long groupId, long parentFolderId,
-			String name, int count)
+			String uuid, long groupId, long parentFolderId, String name,
+			int count)
 		throws Exception {
 
 		Folder folder = FolderUtil.fetchByR_P_N(groupId, parentFolderId, name);
@@ -881,24 +878,9 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			return name;
 		}
 
-		if (Pattern.matches(".* \\(\\d+\\)", name)) {
-			int pos = name.lastIndexOf(" (");
+		name = StringUtil.appendParentheticalSuffix(name, count);
 
-			name = name.substring(0, pos);
-		}
-
-		StringBundler sb = new StringBundler(5);
-
-		sb.append(name);
-		sb.append(StringPool.SPACE);
-		sb.append(StringPool.OPEN_PARENTHESIS);
-		sb.append(count);
-		sb.append(StringPool.CLOSE_PARENTHESIS);
-
-		name = sb.toString();
-
-		return getFolderName(
-			uuid, companyId, groupId, parentFolderId, name, ++count);
+		return getFolderName(uuid, groupId, parentFolderId, name, ++count);
 	}
 
 	protected static String getFolderPath(
@@ -1175,8 +1157,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 			if (existingFolder == null) {
 				String name = getFolderName(
-					null, portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), parentFolderId,
+					null, portletDataContext.getScopeGroupId(), parentFolderId,
 					folder.getName(), 2);
 
 				serviceContext.setUuid(folder.getUuid());
@@ -1188,9 +1169,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			}
 			else {
 				String name = getFolderName(
-					folder.getUuid(), portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), parentFolderId,
-					folder.getName(), 2);
+					folder.getUuid(), portletDataContext.getScopeGroupId(),
+					parentFolderId, folder.getName(), 2);
 
 				importedFolder = DLAppLocalServiceUtil.updateFolder(
 					existingFolder.getFolderId(), parentFolderId, name,
@@ -1199,8 +1179,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		}
 		else {
 			String name = getFolderName(
-				null, portletDataContext.getCompanyId(),
-				portletDataContext.getScopeGroupId(), parentFolderId,
+				null, portletDataContext.getScopeGroupId(), parentFolderId,
 				folder.getName(), 2);
 
 			importedFolder = DLAppLocalServiceUtil.addFolder(

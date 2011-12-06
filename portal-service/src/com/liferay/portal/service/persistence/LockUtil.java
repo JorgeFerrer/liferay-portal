@@ -93,13 +93,6 @@ public class LockUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#remove(com.liferay.portal.model.BaseModel)
-	 */
-	public static Lock remove(Lock lock) throws SystemException {
-		return getPersistence().remove(lock);
-	}
-
-	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
 	 */
 	public static Lock update(Lock lock, boolean merge)

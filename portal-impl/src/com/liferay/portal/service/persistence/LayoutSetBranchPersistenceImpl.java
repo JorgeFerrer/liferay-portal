@@ -264,6 +264,19 @@ public class LayoutSetBranchPersistenceImpl extends BasePersistenceImpl<LayoutSe
 	/**
 	 * Removes the layout set branch with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param layoutSetBranchId the primary key of the layout set branch
+	 * @return the layout set branch that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutSetBranchException if a layout set branch with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public LayoutSetBranch remove(long layoutSetBranchId)
+		throws NoSuchLayoutSetBranchException, SystemException {
+		return remove(Long.valueOf(layoutSetBranchId));
+	}
+
+	/**
+	 * Removes the layout set branch with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout set branch
 	 * @return the layout set branch that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutSetBranchException if a layout set branch with the primary key could not be found
@@ -300,19 +313,6 @@ public class LayoutSetBranchPersistenceImpl extends BasePersistenceImpl<LayoutSe
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout set branch with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param layoutSetBranchId the primary key of the layout set branch
-	 * @return the layout set branch that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutSetBranchException if a layout set branch with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public LayoutSetBranch remove(long layoutSetBranchId)
-		throws NoSuchLayoutSetBranchException, SystemException {
-		return remove(Long.valueOf(layoutSetBranchId));
 	}
 
 	@Override

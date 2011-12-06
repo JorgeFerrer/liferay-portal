@@ -205,6 +205,19 @@ public class ShoppingOrderItemPersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping order item with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param orderItemId the primary key of the shopping order item
+	 * @return the shopping order item that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchOrderItemException if a shopping order item with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingOrderItem remove(long orderItemId)
+		throws NoSuchOrderItemException, SystemException {
+		return remove(Long.valueOf(orderItemId));
+	}
+
+	/**
+	 * Removes the shopping order item with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping order item
 	 * @return the shopping order item that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchOrderItemException if a shopping order item with the primary key could not be found
@@ -241,19 +254,6 @@ public class ShoppingOrderItemPersistenceImpl extends BasePersistenceImpl<Shoppi
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping order item with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param orderItemId the primary key of the shopping order item
-	 * @return the shopping order item that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchOrderItemException if a shopping order item with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingOrderItem remove(long orderItemId)
-		throws NoSuchOrderItemException, SystemException {
-		return remove(Long.valueOf(orderItemId));
 	}
 
 	@Override

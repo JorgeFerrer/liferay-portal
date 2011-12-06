@@ -74,18 +74,11 @@ print AdminConfig.save()
 
 print AdminApp.list()
 
-print AdminApp.install('C:/tunnel-web.war', '[-appname liferay-tunnel-web -contextroot /tunnel-web]')
-
-print AdminConfig.save()
-
-print AdminApp.list()
-
 appManager = AdminControl.queryNames('type=ApplicationManager,process=server1,*')
 
 print appManager
 
-print AdminControl.invoke(appManager, 'startApplication', 'liferay-portal')
-print AdminControl.invoke(appManager, 'startApplication', 'liferay-tunnel-web')</echo>
+print AdminControl.invoke(appManager, 'startApplication', 'liferay-portal')</echo>
 
 		<exec executable="${pscp.executable}">
 			<arg line="-pw ${vm.password} wsadmin.py ${vm.username}@${vm.host}:/" />

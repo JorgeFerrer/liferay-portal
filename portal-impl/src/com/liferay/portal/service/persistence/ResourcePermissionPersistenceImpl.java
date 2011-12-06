@@ -478,6 +478,19 @@ public class ResourcePermissionPersistenceImpl extends BasePersistenceImpl<Resou
 	/**
 	 * Removes the resource permission with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourcePermissionId the primary key of the resource permission
+	 * @return the resource permission that was removed
+	 * @throws com.liferay.portal.NoSuchResourcePermissionException if a resource permission with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourcePermission remove(long resourcePermissionId)
+		throws NoSuchResourcePermissionException, SystemException {
+		return remove(Long.valueOf(resourcePermissionId));
+	}
+
+	/**
+	 * Removes the resource permission with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource permission
 	 * @return the resource permission that was removed
 	 * @throws com.liferay.portal.NoSuchResourcePermissionException if a resource permission with the primary key could not be found
@@ -514,19 +527,6 @@ public class ResourcePermissionPersistenceImpl extends BasePersistenceImpl<Resou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource permission with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourcePermissionId the primary key of the resource permission
-	 * @return the resource permission that was removed
-	 * @throws com.liferay.portal.NoSuchResourcePermissionException if a resource permission with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourcePermission remove(long resourcePermissionId)
-		throws NoSuchResourcePermissionException, SystemException {
-		return remove(Long.valueOf(resourcePermissionId));
 	}
 
 	@Override

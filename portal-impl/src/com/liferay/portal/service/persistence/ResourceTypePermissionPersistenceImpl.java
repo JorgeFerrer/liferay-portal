@@ -277,6 +277,19 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 	/**
 	 * Removes the resource type permission with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourceTypePermissionId the primary key of the resource type permission
+	 * @return the resource type permission that was removed
+	 * @throws com.liferay.portal.NoSuchResourceTypePermissionException if a resource type permission with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceTypePermission remove(long resourceTypePermissionId)
+		throws NoSuchResourceTypePermissionException, SystemException {
+		return remove(Long.valueOf(resourceTypePermissionId));
+	}
+
+	/**
+	 * Removes the resource type permission with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource type permission
 	 * @return the resource type permission that was removed
 	 * @throws com.liferay.portal.NoSuchResourceTypePermissionException if a resource type permission with the primary key could not be found
@@ -313,19 +326,6 @@ public class ResourceTypePermissionPersistenceImpl extends BasePersistenceImpl<R
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource type permission with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourceTypePermissionId the primary key of the resource type permission
-	 * @return the resource type permission that was removed
-	 * @throws com.liferay.portal.NoSuchResourceTypePermissionException if a resource type permission with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourceTypePermission remove(long resourceTypePermissionId)
-		throws NoSuchResourceTypePermissionException, SystemException {
-		return remove(Long.valueOf(resourceTypePermissionId));
 	}
 
 	@Override

@@ -274,6 +274,19 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	/**
 	 * Removes the resource block with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourceBlockId the primary key of the resource block
+	 * @return the resource block that was removed
+	 * @throws com.liferay.portal.NoSuchResourceBlockException if a resource block with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlock remove(long resourceBlockId)
+		throws NoSuchResourceBlockException, SystemException {
+		return remove(Long.valueOf(resourceBlockId));
+	}
+
+	/**
+	 * Removes the resource block with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource block
 	 * @return the resource block that was removed
 	 * @throws com.liferay.portal.NoSuchResourceBlockException if a resource block with the primary key could not be found
@@ -310,19 +323,6 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource block with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourceBlockId the primary key of the resource block
-	 * @return the resource block that was removed
-	 * @throws com.liferay.portal.NoSuchResourceBlockException if a resource block with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourceBlock remove(long resourceBlockId)
-		throws NoSuchResourceBlockException, SystemException {
-		return remove(Long.valueOf(resourceBlockId));
 	}
 
 	@Override

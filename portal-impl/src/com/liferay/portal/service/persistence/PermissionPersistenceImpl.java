@@ -232,6 +232,19 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 	/**
 	 * Removes the permission with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param permissionId the primary key of the permission
+	 * @return the permission that was removed
+	 * @throws com.liferay.portal.NoSuchPermissionException if a permission with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Permission remove(long permissionId)
+		throws NoSuchPermissionException, SystemException {
+		return remove(Long.valueOf(permissionId));
+	}
+
+	/**
+	 * Removes the permission with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the permission
 	 * @return the permission that was removed
 	 * @throws com.liferay.portal.NoSuchPermissionException if a permission with the primary key could not be found
@@ -268,19 +281,6 @@ public class PermissionPersistenceImpl extends BasePersistenceImpl<Permission>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the permission with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param permissionId the primary key of the permission
-	 * @return the permission that was removed
-	 * @throws com.liferay.portal.NoSuchPermissionException if a permission with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Permission remove(long permissionId)
-		throws NoSuchPermissionException, SystemException {
-		return remove(Long.valueOf(permissionId));
 	}
 
 	@Override

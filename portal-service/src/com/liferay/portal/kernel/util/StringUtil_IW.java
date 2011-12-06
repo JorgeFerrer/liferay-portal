@@ -36,6 +36,16 @@ public class StringUtil_IW {
 		return StringUtil.add(s, add, delimiter, allowDuplicates);
 	}
 
+	public java.lang.String appendParentheticalSuffix(java.lang.String s,
+		int suffix) {
+		return StringUtil.appendParentheticalSuffix(s, suffix);
+	}
+
+	public java.lang.String appendParentheticalSuffix(java.lang.String s,
+		java.lang.String suffix) {
+		return StringUtil.appendParentheticalSuffix(s, suffix);
+	}
+
 	public java.lang.String bytesToHexString(byte[] bytes) {
 		return StringUtil.bytesToHexString(bytes);
 	}

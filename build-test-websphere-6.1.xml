@@ -72,10 +72,6 @@ $AdminConfig save
 
 $AdminApp install "C:/liferay-portal-${lp.version}.war" {-appname liferay-portal -contextroot /}
 
-$AdminConfig save
-
-$AdminApp install "C:/tunnel-web.war" {-appname liferay-tunnel-web -contextroot /tunnel-web}
-
 $AdminConfig save</echo>
 
 		<exec executable="${pscp.executable}">

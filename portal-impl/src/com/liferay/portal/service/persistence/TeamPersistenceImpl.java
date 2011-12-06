@@ -226,6 +226,18 @@ public class TeamPersistenceImpl extends BasePersistenceImpl<Team>
 	/**
 	 * Removes the team with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param teamId the primary key of the team
+	 * @return the team that was removed
+	 * @throws com.liferay.portal.NoSuchTeamException if a team with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Team remove(long teamId) throws NoSuchTeamException, SystemException {
+		return remove(Long.valueOf(teamId));
+	}
+
+	/**
+	 * Removes the team with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the team
 	 * @return the team that was removed
 	 * @throws com.liferay.portal.NoSuchTeamException if a team with the primary key could not be found
@@ -261,18 +273,6 @@ public class TeamPersistenceImpl extends BasePersistenceImpl<Team>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the team with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param teamId the primary key of the team
-	 * @return the team that was removed
-	 * @throws com.liferay.portal.NoSuchTeamException if a team with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Team remove(long teamId) throws NoSuchTeamException, SystemException {
-		return remove(Long.valueOf(teamId));
 	}
 
 	@Override

@@ -212,6 +212,19 @@ public class WorkflowInstanceLinkPersistenceImpl extends BasePersistenceImpl<Wor
 	/**
 	 * Removes the workflow instance link with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param workflowInstanceLinkId the primary key of the workflow instance link
+	 * @return the workflow instance link that was removed
+	 * @throws com.liferay.portal.NoSuchWorkflowInstanceLinkException if a workflow instance link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public WorkflowInstanceLink remove(long workflowInstanceLinkId)
+		throws NoSuchWorkflowInstanceLinkException, SystemException {
+		return remove(Long.valueOf(workflowInstanceLinkId));
+	}
+
+	/**
+	 * Removes the workflow instance link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the workflow instance link
 	 * @return the workflow instance link that was removed
 	 * @throws com.liferay.portal.NoSuchWorkflowInstanceLinkException if a workflow instance link with the primary key could not be found
@@ -248,19 +261,6 @@ public class WorkflowInstanceLinkPersistenceImpl extends BasePersistenceImpl<Wor
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the workflow instance link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param workflowInstanceLinkId the primary key of the workflow instance link
-	 * @return the workflow instance link that was removed
-	 * @throws com.liferay.portal.NoSuchWorkflowInstanceLinkException if a workflow instance link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public WorkflowInstanceLink remove(long workflowInstanceLinkId)
-		throws NoSuchWorkflowInstanceLinkException, SystemException {
-		return remove(Long.valueOf(workflowInstanceLinkId));
 	}
 
 	@Override

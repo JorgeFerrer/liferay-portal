@@ -251,6 +251,19 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 	/**
 	 * Removes the resource code with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param codeId the primary key of the resource code
+	 * @return the resource code that was removed
+	 * @throws com.liferay.portal.NoSuchResourceCodeException if a resource code with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceCode remove(long codeId)
+		throws NoSuchResourceCodeException, SystemException {
+		return remove(Long.valueOf(codeId));
+	}
+
+	/**
+	 * Removes the resource code with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource code
 	 * @return the resource code that was removed
 	 * @throws com.liferay.portal.NoSuchResourceCodeException if a resource code with the primary key could not be found
@@ -287,19 +300,6 @@ public class ResourceCodePersistenceImpl extends BasePersistenceImpl<ResourceCod
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource code with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param codeId the primary key of the resource code
-	 * @return the resource code that was removed
-	 * @throws com.liferay.portal.NoSuchResourceCodeException if a resource code with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourceCode remove(long codeId)
-		throws NoSuchResourceCodeException, SystemException {
-		return remove(Long.valueOf(codeId));
 	}
 
 	@Override

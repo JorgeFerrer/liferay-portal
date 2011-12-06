@@ -73,7 +73,8 @@ public class EditLayoutBranchAction extends EditLayoutsAction {
 			if (SessionErrors.isEmpty(actionRequest)) {
 				SessionMessages.add(
 					actionRequest,
-					portletConfig.getPortletName() + ".doRefresh",
+					portletConfig.getPortletName() +
+						SessionMessages.KEY_SUFFIX_REFRESH_PORTLET,
 					PortletKeys.STAGING_BAR);
 
 				Map<String, String> data = new HashMap<String, String>();
@@ -82,7 +83,9 @@ public class EditLayoutBranchAction extends EditLayoutsAction {
 
 				SessionMessages.add(
 					actionRequest,
-					portletConfig.getPortletName() + ".doRefreshData", data);
+					portletConfig.getPortletName() +
+						SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA,
+					data);
 			}
 
 			sendRedirect(actionRequest, actionResponse);
@@ -160,7 +163,8 @@ public class EditLayoutBranchAction extends EditLayoutsAction {
 		if (layoutBranchId == currentLayoutBranchId) {
 			SessionMessages.add(
 				actionRequest,
-				portletConfig.getPortletName() + ".notAjaxable");
+				portletConfig.getPortletName() +
+					SessionMessages.KEY_SUFFIX_PORTLET_NOT_AJAXABLE);
 		}
 	}
 

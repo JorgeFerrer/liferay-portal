@@ -251,6 +251,19 @@ public class LayoutPrototypePersistenceImpl extends BasePersistenceImpl<LayoutPr
 	/**
 	 * Removes the layout prototype with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param layoutPrototypeId the primary key of the layout prototype
+	 * @return the layout prototype that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutPrototypeException if a layout prototype with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public LayoutPrototype remove(long layoutPrototypeId)
+		throws NoSuchLayoutPrototypeException, SystemException {
+		return remove(Long.valueOf(layoutPrototypeId));
+	}
+
+	/**
+	 * Removes the layout prototype with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout prototype
 	 * @return the layout prototype that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutPrototypeException if a layout prototype with the primary key could not be found
@@ -287,19 +300,6 @@ public class LayoutPrototypePersistenceImpl extends BasePersistenceImpl<LayoutPr
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout prototype with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param layoutPrototypeId the primary key of the layout prototype
-	 * @return the layout prototype that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutPrototypeException if a layout prototype with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public LayoutPrototype remove(long layoutPrototypeId)
-		throws NoSuchLayoutPrototypeException, SystemException {
-		return remove(Long.valueOf(layoutPrototypeId));
 	}
 
 	@Override

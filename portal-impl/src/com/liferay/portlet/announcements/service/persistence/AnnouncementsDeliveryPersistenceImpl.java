@@ -239,6 +239,19 @@ public class AnnouncementsDeliveryPersistenceImpl extends BasePersistenceImpl<An
 	/**
 	 * Removes the announcements delivery with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param deliveryId the primary key of the announcements delivery
+	 * @return the announcements delivery that was removed
+	 * @throws com.liferay.portlet.announcements.NoSuchDeliveryException if a announcements delivery with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AnnouncementsDelivery remove(long deliveryId)
+		throws NoSuchDeliveryException, SystemException {
+		return remove(Long.valueOf(deliveryId));
+	}
+
+	/**
+	 * Removes the announcements delivery with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the announcements delivery
 	 * @return the announcements delivery that was removed
 	 * @throws com.liferay.portlet.announcements.NoSuchDeliveryException if a announcements delivery with the primary key could not be found
@@ -275,19 +288,6 @@ public class AnnouncementsDeliveryPersistenceImpl extends BasePersistenceImpl<An
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the announcements delivery with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param deliveryId the primary key of the announcements delivery
-	 * @return the announcements delivery that was removed
-	 * @throws com.liferay.portlet.announcements.NoSuchDeliveryException if a announcements delivery with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AnnouncementsDelivery remove(long deliveryId)
-		throws NoSuchDeliveryException, SystemException {
-		return remove(Long.valueOf(deliveryId));
 	}
 
 	@Override

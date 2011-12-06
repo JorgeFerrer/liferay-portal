@@ -316,6 +316,19 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 	/**
 	 * Removes the journal article image with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param articleImageId the primary key of the journal article image
+	 * @return the journal article image that was removed
+	 * @throws com.liferay.portlet.journal.NoSuchArticleImageException if a journal article image with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalArticleImage remove(long articleImageId)
+		throws NoSuchArticleImageException, SystemException {
+		return remove(Long.valueOf(articleImageId));
+	}
+
+	/**
+	 * Removes the journal article image with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the journal article image
 	 * @return the journal article image that was removed
 	 * @throws com.liferay.portlet.journal.NoSuchArticleImageException if a journal article image with the primary key could not be found
@@ -352,19 +365,6 @@ public class JournalArticleImagePersistenceImpl extends BasePersistenceImpl<Jour
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the journal article image with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param articleImageId the primary key of the journal article image
-	 * @return the journal article image that was removed
-	 * @throws com.liferay.portlet.journal.NoSuchArticleImageException if a journal article image with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public JournalArticleImage remove(long articleImageId)
-		throws NoSuchArticleImageException, SystemException {
-		return remove(Long.valueOf(articleImageId));
 	}
 
 	@Override

@@ -300,7 +300,8 @@ public class JournalArticleLocalServiceImpl
 		PortletPreferences preferences =
 			ServiceContextUtil.getPortletPreferences(serviceContext);
 
-		sendEmail(article, articleURL, preferences, "requested");
+		sendEmail(
+			article, articleURL, preferences, "requested", serviceContext);
 
 		// Workflow
 
@@ -455,7 +456,9 @@ public class JournalArticleLocalServiceImpl
 					article.getCompanyId(), ownerId, ownerType, plid,
 					portletId);
 
-			sendEmail(article, articleURL, preferences, "review");
+			sendEmail(
+				article, articleURL, preferences, "review",
+				new ServiceContext());
 		}
 	}
 
@@ -612,7 +615,8 @@ public class JournalArticleLocalServiceImpl
 				article.getGroupId(), article.getArticleId(),
 				article.getVersion())) {
 
-			sendEmail(article, articleURL, preferences, "denied");
+			sendEmail(
+				article, articleURL, preferences, "denied", serviceContext);
 		}
 
 		// Images
@@ -951,10 +955,10 @@ public class JournalArticleLocalServiceImpl
 					Element pageElement = null;
 
 					if (Validator.isNotNull(targetPage)) {
-						XPath xpathSelector = SAXReaderUtil.createXPath(
+						XPath xPathSelector = SAXReaderUtil.createXPath(
 							"/root/page[@id = '" + targetPage + "']");
 
-						pageElement = (Element)xpathSelector.selectSingleNode(
+						pageElement = (Element)xPathSelector.selectSingleNode(
 							document);
 					}
 
@@ -983,7 +987,8 @@ public class JournalArticleLocalServiceImpl
 
 				rootElement.add(requestDocument.getRootElement().createCopy());
 
-				JournalUtil.addAllReservedEls(rootElement, tokens, article);
+				JournalUtil.addAllReservedEls(
+					rootElement, tokens, article, languageId);
 
 				xml = DDMXMLUtil.formatXML(document);
 			}
@@ -2063,7 +2068,8 @@ public class JournalArticleLocalServiceImpl
 		if (serviceContext.getWorkflowAction() ==
 				WorkflowConstants.ACTION_PUBLISH) {
 
-			sendEmail(article, articleURL, preferences, "requested");
+			sendEmail(
+				article, articleURL, preferences, "requested", serviceContext);
 
 			WorkflowHandlerRegistryUtil.startWorkflowInstance(
 				user.getCompanyId(), groupId, userId,
@@ -2100,7 +2106,8 @@ public class JournalArticleLocalServiceImpl
 
 	public JournalArticle updateArticleTranslation(
 			long groupId, String articleId, double version, Locale locale,
-			String title, String description, String content)
+			String title, String description, String content,
+			Map<String, byte[]> images)
 		throws PortalException, SystemException {
 
 		validateContent(content);
@@ -2116,14 +2123,14 @@ public class JournalArticleLocalServiceImpl
 
 		JournalArticle article = null;
 
+		User user = userService.getUserById(oldArticle.getUserId());
+
 		if (!oldArticle.isDraft()) {
 			double newVersion = MathUtil.format(oldVersion + 0.1, 1, 1);
 
 			long id = counterLocalService.increment();
 
 			article = journalArticlePersistence.create(id);
-
-			User user = userService.getUserById(oldArticle.getUserId());
 
 			article.setResourcePrimKey(oldArticle.getResourcePrimKey());
 			article.setGroupId(oldArticle.getGroupId());
@@ -2175,6 +2182,10 @@ public class JournalArticleLocalServiceImpl
 		descriptionMap.put(locale, description);
 
 		article.setDescriptionMap(descriptionMap);
+
+		content = format(
+			user, groupId, articleId, version, !oldArticle.isDraft(), content,
+			oldArticle.getStructureId(), images);
 
 		article.setContent(content);
 
@@ -2427,7 +2438,8 @@ public class JournalArticleLocalServiceImpl
 						ServiceContextUtil.getPortletPreferences(
 							serviceContext);
 
-					sendEmail(article, articleURL, preferences, msg);
+					sendEmail(
+						article, articleURL, preferences, msg, serviceContext);
 				}
 				catch (Exception e) {
 					_log.error(
@@ -2591,10 +2603,10 @@ public class JournalArticleLocalServiceImpl
 
 		Document contentDoc = SAXReaderUtil.read(oldArticle.getContent());
 
-		XPath xpathSelector = SAXReaderUtil.createXPath(
+		XPath xPathSelector = SAXReaderUtil.createXPath(
 			"//dynamic-element[@type='image']");
 
-		List<Node> imageNodes = xpathSelector.selectNodes(contentDoc);
+		List<Node> imageNodes = xPathSelector.selectNodes(contentDoc);
 
 		for (Node imageNode : imageNodes) {
 			Element imageEl = (Element)imageNode;
@@ -2872,7 +2884,9 @@ public class JournalArticleLocalServiceImpl
 				continue;
 			}
 
-			dynamicContent.setText(StringPool.BLANK);
+			if (Validator.isNotNull(elLanguage)) {
+				dynamicContent.setText(StringPool.BLANK);
+			}
 		}
 	}
 
@@ -3057,6 +3071,7 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.setPortletId(PortletKeys.JOURNAL);
 		subscriptionSender.setReplyToAddress(fromAddress);
 		subscriptionSender.setScopeGroupId(article.getGroupId());
+		subscriptionSender.setServiceContext(serviceContext);
 		subscriptionSender.setSubject(subject);
 		subscriptionSender.setUserId(article.getUserId());
 
@@ -3083,7 +3098,8 @@ public class JournalArticleLocalServiceImpl
 
 	protected void sendEmail(
 			JournalArticle article, String articleURL,
-			PortletPreferences preferences, String emailType)
+			PortletPreferences preferences, String emailType,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		if (preferences == null) {
@@ -3177,6 +3193,7 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.setMailId("journal_article", article.getId());
 		subscriptionSender.setPortletId(PortletKeys.JOURNAL);
 		subscriptionSender.setScopeGroupId(article.getGroupId());
+		subscriptionSender.setServiceContext(serviceContext);
 		subscriptionSender.setSubject(subject);
 		subscriptionSender.setUserId(article.getUserId());
 
@@ -3346,7 +3363,7 @@ public class JournalArticleLocalServiceImpl
 
 		validate(
 			companyId, groupId, classNameId, titleMap, content, type,
-			structureId,templateId, smallImage, smallImageURL, smallImageFile,
+			structureId, templateId, smallImage, smallImageURL, smallImageFile,
 			smallImageBytes);
 	}
 

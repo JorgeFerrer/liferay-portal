@@ -769,6 +769,19 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 	/**
 	 * Removes the journal article with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param id the primary key of the journal article
+	 * @return the journal article that was removed
+	 * @throws com.liferay.portlet.journal.NoSuchArticleException if a journal article with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalArticle remove(long id)
+		throws NoSuchArticleException, SystemException {
+		return remove(Long.valueOf(id));
+	}
+
+	/**
+	 * Removes the journal article with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the journal article
 	 * @return the journal article that was removed
 	 * @throws com.liferay.portlet.journal.NoSuchArticleException if a journal article with the primary key could not be found
@@ -805,19 +818,6 @@ public class JournalArticlePersistenceImpl extends BasePersistenceImpl<JournalAr
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the journal article with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param id the primary key of the journal article
-	 * @return the journal article that was removed
-	 * @throws com.liferay.portlet.journal.NoSuchArticleException if a journal article with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public JournalArticle remove(long id)
-		throws NoSuchArticleException, SystemException {
-		return remove(Long.valueOf(id));
 	}
 
 	@Override

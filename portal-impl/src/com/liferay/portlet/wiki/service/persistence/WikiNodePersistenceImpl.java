@@ -288,6 +288,19 @@ public class WikiNodePersistenceImpl extends BasePersistenceImpl<WikiNode>
 	/**
 	 * Removes the wiki node with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param nodeId the primary key of the wiki node
+	 * @return the wiki node that was removed
+	 * @throws com.liferay.portlet.wiki.NoSuchNodeException if a wiki node with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public WikiNode remove(long nodeId)
+		throws NoSuchNodeException, SystemException {
+		return remove(Long.valueOf(nodeId));
+	}
+
+	/**
+	 * Removes the wiki node with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the wiki node
 	 * @return the wiki node that was removed
 	 * @throws com.liferay.portlet.wiki.NoSuchNodeException if a wiki node with the primary key could not be found
@@ -324,19 +337,6 @@ public class WikiNodePersistenceImpl extends BasePersistenceImpl<WikiNode>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the wiki node with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param nodeId the primary key of the wiki node
-	 * @return the wiki node that was removed
-	 * @throws com.liferay.portlet.wiki.NoSuchNodeException if a wiki node with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public WikiNode remove(long nodeId)
-		throws NoSuchNodeException, SystemException {
-		return remove(Long.valueOf(nodeId));
 	}
 
 	@Override

@@ -228,6 +228,19 @@ public class ShoppingCategoryPersistenceImpl extends BasePersistenceImpl<Shoppin
 	/**
 	 * Removes the shopping category with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param categoryId the primary key of the shopping category
+	 * @return the shopping category that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchCategoryException if a shopping category with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingCategory remove(long categoryId)
+		throws NoSuchCategoryException, SystemException {
+		return remove(Long.valueOf(categoryId));
+	}
+
+	/**
+	 * Removes the shopping category with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping category
 	 * @return the shopping category that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchCategoryException if a shopping category with the primary key could not be found
@@ -264,19 +277,6 @@ public class ShoppingCategoryPersistenceImpl extends BasePersistenceImpl<Shoppin
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping category with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param categoryId the primary key of the shopping category
-	 * @return the shopping category that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchCategoryException if a shopping category with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingCategory remove(long categoryId)
-		throws NoSuchCategoryException, SystemException {
-		return remove(Long.valueOf(categoryId));
 	}
 
 	@Override

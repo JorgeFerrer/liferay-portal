@@ -244,6 +244,19 @@ public class MBDiscussionPersistenceImpl extends BasePersistenceImpl<MBDiscussio
 	/**
 	 * Removes the message boards discussion with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param discussionId the primary key of the message boards discussion
+	 * @return the message boards discussion that was removed
+	 * @throws com.liferay.portlet.messageboards.NoSuchDiscussionException if a message boards discussion with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBDiscussion remove(long discussionId)
+		throws NoSuchDiscussionException, SystemException {
+		return remove(Long.valueOf(discussionId));
+	}
+
+	/**
+	 * Removes the message boards discussion with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the message boards discussion
 	 * @return the message boards discussion that was removed
 	 * @throws com.liferay.portlet.messageboards.NoSuchDiscussionException if a message boards discussion with the primary key could not be found
@@ -280,19 +293,6 @@ public class MBDiscussionPersistenceImpl extends BasePersistenceImpl<MBDiscussio
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the message boards discussion with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param discussionId the primary key of the message boards discussion
-	 * @return the message boards discussion that was removed
-	 * @throws com.liferay.portlet.messageboards.NoSuchDiscussionException if a message boards discussion with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MBDiscussion remove(long discussionId)
-		throws NoSuchDiscussionException, SystemException {
-		return remove(Long.valueOf(discussionId));
 	}
 
 	@Override

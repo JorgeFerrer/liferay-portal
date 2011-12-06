@@ -291,7 +291,7 @@
 				(ResourcePermission.scope = ?) AND
 				(ResourceAction.actionId = ?) AND
 				(ResourcePermission.roleId = ?) AND
-				((ResourcePermission.actionIds & ResourceAction.bitwiseValue) != 0)
+				(BITAND(ResourcePermission.actionIds, ResourceAction.bitwiseValue) != 0)
 		]]>
 	</sql>
 	<sql id="com.liferay.portal.service.persistence.GroupFinder.joinByRoleResourceTypePermissions">
@@ -305,7 +305,7 @@
 				ResourceAction ON
 					(ResourceAction.name = ResourceTypePermission.name) AND
 					(ResourceAction.actionId = ?) AND
-					((ResourceTypePermission.actionIds & ResourceAction.bitwiseValue) != 0)
+					(BITAND(ResourcePermission.actionIds, ResourceAction.bitwiseValue) != 0)
 			WHERE
 				(Group_.liveGroupId = 0)
 		]]>
@@ -968,6 +968,27 @@
 				portletId LIKE ?
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.service.persistence.PortletPreferencesFinder.findByC_G_O_O_P_P">
+		<![CDATA[
+			SELECT
+				{PortletPreferences.*}
+			FROM
+				PortletPreferences
+			INNER JOIN
+				Layout ON
+					(Layout.plid = PortletPreferences.plid)
+			WHERE
+				(Layout.companyId = ?) AND
+				(Layout.groupId = ?) AND
+				(PortletPreferences.ownerId = ?) AND
+				(PortletPreferences.ownerType = ?) AND
+				(
+					(PortletPreferences.portletId = ?) OR
+					(PortletPreferences.portletId LIKE ?)
+				) AND
+				(Layout.privateLayout = ?)
+		]]>
+	</sql>
 	<sql id="com.liferay.portal.service.persistence.ResourceBlockFinder.findByC_G_N_R">
 		<![CDATA[
 			SELECT
@@ -1048,7 +1069,7 @@
 				(ResourcePermission.scope = ?) AND
 				(ResourcePermission.primKey = ?) AND
 				(ResourcePermission.roleId = ?) AND
-				((ResourcePermission.actionIds & ?) = ?)
+				(BITAND(ResourcePermission.actionIds, ?) = ?)
 		]]>
 	</sql>
 	<sql id="com.liferay.portal.service.persistence.ResourcePermissionFinder.findByResource">
@@ -1058,7 +1079,7 @@
 			FROM
 				ResourcePermission
 			WHERE
-				(ResourcePermission.companyID = ?) AND
+				(ResourcePermission.companyId = ?) AND
 				(ResourcePermission.name = ?) AND
 				(
 					(

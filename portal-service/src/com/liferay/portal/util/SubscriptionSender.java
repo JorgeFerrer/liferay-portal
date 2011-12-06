@@ -18,7 +18,6 @@ import com.liferay.mail.model.FileAttachment;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mail.MailMessage;
@@ -40,6 +39,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.SubscriptionLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.permission.SubscriptionPermissionUtil;
@@ -197,7 +197,7 @@ public class SubscriptionSender implements Serializable {
 		return _context.get(key);
 	}
 
-	public void initialize() throws PortalException, SystemException {
+	public void initialize() throws Exception {
 		if (_initialized) {
 			return;
 		}
@@ -209,7 +209,7 @@ public class SubscriptionSender implements Serializable {
 		setContextAttribute("[$COMPANY_ID$]", company.getCompanyId());
 		setContextAttribute("[$COMPANY_MX$]", company.getMx());
 		setContextAttribute("[$COMPANY_NAME$]", company.getName());
-		setContextAttribute("[$PORTAL_URL$]", company.getVirtualHostname());
+		setContextAttribute("[$PORTAL_URL$]", getPortalURL(company));
 
 		if (groupId > 0) {
 			Group group = GroupLocalServiceUtil.getGroup(groupId);
@@ -331,6 +331,10 @@ public class SubscriptionSender implements Serializable {
 		this.scopeGroupId = scopeGroupId;
 	}
 
+	public void setServiceContext(ServiceContext serviceContext) {
+		this.serviceContext = serviceContext;
+	}
+
 	public void setSMTPAccount(SMTPAccount smtpAccount) {
 		this.smtpAccount = smtpAccount;
 	}
@@ -348,6 +352,18 @@ public class SubscriptionSender implements Serializable {
 
 		SubscriptionLocalServiceUtil.deleteSubscription(
 			subscription.getSubscriptionId());
+	}
+
+	protected String getPortalURL(Company company) throws Exception {
+		if (serviceContext != null) {
+			String portalURL = serviceContext.getPortalURL();
+
+			if (Validator.isNotNull(portalURL)) {
+				return portalURL;
+			}
+		}
+
+		return company.getPortalURL(groupId);
 	}
 
 	protected boolean hasPermission(Subscription subscription, User user)
@@ -612,6 +628,7 @@ public class SubscriptionSender implements Serializable {
 	protected String mailId;
 	protected String portletId;
 	protected String replyToAddress;
+	protected ServiceContext serviceContext;
 	protected long scopeGroupId;
 	protected SMTPAccount smtpAccount;
 	protected String subject;

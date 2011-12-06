@@ -415,6 +415,19 @@ public class SocialRelationPersistenceImpl extends BasePersistenceImpl<SocialRel
 	/**
 	 * Removes the social relation with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param relationId the primary key of the social relation
+	 * @return the social relation that was removed
+	 * @throws com.liferay.portlet.social.NoSuchRelationException if a social relation with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialRelation remove(long relationId)
+		throws NoSuchRelationException, SystemException {
+		return remove(Long.valueOf(relationId));
+	}
+
+	/**
+	 * Removes the social relation with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social relation
 	 * @return the social relation that was removed
 	 * @throws com.liferay.portlet.social.NoSuchRelationException if a social relation with the primary key could not be found
@@ -451,19 +464,6 @@ public class SocialRelationPersistenceImpl extends BasePersistenceImpl<SocialRel
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social relation with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param relationId the primary key of the social relation
-	 * @return the social relation that was removed
-	 * @throws com.liferay.portlet.social.NoSuchRelationException if a social relation with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialRelation remove(long relationId)
-		throws NoSuchRelationException, SystemException {
-		return remove(Long.valueOf(relationId));
 	}
 
 	@Override

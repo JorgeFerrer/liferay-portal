@@ -42,6 +42,7 @@ import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletApp;
 import com.liferay.portal.model.PublicRenderParameter;
+import com.liferay.portal.model.impl.VirtualLayout;
 import com.liferay.portal.security.auth.AuthTokenUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
@@ -127,6 +128,14 @@ public class PortletURLImpl
 				portletApp.getContainerRuntimeOptions(),
 				LiferayPortletConfig.RUNTIME_OPTION_ESCAPE_XML,
 				PropsValues.PORTLET_URL_ESCAPE_XML);
+		}
+
+		Layout layout = (Layout)request.getAttribute(WebKeys.LAYOUT);
+
+		if ((layout != null) && (layout.getPlid() == _plid) &&
+			(layout instanceof VirtualLayout)) {
+
+			_layout = layout;
 		}
 	}
 

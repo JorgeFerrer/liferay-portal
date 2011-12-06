@@ -424,6 +424,19 @@ public class AssetCategoryPersistenceImpl extends BasePersistenceImpl<AssetCateg
 	/**
 	 * Removes the asset category with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param categoryId the primary key of the asset category
+	 * @return the asset category that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchCategoryException if a asset category with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategory remove(long categoryId)
+		throws NoSuchCategoryException, SystemException {
+		return remove(Long.valueOf(categoryId));
+	}
+
+	/**
+	 * Removes the asset category with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset category
 	 * @return the asset category that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchCategoryException if a asset category with the primary key could not be found
@@ -460,19 +473,6 @@ public class AssetCategoryPersistenceImpl extends BasePersistenceImpl<AssetCateg
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset category with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param categoryId the primary key of the asset category
-	 * @return the asset category that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchCategoryException if a asset category with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetCategory remove(long categoryId)
-		throws NoSuchCategoryException, SystemException {
-		return remove(Long.valueOf(categoryId));
 	}
 
 	@Override

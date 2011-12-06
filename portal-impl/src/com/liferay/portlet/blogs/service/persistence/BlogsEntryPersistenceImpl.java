@@ -576,6 +576,19 @@ public class BlogsEntryPersistenceImpl extends BasePersistenceImpl<BlogsEntry>
 	/**
 	 * Removes the blogs entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param entryId the primary key of the blogs entry
+	 * @return the blogs entry that was removed
+	 * @throws com.liferay.portlet.blogs.NoSuchEntryException if a blogs entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public BlogsEntry remove(long entryId)
+		throws NoSuchEntryException, SystemException {
+		return remove(Long.valueOf(entryId));
+	}
+
+	/**
+	 * Removes the blogs entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the blogs entry
 	 * @return the blogs entry that was removed
 	 * @throws com.liferay.portlet.blogs.NoSuchEntryException if a blogs entry with the primary key could not be found
@@ -612,19 +625,6 @@ public class BlogsEntryPersistenceImpl extends BasePersistenceImpl<BlogsEntry>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the blogs entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param entryId the primary key of the blogs entry
-	 * @return the blogs entry that was removed
-	 * @throws com.liferay.portlet.blogs.NoSuchEntryException if a blogs entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public BlogsEntry remove(long entryId)
-		throws NoSuchEntryException, SystemException {
-		return remove(Long.valueOf(entryId));
 	}
 
 	@Override

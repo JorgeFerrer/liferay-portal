@@ -226,6 +226,19 @@ public class ExpandoColumnPersistenceImpl extends BasePersistenceImpl<ExpandoCol
 	/**
 	 * Removes the expando column with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param columnId the primary key of the expando column
+	 * @return the expando column that was removed
+	 * @throws com.liferay.portlet.expando.NoSuchColumnException if a expando column with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoColumn remove(long columnId)
+		throws NoSuchColumnException, SystemException {
+		return remove(Long.valueOf(columnId));
+	}
+
+	/**
+	 * Removes the expando column with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the expando column
 	 * @return the expando column that was removed
 	 * @throws com.liferay.portlet.expando.NoSuchColumnException if a expando column with the primary key could not be found
@@ -262,19 +275,6 @@ public class ExpandoColumnPersistenceImpl extends BasePersistenceImpl<ExpandoCol
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the expando column with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param columnId the primary key of the expando column
-	 * @return the expando column that was removed
-	 * @throws com.liferay.portlet.expando.NoSuchColumnException if a expando column with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ExpandoColumn remove(long columnId)
-		throws NoSuchColumnException, SystemException {
-		return remove(Long.valueOf(columnId));
 	}
 
 	@Override

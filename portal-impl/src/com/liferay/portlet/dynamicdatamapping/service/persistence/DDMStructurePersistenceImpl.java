@@ -323,6 +323,19 @@ public class DDMStructurePersistenceImpl extends BasePersistenceImpl<DDMStructur
 	/**
 	 * Removes the d d m structure with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param structureId the primary key of the d d m structure
+	 * @return the d d m structure that was removed
+	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureException if a d d m structure with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDMStructure remove(long structureId)
+		throws NoSuchStructureException, SystemException {
+		return remove(Long.valueOf(structureId));
+	}
+
+	/**
+	 * Removes the d d m structure with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d m structure
 	 * @return the d d m structure that was removed
 	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureException if a d d m structure with the primary key could not be found
@@ -359,19 +372,6 @@ public class DDMStructurePersistenceImpl extends BasePersistenceImpl<DDMStructur
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d m structure with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param structureId the primary key of the d d m structure
-	 * @return the d d m structure that was removed
-	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchStructureException if a d d m structure with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDMStructure remove(long structureId)
-		throws NoSuchStructureException, SystemException {
-		return remove(Long.valueOf(structureId));
 	}
 
 	@Override

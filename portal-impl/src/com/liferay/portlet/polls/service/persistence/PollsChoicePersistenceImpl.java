@@ -254,6 +254,19 @@ public class PollsChoicePersistenceImpl extends BasePersistenceImpl<PollsChoice>
 	/**
 	 * Removes the polls choice with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param choiceId the primary key of the polls choice
+	 * @return the polls choice that was removed
+	 * @throws com.liferay.portlet.polls.NoSuchChoiceException if a polls choice with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PollsChoice remove(long choiceId)
+		throws NoSuchChoiceException, SystemException {
+		return remove(Long.valueOf(choiceId));
+	}
+
+	/**
+	 * Removes the polls choice with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the polls choice
 	 * @return the polls choice that was removed
 	 * @throws com.liferay.portlet.polls.NoSuchChoiceException if a polls choice with the primary key could not be found
@@ -290,19 +303,6 @@ public class PollsChoicePersistenceImpl extends BasePersistenceImpl<PollsChoice>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the polls choice with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param choiceId the primary key of the polls choice
-	 * @return the polls choice that was removed
-	 * @throws com.liferay.portlet.polls.NoSuchChoiceException if a polls choice with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PollsChoice remove(long choiceId)
-		throws NoSuchChoiceException, SystemException {
-		return remove(Long.valueOf(choiceId));
 	}
 
 	@Override

@@ -48,21 +48,18 @@ page import="com.liferay.portlet.dynamicdatamapping.util.DDMXSDUtil" %>
 <%
 PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(request);
 
-boolean showGlobalScope = ParamUtil.getBoolean(request, "showGlobalScope");
-boolean showManageTemplates = ParamUtil.getBoolean(request, "showManageTemplates", true);
-boolean showToolbar = ParamUtil.getBoolean(request, "showToolbar", true);
-
+String chooseCallback = ParamUtil.getString(request, "chooseCallback");
+String ddmResource = ParamUtil.getString(request, "ddmResource");
+String saveCallback = ParamUtil.getString(request, "saveCallback");
 String scopeAvailableFields = ParamUtil.getString(request, "scopeAvailableFields");
 String scopeStorageType = ParamUtil.getString(request, "scopeStorageType");
 String scopeStructureName = ParamUtil.getString(request, "scopeStructureName");
 String scopeStructureType = ParamUtil.getString(request, "scopeStructureType");
 String scopeTemplateMode = ParamUtil.getString(request, "scopeTemplateMode");
 String scopeTemplateType = ParamUtil.getString(request, "scopeTemplateType");
-
-String chooseCallback = ParamUtil.getString(request, "chooseCallback");
-String saveCallback = ParamUtil.getString(request, "saveCallback");
-
-String ddmResource = ParamUtil.getString(request, "ddmResource");
+boolean showGlobalScope = ParamUtil.getBoolean(request, "showGlobalScope");
+boolean showManageTemplates = ParamUtil.getBoolean(request, "showManageTemplates", true);
+boolean showToolbar = ParamUtil.getBoolean(request, "showToolbar", true);
 
 long classNameId = PortalUtil.getClassNameId(scopeStructureType);
 

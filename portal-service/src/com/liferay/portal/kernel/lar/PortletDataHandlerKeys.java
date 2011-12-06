@@ -49,11 +49,11 @@ public class PortletDataHandlerKeys {
 	public static final String LAYOUTS_IMPORT_MODE_CREATED_FROM_PROTOTYPE =
 		"CREATED_FROM_PROTOTYPE";
 
-	public static final String LAYOUTS_IMPORT_MODE_MERGE_BY_LAYOUT_ID =
-		"MERGE_BY_LAYOUT_ID";
-
 	public static final String LAYOUTS_IMPORT_MODE_MERGE_BY_LAYOUT_NAME =
 		"MERGE_BY_LAYOUT_NAME";
+
+	public static final String LAYOUTS_IMPORT_MODE_MERGE_BY_LAYOUT_UUID =
+		"MERGE_BY_LAYOUT_UUID";
 
 	public static final String PERFORM_DIRECT_BINARY_IMPORT =
 		"PERFORM_DIRECT_BINARY_IMPORT";

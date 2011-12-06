@@ -231,6 +231,19 @@ public class AssetTagPersistenceImpl extends BasePersistenceImpl<AssetTag>
 	/**
 	 * Removes the asset tag with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param tagId the primary key of the asset tag
+	 * @return the asset tag that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchTagException if a asset tag with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetTag remove(long tagId)
+		throws NoSuchTagException, SystemException {
+		return remove(Long.valueOf(tagId));
+	}
+
+	/**
+	 * Removes the asset tag with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset tag
 	 * @return the asset tag that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchTagException if a asset tag with the primary key could not be found
@@ -267,19 +280,6 @@ public class AssetTagPersistenceImpl extends BasePersistenceImpl<AssetTag>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset tag with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param tagId the primary key of the asset tag
-	 * @return the asset tag that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchTagException if a asset tag with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetTag remove(long tagId)
-		throws NoSuchTagException, SystemException {
-		return remove(Long.valueOf(tagId));
 	}
 
 	@Override

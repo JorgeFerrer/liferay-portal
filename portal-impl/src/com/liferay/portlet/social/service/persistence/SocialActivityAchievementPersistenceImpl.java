@@ -329,6 +329,19 @@ public class SocialActivityAchievementPersistenceImpl
 	/**
 	 * Removes the social activity achievement with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param activityAchievementId the primary key of the social activity achievement
+	 * @return the social activity achievement that was removed
+	 * @throws com.liferay.portlet.social.NoSuchActivityAchievementException if a social activity achievement with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityAchievement remove(long activityAchievementId)
+		throws NoSuchActivityAchievementException, SystemException {
+		return remove(Long.valueOf(activityAchievementId));
+	}
+
+	/**
+	 * Removes the social activity achievement with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the social activity achievement
 	 * @return the social activity achievement that was removed
 	 * @throws com.liferay.portlet.social.NoSuchActivityAchievementException if a social activity achievement with the primary key could not be found
@@ -365,19 +378,6 @@ public class SocialActivityAchievementPersistenceImpl
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the social activity achievement with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param activityAchievementId the primary key of the social activity achievement
-	 * @return the social activity achievement that was removed
-	 * @throws com.liferay.portlet.social.NoSuchActivityAchievementException if a social activity achievement with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SocialActivityAchievement remove(long activityAchievementId)
-		throws NoSuchActivityAchievementException, SystemException {
-		return remove(Long.valueOf(activityAchievementId));
 	}
 
 	@Override

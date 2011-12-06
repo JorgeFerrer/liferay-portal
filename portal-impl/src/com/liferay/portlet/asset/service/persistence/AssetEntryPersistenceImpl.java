@@ -333,6 +333,19 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	/**
 	 * Removes the asset entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param entryId the primary key of the asset entry
+	 * @return the asset entry that was removed
+	 * @throws com.liferay.portlet.asset.NoSuchEntryException if a asset entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry remove(long entryId)
+		throws NoSuchEntryException, SystemException {
+		return remove(Long.valueOf(entryId));
+	}
+
+	/**
+	 * Removes the asset entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the asset entry
 	 * @return the asset entry that was removed
 	 * @throws com.liferay.portlet.asset.NoSuchEntryException if a asset entry with the primary key could not be found
@@ -369,19 +382,6 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the asset entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param entryId the primary key of the asset entry
-	 * @return the asset entry that was removed
-	 * @throws com.liferay.portlet.asset.NoSuchEntryException if a asset entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AssetEntry remove(long entryId)
-		throws NoSuchEntryException, SystemException {
-		return remove(Long.valueOf(entryId));
 	}
 
 	@Override

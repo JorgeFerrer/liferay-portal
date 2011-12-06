@@ -274,6 +274,19 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	/**
 	 * Removes the document library file rank with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param fileRankId the primary key of the document library file rank
+	 * @return the document library file rank that was removed
+	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DLFileRank remove(long fileRankId)
+		throws NoSuchFileRankException, SystemException {
+		return remove(Long.valueOf(fileRankId));
+	}
+
+	/**
+	 * Removes the document library file rank with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the document library file rank
 	 * @return the document library file rank that was removed
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
@@ -310,19 +323,6 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the document library file rank with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param fileRankId the primary key of the document library file rank
-	 * @return the document library file rank that was removed
-	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DLFileRank remove(long fileRankId)
-		throws NoSuchFileRankException, SystemException {
-		return remove(Long.valueOf(fileRankId));
 	}
 
 	@Override

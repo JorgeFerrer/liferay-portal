@@ -367,6 +367,19 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 	/**
 	 * Removes the cal event with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param eventId the primary key of the cal event
+	 * @return the cal event that was removed
+	 * @throws com.liferay.portlet.calendar.NoSuchEventException if a cal event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public CalEvent remove(long eventId)
+		throws NoSuchEventException, SystemException {
+		return remove(Long.valueOf(eventId));
+	}
+
+	/**
+	 * Removes the cal event with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the cal event
 	 * @return the cal event that was removed
 	 * @throws com.liferay.portlet.calendar.NoSuchEventException if a cal event with the primary key could not be found
@@ -403,19 +416,6 @@ public class CalEventPersistenceImpl extends BasePersistenceImpl<CalEvent>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the cal event with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param eventId the primary key of the cal event
-	 * @return the cal event that was removed
-	 * @throws com.liferay.portlet.calendar.NoSuchEventException if a cal event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public CalEvent remove(long eventId)
-		throws NoSuchEventException, SystemException {
-		return remove(Long.valueOf(eventId));
 	}
 
 	@Override

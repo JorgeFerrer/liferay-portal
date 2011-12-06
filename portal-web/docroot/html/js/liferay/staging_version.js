@@ -226,7 +226,8 @@ AUI().add(
 								doAsUserId: themeDisplay.getDoAsUserIdEncoded(),
 								layoutRevisionId: layoutRevisionId,
 								layoutSetBranchId: layoutSetBranchId,
-								p_l_id: themeDisplay.getPlid()
+								p_l_id: themeDisplay.getPlid(),
+								p_v_g_id: themeDisplay.getParentGroupId()
 							},
 							on: {
 								success: function(event, id, obj) {

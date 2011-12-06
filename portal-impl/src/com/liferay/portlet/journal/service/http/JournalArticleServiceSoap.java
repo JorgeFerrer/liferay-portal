@@ -16,7 +16,6 @@ package com.liferay.portlet.journal.service.http;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 
 import com.liferay.portlet.journal.service.JournalArticleServiceUtil;
 
@@ -50,8 +49,8 @@ import java.rmi.RemoteException;
  *
  * <p>
  * You can see a list of services at
- * http://localhost:8080/tunnel-web/secure/axis. Set the property
- * <b>tunnel.servlet.hosts.allowed</b> in portal.properties to configure
+ * http://localhost:8080/api/secure/axis. Set the property
+ * <b>axis.servlet.hosts.allowed</b> in portal.properties to configure
  * security.
  * </p>
  *
@@ -503,24 +502,6 @@ public class JournalArticleServiceSoap {
 		try {
 			com.liferay.portlet.journal.model.JournalArticle returnValue = JournalArticleServiceUtil.updateArticle(groupId,
 					articleId, version, content, serviceContext);
-
-			return com.liferay.portlet.journal.model.JournalArticleSoap.toSoapModel(returnValue);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.portlet.journal.model.JournalArticleSoap updateArticleTranslation(
-		long groupId, java.lang.String articleId, double version,
-		String locale, java.lang.String title, java.lang.String description,
-		java.lang.String content) throws RemoteException {
-		try {
-			com.liferay.portlet.journal.model.JournalArticle returnValue = JournalArticleServiceUtil.updateArticleTranslation(groupId,
-					articleId, version, LocaleUtil.fromLanguageId(locale),
-					title, description, content);
 
 			return com.liferay.portlet.journal.model.JournalArticleSoap.toSoapModel(returnValue);
 		}

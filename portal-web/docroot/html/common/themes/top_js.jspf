@@ -354,5 +354,25 @@
 				Liferay.Portlet.list = ['<%= ListUtil.toString(allPortlets, Portlet.PORTLET_ID_ACCESSOR, "','") %>'];
 			</c:if>
 		</c:if>
+
+		<c:if test="<%= themeDisplay.isSignedIn() %>">
+
+			<%
+			Group group = null;
+
+			if (layout != null) {
+				group = layout.getGroup();
+			}
+			%>
+
+			<c:choose>
+				<c:when test="<%= (group != null) && group.isControlPanel() && !LayoutPermissionUtil.contains(permissionChecker, layout, ActionKeys.UPDATE) && !(layoutTypePortlet.isCustomizable() && layoutTypePortlet.isCustomizedView() && LayoutPermissionUtil.contains(permissionChecker, layout, ActionKeys.CUSTOMIZE)) %>">
+					Liferay._editControlsState = 'visible';
+				</c:when>
+				<c:otherwise>
+					Liferay._editControlsState = '<%= GetterUtil.getString(SessionClicks.get(request, "liferay_toggle_controls", null), "visible") %>';
+				</c:otherwise>
+			</c:choose>
+		</c:if>
 	// ]]>
 </script>

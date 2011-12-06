@@ -266,6 +266,19 @@ public class PortletItemPersistenceImpl extends BasePersistenceImpl<PortletItem>
 	/**
 	 * Removes the portlet item with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param portletItemId the primary key of the portlet item
+	 * @return the portlet item that was removed
+	 * @throws com.liferay.portal.NoSuchPortletItemException if a portlet item with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PortletItem remove(long portletItemId)
+		throws NoSuchPortletItemException, SystemException {
+		return remove(Long.valueOf(portletItemId));
+	}
+
+	/**
+	 * Removes the portlet item with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the portlet item
 	 * @return the portlet item that was removed
 	 * @throws com.liferay.portal.NoSuchPortletItemException if a portlet item with the primary key could not be found
@@ -302,19 +315,6 @@ public class PortletItemPersistenceImpl extends BasePersistenceImpl<PortletItem>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the portlet item with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param portletItemId the primary key of the portlet item
-	 * @return the portlet item that was removed
-	 * @throws com.liferay.portal.NoSuchPortletItemException if a portlet item with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public PortletItem remove(long portletItemId)
-		throws NoSuchPortletItemException, SystemException {
-		return remove(Long.valueOf(portletItemId));
 	}
 
 	@Override

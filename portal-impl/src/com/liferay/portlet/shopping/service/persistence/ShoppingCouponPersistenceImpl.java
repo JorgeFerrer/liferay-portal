@@ -225,6 +225,19 @@ public class ShoppingCouponPersistenceImpl extends BasePersistenceImpl<ShoppingC
 	/**
 	 * Removes the shopping coupon with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param couponId the primary key of the shopping coupon
+	 * @return the shopping coupon that was removed
+	 * @throws com.liferay.portlet.shopping.NoSuchCouponException if a shopping coupon with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ShoppingCoupon remove(long couponId)
+		throws NoSuchCouponException, SystemException {
+		return remove(Long.valueOf(couponId));
+	}
+
+	/**
+	 * Removes the shopping coupon with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the shopping coupon
 	 * @return the shopping coupon that was removed
 	 * @throws com.liferay.portlet.shopping.NoSuchCouponException if a shopping coupon with the primary key could not be found
@@ -261,19 +274,6 @@ public class ShoppingCouponPersistenceImpl extends BasePersistenceImpl<ShoppingC
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the shopping coupon with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param couponId the primary key of the shopping coupon
-	 * @return the shopping coupon that was removed
-	 * @throws com.liferay.portlet.shopping.NoSuchCouponException if a shopping coupon with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ShoppingCoupon remove(long couponId)
-		throws NoSuchCouponException, SystemException {
-		return remove(Long.valueOf(couponId));
 	}
 
 	@Override

@@ -223,6 +223,19 @@ public class OrgGroupPermissionPersistenceImpl extends BasePersistenceImpl<OrgGr
 	/**
 	 * Removes the org group permission with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param orgGroupPermissionPK the primary key of the org group permission
+	 * @return the org group permission that was removed
+	 * @throws com.liferay.portal.NoSuchOrgGroupPermissionException if a org group permission with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OrgGroupPermission remove(OrgGroupPermissionPK orgGroupPermissionPK)
+		throws NoSuchOrgGroupPermissionException, SystemException {
+		return remove((Serializable)orgGroupPermissionPK);
+	}
+
+	/**
+	 * Removes the org group permission with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the org group permission
 	 * @return the org group permission that was removed
 	 * @throws com.liferay.portal.NoSuchOrgGroupPermissionException if a org group permission with the primary key could not be found
@@ -259,19 +272,6 @@ public class OrgGroupPermissionPersistenceImpl extends BasePersistenceImpl<OrgGr
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the org group permission with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param orgGroupPermissionPK the primary key of the org group permission
-	 * @return the org group permission that was removed
-	 * @throws com.liferay.portal.NoSuchOrgGroupPermissionException if a org group permission with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OrgGroupPermission remove(OrgGroupPermissionPK orgGroupPermissionPK)
-		throws NoSuchOrgGroupPermissionException, SystemException {
-		return remove(orgGroupPermissionPK);
 	}
 
 	@Override

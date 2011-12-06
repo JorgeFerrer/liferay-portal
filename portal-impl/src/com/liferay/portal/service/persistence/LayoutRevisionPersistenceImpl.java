@@ -402,6 +402,19 @@ public class LayoutRevisionPersistenceImpl extends BasePersistenceImpl<LayoutRev
 	/**
 	 * Removes the layout revision with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param layoutRevisionId the primary key of the layout revision
+	 * @return the layout revision that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutRevisionException if a layout revision with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public LayoutRevision remove(long layoutRevisionId)
+		throws NoSuchLayoutRevisionException, SystemException {
+		return remove(Long.valueOf(layoutRevisionId));
+	}
+
+	/**
+	 * Removes the layout revision with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout revision
 	 * @return the layout revision that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutRevisionException if a layout revision with the primary key could not be found
@@ -438,19 +451,6 @@ public class LayoutRevisionPersistenceImpl extends BasePersistenceImpl<LayoutRev
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout revision with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param layoutRevisionId the primary key of the layout revision
-	 * @return the layout revision that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutRevisionException if a layout revision with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public LayoutRevision remove(long layoutRevisionId)
-		throws NoSuchLayoutRevisionException, SystemException {
-		return remove(Long.valueOf(layoutRevisionId));
 	}
 
 	@Override

@@ -404,6 +404,19 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 	/**
 	 * Removes the group with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param groupId the primary key of the group
+	 * @return the group that was removed
+	 * @throws com.liferay.portal.NoSuchGroupException if a group with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Group remove(long groupId)
+		throws NoSuchGroupException, SystemException {
+		return remove(Long.valueOf(groupId));
+	}
+
+	/**
+	 * Removes the group with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the group
 	 * @return the group that was removed
 	 * @throws com.liferay.portal.NoSuchGroupException if a group with the primary key could not be found
@@ -439,19 +452,6 @@ public class GroupPersistenceImpl extends BasePersistenceImpl<Group>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the group with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param groupId the primary key of the group
-	 * @return the group that was removed
-	 * @throws com.liferay.portal.NoSuchGroupException if a group with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Group remove(long groupId)
-		throws NoSuchGroupException, SystemException {
-		return remove(Long.valueOf(groupId));
 	}
 
 	@Override

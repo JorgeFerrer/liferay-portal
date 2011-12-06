@@ -236,6 +236,19 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	/**
 	 * Removes the resource block permission with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourceBlockPermissionId the primary key of the resource block permission
+	 * @return the resource block permission that was removed
+	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlockPermission remove(long resourceBlockPermissionId)
+		throws NoSuchResourceBlockPermissionException, SystemException {
+		return remove(Long.valueOf(resourceBlockPermissionId));
+	}
+
+	/**
+	 * Removes the resource block permission with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource block permission
 	 * @return the resource block permission that was removed
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
@@ -272,19 +285,6 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource block permission with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourceBlockPermissionId the primary key of the resource block permission
-	 * @return the resource block permission that was removed
-	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourceBlockPermission remove(long resourceBlockPermissionId)
-		throws NoSuchResourceBlockPermissionException, SystemException {
-		return remove(Long.valueOf(resourceBlockPermissionId));
 	}
 
 	@Override

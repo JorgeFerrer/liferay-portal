@@ -222,6 +222,19 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 	/**
 	 * Removes the resource action with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param resourceActionId the primary key of the resource action
+	 * @return the resource action that was removed
+	 * @throws com.liferay.portal.NoSuchResourceActionException if a resource action with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceAction remove(long resourceActionId)
+		throws NoSuchResourceActionException, SystemException {
+		return remove(Long.valueOf(resourceActionId));
+	}
+
+	/**
+	 * Removes the resource action with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the resource action
 	 * @return the resource action that was removed
 	 * @throws com.liferay.portal.NoSuchResourceActionException if a resource action with the primary key could not be found
@@ -258,19 +271,6 @@ public class ResourceActionPersistenceImpl extends BasePersistenceImpl<ResourceA
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the resource action with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param resourceActionId the primary key of the resource action
-	 * @return the resource action that was removed
-	 * @throws com.liferay.portal.NoSuchResourceActionException if a resource action with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public ResourceAction remove(long resourceActionId)
-		throws NoSuchResourceActionException, SystemException {
-		return remove(Long.valueOf(resourceActionId));
 	}
 
 	@Override

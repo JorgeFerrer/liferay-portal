@@ -277,6 +277,19 @@ public class OrganizationPersistenceImpl extends BasePersistenceImpl<Organizatio
 	/**
 	 * Removes the organization with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param organizationId the primary key of the organization
+	 * @return the organization that was removed
+	 * @throws com.liferay.portal.NoSuchOrganizationException if a organization with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Organization remove(long organizationId)
+		throws NoSuchOrganizationException, SystemException {
+		return remove(Long.valueOf(organizationId));
+	}
+
+	/**
+	 * Removes the organization with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the organization
 	 * @return the organization that was removed
 	 * @throws com.liferay.portal.NoSuchOrganizationException if a organization with the primary key could not be found
@@ -313,19 +326,6 @@ public class OrganizationPersistenceImpl extends BasePersistenceImpl<Organizatio
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the organization with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param organizationId the primary key of the organization
-	 * @return the organization that was removed
-	 * @throws com.liferay.portal.NoSuchOrganizationException if a organization with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Organization remove(long organizationId)
-		throws NoSuchOrganizationException, SystemException {
-		return remove(Long.valueOf(organizationId));
 	}
 
 	@Override

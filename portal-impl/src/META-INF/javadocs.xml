@@ -1,0 +1,1755 @@
+<?xml version="1.0"?>
+
+<javadocs>
+	<javadoc>
+		<name>UserGroupLocalServiceImpl</name>
+		<type>com.liferay.portal.service.impl.UserGroupLocalServiceImpl</type>
+		<comment><![CDATA[The implementation of the user group local service.]]></comment>
+		<author><![CDATA[Charles May]]></author>
+		<method>
+			<name>addGroupUserGroups</name>
+			<comment><![CDATA[Adds the user groups to the group.]]></comment>
+			<param>
+				<name>groupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the group]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addTeamUserGroups</name>
+			<comment><![CDATA[Adds the user groups to the team.]]></comment>
+			<param>
+				<name>teamId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the team]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addUserGroup</name>
+			<comment><![CDATA[Adds a user group.
+
+<p>
+This method handles the creation and bookkeeping of the user group, including its resources, metadata, and internal data structures. It is not necessary to make subsequent calls to setup default groups and resources for the user group.
+</p>]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group's company]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's description]]></comment>
+			</param>
+			<return><![CDATA[the user group]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if the user group's information was invalid]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>clearUserUserGroups</name>
+			<comment><![CDATA[Clears all associations between the user and its user groups and clears the permissions cache.
+
+<p>
+This method is called from {@link #deleteUserGroup(UserGroup)}.
+</p>]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>copyUserGroupLayouts</name>
+			<comment><![CDATA[Copies the user group's layouts to the users who are not already members of the user group.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<param>
+				<name>userIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the users]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if any one of the users could not be found or if a portal exception occurred]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+			<deprecated><![CDATA[]]></deprecated>
+		</method>
+		<method>
+			<name>copyUserGroupLayouts</name>
+			<comment><![CDATA[Copies the user groups' layouts to the user.]]></comment>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user with the primary key could not be found or if a portal exception occurred]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+			<deprecated><![CDATA[]]></deprecated>
+		</method>
+		<method>
+			<name>copyUserGroupLayouts</name>
+			<comment><![CDATA[Copies the user group's layout to the user.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user with the primary key could not be found or if a portal exception occurred]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+			<deprecated><![CDATA[]]></deprecated>
+		</method>
+		<method>
+			<name>deleteUserGroup</name>
+			<comment><![CDATA[Deletes the user group.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key could not be found or if the user group had a workflow in approved status]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deleteUserGroup</name>
+			<comment><![CDATA[Deletes the user group.]]></comment>
+			<param>
+				<name>userGroup</name>
+				<type>com.liferay.portal.model.UserGroup</type>
+				<comment><![CDATA[the user group]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if the organization had a workflow in approved status]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroup</name>
+			<comment><![CDATA[Returns the user group with the primary key.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<return><![CDATA[Returns the user group with the primary key]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key could not be found]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroup</name>
+			<comment><![CDATA[Returns the user group with the name.]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group's company]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<return><![CDATA[Returns the user group with the name]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the name could not be found]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroups</name>
+			<comment><![CDATA[Returns all the user groups belonging to the company.]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user groups' company]]></comment>
+			</param>
+			<return><![CDATA[the user groups belonging to the company]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroups</name>
+			<comment><![CDATA[Returns all the user groups with the primary keys.]]></comment>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<return><![CDATA[the user groups with the primary keys]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if any one of the user groups could not be found]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserUserGroups</name>
+			<comment><![CDATA[Returns all the user groups to which the user belongs.]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<return><![CDATA[the user groups to which the user belongs]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>hasGroupUserGroup</name>
+			<comment><![CDATA[Returns <code>true</code> if the user group is associated with the group.]]></comment>
+			<param>
+				<name>groupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the group]]></comment>
+			</param>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<return><![CDATA[<code>true</code> if the user group belongs to the group; <code>false</code> otherwise]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>hasTeamUserGroup</name>
+			<comment><![CDATA[Returns <code>true</code> if the user group belongs to the team.]]></comment>
+			<param>
+				<name>teamId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the team]]></comment>
+			</param>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<return><![CDATA[<code>true</code> if the user group belongs to the team; <code>false</code> otherwise]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>search</name>
+			<comment><![CDATA[Returns an ordered range of all the user groups that match the name and description.
+
+<p>
+Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+</p>]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group's company]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name (optionally <code>null</code>)]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's description (optionally <code>null</code>)]]></comment>
+			</param>
+			<param>
+				<name>params</name>
+				<type>java.util.LinkedHashMap</type>
+				<comment><![CDATA[the finder params (optionally <code>null</code>). For more information see {@link com.liferay.portal.service.persistence.UserGroupFinder}]]></comment>
+			</param>
+			<param>
+				<name>start</name>
+				<type>int</type>
+				<comment><![CDATA[the lower bound of the range of user groups to return]]></comment>
+			</param>
+			<param>
+				<name>end</name>
+				<type>int</type>
+				<comment><![CDATA[the upper bound of the range of user groups to return (not inclusive)]]></comment>
+			</param>
+			<param>
+				<name>obc</name>
+				<type>com.liferay.portal.kernel.util.OrderByComparator</type>
+				<comment><![CDATA[the comparator to order the user groups (optionally <code>null</code>)]]></comment>
+			</param>
+			<return><![CDATA[the matching user groups ordered by comparator <code>obc</code>]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+			<see><![CDATA[com.liferay.portal.service.persistence.UserGroupFinder]]></see>
+		</method>
+		<method>
+			<name>searchCount</name>
+			<comment><![CDATA[Returns the number of user groups that match the name and description.]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group's company]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name (optionally <code>null</code>)]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's description (optionally <code>null</code>)]]></comment>
+			</param>
+			<param>
+				<name>params</name>
+				<type>java.util.LinkedHashMap</type>
+				<comment><![CDATA[the finder params (optionally <code>null</code>). For more information see {@link com.liferay.portal.service.persistence.UserGroupFinder}]]></comment>
+			</param>
+			<return><![CDATA[the number of matching user groups]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+			<see><![CDATA[com.liferay.portal.service.persistence.UserGroupFinder]]></see>
+		</method>
+		<method>
+			<name>setUserUserGroups</name>
+			<comment><![CDATA[Sets the user groups associated with the user copying the user group layouts and removing and adding user group associations for the user as necessary.]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a portal exception occurred]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>unsetGroupUserGroups</name>
+			<comment><![CDATA[Removes the user groups from the group.]]></comment>
+			<param>
+				<name>groupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the group]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>unsetTeamUserGroups</name>
+			<comment><![CDATA[Removes the user groups from the team.]]></comment>
+			<param>
+				<name>teamId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the team]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>updateUserGroup</name>
+			<comment><![CDATA[Updates the user group.]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group's company]]></comment>
+			</param>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's description]]></comment>
+			</param>
+			<return><![CDATA[the user group]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key could not be found or if the new information was invalid]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>exportLayouts</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getLayoutTemplatesParameters</name>
+			<comment><![CDATA[]]></comment>
+		</method>
+		<method>
+			<name>importLayouts</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>privateLayoutsFile</name>
+				<type>java.io.File</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>publicLayoutsFile</name>
+				<type>java.io.File</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>validate</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+	<javadoc>
+		<name>UserGroupServiceImpl</name>
+		<type>com.liferay.portal.service.impl.UserGroupServiceImpl</type>
+		<comment><![CDATA[The implementation of the user group remote service.]]></comment>
+		<author><![CDATA[Charles May]]></author>
+		<method>
+			<name>addGroupUserGroups</name>
+			<comment><![CDATA[Adds the user groups to the group.]]></comment>
+			<param>
+				<name>groupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the group]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a group or user group with the primary key could not be found, or if the user did not have permission to assign group members]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addTeamUserGroups</name>
+			<comment><![CDATA[Adds the user groups to the team]]></comment>
+			<param>
+				<name>teamId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the team]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a team or user group with the primary key could not be found, or if the user did not have permission to assign team members]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addUserGroup</name>
+			<comment><![CDATA[Adds a user group.
+
+<p>
+This method handles the creation and bookkeeping of the user group, including its resources, metadata, and internal data structures.
+</p>]]></comment>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's description]]></comment>
+			</param>
+			<return><![CDATA[the user group]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if the user group's information was invalid or if the user did not have permission to add the user group]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deleteUserGroup</name>
+			<comment><![CDATA[Deletes the user group.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key could not be found, if the user did not have permission to delete the user group, or if the user group had a workflow in approved status]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroup</name>
+			<comment><![CDATA[Returns the user group with the primary key.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<return><![CDATA[Returns the user group with the primary key]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key could not be found or if the user did not have permission to view the user group]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserGroup</name>
+			<comment><![CDATA[Returns the user group with the name.]]></comment>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<return><![CDATA[Returns the user group with the name]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the name could not be found or if the user did not have permission to view the user group]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getUserUserGroups</name>
+			<comment><![CDATA[Returns all the user groups to which the user belongs.]]></comment>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user]]></comment>
+			</param>
+			<return><![CDATA[the user groups to which the user belongs]]></return>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>unsetGroupUserGroups</name>
+			<comment><![CDATA[Removes the user groups from the group.]]></comment>
+			<param>
+				<name>groupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the group]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if the user did not have permission to assign group members]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>unsetTeamUserGroups</name>
+			<comment><![CDATA[Removes the user groups from the team.]]></comment>
+			<param>
+				<name>teamId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the team]]></comment>
+			</param>
+			<param>
+				<name>userGroupIds</name>
+				<type>long</type>
+				<comment><![CDATA[the primary keys of the user groups]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if the user did not have permission to assign team members]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>updateUserGroup</name>
+			<comment><![CDATA[Updates the user group.]]></comment>
+			<param>
+				<name>userGroupId</name>
+				<type>long</type>
+				<comment><![CDATA[the primary key of the user group]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the user group's name]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[the the user group's description]]></comment>
+			</param>
+			<return><![CDATA[the user group]]></return>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[if a user group with the primary key was not found, if the new information was invalid, or if the user did not have permission to update the user group information]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[if a system exception occurred]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+	<javadoc>
+		<name>WikiPageServiceImpl</name>
+		<type>com.liferay.portlet.wiki.service.impl.WikiPageServiceImpl</type>
+		<comment><![CDATA[]]></comment>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<author><![CDATA[Jorge Ferrer]]></author>
+		<author><![CDATA[Raymond AugÃ©]]></author>
+		<method>
+			<name>addPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>content</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>summary</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>minorEdit</name>
+				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>content</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>summary</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>minorEdit</name>
+				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>format</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parentTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>redirectTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addPageAttachment</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>fileName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>file</name>
+				<type>java.io.File</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addPageAttachments</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>inputStream</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addTempPageAttachment</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>fileName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>tempFolderName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>inputStream</name>
+				<type>java.io.InputStream</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>IOException</name>
+				<type>java.io.IOException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>changeParent</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>newParentTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deletePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deletePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deletePageAttachment</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>fileName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>deleteTempPageAttachment</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>fileName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>tempFolderName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getDraftPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getNodePages</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>max</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getNodePagesRSS</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>max</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>type</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>displayStyle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>feedURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>entryURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>head</name>
+				<type>java.lang.Boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getPagesRSS</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>max</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>type</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>displayStyle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>feedURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>entryURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>locale</name>
+				<type>java.util.Locale</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getTempPageAttachmentNames</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>tempFolderName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>movePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>newTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>revertPage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>subscribePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>unsubscribePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>updatePage</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>nodeId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>title</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>content</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>summary</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>minorEdit</name>
+				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>format</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parentTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>redirectTitle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>serviceContext</name>
+				<type>com.liferay.portal.service.ServiceContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>exportToRSS</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>description</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>type</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>version</name>
+				<type>double</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>displayStyle</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>feedURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>entryURL</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>pages</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>diff</name>
+				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>locale</name>
+				<type>java.util.Locale</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getPageDiff</name>
+			<comment><![CDATA[]]></comment>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>latestPage</name>
+				<type>com.liferay.portlet.wiki.model.WikiPage</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>page</name>
+				<type>com.liferay.portlet.wiki.model.WikiPage</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>locale</name>
+				<type>java.util.Locale</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+</javadocs>

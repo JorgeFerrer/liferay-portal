@@ -132,13 +132,13 @@ public class SocialActivityCounterLocalServiceImpl
 			activity.getGroupId(),
 			PortalUtil.getClassNameId(User.class.getName()),
 			activity.getUserId(),
-			SocialActivityCounterConstants.NAME_USER_ACTIVITY,
+			SocialActivityCounterConstants.NAME_USER_ACTIVITIES,
 			SocialActivityCounterConstants.TYPE_ACTOR, 1);
 
 		incrementActivityCounter(
 			activity.getGroupId(), activity.getClassNameId(),
 			activity.getClassPK(),
-			SocialActivityCounterConstants.NAME_ASSET_ACTIVITY,
+			SocialActivityCounterConstants.NAME_ASSET_ACTIVITIES,
 			SocialActivityCounterConstants.TYPE_ASSET, 1);
 	}
 
@@ -342,7 +342,7 @@ public class SocialActivityCounterLocalServiceImpl
 
 		incrementActivityCounter(
 			groupId, PortalUtil.getClassNameId(User.class.getName()), userId,
-			SocialActivityCounterConstants.NAME_USER_ACHIEVEMENT,
+			SocialActivityCounterConstants.NAME_USER_ACHIEVEMENTS,
 			SocialActivityCounterConstants.TYPE_ACTOR, 1);
 	}
 
@@ -394,27 +394,42 @@ public class SocialActivityCounterLocalServiceImpl
 			return true;
 		}
 
+		AssetEntry assetEntry = activity.getAssetEntry();
+
+		String name = activityCounterDefinition.getName();
+
+		if ((user.getUserId() == assetEntry.getUserId()) &&
+			!name.equals(SocialActivityCounterConstants.NAME_PARTICIPATION)) {
+
+			return false;
+		}
+
+		long classPK = activity.getClassPK();
+
+		if (name.equals(SocialActivityCounterConstants.NAME_PARTICIPATION)) {
+			classPK = 0;
+		}
+
 		SocialActivityLimit activityLimit =
 			socialActivityLimitPersistence.fetchByG_U_C_C_A_A(
 				activity.getGroupId(), user.getUserId(),
-				activity.getClassNameId(), activity.getClassPK(),
-				activity.getType(), activityCounterDefinition.getName());
+				activity.getClassNameId(), classPK, activity.getType(),
+				activityCounterDefinition.getName());
 
 		if (activityLimit == null) {
 			try {
 				activityLimit =
 					socialActivityLimitLocalService.addActivityLimit(
 						user.getUserId(), activity.getGroupId(),
-						activity.getClassNameId(), activity.getClassPK(),
-						activity.getType(), activityCounterDefinition.getName(),
+						activity.getClassNameId(), classPK, activity.getType(),
+						activityCounterDefinition.getName(),
 						activityCounterDefinition.getLimitPeriod());
 			}
 			catch (SystemException se) {
 				activityLimit =
 					socialActivityLimitPersistence.fetchByG_U_C_C_A_A(
 						activity.getGroupId(), user.getUserId(),
-						activity.getClassNameId(), activity.getClassPK(),
-						activity.getType(),
+						activity.getClassNameId(), classPK, activity.getType(),
 						activityCounterDefinition.getName());
 
 				if (activityLimit == null) {

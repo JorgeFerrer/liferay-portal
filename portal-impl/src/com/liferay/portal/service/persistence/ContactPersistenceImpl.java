@@ -196,6 +196,19 @@ public class ContactPersistenceImpl extends BasePersistenceImpl<Contact>
 	/**
 	 * Removes the contact with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param contactId the primary key of the contact
+	 * @return the contact that was removed
+	 * @throws com.liferay.portal.NoSuchContactException if a contact with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Contact remove(long contactId)
+		throws NoSuchContactException, SystemException {
+		return remove(Long.valueOf(contactId));
+	}
+
+	/**
+	 * Removes the contact with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the contact
 	 * @return the contact that was removed
 	 * @throws com.liferay.portal.NoSuchContactException if a contact with the primary key could not be found
@@ -231,19 +244,6 @@ public class ContactPersistenceImpl extends BasePersistenceImpl<Contact>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the contact with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param contactId the primary key of the contact
-	 * @return the contact that was removed
-	 * @throws com.liferay.portal.NoSuchContactException if a contact with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Contact remove(long contactId)
-		throws NoSuchContactException, SystemException {
-		return remove(Long.valueOf(contactId));
 	}
 
 	@Override

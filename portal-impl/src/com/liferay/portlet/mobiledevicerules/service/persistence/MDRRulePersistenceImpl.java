@@ -247,6 +247,19 @@ public class MDRRulePersistenceImpl extends BasePersistenceImpl<MDRRule>
 	/**
 	 * Removes the m d r rule with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param ruleId the primary key of the m d r rule
+	 * @return the m d r rule that was removed
+	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleException if a m d r rule with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MDRRule remove(long ruleId)
+		throws NoSuchRuleException, SystemException {
+		return remove(Long.valueOf(ruleId));
+	}
+
+	/**
+	 * Removes the m d r rule with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the m d r rule
 	 * @return the m d r rule that was removed
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleException if a m d r rule with the primary key could not be found
@@ -282,19 +295,6 @@ public class MDRRulePersistenceImpl extends BasePersistenceImpl<MDRRule>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the m d r rule with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param ruleId the primary key of the m d r rule
-	 * @return the m d r rule that was removed
-	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchRuleException if a m d r rule with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MDRRule remove(long ruleId)
-		throws NoSuchRuleException, SystemException {
-		return remove(Long.valueOf(ruleId));
 	}
 
 	@Override

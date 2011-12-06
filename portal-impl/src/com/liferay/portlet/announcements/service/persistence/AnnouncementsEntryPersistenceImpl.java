@@ -288,6 +288,19 @@ public class AnnouncementsEntryPersistenceImpl extends BasePersistenceImpl<Annou
 	/**
 	 * Removes the announcements entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param entryId the primary key of the announcements entry
+	 * @return the announcements entry that was removed
+	 * @throws com.liferay.portlet.announcements.NoSuchEntryException if a announcements entry with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AnnouncementsEntry remove(long entryId)
+		throws NoSuchEntryException, SystemException {
+		return remove(Long.valueOf(entryId));
+	}
+
+	/**
+	 * Removes the announcements entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the announcements entry
 	 * @return the announcements entry that was removed
 	 * @throws com.liferay.portlet.announcements.NoSuchEntryException if a announcements entry with the primary key could not be found
@@ -324,19 +337,6 @@ public class AnnouncementsEntryPersistenceImpl extends BasePersistenceImpl<Annou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the announcements entry with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param entryId the primary key of the announcements entry
-	 * @return the announcements entry that was removed
-	 * @throws com.liferay.portlet.announcements.NoSuchEntryException if a announcements entry with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AnnouncementsEntry remove(long entryId)
-		throws NoSuchEntryException, SystemException {
-		return remove(Long.valueOf(entryId));
 	}
 
 	@Override

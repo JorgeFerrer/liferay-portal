@@ -243,6 +243,18 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	/**
 	 * Removes the lock with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param lockId the primary key of the lock
+	 * @return the lock that was removed
+	 * @throws com.liferay.portal.NoSuchLockException if a lock with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock remove(long lockId) throws NoSuchLockException, SystemException {
+		return remove(Long.valueOf(lockId));
+	}
+
+	/**
+	 * Removes the lock with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the lock
 	 * @return the lock that was removed
 	 * @throws com.liferay.portal.NoSuchLockException if a lock with the primary key could not be found
@@ -278,18 +290,6 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the lock with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param lockId the primary key of the lock
-	 * @return the lock that was removed
-	 * @throws com.liferay.portal.NoSuchLockException if a lock with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Lock remove(long lockId) throws NoSuchLockException, SystemException {
-		return remove(Long.valueOf(lockId));
 	}
 
 	@Override

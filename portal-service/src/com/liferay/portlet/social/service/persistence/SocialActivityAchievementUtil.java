@@ -96,15 +96,6 @@ public class SocialActivityAchievementUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#remove(com.liferay.portal.model.BaseModel)
-	 */
-	public static SocialActivityAchievement remove(
-		SocialActivityAchievement socialActivityAchievement)
-		throws SystemException {
-		return getPersistence().remove(socialActivityAchievement);
-	}
-
-	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
 	 */
 	public static SocialActivityAchievement update(

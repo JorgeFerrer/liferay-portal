@@ -256,6 +256,19 @@ public class DDLRecordVersionPersistenceImpl extends BasePersistenceImpl<DDLReco
 	/**
 	 * Removes the d d l record version with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param recordVersionId the primary key of the d d l record version
+	 * @return the d d l record version that was removed
+	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordVersionException if a d d l record version with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDLRecordVersion remove(long recordVersionId)
+		throws NoSuchRecordVersionException, SystemException {
+		return remove(Long.valueOf(recordVersionId));
+	}
+
+	/**
+	 * Removes the d d l record version with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d l record version
 	 * @return the d d l record version that was removed
 	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordVersionException if a d d l record version with the primary key could not be found
@@ -292,19 +305,6 @@ public class DDLRecordVersionPersistenceImpl extends BasePersistenceImpl<DDLReco
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d l record version with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param recordVersionId the primary key of the d d l record version
-	 * @return the d d l record version that was removed
-	 * @throws com.liferay.portlet.dynamicdatalists.NoSuchRecordVersionException if a d d l record version with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDLRecordVersion remove(long recordVersionId)
-		throws NoSuchRecordVersionException, SystemException {
-		return remove(Long.valueOf(recordVersionId));
 	}
 
 	@Override

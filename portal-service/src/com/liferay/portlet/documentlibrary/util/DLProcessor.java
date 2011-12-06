@@ -18,8 +18,8 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 
 /**
- * Common interface for all the processors of the document library. All
- * document library processors must implement this interface.
+ * Common interface for all the processors of the document library. All document
+ * library processors must implement this interface.
  *
  * @author Alexander Chow
  * @author Mika Koivisto

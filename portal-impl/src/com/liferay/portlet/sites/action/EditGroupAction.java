@@ -115,7 +115,8 @@ public class EditGroupAction extends PortletAction {
 			if (Validator.isNotNull(closeRedirect)) {
 				SessionMessages.add(
 					actionRequest,
-					portletConfig.getPortletName() + ".doCloseRedirect",
+					portletConfig.getPortletName() +
+						SessionMessages.KEY_SUFFIX_CLOSE_REDIRECT,
 					closeRedirect);
 			}
 
@@ -356,7 +357,8 @@ public class EditGroupAction extends PortletAction {
 						membershipRequest.getMembershipRequestId(),
 						themeDisplay.translate(
 							"your-membership-has-been-approved"),
-						MembershipRequestConstants.STATUS_APPROVED);
+						MembershipRequestConstants.STATUS_APPROVED,
+						serviceContext);
 
 					LiveUsers.joinGroup(
 						themeDisplay.getCompanyId(),

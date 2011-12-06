@@ -208,6 +208,19 @@ public class RatingsStatsPersistenceImpl extends BasePersistenceImpl<RatingsStat
 	/**
 	 * Removes the ratings stats with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param statsId the primary key of the ratings stats
+	 * @return the ratings stats that was removed
+	 * @throws com.liferay.portlet.ratings.NoSuchStatsException if a ratings stats with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public RatingsStats remove(long statsId)
+		throws NoSuchStatsException, SystemException {
+		return remove(Long.valueOf(statsId));
+	}
+
+	/**
+	 * Removes the ratings stats with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the ratings stats
 	 * @return the ratings stats that was removed
 	 * @throws com.liferay.portlet.ratings.NoSuchStatsException if a ratings stats with the primary key could not be found
@@ -244,19 +257,6 @@ public class RatingsStatsPersistenceImpl extends BasePersistenceImpl<RatingsStat
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the ratings stats with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param statsId the primary key of the ratings stats
-	 * @return the ratings stats that was removed
-	 * @throws com.liferay.portlet.ratings.NoSuchStatsException if a ratings stats with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public RatingsStats remove(long statsId)
-		throws NoSuchStatsException, SystemException {
-		return remove(Long.valueOf(statsId));
 	}
 
 	@Override

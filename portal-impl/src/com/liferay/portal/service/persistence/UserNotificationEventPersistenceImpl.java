@@ -250,6 +250,19 @@ public class UserNotificationEventPersistenceImpl extends BasePersistenceImpl<Us
 	/**
 	 * Removes the user notification event with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userNotificationEventId the primary key of the user notification event
+	 * @return the user notification event that was removed
+	 * @throws com.liferay.portal.NoSuchUserNotificationEventException if a user notification event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UserNotificationEvent remove(long userNotificationEventId)
+		throws NoSuchUserNotificationEventException, SystemException {
+		return remove(Long.valueOf(userNotificationEventId));
+	}
+
+	/**
+	 * Removes the user notification event with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user notification event
 	 * @return the user notification event that was removed
 	 * @throws com.liferay.portal.NoSuchUserNotificationEventException if a user notification event with the primary key could not be found
@@ -286,19 +299,6 @@ public class UserNotificationEventPersistenceImpl extends BasePersistenceImpl<Us
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user notification event with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userNotificationEventId the primary key of the user notification event
-	 * @return the user notification event that was removed
-	 * @throws com.liferay.portal.NoSuchUserNotificationEventException if a user notification event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UserNotificationEvent remove(long userNotificationEventId)
-		throws NoSuchUserNotificationEventException, SystemException {
-		return remove(Long.valueOf(userNotificationEventId));
 	}
 
 	@Override

@@ -249,6 +249,19 @@ public class UserIdMapperPersistenceImpl extends BasePersistenceImpl<UserIdMappe
 	/**
 	 * Removes the user ID mapper with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userIdMapperId the primary key of the user ID mapper
+	 * @return the user ID mapper that was removed
+	 * @throws com.liferay.portal.NoSuchUserIdMapperException if a user ID mapper with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UserIdMapper remove(long userIdMapperId)
+		throws NoSuchUserIdMapperException, SystemException {
+		return remove(Long.valueOf(userIdMapperId));
+	}
+
+	/**
+	 * Removes the user ID mapper with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user ID mapper
 	 * @return the user ID mapper that was removed
 	 * @throws com.liferay.portal.NoSuchUserIdMapperException if a user ID mapper with the primary key could not be found
@@ -285,19 +298,6 @@ public class UserIdMapperPersistenceImpl extends BasePersistenceImpl<UserIdMappe
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user ID mapper with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userIdMapperId the primary key of the user ID mapper
-	 * @return the user ID mapper that was removed
-	 * @throws com.liferay.portal.NoSuchUserIdMapperException if a user ID mapper with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UserIdMapper remove(long userIdMapperId)
-		throws NoSuchUserIdMapperException, SystemException {
-		return remove(Long.valueOf(userIdMapperId));
 	}
 
 	@Override

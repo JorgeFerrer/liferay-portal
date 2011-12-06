@@ -71,7 +71,8 @@ public class CopyStructureAction extends PortletAction {
 			if (Validator.isNotNull(closeRedirect)) {
 				SessionMessages.add(
 					actionRequest,
-					portletConfig.getPortletName() + ".doCloseRedirect",
+					portletConfig.getPortletName() +
+						SessionMessages.KEY_SUFFIX_CLOSE_REDIRECT,
 					closeRedirect);
 			}
 

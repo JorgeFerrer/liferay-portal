@@ -14,6 +14,7 @@
 
 package com.liferay.portal.kernel.util;
 
+import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 
 import java.lang.reflect.Array;
@@ -1122,6 +1123,78 @@ public class ArrayUtil {
 		return newArray;
 	}
 
+	/**
+	 * @see {@link ListUtil#toString(List, Accessor)}
+	 */
+	public static <T, V> String toString(T[] list, Accessor<T, V> accessor) {
+		return toString(list, accessor, StringPool.COMMA);
+	}
+
+	/**
+	 * @see {@link ListUtil#toString(List, Accessor, String)}
+	 */
+	public static <T, V> String toString(
+		T[] list, Accessor<T, V> accessor, String delimiter) {
+
+		if ((list == null) || (list.length == 0)) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler(2 * list.length - 1);
+
+		for (int i = 0; i < list.length; i++) {
+			T bean = list[i];
+
+			V value = accessor.get(bean);
+
+			if (value != null) {
+				sb.append(value);
+			}
+
+			if ((i + 1) != list.length) {
+				sb.append(delimiter);
+			}
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * @see {@link ListUtil#toString(List, String)}
+	 */
+	public static String toString(Object[] array, String param) {
+		return toString(array, param, StringPool.COMMA);
+	}
+
+	/**
+	 * @see {@link ListUtil#toString(List, String, String)}
+	 */
+	public static String toString(
+		Object[] array, String param, String delimiter) {
+
+		if ((array == null) || (array.length == 0)) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler(2 * array.length - 1);
+
+		for (int i = 0; i < array.length; i++) {
+			Object bean = array[i];
+
+			Object value = BeanPropertiesUtil.getObject(bean, param);
+
+			if (value != null) {
+				sb.append(value);
+			}
+
+			if ((i + 1) != array.length) {
+				sb.append(delimiter);
+			}
+		}
+
+		return sb.toString();
+	}
+
 	public static String[] toStringArray(boolean[] array) {
 		String[] newArray = new String[array.length];
 
@@ -1152,11 +1225,11 @@ public class ArrayUtil {
 		return newArray;
 	}
 
-	public static String[] toStringArray(Date[] array, DateFormat df) {
+	public static String[] toStringArray(Date[] array, DateFormat dateFormat) {
 		String[] newArray = new String[array.length];
 
 		for (int i = 0; i < array.length; i++) {
-			newArray[i] = df.format(array[i]);
+			newArray[i] = dateFormat.format(array[i]);
 		}
 
 		return newArray;

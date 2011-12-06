@@ -269,6 +269,19 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 	/**
 	 * Removes the d d m content with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param contentId the primary key of the d d m content
+	 * @return the d d m content that was removed
+	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchContentException if a d d m content with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public DDMContent remove(long contentId)
+		throws NoSuchContentException, SystemException {
+		return remove(Long.valueOf(contentId));
+	}
+
+	/**
+	 * Removes the d d m content with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the d d m content
 	 * @return the d d m content that was removed
 	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchContentException if a d d m content with the primary key could not be found
@@ -305,19 +318,6 @@ public class DDMContentPersistenceImpl extends BasePersistenceImpl<DDMContent>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the d d m content with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param contentId the primary key of the d d m content
-	 * @return the d d m content that was removed
-	 * @throws com.liferay.portlet.dynamicdatamapping.NoSuchContentException if a d d m content with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public DDMContent remove(long contentId)
-		throws NoSuchContentException, SystemException {
-		return remove(Long.valueOf(contentId));
 	}
 
 	@Override

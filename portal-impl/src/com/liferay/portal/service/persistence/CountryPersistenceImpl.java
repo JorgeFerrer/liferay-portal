@@ -246,6 +246,19 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 	/**
 	 * Removes the country with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param countryId the primary key of the country
+	 * @return the country that was removed
+	 * @throws com.liferay.portal.NoSuchCountryException if a country with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Country remove(long countryId)
+		throws NoSuchCountryException, SystemException {
+		return remove(Long.valueOf(countryId));
+	}
+
+	/**
+	 * Removes the country with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the country
 	 * @return the country that was removed
 	 * @throws com.liferay.portal.NoSuchCountryException if a country with the primary key could not be found
@@ -281,19 +294,6 @@ public class CountryPersistenceImpl extends BasePersistenceImpl<Country>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the country with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param countryId the primary key of the country
-	 * @return the country that was removed
-	 * @throws com.liferay.portal.NoSuchCountryException if a country with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Country remove(long countryId)
-		throws NoSuchCountryException, SystemException {
-		return remove(Long.valueOf(countryId));
 	}
 
 	@Override

@@ -235,6 +235,19 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 	/**
 	 * Removes the user tracker with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param userTrackerId the primary key of the user tracker
+	 * @return the user tracker that was removed
+	 * @throws com.liferay.portal.NoSuchUserTrackerException if a user tracker with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public UserTracker remove(long userTrackerId)
+		throws NoSuchUserTrackerException, SystemException {
+		return remove(Long.valueOf(userTrackerId));
+	}
+
+	/**
+	 * Removes the user tracker with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the user tracker
 	 * @return the user tracker that was removed
 	 * @throws com.liferay.portal.NoSuchUserTrackerException if a user tracker with the primary key could not be found
@@ -271,19 +284,6 @@ public class UserTrackerPersistenceImpl extends BasePersistenceImpl<UserTracker>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the user tracker with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param userTrackerId the primary key of the user tracker
-	 * @return the user tracker that was removed
-	 * @throws com.liferay.portal.NoSuchUserTrackerException if a user tracker with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public UserTracker remove(long userTrackerId)
-		throws NoSuchUserTrackerException, SystemException {
-		return remove(Long.valueOf(userTrackerId));
 	}
 
 	@Override

@@ -251,6 +251,19 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 	/**
 	 * Removes the m d r action with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param actionId the primary key of the m d r action
+	 * @return the m d r action that was removed
+	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a m d r action with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MDRAction remove(long actionId)
+		throws NoSuchActionException, SystemException {
+		return remove(Long.valueOf(actionId));
+	}
+
+	/**
+	 * Removes the m d r action with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the m d r action
 	 * @return the m d r action that was removed
 	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a m d r action with the primary key could not be found
@@ -287,19 +300,6 @@ public class MDRActionPersistenceImpl extends BasePersistenceImpl<MDRAction>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the m d r action with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param actionId the primary key of the m d r action
-	 * @return the m d r action that was removed
-	 * @throws com.liferay.portlet.mobiledevicerules.NoSuchActionException if a m d r action with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public MDRAction remove(long actionId)
-		throws NoSuchActionException, SystemException {
-		return remove(Long.valueOf(actionId));
 	}
 
 	@Override

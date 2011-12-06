@@ -286,6 +286,19 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	/**
 	 * Removes the phone with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param phoneId the primary key of the phone
+	 * @return the phone that was removed
+	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Phone remove(long phoneId)
+		throws NoSuchPhoneException, SystemException {
+		return remove(Long.valueOf(phoneId));
+	}
+
+	/**
+	 * Removes the phone with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the phone
 	 * @return the phone that was removed
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
@@ -321,19 +334,6 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the phone with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param phoneId the primary key of the phone
-	 * @return the phone that was removed
-	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Phone remove(long phoneId)
-		throws NoSuchPhoneException, SystemException {
-		return remove(Long.valueOf(phoneId));
 	}
 
 	@Override

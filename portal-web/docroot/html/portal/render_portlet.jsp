@@ -426,7 +426,7 @@ portletDisplay.setURLPortlet(themeDisplay.getCDNHost() + portletIcon);
 
 // URL close
 
-String urlClose = themeDisplay.getPathMain() + "/portal/update_layout?p_l_id=" + plid + "&p_p_id=" + portletDisplay.getId() + "&doAsUserId=" + HttpUtil.encodeURL(themeDisplay.getDoAsUserId()) + "&" + Constants.CMD + "=" + Constants.DELETE + "&referer=" + HttpUtil.encodeURL(themeDisplay.getPathMain() + "/portal/layout?p_l_id=" + plid + "&doAsUserId=" + themeDisplay.getDoAsUserId()) + "&refresh=1";
+String urlClose = themeDisplay.getPathMain() + "/portal/update_layout?p_l_id=" + plid + "&p_p_id=" + portletDisplay.getId() + "&p_v_g_id=" + themeDisplay.getParentGroupId() + "&doAsUserId=" + HttpUtil.encodeURL(themeDisplay.getDoAsUserId()) + "&" + Constants.CMD + "=" + Constants.DELETE + "&referer=" + HttpUtil.encodeURL(themeDisplay.getPathMain() + "/portal/layout?p_l_id=" + plid + "&doAsUserId=" + themeDisplay.getDoAsUserId()) + "&refresh=1";
 
 if (themeDisplay.isAddSessionIdToURL()) {
 	urlClose = PortalUtil.getURLWithSessionId(urlClose, themeDisplay.getSessionId());
@@ -614,7 +614,7 @@ portletDisplay.setURLMax(urlMax.toString());
 
 // URL min
 
-String urlMin = themeDisplay.getPathMain() + "/portal/update_layout?p_l_id=" + plid + "&p_p_id=" + portletDisplay.getId() + "&p_p_restore=" + portletDisplay.isStateMin() + "&doAsUserId=" + HttpUtil.encodeURL(themeDisplay.getDoAsUserId()) + "&" + Constants.CMD + "=minimize&referer=" + HttpUtil.encodeURL(themeDisplay.getPathMain() + "/portal/layout?p_l_id=" + plid + "&doAsUserId=" + themeDisplay.getDoAsUserId()) + "&refresh=1";
+String urlMin = themeDisplay.getPathMain() + "/portal/update_layout?p_l_id=" + plid + "&p_p_id=" + portletDisplay.getId() + "&p_p_restore=" + portletDisplay.isStateMin() + "&p_v_g_id=" + themeDisplay.getParentGroupId() + "&doAsUserId=" + HttpUtil.encodeURL(themeDisplay.getDoAsUserId()) + "&" + Constants.CMD + "=minimize&referer=" + HttpUtil.encodeURL(themeDisplay.getPathMain() + "/portal/layout?p_l_id=" + plid + "&doAsUserId=" + themeDisplay.getDoAsUserId()) + "&refresh=1";
 
 portletDisplay.setURLMin(urlMin);
 
@@ -847,7 +847,7 @@ if ((layout.isTypePanel() || layout.isTypeControlPanel()) && !portletDisplay.get
 	%>
 
 	<div id="p_p_id<%= HtmlUtil.escapeAttribute(renderResponseImpl.getNamespace()) %>" class="<%= cssClasses %>" <%= freeformStyles %>>
-		<a id="p_<%= HtmlUtil.escapeAttribute(portletId) %>"></a>
+		<span id="p_<%= HtmlUtil.escapeAttribute(portletId) %>"></span>
 
 		<div class="portlet-body">
 </c:if>
@@ -1024,28 +1024,28 @@ else {
 
 <%
 if (themeDisplay.isStatePopUp()) {
-	String doRefreshPortletId = null;
+	String refreshPortletId = null;
 
-	if ((doRefreshPortletId = (String)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + ".doRefresh")) != null) {
-		if (Validator.isNull(doRefreshPortletId) && (portletResourcePortlet != null)) {
-			doRefreshPortletId = portletResourcePortlet.getPortletId();
+	if ((refreshPortletId = (String)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + SessionMessages.KEY_SUFFIX_REFRESH_PORTLET)) != null) {
+		if (Validator.isNull(refreshPortletId) && (portletResourcePortlet != null)) {
+			refreshPortletId = portletResourcePortlet.getPortletId();
 		}
 
-		Map<String, String> data = (Map<String, String>)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + ".doRefreshData");
+		Map<String, String> refreshPortletData = (Map<String, String>)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + SessionMessages.KEY_SUFFIX_REFRESH_PORTLET_DATA);
 %>
 
 		<aui:script position="inline" use="aui-base">
 			if (window.parent) {
 				var data = {
-					portletAjaxable: <%= !((portletResourcePortlet != null && !portletResourcePortlet.isAjaxable()) || SessionMessages.contains(renderRequestImpl, portletConfig.getPortletName() + ".notAjaxable")) %>
+					portletAjaxable: <%= !((portletResourcePortlet != null && !portletResourcePortlet.isAjaxable()) || SessionMessages.contains(renderRequestImpl, portletConfig.getPortletName() + SessionMessages.KEY_SUFFIX_PORTLET_NOT_AJAXABLE)) %>
 
-					<c:if test="<%= data != null && data.size() > 0 %>">
+					<c:if test="<%= (refreshPortletData != null) && !refreshPortletData.isEmpty() %>">
 
 						<%
-						for (String key : data.keySet()) {
+						for (Map.Entry<String, String> entry : refreshPortletData.entrySet()) {
 						%>
 
-							, '<%= key %>': <%= data.get(key) %>
+							, '<%= entry.getKey() %>': <%= entry.getValue() %>
 
 						<%
 						}
@@ -1055,16 +1055,16 @@ if (themeDisplay.isStatePopUp()) {
 
 				};
 
-				Liferay.Util.getOpener().Liferay.Portlet.refresh('#p_p_id_<%= doRefreshPortletId %>_', data);
+				Liferay.Util.getOpener().Liferay.Portlet.refresh('#p_p_id_<%= refreshPortletId %>_', data);
 			}
 		</aui:script>
 
 <%
 	}
 
-	String doCloseRedirect = null;
+	String closeRedirect = null;
 
-	if ((doCloseRedirect = (String)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + ".doCloseRedirect")) != null) {
+	if ((closeRedirect = (String)SessionMessages.get(renderRequestImpl, portletConfig.getPortletName() + SessionMessages.KEY_SUFFIX_CLOSE_REDIRECT)) != null) {
 %>
 
 		<aui:script use="aui-base">
@@ -1089,7 +1089,7 @@ if (themeDisplay.isStatePopUp()) {
 							}
 						);
 
-						refreshWindow.location.href = '<%= doCloseRedirect %>';
+						refreshWindow.location.href = '<%= closeRedirect %>';
 					}
 				}
 			);

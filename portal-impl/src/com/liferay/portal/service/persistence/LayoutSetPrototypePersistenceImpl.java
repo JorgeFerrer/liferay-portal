@@ -251,6 +251,19 @@ public class LayoutSetPrototypePersistenceImpl extends BasePersistenceImpl<Layou
 	/**
 	 * Removes the layout set prototype with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * @param layoutSetPrototypeId the primary key of the layout set prototype
+	 * @return the layout set prototype that was removed
+	 * @throws com.liferay.portal.NoSuchLayoutSetPrototypeException if a layout set prototype with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public LayoutSetPrototype remove(long layoutSetPrototypeId)
+		throws NoSuchLayoutSetPrototypeException, SystemException {
+		return remove(Long.valueOf(layoutSetPrototypeId));
+	}
+
+	/**
+	 * Removes the layout set prototype with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
 	 * @param primaryKey the primary key of the layout set prototype
 	 * @return the layout set prototype that was removed
 	 * @throws com.liferay.portal.NoSuchLayoutSetPrototypeException if a layout set prototype with the primary key could not be found
@@ -287,19 +300,6 @@ public class LayoutSetPrototypePersistenceImpl extends BasePersistenceImpl<Layou
 		finally {
 			closeSession(session);
 		}
-	}
-
-	/**
-	 * Removes the layout set prototype with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param layoutSetPrototypeId the primary key of the layout set prototype
-	 * @return the layout set prototype that was removed
-	 * @throws com.liferay.portal.NoSuchLayoutSetPrototypeException if a layout set prototype with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public LayoutSetPrototype remove(long layoutSetPrototypeId)
-		throws NoSuchLayoutSetPrototypeException, SystemException {
-		return remove(Long.valueOf(layoutSetPrototypeId));
 	}
 
 	@Override
@@ -446,6 +446,8 @@ public class LayoutSetPrototypePersistenceImpl extends BasePersistenceImpl<Layou
 		layoutSetPrototypeImpl.setUuid(layoutSetPrototype.getUuid());
 		layoutSetPrototypeImpl.setLayoutSetPrototypeId(layoutSetPrototype.getLayoutSetPrototypeId());
 		layoutSetPrototypeImpl.setCompanyId(layoutSetPrototype.getCompanyId());
+		layoutSetPrototypeImpl.setCreateDate(layoutSetPrototype.getCreateDate());
+		layoutSetPrototypeImpl.setModifiedDate(layoutSetPrototype.getModifiedDate());
 		layoutSetPrototypeImpl.setName(layoutSetPrototype.getName());
 		layoutSetPrototypeImpl.setDescription(layoutSetPrototype.getDescription());
 		layoutSetPrototypeImpl.setSettings(layoutSetPrototype.getSettings());

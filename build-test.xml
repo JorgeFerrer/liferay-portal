@@ -265,7 +265,7 @@
 	</target>
 
 	<target name="build-test-ant-scripts">
-		<property name="build-test-ant-scripts.version" value="1" />
+		<property name="build-test-ant-scripts.version" value="2" />
 
 		<if>
 			<available file="portal-web/test-ant-scripts/version" />
@@ -2646,7 +2646,7 @@ executable ZIP file.
 			</not>
 			<then>
 				<exec executable="${pscp.executable}">
-					<arg line="-pw ${vm.password} hosts dist\liferay-portal-${lp.version}.war tunnel-web\tunnel-web.war ${vm.username}@${vm.host}:/" />
+					<arg line="-pw ${vm.password} hosts dist\liferay-portal-${lp.version}.war ${vm.username}@${vm.host}:/" />
 				</exec>
 
 				<delete file="hosts" />
