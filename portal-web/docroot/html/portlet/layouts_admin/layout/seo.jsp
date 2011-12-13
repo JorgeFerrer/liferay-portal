@@ -78,5 +78,5 @@ if (selLayout != null) {
 
 	<h3><liferay-ui:message key="canonical-and-alternate-links" /></h3>
 
-	<aui:input helpMessage="canonical-and-alternate-links-help" label="use-canonical-alternate" name="TypeSettingsProperties--canonical--" type="checkbox" value="<%= canonicalAlternate %>" />
+	<aui:input helpMessage="canonical-and-alternate-links-help" label="use-canonical-alternate" name="TypeSettingsProperties--canonical-alternate--" type="checkbox" value="<%= canonicalAlternate %>" />
 </aui:fieldset>

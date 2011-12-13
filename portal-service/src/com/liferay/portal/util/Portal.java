@@ -343,7 +343,7 @@ public interface Portal {
 	 *         retrieved
 	 * @throws SystemException if a system exception occurred
 	 */
-	public String getCanonicalAlternateURL(
+	public String getAlternateURL(
 			HttpServletRequest request, String url, Locale locale)
 		throws PortalException, SystemException;
 

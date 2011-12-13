@@ -28,6 +28,14 @@
 <%-- Available Translations --%>
 
 <%
+
+String canonicalURL = PortalUtil.getCanonicalURL(request);
+
+%>
+
+<link href="<%= canonicalURL %>" rel="canonical" />
+
+<%
 boolean canonicalAlternate = GetterUtil.getBoolean(layout.getTypeSettingsProperties().get("canonical-alternate"), false);
 
 if (canonicalAlternate) {
@@ -36,19 +44,13 @@ if (canonicalAlternate) {
 	if ((availableLocales.length > 1) && layout.isPublicLayout()) {
 		Locale defaultLocale = LocaleUtil.getDefault();
 
-		String canonicalURL = PortalUtil.getCanonicalURL(request);
-%>
-
-		<link href="<%= canonicalURL %>" rel="canonical" />
-
-<%
 		if (locale.equals(defaultLocale)) {
 			for (Locale curLocale : availableLocales) {
 				if (!curLocale.equals(defaultLocale)) {
-					String canonicalAlternateURL = PortalUtil.getCanonicalAlternateURL(request, canonicalURL, curLocale);
+					String canonicalAlternateURL = PortalUtil.getAlternateURL(request, canonicalURL, curLocale);
 %>
 
-					<link href="<%= canonicalAlternateURL %>" hreflang="<%= LocaleUtil.toW3cLanguageId(curLocale) %>" rel="alternate" title="<%= layout.getHTMLTitle(curLocale) %>" />
+					<link href="<%= canonicalAlternateURL %>" hreflang="<%= LocaleUtil.toW3cLanguageId(curLocale) %>" rel="alternate" />
 
 <%
 				}
