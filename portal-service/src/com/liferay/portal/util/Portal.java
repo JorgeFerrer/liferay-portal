@@ -344,7 +344,7 @@ public interface Portal {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public String getAlternateURL(
-			HttpServletRequest request, String url, Locale locale)
+			HttpServletRequest request, String canonicalURL, Locale locale)
 		throws PortalException, SystemException;
 
 	/**

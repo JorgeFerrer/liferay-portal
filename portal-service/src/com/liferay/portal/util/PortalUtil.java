@@ -240,10 +240,10 @@ public class PortalUtil {
 	}
 
 	public static String getAlternateURL(
-			HttpServletRequest request, String url, Locale locale)
+			HttpServletRequest request, String canonicalURL, Locale locale)
 		throws PortalException, SystemException{
 
-		return getPortal().getAlternateURL(request, url, locale);
+		return getPortal().getAlternateURL(request, canonicalURL, locale);
 	}
 
 	public static String getCanonicalURL(HttpServletRequest request)
