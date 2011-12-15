@@ -133,7 +133,16 @@ if (layout != null) {
 			function() {
 				new Liferay.Navigation(
 					{
-						layoutIds: [<%= ListUtil.toString(layouts, Layout.LAYOUT_ID_ACCESSOR) %>],
+						//layoutIds: [<%= ListUtil.toString(layouts, Layout.LAYOUT_ID_ACCESSOR) %>],
+						layoutIds: A.Array.map([<%= ListUtil.toString(layouts, Layout.LAYOUT_ID_ACCESSOR) %>],
+							function(item, index, collection) {
+								return {
+									id: item,
+									updateable: (item >= 4),
+									deletable: (item >= 4),
+								};
+							}
+						),
 
 						<c:if test="<%= layoutRevision != null %>">
 							layoutSetBranchId: '<%= layoutRevision.getLayoutSetBranchId() %>',
