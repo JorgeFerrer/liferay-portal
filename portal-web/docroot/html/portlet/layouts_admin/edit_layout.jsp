@@ -250,7 +250,7 @@ String[][] categorySections = {mainSections};
 								);
 							</c:if>
 
-							<c:if test="<%= LayoutPermissionUtil.contains(permissionChecker, selPlid, ActionKeys.DELETE) %>">
+							<c:if test="<%= LayoutPermissionUtil.contains(permissionChecker, selPlid, ActionKeys.DELETE) && (selLayout.getSourcePrototypeLayoutUuid() == null) %>">
 								layoutToolbarChildren.push(
 									{
 										handler: function(event) {
