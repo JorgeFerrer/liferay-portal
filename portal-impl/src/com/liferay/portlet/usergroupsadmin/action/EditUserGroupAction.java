@@ -165,8 +165,8 @@ public class EditUserGroupAction extends PortletAction {
 
 		SitesUtil.updateLayoutSetPrototypesLinks(
 			userGroup.getGroup(), publicLayoutSetPrototypeId,
-			privateLayoutSetPrototypeId, privateLayoutSetPrototypeLinkEnabled,
-			publicLayoutSetPrototypeLinkEnabled);
+			privateLayoutSetPrototypeId, publicLayoutSetPrototypeLinkEnabled,
+			privateLayoutSetPrototypeLinkEnabled);
 	}
 
 }

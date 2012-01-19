@@ -424,8 +424,8 @@ public class EditUserAction extends PortletAction {
 
 		SitesUtil.updateLayoutSetPrototypesLinks(
 			user.getGroup(), publicLayoutSetPrototypeId,
-			privateLayoutSetPrototypeId, privateLayoutSetPrototypeLinkEnabled,
-			publicLayoutSetPrototypeLinkEnabled);
+			privateLayoutSetPrototypeId, publicLayoutSetPrototypeLinkEnabled,
+			privateLayoutSetPrototypeLinkEnabled);
 
 		return user;
 	}
@@ -688,8 +688,8 @@ public class EditUserAction extends PortletAction {
 
 		SitesUtil.updateLayoutSetPrototypesLinks(
 			user.getGroup(), publicLayoutSetPrototypeId,
-			privateLayoutSetPrototypeId, privateLayoutSetPrototypeLinkEnabled,
-			publicLayoutSetPrototypeLinkEnabled);
+			privateLayoutSetPrototypeId, publicLayoutSetPrototypeLinkEnabled,
+			privateLayoutSetPrototypeLinkEnabled);
 
 		Company company = PortalUtil.getCompany(actionRequest);
 
