@@ -189,9 +189,9 @@ public class EditOrganizationAction extends PortletAction {
 		long[] deleteOrganizationIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "deleteOrganizationIds"), 0L);
 
-		for (int i = 0; i < deleteOrganizationIds.length; i++) {
+		for (long deleteOrganizationId : deleteOrganizationIds) {
 			OrganizationServiceUtil.deleteOrganization(
-				deleteOrganizationIds[i]);
+				deleteOrganizationId);
 		}
 	}
 

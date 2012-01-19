@@ -123,8 +123,8 @@ public class EditUserGroupAction extends PortletAction {
 		long[] deleteUserGroupIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "deleteUserGroupIds"), 0L);
 
-		for (int i = 0; i < deleteUserGroupIds.length; i++) {
-			UserGroupServiceUtil.deleteUserGroup(deleteUserGroupIds[i]);
+		for (long deleteUserGroupId : deleteUserGroupIds) {
+			UserGroupServiceUtil.deleteUserGroup(deleteUserGroupId);
 		}
 	}
 
