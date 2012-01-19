@@ -989,8 +989,8 @@ public class SitesUtil {
 	public static void updateLayoutSetPrototypesLinks(
 			Group group, long publicLayoutSetPrototypeId,
 			long privateLayoutSetPrototypeId,
-			boolean publicLayoutSetPrototypeLinkEnabled,
-			boolean privateLayoutSetPrototypeLinkEnabled)
+			boolean privateLayoutSetPrototypeLinkEnabled,
+			boolean publicLayoutSetPrototypeLinkEnabled)
 		throws Exception {
 
 		updateLayoutSetPrototypeLink(

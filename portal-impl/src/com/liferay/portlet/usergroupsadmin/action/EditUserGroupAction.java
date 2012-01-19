@@ -159,11 +159,9 @@ public class EditUserGroupAction extends PortletAction {
 		long privateLayoutSetPrototypeId = ParamUtil.getLong(
 			actionRequest, "privateLayoutSetPrototypeId");
 		boolean privateLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
-			actionRequest, "privateLayoutSetPrototypeLinkEnabled",
-			(privateLayoutSetPrototypeId > 0));
+			actionRequest, "privateLayoutSetPrototypeLinkEnabled");
 		boolean publicLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
-			actionRequest, "publicLayoutSetPrototypeLinkEnabled",
-			(publicLayoutSetPrototypeId > 0));
+			actionRequest, "publicLayoutSetPrototypeLinkEnabled");
 
 		SitesUtil.updateLayoutSetPrototypesLinks(
 			userGroup.getGroup(), publicLayoutSetPrototypeId,
