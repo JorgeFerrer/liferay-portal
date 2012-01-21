@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
+import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.ResourcePermission;
@@ -99,6 +100,18 @@ public class LayoutPermissionImpl implements LayoutPermission {
 			String controlPanelCategory, boolean checkViewableGroup,
 			String actionId)
 		throws PortalException, SystemException {
+
+		if (actionId.equals(ActionKeys.DELETE) &&
+			Validator.isNull(layout.getLayoutPrototypeUuid())) {
+
+			LayoutSet layoutSet = layout.getLayoutSet();
+
+			if (layoutSet.isLayoutSetPrototypeLinkActive() &&
+				Validator.isNotNull(layout.getSourcePrototypeLayoutUuid())) {
+
+				return false;
+			}
+		}
 
 		return containsWithViewableGroup(
 			permissionChecker, layout, controlPanelCategory, checkViewableGroup,
