@@ -56,13 +56,111 @@ import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.VirtualHost;
+import com.liferay.portal.service.AccountLocalServiceUtil;
+import com.liferay.portal.service.AddressLocalServiceUtil;
+import com.liferay.portal.service.ContactLocalServiceUtil;
+import com.liferay.portal.service.EmailAddressLocalServiceUtil;
+import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.LayoutBranchLocalServiceUtil;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.LayoutPrototypeLocalServiceUtil;
+import com.liferay.portal.service.LayoutRevisionLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetBranchLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetPrototypeLocalServiceUtil;
+import com.liferay.portal.service.LockLocalServiceUtil;
+import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
+import com.liferay.portal.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.service.PasswordPolicyLocalServiceUtil;
+import com.liferay.portal.service.PermissionLocalServiceUtil;
+import com.liferay.portal.service.PhoneLocalServiceUtil;
+import com.liferay.portal.service.PluginSettingLocalServiceUtil;
+import com.liferay.portal.service.PortletItemLocalServiceUtil;
+import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.service.RepositoryLocalServiceUtil;
+import com.liferay.portal.service.ResourceBlockLocalServiceUtil;
+import com.liferay.portal.service.ResourceCodeLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.SubscriptionLocalServiceUtil;
+import com.liferay.portal.service.TeamLocalServiceUtil;
+import com.liferay.portal.service.TicketLocalServiceUtil;
+import com.liferay.portal.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.service.UserTrackerLocalServiceUtil;
+import com.liferay.portal.service.VirtualHostLocalServiceUtil;
+import com.liferay.portal.service.WebsiteLocalServiceUtil;
+import com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil;
+import com.liferay.portal.service.WorkflowInstanceLinkLocalServiceUtil;
 import com.liferay.portal.service.base.CompanyLocalServiceBaseImpl;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.portlet.announcements.service.AnnouncementsDeliveryLocalServiceUtil;
+import com.liferay.portlet.announcements.service.AnnouncementsEntryLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetCategoryLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetCategoryPropertyLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetLinkLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetTagPropertyLocalServiceUtil;
+import com.liferay.portlet.asset.service.AssetVocabularyLocalServiceUtil;
+import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
+import com.liferay.portlet.bookmarks.service.BookmarksEntryLocalServiceUtil;
+import com.liferay.portlet.bookmarks.service.BookmarksFolderLocalServiceUtil;
+import com.liferay.portlet.calendar.service.CalEventLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileRankLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileShortcutLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLSyncLocalServiceUtil;
+import com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalServiceUtil;
+import com.liferay.portlet.dynamicdatalists.service.DDLRecordSetLocalServiceUtil;
+import com.liferay.portlet.dynamicdatamapping.service.DDMContentLocalServiceUtil;
+import com.liferay.portlet.dynamicdatamapping.service.DDMStructureLocalServiceUtil;
+import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoRowLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
+import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
+import com.liferay.portlet.messageboards.service.MBBanLocalServiceUtil;
+import com.liferay.portlet.messageboards.service.MBCategoryLocalServiceUtil;
+import com.liferay.portlet.messageboards.service.MBMailingListLocalServiceUtil;
+import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
+import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
+import com.liferay.portlet.mobiledevicerules.service.MDRActionLocalServiceUtil;
+import com.liferay.portlet.mobiledevicerules.service.MDRRuleGroupInstanceLocalServiceUtil;
+import com.liferay.portlet.mobiledevicerules.service.MDRRuleGroupLocalServiceUtil;
+import com.liferay.portlet.mobiledevicerules.service.MDRRuleLocalServiceUtil;
+import com.liferay.portlet.polls.service.PollsQuestionLocalServiceUtil;
+import com.liferay.portlet.polls.service.PollsVoteLocalServiceUtil;
+import com.liferay.portlet.ratings.service.RatingsEntryLocalServiceUtil;
+import com.liferay.portlet.shopping.service.ShoppingCartLocalServiceUtil;
+import com.liferay.portlet.shopping.service.ShoppingCategoryLocalServiceUtil;
+import com.liferay.portlet.shopping.service.ShoppingCouponLocalServiceUtil;
+import com.liferay.portlet.shopping.service.ShoppingItemLocalServiceUtil;
+import com.liferay.portlet.shopping.service.ShoppingOrderLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialActivityAchievementLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialActivityCounterLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialActivityLimitLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialActivitySettingLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialRelationLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialRequestLocalServiceUtil;
+import com.liferay.portlet.softwarecatalog.service.SCFrameworkVersionLocalServiceUtil;
+import com.liferay.portlet.softwarecatalog.service.SCProductEntryLocalServiceUtil;
+import com.liferay.portlet.softwarecatalog.service.SCProductScreenshotLocalServiceUtil;
+import com.liferay.portlet.softwarecatalog.service.SCProductVersionLocalServiceUtil;
+import com.liferay.portlet.wiki.service.WikiNodeLocalServiceUtil;
+import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 import com.liferay.util.Encryptor;
 import com.liferay.util.EncryptorException;
 
@@ -492,6 +590,221 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 			companyPersistence.update(company, false);
 		}
+	}
+
+	/**
+	 * Deletes the company.
+	 *
+	 * @param  companyId the primary key of the company
+	 * @throws PortalException if the company with the primary key could not be
+	 *         found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void deleteCompanies(long[] companyIds)
+		throws PortalException, SystemException {
+
+		for (long companyId : companyIds) {
+			deleteCompany(companyId);
+		}
+	}
+
+	/**
+	 * Deletes the company.
+	 *
+	 * @param  companyId the primary key of the company
+	 * @throws PortalException if the company with the primary key could not be
+	 *         found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void deleteCompany(long companyId)
+		throws PortalException, SystemException {
+
+		// Remove all data associated with the company
+
+		// portal
+
+		AccountLocalServiceUtil.deleteAccountsByCompany(companyId);
+		AddressLocalServiceUtil.deleteAddressesByCompany(companyId);
+		ContactLocalServiceUtil.deleteContactsByCompany(companyId);
+		EmailAddressLocalServiceUtil.deleteEmailAddressesByCompany(companyId);
+		LayoutLocalServiceUtil.deleteLayoutsByCompany(companyId);
+		LayoutBranchLocalServiceUtil.deleteLayoutBranchesByCompany(companyId);
+		LayoutPrototypeLocalServiceUtil.deleteLayoutPrototypesByCompany(
+			companyId);
+		LayoutRevisionLocalServiceUtil.deleteLayoutRevisionsByCompany(
+			companyId);
+		LayoutSetLocalServiceUtil.deleteLayoutSetsByCompany(companyId);
+		LayoutSetBranchLocalServiceUtil.deleteLayoutSetBranchesByCompany(
+			companyId);
+		LayoutSetPrototypeLocalServiceUtil.deleteLayoutSetPrototypesByCompany(
+			companyId);
+		MembershipRequestLocalServiceUtil.deleteMembershipRequestsByCompany(
+			companyId);
+		OrganizationLocalServiceUtil.deleteOrganizationsByCompany(companyId);
+		PasswordPolicyLocalServiceUtil.deletePasswordPoliciesByCompany(
+			companyId);
+		PermissionLocalServiceUtil.deletePermissionsByCompany(companyId);
+		PhoneLocalServiceUtil.deletePhonesByCompany(companyId);
+		PluginSettingLocalServiceUtil.deletePluginSettingsByCompany(companyId);
+		PortletLocalServiceUtil.deletePortletsByCompany(companyId);
+		PortletItemLocalServiceUtil.deletePortletItemsByCompany(companyId);
+		RepositoryLocalServiceUtil.deleteRepositoriesByCompany(companyId);
+		ResourceBlockLocalServiceUtil.deleteResourceBlocksByCompany(companyId);
+		ResourceCodeLocalServiceUtil.deleteResourceCodesByCompany(companyId);
+		ResourcePermissionLocalServiceUtil.deleteResourcePermissionsByCompany(
+			companyId);
+		RoleLocalServiceUtil.deleteRolesByCompany(companyId);
+		SubscriptionLocalServiceUtil.deleteSubscriptionsByCompany(companyId);
+		TeamLocalServiceUtil.deleteTeamsByCompany(companyId);
+		TicketLocalServiceUtil.deleteTicketsByCompany(companyId);
+		UserLocalServiceUtil.deleteUsersByCompany(companyId);
+		UserGroupLocalServiceUtil.deleteUserGroupsByCompany(companyId);
+		UserNotificationEventLocalServiceUtil.deleteUserNotificationEventsByCompany(
+			companyId);
+		UserTrackerLocalServiceUtil.deleteUserTrackersByCompany(companyId);
+		VirtualHostLocalServiceUtil.deleteVirtualHostsByCompany(companyId);
+		WebsiteLocalServiceUtil.deleteWebsitesByCompany(companyId);
+		WorkflowDefinitionLinkLocalServiceUtil.deleteWorkflowDefinitionLinksByCompany(
+			companyId);
+		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLinksByCompany(
+			companyId);
+
+		// announcements
+
+		AnnouncementsDeliveryLocalServiceUtil.deleteDeliveriesByCompany(
+			companyId);
+		AnnouncementsEntryLocalServiceUtil.deleteEntriesByCompany(companyId);
+
+		// asset
+
+		AssetCategoryLocalServiceUtil.deleteCategoriesByCompany(companyId);
+		AssetCategoryPropertyLocalServiceUtil.deleteCategoryPropertiesByCompany(
+			companyId);
+		AssetEntryLocalServiceUtil.deleteEntriesByCompany(companyId);
+		AssetLinkLocalServiceUtil.deleteLinksByCompany(companyId);
+		AssetTagLocalServiceUtil.deleteTagsByCompany(companyId);
+		AssetTagPropertyLocalServiceUtil.deleteTagPropertiesByCompany(
+			companyId);
+		AssetVocabularyLocalServiceUtil.deleteVocabulariesByCompany(companyId);
+
+		// blogs
+
+		BlogsEntryLocalServiceUtil.deleteEntriesByCompany(companyId);
+
+		// bookmarks
+
+		BookmarksEntryLocalServiceUtil.deleteEntriesByCompany(companyId);
+		BookmarksFolderLocalServiceUtil.deleteFoldersByCompany(companyId);
+
+		// calendar
+
+		CalEventLocalServiceUtil.deleteEventsByCompany(companyId);
+
+		// documentlibrary
+
+		DLContentLocalServiceUtil.deleteContentByCompany(companyId);
+		DLFileEntryLocalServiceUtil.deleteFileEntriesByCompany(companyId);
+		DLFileEntryTypeLocalServiceUtil.deleteFileEntryTypesByCompany(
+			companyId);
+		DLFileRankLocalServiceUtil.deleteFileRanksByCompany(companyId);
+		DLFileShortcutLocalServiceUtil.deleteFileShortcutsByCompany(companyId);
+		DLFileVersionLocalServiceUtil.deleteFileVersionsByCompany(companyId);
+		DLFolderLocalServiceUtil.deleteFoldersByCompany(companyId);
+		DLSyncLocalServiceUtil.deleteSyncsByCompany(companyId);
+
+		// dynamicdatalists
+
+		DDLRecordLocalServiceUtil.deleteRecordsByCompany(companyId);
+		DDLRecordSetLocalServiceUtil.deleteRecordSetsByCompany(companyId);
+
+		// dynamicdatamapping
+
+		DDMContentLocalServiceUtil.deleteContentByCompany(companyId);
+		DDMTemplateLocalServiceUtil.deleteTemplatesByCompany(companyId);
+
+		// expando
+
+		ExpandoColumnLocalServiceUtil.deleteColumnsByCompany(companyId);
+		ExpandoRowLocalServiceUtil.deleteRowsByCompany(companyId);
+		ExpandoTableLocalServiceUtil.deleteTablesByCompany(companyId);
+		ExpandoValueLocalServiceUtil.deleteValuesByCompany(companyId);
+
+		// journal
+
+		JournalArticleLocalServiceUtil.deleteArticlesByCompany(companyId);
+
+		// messageboards
+
+		MBBanLocalServiceUtil.deleteBansByCompany(companyId);
+		MBCategoryLocalServiceUtil.deleteCategoriesByCompany(companyId);
+		MBMailingListLocalServiceUtil.deleteMailingListsByCompany(companyId);
+		MBMessageLocalServiceUtil.deleteMessagesByCompany(companyId);
+		MBThreadLocalServiceUtil.deleteThreadsByCompany(companyId);
+
+		// mobiledevicerules
+
+		MDRActionLocalServiceUtil.deleteActionsByCompany(companyId);
+		MDRRuleLocalServiceUtil.deleteRulesByCompany(companyId);
+		MDRRuleGroupLocalServiceUtil.deleteRuleGroupsByCompany(companyId);
+		MDRRuleGroupInstanceLocalServiceUtil.deleteRuleGroupInstancesByCompany(
+			companyId);
+
+		// polls
+
+		PollsQuestionLocalServiceUtil.deleteQuestionsByCompany(companyId);
+		PollsVoteLocalServiceUtil.deletePollsVotesByCompany(companyId);
+
+		// ratings
+
+		RatingsEntryLocalServiceUtil.deleteEntriesByCompany(companyId);
+
+		// shopping
+
+		ShoppingCartLocalServiceUtil.deleteShoppingCartsByCompany(companyId);
+		ShoppingCategoryLocalServiceUtil.deleteCategoriesByCompany(companyId);
+		ShoppingCouponLocalServiceUtil.deleteCouponsByCompany(companyId);
+		ShoppingItemLocalServiceUtil.deleteItemsByCompany(companyId);
+		ShoppingOrderLocalServiceUtil.deleteOrdersByCompany(companyId);
+
+		// social
+
+		SocialActivityLocalServiceUtil.deleteActivitiesByCompany(companyId);
+		SocialActivityAchievementLocalServiceUtil.deleteActivityAchievementsByCompany(
+			companyId);
+		SocialActivityCounterLocalServiceUtil.deleteActivityCountersByCompany(
+			companyId);
+		SocialActivityLimitLocalServiceUtil.deleteActivityLimitsByCompany(
+			companyId);
+		SocialActivitySettingLocalServiceUtil.deleteActivitySettingsByCompany(
+			companyId);
+		SocialRelationLocalServiceUtil.deleteRelationsByCompany(companyId);
+		SocialRequestLocalServiceUtil.deleteRequestsByCompany(companyId);
+
+		// softwarecatalog
+
+		SCFrameworkVersionLocalServiceUtil.deleteFrameworkVersionsByCompany(
+			companyId);
+		SCProductEntryLocalServiceUtil.deleteProductEntriesByCompany(companyId);
+		SCProductScreenshotLocalServiceUtil.deleteProductScreenshotsByCompany(
+			companyId);
+		SCProductVersionLocalServiceUtil.deleteProductVersionsByCompany(
+			companyId);
+
+		// wiki
+
+		WikiNodeLocalServiceUtil.deleteNodesByCompany(companyId);
+		WikiPageLocalServiceUtil.deletePagesByCompany(companyId);
+
+		// Remove these last because the previous deletions may require this
+		// information
+
+		DDMStructureLocalServiceUtil.deleteStructuresByCompany(companyId);
+		GroupLocalServiceUtil.deleteGroupsByCompany(companyId);
+		LockLocalServiceUtil.deleteLocksByCompany(companyId);
+
+		// Remove the company itself
+
+		companyPersistence.remove(companyId);
 	}
 
 	/**
