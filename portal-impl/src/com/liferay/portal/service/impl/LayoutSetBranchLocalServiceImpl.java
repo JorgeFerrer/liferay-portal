@@ -37,6 +37,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.base.LayoutSetBranchLocalServiceBaseImpl;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -289,6 +290,15 @@ public class LayoutSetBranchLocalServiceImpl
 		deleteLayoutSetBranch(layoutSetBranch);
 	}
 
+	public void deleteLayoutSetBranches(
+			Collection<LayoutSetBranch> layoutSetBranches)
+		throws PortalException, SystemException {
+
+		for (LayoutSetBranch layoutSetBranch : layoutSetBranches) {
+			deleteLayoutSetBranch(layoutSetBranch);
+		}
+	}
+
 	public void deleteLayoutSetBranches(long groupId, boolean privateLayout)
 		throws PortalException, SystemException {
 
@@ -305,6 +315,13 @@ public class LayoutSetBranchLocalServiceImpl
 		for (LayoutSetBranch layoutSetBranch : layoutSetBranches) {
 			deleteLayoutSetBranch(layoutSetBranch, includeMaster);
 		}
+	}
+
+	public void deleteLayoutSetBranchesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteLayoutSetBranches(
+			layoutSetBranchPersistence.findByCompanyId(companyId));
 	}
 
 	public LayoutSetBranch getLayoutSetBranch(

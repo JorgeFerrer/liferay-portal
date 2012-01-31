@@ -60,6 +60,7 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -421,6 +422,20 @@ public class OrganizationLocalServiceImpl
 		Indexer indexer = IndexerRegistryUtil.getIndexer(Organization.class);
 
 		indexer.delete(organization);
+	}
+
+	public void deleteOrganizations(Collection<Organization> organizations)
+		throws PortalException, SystemException {
+
+		for (Organization organization : organizations) {
+			deleteOrganization(organization);
+		}
+	}
+
+	public void deleteOrganizationsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteOrganizations(organizationPersistence.findByCompanyId(companyId));
 	}
 
 	/**

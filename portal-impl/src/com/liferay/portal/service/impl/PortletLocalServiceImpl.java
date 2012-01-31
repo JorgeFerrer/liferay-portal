@@ -81,6 +81,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -221,6 +222,32 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 		Portlet portlet = getPortletById(portletId);
 
 		return (Portlet)portlet.clone();
+	}
+
+	@Override
+	public void deletePortlet(Portlet portlet) throws SystemException {
+		portletPersistence.remove(portlet);
+
+		int portletIdCount =
+			portletPersistence.countByPortletId(portlet.getPortletId());
+
+		if (portletIdCount == 0) {
+			destroyPortlet(portlet);
+		}
+
+		removeCompanyPortletsPool(portlet.getCompanyId());
+	}
+
+	public void deletePortlets(Collection<Portlet> portlets)
+		throws SystemException {
+
+		for (Portlet portlet : portlets) {
+			deletePortlet(portlet);
+		}
+	}
+
+	public void deletePortletsByCompany(long companyId) throws SystemException {
+		deletePortlets(portletPersistence.findByCompanyId(companyId));
 	}
 
 	public Portlet deployRemotePortlet(Portlet portlet, String categoryName)

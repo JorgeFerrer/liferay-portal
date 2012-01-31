@@ -29,6 +29,7 @@ import com.liferay.portal.model.Team;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.base.TeamLocalServiceBaseImpl;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -109,6 +110,14 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		roleLocalService.deleteRole(role);
 	}
 
+	public void deleteTeams(Collection<Team> teams)
+		throws PortalException, SystemException {
+
+		for (Team team : teams) {
+			deleteTeam(team);
+		}
+	}
+
 	public void deleteTeams(long groupId)
 		throws PortalException, SystemException {
 
@@ -117,6 +126,12 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 		for (Team team : teams) {
 			deleteTeam(team.getTeamId());
 		}
+	}
+
+	public void deleteTeamsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteTeams(teamPersistence.findByCompanyId(companyId));
 	}
 
 	public List<Team> getGroupTeams(long groupId) throws SystemException {

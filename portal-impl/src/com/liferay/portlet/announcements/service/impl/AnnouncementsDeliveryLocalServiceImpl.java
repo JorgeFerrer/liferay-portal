@@ -108,6 +108,12 @@ public class AnnouncementsDeliveryLocalServiceImpl
 		}
 	}
 
+	public void deleteDeliveriesByCompany(long companyId)
+		throws SystemException {
+
+		announcementsDeliveryPersistence.removeByCompanyId(companyId);
+	}
+
 	public AnnouncementsDelivery getDelivery(long deliveryId)
 		throws PortalException, SystemException {
 

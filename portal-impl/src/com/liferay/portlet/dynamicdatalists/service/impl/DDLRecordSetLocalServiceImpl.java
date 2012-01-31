@@ -30,6 +30,7 @@ import com.liferay.portlet.dynamicdatalists.model.DDLRecordSet;
 import com.liferay.portlet.dynamicdatalists.service.base.DDLRecordSetLocalServiceBaseImpl;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -178,6 +179,20 @@ public class DDLRecordSetLocalServiceImpl
 		for (DDLRecordSet recordSet : recordSets) {
 			deleteRecordSet(recordSet);
 		}
+	}
+
+	public void deleteRecordSets(Collection<DDLRecordSet> recordSets)
+		throws PortalException, SystemException {
+
+		for (DDLRecordSet recordSet : recordSets) {
+			deleteRecordSet(recordSet);
+		}
+	}
+
+	public void deleteRecordSetsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteRecordSets(ddlRecordSetPersistence.findByCompanyId(companyId));
 	}
 
 	public DDLRecordSet fetchRecordSet(long groupId, String recordSetKey)

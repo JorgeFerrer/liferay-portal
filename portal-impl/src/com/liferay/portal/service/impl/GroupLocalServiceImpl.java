@@ -87,6 +87,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -557,6 +558,51 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				String.valueOf(group.getGroupId()));
 		}
 
+		deleteGroupUnsafe(group);
+	}
+
+	/**
+	 * Deletes the group and its associated data.
+	 *
+	 * <p>
+	 * The group is unstaged and its assets and resources including layouts,
+	 * membership requests, subscriptions, teams, blogs, bookmarks, calendar
+	 * events, image gallery, journals, message boards, polls, shopping related
+	 * entities, software catalog, and wikis are also deleted.
+	 * </p>
+	 *
+	 * @param  groupId the primary key of the group
+	 * @throws PortalException if a group with the primary key could not be
+	 *         found, if the group was a system group, or if the user did not
+	 *         have permission to delete the group, its assets, or its resources
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void deleteGroup(long groupId)
+		throws PortalException, SystemException {
+
+		Group group = groupPersistence.findByPrimaryKey(groupId);
+
+		deleteGroup(group);
+	}
+
+	public void deleteGroupsUnsafe(Collection<Group> groups)
+		throws PortalException, SystemException {
+
+		for (Group group : groups) {
+			deleteGroupUnsafe(group);
+		}
+	}
+
+	public void deleteGroupsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteGroupsUnsafe(groupPersistence.findByCompanyId(companyId));
+	}
+
+	public void deleteGroupUnsafe(Group group)
+		throws PortalException, SystemException {
+
 		// Layout set branches
 
 		layoutSetBranchLocalService.deleteLayoutSetBranches(
@@ -735,31 +781,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		// Permission cache
 
 		PermissionCacheUtil.clearCache();
-	}
-
-	/**
-	 * Deletes the group and its associated data.
-	 *
-	 * <p>
-	 * The group is unstaged and its assets and resources including layouts,
-	 * membership requests, subscriptions, teams, blogs, bookmarks, calendar
-	 * events, image gallery, journals, message boards, polls, shopping related
-	 * entities, software catalog, and wikis are also deleted.
-	 * </p>
-	 *
-	 * @param  groupId the primary key of the group
-	 * @throws PortalException if a group with the primary key could not be
-	 *         found, if the group was a system group, or if the user did not
-	 *         have permission to delete the group, its assets, or its resources
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void deleteGroup(long groupId)
-		throws PortalException, SystemException {
-
-		Group group = groupPersistence.findByPrimaryKey(groupId);
-
-		deleteGroup(group);
 	}
 
 	/**

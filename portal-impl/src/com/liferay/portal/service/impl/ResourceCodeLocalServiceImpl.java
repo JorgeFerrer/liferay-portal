@@ -107,6 +107,12 @@ public class ResourceCodeLocalServiceImpl
 		getResourceCode(companyId, name, ResourceConstants.SCOPE_INDIVIDUAL);
 	}
 
+	public void deleteResourceCodesByCompany(long companyId)
+		throws SystemException {
+
+		resourceCodePersistence.removeByCompanyId(companyId);
+	}
+
 	@Override
 	public ResourceCode getResourceCode(long codeId)
 		throws PortalException, SystemException {

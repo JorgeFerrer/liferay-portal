@@ -40,6 +40,12 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 		lockPersistence.removeByLtExpirationDate(new Date());
 	}
 
+	public void deleteLocksByCompany(long companyId)
+		throws SystemException {
+
+		lockPersistence.removeByCompanyId(companyId);
+	}
+
 	public Lock getLock(String className, long key)
 		throws PortalException, SystemException {
 

@@ -29,6 +29,7 @@ import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityDefinition;
 import com.liferay.portlet.social.service.base.SocialActivityLocalServiceBaseImpl;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -387,6 +388,20 @@ public class SocialActivityLocalServiceImpl
 		}
 		catch (NoSuchActivityException nsae) {
 		}
+	}
+
+	public void deleteActivities(Collection<SocialActivity> activities)
+		throws SystemException {
+
+		for (SocialActivity activity : activities) {
+			deleteActivity(activity);
+		}
+	}
+
+	public void deleteActivitiesByCompany(long companyId)
+		throws SystemException {
+
+		deleteActivities(socialActivityPersistence.findByCompanyId(companyId));
 	}
 
 	/**

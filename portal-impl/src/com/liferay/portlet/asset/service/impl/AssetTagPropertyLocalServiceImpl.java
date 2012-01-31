@@ -118,6 +118,12 @@ public class AssetTagPropertyLocalServiceImpl
 		deleteTagProperty(tagProperty);
 	}
 
+	public void deleteTagPropertiesByCompany(long companyId)
+		throws SystemException {
+
+		assetTagPropertyPersistence.removeByCompanyId(companyId);
+	}
+
 	/**
 	 * Returns all the asset tag property instances.
 	 *

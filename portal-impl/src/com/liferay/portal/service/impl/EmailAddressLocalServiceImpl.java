@@ -100,6 +100,12 @@ public class EmailAddressLocalServiceImpl
 		}
 	}
 
+	public void deleteEmailAddressesByCompany(long companyId)
+		throws SystemException {
+
+		emailAddressPersistence.removeByCompanyId(companyId);
+	}
+
 	@Override
 	public EmailAddress getEmailAddress(long emailAddressId)
 		throws PortalException, SystemException {

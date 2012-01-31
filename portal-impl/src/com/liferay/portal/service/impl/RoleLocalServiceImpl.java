@@ -55,6 +55,7 @@ import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -319,6 +320,26 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 		if (PortalUtil.isSystemRole(role.getName())) {
 			throw new RequiredRoleException();
 		}
+
+		deleteRoleUnsafe(role);
+	}
+
+	public void deleteRolesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteRolesUnsafe(rolePersistence.findByCompanyId(companyId));
+	}
+
+	public void deleteRolesUnsafe(Collection<Role> roles)
+		throws PortalException, SystemException {
+
+		for (Role role : roles) {
+			deleteRoleUnsafe(role);
+		}
+	}
+
+	public void deleteRoleUnsafe(Role role)
+		throws PortalException, SystemException {
 
 		// Resources
 

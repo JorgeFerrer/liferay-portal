@@ -109,6 +109,12 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		}
 	}
 
+	public void deleteAddressesByCompany(long companyId)
+		throws SystemException {
+
+		addressPersistence.removeByCompanyId(companyId);
+	}
+
 	@Override
 	public Address getAddress(long addressId)
 		throws PortalException, SystemException {

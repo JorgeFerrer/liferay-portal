@@ -28,6 +28,7 @@ import com.liferay.portlet.ratings.model.RatingsStats;
 import com.liferay.portlet.ratings.service.base.RatingsEntryLocalServiceBaseImpl;
 import com.liferay.portlet.social.model.SocialActivityConstants;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,14 @@ import java.util.List;
  */
 public class RatingsEntryLocalServiceImpl
 	extends RatingsEntryLocalServiceBaseImpl {
+
+	public void deleteEntry(RatingsEntry ratingsEntry)
+		throws PortalException, SystemException {
+
+		deleteEntry(
+			ratingsEntry.getUserId(), ratingsEntry.getClassName(),
+			ratingsEntry.getClassPK());
+	}
 
 	public void deleteEntry(long userId, String className, long classPK)
 		throws PortalException, SystemException {
@@ -74,6 +83,20 @@ public class RatingsEntryLocalServiceImpl
 		stats.setAverageScore(averageScore);
 
 		ratingsStatsPersistence.update(stats, false);
+	}
+
+	public void deleteEntries(Collection<RatingsEntry> ratingsEntries)
+		throws PortalException, SystemException {
+
+		for (RatingsEntry ratingsEntry : ratingsEntries) {
+			deleteRatingsEntry(ratingsEntry);
+		}
+	}
+
+	public void deleteEntriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteEntries(ratingsEntryPersistence.findByCompanyId(companyId));
 	}
 
 	public RatingsEntry fetchEntry(long userId, String className, long classPK)

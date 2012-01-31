@@ -42,6 +42,7 @@ import com.liferay.portlet.documentlibrary.service.base.DLFolderLocalServiceBase
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -157,6 +158,20 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 		DLFolder dlFolder = dlFolderPersistence.findByPrimaryKey(folderId);
 
 		deleteFolder(dlFolder);
+	}
+
+	public void deleteFolders(Collection<DLFolder> folders)
+		throws PortalException, SystemException {
+
+		for (DLFolder folder : folders) {
+			deleteFolder(folder);
+		}
+	}
+
+	public void deleteFoldersByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteFolders(dlFolderPersistence.findByCompanyId(companyId));
 	}
 
 	public List<DLFolder> getCompanyFolders(long companyId, int start, int end)

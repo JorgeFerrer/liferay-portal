@@ -56,6 +56,12 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 		return ticket;
 	}
 
+	public void deleteTicketsByCompany(long companyId)
+		throws SystemException {
+
+		ticketPersistence.removeByCompanyId(companyId);
+	}
+
 	public Ticket fetchTicket(String key) throws SystemException {
 		return ticketPersistence.fetchByKey(key);
 	}

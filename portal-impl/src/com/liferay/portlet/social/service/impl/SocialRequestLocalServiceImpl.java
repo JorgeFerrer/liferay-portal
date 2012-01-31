@@ -165,6 +165,10 @@ public class SocialRequestLocalServiceImpl
 		}
 	}
 
+	public void deleteRequestsByCompany(long companyId) throws SystemException {
+		socialRequestPersistence.removeByCompanyId(companyId);
+	}
+
 	/**
 	 * Returns a range of all the social requests for the receiving user.
 	 *
