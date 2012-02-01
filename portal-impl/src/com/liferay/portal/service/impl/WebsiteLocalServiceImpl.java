@@ -93,6 +93,10 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 		}
 	}
 
+	public void deleteWebsitesByCompany(long companyId) throws SystemException {
+		websitePersistence.removeByCompanyId(companyId);
+	}
+
 	@Override
 	public Website getWebsite(long websiteId)
 		throws PortalException, SystemException {

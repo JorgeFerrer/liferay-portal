@@ -108,6 +108,12 @@ public class UserNotificationEventLocalServiceImpl
 		}
 	}
 
+	public void deleteUserNotificationEventsByCompany(long companyId)
+		throws SystemException {
+
+		userNotificationEventPersistence.removeByCompanyId(companyId);
+	}
+
 	public List<UserNotificationEvent> getUserNotificationEvents(long userId)
 		throws SystemException {
 

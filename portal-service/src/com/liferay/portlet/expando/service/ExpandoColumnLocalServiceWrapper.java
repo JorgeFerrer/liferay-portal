@@ -306,6 +306,12 @@ public class ExpandoColumnLocalServiceWrapper
 			tableName, name);
 	}
 
+	public void deleteColumns(
+		java.util.Collection<com.liferay.portlet.expando.model.ExpandoColumn> columns)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_expandoColumnLocalService.deleteColumns(columns);
+	}
+
 	public void deleteColumns(long tableId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_expandoColumnLocalService.deleteColumns(tableId);
@@ -324,6 +330,11 @@ public class ExpandoColumnLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_expandoColumnLocalService.deleteColumns(companyId, className, tableName);
+	}
+
+	public void deleteColumnsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_expandoColumnLocalService.deleteColumnsByCompany(companyId);
 	}
 
 	public com.liferay.portlet.expando.model.ExpandoColumn getColumn(

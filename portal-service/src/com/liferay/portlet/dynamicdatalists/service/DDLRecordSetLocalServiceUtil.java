@@ -336,6 +336,19 @@ public class DDLRecordSetLocalServiceUtil {
 		getService().deleteRecordSets(groupId);
 	}
 
+	public static void deleteRecordSets(
+		java.util.Collection<com.liferay.portlet.dynamicdatalists.model.DDLRecordSet> recordSets)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteRecordSets(recordSets);
+	}
+
+	public static void deleteRecordSetsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteRecordSetsByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.dynamicdatalists.model.DDLRecordSet fetchRecordSet(
 		long groupId, java.lang.String recordSetKey)
 		throws com.liferay.portal.kernel.exception.SystemException {

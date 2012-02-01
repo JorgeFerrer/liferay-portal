@@ -362,6 +362,11 @@ public class PermissionLocalServiceUtil {
 		getService().checkPermissions(name, actionIds);
 	}
 
+	public static void deletePermissionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deletePermissionsByCompany(companyId);
+	}
+
 	/**
 	* Returns the IDs of all the actions belonging to the permissions.
 	*

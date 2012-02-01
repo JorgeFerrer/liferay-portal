@@ -86,6 +86,12 @@ public class AssetCategoryPropertyLocalServiceImpl
 		deleteCategoryProperty(categoryProperty);
 	}
 
+	public void deleteCategoryPropertiesByCompany(long companyId)
+		throws SystemException {
+
+		assetCategoryPropertyPersistence.removeByCompanyId(companyId);
+	}
+
 	public List<AssetCategoryProperty> getCategoryProperties()
 		throws SystemException {
 

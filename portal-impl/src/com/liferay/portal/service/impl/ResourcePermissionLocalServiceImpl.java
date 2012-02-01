@@ -227,6 +227,15 @@ public class ResourcePermissionLocalServiceImpl
 		resourcePermissionPersistence.remove(resourcePermissionId);
 	}
 
+	public void deleteResourcePermissions(
+			Collection<ResourcePermission> resourcePermissions)
+		throws PortalException, SystemException {
+
+		for (ResourcePermission resourcePermission : resourcePermissions) {
+			deleteResourcePermission(resourcePermission);
+		}
+	}
+
 	/**
 	 * Deletes all resource permissions at the scope to resources of the type.
 	 * This method should not be confused with any of the
@@ -285,14 +294,16 @@ public class ResourcePermissionLocalServiceImpl
 			long companyId, String name, int scope, String primKey)
 		throws PortalException, SystemException {
 
-		List<ResourcePermission> resourcePermissions =
+		deleteResourcePermissions(
 			resourcePermissionPersistence.findByC_N_S_P(
-				companyId, name, scope, primKey);
+				companyId, name, scope, primKey));
+	}
 
-		for (ResourcePermission resourcePermission : resourcePermissions) {
-			deleteResourcePermission(
-				resourcePermission.getResourcePermissionId());
-		}
+	public void deleteResourcePermissionsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteResourcePermissions(
+			resourcePermissionPersistence.findByCompanyId(companyId));
 	}
 
 	/**

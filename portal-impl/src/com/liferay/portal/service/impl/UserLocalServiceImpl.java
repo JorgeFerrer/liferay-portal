@@ -131,6 +131,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1607,6 +1608,46 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			throw new RequiredUserException();
 		}
 
+		deleteUserUnsafe(user);
+	}
+
+	/**
+	 * Removes the user from the user group.
+	 *
+	 * @param  userGroupId the primary key of the user group
+	 * @param  userId the primary key of the user
+	 * @throws PortalException if a portal exception occurred
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void deleteUserGroupUser(long userGroupId, long userId)
+		throws PortalException, SystemException {
+
+		userGroupPersistence.removeUser(userGroupId, userId);
+
+		Indexer indexer = IndexerRegistryUtil.getIndexer(User.class);
+
+		indexer.reindex(userId);
+
+		PermissionCacheUtil.clearCache();
+	}
+
+	public void deleteUsersByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteUsersUnsafe(userPersistence.findByCompanyId(companyId));
+	}
+
+	public void deleteUsersUnsafe(Collection<User> users)
+		throws PortalException, SystemException {
+
+		for (User user : users) {
+			deleteUserUnsafe(user);
+		}
+	}
+
+	public void deleteUserUnsafe(User user)
+		throws PortalException, SystemException {
+
 		// Indexer
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(User.class);
@@ -1619,10 +1660,13 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		// Group
 
-		Group group = user.getGroup();
+		try {
+			Group group = user.getGroup();
 
-		if (group != null) {
-			groupLocalService.deleteGroup(group);
+			if (group != null) {
+				groupLocalService.deleteGroup(group);
+			}
+		} catch (NoSuchGroupException e) {
 		}
 
 		// Portrait
@@ -1724,26 +1768,6 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
 			user.getCompanyId(), 0, User.class.getName(), user.getUserId());
-	}
-
-	/**
-	 * Removes the user from the user group.
-	 *
-	 * @param  userGroupId the primary key of the user group
-	 * @param  userId the primary key of the user
-	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void deleteUserGroupUser(long userGroupId, long userId)
-		throws PortalException, SystemException {
-
-		userGroupPersistence.removeUser(userGroupId, userId);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(User.class);
-
-		indexer.reindex(userId);
-
-		PermissionCacheUtil.clearCache();
 	}
 
 	/**

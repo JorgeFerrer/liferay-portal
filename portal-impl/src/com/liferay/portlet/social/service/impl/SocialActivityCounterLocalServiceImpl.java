@@ -309,6 +309,12 @@ public class SocialActivityCounterLocalServiceImpl
 		socialActivityCounterPersistence.removeByC_C(classNameId, classPK);
 	}
 
+	public void deleteActivityCountersByCompany(long companyId)
+		throws SystemException {
+
+		socialActivityCounterPersistence.removeByCompanyId(companyId);
+	}
+
 	public SocialActivityCounter fetchActivityCounterByEndPeriod(
 			long groupId, long classNameId, long classPK, String name,
 			int ownerType, int endPeriod)

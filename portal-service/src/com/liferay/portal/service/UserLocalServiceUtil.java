@@ -930,6 +930,25 @@ public class UserLocalServiceUtil {
 		getService().deleteUserGroupUser(userGroupId, userId);
 	}
 
+	public static void deleteUsersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteUsersByCompany(companyId);
+	}
+
+	public static void deleteUsersUnsafe(
+		java.util.Collection<com.liferay.portal.model.User> users)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteUsersUnsafe(users);
+	}
+
+	public static void deleteUserUnsafe(com.liferay.portal.model.User user)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteUserUnsafe(user);
+	}
+
 	/**
 	* Encrypts the primary key of the user. Used when encrypting the user's
 	* credentials for storage in an automatic login cookie.

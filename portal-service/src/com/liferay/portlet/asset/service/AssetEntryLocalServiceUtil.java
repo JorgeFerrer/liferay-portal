@@ -279,6 +279,19 @@ public class AssetEntryLocalServiceUtil {
 		getService().deleteEntry(className, classPK);
 	}
 
+	public static void deleteEntries(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetEntry> entries)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteEntries(entries);
+	}
+
+	public static void deleteEntriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteEntriesByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.asset.model.AssetEntry fetchEntry(
 		long entryId)
 		throws com.liferay.portal.kernel.exception.SystemException {

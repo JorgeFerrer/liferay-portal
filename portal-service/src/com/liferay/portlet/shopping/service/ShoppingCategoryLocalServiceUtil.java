@@ -327,6 +327,19 @@ public class ShoppingCategoryLocalServiceUtil {
 		getService().deleteCategory(category);
 	}
 
+	public static void deleteCategories(
+		java.util.Collection<com.liferay.portlet.shopping.model.ShoppingCategory> categories)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteCategories(categories);
+	}
+
+	public static void deleteCategoriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteCategoriesByCompany(companyId);
+	}
+
 	public static java.util.List<com.liferay.portlet.shopping.model.ShoppingCategory> getCategories(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {

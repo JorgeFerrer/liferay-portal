@@ -269,6 +269,11 @@ public class DLSyncLocalServiceUtil {
 			parentFolderId, name, type, version);
 	}
 
+	public static void deleteSyncsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteSyncsByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.documentlibrary.model.DLSync updateSync(
 		long fileId, long parentFolderId, java.lang.String name,
 		java.lang.String event, java.lang.String version)

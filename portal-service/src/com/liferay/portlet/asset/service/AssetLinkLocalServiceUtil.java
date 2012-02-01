@@ -332,6 +332,17 @@ public class AssetLinkLocalServiceUtil {
 		getService().deleteLinks(entryId1, entryId2);
 	}
 
+	public static void deleteLinks(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetLink> links)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLinks(links);
+	}
+
+	public static void deleteLinksByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLinksByCompany(companyId);
+	}
+
 	/**
 	* Returns all the asset links whose first entry ID is the given entry ID.
 	*

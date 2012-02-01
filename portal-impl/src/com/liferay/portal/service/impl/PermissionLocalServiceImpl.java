@@ -261,6 +261,12 @@ public class PermissionLocalServiceImpl extends PermissionLocalServiceBaseImpl {
 		PermissionCacheUtil.clearCache();
 	}
 
+	public void deletePermissionsByCompany(long companyId)
+		throws SystemException {
+
+		permissionPersistence.removeByCompanyId(companyId);
+	}
+
 	/**
 	 * Returns the IDs of all the actions belonging to the permissions.
 	 *

@@ -63,6 +63,7 @@ import com.liferay.portlet.blogs.util.comparator.EntryDisplayDateComparator;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -246,6 +247,20 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		for (BlogsEntry entry : blogsEntryPersistence.findByGroupId(groupId)) {
 			deleteEntry(entry);
 		}
+	}
+
+	public void deleteEntries(Collection<BlogsEntry> entries)
+		throws PortalException, SystemException {
+
+		for (BlogsEntry entry : entries) {
+			deleteEntry(entry);
+		}
+	}
+
+	public void deleteEntriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteEntries(blogsEntryPersistence.findByCompanyId(companyId));
 	}
 
 	public void deleteEntry(BlogsEntry entry)

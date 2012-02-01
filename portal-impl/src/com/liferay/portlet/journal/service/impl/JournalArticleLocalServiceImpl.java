@@ -110,6 +110,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -603,7 +604,11 @@ public class JournalArticleLocalServiceImpl
 				article.getGroupId(), article.getArticleId(),
 				article.getVersion(), WorkflowConstants.STATUS_APPROVED)) {
 
-			updatePreviousApprovedArticle(article);
+			try {
+				updatePreviousApprovedArticle(article);
+			}
+			catch (NoSuchEntryException e) {
+			}
 		}
 
 		// Email
@@ -713,6 +718,14 @@ public class JournalArticleLocalServiceImpl
 		}
 	}
 
+	public void deleteArticles(Collection<JournalArticle> articles)
+		throws PortalException, SystemException {
+
+		for (JournalArticle article : articles) {
+			deleteArticle(article, null, null);
+		}
+	}
+
 	public void deleteArticles(long groupId)
 		throws PortalException, SystemException {
 
@@ -721,6 +734,12 @@ public class JournalArticleLocalServiceImpl
 
 			deleteArticle(article, null, null);
 		}
+	}
+
+	public void deleteArticlesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteArticles(journalArticlePersistence.findByCompanyId(companyId));
 	}
 
 	public void deleteLayoutArticleReferences(long groupId, String layoutUuid)

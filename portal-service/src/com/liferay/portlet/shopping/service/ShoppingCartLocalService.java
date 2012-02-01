@@ -241,6 +241,9 @@ public interface ShoppingCartLocalService extends PersistedModelLocalService {
 	public void deleteUserCarts(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteShoppingCartsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.shopping.model.ShoppingCart getCart(
 		long userId, long groupId)

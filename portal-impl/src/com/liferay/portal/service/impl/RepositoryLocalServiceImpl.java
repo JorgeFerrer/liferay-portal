@@ -44,6 +44,7 @@ import com.liferay.portlet.documentlibrary.NoSuchFolderException;
 import com.liferay.portlet.documentlibrary.RepositoryNameException;
 import com.liferay.portlet.documentlibrary.model.DLFolder;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +118,20 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 		}
 	}
 
+	public void deleteRepositories(Collection<Repository> repositories)
+		throws PortalException, SystemException {
+
+		for (Repository repository : repositories) {
+			deleteRepository(repository);
+		}
+	}
+
+	public void deleteRepositoriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteRepositories(repositoryPersistence.findByCompanyId(companyId));
+	}
+
 	public void deleteRepositories(long groupId)
 		throws PortalException, SystemException {
 
@@ -137,9 +152,16 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 		Repository repository = repositoryPersistence.fetchByPrimaryKey(
 			repositoryId);
 
+		deleteRepository(repository);
+	}
+
+	@Override
+	public void deleteRepository(Repository repository)
+		throws PortalException, SystemException {
+
 		if (repository != null) {
 			expandoValueLocalService.deleteValues(
-				Repository.class.getName(), repositoryId);
+				Repository.class.getName(), repository.getRepositoryId());
 
 			try {
 				dlFolderLocalService.deleteFolder(repository.getDlFolderId());
@@ -149,7 +171,8 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 
 			repositoryPersistence.remove(repository);
 
-			repositoryEntryPersistence.removeByRepositoryId(repositoryId);
+			repositoryEntryPersistence.removeByRepositoryId(
+				repository.getRepositoryId());
 		}
 	}
 

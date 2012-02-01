@@ -55,6 +55,12 @@ public class DLSyncLocalServiceImpl extends DLSyncLocalServiceBaseImpl {
 		return dlSync;
 	}
 
+	public void deleteSyncsByCompany(long companyId)
+		throws SystemException {
+
+		dlSyncPersistence.removeByCompanyId(companyId);
+	}
+
 	public DLSync updateSync(
 			long fileId, long parentFolderId, String name, String event,
 			String version)

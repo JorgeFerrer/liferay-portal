@@ -256,6 +256,9 @@ public interface AnnouncementsDeliveryLocalService
 	public void deleteDelivery(long userId, java.lang.String type)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteDeliveriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.announcements.model.AnnouncementsDelivery getDelivery(
 		long deliveryId)

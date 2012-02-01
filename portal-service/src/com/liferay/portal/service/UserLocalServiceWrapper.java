@@ -911,6 +911,25 @@ public class UserLocalServiceWrapper implements UserLocalService,
 		_userLocalService.deleteUserGroupUser(userGroupId, userId);
 	}
 
+	public void deleteUsersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_userLocalService.deleteUsersByCompany(companyId);
+	}
+
+	public void deleteUsersUnsafe(
+		java.util.Collection<com.liferay.portal.model.User> users)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_userLocalService.deleteUsersUnsafe(users);
+	}
+
+	public void deleteUserUnsafe(com.liferay.portal.model.User user)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_userLocalService.deleteUserUnsafe(user);
+	}
+
 	/**
 	* Encrypts the primary key of the user. Used when encrypting the user's
 	* credentials for storage in an automatic login cookie.

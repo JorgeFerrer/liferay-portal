@@ -71,10 +71,12 @@ public class RepositoryLocalServiceWrapper implements RepositoryLocalService,
 	* Deletes the repository from the database. Also notifies the appropriate model listeners.
 	*
 	* @param repository the repository
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteRepository(com.liferay.portal.model.Repository repository)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		_repositoryLocalService.deleteRepository(repository);
 	}
 
@@ -282,6 +284,19 @@ public class RepositoryLocalServiceWrapper implements RepositoryLocalService,
 	public void checkRepository(long repositoryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_repositoryLocalService.checkRepository(repositoryId);
+	}
+
+	public void deleteRepositories(
+		java.util.Collection<com.liferay.portal.model.Repository> repositories)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_repositoryLocalService.deleteRepositories(repositories);
+	}
+
+	public void deleteRepositoriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_repositoryLocalService.deleteRepositoriesByCompany(companyId);
 	}
 
 	public void deleteRepositories(long groupId)

@@ -303,6 +303,11 @@ public class SocialActivityCounterLocalServiceUtil {
 		getService().deleteActivityCounters(classNameId, classPK);
 	}
 
+	public static void deleteActivityCountersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteActivityCountersByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.social.model.SocialActivityCounter fetchActivityCounterByEndPeriod(
 		long groupId, long classNameId, long classPK, java.lang.String name,
 		int ownerType, int endPeriod)

@@ -288,6 +288,26 @@ public class PasswordPolicyLocalServiceUtil {
 		getService().checkDefaultPasswordPolicy(companyId);
 	}
 
+	public static void deletePasswordPoliciesUnsafe(
+		java.util.Collection<com.liferay.portal.model.PasswordPolicy> passwordPolicies)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deletePasswordPoliciesUnsafe(passwordPolicies);
+	}
+
+	public static void deletePasswordPoliciesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deletePasswordPoliciesByCompany(companyId);
+	}
+
+	public static void deletePasswordPolicyUnsafe(
+		com.liferay.portal.model.PasswordPolicy passwordPolicy)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deletePasswordPolicyUnsafe(passwordPolicy);
+	}
+
 	public static com.liferay.portal.model.PasswordPolicy getDefaultPasswordPolicy(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException,

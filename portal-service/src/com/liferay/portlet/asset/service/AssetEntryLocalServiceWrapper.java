@@ -272,6 +272,19 @@ public class AssetEntryLocalServiceWrapper implements AssetEntryLocalService,
 		_assetEntryLocalService.deleteEntry(className, classPK);
 	}
 
+	public void deleteEntries(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetEntry> entries)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_assetEntryLocalService.deleteEntries(entries);
+	}
+
+	public void deleteEntriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_assetEntryLocalService.deleteEntriesByCompany(companyId);
+	}
+
 	public com.liferay.portlet.asset.model.AssetEntry fetchEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _assetEntryLocalService.fetchEntry(entryId);

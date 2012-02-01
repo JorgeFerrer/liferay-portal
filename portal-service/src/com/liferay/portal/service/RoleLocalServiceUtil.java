@@ -367,6 +367,25 @@ public class RoleLocalServiceUtil {
 		getService().checkSystemRoles(companyId);
 	}
 
+	public static void deleteRolesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteRolesByCompany(companyId);
+	}
+
+	public static void deleteRolesUnsafe(
+		java.util.Collection<com.liferay.portal.model.Role> roles)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteRolesUnsafe(roles);
+	}
+
+	public static void deleteRoleUnsafe(com.liferay.portal.model.Role role)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteRoleUnsafe(role);
+	}
+
 	/**
 	* Returns the role with the name in the company.
 	*

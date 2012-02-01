@@ -50,6 +50,7 @@ import com.liferay.portlet.softwarecatalog.model.SCProductVersion;
 import com.liferay.portlet.softwarecatalog.service.base.SCProductEntryLocalServiceBaseImpl;
 import com.liferay.util.xml.DocUtil;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -256,6 +257,21 @@ public class SCProductEntryLocalServiceImpl
 		Indexer indexer = IndexerRegistryUtil.getIndexer(SCProductEntry.class);
 
 		indexer.delete(productEntry);
+	}
+
+	public void deleteProductEntries(Collection<SCProductEntry> productEntries)
+		throws PortalException, SystemException {
+
+		for (SCProductEntry productEntry : productEntries) {
+			deleteProductEntry(productEntry);
+		}
+	}
+
+	public void deleteProductEntriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteProductEntries(
+			scProductEntryPersistence.findByCompanyId(companyId));
 	}
 
 	public List<SCProductEntry> getCompanyProductEntries(

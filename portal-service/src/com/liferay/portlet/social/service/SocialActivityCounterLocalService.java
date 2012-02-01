@@ -264,6 +264,9 @@ public interface SocialActivityCounterLocalService
 	public void deleteActivityCounters(long classNameId, long classPK)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteActivityCountersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.social.model.SocialActivityCounter fetchActivityCounterByEndPeriod(
 		long groupId, long classNameId, long classPK, java.lang.String name,

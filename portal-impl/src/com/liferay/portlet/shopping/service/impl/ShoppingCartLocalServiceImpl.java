@@ -80,6 +80,12 @@ public class ShoppingCartLocalServiceImpl
 		}
 	}
 
+	public void deleteShoppingCartsByCompany(long companyId)
+		throws SystemException {
+
+		shoppingCartPersistence.removeByCompanyId(companyId);
+	}
+
 	public ShoppingCart getCart(long userId, long groupId)
 		throws PortalException, SystemException {
 

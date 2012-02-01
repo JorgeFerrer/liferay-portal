@@ -83,6 +83,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -567,6 +568,20 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		Layout layout = layoutPersistence.findByPrimaryKey(plid);
 
 		deleteLayout(layout, true, serviceContext);
+	}
+
+	public void deleteLayouts(Collection<Layout> layouts)
+		throws PortalException, SystemException {
+
+		for (Layout layout : layouts) {
+			deleteLayout(layout, true, null);
+		}
+	}
+
+	public void deleteLayoutsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteLayouts(layoutPersistence.findByCompanyId(companyId));
 	}
 
 	/**

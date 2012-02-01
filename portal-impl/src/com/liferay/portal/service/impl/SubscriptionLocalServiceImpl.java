@@ -30,6 +30,7 @@ import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.social.model.SocialActivityConstants;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -168,6 +169,14 @@ public class SubscriptionLocalServiceImpl
 		}
 	}
 
+	public void deleteSubscriptions(Collection<Subscription> subscriptions)
+		throws PortalException, SystemException {
+
+		for (Subscription subscription : subscriptions) {
+			deleteSubscription(subscription);
+		}
+	}
+
 	public void deleteSubscriptions(long userId)
 		throws PortalException, SystemException {
 
@@ -191,6 +200,12 @@ public class SubscriptionLocalServiceImpl
 		for (Subscription subscription : subscriptions) {
 			deleteSubscription(subscription);
 		}
+	}
+
+	public void deleteSubscriptionsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteSubscriptions(subscriptionPersistence.findByCompanyId(companyId));
 	}
 
 	public Subscription getSubscription(

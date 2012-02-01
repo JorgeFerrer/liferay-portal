@@ -79,11 +79,13 @@ public class LayoutBranchLocalServiceUtil {
 	* Deletes the layout branch from the database. Also notifies the appropriate model listeners.
 	*
 	* @param layoutBranch the layout branch
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public static void deleteLayoutBranch(
 		com.liferay.portal.model.LayoutBranch layoutBranch)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteLayoutBranch(layoutBranch);
 	}
 
@@ -280,6 +282,19 @@ public class LayoutBranchLocalServiceUtil {
 		return getService()
 				   .addLayoutBranch(layoutRevisionId, name, description,
 			master, serviceContext);
+	}
+
+	public static void deleteLayoutBranches(
+		java.util.Collection<com.liferay.portal.model.LayoutBranch> layoutBranches)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLayoutBranches(layoutBranches);
+	}
+
+	public static void deleteLayoutBranchesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLayoutBranchesByCompany(companyId);
 	}
 
 	public static void deleteLayoutSetBranchLayoutBranches(

@@ -247,6 +247,17 @@ public class ContactLocalServiceWrapper implements ContactLocalService,
 		_contactLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public void deleteContacts(
+		java.util.Collection<com.liferay.portal.model.Contact> contacts)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_contactLocalService.deleteContacts(contacts);
+	}
+
+	public void deleteContactsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_contactLocalService.deleteContactsByCompany(companyId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

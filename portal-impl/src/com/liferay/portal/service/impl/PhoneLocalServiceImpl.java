@@ -98,6 +98,10 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 		}
 	}
 
+	public void deletePhonesByCompany(long companyId) throws SystemException {
+		phonePersistence.removeByCompanyId(companyId);
+	}
+
 	@Override
 	public Phone getPhone(long phoneId)
 		throws PortalException, SystemException {

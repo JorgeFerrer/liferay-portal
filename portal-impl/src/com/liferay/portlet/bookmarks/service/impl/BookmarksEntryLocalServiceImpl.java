@@ -36,6 +36,7 @@ import com.liferay.portlet.bookmarks.service.base.BookmarksEntryLocalServiceBase
 import com.liferay.portlet.bookmarks.social.BookmarksActivityKeys;
 import com.liferay.portlet.bookmarks.util.comparator.EntryModifiedDateComparator;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -109,6 +110,14 @@ public class BookmarksEntryLocalServiceImpl
 		return entry;
 	}
 
+	public void deleteEntries(Collection<BookmarksEntry> entries)
+		throws PortalException, SystemException {
+
+		for (BookmarksEntry entry : entries) {
+			deleteEntry(entry);
+		}
+	}
+
 	public void deleteEntries(long groupId, long folderId)
 		throws PortalException, SystemException {
 
@@ -120,6 +129,12 @@ public class BookmarksEntryLocalServiceImpl
 
 			deleteEntry(entry);
 		}
+	}
+
+	public void deleteEntriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteEntries(bookmarksEntryPersistence.findByCompanyId(companyId));
 	}
 
 	public void deleteEntry(BookmarksEntry entry)

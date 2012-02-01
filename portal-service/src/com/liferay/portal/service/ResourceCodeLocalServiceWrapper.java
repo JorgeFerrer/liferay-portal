@@ -265,6 +265,11 @@ public class ResourceCodeLocalServiceWrapper implements ResourceCodeLocalService
 		_resourceCodeLocalService.checkResourceCodes(companyId, name);
 	}
 
+	public void deleteResourceCodesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_resourceCodeLocalService.deleteResourceCodesByCompany(companyId);
+	}
+
 	public com.liferay.portal.model.ResourceCode getResourceCode(
 		long companyId, java.lang.String name, int scope)
 		throws com.liferay.portal.kernel.exception.SystemException {

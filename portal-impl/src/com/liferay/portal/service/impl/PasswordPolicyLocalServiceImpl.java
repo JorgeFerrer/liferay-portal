@@ -32,6 +32,7 @@ import com.liferay.portal.security.ldap.LDAPSettingsUtil;
 import com.liferay.portal.service.base.PasswordPolicyLocalServiceBaseImpl;
 import com.liferay.portal.util.PropsValues;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -131,6 +132,22 @@ public class PasswordPolicyLocalServiceImpl
 		}
 	}
 
+	public void deletePasswordPoliciesUnsafe(
+			Collection<PasswordPolicy> passwordPolicies)
+		throws PortalException, SystemException {
+
+		for (PasswordPolicy passwordPolicy : passwordPolicies) {
+			deletePasswordPolicyUnsafe(passwordPolicy);
+		}
+	}
+
+	public void deletePasswordPoliciesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deletePasswordPoliciesUnsafe(
+			passwordPolicyPersistence.findByCompanyId(companyId));
+	}
+
 	@Override
 	public void deletePasswordPolicy(long passwordPolicyId)
 		throws PortalException, SystemException {
@@ -148,6 +165,12 @@ public class PasswordPolicyLocalServiceImpl
 		if (passwordPolicy.isDefaultPolicy()) {
 			throw new RequiredPasswordPolicyException();
 		}
+
+		deletePasswordPolicyUnsafe(passwordPolicy);
+	}
+
+	public void deletePasswordPolicyUnsafe(PasswordPolicy passwordPolicy)
+		throws PortalException, SystemException {
 
 		// Password policy relations
 

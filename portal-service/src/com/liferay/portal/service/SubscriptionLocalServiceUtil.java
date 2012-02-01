@@ -286,6 +286,13 @@ public class SubscriptionLocalServiceUtil {
 		getService().deleteSubscription(userId, className, classPK);
 	}
 
+	public static void deleteSubscriptions(
+		java.util.Collection<com.liferay.portal.model.Subscription> subscriptions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteSubscriptions(subscriptions);
+	}
+
 	public static void deleteSubscriptions(long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -297,6 +304,12 @@ public class SubscriptionLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteSubscriptions(companyId, className, classPK);
+	}
+
+	public static void deleteSubscriptionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteSubscriptionsByCompany(companyId);
 	}
 
 	public static com.liferay.portal.model.Subscription getSubscription(

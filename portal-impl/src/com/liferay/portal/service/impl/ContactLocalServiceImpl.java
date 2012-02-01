@@ -19,6 +19,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Contact;
 import com.liferay.portal.service.base.ContactLocalServiceBaseImpl;
 
+import java.util.Collection;
+
 /**
  * @author Brian Wing Shun Chan
  */
@@ -63,6 +65,18 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		if (contact != null) {
 			deleteContact(contact);
 		}
+	}
+
+	public void deleteContacts(Collection<Contact> contacts)
+		throws SystemException {
+
+		for (Contact contact : contacts) {
+			deleteContact(contact);
+		}
+	}
+
+	public void deleteContactsByCompany(long companyId) throws SystemException {
+		deleteContacts(contactPersistence.findByCompanyId(companyId));
 	}
 
 	@Override
