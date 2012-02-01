@@ -100,11 +100,12 @@ public class DDMStructureModelImpl extends BaseModelImpl<DDMStructure>
 				"value.object.column.bitmask.enabled.com.liferay.portlet.dynamicdatamapping.model.DDMStructure"),
 			true);
 	public static long CLASSNAMEID_COLUMN_BITMASK = 1L;
-	public static long DESCRIPTION_COLUMN_BITMASK = 2L;
-	public static long GROUPID_COLUMN_BITMASK = 4L;
-	public static long NAME_COLUMN_BITMASK = 8L;
-	public static long STRUCTUREKEY_COLUMN_BITMASK = 16L;
-	public static long UUID_COLUMN_BITMASK = 32L;
+	public static long COMPANYID_COLUMN_BITMASK = 2L;
+	public static long DESCRIPTION_COLUMN_BITMASK = 4L;
+	public static long GROUPID_COLUMN_BITMASK = 8L;
+	public static long NAME_COLUMN_BITMASK = 16L;
+	public static long STRUCTUREKEY_COLUMN_BITMASK = 32L;
+	public static long UUID_COLUMN_BITMASK = 64L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -238,7 +239,19 @@ public class DDMStructureModelImpl extends BaseModelImpl<DDMStructure>
 	}
 
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -707,6 +720,10 @@ public class DDMStructureModelImpl extends BaseModelImpl<DDMStructure>
 
 		ddmStructureModelImpl._setOriginalGroupId = false;
 
+		ddmStructureModelImpl._originalCompanyId = ddmStructureModelImpl._companyId;
+
+		ddmStructureModelImpl._setOriginalCompanyId = false;
+
 		ddmStructureModelImpl._originalClassNameId = ddmStructureModelImpl._classNameId;
 
 		ddmStructureModelImpl._setOriginalClassNameId = false;
@@ -940,6 +957,8 @@ public class DDMStructureModelImpl extends BaseModelImpl<DDMStructure>
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;

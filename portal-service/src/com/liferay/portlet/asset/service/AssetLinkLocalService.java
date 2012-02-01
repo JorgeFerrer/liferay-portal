@@ -295,6 +295,13 @@ public interface AssetLinkLocalService extends PersistedModelLocalService {
 	public void deleteLinks(long entryId1, long entryId2)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteLinks(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetLink> links)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteLinksByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Returns all the asset links whose first entry ID is the given entry ID.
 	*

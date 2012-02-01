@@ -252,6 +252,13 @@ public interface DLFileRankLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteFileRanks(
+		java.util.Collection<com.liferay.portlet.documentlibrary.model.DLFileRank> fileRanks)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteFileRanksByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void deleteFileRanksByFileEntryId(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 

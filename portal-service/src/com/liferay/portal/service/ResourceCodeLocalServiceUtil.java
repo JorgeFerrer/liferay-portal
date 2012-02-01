@@ -275,6 +275,11 @@ public class ResourceCodeLocalServiceUtil {
 		getService().checkResourceCodes(companyId, name);
 	}
 
+	public static void deleteResourceCodesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteResourceCodesByCompany(companyId);
+	}
+
 	public static com.liferay.portal.model.ResourceCode getResourceCode(
 		long companyId, java.lang.String name, int scope)
 		throws com.liferay.portal.kernel.exception.SystemException {

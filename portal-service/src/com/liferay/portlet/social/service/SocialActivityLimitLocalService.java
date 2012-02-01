@@ -242,4 +242,8 @@ public interface SocialActivityLimitLocalService
 		int activityType, java.lang.String activityCounterName, int limitPeriod)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteActivityLimitsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

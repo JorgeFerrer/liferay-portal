@@ -247,6 +247,15 @@ public interface LayoutSetPrototypeLocalService
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteLayoutSetPrototypes(
+		java.util.Collection<com.liferay.portal.model.LayoutSetPrototype> layoutSetPrototypes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteLayoutSetPrototypesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.LayoutSetPrototype getLayoutSetPrototypeByUuid(
 		java.lang.String uuid)

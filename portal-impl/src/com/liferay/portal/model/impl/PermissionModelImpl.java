@@ -79,7 +79,8 @@ public class PermissionModelImpl extends BaseModelImpl<Permission>
 				"value.object.column.bitmask.enabled.com.liferay.portal.model.Permission"),
 			true);
 	public static long ACTIONID_COLUMN_BITMASK = 1L;
-	public static long RESOURCEID_COLUMN_BITMASK = 2L;
+	public static long COMPANYID_COLUMN_BITMASK = 2L;
+	public static long RESOURCEID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -183,7 +184,19 @@ public class PermissionModelImpl extends BaseModelImpl<Permission>
 	}
 
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -323,6 +336,10 @@ public class PermissionModelImpl extends BaseModelImpl<Permission>
 	public void resetOriginalValues() {
 		PermissionModelImpl permissionModelImpl = this;
 
+		permissionModelImpl._originalCompanyId = permissionModelImpl._companyId;
+
+		permissionModelImpl._setOriginalCompanyId = false;
+
 		permissionModelImpl._originalActionId = permissionModelImpl._actionId;
 
 		permissionModelImpl._originalResourceId = permissionModelImpl._resourceId;
@@ -405,6 +422,8 @@ public class PermissionModelImpl extends BaseModelImpl<Permission>
 		};
 	private long _permissionId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private String _actionId;
 	private String _originalActionId;
 	private long _resourceId;

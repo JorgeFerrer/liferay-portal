@@ -271,6 +271,12 @@ public class SocialActivityLimitLocalServiceUtil {
 			activityType, activityCounterName, limitPeriod);
 	}
 
+	public static void deleteActivityLimitsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteActivityLimitsByCompany(companyId);
+	}
+
 	public static SocialActivityLimitLocalService getService() {
 		if (_service == null) {
 			_service = (SocialActivityLimitLocalService)PortalBeanLocatorUtil.locate(SocialActivityLimitLocalService.class.getName());

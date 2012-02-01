@@ -292,6 +292,9 @@ public interface MDRRuleLocalService extends PersistedModelLocalService {
 	public void deleteRules(long ruleGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteRulesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.mobiledevicerules.model.MDRRule fetchRule(
 		long ruleId) throws com.liferay.portal.kernel.exception.SystemException;

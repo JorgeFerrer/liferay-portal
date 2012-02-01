@@ -403,10 +403,23 @@ public class JournalArticleLocalServiceWrapper
 			serviceContext);
 	}
 
+	public void deleteArticles(
+		java.util.Collection<com.liferay.portlet.journal.model.JournalArticle> articles)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_journalArticleLocalService.deleteArticles(articles);
+	}
+
 	public void deleteArticles(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalArticleLocalService.deleteArticles(groupId);
+	}
+
+	public void deleteArticlesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_journalArticleLocalService.deleteArticlesByCompany(companyId);
 	}
 
 	public void deleteLayoutArticleReferences(long groupId,

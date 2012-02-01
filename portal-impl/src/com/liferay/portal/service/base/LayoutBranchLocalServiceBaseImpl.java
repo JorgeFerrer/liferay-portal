@@ -315,10 +315,11 @@ public abstract class LayoutBranchLocalServiceBaseImpl
 	 * Deletes the layout branch from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param layoutBranch the layout branch
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void deleteLayoutBranch(LayoutBranch layoutBranch)
-		throws SystemException {
+		throws PortalException, SystemException {
 		layoutBranchPersistence.remove(layoutBranch);
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());

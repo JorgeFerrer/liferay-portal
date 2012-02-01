@@ -401,6 +401,13 @@ public interface SocialActivityLocalService extends PersistedModelLocalService {
 		com.liferay.portlet.social.model.SocialActivity activity)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteActivities(
+		java.util.Collection<com.liferay.portlet.social.model.SocialActivity> activities)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteActivitiesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Removes the user's stored activities from the database.
 	*

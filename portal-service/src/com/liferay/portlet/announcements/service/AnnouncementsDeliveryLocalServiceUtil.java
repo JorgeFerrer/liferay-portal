@@ -291,6 +291,11 @@ public class AnnouncementsDeliveryLocalServiceUtil {
 		getService().deleteDelivery(userId, type);
 	}
 
+	public static void deleteDeliveriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteDeliveriesByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.announcements.model.AnnouncementsDelivery getDelivery(
 		long deliveryId)
 		throws com.liferay.portal.kernel.exception.PortalException,

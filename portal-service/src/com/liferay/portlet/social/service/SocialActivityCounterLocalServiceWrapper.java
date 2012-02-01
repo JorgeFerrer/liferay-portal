@@ -301,6 +301,11 @@ public class SocialActivityCounterLocalServiceWrapper
 			classPK);
 	}
 
+	public void deleteActivityCountersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_socialActivityCounterLocalService.deleteActivityCountersByCompany(companyId);
+	}
+
 	public com.liferay.portlet.social.model.SocialActivityCounter fetchActivityCounterByEndPeriod(
 		long groupId, long classNameId, long classPK, java.lang.String name,
 		int ownerType, int endPeriod)

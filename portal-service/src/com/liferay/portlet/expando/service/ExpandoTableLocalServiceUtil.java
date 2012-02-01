@@ -345,6 +345,17 @@ public class ExpandoTableLocalServiceUtil {
 		getService().deleteTables(companyId, className);
 	}
 
+	public static void deleteTables(
+		java.util.Collection<com.liferay.portlet.expando.model.ExpandoTable> tables)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteTables(tables);
+	}
+
+	public static void deleteTablesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteTablesByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.expando.model.ExpandoTable fetchDefaultTable(
 		long companyId, long classNameId)
 		throws com.liferay.portal.kernel.exception.SystemException {

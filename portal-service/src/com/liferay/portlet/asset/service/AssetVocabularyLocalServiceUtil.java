@@ -345,6 +345,19 @@ public class AssetVocabularyLocalServiceUtil {
 		getService().deleteVocabulary(vocabularyId);
 	}
 
+	public static void deleteVocabularies(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetVocabulary> vocabularies)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteVocabularies(vocabularies);
+	}
+
+	public static void deleteVocabulariesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteVocabulariesByCompany(companyId);
+	}
+
 	public static java.util.List<com.liferay.portlet.asset.model.AssetVocabulary> getCompanyVocabularies(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {

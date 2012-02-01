@@ -323,6 +323,9 @@ public interface PermissionLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deletePermissionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Returns the IDs of all the actions belonging to the permissions.
 	*

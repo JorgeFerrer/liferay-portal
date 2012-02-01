@@ -278,7 +278,14 @@ public interface MDRRuleGroupLocalService extends PersistedModelLocalService {
 		com.liferay.portlet.mobiledevicerules.model.MDRRuleGroup ruleGroup)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteRuleGroups(
+		java.util.Collection<com.liferay.portlet.mobiledevicerules.model.MDRRuleGroup> ruleGroups)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void deleteRuleGroups(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteRuleGroupsByCompany(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

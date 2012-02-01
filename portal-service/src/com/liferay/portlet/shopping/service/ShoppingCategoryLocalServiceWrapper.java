@@ -321,6 +321,19 @@ public class ShoppingCategoryLocalServiceWrapper
 		_shoppingCategoryLocalService.deleteCategory(category);
 	}
 
+	public void deleteCategories(
+		java.util.Collection<com.liferay.portlet.shopping.model.ShoppingCategory> categories)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCategoryLocalService.deleteCategories(categories);
+	}
+
+	public void deleteCategoriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCategoryLocalService.deleteCategoriesByCompany(companyId);
+	}
+
 	public java.util.List<com.liferay.portlet.shopping.model.ShoppingCategory> getCategories(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {

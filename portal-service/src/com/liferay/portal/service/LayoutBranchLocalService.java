@@ -77,11 +77,13 @@ public interface LayoutBranchLocalService extends PersistedModelLocalService {
 	* Deletes the layout branch from the database. Also notifies the appropriate model listeners.
 	*
 	* @param layoutBranch the layout branch
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteLayoutBranch(
 		com.liferay.portal.model.LayoutBranch layoutBranch)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -245,6 +247,15 @@ public interface LayoutBranchLocalService extends PersistedModelLocalService {
 		long layoutRevisionId, java.lang.String name,
 		java.lang.String description, boolean master,
 		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteLayoutBranches(
+		java.util.Collection<com.liferay.portal.model.LayoutBranch> layoutBranches)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteLayoutBranchesByCompany(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

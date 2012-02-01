@@ -318,6 +318,19 @@ public class AssetCategoryLocalServiceWrapper
 		_assetCategoryLocalService.deleteCategory(categoryId);
 	}
 
+	public void deleteCategories(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetCategory> categories)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_assetCategoryLocalService.deleteCategories(categories);
+	}
+
+	public void deleteCategoriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_assetCategoryLocalService.deleteCategoriesByCompany(companyId);
+	}
+
 	public void deleteVocabularyCategories(long vocabularyId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

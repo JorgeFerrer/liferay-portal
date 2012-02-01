@@ -238,6 +238,9 @@ public interface PluginSettingLocalService extends PersistedModelLocalService {
 		java.lang.String pluginType)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public void deletePluginSettingsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.PluginSetting getDefaultPluginSetting();
 

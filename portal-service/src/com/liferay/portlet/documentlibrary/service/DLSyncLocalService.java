@@ -240,6 +240,9 @@ public interface DLSyncLocalService extends PersistedModelLocalService {
 		java.lang.String type, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteSyncsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public com.liferay.portlet.documentlibrary.model.DLSync updateSync(
 		long fileId, long parentFolderId, java.lang.String name,
 		java.lang.String event, java.lang.String version)

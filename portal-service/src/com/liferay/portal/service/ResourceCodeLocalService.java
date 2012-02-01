@@ -241,6 +241,9 @@ public interface ResourceCodeLocalService extends PersistedModelLocalService {
 	public void checkResourceCodes(long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteResourceCodesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.ResourceCode getResourceCode(
 		long companyId, java.lang.String name, int scope)

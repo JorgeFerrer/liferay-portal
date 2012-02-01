@@ -315,9 +315,11 @@ public abstract class LayoutSetLocalServiceBaseImpl
 	 * Deletes the layout set from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param layoutSet the layout set
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteLayoutSet(LayoutSet layoutSet) throws SystemException {
+	public void deleteLayoutSet(LayoutSet layoutSet)
+		throws PortalException, SystemException {
 		layoutSetPersistence.remove(layoutSet);
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());

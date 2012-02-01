@@ -92,9 +92,10 @@ public class LayoutSetModelImpl extends BaseModelImpl<LayoutSet>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.model.LayoutSet"),
 			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long LAYOUTSETPROTOTYPEUUID_COLUMN_BITMASK = 2L;
-	public static long PRIVATELAYOUT_COLUMN_BITMASK = 4L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long LAYOUTSETPROTOTYPEUUID_COLUMN_BITMASK = 4L;
+	public static long PRIVATELAYOUT_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -208,7 +209,19 @@ public class LayoutSetModelImpl extends BaseModelImpl<LayoutSet>
 	}
 
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -516,6 +529,10 @@ public class LayoutSetModelImpl extends BaseModelImpl<LayoutSet>
 
 		layoutSetModelImpl._setOriginalGroupId = false;
 
+		layoutSetModelImpl._originalCompanyId = layoutSetModelImpl._companyId;
+
+		layoutSetModelImpl._setOriginalCompanyId = false;
+
 		layoutSetModelImpl._originalPrivateLayout = layoutSetModelImpl._privateLayout;
 
 		layoutSetModelImpl._setOriginalPrivateLayout = false;
@@ -756,6 +773,8 @@ public class LayoutSetModelImpl extends BaseModelImpl<LayoutSet>
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _privateLayout;

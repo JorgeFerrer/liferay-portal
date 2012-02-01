@@ -79,11 +79,13 @@ public class LayoutSetLocalServiceUtil {
 	* Deletes the layout set from the database. Also notifies the appropriate model listeners.
 	*
 	* @param layoutSet the layout set
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public static void deleteLayoutSet(
 		com.liferay.portal.model.LayoutSet layoutSet)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteLayoutSet(layoutSet);
 	}
 
@@ -272,6 +274,19 @@ public class LayoutSetLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteLayoutSet(groupId, privateLayout, serviceContext);
+	}
+
+	public static void deleteLayoutSets(
+		java.util.Collection<com.liferay.portal.model.LayoutSet> layoutSets)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLayoutSets(layoutSets);
+	}
+
+	public static void deleteLayoutSetsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLayoutSetsByCompany(companyId);
 	}
 
 	public static com.liferay.portal.model.LayoutSet fetchLayoutSet(

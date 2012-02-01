@@ -335,10 +335,11 @@ public abstract class RepositoryLocalServiceBaseImpl
 	 * Deletes the repository from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param repository the repository
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void deleteRepository(Repository repository)
-		throws SystemException {
+		throws PortalException, SystemException {
 		repositoryPersistence.remove(repository);
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());

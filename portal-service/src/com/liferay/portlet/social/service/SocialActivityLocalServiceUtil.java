@@ -452,6 +452,17 @@ public class SocialActivityLocalServiceUtil {
 		getService().deleteActivity(activity);
 	}
 
+	public static void deleteActivities(
+		java.util.Collection<com.liferay.portlet.social.model.SocialActivity> activities)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteActivities(activities);
+	}
+
+	public static void deleteActivitiesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteActivitiesByCompany(companyId);
+	}
+
 	/**
 	* Removes the user's stored activities from the database.
 	*

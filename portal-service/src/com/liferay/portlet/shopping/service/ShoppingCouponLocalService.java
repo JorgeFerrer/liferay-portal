@@ -260,6 +260,9 @@ public interface ShoppingCouponLocalService extends PersistedModelLocalService {
 	public void deleteCoupons(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteCouponsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.shopping.model.ShoppingCoupon getCoupon(
 		long couponId)

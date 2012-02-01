@@ -288,6 +288,11 @@ public class AnnouncementsDeliveryLocalServiceWrapper
 		_announcementsDeliveryLocalService.deleteDelivery(userId, type);
 	}
 
+	public void deleteDeliveriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_announcementsDeliveryLocalService.deleteDeliveriesByCompany(companyId);
+	}
+
 	public com.liferay.portlet.announcements.model.AnnouncementsDelivery getDelivery(
 		long deliveryId)
 		throws com.liferay.portal.kernel.exception.PortalException,

@@ -386,6 +386,25 @@ public class GroupLocalServiceUtil {
 		getService().checkSystemGroups(companyId);
 	}
 
+	public static void deleteGroupsUnsafe(
+		java.util.Collection<com.liferay.portal.model.Group> groups)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteGroupsUnsafe(groups);
+	}
+
+	public static void deleteGroupsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteGroupsByCompany(companyId);
+	}
+
+	public static void deleteGroupUnsafe(com.liferay.portal.model.Group group)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteGroupUnsafe(group);
+	}
+
 	/**
 	* Returns the group with the matching friendly URL.
 	*

@@ -259,6 +259,11 @@ public class SocialActivitySettingLocalServiceWrapper
 		_socialActivitySettingLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public void deleteActivitySettingsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_socialActivitySettingLocalService.deleteActivitySettingsByCompany(companyId);
+	}
+
 	public com.liferay.portlet.social.model.SocialActivityDefinition getActivityDefinition(
 		long groupId, java.lang.String className, int activityType)
 		throws com.liferay.portal.kernel.exception.SystemException {

@@ -262,6 +262,9 @@ public interface UserNotificationEventLocalService
 		java.util.Collection<java.lang.String> uuids)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteUserNotificationEventsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.model.UserNotificationEvent> getUserNotificationEvents(
 		long userId) throws com.liferay.portal.kernel.exception.SystemException;

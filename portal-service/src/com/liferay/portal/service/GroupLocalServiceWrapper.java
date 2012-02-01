@@ -375,6 +375,25 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 		_groupLocalService.checkSystemGroups(companyId);
 	}
 
+	public void deleteGroupsUnsafe(
+		java.util.Collection<com.liferay.portal.model.Group> groups)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_groupLocalService.deleteGroupsUnsafe(groups);
+	}
+
+	public void deleteGroupsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_groupLocalService.deleteGroupsByCompany(companyId);
+	}
+
+	public void deleteGroupUnsafe(com.liferay.portal.model.Group group)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_groupLocalService.deleteGroupUnsafe(group);
+	}
+
 	/**
 	* Returns the group with the matching friendly URL.
 	*

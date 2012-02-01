@@ -242,6 +242,9 @@ public interface SocialActivityAchievementLocalService
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteActivityAchievementsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.social.model.SocialActivityAchievement fetchUserAchievement(
 		long userId, long groupId, java.lang.String name)

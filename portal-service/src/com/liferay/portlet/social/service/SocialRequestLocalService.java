@@ -321,6 +321,9 @@ public interface SocialRequestLocalService extends PersistedModelLocalService {
 	public void deleteUserRequests(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteRequestsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Returns a range of all the social requests for the receiving user.
 	*

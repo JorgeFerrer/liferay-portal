@@ -243,6 +243,15 @@ public interface LayoutPrototypeLocalService extends PersistedModelLocalService 
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteLayoutPrototypes(
+		java.util.Collection<com.liferay.portal.model.LayoutPrototype> layoutPrototypes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteLayoutPrototypesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.LayoutPrototype getLayoutPrototypeByUuid(
 		java.lang.String uuid)

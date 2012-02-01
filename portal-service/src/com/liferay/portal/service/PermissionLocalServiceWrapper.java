@@ -354,6 +354,11 @@ public class PermissionLocalServiceWrapper implements PermissionLocalService,
 		_permissionLocalService.checkPermissions(name, actionIds);
 	}
 
+	public void deletePermissionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_permissionLocalService.deletePermissionsByCompany(companyId);
+	}
+
 	/**
 	* Returns the IDs of all the actions belonging to the permissions.
 	*

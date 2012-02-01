@@ -256,6 +256,17 @@ public class ContactLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static void deleteContacts(
+		java.util.Collection<com.liferay.portal.model.Contact> contacts)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteContacts(contacts);
+	}
+
+	public static void deleteContactsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteContactsByCompany(companyId);
+	}
+
 	public static ContactLocalService getService() {
 		if (_service == null) {
 			_service = (ContactLocalService)PortalBeanLocatorUtil.locate(ContactLocalService.class.getName());

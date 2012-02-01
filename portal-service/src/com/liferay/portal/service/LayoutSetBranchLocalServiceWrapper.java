@@ -278,6 +278,13 @@ public class LayoutSetBranchLocalServiceWrapper
 			includeMaster);
 	}
 
+	public void deleteLayoutSetBranches(
+		java.util.Collection<com.liferay.portal.model.LayoutSetBranch> layoutSetBranches)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_layoutSetBranchLocalService.deleteLayoutSetBranches(layoutSetBranches);
+	}
+
 	public void deleteLayoutSetBranches(long groupId, boolean privateLayout)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -291,6 +298,12 @@ public class LayoutSetBranchLocalServiceWrapper
 			com.liferay.portal.kernel.exception.SystemException {
 		_layoutSetBranchLocalService.deleteLayoutSetBranches(groupId,
 			privateLayout, includeMaster);
+	}
+
+	public void deleteLayoutSetBranchesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_layoutSetBranchLocalService.deleteLayoutSetBranchesByCompany(companyId);
 	}
 
 	public com.liferay.portal.model.LayoutSetBranch getLayoutSetBranch(

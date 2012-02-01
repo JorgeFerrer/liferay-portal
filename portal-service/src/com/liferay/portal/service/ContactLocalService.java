@@ -229,4 +229,11 @@ public interface ContactLocalService extends PersistedModelLocalService {
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	public void deleteContacts(
+		java.util.Collection<com.liferay.portal.model.Contact> contacts)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteContactsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

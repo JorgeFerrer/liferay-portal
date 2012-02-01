@@ -77,10 +77,12 @@ public interface RepositoryLocalService extends PersistedModelLocalService {
 	* Deletes the repository from the database. Also notifies the appropriate model listeners.
 	*
 	* @param repository the repository
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteRepository(com.liferay.portal.model.Repository repository)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -257,6 +259,15 @@ public interface RepositoryLocalService extends PersistedModelLocalService {
 
 	public void checkRepository(long repositoryId)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteRepositories(
+		java.util.Collection<com.liferay.portal.model.Repository> repositories)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteRepositoriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	public void deleteRepositories(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
