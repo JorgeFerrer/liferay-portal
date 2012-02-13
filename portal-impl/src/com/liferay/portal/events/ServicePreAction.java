@@ -297,7 +297,7 @@ public class ServicePreAction extends Action {
 		// Permission checker
 
 		PermissionChecker permissionChecker =
-			PermissionCheckerFactoryUtil.create(user, true);
+			PermissionCheckerFactoryUtil.create(user);
 
 		PermissionThreadLocal.setPermissionChecker(permissionChecker);
 
@@ -399,8 +399,7 @@ public class ServicePreAction extends Action {
 				Group sourceGroup = GroupLocalServiceUtil.getGroup(
 					sourceGroupId);
 
-				if (layout.isPublicLayout() ||
-					SitesUtil.isUserGroupLayoutSetViewable(
+				if (SitesUtil.isUserGroupLayoutSetViewable(
 						permissionChecker, layout.getGroup())) {
 
 					layout = new VirtualLayout(layout, sourceGroup);
@@ -663,12 +662,6 @@ public class ServicePreAction extends Action {
 
 			request.setAttribute(WebKeys.LAYOUT, layout);
 			request.setAttribute(WebKeys.LAYOUTS, layouts);
-
-			if (layout.isPrivateLayout() ||
-				!PropsValues.PERMISSIONS_LAYOUT_PUBLIC_CHECK_GUEST_ENABLED) {
-
-				permissionChecker.setCheckGuest(false);
-			}
 		}
 
 		// Scope
