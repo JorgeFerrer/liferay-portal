@@ -569,8 +569,19 @@ public class PortalImpl implements Portal {
 
 		Layout layout = themeDisplay.getLayout();
 
-		addDefaultResource(themeDisplay, layout, portlet, true);
-		addDefaultResource(themeDisplay, layout, portlet, false);
+		long groupId = 0;
+
+		if (layout.isTypeControlPanel()) {
+			groupId = themeDisplay.getScopeGroupId();
+		}
+		else {
+			groupId = getScopeGroupId(layout, portlet.getPortletId());
+		}
+
+		addDefaultResource(
+			themeDisplay.getCompanyId(), groupId, layout, portlet, true);
+		addDefaultResource(
+			themeDisplay.getCompanyId(), groupId, layout, portlet, false);
 	}
 
 	public void addPortletDefaultResource(
@@ -4548,7 +4559,7 @@ public class PortalImpl implements Portal {
 
 	public boolean isCompanyAdmin(User user) throws Exception {
 		PermissionChecker permissionChecker =
-			PermissionCheckerFactoryUtil.create(user, true);
+			PermissionCheckerFactoryUtil.create(user);
 
 		return permissionChecker.isCompanyAdmin();
 	}
@@ -4655,14 +4666,14 @@ public class PortalImpl implements Portal {
 
 	public boolean isGroupAdmin(User user, long groupId) throws Exception {
 		PermissionChecker permissionChecker =
-			PermissionCheckerFactoryUtil.create(user, true);
+			PermissionCheckerFactoryUtil.create(user);
 
 		return permissionChecker.isGroupAdmin(groupId);
 	}
 
 	public boolean isGroupOwner(User user, long groupId) throws Exception {
 		PermissionChecker permissionChecker =
-			PermissionCheckerFactoryUtil.create(user, true);
+			PermissionCheckerFactoryUtil.create(user);
 
 		return permissionChecker.isGroupOwner(groupId);
 	}
@@ -5484,6 +5495,16 @@ public class PortalImpl implements Portal {
 			boolean portletActions)
 		throws PortalException, SystemException {
 
+		long groupId = getScopeGroupId(layout, portlet.getPortletId());
+
+		addDefaultResource(companyId, groupId, layout, portlet, portletActions);
+	}
+
+	protected void addDefaultResource(
+			long companyId, long groupId, Layout layout, Portlet portlet,
+			boolean portletActions)
+		throws PortalException, SystemException {
+
 		String rootPortletId = portlet.getRootPortletId();
 
 		String portletPrimaryKey = PortletPermissionUtil.getPrimaryKey(
@@ -5498,8 +5519,7 @@ public class PortalImpl implements Portal {
 		}
 		else {
 			name = ResourceActionsUtil.getPortletBaseResource(rootPortletId);
-			primaryKey = String.valueOf(
-				getScopeGroupId(layout, portlet.getPortletId()));
+			primaryKey = String.valueOf(groupId);
 		}
 
 		if (Validator.isNull(name)) {
@@ -5526,18 +5546,9 @@ public class PortalImpl implements Portal {
 		}
 		catch (NoSuchResourceException nsre) {
 			ResourceLocalServiceUtil.addResources(
-				companyId, layout.getGroupId(), 0, name, primaryKey,
-				portletActions, true, true);
+				companyId, groupId, 0, name, primaryKey, portletActions, true,
+				true);
 		}
-	}
-
-	protected void addDefaultResource(
-			ThemeDisplay themeDisplay, Layout layout, Portlet portlet,
-			boolean portletActions)
-		throws PortalException, SystemException {
-
-		addDefaultResource(
-			themeDisplay.getCompanyId(), layout, portlet, portletActions);
 	}
 
 	protected String buildI18NPath(Locale locale) {
@@ -5736,10 +5747,9 @@ public class PortalImpl implements Portal {
 
 		User realUser = UserLocalServiceUtil.getUserById(
 			realUserIdObj.longValue());
-		boolean checkGuest = true;
 
 		PermissionChecker permissionChecker =
-			PermissionCheckerFactoryUtil.create(realUser, checkGuest);
+			PermissionCheckerFactoryUtil.create(realUser);
 
 		if (doAsUser.isDefaultUser() ||
 			UserPermissionUtil.contains(

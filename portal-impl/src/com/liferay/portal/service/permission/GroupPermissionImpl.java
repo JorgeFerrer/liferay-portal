@@ -31,6 +31,15 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 public class GroupPermissionImpl implements GroupPermission {
 
 	public void check(
+			PermissionChecker permissionChecker, Group group, String actionId)
+		throws PortalException, SystemException {
+
+		if (!contains(permissionChecker, group, actionId)) {
+			throw new PrincipalException();
+		}
+	}
+
+	public void check(
 			PermissionChecker permissionChecker, long groupId, String actionId)
 		throws PortalException, SystemException {
 
@@ -40,10 +49,10 @@ public class GroupPermissionImpl implements GroupPermission {
 	}
 
 	public boolean contains(
-			PermissionChecker permissionChecker, long groupId, String actionId)
+			PermissionChecker permissionChecker, Group group, String actionId)
 		throws PortalException, SystemException {
 
-		Group group = GroupLocalServiceUtil.getGroup(groupId);
+		long groupId = group.getGroupId();
 
 		if (group.isStagingGroup()) {
 			group = group.getLiveGroup();
@@ -103,6 +112,15 @@ public class GroupPermissionImpl implements GroupPermission {
 
 		return permissionChecker.hasPermission(
 			groupId, Group.class.getName(), groupId, actionId);
+	}
+
+	public boolean contains(
+			PermissionChecker permissionChecker, long groupId, String actionId)
+		throws PortalException, SystemException {
+
+		Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+		return contains(permissionChecker, group, actionId);
 	}
 
 }
