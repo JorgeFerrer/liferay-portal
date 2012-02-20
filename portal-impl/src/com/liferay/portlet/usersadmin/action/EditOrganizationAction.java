@@ -263,10 +263,13 @@ public class EditOrganizationAction extends PortletAction {
 			actionRequest, "privateLayoutSetPrototypeLinkEnabled",
 			(privateLayoutSetPrototypeId > 0));
 
-		SitesUtil.updateLayoutSetPrototypesLinks(
-			organization.getGroup(), publicLayoutSetPrototypeId,
-			privateLayoutSetPrototypeId, publicLayoutSetPrototypeLinkEnabled,
-			privateLayoutSetPrototypeLinkEnabled);
+		if (site) {
+			SitesUtil.updateLayoutSetPrototypesLinks(
+				organization.getGroup(), publicLayoutSetPrototypeId,
+				privateLayoutSetPrototypeId,
+				publicLayoutSetPrototypeLinkEnabled,
+				privateLayoutSetPrototypeLinkEnabled);
+		}
 
 		// Reminder queries
 
