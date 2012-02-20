@@ -36,6 +36,14 @@ LinkedHashMap organizationParams = new LinkedHashMap();
 List<Organization> organizations = new ArrayList<Organization>();
 
 if (filterManageableOrganizations) {
+	List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(user.getUserId());
+
+	for (UserGroupRole userGroupRole : userGroupRoles) {
+		if (userGroupRole.getRole().getName().equals(RoleConstants.ORGANIZATION_OWNER)) {
+			organizations.add(OrganizationLocalServiceUtil.getOrganization(userGroupRole.getGroup().getOrganizationId()));
+		}
+	}
+
 	organizations.addAll(user.getOrganizations());
 }
 
