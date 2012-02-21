@@ -31,7 +31,19 @@
 	LinkedHashMap organizationParams = new LinkedHashMap();
 
 	if (filterManageableOrganizations) {
-		organizationParams.put("organizationsTree", user.getOrganizations());
+		List<Organization> userOrganizations = new ArrayList<Organization>();
+
+		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(user.getUserId());
+
+		for (UserGroupRole userGroupRole : userGroupRoles) {
+			if (userGroupRole.getRole().getName().equals(RoleConstants.ORGANIZATION_OWNER)) {
+				userOrganizations.add(OrganizationLocalServiceUtil.getOrganization(userGroupRole.getGroup().getOrganizationId()));
+			}
+		}
+
+		userOrganizations.addAll(user.getOrganizations());
+
+		organizationParams.put("organizationsTree", userOrganizations);
 	}
 
 	long parentOrganizationId = ParamUtil.getLong(request, "parentOrganizationId", OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID);

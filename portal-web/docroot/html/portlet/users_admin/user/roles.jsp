@@ -139,7 +139,7 @@ userGroupRoles.addAll(organizationRoles);
 <h3><liferay-ui:message key="organization-roles" /></h3>
 
 <c:choose>
-	<c:when test="<%= organizations.isEmpty() %>">
+	<c:when test="<%= organizations.isEmpty() && organizationRoles.isEmpty() %>">
 		<liferay-ui:message key="this-user-does-not-belong-to-an-organization-to-which-an-organization-role-can-be-assigned" />
 	</c:when>
 	<c:otherwise>
@@ -170,7 +170,7 @@ userGroupRoles.addAll(organizationRoles);
 					value="<%= HtmlUtil.escape(userGroupRole.getGroup().getDescriptiveName(locale)) %>"
 				/>
 
-				<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) %>">
+				<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) || (userGroupRole.getRole().getName().equals(RoleConstants.ORGANIZATION_OWNER)) %>">
 					<liferay-ui:search-container-column-text>
 						<a class="modify-link" data-groupId="<%= userGroupRole.getGroupId() %>" data-rowId="<%= userGroupRole.getRoleId() %>" href="javascript:;"><%= removeRoleIcon %></a>
 					</liferay-ui:search-container-column-text>
