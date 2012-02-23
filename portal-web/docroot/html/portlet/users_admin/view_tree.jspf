@@ -47,7 +47,11 @@ if (organizationId != OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
 
 organizationParams.put("organizationsTree", organizations);
 
-int organizationsCount = OrganizationLocalServiceUtil.searchCount(company.getCompanyId(), (organization != null) ? organization.getOrganizationId() : OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID, null, null, null, null, organizationParams);
+int organizationsCount = 0;
+
+if (!filterManageableOrganizations || !organizations.isEmpty()) {
+	organizationsCount = OrganizationLocalServiceUtil.searchCount(company.getCompanyId(), (organization != null) ? organization.getOrganizationId() : OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID, null, null, null, null, organizationParams);
+}
 %>
 
 <aui:layout>
@@ -196,14 +200,16 @@ int organizationsCount = OrganizationLocalServiceUtil.searchCount(company.getCom
 			<c:choose>
 				<c:when test="<%= !searchTerms.hasSearchTerms() %>">
 					<liferay-ui:search-container-results>
-						<c:choose>
-							<c:when test="<%= PropsValues.ORGANIZATIONS_INDEXER_ENABLED && PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX %>">
-								<%@ include file="/html/portlet/users_admin/organization_search_results_index.jspf" %>
-							</c:when>
-							<c:otherwise>
-								<%@ include file="/html/portlet/users_admin/organization_search_results_database.jspf" %>
-							</c:otherwise>
-						</c:choose>
+						<c:if test="<%= !filterManageableOrganizations || !organizations.isEmpty() %>">
+							<c:choose>
+								<c:when test="<%= PropsValues.ORGANIZATIONS_INDEXER_ENABLED && PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX %>">
+									<%@ include file="/html/portlet/users_admin/organization_search_results_index.jspf" %>
+								</c:when>
+								<c:otherwise>
+									<%@ include file="/html/portlet/users_admin/organization_search_results_database.jspf" %>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</liferay-ui:search-container-results>
 
 					<c:if test="<%= !results.isEmpty() %>">
@@ -221,14 +227,16 @@ int organizationsCount = OrganizationLocalServiceUtil.searchCount(company.getCom
 						}
 						%>
 
-						<c:choose>
-							<c:when test="<%= PropsValues.ORGANIZATIONS_INDEXER_ENABLED && PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX %>">
-								<%@ include file="/html/portlet/users_admin/organization_search_results_index.jspf" %>
-							</c:when>
-							<c:otherwise>
-								<%@ include file="/html/portlet/users_admin/organization_search_results_database.jspf" %>
-							</c:otherwise>
-						</c:choose>
+						<c:if test="<%= !filterManageableOrganizations || !organizations.isEmpty() %>">
+							<c:choose>
+								<c:when test="<%= PropsValues.ORGANIZATIONS_INDEXER_ENABLED && PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX %>">
+									<%@ include file="/html/portlet/users_admin/organization_search_results_index.jspf" %>
+								</c:when>
+								<c:otherwise>
+									<%@ include file="/html/portlet/users_admin/organization_search_results_database.jspf" %>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 
 						<c:if test="<%= !results.isEmpty() %>">
 							<div class="separator"><!-- --></div>
