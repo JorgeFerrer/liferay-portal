@@ -770,6 +770,8 @@ if (portlet.isActive() && portlet.isReady() && access && supportsMimeType) {
 		if (themeDisplay.isFacebook() || themeDisplay.isStateExclusive()) {
 			renderRequestImpl.setAttribute(WebKeys.STRING_SERVLET_RESPONSE, stringResponse);
 		}
+
+		renderResponseImpl.transferHeaders(stringResponse);
 	}
 	catch (UnavailableException ue) {
 		portletException = true;
@@ -1068,8 +1070,10 @@ if (themeDisplay.isStatePopUp()) {
 		<aui:script use="aui-base">
 			var dialog = Liferay.Util.getWindow();
 
+			dialog.detach('<portlet:namespace />hideRefreshDialog|*');
+
 			dialog.on(
-				'visibleChange',
+				'<portlet:namespace />hideRefreshDialog|visibleChange',
 				function(event) {
 					if (!event.newVal && event.src !== 'hideLink') {
 						var refreshWindow = dialog._refreshWindow || Liferay.Util.getTop();

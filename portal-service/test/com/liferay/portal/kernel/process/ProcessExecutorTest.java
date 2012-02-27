@@ -14,29 +14,41 @@
 
 package com.liferay.portal.kernel.process;
 
-import com.liferay.portal.kernel.io.unsync.UnsyncFilterOutputStream;
 import com.liferay.portal.kernel.log.Jdk14LogImpl;
+import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.log.LogWrapper;
 import com.liferay.portal.kernel.process.ProcessExecutor.ProcessContext;
+import com.liferay.portal.kernel.process.ProcessExecutor.ShutdownHook;
 import com.liferay.portal.kernel.process.log.ProcessOutputStream;
 import com.liferay.portal.kernel.test.TestCase;
 import com.liferay.portal.kernel.util.OSDetector;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ReflectionUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,7 +79,9 @@ public class ProcessExecutorTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		PortalClassLoaderUtil.setClassLoader(getClass().getClassLoader());
+		Class<?> clazz = getClass();
+
+		PortalClassLoaderUtil.setClassLoader(clazz.getClassLoader());
 	}
 
 	@Override
@@ -75,6 +89,292 @@ public class ProcessExecutorTest extends TestCase {
 		super.tearDown();
 
 		PortalClassLoaderUtil.setClassLoader(null);
+	}
+
+	public void testAttach1() throws Exception {
+
+		// No attach
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable1.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+
+			// Test alive 10 times for child process
+
+			for (int i = 0; i < 10; i++) {
+				Thread.sleep(100);
+
+				assertTrue(ServerThread.isAlive(childSocket));
+			}
+
+			// Kill child
+
+			ServerThread.exit(childSocket);
+
+			assertFalse(ServerThread.isAlive(childSocket));
+		}
+		finally {
+			serverSocket.close();
+		}
+	}
+
+	public void testAttach2() throws Exception {
+
+		// Attach
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable2.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+
+			if (_log.isInfoEnabled()) {
+				_log.info("Waiting subprocess to exit");
+			}
+
+			long startTime = System.currentTimeMillis();
+
+			while (true) {
+				Thread.sleep(10);
+
+				if (!ServerThread.isAlive(childSocket)) {
+					if (_log.isInfoEnabled()) {
+						_log.info(
+							"Subprocess exited. Waited " +
+								(System.currentTimeMillis() - startTime) +
+										" ms");
+					}
+
+					return;
+				}
+			}
+		}
+		finally {
+			serverSocket.close();
+		}
+	}
+
+	public void testAttach3() throws Exception {
+
+		// Detach
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable3.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+
+			_log.info("Waiting subprocess to exit...");
+
+			long startTime = System.currentTimeMillis();
+
+			while (true) {
+				Thread.sleep(10);
+
+				if (!ServerThread.isAlive(childSocket)) {
+
+					_log.info("Subprocess exited. Waited " +
+						(System.currentTimeMillis() - startTime) + " ms");
+
+					return;
+				}
+			}
+		}
+		finally {
+			serverSocket.close();
+		}
+	}
+
+	public void testAttach4() throws Exception {
+
+		// Shutdown by interruption
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable4.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Interrupt child process heartbeat thread
+
+			ServerThread.interruptHeartbeatThread(childSocket);
+
+			assertFalse(ServerThread.isAlive(childSocket));
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+		}
+		finally {
+			serverSocket.close();
+		}
+	}
+
+	public void testAttach5() throws Exception {
+
+		// Bad shutdown hook
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable5.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Interrupt child process heartbeat thread
+
+			ServerThread.interruptHeartbeatThread(childSocket);
+
+			assertFalse(ServerThread.isAlive(childSocket));
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+		}
+		finally {
+			serverSocket.close();
+		}
+	}
+
+	public void testAttach6() throws Exception {
+
+		// NPE on heartbeat piping back
+
+		ServerSocket serverSocket = _createServerSocket(12342);
+
+		try {
+			int port = serverSocket.getLocalPort();
+
+			ProcessExecutor.execute(
+				_classPath, _createArguments(),
+				new AttachParentProcessCallable(
+					AttachChildProcessCallable6.class.getName(), port));
+
+			Socket parentSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(parentSocket));
+
+			Socket childSocket = serverSocket.accept();
+
+			assertTrue(ServerThread.isAlive(childSocket));
+
+			// Null out child process' OOS to cause NPE in heartbeat thread
+
+			ServerThread.nullOutOOS(childSocket);
+
+			if (_log.isInfoEnabled()) {
+				_log.info("Waiting subprocess to exit");
+			}
+
+			long startTime = System.currentTimeMillis();
+
+			while (true) {
+				Thread.sleep(10);
+
+				if (!ServerThread.isAlive(childSocket)) {
+					if (_log.isInfoEnabled()) {
+						_log.info(
+							"Subprocess exited. Waited " +
+								(System.currentTimeMillis() - startTime) +
+									" ms");
+					}
+
+					break;
+				}
+			}
+
+			// Kill parent
+
+			ServerThread.exit(parentSocket);
+
+			assertFalse(ServerThread.isAlive(parentSocket));
+		}
+		finally {
+			serverSocket.close();
+		}
 	}
 
 	public void testCancel() throws Exception {
@@ -205,7 +505,7 @@ public class ProcessExecutorTest extends TestCase {
 		// Useless test to satisfy Cobertura
 
 		Constructor<ProcessContext> constructor =
-			ProcessExecutor.ProcessContext.class.getDeclaredConstructor();
+			ProcessContext.class.getDeclaredConstructor();
 
 		constructor.setAccessible(true);
 
@@ -315,7 +615,8 @@ public class ProcessExecutorTest extends TestCase {
 
 			Throwable throwable = ee.getCause();
 
-			assertEquals(DummyExceptionProcessCallable.class.getName(),
+			assertEquals(
+				DummyExceptionProcessCallable.class.getName(),
 				throwable.getMessage());
 		}
 	}
@@ -741,6 +1042,21 @@ public class ProcessExecutorTest extends TestCase {
 		return (ExecutorService)field.get(null);
 	}
 
+	private static Thread _getHeartbeatThread(boolean remove) throws Exception {
+		Field field = ReflectionUtil.getDeclaredField(
+			ProcessContext.class, "_heartbeatThreadReference");
+
+		AtomicReference<? extends Thread> heartbeatThreadReference =
+			(AtomicReference<? extends Thread>)field.get(null);
+
+		if (remove) {
+			return heartbeatThreadReference.getAndSet(null);
+		}
+		else {
+			return heartbeatThreadReference.get();
+		}
+	}
+
 	private static Logger _getLogger() throws Exception {
 		LogWrapper loggerWrapper = (LogWrapper)LogFactoryUtil.getLog(
 			ProcessExecutor.class);
@@ -754,31 +1070,20 @@ public class ProcessExecutorTest extends TestCase {
 		return (Logger)field.get(jdk14LogImpl);
 	}
 
-	private static PrintStream _getOriginalSystemOut() throws Exception {
-		ProcessOutputStream processOutputStream =
-			ProcessExecutor.ProcessContext.getProcessOutputStream();
+	private static Field _getObjectOutputStreamField() throws Exception {
+		Field objectOutputStreamField =
+			ReflectionUtil.getDeclaredField(
+				ProcessOutputStream.class, "_objectOutputStream");
 
-		Field objectOutputStreamField = ReflectionUtil.getDeclaredField(
-			ProcessOutputStream.class, "_objectOutputStream");
+		int modifiers = objectOutputStreamField.getModifiers();
 
-		ObjectOutputStream objectOutputStream =
-			(ObjectOutputStream)objectOutputStreamField.get(
-				processOutputStream);
+		Field modifiersField = ReflectionUtil.getDeclaredField(
+			Field.class, "modifiers");
 
-		Field boutField = ReflectionUtil.getDeclaredField(
-			ObjectOutputStream.class, "bout");
+		modifiersField.setInt(
+			objectOutputStreamField, modifiers & ~Modifier.FINAL);
 
-		Object bout = boutField.get(objectOutputStream);
-
-		Field outField = ReflectionUtil.getDeclaredField(
-			bout.getClass(), "out");
-
-		Object out = outField.get(bout);
-
-		Field outputStreamField = ReflectionUtil.getDeclaredField(
-			UnsyncFilterOutputStream.class, "outputStream");
-
-		return (PrintStream)outputStreamField.get(out);
+		return objectOutputStreamField;
 	}
 
 	private static ExecutorService _invokeGetExecutorService()
@@ -801,6 +1106,15 @@ public class ProcessExecutorTest extends TestCase {
 		field.set(null, null);
 	}
 
+	private static void _setDetachField(Thread heartbeatThread, boolean detach)
+		throws Exception {
+
+		Field field = ReflectionUtil.getDeclaredField(
+			heartbeatThread.getClass(), "_detach");
+
+		field.set(heartbeatThread, detach);
+	}
+
 	private static void _waitForSignalFile(
 			File signalFile, boolean expectedExists)
 		throws Exception {
@@ -810,7 +1124,306 @@ public class ProcessExecutorTest extends TestCase {
 		}
 	}
 
-	private String _classPath = System.getProperty("java.class.path");
+	private ServerSocket _createServerSocket(int startPort) {
+		int port = startPort;
+
+		while (true) {
+			try {
+				ServerSocket serverSocket = new ServerSocket();
+
+				serverSocket.setReuseAddress(true);
+
+				serverSocket.bind(new InetSocketAddress("localhost", port));
+
+				return serverSocket;
+			}
+			catch (IOException ioe) {
+				port++;
+			}
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(ProcessExecutorTest.class);
+
+	private static String _classPath = System.getProperty("java.class.path");
+
+	private static class AttachChildProcessCallable1
+		implements ProcessCallable<Serializable> {
+
+		public AttachChildProcessCallable1(int serverPort) {
+			_serverPort = serverPort;
+		}
+
+		public Serializable call() throws ProcessException {
+			try {
+				ServerThread serverThread = new ServerThread(
+					Thread.currentThread(), "Child Server Thread", _serverPort);
+
+				serverThread.start();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			try {
+				Thread.sleep(Long.MAX_VALUE);
+			}
+			catch (InterruptedException ie) {
+			}
+
+			return null;
+		}
+
+		private int _serverPort;
+
+	}
+
+	private static class AttachChildProcessCallable2
+		extends AttachChildProcessCallable1 {
+
+		public AttachChildProcessCallable2(int serverPort) {
+			super(serverPort);
+		}
+
+		@Override
+		public Serializable call() throws ProcessException {
+			try {
+				try {
+					ProcessContext.attach("Child Process", 100, null);
+
+					throw new ProcessException("Shutdown hook is null");
+				}
+				catch (IllegalArgumentException iae) {
+				}
+
+				boolean result = ProcessContext.attach(
+					"Child Process", 100, new TestShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Attach failed!");
+				}
+
+				Thread.sleep(1000);
+
+				result = ProcessContext.attach(
+					"Child Process", 100, new TestShutdownHook());
+
+				if (result) {
+					throw new ProcessException("Duplicate attach");
+				}
+
+				super.call();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			return null;
+		}
+
+	}
+
+	private static class AttachChildProcessCallable3
+		extends AttachChildProcessCallable1 {
+
+		public AttachChildProcessCallable3(int serverPort) {
+			super(serverPort);
+		}
+
+		@Override
+		public Serializable call() throws ProcessException {
+			try {
+				ProcessContext.detach();
+
+				boolean result = ProcessContext.attach(
+					"Child Process", Long.MAX_VALUE, new TestShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Attach failed!");
+				}
+
+				Thread heartbeatThread = _getHeartbeatThread(false);
+
+				while (heartbeatThread.getState() !=
+					Thread.State.TIMED_WAITING);
+
+				ProcessContext.detach();
+
+				if (ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to detach");
+				}
+
+				result = ProcessContext.attach(
+					"Child Process", 100, new TestShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to attach");
+				}
+
+				heartbeatThread = _getHeartbeatThread(true);
+
+				_setDetachField(heartbeatThread, true);
+
+				heartbeatThread.join();
+
+				if (ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to detach");
+				}
+
+				result = ProcessContext.attach(
+					"Child Process", 100, new TestShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to attach");
+				}
+
+				super.call();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			return null;
+		}
+
+	}
+
+	private static class AttachChildProcessCallable4
+		extends AttachChildProcessCallable1 {
+
+		public AttachChildProcessCallable4(int serverPort) {
+			super(serverPort);
+		}
+
+		@Override
+		public Serializable call() throws ProcessException {
+			try {
+				boolean result = ProcessContext.attach(
+					"Child Process", Long.MAX_VALUE, new TestShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to attach");
+				}
+
+				super.call();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			return null;
+		}
+
+	}
+
+	private static class AttachChildProcessCallable5
+		extends AttachChildProcessCallable1 {
+
+		public AttachChildProcessCallable5(int serverPort) {
+			super(serverPort);
+		}
+
+		@Override
+		public Serializable call() throws ProcessException {
+			try {
+				boolean result = ProcessContext.attach(
+					"Child Process", Long.MAX_VALUE,
+					new TestShutdownHook(true));
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to attach");
+				}
+
+				super.call();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			return null;
+		}
+
+	}
+
+	private static class AttachChildProcessCallable6
+		extends AttachChildProcessCallable1 {
+
+		public AttachChildProcessCallable6(int serverPort) {
+			super(serverPort);
+		}
+
+		@Override
+		public Serializable call() throws ProcessException {
+			try {
+				boolean result = ProcessContext.attach(
+					"Child Process", 100, new NPEOOSShutdownHook());
+
+				if (!result || !ProcessContext.isAttached()) {
+					throw new ProcessException("Unable to attach");
+				}
+
+				super.call();
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			return null;
+		}
+
+	}
+
+	private static class AttachParentProcessCallable
+		implements ProcessCallable<Serializable> {
+
+		public AttachParentProcessCallable(String className, int serverPort) {
+			_className = className;
+			_serverPort = serverPort;
+		}
+
+		public Serializable call() throws ProcessException {
+			Class<?> clazz = getClass();
+
+			PortalClassLoaderUtil.setClassLoader(clazz.getClassLoader());
+
+			Logger logger = Logger.getLogger("");
+
+			logger.setLevel(Level.FINE);
+
+			try {
+				ServerThread serverThread = new ServerThread(
+					Thread.currentThread(), "Parent Server Thread",
+					_serverPort);
+
+				serverThread.start();
+
+				Class<ProcessCallable<?>> processCallableClass =
+					(Class<ProcessCallable<?>>)Class.forName(_className);
+
+				Constructor<ProcessCallable<?>> constructor =
+					processCallableClass.getConstructor(int.class);
+
+				ProcessExecutor.execute(
+					_classPath, _createArguments(),
+					constructor.newInstance(_serverPort));
+			}
+			catch (Exception e) {
+				throw new ProcessException(e);
+			}
+
+			try {
+				Thread.sleep(Long.MAX_VALUE);
+			}
+			catch (InterruptedException ie) {
+			}
+
+			return null;
+		}
+
+		private String _className;
+		private int _serverPort;
+
+	}
 
 	private static class CaptureHandler extends Handler {
 
@@ -838,7 +1451,7 @@ public class ProcessExecutorTest extends TestCase {
 			_logRecords.add(logRecord);
 		}
 
-		private final List<LogRecord> _logRecords =
+		private List<LogRecord> _logRecords =
 			new CopyOnWriteArrayList<LogRecord>();
 
 	}
@@ -871,7 +1484,7 @@ public class ProcessExecutorTest extends TestCase {
 			_countDownLatch.await();
 		}
 
-		private final CountDownLatch _countDownLatch;
+		private CountDownLatch _countDownLatch;
 
 	}
 
@@ -897,7 +1510,7 @@ public class ProcessExecutorTest extends TestCase {
 			return null;
 		}
 
-		private final int _exitCode;
+		private int _exitCode;
 
 	}
 
@@ -911,11 +1524,12 @@ public class ProcessExecutorTest extends TestCase {
 
 		public Serializable call() throws ProcessException {
 			try {
-				PrintStream printStream = _getOriginalSystemOut();
+				FileOutputStream fileOutputStream = new FileOutputStream(
+					FileDescriptor.out);
 
-				printStream.print(_leadingLog);
+				fileOutputStream.write(_leadingLog.getBytes(StringPool.UTF8));
 
-				printStream.flush();
+				fileOutputStream.flush();
 
 				System.out.print(_bodyLog);
 			}
@@ -926,8 +1540,8 @@ public class ProcessExecutorTest extends TestCase {
 			return null;
 		}
 
-		private final String _bodyLog;
-		private final String _leadingLog;
+		private String _bodyLog;
+		private String _leadingLog;
 
 	}
 
@@ -963,8 +1577,47 @@ public class ProcessExecutorTest extends TestCase {
 			return null;
 		}
 
-		private final String _logMessage;
-		private final File _signalFile;
+		private String _logMessage;
+		private File _signalFile;
+
+	}
+
+	private static class NPEOOSShutdownHook implements ShutdownHook {
+
+		public NPEOOSShutdownHook() throws Exception {
+			ProcessOutputStream processOutputStream =
+				ProcessContext.getProcessOutputStream();
+
+			Field objectOutputStreamField = _getObjectOutputStreamField();
+
+			_oldObjectOutputStream =
+				(ObjectOutputStream)objectOutputStreamField.get(
+					processOutputStream);
+
+			_thread = Thread.currentThread();
+		}
+
+		public boolean shutdown(int shutdownCode, Throwable shutdownError) {
+			try {
+				ProcessOutputStream processOutputStream =
+					ProcessContext.getProcessOutputStream();
+
+				Field objectOutputStreamField = _getObjectOutputStreamField();
+
+				objectOutputStreamField.set(
+					processOutputStream, _oldObjectOutputStream);
+			}
+			catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+
+			_thread.interrupt();
+
+			return true;
+		}
+
+		private ObjectOutputStream _oldObjectOutputStream;
+		private Thread _thread;
 
 	}
 
@@ -979,7 +1632,7 @@ public class ProcessExecutorTest extends TestCase {
 			return System.getProperty(_propertyKey);
 		}
 
-		private final String _propertyKey;
+		private String _propertyKey;
 
 	}
 
@@ -993,7 +1646,7 @@ public class ProcessExecutorTest extends TestCase {
 		public String call() throws ProcessException {
 			try {
 				ProcessOutputStream processOutputStream =
-					ProcessExecutor.ProcessContext.getProcessOutputStream();
+					ProcessContext.getProcessOutputStream();
 
 				// Forcibly write a premature ReturnProcessCallable
 
@@ -1009,7 +1662,190 @@ public class ProcessExecutorTest extends TestCase {
 			return null;
 		}
 
-		private final String _returnValue;
+		private String _returnValue;
+
+	}
+
+	private static class ServerThread extends Thread {
+
+		public static void exit(Socket socket) throws Exception {
+			InputStream inputStream = socket.getInputStream();
+			OutputStream outputStream = socket.getOutputStream();
+
+			outputStream.write(_CODE_EXIT);
+			outputStream.close();
+
+			try {
+				int code = inputStream.read();
+
+				fail("Failed to exit subprocess with response code " + code);
+			}
+			catch (SocketException se) {
+			}
+		}
+
+		public static void interruptHeartbeatThread(Socket socket)
+			throws Exception {
+
+			InputStream inputStream = socket.getInputStream();
+			OutputStream outputStream = socket.getOutputStream();
+
+			outputStream.write(_CODE_INTERRUPT);
+			outputStream.close();
+
+			try {
+				int code = inputStream.read();
+
+				fail("Failed to exit subprocess with response code " + code);
+			}
+			catch (SocketException se) {
+			}
+		}
+
+		public static boolean isAlive(Socket socket) {
+			try {
+				InputStream inputStream = socket.getInputStream();
+				OutputStream outputStream = socket.getOutputStream();
+
+				outputStream.write(_CODE_ECHO);
+
+				outputStream.flush();
+
+				if (inputStream.read() == _CODE_ECHO) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
+
+		public static void nullOutOOS(Socket socket) throws Exception {
+			InputStream inputStream = socket.getInputStream();
+			OutputStream outputStream = socket.getOutputStream();
+
+			outputStream.write(_CODE_NULL_OUT_OOS);
+			outputStream.flush();
+
+			int code = inputStream.read();
+
+			if (code != _CODE_NULL_OUT_OOS) {
+				fail("Failed to null out oos, response code : " + code);
+			}
+		}
+
+		public ServerThread(Thread mainThread, String name, int serverPort)
+			throws Exception {
+
+			_mainThread = mainThread;
+			_socket = new Socket("localhost", serverPort);
+
+			setDaemon(true);
+			setName(name);
+		}
+
+		@Override
+		public void run() {
+			try {
+				InputStream inputStream = _socket.getInputStream();
+				OutputStream outputStream = _socket.getOutputStream();
+
+				int command = 0;
+
+				while ((command = inputStream.read()) != -1) {
+					switch (command) {
+						case _CODE_ECHO :
+							outputStream.write(_CODE_ECHO);
+
+							outputStream.flush();
+
+							break;
+
+						case _CODE_EXIT :
+							_socket.close();
+
+							break;
+
+						case  _CODE_INTERRUPT :
+							Thread heartbeatThread = _getHeartbeatThread(false);
+
+							heartbeatThread.interrupt();
+							heartbeatThread.join();
+
+							_socket.close();
+
+							break;
+
+						case _CODE_NULL_OUT_OOS :
+							Field objectOutputStreamField =
+								_getObjectOutputStreamField();
+
+							ProcessOutputStream processOutputStream =
+								ProcessContext.getProcessOutputStream();
+
+							objectOutputStreamField.set(
+								processOutputStream, null);
+
+							outputStream.write(_CODE_NULL_OUT_OOS);
+
+							outputStream.flush();
+
+							break;
+					}
+				}
+			}
+			catch (Exception e) {
+			}
+			finally {
+				try {
+					_socket.close();
+
+					_mainThread.interrupt();
+				}
+				catch (IOException ioe) {
+				}
+			}
+		}
+
+		private static final int _CODE_ECHO = 1;
+
+		private static final int _CODE_EXIT = 2;
+
+		private static final int _CODE_INTERRUPT = 3;
+
+		private static final int _CODE_NULL_OUT_OOS = 4;
+
+		private Thread _mainThread;
+		private Socket _socket;
+
+	}
+
+	private static class TestShutdownHook implements ShutdownHook {
+
+		public TestShutdownHook() {
+			this(false);
+		}
+
+		public TestShutdownHook(boolean failToShutdown) {
+			_failToShutdown = failToShutdown;
+			_thread = Thread.currentThread();
+		}
+
+		public boolean shutdown(int shutdownCode, Throwable shutdownThrowable) {
+			_thread.interrupt();
+
+			if (_failToShutdown) {
+				throw new RuntimeException();
+			}
+
+			return true;
+		}
+
+		private boolean _failToShutdown;
+		private Thread _thread;
 
 	}
 
@@ -1021,7 +1857,7 @@ public class ProcessExecutorTest extends TestCase {
 		}
 
 		@SuppressWarnings("unused")
-		private final Object _unserializableObject = new Object();
+		private Object _unserializableObject = new Object();
 
 	}
 
