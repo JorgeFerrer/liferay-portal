@@ -638,8 +638,13 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		entry.setSmallImageURL(smallImageURL);
 
-		if (!entry.isPending()) {
-			entry.setStatus(WorkflowConstants.STATUS_DRAFT);
+		if (!entry.isPending() && !entry.isDraft()) {
+			if (entry.isApproved()) {
+				entry.setStatus(WorkflowConstants.STATUS_DRAFT_FROM_APPROVED);
+			}
+			else {
+				entry.setStatus(WorkflowConstants.STATUS_DRAFT);
+			}
 		}
 
 		entry.setExpandoBridgeAttributes(serviceContext);
@@ -717,7 +722,17 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		BlogsEntry entry = blogsEntryPersistence.findByPrimaryKey(entryId);
 
 		int oldStatus = entry.getStatus();
-		long oldStatusByUserId = entry.getStatusByUserId();
+
+		if (entry.isPending() &&
+				(status == WorkflowConstants.STATUS_APPROVED)) {
+
+			oldStatus = GetterUtil.getInteger(
+				serviceContext.getAttribute("modelStatus"),
+				WorkflowConstants.STATUS_DRAFT);
+		}
+		else if (entry.isDraft()) {
+			serviceContext.setAttribute("modelStatus", oldStatus);
+		}
 
 		entry.setModifiedDate(serviceContext.getModifiedDate(now));
 		entry.setStatus(status);
@@ -746,7 +761,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 				// Social
 
-				if (oldStatusByUserId == 0) {
+				if (oldStatus == WorkflowConstants.STATUS_DRAFT) {
 					socialActivityLocalService.addUniqueActivity(
 						user.getUserId(), entry.getGroupId(),
 						BlogsEntry.class.getName(), entryId,
