@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -58,6 +59,7 @@ import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLFolder;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryMetadataLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeServiceUtil;
@@ -207,7 +209,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 	}
 
 	public static void importFileEntry(
-			PortletDataContext portletDataContext, Element fileEntryElement)
+			PortletDataContext portletDataContext, Element fileEntryElement,
+			boolean keepLastVersionOnly)
 		throws Exception {
 
 		String path = fileEntryElement.attributeValue("path");
@@ -221,7 +224,9 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		try {
 			DLProcessorThreadLocal.setEnabled(false);
 
-			importFileEntry(portletDataContext, fileEntryElement, path);
+			importFileEntry(
+				portletDataContext, fileEntryElement, path,
+				keepLastVersionOnly);
 		}
 		finally {
 			DLProcessorThreadLocal.setEnabled(dlProcessorEnabled);
@@ -230,7 +235,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 	public static void importFileEntry(
 			PortletDataContext portletDataContext, Element fileEntryElement,
-			String path)
+			String path, boolean keepLastVersionOnly)
 		throws Exception {
 
 		FileEntry fileEntry = (FileEntry)portletDataContext.getZipEntryAsObject(
@@ -441,6 +446,26 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 					title, fileEntry.getMimeType(), title,
 					fileEntry.getDescription(), null, is, fileEntry.getSize(),
 					serviceContext);
+			}
+		}
+
+		if (keepLastVersionOnly) {
+
+			DLFileEntry dlFileEntry =
+				DLFileEntryLocalServiceUtil.getDLFileEntry(
+					importedFileEntry.getFileEntryId());
+
+			DLFileVersion latestVersion=
+				dlFileEntry.getLatestFileVersion(false);
+
+			List<DLFileVersion> dlFileVersions = dlFileEntry.getFileVersions(
+					WorkflowConstants.STATUS_ANY);
+
+			dlFileVersions.remove(latestVersion);
+
+			for (DLFileVersion dlFileVersion : dlFileVersions) {
+				DLFileVersionLocalServiceUtil.deleteDLFileVersion(
+					dlFileVersion);
 			}
 		}
 
@@ -1525,12 +1550,21 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		rootElement.addAttribute(
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
 
+		Group scopeGroup = GroupLocalServiceUtil.getGroup(
+				portletDataContext.getScopeGroupId());
+
 		long rootFolderId = GetterUtil.getLong(
 			portletPreferences.getValue("rootFolderId", null));
 
 		if (rootFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			rootElement.addAttribute(
 				"root-folder-id", String.valueOf(rootFolderId));
+		}
+
+		if (scopeGroup.isStagingGroup()) {
+			rootElement.addAttribute(
+				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY, String.valueOf(
+					PropsValues.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
 		}
 
 		Element repositoryElement = rootElement.addElement("repositories");
@@ -1651,13 +1685,18 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			importFolder(portletDataContext, folderElement);
 		}
 
+		boolean keepLastVersionOnly = GetterUtil.getBoolean(
+			rootElement.attributeValue(
+				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
+
 		Element fileEntriesElement = rootElement.element("file-entries");
 
 		List<Element> fileEntryElements = fileEntriesElement.elements(
 			"file-entry");
 
 		for (Element fileEntryElement : fileEntryElements) {
-			importFileEntry(portletDataContext, fileEntryElement);
+			importFileEntry(
+				portletDataContext, fileEntryElement, keepLastVersionOnly);
 		}
 
 		if (portletDataContext.getBooleanParameter(_NAMESPACE, "shortcuts")) {

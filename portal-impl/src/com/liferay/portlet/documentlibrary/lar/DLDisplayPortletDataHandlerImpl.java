@@ -194,9 +194,12 @@ public class DLDisplayPortletDataHandlerImpl extends BasePortletDataHandler {
 		List<Element> fileEntryElements = fileEntriesElement.elements(
 			"file-entry");
 
+		boolean keepLastVersionOnly = GetterUtil.getBoolean(
+				rootElement.attributeValue("keep-last-file-version-only"));
+
 		for (Element fileEntryElement : fileEntryElements) {
 			DLPortletDataHandlerImpl.importFileEntry(
-				portletDataContext, fileEntryElement);
+				portletDataContext, fileEntryElement, keepLastVersionOnly);
 		}
 
 		if (portletDataContext.getBooleanParameter(_NAMESPACE, "shortcuts")) {
