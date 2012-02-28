@@ -78,13 +78,25 @@ public class StartupHelper {
 	}
 
 	public void upgradeProcess(int buildNumber) throws UpgradeException {
+		if (buildNumber == ReleaseInfo.getBuildNumber()) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Skipping upgrade process from " + buildNumber + " to " +
+						ReleaseInfo.getBuildNumber());
+			}
+
+			return;
+		}
+
 		String[] upgradeProcessClassNames = getUpgradeProcessClassNames(
 			PropsKeys.UPGRADE_PROCESSES + StringPool.PERIOD + buildNumber);
 
 		if (upgradeProcessClassNames.length == 0) {
-			System.out.println(
-				"Upgrading from " + buildNumber + " to " +
-					ReleaseInfo.getBuildNumber() + " is not supported");
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Upgrading from " + buildNumber + " to " +
+						ReleaseInfo.getBuildNumber() + " is not supported");
+			}
 
 			System.exit(0);
 		}

@@ -2065,11 +2065,11 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 					newLayoutId = layout.getLayoutId();
 				}
 			}
-			catch (SystemException e) {
+			catch (SystemException se) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Unable to get layout in group " +
-							portletDataContext.getScopeGroupId(), e);
+							portletDataContext.getScopeGroupId(), se);
 				}
 			}
 

@@ -329,7 +329,7 @@ public class ServiceBuilder {
 		try {
 			Jalopy.setConvention(jalopyXmlFile);
 		}
-		catch (FileNotFoundException fnne) {
+		catch (FileNotFoundException fnfe) {
 		}
 
 		if (jalopySettings == null) {

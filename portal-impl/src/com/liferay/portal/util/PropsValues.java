@@ -624,6 +624,8 @@ public class PropsValues {
 
 	public static final String HTTP_HEADER_VERSION_VERBOSITY = PropsUtil.get(PropsKeys.HTTP_HEADER_VERSION_VERBOSITY);
 
+	public static final boolean HTTP_HEADER_VERSION_VERBOSITY_PARTIAL = PropsValues.HTTP_HEADER_VERSION_VERBOSITY.equalsIgnoreCase("partial");
+
 	public static final String IFRAME_PASSWORD_PASSWORD_TOKEN_ROLE = PropsUtil.get(PropsKeys.IFRAME_PASSWORD_PASSWORD_TOKEN_ROLE);
 
 	public static final boolean IMAGE_AUTO_SCALE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.IMAGE_AUTO_SCALE));

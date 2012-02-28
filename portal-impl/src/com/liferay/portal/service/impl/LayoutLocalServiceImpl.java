@@ -1423,8 +1423,8 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 			importLayouts(userId, groupId, privateLayout, parameterMap, file);
 		}
-		catch (IOException e) {
-			throw new SystemException(e);
+		catch (IOException ioe) {
+			throw new SystemException(ioe);
 		}
 	}
 
@@ -1497,8 +1497,8 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			importPortletInfo(
 				userId, plid, groupId, portletId, parameterMap, file);
 		}
-		catch (IOException e) {
-			throw new SystemException(e);
+		catch (IOException ioe) {
+			throw new SystemException(ioe);
 		}
 	}
 

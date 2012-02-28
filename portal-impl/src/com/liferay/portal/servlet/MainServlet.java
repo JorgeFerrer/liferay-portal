@@ -1163,7 +1163,7 @@ public class MainServlet extends ActionServlet {
 
 		if (_HTTP_HEADER_VERSION_VERBOSITY_DEFAULT) {
 		}
-		else if (_HTTP_HEADER_VERSION_VERBOSITY_PARTIAL) {
+		else if (PropsValues.HTTP_HEADER_VERSION_VERBOSITY_PARTIAL) {
 			response.addHeader(
 				_LIFERAY_PORTAL_REQUEST_HEADER, ReleaseInfo.getName());
 		}
@@ -1342,9 +1342,6 @@ public class MainServlet extends ActionServlet {
 	private static final boolean _HTTP_HEADER_VERSION_VERBOSITY_DEFAULT =
 		PropsValues.HTTP_HEADER_VERSION_VERBOSITY.equalsIgnoreCase(
 			ReleaseInfo.getName());
-
-	private static final boolean _HTTP_HEADER_VERSION_VERBOSITY_PARTIAL =
-		PropsValues.HTTP_HEADER_VERSION_VERBOSITY.equalsIgnoreCase("partial");
 
 	private static final String _LIFERAY_PORTAL_REQUEST_HEADER =
 		"Liferay-Portal";
