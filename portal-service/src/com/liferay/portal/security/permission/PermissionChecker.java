@@ -235,6 +235,8 @@ public interface PermissionChecker extends Cloneable {
 	 */
 	public boolean isOmniadmin();
 
+	public boolean isOrganizationAdmin(long organizationId);
+
 	/**
 	 * Returns <code>true</code> if the user is signed in.
 	 *
