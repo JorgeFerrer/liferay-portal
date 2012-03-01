@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.MapUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -954,9 +953,8 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 			PortletDataContext portletDataContext, Element entityElement)
 		throws Exception {
 
-		boolean keepLastVersionOnly = GetterUtil.getBoolean(
-				entityElement.attributeValue(
-				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
+		boolean keepLatestVersionOnly = GetterUtil.getBoolean(
+				entityElement.attributeValue("keep-latest-version-only"));
 
 		Element dlFoldersElement = entityElement.element("dl-folders");
 
@@ -981,7 +979,7 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		for (Element fileEntryElement : dlFileEntryElements) {
 			DLPortletDataHandlerImpl.importFileEntry(
-				portletDataContext, fileEntryElement, keepLastVersionOnly);
+				portletDataContext, fileEntryElement, keepLatestVersionOnly);
 		}
 
 		Element dlFileRanksElement = entityElement.element("dl-file-ranks");
@@ -2162,8 +2160,9 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		if (scopeGroup.isStagingGroup()) {
 			rootElement.addAttribute(
-				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY, String.valueOf(
-					PropsValues.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
+				"keep-latest-version-only",
+				String.valueOf(
+					PropsValues.DL_FILE_ENTRY_KEEP_LATEST_VERSION_ONLY));
 		}
 
 		Element templatesElement = rootElement.addElement("templates");

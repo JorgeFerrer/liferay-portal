@@ -527,6 +527,8 @@ public interface PropsKeys {
 
 	public static final String DL_FILE_ENTRY_DRAFTS_ENABLED = "dl.file.entry.drafts.enabled";
 
+	public static final String DL_FILE_ENTRY_KEEP_LATEST_VERSION_ONLY = "dl.file.entry.keep.latest.version.only";
+
 	public static final String DL_FILE_ENTRY_PREVIEW_AUDIO_MIME_TYPES = "dl.file.entry.preview.audio.mime.types";
 
 	public static final String DL_FILE_ENTRY_PREVIEW_DOCUMENT_DEPTH = "dl.file.entry.preview.document.depth";
@@ -600,8 +602,6 @@ public interface PropsKeys {
 	public static final String DL_FILE_RANK_ENABLED = "dl.file.rank.enabled";
 
 	public static final String DL_FILE_RANK_MAX_SIZE = "dl.file.rank.max.size";
-
-	public static final String DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY = "dl.keep.last.live.file.version.only";
 
 	public static final String DL_PUBLISH_TO_LIVE_BY_DEFAULT = "dl.publish.to.live.by.default";
 

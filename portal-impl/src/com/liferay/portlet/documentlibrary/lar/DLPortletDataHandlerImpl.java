@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -210,7 +209,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 	public static void importFileEntry(
 			PortletDataContext portletDataContext, Element fileEntryElement,
-			boolean keepLastVersionOnly)
+			boolean keepLatestVersionOnly)
 		throws Exception {
 
 		String path = fileEntryElement.attributeValue("path");
@@ -226,7 +225,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 			importFileEntry(
 				portletDataContext, fileEntryElement, path,
-				keepLastVersionOnly);
+				keepLatestVersionOnly);
 		}
 		finally {
 			DLProcessorThreadLocal.setEnabled(dlProcessorEnabled);
@@ -235,7 +234,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 	public static void importFileEntry(
 			PortletDataContext portletDataContext, Element fileEntryElement,
-			String path, boolean keepLastVersionOnly)
+			String path, boolean keepLatestVersionOnly)
 		throws Exception {
 
 		FileEntry fileEntry = (FileEntry)portletDataContext.getZipEntryAsObject(
@@ -449,14 +448,13 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			}
 		}
 
-		if (keepLastVersionOnly) {
-
+		if (keepLatestVersionOnly) {
 			DLFileEntry dlFileEntry =
 				DLFileEntryLocalServiceUtil.getDLFileEntry(
 					importedFileEntry.getFileEntryId());
 
-			DLFileVersion latestVersion=
-				dlFileEntry.getLatestFileVersion(false);
+			DLFileVersion latestVersion = dlFileEntry.getLatestFileVersion(
+				false);
 
 			List<DLFileVersion> dlFileVersions = dlFileEntry.getFileVersions(
 					WorkflowConstants.STATUS_ANY);
@@ -1563,8 +1561,9 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		if (scopeGroup.isStagingGroup()) {
 			rootElement.addAttribute(
-				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY, String.valueOf(
-					PropsValues.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
+				"keep-latest-version-only",
+				String.valueOf(
+					PropsValues.DL_FILE_ENTRY_KEEP_LATEST_VERSION_ONLY));
 		}
 
 		Element repositoryElement = rootElement.addElement("repositories");
@@ -1685,9 +1684,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			importFolder(portletDataContext, folderElement);
 		}
 
-		boolean keepLastVersionOnly = GetterUtil.getBoolean(
-			rootElement.attributeValue(
-				PropsKeys.DL_KEEP_LAST_LIVE_FILE_VERSION_ONLY));
+		boolean keepLatestVersionOnly = GetterUtil.getBoolean(
+			rootElement.attributeValue("keep-latest-version-only"));
 
 		Element fileEntriesElement = rootElement.element("file-entries");
 
@@ -1696,7 +1694,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		for (Element fileEntryElement : fileEntryElements) {
 			importFileEntry(
-				portletDataContext, fileEntryElement, keepLastVersionOnly);
+				portletDataContext, fileEntryElement, keepLatestVersionOnly);
 		}
 
 		if (portletDataContext.getBooleanParameter(_NAMESPACE, "shortcuts")) {
