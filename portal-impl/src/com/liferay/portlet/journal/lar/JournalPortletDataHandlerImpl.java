@@ -954,7 +954,7 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 		throws Exception {
 
 		boolean keepLatestVersionOnly = GetterUtil.getBoolean(
-				entityElement.attributeValue("keep-latest-version-only"));
+			entityElement.attributeValue("keep-latest-version-only"));
 
 		Element dlFoldersElement = entityElement.element("dl-folders");
 
@@ -2156,7 +2156,7 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 		}
 
 		Group scopeGroup = GroupLocalServiceUtil.getGroup(
-				portletDataContext.getScopeGroupId());
+			portletDataContext.getScopeGroupId());
 
 		if (scopeGroup.isStagingGroup()) {
 			rootElement.addAttribute(

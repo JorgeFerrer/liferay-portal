@@ -457,7 +457,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 				false);
 
 			List<DLFileVersion> dlFileVersions = dlFileEntry.getFileVersions(
-					WorkflowConstants.STATUS_ANY);
+				WorkflowConstants.STATUS_ANY);
 
 			dlFileVersions.remove(latestVersion);
 
@@ -1549,7 +1549,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
 
 		Group scopeGroup = GroupLocalServiceUtil.getGroup(
-				portletDataContext.getScopeGroupId());
+			portletDataContext.getScopeGroupId());
 
 		long rootFolderId = GetterUtil.getLong(
 			portletPreferences.getValue("rootFolderId", null));
