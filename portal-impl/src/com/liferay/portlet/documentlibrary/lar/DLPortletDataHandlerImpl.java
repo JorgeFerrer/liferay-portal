@@ -58,6 +58,7 @@ import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLFolder;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryMetadataLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeServiceUtil;
@@ -207,7 +208,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 	}
 
 	public static void importFileEntry(
-			PortletDataContext portletDataContext, Element fileEntryElement)
+			PortletDataContext portletDataContext, Element fileEntryElement,
+			boolean keepLatestVersionOnly)
 		throws Exception {
 
 		String path = fileEntryElement.attributeValue("path");
@@ -221,7 +223,9 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		try {
 			DLProcessorThreadLocal.setEnabled(false);
 
-			importFileEntry(portletDataContext, fileEntryElement, path);
+			importFileEntry(
+				portletDataContext, fileEntryElement, path,
+				keepLatestVersionOnly);
 		}
 		finally {
 			DLProcessorThreadLocal.setEnabled(dlProcessorEnabled);
@@ -230,7 +234,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 	public static void importFileEntry(
 			PortletDataContext portletDataContext, Element fileEntryElement,
-			String path)
+			String path, boolean keepLatestVersionOnly)
 		throws Exception {
 
 		FileEntry fileEntry = (FileEntry)portletDataContext.getZipEntryAsObject(
@@ -441,6 +445,25 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 					title, fileEntry.getMimeType(), title,
 					fileEntry.getDescription(), null, is, fileEntry.getSize(),
 					serviceContext);
+			}
+		}
+
+		if (keepLatestVersionOnly) {
+			DLFileEntry dlFileEntry =
+				DLFileEntryLocalServiceUtil.getDLFileEntry(
+					importedFileEntry.getFileEntryId());
+
+			DLFileVersion latestVersion = dlFileEntry.getLatestFileVersion(
+				false);
+
+			List<DLFileVersion> dlFileVersions = dlFileEntry.getFileVersions(
+				WorkflowConstants.STATUS_ANY);
+
+			dlFileVersions.remove(latestVersion);
+
+			for (DLFileVersion dlFileVersion : dlFileVersions) {
+				DLFileVersionLocalServiceUtil.deleteDLFileVersion(
+					dlFileVersion);
 			}
 		}
 
@@ -892,13 +915,13 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 	}
 
 	/**
-	 * @see {@link PortletImporter#getAssetCategoryName(String, long, String,
-	 *      int)}
+	 * @see {@link PortletImporter#getAssetCategoryName(String, long, long,
+	 *      String, int)}
 	 * @see {@link PortletImporter#getAssetVocabularyName(String, long, String,
 	 *      int)}
 	 */
 	protected static String getFileEntryTypeName(
-			String uuid, long companyId, long groupId, String name, int count)
+			String uuid, long groupId, String name, int count)
 		throws Exception {
 
 		DLFileEntryType dlFileEntryType = DLFileEntryTypeUtil.fetchByG_N(
@@ -916,7 +939,7 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		name = StringUtil.appendParentheticalSuffix(name, count);
 
-		return getFileEntryTypeName(uuid, companyId, groupId, name, ++count);
+		return getFileEntryTypeName(uuid, groupId, name, ++count);
 	}
 
 	protected static String getFileEntryTypePath(
@@ -963,8 +986,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 	}
 
 	/**
-	 * @see {@link PortletImporter#getAssetCategoryName(String, long, String,
-	 *      int)}
+	 * @see {@link PortletImporter#getAssetCategoryName(String, long, long,
+	 *      String, int)}
 	 * @see {@link PortletImporter#getAssetVocabularyName(String, long, String,
 	 *      int)}
 	 */
@@ -1063,8 +1086,8 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			dlFileEntryType.getUserUuid());
 
 		String name = getFileEntryTypeName(
-			dlFileEntryType.getUuid(), portletDataContext.getCompanyId(),
-			portletDataContext.getScopeGroupId(), dlFileEntryType.getName(), 2);
+			dlFileEntryType.getUuid(), portletDataContext.getScopeGroupId(),
+			dlFileEntryType.getName(), 2);
 
 		List<Element> structureElements = fileEntryTypeElement.elements(
 			"structure");
@@ -1525,12 +1548,22 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 		rootElement.addAttribute(
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
 
+		Group scopeGroup = GroupLocalServiceUtil.getGroup(
+			portletDataContext.getScopeGroupId());
+
 		long rootFolderId = GetterUtil.getLong(
 			portletPreferences.getValue("rootFolderId", null));
 
 		if (rootFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			rootElement.addAttribute(
 				"root-folder-id", String.valueOf(rootFolderId));
+		}
+
+		if (scopeGroup.isStagingGroup()) {
+			rootElement.addAttribute(
+				"keep-latest-version-only",
+				String.valueOf(
+					PropsValues.DL_FILE_ENTRY_KEEP_LATEST_VERSION_ONLY));
 		}
 
 		Element repositoryElement = rootElement.addElement("repositories");
@@ -1651,13 +1684,17 @@ public class DLPortletDataHandlerImpl extends BasePortletDataHandler {
 			importFolder(portletDataContext, folderElement);
 		}
 
+		boolean keepLatestVersionOnly = GetterUtil.getBoolean(
+			rootElement.attributeValue("keep-latest-version-only"));
+
 		Element fileEntriesElement = rootElement.element("file-entries");
 
 		List<Element> fileEntryElements = fileEntriesElement.elements(
 			"file-entry");
 
 		for (Element fileEntryElement : fileEntryElements) {
-			importFileEntry(portletDataContext, fileEntryElement);
+			importFileEntry(
+				portletDataContext, fileEntryElement, keepLatestVersionOnly);
 		}
 
 		if (portletDataContext.getBooleanParameter(_NAMESPACE, "shortcuts")) {

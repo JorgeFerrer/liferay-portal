@@ -953,6 +953,9 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 			PortletDataContext portletDataContext, Element entityElement)
 		throws Exception {
 
+		boolean keepLatestVersionOnly = GetterUtil.getBoolean(
+			entityElement.attributeValue("keep-latest-version-only"));
+
 		Element dlFoldersElement = entityElement.element("dl-folders");
 
 		List<Element> dlFolderElements = Collections.emptyList();
@@ -976,7 +979,7 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		for (Element fileEntryElement : dlFileEntryElements) {
 			DLPortletDataHandlerImpl.importFileEntry(
-				portletDataContext, fileEntryElement);
+				portletDataContext, fileEntryElement, keepLatestVersionOnly);
 		}
 
 		Element dlFileRanksElement = entityElement.element("dl-file-ranks");
@@ -2150,6 +2153,16 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 				exportStructure(
 					portletDataContext, structuresElement, structure);
 			}
+		}
+
+		Group scopeGroup = GroupLocalServiceUtil.getGroup(
+			portletDataContext.getScopeGroupId());
+
+		if (scopeGroup.isStagingGroup()) {
+			rootElement.addAttribute(
+				"keep-latest-version-only",
+				String.valueOf(
+					PropsValues.DL_FILE_ENTRY_KEEP_LATEST_VERSION_ONLY));
 		}
 
 		Element templatesElement = rootElement.addElement("templates");
