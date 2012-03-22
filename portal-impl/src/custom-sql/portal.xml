@@ -1725,6 +1725,23 @@
 					(Organization_.organizationId = Users_Orgs.organizationId)
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.service.persistence.UserFinder.joinByUsersOrgsTreeWithSelf">
+		<![CDATA[
+			WHERE
+				User_.userId IN (
+					SELECT [$USER_ID$] From User_
+					UNION
+					SELECT
+						userId
+					FROM
+						Users_Orgs
+					INNER JOIN
+						Organization_ ON
+							(Organization_.organizationId = Users_Orgs.organizationId)
+					[$USER_ORGS_TREE_JOIN_WHERE$]
+				)
+		]]>
+	</sql>
 	<sql id="com.liferay.portal.service.persistence.UserFinder.joinByUsersPasswordPolicies">
 		<![CDATA[
 			INNER JOIN
