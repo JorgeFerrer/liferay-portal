@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -85,6 +86,9 @@ public class UserFinderImpl
 
 	public static final String JOIN_BY_USERS_ORGS_TREE =
 		UserFinder.class.getName() + ".joinByUsersOrgsTree";
+
+	public static final String JOIN_BY_USERS_ORGS_TREE_WITH_SELF =
+			UserFinder.class.getName() + ".joinByUsersOrgsTreeWithSelf";
 
 	public static final String JOIN_BY_USERS_PASSWORD_POLICIES =
 		UserFinder.class.getName() + ".joinByUsersPasswordPolicies";
@@ -243,6 +247,7 @@ public class UserFinderImpl
 
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
+			sql = replaceArgs(sql, (KeyValuePair[])params.get("args"));
 			sql = CustomSQLUtil.replaceAndOperator(sql, andOperator);
 
 			SQLQuery q = session.createSQLQuery(sql);
@@ -446,6 +451,7 @@ public class UserFinderImpl
 
 			sql = StringUtil.replace(sql, "[$JOIN$]", getJoin(params));
 			sql = StringUtil.replace(sql, "[$WHERE$]", getWhere(params));
+			sql = replaceArgs(sql, (KeyValuePair[])params.get("args"));
 			sql = CustomSQLUtil.replaceAndOperator(sql, andOperator);
 			sql = CustomSQLUtil.replaceOrderBy(sql, obc);
 
@@ -604,6 +610,16 @@ public class UserFinderImpl
 		return sb.toString();
 	}
 
+	protected String replaceArgs(String sql, KeyValuePair[] args) {
+		if (args != null) {
+			for (KeyValuePair arg : args) {
+				sql = StringUtil.replace(sql, arg.getKey(), arg.getValue());
+			}
+		}
+
+		return sql;
+	}
+
 	protected String getWhere(String key, Object value) {
 		String join = StringPool.BLANK;
 
@@ -652,14 +668,14 @@ public class UserFinderImpl
 				}
 			}
 		}
-		else if (key.equals("usersOrgsTree")) {
+		else if (key.startsWith("usersOrgsTree")) {
 			List<Organization> organizationsTree = (List<Organization>)value;
 
 			int size = organizationsTree.size();
 
-			if (size > 0) {
-				StringBundler sb = new StringBundler(size * 2 + 1);
+			StringBundler sb = new StringBundler(size * 2 + 1);
 
+			if (size > 0) {
 				sb.append("WHERE (");
 
 				for (int i = 0; i < size; i++) {
@@ -671,7 +687,15 @@ public class UserFinderImpl
 				}
 
 				sb.append(")");
+			}
 
+			if (key.endsWith("WithSelf")) {
+				join = CustomSQLUtil.get(JOIN_BY_USERS_ORGS_TREE_WITH_SELF);
+
+				join = StringUtil.replace(join, "[$USER_ORGS_TREE_JOIN_WHERE$]",
+					sb.toString());
+			}
+			else {
 				join = sb.toString();
 			}
 		}
@@ -739,7 +763,7 @@ public class UserFinderImpl
 
 			Object value = entry.getValue();
 
-			if (key.equals("usersOrgsTree")) {
+			if (key.startsWith("usersOrgsTree")) {
 				List<Organization> organizationsTree =
 					(List<Organization>)value;
 

@@ -79,7 +79,8 @@ portletURL.setParameter("organizationId", String.valueOf(organization.getOrganiz
 			userParams.put("usersOrgs", new Long(organization.getOrganizationId()));
 		}
 		else if (PropsValues.ORGANIZATIONS_ASSIGNMENT_STRICT && !permissionChecker.isCompanyAdmin()) {
-			userParams.put("usersOrgsTree", user.getOrganizations());
+			userParams.put("usersOrgsTreeWithSelf", OrganizationLocalServiceUtil.getUserOrganizations(user.getUserId(), true));
+			userParams.put("args", new KeyValuePair[] { new KeyValuePair("[$USER_ID$]", String.valueOf(user.getUserId())) });
 		}
 		%>
 
