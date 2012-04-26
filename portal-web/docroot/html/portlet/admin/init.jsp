@@ -27,6 +27,7 @@ page import="com.liferay.portal.kernel.image.ImageMagickUtil" %><%@
 page import="com.liferay.portal.kernel.plugin.PluginPackage" %><%@
 page import="com.liferay.portal.kernel.scripting.ScriptingUtil" %><%@
 page import="com.liferay.portal.kernel.util.InstancePool" %><%@
+page import="com.liferay.portal.service.permission.CompanyPermissionUtil" %><%@
 page import="com.liferay.portal.util.PortalInstances" %><%@
 page import="com.liferay.portlet.documentlibrary.model.DLFileEntry" %><%@
 page import="com.liferay.portlet.documentlibrary.model.DLFileVersion" %><%@
