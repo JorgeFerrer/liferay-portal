@@ -2293,6 +2293,17 @@ public class JournalPortletDataHandlerImpl extends BasePortletDataHandler {
 	}
 
 	@Override
+	protected PortletPreferences doDeleteData(
+			PortletDataContext portletDataContext, String portletId,
+			PortletPreferences portletPreferences, long companyId)
+		throws Exception {
+
+		JournalArticleLocalServiceUtil.deleteArticlesByCompany(companyId);
+
+		return null;
+	}
+
+	@Override
 	protected String doExportData(
 			PortletDataContext portletDataContext, String portletId,
 			PortletPreferences portletPreferences)

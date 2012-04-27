@@ -93,6 +93,7 @@ import com.liferay.util.SerializableUtil;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -733,6 +734,20 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			message.getWorkflowClassName(), message.getMessageId());
 
 		return message;
+	}
+
+	public void deleteMessages(Collection<MBMessage> messages)
+		throws PortalException, SystemException {
+
+		for (MBMessage message : messages) {
+			deleteMessage(message);
+		}
+	}
+
+	public void deleteMessagesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteMessages(mbMessagePersistence.findByCompanyId(companyId));
 	}
 
 	public List<MBMessage> getCategoryMessages(

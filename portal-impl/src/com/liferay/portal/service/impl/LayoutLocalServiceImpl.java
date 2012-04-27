@@ -82,6 +82,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -556,6 +557,14 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		deleteLayout(layout, true, serviceContext);
 	}
 
+	public void deleteLayouts(Collection<Layout> layouts)
+		throws PortalException, SystemException {
+
+		for (Layout layout : layouts) {
+			deleteLayout(layout, true, null);
+		}
+	}
+
 	/**
 	 * Deletes the group's private or non-private layouts, also deleting the
 	 * layouts' child layouts, and associated resources.
@@ -592,6 +601,12 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 		// Counter
 
 		counterLocalService.reset(getCounterName(groupId, privateLayout));
+	}
+
+	public void deleteLayoutsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteLayouts(layoutPersistence.findByCompanyId(companyId));
 	}
 
 	/**
