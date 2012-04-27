@@ -255,6 +255,11 @@ public class VirtualHostLocalServiceWrapper implements VirtualHostLocalService,
 		_virtualHostLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public void deleteVirtualHostsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_virtualHostLocalService.deleteVirtualHostsByCompany(companyId);
+	}
+
 	public com.liferay.portal.model.VirtualHost fetchVirtualHost(
 		long companyId, long layoutSetId)
 		throws com.liferay.portal.kernel.exception.SystemException {

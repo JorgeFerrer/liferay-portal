@@ -235,6 +235,9 @@ public interface LockLocalService extends PersistedModelLocalService {
 	public void clear()
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteLocksByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.Lock getLock(java.lang.String className,
 		long key)

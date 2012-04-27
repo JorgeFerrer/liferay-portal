@@ -256,6 +256,13 @@ public interface PortletLocalService extends PersistedModelLocalService {
 	public com.liferay.portal.model.Portlet clonePortlet(
 		java.lang.String portletId);
 
+	public void deletePortlets(
+		java.util.Collection<com.liferay.portal.model.Portlet> portlets)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deletePortletsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public com.liferay.portal.model.Portlet deployRemotePortlet(
 		com.liferay.portal.model.Portlet portlet, java.lang.String categoryName)
 		throws com.liferay.portal.kernel.exception.PortalException,

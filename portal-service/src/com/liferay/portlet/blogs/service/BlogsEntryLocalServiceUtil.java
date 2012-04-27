@@ -331,10 +331,23 @@ public class BlogsEntryLocalServiceUtil {
 			.addEntryResources(entryId, groupPermissions, guestPermissions);
 	}
 
+	public static void deleteEntries(
+		java.util.Collection<com.liferay.portlet.blogs.model.BlogsEntry> entries)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteEntries(entries);
+	}
+
 	public static void deleteEntries(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteEntries(groupId);
+	}
+
+	public static void deleteEntriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteEntriesByCompany(companyId);
 	}
 
 	public static void deleteEntry(
@@ -529,7 +542,8 @@ public class BlogsEntryLocalServiceUtil {
 	}
 
 	/**
-	* @deprecated {@link #getGroupUserEntries(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntries(long, long, Date,
+	QueryDefinition)}
 	*/
 	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
 		long groupId, long userId, java.util.Date displayDate, int status,
@@ -541,7 +555,8 @@ public class BlogsEntryLocalServiceUtil {
 	}
 
 	/**
-	* @deprecated {@link #getGroupUserEntries(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntries(long, long, Date,
+	QueryDefinition)}
 	*/
 	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
 		long groupId, long userId, java.util.Date displayDate, int status,
@@ -562,7 +577,8 @@ public class BlogsEntryLocalServiceUtil {
 	}
 
 	/**
-	* @deprecated {@link #getGroupUserEntriesCount(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntriesCount(long, long, Date,
+	QueryDefinition)}
 	*/
 	public static int getGroupUserEntriesCount(long groupId, long userId,
 		java.util.Date displayDate, int status)
@@ -619,7 +635,8 @@ public class BlogsEntryLocalServiceUtil {
 	}
 
 	/**
-	* @deprecated {@link #getOrganizationEntriesCount(long, Date, QueryDefinition)}
+	* @deprecated {@link #getOrganizationEntriesCount(long, Date,
+	QueryDefinition)}
 	*/
 	public static int getOrganizationEntriesCount(long organizationId,
 		java.util.Date displayDate, int status)

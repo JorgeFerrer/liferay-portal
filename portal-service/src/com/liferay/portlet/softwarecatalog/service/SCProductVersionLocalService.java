@@ -259,6 +259,9 @@ public interface SCProductVersionLocalService extends PersistedModelLocalService
 	public void deleteProductVersions(long productEntryId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteProductVersionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.softwarecatalog.model.SCProductVersion getProductVersion(
 		long productVersionId)

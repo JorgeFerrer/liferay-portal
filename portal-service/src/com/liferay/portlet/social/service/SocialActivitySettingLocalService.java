@@ -247,6 +247,9 @@ public interface SocialActivitySettingLocalService
 	public void deleteActivitySettings(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteActivitySettingsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.social.model.SocialActivityDefinition getActivityDefinition(
 		long groupId, java.lang.String className, int activityType)

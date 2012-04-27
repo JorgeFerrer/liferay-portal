@@ -290,7 +290,8 @@ public class TrashEntryLocalServiceUtil {
 	*
 	* @param className the class name of entity
 	* @param classPK the primary key of the entry
-	* @throws PortalException if the user did not have permission to delete the entry
+	* @throws PortalException if the user did not have permission to delete the
+	entry
 	* @throws SystemException if a system exception occurred
 	*/
 	public static void deleteEntry(java.lang.String className, long classPK)

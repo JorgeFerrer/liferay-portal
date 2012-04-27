@@ -312,6 +312,12 @@ public class AssetLinkLocalServiceUtil {
 		getService().deleteLink(linkId);
 	}
 
+	public static void deleteLinks(
+		java.util.Collection<com.liferay.portlet.asset.model.AssetLink> links)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLinks(links);
+	}
+
 	/**
 	* Deletes all links associated with the asset entry.
 	*
@@ -333,6 +339,11 @@ public class AssetLinkLocalServiceUtil {
 	public static void deleteLinks(long entryId1, long entryId2)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteLinks(entryId1, entryId2);
+	}
+
+	public static void deleteLinksByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteLinksByCompany(companyId);
 	}
 
 	/**

@@ -90,9 +90,10 @@ public class MembershipRequestModelImpl extends BaseModelImpl<MembershipRequest>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.model.MembershipRequest"),
 			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long STATUSID_COLUMN_BITMASK = 2L;
-	public static long USERID_COLUMN_BITMASK = 4L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long STATUSID_COLUMN_BITMASK = 4L;
+	public static long USERID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -200,7 +201,19 @@ public class MembershipRequestModelImpl extends BaseModelImpl<MembershipRequest>
 	}
 
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -422,6 +435,10 @@ public class MembershipRequestModelImpl extends BaseModelImpl<MembershipRequest>
 
 		membershipRequestModelImpl._setOriginalGroupId = false;
 
+		membershipRequestModelImpl._originalCompanyId = membershipRequestModelImpl._companyId;
+
+		membershipRequestModelImpl._setOriginalCompanyId = false;
+
 		membershipRequestModelImpl._originalUserId = membershipRequestModelImpl._userId;
 
 		membershipRequestModelImpl._setOriginalUserId = false;
@@ -577,6 +594,8 @@ public class MembershipRequestModelImpl extends BaseModelImpl<MembershipRequest>
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private long _originalUserId;

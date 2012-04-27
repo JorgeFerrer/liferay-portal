@@ -259,6 +259,9 @@ public interface DLContentLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteContentByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void deleteContents(long companyId, long repositoryId,
 		java.lang.String path)
 		throws com.liferay.portal.kernel.exception.SystemException;
