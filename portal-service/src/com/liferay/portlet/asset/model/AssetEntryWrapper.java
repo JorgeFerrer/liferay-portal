@@ -966,8 +966,7 @@ public class AssetEntryWrapper implements AssetEntry, ModelWrapper<AssetEntry> {
 		_assetEntry.persist();
 	}
 
-	public com.liferay.portlet.asset.model.AssetRenderer getAssetRenderer()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public com.liferay.portlet.asset.model.AssetRenderer getAssetRenderer() {
 		return _assetEntry.getAssetRenderer();
 	}
 

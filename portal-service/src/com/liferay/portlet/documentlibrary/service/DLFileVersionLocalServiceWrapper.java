@@ -277,6 +277,11 @@ public class DLFileVersionLocalServiceWrapper
 		_dlFileVersionLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public void deleteFileVersionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_dlFileVersionLocalService.deleteFileVersionsByCompany(companyId);
+	}
+
 	public com.liferay.portlet.documentlibrary.model.DLFileVersion getFileVersion(
 		long fileVersionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -302,6 +307,12 @@ public class DLFileVersionLocalServiceWrapper
 		long fileEntryId, int status)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlFileVersionLocalService.getFileVersions(fileEntryId, status);
+	}
+
+	public int getFileVersionsCount(long fileEntryId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dlFileVersionLocalService.getFileVersionsCount(fileEntryId,
+			status);
 	}
 
 	public com.liferay.portlet.documentlibrary.model.DLFileVersion getLatestFileVersion(

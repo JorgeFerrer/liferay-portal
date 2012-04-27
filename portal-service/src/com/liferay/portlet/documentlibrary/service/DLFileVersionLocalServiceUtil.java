@@ -280,6 +280,11 @@ public class DLFileVersionLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static void deleteFileVersionsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteFileVersionsByCompany(companyId);
+	}
+
 	public static com.liferay.portlet.documentlibrary.model.DLFileVersion getFileVersion(
 		long fileVersionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -304,6 +309,11 @@ public class DLFileVersionLocalServiceUtil {
 		long fileEntryId, int status)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getFileVersions(fileEntryId, status);
+	}
+
+	public static int getFileVersionsCount(long fileEntryId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getFileVersionsCount(fileEntryId, status);
 	}
 
 	public static com.liferay.portlet.documentlibrary.model.DLFileVersion getLatestFileVersion(

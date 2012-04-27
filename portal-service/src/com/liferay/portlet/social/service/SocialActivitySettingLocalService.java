@@ -240,6 +240,16 @@ public interface SocialActivitySettingLocalService
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 
+	public void deleteActivitySetting(long groupId, java.lang.String className,
+		long classPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteActivitySettings(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteActivitySettingsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portlet.social.model.SocialActivityDefinition getActivityDefinition(
 		long groupId, java.lang.String className, int activityType)
@@ -259,6 +269,10 @@ public interface SocialActivitySettingLocalService
 	public boolean isEnabled(long groupId, long classNameId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isEnabled(long groupId, long classNameId, long classPK)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void updateActivitySetting(long groupId, java.lang.String className,
 		boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -267,6 +281,11 @@ public interface SocialActivitySettingLocalService
 	public void updateActivitySetting(long groupId, java.lang.String className,
 		int activityType,
 		com.liferay.portlet.social.model.SocialActivityCounterDefinition activityCounterDefinition)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void updateActivitySetting(long groupId, java.lang.String className,
+		long classPK, boolean enabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

@@ -259,6 +259,11 @@ public class AccountLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static void deleteAccountsByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteAccountsByCompany(companyId);
+	}
+
 	public static com.liferay.portal.model.Account getAccount(long companyId,
 		long accountId)
 		throws com.liferay.portal.kernel.exception.PortalException,

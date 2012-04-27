@@ -265,6 +265,9 @@ public interface AssetTagPropertyLocalService extends PersistedModelLocalService
 	public void deleteTagProperties(long tagId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteTagPropertiesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Deletes the asset tag property instance.
 	*

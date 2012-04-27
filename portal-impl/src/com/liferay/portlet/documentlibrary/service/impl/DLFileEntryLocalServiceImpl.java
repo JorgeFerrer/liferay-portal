@@ -56,6 +56,7 @@ import com.liferay.portlet.documentlibrary.DuplicateFolderNameException;
 import com.liferay.portlet.documentlibrary.FileNameException;
 import com.liferay.portlet.documentlibrary.ImageSizeException;
 import com.liferay.portlet.documentlibrary.InvalidFileEntryTypeException;
+import com.liferay.portlet.documentlibrary.InvalidFileVersionException;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryMetadataException;
 import com.liferay.portlet.documentlibrary.NoSuchFileVersionException;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
@@ -85,6 +86,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -543,6 +545,14 @@ public class DLFileEntryLocalServiceImpl
 			toFileVersionId, fieldsMap, serviceContext);
 	}
 
+	public void deleteFileEntries(Collection<DLFileEntry> fileEntries)
+		throws PortalException, SystemException {
+
+		for (DLFileEntry fileEntry : fileEntries) {
+			deleteFileEntry(fileEntry);
+		}
+	}
+
 	public void deleteFileEntries(long groupId, long folderId)
 		throws PortalException, SystemException {
 
@@ -564,6 +574,12 @@ public class DLFileEntryLocalServiceImpl
 				dlFileEntryLocalService.deleteFileEntry(dlFileEntry);
 			}
 		}
+	}
+
+	public void deleteFileEntriesByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteFileEntries(dlFileEntryPersistence.findByCompanyId(companyId));
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -659,6 +675,76 @@ public class DLFileEntryLocalServiceImpl
 		}
 	}
 
+	@Indexable(type = IndexableType.DELETE)
+	public void deleteFileVersion(long userId, long fileEntryId, String version)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(version) ||
+			version.equals(DLFileEntryConstants.PRIVATE_WORKING_COPY_VERSION)) {
+
+			throw new InvalidFileVersionException();
+		}
+
+		if (!hasFileEntryLock(userId, fileEntryId)) {
+			lockFileEntry(userId, fileEntryId);
+		}
+
+		try {
+			DLFileVersion dlFileVersion = dlFileVersionPersistence.findByF_V(
+				fileEntryId, version);
+
+			if (!dlFileVersion.isApproved()) {
+				throw new InvalidFileVersionException(
+					"Cannot delete an unapproved file version");
+			}
+			else {
+				int count = dlFileVersionPersistence.countByF_S(
+					fileEntryId, WorkflowConstants.STATUS_APPROVED);
+
+				if (count <= 1) {
+					throw new InvalidFileVersionException(
+						"Cannot delete the only approved file version");
+				}
+			}
+
+			dlFileVersionPersistence.remove(dlFileVersion);
+
+			expandoValueLocalService.deleteValues(
+				DLFileVersion.class.getName(),
+				dlFileVersion.getFileVersionId());
+
+			DLFileEntry dlFileEntry = dlFileEntryPersistence.findByPrimaryKey(
+				fileEntryId);
+
+			if (version.equals(dlFileEntry.getVersion())) {
+				try {
+					DLFileVersion dlLatestFileVersion =
+						dlFileVersionLocalService.getLatestFileVersion(
+							dlFileEntry.getFileEntryId(), true);
+
+					dlFileEntry.setVersion(dlLatestFileVersion.getVersion());
+					dlFileEntry.setSize(dlLatestFileVersion.getSize());
+
+					dlFileEntryPersistence.update(dlFileEntry, false);
+				}
+				catch (NoSuchFileVersionException nsfve) {
+				}
+			}
+
+			try {
+				DLStoreUtil.deleteFile(
+					dlFileEntry.getCompanyId(),
+					dlFileEntry.getDataRepositoryId(), dlFileEntry.getName(),
+					version);
+			}
+			catch (NoSuchModelException nsme) {
+			}
+		}
+		finally {
+			unlockFileEntry(fileEntryId);
+		}
+	}
+
 	public DLFileEntry fetchFileEntryByAnyImageId(long imageId)
 		throws SystemException {
 
@@ -735,6 +821,12 @@ public class DLFileEntryLocalServiceImpl
 		throws SystemException {
 
 		return dlFileEntryPersistence.findAll(start, end);
+	}
+
+	public List<DLFileEntry> getFileEntries(long groupId, long folderId)
+		throws SystemException {
+
+		return dlFileEntryPersistence.findByG_F(groupId, folderId);
 	}
 
 	public List<DLFileEntry> getFileEntries(
@@ -994,11 +1086,26 @@ public class DLFileEntryLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		if (Validator.isNull(version) ||
+			version.equals(DLFileEntryConstants.PRIVATE_WORKING_COPY_VERSION)) {
+
+			throw new InvalidFileVersionException();
+		}
+
 		DLFileVersion dlFileVersion = dlFileVersionLocalService.getFileVersion(
 			fileEntryId, version);
 
 		if (!dlFileVersion.isApproved()) {
-			return;
+			throw new InvalidFileVersionException(
+				"Cannot revert from an unapproved file version");
+		}
+
+		DLFileVersion latestDLFileVersion =
+			dlFileVersionLocalService.getLatestFileVersion(fileEntryId, false);
+
+		if (version.equals(latestDLFileVersion.getVersion())) {
+			throw new InvalidFileVersionException(
+				"Cannot revert from the latest file version");
 		}
 
 		String sourceFileName = dlFileVersion.getTitle();
@@ -1201,6 +1308,35 @@ public class DLFileEntryLocalServiceImpl
 					DLFileEntry.class);
 
 				indexer.delete(dlFileEntry);
+			}
+		}
+
+		// File versions
+
+		if (oldStatus == WorkflowConstants.STATUS_IN_TRASH) {
+			List<DLFileVersion> trashedDLFileVersions =
+				dlFileVersionPersistence.findByF_S(
+					dlFileEntry.getFileEntryId(),
+					WorkflowConstants.STATUS_IN_TRASH);
+
+			for (DLFileVersion trashedDLFileVersion : trashedDLFileVersions) {
+				trashedDLFileVersion.setStatus(
+					WorkflowConstants.STATUS_APPROVED);
+
+				dlFileVersionPersistence.update(trashedDLFileVersion, false);
+			}
+		}
+		else if (status == WorkflowConstants.STATUS_IN_TRASH) {
+			List<DLFileVersion> approvedDLFileVersions =
+				dlFileVersionPersistence.findByF_S(
+					dlFileEntry.getFileEntryId(),
+					WorkflowConstants.STATUS_APPROVED);
+
+			for (DLFileVersion approvedDLFileVersion : approvedDLFileVersions) {
+				approvedDLFileVersion.setStatus(
+					WorkflowConstants.STATUS_IN_TRASH);
+
+				dlFileVersionPersistence.update(approvedDLFileVersion, false);
 			}
 		}
 

@@ -87,6 +87,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -553,7 +554,15 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group deleteGroup(Group group)
 		throws PortalException, SystemException {
 
-		if (PortalUtil.isSystemGroup(group.getName())) {
+		return deleteGroup(group, true);
+	}
+
+	public Group deleteGroup(Group group, boolean allowSystemGroupDeletion)
+		throws PortalException, SystemException {
+
+		if (!allowSystemGroupDeletion &&
+			PortalUtil.isSystemGroup(group.getName())) {
+
 			throw new RequiredGroupException(
 				String.valueOf(group.getGroupId()));
 		}
@@ -685,6 +694,11 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		shoppingCouponLocalService.deleteCoupons(group.getGroupId());
 		shoppingOrderLocalService.deleteOrders(group.getGroupId());
 
+		// Social
+
+		socialActivitySettingLocalService.deleteActivitySettings(
+			group.getGroupId());
+
 		// Software catalog
 
 		scFrameworkVersionLocalService.deleteFrameworkVersions(
@@ -756,6 +770,21 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
 		return deleteGroup(group);
+	}
+
+	public void deleteGroups(
+			Collection<Group> groups, boolean allowSystemGroupDeletion)
+		throws PortalException, SystemException {
+
+		for (Group group : groups) {
+			deleteGroup(group, allowSystemGroupDeletion);
+		}
+	}
+
+	public void deleteGroupsByCompany(long companyId)
+		throws PortalException, SystemException {
+
+		deleteGroups(groupPersistence.findByCompanyId(companyId), true);
 	}
 
 	/**

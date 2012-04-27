@@ -399,10 +399,23 @@ public class DLFileEntryLocalServiceUtil {
 			fromFileVersionId, toFileVersionId, serviceContext);
 	}
 
+	public static void deleteFileEntries(
+		java.util.Collection<com.liferay.portlet.documentlibrary.model.DLFileEntry> fileEntries)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteFileEntries(fileEntries);
+	}
+
 	public static void deleteFileEntries(long groupId, long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteFileEntries(groupId, folderId);
+	}
+
+	public static void deleteFileEntriesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteFileEntriesByCompany(companyId);
 	}
 
 	public static com.liferay.portlet.documentlibrary.model.DLFileEntry deleteFileEntry(
@@ -424,6 +437,13 @@ public class DLFileEntryLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteFileEntry(userId, fileEntryId);
+	}
+
+	public static void deleteFileVersion(long userId, long fileEntryId,
+		java.lang.String version)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteFileVersion(userId, fileEntryId, version);
 	}
 
 	public static com.liferay.portlet.documentlibrary.model.DLFileEntry fetchFileEntryByAnyImageId(
@@ -485,6 +505,12 @@ public class DLFileEntryLocalServiceUtil {
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getFileEntries(start, end);
+	}
+
+	public static java.util.List<com.liferay.portlet.documentlibrary.model.DLFileEntry> getFileEntries(
+		long groupId, long folderId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getFileEntries(groupId, folderId);
 	}
 
 	public static java.util.List<com.liferay.portlet.documentlibrary.model.DLFileEntry> getFileEntries(

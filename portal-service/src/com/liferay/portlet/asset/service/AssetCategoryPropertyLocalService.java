@@ -249,6 +249,9 @@ public interface AssetCategoryPropertyLocalService
 	public void deleteCategoryProperties(long entryId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteCategoryPropertiesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void deleteCategoryProperty(
 		com.liferay.portlet.asset.model.AssetCategoryProperty categoryProperty)
 		throws com.liferay.portal.kernel.exception.SystemException;

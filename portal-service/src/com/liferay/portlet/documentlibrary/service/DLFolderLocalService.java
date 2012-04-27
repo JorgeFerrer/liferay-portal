@@ -270,6 +270,15 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteFolders(
+		java.util.Collection<com.liferay.portlet.documentlibrary.model.DLFolder> folders)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteFoldersByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLFolder> getCompanyFolders(
 		long companyId, int start, int end)
@@ -280,7 +289,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFileEntriesAndFileShortcuts(long, long, QueryDefinition)}
+	* @deprecated {@link #getFileEntriesAndFileShortcuts(long, long,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<java.lang.Object> getFileEntriesAndFileShortcuts(
@@ -294,7 +304,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFileEntriesAndFileShortcutsCount(long, long, QueryDefinition)}
+	* @deprecated {@link #getFileEntriesAndFileShortcutsCount(long, long,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFileEntriesAndFileShortcutsCount(long groupId, long folderId,
@@ -344,7 +355,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long, boolean, QueryDefinition)}
+	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long,
+	boolean, QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<java.lang.Object> getFoldersAndFileEntriesAndFileShortcuts(
@@ -353,7 +365,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long, boolean, QueryDefinition)}
+	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long,
+	boolean, QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<java.lang.Object> getFoldersAndFileEntriesAndFileShortcuts(
@@ -370,7 +383,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long, long, String[], boolean, QueryDefinition)
+	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long,
+	long, String[], boolean, QueryDefinition)
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(long groupId,
@@ -378,7 +392,8 @@ public interface DLFolderLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long, long, String[], boolean, QueryDefinition)
+	* @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long,
+	long, String[], boolean, QueryDefinition)
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(long groupId,

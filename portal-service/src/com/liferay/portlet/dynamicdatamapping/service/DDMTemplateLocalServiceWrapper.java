@@ -330,10 +330,23 @@ public class DDMTemplateLocalServiceWrapper implements DDMTemplateLocalService,
 		_ddmTemplateLocalService.deleteTemplate(templateId);
 	}
 
+	public void deleteTemplates(
+		java.util.Collection<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> templates)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_ddmTemplateLocalService.deleteTemplates(templates);
+	}
+
 	public void deleteTemplates(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_ddmTemplateLocalService.deleteTemplates(groupId);
+	}
+
+	public void deleteTemplatesByCompany(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_ddmTemplateLocalService.deleteTemplatesByCompany(companyId);
 	}
 
 	public com.liferay.portlet.dynamicdatamapping.model.DDMTemplate getTemplate(
@@ -350,6 +363,13 @@ public class DDMTemplateLocalServiceWrapper implements DDMTemplateLocalService,
 	}
 
 	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> getTemplates(
+		long groupId, long classNameId, long classPK)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _ddmTemplateLocalService.getTemplates(groupId, classNameId,
+			classPK);
+	}
+
+	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> getTemplates(
 		long classNameId, long classPK, java.lang.String type)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _ddmTemplateLocalService.getTemplates(classNameId, classPK, type);
@@ -361,13 +381,6 @@ public class DDMTemplateLocalServiceWrapper implements DDMTemplateLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _ddmTemplateLocalService.getTemplates(classNameId, classPK,
 			type, mode);
-	}
-
-	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> getTemplates(
-		long groupId, long classNameId, long classPK)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _ddmTemplateLocalService.getTemplates(groupId, classNameId,
-			classPK);
 	}
 
 	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> search(

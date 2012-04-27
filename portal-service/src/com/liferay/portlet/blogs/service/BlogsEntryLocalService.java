@@ -287,7 +287,16 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public void deleteEntries(
+		java.util.Collection<com.liferay.portlet.blogs.model.BlogsEntry> entries)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	public void deleteEntries(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteEntriesByCompany(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -439,7 +448,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getGroupUserEntries(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntries(long, long, Date,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
@@ -448,7 +458,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getGroupUserEntries(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntries(long, long, Date,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
@@ -463,7 +474,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getGroupUserEntriesCount(long, long, Date, QueryDefinition)}
+	* @deprecated {@link #getGroupUserEntriesCount(long, long, Date,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getGroupUserEntriesCount(long groupId, long userId,
@@ -504,7 +516,8 @@ public interface BlogsEntryLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* @deprecated {@link #getOrganizationEntriesCount(long, Date, QueryDefinition)}
+	* @deprecated {@link #getOrganizationEntriesCount(long, Date,
+	QueryDefinition)}
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getOrganizationEntriesCount(long organizationId,
