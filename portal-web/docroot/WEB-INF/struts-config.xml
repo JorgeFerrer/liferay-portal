@@ -1496,7 +1496,7 @@
 		</action>
 		<action path="/portal_settings/import_settings" type="com.liferay.portlet.portalsettings.action.ImportPortalSettingsAction">
 			<forward name="portlet.portal_settings.error" path="portlet.portal_settings.error" />
-			<forward name="portlet.portal_settings.import_settings" path="portlet.portal_settings.export_settings" />
+			<forward name="portlet.portal_settings.export_settings" path="portlet.portal_settings.export_settings" />
 		</action>
 		<!-- END : LPS-26599 Changes -->
 

@@ -13,11 +13,6 @@
  */
 package com.liferay.portlet.portalsettings.lar;
 
-import java.util.Enumeration;
-import java.util.Set;
-
-import javax.portlet.PortletPreferences;
-
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
@@ -28,23 +23,24 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.bookmarks.model.BookmarksFolder;
+
+import java.util.Enumeration;
+
+import javax.portlet.PortletPreferences;
 
 /**
  * This DataHandler class is used to import and export Portal Settings
- * 
+ *
  * @author kamesh
- * 
+ *
  */
 public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#getExportControls()
 	 */
@@ -53,9 +49,9 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 		return new PortletDataHandlerControl[] { _company_preferences };
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#getImportControls()
 	 */
@@ -64,9 +60,9 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 		return new PortletDataHandlerControl[] { _company_preferences };
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#isAlwaysExportable()
 	 */
@@ -75,9 +71,9 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 		return _ALWAYS_EXPORTABLE;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#isPublishToLiveByDefault
 	 * ()
@@ -87,9 +83,9 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 		return _PUBLISH_TO_LIVE_BY_DEFAULT;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#doExportData(com
 	 * .liferay.portal.kernel.lar.PortletDataContext, java.lang.String,
@@ -99,7 +95,7 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 	protected String doExportData(PortletDataContext portletDataContext,
 			String portletId, PortletPreferences portletPreferences)
 			throws Exception {
-		_log.info("Exporting Data -  PortletPreferences : "
+		_log.info("Exporting Data - PortletPreferences : "
 				+ portletPreferences.getMap());
 		Document document = SAXReaderUtil.createDocument();
 		long companyId = portletDataContext.getCompanyId();
@@ -118,6 +114,7 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 			String prefValue = companyPreferences.getValue(prefName, "");
 			preferencesElement.addAttribute(prefName, prefValue);
 		}
+
 		return document.formattedString();
 	}
 
@@ -135,9 +132,9 @@ public class PortalSettingsDataHandlerImpl extends BasePortletDataHandler {
 		return sb.toString();
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.kernel.lar.BasePortletDataHandler#doImportData(com
 	 * .liferay.portal.kernel.lar.PortletDataContext, java.lang.String,

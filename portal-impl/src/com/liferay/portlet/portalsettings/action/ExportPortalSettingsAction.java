@@ -1,25 +1,7 @@
 package com.liferay.portlet.portalsettings.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Enumeration;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.liferay.portal.NoSuchGroupException;
-import com.liferay.portal.kernel.lar.BasePortletDataHandler;
-import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -30,7 +12,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.lar.PortletDataContextImpl;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
 import com.liferay.portal.struts.ActionConstants;
@@ -39,14 +20,30 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.WebKeys;
-import com.liferay.portlet.portalsettings.lar.PortalSettingsDataHandlerImpl;
 import com.liferay.portlet.sites.action.ActionUtil;
 
+import java.io.File;
+
+import java.util.Enumeration;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 public class ExportPortalSettingsAction extends PortletAction {
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.struts.PortletAction#processAction(org.apache.struts
 	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
@@ -57,7 +54,7 @@ public class ExportPortalSettingsAction extends PortletAction {
 	public void processAction(ActionMapping mapping, ActionForm form,
 			PortletConfig portletConfig, ActionRequest actionRequest,
 			ActionResponse actionResponse) throws Exception {
-		_log.info("Exporting Portal Settings LAR");
+		_log.info("Exporting Portal Settings XML");
 		File file = null;
 
 		try {
@@ -73,24 +70,7 @@ public class ExportPortalSettingsAction extends PortletAction {
 
 			Document document = SAXReaderUtil.createDocument();
 
-			PortletPreferences companyPreferences = PortalPreferencesLocalServiceUtil
-					.getPreferences(companyId, companyId, ownerType);
-
-			Element rootElement = document.addElement("portlet-preferences");
-			rootElement.addAttribute("owner-id", String.valueOf(companyId));
-			rootElement.addAttribute("owner-type", String.valueOf(ownerType));
-			Enumeration<String> prefNames = companyPreferences.getNames();
-			while (prefNames.hasMoreElements()) {
-				Element preferencesElement = rootElement
-						.addElement("preference");
-				String prefName = prefNames.nextElement();
-				String prefValue = companyPreferences.getValue(prefName, "");
-				Element prefNameElement = preferencesElement.addElement("name");
-				prefNameElement.addText(prefName);
-				Element prefValueElement = preferencesElement
-						.addElement("value");
-				prefValueElement.addText(prefValue);
-			}
+			buildExportData(companyId, ownerType, document);
 
 			HttpServletRequest request = PortalUtil
 					.getHttpServletRequest(actionRequest);
@@ -117,9 +97,9 @@ public class ExportPortalSettingsAction extends PortletAction {
 
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.liferay.portal.struts.PortletAction#render(org.apache.struts.action
 	 * .ActionMapping, org.apache.struts.action.ActionForm,
@@ -146,6 +126,30 @@ public class ExportPortalSettingsAction extends PortletAction {
 
 		return mapping.findForward(getForward(renderRequest,
 				"portlet.portal_settings.export_settings"));
+	}
+
+	/**
+	 * @param companyId
+	 * @param ownerType
+	 * @param document
+	 * @throws SystemException
+	 */
+	protected void buildExportData(long companyId, int ownerType,
+			Document document) throws SystemException {
+		_log.info("Building Preferences XML document ");
+		PortletPreferences companyPreferences = PortalPreferencesLocalServiceUtil
+				.getPreferences(companyId, companyId, ownerType);
+		Element rootElement = document.addElement("portlet-preferences");
+		Enumeration<String> prefNames = companyPreferences.getNames();
+		while (prefNames.hasMoreElements()) {
+			Element preferencesElement = rootElement.addElement("preference");
+			String prefName = prefNames.nextElement();
+			String prefValue = companyPreferences.getValue(prefName, "");
+			Element prefNameElement = preferencesElement.addElement("name");
+			prefNameElement.addText(prefName);
+			Element prefValueElement = preferencesElement.addElement("value");
+			prefValueElement.addText(prefValue);
+		}
 	}
 
 	private static Log _log = LogFactoryUtil
