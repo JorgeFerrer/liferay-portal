@@ -1195,6 +1195,7 @@
 		<icon>/html/icons/portal_settings.png</icon>
 		<struts-path>portal_settings</struts-path>
 		<portlet-url-class>com.liferay.portal.struts.StrutsActionPortletURL</portlet-url-class>
+		<portlet-data-handler-class>com.liferay.portlet.portalsettings.lar.PortalSettingsDataHandlerImpl</portlet-data-handler-class>
 		<control-panel-entry-category>portal</control-panel-entry-category>
 		<control-panel-entry-weight>7.0</control-panel-entry-weight>
 		<preferences-owned-by-group>true</preferences-owned-by-group>
