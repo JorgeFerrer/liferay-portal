@@ -179,6 +179,18 @@ public abstract class BaseAssetRenderer implements AssetRenderer {
 		return themeDisplay.getPathThemeImages() + "/common/page.png";
 	}
 
+	protected long getPlid(LiferayPortletRequest liferayPortletRequest)
+		throws PortalException, SystemException {
+
+		HttpServletRequest request =
+			liferayPortletRequest.getHttpServletRequest();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		return themeDisplay.getPlid();
+	}
+
 	protected String getURLViewInContext(
 		LiferayPortletRequest liferayPortletRequest, String noSuchEntryRedirect,
 		String path, String primaryKeyParameterName,

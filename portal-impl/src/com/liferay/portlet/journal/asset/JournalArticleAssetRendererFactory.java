@@ -169,7 +169,7 @@ public class JournalArticleAssetRendererFactory
 		}
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			request, PortletKeys.JOURNAL, getControlPanelPlid(themeDisplay),
+			request, PortletKeys.JOURNAL, themeDisplay.getPlid(),
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/journal/edit_article");

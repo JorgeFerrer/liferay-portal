@@ -82,7 +82,7 @@ public class CalEventAssetRenderer extends BaseAssetRenderer {
 		throws Exception {
 
 		PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(
-			getControlPanelPlid(liferayPortletRequest), PortletKeys.CALENDAR,
+			getPlid(liferayPortletRequest), PortletKeys.CALENDAR,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/calendar/edit_event");

@@ -83,7 +83,7 @@ public class CalEventAssetRendererFactory extends BaseAssetRendererFactory {
 		}
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			request, PortletKeys.CALENDAR, getControlPanelPlid(themeDisplay),
+			request, PortletKeys.CALENDAR, themeDisplay.getPlid(),
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/calendar/edit_event");

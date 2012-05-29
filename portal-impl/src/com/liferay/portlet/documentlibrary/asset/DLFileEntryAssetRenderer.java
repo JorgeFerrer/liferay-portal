@@ -125,8 +125,8 @@ public class DLFileEntryAssetRenderer
 		throws Exception {
 
 		PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(
-			getControlPanelPlid(liferayPortletRequest),
-			PortletKeys.DOCUMENT_LIBRARY, PortletRequest.RENDER_PHASE);
+			getPlid(liferayPortletRequest), PortletKeys.DOCUMENT_LIBRARY,
+			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
 			"struts_action", "/document_library/edit_file_entry");

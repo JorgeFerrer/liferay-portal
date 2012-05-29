@@ -138,8 +138,8 @@ public class DLFileEntryAssetRendererFactory extends BaseAssetRendererFactory {
 		}
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			request, PortletKeys.DOCUMENT_LIBRARY,
-			getControlPanelPlid(themeDisplay), PortletRequest.RENDER_PHASE);
+			request, PortletKeys.DOCUMENT_LIBRARY, themeDisplay.getPlid(),
+			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
 			"struts_action", "/document_library/edit_file_entry");

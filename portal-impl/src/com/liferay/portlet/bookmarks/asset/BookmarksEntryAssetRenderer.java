@@ -71,7 +71,7 @@ public class BookmarksEntryAssetRenderer extends BaseAssetRenderer {
 		throws Exception {
 
 		PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(
-			getControlPanelPlid(liferayPortletRequest), PortletKeys.BOOKMARKS,
+			getPlid(liferayPortletRequest), PortletKeys.BOOKMARKS,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/bookmarks/edit_entry");

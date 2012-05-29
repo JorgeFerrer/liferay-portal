@@ -102,7 +102,7 @@ public class BlogsEntryAssetRenderer
 		throws Exception {
 
 		PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(
-			getControlPanelPlid(liferayPortletRequest), PortletKeys.BLOGS,
+			getPlid(liferayPortletRequest), PortletKeys.BLOGS,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/blogs/edit_entry");

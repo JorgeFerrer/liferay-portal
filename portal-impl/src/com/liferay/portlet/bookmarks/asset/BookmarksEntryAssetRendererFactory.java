@@ -86,7 +86,7 @@ public class BookmarksEntryAssetRendererFactory
 		}
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-			request, PortletKeys.BOOKMARKS, getControlPanelPlid(themeDisplay),
+			request, PortletKeys.BOOKMARKS, themeDisplay.getPlid(),
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("struts_action", "/bookmarks/edit_entry");
