@@ -27,152 +27,275 @@ import com.liferay.portal.kernel.webcache.WebCachePoolUtil;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.model.Account;
 import com.liferay.portal.model.Company;
+import com.liferay.portal.model.User;
 import com.liferay.portal.util.PortletKeys;
 
 import java.util.Map;
 
 /**
  * @author kamesh
- * 
+ *
  */
 public abstract class PortalSettingsLARHandler {
 
-    public static final String _NAMESPACE = "portal-settings";
+	public static final String NAMESPACE = "portal-settings";
 
-    public static final String _EXPORT_COMPANY_DETAILS = "company-details";
+	public static final String EXPORT_COMPANY_DETAILS = "company-details";
 
-    public static final PortletDataHandlerBoolean _export_company_details =
-            new PortletDataHandlerBoolean(_NAMESPACE,
-                    _EXPORT_COMPANY_DETAILS, true);
+	public static final PortletDataHandlerBoolean exportCompanyDetails =
+			new PortletDataHandlerBoolean(NAMESPACE,
+					EXPORT_COMPANY_DETAILS, true);
 
-    public static final String _EXPORT_COMPANY_PREFERENCES =
-            "export-company-preferences";
+	public static final String EXPORT_COMPANY_PREFERENCES =
+			"export-company-preferences";
 
-    public static final PortletDataHandlerBoolean _export_company_preferences =
-            new PortletDataHandlerBoolean(_NAMESPACE,
-                    _EXPORT_COMPANY_PREFERENCES, true);
+	public static final PortletDataHandlerBoolean exportCompanyPreferences =
+			new PortletDataHandlerBoolean(NAMESPACE,
+					EXPORT_COMPANY_PREFERENCES, true);
 
-    public static final String _EXPORT_LOGO = "logo";
+	public static final String EXPORT_LOGO = "logo";
 
-    public static final PortletDataHandlerBoolean _export_logo =
-            new PortletDataHandlerBoolean(_NAMESPACE, _EXPORT_LOGO, true);
+	public static final PortletDataHandlerBoolean exportLogo =
+			new PortletDataHandlerBoolean(NAMESPACE, EXPORT_LOGO, true);
 
-    public static final PortletDataHandlerControl[] _PORTAL_SETTINGS_CONTROLS =
-            new PortletDataHandlerControl[] { _export_company_details,
-                    _export_company_preferences, _export_logo };
+	public static final PortletDataHandlerControl[] PORTAL_SETTINGS_CONTROLS =
+			new PortletDataHandlerControl[] { exportCompanyDetails,
+					exportCompanyPreferences, exportLogo };
 
-    protected Account
-            getAccount(
-                    PortletDataContext portletDataContext,
-                    Element companyElement) {
+	protected Account
+			getAccount(
+					PortletDataContext portletDataContext,
+					Element companyElement) {
 
-        Account account = null;
-        Element accountElement = companyElement.element("account");
-        if (accountElement != null) {
-            String accountPath = accountElement.attributeValue("path");
-            if (accountPath != null) {
-                account =
-                        (Account) portletDataContext
-                                .getZipEntryAsObject(accountPath);
-            }
+		Account account = null;
+		Element accountElement = companyElement.element(ELEMENT_ACCOUNT);
+		if (accountElement != null) {
+			String accountPath = accountElement.attributeValue(ATTRIBUTE_PATH);
+			if (accountPath != null) {
+				account =
+						(Account) portletDataContext
+								.getZipEntryAsObject(accountPath);
+			}
 
-        }
-        return account;
+		}
 
-    }
+		return account;
 
-    protected void clearCaches() {
+	}
 
-        if (_log.isDebugEnabled()) {
-            _log.debug("Clearing the DB cache");
-        }
+	protected void clearCaches() {
 
-        CacheRegistryUtil.clear();
+		if (_log.isDebugEnabled()) {
+			_log.debug("Clearing the DB cache");
+		}
 
-        if (_log.isDebugEnabled()) {
-            _log.debug("Clearing the clustered VM cache");
-        }
+		CacheRegistryUtil.clear();
 
-        MultiVMPoolUtil.clear();
+		if (_log.isDebugEnabled()) {
+			_log.debug("Clearing the clustered VM cache");
+		}
 
-        if (_log.isDebugEnabled()) {
-            _log.debug("Clearing the Single VM cache");
-        }
+		MultiVMPoolUtil.clear();
 
-        WebCachePoolUtil.clear();
-    }
+		if (_log.isDebugEnabled()) {
+			_log.debug("Clearing the Single VM cache");
+		}
 
-    protected String getCompanyPath(
-            PortletDataContext portletDataContext, Company company) {
+		WebCachePoolUtil.clear();
+	}
 
-        StringBundler sb = new StringBundler(4);
-        sb.append(portletDataContext
-                .getPortletPath(PortletKeys.PORTAL_SETTINGS));
-        sb.append("/companies/");
-        sb.append(company.getCompanyId());
-        sb.append(".xml");
+	protected String getAddressPath(
+			PortletDataContext portletDataContext, long accountId,
+			long addressId) {
 
-        return sb.toString();
-    }
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("Address_");
+		sb.append(accountId);
+		sb.append("_");
+		sb.append(addressId);
+		sb.append(".xml");
 
-    protected String getCompanyAccountPath(
-            PortletDataContext portletDataContext, Company company) {
+		return sb.toString();
+	}
 
-        StringBundler sb = new StringBundler(4);
-        sb.append(portletDataContext
-                .getPortletPath(PortletKeys.PORTAL_SETTINGS));
-        sb.append("/companies/");
-        sb.append("Account_");
-        sb.append(company.getAccountId());
-        sb.append(".xml");
+	protected String getCompanyPath(
+			PortletDataContext portletDataContext, Company company) {
 
-        return sb.toString();
-    }
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append(company.getCompanyId());
+		sb.append(".xml");
 
-    protected String getCompanyLogoPath(
-            PortletDataContext portletDataContext, Company company) {
+		return sb.toString();
+	}
 
-        StringBundler sb = new StringBundler(4);
-        sb.append(portletDataContext
-                .getPortletPath(PortletKeys.PORTAL_SETTINGS));
-        sb.append("/companies/");
-        sb.append("logo_");
-        sb.append(company.getLogoId());
-        sb.append(StringPool.SLASH);
+	protected String getCompanyAccountPath(
+			PortletDataContext portletDataContext, Company company) {
 
-        return sb.toString();
-    }
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("Account_");
+		sb.append(company.getAccountId());
+		sb.append(".xml");
 
-    protected String getQualifiedKey(String key) {
+		return sb.toString();
+	}
 
-        if (_log.isDebugEnabled()) {
-            _log.debug("Building Qualified Key for '" + key + "' with NS '"
-                    + _NAMESPACE + "'");
-        }
+	protected String getCompanyLogoPath(
+			PortletDataContext portletDataContext, Company company) {
 
-        StringBundler qualifiedKey = new StringBundler("_");
-        qualifiedKey.append(_NAMESPACE);
-        qualifiedKey.append("_");
-        qualifiedKey.append(key);
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("logo_");
+		sb.append(company.getLogoId());
+		sb.append(StringPool.SLASH);
 
-        return qualifiedKey.toString();
-    }
+		return sb.toString();
+	}
 
-    protected boolean isChecked(
-            Map<String, String[]> parameterMap,
-            String key,
-            PortletDataHandlerBoolean booleanControl) {
+	protected String getEmailAddressPath(
+			PortletDataContext portletDataContext, long accountId,
+			long emailAddressId) {
 
-        key = getQualifiedKey(key);
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("Email_Address_");
+		sb.append(accountId);
+		sb.append("_");
+		sb.append(emailAddressId);
+		sb.append(".xml");
 
-        if (_log.isDebugEnabled()) {
-            _log.debug("Key[" + key + "]");
-        }
+		return sb.toString();
+	}
 
-        return MapUtil.getBoolean(parameterMap, key,
-                booleanControl.getDefaultState());
-    }
+	protected String getPhonePath(
+			PortletDataContext portletDataContext, long accountId,
+			long phoneId) {
 
-    private static Log _log = LogFactoryUtil
-            .getLog(PortalSettingsExportLARHandler.class);
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("Phone_");
+		sb.append(accountId);
+		sb.append("_");
+		sb.append(phoneId);
+		sb.append(".xml");
+
+		return sb.toString();
+	}
+
+	protected String getQualifiedKey(String key) {
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Building Qualified Key for '" + key + "' with NS '"
+					+ NAMESPACE + "'");
+		}
+
+		StringBundler qualifiedKey = new StringBundler("_");
+		qualifiedKey.append(NAMESPACE);
+		qualifiedKey.append("_");
+		qualifiedKey.append(key);
+
+		return qualifiedKey.toString();
+	}
+
+	protected StringBundler getUserPath(
+			PortletDataContext portletDataContext, User defaultUser) {
+
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("User_");
+		sb.append(defaultUser.getUserId());
+		sb.append(".xml");
+		return sb;
+	}
+
+	protected String getWebsitePath(
+			PortletDataContext portletDataContext, long accountId,
+			long websiteId) {
+
+		StringBundler sb = new StringBundler(4);
+		sb.append(portletDataContext
+				.getPortletPath(PortletKeys.PORTAL_SETTINGS));
+		sb.append(PATH_COMPANY);
+		sb.append("Website_");
+		sb.append(accountId);
+		sb.append("_");
+		sb.append(websiteId);
+		sb.append(".xml");
+
+		return sb.toString();
+	}
+
+	protected boolean isChecked(
+			Map<String, String[]> parameterMap, String key,
+			PortletDataHandlerBoolean booleanControl) {
+
+		key = getQualifiedKey(key);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Key[" + key + "]");
+		}
+
+		return MapUtil.getBoolean(parameterMap, key,
+				booleanControl.getDefaultState());
+	}
+
+	protected static final String ATTRIBUTE_PATH = "path";
+
+	protected static final String ATTRIBUTE_LOGO_ID = "logoId";
+
+	protected static final String ELEMENT_ACCOUNT = "account";
+
+	protected static final String ELEMENT_ADDRESS = "address";
+
+	protected static final String ELEMENT_ADDRESSES = "addresses";
+
+	protected static final String ELEMENT_COMPANY = "company";
+
+	protected static final String ELEMENT_EMAIL_ADDRESS = "emailAddress";
+
+	protected static final String ELEMENT_EMAIL_ADDRESSES = "emailAddresses";
+
+	protected static final String ELEMENT_NAME = "name";
+
+	protected static final String ELEMENT_LOGO = "logo";
+
+	protected static final String ELEMENT_PHONES = "phones";
+
+	protected static final String ELEMENT_PHONE = "phone";
+
+	protected static final String ELEMENT_PORTAL_SETTINGS = "portal-settings";
+
+	protected static final String ELEMENT_PORTLET_PREFERENCES =
+			"portlet-preferences";
+
+	protected static final String ELEMENT_PREFERENCE = "preference";
+
+	protected static final String ELEMENT_USER = "user";
+
+	protected static final String ELEMENT_VALUE = "value";
+
+	protected static final String ELEMENT_WEBSITE = "website";
+
+	protected static final String ELEMENT_WEBSITES = "websites";
+
+	private static Log _log = LogFactoryUtil
+			.getLog(PortalSettingsExportLARHandler.class);
+
+	private static final String PATH_COMPANY = "/company/";
 }
