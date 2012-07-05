@@ -32,7 +32,7 @@ page import="com.liferay.portlet.usersadmin.util.UsersAdminUtil" %>
 <%
 boolean filterManageableOrganizations = true;
 
-if (permissionChecker.hasPermission(scopeGroupId, User.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
+if (permissionChecker.hasPermission(scopeGroupId, User.class.getName(), company.getCompanyId(), ActionKeys.VIEW) || (user.getOrganizationIds().length == 0)) {
 	filterManageableOrganizations = false;
 }
 
