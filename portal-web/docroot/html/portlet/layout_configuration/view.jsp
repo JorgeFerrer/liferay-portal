@@ -26,7 +26,7 @@
 
 	<div id="portal_add_content">
 		<div class="portal-add-content">
-			<aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_layout?p_l_id=" + plid + "&p_v_l_s_g_id=" + themeDisplay.getParentGroupId() %>' method="post" name="fm" useNamespace="<%= false %>">
+			<aui:form action='<%= themeDisplay.getPathMain() + "/portal/update_layout?p_auth=" + AuthTokenUtil.getToken(request) + "&p_l_id=" + plid + "&p_v_l_s_g_id=" + themeDisplay.getParentGroupId() %>' method="post" name="fm" useNamespace="<%= false %>">
 				<aui:input name="doAsUserId" type="hidden" value="<%= themeDisplay.getDoAsUserId() %>" />
 				<aui:input name="<%= Constants.CMD %>" type="hidden" value="template" />
 				<aui:input name="<%= WebKeys.REFERER %>" type="hidden" value="<%= refererURL.toString() %>" />
@@ -77,21 +77,18 @@
 					</div>
 				</c:if>
 
-				<c:if test="<%= !layout.isTypePanel() && permissionChecker.isOmniadmin() %>">
+				<c:if test="<%= !layout.isTypePanel() && permissionChecker.isOmniadmin() && PortletLocalServiceUtil.hasPortlet(themeDisplay.getCompanyId(), PortletKeys.MARKETPLACE_STORE) %>">
 
 					<%
 					Group controlPanelGroup = GroupLocalServiceUtil.getGroup(company.getCompanyId(), GroupConstants.CONTROL_PANEL);
 
 					long controlPanelPlid = LayoutLocalServiceUtil.getDefaultPlid(controlPanelGroup.getGroupId(), true);
 
-					PortletURLImpl pluginsURL = new PortletURLImpl(request, PortletKeys.PLUGIN_INSTALLER, controlPanelPlid, PortletRequest.RENDER_PHASE);
-
-					pluginsURL.setPortletMode(PortletMode.VIEW);
-					pluginsURL.setRefererPlid(plid);
+					PortletURLImpl marketplaceURL = new PortletURLImpl(request, PortletKeys.MARKETPLACE_STORE, controlPanelPlid, PortletRequest.RENDER_PHASE);
 					%>
 
 					<p class="lfr-install-more">
-						<aui:a href="<%= pluginsURL.toString() %>" label="install-more-applications" />
+						<aui:a href="<%= marketplaceURL.toString() %>" label="install-more-applications" />
 					</p>
 				</c:if>
 			</aui:form>

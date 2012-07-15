@@ -207,7 +207,9 @@ public class CMISRepository extends BaseCmisRepository {
 		}
 	}
 
-	public void cancelCheckOut(long fileEntryId) {
+	public FileVersion cancelCheckOut(long fileEntryId) throws SystemException {
+		Document draftDocument = null;
+
 		try {
 			Session session = getSession();
 
@@ -221,10 +223,10 @@ public class CMISRepository extends BaseCmisRepository {
 				document.getVersionSeriesCheckedOutId();
 
 			if (Validator.isNotNull(versionSeriesCheckedOutId)) {
-				document = (Document)session.getObject(
+				draftDocument = (Document)session.getObject(
 					versionSeriesCheckedOutId);
 
-				document.cancelCheckOut();
+				draftDocument.cancelCheckOut();
 
 				document = (Document)session.getObject(versionSeriesId);
 
@@ -237,6 +239,12 @@ public class CMISRepository extends BaseCmisRepository {
 					fileEntryId + "}",
 				e);
 		}
+
+		if (draftDocument != null) {
+			return toFileVersion(draftDocument);
+		}
+
+		return null;
 	}
 
 	public void checkInFileEntry(
@@ -1712,13 +1720,14 @@ public class CMISRepository extends BaseCmisRepository {
 
 		hits.setDocs(
 			documents.toArray(
-				new com.liferay.portal.kernel.search.Document[0]));
+				new com.liferay.portal.kernel.search.Document[
+					documents.size()]));
 		hits.setLength(total);
 		hits.setQuery(query);
 		hits.setQueryTerms(new String[0]);
-		hits.setScores(scores.toArray(new Float[0]));
+		hits.setScores(scores.toArray(new Float[scores.size()]));
 		hits.setSearchTime(searchTime);
-		hits.setSnippets(snippets.toArray(new String[0]));
+		hits.setSnippets(snippets.toArray(new String[snippets.size()]));
 		hits.setStart(startTime);
 
 		return hits;
@@ -1775,7 +1784,8 @@ public class CMISRepository extends BaseCmisRepository {
 			_log.debug("Calling query " + query);
 		}
 
-		ItemIterable<QueryResult> queryResults = session.query(query, true);
+		ItemIterable<QueryResult> queryResults = session.query(
+			query, isAllVersionsSearchableSupported(session));
 
 		List<String> cmsFolderIds = new ArrayList<String>();
 
@@ -2032,6 +2042,15 @@ public class CMISRepository extends BaseCmisRepository {
 		else {
 			return false;
 		}
+	}
+
+	protected boolean isAllVersionsSearchableSupported(Session session) {
+		RepositoryInfo repositoryInfo = session.getRepositoryInfo();
+
+		RepositoryCapabilities repositoryCapabilities =
+			repositoryInfo.getCapabilities();
+
+		return repositoryCapabilities.isAllVersionsSearchableSupported();
 	}
 
 	protected void processException(Exception e) throws PortalException {

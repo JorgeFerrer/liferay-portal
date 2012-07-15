@@ -16,6 +16,7 @@
 
 <%@ include file="/html/common/init.jsp" %>
 
+<%@ page import="com.liferay.portal.security.ldap.LDAPSettingsUtil" %>
 <%@ page import="com.liferay.taglib.aui.ScriptTag" %>
 
 <%
@@ -66,6 +67,8 @@ if ((runtimePortletIds != null) && !runtimePortletIds.isEmpty()) {
 </c:if>
 
 <%@ include file="/html/common/themes/bottom_js.jspf" %>
+
+<%@ include file="/html/common/themes/password_expiring_soon.jspf" %>
 
 <%@ include file="/html/common/themes/session_timeout.jspf" %>
 

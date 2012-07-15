@@ -56,7 +56,7 @@ public class QueryConfig implements Serializable {
 		Locale locale = (Locale)_attributes.get(LOCALE);
 
 		if (locale == null) {
-			locale = LocaleUtil.getDefault();
+			locale = LocaleUtil.getMostRelevantLocale();
 		}
 
 		return locale;

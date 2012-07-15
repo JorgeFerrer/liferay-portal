@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.TestPropsValues;
 import com.liferay.portlet.documentlibrary.NoSuchFolderException;
@@ -76,12 +77,27 @@ public abstract class BaseDLAppTestCase {
 			long folderId, String sourceFileName, String title)
 		throws Exception {
 
+		return addFileEntry(folderId, sourceFileName, title, null);
+	}
+
+	protected FileEntry addFileEntry(
+			long folderId, String sourceFileName, String title, byte[] bytes)
+		throws Exception {
+
+		return addFileEntry(
+			folderId, sourceFileName, title, bytes,
+			WorkflowConstants.ACTION_PUBLISH);
+	}
+
+	protected FileEntry addFileEntry(
+			long folderId, String sourceFileName, String title, byte[] bytes,
+			int workflowAction)
+		throws Exception {
+
 		String description = StringPool.BLANK;
 		String changeLog = StringPool.BLANK;
 
-		byte[] bytes = null;
-
-		if (Validator.isNotNull(sourceFileName)) {
+		if ((bytes == null) && Validator.isNotNull(sourceFileName)) {
 			bytes = CONTENT.getBytes();
 		}
 
@@ -89,6 +105,7 @@ public abstract class BaseDLAppTestCase {
 
 		serviceContext.setAddGroupPermissions(true);
 		serviceContext.setAddGuestPermissions(true);
+		serviceContext.setWorkflowAction(workflowAction);
 
 		return DLAppServiceUtil.addFileEntry(
 			TestPropsValues.getGroupId(), folderId, sourceFileName,

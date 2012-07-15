@@ -132,6 +132,10 @@ public class LayoutRevisionModelImpl extends BaseModelImpl<LayoutRevision>
 	 * @return the normal model instance
 	 */
 	public static LayoutRevision toModel(LayoutRevisionSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		LayoutRevision model = new LayoutRevisionImpl();
 
 		model.setLayoutRevisionId(soapModel.getLayoutRevisionId());
@@ -176,6 +180,10 @@ public class LayoutRevisionModelImpl extends BaseModelImpl<LayoutRevision>
 	 * @return the normal model instances
 	 */
 	public static List<LayoutRevision> toModels(LayoutRevisionSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<LayoutRevision> models = new ArrayList<LayoutRevision>(soapModels.length);
 
 		for (LayoutRevisionSoap soapModel : soapModels) {
@@ -1272,9 +1280,17 @@ public class LayoutRevisionModelImpl extends BaseModelImpl<LayoutRevision>
 		}
 	}
 
+	public boolean isDenied() {
+		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isDraft() {
-		if ((getStatus() == WorkflowConstants.STATUS_DRAFT) ||
-				(getStatus() == WorkflowConstants.STATUS_DRAFT_FROM_APPROVED)) {
+		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
 			return true;
 		}
 		else {
@@ -1291,8 +1307,44 @@ public class LayoutRevisionModelImpl extends BaseModelImpl<LayoutRevision>
 		}
 	}
 
+	public boolean isInactive() {
+		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isIncomplete() {
+		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isInTrash() {
+		if (getStatus() == WorkflowConstants.STATUS_IN_TRASH) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isPending() {
 		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isScheduled() {
+		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
 			return true;
 		}
 		else {

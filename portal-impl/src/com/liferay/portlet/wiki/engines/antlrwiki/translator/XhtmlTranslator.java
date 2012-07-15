@@ -225,6 +225,17 @@ public class XhtmlTranslator extends XhtmlTranslationVisitor {
 			_log.error(e, e);
 		}
 
+		String attachmentLink = searchLinkInAttachments(linkNode);
+
+		if (attachmentLink != null) {
+
+			// Attachment links take precedence over pages
+
+			append(_attachmentURLPrefix + attachmentLink);
+
+			return;
+		}
+
 		String pageTitle = linkNode.getLink();
 
 		if ((page != null) && (_viewPageURL != null)) {
@@ -260,6 +271,31 @@ public class XhtmlTranslator extends XhtmlTranslationVisitor {
 			new UnformattedHeadingTextVisitor();
 
 		return unformattedHeadingTextVisitor.getUnformattedText(headingNode);
+	}
+
+	protected String searchLinkInAttachments(LinkNode linkNode) {
+		String[] attachments = null;
+
+		try {
+			attachments = _wikiPage.getAttachmentsFiles();
+		}
+		catch (Exception e) {
+			return null;
+		}
+
+		String link =
+			StringPool.SLASH + _wikiPage.getAttachmentsDir() +
+				StringPool.SLASH + linkNode.getLink();
+
+		for (String attachment : attachments) {
+			if (attachment.equals(link)) {
+				int pos = attachment.lastIndexOf(StringPool.SLASH);
+
+				return attachment.substring(pos + 1);
+			}
+		}
+
+		return null;
 	}
 
 	private static final String _HEADING_ANCHOR_PREFIX = "section-";

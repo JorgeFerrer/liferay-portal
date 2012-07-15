@@ -77,8 +77,6 @@ for (String curAssetTagName : allAssetTagNames) {
 if (enableTagBasedNavigation && selectionStyle.equals("manual") && ((assetEntryQuery.getAllCategoryIds().length > 0) || (assetEntryQuery.getAllTagIds().length > 0))) {
 	selectionStyle = "dynamic";
 }
-
-Group scopeGroup = themeDisplay.getScopeGroup();
 %>
 
 <c:if test="<%= (scopeGroup != null) && (!scopeGroup.hasStagingGroup() || scopeGroup.isStagingGroup()) && !portletName.equals(PortletKeys.RELATED_ASSETS) %>">

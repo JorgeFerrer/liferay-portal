@@ -17,10 +17,12 @@ package com.liferay.portal.lar;
 import com.liferay.portal.LARFileException;
 import com.liferay.portal.LARTypeException;
 import com.liferay.portal.LayoutImportException;
+import com.liferay.portal.LocaleException;
 import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.PortletIdException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lar.ImportExportThreadLocal;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandler;
@@ -46,6 +48,7 @@ import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.kernel.zip.ZipReader;
 import com.liferay.portal.kernel.zip.ZipReaderFactoryUtil;
+import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
@@ -59,6 +62,7 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionCacheUtil;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
+import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletItemLocalServiceUtil;
@@ -95,6 +99,8 @@ import com.liferay.portlet.expando.model.ExpandoTable;
 import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.util.ExpandoConverterUtil;
+import com.liferay.portlet.journal.model.JournalStructure;
+import com.liferay.portlet.journal.service.persistence.JournalStructureUtil;
 import com.liferay.portlet.journalcontent.util.JournalContentUtil;
 import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.ratings.model.RatingsEntry;
@@ -142,72 +148,6 @@ public class PortletImporter {
 			JournalContentUtil.clearCache();
 			PermissionCacheUtil.clearCache();
 		}
-	}
-
-	protected String checkPortletPreferences(
-			PortletDataContext portletDataContext, long companyId, long ownerId,
-			int ownerType, long plid, String portletId, String xml)
-		throws Exception {
-
-		String rootPotletId = PortletConstants.getRootPortletId(portletId);
-
-		if (!rootPotletId.equals(PortletKeys.ASSET_PUBLISHER)) {
-			return xml;
-		}
-
-		PortletPreferencesImpl portletPreferences =
-			(PortletPreferencesImpl)PortletPreferencesFactoryUtil.
-				fromXML(companyId, ownerId, ownerType, plid, portletId, xml);
-
-		 Enumeration<String> enu = portletPreferences.getNames();
-
-		 while (enu.hasMoreElements()) {
-			String name = enu.nextElement();
-
-			String value = GetterUtil.getString(
-				portletPreferences.getValue(name, StringPool.BLANK));
-
-			String prefix = "queryName";
-
-			if (value.equalsIgnoreCase("assetCategories") &&
-				name.startsWith(prefix)) {
-
-				String index = name.substring(prefix.length());
-
-				String queryValuesName = "queryValues" + index;
-
-				String[] importedAssetCategoryPKs =
-					portletPreferences.getValues(queryValuesName, null);
-
-				Map<Long, Long> assetCategoryPKs =
-					(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
-						AssetCategory.class);
-
-				String[] newAssetCategoryPKs = new String[
-					importedAssetCategoryPKs.length];
-
-				int i = 0;
-
-				for (String importedAssetCategoryPK :
-						importedAssetCategoryPKs) {
-
-					String newAssetCategoryPK = StringUtil.valueOf(
-						assetCategoryPKs.get(
-							new Long(importedAssetCategoryPK)));
-
-					if (Validator.isNull(newAssetCategoryPK)) {
-						newAssetCategoryPK = importedAssetCategoryPK;
-					}
-
-					newAssetCategoryPKs[i++] = newAssetCategoryPK;
-				}
-
-				portletPreferences.setValues(
-					queryValuesName, newAssetCategoryPKs);
-			}
-		}
-
-		return PortletPreferencesFactoryUtil.toXML(portletPreferences);
 	}
 
 	protected void deletePortletData(
@@ -390,6 +330,40 @@ public class PortletImporter {
 			throw new PortletIdException("Invalid portlet id " + rootPortletId);
 		}
 
+		// Available locales
+
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(
+			portletDataContext.getCompanyId(), portletId);
+
+		PortletDataHandler portletDataHandler =
+			portlet.getPortletDataHandlerInstance();
+
+		if (portletDataHandler.isDataLocalized()) {
+			Element sourceAvailableLocalesElement = rootElement.element(
+				"locale");
+
+			Locale[] sourceAvailableLocales = LocaleUtil.fromLanguageIds(
+				StringUtil.split(
+					sourceAvailableLocalesElement.attributeValue(
+						"available-locales")));
+
+			Locale[] targetAvailableLocales =
+				LanguageUtil.getAvailableLocales();
+
+			for (Locale sourceAvailableLocale : sourceAvailableLocales) {
+				if (!ArrayUtil.contains(
+						targetAvailableLocales, sourceAvailableLocale)) {
+
+					LocaleException le = new LocaleException();
+
+					le.setSourceAvailableLocales(sourceAvailableLocales);
+					le.setTargetAvailableLocales(targetAvailableLocales);
+
+					throw le;
+				}
+			}
+		}
+
 		// Import group id
 
 		long sourceGroupId = GetterUtil.getLong(
@@ -506,10 +480,10 @@ public class PortletImporter {
 	}
 
 	/**
-	 * @see {@link DLPortletDataHandlerImpl#getFileEntryTypeName(String, long,
-	 *      String, int)}
-	 * @see {@link DLPortletDataHandlerImpl#getFolderName(String, long, long,
-	 *      String, int)}
+	 * @see com.liferay.portlet.documentlibrary.lar.DLPortletDataHandlerImpl#getFileEntryTypeName(
+	 *      String, long, String, int)
+	 * @see com.liferay.portlet.documentlibrary.lar.DLPortletDataHandlerImpl#getFolderName(
+	 *      String, long, long, String, int)
 	 */
 	protected String getAssetCategoryName(
 			String uuid, long groupId, long parentCategoryId, String name,
@@ -566,10 +540,10 @@ public class PortletImporter {
 	}
 
 	/**
-	 * @see {@link DLPortletDataHandlerImpl#getFileEntryTypeName(String, long,
-	 *      String, int)}
-	 * @see {@link DLPortletDataHandlerImpl#getFolderName(String, long, long,
-	 *      String, int)}
+	 * @see com.liferay.portlet.documentlibrary.lar.DLPortletDataHandlerImpl#getFileEntryTypeName(
+	 *      String, long, String, int)
+	 * @see com.liferay.portlet.documentlibrary.lar.DLPortletDataHandlerImpl#getFolderName(
+	 *      String, long, long, String, int)
 	 */
 	protected String getAssetVocabularyName(
 			String uuid, long groupId, String name, int count)
@@ -754,14 +728,14 @@ public class PortletImporter {
 						PermissionThreadLocal.getPermissionChecker();
 
 					if (permissionChecker.hasPermission(
-							 groupId, AssetCategory.class.getName(),
-							 existingAssetCategory.getCategoryId(),
-							 ActionKeys.UPDATE)) {
+							groupId, AssetCategory.class.getName(),
+							existingAssetCategory.getCategoryId(),
+							ActionKeys.UPDATE)) {
 
-						 serviceContext.setScopeGroupId(groupId);
+						serviceContext.setScopeGroupId(groupId);
 					}
 					else {
-						 updateAssetCategory = false;
+						updateAssetCategory = false;
 					}
 				}
 
@@ -809,7 +783,7 @@ public class PortletImporter {
 	protected void importAssetTag(
 			PortletDataContext portletDataContext, Map<Long, Long> assetTagPKs,
 			Element assetTagElement, AssetTag assetTag)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		long userId = portletDataContext.getUserId(assetTag.getUserUuid());
 
@@ -959,14 +933,14 @@ public class PortletImporter {
 					PermissionThreadLocal.getPermissionChecker();
 
 				if (permissionChecker.hasPermission(
-					 groupId, AssetVocabulary.class.getName(),
-					 existingAssetVocabulary.getVocabularyId(),
-					 ActionKeys.UPDATE)) {
+					groupId, AssetVocabulary.class.getName(),
+					existingAssetVocabulary.getVocabularyId(),
+					ActionKeys.UPDATE)) {
 
-					 serviceContext.setScopeGroupId(groupId);
+					serviceContext.setScopeGroupId(groupId);
 				}
 				else {
-					 updateVocabulary = false;
+					updateVocabulary = false;
 				}
 			}
 
@@ -1209,9 +1183,14 @@ public class PortletImporter {
 					ownerId = defaultUserId;
 				}
 
-				xml = checkPortletPreferences(
-					portletDataContext, companyId, ownerId, ownerType, plid,
-					portletId, xml);
+				String rootPotletId = PortletConstants.getRootPortletId(
+					portletId);
+
+				if (rootPotletId.equals(PortletKeys.ASSET_PUBLISHER)) {
+					xml = updateAssetPublisherPortletPreferences(
+						portletDataContext, companyId, ownerId, ownerType, plid,
+						portletId, xml);
+				}
 
 				PortletPreferencesLocalServiceUtil.updatePreferences(
 					ownerId, ownerType, plid, portletId, xml);
@@ -1714,6 +1693,179 @@ public class PortletImporter {
 		catch (Exception e) {
 			_log.error(e, e);
 		}
+	}
+
+	protected void updateAssetPublisherClassPKs(
+			PortletDataContext portletDataContext,
+			javax.portlet.PortletPreferences jxPreferences, String key,
+			Class<?> clazz, long companyGroupId)
+		throws Exception {
+
+		String[] oldValues = jxPreferences.getValues(key, null);
+
+		if (oldValues == null) {
+			return;
+		}
+
+		Map<Long, Long> primaryKeysMap =
+			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(clazz);
+
+		String[] newValues = new String[oldValues.length];
+
+		for (int i = 0; i < oldValues.length; i++) {
+			String oldValue = oldValues[i];
+
+			String newValue = oldValue;
+
+			String[] uuids = StringUtil.split(oldValue);
+
+			for (String uuid : uuids) {
+				Long newPrimaryKey = null;
+
+				if (Validator.isNumber(uuid)) {
+					long oldPrimaryKey = GetterUtil.getLong(uuid);
+
+					newPrimaryKey = MapUtil.getLong(
+						primaryKeysMap, oldPrimaryKey, oldPrimaryKey);
+				}
+				else {
+					String className = clazz.getName();
+
+					if (className.equals(AssetCategory.class.getName())) {
+						AssetCategory category =
+							AssetCategoryUtil.fetchByUUID_G(
+								uuid, portletDataContext.getScopeGroupId());
+
+						if (category == null) {
+							category =
+								AssetCategoryUtil.fetchByUUID_G(
+									uuid, companyGroupId);
+						}
+
+						if (category != null) {
+							newPrimaryKey = category.getCategoryId();
+						}
+					}
+					else if (className.equals(
+								JournalStructure.class.getName())) {
+
+						JournalStructure structure =
+							JournalStructureUtil.fetchByUUID_G(
+								uuid, portletDataContext.getScopeGroupId());
+
+						if (structure == null) {
+							structure = JournalStructureUtil.fetchByUUID_G(
+								uuid, companyGroupId);
+						}
+
+						if (structure != null) {
+							newPrimaryKey = structure.getId();
+						}
+					}
+				}
+
+				if (Validator.isNull(newPrimaryKey)) {
+					if (_log.isWarnEnabled()) {
+						StringBundler sb = new StringBundler(8);
+
+						sb.append("Unable to get primary key for ");
+						sb.append(clazz);
+						sb.append(" with UUID ");
+						sb.append(uuid);
+						sb.append(" in company group ");
+						sb.append(companyGroupId);
+						sb.append(" or in group ");
+						sb.append(portletDataContext.getScopeGroupId());
+
+						_log.warn(sb.toString());
+					}
+				}
+				else {
+					newValue = StringUtil.replace(
+						newValue, uuid, newPrimaryKey.toString());
+				}
+			}
+
+			newValues[i] = newValue;
+		}
+
+		jxPreferences.setValues(key, newValues);
+	}
+
+	protected void updateAssetPublisherGlobalScopeId(
+			javax.portlet.PortletPreferences jxPreferences, String key,
+			long groupId)
+		throws Exception {
+
+		String[] oldValues = jxPreferences.getValues(key, null);
+
+		if (oldValues == null) {
+			return;
+		}
+
+		String newValue = "Group_" + groupId;
+
+		String[] newValues = new String[oldValues.length];
+
+		for (int i = 0; i < oldValues.length; i++) {
+			String oldValue = oldValues[i];
+
+			newValues[i] = StringUtil.replace(
+				oldValue, "Group_Company", newValue);
+		}
+
+		jxPreferences.setValues(key, newValues);
+	}
+
+	protected String updateAssetPublisherPortletPreferences(
+			PortletDataContext portletDataContext, long companyId, long ownerId,
+			int ownerType, long plid, String portletId, String xml)
+		throws Exception {
+
+		Company company = CompanyLocalServiceUtil.getCompanyById(companyId);
+
+		Group companyGroup = company.getGroup();
+
+		javax.portlet.PortletPreferences jxPreferences =
+			PortletPreferencesFactoryUtil.fromXML(
+				companyId, ownerId, ownerType, plid, portletId, xml);
+
+		Enumeration<String> enu = jxPreferences.getNames();
+
+		while (enu.hasMoreElements()) {
+			String name = enu.nextElement();
+
+			String value = GetterUtil.getString(
+				jxPreferences.getValue(name, null));
+
+			String prefix = "queryName";
+
+			if (value.equalsIgnoreCase("assetCategories") &&
+				name.startsWith(prefix)) {
+
+				String index = name.substring(prefix.length(), name.length());
+
+				updateAssetPublisherClassPKs(
+					portletDataContext, jxPreferences, "queryValues" + index,
+					AssetCategory.class, companyGroup.getGroupId());
+			}
+			else if (name.equals(
+						"anyClassTypeJournalArticleAssetRendererFactory") ||
+					 name.equals(
+						"classTypeIdsJournalArticleAssetRendererFactory") ||
+					 name.equals("classTypeIds")) {
+
+				updateAssetPublisherClassPKs(
+					portletDataContext, jxPreferences, name,
+					JournalStructure.class, companyGroup.getGroupId());
+			}
+			else if (name.equals("defaultScope") || name.equals("scopeIds")) {
+				updateAssetPublisherGlobalScopeId(
+					jxPreferences, name, companyGroup.getGroupId());
+			}
+		}
+
+		return PortletPreferencesFactoryUtil.toXML(jxPreferences);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(PortletImporter.class);

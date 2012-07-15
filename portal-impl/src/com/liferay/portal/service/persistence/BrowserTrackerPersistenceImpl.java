@@ -325,6 +325,7 @@ public class BrowserTrackerPersistenceImpl extends BasePersistenceImpl<BrowserTr
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,

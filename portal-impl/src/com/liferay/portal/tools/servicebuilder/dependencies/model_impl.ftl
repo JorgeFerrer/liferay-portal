@@ -214,6 +214,10 @@ public class ${entity.name}ModelImpl extends BaseModelImpl<${entity.name}> imple
 		 * @return the normal model instance
 		 */
 		public static ${entity.name} toModel(${entity.name}Soap soapModel) {
+			if (soapModel == null) {
+				return null;
+			}
+
 			${entity.name} model = new ${entity.name}Impl();
 
 			<#list entity.regularColList as column>
@@ -230,6 +234,10 @@ public class ${entity.name}ModelImpl extends BaseModelImpl<${entity.name}> imple
 		 * @return the normal model instances
 		 */
 		public static List<${entity.name}> toModels(${entity.name}Soap[] soapModels) {
+			if (soapModels == null) {
+				return null;
+			}
+
 			List<${entity.name}> models = new ArrayList<${entity.name}>(soapModels.length);
 
 			for (${entity.name}Soap soapModel : soapModels) {
@@ -634,10 +642,17 @@ public class ${entity.name}ModelImpl extends BaseModelImpl<${entity.name}> imple
 			}
 		}
 
-		public boolean isDraft() {
-			if ((getStatus() == WorkflowConstants.STATUS_DRAFT) ||
-				(getStatus() == WorkflowConstants.STATUS_DRAFT_FROM_APPROVED)) {
+		public boolean isDenied() {
+			if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 
+		public boolean isDraft() {
+			if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
 				return true;
 			}
 			else {
@@ -654,8 +669,44 @@ public class ${entity.name}ModelImpl extends BaseModelImpl<${entity.name}> imple
 			}
 		}
 
+		public boolean isInactive() {
+			if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		public boolean isIncomplete() {
+			if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		public boolean isInTrash() {
+			if (getStatus() == WorkflowConstants.STATUS_IN_TRASH) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 		public boolean isPending() {
 			if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		public boolean isScheduled() {
+			if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
 				return true;
 			}
 			else {

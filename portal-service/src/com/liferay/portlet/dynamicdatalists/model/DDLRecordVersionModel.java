@@ -318,6 +318,13 @@ public interface DDLRecordVersionModel extends BaseModel<DDLRecordVersion>,
 	public boolean isApproved();
 
 	/**
+	 * Returns <code>true</code> if this d d l record version is denied.
+	 *
+	 * @return <code>true</code> if this d d l record version is denied; <code>false</code> otherwise
+	 */
+	public boolean isDenied();
+
+	/**
 	 * Returns <code>true</code> if this d d l record version is a draft.
 	 *
 	 * @return <code>true</code> if this d d l record version is a draft; <code>false</code> otherwise
@@ -332,11 +339,39 @@ public interface DDLRecordVersionModel extends BaseModel<DDLRecordVersion>,
 	public boolean isExpired();
 
 	/**
+	 * Returns <code>true</code> if this d d l record version is inactive.
+	 *
+	 * @return <code>true</code> if this d d l record version is inactive; <code>false</code> otherwise
+	 */
+	public boolean isInactive();
+
+	/**
+	 * Returns <code>true</code> if this d d l record version is incomplete.
+	 *
+	 * @return <code>true</code> if this d d l record version is incomplete; <code>false</code> otherwise
+	 */
+	public boolean isIncomplete();
+
+	/**
+	 * Returns <code>true</code> if this d d l record version is in the Recycle Bin.
+	 *
+	 * @return <code>true</code> if this d d l record version is in the Recycle Bin; <code>false</code> otherwise
+	 */
+	public boolean isInTrash();
+
+	/**
 	 * Returns <code>true</code> if this d d l record version is pending.
 	 *
 	 * @return <code>true</code> if this d d l record version is pending; <code>false</code> otherwise
 	 */
 	public boolean isPending();
+
+	/**
+	 * Returns <code>true</code> if this d d l record version is scheduled.
+	 *
+	 * @return <code>true</code> if this d d l record version is scheduled; <code>false</code> otherwise
+	 */
+	public boolean isScheduled();
 
 	public boolean isNew();
 

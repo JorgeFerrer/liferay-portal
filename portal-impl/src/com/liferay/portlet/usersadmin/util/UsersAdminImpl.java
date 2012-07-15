@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
+import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Address;
 import com.liferay.portal.model.EmailAddress;
@@ -82,7 +83,6 @@ import com.liferay.portal.util.comparator.UserGroupNameComparator;
 import com.liferay.portal.util.comparator.UserJobTitleComparator;
 import com.liferay.portal.util.comparator.UserLastNameComparator;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
-import com.liferay.util.UniqueList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -163,19 +163,6 @@ public class UsersAdminImpl implements UsersAdmin {
 			PermissionChecker permissionChecker, long groupId, List<Role> roles)
 		throws PortalException, SystemException {
 
-		Group group = GroupLocalServiceUtil.getGroup(groupId);
-
-		if (!permissionChecker.isCompanyAdmin() &&
-			!permissionChecker.isGroupOwner(groupId) &&
-			!GroupPermissionUtil.contains(
-				permissionChecker, groupId, ActionKeys.ASSIGN_USER_ROLES) &&
-			!OrganizationPermissionUtil.contains(
-				permissionChecker, group.getOrganizationId(),
-				ActionKeys.ASSIGN_USER_ROLES)) {
-
-			return Collections.emptyList();
-		}
-
 		List<Role> filteredGroupRoles = ListUtil.copy(roles);
 
 		Iterator<Role> itr = filteredGroupRoles.iterator();
@@ -210,6 +197,30 @@ public class UsersAdminImpl implements UsersAdmin {
 				groupRoleName.equals(RoleConstants.ORGANIZATION_OWNER) ||
 				groupRoleName.equals(RoleConstants.SITE_ADMINISTRATOR) ||
 				groupRoleName.equals(RoleConstants.SITE_OWNER)) {
+
+				itr.remove();
+			}
+		}
+
+		Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+		if (GroupPermissionUtil.contains(
+				permissionChecker, groupId, ActionKeys.ASSIGN_USER_ROLES) ||
+			OrganizationPermissionUtil.contains(
+				permissionChecker, group.getOrganizationId(),
+				ActionKeys.ASSIGN_USER_ROLES)) {
+
+			return filteredGroupRoles;
+		}
+
+		itr = filteredGroupRoles.iterator();
+
+		while (itr.hasNext()) {
+			Role role = itr.next();
+
+			if (!RolePermissionUtil.contains(
+					permissionChecker, groupId, role.getRoleId(),
+					ActionKeys.ASSIGN_MEMBERS)) {
 
 				itr.remove();
 			}

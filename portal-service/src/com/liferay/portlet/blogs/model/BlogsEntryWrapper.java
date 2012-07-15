@@ -728,6 +728,15 @@ public class BlogsEntryWrapper implements BlogsEntry, ModelWrapper<BlogsEntry> {
 	}
 
 	/**
+	* Returns <code>true</code> if this blogs entry is denied.
+	*
+	* @return <code>true</code> if this blogs entry is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _blogsEntry.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this blogs entry is a draft.
 	*
 	* @return <code>true</code> if this blogs entry is a draft; <code>false</code> otherwise
@@ -746,12 +755,48 @@ public class BlogsEntryWrapper implements BlogsEntry, ModelWrapper<BlogsEntry> {
 	}
 
 	/**
+	* Returns <code>true</code> if this blogs entry is inactive.
+	*
+	* @return <code>true</code> if this blogs entry is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _blogsEntry.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this blogs entry is incomplete.
+	*
+	* @return <code>true</code> if this blogs entry is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _blogsEntry.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this blogs entry is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this blogs entry is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _blogsEntry.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this blogs entry is pending.
 	*
 	* @return <code>true</code> if this blogs entry is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _blogsEntry.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this blogs entry is scheduled.
+	*
+	* @return <code>true</code> if this blogs entry is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _blogsEntry.isScheduled();
 	}
 
 	public boolean isNew() {

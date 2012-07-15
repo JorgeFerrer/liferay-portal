@@ -3844,6 +3844,7 @@
 			<transient name="portletApp" />
 			<transient name="portletClass" />
 			<transient name="portletDataHandlerClass" />
+			<transient name="portletDisplayTemplateHandlerClass" />
 			<transient name="portletFilters" />
 			<transient name="portletInfo" />
 			<transient name="portletLayoutListenerClass" />
@@ -4192,6 +4193,8 @@
 			<transient name="integerArray" />
 			<transient name="long" />
 			<transient name="longArray" />
+			<transient name="number" />
+			<transient name="numberArray" />
 			<transient name="short" />
 			<transient name="shortArray" />
 			<transient name="string" />

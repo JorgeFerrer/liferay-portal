@@ -15,6 +15,7 @@
 package com.liferay.portal.lar;
 
 import com.liferay.portal.NoSuchLayoutException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lar.ImportExportThreadLocal;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandler;
@@ -55,6 +56,7 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.Theme;
+import com.liferay.portal.model.impl.LayoutImpl;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
@@ -105,6 +107,7 @@ import org.apache.commons.lang.time.StopWatch;
  * @author Karthik Sudarshan
  * @author Zsigmond Rab
  * @author Douglas Wong
+ * @author Mate Thurzo
  */
 public class LayoutExporter {
 
@@ -297,6 +300,9 @@ public class LayoutExporter {
 		Element headerElement = rootElement.addElement("header");
 
 		headerElement.addAttribute(
+			"available-locales",
+			StringUtil.merge(LanguageUtil.getAvailableLocales()));
+		headerElement.addAttribute(
 			"build-number", String.valueOf(ReleaseInfo.getBuildNumber()));
 		headerElement.addAttribute("export-date", Time.getRFC822());
 
@@ -347,7 +353,7 @@ public class LayoutExporter {
 		if (exportLogo) {
 			Image image = ImageLocalServiceUtil.getImage(layoutSet.getLogoId());
 
-			if (image != null) {
+			if ((image != null) && (image.getTextObj() != null)) {
 				String logoPath = getLayoutSetLogoPath(portletDataContext);
 
 				headerElement.addAttribute("logo-path", logoPath);
@@ -386,30 +392,34 @@ public class LayoutExporter {
 
 		List<Portlet> portlets = getAlwaysExportablePortlets(companyId);
 
+		long plid = LayoutConstants.DEFAULT_PLID;
+
 		if (!layouts.isEmpty()) {
 			Layout firstLayout = layouts.get(0);
 
-			if (group.isStagingGroup()) {
-				group = group.getLiveGroup();
+			plid = firstLayout.getPlid();
+		}
+
+		if (group.isStagingGroup()) {
+			group = group.getLiveGroup();
+		}
+
+		for (Portlet portlet : portlets) {
+			String portletId = portlet.getRootPortletId();
+
+			if (!group.isStagedPortlet(portletId)) {
+				continue;
 			}
 
-			for (Portlet portlet : portlets) {
-				String portletId = portlet.getRootPortletId();
+			String key = PortletPermissionUtil.getPrimaryKey(0, portletId);
 
-				if (!group.isStagedPortlet(portletId)) {
-					continue;
-				}
-
-				String key = PortletPermissionUtil.getPrimaryKey(0, portletId);
-
-				if (portletIds.get(key) == null) {
-					portletIds.put(
-						key,
-						new Object[] {
-							portletId, firstLayout.getPlid(), groupId,
-							StringPool.BLANK, StringPool.BLANK
-						});
-				}
+			if (portletIds.get(key) == null) {
+				portletIds.put(
+					key,
+					new Object[] {
+						portletId, plid, groupId, StringPool.BLANK,
+						StringPool.BLANK
+					});
 			}
 		}
 
@@ -448,7 +458,7 @@ public class LayoutExporter {
 			Object[] portletObjects = portletIdsEntry.getValue();
 
 			String portletId = null;
-			long plid = 0;
+			plid = LayoutConstants.DEFAULT_PLID;
 			long scopeGroupId = 0;
 			String scopeType = StringPool.BLANK;
 			String scopeLayoutUuid = null;
@@ -467,10 +477,28 @@ public class LayoutExporter {
 				scopeLayoutUuid = (String)portletIdsEntry.getValue()[4];
 			}
 
-			Layout layout = LayoutLocalServiceUtil.getLayout(plid);
+			Layout layout = LayoutLocalServiceUtil.fetchLayout(plid);
 
-			portletDataContext.setPlid(layout.getPlid());
-			portletDataContext.setOldPlid(layout.getPlid());
+			if (layout == null) {
+				if (!group.isCompany() &&
+					(plid <= LayoutConstants.DEFAULT_PLID)) {
+
+					continue;
+				}
+
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Assuming global scope because no layout was found");
+				}
+
+				layout = new LayoutImpl();
+
+				layout.setGroupId(groupId);
+				layout.setCompanyId(companyId);
+			}
+
+			portletDataContext.setPlid(plid);
+			portletDataContext.setOldPlid(plid);
 			portletDataContext.setScopeGroupId(scopeGroupId);
 			portletDataContext.setScopeType(scopeType);
 			portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
@@ -487,7 +515,7 @@ public class LayoutExporter {
 
 		portletDataContext.setScopeGroupId(previousScopeGroupId);
 
-		if (exportCategories) {
+		if (exportCategories || group.isCompany()) {
 			exportAssetCategories(portletDataContext);
 		}
 
@@ -619,11 +647,16 @@ public class LayoutExporter {
 		Element dlFoldersElement = layoutElement.addElement("dl-folders");
 		Element dlFilesElement = layoutElement.addElement("dl-file-entries");
 		Element dlFileRanksElement = layoutElement.addElement("dl-file-ranks");
+		Element dlRepositoriesElement = layoutElement.addElement(
+			"dl-repositories");
+		Element dlRepositoryEntriesElement = layoutElement.addElement(
+			"dl-repository-entries");
 
 		JournalPortletDataHandlerImpl.exportArticle(
 			portletDataContext, layoutElement, layoutElement, layoutElement,
 			dlFileEntryTypesElement, dlFoldersElement, dlFilesElement,
-			dlFileRanksElement, article, null, false);
+			dlFileRanksElement, dlRepositoriesElement,
+			dlRepositoryEntriesElement, article, null, false);
 	}
 
 	protected void exportLayout(

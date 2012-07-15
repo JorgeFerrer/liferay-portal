@@ -14,6 +14,7 @@
 
 package com.liferay.portlet.dynamicdatamapping.model.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -29,6 +30,8 @@ import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.kernel.xml.XPath;
 import com.liferay.portal.model.CacheField;
 import com.liferay.portlet.dynamicdatamapping.StructureFieldException;
+import com.liferay.portlet.dynamicdatamapping.model.DDMTemplate;
+import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateLocalServiceUtil;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -78,17 +81,15 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 				_document = SAXReaderUtil.read(getXsd());
 			}
 			catch (Exception e) {
-				 StackTraceElement[] stackTraceElements = e.getStackTrace();
+				StackTraceElement[] stackTraceElements = e.getStackTrace();
 
-				 for (StackTraceElement stackTraceElement :
-						stackTraceElements) {
+				for (StackTraceElement stackTraceElement : stackTraceElements) {
+					String className = stackTraceElement.getClassName();
 
-					 String className = stackTraceElement.getClassName();
-
-					 if (className.endsWith("DDMStructurePersistenceTest")) {
-						 return null;
-					 }
-				 }
+					if (className.endsWith("DDMStructurePersistenceTest")) {
+						return null;
+					}
+				}
 
 				_log.error(e, e);
 			}
@@ -199,6 +200,10 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		throws StructureFieldException {
 
 		return getFieldProperty(fieldName, "type");
+	}
+
+	public List<DDMTemplate> getTemplates() throws SystemException {
+		return DDMTemplateLocalServiceUtil.getTemplates(getStructureId());
 	}
 
 	public boolean hasField(String fieldName) {

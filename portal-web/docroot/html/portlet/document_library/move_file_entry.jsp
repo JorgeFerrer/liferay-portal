@@ -19,6 +19,8 @@
 <%
 String strutsAction = ParamUtil.getString(request, "struts_action");
 
+String cmd = ParamUtil.getString(request, Constants.CMD);
+
 String tabs2 = ParamUtil.getString(request, "tabs2", "version-history");
 
 String redirect = ParamUtil.getString(request, "redirect");
@@ -77,7 +79,7 @@ portletURL.setParameter("fileEntryId", String.valueOf(fileEntryId));
 </portlet:actionURL>
 
 <aui:form action="<%= moveFileEntryURL %>" enctype="multipart/form-data" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveFileEntry(false);" %>'>
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.MOVE %>" />
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= cmd.equals(Constants.MOVE_FROM_TRASH) ? Constants.MOVE_FROM_TRASH : Constants.MOVE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="fileEntryId" type="hidden" value="<%= fileEntryId %>" />
 	<aui:input name="newFolderId" type="hidden" value="<%= folderId %>" />
@@ -116,14 +118,16 @@ portletURL.setParameter("fileEntryId", String.valueOf(fileEntryId));
 			<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
 		</portlet:renderURL>
 
-		<aui:field-wrapper label="current-folder">
-			<liferay-ui:icon
-				image="folder"
-				label="true"
-				message="<%= folderName %>"
-				url="<%= viewFolderURL %>"
-			/>
-		</aui:field-wrapper>
+		<c:if test="<%= !cmd.equals(Constants.MOVE_FROM_TRASH) %>">
+			<aui:field-wrapper label="current-folder">
+				<liferay-ui:icon
+					image="folder"
+					label="<%= true %>"
+					message="<%= folderName %>"
+					url="<%= viewFolderURL %>"
+				/>
+			</aui:field-wrapper>
+		</c:if>
 
 		<aui:field-wrapper label="new-folder">
 			<aui:a href="<%= viewFolderURL %>" id="folderName"><%= folderName %></aui:a>

@@ -252,7 +252,7 @@ public interface TrashEntryLocalService extends BaseLocalService,
 	* @param status the status of the entity prior to being moved to trash
 	* @param versions the primary keys and statuses of any of the entry's
 	versions (e.g., {@link
-	com.liferay.portlet.documentlibrary.model.DLFileVerison})
+	com.liferay.portlet.documentlibrary.model.DLFileVersion})
 	* @param typeSettingsProperties the type settings properties
 	* @return the trashEntry
 	* @throws SystemException if a system exception occurred
@@ -262,6 +262,10 @@ public interface TrashEntryLocalService extends BaseLocalService,
 		int status,
 		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.Long, java.lang.Integer>> versions,
 		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void checkEntries()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

@@ -240,7 +240,7 @@ public class UserFinderImpl
 			Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 
 			if ((group != null) && group.isOrganization()) {
-				organizationIds.add(groupId);
+				organizationIds.add(group.getOrganizationId());
 			}
 
 			List<Organization> organizations = GroupUtil.getOrganizations(
@@ -462,7 +462,7 @@ public class UserFinderImpl
 			Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 
 			if ((group != null) && group.isOrganization()) {
-				organizationIds.add(groupId);
+				organizationIds.add(group.getOrganizationId());
 			}
 
 			List<Organization> organizations = GroupUtil.getOrganizations(
@@ -847,6 +847,9 @@ public class UserFinderImpl
 
 				join = sb.toString();
 			}
+			else {
+				join = "WHERE (Organization_.treePath LIKE ?)";
+			}
 		}
 		else if (key.equals("usersPasswordPolicies")) {
 			join = CustomSQLUtil.get(JOIN_BY_USERS_PASSWORD_POLICIES);
@@ -964,6 +967,9 @@ public class UserFinderImpl
 
 						qPos.add(treePath.toString());
 					}
+				}
+				else {
+					qPos.add("%/ /%");
 				}
 			}
 			else if (value instanceof Long) {

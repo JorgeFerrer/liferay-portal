@@ -68,6 +68,19 @@ public class DLAppHelperLocalServiceWrapper implements DLAppHelperLocalService,
 		_dlAppHelperLocalService.addFolder(folder, serviceContext);
 	}
 
+	public void cancelCheckOut(long userId,
+		com.liferay.portal.kernel.repository.model.FileEntry fileEntry,
+		com.liferay.portal.kernel.repository.model.FileVersion sourceFileVersion,
+		com.liferay.portal.kernel.repository.model.FileVersion destinationFileVersion,
+		com.liferay.portal.kernel.repository.model.FileVersion draftFileVersion,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_dlAppHelperLocalService.cancelCheckOut(userId, fileEntry,
+			sourceFileVersion, destinationFileVersion, draftFileVersion,
+			serviceContext);
+	}
+
 	public void checkAssetEntry(long userId,
 		com.liferay.portal.kernel.repository.model.FileEntry fileEntry,
 		com.liferay.portal.kernel.repository.model.FileVersion fileVersion)
@@ -106,7 +119,7 @@ public class DLAppHelperLocalServiceWrapper implements DLAppHelperLocalService,
 	}
 
 	/**
-	* @deprecated {@Link #getFileShortcuts(long, long, int, boolean)}
+	* @deprecated {@link #getFileShortcuts(long, long, boolean, int)}
 	*/
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLFileShortcut> getFileShortcuts(
 		long groupId, long folderId, int status)
@@ -123,7 +136,7 @@ public class DLAppHelperLocalServiceWrapper implements DLAppHelperLocalService,
 	}
 
 	/**
-	* @deprecated {@Link #getFileShortcutsCount(long, long, int, boolean)}
+	* @deprecated {@link #getFileShortcutsCount(long, long, boolean, int)}
 	*/
 	public int getFileShortcutsCount(long groupId, long folderId, int status)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -142,12 +155,34 @@ public class DLAppHelperLocalServiceWrapper implements DLAppHelperLocalService,
 		_dlAppHelperLocalService.moveFileEntry(fileEntry);
 	}
 
+	public com.liferay.portal.kernel.repository.model.FileEntry moveFileEntryFromTrash(
+		long userId,
+		com.liferay.portal.kernel.repository.model.FileEntry fileEntry,
+		long newFolderId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _dlAppHelperLocalService.moveFileEntryFromTrash(userId,
+			fileEntry, newFolderId, serviceContext);
+	}
+
 	public com.liferay.portal.kernel.repository.model.FileEntry moveFileEntryToTrash(
 		long userId,
 		com.liferay.portal.kernel.repository.model.FileEntry fileEntry)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _dlAppHelperLocalService.moveFileEntryToTrash(userId, fileEntry);
+	}
+
+	public com.liferay.portlet.documentlibrary.model.DLFileShortcut moveFileShortcutFromTrash(
+		long userId,
+		com.liferay.portlet.documentlibrary.model.DLFileShortcut dlFileShortcut,
+		long newFolderId, long toFileEntryId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _dlAppHelperLocalService.moveFileShortcutFromTrash(userId,
+			dlFileShortcut, newFolderId, toFileEntryId, serviceContext);
 	}
 
 	public com.liferay.portlet.documentlibrary.model.DLFileShortcut moveFileShortcutToTrash(
@@ -164,6 +199,16 @@ public class DLAppHelperLocalServiceWrapper implements DLAppHelperLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_dlAppHelperLocalService.moveFolder(folder);
+	}
+
+	public com.liferay.portal.kernel.repository.model.Folder moveFolderFromTrash(
+		long userId, com.liferay.portal.kernel.repository.model.Folder folder,
+		long parentFolderId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _dlAppHelperLocalService.moveFolderFromTrash(userId, folder,
+			parentFolderId, serviceContext);
 	}
 
 	public com.liferay.portal.kernel.repository.model.Folder moveFolderToTrash(

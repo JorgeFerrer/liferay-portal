@@ -14,7 +14,6 @@
 
 package com.liferay.portal.freemarker;
 
-import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.templateparser.TemplateContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.SetUtil;
@@ -23,13 +22,12 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.template.TemplateContextHelper;
 import com.liferay.portal.template.TemplatePortletPreferences;
+import com.liferay.portal.template.TemplateResourceParser;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 
 import freemarker.ext.beans.BeansWrapper;
-
-import freemarker.template.utility.ObjectConstructor;
 
 import java.util.Map;
 import java.util.Set;
@@ -53,7 +51,7 @@ public class FreeMarkerTemplateContextHelper extends TemplateContextHelper {
 
 		// Object util
 
-		helperUtilities.put("objectUtil", new ObjectConstructor());
+		helperUtilities.put("objectUtil", new LiferayObjectConstructor());
 
 		// Portlet preferences
 
@@ -76,8 +74,7 @@ public class FreeMarkerTemplateContextHelper extends TemplateContextHelper {
 
 	@Override
 	public void prepare(
-			TemplateContext templateContext, HttpServletRequest request)
-		throws TemplateException {
+		TemplateContext templateContext, HttpServletRequest request) {
 
 		super.prepare(templateContext, request);
 
@@ -110,7 +107,7 @@ public class FreeMarkerTemplateContextHelper extends TemplateContextHelper {
 			templateContext.put(
 				"init",
 				StringPool.SLASH + themeDisplay.getPathContext() +
-					FreeMarkerTemplateLoader.SERVLET_SEPARATOR +
+					TemplateResourceParser.SERVLET_SEPARATOR +
 						"/html/themes/_unstyled/templates/init.ftl");
 		}
 

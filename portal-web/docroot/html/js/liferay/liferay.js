@@ -3,7 +3,11 @@ Liferay = window.Liferay || {};
 ;(function(A, Liferay) {
 	var Lang = A.Lang;
 
+	var owns = A.Object.owns;
+
 	var CONTEXT = themeDisplay.getPathContext();
+
+	var PREFIX_PARAM_NULL_VALUE = '-';
 
 	var REGEX_SELECTOR_ID = /^#/;
 
@@ -66,7 +70,7 @@ Liferay = window.Liferay || {};
 				}
 
 				for (var i in serviceConfig) {
-					if (A.Object.owns(serviceConfig, i)) {
+					if (owns(serviceConfig, i)) {
 						service = i;
 						serviceData = serviceConfig[i];
 
@@ -157,6 +161,21 @@ Liferay = window.Liferay || {};
 
 		config.method = method;
 
+		var prefixedData = {};
+
+		A.Object.each(
+			config.data,
+			function(item, index, collection) {
+				if (Lang.isNull(item) && index.charAt(0) != PREFIX_PARAM_NULL_VALUE) {
+					index = PREFIX_PARAM_NULL_VALUE + index;
+				}
+
+				prefixedData[index] = item;
+			}
+		);
+
+		config.data = prefixedData;
+
 		return Service._ioRequest(url, config);
 	};
 
@@ -175,7 +194,9 @@ Liferay = window.Liferay || {};
 				var instance = this;
 
 				options.serviceParameters = Service.getParameters(options);
+
 				options.doAsUserId = themeDisplay.getDoAsUserIdEncoded();
+				options.p_auth = Liferay.authToken;
 
 				var config = {
 					cache: false,
@@ -206,8 +227,29 @@ Liferay = window.Liferay || {};
 				instance._ioRequest(instance.actionUrl, config);
 
 				if (xHR) {
-					return eval('(' + xHR.responseText + ')');
+					var value;
+
+					if (typeof xHR.responseText == 'unknown') {
+						var data = config.data;
+
+						value = 'IE6 could not access the response for: ' + data.serviceMethodName;
+					}
+					else {
+						value = eval('(' + xHR.responseText + ')');
+					}
+
+					return value;
 				}
+			},
+
+			bind: function() {
+				var instance = this;
+
+				var args = A.Array(arguments, 0, true);
+
+				args.unshift(Liferay.Service, Liferay);
+
+				return A.bind.apply(A, args);
 			},
 
 			getParameters: function(options) {
@@ -302,6 +344,12 @@ Liferay = window.Liferay || {};
 			_ioRequest: function(uri, config) {
 				var instance = this;
 
+				var data = config.data;
+
+				if (!A.Object.owns(data, 'p_auth')) {
+					data.p_auth = Liferay.authToken;
+				}
+
 				if (A.io && A.io.request) {
 					A.io.request(uri, config);
 				}
@@ -314,7 +362,8 @@ Liferay = window.Liferay || {};
 					);
 				}
 			}
-		}
+		},
+		true
 	);
 
 	A.each(
@@ -337,6 +386,35 @@ Liferay = window.Liferay || {};
 	);
 
 	Liferay.Service = Service;
+
+	var components = {};
+	var componentsFn = {};
+
+	Liferay.component = function(id, value) {
+		var retVal;
+
+		if (arguments.length == 1) {
+			var component = components[id];
+
+			if (component && Lang.isFunction(component)) {
+				componentsFn[id] = component;
+
+				component = component();
+
+				components[id] = component;
+			}
+
+			retVal = component;
+		}
+		else {
+			retVal = (components[id] = value);
+		}
+
+		return retVal;
+	};
+
+	Liferay._components = components;
+	Liferay._componentsFn = components;
 
 	Liferay.Template = {
 		PORTLET: '<div class="portlet"><div class="portlet-topper"><div class="portlet-title"></div></div><div class="portlet-content"></div><div class="forbidden-action"></div></div>'

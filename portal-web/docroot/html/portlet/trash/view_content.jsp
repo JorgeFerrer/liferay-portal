@@ -23,11 +23,26 @@
 
 	long entryId = ParamUtil.getLong(request, "entryId");
 
-	TrashEntry entry = TrashEntryLocalServiceUtil.getEntry(entryId);
+	String className = ParamUtil.getString(request, "className");
+	long classPK = ParamUtil.getLong(request, "classPK");
 
-	TrashHandler trashHandler = TrashHandlerRegistryUtil.getTrashHandler(entry.getClassName());
+	TrashEntry entry = null;
 
-	TrashRenderer trashRenderer = trashHandler.getTrashRenderer(entry.getClassPK());
+	if (entryId > 0) {
+		entry = TrashEntryLocalServiceUtil.getEntry(entryId);
+	}
+	else if (Validator.isNotNull(className) && (classPK > 0)) {
+		entry = TrashEntryLocalServiceUtil.fetchEntry(className, classPK);
+	}
+
+	if (entry != null) {
+		className = entry.getClassName();
+		classPK = entry.getClassPK();
+	}
+
+	TrashHandler trashHandler = TrashHandlerRegistryUtil.getTrashHandler(className);
+
+	TrashRenderer trashRenderer = trashHandler.getTrashRenderer(classPK);
 
 	String path = trashRenderer.render(renderRequest, renderResponse, AssetRenderer.TEMPLATE_FULL_CONTENT);
 	%>

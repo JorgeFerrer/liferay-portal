@@ -723,6 +723,15 @@ public class WikiPageWrapper implements WikiPage, ModelWrapper<WikiPage> {
 	}
 
 	/**
+	* Returns <code>true</code> if this wiki page is denied.
+	*
+	* @return <code>true</code> if this wiki page is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _wikiPage.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this wiki page is a draft.
 	*
 	* @return <code>true</code> if this wiki page is a draft; <code>false</code> otherwise
@@ -741,12 +750,48 @@ public class WikiPageWrapper implements WikiPage, ModelWrapper<WikiPage> {
 	}
 
 	/**
+	* Returns <code>true</code> if this wiki page is inactive.
+	*
+	* @return <code>true</code> if this wiki page is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _wikiPage.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this wiki page is incomplete.
+	*
+	* @return <code>true</code> if this wiki page is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _wikiPage.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this wiki page is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this wiki page is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _wikiPage.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this wiki page is pending.
 	*
 	* @return <code>true</code> if this wiki page is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _wikiPage.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this wiki page is scheduled.
+	*
+	* @return <code>true</code> if this wiki page is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _wikiPage.isScheduled();
 	}
 
 	public boolean isNew() {

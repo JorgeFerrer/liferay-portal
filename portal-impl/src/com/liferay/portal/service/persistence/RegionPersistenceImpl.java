@@ -368,6 +368,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 		if (isNew || !RegionModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((regionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COUNTRYID.getColumnBitmask()) != 0) {
@@ -448,6 +449,7 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_R, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_R, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_R,
@@ -714,10 +716,6 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	/**
 	 * Returns the first region in the ordered set where countryId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param countryId the country ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching region
@@ -727,31 +725,45 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByCountryId_First(long countryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByCountryId_First(countryId, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("countryId=");
+		msg.append(countryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first region in the ordered set where countryId = &#63;.
+	 *
+	 * @param countryId the country ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByCountryId_First(long countryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Region> list = findByCountryId(countryId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("countryId=");
-			msg.append(countryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last region in the ordered set where countryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param countryId the country ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -762,34 +774,48 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByCountryId_Last(long countryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByCountryId_Last(countryId, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("countryId=");
+		msg.append(countryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last region in the ordered set where countryId = &#63;.
+	 *
+	 * @param countryId the country ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByCountryId_Last(long countryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCountryId(countryId);
 
 		List<Region> list = findByCountryId(countryId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("countryId=");
-			msg.append(countryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the regions before and after the current region in the ordered set where countryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param regionId the primary key of the current region
 	 * @param countryId the country ID
@@ -1066,10 +1092,6 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	/**
 	 * Returns the first region in the ordered set where active = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param active the active
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching region
@@ -1079,31 +1101,45 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByActive_First(boolean active,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByActive_First(active, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("active=");
+		msg.append(active);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first region in the ordered set where active = &#63;.
+	 *
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByActive_First(boolean active,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Region> list = findByActive(active, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("active=");
-			msg.append(active);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last region in the ordered set where active = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param active the active
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1114,34 +1150,48 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByActive_Last(boolean active,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByActive_Last(active, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("active=");
+		msg.append(active);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last region in the ordered set where active = &#63;.
+	 *
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByActive_Last(boolean active,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByActive(active);
 
 		List<Region> list = findByActive(active, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("active=");
-			msg.append(active);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the regions before and after the current region in the ordered set where active = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param regionId the primary key of the current region
 	 * @param active the active
@@ -1595,10 +1645,6 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	/**
 	 * Returns the first region in the ordered set where countryId = &#63; and active = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param countryId the country ID
 	 * @param active the active
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1609,34 +1655,49 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByC_A_First(long countryId, boolean active,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByC_A_First(countryId, active, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("countryId=");
+		msg.append(countryId);
+
+		msg.append(", active=");
+		msg.append(active);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first region in the ordered set where countryId = &#63; and active = &#63;.
+	 *
+	 * @param countryId the country ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByC_A_First(long countryId, boolean active,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Region> list = findByC_A(countryId, active, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("countryId=");
-			msg.append(countryId);
-
-			msg.append(", active=");
-			msg.append(active);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last region in the ordered set where countryId = &#63; and active = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param countryId the country ID
 	 * @param active the active
@@ -1648,37 +1709,52 @@ public class RegionPersistenceImpl extends BasePersistenceImpl<Region>
 	public Region findByC_A_Last(long countryId, boolean active,
 		OrderByComparator orderByComparator)
 		throws NoSuchRegionException, SystemException {
+		Region region = fetchByC_A_Last(countryId, active, orderByComparator);
+
+		if (region != null) {
+			return region;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("countryId=");
+		msg.append(countryId);
+
+		msg.append(", active=");
+		msg.append(active);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchRegionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last region in the ordered set where countryId = &#63; and active = &#63;.
+	 *
+	 * @param countryId the country ID
+	 * @param active the active
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching region, or <code>null</code> if a matching region could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Region fetchByC_A_Last(long countryId, boolean active,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_A(countryId, active);
 
 		List<Region> list = findByC_A(countryId, active, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("countryId=");
-			msg.append(countryId);
-
-			msg.append(", active=");
-			msg.append(active);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchRegionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the regions before and after the current region in the ordered set where countryId = &#63; and active = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param regionId the primary key of the current region
 	 * @param countryId the country ID

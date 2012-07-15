@@ -307,7 +307,7 @@ public class SearchContext implements Serializable {
 	private boolean _includeLiveGroups = true;
 	private boolean _includeStagingGroups = true;
 	private String _keywords;
-	private Locale _locale = LocaleUtil.getDefault();
+	private Locale _locale = LocaleUtil.getMostRelevantLocale();
 	private long[] _nodeIds;
 	private long _ownerUserId;
 	private String[] _portletIds;

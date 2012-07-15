@@ -51,7 +51,7 @@ public class AddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase {
 		loadRequiredJavaScriptModules();
 		assertTrue(selenium.isElementPresent(
 				"//body[contains(@class,'live-view')]"));
-		assertFalse(selenium.isElementPresent(
+		assertTrue(selenium.isElementNotPresent(
 				"//body[contains(@class,'local-staging')]"));
 		assertTrue(selenium.isPartialText("//li[2]/span/a", "Staging"));
 		selenium.clickAt("//li[2]/span/a", RuntimeVariables.replace("Staging"));
@@ -93,9 +93,8 @@ public class AddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"The data of this portlet is not staged. Any data changes are immediately available to the Local Live site. The portlet's own workflow is still honored. Portlet setup is still managed from staging."),
 			selenium.getText("//div[@class='portlet-msg-alert']"));
-		selenium.type("//input[@id='_20_file']",
-			RuntimeVariables.replace(
-				"L:\\portal\\build\\portal-web\\test\\com\\liferay\\portalweb\\stagingcommunity\\documentlibrary\\dependencies\\DLDocument.docx"));
+		selenium.uploadCommonFile("//input[@id='_20_file']",
+			RuntimeVariables.replace("Document_1.docx"));
 		selenium.type("//input[@id='_20_title']",
 			RuntimeVariables.replace("DL Document Title"));
 		selenium.type("//textarea[@id='_20_description']",
@@ -139,7 +138,7 @@ public class AddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase {
 			selenium.getText("//span[@class='document-description']"));
 		assertEquals(RuntimeVariables.replace("Status: Approved"),
 			selenium.getText("//span[@class='workflow-status']"));
-		assertEquals(RuntimeVariables.replace("Download (9.6k)"),
+		assertEquals(RuntimeVariables.replace("Download (12.4k)"),
 			selenium.getText("//span[@class='download-document']"));
 	}
 }

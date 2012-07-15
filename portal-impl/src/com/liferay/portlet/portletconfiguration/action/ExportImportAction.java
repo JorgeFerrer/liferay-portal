@@ -17,6 +17,7 @@ package com.liferay.portlet.portletconfiguration.action;
 import com.liferay.portal.LARFileException;
 import com.liferay.portal.LARTypeException;
 import com.liferay.portal.LayoutImportException;
+import com.liferay.portal.LocaleException;
 import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.PortletIdException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -191,7 +192,7 @@ public class ExportImportAction extends EditConfigurationAction {
 				startDate = PortalUtil.getDate(
 					startDateMonth, startDateDay, startDateYear, startDateHour,
 					startDateMinute, themeDisplay.getTimeZone(),
-					new PortalException());
+					PortalException.class);
 
 				int endDateMonth = ParamUtil.getInteger(
 					actionRequest, "endDateMonth");
@@ -213,7 +214,7 @@ public class ExportImportAction extends EditConfigurationAction {
 				endDate = PortalUtil.getDate(
 					endDateMonth, endDateDay, endDateYear, endDateHour,
 					endDateMinute, themeDisplay.getTimeZone(),
-					new PortalException());
+					PortalException.class);
 			}
 			else if (range.equals("fromLastPublishDate")) {
 				Layout layout = LayoutLocalServiceUtil.getLayout(plid);
@@ -258,7 +259,7 @@ public class ExportImportAction extends EditConfigurationAction {
 				_log.debug(e, e);
 			}
 
-			SessionErrors.add(actionRequest, e.getClass().getName(), e);
+			SessionErrors.add(actionRequest, e.getClass(), e);
 		}
 		finally {
 			FileUtil.delete(file);
@@ -294,6 +295,9 @@ public class ExportImportAction extends EditConfigurationAction {
 				(e instanceof PortletIdException)) {
 
 				SessionErrors.add(actionRequest, e.getClass());
+			}
+			else if (e instanceof LocaleException) {
+				SessionErrors.add(actionRequest, e.getClass(), e);
 			}
 			else {
 				_log.error(e, e);

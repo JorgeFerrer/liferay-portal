@@ -16,7 +16,7 @@ package com.liferay.portal.servlet.filters.strip;
 
 import com.liferay.portal.kernel.cache.key.CacheKeyGenerator;
 import com.liferay.portal.kernel.cache.key.CacheKeyGeneratorUtil;
-import com.liferay.portal.kernel.concurrent.ConcurrentLRUCache;
+import com.liferay.portal.kernel.concurrent.ConcurrentLFUCache;
 import com.liferay.portal.kernel.io.OutputStreamWriter;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -48,6 +48,7 @@ import java.util.Set;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,7 +64,7 @@ public class StripFilter extends BasePortalFilter {
 
 	public StripFilter() {
 		if (PropsValues.MINIFIER_INLINE_CONTENT_CACHE_SIZE > 0) {
-			_minifierCache = new ConcurrentLRUCache<String, String>(
+			_minifierCache = new ConcurrentLFUCache<String, String>(
 				PropsValues.MINIFIER_INLINE_CONTENT_CACHE_SIZE);
 		}
 	}
@@ -75,6 +76,8 @@ public class StripFilter extends BasePortalFilter {
 		for (String ignorePath : PropsValues.STRIP_IGNORE_PATHS) {
 			_ignorePaths.add(ignorePath);
 		}
+
+		_servletContext = filterConfig.getServletContext();
 	}
 
 	@Override
@@ -246,7 +249,7 @@ public class StripFilter extends BasePortalFilter {
 				if (PropsValues.STRIP_CSS_SASS_ENABLED) {
 					try {
 						content = DynamicCSSUtil.parseSass(
-							request, key, content);
+							_servletContext, request, null, content);
 					}
 					catch (ScriptingException se) {
 						_log.error("Unable to parse SASS on CSS " + key, se);
@@ -684,6 +687,7 @@ public class StripFilter extends BasePortalFilter {
 	private static Log _log = LogFactoryUtil.getLog(StripFilter.class);
 
 	private Set<String> _ignorePaths = new HashSet<String>();
-	private ConcurrentLRUCache<String, String> _minifierCache;
+	private ConcurrentLFUCache<String, String> _minifierCache;
+	private ServletContext _servletContext;
 
 }

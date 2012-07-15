@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.PortalUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ import java.util.Map;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Brian Wing Shun Chan
@@ -200,8 +203,15 @@ public class SearchContainer<R> {
 		return _headerNames;
 	}
 
-	public String getId() {
+	public String getId(HttpServletRequest request, String namespace) {
+		if (_uniqueId) {
+			return _id;
+		}
+
 		if (Validator.isNotNull(_id)) {
+			_id = PortalUtil.getUniqueElementId(request, namespace, _id);
+			_uniqueId = true;
+
 			return _id;
 		}
 
@@ -220,14 +230,22 @@ public class SearchContainer<R> {
 				simpleClassName, TextFormatter.I);
 
 			id = TextFormatter.formatPlural(variableCasingSimpleClassName);
+
+			id = id.concat("SearchContainer");
+
+			_id = PortalUtil.getUniqueElementId(request, namespace, id);
+			_uniqueId = true;
+
+			return _id;
 		}
 		else {
 			id = DeterminateKeyGenerator.generate("taglib_search_container");
+
+			_id = id.concat("SearchContainer");
+			_uniqueId = true;
+
+			return _id;
 		}
-
-		_id = id.concat("SearchContainer");
-
-		return _id;
 	}
 
 	public PortletURL getIteratorURL() {
@@ -477,5 +495,6 @@ public class SearchContainer<R> {
 	private DisplayTerms _searchTerms;
 	private int _start;
 	private int _total;
+	private boolean _uniqueId;
 
 }

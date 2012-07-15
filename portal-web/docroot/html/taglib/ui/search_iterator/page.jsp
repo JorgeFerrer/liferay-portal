@@ -22,7 +22,7 @@ SearchContainer searchContainer = (SearchContainer)request.getAttribute("liferay
 boolean paginate = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:search-iterator:paginate"));
 String type = (String)request.getAttribute("liferay-ui:search:type");
 
-String id = searchContainer.getId();
+String id = searchContainer.getId(request, namespace);
 
 int start = searchContainer.getStart();
 int end = searchContainer.getEnd();
@@ -161,7 +161,13 @@ int sortColumnIndex = -1;
 
 							<c:choose>
 								<c:when test="<%= Validator.isNull(orderByJS) %>">
-									<a href="<%= url %>&<%= namespace %><%= searchContainer.getOrderByColParam() %>=<%= orderKey %>&<%= namespace %><%= searchContainer.getOrderByTypeParam() %>=<%= HtmlUtil.escapeURL(orderByType) %>">
+
+									<%
+									url = HttpUtil.addParameter(url, namespace + searchContainer.getOrderByColParam(), orderKey);
+									url = HttpUtil.addParameter(url, namespace + searchContainer.getOrderByTypeParam(), orderByType);
+									%>
+
+									<a href="<%= url %>">
 								</c:when>
 								<c:otherwise>
 									<a href="<%= StringUtil.replace(orderByJS, new String[] { "orderKey", "orderByType" }, new String[] { orderKey, orderByType }) %>">

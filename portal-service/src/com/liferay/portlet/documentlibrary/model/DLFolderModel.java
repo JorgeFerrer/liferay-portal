@@ -405,6 +405,13 @@ public interface DLFolderModel extends BaseModel<DLFolder>, GroupedModel,
 	public boolean isApproved();
 
 	/**
+	 * Returns <code>true</code> if this document library folder is denied.
+	 *
+	 * @return <code>true</code> if this document library folder is denied; <code>false</code> otherwise
+	 */
+	public boolean isDenied();
+
+	/**
 	 * Returns <code>true</code> if this document library folder is a draft.
 	 *
 	 * @return <code>true</code> if this document library folder is a draft; <code>false</code> otherwise
@@ -419,11 +426,39 @@ public interface DLFolderModel extends BaseModel<DLFolder>, GroupedModel,
 	public boolean isExpired();
 
 	/**
+	 * Returns <code>true</code> if this document library folder is inactive.
+	 *
+	 * @return <code>true</code> if this document library folder is inactive; <code>false</code> otherwise
+	 */
+	public boolean isInactive();
+
+	/**
+	 * Returns <code>true</code> if this document library folder is incomplete.
+	 *
+	 * @return <code>true</code> if this document library folder is incomplete; <code>false</code> otherwise
+	 */
+	public boolean isIncomplete();
+
+	/**
+	 * Returns <code>true</code> if this document library folder is in the Recycle Bin.
+	 *
+	 * @return <code>true</code> if this document library folder is in the Recycle Bin; <code>false</code> otherwise
+	 */
+	public boolean isInTrash();
+
+	/**
 	 * Returns <code>true</code> if this document library folder is pending.
 	 *
 	 * @return <code>true</code> if this document library folder is pending; <code>false</code> otherwise
 	 */
 	public boolean isPending();
+
+	/**
+	 * Returns <code>true</code> if this document library folder is scheduled.
+	 *
+	 * @return <code>true</code> if this document library folder is scheduled; <code>false</code> otherwise
+	 */
+	public boolean isScheduled();
 
 	public boolean isNew();
 

@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -32,6 +31,7 @@ import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.model.LayoutStagingHandler;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -223,6 +223,12 @@ public class LayoutLocalServiceStagingAdvice
 				}
 			}
 		}
+
+		boolean layoutPrototypeLinkEnabled = ParamUtil.getBoolean(
+			serviceContext, "layoutPrototypeLinkEnabled", true);
+
+		originalLayout.setLayoutPrototypeLinkEnabled(
+			layoutPrototypeLinkEnabled);
 
 		layoutPersistence.update(originalLayout, false);
 
@@ -432,8 +438,8 @@ public class LayoutLocalServiceStagingAdvice
 		}
 
 		return (Layout)ProxyUtil.newProxyInstance(
-			PortalClassLoaderUtil.getClassLoader(), new Class[] {Layout.class},
-			new LayoutStagingHandler(layout));
+			PACLClassLoaderUtil.getPortalClassLoader(),
+			new Class[] {Layout.class}, new LayoutStagingHandler(layout));
 	}
 
 	protected List<Layout> wrapLayouts(

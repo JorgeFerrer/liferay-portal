@@ -237,6 +237,22 @@ public class JournalArticleServiceWrapper implements JournalArticleService,
 			layoutUuid);
 	}
 
+	public java.util.List<com.liferay.portlet.journal.model.JournalArticle> getArticlesByStructureId(
+		long groupId, java.lang.String structureId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleService.getArticlesByStructureId(groupId,
+			structureId, start, end, obc);
+	}
+
+	public java.util.List<com.liferay.portlet.journal.model.JournalArticle> getArticlesByUserId(
+		long groupId, long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleService.getArticlesByUserId(groupId, userId,
+			start, end, obc);
+	}
+
 	public int getArticlesCount(long groupId, long folderId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleService.getArticlesCount(groupId, folderId);
@@ -247,6 +263,18 @@ public class JournalArticleServiceWrapper implements JournalArticleService,
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleService.getArticlesCountByArticleId(groupId,
 			articleId);
+	}
+
+	public int getArticlesCountByStructureId(long groupId,
+		java.lang.String structureId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleService.getArticlesCountByStructureId(groupId,
+			structureId);
+	}
+
+	public int getArticlesCountByUserId(long groupId, long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleService.getArticlesCountByUserId(groupId, userId);
 	}
 
 	public com.liferay.portlet.journal.model.JournalArticle getDisplayArticleByUrlTitle(
@@ -488,6 +516,16 @@ public class JournalArticleServiceWrapper implements JournalArticleService,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleService.updateContent(groupId, articleId,
 			version, content);
+	}
+
+	public com.liferay.portlet.journal.model.JournalArticle updateStatus(
+		long groupId, java.lang.String articleId, double version, int status,
+		java.lang.String articleURL,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleService.updateStatus(groupId, articleId, version,
+			status, articleURL, serviceContext);
 	}
 
 	/**

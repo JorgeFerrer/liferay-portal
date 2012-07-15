@@ -39,7 +39,9 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.ResourceAction;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.ResourcePermission;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Team;
@@ -323,6 +325,14 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 
 		// Resources
 
+		List<ResourcePermission> resourcePermissions =
+			resourcePermissionPersistence.findByRoleId(role.getRoleId());
+
+		for (ResourcePermission resourcePermission : resourcePermissions) {
+			resourcePermissionLocalService.deleteResourcePermission(
+				resourcePermission);
+		}
+
 		String className = role.getClassName();
 		long classNameId = role.getClassNameId();
 
@@ -448,6 +458,13 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	public List<Role> getGroupRoles(long groupId) throws SystemException {
 		return groupPersistence.getRoles(groupId);
+	}
+
+	public List<Role> getResourceBlockRoles(
+			long resourceBlockId, String className, String actionId)
+		throws SystemException {
+
+		return roleFinder.findByR_N_A(resourceBlockId, className, actionId);
 	}
 
 	/**
@@ -1199,10 +1216,10 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 		catch (NoSuchRoleException nsre) {
 			role = roleLocalService.addRole(
 				0, companyId, name, null, descriptionMap, type);
+		}
 
-			if (name.equals(RoleConstants.USER)) {
-				initPersonalControlPanelPortletsPermissions(role);
-			}
+		if (name.equals(RoleConstants.USER)) {
+			initPersonalControlPanelPortletsPermissions(role);
 		}
 
 		_systemRolesMap.put(key, role);
@@ -1219,6 +1236,14 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		for (String portletId : getDefaultControlPanelPortlets()) {
+			ResourceAction resourceAction =
+				resourceActionLocalService.fetchResourceAction(
+					portletId, ActionKeys.ACCESS_IN_CONTROL_PANEL);
+
+			if (resourceAction == null) {
+				continue;
+			}
+
 			setRolePermissions(
 				role, portletId,
 				new String[] {

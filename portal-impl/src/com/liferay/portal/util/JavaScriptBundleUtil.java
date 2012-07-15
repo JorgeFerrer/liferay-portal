@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.cache.SingleVMPoolUtil;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.util.UniqueList;
+import com.liferay.portal.kernel.util.UniqueList;
 
 import java.util.ArrayList;
 import java.util.List;

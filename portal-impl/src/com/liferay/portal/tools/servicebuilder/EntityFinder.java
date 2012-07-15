@@ -15,6 +15,7 @@
 package com.liferay.portal.tools.servicebuilder;
 
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.TextFormatter;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class EntityFinder {
 
 	public EntityColumn getColumn(String name) {
 		for (EntityColumn column : _columns) {
-			if (column.getName().equals(name)) {
+			if (name.equals(column.getName())) {
 				return column;
 			}
 		}
@@ -98,6 +99,18 @@ public class EntityFinder {
 
 	public boolean hasColumn(String name) {
 		return Entity.hasColumn(name, _columns);
+	}
+
+	public boolean hasCustomComparator() {
+		for (EntityColumn column : _columns) {
+			String comparator = column.getComparator();
+
+			if (!comparator.equals(StringPool.EQUAL)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public boolean isCollection() {

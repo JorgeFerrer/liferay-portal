@@ -373,7 +373,7 @@ public class LayoutServiceUtil {
 	*
 	* @param groupId the primary key of the group
 	* @param scopeGroupId the primary key of the scope group. See {@link
-	ServiceContext#getScopeGroupId()}.
+	com.liferay.portal.service.ServiceContext#getScopeGroupId()}.
 	* @param privateLayout whether the layout is private to the group
 	* @param portletId the primary key of the portlet
 	* @return Returns the primary key of the default layout group; {@link
@@ -436,6 +436,13 @@ public class LayoutServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getLayouts(groupId, privateLayout);
+	}
+
+	public static java.util.List<com.liferay.portal.model.Layout> getLayouts(
+		long groupId, boolean privateLayout, long parentLayoutId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLayouts(groupId, privateLayout, parentLayoutId);
 	}
 
 	/**
@@ -641,18 +648,20 @@ public class LayoutServiceUtil {
 		java.util.Map<java.lang.Long, java.lang.Boolean> layoutIdMap,
 		java.util.Map<java.lang.String, java.lang.String[]> parameterMap,
 		java.lang.String remoteAddress, int remotePort,
-		boolean secureConnection, long remoteGroupId,
-		boolean remotePrivateLayout, java.util.Date startDate,
-		java.util.Date endDate, java.lang.String groupName,
-		java.lang.String cronText, java.util.Date schedulerStartDate,
-		java.util.Date schedulerEndDate, java.lang.String description)
+		java.lang.String remotePathContext, boolean secureConnection,
+		long remoteGroupId, boolean remotePrivateLayout,
+		java.util.Date startDate, java.util.Date endDate,
+		java.lang.String groupName, java.lang.String cronText,
+		java.util.Date schedulerStartDate, java.util.Date schedulerEndDate,
+		java.lang.String description)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService()
 			.schedulePublishToRemote(sourceGroupId, privateLayout, layoutIdMap,
-			parameterMap, remoteAddress, remotePort, secureConnection,
-			remoteGroupId, remotePrivateLayout, startDate, endDate, groupName,
-			cronText, schedulerStartDate, schedulerEndDate, description);
+			parameterMap, remoteAddress, remotePort, remotePathContext,
+			secureConnection, remoteGroupId, remotePrivateLayout, startDate,
+			endDate, groupName, cronText, schedulerStartDate, schedulerEndDate,
+			description);
 	}
 
 	/**

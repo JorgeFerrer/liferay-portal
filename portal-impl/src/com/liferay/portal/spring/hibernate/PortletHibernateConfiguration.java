@@ -15,6 +15,9 @@
 package com.liferay.portal.spring.hibernate;
 
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
+
+import org.hibernate.dialect.Dialect;
 
 /**
  * @author Brian Wing Shun Chan
@@ -31,9 +34,7 @@ public class PortletHibernateConfiguration
 
 			// This should not be null except in cases where sharding is enabled
 
-			Thread currentThread = Thread.currentThread();
-
-			classLoader = currentThread.getContextClassLoader();
+			classLoader = PACLClassLoaderUtil.getContextClassLoader();
 		}
 
 		return classLoader;
@@ -42,6 +43,13 @@ public class PortletHibernateConfiguration
 	@Override
 	protected String[] getConfigurationResources() {
 		return new String[] {"META-INF/portlet-hbm.xml"};
+	}
+
+	@Override
+	protected void setDB(Dialect dialect) {
+
+		// Plugins should not update the default DB reference
+
 	}
 
 }

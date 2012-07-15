@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.model.Address;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.LayoutSet;
@@ -41,7 +42,6 @@ import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.util.UniqueList;
 
 import java.util.ArrayList;
 import java.util.List;

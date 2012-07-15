@@ -315,6 +315,7 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 				Object[] args = new Object[] { ticketModelImpl.getOriginalKey() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KEY, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KEY, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY,

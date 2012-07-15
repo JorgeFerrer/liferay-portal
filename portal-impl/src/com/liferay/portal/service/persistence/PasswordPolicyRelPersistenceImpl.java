@@ -367,6 +367,7 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 		if (isNew || !PasswordPolicyRelModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((passwordPolicyRelModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_PASSWORDPOLICYID.getColumnBitmask()) != 0) {
@@ -417,6 +418,7 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_C,
@@ -435,6 +437,7 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_P_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_P_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_C,
@@ -706,10 +709,6 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 	/**
 	 * Returns the first password policy rel in the ordered set where passwordPolicyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param passwordPolicyId the password policy ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching password policy rel
@@ -719,32 +718,48 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 	public PasswordPolicyRel findByPasswordPolicyId_First(
 		long passwordPolicyId, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyRelException, SystemException {
+		PasswordPolicyRel passwordPolicyRel = fetchByPasswordPolicyId_First(passwordPolicyId,
+				orderByComparator);
+
+		if (passwordPolicyRel != null) {
+			return passwordPolicyRel;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("passwordPolicyId=");
+		msg.append(passwordPolicyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchPasswordPolicyRelException(msg.toString());
+	}
+
+	/**
+	 * Returns the first password policy rel in the ordered set where passwordPolicyId = &#63;.
+	 *
+	 * @param passwordPolicyId the password policy ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching password policy rel, or <code>null</code> if a matching password policy rel could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PasswordPolicyRel fetchByPasswordPolicyId_First(
+		long passwordPolicyId, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<PasswordPolicyRel> list = findByPasswordPolicyId(passwordPolicyId,
 				0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("passwordPolicyId=");
-			msg.append(passwordPolicyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchPasswordPolicyRelException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last password policy rel in the ordered set where passwordPolicyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param passwordPolicyId the password policy ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -755,34 +770,50 @@ public class PasswordPolicyRelPersistenceImpl extends BasePersistenceImpl<Passwo
 	public PasswordPolicyRel findByPasswordPolicyId_Last(
 		long passwordPolicyId, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyRelException, SystemException {
+		PasswordPolicyRel passwordPolicyRel = fetchByPasswordPolicyId_Last(passwordPolicyId,
+				orderByComparator);
+
+		if (passwordPolicyRel != null) {
+			return passwordPolicyRel;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("passwordPolicyId=");
+		msg.append(passwordPolicyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchPasswordPolicyRelException(msg.toString());
+	}
+
+	/**
+	 * Returns the last password policy rel in the ordered set where passwordPolicyId = &#63;.
+	 *
+	 * @param passwordPolicyId the password policy ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching password policy rel, or <code>null</code> if a matching password policy rel could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public PasswordPolicyRel fetchByPasswordPolicyId_Last(
+		long passwordPolicyId, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByPasswordPolicyId(passwordPolicyId);
 
 		List<PasswordPolicyRel> list = findByPasswordPolicyId(passwordPolicyId,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("passwordPolicyId=");
-			msg.append(passwordPolicyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchPasswordPolicyRelException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the password policy rels before and after the current password policy rel in the ordered set where passwordPolicyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param passwordPolicyRelId the primary key of the current password policy rel
 	 * @param passwordPolicyId the password policy ID

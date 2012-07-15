@@ -97,7 +97,8 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 	public static long CLASSNAMEID_COLUMN_BITMASK = 1L;
 	public static long CLASSPK_COLUMN_BITMASK = 2L;
 	public static long COMPANYID_COLUMN_BITMASK = 4L;
-	public static long GROUPID_COLUMN_BITMASK = 8L;
+	public static long CREATEDATE_COLUMN_BITMASK = 8L;
+	public static long GROUPID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -106,6 +107,10 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 	 * @return the normal model instance
 	 */
 	public static TrashEntry toModel(TrashEntrySoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		TrashEntry model = new TrashEntryImpl();
 
 		model.setEntryId(soapModel.getEntryId());
@@ -129,6 +134,10 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 	 * @return the normal model instances
 	 */
 	public static List<TrashEntry> toModels(TrashEntrySoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<TrashEntry> models = new ArrayList<TrashEntry>(soapModels.length);
 
 		for (TrashEntrySoap soapModel : soapModels) {
@@ -339,7 +348,15 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 	public void setCreateDate(Date createDate) {
 		_columnBitmask = -1L;
 
+		if (_originalCreateDate == null) {
+			_originalCreateDate = _createDate;
+		}
+
 		_createDate = createDate;
+	}
+
+	public Date getOriginalCreateDate() {
+		return _originalCreateDate;
 	}
 
 	public String getClassName() {
@@ -529,6 +546,8 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 
 		trashEntryModelImpl._setOriginalCompanyId = false;
 
+		trashEntryModelImpl._originalCreateDate = trashEntryModelImpl._createDate;
+
 		trashEntryModelImpl._originalClassNameId = trashEntryModelImpl._classNameId;
 
 		trashEntryModelImpl._setOriginalClassNameId = false;
@@ -683,6 +702,7 @@ public class TrashEntryModelImpl extends BaseModelImpl<TrashEntry>
 	private String _userUuid;
 	private String _userName;
 	private Date _createDate;
+	private Date _originalCreateDate;
 	private long _classNameId;
 	private long _originalClassNameId;
 	private boolean _setOriginalClassNameId;

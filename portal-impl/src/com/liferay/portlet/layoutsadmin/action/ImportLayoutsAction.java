@@ -18,6 +18,7 @@ import com.liferay.portal.LARFileException;
 import com.liferay.portal.LARTypeException;
 import com.liferay.portal.LayoutImportException;
 import com.liferay.portal.LayoutPrototypeException;
+import com.liferay.portal.LocaleException;
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -82,10 +83,10 @@ public class ImportLayoutsAction extends PortletAction {
 
 				SessionErrors.add(actionRequest, e.getClass());
 			}
-			else if (e instanceof LayoutPrototypeException) {
-				LayoutPrototypeException lpe = (LayoutPrototypeException)e;
+			else if ((e instanceof LayoutPrototypeException) ||
+					 (e instanceof LocaleException)) {
 
-				SessionErrors.add(actionRequest, e.getClass().getName(), lpe);
+				SessionErrors.add(actionRequest, e.getClass(), e);
 			}
 			else {
 				_log.error(e, e);

@@ -289,7 +289,7 @@ public class DiffUtil {
 			}
 
 			if (aligned) {
-				 break;
+				break;
 			}
 			else {
 				_highlightLines(
@@ -360,8 +360,8 @@ public class DiffUtil {
 			return margin;
 		}
 
-		int lastChangedLine = (lastDiff.getLineNumber() - 1) +
-			lastDiff.getChangedLines().size();
+		int lastChangedLine =
+			(lastDiff.getLineNumber() - 1) + lastDiff.getChangedLines().size();
 
 		int currentChangedLine = startPos - margin;
 

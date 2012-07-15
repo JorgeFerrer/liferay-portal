@@ -13,7 +13,6 @@ AUI.add(
 		 * OPTIONS
 		 *
 		 * Required
-		 * hasPermission {boolean}: Whether the current user has permission to modify the navigation
 		 * layoutIds {array}: The displayable layout ids.
 		 * layoutSetBranchId {String}: The id of the layout set branch (when branching is enabled).
 		 * navBlock {string|object}: A selector or DOM element of the navigation.
@@ -22,7 +21,16 @@ AUI.add(
 		var Navigation = A.Component.create(
 			{
 				ATTRS: {
-					hasPermission: {
+					hasAddLayoutPermission: {
+						value: false
+					},
+
+					isAddable: {
+						getter: function(value) {
+							var instance = this;
+
+							return instance.get('hasAddLayoutPermission') && instance.get('navBlock').hasClass('modify-pages');
+						},
 						value: false
 					},
 
@@ -30,8 +38,7 @@ AUI.add(
 						getter: function(value) {
 							var instance = this;
 
-							return instance.get('hasPermission') &&
-									instance.get('navBlock').hasClass('modify-pages');
+							return instance.get('navBlock').hasClass('modify-pages');
 						},
 						value: false
 					},
@@ -40,8 +47,7 @@ AUI.add(
 						getter: function(value) {
 							var instance = this;
 
-							return instance.get('hasPermission') &&
-									instance.get('navBlock').hasClass('sort-pages');
+							return instance.get('navBlock').hasClass('sort-pages');
 						},
 						value: false
 					},
@@ -84,7 +90,7 @@ AUI.add(
 						var navBlock = instance.get('navBlock');
 
 						if (navBlock) {
-							instance._updateURL = themeDisplay.getPathMain() + '/layouts_admin/update_page';
+							instance._updateURL = themeDisplay.getPathMain() + '/layouts_admin/update_page?p_auth=' + Liferay.authToken;
 
 							var items = navBlock.all('> ul > li');
 							var layoutIds = instance.get('layoutIds');
@@ -209,14 +215,14 @@ AUI.add(
 					_makeAddable: function() {
 						var instance = this;
 
-						if (instance.get('isModifiable')) {
+						if (instance.get('isAddable')) {
 							var prototypeMenuNode = A.one('#layoutPrototypeTemplate');
 
 							if (prototypeMenuNode) {
 								instance._prototypeMenuTemplate = prototypeMenuNode.html();
 							}
 
-							if (instance.get('hasPermission')) {
+							if (instance.get('hasAddLayoutPermission')) {
 								var addPageButton = A.one('#addPage');
 
 								if (addPageButton) {
@@ -270,7 +276,7 @@ AUI.add(
 						var instance = this;
 
 						if (instance.get('isModifiable')) {
-							var currentItem = instance.get('navBlock').one('li.selected');
+							var currentItem = instance.get('navBlock').one('li.selected.lfr-nav-updateable');
 
 							if (currentItem) {
 								var currentLink = currentItem.one('a');
@@ -598,6 +604,7 @@ AUI.add(
 						groupId: themeDisplay.getParentGroupId(),
 						layoutId: tab._LFR_layoutId,
 						layoutSetBranchId: instance.get('layoutSetBranchId'),
+						p_auth: Liferay.authToken,
 						privateLayout: themeDisplay.isPrivateLayout()
 					};
 
@@ -659,6 +666,7 @@ AUI.add(
 								languageId: themeDisplay.getLanguageId(),
 								layoutId: themeDisplay.getLayoutId(),
 								name: pageTitle,
+								p_auth: Liferay.authToken,
 								privateLayout: themeDisplay.isPrivateLayout()
 							};
 
@@ -698,6 +706,7 @@ AUI.add(
 							layoutPrototypeId: layoutPrototypeId,
 							mainPath: themeDisplay.getPathMain(),
 							name: pageTitle,
+							p_auth: Liferay.authToken,
 							parentLayoutId: themeDisplay.getParentLayoutId(),
 							privateLayout: themeDisplay.isPrivateLayout()
 						};
@@ -784,6 +793,7 @@ AUI.add(
 					doAsUserId: themeDisplay.getDoAsUserIdEncoded(),
 					groupId: themeDisplay.getParentGroupId(),
 					layoutId: node._LFR_layoutId,
+					p_auth: Liferay.authToken,
 					priority: priority,
 					privateLayout: themeDisplay.isPrivateLayout()
 				};

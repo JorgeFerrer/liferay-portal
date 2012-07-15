@@ -117,6 +117,9 @@
 				getCDNDynamicResourcesHost: function() {
 					return "<%= themeDisplay.getCDNDynamicResourcesHost() %>";
 				},
+				getCDNBaseURL: function() {
+					return "<%= themeDisplay.getCDNBaseURL() %>";
+				},
 				getCDNHost: function() {
 					return "<%= themeDisplay.getCDNHost() %>";
 				},
@@ -300,6 +303,8 @@
 			useBrowserConsole: false
 		};
 
+		Liferay.authToken = '<%= AuthTokenUtil.getToken(request) %>';
+
 		<%
 		String currentURL = PortalUtil.getCurrentURL(request);
 		%>
@@ -343,10 +348,6 @@
 
 	</c:otherwise>
 </c:choose>
-
-<c:if test="<%= themeDisplay.isIncludeServiceJs() %>">
-	<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/liferay/service.js", javaScriptLastModified)) %>" type="text/javascript"></script>
-</c:if>
 
 <script type="text/javascript">
 	// <![CDATA[

@@ -59,6 +59,12 @@ public class AssertUtils {
 	}
 
 	public static void assertEquals(
+		double[] expectedArray, double[] actualArray) {
+
+		Assert.assertArrayEquals(expectedArray, actualArray, 0);
+	}
+
+	public static void assertEquals(
 		Map<String, ?> expectedMap, Map<String, ?> actualMap) {
 
 		Assert.assertEquals(

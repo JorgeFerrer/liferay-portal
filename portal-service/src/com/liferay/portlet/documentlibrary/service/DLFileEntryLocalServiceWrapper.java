@@ -313,10 +313,11 @@ public class DLFileEntryLocalServiceWrapper implements DLFileEntryLocalService,
 			groupPermissions, guestPermissions);
 	}
 
-	public void cancelCheckOut(long userId, long fileEntryId)
+	public com.liferay.portlet.documentlibrary.model.DLFileVersion cancelCheckOut(
+		long userId, long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_dlFileEntryLocalService.cancelCheckOut(userId, fileEntryId);
+		return _dlFileEntryLocalService.cancelCheckOut(userId, fileEntryId);
 	}
 
 	public void checkInFileEntry(long userId, long fileEntryId,
@@ -425,6 +426,12 @@ public class DLFileEntryLocalServiceWrapper implements DLFileEntryLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_dlFileEntryLocalService.deleteFileVersion(userId, fileEntryId, version);
+	}
+
+	public com.liferay.portlet.documentlibrary.model.DLFileEntry fetchFileEntry(
+		long groupId, long folderId, java.lang.String title)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dlFileEntryLocalService.fetchFileEntry(groupId, folderId, title);
 	}
 
 	public com.liferay.portlet.documentlibrary.model.DLFileEntry fetchFileEntryByAnyImageId(

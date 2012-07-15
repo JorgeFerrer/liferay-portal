@@ -318,6 +318,7 @@ public class ReleasePersistenceImpl extends BasePersistenceImpl<Release>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SERVLETCONTEXTNAME,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SERVLETCONTEXTNAME,
 					args);
 

@@ -42,7 +42,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		PreparedStatement ps = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"insert into ExpandoRow (rowId_, companyId, tableId, " +
@@ -69,7 +69,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		PreparedStatement ps = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"insert into ExpandoValue (valueId, companyId, tableId, " +
@@ -103,14 +103,14 @@ public class UpgradeExpando extends UpgradeProcess {
 	}
 
 	protected boolean hasRow(long companyId, long tableId, long classPK)
-		throws Exception{
+		throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select count(*) from ExpandoRow where companyId = ? and " +
@@ -123,7 +123,7 @@ public class UpgradeExpando extends UpgradeProcess {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				long count = rs.getLong(1);
+				int count = rs.getInt(1);
 
 				if (count > 0) {
 					return true;
@@ -139,14 +139,14 @@ public class UpgradeExpando extends UpgradeProcess {
 
 	protected boolean hasValue(
 			long companyId, long tableId, long columnId, long rowId)
-		throws Exception{
+		throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select count(*) from ExpandoValue where companyId = ? and " +
@@ -160,7 +160,7 @@ public class UpgradeExpando extends UpgradeProcess {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				long count = rs.getLong(1);
+				int count = rs.getInt(1);
 
 				if (count > 0) {
 					return true;
@@ -184,7 +184,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select " + columnName + " from " + tableName + " where " +
@@ -228,7 +228,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select * from ExpandoRow where tableId = ?");
@@ -266,7 +266,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select * from ExpandoTable where classNameId = ? and " +
@@ -298,7 +298,7 @@ public class UpgradeExpando extends UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement(
 				"select * from ExpandoValue where tableId = ? and rowId_ = ? " +

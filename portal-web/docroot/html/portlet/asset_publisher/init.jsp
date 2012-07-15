@@ -19,6 +19,9 @@
 <%@ page import="com.liferay.portal.NoSuchModelException" %><%@
 page import="com.liferay.portal.kernel.repository.model.FileEntry" %><%@
 page import="com.liferay.portal.kernel.search.Hits" %><%@
+page import="com.liferay.portal.kernel.staging.StagingConstants" %><%@
+page import="com.liferay.portal.kernel.template.PortletDisplayTemplateHandler" %><%@
+page import="com.liferay.portal.kernel.template.PortletDisplayTemplateHandlerRegistryUtil" %><%@
 page import="com.liferay.portal.kernel.xml.Document" %><%@
 page import="com.liferay.portal.kernel.xml.Element" %><%@
 page import="com.liferay.portal.kernel.xml.SAXReaderUtil" %><%@
@@ -90,7 +93,7 @@ for (long classNameId : availableClassNameIds) {
 	}
 }
 
-boolean anyAssetType = GetterUtil.getBoolean(preferences.getValue("anyAssetType", Boolean.TRUE.toString()));
+boolean anyAssetType = GetterUtil.getBoolean(preferences.getValue("anyAssetType", null), true);
 
 long[] classNameIds = AssetPublisherUtil.getClassNameIds(preferences, availableClassNameIds);
 
@@ -172,27 +175,61 @@ if (portletName.equals(PortletKeys.RELATED_ASSETS)) {
 boolean mergeUrlTags = GetterUtil.getBoolean(preferences.getValue("mergeUrlTags", null), true);
 boolean mergeLayoutTags = GetterUtil.getBoolean(preferences.getValue("mergeLayoutTags", null), false);
 
-long assetPublisherDDMTemplateId = 0;
+String portletDisplayDDMTemplateUuid = StringPool.BLANK;
 
 String displayStyle = GetterUtil.getString(preferences.getValue("displayStyle", "abstracts"));
 
 if (displayStyle.startsWith("ddmTemplate_")) {
-	assetPublisherDDMTemplateId = GetterUtil.getLong(displayStyle.substring("ddmTemplate_".length()));
+	portletDisplayDDMTemplateUuid = displayStyle.substring("ddmTemplate_".length());
 }
 else if (Validator.isNull(displayStyle)) {
 	displayStyle = "abstracts";
 }
 
-DDMTemplate assetPublisherDDMTemplate = null;
+long portletDisplayDDMTemplateGroupId = scopeGroupId;
 
-if (assetPublisherDDMTemplateId > 0) {
-	try {
-		assetPublisherDDMTemplate = DDMTemplateLocalServiceUtil.getDDMTemplate(assetPublisherDDMTemplateId);
+Group scopeGroup = themeDisplay.getScopeGroup();
+
+if (scopeGroup.hasStagingGroup()) {
+	Group stagingGroup = GroupLocalServiceUtil.getStagingGroup(scopeGroup.getGroupId());
+
+	boolean staged = GetterUtil.getBoolean(scopeGroup.getTypeSettingsProperty(StagingConstants.STAGED_PORTLET + PortletKeys.PORTLET_DISPLAY_TEMPLATES));
+
+	if (staged) {
+		portletDisplayDDMTemplateGroupId = stagingGroup.getGroupId();
 	}
-	catch (NoSuchTemplateException nste) {
-		assetPublisherDDMTemplateId = 0;
+}
+else if (scopeGroup.getLiveGroupId() > 0) {
+	Group liveGroup = scopeGroup.getLiveGroup();
 
-		displayStyle = "abstracts";
+	boolean staged = GetterUtil.getBoolean(liveGroup.getTypeSettingsProperty(StagingConstants.STAGED_PORTLET + PortletKeys.PORTLET_DISPLAY_TEMPLATES));
+
+	if (!staged) {
+		portletDisplayDDMTemplateGroupId = liveGroup.getGroupId();
+	}
+}
+
+DDMTemplate portletDisplayDDMTemplate = null;
+
+long portletDisplayDDMTemplateId = 0;
+
+if (Validator.isNotNull(portletDisplayDDMTemplateUuid)) {
+	try {
+		portletDisplayDDMTemplate = DDMTemplateLocalServiceUtil.getDDMTemplateByUuidAndGroupId(portletDisplayDDMTemplateUuid, portletDisplayDDMTemplateGroupId);
+
+		portletDisplayDDMTemplateId = portletDisplayDDMTemplate.getTemplateId();
+	}
+	catch (NoSuchTemplateException nste1) {
+		try {
+			portletDisplayDDMTemplate = DDMTemplateLocalServiceUtil.getDDMTemplateByUuidAndGroupId(portletDisplayDDMTemplateUuid, themeDisplay.getCompanyGroupId());
+
+			portletDisplayDDMTemplateId = portletDisplayDDMTemplate.getTemplateId();
+		}
+		catch (NoSuchTemplateException nste2) {
+			portletDisplayDDMTemplateId = 0;
+
+			displayStyle = "abstracts";
+		}
 	}
 }
 
@@ -204,7 +241,7 @@ String orderByColumn1 = GetterUtil.getString(preferences.getValue("orderByColumn
 String orderByColumn2 = GetterUtil.getString(preferences.getValue("orderByColumn2", "title"));
 String orderByType1 = GetterUtil.getString(preferences.getValue("orderByType1", "DESC"));
 String orderByType2 = GetterUtil.getString(preferences.getValue("orderByType2", "ASC"));
-boolean excludeZeroViewCount = GetterUtil.getBoolean(preferences.getValue("excludeZeroViewCount", "0"));
+boolean excludeZeroViewCount = GetterUtil.getBoolean(preferences.getValue("excludeZeroViewCount", null));
 int delta = GetterUtil.getInteger(preferences.getValue("delta", StringPool.BLANK), SearchContainer.DEFAULT_DELTA);
 String paginationType = GetterUtil.getString(preferences.getValue("paginationType", "none"));
 boolean showAvailableLocales = GetterUtil.getBoolean(preferences.getValue("showAvailableLocales", null));
@@ -241,7 +278,7 @@ String socialBookmarksDisplayStyle = preferences.getValue("socialBookmarksDispla
 String socialBookmarksDisplayPosition = preferences.getValue("socialBookmarksDisplayPosition", "bottom");
 
 String defaultMetadataFields = StringPool.BLANK;
-String allMetadataFields = "create-date,modified-date,publish-date,expiration-date,priority,author,view-count,categories,tags,ratings";
+String allMetadataFields = "create-date,modified-date,publish-date,expiration-date,priority,author,view-count,categories,tags";
 
 String[] metadataFields = StringUtil.split(preferences.getValue("metadataFields", defaultMetadataFields));
 

@@ -20,6 +20,7 @@
 page import="com.liferay.portal.InvalidRepositoryException" %><%@
 page import="com.liferay.portal.NoSuchRepositoryException" %><%@
 page import="com.liferay.portal.NoSuchWorkflowDefinitionLinkException" %><%@
+page import="com.liferay.portal.kernel.repository.RepositoryException" %><%@
 page import="com.liferay.portal.kernel.repository.model.FileEntry" %><%@
 page import="com.liferay.portal.kernel.repository.model.FileVersion" %><%@
 page import="com.liferay.portal.kernel.repository.model.Folder" %><%@
@@ -37,9 +38,12 @@ page import="com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil" %><
 page import="com.liferay.portal.repository.util.RepositoryFactoryUtil" %><%@
 page import="com.liferay.portlet.asset.model.AssetEntry" %><%@
 page import="com.liferay.portlet.asset.model.AssetRenderer" %><%@
+page import="com.liferay.portlet.asset.model.AssetTag" %><%@
 page import="com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil" %><%@
 page import="com.liferay.portlet.asset.service.AssetEntryServiceUtil" %><%@
+page import="com.liferay.portlet.asset.service.AssetTagLocalServiceUtil" %><%@
 page import="com.liferay.portlet.asset.service.persistence.AssetEntryQuery" %><%@
+page import="com.liferay.portlet.asset.util.AssetUtil" %><%@
 page import="com.liferay.portlet.documentlibrary.DuplicateFileEntryTypeException" %><%@
 page import="com.liferay.portlet.documentlibrary.DuplicateFileException" %><%@
 page import="com.liferay.portlet.documentlibrary.DuplicateFolderNameException" %><%@
@@ -98,6 +102,7 @@ page import="com.liferay.portlet.dynamicdatamapping.util.DDMXSDUtil" %><%@
 page import="com.liferay.portlet.dynamicdatamapping.util.comparator.StructureStructureKeyComparator" %><%@
 page import="com.liferay.portlet.journal.search.FileEntryDisplayTerms" %><%@
 page import="com.liferay.portlet.journal.search.FileEntrySearch" %><%@
+page import="com.liferay.portlet.trash.util.TrashUtil" %><%@
 page import="com.liferay.portlet.usersadmin.search.GroupSearch" %>
 
 <%
@@ -151,7 +156,7 @@ if (portletName.equals(PortletKeys.DOCUMENT_LIBRARY)) {
 	showFolderMenu = true;
 	showTabs = true;
 }
-else if (portletName.equals(PortletKeys.MEDIA_GALLERY_DISPLAY) || portletName.equals(PortletKeys.DOCUMENT_LIBRARY_DISPLAY)) {
+else if (portletName.equals(PortletKeys.MEDIA_GALLERY_DISPLAY) || portletName.equals(PortletKeys.DOCUMENT_LIBRARY_DISPLAY) || portletName.equals(PortletKeys.TRASH)) {
 	showAssetMetadata = true;
 }
 
@@ -178,6 +183,7 @@ else if (!portletId.equals(PortletKeys.DOCUMENT_LIBRARY) && !ArrayUtil.contains(
 	entryColumns = ArrayUtil.append(entryColumns, "action");
 }
 
+boolean enableRatings = GetterUtil.getBoolean(preferences.getValue("enableRatings", null), true);
 boolean enableCommentRatings = GetterUtil.getBoolean(preferences.getValue("enableCommentRatings", null), true);
 
 String ddmResource = portletConfig.getInitParameter("ddm-resource");

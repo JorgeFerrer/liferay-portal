@@ -43,7 +43,8 @@ page import="com.liferay.portlet.documentlibrary.util.DLUtil" %><%@
 page import="com.liferay.portlet.documentlibrary.util.ImageProcessorUtil" %><%@
 page import="com.liferay.portlet.documentlibrary.util.PDFProcessorUtil" %><%@
 page import="com.liferay.portlet.documentlibrary.util.VideoProcessorUtil" %><%@
-page import="com.liferay.portlet.imagegallerydisplay.util.IGUtil" %>
+page import="com.liferay.portlet.imagegallerydisplay.util.IGUtil" %><%@
+page import="com.liferay.portlet.trash.util.TrashUtil" %>
 
 <%
 PortletPreferences preferences = renderRequest.getPreferences();
@@ -82,6 +83,9 @@ boolean showActions = PrefsParamUtil.getBoolean(preferences, request, "showActio
 boolean showAddFolderButton = false;
 boolean showFolderMenu = PrefsParamUtil.getBoolean(preferences, request, "showFolderMenu");
 boolean showTabs = PrefsParamUtil.getBoolean(preferences, request, "showTabs");
+
+boolean enableRatings = GetterUtil.getBoolean(preferences.getValue("enableRatings", null), true);
+boolean enableCommentRatings = GetterUtil.getBoolean(preferences.getValue("enableCommentRatings", null), true);
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 %>

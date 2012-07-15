@@ -91,6 +91,7 @@ public class SourceFormatter {
 						_formatFriendlyURLRoutesXML();
 						_formatPortletXML();
 						_formatSH();
+						_formatSQL();
 						_formatStrutsConfigXML();
 						_formatTilesDefsXML();
 						_formatWebXML();
@@ -750,6 +751,34 @@ public class SourceFormatter {
 		return content;
 	}
 
+	private static String _fixDataAccessConnection(
+		String className, String content) {
+
+		int x = content.indexOf("package ");
+
+		int y = content.indexOf(CharPool.SEMICOLON, x);
+
+		if ((x == -1) || (y == -1)) {
+			return content;
+		}
+
+		String packageName = content.substring(x + 8, y);
+
+		if (!packageName.startsWith("com.liferay.portal.kernel.upgrade") &&
+			!packageName.startsWith("com.liferay.portal.kernel.verify") &&
+			!packageName.startsWith("com.liferay.portal.upgrade") &&
+			!packageName.startsWith("com.liferay.portal.verify")) {
+
+			return content;
+		}
+
+		content = StringUtil.replace(
+			content, "DataAccess.getConnection",
+			"DataAccess.getUpgradeOptimizedConnection");
+
+		return content;
+	}
+
 	private static void _formatAntXML() throws DocumentException, IOException {
 		String basedir = "./";
 
@@ -1186,6 +1215,8 @@ public class SourceFormatter {
 					fileName, "UTF-8: " + fileName);
 			}
 
+			newContent = _fixDataAccessConnection(className, newContent);
+
 			newContent = StringUtil.replace(
 				newContent,
 				new String[] {
@@ -1227,6 +1258,44 @@ public class SourceFormatter {
 
 				_sourceFormatterHelper.printError(
 					fileName, "ServiceUtil: " + fileName);
+			}
+
+			if (!className.equals("ProxyUtil") &&
+				newContent.contains("import java.lang.reflect.Proxy;")) {
+
+				_sourceFormatterHelper.printError(
+					fileName, "Proxy: " + fileName);
+			}
+
+			// LPS-28266
+
+			for (int pos1 = -1;;) {
+				pos1 = newContent.indexOf(StringPool.TAB + "try {", pos1 + 1);
+
+				if (pos1 == -1) {
+					break;
+				}
+
+				int pos2 = newContent.indexOf(
+					StringPool.TAB + "try {", pos1 + 1);
+				int pos3 = newContent.indexOf("\"select count(", pos1);
+
+				if ((pos2 != -1) && (pos3 != -1) && (pos2 < pos3)) {
+					continue;
+				}
+
+				int pos4 = newContent.indexOf("rs.getLong(1)", pos1);
+				int pos5 = newContent.indexOf(
+					StringPool.TAB + "finally {", pos1);
+
+				if ((pos3 == -1) || (pos4 == -1) || (pos5 == -1)) {
+					break;
+				}
+
+				if ((pos3 < pos4) && (pos4 < pos5)) {
+					_sourceFormatterHelper.printError(
+						fileName, "Use getInt(1) for count: " + fileName);
+				}
 			}
 
 			if ((newContent != null) && !content.equals(newContent)) {
@@ -1336,6 +1405,14 @@ public class SourceFormatter {
 				fileName, line, lineCount);
 
 			String trimmedLine = StringUtil.trimLeading(line);
+
+			if (!trimmedLine.equals("{") && line.endsWith("{") &&
+				!line.endsWith(" {")) {
+
+				line = StringUtil.replaceLast(line, "{", " {");
+			}
+
+			line = _sortExceptions(line);
 
 			if (trimmedLine.startsWith("if (") ||
 				trimmedLine.startsWith("else if (") ||
@@ -1464,6 +1541,19 @@ public class SourceFormatter {
 						trimmedLine, StringPool.TAB, StringPool.SPACE);
 				}
 
+				if (line.contains(StringPool.TAB + StringPool.SPACE) &&
+					!previousLine.endsWith("&&") &&
+					!previousLine.endsWith("||") &&
+					!previousLine.contains(StringPool.TAB + "((") &&
+					!previousLine.contains(StringPool.TAB + StringPool.SPACE) &&
+					!previousLine.contains(StringPool.TAB + "implements ") &&
+					!previousLine.contains(StringPool.TAB + "throws ")) {
+
+					line = StringUtil.replace(
+						line, StringPool.TAB + StringPool.SPACE,
+						StringPool.TAB);
+				}
+
 				while (trimmedLine.contains(StringPool.DOUBLE_SPACE) &&
 					   !trimmedLine.contains(
 						   StringPool.QUOTE + StringPool.DOUBLE_SPACE) &&
@@ -1534,6 +1624,20 @@ public class SourceFormatter {
 
 				_sourceFormatterHelper.printError(
 					fileName, "line break: " + fileName + " " + lineCount);
+			}
+
+			if (line.endsWith(StringPool.PLUS)) {
+				int x = line.indexOf(" = ");
+
+				if (x != -1) {
+					int y = line.indexOf(StringPool.QUOTE);
+
+					if ((y == -1) || (x < y)) {
+						_sourceFormatterHelper.printError(
+							fileName,
+							"line break: " + fileName + " " + lineCount);
+					}
+				}
 			}
 
 			if (line.contains("    ") && !line.matches("\\s*\\*.*")) {
@@ -2026,7 +2130,7 @@ public class SourceFormatter {
 		content = sb.toString();
 
 		if (content.endsWith("\n")) {
-			content = content.substring(0, content.length() -1);
+			content = content.substring(0, content.length() - 1);
 		}
 
 		content = _formatTaglibQuotes(fileName, content, StringPool.QUOTE);
@@ -2137,6 +2241,77 @@ public class SourceFormatter {
 
 			_fileUtil.write(fileName, content);
 		}
+	}
+
+	private static void _formatSQL() throws IOException {
+		String basedir = "./";
+
+		DirectoryScanner directoryScanner = new DirectoryScanner();
+
+		directoryScanner.setBasedir(basedir);
+		directoryScanner.setIncludes(new String[] {"**\\sql\\*.sql"});
+
+		List<String> fileNames = _sourceFormatterHelper.scanForFiles(
+			directoryScanner);
+
+		for (String fileName : fileNames) {
+			File file = new File(basedir + fileName);
+
+			String content = _fileUtil.read(file);
+
+			String newContent = _formatSQLContent(content);
+
+			if ((newContent != null) && !content.equals(newContent)) {
+				_fileUtil.write(file, newContent);
+
+				_sourceFormatterHelper.printError(fileName, file);
+			}
+		}
+	}
+
+	private static String _formatSQLContent(String content) throws IOException {
+		StringBundler sb = new StringBundler();
+
+		UnsyncBufferedReader unsyncBufferedReader = new UnsyncBufferedReader(
+			new UnsyncStringReader(content));
+
+		String line = null;
+
+		String previousLineSqlCommand = StringPool.BLANK;
+
+		while ((line = unsyncBufferedReader.readLine()) != null) {
+			if (line.trim().length() == 0) {
+				line = StringPool.BLANK;
+			}
+
+			if (Validator.isNotNull(line) && !line.startsWith(StringPool.TAB)) {
+				String sqlCommand = StringUtil.split(line, CharPool.SPACE)[0];
+
+				if (Validator.isNotNull(previousLineSqlCommand) &&
+					!previousLineSqlCommand.equals(sqlCommand)) {
+
+					sb.append("\n");
+				}
+
+				previousLineSqlCommand = sqlCommand;
+			}
+			else {
+				previousLineSqlCommand = StringPool.BLANK;
+			}
+
+			sb.append(line);
+			sb.append("\n");
+		}
+
+		unsyncBufferedReader.close();
+
+		content = sb.toString();
+
+		if (content.endsWith("\n")) {
+			content = content.substring(0, content.length() - 1);
+		}
+
+		return content;
 	}
 
 	private static void _formatStrutsConfigXML()
@@ -3254,6 +3429,51 @@ public class SourceFormatter {
 		}
 
 		return newLine;
+	}
+
+	private static String _sortExceptions(String line) {
+		if (!line.endsWith(StringPool.OPEN_CURLY_BRACE) &&
+			!line.endsWith(StringPool.SEMICOLON)) {
+
+			return line;
+		}
+
+		int x = line.indexOf("throws ");
+
+		if (x == -1) {
+			return line;
+		}
+
+		String previousException = StringPool.BLANK;
+
+		String[] exceptions = StringUtil.split(
+			line.substring(x), CharPool.SPACE);
+
+		for (int i = 1; i < exceptions.length; i++) {
+			String exception = exceptions[i];
+
+			if (exception.equals(StringPool.OPEN_CURLY_BRACE)) {
+				break;
+			}
+
+			if (exception.endsWith(StringPool.COMMA) ||
+				exception.endsWith(StringPool.SEMICOLON)) {
+
+				exception = exception.substring(0, exception.length() - 1);
+			}
+
+			if (Validator.isNotNull(previousException) &&
+				(previousException.compareToIgnoreCase(exception) > 0)) {
+
+				return StringUtil.replace(
+					line, previousException + ", " + exception,
+					exception + ", " + previousException);
+			}
+
+			previousException = exception;
+		}
+
+		return line;
 	}
 
 	private static String _sortJSPAttributes(

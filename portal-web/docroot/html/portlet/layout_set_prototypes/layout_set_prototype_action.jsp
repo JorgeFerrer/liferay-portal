@@ -103,7 +103,7 @@ Group group = layoutSetPrototype.getGroup();
 			<portlet:param name="struts_action" value="/layouts_admin/export_layouts" />
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.EXPORT %>" />
 			<portlet:param name="groupId" value="<%= String.valueOf(group.getGroupId()) %>" />
-			<portlet:param name="privateLayout" value="<%= String.valueOf(Boolean.TRUE) %>" />
+			<portlet:param name="privateLayout" value="<%= Boolean.TRUE.toString() %>" />
 			<portlet:param name="rootNodeName" value="<%= layoutSetPrototype.getName(locale) %>" />
 		</portlet:renderURL>
 
@@ -118,7 +118,7 @@ Group group = layoutSetPrototype.getGroup();
 			<portlet:param name="struts_action" value="/layouts_admin/import_layouts" />
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.IMPORT %>" />
 			<portlet:param name="groupId" value="<%= String.valueOf(group.getGroupId()) %>" />
-			<portlet:param name="privateLayout" value="<%= String.valueOf(Boolean.TRUE) %>" />
+			<portlet:param name="privateLayout" value="<%= Boolean.TRUE.toString() %>" />
 			<portlet:param name="rootNodeName" value="<%= layoutSetPrototype.getName(locale) %>" />
 		</portlet:renderURL>
 

@@ -502,6 +502,7 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 		if (isNew || !ExpandoValueModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((expandoValueModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_TABLEID.getColumnBitmask()) != 0) {
@@ -696,6 +697,7 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_R, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_R, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_R,
@@ -714,6 +716,7 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_T_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_T_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_C_C,
@@ -984,10 +987,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where tableId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param tableId the table ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching expando value
@@ -997,31 +996,46 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByTableId_First(long tableId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByTableId_First(tableId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where tableId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByTableId_First(long tableId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByTableId(tableId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where tableId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param tableId the table ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1032,34 +1046,49 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByTableId_Last(long tableId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByTableId_Last(tableId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where tableId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByTableId_Last(long tableId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByTableId(tableId);
 
 		List<ExpandoValue> list = findByTableId(tableId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where tableId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param tableId the table ID
@@ -1340,10 +1369,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where columnId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param columnId the column ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching expando value
@@ -1353,32 +1378,47 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByColumnId_First(long columnId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByColumnId_First(columnId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("columnId=");
+		msg.append(columnId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where columnId = &#63;.
+	 *
+	 * @param columnId the column ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByColumnId_First(long columnId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByColumnId(columnId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("columnId=");
-			msg.append(columnId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where columnId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param columnId the column ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1389,34 +1429,49 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByColumnId_Last(long columnId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByColumnId_Last(columnId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("columnId=");
+		msg.append(columnId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where columnId = &#63;.
+	 *
+	 * @param columnId the column ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByColumnId_Last(long columnId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByColumnId(columnId);
 
 		List<ExpandoValue> list = findByColumnId(columnId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("columnId=");
-			msg.append(columnId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where columnId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param columnId the column ID
@@ -1695,10 +1750,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where rowId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param rowId the row ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching expando value
@@ -1708,31 +1759,45 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByRowId_First(long rowId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByRowId_First(rowId, orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("rowId=");
+		msg.append(rowId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where rowId = &#63;.
+	 *
+	 * @param rowId the row ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByRowId_First(long rowId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByRowId(rowId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("rowId=");
-			msg.append(rowId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where rowId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param rowId the row ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1743,34 +1808,48 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByRowId_Last(long rowId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByRowId_Last(rowId, orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("rowId=");
+		msg.append(rowId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where rowId = &#63;.
+	 *
+	 * @param rowId the row ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByRowId_Last(long rowId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByRowId(rowId);
 
 		List<ExpandoValue> list = findByRowId(rowId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("rowId=");
-			msg.append(rowId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where rowId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param rowId the row ID
@@ -2063,10 +2142,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where tableId = &#63; and columnId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param tableId the table ID
 	 * @param columnId the column ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2077,35 +2152,51 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_C_First(long tableId, long columnId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_C_First(tableId, columnId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", columnId=");
+		msg.append(columnId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where tableId = &#63; and columnId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param columnId the column ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_C_First(long tableId, long columnId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByT_C(tableId, columnId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", columnId=");
-			msg.append(columnId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where tableId = &#63; and columnId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param tableId the table ID
 	 * @param columnId the column ID
@@ -2117,37 +2208,53 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_C_Last(long tableId, long columnId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_C_Last(tableId, columnId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", columnId=");
+		msg.append(columnId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where tableId = &#63; and columnId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param columnId the column ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_C_Last(long tableId, long columnId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByT_C(tableId, columnId);
 
 		List<ExpandoValue> list = findByT_C(tableId, columnId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", columnId=");
-			msg.append(columnId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where tableId = &#63; and columnId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param tableId the table ID
@@ -2446,10 +2553,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where tableId = &#63; and classPK = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param tableId the table ID
 	 * @param classPK the class p k
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2460,35 +2563,51 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_CPK_First(long tableId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_CPK_First(tableId, classPK,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where tableId = &#63; and classPK = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_CPK_First(long tableId, long classPK,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByT_CPK(tableId, classPK, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where tableId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param tableId the table ID
 	 * @param classPK the class p k
@@ -2500,37 +2619,53 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_CPK_Last(long tableId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_CPK_Last(tableId, classPK,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where tableId = &#63; and classPK = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_CPK_Last(long tableId, long classPK,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByT_CPK(tableId, classPK);
 
 		List<ExpandoValue> list = findByT_CPK(tableId, classPK, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where tableId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param tableId the table ID
@@ -2828,10 +2963,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where tableId = &#63; and rowId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param tableId the table ID
 	 * @param rowId the row ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2842,35 +2973,51 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_R_First(long tableId, long rowId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_R_First(tableId, rowId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", rowId=");
+		msg.append(rowId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where tableId = &#63; and rowId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param rowId the row ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_R_First(long tableId, long rowId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByT_R(tableId, rowId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", rowId=");
-			msg.append(rowId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where tableId = &#63; and rowId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param tableId the table ID
 	 * @param rowId the row ID
@@ -2882,37 +3029,53 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_R_Last(long tableId, long rowId,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_R_Last(tableId, rowId,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", rowId=");
+		msg.append(rowId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where tableId = &#63; and rowId = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param rowId the row ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_R_Last(long tableId, long rowId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByT_R(tableId, rowId);
 
 		List<ExpandoValue> list = findByT_R(tableId, rowId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", rowId=");
-			msg.append(rowId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where tableId = &#63; and rowId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param tableId the table ID
@@ -3361,10 +3524,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where classNameId = &#63; and classPK = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -3375,35 +3534,51 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByC_C_First(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByC_C_First(classNameId, classPK,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByC_C_First(long classNameId, long classPK,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ExpandoValue> list = findByC_C(classNameId, classPK, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
@@ -3415,37 +3590,53 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByC_C_Last(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByC_C_Last(classNameId, classPK,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByC_C_Last(long classNameId, long classPK,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_C(classNameId, classPK);
 
 		List<ExpandoValue> list = findByC_C(classNameId, classPK, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param classNameId the class name ID
@@ -3926,10 +4117,6 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	/**
 	 * Returns the first expando value in the ordered set where tableId = &#63; and columnId = &#63; and data = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param tableId the table ID
 	 * @param columnId the column ID
 	 * @param data the data
@@ -3941,38 +4128,56 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_C_D_First(long tableId, long columnId,
 		String data, OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_C_D_First(tableId, columnId, data,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", columnId=");
+		msg.append(columnId);
+
+		msg.append(", data=");
+		msg.append(data);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the first expando value in the ordered set where tableId = &#63; and columnId = &#63; and data = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param columnId the column ID
+	 * @param data the data
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_C_D_First(long tableId, long columnId,
+		String data, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<ExpandoValue> list = findByT_C_D(tableId, columnId, data, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", columnId=");
-			msg.append(columnId);
-
-			msg.append(", data=");
-			msg.append(data);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last expando value in the ordered set where tableId = &#63; and columnId = &#63; and data = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param tableId the table ID
 	 * @param columnId the column ID
@@ -3985,40 +4190,58 @@ public class ExpandoValuePersistenceImpl extends BasePersistenceImpl<ExpandoValu
 	public ExpandoValue findByT_C_D_Last(long tableId, long columnId,
 		String data, OrderByComparator orderByComparator)
 		throws NoSuchValueException, SystemException {
+		ExpandoValue expandoValue = fetchByT_C_D_Last(tableId, columnId, data,
+				orderByComparator);
+
+		if (expandoValue != null) {
+			return expandoValue;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("tableId=");
+		msg.append(tableId);
+
+		msg.append(", columnId=");
+		msg.append(columnId);
+
+		msg.append(", data=");
+		msg.append(data);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchValueException(msg.toString());
+	}
+
+	/**
+	 * Returns the last expando value in the ordered set where tableId = &#63; and columnId = &#63; and data = &#63;.
+	 *
+	 * @param tableId the table ID
+	 * @param columnId the column ID
+	 * @param data the data
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching expando value, or <code>null</code> if a matching expando value could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ExpandoValue fetchByT_C_D_Last(long tableId, long columnId,
+		String data, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByT_C_D(tableId, columnId, data);
 
 		List<ExpandoValue> list = findByT_C_D(tableId, columnId, data,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("tableId=");
-			msg.append(tableId);
-
-			msg.append(", columnId=");
-			msg.append(columnId);
-
-			msg.append(", data=");
-			msg.append(data);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchValueException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the expando values before and after the current expando value in the ordered set where tableId = &#63; and columnId = &#63; and data = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param valueId the primary key of the current expando value
 	 * @param tableId the table ID

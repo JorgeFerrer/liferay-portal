@@ -17,6 +17,7 @@ package com.liferay.portal.kernel.staging;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.model.Group;
@@ -40,12 +41,12 @@ import javax.servlet.http.HttpServletRequest;
 public class StagingUtil {
 
 	public static String buildRemoteURL(
-		String remoteAddress, int remotePort, boolean secureConnection,
-		long remoteGroupId, boolean privateLayout) {
+		String remoteAddress, int remotePort, String remotePathContext,
+		boolean secureConnection, long remoteGroupId, boolean privateLayout) {
 
 		return getStaging().buildRemoteURL(
-			remoteAddress, remotePort, secureConnection, remoteGroupId,
-			privateLayout);
+			remoteAddress, remotePort, remotePathContext, secureConnection,
+			remoteGroupId, privateLayout);
 	}
 
 	public static void copyFromLive(PortletRequest PortletRequest)
@@ -75,15 +76,15 @@ public class StagingUtil {
 	public static void copyRemoteLayouts(
 			long sourceGroupId, boolean privateLayout,
 			Map<Long, Boolean> layoutIdMap, Map<String, String[]> parameterMap,
-			String remoteAddress, int remotePort, boolean secureConnection,
-			long remoteGroupId, boolean remotePrivateLayout, Date startDate,
-			Date endDate)
+			String remoteAddress, int remotePort, String remotePathContext,
+			boolean secureConnection, long remoteGroupId,
+			boolean remotePrivateLayout, Date startDate, Date endDate)
 		throws Exception {
 
 		getStaging().copyRemoteLayouts(
 			sourceGroupId, privateLayout, layoutIdMap, parameterMap,
-			remoteAddress, remotePort, secureConnection, remoteGroupId,
-			remotePrivateLayout, startDate, endDate);
+			remoteAddress, remotePort, remotePathContext, secureConnection,
+			remoteGroupId, remotePrivateLayout, startDate, endDate);
 	}
 
 	public static void deleteLastImportSettings(
@@ -139,14 +140,15 @@ public class StagingUtil {
 	public static void enableRemoteStaging(
 			long userId, Group scopeGroup, Group liveGroup,
 			boolean branchingPublic, boolean branchingPrivate,
-			String remoteAddress, long remoteGroupId, int remotePort,
-			boolean secureConnection, ServiceContext serviceContext)
+			String remoteAddress, int remotePort, String remotePathContext,
+			boolean secureConnection, long remoteGroupId,
+			ServiceContext serviceContext)
 		throws Exception {
 
 		getStaging().enableRemoteStaging(
 			userId, scopeGroup, liveGroup, branchingPublic, branchingPrivate,
-			remoteAddress, remoteGroupId, remotePort, secureConnection,
-			serviceContext);
+			remoteAddress, remotePort, remotePathContext, secureConnection,
+			remoteGroupId, serviceContext);
 	}
 
 	public static Group getLiveGroup(long groupId)
@@ -170,7 +172,7 @@ public class StagingUtil {
 
 	public static long getRecentLayoutRevisionId(
 			HttpServletRequest request, long layoutSetBranchId, long plid)
-		throws PortalException, SystemException{
+		throws PortalException, SystemException {
 
 		return getStaging().getRecentLayoutRevisionId(
 			request, layoutSetBranchId, plid);
@@ -203,6 +205,8 @@ public class StagingUtil {
 	}
 
 	public static Staging getStaging() {
+		PortalRuntimePermission.checkGetBeanProperty(StagingUtil.class);
+
 		return _staging;
 	}
 
@@ -395,6 +399,8 @@ public class StagingUtil {
 	}
 
 	public void setStaging(Staging staging) {
+		PortalRuntimePermission.checkSetBeanProperty(getClass());
+
 		_staging = staging;
 	}
 

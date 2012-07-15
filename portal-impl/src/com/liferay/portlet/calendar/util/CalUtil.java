@@ -115,6 +115,10 @@ public class CalUtil {
 	public static boolean isAllDay(
 		CalEvent event, TimeZone timeZone, Locale locale) {
 
+		if (event.isAllDay()) {
+			return true;
+		}
+
 		Calendar cal = null;
 
 		if (event.getTimeZoneSensitive()) {
@@ -144,7 +148,6 @@ public class CalUtil {
 	}
 
 	public static String toString(Calendar cal, String[] types) {
-
 		StringBundler sb = new StringBundler(9);
 
 		if (cal != null) {

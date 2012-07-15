@@ -20,9 +20,10 @@ import com.liferay.portalweb.portal.controlpanel.organizations.organization.addo
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.addorganizationnamenull.AddOrganizationNameNullTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.addorganizations.AddOrganizationsTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.advancedsearchorganization.AdvancedSearchOrganizationTests;
-import com.liferay.portalweb.portal.controlpanel.organizations.organization.assignmembersorganization.AssignMembersOrganizationTests;
+import com.liferay.portalweb.portal.controlpanel.organizations.organization.assignmembersorganizationuser.AssignMembersOrganizationUserTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.deleteorganization.DeleteOrganizationTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.deleteorganizationassignmembers.DeleteOrganizationAssignMembersTests;
+import com.liferay.portalweb.portal.controlpanel.organizations.organization.editorganizationsite.EditOrganizationSiteTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.removemembersorganization.RemoveMembersOrganizationTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organization.searchorganization.SearchOrganizationTests;
 
@@ -42,9 +43,10 @@ public class OrganizationTestPlan extends BaseTestSuite {
 		testSuite.addTest(AddOrganizationNameNullTests.suite());
 		testSuite.addTest(AddOrganizationsTests.suite());
 		testSuite.addTest(AdvancedSearchOrganizationTests.suite());
-		testSuite.addTest(AssignMembersOrganizationTests.suite());
+		testSuite.addTest(AssignMembersOrganizationUserTests.suite());
 		testSuite.addTest(DeleteOrganizationTests.suite());
 		testSuite.addTest(DeleteOrganizationAssignMembersTests.suite());
+		testSuite.addTest(EditOrganizationSiteTests.suite());
 		testSuite.addTest(RemoveMembersOrganizationTests.suite());
 		testSuite.addTest(SearchOrganizationTests.suite());
 

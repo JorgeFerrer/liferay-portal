@@ -336,6 +336,7 @@ public class PortalPreferencesPersistenceImpl extends BasePersistenceImpl<Portal
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_O_O, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_O_O, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_O_O,

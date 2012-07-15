@@ -156,7 +156,7 @@ if (row == null) {
 
 				<liferay-ui:icon
 					image="add_location"
-					message='<%= LanguageUtil.format(pageContext, "add-x", new String []{LanguageUtil.get(pageContext, childrenType)}) %>'
+					message='<%= LanguageUtil.format(pageContext, "add-x", new String [] {LanguageUtil.get(pageContext, childrenType)}) %>'
 					url="<%= addSuborganizationURL %>"
 				/>
 			</c:if>

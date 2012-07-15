@@ -99,7 +99,7 @@ public class ViewCCUserProfileTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace("socialoffice01@liferay.com"),
 			selenium.getText(
 				"//div[contains(@class, 'contacts-profile')]/div/div[2]/div[3]"));
-		assertFalse(selenium.isElementPresent(
+		assertTrue(selenium.isElementNotPresent(
 				"//div[contains(@class, 'contacts-center-home-content')]"));
 
 		for (int second = 0;; second++) {
@@ -131,7 +131,7 @@ public class ViewCCUserProfileTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace("About"),
 			selenium.getText(
 				"xPath=(//div[@class='user-information-title'])[1]"));
-		assertEquals(RuntimeVariables.replace("Expertise"),
+		assertEquals(RuntimeVariables.replace("Projects"),
 			selenium.getText(
 				"xPath=(//div[@class='user-information-title'])[2]"));
 	}

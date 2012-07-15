@@ -114,7 +114,7 @@ public class EditEventAction extends PortletAction {
 			else if (e instanceof AssetCategoryException ||
 					 e instanceof AssetTagException) {
 
-				SessionErrors.add(actionRequest, e.getClass().getName(), e);
+				SessionErrors.add(actionRequest, e.getClass(), e);
 			}
 			else {
 				throw e;
@@ -303,7 +303,8 @@ public class EditEventAction extends PortletAction {
 					dayPos.add(new DayAndPosition(Calendar.MONDAY, 0));
 				}
 
-				recurrence.setByDay(dayPos.toArray(new DayAndPosition[0]));
+				recurrence.setByDay(
+					dayPos.toArray(new DayAndPosition[dayPos.size()]));
 			}
 			else if (recurrenceType == Recurrence.MONTHLY) {
 				int monthlyType = ParamUtil.getInteger(

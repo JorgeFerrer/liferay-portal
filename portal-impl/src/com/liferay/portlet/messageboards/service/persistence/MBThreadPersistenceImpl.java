@@ -146,16 +146,9 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC =
-		new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
-			MBThreadModelImpl.FINDER_CACHE_ENABLED, MBThreadImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByG_NotC",
-			new String[] { Long.class.getName(), Long.class.getName() },
-			MBThreadModelImpl.GROUPID_COLUMN_BITMASK |
-			MBThreadModelImpl.CATEGORYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_G_NOTC = new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC = new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
 			MBThreadModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_NotC",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_NotC",
 			new String[] { Long.class.getName(), Long.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_G_S = new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
 			MBThreadModelImpl.FINDER_CACHE_ENABLED, MBThreadImpl.class,
@@ -282,20 +275,10 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC_S =
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC_S =
 		new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
-			MBThreadModelImpl.FINDER_CACHE_ENABLED, MBThreadImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByG_NotC_S",
-			new String[] {
-				Long.class.getName(), Long.class.getName(),
-				Integer.class.getName()
-			},
-			MBThreadModelImpl.GROUPID_COLUMN_BITMASK |
-			MBThreadModelImpl.CATEGORYID_COLUMN_BITMASK |
-			MBThreadModelImpl.STATUS_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_G_NOTC_S = new FinderPath(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
 			MBThreadModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_NotC_S",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_NotC_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName()
@@ -522,6 +505,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		if (isNew || !MBThreadModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((mbThreadModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
@@ -558,27 +542,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_C, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_C,
-					args);
-			}
-
-			if ((mbThreadModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(mbThreadModelImpl.getOriginalGroupId()),
-						Long.valueOf(mbThreadModelImpl.getOriginalCategoryId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_NOTC, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(mbThreadModelImpl.getGroupId()),
-						Long.valueOf(mbThreadModelImpl.getCategoryId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_NOTC, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC,
 					args);
 			}
 
@@ -692,29 +655,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_C_S,
 					args);
 			}
-
-			if ((mbThreadModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC_S.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(mbThreadModelImpl.getOriginalGroupId()),
-						Long.valueOf(mbThreadModelImpl.getOriginalCategoryId()),
-						Integer.valueOf(mbThreadModelImpl.getOriginalStatus())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_NOTC_S, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC_S,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(mbThreadModelImpl.getGroupId()),
-						Long.valueOf(mbThreadModelImpl.getCategoryId()),
-						Integer.valueOf(mbThreadModelImpl.getStatus())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_NOTC_S, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC_S,
-					args);
-			}
 		}
 
 		EntityCacheUtil.putResult(MBThreadModelImpl.ENTITY_CACHE_ENABLED,
@@ -734,6 +674,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ROOTMESSAGEID,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ROOTMESSAGEID,
 					args);
 
@@ -1008,10 +949,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching message boards thread
@@ -1021,31 +958,45 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByGroupId_First(groupId, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByGroupId_First(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByGroupId(groupId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1056,34 +1007,48 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByGroupId_Last(groupId, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByGroupId_Last(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
 
 		List<MBThread> list = findByGroupId(groupId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -1826,10 +1791,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1840,35 +1801,51 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_First(long groupId, long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_First(groupId, categoryId,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_First(long groupId, long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByG_C(groupId, categoryId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
@@ -1880,37 +1857,53 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_Last(long groupId, long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_Last(groupId, categoryId,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_Last(long groupId, long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_C(groupId, categoryId);
 
 		List<MBThread> list = findByG_C(groupId, categoryId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and categoryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -2762,19 +2755,12 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC;
-			finderArgs = new Object[] { groupId, categoryId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_G_NOTC;
-			finderArgs = new Object[] {
-					groupId, categoryId,
-					
-					start, end, orderByComparator
-				};
-		}
+		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_G_NOTC;
+		finderArgs = new Object[] {
+				groupId, categoryId,
+				
+				start, end, orderByComparator
+			};
 
 		List<MBThread> list = (List<MBThread>)FinderCacheUtil.getResult(finderPath,
 				finderArgs, this);
@@ -2857,10 +2843,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2871,35 +2853,51 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_NotC_First(long groupId, long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_NotC_First(groupId, categoryId,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_NotC_First(long groupId, long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByG_NotC(groupId, categoryId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
@@ -2911,37 +2909,53 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_NotC_Last(long groupId, long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_NotC_Last(groupId, categoryId,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_NotC_Last(long groupId, long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_NotC(groupId, categoryId);
 
 		List<MBThread> list = findByG_NotC(groupId, categoryId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -3565,10 +3579,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and status = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -3579,34 +3589,49 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_S_First(long groupId, int status,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_S_First(groupId, status, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_S_First(long groupId, int status,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByG_S(groupId, status, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param status the status
@@ -3618,37 +3643,52 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_S_Last(long groupId, int status,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_S_Last(groupId, status, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_S_Last(long groupId, int status,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_S(groupId, status);
 
 		List<MBThread> list = findByG_S(groupId, status, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -4271,10 +4311,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where categoryId = &#63; and priority = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param categoryId the category ID
 	 * @param priority the priority
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -4285,35 +4321,51 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByC_P_First(long categoryId, double priority,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByC_P_First(categoryId, priority,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", priority=");
+		msg.append(priority);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where categoryId = &#63; and priority = &#63;.
+	 *
+	 * @param categoryId the category ID
+	 * @param priority the priority
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByC_P_First(long categoryId, double priority,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByC_P(categoryId, priority, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", priority=");
-			msg.append(priority);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where categoryId = &#63; and priority = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param categoryId the category ID
 	 * @param priority the priority
@@ -4325,37 +4377,53 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByC_P_Last(long categoryId, double priority,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByC_P_Last(categoryId, priority,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", priority=");
+		msg.append(priority);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where categoryId = &#63; and priority = &#63;.
+	 *
+	 * @param categoryId the category ID
+	 * @param priority the priority
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByC_P_Last(long categoryId, double priority,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_P(categoryId, priority);
 
 		List<MBThread> list = findByC_P(categoryId, priority, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", priority=");
-			msg.append(priority);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where categoryId = &#63; and priority = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param categoryId the category ID
@@ -4661,10 +4729,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where lastPostDate = &#63; and priority = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param lastPostDate the last post date
 	 * @param priority the priority
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -4675,35 +4739,51 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByL_P_First(Date lastPostDate, double priority,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByL_P_First(lastPostDate, priority,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("lastPostDate=");
+		msg.append(lastPostDate);
+
+		msg.append(", priority=");
+		msg.append(priority);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where lastPostDate = &#63; and priority = &#63;.
+	 *
+	 * @param lastPostDate the last post date
+	 * @param priority the priority
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByL_P_First(Date lastPostDate, double priority,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<MBThread> list = findByL_P(lastPostDate, priority, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("lastPostDate=");
-			msg.append(lastPostDate);
-
-			msg.append(", priority=");
-			msg.append(priority);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where lastPostDate = &#63; and priority = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param lastPostDate the last post date
 	 * @param priority the priority
@@ -4715,37 +4795,53 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByL_P_Last(Date lastPostDate, double priority,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByL_P_Last(lastPostDate, priority,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("lastPostDate=");
+		msg.append(lastPostDate);
+
+		msg.append(", priority=");
+		msg.append(priority);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where lastPostDate = &#63; and priority = &#63;.
+	 *
+	 * @param lastPostDate the last post date
+	 * @param priority the priority
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByL_P_Last(Date lastPostDate, double priority,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByL_P(lastPostDate, priority);
 
 		List<MBThread> list = findByL_P(lastPostDate, priority, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("lastPostDate=");
-			msg.append(lastPostDate);
-
-			msg.append(", priority=");
-			msg.append(priority);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where lastPostDate = &#63; and priority = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param lastPostDate the last post date
@@ -5067,10 +5163,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and lastPostDate = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
 	 * @param lastPostDate the last post date
@@ -5082,38 +5174,56 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_L_First(long groupId, long categoryId,
 		Date lastPostDate, OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_L_First(groupId, categoryId,
+				lastPostDate, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", lastPostDate=");
+		msg.append(lastPostDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and lastPostDate = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param lastPostDate the last post date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_L_First(long groupId, long categoryId,
+		Date lastPostDate, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<MBThread> list = findByG_C_L(groupId, categoryId, lastPostDate, 0,
 				1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", lastPostDate=");
-			msg.append(lastPostDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and lastPostDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
@@ -5126,40 +5236,58 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_L_Last(long groupId, long categoryId,
 		Date lastPostDate, OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_L_Last(groupId, categoryId,
+				lastPostDate, orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", lastPostDate=");
+		msg.append(lastPostDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and lastPostDate = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param lastPostDate the last post date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_L_Last(long groupId, long categoryId,
+		Date lastPostDate, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByG_C_L(groupId, categoryId, lastPostDate);
 
 		List<MBThread> list = findByG_C_L(groupId, categoryId, lastPostDate,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", lastPostDate=");
-			msg.append(lastPostDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and lastPostDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -5832,10 +5960,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and status = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
 	 * @param status the status
@@ -5847,38 +5971,56 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_S_First(long groupId, long categoryId,
 		int status, OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_S_First(groupId, categoryId, status,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_S_First(long groupId, long categoryId,
+		int status, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<MBThread> list = findByG_C_S(groupId, categoryId, status, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
@@ -5891,40 +6033,58 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_C_S_Last(long groupId, long categoryId, int status,
 		OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_C_S_Last(groupId, categoryId, status,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_C_S_Last(long groupId, long categoryId,
+		int status, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByG_C_S(groupId, categoryId, status);
 
 		List<MBThread> list = findByG_C_S(groupId, categoryId, status,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and categoryId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -6828,19 +6988,12 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_G_NOTC_S;
-			finderArgs = new Object[] { groupId, categoryId, status };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_G_NOTC_S;
-			finderArgs = new Object[] {
-					groupId, categoryId, status,
-					
-					start, end, orderByComparator
-				};
-		}
+		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_G_NOTC_S;
+		finderArgs = new Object[] {
+				groupId, categoryId, status,
+				
+				start, end, orderByComparator
+			};
 
 		List<MBThread> list = (List<MBThread>)FinderCacheUtil.getResult(finderPath,
 				finderArgs, this);
@@ -6928,10 +7081,6 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	/**
 	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63; and status = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
 	 * @param status the status
@@ -6943,38 +7092,56 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_NotC_S_First(long groupId, long categoryId,
 		int status, OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_NotC_S_First(groupId, categoryId, status,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the first message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_NotC_S_First(long groupId, long categoryId,
+		int status, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<MBThread> list = findByG_NotC_S(groupId, categoryId, status, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param categoryId the category ID
@@ -6987,40 +7154,58 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 	public MBThread findByG_NotC_S_Last(long groupId, long categoryId,
 		int status, OrderByComparator orderByComparator)
 		throws NoSuchThreadException, SystemException {
+		MBThread mbThread = fetchByG_NotC_S_Last(groupId, categoryId, status,
+				orderByComparator);
+
+		if (mbThread != null) {
+			return mbThread;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", categoryId=");
+		msg.append(categoryId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchThreadException(msg.toString());
+	}
+
+	/**
+	 * Returns the last message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63; and status = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param categoryId the category ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching message boards thread, or <code>null</code> if a matching message boards thread could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public MBThread fetchByG_NotC_S_Last(long groupId, long categoryId,
+		int status, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByG_NotC_S(groupId, categoryId, status);
 
 		List<MBThread> list = findByG_NotC_S(groupId, categoryId, status,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", categoryId=");
-			msg.append(categoryId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchThreadException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the message boards threads before and after the current message boards thread in the ordered set where groupId = &#63; and categoryId &ne; &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param threadId the primary key of the current message boards thread
 	 * @param groupId the group ID
@@ -8231,7 +8416,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		throws SystemException {
 		Object[] finderArgs = new Object[] { groupId, categoryId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_G_NOTC,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC,
 				finderArgs, this);
 
 		if (count == null) {
@@ -8268,7 +8453,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_NOTC,
+				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC,
 					finderArgs, count);
 
 				closeSession(session);
@@ -9035,7 +9220,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 		throws SystemException {
 		Object[] finderArgs = new Object[] { groupId, categoryId, status };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_G_NOTC_S,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC_S,
 				finderArgs, this);
 
 		if (count == null) {
@@ -9076,7 +9261,7 @@ public class MBThreadPersistenceImpl extends BasePersistenceImpl<MBThread>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_NOTC_S,
+				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_NOTC_S,
 					finderArgs, count);
 
 				closeSession(session);

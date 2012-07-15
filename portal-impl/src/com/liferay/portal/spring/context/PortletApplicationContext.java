@@ -21,22 +21,19 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.AggregateClassLoader;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PreloadClassLoader;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.security.lang.PortalSecurityManagerThreadLocal;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
+import com.liferay.portal.security.pacl.PACLPolicyManager;
 import com.liferay.portal.spring.util.FilterClassLoader;
+import com.liferay.portal.util.PropsValues;
 
 import java.io.FileNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.aopalliance.aop.Advice;
-
-import org.springframework.aop.Advisor;
-import org.springframework.aop.SpringProxy;
-import org.springframework.aop.TargetSource;
-import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
@@ -56,15 +53,24 @@ public class PortletApplicationContext extends XmlWebApplicationContext {
 
 	public static ClassLoader getBeanClassLoader() {
 		if (_isUseRestrictedClassLoader()) {
-			return new PreloadClassLoader(
-				PortletClassLoaderUtil.getClassLoader(), _classes);
+			boolean enabled = PortalSecurityManagerThreadLocal.isEnabled();
+
+			try {
+				PortalSecurityManagerThreadLocal.setEnabled(false);
+
+				return new PreloadClassLoader(
+					PortletClassLoaderUtil.getClassLoader(), _classes);
+			}
+			finally {
+				PortalSecurityManagerThreadLocal.setEnabled(enabled);
+			}
 		}
 
 		ClassLoader beanClassLoader =
 			AggregateClassLoader.getAggregateClassLoader(
 				new ClassLoader[] {
 					PortletClassLoaderUtil.getClassLoader(),
-					PortalClassLoaderUtil.getClassLoader()
+					PACLClassLoaderUtil.getPortalClassLoader()
 				});
 
 		return new FilterClassLoader(beanClassLoader);
@@ -119,7 +125,12 @@ public class PortletApplicationContext extends XmlWebApplicationContext {
 		}
 
 		for (String configLocation : configLocations) {
+			boolean checkReadFile =
+				PortalSecurityManagerThreadLocal.isCheckReadFile();
+
 			try {
+				PortalSecurityManagerThreadLocal.setCheckReadFile(false);
+
 				xmlBeanDefinitionReader.loadBeanDefinitions(configLocation);
 			}
 			catch (Exception e) {
@@ -134,14 +145,15 @@ public class PortletApplicationContext extends XmlWebApplicationContext {
 					_log.error(e, e);
 				}
 			}
+			finally {
+				PortalSecurityManagerThreadLocal.setCheckReadFile(
+					checkReadFile);
+			}
 		}
 	}
 
 	private static boolean _isUseRestrictedClassLoader() {
-
-		// TODO
-
-		return false;
+		return PACLPolicyManager.isActive();
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
@@ -151,11 +163,21 @@ public class PortletApplicationContext extends XmlWebApplicationContext {
 		new HashMap<String, Class<?>>();
 
 	static {
-		_classes.put(Advice.class.getName(), Advice.class);
-		_classes.put(Advised.class.getName(), Advised.class);
-		_classes.put(Advisor.class.getName(), Advisor.class);
-		_classes.put(SpringProxy.class.getName(), SpringProxy.class);
-		_classes.put(TargetSource.class.getName(), TargetSource.class);
+		for (String className :
+				PropsValues.
+					PORTAL_SECURITY_MANAGER_PRELOAD_CLASSLOADER_CLASSES) {
+
+			Class<?> clazz = null;
+
+			try {
+				clazz = Class.forName(className);
+			}
+			catch (ClassNotFoundException e) {
+				_log.error(e, e);
+			}
+
+			_classes.put(clazz.getName(), clazz);
+		}
 	}
 
 }

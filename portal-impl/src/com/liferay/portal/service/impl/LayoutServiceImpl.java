@@ -418,7 +418,7 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @param  scopeGroupId the primary key of the scope group. See {@link
-	 *         ServiceContext#getScopeGroupId()}.
+	 *         com.liferay.portal.service.ServiceContext#getScopeGroupId()}.
 	 * @param  privateLayout whether the layout is private to the group
 	 * @param  portletId the primary key of the portlet
 	 * @return Returns the primary key of the default layout group; {@link
@@ -567,6 +567,16 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		List<Layout> layouts = layoutLocalService.getLayouts(
 			groupId, privateLayout);
+
+		return filterLayouts(layouts);
+	}
+
+	public List<Layout> getLayouts(
+			long groupId, boolean privateLayout, long parentLayoutId)
+		throws PortalException, SystemException {
+
+		List<Layout> layouts = layoutLocalService.getLayouts(
+			groupId, privateLayout, parentLayoutId);
 
 		return filterLayouts(layouts);
 	}
@@ -809,10 +819,11 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	public void schedulePublishToRemote(
 			long sourceGroupId, boolean privateLayout,
 			Map<Long, Boolean> layoutIdMap, Map<String, String[]> parameterMap,
-			String remoteAddress, int remotePort, boolean secureConnection,
-			long remoteGroupId, boolean remotePrivateLayout, Date startDate,
-			Date endDate, String groupName, String cronText,
-			Date schedulerStartDate, Date schedulerEndDate, String description)
+			String remoteAddress, int remotePort, String remotePathContext,
+			boolean secureConnection, long remoteGroupId,
+			boolean remotePrivateLayout, Date startDate, Date endDate,
+			String groupName, String cronText, Date schedulerStartDate,
+			Date schedulerEndDate, String description)
 		throws PortalException, SystemException {
 
 		GroupPermissionUtil.check(
@@ -821,8 +832,9 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 		LayoutsRemotePublisherRequest publisherRequest =
 			new LayoutsRemotePublisherRequest(
 				getUserId(), sourceGroupId, privateLayout, layoutIdMap,
-				parameterMap, remoteAddress, remotePort, secureConnection,
-				remoteGroupId, remotePrivateLayout, startDate, endDate);
+				parameterMap, remoteAddress, remotePort, remotePathContext,
+				secureConnection, remoteGroupId, remotePrivateLayout, startDate,
+				endDate);
 
 		String jobName = PortalUUIDUtil.generate();
 

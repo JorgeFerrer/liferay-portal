@@ -81,8 +81,8 @@
 				DDMTemplate
 			WHERE
 				(companyId = ?) AND
-				(groupId = ?) AND
-				(classNameId = ?) AND
+				(groupId IN ([$GROUP_ID$])) AND
+				(classNameId IN ([$CLASSNAME_ID$])) AND
 				(classPK = ?) AND
 				(
 					(lower(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
@@ -101,8 +101,8 @@
 				DDMTemplate
 			WHERE
 				(companyId = ?) AND
-				(groupId = ?) AND
-				(classNameId = ?) AND
+				(groupId IN ([$GROUP_ID$])) AND
+				(classNameId IN ([$CLASSNAME_ID$])) AND
 				(classPK = ?) AND
 				(
 					(lower(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]

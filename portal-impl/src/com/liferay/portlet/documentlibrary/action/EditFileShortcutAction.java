@@ -58,6 +58,12 @@ public class EditFileShortcutAction extends PortletAction {
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteFileShortcut(actionRequest, false);
 			}
+			else if (cmd.equals(Constants.MOVE)) {
+				moveFileShortcut(actionRequest, false);
+			}
+			else if (cmd.equals(Constants.MOVE_FROM_TRASH)) {
+				moveFileShortcut(actionRequest, true);
+			}
 			else if (cmd.equals(Constants.MOVE_TO_TRASH)) {
 				deleteFileShortcut(actionRequest, true);
 			}
@@ -121,6 +127,33 @@ public class EditFileShortcutAction extends PortletAction {
 		}
 		else {
 			DLAppServiceUtil.deleteFileShortcut(fileShortcutId);
+		}
+	}
+
+	protected void moveFileShortcut(
+			ActionRequest actionRequest, boolean moveFromTrash)
+		throws Exception {
+
+		long fileShortcutId = ParamUtil.getLong(
+			actionRequest, "fileShortcutId");
+
+		long newFolderId = ParamUtil.getLong(actionRequest, "newFolderId");
+
+		DLFileShortcut fileShortcut = DLAppServiceUtil.getFileShortcut(
+			fileShortcutId);
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			DLFileShortcut.class.getName(), actionRequest);
+
+		if (moveFromTrash) {
+			DLAppServiceUtil.moveFileShortcutFromTrash(
+				fileShortcutId, newFolderId, fileShortcut.getToFileEntryId(),
+				serviceContext);
+		}
+		else {
+			DLAppServiceUtil.updateFileShortcut(
+				fileShortcutId, newFolderId, fileShortcut.getToFileEntryId(),
+				serviceContext);
 		}
 	}
 

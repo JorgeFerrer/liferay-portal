@@ -41,6 +41,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.mobiledevicerules.model.MDRRuleGroupInstance;
 
 import java.io.Serializable;
@@ -67,6 +68,7 @@ public class ThemeDisplay
 		_portletDisplay.setThemeDisplay(this);
 	}
 
+	@Override
 	public Object clone() throws CloneNotSupportedException {
 		ThemeDisplay themeDisplay = (ThemeDisplay)super.clone();
 
@@ -83,6 +85,33 @@ public class ThemeDisplay
 
 	public Account getAccount() {
 		return _account;
+	}
+
+	public String getCDNBaseURL() {
+		if (_cdnBaseURL != null) {
+			return _cdnBaseURL;
+		}
+
+		String host = getCDNHost();
+
+		String portalURL = getPortalURL();
+
+		if (getServerName() != null) {
+			try {
+				portalURL = PortalUtil.getPortalURL(getLayout(), this);
+			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
+		}
+
+		if (Validator.isNull(host)) {
+			host = portalURL;
+		}
+
+		_cdnBaseURL = host;
+
+		return _cdnBaseURL;
 	}
 
 	public String getCDNDynamicResourcesHost() {
@@ -565,11 +594,6 @@ public class ThemeDisplay
 
 			return true;
 		}
-		else if (isIncludeServiceJs() &&
-				 js.startsWith(path + "/liferay/service.js")) {
-
-			return true;
-		}
 		else {
 			return false;
 		}
@@ -577,10 +601,6 @@ public class ThemeDisplay
 
 	public boolean isIncludePortletCssJs() {
 		return _includePortletCssJs;
-	}
-
-	public boolean isIncludeServiceJs() {
-		return _includeServiceJs;
 	}
 
 	public boolean isIsolated() {
@@ -717,7 +737,6 @@ public class ThemeDisplay
 		}
 
 		_includePortletCssJs = themeDisplay._includePortletCssJs;
-		_includeServiceJs = themeDisplay._includeServiceJs;
 
 		return this;
 	}
@@ -732,6 +751,10 @@ public class ThemeDisplay
 
 	public void setAjax(boolean ajax) {
 		_ajax = ajax;
+	}
+
+	public void setCDNBaseURL(String cdnBase) {
+		_cdnBaseURL = cdnBase;
 	}
 
 	public void setCDNDynamicResourcesHost(String cdnDynamicResourcesHost) {
@@ -825,10 +848,6 @@ public class ThemeDisplay
 		_includePortletCssJs = includePortletCssJs;
 	}
 
-	public void setIncludeServiceJs(boolean includeServiceJs) {
-		_includeServiceJs = includeServiceJs;
-	}
-
 	public void setIsolated(boolean isolated) {
 		_isolated = isolated;
 	}
@@ -886,20 +905,27 @@ public class ThemeDisplay
 		if ((theme != null) && (colorScheme != null)) {
 			String themeStaticResourcePath = theme.getStaticResourcePath();
 
-			String host = getCDNHost();
-
-			if (Validator.isNull(host)) {
-				host = getPortalURL();
-			}
+			String cdnBaseURL = getCDNBaseURL();
 
 			setPathColorSchemeImages(
-				host + themeStaticResourcePath +
+				cdnBaseURL + themeStaticResourcePath +
 					colorScheme.getColorSchemeImagesPath());
 
 			String dynamicResourcesHost = getCDNDynamicResourcesHost();
 
 			if (Validator.isNull(dynamicResourcesHost)) {
-				dynamicResourcesHost = getPortalURL();
+				String portalURL = getPortalURL();
+
+				if (getServerName() != null) {
+					try {
+						portalURL = PortalUtil.getPortalURL(getLayout(), this);
+					}
+					catch (Exception e) {
+						_log.error(e, e);
+					}
+				}
+
+				dynamicResourcesHost = portalURL;
 			}
 
 			setPathThemeCss(
@@ -907,12 +933,14 @@ public class ThemeDisplay
 					theme.getCssPath());
 
 			setPathThemeImages(
-				host + themeStaticResourcePath + theme.getImagesPath());
+				cdnBaseURL + themeStaticResourcePath + theme.getImagesPath());
 			setPathThemeJavaScript(
-				host + themeStaticResourcePath + theme.getJavaScriptPath());
+				cdnBaseURL + themeStaticResourcePath +
+					theme.getJavaScriptPath());
 			setPathThemeRoot(themeStaticResourcePath + theme.getRootPath());
 			setPathThemeTemplates(
-				host + themeStaticResourcePath + theme.getTemplatesPath());
+				cdnBaseURL + themeStaticResourcePath +
+					theme.getTemplatesPath());
 		}
 	}
 
@@ -1292,6 +1320,7 @@ public class ThemeDisplay
 	private Account _account;
 	private boolean _addSessionIdToURL;
 	private boolean _ajax;
+	private String _cdnBaseURL;
 	private String _cdnDynamicResourcesHost = StringPool.BLANK;
 	private String _cdnHost = StringPool.BLANK;
 	private ColorScheme _colorScheme;
@@ -1314,7 +1343,6 @@ public class ThemeDisplay
 	private String _i18nLanguageId;
 	private String _i18nPath;
 	private boolean _includePortletCssJs;
-	private boolean _includeServiceJs;
 	private boolean _isolated;
 	private String _languageId;
 	private Layout _layout;

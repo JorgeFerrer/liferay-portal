@@ -193,6 +193,16 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 			JournalFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_P",
 			new String[] { Long.class.getName(), Long.class.getName() });
+	public static final FinderPath FINDER_PATH_FETCH_BY_G_N = new FinderPath(JournalFolderModelImpl.ENTITY_CACHE_ENABLED,
+			JournalFolderModelImpl.FINDER_CACHE_ENABLED,
+			JournalFolderImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByG_N",
+			new String[] { Long.class.getName(), String.class.getName() },
+			JournalFolderModelImpl.GROUPID_COLUMN_BITMASK |
+			JournalFolderModelImpl.NAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_G_N = new FinderPath(JournalFolderModelImpl.ENTITY_CACHE_ENABLED,
+			JournalFolderModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_N",
+			new String[] { Long.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_FETCH_BY_G_P_N = new FinderPath(JournalFolderModelImpl.ENTITY_CACHE_ENABLED,
 			JournalFolderModelImpl.FINDER_CACHE_ENABLED,
 			JournalFolderImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByG_P_N",
@@ -236,6 +246,13 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 			new Object[] {
 				journalFolder.getUuid(),
 				Long.valueOf(journalFolder.getGroupId())
+			}, journalFolder);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_N,
+			new Object[] {
+				Long.valueOf(journalFolder.getGroupId()),
+				
+			journalFolder.getName()
 			}, journalFolder);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_P_N,
@@ -323,6 +340,13 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 			new Object[] {
 				journalFolder.getUuid(),
 				Long.valueOf(journalFolder.getGroupId())
+			});
+
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_N,
+			new Object[] {
+				Long.valueOf(journalFolder.getGroupId()),
+				
+			journalFolder.getName()
 			});
 
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_P_N,
@@ -468,6 +492,7 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 		if (isNew || !JournalFolderModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((journalFolderModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
@@ -580,6 +605,13 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 					Long.valueOf(journalFolder.getGroupId())
 				}, journalFolder);
 
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_N,
+				new Object[] {
+					Long.valueOf(journalFolder.getGroupId()),
+					
+				journalFolder.getName()
+				}, journalFolder);
+
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_P_N,
 				new Object[] {
 					Long.valueOf(journalFolder.getGroupId()),
@@ -597,12 +629,33 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
 					new Object[] {
 						journalFolder.getUuid(),
 						Long.valueOf(journalFolder.getGroupId())
+					}, journalFolder);
+			}
+
+			if ((journalFolderModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_G_N.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(journalFolderModelImpl.getOriginalGroupId()),
+						
+						journalFolderModelImpl.getOriginalName()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_N, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_N, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_N,
+					new Object[] {
+						Long.valueOf(journalFolder.getGroupId()),
+						
+					journalFolder.getName()
 					}, journalFolder);
 			}
 
@@ -616,6 +669,7 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_P_N, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_P_N, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_P_N,
@@ -902,10 +956,6 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	/**
 	 * Returns the first journal folder in the ordered set where uuid = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal folder
@@ -915,31 +965,45 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByUuid_First(uuid, orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal folder in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByUuid_First(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalFolder> list = findByUuid(uuid, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal folder in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -950,34 +1014,48 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByUuid_Last(uuid, orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal folder in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByUuid_Last(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
 
 		List<JournalFolder> list = findByUuid(uuid, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal folders before and after the current journal folder in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param folderId the primary key of the current journal folder
 	 * @param uuid the uuid
@@ -1458,10 +1536,6 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	/**
 	 * Returns the first journal folder in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1472,35 +1546,51 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByUuid_C_First(uuid, companyId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal folder in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByUuid_C_First(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalFolder> list = findByUuid_C(uuid, companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal folder in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
@@ -1512,37 +1602,53 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByUuid_C_Last(uuid, companyId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal folder in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
 
 		List<JournalFolder> list = findByUuid_C(uuid, companyId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal folders before and after the current journal folder in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param folderId the primary key of the current journal folder
 	 * @param uuid the uuid
@@ -1839,10 +1945,6 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	/**
 	 * Returns the first journal folder in the ordered set where groupId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal folder
@@ -1852,32 +1954,47 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByGroupId_First(groupId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal folder in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByGroupId_First(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalFolder> list = findByGroupId(groupId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal folder in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1888,34 +2005,49 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByGroupId_Last(groupId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal folder in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByGroupId_Last(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
 
 		List<JournalFolder> list = findByGroupId(groupId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal folders before and after the current journal folder in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param folderId the primary key of the current journal folder
 	 * @param groupId the group ID
@@ -2509,10 +2641,6 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	/**
 	 * Returns the first journal folder in the ordered set where companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal folder
@@ -2522,32 +2650,47 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal folder in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalFolder> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal folder in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2558,34 +2701,49 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal folder in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
 		List<JournalFolder> list = findByCompanyId(companyId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal folders before and after the current journal folder in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param folderId the primary key of the current journal folder
 	 * @param companyId the company ID
@@ -2879,10 +3037,6 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	/**
 	 * Returns the first journal folder in the ordered set where groupId = &#63; and parentFolderId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param parentFolderId the parent folder ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2893,35 +3047,51 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByG_P_First(long groupId, long parentFolderId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByG_P_First(groupId, parentFolderId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", parentFolderId=");
+		msg.append(parentFolderId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal folder in the ordered set where groupId = &#63; and parentFolderId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param parentFolderId the parent folder ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByG_P_First(long groupId, long parentFolderId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalFolder> list = findByG_P(groupId, parentFolderId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", parentFolderId=");
-			msg.append(parentFolderId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal folder in the ordered set where groupId = &#63; and parentFolderId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param parentFolderId the parent folder ID
@@ -2933,37 +3103,53 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	public JournalFolder findByG_P_Last(long groupId, long parentFolderId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByG_P_Last(groupId, parentFolderId,
+				orderByComparator);
+
+		if (journalFolder != null) {
+			return journalFolder;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", parentFolderId=");
+		msg.append(parentFolderId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchFolderException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal folder in the ordered set where groupId = &#63; and parentFolderId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param parentFolderId the parent folder ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByG_P_Last(long groupId, long parentFolderId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_P(groupId, parentFolderId);
 
 		List<JournalFolder> list = findByG_P(groupId, parentFolderId,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", parentFolderId=");
-			msg.append(parentFolderId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchFolderException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal folders before and after the current journal folder in the ordered set where groupId = &#63; and parentFolderId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param folderId the primary key of the current journal folder
 	 * @param groupId the group ID
@@ -3441,6 +3627,169 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	}
 
 	/**
+	 * Returns the journal folder where groupId = &#63; and name = &#63; or throws a {@link com.liferay.portlet.journal.NoSuchFolderException} if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @return the matching journal folder
+	 * @throws com.liferay.portlet.journal.NoSuchFolderException if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder findByG_N(long groupId, String name)
+		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = fetchByG_N(groupId, name);
+
+		if (journalFolder == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("groupId=");
+			msg.append(groupId);
+
+			msg.append(", name=");
+			msg.append(name);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchFolderException(msg.toString());
+		}
+
+		return journalFolder;
+	}
+
+	/**
+	 * Returns the journal folder where groupId = &#63; and name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @return the matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByG_N(long groupId, String name)
+		throws SystemException {
+		return fetchByG_N(groupId, name, true);
+	}
+
+	/**
+	 * Returns the journal folder where groupId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching journal folder, or <code>null</code> if a matching journal folder could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder fetchByG_N(long groupId, String name,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId, name };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_G_N,
+					finderArgs, this);
+		}
+
+		if (result instanceof JournalFolder) {
+			JournalFolder journalFolder = (JournalFolder)result;
+
+			if ((groupId != journalFolder.getGroupId()) ||
+					!Validator.equals(name, journalFolder.getName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_JOURNALFOLDER_WHERE);
+
+			query.append(_FINDER_COLUMN_G_N_GROUPID_2);
+
+			if (name == null) {
+				query.append(_FINDER_COLUMN_G_N_NAME_1);
+			}
+			else {
+				if (name.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_G_N_NAME_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_G_N_NAME_2);
+				}
+			}
+
+			query.append(JournalFolderModelImpl.ORDER_BY_JPQL);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				if (name != null) {
+					qPos.add(name);
+				}
+
+				List<JournalFolder> list = q.list();
+
+				result = list;
+
+				JournalFolder journalFolder = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_N,
+						finderArgs, list);
+				}
+				else {
+					journalFolder = list.get(0);
+
+					cacheResult(journalFolder);
+
+					if ((journalFolder.getGroupId() != groupId) ||
+							(journalFolder.getName() == null) ||
+							!journalFolder.getName().equals(name)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_N,
+							finderArgs, journalFolder);
+					}
+				}
+
+				return journalFolder;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_N,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (JournalFolder)result;
+			}
+		}
+	}
+
+	/**
 	 * Returns the journal folder where groupId = &#63; and parentFolderId = &#63; and name = &#63; or throws a {@link com.liferay.portlet.journal.NoSuchFolderException} if it could not be found.
 	 *
 	 * @param groupId the group ID
@@ -3807,6 +4156,21 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 		for (JournalFolder journalFolder : findByG_P(groupId, parentFolderId)) {
 			remove(journalFolder);
 		}
+	}
+
+	/**
+	 * Removes the journal folder where groupId = &#63; and name = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @return the journal folder that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalFolder removeByG_N(long groupId, String name)
+		throws NoSuchFolderException, SystemException {
+		JournalFolder journalFolder = findByG_N(groupId, name);
+
+		return remove(journalFolder);
 	}
 
 	/**
@@ -4311,6 +4675,76 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	}
 
 	/**
+	 * Returns the number of journal folders where groupId = &#63; and name = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @return the number of matching journal folders
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByG_N(long groupId, String name) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId, name };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_G_N,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_JOURNALFOLDER_WHERE);
+
+			query.append(_FINDER_COLUMN_G_N_GROUPID_2);
+
+			if (name == null) {
+				query.append(_FINDER_COLUMN_G_N_NAME_1);
+			}
+			else {
+				if (name.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_G_N_NAME_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_G_N_NAME_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				if (name != null) {
+					qPos.add(name);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_N, finderArgs,
+					count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
 	 * Returns the number of journal folders where groupId = &#63; and parentFolderId = &#63; and name = &#63;.
 	 *
 	 * @param groupId the group ID
@@ -4496,6 +4930,10 @@ public class JournalFolderPersistenceImpl extends BasePersistenceImpl<JournalFol
 	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "journalFolder.companyId = ?";
 	private static final String _FINDER_COLUMN_G_P_GROUPID_2 = "journalFolder.groupId = ? AND ";
 	private static final String _FINDER_COLUMN_G_P_PARENTFOLDERID_2 = "journalFolder.parentFolderId = ?";
+	private static final String _FINDER_COLUMN_G_N_GROUPID_2 = "journalFolder.groupId = ? AND ";
+	private static final String _FINDER_COLUMN_G_N_NAME_1 = "journalFolder.name IS NULL";
+	private static final String _FINDER_COLUMN_G_N_NAME_2 = "journalFolder.name = ?";
+	private static final String _FINDER_COLUMN_G_N_NAME_3 = "(journalFolder.name IS NULL OR journalFolder.name = ?)";
 	private static final String _FINDER_COLUMN_G_P_N_GROUPID_2 = "journalFolder.groupId = ? AND ";
 	private static final String _FINDER_COLUMN_G_P_N_PARENTFOLDERID_2 = "journalFolder.parentFolderId = ? AND ";
 	private static final String _FINDER_COLUMN_G_P_N_NAME_1 = "journalFolder.name IS NULL";

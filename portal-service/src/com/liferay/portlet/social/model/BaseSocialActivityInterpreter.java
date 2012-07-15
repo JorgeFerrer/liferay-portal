@@ -14,11 +14,16 @@
 
 package com.liferay.portlet.social.model;
 
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.GroupLocalServiceUtil;
@@ -128,8 +133,32 @@ public abstract class BaseSocialActivityInterpreter
 		}
 	}
 
+	protected String getValue(
+		String extraData, String key, String defaultValue) {
+
+		if (Validator.isNull(extraData)) {
+			return HtmlUtil.escape(defaultValue);
+		}
+
+		try {
+			JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject(
+				extraData);
+
+			String value = extraDataJSONObject.getString(key);
+
+			if (Validator.isNotNull(value)) {
+				return HtmlUtil.escape(value);
+			}
+		}
+		catch (JSONException jsone) {
+			_log.error("Unable to create JSON object from " + extraData);
+		}
+
+		return HtmlUtil.escape(defaultValue);
+	}
+
 	protected String wrapLink(String link, String text) {
-		StringBuilder sb = new StringBuilder();
+		StringBundler sb = new StringBundler(5);
 
 		sb.append("<a href=\"");
 		sb.append(link);

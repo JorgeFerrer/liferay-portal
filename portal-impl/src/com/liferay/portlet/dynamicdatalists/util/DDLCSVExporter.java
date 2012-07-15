@@ -16,17 +16,20 @@ package com.liferay.portlet.dynamicdatalists.util;
 
 import com.liferay.portal.kernel.util.CSVUtil;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordSet;
+import com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalServiceUtil;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordSetServiceUtil;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
 import com.liferay.portlet.dynamicdatamapping.storage.Field;
 import com.liferay.portlet.dynamicdatamapping.storage.FieldConstants;
 import com.liferay.portlet.dynamicdatamapping.storage.Fields;
+import com.liferay.portlet.dynamicdatamapping.storage.StorageEngineUtil;
 
 import java.io.Serializable;
 
@@ -35,6 +38,7 @@ import java.util.Map;
 
 /**
  * @author Marcellus Tavares
+ * @author Manuel de la Peña
  */
 public class DDLCSVExporter extends BaseDDLExporter {
 
@@ -49,8 +53,8 @@ public class DDLCSVExporter extends BaseDDLExporter {
 
 		DDMStructure ddmStructure = recordSet.getDDMStructure();
 
-		Map<String, Map<String, String>> fieldsMap =
-			ddmStructure.getFieldsMap();
+		Map<String, Map<String, String>> fieldsMap = ddmStructure.getFieldsMap(
+			LocaleUtil.toLanguageId(getLocale()));
 
 		StringBundler sb = new StringBundler();
 
@@ -68,16 +72,26 @@ public class DDLCSVExporter extends BaseDDLExporter {
 			recordSetId, status, start, end, orderByComparator);
 
 		for (DDLRecord record : records) {
-			Fields fields = record.getFields();
+			DDLRecordVersion recordVersion = record.getRecordVersion();
+
+			Fields fields = StorageEngineUtil.getFields(
+				recordVersion.getDDMStorageId());
 
 			for (Map<String, String> fieldMap : fieldsMap.values()) {
+				String dataType = fieldMap.get(FieldConstants.DATA_TYPE);
 				String name = fieldMap.get(FieldConstants.NAME);
+				String value = StringPool.BLANK;
 
-				Field field = fields.get(name);
+				if (fields.contains(name)) {
+					Field field = fields.get(name);
 
-				Serializable value = field.getValue();
+					value = field.getRenderedValue(getLocale());
+				}
 
-				sb.append(CSVUtil.encode(value));
+				Serializable fieldValueSerializable =
+					FieldConstants.getSerializable(dataType, value);
+
+				sb.append(CSVUtil.encode(fieldValueSerializable));
 				sb.append(CharPool.COMMA);
 			}
 

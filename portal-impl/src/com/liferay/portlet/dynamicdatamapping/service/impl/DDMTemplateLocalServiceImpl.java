@@ -136,11 +136,10 @@ public class DDMTemplateLocalServiceImpl
 		for (DDMTemplate oldTemplate : oldTemplates) {
 			DDMTemplate newTemplate = addTemplate(
 				userId, oldTemplate.getGroupId(), oldTemplate.getClassNameId(),
-				newClassPK, oldTemplate.getTemplateKey(),
-				oldTemplate.getNameMap(), oldTemplate.getDescriptionMap(),
-				oldTemplate.getType(), oldTemplate.getMode(),
-				oldTemplate.getLanguage(), oldTemplate.getScript(),
-				serviceContext);
+				newClassPK, null, oldTemplate.getNameMap(),
+				oldTemplate.getDescriptionMap(), oldTemplate.getType(),
+				oldTemplate.getMode(), oldTemplate.getLanguage(),
+				oldTemplate.getScript(), serviceContext);
 
 			newTemplates.add(newTemplate);
 		}
@@ -256,6 +255,29 @@ public class DDMTemplateLocalServiceImpl
 			mode, language, andOperator, start, end, orderByComparator);
 	}
 
+	public List<DDMTemplate> search(
+			long companyId, long[] groupIds, long[] classNameIds, long classPK,
+			String keywords, String type, String mode, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return ddmTemplateFinder.findByKeywords(
+			companyId, groupIds, classNameIds, classPK, keywords, type, mode,
+			start, end, orderByComparator);
+	}
+
+	public List<DDMTemplate> search(
+			long companyId, long[] groupIds, long[] classNameIds, long classPK,
+			String name, String description, String type, String mode,
+			String language, boolean andOperator, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return ddmTemplateFinder.findByC_G_C_C_N_D_T_M_L(
+			companyId, groupIds, classNameIds, classPK, name, description, type,
+			mode, language, andOperator, start, end, orderByComparator);
+	}
+
 	public int searchCount(
 			long companyId, long groupId, long classNameId, long classPK,
 			String keywords, String type, String mode)
@@ -273,6 +295,26 @@ public class DDMTemplateLocalServiceImpl
 
 		return ddmTemplateFinder.countByC_G_C_C_N_D_T_M_L(
 			companyId, groupId, classNameId, classPK, name, description, type,
+			mode, language, andOperator);
+	}
+
+	public int searchCount(
+			long companyId, long[] groupIds, long[] classNameIds, long classPK,
+			String keywords, String type, String mode)
+		throws SystemException {
+
+		return ddmTemplateFinder.countByKeywords(
+			companyId, groupIds, classNameIds, classPK, keywords, type, mode);
+	}
+
+	public int searchCount(
+			long companyId, long[] groupIds, long[] classNameIds, long classPK,
+			String name, String description, String type, String mode,
+			String language, boolean andOperator)
+		throws SystemException {
+
+		return ddmTemplateFinder.countByC_G_C_C_N_D_T_M_L(
+			companyId, groupIds, classNameIds, classPK, name, description, type,
 			mode, language, andOperator);
 	}
 

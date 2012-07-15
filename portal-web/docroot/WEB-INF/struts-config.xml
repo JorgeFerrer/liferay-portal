@@ -61,6 +61,8 @@
 
 		<action path="/portal/portlet_url" type="com.liferay.portal.action.PortletURLAction" />
 
+		<action path="/portal/progress_poller" forward="portal.progress_poller" />
+
 		<action path="/portal/render_portlet" type="com.liferay.portal.action.RenderPortletAction">
 			<forward name="/portal/render_portlet" path="/portal/render_portlet.jsp" />
 		</action>
@@ -106,8 +108,6 @@
 		</action>
 
 		<action path="/portal/update_terms_of_use" type="com.liferay.portal.action.UpdateTermsOfUseAction" />
-
-		<action path="/portal/upload_progress_poller" forward="portal.upload_progress_poller" />
 
 		<action path="/portal/verify_email_address" type="com.liferay.portal.action.VerifyEmailAddressAction">
 			<forward name="portal.verify_email_address" path="portal.verify_email_address" />
@@ -515,6 +515,11 @@
 
 		<action path="/document_library/move_file_entry" type="com.liferay.portlet.documentlibrary.action.EditFileEntryAction">
 			<forward name="portlet.document_library.edit_file_entry" path="portlet.document_library.move_file_entry" />
+			<forward name="portlet.document_library.error" path="portlet.document_library.error" />
+		</action>
+
+		<action path="/document_library/move_file_shortcut" type="com.liferay.portlet.documentlibrary.action.EditFileShortcutAction">
+			<forward name="portlet.document_library.edit_file_shortcut" path="portlet.document_library.move_file_shortcut" />
 			<forward name="portlet.document_library.error" path="portlet.document_library.error" />
 		</action>
 
@@ -1873,6 +1878,8 @@
 		<action path="/trash/edit_entry" type="com.liferay.portlet.trash.action.EditEntryAction">
 			<forward name="portlet.trash.view" path="portlet.trash.view" />
 		</action>
+
+		<action path="/trash/restore_entry" forward="portlet.trash.restore_entry" />
 
 		<action path="/trash/view" forward="portlet.trash.view" />
 

@@ -504,6 +504,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 		if (isNew || !JournalTemplateModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((journalTemplateModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
@@ -655,6 +656,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
@@ -672,6 +674,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SMALLIMAGEID,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SMALLIMAGEID,
 					args);
 
@@ -690,6 +693,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_T, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_T, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T,
@@ -981,10 +985,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where uuid = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal template
@@ -994,31 +994,46 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByUuid_First(uuid,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByUuid_First(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByUuid(uuid, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1029,34 +1044,49 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByUuid_Last(uuid,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByUuid_Last(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
 
 		List<JournalTemplate> list = findByUuid(uuid, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param uuid the uuid
@@ -1537,10 +1567,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1551,35 +1577,51 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByUuid_C_First(uuid, companyId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByUuid_C_First(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByUuid_C(uuid, companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
@@ -1591,37 +1633,53 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByUuid_C_Last(uuid, companyId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
 
 		List<JournalTemplate> list = findByUuid_C(uuid, companyId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param uuid the uuid
@@ -1918,10 +1976,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where groupId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal template
@@ -1931,32 +1985,47 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByGroupId_First(groupId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByGroupId_First(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByGroupId(groupId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1967,34 +2036,49 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByGroupId_Last(groupId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByGroupId_Last(long groupId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
 
 		List<JournalTemplate> list = findByGroupId(groupId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where groupId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param groupId the group ID
@@ -2600,10 +2684,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where templateId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param templateId the template ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal template
@@ -2613,32 +2693,47 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByTemplateId_First(String templateId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByTemplateId_First(templateId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("templateId=");
+		msg.append(templateId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where templateId = &#63;.
+	 *
+	 * @param templateId the template ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByTemplateId_First(String templateId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByTemplateId(templateId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("templateId=");
-			msg.append(templateId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where templateId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param templateId the template ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2649,34 +2744,49 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByTemplateId_Last(String templateId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByTemplateId_Last(templateId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("templateId=");
+		msg.append(templateId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where templateId = &#63;.
+	 *
+	 * @param templateId the template ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByTemplateId_Last(String templateId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByTemplateId(templateId);
 
 		List<JournalTemplate> list = findByTemplateId(templateId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("templateId=");
-			msg.append(templateId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where templateId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param templateId the template ID
@@ -2983,10 +3093,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where structureId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param structureId the structure ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching journal template
@@ -2996,32 +3102,47 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByStructureId_First(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByStructureId_First(structureId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("structureId=");
+		msg.append(structureId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where structureId = &#63;.
+	 *
+	 * @param structureId the structure ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByStructureId_First(String structureId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByStructureId(structureId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("structureId=");
-			msg.append(structureId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where structureId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param structureId the structure ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -3032,34 +3153,49 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByStructureId_Last(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByStructureId_Last(structureId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("structureId=");
+		msg.append(structureId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where structureId = &#63;.
+	 *
+	 * @param structureId the structure ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByStructureId_Last(String structureId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByStructureId(structureId);
 
 		List<JournalTemplate> list = findByStructureId(structureId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("structureId=");
-			msg.append(structureId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where structureId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param structureId the structure ID
@@ -3680,10 +3816,6 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	/**
 	 * Returns the first journal template in the ordered set where groupId = &#63; and structureId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param structureId the structure ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -3694,35 +3826,51 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByG_S_First(long groupId, String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByG_S_First(groupId,
+				structureId, orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", structureId=");
+		msg.append(structureId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the first journal template in the ordered set where groupId = &#63; and structureId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param structureId the structure ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByG_S_First(long groupId, String structureId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByG_S(groupId, structureId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", structureId=");
-			msg.append(structureId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last journal template in the ordered set where groupId = &#63; and structureId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param structureId the structure ID
@@ -3734,37 +3882,53 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	public JournalTemplate findByG_S_Last(long groupId, String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
+		JournalTemplate journalTemplate = fetchByG_S_Last(groupId, structureId,
+				orderByComparator);
+
+		if (journalTemplate != null) {
+			return journalTemplate;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", structureId=");
+		msg.append(structureId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTemplateException(msg.toString());
+	}
+
+	/**
+	 * Returns the last journal template in the ordered set where groupId = &#63; and structureId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param structureId the structure ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public JournalTemplate fetchByG_S_Last(long groupId, String structureId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_S(groupId, structureId);
 
 		List<JournalTemplate> list = findByG_S(groupId, structureId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", structureId=");
-			msg.append(structureId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchTemplateException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the journal templates before and after the current journal template in the ordered set where groupId = &#63; and structureId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param id the primary key of the current journal template
 	 * @param groupId the group ID

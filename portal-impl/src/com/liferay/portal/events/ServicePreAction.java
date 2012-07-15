@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.ServerDetector;
 import com.liferay.portal.kernel.util.SessionParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -105,6 +106,7 @@ import com.liferay.portlet.sites.util.SitesUtil;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -333,7 +335,25 @@ public class ServicePreAction extends Action {
 				// Get locale from the request
 
 				if ((locale == null) && PropsValues.LOCALE_DEFAULT_REQUEST) {
-					locale = request.getLocale();
+					Enumeration<Locale> locales = request.getLocales();
+
+					while (locales.hasMoreElements()) {
+						Locale requestLocale = locales.nextElement();
+
+						if (Validator.isNull(requestLocale.getCountry())) {
+							String requestLanguageCode =
+								requestLocale.getLanguage();
+
+							requestLocale = LanguageUtil.getLocale(
+								requestLanguageCode);
+						}
+
+						if (LanguageUtil.isAvailableLocale(requestLocale)) {
+							locale = requestLocale;
+
+							break;
+						}
+					}
 				}
 
 				// Get locale from the default user
@@ -434,6 +454,17 @@ public class ServicePreAction extends Action {
 
 			if (!signedIn && PropsValues.AUTH_FORWARD_BY_REDIRECT) {
 				request.setAttribute(WebKeys.REQUESTED_LAYOUT, layout);
+			}
+
+			String ppid = ParamUtil.getString(request, "p_p_id");
+
+			if (Validator.isNull(controlPanelCategory) &&
+				Validator.isNotNull(ppid) &&
+				(LiferayWindowState.isPopUp(request) ||
+				 LiferayWindowState.isExclusive(request))) {
+
+				controlPanelCategory =
+					_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX + ppid;
 			}
 
 			boolean viewableGroup = LayoutPermissionUtil.contains(
@@ -783,7 +814,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setThemeJsFastLoad(themeJsFastLoad);
 		themeDisplay.setServerName(request.getServerName());
 		themeDisplay.setServerPort(request.getServerPort());
-		themeDisplay.setSecure(PortalUtil.isSecure(request));
+		themeDisplay.setSecure(request.isSecure());
 		themeDisplay.setLifecycle(lifecycle);
 		themeDisplay.setLifecycleAction(lifecycle.equals("1"));
 		themeDisplay.setLifecycleRender(lifecycle.equals("0"));
@@ -1925,7 +1956,9 @@ public class ServicePreAction extends Action {
 
 		// Parallel render
 
-		if (PropsValues.LAYOUT_PARALLEL_RENDER_ENABLE) {
+		if (PropsValues.LAYOUT_PARALLEL_RENDER_ENABLE &&
+			ServerDetector.isTomcat()) {
+
 			boolean portletParallelRender = ParamUtil.getBoolean(
 				request, "p_p_parallel", true);
 
@@ -1938,7 +1971,7 @@ public class ServicePreAction extends Action {
 		long mainJournalArticleId = ParamUtil.getLong(request, "p_j_a_id");
 
 		if (mainJournalArticleId > 0) {
-			try{
+			try {
 				JournalArticle mainJournalArticle =
 					JournalArticleServiceUtil.getArticle(mainJournalArticleId);
 

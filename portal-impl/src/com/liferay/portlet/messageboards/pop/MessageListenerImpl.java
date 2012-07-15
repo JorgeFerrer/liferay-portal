@@ -85,6 +85,12 @@ public class MessageListenerImpl implements MessageListener {
 				_log.debug("Check to see if user " + from + " exists");
 			}
 
+			if (from.equalsIgnoreCase(
+					PropsValues.MAIL_SESSION_MAIL_POP3_USER)) {
+
+				return false;
+			}
+
 			UserLocalServiceUtil.getUserByEmailAddress(
 				company.getCompanyId(), from);
 
@@ -131,16 +137,16 @@ public class MessageListenerImpl implements MessageListener {
 					categoryId);
 
 				groupId = category.getGroupId();
-		 	}
-		 	catch (NoSuchCategoryException nsce) {
-		 		groupId = categoryId;
-		 		categoryId = MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID;
-		 	}
+			}
+			catch (NoSuchCategoryException nsce) {
+				groupId = categoryId;
+				categoryId = MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID;
+			}
 
-		 	if (_log.isDebugEnabled()) {
-		 		_log.debug("Group id " + groupId);
-		 		_log.debug("Category id " + categoryId);
-		 	}
+			if (_log.isDebugEnabled()) {
+				_log.debug("Group id " + groupId);
+				_log.debug("Category id " + categoryId);
+			}
 
 			User user = UserLocalServiceUtil.getUserByEmailAddress(
 				company.getCompanyId(), from);

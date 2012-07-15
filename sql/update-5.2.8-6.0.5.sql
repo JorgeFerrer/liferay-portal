@@ -140,6 +140,8 @@ update DLFileShortcut set statusByUserId = userId;
 update DLFileShortcut set statusByUserName = userId;
 update DLFileShortcut set statusDate = createDate;
 
+drop index IX_6C5E6512 on DLFileVersion;
+
 alter table DLFileVersion add status INTEGER;
 alter table DLFileVersion add statusByUserId LONG;
 alter table DLFileVersion add statusByUserName VARCHAR(75);
@@ -408,6 +410,7 @@ COMMIT_TRANSACTION;
 update MBMessage set rootMessageId = (select rootMessageId from MBThread where MBThread.threadId = MBMessage.threadId);
 
 drop table SocialEquityAssetEntry;
+
 create table SocialEquityAssetEntry (
 	equityAssetEntryId LONG not null primary key,
 	groupId LONG,
@@ -419,6 +422,7 @@ create table SocialEquityAssetEntry (
 );
 
 drop table SocialEquityHistory;
+
 create table SocialEquityHistory (
 	equityHistoryId LONG not null primary key,
 	groupId LONG,
@@ -429,6 +433,7 @@ create table SocialEquityHistory (
 );
 
 drop table SocialEquityLog;
+
 create table SocialEquityLog (
 	equityLogId LONG not null primary key,
 	groupId LONG,
@@ -444,6 +449,7 @@ create table SocialEquityLog (
 );
 
 drop table SocialEquitySetting;
+
 create table SocialEquitySetting (
 	equitySettingId LONG not null primary key,
 	groupId LONG,
@@ -458,6 +464,7 @@ create table SocialEquitySetting (
 );
 
 drop table SocialEquityUser;
+
 create table SocialEquityUser (
 	equityUserId LONG not null primary key,
 	groupId LONG,

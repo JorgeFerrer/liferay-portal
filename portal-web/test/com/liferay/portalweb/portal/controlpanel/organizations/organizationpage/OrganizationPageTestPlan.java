@@ -15,7 +15,8 @@
 package com.liferay.portalweb.portal.controlpanel.organizations.organizationpage;
 
 import com.liferay.portalweb.portal.BaseTestSuite;
-import com.liferay.portalweb.portal.controlpanel.organizations.organizationpage.addorganizationpage.AddOrganizationPageTests;
+import com.liferay.portalweb.portal.controlpanel.organizations.organizationpage.addorganizationprivatepage.AddOrganizationPrivatePageTests;
+import com.liferay.portalweb.portal.controlpanel.organizations.organizationpage.addorganizationpublicpage.AddOrganizationPublicPageTests;
 import com.liferay.portalweb.portal.controlpanel.organizations.organizationpage.mergeorganizationpage.MergeOrganizationPageTests;
 
 import junit.framework.Test;
@@ -29,7 +30,8 @@ public class OrganizationPageTestPlan extends BaseTestSuite {
 	public static Test suite() {
 		TestSuite testSuite = new TestSuite();
 
-		testSuite.addTest(AddOrganizationPageTests.suite());
+		testSuite.addTest(AddOrganizationPrivatePageTests.suite());
+		testSuite.addTest(AddOrganizationPublicPageTests.suite());
 		testSuite.addTest(MergeOrganizationPageTests.suite());
 
 		return testSuite;

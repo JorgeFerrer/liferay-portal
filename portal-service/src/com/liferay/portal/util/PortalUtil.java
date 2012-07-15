@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.servlet.taglib.ui.BreadcrumbEntry;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.upload.UploadServletRequest;
@@ -246,7 +247,7 @@ public class PortalUtil {
 
 	public static String getCanonicalURL(
 			String completeURL, ThemeDisplay themeDisplay, Layout layout)
-		throws PortalException, SystemException{
+		throws PortalException, SystemException {
 
 		return getPortal().getCanonicalURL(completeURL, themeDisplay, layout);
 	}
@@ -384,31 +385,36 @@ public class PortalUtil {
 	}
 
 	public static Date getDate(
-			int month, int day, int year, int hour, int min, PortalException pe)
+			int month, int day, int year,
+			Class<? extends PortalException> clazz)
 		throws PortalException {
 
-		return getPortal().getDate(month, day, year, hour, min, pe);
+		return getPortal().getDate(month, day, year, clazz);
+	}
+
+	public static Date getDate(
+			int month, int day, int year, int hour, int min,
+			Class<? extends PortalException> clazz)
+		throws PortalException {
+
+		return getPortal().getDate(month, day, year, hour, min, clazz);
 	}
 
 	public static Date getDate(
 			int month, int day, int year, int hour, int min, TimeZone timeZone,
-			PortalException pe)
+			Class<? extends PortalException> clazz)
 		throws PortalException {
 
-		return getPortal().getDate(month, day, year, hour, min, timeZone, pe);
-	}
-
-	public static Date getDate(int month, int day, int year, PortalException pe)
-		throws PortalException {
-
-		return getPortal().getDate(month, day, year, pe);
+		return getPortal().getDate(
+			month, day, year, hour, min, timeZone, clazz);
 	}
 
 	public static Date getDate(
-			int month, int day, int year, TimeZone timeZone, PortalException pe)
+			int month, int day, int year, TimeZone timeZone,
+			Class<? extends PortalException> clazz)
 		throws PortalException {
 
-		return getPortal().getDate(month, day, year, timeZone, pe);
+		return getPortal().getDate(month, day, year, timeZone, clazz);
 	}
 
 	/**
@@ -464,7 +470,7 @@ public class PortalUtil {
 	public static Serializable getExpandoValue(
 			PortletRequest portletRequest, String name, int type,
 			String displayType)
-		throws PortalException, SystemException{
+		throws PortalException, SystemException {
 
 		return getPortal().getExpandoValue(
 			portletRequest, name, type, displayType);
@@ -810,6 +816,8 @@ public class PortalUtil {
 	}
 
 	public static Portal getPortal() {
+		PortalRuntimePermission.checkGetBeanProperty(PortalUtil.class);
+
 		return _portal;
 	}
 
@@ -1144,6 +1152,18 @@ public class PortalUtil {
 
 	public static String[] getSystemSiteRoles() {
 		return getPortal().getSystemSiteRoles();
+	}
+
+	public static String getUniqueElementId(
+		HttpServletRequest request, String namespace, String id) {
+
+		return getPortal().getUniqueElementId(request, namespace, id);
+	}
+
+	public static String getUniqueElementId(
+		PortletRequest request, String namespace, String id) {
+
+		return getPortal().getUniqueElementId(request, namespace, id);
 	}
 
 	public static UploadPortletRequest getUploadPortletRequest(
@@ -1567,6 +1587,8 @@ public class PortalUtil {
 	}
 
 	public void setPortal(Portal portal) {
+		PortalRuntimePermission.checkSetBeanProperty(getClass());
+
 		_portal = portal;
 	}
 

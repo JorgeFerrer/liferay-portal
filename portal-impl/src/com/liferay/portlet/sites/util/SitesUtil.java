@@ -25,8 +25,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.LocaleThreadLocal;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -354,12 +352,10 @@ public class SitesUtil {
 			ServiceContext serviceContext =
 				ServiceContextThreadLocal.getServiceContext();
 
-			Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
-
 			updateLayoutScopes(
 				serviceContext.getUserId(), sourceLayout, targetLayout,
 				sourcePreferences, targetPreferences, sourcePortletId,
-				LocaleUtil.toLanguageId(locale));
+				serviceContext.getLanguageId());
 		}
 	}
 
@@ -540,7 +536,7 @@ public class SitesUtil {
 			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
 			PortletDataHandlerKeys.LAYOUT_SET_SETTINGS,
-			new String[] {Boolean.FALSE.toString()});
+			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
 			PortletDataHandlerKeys.LAYOUTS_IMPORT_MODE,
 			new String[] {
@@ -549,7 +545,7 @@ public class SitesUtil {
 			});
 		parameterMap.put(
 			PortletDataHandlerKeys.LOGO,
-			new String[] {Boolean.FALSE.toString()});
+			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
 			PortletDataHandlerKeys.PERFORM_DIRECT_BINARY_IMPORT,
 			new String[] {Boolean.TRUE.toString()});
@@ -956,15 +952,17 @@ public class SitesUtil {
 		}
 
 		try {
-			Map<String, String[]> parameterMap = null;
-
 			boolean importData = true;
 
-			if (lastMergeTime > 0) {
+			long lastResetTime = GetterUtil.getLong(
+				settingsProperties.getProperty("last-reset-time"));
+
+			if ((lastMergeTime > 0) || (lastResetTime > 0)) {
 				importData = false;
 			}
 
-			parameterMap = getLayoutSetPrototypesParameters(importData);
+			Map<String, String[]> parameterMap =
+				getLayoutSetPrototypesParameters(importData);
 
 			importLayoutSetPrototype(
 				layoutSetPrototype, layoutSet.getGroupId(),
@@ -1009,6 +1007,9 @@ public class SitesUtil {
 			layoutSet.getSettingsProperties();
 
 		settingsProperties.remove("last-merge-time");
+
+		settingsProperties.setProperty(
+			"last-reset-time", String.valueOf(System.currentTimeMillis()));
 
 		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSet, false);
 	}
@@ -1093,6 +1094,9 @@ public class SitesUtil {
 			PortletDataHandlerKeys.IGNORE_LAST_PUBLISH_DATE,
 			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
+			PortletDataHandlerKeys.LAYOUT_SET_SETTINGS,
+			new String[] {Boolean.TRUE.toString()});
+		parameterMap.put(
 			PortletDataHandlerKeys.LAYOUT_SET_PROTOTYPE_LINK_ENABLED,
 			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
@@ -1101,6 +1105,9 @@ public class SitesUtil {
 				PortletDataHandlerKeys.
 					LAYOUTS_IMPORT_MODE_CREATED_FROM_PROTOTYPE
 			});
+		parameterMap.put(
+			PortletDataHandlerKeys.LOGO,
+			new String[] {Boolean.TRUE.toString()});
 		parameterMap.put(
 			PortletDataHandlerKeys.PERMISSIONS,
 			new String[] {Boolean.TRUE.toString()});
@@ -1157,7 +1164,7 @@ public class SitesUtil {
 
 		File file = null;
 
-		StringBundler sb = new StringBundler(importData ? 4 : 4);
+		StringBundler sb = new StringBundler(importData ? 4 : 3);
 
 		sb.append(_TEMP_DIR);
 		sb.append(layoutSetPrototype.getUuid());

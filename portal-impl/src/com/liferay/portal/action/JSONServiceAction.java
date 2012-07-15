@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextUtil;
 import com.liferay.portal.struts.JSONAction;
@@ -84,7 +85,7 @@ public class JSONServiceAction extends JSONAction {
 		String className = ParamUtil.getString(request, "serviceClassName");
 		String methodName = ParamUtil.getString(request, "serviceMethodName");
 
-		checkMethodPublicAccess(
+		checkMethodGuestAccess(
 			request, methodName, PropsValues.JSON_SERVICE_PUBLIC_METHODS);
 
 		String[] serviceParameters = getStringArrayFromJSON(
@@ -96,9 +97,8 @@ public class JSONServiceAction extends JSONAction {
 			return null;
 		}
 
-		Thread currentThread = Thread.currentThread();
-
-		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+		ClassLoader contextClassLoader =
+			PACLClassLoaderUtil.getContextClassLoader();
 
 		Class<?> clazz = contextClassLoader.loadClass(className);
 
@@ -147,7 +147,7 @@ public class JSONServiceAction extends JSONAction {
 		return null;
 	}
 
-	protected void checkMethodPublicAccess(
+	protected void checkMethodGuestAccess(
 			HttpServletRequest request, String methodName,
 			String[] publicMethods)
 		throws PrincipalException {
@@ -161,7 +161,8 @@ public class JSONServiceAction extends JSONAction {
 		String remoteUser = request.getRemoteUser();
 
 		if (remoteUser == null) {
-			throw new PrincipalException("Public access denied");
+			throw new PrincipalException(
+				"Please sign in to invoke this method");
 		}
 	}
 

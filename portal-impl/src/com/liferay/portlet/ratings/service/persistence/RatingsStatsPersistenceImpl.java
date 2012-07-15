@@ -333,6 +333,7 @@ public class RatingsStatsPersistenceImpl extends BasePersistenceImpl<RatingsStat
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_C,

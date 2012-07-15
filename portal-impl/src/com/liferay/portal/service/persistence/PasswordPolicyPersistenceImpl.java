@@ -366,6 +366,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_DP, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_DP, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_DP,
@@ -384,6 +385,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N,

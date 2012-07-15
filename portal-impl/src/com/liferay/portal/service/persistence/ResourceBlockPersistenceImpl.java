@@ -381,6 +381,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 		if (isNew || !ResourceBlockModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((resourceBlockModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_N.getColumnBitmask()) != 0) {
@@ -459,6 +460,7 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_G_N_P, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_G_N_P, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_G_N_P,
@@ -753,10 +755,6 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	/**
 	 * Returns the first resource block in the ordered set where companyId = &#63; and name = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -767,35 +765,51 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public ResourceBlock findByC_N_First(long companyId, String name,
 		OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockException, SystemException {
+		ResourceBlock resourceBlock = fetchByC_N_First(companyId, name,
+				orderByComparator);
+
+		if (resourceBlock != null) {
+			return resourceBlock;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", name=");
+		msg.append(name);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchResourceBlockException(msg.toString());
+	}
+
+	/**
+	 * Returns the first resource block in the ordered set where companyId = &#63; and name = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching resource block, or <code>null</code> if a matching resource block could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlock fetchByC_N_First(long companyId, String name,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<ResourceBlock> list = findByC_N(companyId, name, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchResourceBlockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last resource block in the ordered set where companyId = &#63; and name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param name the name
@@ -807,37 +821,53 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public ResourceBlock findByC_N_Last(long companyId, String name,
 		OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockException, SystemException {
+		ResourceBlock resourceBlock = fetchByC_N_Last(companyId, name,
+				orderByComparator);
+
+		if (resourceBlock != null) {
+			return resourceBlock;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", name=");
+		msg.append(name);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchResourceBlockException(msg.toString());
+	}
+
+	/**
+	 * Returns the last resource block in the ordered set where companyId = &#63; and name = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching resource block, or <code>null</code> if a matching resource block could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlock fetchByC_N_Last(long companyId, String name,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_N(companyId, name);
 
 		List<ResourceBlock> list = findByC_N(companyId, name, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchResourceBlockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the resource blocks before and after the current resource block in the ordered set where companyId = &#63; and name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param resourceBlockId the primary key of the current resource block
 	 * @param companyId the company ID
@@ -1160,10 +1190,6 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	/**
 	 * Returns the first resource block in the ordered set where companyId = &#63; and groupId = &#63; and name = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param groupId the group ID
 	 * @param name the name
@@ -1175,38 +1201,56 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public ResourceBlock findByC_G_N_First(long companyId, long groupId,
 		String name, OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockException, SystemException {
+		ResourceBlock resourceBlock = fetchByC_G_N_First(companyId, groupId,
+				name, orderByComparator);
+
+		if (resourceBlock != null) {
+			return resourceBlock;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", groupId=");
+		msg.append(groupId);
+
+		msg.append(", name=");
+		msg.append(name);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchResourceBlockException(msg.toString());
+	}
+
+	/**
+	 * Returns the first resource block in the ordered set where companyId = &#63; and groupId = &#63; and name = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching resource block, or <code>null</code> if a matching resource block could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlock fetchByC_G_N_First(long companyId, long groupId,
+		String name, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<ResourceBlock> list = findByC_G_N(companyId, groupId, name, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", groupId=");
-			msg.append(groupId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchResourceBlockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last resource block in the ordered set where companyId = &#63; and groupId = &#63; and name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param groupId the group ID
@@ -1219,40 +1263,58 @@ public class ResourceBlockPersistenceImpl extends BasePersistenceImpl<ResourceBl
 	public ResourceBlock findByC_G_N_Last(long companyId, long groupId,
 		String name, OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockException, SystemException {
+		ResourceBlock resourceBlock = fetchByC_G_N_Last(companyId, groupId,
+				name, orderByComparator);
+
+		if (resourceBlock != null) {
+			return resourceBlock;
+		}
+
+		StringBundler msg = new StringBundler(8);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", groupId=");
+		msg.append(groupId);
+
+		msg.append(", name=");
+		msg.append(name);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchResourceBlockException(msg.toString());
+	}
+
+	/**
+	 * Returns the last resource block in the ordered set where companyId = &#63; and groupId = &#63; and name = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param groupId the group ID
+	 * @param name the name
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching resource block, or <code>null</code> if a matching resource block could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public ResourceBlock fetchByC_G_N_Last(long companyId, long groupId,
+		String name, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByC_G_N(companyId, groupId, name);
 
 		List<ResourceBlock> list = findByC_G_N(companyId, groupId, name,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(8);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", groupId=");
-			msg.append(groupId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchResourceBlockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the resource blocks before and after the current resource block in the ordered set where companyId = &#63; and groupId = &#63; and name = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param resourceBlockId the primary key of the current resource block
 	 * @param companyId the company ID

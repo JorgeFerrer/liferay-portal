@@ -16,6 +16,7 @@ package com.liferay.portal.kernel.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portlet.trash.model.TrashEntry;
 
 /**
  * Represents the interface to manage the basic operations of the Recycle Bin.
@@ -51,6 +52,9 @@ import com.liferay.portal.kernel.exception.SystemException;
  */
 public interface TrashHandler {
 
+	public void checkDuplicateTrashEntry(TrashEntry trashEntry, String newName)
+		throws PortalException, SystemException;
+
 	/**
 	 * Deletes all trash entries with the primary keys.
 	 *
@@ -63,6 +67,17 @@ public interface TrashHandler {
 		throws PortalException, SystemException;
 
 	/**
+	 * Deletes all trash entries with the primary keys.
+	 *
+	 * @param  classPKs the primary keys of the entries to delete
+	 * @throws PortalException if an entry with the primary key could not be
+	 *         found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void deleteTrashEntries(long[] classPKs, boolean checkPermission)
+		throws PortalException, SystemException;
+
+	/**
 	 * Deletes the entry with the primary key.
 	 *
 	 * @param  classPK the primary key of the entry to delete
@@ -71,6 +86,9 @@ public interface TrashHandler {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void deleteTrashEntry(long classPK)
+		throws PortalException, SystemException;
+
+	public void deleteTrashEntry(long classPK, boolean checkPermission)
 		throws PortalException, SystemException;
 
 	/**
@@ -112,6 +130,9 @@ public interface TrashHandler {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void restoreTrashEntry(long classPK)
+		throws PortalException, SystemException;
+
+	public void updateTitle(long classPK, String title)
 		throws PortalException, SystemException;
 
 }

@@ -99,9 +99,9 @@ public class ViewAddAsConnectionCCUserTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace("socialoffice01@liferay.com"),
 			selenium.getText(
 				"//div[contains(@class, 'contacts-profile')]/div/div[2]/div[3]"));
-		assertFalse(selenium.isElementPresent(
+		assertTrue(selenium.isElementNotPresent(
 				"//div[contains(@class, 'contacts-center-home-content')]"));
-		assertEquals(RuntimeVariables.replace("Remove as Connection"),
+		assertEquals(RuntimeVariables.replace("Remove Connection"),
 			selenium.getText(
 				"//button[@id='_1_WAR_contactsportlet_removeConnectionButton']"));
 		assertFalse(selenium.isVisible(

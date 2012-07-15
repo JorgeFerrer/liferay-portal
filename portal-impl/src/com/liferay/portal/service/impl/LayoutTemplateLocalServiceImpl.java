@@ -19,10 +19,12 @@ import com.liferay.portal.kernel.io.DummyWriter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.plugin.PluginPackage;
+import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateContextType;
 import com.liferay.portal.kernel.template.TemplateManager;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
+import com.liferay.portal.kernel.template.TemplateResourceLoaderUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -466,7 +468,7 @@ public class LayoutTemplateLocalServiceImpl
 					"null" + LayoutTemplateConstants.STANDARD_SEPARATOR +
 						layoutTemplateId;
 
-				TemplateManagerUtil.clearCache(
+				TemplateResourceLoaderUtil.clearCache(
 					TemplateManager.VELOCITY, templateId);
 
 				_warStandard.remove(layoutTemplateId);
@@ -476,7 +478,7 @@ public class LayoutTemplateLocalServiceImpl
 					"null" + LayoutTemplateConstants.CUSTOM_SEPARATOR +
 						layoutTemplateId;
 
-				TemplateManagerUtil.clearCache(
+				TemplateResourceLoaderUtil.clearCache(
 					TemplateManager.VELOCITY, templateId);
 
 				_warCustom.remove(layoutTemplateId);
@@ -502,7 +504,7 @@ public class LayoutTemplateLocalServiceImpl
 					layoutTemplate.getLayoutTemplateId();
 
 			try {
-				TemplateManagerUtil.clearCache(
+				TemplateResourceLoaderUtil.clearCache(
 					TemplateManager.VELOCITY, templateId);
 			}
 			catch (Exception e) {
@@ -527,7 +529,7 @@ public class LayoutTemplateLocalServiceImpl
 					layoutTemplate.getLayoutTemplateId();
 
 			try {
-				TemplateManagerUtil.clearCache(
+				TemplateResourceLoaderUtil.clearCache(
 					TemplateManager.VELOCITY, templateId);
 			}
 			catch (Exception e) {
@@ -548,8 +550,10 @@ public class LayoutTemplateLocalServiceImpl
 			InitColumnProcessor processor = new InitColumnProcessor();
 
 			Template template = TemplateManagerUtil.getTemplate(
-				TemplateManager.VELOCITY, velocityTemplateId,
-				velocityTemplateContent, TemplateContextType.STANDARD);
+				TemplateManager.VELOCITY,
+				new StringTemplateResource(
+					velocityTemplateId, velocityTemplateContent),
+				TemplateContextType.STANDARD);
 
 			template.put("processor", processor);
 

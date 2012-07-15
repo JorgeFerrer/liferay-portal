@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateContextType;
 import com.liferay.portal.kernel.template.TemplateManager;
@@ -57,7 +58,6 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.io.FeedException;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
@@ -110,6 +110,17 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 			getUserId(), nodeId, title, fileName, file);
 	}
 
+	public void addPageAttachment(
+			long nodeId, String title, String fileName, InputStream inputStream)
+		throws PortalException, SystemException {
+
+		WikiNodePermission.check(
+			getPermissionChecker(), nodeId, ActionKeys.ADD_ATTACHMENT);
+
+		wikiPageLocalService.addPageAttachment(
+			getUserId(), nodeId, title, fileName, inputStream);
+	}
+
 	public void addPageAttachments(
 			long nodeId, String title,
 			List<ObjectValuePair<String, InputStream>> inputStream)
@@ -125,7 +136,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	public String addTempPageAttachment(
 			long nodeId, String fileName, String tempFolderName,
 			InputStream inputStream)
-		throws IOException, PortalException, SystemException {
+		throws PortalException, SystemException {
 
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.ADD_ATTACHMENT);
@@ -482,7 +493,8 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 			String templateContent = ContentUtil.get(templateId);
 
 			Template template = TemplateManagerUtil.getTemplate(
-				TemplateManager.VELOCITY, templateId, templateContent,
+				TemplateManager.VELOCITY,
+				new StringTemplateResource(templateId, templateContent),
 				TemplateContextType.STANDARD);
 
 			template.put("companyId", companyId);

@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.Time;
@@ -76,12 +77,12 @@ public class AnnouncementsEntryLocalServiceImpl
 		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
-			new EntryDisplayDateException());
+			EntryDisplayDateException.class);
 
 		Date expirationDate = PortalUtil.getDate(
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, user.getTimeZone(),
-			new EntryExpirationDateException());
+			EntryExpirationDateException.class);
 
 		Date now = new Date();
 
@@ -306,12 +307,12 @@ public class AnnouncementsEntryLocalServiceImpl
 		Date displayDate = PortalUtil.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(),
-			new EntryDisplayDateException());
+			EntryDisplayDateException.class);
 
 		Date expirationDate = PortalUtil.getDate(
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, user.getTimeZone(),
-			new EntryExpirationDateException());
+			EntryExpirationDateException.class);
 
 		validate(title, content, url);
 
@@ -455,9 +456,9 @@ public class AnnouncementsEntryLocalServiceImpl
 		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(entry.getCompanyId());
 		subscriptionSender.setContextAttributes(
-			"[$ENTRY_CONTENT$]", entry.getContent(), "[$ENTRY_ID$]",
-			entry.getEntryId(), "[$ENTRY_TITLE$]", entry.getTitle(),
-			"[$ENTRY_TYPE$]",
+			"[$ENTRY_CONTENT$]", HtmlUtil.extractText(entry.getContent()),
+			"[$ENTRY_ID$]", entry.getEntryId(), "[$ENTRY_TITLE$]",
+			entry.getTitle(), "[$ENTRY_TYPE$]",
 			LanguageUtil.get(company.getLocale(), entry.getType()),
 			"[$ENTRY_URL$]", entry.getUrl(), "[$PORTLET_NAME$]",
 			LanguageUtil.get(

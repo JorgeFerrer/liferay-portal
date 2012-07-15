@@ -17,8 +17,6 @@
 <%@ include file="/html/taglib/ui/asset_categories_selector/init.jsp" %>
 
 <%
-themeDisplay.setIncludeServiceJs(true);
-
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_ui_asset_categories_selector_page") + StringPool.UNDERLINE;
 
 String className = (String)request.getAttribute("liferay-ui:asset-categories-selector:className");
@@ -109,8 +107,8 @@ if (Validator.isNotNull(className)) {
 					labelNode: '#<%= namespace %>assetCategoriesLabel_<%= vocabulary.getVocabularyId() %>',
 					portalModelResource: <%= Validator.isNotNull(className) && (ResourceActionsUtil.isPortalModelResource(className) || className.equals(Group.class.getName())) %>,
 					singleSelect: <%= !vocabulary.isMultiValued() %>,
-					vocabularyIds: '<%= String.valueOf(vocabulary.getVocabularyId()) %>',
-					vocabularyGroupIds: '<%= vocabulary.getGroupId() %>'
+					vocabularyGroupIds: '<%= vocabulary.getGroupId() %>',
+					vocabularyIds: '<%= String.valueOf(vocabulary.getVocabularyId()) %>'
 				}
 			).render();
 		</aui:script>

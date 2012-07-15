@@ -58,7 +58,7 @@ public abstract class UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			DatabaseMetaData metadata = con.getMetaData();
 
@@ -147,7 +147,7 @@ public abstract class UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement("select * from " + tableName);
 
@@ -178,14 +178,14 @@ public abstract class UpgradeProcess {
 		ResultSet rs = null;
 
 		try {
-			con = DataAccess.getConnection();
+			con = DataAccess.getUpgradeOptimizedConnection();
 
 			ps = con.prepareStatement("select count(*) from " + tableName);
 
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				long count = rs.getLong(1);
+				int count = rs.getInt(1);
 
 				if (count > 0) {
 					return true;

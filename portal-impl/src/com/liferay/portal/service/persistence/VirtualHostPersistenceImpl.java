@@ -348,6 +348,7 @@ public class VirtualHostPersistenceImpl extends BasePersistenceImpl<VirtualHost>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_HOSTNAME, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_HOSTNAME, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_HOSTNAME,
@@ -362,6 +363,7 @@ public class VirtualHostPersistenceImpl extends BasePersistenceImpl<VirtualHost>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_L, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_L, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_L,

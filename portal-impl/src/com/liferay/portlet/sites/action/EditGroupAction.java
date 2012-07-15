@@ -33,6 +33,8 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.liveusers.LiveUsers;
@@ -150,7 +152,7 @@ public class EditGroupAction extends PortletAction {
 					 e instanceof RequiredGroupException ||
 					 e instanceof SystemException) {
 
-				SessionErrors.add(actionRequest, e.getClass().getName(), e);
+				SessionErrors.add(actionRequest, e.getClass(), e);
 
 				if (cmd.equals(Constants.DEACTIVATE) ||
 					cmd.equals(Constants.DELETE) ||
@@ -257,7 +259,7 @@ public class EditGroupAction extends PortletAction {
 	protected String updateCloseRedirect(
 			String closeRedirect, Group group, ThemeDisplay themeDisplay,
 			String oldFriendlyURL, String oldStagingFriendlyURL)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		if (Validator.isNull(closeRedirect) || (group == null)) {
 			return closeRedirect;
@@ -424,6 +426,30 @@ public class EditGroupAction extends PortletAction {
 		typeSettingsProperties.setProperty("false-robots.txt", publicRobots);
 		typeSettingsProperties.setProperty("true-robots.txt", privateRobots);
 
+		int trashEnabled = ParamUtil.getInteger(
+			actionRequest, "trashEnabled",
+			GetterUtil.getInteger(
+				typeSettingsProperties.getProperty("trashEnabled")));
+
+		typeSettingsProperties.setProperty(
+			"trashEnabled", String.valueOf(trashEnabled));
+
+		int trashEntriesMaxAgeGroup = ParamUtil.getInteger(
+			actionRequest, "trashEntriesMaxAge",
+			GetterUtil.getInteger(
+				typeSettingsProperties.getProperty("trashEntriesMaxAge")));
+
+		int trashEntriesMaxAgeCompany = PrefsPropsUtil.getInteger(
+			themeDisplay.getCompanyId(), PropsKeys.TRASH_ENTRIES_MAX_AGE);
+
+		if (trashEntriesMaxAgeGroup != trashEntriesMaxAgeCompany) {
+			typeSettingsProperties.setProperty(
+				"trashEntriesMaxAge", String.valueOf(trashEntriesMaxAgeGroup));
+		}
+		else {
+			typeSettingsProperties.remove("trashEntriesMaxAge");
+		}
+
 		// Virtual hosts
 
 		LayoutSet publicLayoutSet = liveGroup.getPublicLayoutSet();
@@ -486,11 +512,9 @@ public class EditGroupAction extends PortletAction {
 
 		if (!liveGroup.isStaged()) {
 			long privateLayoutSetPrototypeId = ParamUtil.getLong(
-				actionRequest, "privateLayoutSetPrototypeId",
-				privateLayoutSet.getLayoutSetPrototypeId());
+				actionRequest, "privateLayoutSetPrototypeId");
 			long publicLayoutSetPrototypeId = ParamUtil.getLong(
-				actionRequest, "publicLayoutSetPrototypeId",
-				publicLayoutSet.getLayoutSetPrototypeId());
+				actionRequest, "publicLayoutSetPrototypeId");
 
 			boolean privateLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
 				actionRequest, "privateLayoutSetPrototypeLinkEnabled",

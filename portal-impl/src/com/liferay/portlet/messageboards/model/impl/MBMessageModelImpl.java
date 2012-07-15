@@ -130,6 +130,10 @@ public class MBMessageModelImpl extends BaseModelImpl<MBMessage>
 	 * @return the normal model instance
 	 */
 	public static MBMessage toModel(MBMessageSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		MBMessage model = new MBMessageImpl();
 
 		model.setUuid(soapModel.getUuid());
@@ -169,6 +173,10 @@ public class MBMessageModelImpl extends BaseModelImpl<MBMessage>
 	 * @return the normal model instances
 	 */
 	public static List<MBMessage> toModels(MBMessageSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<MBMessage> models = new ArrayList<MBMessage>(soapModels.length);
 
 		for (MBMessageSoap soapModel : soapModels) {
@@ -864,9 +872,17 @@ public class MBMessageModelImpl extends BaseModelImpl<MBMessage>
 		}
 	}
 
+	public boolean isDenied() {
+		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isDraft() {
-		if ((getStatus() == WorkflowConstants.STATUS_DRAFT) ||
-				(getStatus() == WorkflowConstants.STATUS_DRAFT_FROM_APPROVED)) {
+		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
 			return true;
 		}
 		else {
@@ -883,8 +899,44 @@ public class MBMessageModelImpl extends BaseModelImpl<MBMessage>
 		}
 	}
 
+	public boolean isInactive() {
+		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isIncomplete() {
+		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isInTrash() {
+		if (getStatus() == WorkflowConstants.STATUS_IN_TRASH) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isPending() {
 		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isScheduled() {
+		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
 			return true;
 		}
 		else {

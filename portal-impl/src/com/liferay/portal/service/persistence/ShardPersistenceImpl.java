@@ -342,6 +342,7 @@ public class ShardPersistenceImpl extends BasePersistenceImpl<Shard>
 				Object[] args = new Object[] { shardModelImpl.getOriginalName() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_NAME, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_NAME, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME,
@@ -356,6 +357,7 @@ public class ShardPersistenceImpl extends BasePersistenceImpl<Shard>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_C,

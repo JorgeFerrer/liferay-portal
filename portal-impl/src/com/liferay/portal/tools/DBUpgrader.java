@@ -323,7 +323,7 @@ public class DBUpgrader {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				long count = rs.getLong(1);
+				int count = rs.getInt(1);
 
 				return count;
 			}

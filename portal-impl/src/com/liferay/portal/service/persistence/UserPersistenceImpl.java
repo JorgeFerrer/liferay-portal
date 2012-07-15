@@ -617,6 +617,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 		if (isNew || !UserModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((userModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
@@ -769,6 +770,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CONTACTID,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTACTID,
 					args);
 
@@ -784,6 +786,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_PORTRAITID,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PORTRAITID,
 					args);
 
@@ -799,6 +802,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_U, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_U, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_U,
@@ -816,6 +820,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_DU, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_DU, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_DU,
@@ -834,6 +839,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_SN, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SN, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SN,
@@ -853,6 +859,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_EA, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_EA, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_EA,
@@ -871,6 +878,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_FID, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_FID, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_FID,
@@ -889,6 +897,7 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_O, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_O, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_O,
@@ -1194,10 +1203,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Returns the first user in the ordered set where uuid = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user
@@ -1207,31 +1212,45 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByUuid_First(uuid, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first user in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByUuid_First(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<User> list = findByUuid(uuid, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last user in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1241,33 +1260,47 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	 */
 	public User findByUuid_Last(String uuid, OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByUuid_Last(uuid, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last user in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByUuid_Last(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
 
 		List<User> list = findByUuid(uuid, count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the users before and after the current user in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param userId the primary key of the current user
 	 * @param uuid the uuid
@@ -1574,10 +1607,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Returns the first user in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1588,34 +1617,49 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByUuid_C_First(uuid, companyId, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first user in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByUuid_C_First(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<User> list = findByUuid_C(uuid, companyId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last user in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
@@ -1627,37 +1671,52 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByUuid_C_Last(uuid, companyId, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last user in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
 
 		List<User> list = findByUuid_C(uuid, companyId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the users before and after the current user in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param userId the primary key of the current user
 	 * @param uuid the uuid
@@ -1945,10 +2004,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Returns the first user in the ordered set where companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user
@@ -1958,31 +2013,45 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByCompanyId_First(companyId, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<User> list = findByCompanyId(companyId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last user in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1993,34 +2062,48 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByCompanyId_Last(companyId, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
 		List<User> list = findByCompanyId(companyId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the users before and after the current user in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param userId the primary key of the current user
 	 * @param companyId the company ID
@@ -2442,10 +2525,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Returns the first user in the ordered set where emailAddress = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param emailAddress the email address
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching user
@@ -2455,32 +2534,46 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByEmailAddress_First(String emailAddress,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByEmailAddress_First(emailAddress, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("emailAddress=");
+		msg.append(emailAddress);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first user in the ordered set where emailAddress = &#63;.
+	 *
+	 * @param emailAddress the email address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByEmailAddress_First(String emailAddress,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<User> list = findByEmailAddress(emailAddress, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("emailAddress=");
-			msg.append(emailAddress);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last user in the ordered set where emailAddress = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param emailAddress the email address
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -2491,34 +2584,48 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByEmailAddress_Last(String emailAddress,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByEmailAddress_Last(emailAddress, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("emailAddress=");
+		msg.append(emailAddress);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last user in the ordered set where emailAddress = &#63;.
+	 *
+	 * @param emailAddress the email address
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByEmailAddress_Last(String emailAddress,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByEmailAddress(emailAddress);
 
 		List<User> list = findByEmailAddress(emailAddress, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("emailAddress=");
-			msg.append(emailAddress);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the users before and after the current user in the ordered set where emailAddress = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param userId the primary key of the current user
 	 * @param emailAddress the email address
@@ -3876,10 +3983,6 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	/**
 	 * Returns the first user in the ordered set where companyId = &#63; and status = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -3890,34 +3993,49 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByC_S_First(long companyId, int status,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByC_S_First(companyId, status, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first user in the ordered set where companyId = &#63; and status = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByC_S_First(long companyId, int status,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<User> list = findByC_S(companyId, status, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last user in the ordered set where companyId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param status the status
@@ -3929,37 +4047,52 @@ public class UserPersistenceImpl extends BasePersistenceImpl<User>
 	public User findByC_S_Last(long companyId, int status,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
+		User user = fetchByC_S_Last(companyId, status, orderByComparator);
+
+		if (user != null) {
+			return user;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", status=");
+		msg.append(status);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last user in the ordered set where companyId = &#63; and status = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param status the status
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching user, or <code>null</code> if a matching user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public User fetchByC_S_Last(long companyId, int status,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_S(companyId, status);
 
 		List<User> list = findByC_S(companyId, status, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", status=");
-			msg.append(status);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchUserException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the users before and after the current user in the ordered set where companyId = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param userId the primary key of the current user
 	 * @param companyId the company ID

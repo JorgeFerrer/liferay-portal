@@ -16,12 +16,13 @@ package com.liferay.portlet.bookmarks.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -96,9 +97,13 @@ public class BookmarksEntryLocalServiceImpl
 
 		// Social
 
+		JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject();
+
+		extraDataJSONObject.put("title", entry.getName());
+
 		socialActivityLocalService.addActivity(
 			userId, groupId, BookmarksEntry.class.getName(), entryId,
-			BookmarksActivityKeys.ADD_ENTRY, StringPool.BLANK, 0);
+			BookmarksActivityKeys.ADD_ENTRY, extraDataJSONObject.toString(), 0);
 
 		return entry;
 	}
@@ -254,9 +259,9 @@ public class BookmarksEntryLocalServiceImpl
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, entry.getGroupId(), BookmarksEntry.class.getName(),
 			entry.getEntryId(), entry.getUuid(), 0, assetCategoryIds,
-			assetTagNames, true, null, null, null, null,
-			ContentTypes.TEXT_PLAIN, entry.getName(), entry.getDescription(),
-			null, entry.getUrl(), null, 0, 0, null, false);
+			assetTagNames, true, null, null, null, ContentTypes.TEXT_PLAIN,
+			entry.getName(), entry.getDescription(), null, entry.getUrl(), null,
+			0, 0, null, false);
 
 		assetLinkLocalService.updateLinks(
 			userId, assetEntry.getEntryId(), assetLinkEntryIds,
@@ -298,9 +303,14 @@ public class BookmarksEntryLocalServiceImpl
 
 		// Social
 
+		JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject();
+
+		extraDataJSONObject.put("title", entry.getName());
+
 		socialActivityLocalService.addActivity(
 			userId, entry.getGroupId(), BookmarksEntry.class.getName(), entryId,
-			BookmarksActivityKeys.UPDATE_ENTRY, StringPool.BLANK, 0);
+			BookmarksActivityKeys.UPDATE_ENTRY, extraDataJSONObject.toString(),
+			0);
 
 		return entry;
 	}

@@ -1305,6 +1305,10 @@
 		<display-name>Announcements</display-name>
 		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
 		<init-param>
+			<name>config-template</name>
+			<value>/html/portlet/announcements/configuration.jsp</value>
+		</init-param>
+		<init-param>
 			<name>template-path</name>
 			<value>/html/portlet/announcements/</value>
 		</init-param>
@@ -3269,6 +3273,23 @@
 		</security-role-ref>
 		<security-role-ref>
 			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>183</portlet-name>
+		<display-name>Application Display Templates</display-name>
+		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
+		<init-param>
+			<name>view-action</name>
+			<value>/dynamic_data_mapping/view_template</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
+		<security-role-ref>
+			<role-name>administrator</role-name>
 		</security-role-ref>
 	</portlet>
 	<custom-portlet-mode>

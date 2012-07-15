@@ -150,6 +150,30 @@ public class DDMTemplateServiceUtil {
 			orderByComparator);
 	}
 
+	public static java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> search(
+		long companyId, long[] groupIds, long[] classNameIds, long classPK,
+		java.lang.String keywords, java.lang.String type,
+		java.lang.String mode, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .search(companyId, groupIds, classNameIds, classPK,
+			keywords, type, mode, start, end, orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> search(
+		long companyId, long[] groupIds, long[] classNameIds, long classPK,
+		java.lang.String name, java.lang.String description,
+		java.lang.String type, java.lang.String mode,
+		java.lang.String language, boolean andOperator, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .search(companyId, groupIds, classNameIds, classPK, name,
+			description, type, mode, language, andOperator, start, end,
+			orderByComparator);
+	}
+
 	public static int searchCount(long companyId, long groupId,
 		long classNameId, long classPK, java.lang.String keywords,
 		java.lang.String type, java.lang.String mode)
@@ -167,6 +191,25 @@ public class DDMTemplateServiceUtil {
 		return getService()
 				   .searchCount(companyId, groupId, classNameId, classPK, name,
 			description, type, mode, language, andOperator);
+	}
+
+	public static int searchCount(long companyId, long[] groupIds,
+		long[] classNameIds, long classPK, java.lang.String keywords,
+		java.lang.String type, java.lang.String mode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .searchCount(companyId, groupIds, classNameIds, classPK,
+			keywords, type, mode);
+	}
+
+	public static int searchCount(long companyId, long[] groupIds,
+		long[] classNameIds, long classPK, java.lang.String name,
+		java.lang.String description, java.lang.String type,
+		java.lang.String mode, java.lang.String language, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .searchCount(companyId, groupIds, classNameIds, classPK,
+			name, description, type, mode, language, andOperator);
 	}
 
 	public static com.liferay.portlet.dynamicdatamapping.model.DDMTemplate updateTemplate(

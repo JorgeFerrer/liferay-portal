@@ -19,11 +19,11 @@ import com.liferay.portal.kernel.deploy.hot.HotDeployEvent;
 import com.liferay.portal.kernel.deploy.hot.HotDeployException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.FileTimestampUtil;
+import com.liferay.portal.kernel.template.TemplateManager;
+import com.liferay.portal.kernel.template.TemplateResourceLoaderUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.service.ThemeLocalServiceUtil;
-import com.liferay.portal.velocity.LiferayResourceCacheUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -91,8 +91,6 @@ public class ThemeHotDeployListener extends BaseHotDeployListener {
 			servletContextName, servletContext, null, true, xmls,
 			hotDeployEvent.getPluginPackage());
 
-		FileTimestampUtil.reset();
-
 		_themeIds.put(servletContextName, themeIds);
 
 		if (_log.isInfoEnabled()) {
@@ -140,18 +138,17 @@ public class ThemeHotDeployListener extends BaseHotDeployListener {
 
 		// LEP-2057
 
-		Thread currentThread = Thread.currentThread();
-
-		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+		ClassLoader contextClassLoader =
+			PACLClassLoaderUtil.getContextClassLoader();
 
 		try {
-			currentThread.setContextClassLoader(
-				PortalClassLoaderUtil.getClassLoader());
+			PACLClassLoaderUtil.setContextClassLoader(
+				PACLClassLoaderUtil.getPortalClassLoader());
 
-			LiferayResourceCacheUtil.clear();
+			TemplateResourceLoaderUtil.clearCache(TemplateManager.VELOCITY);
 		}
 		finally {
-			currentThread.setContextClassLoader(contextClassLoader);
+			PACLClassLoaderUtil.setContextClassLoader(contextClassLoader);
 		}
 
 		if (_log.isInfoEnabled()) {

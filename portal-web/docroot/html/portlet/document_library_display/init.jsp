@@ -44,7 +44,8 @@ page import="com.liferay.portlet.documentlibrary.service.permission.DLFileEntryP
 page import="com.liferay.portlet.documentlibrary.util.DLUtil" %><%@
 page import="com.liferay.portlet.journal.search.FileEntryDisplayTerms" %><%@
 page import="com.liferay.portlet.journal.search.FileEntrySearch" %><%@
-page import="com.liferay.portlet.journal.search.FileEntrySearchTerms" %>
+page import="com.liferay.portlet.journal.search.FileEntrySearchTerms" %><%@
+page import="com.liferay.portlet.trash.util.TrashUtil" %>
 
 <%
 PortletPreferences preferences = renderRequest.getPreferences();
@@ -135,6 +136,7 @@ else if (!portletId.equals(PortletKeys.DOCUMENT_LIBRARY) && !ArrayUtil.contains(
 	fileEntryColumns = ArrayUtil.append(fileEntryColumns, "action");
 }
 
+boolean enableRatings = GetterUtil.getBoolean(preferences.getValue("enableRatings", null), true);
 boolean enableCommentRatings = GetterUtil.getBoolean(preferences.getValue("enableCommentRatings", null), true);
 
 boolean mergedView = false;

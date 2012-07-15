@@ -271,7 +271,7 @@ public class TrashEntryLocalServiceWrapper implements TrashEntryLocalService,
 	* @param status the status of the entity prior to being moved to trash
 	* @param versions the primary keys and statuses of any of the entry's
 	versions (e.g., {@link
-	com.liferay.portlet.documentlibrary.model.DLFileVerison})
+	com.liferay.portlet.documentlibrary.model.DLFileVersion})
 	* @param typeSettingsProperties the type settings properties
 	* @return the trashEntry
 	* @throws SystemException if a system exception occurred
@@ -285,6 +285,12 @@ public class TrashEntryLocalServiceWrapper implements TrashEntryLocalService,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _trashEntryLocalService.addTrashEntry(userId, groupId,
 			className, classPK, status, versions, typeSettingsProperties);
+	}
+
+	public void checkEntries()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_trashEntryLocalService.checkEntries();
 	}
 
 	/**

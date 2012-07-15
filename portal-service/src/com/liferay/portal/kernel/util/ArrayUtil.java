@@ -1124,14 +1124,14 @@ public class ArrayUtil {
 	}
 
 	/**
-	 * @see {@link ListUtil#toString(List, String)}
+	 * @see ListUtil#toString(List, String)
 	 */
 	public static String toString(Object[] array, String param) {
 		return toString(array, param, StringPool.COMMA);
 	}
 
 	/**
-	 * @see {@link ListUtil#toString(List, String, String)}
+	 * @see ListUtil#toString(List, String, String)
 	 */
 	public static String toString(
 		Object[] array, String param, String delimiter) {
@@ -1160,14 +1160,14 @@ public class ArrayUtil {
 	}
 
 	/**
-	 * @see {@link ListUtil#toString(List, Accessor)}
+	 * @see ListUtil#toString(List, Accessor)
 	 */
 	public static <T, V> String toString(T[] list, Accessor<T, V> accessor) {
 		return toString(list, accessor, StringPool.COMMA);
 	}
 
 	/**
-	 * @see {@link ListUtil#toString(List, Accessor, String)}
+	 * @see ListUtil#toString(List, Accessor, String)
 	 */
 	public static <T, V> String toString(
 		T[] list, Accessor<T, V> accessor, String delimiter) {
@@ -1303,6 +1303,66 @@ public class ArrayUtil {
 		}
 
 		return newArray;
+	}
+
+	public static byte[] unique(byte[] array) {
+		List<Byte> list = new UniqueList<Byte>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Byte[list.size()]));
+	}
+
+	public static double[] unique(double[] array) {
+		List<Double> list = new UniqueList<Double>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Double[list.size()]));
+	}
+
+	public static float[] unique(float[] array) {
+		List<Float> list = new UniqueList<Float>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Float[list.size()]));
+	}
+
+	public static int[] unique(int[] array) {
+		List<Integer> list = new UniqueList<Integer>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Integer[list.size()]));
+	}
+
+	public static long[] unique(long[] array) {
+		List<Long> list = new UniqueList<Long>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Long[list.size()]));
+	}
+
+	public static short[] unique(short[] array) {
+		List<Short> list = new UniqueList<Short>();
+
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+
+		return toArray(list.toArray(new Short[list.size()]));
 	}
 
 }

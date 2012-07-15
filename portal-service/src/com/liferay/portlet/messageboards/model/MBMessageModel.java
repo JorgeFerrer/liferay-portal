@@ -514,6 +514,13 @@ public interface MBMessageModel extends AttachedModel, BaseModel<MBMessage>,
 	public boolean isApproved();
 
 	/**
+	 * Returns <code>true</code> if this message-boards message is denied.
+	 *
+	 * @return <code>true</code> if this message-boards message is denied; <code>false</code> otherwise
+	 */
+	public boolean isDenied();
+
+	/**
 	 * Returns <code>true</code> if this message-boards message is a draft.
 	 *
 	 * @return <code>true</code> if this message-boards message is a draft; <code>false</code> otherwise
@@ -528,11 +535,39 @@ public interface MBMessageModel extends AttachedModel, BaseModel<MBMessage>,
 	public boolean isExpired();
 
 	/**
+	 * Returns <code>true</code> if this message-boards message is inactive.
+	 *
+	 * @return <code>true</code> if this message-boards message is inactive; <code>false</code> otherwise
+	 */
+	public boolean isInactive();
+
+	/**
+	 * Returns <code>true</code> if this message-boards message is incomplete.
+	 *
+	 * @return <code>true</code> if this message-boards message is incomplete; <code>false</code> otherwise
+	 */
+	public boolean isIncomplete();
+
+	/**
+	 * Returns <code>true</code> if this message-boards message is in the Recycle Bin.
+	 *
+	 * @return <code>true</code> if this message-boards message is in the Recycle Bin; <code>false</code> otherwise
+	 */
+	public boolean isInTrash();
+
+	/**
 	 * Returns <code>true</code> if this message-boards message is pending.
 	 *
 	 * @return <code>true</code> if this message-boards message is pending; <code>false</code> otherwise
 	 */
 	public boolean isPending();
+
+	/**
+	 * Returns <code>true</code> if this message-boards message is scheduled.
+	 *
+	 * @return <code>true</code> if this message-boards message is scheduled; <code>false</code> otherwise
+	 */
+	public boolean isScheduled();
 
 	public boolean isNew();
 

@@ -506,6 +506,19 @@ public class UserServiceUtil {
 		getService().deleteUser(userId);
 	}
 
+	public static java.util.List<com.liferay.portal.model.User> getCompanyUsers(
+		long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCompanyUsers(companyId, start, end);
+	}
+
+	public static int getCompanyUsersCount(long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCompanyUsersCount(companyId);
+	}
+
 	/**
 	* Returns the primary keys of all the users belonging to the group.
 	*
@@ -522,6 +535,22 @@ public class UserServiceUtil {
 	}
 
 	/**
+	* Returns all the users belonging to the group.
+	*
+	* @param groupId the primary key of the group
+	* @return the users belonging to the group
+	* @throws PortalException if the current user did not have permission to
+	view group assignments
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.model.User> getGroupUsers(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getGroupUsers(groupId);
+	}
+
+	/**
 	* Returns the primary keys of all the users belonging to the organization.
 	*
 	* @param organizationId the primary key of the organization
@@ -534,6 +563,22 @@ public class UserServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getOrganizationUserIds(organizationId);
+	}
+
+	/**
+	* Returns all the users belonging to the organization.
+	*
+	* @param organizationId the primary key of the organization
+	* @return users belonging to the organization
+	* @throws PortalException if the current user did not have permission to
+	view organization assignments
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.model.User> getOrganizationUsers(
+		long organizationId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getOrganizationUsers(organizationId);
 	}
 
 	/**
@@ -599,6 +644,13 @@ public class UserServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getUserByScreenName(companyId, screenName);
+	}
+
+	public static java.util.List<com.liferay.portal.model.User> getUserGroupUsers(
+		long userGroupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getUserGroupUsers(userGroupId);
 	}
 
 	/**
@@ -1053,9 +1105,10 @@ public class UserServiceUtil {
 	* @return the user
 	* @throws PortalException if a user with the primary key could not be
 	found, if the current user was updating her own status to
-	anything but {@link WorkflowConstants.STATUS_APPROVED}, or if the
-	current user did not have permission to update the user's
-	workflow status.
+	anything but {@link
+	com.liferay.portal.kernel.workflow.WorkflowConstants#STATUS_APPROVED},
+	or if the current user did not have permission to update the
+	user's workflow status.
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.portal.model.User updateStatus(long userId,

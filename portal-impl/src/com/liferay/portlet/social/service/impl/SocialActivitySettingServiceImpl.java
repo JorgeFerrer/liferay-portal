@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.util.LocaleThreadLocal;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portlet.social.model.SocialActivityCounterDefinition;
@@ -71,7 +71,7 @@ public class SocialActivitySettingServiceImpl
 		Collections.sort(
 			activityDefinitions,
 			new SocialActivityDefinitionNameComparator(
-				LocaleThreadLocal.getThemeDisplayLocale()));
+				LocaleUtil.getMostRelevantLocale()));
 
 		for (SocialActivityDefinition activityDefinition :
 				activityDefinitions) {

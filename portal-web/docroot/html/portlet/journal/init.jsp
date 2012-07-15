@@ -52,6 +52,7 @@ page import="com.liferay.portlet.journal.FeedIdException" %><%@
 page import="com.liferay.portlet.journal.FeedNameException" %><%@
 page import="com.liferay.portlet.journal.FeedTargetLayoutFriendlyUrlException" %><%@
 page import="com.liferay.portlet.journal.FeedTargetPortletIdException" %><%@
+page import="com.liferay.portlet.journal.FolderNameException" %><%@
 page import="com.liferay.portlet.journal.NoSuchArticleException" %><%@
 page import="com.liferay.portlet.journal.NoSuchFolderException" %><%@
 page import="com.liferay.portlet.journal.NoSuchStructureException" %><%@
@@ -110,6 +111,7 @@ page import="com.liferay.portlet.journal.service.permission.JournalStructurePerm
 page import="com.liferay.portlet.journal.service.permission.JournalTemplatePermission" %><%@
 page import="com.liferay.portlet.journal.util.JournalUtil" %><%@
 page import="com.liferay.portlet.journalcontent.util.JournalContentUtil" %><%@
+page import="com.liferay.portlet.layoutconfiguration.util.RuntimePageUtil" %><%@
 page import="com.liferay.util.RSSUtil" %>
 
 <%@ page import="java.net.URLDecoder" %>

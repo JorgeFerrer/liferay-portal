@@ -18,15 +18,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.trash.TrashHandler;
+import com.liferay.portal.kernel.trash.TrashHandlerRegistryUtil;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.trash.model.TrashEntry;
 import com.liferay.portlet.trash.model.TrashVersion;
 import com.liferay.portlet.trash.service.base.TrashEntryLocalServiceBaseImpl;
+import com.liferay.portlet.trash.util.TrashUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +54,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @param  status the status of the entity prior to being moved to trash
 	 * @param  versions the primary keys and statuses of any of the entry's
 	 *         versions (e.g., {@link
-	 *         com.liferay.portlet.documentlibrary.model.DLFileVerison})
+	 *         com.liferay.portlet.documentlibrary.model.DLFileVersion})
 	 * @param  typeSettingsProperties the type settings properties
 	 * @return the trashEntry
 	 * @throws SystemException if a system exception occurred
@@ -102,6 +108,34 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 		}
 
 		return trashEntry;
+	}
+
+	public void checkEntries() throws PortalException, SystemException {
+		int count = groupPersistence.countAll();
+
+		int pages = count / Indexer.DEFAULT_INTERVAL;
+
+		for (int i = 0; i <= pages; i++) {
+			int start = (i * Indexer.DEFAULT_INTERVAL);
+			int end = start + Indexer.DEFAULT_INTERVAL;
+
+			List<Group> groups = groupPersistence.findAll(start, end);
+
+			for (Group group : groups) {
+				Date date = getMaxAge(group);
+
+				List<TrashEntry> entries = trashEntryPersistence.findByG_LtCD(
+					group.getGroupId(), date);
+
+				for (TrashEntry entry : entries) {
+					TrashHandler trashHandler =
+						TrashHandlerRegistryUtil.getTrashHandler(
+							entry.getClassName());
+
+					trashHandler.deleteTrashEntry(entry.getClassPK(), false);
+				}
+			}
+		}
 	}
 
 	/**
@@ -296,6 +330,20 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 		long classNameId = PortalUtil.getClassNameId(className);
 
 		return trashVersionPersistence.findByC_C(classNameId, classPK);
+	}
+
+	protected Date getMaxAge(Group group)
+		throws PortalException, SystemException {
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime(new Date());
+
+		int maxAge = TrashUtil.getMaxAge(group);
+
+		calendar.add(Calendar.DATE, -maxAge);
+
+		return calendar.getTime();
 	}
 
 }

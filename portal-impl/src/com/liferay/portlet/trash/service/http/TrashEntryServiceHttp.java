@@ -85,8 +85,8 @@ public class TrashEntryServiceHttp {
 		}
 	}
 
-	public static java.lang.Object[] getEntries(HttpPrincipal httpPrincipal,
-		long groupId)
+	public static com.liferay.portlet.trash.model.TrashEntryList getEntries(
+		HttpPrincipal httpPrincipal, long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.security.auth.PrincipalException {
 		try {
@@ -112,7 +112,7 @@ public class TrashEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.lang.Object[])returnObj;
+			return (com.liferay.portlet.trash.model.TrashEntryList)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -121,8 +121,8 @@ public class TrashEntryServiceHttp {
 		}
 	}
 
-	public static java.lang.Object[] getEntries(HttpPrincipal httpPrincipal,
-		long groupId, int start, int end,
+	public static com.liferay.portlet.trash.model.TrashEntryList getEntries(
+		HttpPrincipal httpPrincipal, long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.security.auth.PrincipalException {
@@ -150,7 +150,41 @@ public class TrashEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.lang.Object[])returnObj;
+			return (com.liferay.portlet.trash.model.TrashEntryList)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static com.liferay.portal.kernel.search.Hits search(
+		HttpPrincipal httpPrincipal, long companyId, long groupId, long userId,
+		java.lang.String keywords, int start, int end,
+		com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(TrashEntryServiceUtil.class.getName(),
+					"search", _searchParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					companyId, groupId, userId, keywords, start, end, sort);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.portal.kernel.search.Hits)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -169,5 +203,9 @@ public class TrashEntryServiceHttp {
 	private static final Class<?>[] _getEntriesParameterTypes2 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[] _searchParameterTypes3 = new Class[] {
+			long.class, long.class, long.class, java.lang.String.class,
+			int.class, int.class, com.liferay.portal.kernel.search.Sort.class
 		};
 }

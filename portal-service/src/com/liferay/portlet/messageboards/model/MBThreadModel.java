@@ -351,6 +351,13 @@ public interface MBThreadModel extends BaseModel<MBThread>, WorkflowedModel {
 	public boolean isApproved();
 
 	/**
+	 * Returns <code>true</code> if this message boards thread is denied.
+	 *
+	 * @return <code>true</code> if this message boards thread is denied; <code>false</code> otherwise
+	 */
+	public boolean isDenied();
+
+	/**
 	 * Returns <code>true</code> if this message boards thread is a draft.
 	 *
 	 * @return <code>true</code> if this message boards thread is a draft; <code>false</code> otherwise
@@ -365,11 +372,39 @@ public interface MBThreadModel extends BaseModel<MBThread>, WorkflowedModel {
 	public boolean isExpired();
 
 	/**
+	 * Returns <code>true</code> if this message boards thread is inactive.
+	 *
+	 * @return <code>true</code> if this message boards thread is inactive; <code>false</code> otherwise
+	 */
+	public boolean isInactive();
+
+	/**
+	 * Returns <code>true</code> if this message boards thread is incomplete.
+	 *
+	 * @return <code>true</code> if this message boards thread is incomplete; <code>false</code> otherwise
+	 */
+	public boolean isIncomplete();
+
+	/**
+	 * Returns <code>true</code> if this message boards thread is in the Recycle Bin.
+	 *
+	 * @return <code>true</code> if this message boards thread is in the Recycle Bin; <code>false</code> otherwise
+	 */
+	public boolean isInTrash();
+
+	/**
 	 * Returns <code>true</code> if this message boards thread is pending.
 	 *
 	 * @return <code>true</code> if this message boards thread is pending; <code>false</code> otherwise
 	 */
 	public boolean isPending();
+
+	/**
+	 * Returns <code>true</code> if this message boards thread is scheduled.
+	 *
+	 * @return <code>true</code> if this message boards thread is scheduled; <code>false</code> otherwise
+	 */
+	public boolean isScheduled();
 
 	public boolean isNew();
 

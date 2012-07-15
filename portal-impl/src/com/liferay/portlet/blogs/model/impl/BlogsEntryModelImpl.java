@@ -122,6 +122,10 @@ public class BlogsEntryModelImpl extends BaseModelImpl<BlogsEntry>
 	 * @return the normal model instance
 	 */
 	public static BlogsEntry toModel(BlogsEntrySoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		BlogsEntry model = new BlogsEntryImpl();
 
 		model.setUuid(soapModel.getUuid());
@@ -158,6 +162,10 @@ public class BlogsEntryModelImpl extends BaseModelImpl<BlogsEntry>
 	 * @return the normal model instances
 	 */
 	public static List<BlogsEntry> toModels(BlogsEntrySoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<BlogsEntry> models = new ArrayList<BlogsEntry>(soapModels.length);
 
 		for (BlogsEntrySoap soapModel : soapModels) {
@@ -744,9 +752,17 @@ public class BlogsEntryModelImpl extends BaseModelImpl<BlogsEntry>
 		}
 	}
 
+	public boolean isDenied() {
+		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isDraft() {
-		if ((getStatus() == WorkflowConstants.STATUS_DRAFT) ||
-				(getStatus() == WorkflowConstants.STATUS_DRAFT_FROM_APPROVED)) {
+		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
 			return true;
 		}
 		else {
@@ -763,8 +779,44 @@ public class BlogsEntryModelImpl extends BaseModelImpl<BlogsEntry>
 		}
 	}
 
+	public boolean isInactive() {
+		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isIncomplete() {
+		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isInTrash() {
+		if (getStatus() == WorkflowConstants.STATUS_IN_TRASH) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public boolean isPending() {
 		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean isScheduled() {
+		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
 			return true;
 		}
 		else {

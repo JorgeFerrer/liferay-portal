@@ -31,6 +31,7 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.permission.PortalPermissionUtil;
+import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.struts.ActionConstants;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -43,6 +44,7 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.usersadmin.search.UserSearch;
 import com.liferay.portlet.usersadmin.search.UserSearchTerms;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -126,9 +128,25 @@ public class ExportUsersAction extends PortletAction {
 	}
 
 	protected List<User> getUsers(
-			ActionRequest actionRequest, ActionResponse actionResponse,
-			ThemeDisplay themeDisplay)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
+		boolean exportAllUsers = PortalPermissionUtil.contains(
+			permissionChecker, ActionKeys.EXPORT_USER);
+
+		if (!exportAllUsers &&
+			!PortletPermissionUtil.contains(
+				permissionChecker, PortletKeys.USERS_ADMIN,
+				ActionKeys.EXPORT_USER)) {
+
+			return Collections.emptyList();
+		}
 
 		PortletURL portletURL =
 			((ActionResponseImpl)actionResponse).createRenderURL(
@@ -148,6 +166,15 @@ public class ExportUsersAction extends PortletAction {
 
 		if (organizationId > 0) {
 			params.put("usersOrgs", new Long(organizationId));
+		}
+		else if (!exportAllUsers) {
+			User user = themeDisplay.getUser();
+
+			long[] organizationIds = user.getOrganizationIds(true);
+
+			if (organizationIds.length > 0) {
+				params.put("usersOrgs", organizationIds);
+			}
 		}
 
 		long roleId = searchTerms.getRoleId();
@@ -182,15 +209,9 @@ public class ExportUsersAction extends PortletAction {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		List<User> users = getUsers(actionRequest, actionResponse);
 
-		PermissionChecker permissionChecker =
-			themeDisplay.getPermissionChecker();
-
-		if (!PortalPermissionUtil.contains(
-				permissionChecker, ActionKeys.EXPORT_USER)) {
-
+		if (users.isEmpty()) {
 			return StringPool.BLANK;
 		}
 
@@ -202,17 +223,10 @@ public class ExportUsersAction extends PortletAction {
 
 		progressTracker.start();
 
-		List<User> users = getUsers(
-			actionRequest, actionResponse, themeDisplay);
-
 		int percentage = 10;
 		int total = users.size();
 
-		progressTracker.updateProgress(percentage);
-
-		if (total == 0) {
-			return StringPool.BLANK;
-		}
+		progressTracker.setPercent(percentage);
 
 		StringBundler sb = new StringBundler(users.size());
 
@@ -223,7 +237,7 @@ public class ExportUsersAction extends PortletAction {
 
 			percentage = Math.min(10 + (i * 90) / total, 99);
 
-			progressTracker.updateProgress(percentage);
+			progressTracker.setPercent(percentage);
 		}
 
 		progressTracker.finish();

@@ -525,8 +525,9 @@ public class Validator {
 		}
 
 		for (char c : nameCharArray) {
-			if (!isChar(c) && !isDigit(c) && (c != CharPool.DASH) &&
-				(c != CharPool.PERIOD)) {
+			if (!isChar(c) && !isDigit(c) && (c != CharPool.CLOSE_BRACKET) &&
+				(c != CharPool.COLON) && (c != CharPool.DASH) &&
+				(c != CharPool.OPEN_BRACKET) && (c != CharPool.PERIOD)) {
 
 				return false;
 			}
@@ -630,8 +631,9 @@ public class Validator {
 				if (x >= 10) {
 					String s = String.valueOf(x);
 
-					x = Integer.parseInt(s.substring(0, 1)) +
-						Integer.parseInt(s.substring(1, 2));
+					x =
+						Integer.parseInt(s.substring(0, 1)) +
+							Integer.parseInt(s.substring(1, 2));
 				}
 			}
 			else {

@@ -416,6 +416,29 @@ public class DDMTemplateLocalServiceWrapper implements DDMTemplateLocalService,
 			start, end, orderByComparator);
 	}
 
+	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> search(
+		long companyId, long[] groupIds, long[] classNameIds, long classPK,
+		java.lang.String keywords, java.lang.String type,
+		java.lang.String mode, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _ddmTemplateLocalService.search(companyId, groupIds,
+			classNameIds, classPK, keywords, type, mode, start, end,
+			orderByComparator);
+	}
+
+	public java.util.List<com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> search(
+		long companyId, long[] groupIds, long[] classNameIds, long classPK,
+		java.lang.String name, java.lang.String description,
+		java.lang.String type, java.lang.String mode,
+		java.lang.String language, boolean andOperator, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _ddmTemplateLocalService.search(companyId, groupIds,
+			classNameIds, classPK, name, description, type, mode, language,
+			andOperator, start, end, orderByComparator);
+	}
+
 	public int searchCount(long companyId, long groupId, long classNameId,
 		long classPK, java.lang.String keywords, java.lang.String type,
 		java.lang.String mode)
@@ -431,6 +454,24 @@ public class DDMTemplateLocalServiceWrapper implements DDMTemplateLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _ddmTemplateLocalService.searchCount(companyId, groupId,
 			classNameId, classPK, name, description, type, mode, language,
+			andOperator);
+	}
+
+	public int searchCount(long companyId, long[] groupIds,
+		long[] classNameIds, long classPK, java.lang.String keywords,
+		java.lang.String type, java.lang.String mode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _ddmTemplateLocalService.searchCount(companyId, groupIds,
+			classNameIds, classPK, keywords, type, mode);
+	}
+
+	public int searchCount(long companyId, long[] groupIds,
+		long[] classNameIds, long classPK, java.lang.String name,
+		java.lang.String description, java.lang.String type,
+		java.lang.String mode, java.lang.String language, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _ddmTemplateLocalService.searchCount(companyId, groupIds,
+			classNameIds, classPK, name, description, type, mode, language,
 			andOperator);
 	}
 

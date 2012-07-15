@@ -51,7 +51,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	public static final String FIND_BY_C_S_S =
 		DDLRecordFinder.class.getName() + ".findByC_S_S";
 
-	public int countByR_S(long recordSetId, int status) throws SystemException{
+	public int countByR_S(long recordSetId, int status) throws SystemException {
 		Session session = null;
 
 		try {
@@ -97,7 +97,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	}
 
 	public int countByC_S_S(long companyId, int status, int scope)
-		throws SystemException{
+		throws SystemException {
 
 		Session session = null;
 
@@ -239,7 +239,8 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 
 			sql = StringUtil.replace(
 				sql, "COUNT(DISTINCT DDLRecord.recordId) AS COUNT_VALUE",
-				"MIN(DDLRecord.recordId), MAX(DDLRecord.recordId)");
+				"MIN(DDLRecord.recordId) AS minRecordId, " +
+					"MAX(DDLRecord.recordId) AS maxRecordId");
 
 			if (status == WorkflowConstants.STATUS_ANY) {
 				sql = StringUtil.replace(
@@ -248,8 +249,8 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 
 			SQLQuery q = session.createSQLQuery(sql);
 
-			q.addScalar("MIN(DDLRecord.recordId)", Type.LONG);
-			q.addScalar("MAX(DDLRecord.recordId)", Type.LONG);
+			q.addScalar("minRecordId", Type.LONG);
+			q.addScalar("maxRecordId", Type.LONG);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 

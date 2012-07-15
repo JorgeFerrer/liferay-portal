@@ -445,16 +445,16 @@ if (parentGroup != null) {
 		return '<a href="' + href + '"' + (onclick ? ' onclick="' + onclick + '" ' : '') + '>' + value + '</a>';
 	};
 
+	function <portlet:namespace />isVisible(currentValue, value) {
+		return currentValue != '';
+	}
+
 	function <portlet:namespace />openGroupSelector() {
 		var url = '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="struts_action" value="/users_admin/select_site" /></portlet:renderURL>';
 
 		var groupWindow = window.open(url, 'group', 'directories=no,height=640,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no,width=680');
 
 		groupWindow.focus();
-	}
-
-	function <portlet:namespace />testVisibility(currentValue, value) {
-		return currentValue != '';
 	}
 
 	Liferay.provide(
@@ -479,8 +479,8 @@ if (parentGroup != null) {
 		['liferay-search-container']
 	);
 
-	Liferay.Util.toggleSelectBox('<portlet:namespace />publicLayoutSetPrototypeId', <portlet:namespace />testVisibility, '<portlet:namespace />publicLayoutSetPrototypeIdOptions');
-	Liferay.Util.toggleSelectBox('<portlet:namespace />privateLayoutSetPrototypeId', <portlet:namespace />testVisibility, '<portlet:namespace />privateLayoutSetPrototypeIdOptions');
+	Liferay.Util.toggleSelectBox('<portlet:namespace />publicLayoutSetPrototypeId', <portlet:namespace />isVisible, '<portlet:namespace />publicLayoutSetPrototypeIdOptions');
+	Liferay.Util.toggleSelectBox('<portlet:namespace />privateLayoutSetPrototypeId', <portlet:namespace />isVisible, '<portlet:namespace />privateLayoutSetPrototypeIdOptions');
 </aui:script>
 
 <aui:script use="liferay-search-container">

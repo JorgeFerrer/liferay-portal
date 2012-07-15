@@ -82,15 +82,9 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTSIZE =
-		new FinderPath(ImageModelImpl.ENTITY_CACHE_ENABLED,
-			ImageModelImpl.FINDER_CACHE_ENABLED, ImageImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByLtSize",
-			new String[] { Integer.class.getName() },
-			ImageModelImpl.SIZE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_LTSIZE = new FinderPath(ImageModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTSIZE = new FinderPath(ImageModelImpl.ENTITY_CACHE_ENABLED,
 			ImageModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByLtSize",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByLtSize",
 			new String[] { Integer.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(ImageModelImpl.ENTITY_CACHE_ENABLED,
 			ImageModelImpl.FINDER_CACHE_ENABLED, ImageImpl.class,
@@ -276,8 +270,6 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 
 		boolean isNew = image.isNew();
 
-		ImageModelImpl imageModelImpl = (ImageModelImpl)image;
-
 		Session session = null;
 
 		try {
@@ -298,24 +290,6 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 
 		if (isNew || !ImageModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-		else {
-			if ((imageModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTSIZE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Integer.valueOf(imageModelImpl.getOriginalSize())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LTSIZE, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTSIZE,
-					args);
-
-				args = new Object[] { Integer.valueOf(imageModelImpl.getSize()) };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LTSIZE, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTSIZE,
-					args);
-			}
 		}
 
 		EntityCacheUtil.putResult(ImageModelImpl.ENTITY_CACHE_ENABLED,
@@ -491,15 +465,8 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTSIZE;
-			finderArgs = new Object[] { size };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LTSIZE;
-			finderArgs = new Object[] { size, start, end, orderByComparator };
-		}
+		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LTSIZE;
+		finderArgs = new Object[] { size, start, end, orderByComparator };
 
 		List<Image> list = (List<Image>)FinderCacheUtil.getResult(finderPath,
 				finderArgs, this);
@@ -576,10 +543,6 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 	/**
 	 * Returns the first image in the ordered set where size &lt; &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param size the size
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching image
@@ -589,31 +552,45 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 	public Image findByLtSize_First(int size,
 		OrderByComparator orderByComparator)
 		throws NoSuchImageException, SystemException {
+		Image image = fetchByLtSize_First(size, orderByComparator);
+
+		if (image != null) {
+			return image;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("size=");
+		msg.append(size);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchImageException(msg.toString());
+	}
+
+	/**
+	 * Returns the first image in the ordered set where size &lt; &#63;.
+	 *
+	 * @param size the size
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching image, or <code>null</code> if a matching image could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Image fetchByLtSize_First(int size,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Image> list = findByLtSize(size, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("size=");
-			msg.append(size);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchImageException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last image in the ordered set where size &lt; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param size the size
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -623,34 +600,48 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 	 */
 	public Image findByLtSize_Last(int size, OrderByComparator orderByComparator)
 		throws NoSuchImageException, SystemException {
+		Image image = fetchByLtSize_Last(size, orderByComparator);
+
+		if (image != null) {
+			return image;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("size=");
+		msg.append(size);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchImageException(msg.toString());
+	}
+
+	/**
+	 * Returns the last image in the ordered set where size &lt; &#63;.
+	 *
+	 * @param size the size
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching image, or <code>null</code> if a matching image could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Image fetchByLtSize_Last(int size,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByLtSize(size);
 
 		List<Image> list = findByLtSize(size, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("size=");
-			msg.append(size);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchImageException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the images before and after the current image in the ordered set where size &lt; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param imageId the primary key of the current image
 	 * @param size the size
@@ -941,7 +932,7 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 	public int countByLtSize(int size) throws SystemException {
 		Object[] finderArgs = new Object[] { size };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_LTSIZE,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTSIZE,
 				finderArgs, this);
 
 		if (count == null) {
@@ -974,7 +965,7 @@ public class ImagePersistenceImpl extends BasePersistenceImpl<Image>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LTSIZE,
+				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTSIZE,
 					finderArgs, count);
 
 				closeSession(session);

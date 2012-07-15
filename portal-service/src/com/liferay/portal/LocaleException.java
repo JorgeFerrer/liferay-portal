@@ -16,6 +16,8 @@ package com.liferay.portal;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Locale;
+
 /**
  * @author Brian Wing Shun Chan
  */
@@ -36,5 +38,24 @@ public class LocaleException extends PortalException {
 	public LocaleException(Throwable cause) {
 		super(cause);
 	}
+
+	public Locale[] getSourceAvailableLocales() {
+		return _sourceAvailableLocales;
+	}
+
+	public Locale[] getTargetAvailableLocales() {
+		return _targetAvailableLocales;
+	}
+
+	public void setSourceAvailableLocales(Locale[] sourceAvailableLocales) {
+		_sourceAvailableLocales = sourceAvailableLocales;
+	}
+
+	public void setTargetAvailableLocales(Locale[] targetAvailableLocales) {
+		_targetAvailableLocales = targetAvailableLocales;
+	}
+
+	private Locale[] _sourceAvailableLocales;
+	private Locale[] _targetAvailableLocales;
 
 }

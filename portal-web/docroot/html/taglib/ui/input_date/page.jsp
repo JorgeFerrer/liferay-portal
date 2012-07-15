@@ -24,7 +24,8 @@ if (GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-date:di
 }
 
 String cssClass = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-date:cssClass"));
-String formName = namespace + request.getAttribute("liferay-ui:input-date:formName");
+String formName = namespace + request.getAttribute("liferay-ui:input-date:name");
+String name = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-date:name"));
 String monthParam = namespace + request.getAttribute("liferay-ui:input-date:monthParam");
 int monthValue = GetterUtil.getInteger((String)request.getAttribute("liferay-ui:input-date:monthValue"));
 boolean monthNullable = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-date:monthNullable"));
@@ -144,10 +145,14 @@ else if (yearNullable) {
 <aui:script use="aui-datepicker-select">
 	var displayDateNode = A.one('#<%= randomNamespace %>displayDate');
 
-	var displayDatePickerHandle = displayDateNode.on(
-		['click', 'mousemove'],
-		function(event) {
-			new A.DatePickerSelect(
+	Liferay.component(
+		'<%= namespace + name %>datePicker',
+		function() {
+			if (handle) {
+				handle.detach();
+			}
+
+			return new A.DatePickerSelect(
 				{
 					after: {
 						render: function(event) {
@@ -192,7 +197,13 @@ else if (yearNullable) {
 						</c:choose>
 
 						firstDayOfWeek: <%= firstDayOfWeek %>,
-						locale: '<%= LanguageUtil.getLanguageId(request) %>'
+						locale: '<%= LanguageUtil.getLanguageId(request) %>',
+						strings: {
+							next: '<liferay-ui:message key="next" />',
+							none: '<liferay-ui:message key="none" />',
+							previous: '<liferay-ui:message key="previous" />',
+							today: '<liferay-ui:message key="today" />'
+						}
 					},
 					dayNode: '#<%= dayParam %>',
 					disabled: <%= disabled %>,
@@ -212,8 +223,13 @@ else if (yearNullable) {
 					yearRange: [<%= yearRangeStart %>, <%= yearRangeEnd %>]
 				}
 			).render();
+		}
+	);
 
-			displayDatePickerHandle.detach();
+	var handle = displayDateNode.once(
+		['click', 'mousemove'],
+		function(event) {
+			Liferay.component('<%= namespace + name %>datePicker');
 		}
 	);
 </aui:script>

@@ -15,6 +15,7 @@
 package com.liferay.portal.jsonwebservice;
 
 import com.liferay.portal.kernel.upload.UploadServletRequest;
+import com.liferay.portal.kernel.util.CamelCaseUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -362,7 +363,6 @@ public class JSONWebServiceActionParameters {
 
 		@Override
 		public Object put(String key, Object value) {
-
 			if (key.startsWith(StringPool.DASH)) {
 				key = key.substring(1);
 

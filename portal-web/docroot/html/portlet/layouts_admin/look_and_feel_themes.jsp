@@ -35,7 +35,7 @@ Map<String, ThemeSetting> configurableSettings = selTheme.getConfigurableSetting
 		<h3><liferay-ui:message key="current-theme" /></h3>
 
 		<div>
-			<img alt="<%= selTheme.getName() %>" class="theme-screenshot" onclick="document.getElementById('<portlet:namespace /><%= device %>SelTheme').checked = true;" src="<%= selTheme.getStaticResourcePath() %><%= selTheme.getImagesPath() %>/thumbnail.png" title="<%= selTheme.getName() %>" />
+			<img alt="<%= selTheme.getName() %>" class="theme-screenshot" onclick="document.getElementById('<portlet:namespace /><%= device %>SelTheme').checked = true;" src="<%= themeDisplay.getCDNBaseURL() %><%= selTheme.getStaticResourcePath() %><%= selTheme.getImagesPath() %>/thumbnail.png" title="<%= selTheme.getName() %>" />
 
 			<div class="theme-details">
 				<c:choose>
@@ -122,7 +122,7 @@ Map<String, ThemeSetting> configurableSettings = selTheme.getConfigurableSetting
 									%>
 
 								<div class="<%= cssClass %> theme-entry">
-									<img alt="" class="modify-link theme-thumbnail" onclick="document.getElementById('<portlet:namespace /><%= device %>ColorSchemeId<%= i %>').checked = true;" src="<%= selTheme.getStaticResourcePath() %><%= curColorScheme.getColorSchemeThumbnailPath() %>/thumbnail.png" title="<%= curColorScheme.getName() %>" />
+									<img alt="" class="modify-link theme-thumbnail" onclick="document.getElementById('<portlet:namespace /><%= device %>ColorSchemeId<%= i %>').checked = true;" src="<%= themeDisplay.getCDNBaseURL() %><%= selTheme.getStaticResourcePath() %><%= curColorScheme.getColorSchemeThumbnailPath() %>/thumbnail.png" title="<%= curColorScheme.getName() %>" />
 
 										<aui:input checked="<%= selColorScheme.getColorSchemeId().equals(curColorScheme.getColorSchemeId()) %>" cssClass="theme-title" id='<%= device + "ColorSchemeId" + i %>' label="<%= curColorScheme.getName() %>" name='<%= device + "ColorSchemeId" %>' type="radio" value="<%= curColorScheme.getColorSchemeId() %>" />
 									</div>
@@ -203,21 +203,14 @@ Map<String, ThemeSetting> configurableSettings = selTheme.getConfigurableSetting
 					<%= LanguageUtil.format(pageContext, "available-themes-x", (themes.size() - 1)) %>
 				</span>
 
-				<c:if test="<%= permissionChecker.isOmniadmin() && PrefsPropsUtil.getBoolean(PropsKeys.AUTO_DEPLOY_ENABLED, PropsValues.AUTO_DEPLOY_ENABLED) %>">
+				<c:if test="<%= permissionChecker.isOmniadmin() && PortletLocalServiceUtil.hasPortlet(themeDisplay.getCompanyId(), PortletKeys.MARKETPLACE_STORE) && PrefsPropsUtil.getBoolean(PropsKeys.AUTO_DEPLOY_ENABLED, PropsValues.AUTO_DEPLOY_ENABLED) %>">
 
 					<%
-					PortletURL installPluginsURL = PortletURLFactoryUtil.create(request, PortletKeys.PLUGIN_INSTALLER, themeDisplay.getPlid(), PortletRequest.RENDER_PHASE);
-
-					installPluginsURL.setWindowState(LiferayWindowState.MAXIMIZED);
-					installPluginsURL.setPortletMode(PortletMode.VIEW);
-
-					installPluginsURL.setParameter("struts_action", "/plugin_installer/view");
-					installPluginsURL.setParameter("backURL", currentURL);
-					installPluginsURL.setParameter("tabs2", "theme-plugins");
+					PortletURL marketplaceURL = PortletURLFactoryUtil.create(request, PortletKeys.MARKETPLACE_STORE, themeDisplay.getPlid(), PortletRequest.RENDER_PHASE);
 					%>
 
 					<span class="install-themes">
-						<a href="<%= installPluginsURL %>" id="<portlet:namespace />installMore"><liferay-ui:message key="install-more" /></a>
+						<a href="<%= marketplaceURL %>" id="<portlet:namespace />installMore"><liferay-ui:message key="install-more" /></a>
 					</span>
 				</c:if>
 			</h3>
@@ -234,7 +227,7 @@ Map<String, ThemeSetting> configurableSettings = selTheme.getConfigurableSetting
 
 							<li>
 								<div class="theme-entry">
-									<img alt="" class="modify-link theme-thumbnail" onclick="document.getElementById('<portlet:namespace /><%= device %>ThemeId<%= i %>').checked = true;" src="<%= curTheme.getStaticResourcePath() %><%= curTheme.getImagesPath() %>/thumbnail.png" title="<%= curTheme.getName() %>" />
+									<img alt="" class="modify-link theme-thumbnail" onclick="document.getElementById('<portlet:namespace /><%= device %>ThemeId<%= i %>').checked = true;" src="<%= themeDisplay.getCDNBaseURL() %><%= curTheme.getStaticResourcePath() %><%= curTheme.getImagesPath() %>/thumbnail.png" title="<%= curTheme.getName() %>" />
 
 									<aui:input cssClass="theme-title" id='<%= device + "ThemeId" + i %>' label="<%= curTheme.getName() %>" name='<%= device + "ThemeId" %>' type="radio" value="<%= curTheme.getThemeId() %>" />
 								</div>

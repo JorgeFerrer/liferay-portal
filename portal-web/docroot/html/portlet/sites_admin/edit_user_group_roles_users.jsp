@@ -67,7 +67,7 @@ PortletURL portletURL = (PortletURL)request.getAttribute("edit_user_group_roles.
 	}
 
 	if (tabs1.equals("current")) {
-		userGroupParams.put("userGroupGroupRole", new Long[]{new Long(roleId), new Long(group.getGroupId())});
+		userGroupParams.put("userGroupGroupRole", new Long[] {new Long(roleId), new Long(group.getGroupId())});
 	}
 	%>
 

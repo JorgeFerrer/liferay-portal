@@ -171,6 +171,8 @@ public class DocumentConversionUtil {
 		sourceExtension = _fixExtension(sourceExtension);
 		targetExtension = _fixExtension(targetExtension);
 
+		_validateExtension(targetExtension);
+
 		String fileName = getFilePath(id, targetExtension);
 
 		File file = new File(fileName);
@@ -186,10 +188,20 @@ public class DocumentConversionUtil {
 				documentFormatRegistry.getFormatByFileExtension(
 					targetExtension);
 
-			if (!inputDocumentFormat.isImportable()) {
+			if (inputDocumentFormat == null) {
+				throw new SystemException(
+					"Conversion is not supported from ." + sourceExtension);
+			}
+			else if (!inputDocumentFormat.isImportable()) {
 				throw new SystemException(
 					"Conversion is not supported from " +
 						inputDocumentFormat.getName());
+			}
+			else if (outputDocumentFormat == null) {
+				throw new SystemException(
+					"Conversion is not supported from " +
+						inputDocumentFormat.getName() + " to ." +
+							targetExtension);
 			}
 			else if (!inputDocumentFormat.isExportableTo(
 						outputDocumentFormat)) {
@@ -358,6 +370,15 @@ public class DocumentConversionUtil {
 					sourceExtension,
 					conversions.toArray(new String[conversions.size()]));
 			}
+		}
+	}
+
+	private void _validateExtension(String extension) throws SystemException {
+		if (extension.contains(StringPool.SLASH) ||
+			extension.contains(StringPool.BACK_SLASH) ||
+			extension.contains(File.pathSeparator)) {
+
+			throw new SystemException("Invalid extension: " + extension);
 		}
 	}
 

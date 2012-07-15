@@ -43,8 +43,10 @@ String type = BeanParamUtil.getString(template, request, "type", "detail");
 String script = BeanParamUtil.getString(template, request, "script");
 
 if (Validator.isNull(script)) {
-	if (classNameId == PortalUtil.getClassNameId(AssetEntry.class)) {
-		script = ContentUtil.get(PropsUtil.get(PropsKeys.ASSET_PUBLISHER_DISPLAY_STYLES_TEMPLATE_CONTENT));
+	if (classNameId > 0) {
+		PortletDisplayTemplateHandler portletDislayTemplateHandler = PortletDisplayTemplateHandlerRegistryUtil.getPortletDisplayTemplateHandler(classNameId);
+
+		script = ContentUtil.get(portletDislayTemplateHandler.getDefaultTemplateLocation());
 	}
 	else if (!type.equals("detail")) {
 		script = ContentUtil.get(PropsUtil.get(PropsKeys.DYNAMIC_DATA_MAPPING_TEMPLATE_LANGUAGE_CONTENT, new Filter(DDMTemplateConstants.LANG_TYPE_VM)));
@@ -99,7 +101,14 @@ if (Validator.isNotNull(structureAvailableFields)) {
 		title = template.getName(locale);
 	}
 	else {
-		title = LanguageUtil.get(pageContext, "new-display-style");
+		if (classNameId > 0) {
+			PortletDisplayTemplateHandler portletDisplayTemplateHandler = PortletDisplayTemplateHandlerRegistryUtil.getPortletDisplayTemplateHandler(classNameId);
+
+			title = LanguageUtil.get(pageContext, "new") + StringPool.SPACE + portletDisplayTemplateHandler.getName(locale);
+		}
+		else {
+			title = LanguageUtil.get(pageContext, "new-application-display-template");
+		}
 	}
 	%>
 

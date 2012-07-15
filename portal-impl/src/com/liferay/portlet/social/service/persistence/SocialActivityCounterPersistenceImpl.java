@@ -444,6 +444,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 		if (isNew || !SocialActivityCounterModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((socialActivityCounterModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_C.getColumnBitmask()) != 0) {
@@ -534,6 +535,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_C_C_N_O_S,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_C_C_N_O_S,
 					args);
 
@@ -563,6 +565,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_C_C_N_O_E,
 					args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_C_C_N_O_E,
 					args);
 
@@ -855,10 +858,6 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	/**
 	 * Returns the first social activity counter in the ordered set where classNameId = &#63; and classPK = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -869,35 +868,52 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	public SocialActivityCounter findByC_C_First(long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
+		SocialActivityCounter socialActivityCounter = fetchByC_C_First(classNameId,
+				classPK, orderByComparator);
+
+		if (socialActivityCounter != null) {
+			return socialActivityCounter;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchActivityCounterException(msg.toString());
+	}
+
+	/**
+	 * Returns the first social activity counter in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityCounter fetchByC_C_First(long classNameId,
+		long classPK, OrderByComparator orderByComparator)
+		throws SystemException {
 		List<SocialActivityCounter> list = findByC_C(classNameId, classPK, 0,
 				1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchActivityCounterException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last social activity counter in the ordered set where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
@@ -909,37 +925,54 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	public SocialActivityCounter findByC_C_Last(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
+		SocialActivityCounter socialActivityCounter = fetchByC_C_Last(classNameId,
+				classPK, orderByComparator);
+
+		if (socialActivityCounter != null) {
+			return socialActivityCounter;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchActivityCounterException(msg.toString());
+	}
+
+	/**
+	 * Returns the last social activity counter in the ordered set where classNameId = &#63; and classPK = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityCounter fetchByC_C_Last(long classNameId,
+		long classPK, OrderByComparator orderByComparator)
+		throws SystemException {
 		int count = countByC_C(classNameId, classPK);
 
 		List<SocialActivityCounter> list = findByC_C(classNameId, classPK,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchActivityCounterException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the social activity counters before and after the current social activity counter in the ordered set where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param activityCounterId the primary key of the current social activity counter
 	 * @param classNameId the class name ID
@@ -1250,10 +1283,6 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	/**
 	 * Returns the first social activity counter in the ordered set where groupId = &#63; and classNameId = &#63; and classPK = &#63; and ownerType = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param groupId the group ID
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
@@ -1267,41 +1296,60 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
+		SocialActivityCounter socialActivityCounter = fetchByG_C_C_O_First(groupId,
+				classNameId, classPK, ownerType, orderByComparator);
+
+		if (socialActivityCounter != null) {
+			return socialActivityCounter;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", ownerType=");
+		msg.append(ownerType);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchActivityCounterException(msg.toString());
+	}
+
+	/**
+	 * Returns the first social activity counter in the ordered set where groupId = &#63; and classNameId = &#63; and classPK = &#63; and ownerType = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param ownerType the owner type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityCounter fetchByG_C_C_O_First(long groupId,
+		long classNameId, long classPK, int ownerType,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<SocialActivityCounter> list = findByG_C_C_O(groupId, classNameId,
 				classPK, ownerType, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(10);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(", ownerType=");
-			msg.append(ownerType);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchActivityCounterException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last social activity counter in the ordered set where groupId = &#63; and classNameId = &#63; and classPK = &#63; and ownerType = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param groupId the group ID
 	 * @param classNameId the class name ID
@@ -1316,43 +1364,62 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
+		SocialActivityCounter socialActivityCounter = fetchByG_C_C_O_Last(groupId,
+				classNameId, classPK, ownerType, orderByComparator);
+
+		if (socialActivityCounter != null) {
+			return socialActivityCounter;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("groupId=");
+		msg.append(groupId);
+
+		msg.append(", classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", ownerType=");
+		msg.append(ownerType);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchActivityCounterException(msg.toString());
+	}
+
+	/**
+	 * Returns the last social activity counter in the ordered set where groupId = &#63; and classNameId = &#63; and classPK = &#63; and ownerType = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param ownerType the owner type
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SocialActivityCounter fetchByG_C_C_O_Last(long groupId,
+		long classNameId, long classPK, int ownerType,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_C_C_O(groupId, classNameId, classPK, ownerType);
 
 		List<SocialActivityCounter> list = findByG_C_C_O(groupId, classNameId,
 				classPK, ownerType, count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(10);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("groupId=");
-			msg.append(groupId);
-
-			msg.append(", classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(", ownerType=");
-			msg.append(ownerType);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchActivityCounterException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the social activity counters before and after the current social activity counter in the ordered set where groupId = &#63; and classNameId = &#63; and classPK = &#63; and ownerType = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param activityCounterId the primary key of the current social activity counter
 	 * @param groupId the group ID

@@ -19,6 +19,7 @@ import com.liferay.portal.NoSuchRepositoryException;
 import com.liferay.portal.kernel.bean.ClassLoaderBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.ImportExportThreadLocal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.BaseRepository;
@@ -68,6 +69,7 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 
 		Repository repository = repositoryPersistence.create(repositoryId);
 
+		repository.setUuid(serviceContext.getUuid());
 		repository.setGroupId(groupId);
 		repository.setCompanyId(user.getCompanyId());
 		repository.setUserId(user.getUserId());
@@ -92,7 +94,7 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 			}
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(e.getMessage());
+					_log.warn(e, e);
 				}
 
 				throw new InvalidRepositoryException(e);
@@ -401,7 +403,9 @@ public class RepositoryLocalServiceImpl extends RepositoryLocalServiceBaseImpl {
 
 		setupRepository(repositoryId, repository, baseRepository);
 
-		baseRepository.initRepository();
+		if (!ImportExportThreadLocal.isImportInProcess()) {
+			baseRepository.initRepository();
+		}
 
 		return baseRepository;
 	}

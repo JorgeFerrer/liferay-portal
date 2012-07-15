@@ -25,8 +25,8 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 %>
 
 <c:choose>
-	<c:when test="<%= BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.VIEW) && (entry.isApproved() || (entry.getUserId() == user.getUserId()) || BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.UPDATE)) %>">
-		<div class="entry <%= entry.isApproved() ? "" : "draft" %>">
+	<c:when test="<%= BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.VIEW) && (entry.isVisible() || (entry.getUserId() == user.getUserId()) || BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.UPDATE)) %>">
+		<div class="entry <%= WorkflowConstants.toLabel(entry.getStatus()) %>">
 			<div class="entry-content">
 
 				<%
@@ -35,7 +35,7 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 
 				<c:if test="<%= !entry.isApproved() %>">
 					<h3>
-						<liferay-ui:message key='<%= entry.isPending() ? "pending-approval" : "draft" %>' />
+						<liferay-ui:message key='<%= entry.isPending() ? "pending-approval" : WorkflowConstants.toLabel(entry.getStatus()) %>' />
 					</h3>
 				</c:if>
 
@@ -117,14 +117,14 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 
 								<portlet:actionURL var="deleteEntryURL">
 									<portlet:param name="struts_action" value="/blogs/edit_entry" />
-									<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.MOVE_TO_TRASH %>" />
+									<portlet:param name="<%= Constants.CMD %>" value="<%= TrashUtil.isTrashEnabled(themeDisplay.getScopeGroupId()) ? Constants.MOVE_TO_TRASH : Constants.DELETE %>" />
 									<portlet:param name="redirect" value="<%= viewURL %>" />
 									<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 								</portlet:actionURL>
 
 								<liferay-ui:icon-delete
 									label="<%= true %>"
-									trash="<%= true %>"
+									trash="<%= TrashUtil.isTrashEnabled(themeDisplay.getScopeGroupId()) %>"
 									url="<%= deleteEntryURL %>"
 								/>
 							</td>

@@ -24,6 +24,10 @@ boolean print = ParamUtil.getString(request, "viewMode").equals(Constants.PRINT)
 
 boolean hasViewPermission = true;
 
+if (article != null) {
+	hasViewPermission = JournalArticlePermission.contains(permissionChecker, article.getGroupId(), article.getArticleId(), ActionKeys.VIEW);
+}
+
 String title = StringPool.BLANK;
 boolean approved = false;
 boolean expired = true;
@@ -49,11 +53,14 @@ boolean expired = true;
 			</c:otherwise>
 		</c:choose>
 	</c:when>
+	<c:when test="<%= !hasViewPermission %>">
+		<div class="portlet-msg-error">
+			<%= LanguageUtil.get(pageContext, "you-do-not-have-the-required-permissions-to-access-this-content") %>
+		</div>
+	</c:when>
 	<c:otherwise>
 
 		<%
-		hasViewPermission = JournalArticlePermission.contains(permissionChecker, article.getGroupId(), article.getArticleId(), ActionKeys.VIEW);
-
 		title = article.getTitle(locale);
 		approved = article.isApproved();
 		expired = article.isExpired();
@@ -68,25 +75,15 @@ boolean expired = true;
 		%>
 
 		<c:choose>
-			<c:when test="<%= (articleDisplay != null) && !expired && hasViewPermission %>">
+			<c:when test="<%= (articleDisplay != null) && !expired %>">
 
 				<%
 				if (enableViewCountIncrement) {
 					AssetEntryServiceUtil.incrementViewCounter(JournalArticle.class.getName(), articleDisplay.getResourcePrimKey());
 				}
 
-				RuntimeLogic portletLogic = new PortletLogic(request, response);
-				RuntimeLogic actionURLLogic = new ActionURLLogic(renderResponse);
-				RuntimeLogic renderURLLogic = new RenderURLLogic(renderResponse);
-
-				String content = articleDisplay.getContent();
-
-				content = RuntimePageUtil.processXML(request, content, portletLogic);
-				content = RuntimePageUtil.processXML(request, content, actionURLLogic);
-				content = RuntimePageUtil.processXML(request, content, renderURLLogic);
-
 				if (themeDisplay.isStateExclusive()) {
-					out.print(content);
+					out.print(RuntimePageUtil.processXML(request, response, articleDisplay.getContent()));
 
 					return;
 				}
@@ -199,7 +196,7 @@ boolean expired = true;
 				</c:if>
 
 				<div class="journal-content-article" id="article_<%= articleDisplay.getCompanyId() %>_<%= articleDisplay.getGroupId() %>_<%= articleDisplay.getArticleId() %>_<%= articleDisplay.getVersion() %>">
-					<%= content %>
+					<%= RuntimePageUtil.processXML(request, response, articleDisplay.getContent()) %>
 				</div>
 
 				<c:if test="<%= articleDisplay.isPaginate() %>">
@@ -225,55 +222,53 @@ boolean expired = true;
 
 				<br />
 
-				<c:if test="<%= hasViewPermission %>">
-					<c:choose>
-						<c:when test="<%= Validator.isNull(articleId) %>">
-						</c:when>
-						<c:otherwise>
+				<c:choose>
+					<c:when test="<%= Validator.isNull(articleId) %>">
+					</c:when>
+					<c:otherwise>
 
-							<%
-							if (expired) {
-							%>
+						<%
+						if (expired) {
+						%>
 
-								<div class="portlet-msg-alert">
-									<%= LanguageUtil.format(pageContext, "x-is-expired", title) %>
-								</div>
+							<div class="portlet-msg-alert">
+								<%= LanguageUtil.format(pageContext, "x-is-expired", title) %>
+							</div>
 
-							<%
-							}
-							else if (!approved) {
-							%>
+						<%
+						}
+						else if (!approved) {
+						%>
 
-								<c:choose>
-									<c:when test="<%= JournalArticlePermission.contains(permissionChecker, article.getGroupId(), article.getArticleId(), ActionKeys.UPDATE) %>">
-										<liferay-portlet:renderURL portletName="<%= PortletKeys.JOURNAL %>" var="editURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-											<portlet:param name="struts_action" value="/journal/edit_article" />
-											<portlet:param name="redirect" value="<%= currentURL %>" />
-											<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
-											<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
-											<portlet:param name="version" value="<%= String.valueOf(article.getVersion()) %>" />
-										</liferay-portlet:renderURL>
+							<c:choose>
+								<c:when test="<%= JournalArticlePermission.contains(permissionChecker, article.getGroupId(), article.getArticleId(), ActionKeys.UPDATE) %>">
+									<liferay-portlet:renderURL portletName="<%= PortletKeys.JOURNAL %>" var="editURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+										<portlet:param name="struts_action" value="/journal/edit_article" />
+										<portlet:param name="redirect" value="<%= currentURL %>" />
+										<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
+										<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
+										<portlet:param name="version" value="<%= String.valueOf(article.getVersion()) %>" />
+									</liferay-portlet:renderURL>
 
-										<div class="portlet-msg-alert">
-											<a href="<%= editURL %>">
-												<%= LanguageUtil.format(pageContext, "x-is-not-approved", HtmlUtil.escape(title)) %>
-											</a>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="portlet-msg-alert">
+									<div class="portlet-msg-alert">
+										<a href="<%= editURL %>">
 											<%= LanguageUtil.format(pageContext, "x-is-not-approved", HtmlUtil.escape(title)) %>
-										</div>
-									</c:otherwise>
-								</c:choose>
+										</a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="portlet-msg-alert">
+										<%= LanguageUtil.format(pageContext, "x-is-not-approved", HtmlUtil.escape(title)) %>
+									</div>
+								</c:otherwise>
+							</c:choose>
 
-							<%
-							}
-							%>
+						<%
+						}
+						%>
 
-						</c:otherwise>
-					</c:choose>
-				</c:if>
+					</c:otherwise>
+				</c:choose>
 			</c:otherwise>
 		</c:choose>
 	</c:otherwise>
@@ -303,7 +298,7 @@ boolean showAddArticleIcon = showSelectArticleIcon && JournalPermission.contains
 boolean showIconsActions = themeDisplay.isSignedIn() && (showEditArticleIcon || showEditTemplateIcon || showSelectArticleIcon || showAddArticleIcon);
 %>
 
-<c:if test="<%= showIconsActions && !print && hasViewPermission %>">
+<c:if test="<%= showIconsActions && !print %>">
 	<div class="lfr-meta-actions icons-container">
 		<div class="icon-actions">
 			<c:if test="<%= showEditArticleIcon %>">
@@ -367,7 +362,7 @@ boolean showIconsActions = themeDisplay.isSignedIn() && (showEditArticleIcon || 
 	</div>
 </c:if>
 
-<c:if test="<%= (articleDisplay != null) && hasViewPermission %>">
+<c:if test="<%= articleDisplay != null %>">
 	<c:if test="<%= enableRelatedAssets %>">
 		<div class="entry-links">
 			<liferay-ui:asset-links

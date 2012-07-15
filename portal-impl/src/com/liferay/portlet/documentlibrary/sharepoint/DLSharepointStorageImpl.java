@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.xml.Element;
@@ -122,14 +123,12 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 			groupId, parentFolderPath,
 			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
 
-		if (parentFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
-			List<FileEntry> fileEntries = DLAppServiceUtil.getFileEntries(
-				groupId, parentFolderId);
+		List<FileEntry> fileEntries = DLAppServiceUtil.getFileEntries(
+			groupId, parentFolderId);
 
-			for (FileEntry fileEntry : fileEntries) {
-				documentsTree.addChild(
-					getFileEntryTree(fileEntry, parentFolderPath));
-			}
+		for (FileEntry fileEntry : fileEntries) {
+			documentsTree.addChild(
+				getFileEntryTree(fileEntry, parentFolderPath));
 		}
 
 		return documentsTree;
@@ -201,7 +200,7 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 
 		long parentFolderId = folderIds.get(folderIds.size() - 1);
 		Folder folder = DLAppServiceUtil.getFolder(
-			groupId, parentFolderId, pathArray[0]);
+			groupId, parentFolderId, HttpUtil.decodePath(pathArray[0]));
 
 		folderIds.add(folder.getFolderId());
 
@@ -298,8 +297,17 @@ public class DLSharepointStorageImpl extends BaseSharepointStorageImpl {
 		else if (folder != null) {
 			long folderId = folder.getFolderId();
 
-			folder = DLAppServiceUtil.moveFolder(
-				folderId, newParentFolderId, serviceContext);
+			String description = folder.getDescription();
+
+			if (newParentFolderId != folder.getParentFolderId()) {
+				folder = DLAppServiceUtil.moveFolder(
+					folderId, newParentFolderId, serviceContext);
+			}
+
+			if (!newName.equals(folder.getName())) {
+				DLAppServiceUtil.updateFolder(
+					folderId, newName, description, serviceContext);
+			}
 
 			Tree folderTree = getFolderTree(folder, newParentFolderPath);
 

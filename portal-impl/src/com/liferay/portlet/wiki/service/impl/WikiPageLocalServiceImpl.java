@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TempFileUtil;
+import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
@@ -73,10 +74,8 @@ import com.liferay.portlet.wiki.util.WikiCacheUtil;
 import com.liferay.portlet.wiki.util.WikiUtil;
 import com.liferay.portlet.wiki.util.comparator.PageCreateDateComparator;
 import com.liferay.portlet.wiki.util.comparator.PageVersionComparator;
-import com.liferay.util.UniqueList;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
@@ -375,7 +374,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	public String addTempPageAttachment(
 			long userId, String fileName, String tempFolderName,
 			InputStream inputStream)
-		throws IOException, PortalException, SystemException {
+		throws PortalException, SystemException {
 
 		return TempFileUtil.addTempFile(
 			userId, fileName, tempFolderName, inputStream);
@@ -586,7 +585,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	public void deleteTempPageAttachment(
-		long userId, String fileName, String tempFolderName) {
+			long userId, String fileName, String tempFolderName)
+		throws PortalException, SystemException {
 
 		TempFileUtil.deleteTempFile(userId, fileName, tempFolderName);
 	}
@@ -1167,15 +1167,14 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			assetEntry = assetEntryLocalService.updateEntry(
 				userId, page.getGroupId(), WikiPage.class.getName(),
 				page.getPrimaryKey(), page.getUuid(), 0, assetCategoryIds,
-				assetTagNames, false, null, null, null, null,
-				ContentTypes.TEXT_HTML, page.getTitle(), null, null, null, null,
-				0, 0, null, false);
+				assetTagNames, false, null, null, null, ContentTypes.TEXT_HTML,
+				page.getTitle(), null, null, null, null, 0, 0, null, false);
 		}
 		else {
 			assetEntry = assetEntryLocalService.updateEntry(
 				userId, page.getGroupId(), WikiPage.class.getName(),
 				page.getResourcePrimKey(), page.getUuid(), 0, assetCategoryIds,
-				assetTagNames, page.isApproved(), null, null, null, null,
+				assetTagNames, page.isApproved(), null, null, null,
 				ContentTypes.TEXT_HTML, page.getTitle(), null, null, null, null,
 				0, 0, null, false);
 		}
@@ -1381,8 +1380,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 						userId, page.getGroupId(), WikiPage.class.getName(),
 						page.getResourcePrimKey(), page.getUuid(), 0,
 						assetCategoryIds, assetTagNames, true, null, null, null,
-						null, ContentTypes.TEXT_HTML, page.getTitle(), null,
-						null, null, null, 0, 0, null, false);
+						ContentTypes.TEXT_HTML, page.getTitle(), null, null,
+						null, null, 0, 0, null, false);
 
 					// Asset Links
 
@@ -1402,19 +1401,26 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 			// Social
 
-			int activity = WikiActivityKeys.ADD_PAGE;
+			if (!page.isMinorEdit() ||
+				PropsValues.WIKI_PAGE_MINOR_EDIT_ADD_SOCIAL_ACTIVITY) {
 
-			if (page.getVersion() > WikiPageConstants.VERSION_DEFAULT) {
-				activity = WikiActivityKeys.UPDATE_PAGE;
+				int activity = WikiActivityKeys.ADD_PAGE;
+
+				if (page.getVersion() > WikiPageConstants.VERSION_DEFAULT) {
+					activity = WikiActivityKeys.UPDATE_PAGE;
+				}
+
+				socialActivityLocalService.addActivity(
+					userId, page.getGroupId(), WikiPage.class.getName(),
+					page.getResourcePrimKey(), activity, StringPool.BLANK, 0);
 			}
-
-			socialActivityLocalService.addActivity(
-				userId, page.getGroupId(), WikiPage.class.getName(),
-				page.getResourcePrimKey(), activity, StringPool.BLANK, 0);
 
 			// Subscriptions
 
-			if (!page.isMinorEdit() && NotificationThreadLocal.isEnabled()) {
+			if (NotificationThreadLocal.isEnabled() &&
+				(!page.isMinorEdit() ||
+				 PropsValues.WIKI_PAGE_MINOR_EDIT_SEND_EMAIL)) {
+
 				boolean update = false;
 
 				if (page.getVersion() > WikiPageConstants.VERSION_DEFAULT) {
@@ -1561,10 +1567,10 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 		PortletPreferences preferences = null;
 
-		String portletId = serviceContext.getPortletId();
+		String rootPortletId = serviceContext.getRootPortletId();
 
-		if (Validator.isNull(portletId) ||
-			!portletId.startsWith(PortletKeys.WIKI_DISPLAY)) {
+		if (Validator.isNull(rootPortletId) ||
+			rootPortletId.equals(PortletKeys.WIKI_DISPLAY)) {
 
 			preferences = ServiceContextUtil.getPortletPreferences(
 				serviceContext);

@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.model.AssetRenderer;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
+import com.liferay.portlet.trash.model.TrashEntry;
 
 /**
  * Represents the base class for basic operations with the Trash.
@@ -41,10 +42,27 @@ import com.liferay.portlet.asset.model.AssetRendererFactory;
  */
 public abstract class BaseTrashHandler implements TrashHandler {
 
+	@SuppressWarnings("unused")
+	public void checkDuplicateTrashEntry(TrashEntry trashEntry, String newName)
+		throws PortalException, SystemException {
+	}
+
+	public void deleteTrashEntries(long[] classPKs)
+		throws PortalException, SystemException {
+
+		deleteTrashEntries(classPKs, true);
+	}
+
 	public void deleteTrashEntry(long classPK)
 		throws PortalException, SystemException {
 
 		deleteTrashEntries(new long[] {classPK});
+	}
+
+	public void deleteTrashEntry(long classPK, boolean checkPermission)
+		throws PortalException, SystemException {
+
+		deleteTrashEntries(new long[] {classPK}, checkPermission);
 	}
 
 	public TrashRenderer getTrashRenderer(long classPK)
@@ -68,6 +86,11 @@ public abstract class BaseTrashHandler implements TrashHandler {
 		throws PortalException, SystemException {
 
 		restoreTrashEntries(new long[] {classPK});
+	}
+
+	@SuppressWarnings("unused")
+	public void updateTitle(long classPK, String title)
+		throws PortalException, SystemException {
 	}
 
 	private AssetRendererFactory getAssetRendererFactory() {

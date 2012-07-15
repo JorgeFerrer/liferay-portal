@@ -16,7 +16,8 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.InstanceFactory;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
 
 /**
@@ -31,13 +32,13 @@ public class EmailAddressGeneratorFactory {
 					"Instantiate " + PropsValues.USERS_EMAIL_ADDRESS_GENERATOR);
 			}
 
-			ClassLoader classLoader = PortalClassLoaderUtil.getClassLoader();
+			ClassLoader classLoader =
+				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
 				_emailAddressGenerator =
-					(EmailAddressGenerator)classLoader.loadClass(
-						PropsValues.USERS_EMAIL_ADDRESS_GENERATOR)
-							.newInstance();
+					(EmailAddressGenerator)InstanceFactory.newInstance(
+						classLoader, PropsValues.USERS_EMAIL_ADDRESS_GENERATOR);
 			}
 			catch (Exception e) {
 				_log.error(e, e);

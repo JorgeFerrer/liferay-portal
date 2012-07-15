@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchEngineUtil;
@@ -34,7 +35,6 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.journal.NoSuchStructureException;
 import com.liferay.portlet.journal.model.JournalArticle;
@@ -172,6 +173,36 @@ public class JournalIndexer extends BaseIndexer {
 		Property statusProperty = PropertyFactoryUtil.forName("status");
 
 		dynamicQuery.add(statusProperty.eq(status));
+	}
+
+	@Override
+	protected void addSearchLocalizedTerm(
+			BooleanQuery searchQuery, SearchContext searchContext, String field,
+			boolean like)
+		throws Exception {
+
+		if (Validator.isNull(field)) {
+			return;
+		}
+
+		String value = String.valueOf(searchContext.getAttribute(field));
+
+		if (Validator.isNull(value)) {
+			value = searchContext.getKeywords();
+		}
+
+		if (Validator.isNull(value)) {
+			return;
+		}
+
+		field = DocumentImpl.getLocalizedName(searchContext.getLocale(), field);
+
+		if (searchContext.isAndSearch()) {
+			searchQuery.addRequiredTerm(field, value, like);
+		}
+		else {
+			searchQuery.addTerm(field, value, like);
+		}
 	}
 
 	@Override
@@ -422,7 +453,7 @@ public class JournalIndexer extends BaseIndexer {
 		throws Exception {
 
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-			JournalArticle.class, PortalClassLoaderUtil.getClassLoader());
+			JournalArticle.class, PACLClassLoaderUtil.getPortalClassLoader());
 
 		Property property = PropertyFactoryUtil.forName("id");
 
@@ -440,7 +471,7 @@ public class JournalIndexer extends BaseIndexer {
 		throws Exception {
 
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-			JournalArticle.class, PortalClassLoaderUtil.getClassLoader());
+			JournalArticle.class, PACLClassLoaderUtil.getPortalClassLoader());
 
 		Property property = PropertyFactoryUtil.forName("id");
 
@@ -588,7 +619,7 @@ public class JournalIndexer extends BaseIndexer {
 
 	protected void reindexArticles(long companyId) throws Exception {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-			JournalArticle.class, PortalClassLoaderUtil.getClassLoader());
+			JournalArticle.class, PACLClassLoaderUtil.getPortalClassLoader());
 
 		Projection minIdProjection = ProjectionFactoryUtil.min("id");
 		Projection maxIdProjection = ProjectionFactoryUtil.max("id");

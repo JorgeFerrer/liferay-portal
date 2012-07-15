@@ -460,6 +460,7 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 		if (isNew || !AssetEntryModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((assetEntryModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
@@ -567,6 +568,7 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_CU, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_CU, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_CU,
@@ -585,6 +587,7 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_C, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_C, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_C,
@@ -868,10 +871,6 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	/**
 	 * Returns the first asset entry in the ordered set where companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset entry
@@ -881,32 +880,47 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset entry in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetEntry> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset entry in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -917,34 +931,49 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset entry in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
 		List<AssetEntry> list = findByCompanyId(companyId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset entries before and after the current asset entry in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param entryId the primary key of the current asset entry
 	 * @param companyId the company ID
@@ -1216,10 +1245,6 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	/**
 	 * Returns the first asset entry in the ordered set where visible = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param visible the visible
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset entry
@@ -1229,31 +1254,45 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByVisible_First(boolean visible,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByVisible_First(visible, orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("visible=");
+		msg.append(visible);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset entry in the ordered set where visible = &#63;.
+	 *
+	 * @param visible the visible
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByVisible_First(boolean visible,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetEntry> list = findByVisible(visible, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("visible=");
-			msg.append(visible);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset entry in the ordered set where visible = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param visible the visible
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1264,34 +1303,48 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByVisible_Last(boolean visible,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByVisible_Last(visible, orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("visible=");
+		msg.append(visible);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset entry in the ordered set where visible = &#63;.
+	 *
+	 * @param visible the visible
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByVisible_Last(boolean visible,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByVisible(visible);
 
 		List<AssetEntry> list = findByVisible(visible, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("visible=");
-			msg.append(visible);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset entries before and after the current asset entry in the ordered set where visible = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param entryId the primary key of the current asset entry
 	 * @param visible the visible
@@ -1571,10 +1624,6 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	/**
 	 * Returns the first asset entry in the ordered set where publishDate = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param publishDate the publish date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset entry
@@ -1584,32 +1633,47 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByPublishDate_First(Date publishDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByPublishDate_First(publishDate,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("publishDate=");
+		msg.append(publishDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset entry in the ordered set where publishDate = &#63;.
+	 *
+	 * @param publishDate the publish date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByPublishDate_First(Date publishDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetEntry> list = findByPublishDate(publishDate, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("publishDate=");
-			msg.append(publishDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset entry in the ordered set where publishDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param publishDate the publish date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1620,34 +1684,49 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByPublishDate_Last(Date publishDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByPublishDate_Last(publishDate,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("publishDate=");
+		msg.append(publishDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset entry in the ordered set where publishDate = &#63;.
+	 *
+	 * @param publishDate the publish date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByPublishDate_Last(Date publishDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByPublishDate(publishDate);
 
 		List<AssetEntry> list = findByPublishDate(publishDate, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("publishDate=");
-			msg.append(publishDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset entries before and after the current asset entry in the ordered set where publishDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param entryId the primary key of the current asset entry
 	 * @param publishDate the publish date
@@ -1940,10 +2019,6 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	/**
 	 * Returns the first asset entry in the ordered set where expirationDate = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param expirationDate the expiration date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset entry
@@ -1953,32 +2028,47 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByExpirationDate_First(Date expirationDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByExpirationDate_First(expirationDate,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("expirationDate=");
+		msg.append(expirationDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset entry in the ordered set where expirationDate = &#63;.
+	 *
+	 * @param expirationDate the expiration date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByExpirationDate_First(Date expirationDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetEntry> list = findByExpirationDate(expirationDate, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("expirationDate=");
-			msg.append(expirationDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset entry in the ordered set where expirationDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param expirationDate the expiration date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1989,34 +2079,49 @@ public class AssetEntryPersistenceImpl extends BasePersistenceImpl<AssetEntry>
 	public AssetEntry findByExpirationDate_Last(Date expirationDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
+		AssetEntry assetEntry = fetchByExpirationDate_Last(expirationDate,
+				orderByComparator);
+
+		if (assetEntry != null) {
+			return assetEntry;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("expirationDate=");
+		msg.append(expirationDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset entry in the ordered set where expirationDate = &#63;.
+	 *
+	 * @param expirationDate the expiration date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset entry, or <code>null</code> if a matching asset entry could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetEntry fetchByExpirationDate_Last(Date expirationDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByExpirationDate(expirationDate);
 
 		List<AssetEntry> list = findByExpirationDate(expirationDate, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("expirationDate=");
-			msg.append(expirationDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchEntryException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset entries before and after the current asset entry in the ordered set where expirationDate = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param entryId the primary key of the current asset entry
 	 * @param expirationDate the expiration date

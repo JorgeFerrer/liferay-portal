@@ -17,8 +17,6 @@
 <%@ include file="/html/portlet/layouts_admin/init.jsp" %>
 
 <%
-themeDisplay.setIncludeServiceJs(true);
-
 Layout selLayout = (Layout)request.getAttribute("edit_pages.jsp-selLayout");
 
 long groupId = selLayout.getGroupId();
@@ -32,8 +30,6 @@ long classPK = selLayout.getPlid();
 String rootNodeName = (String)request.getAttribute("edit_pages.jsp-rootNodeName");
 
 PortletURL redirectURL = (PortletURL)request.getAttribute("edit_pages.jsp-redirectURL");
-
-redirectURL.setParameter("historyKey", "mobileRuleGroups");
 
 int mdrRuleGroupInstancesCount = MDRRuleGroupInstanceServiceUtil.getRuleGroupInstancesCount(className, classPK);
 %>

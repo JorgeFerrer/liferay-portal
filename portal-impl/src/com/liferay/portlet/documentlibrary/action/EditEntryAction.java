@@ -111,7 +111,7 @@ public class EditEntryAction extends PortletAction {
 					DuplicateLockException dle = (DuplicateLockException)e;
 
 					SessionErrors.add(
-						actionRequest, dle.getClass().getName(), dle.getLock());
+						actionRequest, dle.getClass(), dle.getLock());
 				}
 				else {
 					SessionErrors.add(actionRequest, e.getClass());
@@ -137,7 +137,7 @@ public class EditEntryAction extends PortletAction {
 			else if (e instanceof AssetCategoryException ||
 					 e instanceof AssetTagException) {
 
-				SessionErrors.add(actionRequest, e.getClass().getName(), e);
+				SessionErrors.add(actionRequest, e.getClass(), e);
 			}
 			else {
 				throw e;
@@ -177,15 +177,6 @@ public class EditEntryAction extends PortletAction {
 	protected void cancelCheckedOutEntries(ActionRequest actionRequest)
 		throws Exception {
 
-		long repositoryId = ParamUtil.getLong(actionRequest, "repositoryId");
-
-		long[] folderIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "folderIds"), 0L);
-
-		for (long folderId : folderIds) {
-			DLAppServiceUtil.lockFolder(repositoryId, folderId);
-		}
-
 		long[] fileEntryIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "fileEntryIds"), 0L);
 
@@ -196,15 +187,6 @@ public class EditEntryAction extends PortletAction {
 
 	protected void checkInEntries(ActionRequest actionRequest)
 		throws Exception {
-
-		long repositoryId = ParamUtil.getLong(actionRequest, "repositoryId");
-
-		long[] folderIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "folderIds"), 0L);
-
-		for (long folderId : folderIds) {
-			DLAppServiceUtil.unlockFolder(repositoryId, folderId, null);
-		}
 
 		long[] fileEntryIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "fileEntryIds"), 0L);
@@ -220,15 +202,6 @@ public class EditEntryAction extends PortletAction {
 
 	protected void checkOutEntries(ActionRequest actionRequest)
 		throws Exception {
-
-		long repositoryId = ParamUtil.getLong(actionRequest, "repositoryId");
-
-		long[] folderIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "folderIds"), 0L);
-
-		for (long folderId : folderIds) {
-			DLAppServiceUtil.lockFolder(repositoryId, folderId);
-		}
 
 		long[] fileEntryIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "fileEntryIds"), 0L);

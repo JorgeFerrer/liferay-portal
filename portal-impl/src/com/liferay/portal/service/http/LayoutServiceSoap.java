@@ -281,7 +281,7 @@ public class LayoutServiceSoap {
 	*
 	* @param groupId the primary key of the group
 	* @param scopeGroupId the primary key of the scope group. See {@link
-	ServiceContext#getScopeGroupId()}.
+	com.liferay.portal.service.ServiceContext#getScopeGroupId()}.
 	* @param privateLayout whether the layout is private to the group
 	* @param portletId the primary key of the portlet
 	* @return Returns the primary key of the default layout group; {@link
@@ -367,6 +367,22 @@ public class LayoutServiceSoap {
 		try {
 			java.util.List<com.liferay.portal.model.Layout> returnValue = LayoutServiceUtil.getLayouts(groupId,
 					privateLayout);
+
+			return com.liferay.portal.model.LayoutSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.model.LayoutSoap[] getLayouts(
+		long groupId, boolean privateLayout, long parentLayoutId)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.portal.model.Layout> returnValue = LayoutServiceUtil.getLayouts(groupId,
+					privateLayout, parentLayoutId);
 
 			return com.liferay.portal.model.LayoutSoap.toSoapModels(returnValue);
 		}

@@ -1481,6 +1481,15 @@ public class LayoutRevisionWrapper implements LayoutRevision,
 	}
 
 	/**
+	* Returns <code>true</code> if this layout revision is denied.
+	*
+	* @return <code>true</code> if this layout revision is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _layoutRevision.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this layout revision is a draft.
 	*
 	* @return <code>true</code> if this layout revision is a draft; <code>false</code> otherwise
@@ -1499,12 +1508,48 @@ public class LayoutRevisionWrapper implements LayoutRevision,
 	}
 
 	/**
+	* Returns <code>true</code> if this layout revision is inactive.
+	*
+	* @return <code>true</code> if this layout revision is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _layoutRevision.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this layout revision is incomplete.
+	*
+	* @return <code>true</code> if this layout revision is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _layoutRevision.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this layout revision is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this layout revision is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _layoutRevision.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this layout revision is pending.
 	*
 	* @return <code>true</code> if this layout revision is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _layoutRevision.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this layout revision is scheduled.
+	*
+	* @return <code>true</code> if this layout revision is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _layoutRevision.isScheduled();
 	}
 
 	public boolean isNew() {

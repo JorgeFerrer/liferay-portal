@@ -14,6 +14,8 @@
 
 package com.liferay.portal.kernel.util;
 
+import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -88,6 +90,10 @@ public class FileUtil {
 
 	public static String createTempFileName(String extension) {
 		return getFile().createTempFileName(extension);
+	}
+
+	public static File createTempFolder() {
+		return getFile().createTempFolder();
 	}
 
 	public static String decodeSafeFileName(String fileName) {
@@ -171,6 +177,8 @@ public class FileUtil {
 	}
 
 	public static com.liferay.portal.kernel.util.File getFile() {
+		PortalRuntimePermission.checkGetBeanProperty(FileUtil.class);
+
 		return _file;
 	}
 
@@ -355,6 +363,8 @@ public class FileUtil {
 	}
 
 	public void setFile(com.liferay.portal.kernel.util.File file) {
+		PortalRuntimePermission.checkSetBeanProperty(getClass());
+
 		_file = file;
 	}
 

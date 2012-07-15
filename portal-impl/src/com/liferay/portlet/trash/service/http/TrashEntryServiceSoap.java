@@ -92,10 +92,10 @@ public class TrashEntryServiceSoap {
 	* @throws SystemException if a system exception occurred
 	* @throws PrincipalException if a principal exception occurred
 	*/
-	public static java.lang.Object[] getEntries(long groupId)
-		throws RemoteException {
+	public static com.liferay.portlet.trash.model.TrashEntryList getEntries(
+		long groupId) throws RemoteException {
 		try {
-			java.lang.Object[] returnValue = TrashEntryServiceUtil.getEntries(groupId);
+			com.liferay.portlet.trash.model.TrashEntryList returnValue = TrashEntryServiceUtil.getEntries(groupId);
 
 			return returnValue;
 		}
@@ -120,11 +120,12 @@ public class TrashEntryServiceSoap {
 	* @throws SystemException if a system exception occurred
 	* @throws PrincipalException if a system exception occurred
 	*/
-	public static java.lang.Object[] getEntries(long groupId, int start,
-		int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+	public static com.liferay.portlet.trash.model.TrashEntryList getEntries(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
 		throws RemoteException {
 		try {
-			java.lang.Object[] returnValue = TrashEntryServiceUtil.getEntries(groupId,
+			com.liferay.portlet.trash.model.TrashEntryList returnValue = TrashEntryServiceUtil.getEntries(groupId,
 					start, end, obc);
 
 			return returnValue;

@@ -1,5 +1,5 @@
 ;(function() {
-	var REGEX_BBCODE = /(?:\[((?:[a-z]|\*){1,16})(?:=([^\x00-\x1F"'\(\)<>\[\]]{1,256}))?\])|(?:\[\/([a-z]{1,16})\])/ig;
+	var REGEX_BBCODE = /(?:\[((?:[a-z]|\*){1,16})(?:=([^\x00-\x1F"'\(\)<>\[\]]{1,2083}))?\])|(?:\[\/([a-z]{1,16})\])/ig;
 
 	var Lexer = function(data) {
 		var instance = this;
@@ -326,7 +326,7 @@
 
 	var REGEX_TAG_NAME = /^\/?(?:b|center|code|colou?r|email|i|img|justify|left|pre|q|quote|right|\*|s|size|table|tr|th|td|li|list|font|u|url)$/i;
 
-	var REGEX_URI = /^[-;\/\?:@&=\+\$,_\.!~\*'\(\)%0-9a-z#]{1,512}$/i;
+	var REGEX_URI = /^[-;\/\?:@&=\+\$,_\.!~\*'\(\)%0-9a-z#]{1,512}$|\${\S+}/i;
 
 	var STR_BLANK = '';
 

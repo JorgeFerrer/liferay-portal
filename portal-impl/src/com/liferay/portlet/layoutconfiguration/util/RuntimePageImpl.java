@@ -19,34 +19,58 @@ import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.PipingServletResponse;
+import com.liferay.portal.kernel.servlet.PluginContextListener;
+import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateContextType;
 import com.liferay.portal.kernel.template.TemplateManager;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
+import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.MethodHandler;
-import com.liferay.portal.kernel.util.MethodKey;
+import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.LayoutTemplate;
+import com.liferay.portal.model.LayoutTemplateConstants;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletConstants;
+import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
+import com.liferay.portal.service.LayoutTemplateLocalServiceUtil;
+import com.liferay.portal.servlet.ThreadLocalFacadeServletRequestWrapperUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.layoutconfiguration.util.velocity.CustomizationSettingsProcessor;
 import com.liferay.portlet.layoutconfiguration.util.velocity.TemplateProcessor;
+import com.liferay.portlet.layoutconfiguration.util.xml.ActionURLLogic;
+import com.liferay.portlet.layoutconfiguration.util.xml.PortletLogic;
+import com.liferay.portlet.layoutconfiguration.util.xml.RenderURLLogic;
 import com.liferay.portlet.layoutconfiguration.util.xml.RuntimeLogic;
+import com.liferay.taglib.util.VelocityTaglib;
+
+import java.io.Closeable;
+
+import java.lang.reflect.Constructor;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import javax.portlet.PortletResponse;
+import javax.portlet.RenderResponse;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -63,206 +87,51 @@ import org.apache.commons.lang.time.StopWatch;
 public class RuntimePageImpl implements RuntimePage {
 
 	public void processCustomizationSettings(
-			PageContext pageContext, String velocityTemplateId,
-			String velocityTemplateContent)
+			PageContext pageContext, TemplateResource templateResource)
 		throws Exception {
 
-		if (Validator.isNull(velocityTemplateContent)) {
-			return;
-		}
-
-		HttpServletRequest request =
-			(HttpServletRequest)pageContext.getRequest();
-		HttpServletResponse response =
-			(HttpServletResponse)pageContext.getResponse();
-
-		CustomizationSettingsProcessor processor =
-			new CustomizationSettingsProcessor(pageContext);
-
-		Template template = TemplateManagerUtil.getTemplate(
-			TemplateManager.VELOCITY, velocityTemplateId,
-			velocityTemplateContent, TemplateContextType.STANDARD);
-
-		template.put("processor", processor);
-
-		// Velocity variables
-
-		template.prepare(request);
-
-		// liferay:include tag library
-
-		MethodHandler methodHandler = new MethodHandler(
-			_initMethodKey, pageContext.getServletContext(), request, response,
-			pageContext);
-
-		Object velocityTaglib = methodHandler.invoke(true);
-
-		template.put("taglibLiferay", velocityTaglib);
-		template.put("theme", velocityTaglib);
-
-		try {
-			template.processTemplate(pageContext.getOut());
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw e;
-		}
-	}
-
-	public void processTemplate(
-			PageContext pageContext, String velocityTemplateId,
-			String velocityTemplateContent)
-		throws Exception {
-
-		processTemplate(
-			pageContext, null, velocityTemplateId, velocityTemplateContent);
+		doDispatch(pageContext, null, templateResource, false);
 	}
 
 	public void processTemplate(
 			PageContext pageContext, String portletId,
-			String velocityTemplateId, String velocityTemplateContent)
+			TemplateResource templateResource)
 		throws Exception {
 
-		if (Validator.isNull(velocityTemplateContent)) {
-			return;
+		doDispatch(pageContext, portletId, templateResource, true);
+	}
+
+	public void processTemplate(
+			PageContext pageContext, TemplateResource templateResource)
+		throws Exception {
+
+		processTemplate(pageContext, null, templateResource);
+	}
+
+	public String processXML(
+			HttpServletRequest request, HttpServletResponse response,
+			String content)
+		throws Exception {
+
+		PortletResponse portletResponse = (PortletResponse)request.getAttribute(
+			JavaConstants.JAVAX_PORTLET_RESPONSE);
+
+		if (!(portletResponse instanceof RenderResponse)) {
+			throw new IllegalArgumentException(
+				"processXML can only be invoked in the render phase");
 		}
 
-		HttpServletRequest request =
-			(HttpServletRequest)pageContext.getRequest();
-		HttpServletResponse response =
-			(HttpServletResponse)pageContext.getResponse();
+		RenderResponse renderResponse = (RenderResponse)portletResponse;
 
-		TemplateProcessor processor = new TemplateProcessor(
-			request, response, portletId);
+		RuntimeLogic portletLogic = new PortletLogic(request, response);
+		RuntimeLogic actionURLLogic = new ActionURLLogic(renderResponse);
+		RuntimeLogic renderURLLogic = new RenderURLLogic(renderResponse);
 
-		Template template = TemplateManagerUtil.getTemplate(
-			TemplateManager.VELOCITY, velocityTemplateId,
-			velocityTemplateContent, TemplateContextType.STANDARD);
+		content = RuntimePageUtil.processXML(request, content, portletLogic);
+		content = RuntimePageUtil.processXML(request, content, actionURLLogic);
+		content = RuntimePageUtil.processXML(request, content, renderURLLogic);
 
-		template.put("processor", processor);
-
-		// Velocity variables
-
-		template.prepare(request);
-
-		// liferay:include tag library
-
-		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
-
-		MethodHandler methodHandler = new MethodHandler(
-			_initMethodKey, pageContext.getServletContext(), request,
-			new PipingServletResponse(response, unsyncStringWriter),
-			pageContext);
-
-		Object velocityTaglib = methodHandler.invoke(true);
-
-		template.put("taglibLiferay", velocityTaglib);
-		template.put("theme", velocityTaglib);
-
-		try {
-			template.processTemplate(unsyncStringWriter);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw e;
-		}
-
-		boolean portletParallelRender = GetterUtil.getBoolean(
-			request.getAttribute(WebKeys.PORTLET_PARALLEL_RENDER));
-
-		Lock lock = null;
-
-		Map<String, StringBundler> contentsMap =
-			new HashMap<String, StringBundler>();
-
-		Map<Integer, List<PortletRenderer>> portletRenderersMap =
-			processor.getPortletRenderers();
-
-		for (Map.Entry<Integer, List<PortletRenderer>> entry :
-				portletRenderersMap.entrySet()) {
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Processing portlets with render weight " + entry.getKey());
-			}
-
-			List<PortletRenderer> portletRenderers = entry.getValue();
-
-			if (portletParallelRender && (portletRenderers.size() > 1)) {
-				StopWatch stopWatch = null;
-
-				if (_log.isDebugEnabled()) {
-					_log.debug("Start parallel rendering");
-
-					stopWatch = new StopWatch();
-
-					stopWatch.start();
-				}
-
-				if (lock == null) {
-					lock = new ReentrantLock();
-				}
-
-				request.setAttribute(
-					WebKeys.PARALLEL_RENDERING_MERGE_LOCK, lock);
-
-				parallelyRenderPortlets(
-					request, response, processor, contentsMap,
-					portletRenderers);
-
-				request.removeAttribute(WebKeys.PARALLEL_RENDERING_MERGE_LOCK);
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"Finished parallel rendering in " +
-							stopWatch.getTime() + " ms");
-				}
-			}
-			else {
-				StopWatch stopWatch = null;
-
-				if (_log.isDebugEnabled()) {
-					_log.debug("Start serial rendering");
-
-					stopWatch = new StopWatch();
-
-					stopWatch.start();
-				}
-
-				for (PortletRenderer portletRenderer : portletRenderers) {
-					Portlet portlet = portletRenderer.getPortlet();
-
-					contentsMap.put(
-						portlet.getPortletId(),
-						portletRenderer.render(request, response));
-
-					if (_log.isDebugEnabled()) {
-						_log.debug(
-							"Serially rendered portlet " +
-								portlet.getPortletId() + " in " +
-									stopWatch.getTime() + " ms");
-					}
-				}
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"Finished serial rendering in " + stopWatch.getTime() +
-							" ms");
-				}
-			}
-		}
-
-		if (portletParallelRender && (_waitTime == Integer.MAX_VALUE)) {
-			_waitTime = PropsValues.LAYOUT_PARALLEL_RENDER_TIMEOUT;
-		}
-
-		StringBundler sb = StringUtil.replaceWithStringBundler(
-			unsyncStringWriter.toString(), "[$TEMPLATE_PORTLET_", "$]",
-			contentsMap);
-
-		sb.writeTo(pageContext.getOut());
+		return content;
 	}
 
 	public String processXML(
@@ -343,6 +212,310 @@ public class RuntimePageImpl implements RuntimePage {
 		}
 	}
 
+	protected Object buildVelocityTaglib(
+			HttpServletRequest request, HttpServletResponse response,
+			PageContext pageContext)
+		throws Exception {
+
+		// We have to load this class from the plugin class loader (context
+		// class loader) or we will throw a ClassCastException
+
+		Class<?> clazz = Class.forName(VelocityTaglib.class.getName());
+
+		Constructor<?> constructor = clazz.getConstructor(
+			ServletContext.class, HttpServletRequest.class,
+			HttpServletResponse.class, PageContext.class);
+
+		return constructor.newInstance(
+			pageContext.getServletContext(), request, response, pageContext);
+
+	}
+
+	protected void doDispatch(
+			PageContext pageContext, String portletId,
+			TemplateResource templateResource, boolean processTemplate)
+		throws Exception {
+
+		LayoutTemplate layoutTemplate = getLayoutTemplate(
+			templateResource.getTemplateId());
+
+		String pluginServletContextName = GetterUtil.getString(
+			layoutTemplate.getServletContextName());
+
+		ServletContext pluginServletContext = ServletContextPool.get(
+			pluginServletContextName);
+
+		ClassLoader pluginClassLoader = null;
+
+		if (pluginServletContext != null) {
+			pluginClassLoader =
+				(ClassLoader)pluginServletContext.getAttribute(
+					PluginContextListener.PLUGIN_CLASS_LOADER);
+		}
+
+		ClassLoader contextClassLoader =
+			PACLClassLoaderUtil.getContextClassLoader();
+
+		try {
+			TemplateContextType templateContextType =
+				TemplateContextType.STANDARD;
+
+			if ((pluginClassLoader != null) &&
+				(pluginClassLoader != contextClassLoader)) {
+
+				PACLClassLoaderUtil.setContextClassLoader(pluginClassLoader);
+
+				templateContextType = TemplateContextType.CLASS_LOADER;
+			}
+
+			if (processTemplate) {
+				doProcessTemplate(
+					pageContext, portletId, templateResource,
+					templateContextType);
+			}
+			else {
+				doProcessCustomizationSettings(
+					pageContext, templateResource, templateContextType);
+			}
+		}
+		finally {
+			if ((pluginClassLoader != null) &&
+				(pluginClassLoader != contextClassLoader)) {
+
+				PACLClassLoaderUtil.setContextClassLoader(contextClassLoader);
+			}
+		}
+	}
+
+	protected void doProcessCustomizationSettings(
+			PageContext pageContext, TemplateResource templateResource,
+			TemplateContextType templateContextType)
+		throws Exception {
+
+		HttpServletRequest request =
+			(HttpServletRequest)pageContext.getRequest();
+		HttpServletResponse response =
+			(HttpServletResponse)pageContext.getResponse();
+
+		CustomizationSettingsProcessor processor =
+			new CustomizationSettingsProcessor(pageContext);
+
+		Template template = TemplateManagerUtil.getTemplate(
+			TemplateManager.VELOCITY, templateResource,
+			TemplateContextType.STANDARD);
+
+		template.put("processor", processor);
+
+		// Velocity variables
+
+		template.prepare(request);
+
+		// liferay:include tag library
+
+		Object velocityTaglib = buildVelocityTaglib(
+			request, response, pageContext);
+
+		template.put("taglibLiferay", velocityTaglib);
+		template.put("theme", velocityTaglib);
+
+		try {
+			template.processTemplate(pageContext.getOut());
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw e;
+		}
+	}
+
+	protected void doProcessTemplate(
+			PageContext pageContext, String portletId,
+			TemplateResource templateResource,
+			TemplateContextType templateContextType)
+		throws Exception {
+
+		HttpServletRequest request =
+			(HttpServletRequest)pageContext.getRequest();
+		HttpServletResponse response =
+			(HttpServletResponse)pageContext.getResponse();
+
+		TemplateProcessor processor = new TemplateProcessor(
+			request, response, portletId);
+
+		Template template = TemplateManagerUtil.getTemplate(
+			TemplateManager.VELOCITY, templateResource, templateContextType);
+
+		template.put("processor", processor);
+
+		// Velocity variables
+
+		template.prepare(request);
+
+		// liferay:include tag library
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		Object velocityTaglib = buildVelocityTaglib(
+			request, new PipingServletResponse(response, unsyncStringWriter),
+			pageContext);
+
+		template.put("taglibLiferay", velocityTaglib);
+		template.put("theme", velocityTaglib);
+
+		try {
+			template.processTemplate(unsyncStringWriter);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw e;
+		}
+
+		boolean portletParallelRender = GetterUtil.getBoolean(
+			request.getAttribute(WebKeys.PORTLET_PARALLEL_RENDER));
+
+		Lock lock = null;
+
+		Map<String, StringBundler> contentsMap =
+			new HashMap<String, StringBundler>();
+
+		Map<Integer, List<PortletRenderer>> portletRenderersMap =
+			processor.getPortletRenderers();
+
+		for (Map.Entry<Integer, List<PortletRenderer>> entry :
+				portletRenderersMap.entrySet()) {
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Processing portlets with render weight " + entry.getKey());
+			}
+
+			List<PortletRenderer> portletRenderers = entry.getValue();
+
+			if (portletParallelRender && (portletRenderers.size() > 1)) {
+				StopWatch stopWatch = null;
+
+				if (_log.isDebugEnabled()) {
+					_log.debug("Start parallel rendering");
+
+					stopWatch = new StopWatch();
+
+					stopWatch.start();
+				}
+
+				if (lock == null) {
+					lock = new ReentrantLock();
+				}
+
+				request.setAttribute(
+					WebKeys.PARALLEL_RENDERING_MERGE_LOCK, lock);
+
+				ObjectValuePair<HttpServletRequest, Closeable> objectValuePair =
+					ThreadLocalFacadeServletRequestWrapperUtil.inject(request);
+
+				try {
+					parallelyRenderPortlets(
+						objectValuePair.getKey(), response, processor,
+						contentsMap, portletRenderers);
+				}
+				finally {
+					Closeable closeable = objectValuePair.getValue();
+
+					closeable.close();
+				}
+
+				request.removeAttribute(WebKeys.PARALLEL_RENDERING_MERGE_LOCK);
+
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Finished parallel rendering in " +
+							stopWatch.getTime() + " ms");
+				}
+			}
+			else {
+				StopWatch stopWatch = null;
+
+				if (_log.isDebugEnabled()) {
+					_log.debug("Start serial rendering");
+
+					stopWatch = new StopWatch();
+
+					stopWatch.start();
+				}
+
+				for (PortletRenderer portletRenderer : portletRenderers) {
+					Portlet portlet = portletRenderer.getPortlet();
+
+					contentsMap.put(
+						portlet.getPortletId(),
+						portletRenderer.render(request, response));
+
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"Serially rendered portlet " +
+								portlet.getPortletId() + " in " +
+									stopWatch.getTime() + " ms");
+					}
+				}
+
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Finished serial rendering in " + stopWatch.getTime() +
+							" ms");
+				}
+			}
+		}
+
+		if (portletParallelRender && (_waitTime == Integer.MAX_VALUE)) {
+			_waitTime = PropsValues.LAYOUT_PARALLEL_RENDER_TIMEOUT;
+		}
+
+		StringBundler sb = StringUtil.replaceWithStringBundler(
+			unsyncStringWriter.toString(), "[$TEMPLATE_PORTLET_", "$]",
+			contentsMap);
+
+		sb.writeTo(pageContext.getOut());
+	}
+
+	protected LayoutTemplate getLayoutTemplate(String velocityTemplateId) {
+		String separator = LayoutTemplateConstants.CUSTOM_SEPARATOR;
+		boolean standard = false;
+
+		if (velocityTemplateId.contains(
+				LayoutTemplateConstants.STANDARD_SEPARATOR)) {
+
+			separator = LayoutTemplateConstants.STANDARD_SEPARATOR;
+			standard = true;
+		}
+
+		String layoutTemplateId = null;
+
+		String themeId = null;
+
+		int pos = velocityTemplateId.indexOf(separator);
+
+		if (pos != -1) {
+			layoutTemplateId = velocityTemplateId.substring(
+				pos + separator.length());
+
+			themeId = velocityTemplateId.substring(0, pos);
+		}
+
+		pos = layoutTemplateId.indexOf(PortletConstants.INSTANCE_SEPARATOR);
+
+		if (pos != -1) {
+			layoutTemplateId = layoutTemplateId.substring(
+				pos + PortletConstants.INSTANCE_SEPARATOR.length() + 1);
+
+			pos = layoutTemplateId.indexOf(StringPool.UNDERLINE);
+
+			layoutTemplateId = layoutTemplateId.substring(pos + 1);
+		}
+
+		return LayoutTemplateLocalServiceUtil.getLayoutTemplate(
+			layoutTemplateId, standard, themeId);
+	}
+
 	protected void parallelyRenderPortlets(
 			HttpServletRequest request, HttpServletResponse response,
 			TemplateProcessor processor, Map<String, StringBundler> contentsMap,
@@ -366,8 +539,29 @@ public class RuntimePageImpl implements RuntimePage {
 						" for parallel rendering");
 			}
 
-			Future<StringBundler> future = executorService.submit(
-				portletRenderer.getCallable(request, response));
+			Callable<StringBundler> renderCallable =
+				portletRenderer.getCallable(request, response);
+
+			Future<StringBundler> future = null;
+
+			try {
+				future = executorService.submit(renderCallable);
+			}
+			catch (RejectedExecutionException ree) {
+
+				// This should only happen when user configures an AbortPolicy
+				// (or some other customized RejectedExecutionHandler that
+				// throws RejectedExecutionException) for this
+				// ThreadPoolExecutor. AbortPolicy is not the recommended
+				// setting, but to be more robust, we take care of this by
+				// converting the rejection to a fallback action.
+
+				future = new FutureTask<StringBundler>(renderCallable);
+
+				// Cancel immediately
+
+				future.cancel(true);
+			}
 
 			futures.put(future, portletRenderer);
 		}
@@ -382,7 +576,14 @@ public class RuntimePageImpl implements RuntimePage {
 
 			Portlet portlet = portletRenderer.getPortlet();
 
-			if ((waitTime > 0) || future.isDone()) {
+			if (future.isCancelled()) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Reject portlet " + portlet.getPortletId() +
+							" for parallel rendering");
+				}
+			}
+			else if ((waitTime > 0) || future.isDone()) {
 				try {
 					long startTime = System.currentTimeMillis();
 
@@ -424,11 +625,26 @@ public class RuntimePageImpl implements RuntimePage {
 
 					waitTime = -1;
 				}
+				catch (CancellationException ce) {
+
+					// This should only happen on a concurrent shutdown of the
+					// thread pool. Simply stops the render process.
+
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"Asynchronized cancellation detected that should " +
+								"only be caused by a concurrent shutdown of " +
+									"the thread pool",
+							ce);
+					}
+
+					return;
+				}
+
+				// Cancel by interrupting rendering thread
+
+				future.cancel(true);
 			}
-
-			// Cancel by interrupting rendering thread
-
-			future.cancel(true);
 
 			StringBundler sb = null;
 
@@ -467,10 +683,6 @@ public class RuntimePageImpl implements RuntimePage {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(RuntimePageImpl.class);
-
-	private static MethodKey _initMethodKey = new MethodKey(
-		"com.liferay.taglib.util.VelocityTaglib", "init", ServletContext.class,
-		HttpServletRequest.class, HttpServletResponse.class, PageContext.class);
 
 	private int _waitTime = Integer.MAX_VALUE;
 

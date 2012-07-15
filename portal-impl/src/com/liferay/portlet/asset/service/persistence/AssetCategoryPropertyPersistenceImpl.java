@@ -389,6 +389,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 		if (isNew || !AssetCategoryPropertyModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((assetCategoryPropertyModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
@@ -478,6 +479,7 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CA_K, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_K, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_K,
@@ -754,10 +756,6 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	/**
 	 * Returns the first asset category property in the ordered set where companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset category property
@@ -767,32 +765,47 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset category property in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetCategoryProperty> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset category property in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -803,34 +816,49 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset category property in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
 		List<AssetCategoryProperty> list = findByCompanyId(companyId,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset category properties before and after the current asset category property in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param categoryPropertyId the primary key of the current asset category property
 	 * @param companyId the company ID
@@ -1113,10 +1141,6 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	/**
 	 * Returns the first asset category property in the ordered set where categoryId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param categoryId the category ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching asset category property
@@ -1126,32 +1150,47 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByCategoryId_First(long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByCategoryId_First(categoryId,
+				orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset category property in the ordered set where categoryId = &#63;.
+	 *
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByCategoryId_First(long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetCategoryProperty> list = findByCategoryId(categoryId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset category property in the ordered set where categoryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param categoryId the category ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1162,34 +1201,49 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByCategoryId_Last(long categoryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByCategoryId_Last(categoryId,
+				orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("categoryId=");
+		msg.append(categoryId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset category property in the ordered set where categoryId = &#63;.
+	 *
+	 * @param categoryId the category ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByCategoryId_Last(long categoryId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCategoryId(categoryId);
 
 		List<AssetCategoryProperty> list = findByCategoryId(categoryId,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("categoryId=");
-			msg.append(categoryId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset category properties before and after the current asset category property in the ordered set where categoryId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param categoryPropertyId the primary key of the current asset category property
 	 * @param categoryId the category ID
@@ -1496,10 +1550,6 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	/**
 	 * Returns the first asset category property in the ordered set where companyId = &#63; and key = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param key the key
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1510,35 +1560,51 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByC_K_First(long companyId, String key,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByC_K_First(companyId,
+				key, orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", key=");
+		msg.append(key);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the first asset category property in the ordered set where companyId = &#63; and key = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param key the key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByC_K_First(long companyId, String key,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<AssetCategoryProperty> list = findByC_K(companyId, key, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", key=");
-			msg.append(key);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last asset category property in the ordered set where companyId = &#63; and key = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param key the key
@@ -1550,37 +1616,53 @@ public class AssetCategoryPropertyPersistenceImpl extends BasePersistenceImpl<As
 	public AssetCategoryProperty findByC_K_Last(long companyId, String key,
 		OrderByComparator orderByComparator)
 		throws NoSuchCategoryPropertyException, SystemException {
+		AssetCategoryProperty assetCategoryProperty = fetchByC_K_Last(companyId,
+				key, orderByComparator);
+
+		if (assetCategoryProperty != null) {
+			return assetCategoryProperty;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(", key=");
+		msg.append(key);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCategoryPropertyException(msg.toString());
+	}
+
+	/**
+	 * Returns the last asset category property in the ordered set where companyId = &#63; and key = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param key the key
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching asset category property, or <code>null</code> if a matching asset category property could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AssetCategoryProperty fetchByC_K_Last(long companyId, String key,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_K(companyId, key);
 
 		List<AssetCategoryProperty> list = findByC_K(companyId, key, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", key=");
-			msg.append(key);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchCategoryPropertyException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the asset category properties before and after the current asset category property in the ordered set where companyId = &#63; and key = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param categoryPropertyId the primary key of the current asset category property
 	 * @param companyId the company ID

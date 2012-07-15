@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
@@ -298,14 +299,17 @@ public abstract class BaseCommandReceiver implements CommandReceiver {
 			Element foldersElement)
 		throws Exception {
 
+		List<Group> groups = new UniqueList<Group>();
+
 		LinkedHashMap<String, Object> groupParams =
 			new LinkedHashMap<String, Object>();
 
 		groupParams.put("usersGroups", new Long(commandArgument.getUserId()));
 
-		List<Group> groups = GroupLocalServiceUtil.search(
-			commandArgument.getCompanyId(), null, null, groupParams,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		groups.addAll(
+			GroupLocalServiceUtil.search(
+				commandArgument.getCompanyId(), null, null, groupParams,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS));
 
 		List<Organization> userOrgs =
 			OrganizationLocalServiceUtil.getUserOrganizations(

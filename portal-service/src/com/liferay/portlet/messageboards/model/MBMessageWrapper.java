@@ -825,6 +825,15 @@ public class MBMessageWrapper implements MBMessage, ModelWrapper<MBMessage> {
 	}
 
 	/**
+	* Returns <code>true</code> if this message-boards message is denied.
+	*
+	* @return <code>true</code> if this message-boards message is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _mbMessage.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this message-boards message is a draft.
 	*
 	* @return <code>true</code> if this message-boards message is a draft; <code>false</code> otherwise
@@ -843,12 +852,48 @@ public class MBMessageWrapper implements MBMessage, ModelWrapper<MBMessage> {
 	}
 
 	/**
+	* Returns <code>true</code> if this message-boards message is inactive.
+	*
+	* @return <code>true</code> if this message-boards message is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _mbMessage.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this message-boards message is incomplete.
+	*
+	* @return <code>true</code> if this message-boards message is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _mbMessage.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this message-boards message is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this message-boards message is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _mbMessage.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this message-boards message is pending.
 	*
 	* @return <code>true</code> if this message-boards message is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _mbMessage.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this message-boards message is scheduled.
+	*
+	* @return <code>true</code> if this message-boards message is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _mbMessage.isScheduled();
 	}
 
 	public boolean isNew() {

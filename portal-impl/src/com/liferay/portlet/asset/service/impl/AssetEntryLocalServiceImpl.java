@@ -14,14 +14,11 @@
 
 package com.liferay.portlet.asset.service.impl;
 
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.increment.BufferedIncrement;
 import com.liferay.portal.kernel.increment.NumberIncrement;
 import com.liferay.portal.kernel.lar.ImportExportThreadLocal;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.FacetedSearcher;
 import com.liferay.portal.kernel.search.Field;
@@ -35,8 +32,6 @@ import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.ScopeFacet;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.InstancePool;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
@@ -47,9 +42,7 @@ import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.NoSuchEntryException;
 import com.liferay.portlet.asset.NoSuchTagException;
-import com.liferay.portlet.asset.model.AssetCategory;
 import com.liferay.portlet.asset.model.AssetEntry;
-import com.liferay.portlet.asset.model.AssetEntryDisplay;
 import com.liferay.portlet.asset.model.AssetLink;
 import com.liferay.portlet.asset.model.AssetLinkConstants;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
@@ -182,14 +175,6 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	public int getCompanyEntriesCount(long companyId) throws SystemException {
 		return assetEntryPersistence.countByCompanyId(companyId);
-	}
-
-	public AssetEntryDisplay[] getCompanyEntryDisplays(
-			long companyId, int start, int end, String languageId)
-		throws SystemException {
-
-		return getEntryDisplays(
-			getCompanyEntries(companyId, start, end), languageId);
 	}
 
 	public List<AssetEntry> getEntries(AssetEntryQuery entryQuery)
@@ -360,42 +345,6 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		return entry;
 	}
 
-	public void moveEntryToTrash(AssetEntry entry)
-		throws PortalException, SystemException {
-
-		// Entry
-
-		entry.setVisible(false);
-
-		assetEntryPersistence.update(entry, false);
-
-		// Social
-
-		socialActivityCounterLocalService.disableActivityCounters(
-			entry.getClassNameId(), entry.getClassPK());
-	}
-
-	public void moveEntryToTrash(long entryId)
-		throws PortalException, SystemException {
-
-		AssetEntry entry = assetEntryPersistence.findByPrimaryKey(entryId);
-
-		moveEntryToTrash(entry);
-	}
-
-	public void moveEntryToTrash(String className, long classPK)
-		throws PortalException, SystemException {
-
-		long classNameId = PortalUtil.getClassNameId(className);
-
-		AssetEntry entry = assetEntryPersistence.fetchByC_C(
-			classNameId, classPK);
-
-		if (entry != null) {
-			moveEntryToTrash(entry);
-		}
-	}
-
 	public void reindex(List<AssetEntry> entries) throws PortalException {
 		for (AssetEntry entry : entries) {
 			String className = PortalUtil.getClassName(entry.getClassNameId());
@@ -426,6 +375,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 			searchContext.addFacet(scopeFacet);
 
+			searchContext.setAttribute("paginationType", "regular");
 			searchContext.setCompanyId(companyId);
 			searchContext.setEnd(end);
 			searchContext.setEntryClassNames(getClassNames(className));
@@ -465,6 +415,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 			attributes.put(Field.DESCRIPTION, description);
 			attributes.put(Field.TITLE, title);
 			attributes.put(Field.USER_NAME, userName);
+			attributes.put("paginationType", "regular");
 
 			SearchContext searchContext = new SearchContext();
 
@@ -517,48 +468,6 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		return search(companyId, groupIds, 0, className, keywords, start, end);
 	}
 
-	public AssetEntryDisplay[] searchEntryDisplays(
-			long companyId, long[] groupIds, String className, String keywords,
-			String languageId, int start, int end)
-		throws SystemException {
-
-		List<AssetEntry> entries = new ArrayList<AssetEntry>();
-
-		Hits hits = search(
-			companyId, groupIds, className, keywords, start, end);
-
-		List<Document> hitsList = hits.toList();
-
-		for (Document document : hitsList) {
-			try {
-				AssetEntry entry = getEntry(document);
-
-				if (entry != null) {
-					entries.add(entry);
-				}
-			}
-			catch (Exception e) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(e);
-				}
-			}
-		}
-
-		return getEntryDisplays(entries, languageId);
-	}
-
-	public int searchEntryDisplaysCount(
-			long companyId, long[] groupIds, String className, String keywords,
-			String languageId)
-		throws SystemException {
-
-		Hits hits = search(
-			companyId, groupIds, className, keywords, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS);
-
-		return hits.getLength();
-	}
-
 	public AssetEntry updateEntry(
 			long userId, long groupId, String className, long classPK,
 			long[] categoryIds, String[] tagNames)
@@ -574,19 +483,24 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 				userId, groupId, className, classPK, entry.getClassUuid(),
 				entry.getClassTypeId(), categoryIds, tagNames,
 				entry.isVisible(), entry.getStartDate(), entry.getEndDate(),
-				entry.getPublishDate(), entry.getExpirationDate(),
-				entry.getMimeType(), entry.getTitle(), entry.getDescription(),
-				entry.getSummary(), entry.getUrl(), entry.getLayoutUuid(),
-				entry.getHeight(), entry.getWidth(),
-				GetterUtil.getInteger(entry.getPriority()), false);
+				entry.getExpirationDate(), entry.getMimeType(),
+				entry.getTitle(), entry.getDescription(), entry.getSummary(),
+				entry.getUrl(), entry.getLayoutUuid(), entry.getHeight(),
+				entry.getWidth(), GetterUtil.getInteger(entry.getPriority()),
+				false);
 		}
 
 		return updateEntry(
 			userId, groupId, className, classPK, null, 0, categoryIds, tagNames,
-			true, null, null, null, null, null, null, null, null, null, null, 0,
-			0, null, false);
+			true, null, null, null, null, null, null, null, null, null, 0, 0,
+			null, false);
 	}
 
+	/**
+	 * @deprecated {@link #updateEntry(long, long, String, long, String, long,
+	 *             long[], String[], boolean, Date, Date, Date, String, String,
+	 *             String, String, String, String, int, int, Integer, boolean)}
+	 */
 	public AssetEntry updateEntry(
 			long userId, long groupId, String className, long classPK,
 			String classUuid, long classTypeId, long[] categoryIds,
@@ -595,6 +509,22 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 			String title, String description, String summary, String url,
 			String layoutUuid, int height, int width, Integer priority,
 			boolean sync)
+		throws PortalException, SystemException {
+
+		return updateEntry(
+			userId, groupId, className, classPK, classUuid, classTypeId,
+			categoryIds, tagNames, visible, startDate, endDate, expirationDate,
+			mimeType, title, description, summary, url, layoutUuid, height,
+			width, priority, sync);
+	}
+
+	public AssetEntry updateEntry(
+			long userId, long groupId, String className, long classPK,
+			String classUuid, long classTypeId, long[] categoryIds,
+			String[] tagNames, boolean visible, Date startDate, Date endDate,
+			Date expirationDate, String mimeType, String title,
+			String description, String summary, String url, String layoutUuid,
+			int height, int width, Integer priority, boolean sync)
 		throws PortalException, SystemException {
 
 		// Entry
@@ -627,7 +557,6 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 			entry.setClassPK(classPK);
 			entry.setClassUuid(classUuid);
 			entry.setVisible(visible);
-			entry.setPublishDate(publishDate);
 			entry.setExpirationDate(expirationDate);
 
 			if (priority == null) {
@@ -643,7 +572,6 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		entry.setVisible(visible);
 		entry.setStartDate(startDate);
 		entry.setEndDate(endDate);
-		entry.setPublishDate(publishDate);
 		entry.setExpirationDate(expirationDate);
 		entry.setMimeType(mimeType);
 		entry.setTitle(title);
@@ -802,6 +730,44 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		return entry;
 	}
 
+	public AssetEntry updateEntry(
+			String className, long classPK, Date publishDate, boolean visible)
+		throws PortalException, SystemException {
+
+		long classNameId = PortalUtil.getClassNameId(className);
+
+		AssetEntry entry = assetEntryPersistence.findByC_C(
+			classNameId, classPK);
+
+		entry.setPublishDate(publishDate);
+
+		updateVisible(entry, visible);
+
+		assetEntryPersistence.update(entry, false);
+
+		return entry;
+	}
+
+	public AssetEntry updateEntry(
+			String className, long classPK, Date publishDate,
+			Date expirationDate, boolean visible)
+		throws PortalException, SystemException {
+
+		long classNameId = PortalUtil.getClassNameId(className);
+
+		AssetEntry entry = assetEntryPersistence.findByC_C(
+			classNameId, classPK);
+
+		entry.setExpirationDate(expirationDate);
+		entry.setPublishDate(publishDate);
+
+		updateVisible(entry, visible);
+
+		assetEntryPersistence.update(entry, false);
+
+		return entry;
+	}
+
 	public AssetEntry updateVisible(
 			String className, long classPK, boolean visible)
 		throws PortalException, SystemException {
@@ -811,23 +777,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		AssetEntry entry = assetEntryPersistence.findByC_C(
 			classNameId, classPK);
 
-		List<AssetTag> tags = assetEntryPersistence.getAssetTags(
-			entry.getEntryId());
-
-		if (visible && !entry.isVisible()) {
-			for (AssetTag tag : tags) {
-				assetTagLocalService.incrementAssetCount(
-					tag.getTagId(), classNameId);
-			}
-		}
-		else if (!visible && entry.isVisible()) {
-			for (AssetTag tag : tags) {
-				assetTagLocalService.decrementAssetCount(
-					tag.getTagId(), classNameId);
-			}
-		}
-
-		entry.setVisible(visible);
+		updateVisible(entry, visible);
 
 		assetEntryPersistence.update(entry, false);
 
@@ -948,72 +898,30 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		return null;
 	}
 
-	protected AssetEntryDisplay[] getEntryDisplays(
-			List<AssetEntry> entries, String languageId)
-		throws SystemException {
+	protected void updateVisible(AssetEntry entry, boolean visible)
+		throws PortalException, SystemException {
 
-		AssetEntryDisplay[] entryDisplays =
-			new AssetEntryDisplay[entries.size()];
-
-		for (int i = 0; i < entries.size(); i++) {
-			AssetEntry entry = entries.get(i);
-
-			String className = PortalUtil.getClassName(entry.getClassNameId());
-			String portletId = PortalUtil.getClassNamePortletId(className);
-			String portletTitle = PortalUtil.getPortletTitle(
-				portletId, languageId);
-
-			List<AssetCategory> categories =
-				assetEntryPersistence.getAssetCategories(entry.getEntryId());
-
-			String categoryIdsString = ListUtil.toString(
-				categories, AssetCategory.CATEGORY_ID_ACCESSOR,
-				StringPool.COMMA);
-			long[] categoryIds = StringUtil.split(
-				categoryIdsString, StringPool.COMMA, 0L);
-
-			List<AssetTag> tags = assetEntryPersistence.getAssetTags(
-				entry.getEntryId());
-
-			String tagNames = ListUtil.toString(
-				tags, AssetTag.NAME_ACCESSOR, ", ");
-
-			AssetEntryDisplay entryDisplay = new AssetEntryDisplay();
-
-			entryDisplay.setEntryId(entry.getEntryId());
-			entryDisplay.setCompanyId(entry.getCompanyId());
-			entryDisplay.setUserId(entry.getUserId());
-			entryDisplay.setUserName(entry.getUserName());
-			entryDisplay.setCreateDate(entry.getCreateDate());
-			entryDisplay.setModifiedDate(entry.getModifiedDate());
-			entryDisplay.setClassNameId(entry.getClassNameId());
-			entryDisplay.setClassName(className);
-			entryDisplay.setClassPK(entry.getClassPK());
-			entryDisplay.setPortletId(portletId);
-			entryDisplay.setPortletTitle(portletTitle);
-			entryDisplay.setStartDate(entry.getStartDate());
-			entryDisplay.setEndDate(entry.getEndDate());
-			entryDisplay.setPublishDate(entry.getPublishDate());
-			entryDisplay.setExpirationDate(entry.getExpirationDate());
-			entryDisplay.setMimeType(entry.getMimeType());
-			entryDisplay.setTitle(entry.getTitle());
-			entryDisplay.setDescription(entry.getDescription());
-			entryDisplay.setSummary(entry.getSummary());
-			entryDisplay.setUrl(entry.getUrl());
-			entryDisplay.setHeight(entry.getHeight());
-			entryDisplay.setWidth(entry.getWidth());
-			entryDisplay.setPriority(entry.getPriority());
-			entryDisplay.setViewCount(entry.getViewCount());
-			entryDisplay.setCategoryIds(categoryIds);
-			entryDisplay.setTagNames(tagNames);
-
-			entryDisplays[i] = entryDisplay;
+		if (visible == entry.isVisible()) {
+			return;
 		}
 
-		return entryDisplays;
-	}
+		List<AssetTag> tags = assetEntryPersistence.getAssetTags(
+			entry.getEntryId());
 
-	private static Log _log = LogFactoryUtil.getLog(
-		AssetEntryLocalServiceImpl.class);
+		if (visible) {
+			for (AssetTag tag : tags) {
+				assetTagLocalService.incrementAssetCount(
+					tag.getTagId(), entry.getClassNameId());
+			}
+		}
+		else {
+			for (AssetTag tag : tags) {
+				assetTagLocalService.decrementAssetCount(
+					tag.getTagId(), entry.getClassNameId());
+			}
+		}
+
+		entry.setVisible(visible);
+	}
 
 }

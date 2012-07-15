@@ -108,6 +108,8 @@ boolean showMenu = displayAssetTypeFacet || displayAssetTagsFacet || displayAsse
 										if (field) {
 											field.value = term.attr('data-value');
 
+											document.<portlet:namespace />fm.<portlet:namespace /><%= SearchContainer.DEFAULT_CUR_PARAM %>.value = 1;
+
 											submitForm(document.<portlet:namespace />fm);
 										}
 									}
@@ -141,6 +143,14 @@ boolean showMenu = displayAssetTypeFacet || displayAssetTagsFacet || displayAsse
 			>
 				<liferay-ui:search-container-column-jsp path='<%= displayResultsInDocumentForm ? "/html/portlet/search/main_search_document_form.jsp" : "/html/portlet/search/main_search_result_form.jsp" %>' />
 			</liferay-ui:search-container-row>
+
+			<%
+			String[] entryClassNames = searchContext.getEntryClassNames();
+
+			if (entryClassNames.length == 1) {
+				portletURL.setParameter("entryClassName", entryClassNames[0]);
+			}
+			%>
 
 			<liferay-ui:search-iterator type="more" />
 

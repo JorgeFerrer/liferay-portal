@@ -15,7 +15,6 @@
 package com.liferay.portal.tools.deploy;
 
 import com.liferay.portal.kernel.plugin.PluginPackage;
-import com.liferay.portal.kernel.util.ServerDetector;
 import com.liferay.portal.model.Plugin;
 import com.liferay.portal.util.InitUtil;
 
@@ -61,9 +60,7 @@ public class WebDeployer extends BaseDeployer {
 
 		super.copyXmls(srcFile, displayName, pluginPackage);
 
-		if (appServerType.equals(ServerDetector.TOMCAT_ID)) {
-			copyDependencyXml("context.xml", srcFile + "/META-INF");
-		}
+		copyTomcatContextXml(srcFile);
 	}
 
 	@Override

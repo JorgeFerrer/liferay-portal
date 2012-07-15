@@ -1205,6 +1205,15 @@ public class JournalArticleWrapper implements JournalArticle,
 	}
 
 	/**
+	* Returns <code>true</code> if this journal article is denied.
+	*
+	* @return <code>true</code> if this journal article is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _journalArticle.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this journal article is a draft.
 	*
 	* @return <code>true</code> if this journal article is a draft; <code>false</code> otherwise
@@ -1223,12 +1232,48 @@ public class JournalArticleWrapper implements JournalArticle,
 	}
 
 	/**
+	* Returns <code>true</code> if this journal article is inactive.
+	*
+	* @return <code>true</code> if this journal article is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _journalArticle.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this journal article is incomplete.
+	*
+	* @return <code>true</code> if this journal article is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _journalArticle.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this journal article is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this journal article is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _journalArticle.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this journal article is pending.
 	*
 	* @return <code>true</code> if this journal article is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _journalArticle.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this journal article is scheduled.
+	*
+	* @return <code>true</code> if this journal article is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _journalArticle.isScheduled();
 	}
 
 	public boolean isNew() {

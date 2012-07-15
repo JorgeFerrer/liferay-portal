@@ -123,16 +123,11 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTEXPIRATIONDATE =
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTEXPIRATIONDATE =
 		new FinderPath(LockModelImpl.ENTITY_CACHE_ENABLED,
-			LockModelImpl.FINDER_CACHE_ENABLED, LockImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"findByLtExpirationDate", new String[] { Date.class.getName() },
-			LockModelImpl.EXPIRATIONDATE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_LTEXPIRATIONDATE = new FinderPath(LockModelImpl.ENTITY_CACHE_ENABLED,
 			LockModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByLtExpirationDate", new String[] { Date.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByLtExpirationDate",
+			new String[] { Date.class.getName() });
 	public static final FinderPath FINDER_PATH_FETCH_BY_C_K = new FinderPath(LockModelImpl.ENTITY_CACHE_ENABLED,
 			LockModelImpl.FINDER_CACHE_ENABLED, LockImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_K",
@@ -395,6 +390,7 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 		if (isNew || !LockModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
+
 		else {
 			if ((lockModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
@@ -431,25 +427,6 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
 					args);
 			}
-
-			if ((lockModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTEXPIRATIONDATE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						lockModelImpl.getOriginalExpirationDate()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LTEXPIRATIONDATE,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTEXPIRATIONDATE,
-					args);
-
-				args = new Object[] { lockModelImpl.getExpirationDate() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LTEXPIRATIONDATE,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTEXPIRATIONDATE,
-					args);
-			}
 		}
 
 		EntityCacheUtil.putResult(LockModelImpl.ENTITY_CACHE_ENABLED,
@@ -473,6 +450,7 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_K, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_K, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_K,
@@ -490,6 +468,7 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_K_O, args);
+
 				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_K_O, args);
 
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_K_O,
@@ -769,10 +748,6 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	/**
 	 * Returns the first lock in the ordered set where uuid = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching lock
@@ -782,31 +757,45 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	public Lock findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByUuid_First(uuid, orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the first lock in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByUuid_First(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Lock> list = findByUuid(uuid, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last lock in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -816,33 +805,47 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	 */
 	public Lock findByUuid_Last(String uuid, OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByUuid_Last(uuid, orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the last lock in the ordered set where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByUuid_Last(String uuid,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
 
 		List<Lock> list = findByUuid(uuid, count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the locks before and after the current lock in the ordered set where uuid = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param lockId the primary key of the current lock
 	 * @param uuid the uuid
@@ -1149,10 +1152,6 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	/**
 	 * Returns the first lock in the ordered set where uuid = &#63; and companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1163,34 +1162,49 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	public Lock findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByUuid_C_First(uuid, companyId, orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the first lock in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByUuid_C_First(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Lock> list = findByUuid_C(uuid, companyId, 0, 1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last lock in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param uuid the uuid
 	 * @param companyId the company ID
@@ -1202,37 +1216,52 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	public Lock findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByUuid_C_Last(uuid, companyId, orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("uuid=");
+		msg.append(uuid);
+
+		msg.append(", companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the last lock in the ordered set where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
 
 		List<Lock> list = findByUuid_C(uuid, companyId, count - 1, count,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("uuid=");
-			msg.append(uuid);
-
-			msg.append(", companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the locks before and after the current lock in the ordered set where uuid = &#63; and companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param lockId the primary key of the current lock
 	 * @param uuid the uuid
@@ -1440,19 +1469,8 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_LTEXPIRATIONDATE;
-			finderArgs = new Object[] { expirationDate };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LTEXPIRATIONDATE;
-			finderArgs = new Object[] {
-					expirationDate,
-					
-					start, end, orderByComparator
-				};
-		}
+		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_LTEXPIRATIONDATE;
+		finderArgs = new Object[] { expirationDate, start, end, orderByComparator };
 
 		List<Lock> list = (List<Lock>)FinderCacheUtil.getResult(finderPath,
 				finderArgs, this);
@@ -1532,10 +1550,6 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	/**
 	 * Returns the first lock in the ordered set where expirationDate &lt; &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param expirationDate the expiration date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching lock
@@ -1545,32 +1559,47 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	public Lock findByLtExpirationDate_First(Date expirationDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByLtExpirationDate_First(expirationDate,
+				orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("expirationDate=");
+		msg.append(expirationDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the first lock in the ordered set where expirationDate &lt; &#63;.
+	 *
+	 * @param expirationDate the expiration date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByLtExpirationDate_First(Date expirationDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<Lock> list = findByLtExpirationDate(expirationDate, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("expirationDate=");
-			msg.append(expirationDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last lock in the ordered set where expirationDate &lt; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param expirationDate the expiration date
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1581,34 +1610,49 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 	public Lock findByLtExpirationDate_Last(Date expirationDate,
 		OrderByComparator orderByComparator)
 		throws NoSuchLockException, SystemException {
+		Lock lock = fetchByLtExpirationDate_Last(expirationDate,
+				orderByComparator);
+
+		if (lock != null) {
+			return lock;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("expirationDate=");
+		msg.append(expirationDate);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchLockException(msg.toString());
+	}
+
+	/**
+	 * Returns the last lock in the ordered set where expirationDate &lt; &#63;.
+	 *
+	 * @param expirationDate the expiration date
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching lock, or <code>null</code> if a matching lock could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Lock fetchByLtExpirationDate_Last(Date expirationDate,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByLtExpirationDate(expirationDate);
 
 		List<Lock> list = findByLtExpirationDate(expirationDate, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("expirationDate=");
-			msg.append(expirationDate);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchLockException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the locks before and after the current lock in the ordered set where expirationDate &lt; &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param lockId the primary key of the current lock
 	 * @param expirationDate the expiration date
@@ -2471,7 +2515,7 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 		throws SystemException {
 		Object[] finderArgs = new Object[] { expirationDate };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_LTEXPIRATIONDATE,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTEXPIRATIONDATE,
 				finderArgs, this);
 
 		if (count == null) {
@@ -2511,7 +2555,7 @@ public class LockPersistenceImpl extends BasePersistenceImpl<Lock>
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LTEXPIRATIONDATE,
+				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_LTEXPIRATIONDATE,
 					finderArgs, count);
 
 				closeSession(session);

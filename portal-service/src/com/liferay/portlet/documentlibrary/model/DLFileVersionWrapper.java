@@ -727,6 +727,15 @@ public class DLFileVersionWrapper implements DLFileVersion,
 	}
 
 	/**
+	* Returns <code>true</code> if this document library file version is denied.
+	*
+	* @return <code>true</code> if this document library file version is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _dlFileVersion.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this document library file version is a draft.
 	*
 	* @return <code>true</code> if this document library file version is a draft; <code>false</code> otherwise
@@ -745,12 +754,48 @@ public class DLFileVersionWrapper implements DLFileVersion,
 	}
 
 	/**
+	* Returns <code>true</code> if this document library file version is inactive.
+	*
+	* @return <code>true</code> if this document library file version is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _dlFileVersion.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this document library file version is incomplete.
+	*
+	* @return <code>true</code> if this document library file version is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _dlFileVersion.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this document library file version is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this document library file version is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _dlFileVersion.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this document library file version is pending.
 	*
 	* @return <code>true</code> if this document library file version is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _dlFileVersion.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this document library file version is scheduled.
+	*
+	* @return <code>true</code> if this document library file version is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _dlFileVersion.isScheduled();
 	}
 
 	public boolean isNew() {
@@ -849,6 +894,14 @@ public class DLFileVersionWrapper implements DLFileVersion,
 
 	public java.lang.String getIcon() {
 		return _dlFileVersion.getIcon();
+	}
+
+	public com.liferay.portlet.documentlibrary.model.DLFolder getTrashFolder() {
+		return _dlFileVersion.getTrashFolder();
+	}
+
+	public boolean isInTrashFolder() {
+		return _dlFileVersion.isInTrashFolder();
 	}
 
 	public void setExtraSettingsProperties(

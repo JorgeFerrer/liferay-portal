@@ -27,15 +27,22 @@
 	/>
 	<cache
 		eternal="false"
-		maxElementsInMemory="10000"
-		name="com.liferay.portal.util.WebCachePool"
+		maxElementsInMemory="1000"
+		name="com.liferay.portal.servlet.ComboServlet"
+		overflowToDisk="false"
+		timeToIdleSeconds="600"
+	/>
+	<cache
+		eternal="false"
+		maxElementsInMemory="1000"
+		name="com.liferay.portal.servlet.ComboServlet$FileContentBag"
 		overflowToDisk="false"
 		timeToIdleSeconds="600"
 	/>
 	<cache
 		eternal="false"
 		maxElementsInMemory="10000"
-		name="com.liferay.portal.velocity.LiferayResourceCacheUtil"
+		name="com.liferay.portal.util.WebCachePool"
 		overflowToDisk="false"
 		timeToIdleSeconds="600"
 	/>

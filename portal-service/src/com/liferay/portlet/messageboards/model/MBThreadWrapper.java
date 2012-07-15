@@ -555,6 +555,15 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 	}
 
 	/**
+	* Returns <code>true</code> if this message boards thread is denied.
+	*
+	* @return <code>true</code> if this message boards thread is denied; <code>false</code> otherwise
+	*/
+	public boolean isDenied() {
+		return _mbThread.isDenied();
+	}
+
+	/**
 	* Returns <code>true</code> if this message boards thread is a draft.
 	*
 	* @return <code>true</code> if this message boards thread is a draft; <code>false</code> otherwise
@@ -573,12 +582,48 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 	}
 
 	/**
+	* Returns <code>true</code> if this message boards thread is inactive.
+	*
+	* @return <code>true</code> if this message boards thread is inactive; <code>false</code> otherwise
+	*/
+	public boolean isInactive() {
+		return _mbThread.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards thread is incomplete.
+	*
+	* @return <code>true</code> if this message boards thread is incomplete; <code>false</code> otherwise
+	*/
+	public boolean isIncomplete() {
+		return _mbThread.isIncomplete();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards thread is in the Recycle Bin.
+	*
+	* @return <code>true</code> if this message boards thread is in the Recycle Bin; <code>false</code> otherwise
+	*/
+	public boolean isInTrash() {
+		return _mbThread.isInTrash();
+	}
+
+	/**
 	* Returns <code>true</code> if this message boards thread is pending.
 	*
 	* @return <code>true</code> if this message boards thread is pending; <code>false</code> otherwise
 	*/
 	public boolean isPending() {
 		return _mbThread.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards thread is scheduled.
+	*
+	* @return <code>true</code> if this message boards thread is scheduled; <code>false</code> otherwise
+	*/
+	public boolean isScheduled() {
+		return _mbThread.isScheduled();
 	}
 
 	public boolean isNew() {

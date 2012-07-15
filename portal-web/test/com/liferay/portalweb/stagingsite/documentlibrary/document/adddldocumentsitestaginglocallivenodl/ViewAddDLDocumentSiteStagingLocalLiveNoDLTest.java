@@ -51,7 +51,7 @@ public class ViewAddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase 
 		loadRequiredJavaScriptModules();
 		assertTrue(selenium.isElementPresent(
 				"//body[contains(@class,'live-view')]"));
-		assertFalse(selenium.isElementPresent(
+		assertTrue(selenium.isElementNotPresent(
 				"//body[contains(@class,'local-staging')]"));
 		assertTrue(selenium.isPartialText("//li[2]/span/a", "Staging"));
 		selenium.clickAt("//li[2]/span/a", RuntimeVariables.replace("Staging"));
@@ -69,12 +69,12 @@ public class ViewAddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase 
 			selenium.getText("//span[@class='document-description']"));
 		assertEquals(RuntimeVariables.replace("Status: Approved"),
 			selenium.getText("//span[@class='workflow-status']"));
-		assertEquals(RuntimeVariables.replace("Download (9.6k)"),
+		assertEquals(RuntimeVariables.replace("Download (12.4k)"),
 			selenium.getText("//span[@class='download-document']"));
 		assertEquals(RuntimeVariables.replace("1.0"),
 			selenium.getText("//tr[3]/td[1]"));
 		assertTrue(selenium.isElementPresent("//tr[3]/td[2]"));
-		assertEquals(RuntimeVariables.replace("9.6k"),
+		assertEquals(RuntimeVariables.replace("12.4k"),
 			selenium.getText("//tr[3]/td[3]"));
 		assertEquals(RuntimeVariables.replace("Approved"),
 			selenium.getText("//tr[3]/td[4]"));
@@ -89,7 +89,7 @@ public class ViewAddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase 
 		loadRequiredJavaScriptModules();
 		assertTrue(selenium.isElementPresent(
 				"//body[contains(@class,'live-view')]"));
-		assertFalse(selenium.isElementPresent(
+		assertTrue(selenium.isElementNotPresent(
 				"//body[contains(@class,'local-staging')]"));
 		assertEquals(RuntimeVariables.replace("DL Document Title"),
 			selenium.getText("//a[@class='document-link']"));
@@ -103,12 +103,12 @@ public class ViewAddDLDocumentSiteStagingLocalLiveNoDLTest extends BaseTestCase 
 			selenium.getText("//span[@class='document-description']"));
 		assertEquals(RuntimeVariables.replace("Status: Approved"),
 			selenium.getText("//span[@class='workflow-status']"));
-		assertEquals(RuntimeVariables.replace("Download (9.6k)"),
+		assertEquals(RuntimeVariables.replace("Download (12.4k)"),
 			selenium.getText("//span[@class='download-document']"));
 		assertEquals(RuntimeVariables.replace("1.0"),
 			selenium.getText("//tr[3]/td[1]"));
 		assertTrue(selenium.isElementPresent("//tr[3]/td[2]"));
-		assertEquals(RuntimeVariables.replace("9.6k"),
+		assertEquals(RuntimeVariables.replace("12.4k"),
 			selenium.getText("//tr[3]/td[3]"));
 		assertEquals(RuntimeVariables.replace("Approved"),
 			selenium.getText("//tr[3]/td[4]"));

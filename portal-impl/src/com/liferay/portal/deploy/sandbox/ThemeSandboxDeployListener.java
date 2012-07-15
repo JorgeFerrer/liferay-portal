@@ -59,9 +59,7 @@ public class ThemeSandboxDeployListener
 
 		super.copyXmls(srcFile, displayName, pluginPackage);
 
-		if (appServerType.equals(ServerDetector.TOMCAT_ID)) {
-			copyDependencyXml("context.xml", srcFile + "/META-INF");
-		}
+		copyTomcatContextXml(srcFile);
 	}
 
 	public void deploy(File dir) throws SandboxDeployException {

@@ -162,6 +162,12 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 		deleteFolder(dlFolder);
 	}
 
+	public DLFolder fetchFolder(long groupId, long parentFolderId, String name)
+		throws SystemException {
+
+		return dlFolderPersistence.fetchByG_P_N(groupId, parentFolderId, name);
+	}
+
 	public List<DLFolder> getCompanyFolders(long companyId, int start, int end)
 		throws SystemException {
 
@@ -290,7 +296,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long,
-	 *             boolean, QueryDefinition)}
+	 *             String[], boolean, QueryDefinition)}
 	 */
 	public List<Object> getFoldersAndFileEntriesAndFileShortcuts(
 			long groupId, long folderId, int status,
@@ -306,8 +312,8 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	/**
-	 * @deprecated {@link #getFoldersAndFileEntriesAndFileShortcuts(long, long,
-	 *             boolean, QueryDefinition)}
+	 * @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long,
+	 *             long, String[], boolean, QueryDefinition)}
 	 */
 	public List<Object> getFoldersAndFileEntriesAndFileShortcuts(
 			long groupId, long folderId, int status, String[] mimeTypes,
@@ -333,7 +339,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long,
-	 *             long, String[], boolean, QueryDefinition)
+	 *             long, String[], boolean, QueryDefinition)}
 	 */
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(
 			long groupId, long folderId, int status,
@@ -348,7 +354,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 	/**
 	 * @deprecated {@link #getFoldersAndFileEntriesAndFileShortcutsCount(long,
-	 *             long, String[], boolean, QueryDefinition)
+	 *             long, String[], boolean, QueryDefinition)}
 	 */
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(
 			long groupId, long folderId, int status, String[] mimeTypes,

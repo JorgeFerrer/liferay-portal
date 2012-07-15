@@ -60,13 +60,6 @@ public class AssetEntryServiceWrapper implements AssetEntryService,
 		return _assetEntryService.getCompanyEntriesCount(companyId);
 	}
 
-	public com.liferay.portlet.asset.model.AssetEntryDisplay[] getCompanyEntryDisplays(
-		long companyId, int start, int end, java.lang.String languageId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _assetEntryService.getCompanyEntryDisplays(companyId, start,
-			end, languageId);
-	}
-
 	public java.util.List<com.liferay.portlet.asset.model.AssetEntry> getEntries(
 		com.liferay.portlet.asset.service.persistence.AssetEntryQuery entryQuery)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -94,22 +87,11 @@ public class AssetEntryServiceWrapper implements AssetEntryService,
 		return _assetEntryService.incrementViewCounter(className, classPK);
 	}
 
-	public com.liferay.portlet.asset.model.AssetEntryDisplay[] searchEntryDisplays(
-		long companyId, long[] groupIds, java.lang.String className,
-		java.lang.String keywords, java.lang.String languageId, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
-		return _assetEntryService.searchEntryDisplays(companyId, groupIds,
-			className, keywords, languageId, start, end);
-	}
-
-	public int searchEntryDisplaysCount(long companyId, long[] groupIds,
-		java.lang.String className, java.lang.String keywords,
-		java.lang.String languageId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _assetEntryService.searchEntryDisplaysCount(companyId, groupIds,
-			className, keywords, languageId);
-	}
-
+	/**
+	* @deprecated {@link #updateEntry(long, String, long, String, long, long[],
+	String[], boolean, Date, Date, Date, String, String, String,
+	String, String, String, int, int, Integer, boolean)}
+	*/
 	public com.liferay.portlet.asset.model.AssetEntry updateEntry(
 		long groupId, java.lang.String className, long classPK,
 		java.lang.String classUuid, long classTypeId, long[] categoryIds,
@@ -126,6 +108,23 @@ public class AssetEntryServiceWrapper implements AssetEntryService,
 			classUuid, classTypeId, categoryIds, tagNames, visible, startDate,
 			endDate, publishDate, expirationDate, mimeType, title, description,
 			summary, url, layoutUuid, height, width, priority, sync);
+	}
+
+	public com.liferay.portlet.asset.model.AssetEntry updateEntry(
+		long groupId, java.lang.String className, long classPK,
+		java.lang.String classUuid, long classTypeId, long[] categoryIds,
+		java.lang.String[] tagNames, boolean visible, java.util.Date startDate,
+		java.util.Date endDate, java.util.Date expirationDate,
+		java.lang.String mimeType, java.lang.String title,
+		java.lang.String description, java.lang.String summary,
+		java.lang.String url, java.lang.String layoutUuid, int height,
+		int width, java.lang.Integer priority, boolean sync)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _assetEntryService.updateEntry(groupId, className, classPK,
+			classUuid, classTypeId, categoryIds, tagNames, visible, startDate,
+			endDate, expirationDate, mimeType, title, description, summary,
+			url, layoutUuid, height, width, priority, sync);
 	}
 
 	/**

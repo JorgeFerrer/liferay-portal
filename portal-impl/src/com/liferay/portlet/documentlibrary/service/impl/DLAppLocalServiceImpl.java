@@ -60,7 +60,8 @@ import java.util.List;
  * primary key of the specific repository. If the repository is a default
  * Liferay repository, the <code>repositoryId</code> is the <code>groupId</code>
  * or <code>scopeGroupId</code>. Otherwise, the <code>repositoryId</code> will
- * correspond to values obtained from {@link RepositoryLocalServiceUtil}.
+ * correspond to values obtained from {@link
+ * com.liferay.portal.service.RepositoryLocalServiceUtil}.
  * </p>
  *
  * @author Alexander Chow
@@ -129,7 +130,8 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	}
 
 	/**
-	 * Adds a file entry and associated metadata based on a {@link File} object.
+	 * Adds a file entry and associated metadata based on a {@link java.io.File}
+	 * object.
 	 *
 	 * <p>
 	 * This method takes two file names, the <code>sourceFileName</code> and the
@@ -190,8 +192,8 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	}
 
 	/**
-	 * Adds a file entry and associated metadata based on an {@link InputStream}
-	 * object.
+	 * Adds a file entry and associated metadata based on an {@link
+	 * java.io.InputStream} object.
 	 *
 	 * <p>
 	 * This method takes two file names, the <code>sourceFileName</code> and the
@@ -755,10 +757,11 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	}
 
 	/**
-	 * Updates a file entry and associated metadata based on a {@link File}
-	 * object. If the file data is <code>null</code>, then only the associated
-	 * metadata (i.e., <code>title</code>, <code>description</code>, and
-	 * parameters in the <code>serviceContext</code>) will be updated.
+	 * Updates a file entry and associated metadata based on a {@link
+	 * java.io.File} object. If the file data is <code>null</code>, then only
+	 * the associated metadata (i.e., <code>title</code>,
+	 * <code>description</code>, and parameters in the
+	 * <code>serviceContext</code>) will be updated.
 	 *
 	 * <p>
 	 * This method takes two file names, the <code>sourceFileName</code> and the
@@ -821,7 +824,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	}
 
 	/**
-	 * Updates a file entry and associated metadata based on an {@link
+	 * Updates a file entry and associated metadata based on an {@link java.io.
 	 * InputStream} object. If the file data is <code>null</code>, then only the
 	 * associated metadata (i.e., <code>title</code>, <code>description</code>,
 	 * and parameters in the <code>serviceContext</code>) will be updated.
@@ -1100,7 +1103,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 			long userId, long fileEntryId, long newFolderId,
 			LocalRepository fromLocalRepository,
 			LocalRepository toLocalRepository, ServiceContext serviceContext)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		FileEntry sourceFileEntry = fromLocalRepository.getFileEntry(
 			fileEntryId);

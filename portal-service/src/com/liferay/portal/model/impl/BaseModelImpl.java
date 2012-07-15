@@ -14,7 +14,6 @@
 
 package com.liferay.portal.model.impl;
 
-import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
@@ -93,11 +92,7 @@ public abstract class BaseModelImpl<T> implements BaseModel<T> {
 		}
 
 		if (locale == null) {
-			locale = LocaleThreadLocal.getThemeDisplayLocale();
-		}
-
-		if (locale == null) {
-			locale = LocaleUtil.getDefault();
+			locale = LocaleUtil.getMostRelevantLocale();
 		}
 
 		return locale;

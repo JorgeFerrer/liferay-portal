@@ -15,7 +15,7 @@
 package com.liferay.portalweb.demo.useradmin.usermanagementuserprofile;
 
 import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.util.BaseTestCase;
+import com.liferay.portalweb.portal.BaseTestCase;
 
 import com.liferay.portalweb.portal.util.TestPropsValues;
 
