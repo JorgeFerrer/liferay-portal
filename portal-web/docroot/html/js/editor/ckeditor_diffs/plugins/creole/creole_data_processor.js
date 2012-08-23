@@ -445,7 +445,15 @@
 		_handleOrderedList: function(element, listTagsIn, listTagsOut) {
 			var instance = this;
 
-			instance._listsStack.push(TAG_ORDERED_LIST_ITEM);
+			var listsStack = instance._listsStack;
+
+			var length = listsStack.length;
+
+			for (i = 0; i < length; i++) {
+				listsStack[i] = TAG_ORDERED_LIST_ITEM;
+			}
+
+			listsStack.push(TAG_ORDERED_LIST_ITEM);
 		},
 
 		_handleParagraph: function(element, listTagsIn, listTagsOut) {
@@ -542,7 +550,15 @@
 		_handleUnorderedList: function(element, listTagsIn, listTagsOut) {
 			var instance = this;
 
-			instance._listsStack.push(TAG_UNORDERED_LIST_ITEM);
+			var listsStack = instance._listsStack;
+
+			var length = listsStack.length;
+
+			for (i = 0; i < length; i++) {
+				listsStack[i] = TAG_UNORDERED_LIST_ITEM;
+			}
+
+			listsStack.push(TAG_UNORDERED_LIST_ITEM);
 		},
 
 		_hasClass: function(element, className) {
