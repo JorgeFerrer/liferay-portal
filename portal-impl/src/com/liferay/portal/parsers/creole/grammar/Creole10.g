@@ -43,6 +43,7 @@ package com.liferay.portal.parsers.creole.parser;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.parsers.creole.ast.ASTNode;
+import com.liferay.portal.parsers.creole.ast.BaseListNode;
 import com.liferay.portal.parsers.creole.ast.BoldTextNode;
 import com.liferay.portal.parsers.creole.ast.CollectionNode;
 import com.liferay.portal.parsers.creole.ast.extension.TableOfContentsNode;
@@ -127,8 +128,7 @@ paragraph returns [ASTNode node = null]
 			|	{ input.LA(1) == DASH && input.LA(2) == DASH &&
 				input.LA(3) == DASH && input.LA(4) == DASH }?
 				hn = horizontalrule {$node = $hn.horizontal;}
-			|	lu =list_unord {$node = $lu.unorderedList;}
-			|	lo = list_ord {$node = $lo.orderedList;}
+			|	l = list {$node = $l.list;}
 			|	t = table { $node = $t.table; }
 			|	tp = text_paragraph  {$node = $tp.paragraph; }
 			)  ( paragraph_separator )?
@@ -342,27 +342,22 @@ heading_unformatted_text returns [StringBundler text = new StringBundler()]
 
 /////////////////////////////////   L I S T   /////////////////////////////////
 
-list_ord returns [OrderedListNode orderedList = new OrderedListNode()]
-	:	( elem = list_ordelem { $orderedList.addChildASTNode($elem.item);  } )+  ( end_of_list )?
-	;
-list_ordelem returns [ASTNode item = null]
-	scope  CountLevel;
+list returns [BaseListNode list = null]
 	@init{
-		$CountLevel::level = 0;
-		$CountLevel::groups = new String();
+		if (input.LA(1) == POUND)
+			$list = new OrderedListNode();
+		else
+			$list = new UnorderedListNode();
 	}
-	:	om = list_ordelem_markup  {++$CountLevel::level; $CountLevel::currentMarkup = $om.text; $CountLevel::groups += $om.text;}  elem=list_elem { $item = new OrderedListItemNode($CountLevel::level, $elem.items);}
+	:	( elem = list_elems { $list.addChildASTNode($elem.item); } )+  ( end_of_list )?
 	;
-
-list_unord returns [UnorderedListNode unorderedList = new UnorderedListNode()]
-	:	( elem = list_unordelem { $unorderedList.addChildASTNode($elem.item); } )+  ( end_of_list )?
-	;
-list_unordelem returns [UnorderedListItemNode  item = null]
+list_elems returns [ASTNode item = null]
 	scope  CountLevel;
 	@init{
 		$CountLevel::level = 0;
 	}
-	:	um = list_unordelem_markup {++$CountLevel::level; $CountLevel::currentMarkup = $um.text;$CountLevel::groups += $um.text;}  elem=list_elem { $item = new UnorderedListItemNode($CountLevel::level, $elem.items);}
+	:	om = list_ordelem_markup {++$CountLevel::level; $CountLevel::currentMarkup = $om.text;$CountLevel::groups += $om.text;}  elem=list_elem { $item = new OrderedListItemNode($CountLevel::level, $elem.items);}
+	|	um = list_unordelem_markup {++$CountLevel::level; $CountLevel::currentMarkup = $um.text;$CountLevel::groups += $um.text;}  elem=list_elem { $item = new UnorderedListItemNode($CountLevel::level, $elem.items);}
 	;
 list_elem  returns [CollectionNode  items = null]
 	:	( m = list_elem_markup {
