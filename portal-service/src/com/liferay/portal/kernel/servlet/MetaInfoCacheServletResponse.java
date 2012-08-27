@@ -199,7 +199,8 @@ public class MetaInfoCacheServletResponse extends HttpServletResponseWrapper {
 	}
 
 	@Override
-	public void flushBuffer() {
+	@SuppressWarnings("unused")
+	public void flushBuffer() throws IOException {
 		_committed = true;
 	}
 

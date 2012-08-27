@@ -17,19 +17,13 @@ package com.liferay.portlet.requests.action;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.UserPermissionUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.social.NoSuchRequestException;
-import com.liferay.portlet.social.service.SocialRequestLocalServiceUtil;
+import com.liferay.portlet.social.service.SocialRequestServiceUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -50,25 +44,6 @@ public class UpdateRequestAction extends PortletAction {
 		throws Exception {
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
-			Group group = GroupLocalServiceUtil.getGroup(
-				themeDisplay.getScopeGroupId());
-
-			User user = themeDisplay.getUser();
-
-			if (group.isUser()) {
-				user = UserLocalServiceUtil.getUserById(group.getClassPK());
-			}
-
-			if (!UserPermissionUtil.contains(
-					themeDisplay.getPermissionChecker(), user.getUserId(),
-					ActionKeys.UPDATE)) {
-
-				throw new PrincipalException();
-			}
-
 			updateRequest(actionRequest);
 
 			String redirect = PortalUtil.escapeRedirect(
@@ -99,8 +74,7 @@ public class UpdateRequestAction extends PortletAction {
 		long requestId = ParamUtil.getLong(actionRequest, "requestId");
 		int status = ParamUtil.getInteger(actionRequest, "status");
 
-		SocialRequestLocalServiceUtil.updateRequest(
-			requestId, status, themeDisplay);
+		SocialRequestServiceUtil.updateRequest(requestId, status, themeDisplay);
 	}
 
 }

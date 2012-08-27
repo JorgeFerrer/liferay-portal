@@ -24,7 +24,9 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
+import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
@@ -49,8 +51,10 @@ import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.journal.NoSuchStructureException;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.model.JournalArticleConstants;
+import com.liferay.portlet.journal.model.JournalFolderConstants;
 import com.liferay.portlet.journal.model.JournalStructure;
 import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
+import com.liferay.portlet.journal.service.JournalFolderServiceUtil;
 import com.liferay.portlet.journal.service.JournalStructureLocalServiceUtil;
 
 import java.util.ArrayList;
@@ -105,6 +109,32 @@ public class JournalIndexer extends BaseIndexer {
 
 		if (status != WorkflowConstants.STATUS_ANY) {
 			contextQuery.addRequiredTerm(Field.STATUS, status);
+		}
+
+		long[] folderIds = searchContext.getFolderIds();
+
+		if ((folderIds != null) && (folderIds.length > 0)) {
+			if (folderIds[0] ==
+					JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+
+				return;
+			}
+
+			BooleanQuery folderIdsQuery = BooleanQueryFactoryUtil.create(
+				searchContext);
+
+			for (long folderId : folderIds) {
+				try {
+					JournalFolderServiceUtil.getFolder(folderId);
+				}
+				catch (Exception e) {
+					continue;
+				}
+
+				folderIdsQuery.addTerm(Field.FOLDER_ID, folderId);
+			}
+
+			contextQuery.add(folderIdsQuery, BooleanClauseOccur.MUST);
 		}
 
 		String articleType = (String)searchContext.getAttribute("articleType");
@@ -297,13 +327,26 @@ public class JournalIndexer extends BaseIndexer {
 		Document document, Locale locale, String snippet,
 		PortletURL portletURL) {
 
-		String title = document.get(locale, Field.TITLE);
+		Locale snippetLocale = getSnippetLocale(document, locale);
 
-		String content = snippet;
+		String prefix = Field.SNIPPET + StringPool.UNDERLINE;
 
-		if (Validator.isNull(snippet)) {
-			content = StringUtil.shorten(
-				document.get(locale, Field.CONTENT), 200);
+		String title = document.get(
+			snippetLocale, prefix + Field.TITLE, Field.TITLE);
+
+		String content = document.get(
+			snippetLocale, prefix + Field.DESCRIPTION, prefix + Field.CONTENT);
+
+		if (Validator.isBlank(content)) {
+			content = document.get(locale, Field.DESCRIPTION, Field.CONTENT);
+
+			if (Validator.isBlank(content)) {
+				content = document.get(Field.DESCRIPTION, Field.CONTENT);
+			}
+		}
+
+		if (content.length() > 200) {
+			content = StringUtil.shorten(content, 200);
 		}
 
 		String groupId = document.get(Field.GROUP_ID);
@@ -315,7 +358,7 @@ public class JournalIndexer extends BaseIndexer {
 		portletURL.setParameter("articleId", articleId);
 		portletURL.setParameter("version", version);
 
-		return new Summary(title, content, portletURL);
+		return new Summary(snippetLocale, title, content, portletURL);
 	}
 
 	@Override

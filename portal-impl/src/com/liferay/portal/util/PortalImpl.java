@@ -93,6 +93,7 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PublicRenderParameter;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.ResourcePermission;
@@ -1065,6 +1066,14 @@ public class PortalImpl implements Portal {
 			String completeURL, ThemeDisplay themeDisplay, Layout layout)
 		throws PortalException, SystemException {
 
+		return getCanonicalURL(completeURL, themeDisplay, layout, false);
+	}
+
+	public String getCanonicalURL(
+			String completeURL, ThemeDisplay themeDisplay, Layout layout,
+			boolean forceLayoutFriendlyURL)
+		throws PortalException, SystemException {
+
 		completeURL = removeRedirectParameter(completeURL);
 
 		String parametersURL = StringPool.BLANK;
@@ -1094,6 +1103,9 @@ public class PortalImpl implements Portal {
 				StringPool.SLASH + layout.getLayoutId())) &&
 			(!layout.isFirstParent() || Validator.isNotNull(parametersURL))) {
 
+			layoutFriendlyURL = layout.getFriendlyURL();
+		}
+		else if (forceLayoutFriendlyURL) {
 			layoutFriendlyURL = layout.getFriendlyURL();
 		}
 
@@ -2181,9 +2193,10 @@ public class PortalImpl implements Portal {
 			defaultAssetPublisherPortletId;
 
 		if (Validator.isNull(defaultAssetPublisherPortletId)) {
-			defaultAssetPublisherPortletId =
-				PortletKeys.ASSET_PUBLISHER +
-					LayoutTypePortletImpl.getFullInstanceSeparator();
+			String instanceId = LayoutTypePortletImpl.generateInstanceId();
+
+			defaultAssetPublisherPortletId = PortletConstants.assemblePortletId(
+				PortletKeys.ASSET_PUBLISHER, instanceId);
 		}
 
 		HttpServletRequest request = (HttpServletRequest)requestContext.get(
