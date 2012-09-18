@@ -418,7 +418,8 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 
 				if (group.isSite() &&
 					(userGroups.contains(group) ||
-					 userOrgGroups.contains(group))) {
+						userOrgGroups.contains(group)) ||
+					group.isUserPersonalSite()) {
 
 					Role siteMemberRole = RoleLocalServiceUtil.getRole(
 						group.getCompanyId(), RoleConstants.SITE_MEMBER);
@@ -915,7 +916,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 		// current portlet
 
 		if (Validator.isNotNull(name) && Validator.isNotNull(primKey) &&
-			(primKey.indexOf(PortletConstants.LAYOUT_SEPARATOR) != -1)) {
+			primKey.contains(PortletConstants.LAYOUT_SEPARATOR)) {
 
 			hasLayoutManagerPermission =
 				PortletPermissionUtil.hasLayoutManagerPermission(
