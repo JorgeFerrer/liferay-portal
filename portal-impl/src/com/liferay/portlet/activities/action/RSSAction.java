@@ -94,7 +94,7 @@ public class RSSAction extends com.liferay.portal.struts.RSSAction {
 
 		SyndFeed syndFeed = new SyndFeedImpl();
 
-		String description = ParamUtil.getString(resourceRequest, "feedTitle");
+		String description = ParamUtil.getString(resourceRequest, "title");
 
 		syndFeed.setDescription(description);
 

@@ -67,11 +67,12 @@ Set<Long> categorySubscriptionClassPKs = (Set<Long>)row.getParameter("categorySu
 			}
 			%>
 
-			<liferay-ui:icon
-				image="rss"
-				method="get"
-				target="_blank"
-				url="<%= rssURL.toString() %>"
+			<liferay-ui:rss
+				baseResourceURL="<%= rssURL %>"
+				delta="<%= rssDelta %>"
+				displayStyle="<%= rssDisplayStyle %>"
+				format="<%= rssFormat %>"
+				name="<%= rssName %>"
 			/>
 		</c:if>
 
