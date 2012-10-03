@@ -378,6 +378,10 @@
 		<priority value="ERROR" />
 	</category>
 
+	<category name="com.liferay.portal.kernel.test.plugins.PluginIntegrationTestHotDeployListener">
+		<priority value="INFO" />
+	</category>
+
 	<category name="com.liferay.portal.lar">
 		<priority value="ERROR" />
 	</category>
@@ -842,12 +846,16 @@
 		<priority value="ERROR" />
 	</category>
 
-	<category name="com.liferay.portal.util.CookieKeys">
+	<category name="com.liferay.portal.util.CookieKeysImpl">
 		<priority value="ERROR" />
 	</category>
 
 	<category name="com.liferay.portal.util.EntityResolver">
 		<priority value="ERROR" />
+	</category>
+
+	<category name="com.liferay.portal.util.ExtRegistry">
+		<priority value="INFO" />
 	</category>
 
 	<category name="com.liferay.portal.util.FileImpl">

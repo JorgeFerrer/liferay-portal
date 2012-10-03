@@ -311,11 +311,23 @@ public class DLFileEntryLocalServiceWrapper implements DLFileEntryLocalService,
 			majorVersion, changeLog, serviceContext);
 	}
 
+	/**
+	* @deprecated {@link #checkInFileEntry(long, long, String, ServiceContext)}
+	*/
 	public void checkInFileEntry(long userId, long fileEntryId,
 		java.lang.String lockUuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_dlFileEntryLocalService.checkInFileEntry(userId, fileEntryId, lockUuid);
+	}
+
+	public void checkInFileEntry(long userId, long fileEntryId,
+		java.lang.String lockUuid,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_dlFileEntryLocalService.checkInFileEntry(userId, fileEntryId,
+			lockUuid, serviceContext);
 	}
 
 	/**
@@ -428,6 +440,13 @@ public class DLFileEntryLocalServiceWrapper implements DLFileEntryLocalService,
 		long imageId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlFileEntryLocalService.fetchFileEntryByAnyImageId(imageId);
+	}
+
+	public com.liferay.portlet.documentlibrary.model.DLFileEntry fetchFileEntryByName(
+		long groupId, long folderId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _dlFileEntryLocalService.fetchFileEntryByName(groupId, folderId,
+			name);
 	}
 
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLFileEntry> getExtraSettingsFileEntries(

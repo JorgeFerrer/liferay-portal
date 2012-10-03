@@ -60,6 +60,7 @@ public class DLFolderWrapper implements DLFolder, ModelWrapper<DLFolder> {
 		attributes.put("description", getDescription());
 		attributes.put("lastPostDate", getLastPostDate());
 		attributes.put("defaultFileEntryTypeId", getDefaultFileEntryTypeId());
+		attributes.put("hidden", getHidden());
 		attributes.put("overrideFileEntryTypes", getOverrideFileEntryTypes());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
@@ -159,6 +160,12 @@ public class DLFolderWrapper implements DLFolder, ModelWrapper<DLFolder> {
 
 		if (defaultFileEntryTypeId != null) {
 			setDefaultFileEntryTypeId(defaultFileEntryTypeId);
+		}
+
+		Boolean hidden = (Boolean)attributes.get("hidden");
+
+		if (hidden != null) {
+			setHidden(hidden);
 		}
 
 		Boolean overrideFileEntryTypes = (Boolean)attributes.get(
@@ -511,6 +518,33 @@ public class DLFolderWrapper implements DLFolder, ModelWrapper<DLFolder> {
 	}
 
 	/**
+	* Returns the hidden of this document library folder.
+	*
+	* @return the hidden of this document library folder
+	*/
+	public boolean getHidden() {
+		return _dlFolder.getHidden();
+	}
+
+	/**
+	* Returns <code>true</code> if this document library folder is hidden.
+	*
+	* @return <code>true</code> if this document library folder is hidden; <code>false</code> otherwise
+	*/
+	public boolean isHidden() {
+		return _dlFolder.isHidden();
+	}
+
+	/**
+	* Sets whether this document library folder is hidden.
+	*
+	* @param hidden the hidden of this document library folder
+	*/
+	public void setHidden(boolean hidden) {
+		_dlFolder.setHidden(hidden);
+	}
+
+	/**
 	* Returns the override file entry types of this document library folder.
 	*
 	* @return the override file entry types of this document library folder
@@ -715,6 +749,51 @@ public class DLFolderWrapper implements DLFolder, ModelWrapper<DLFolder> {
 	*/
 	public boolean isScheduled() {
 		return _dlFolder.isScheduled();
+	}
+
+	/**
+	* Returns the container model ID of this document library folder.
+	*
+	* @return the container model ID of this document library folder
+	*/
+	public long getContainerModelId() {
+		return _dlFolder.getContainerModelId();
+	}
+
+	/**
+	* Sets the container model ID of this document library folder.
+	*
+	* @param container model ID of this document library folder
+	*/
+	public void setContainerModelId(long containerModelId) {
+		_dlFolder.setContainerModelId(containerModelId);
+	}
+
+	/**
+	* Returns the container name of this document library folder.
+	*
+	* @return the container name of this document library folder
+	*/
+	public java.lang.String getContainerModelName() {
+		return _dlFolder.getContainerModelName();
+	}
+
+	/**
+	* Returns the parent container model ID of this document library folder.
+	*
+	* @return the parent container model ID of this document library folder
+	*/
+	public long getParentContainerModelId() {
+		return _dlFolder.getParentContainerModelId();
+	}
+
+	/**
+	* Sets the parent container model ID of this document library folder.
+	*
+	* @param parent container model ID of this document library folder
+	*/
+	public void setParentContainerModelId(long parentContainerModelId) {
+		_dlFolder.setParentContainerModelId(parentContainerModelId);
 	}
 
 	public boolean isNew() {

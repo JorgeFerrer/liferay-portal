@@ -23,8 +23,8 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Attribute;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
@@ -179,23 +179,16 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		String locale) {
 
 		try {
-			StringBundler sb = new StringBundler(7);
+			Map<String, Map<String, String>> fieldsMap = _getFieldsMap(locale);
 
-			sb.append("//dynamic-element[@name=");
-			sb.append(HtmlUtil.escapeXPathAttribute(fieldName));
-			sb.append("] //dynamic-element[@");
-			sb.append(HtmlUtil.escapeXPath(attributeName));
-			sb.append("=");
-			sb.append(HtmlUtil.escapeXPathAttribute(attributeValue));
-			sb.append("]");
+			Map<String, String> field = fieldsMap.get(fieldName);
 
-			XPath xPathSelector = SAXReaderUtil.createXPath(sb.toString());
+			if (field != null) {
+				String value = field.get(attributeName);
 
-			Node node = xPathSelector.selectSingleNode(getDocument());
-
-			if (node != null) {
-				return _getField(
-					(Element)node.asXPathResult(node.getParent()), locale);
+				if (Validator.equals(value, attributeValue)) {
+					return field;
+				}
 			}
 		}
 		catch (Exception e) {
@@ -221,6 +214,13 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		throws PortalException, SystemException {
 
 		return getFieldProperty(fieldName, "type");
+	}
+
+	@Override
+	public Map<String, Map<String, Map<String, String>>>
+		getLocalizedFieldsMap() {
+
+		return _localizedFieldsMap;
 	}
 
 	public List<DDMTemplate> getTemplates() throws SystemException {
@@ -269,6 +269,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		_document = document;
 	}
 
+	@Override
 	public void setLocalizedFieldsMap(
 		Map<String, Map<String, Map<String, String>>> localizedFieldsMap) {
 
@@ -384,6 +385,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@CacheField
 	private Document _document;
 
+	@CacheField
 	private Map<String, Map<String, Map<String, String>>> _localizedFieldsMap =
 		new ConcurrentHashMap<String, Map<String, Map<String, String>>>();
 

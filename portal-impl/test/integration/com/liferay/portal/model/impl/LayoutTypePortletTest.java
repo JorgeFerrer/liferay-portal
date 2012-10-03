@@ -15,6 +15,7 @@
 package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
+import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
@@ -23,7 +24,6 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceTestUtil;
-import com.liferay.portal.test.ExecutionTestListeners;
 import com.liferay.portal.test.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.test.MainServletExecutionTestListener;
 import com.liferay.portal.test.TransactionalCallbackAwareExecutionTestListener;
@@ -87,13 +87,13 @@ public class LayoutTypePortletTest {
 
 		String portletId = PortletKeys.JOURNAL_CONTENT;
 
-		Assert.assertFalse(layoutTypePortlet.hasModeEditDefaultsPortletId(
-			portletId));
+		Assert.assertFalse(
+			layoutTypePortlet.hasModeEditDefaultsPortletId(portletId));
 
 		layoutTypePortlet.addModeEditDefaultsPortletId(portletId);
 
-		Assert.assertTrue(layoutTypePortlet.hasModeEditDefaultsPortletId(
-			portletId));
+		Assert.assertTrue(
+			layoutTypePortlet.hasModeEditDefaultsPortletId(portletId));
 	}
 
 	@Test
@@ -103,13 +103,13 @@ public class LayoutTypePortletTest {
 
 		String portletId = PortletKeys.JOURNAL_CONTENT;
 
-		Assert.assertFalse(layoutTypePortlet.hasModeEditGuestPortletId(
-			portletId));
+		Assert.assertFalse(
+			layoutTypePortlet.hasModeEditGuestPortletId(portletId));
 
 		layoutTypePortlet.addModeEditGuestPortletId(portletId);
 
-		Assert.assertTrue(layoutTypePortlet.hasModeEditGuestPortletId(
-			portletId));
+		Assert.assertTrue(
+			layoutTypePortlet.hasModeEditGuestPortletId(portletId));
 	}
 
 	@Test
@@ -147,8 +147,8 @@ public class LayoutTypePortletTest {
 
 		String portletId = PortletKeys.JOURNAL_CONTENT;
 
-		Assert.assertFalse(layoutTypePortlet.hasModePreviewPortletId(
-			portletId));
+		Assert.assertFalse(
+			layoutTypePortlet.hasModePreviewPortletId(portletId));
 
 		layoutTypePortlet.addModePreviewPortletId(portletId);
 

@@ -21,12 +21,12 @@ import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceTestUtil;
 import com.liferay.portal.service.persistence.BasePersistence;
 import com.liferay.portal.service.persistence.PersistenceExecutionTestListener;
-import com.liferay.portal.test.ExecutionTestListeners;
 import com.liferay.portal.test.LiferayPersistenceIntegrationJUnitTestRunner;
 import com.liferay.portal.test.persistence.TransactionalPersistenceAdvice;
 import com.liferay.portal.util.PropsValues;
@@ -160,6 +160,8 @@ public class DLFileEntryPersistenceTest {
 
 		newDLFileEntry.setCustom2ImageId(ServiceTestUtil.nextLong());
 
+		newDLFileEntry.setManualCheckInRequired(ServiceTestUtil.randomBoolean());
+
 		_persistence.update(newDLFileEntry, false);
 
 		DLFileEntry existingDLFileEntry = _persistence.findByPrimaryKey(newDLFileEntry.getPrimaryKey());
@@ -218,6 +220,8 @@ public class DLFileEntryPersistenceTest {
 			newDLFileEntry.getCustom1ImageId());
 		Assert.assertEquals(existingDLFileEntry.getCustom2ImageId(),
 			newDLFileEntry.getCustom2ImageId());
+		Assert.assertEquals(existingDLFileEntry.getManualCheckInRequired(),
+			newDLFileEntry.getManualCheckInRequired());
 	}
 
 	@Test
@@ -421,6 +425,8 @@ public class DLFileEntryPersistenceTest {
 		dlFileEntry.setCustom1ImageId(ServiceTestUtil.nextLong());
 
 		dlFileEntry.setCustom2ImageId(ServiceTestUtil.nextLong());
+
+		dlFileEntry.setManualCheckInRequired(ServiceTestUtil.randomBoolean());
 
 		_persistence.update(dlFileEntry, false);
 

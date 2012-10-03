@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
+import com.liferay.portal.model.ContainerModel;
 import com.liferay.portal.model.GroupedModel;
 import com.liferay.portal.model.WorkflowedModel;
 import com.liferay.portal.service.ServiceContext;
@@ -41,8 +42,8 @@ import java.util.Date;
  * @see com.liferay.portlet.documentlibrary.model.impl.DLFolderModelImpl
  * @generated
  */
-public interface DLFolderModel extends BaseModel<DLFolder>, GroupedModel,
-	WorkflowedModel {
+public interface DLFolderModel extends BaseModel<DLFolder>, ContainerModel,
+	GroupedModel, WorkflowedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -300,6 +301,27 @@ public interface DLFolderModel extends BaseModel<DLFolder>, GroupedModel,
 	public void setDefaultFileEntryTypeId(long defaultFileEntryTypeId);
 
 	/**
+	 * Returns the hidden of this document library folder.
+	 *
+	 * @return the hidden of this document library folder
+	 */
+	public boolean getHidden();
+
+	/**
+	 * Returns <code>true</code> if this document library folder is hidden.
+	 *
+	 * @return <code>true</code> if this document library folder is hidden; <code>false</code> otherwise
+	 */
+	public boolean isHidden();
+
+	/**
+	 * Sets whether this document library folder is hidden.
+	 *
+	 * @param hidden the hidden of this document library folder
+	 */
+	public void setHidden(boolean hidden);
+
+	/**
 	 * Returns the override file entry types of this document library folder.
 	 *
 	 * @return the override file entry types of this document library folder
@@ -459,6 +481,41 @@ public interface DLFolderModel extends BaseModel<DLFolder>, GroupedModel,
 	 * @return <code>true</code> if this document library folder is scheduled; <code>false</code> otherwise
 	 */
 	public boolean isScheduled();
+
+	/**
+	 * Returns the container model ID of this document library folder.
+	 *
+	 * @return the container model ID of this document library folder
+	 */
+	public long getContainerModelId();
+
+	/**
+	 * Sets the container model ID of this document library folder.
+	 *
+	 * @param container model ID of this document library folder
+	 */
+	public void setContainerModelId(long containerModelId);
+
+	/**
+	 * Returns the container name of this document library folder.
+	 *
+	 * @return the container name of this document library folder
+	 */
+	public String getContainerModelName();
+
+	/**
+	 * Returns the parent container model ID of this document library folder.
+	 *
+	 * @return the parent container model ID of this document library folder
+	 */
+	public long getParentContainerModelId();
+
+	/**
+	 * Sets the parent container model ID of this document library folder.
+	 *
+	 * @param parent container model ID of this document library folder
+	 */
+	public void setParentContainerModelId(long parentContainerModelId);
 
 	public boolean isNew();
 

@@ -23,6 +23,7 @@ import com.germinus.easyconf.JndiURL;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.security.lang.PortalSecurityManagerThreadLocal;
 
 import java.net.URL;
@@ -214,6 +215,8 @@ public class ClassLoaderAggregateProperties extends AggregatedProperties {
 		String[] fileNames = tempCompositeConfiguration.getStringArray(
 			Conventions.INCLUDE_PROPERTY);
 
+		ArrayUtil.reverse(fileNames);
+
 		for (String fileName : fileNames) {
 			URL url = null;
 
@@ -371,8 +374,7 @@ public class ClassLoaderAggregateProperties extends AggregatedProperties {
 		return delay;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		AggregatedProperties.class);
+	private static Log _log = LogFactoryUtil.getLog(AggregatedProperties.class);
 
 	private CompositeConfiguration _baseCompositeConfiguration =
 		new CompositeConfiguration();

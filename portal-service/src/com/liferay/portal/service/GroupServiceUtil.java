@@ -159,7 +159,7 @@ public class GroupServiceUtil {
 	* <p>
 	* The group is unstaged and its assets and resources including layouts,
 	* membership requests, subscriptions, teams, blogs, bookmarks, calendar
-	* events, image gallery, journals, message boards, polls, shopping related
+	* events, image gallery, journals, message boards, shopping related
 	* entities, software catalog, and wikis are also deleted.
 	* </p>
 	*
@@ -414,10 +414,10 @@ public class GroupServiceUtil {
 	}
 
 	/**
-	* Returns a name ordered range of all the site groups and organization
-	* groups that match the name and description, optionally including the
-	* user's inherited organization groups and user groups. System and staged
-	* groups are not included.
+	* Returns an ordered range of all the site groups and organization groups
+	* that match the name and description, optionally including the user's
+	* inherited organization groups and user groups. System and staged groups
+	* are not included.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end -
