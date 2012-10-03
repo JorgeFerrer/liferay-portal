@@ -70,11 +70,12 @@ MBThread thread = message.getThread();
 			rssURL.setParameter("threadId", String.valueOf(message.getThreadId()));
 			%>
 
-			<liferay-ui:icon
-				image="rss"
-				method="get"
-				target="_blank"
-				url="<%= rssURL.toString() %>"
+			<liferay-ui:rss
+				baseResourceURL="<%= rssURL %>"
+				delta="<%= rssDelta %>"
+				displayStyle="<%= rssDisplayStyle %>"
+				format="<%= rssFormat %>"
+				name="<%= rssName %>"
 			/>
 		</c:if>
 

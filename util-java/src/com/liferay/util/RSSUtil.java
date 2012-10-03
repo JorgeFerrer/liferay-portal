@@ -44,6 +44,12 @@ public class RSSUtil {
 
 	public static final String ENTRY_TYPE_DEFAULT = "html";
 
+	public static final String FEED_FORMAT_DEFAULT = "atom10";
+
+	public static final String[] FEED_FORMATS = new String[] {
+		"atom10", "rss10", "rss20"
+	};
+
 	public static final String FEED_TYPE_DEFAULT = getFeedType(
 		RSSUtil.TYPE_DEFAULT, RSSUtil.VERSION_DEFAULT);
 

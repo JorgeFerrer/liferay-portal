@@ -71,12 +71,11 @@ String socialBookmarksDisplayStyle = preferences.getValue("socialBookmarksDispla
 String socialBookmarksDisplayPosition = preferences.getValue("socialBookmarksDisplayPosition", "bottom");
 String socialBookmarksTypes = preferences.getValue("socialBookmarksTypes", PropsUtil.get(PropsKeys.SOCIAL_BOOKMARK_TYPES));
 
+boolean enableRSS = GetterUtil.getBoolean(preferences.getValue("enableRSS", null), true);
 int rssDelta = GetterUtil.getInteger(preferences.getValue("rssDelta", StringPool.BLANK), SearchContainer.DEFAULT_DELTA);
 String rssDisplayStyle = preferences.getValue("rssDisplayStyle", RSSUtil.DISPLAY_STYLE_FULL_CONTENT);
-String rssFormat = preferences.getValue("rssFormat", "atom10");
-
-String rssFormatType = RSSUtil.getFormatType(rssFormat);
-double rssFormatVersion = RSSUtil.getFormatVersion(rssFormat);
+String rssFormat[] = StringUtil.split(preferences.getValue("rssFormat", RSSUtil.FEED_FORMAT_DEFAULT));
+String rssName = preferences.getValue("rssName", StringPool.BLANK);
 
 boolean showSearch = true;
 boolean showEditEntryPermissions = true;

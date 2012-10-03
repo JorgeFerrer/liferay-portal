@@ -161,31 +161,13 @@ int count = 0;
 			<liferay-ui:message key="rss-subscription" />
 		</th>
 		<td>
-			<liferay-ui:icon-list>
-				<liferay-ui:icon
-					image="rss"
-					label="<%= true %>"
-					message="Atom 1.0"
-					target="_blank"
-					url='<%= themeDisplay.getPathMain() + "/wiki/rss?p_l_id=" + plid + "&companyId=" + company.getCompanyId() + "&nodeId=" + wikiPage.getNodeId() + "&title=" + wikiPage.getTitle() + rssURLAtomParams %>'
-				/>
-
-				<liferay-ui:icon
-					image="rss"
-					label="<%= true %>"
-					message="RSS 1.0"
-					target="_blank"
-					url='<%= themeDisplay.getPathMain() + "/wiki/rss?p_l_id=" + plid + "&companyId=" + company.getCompanyId() + "&nodeId=" + wikiPage.getNodeId() + "&title=" + wikiPage.getTitle() + rssURLRSS10Params %>'
-				/>
-
-				<liferay-ui:icon
-					image="rss"
-					label="<%= true %>"
-					message="RSS 2.0"
-					target="_blank"
-					url='<%= themeDisplay.getPathMain() + "/wiki/rss?p_l_id=" + plid + "&companyId=" + company.getCompanyId() + "&nodeId=" + wikiPage.getNodeId() + "&title=" + wikiPage.getTitle() + rssURLRSS20Params %>'
-				/>
-			</liferay-ui:icon-list>
+			<liferay-ui:rss
+				baseURL='<%= themeDisplay.getPathMain() + "/wiki/rss?p_l_id=" + plid + "&companyId=" + company.getCompanyId() + "&nodeId=" + wikiPage.getNodeId() %>'
+				delta="<%= rssDelta %>"
+				displayStyle="<%= rssDisplayStyle %>"
+				format="<%= rssFormat %>"
+				name="<%= Validator.isNotNull(rssName) ? rssName : wikiPage.getTitle() %>"
+			/>
 		</td>
 	</tr>
 </c:if>

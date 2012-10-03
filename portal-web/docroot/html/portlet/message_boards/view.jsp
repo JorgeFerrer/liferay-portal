@@ -260,13 +260,12 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			<table class="lfr-table">
 			<tr>
 				<td>
-					<liferay-ui:icon
-						image="rss"
-						label="<%= true %>"
-						message="subscribe-to-recent-posts"
-						method="get"
-						target="_blank"
-						url="<%= rssURL.toString() %>"
+					<liferay-ui:rss
+						baseResourceURL="<%= rssURL %>"
+						delta="<%= rssDelta %>"
+						displayStyle="<%= rssDisplayStyle %>"
+						format="<%= rssFormat %>"
+						name="<%= rssName %>"
 					/>
 				</td>
 			</tr>
