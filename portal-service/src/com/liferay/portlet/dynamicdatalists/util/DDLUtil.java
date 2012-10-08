@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
@@ -104,6 +105,10 @@ public class DDLUtil {
 		return getDDL().getTemplateContent(
 			ddmTemplateId, recordSet, themeDisplay, renderRequest,
 			renderResponse);
+	}
+
+	public static boolean isPortletStaged(Group group, String portletId) {
+		return getDDL().isPortletStaged(group, portletId);
 	}
 
 	public static void sendRecordFileUpload(
