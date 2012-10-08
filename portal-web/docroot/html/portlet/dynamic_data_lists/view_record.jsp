@@ -32,8 +32,6 @@ String version = ParamUtil.getString(request, "version", DDLRecordConstants.VERS
 
 DDLRecordVersion recordVersion = record.getRecordVersion(version);
 
-boolean editable = ParamUtil.getBoolean(request, "editable");
-
 if (editable) {
 	recordVersion = record.getLatestRecordVersion();
 }

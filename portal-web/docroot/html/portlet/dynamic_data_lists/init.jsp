@@ -55,6 +55,18 @@ String ddmResource = portletConfig.getInitParameter("ddm-resource");
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZone);
+
+boolean editable = ParamUtil.getBoolean(request, "editable", true);
+
+if (portletName.equals(PortletKeys.DYNAMIC_DATA_LISTS)) {
+	editable = true;
+}
+
+Group scopeGroup = themeDisplay.getScopeGroup();
+
+if(scopeGroup.isStagingGroup() && scopeGroup.isStagedPortlet(portletDisplay.getId())) {
+	editable = false;
+}
 %>
 
 <%@ include file="/html/portlet/dynamic_data_lists/init-ext.jsp" %>

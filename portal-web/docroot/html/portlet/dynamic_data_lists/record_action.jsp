@@ -26,8 +26,6 @@ ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_
 DDLRecord record = (DDLRecord)row.getObject();
 
 long detailDDMTemplateId = GetterUtil.getLong((String)row.getParameter("detailDDMTemplateId"));
-
-boolean editable = GetterUtil.getBoolean((String)row.getParameter("editable"));
 %>
 
 <liferay-ui:icon-menu>

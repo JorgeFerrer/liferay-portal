@@ -48,6 +48,16 @@ long detailDDMTemplateId = GetterUtil.getLong(preferences.getValue("detailDDMTem
 long listDDMTemplateId = GetterUtil.getLong(preferences.getValue("listDDMTemplateId", StringPool.BLANK));
 
 boolean editable = GetterUtil.getBoolean(preferences.getValue("editable", Boolean.TRUE.toString()));
+boolean stagedPortlet = false;
+
+Group scopeGroup = themeDisplay.getScopeGroup();
+
+if(scopeGroup.isStagingGroup() && scopeGroup.isStagedPortlet(portletDisplay.getId())) {
+	editable = false;
+
+	stagedPortlet = true;
+}
+
 boolean spreadsheet = GetterUtil.getBoolean(preferences.getValue("spreadsheet", Boolean.FALSE.toString()));
 
 String ddmResource = portletConfig.getInitParameter("ddm-resource");
