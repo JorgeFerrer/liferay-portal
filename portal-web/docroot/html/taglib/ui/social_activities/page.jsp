@@ -131,7 +131,6 @@ Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);
 		label="<%= feedLinkMessage %>"
 		name="<%= feedTitle %>"
 	/>
-
 </c:if>
 
 <%!

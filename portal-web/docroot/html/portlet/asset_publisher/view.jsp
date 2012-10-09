@@ -142,6 +142,7 @@ contextObjects.put(PortletDisplayTemplateConstants.ASSET_PUBLISHER_HELPER, Asset
 
 	<%
 	ResourceURL rssURL = liferayPortletResponse.createResourceURL();
+
 	rssURL.setParameter("struts_action", "/asset_publisher/rss");
 	%>
 

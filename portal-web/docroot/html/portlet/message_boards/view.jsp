@@ -181,14 +181,14 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 						<c:if test="<%= enableRSS %>">
 
 							<%
-								rssURL.setParameter("p_l_id", String.valueOf(plid));
+							rssURL.setParameter("p_l_id", String.valueOf(plid));
 
-								if (category.getCategoryId() > 0) {
-									rssURL.setParameter("mbCategoryId", String.valueOf(category.getCategoryId()));
-								}
-								else {
-									rssURL.setParameter("groupId", String.valueOf(scopeGroupId));
-								}
+							if (category.getCategoryId() > 0) {
+								rssURL.setParameter("mbCategoryId", String.valueOf(category.getCategoryId()));
+							}
+							else {
+								rssURL.setParameter("groupId", String.valueOf(scopeGroupId));
+							}
 							%>
 
 							<liferay-ui:rss

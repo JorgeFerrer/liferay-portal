@@ -106,6 +106,7 @@ else {
 }
 
 ResourceURL rssURL = liferayPortletResponse.createResourceURL();
+
 rssURL.setParameter("struts_action", "/blogs/rss");
 %>
 
