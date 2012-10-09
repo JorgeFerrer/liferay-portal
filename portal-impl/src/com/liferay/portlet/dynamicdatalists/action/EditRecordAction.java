@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -149,6 +150,17 @@ public class EditRecordAction extends PortletAction {
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		Group scopeGroup = themeDisplay.getScopeGroup();
+
+		if (scopeGroup.isStagingGroup() &&
+			scopeGroup.isStagedPortlet(serviceContext.getPortletId())) {
+
+			return null;
+		}
 
 		long recordId = ParamUtil.getLong(serviceContext, "recordId");
 

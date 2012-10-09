@@ -21,12 +21,6 @@ DDLRecordSet recordSet = (DDLRecordSet)request.getAttribute(WebKeys.DYNAMIC_DATA
 
 long detailDDMTemplateId = ParamUtil.getLong(request, "detailDDMTemplateId");
 
-boolean editable = ParamUtil.getBoolean(request, "editable", true);
-
-if (portletName.equals(PortletKeys.DYNAMIC_DATA_LISTS)) {
-	editable = true;
-}
-
 if (!DDLRecordSetPermission.contains(permissionChecker, recordSet.getRecordSetId(), ActionKeys.UPDATE)) {
 	editable = false;
 }
