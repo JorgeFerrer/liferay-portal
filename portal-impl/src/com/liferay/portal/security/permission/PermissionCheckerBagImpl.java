@@ -146,6 +146,10 @@ public class PermissionCheckerBagImpl implements PermissionCheckerBag {
 			}
 		}
 
+		if (_userGroups.contains(group)) {
+			return true;
+		}
+
 		return false;
 	}
 

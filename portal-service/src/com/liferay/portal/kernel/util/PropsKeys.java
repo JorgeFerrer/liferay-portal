@@ -2211,6 +2211,8 @@ public interface PropsKeys {
 
 	public static final String TRASH_SEARCH_LIMIT = "trash.search.limit";
 
+	public static final String UPGRADE_DATABASE_TRANSACTIONS_DISABLED = "upgrade.database.transactions.disabled";
+
 	public static final String UPGRADE_PROCESSES = "upgrade.processes";
 
 	public static final String UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE = "com.liferay.portal.upload.UploadServletRequestImpl.max.size";
@@ -2318,6 +2320,8 @@ public interface PropsKeys {
 	public static final String VELOCITY_ENGINE_RESTRICTED_PACKAGES = "velocity.engine.restricted.packages";
 
 	public static final String VELOCITY_ENGINE_VELOCIMACRO_LIBRARY = "velocity.engine.velocimacro.library";
+
+	public static final String VERIFY_DATABASE_TRANSACTIONS_DISABLED = "verify.database.transactions.disabled";
 
 	public static final String VERIFY_FREQUENCY = "verify.frequency";
 
