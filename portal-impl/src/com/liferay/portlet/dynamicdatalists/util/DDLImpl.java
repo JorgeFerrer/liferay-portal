@@ -34,6 +34,8 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
@@ -339,6 +341,18 @@ public class DDLImpl implements DDL {
 			template.getScript(), template.getLanguage());
 	}
 
+	public boolean isPortletStaged(Group group, String portletId) {
+		if ((group == null) || Validator.isNull(portletId)) {
+			return false;
+		}
+
+		if (group.isStagingGroup() && group.isStagedPortlet(portletId)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public void sendRecordFileUpload(
 			HttpServletRequest request, HttpServletResponse response,
 			DDLRecord record, String fieldName)
@@ -368,6 +382,15 @@ public class DDLImpl implements DDL {
 			serviceContext, "majorVersion");
 
 		DDLRecord record = DDLRecordLocalServiceUtil.fetchRecord(recordId);
+
+		long scopeGroupId = serviceContext.getScopeGroupId();
+		Group scopeGroup = GroupLocalServiceUtil.fetchGroup(scopeGroupId);
+
+		String portletId = serviceContext.getPortletId();
+
+		if (isPortletStaged(scopeGroup, portletId)) {
+			return record;
+		}
 
 		DDLRecordSet recordSet = DDLRecordSetLocalServiceUtil.getDDLRecordSet(
 			recordSetId);

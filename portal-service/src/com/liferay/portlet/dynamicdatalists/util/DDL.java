@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
@@ -67,6 +68,8 @@ public interface DDL {
 			ThemeDisplay themeDisplay, RenderRequest renderRequest,
 			RenderResponse renderResponse)
 		throws Exception;
+
+	public boolean isPortletStaged(Group group, String portletId);
 
 	public void sendRecordFileUpload(
 			HttpServletRequest request, HttpServletResponse response,
