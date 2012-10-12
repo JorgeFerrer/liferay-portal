@@ -63,7 +63,7 @@ portletURL.setParameter("recordSetId", String.valueOf(recordSet.getRecordSetId()
 
 	boolean showAddRecordButton = false;
 
-	if (editable) {
+	if (editable && !stagedPortlet) {
 		showAddRecordButton = DDLRecordSetPermission.contains(permissionChecker, recordSet, ActionKeys.ADD_RECORD);
 	}
 	%>

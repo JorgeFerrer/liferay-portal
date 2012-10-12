@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.templateparser.Transformer;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -368,6 +369,13 @@ public class DDLImpl implements DDL {
 			serviceContext, "majorVersion");
 
 		DDLRecord record = DDLRecordLocalServiceUtil.fetchRecord(recordId);
+
+		long scopeGroupId = serviceContext.getScopeGroupId();
+		String portletId = serviceContext.getPortletId();
+
+		if (StagingUtil.isStagedPortlet(scopeGroupId, portletId)) {
+			return record;
+		}
 
 		DDLRecordSet recordSet = DDLRecordSetLocalServiceUtil.getDDLRecordSet(
 			recordSetId);

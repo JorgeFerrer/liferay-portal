@@ -22,6 +22,12 @@ DDLRecordSet recordSet = null;
 if (Validator.isNotNull(recordSetId)) {
 	recordSet = DDLRecordSetLocalServiceUtil.getRecordSet(recordSetId);
 }
+
+boolean showAddRecordButton = false;
+
+if (editable && !stagedPortlet) {
+	showAddRecordButton = DDLRecordSetPermission.contains(permissionChecker, recordSet.getRecordSetId(), ActionKeys.ADD_RECORD);
+}
 %>
 
 <portlet:actionURL var="editRecordSetURL">
@@ -29,7 +35,7 @@ if (Validator.isNotNull(recordSetId)) {
 </portlet:actionURL>
 
 <aui:form action="<%= editRecordSetURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveRecordSet();" %>'>
-	<c:if test="<%= DDLRecordSetPermission.contains(permissionChecker, recordSet.getRecordSetId(), ActionKeys.ADD_RECORD) && editable %>">
+	<c:if test="<%= showAddRecordButton %>">
 		<aui:button onClick='<%= renderResponse.getNamespace() + "addRecord();" %>' value="add-record" />
 
 		<div class="separator"><!-- --></div>

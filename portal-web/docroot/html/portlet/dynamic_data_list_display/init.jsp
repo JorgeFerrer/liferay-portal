@@ -16,7 +16,8 @@
 
 <%@ include file="/html/portlet/init.jsp" %>
 
-<%@ page import="com.liferay.portlet.dynamicdatalists.NoSuchRecordSetException" %><%@
+<%@ page import="com.liferay.portal.kernel.staging.StagingUtil" %><%@
+page import="com.liferay.portlet.dynamicdatalists.NoSuchRecordSetException" %><%@
 page import="com.liferay.portlet.dynamicdatalists.model.DDLRecordSet" %><%@
 page import="com.liferay.portlet.dynamicdatalists.model.DDLRecordSetConstants" %><%@
 page import="com.liferay.portlet.dynamicdatalists.search.RecordSetDisplayTerms" %><%@
@@ -48,6 +49,8 @@ long detailDDMTemplateId = GetterUtil.getLong(preferences.getValue("detailDDMTem
 long listDDMTemplateId = GetterUtil.getLong(preferences.getValue("listDDMTemplateId", StringPool.BLANK));
 
 boolean editable = GetterUtil.getBoolean(preferences.getValue("editable", Boolean.TRUE.toString()));
+boolean stagedPortlet = StagingUtil.isStagedPortlet(themeDisplay.getScopeGroupId(), portletDisplay.getId());
+
 boolean spreadsheet = GetterUtil.getBoolean(preferences.getValue("spreadsheet", Boolean.FALSE.toString()));
 
 String ddmResource = portletConfig.getInitParameter("ddm-resource");

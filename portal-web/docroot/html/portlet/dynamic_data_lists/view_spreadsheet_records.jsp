@@ -29,6 +29,12 @@ if (!DDLRecordSetPermission.contains(permissionChecker, recordSet.getRecordSetId
 	editable = false;
 }
 
+boolean showAddRecordsButton = editable;
+
+if (stagedPortlet) {
+	showAddRecordsButton = false;
+}
+
 DDMStructure ddmStructure = recordSet.getDDMStructure();
 %>
 
@@ -39,7 +45,7 @@ DDMStructure ddmStructure = recordSet.getDDMStructure();
 		</div>
 	</div>
 
-	<c:if test="<%= editable %>">
+	<c:if test="<%= showAddRecordsButton %>">
 		<div class="lfr-spreadsheet-add-rows-buttons">
 			<aui:button inlineField="<%= true %>" name="addRecords" value="add" />
 
@@ -169,7 +175,7 @@ DDMStructure ddmStructure = recordSet.getDDMStructure();
 
 	spreadSheet.get('boundingBox').unselectable();
 
-	<c:if test="<%= editable %>">
+	<c:if test="<%= showAddRecordsButton %>">
 		var numberOfRecordsNode = A.one('#<portlet:namespace />numberOfRecords');
 
 		A.one('#<portlet:namespace />addRecords').on(

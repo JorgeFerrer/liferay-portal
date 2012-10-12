@@ -929,6 +929,31 @@ public class StagingImpl implements Staging {
 		return false;
 	}
 
+	public boolean isStagedPortlet(long groupId, String portletId) {
+		Group group = null;
+
+		try {
+			groupId = PortalUtil.getParentGroupId(groupId);
+
+			group = GroupLocalServiceUtil.getGroup(groupId);
+		}
+		catch (Exception e) {
+			return false;
+		}
+
+		if (!group.isStagingGroup() || Validator.isNull(portletId)) {
+			return false;
+		}
+
+		group = group.getLiveGroup();
+
+		if (group.isStagedPortlet(portletId)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public void publishLayout(
 			long userId, long plid, long liveGroupId, boolean includeChildren)
 		throws Exception {

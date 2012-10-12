@@ -260,6 +260,10 @@ public class StagingUtil {
 		return getStaging().isIncomplete(layout, layoutSetBranchId);
 	}
 
+	public static boolean isStagedPortlet(long groupId, String portletId) {
+		return getStaging().isStagedPortlet(groupId, portletId);
+	}
+
 	public static void publishLayout(
 			long userId, long plid, long liveGroupId, boolean includeChildren)
 		throws Exception {
