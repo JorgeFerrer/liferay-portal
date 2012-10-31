@@ -52,7 +52,7 @@ String fileBrowserParams = marshallParams(fileBrowserParamsMap);
 String cssClass = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-editor:cssClass"));
 String cssClasses = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-editor:cssClasses"));
 String editorImpl = (String)request.getAttribute("liferay-ui:input-editor:editorImpl");
-String name = namespace + GetterUtil.getString((String)request.getAttribute("liferay-ui:input-editor:name"));
+String name = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-editor:name"));
 String initMethod = (String)request.getAttribute("liferay-ui:input-editor:initMethod");
 
 String onChangeMethod = (String)request.getAttribute("liferay-ui:input-editor:onChangeMethod");
@@ -61,9 +61,14 @@ if (Validator.isNotNull(onChangeMethod)) {
 	onChangeMethod = namespace + onChangeMethod;
 }
 
+boolean inlineEdit = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-editor:inlineEdit"));
 boolean resizable = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-editor:resizable"));
 boolean skipEditorLoading = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-editor:skipEditorLoading"));
 String toolbarSet = (String)request.getAttribute("liferay-ui:input-editor:toolbarSet");
+
+if (!inlineEdit) {
+	name = namespace + name;
+}
 %>
 
 <c:if test="<%= hideImageResizing %>">
@@ -155,9 +160,15 @@ String toolbarSet = (String)request.getAttribute("liferay-ui:input-editor:toolba
 	};
 </aui:script>
 
-<div class="<%= cssClass %>">
-	<textarea id="<%= name %>" name="<%= name %>" style="display: none;"></textarea>
-</div>
+<c:if test="<%= !inlineEdit %>">
+	<div class="<%= cssClass %>">
+		<textarea id="<%= name %>" name="<%= name %>" style="display: none;"></textarea>
+	</div>
+</c:if>
+
+<script type="text/javascript">
+	CKEDITOR.disableAutoInline = true;
+</script>
 
 <aui:script use="aui-base">
 	(function() {
@@ -184,7 +195,15 @@ String toolbarSet = (String)request.getAttribute("liferay-ui:input-editor:toolba
 		String connectorURL = HttpUtil.encodeURL(sb.toString());
 		%>
 
-		CKEDITOR.replace(
+		<c:choose>
+			<c:when test="<%= inlineEdit %>">
+				CKEDITOR.inline(
+			</c:when>
+			<c:otherwise>
+				CKEDITOR.replace(
+			</c:otherwise>
+		</c:choose>
+
 			'<%= name %>',
 			{
 				customConfig: '<%= PortalUtil.getPathContext() %>/html/js/editor/ckeditor/<%= HtmlUtil.escapeJS(ckEditorConfigFileName) %>?p_l_id=<%= plid %>&p_p_id=<%= HttpUtil.encodeURL(portletId) %>&p_main_path=<%= HttpUtil.encodeURL(mainPath) %>&doAsUserId=<%= HttpUtil.encodeURL(doAsUserId) %>&doAsGroupId=<%= HttpUtil.encodeURL(String.valueOf(doAsGroupId)) %>&cssPath=<%= HttpUtil.encodeURL(themeDisplay.getPathThemeCss()) %>&cssClasses=<%= HttpUtil.encodeURL(cssClasses) %>&imagesPath=<%= HttpUtil.encodeURL(themeDisplay.getPathThemeImages()) %>&languageId=<%= HttpUtil.encodeURL(LocaleUtil.toLanguageId(locale)) %>&resizable=<%= resizable %><%= configParams %>',
@@ -223,27 +242,36 @@ String toolbarSet = (String)request.getAttribute("liferay-ui:input-editor:toolba
 			'instanceReady',
 			function() {
 
-				<%
-				if (useCustomDataProcessor) {
-				%>
+			<c:choose>
+				<c:when test="<%= inlineEdit %>">
+					var ckEditor = CKEDITOR.instances['<%= name %>'];
 
-					instanceReady = true;
+					ckEditor.on(
+						'blur',
+						function(event) {
+							// TODO: Save the data to the database
+						}
+					);
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="<%= useCustomDataProcessor %>">
+							instanceReady = true;
 
-					if (customDataProcessorLoaded) {
-						setData();
-					}
+							if (customDataProcessorLoaded) {
+								setData();
+							}
+						</c:when>
+						<c:otherwise>
+							setData();
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
 
-				<%
-				}
-				else {
-				%>
+	<%
 
-					setData();
-
-				<%
-				}
-
-				if (Validator.isNotNull(onChangeMethod)) {
+			if (Validator.isNotNull(onChangeMethod)) {
 				%>
 
 					setInterval(

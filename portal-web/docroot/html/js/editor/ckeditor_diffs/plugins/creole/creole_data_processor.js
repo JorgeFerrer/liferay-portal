@@ -55,13 +55,6 @@
 			init: function(editor) {
 				editor.dataProcessor = new CKEDITOR.htmlDataProcessor(editor);
 
-				editor.dataProcessor.writer.setRules(
-					'p',
-					{
-						breakBeforeClose: false
-					}
-				);
-
 				editor.on(
 					'paste',
 					function(event) {

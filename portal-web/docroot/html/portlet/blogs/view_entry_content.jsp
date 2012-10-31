@@ -136,7 +136,7 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 				</div>
 			</c:if>
 
-			<div class="entry-body">
+			<div class="entry-body" id="blog-entry" contenteditable="true" spellcheck="false">
 				<c:choose>
 					<c:when test='<%= pageDisplayStyle.equals(RSSUtil.DISPLAY_STYLE_ABSTRACT) && !strutsAction.equals("/blogs/view_entry") %>'>
 						<c:if test="<%= entry.isSmallImage() %>">
@@ -188,6 +188,12 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 					</c:when>
 				</c:choose>
 			</div>
+
+			<liferay-ui:input-editor
+				editorImpl="ckeditor"
+				inlineEdit="<%= true %>"
+				name="blog-entry"
+			/>
 
 			<div class="entry-footer">
 				<div class="entry-author">

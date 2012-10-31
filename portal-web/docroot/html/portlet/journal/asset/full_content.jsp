@@ -39,9 +39,15 @@ else {
 }
 %>
 
-<div class="journal-content-article">
+<div class="journal-content-article" id="journal-content-article" contenteditable="true" spellcheck="false">
 	<%= RuntimePageUtil.processXML(request, response, articleDisplay.getContent()) %>
 </div>
+
+<liferay-ui:input-editor
+	editorImpl="ckeditor"
+	inlineEdit="<%= true %>"
+	name="journal-content-article"
+/>
 
 <c:if test="<%= articleDisplay.isPaginate() %>">
 

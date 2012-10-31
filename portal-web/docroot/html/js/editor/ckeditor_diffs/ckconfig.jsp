@@ -64,6 +64,8 @@ CKEDITOR.config.height = 265;
 
 CKEDITOR.config.language = '<%= HtmlUtil.escapeJS(languageId) %>';
 
+CKEDITOR.config.skin = 'kama';
+
 CKEDITOR.config.stylesCombo_stylesSet = 'liferayStyles';
 
 CKEDITOR.config.toolbar_editInPlace = [
