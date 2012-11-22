@@ -14,6 +14,8 @@
 
 package com.liferay.portlet.wiki.action;
 
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.LiferayPortletConfig;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -100,6 +102,9 @@ public class EditPageAction extends PortletAction {
 			}
 			else if (cmd.equals(Constants.UNSUBSCRIBE)) {
 				unsubscribePage(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE_CONTENT)) {
+				updateContent(actionRequest, actionResponse);
 			}
 
 			if (Validator.isNotNull(cmd)) {
@@ -365,6 +370,38 @@ public class EditPageAction extends PortletAction {
 		String title = ParamUtil.getString(actionRequest, "title");
 
 		WikiPageServiceUtil.unsubscribePage(nodeId, title);
+	}
+
+	protected void updateContent(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		long nodeId = ParamUtil.getLong(actionRequest, "nodeId");
+		String title = ParamUtil.getString(actionRequest, "title");
+		String content = ParamUtil.getString(actionRequest, "content");
+
+		WikiPage page = WikiPageServiceUtil.getPage(nodeId, title);
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
+
+		try {
+			WikiPageServiceUtil.updatePage(
+				nodeId, title, page.getVersion(), content, page.getSummary(),
+				false, page.getFormat(), page.getParentTitle(),
+				page.getRedirectTitle(), serviceContext);
+
+			jsonObject.put("success", true);
+		}
+		catch (Exception e) {
+			jsonObject.put("success", false);
+
+			jsonObject.putException(e);
+		}
+
+		writeJSON(actionRequest, actionResponse, jsonObject);
 	}
 
 	protected WikiPage updatePage(ActionRequest actionRequest)

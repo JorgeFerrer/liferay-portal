@@ -16,11 +16,14 @@ package com.liferay.portlet.journal.action;
 
 import com.liferay.portal.LocaleException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.FileItem;
 import com.liferay.portal.kernel.upload.UploadException;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -32,6 +35,9 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.xml.Document;
+import com.liferay.portal.kernel.xml.Node;
+import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
@@ -47,6 +53,7 @@ import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.asset.AssetCategoryException;
 import com.liferay.portlet.asset.AssetTagException;
 import com.liferay.portlet.assetpublisher.util.AssetPublisherUtil;
+import com.liferay.portlet.dynamicdatamapping.util.DDMXMLUtil;
 import com.liferay.portlet.journal.ArticleContentException;
 import com.liferay.portlet.journal.ArticleContentSizeException;
 import com.liferay.portlet.journal.ArticleDisplayDateException;
@@ -156,6 +163,11 @@ public class EditArticleAction extends PortletAction {
 			}
 			else if (cmd.equals(Constants.UNSUBSCRIBE)) {
 				unsubscribeArticles(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE_CONTENT)) {
+				updateContent(actionRequest, actionResponse);
+
+				return;
 			}
 
 			String redirect = ParamUtil.getString(actionRequest, "redirect");
@@ -780,6 +792,50 @@ public class EditArticleAction extends PortletAction {
 		}
 
 		return new Object[] {article, oldUrlTitle};
+	}
+
+	protected void updateContent(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		long groupId = ParamUtil.getLong(actionRequest, "groupId");
+		String articleId = ParamUtil.getString(actionRequest, "articleId");
+		String languageId = ParamUtil.getString(actionRequest, "languageId");
+		String content = ParamUtil.getString(actionRequest, "content");
+
+		JournalArticle article = JournalArticleServiceUtil.getArticle(
+			groupId, articleId);
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
+
+		try {
+			Document doc = SAXReaderUtil.read(article.getContent());
+
+			String path =
+				"/root/static-content[@language-id='" + languageId + "']";
+
+			Node node = doc.selectSingleNode(path);
+
+			node.setText(content);
+
+			String contentXML = DDMXMLUtil.formatXML(doc);
+
+			JournalArticleServiceUtil.updateArticle(
+				groupId, article.getFolderId(), articleId, article.getVersion(),
+				contentXML, serviceContext);
+
+			jsonObject.put("success", true);
+		}
+		catch (Exception e) {
+			jsonObject.put("success", false);
+
+			jsonObject.putException(e);
+		}
+
+		writeJSON(actionRequest, actionResponse, jsonObject);
 	}
 
 	protected void updateContentSearch(
