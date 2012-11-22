@@ -19,6 +19,9 @@ String formattedContent = null;
 
 try {
 	formattedContent = WikiUtil.getFormattedContent(renderRequest, renderResponse, wikiPage, viewPageURL, editPageURL, title, preview);
+
+	String pageContentId = "wiki-page-content" + wikiPage.getPageId();
+	boolean inlineEditEnabled = wikiPage.getFormat().equals("html") && WikiPagePermission.contains(permissionChecker, wikiPage, ActionKeys.UPDATE) && !WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(themeDisplay.getCompanyId(), scopeGroupId, WikiPage.class.getName());
 %>
 
 	<div class="wiki-body">
@@ -38,6 +41,25 @@ try {
 				<div class="portlet-msg-info">
 					<aui:a href="<%= editPageURL.toString() %>" label="this-page-is-empty-edit-it-to-add-some-text" />
 				</div>
+			</c:when>
+			<c:when test="<%= inlineEditEnabled %>">
+				<div class="journal-content-article" contenteditable="true" id="<%= pageContentId %>" spellcheck="false"
+					<%= formattedContent %>
+				</div>
+
+				<liferay-portlet:actionURL var="updatePageContent" portletName="<%= PortletKeys.WIKI %>">
+					<portlet:param name="struts_action" value="/wiki/edit_page" />
+					<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.UPDATE_CONTENT %>" />
+					<portlet:param name="nodeId" value="<%= String.valueOf(wikiPage.getNodeId()) %>" />
+					<portlet:param name="title" value="<%= wikiPage.getTitle() %>" />
+				</liferay-portlet:actionURL>
+
+				<liferay-ui:input-editor
+						editorImpl="ckeditor"
+						inlineEdit="<%= true %>"
+						inlineEditSaveURL="<%= updatePageContent %>"
+						name="<%= pageContentId %>"
+						/>
 			</c:when>
 			<c:otherwise>
 				<%= formattedContent %>

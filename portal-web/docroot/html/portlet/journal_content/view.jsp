@@ -188,6 +188,8 @@ boolean expired = true;
 					</div>
 				</c:if>
 
+				<liferay-ui:input-editor editorImpl="ckeditor" />
+
 				<div class="journal-content-article" id="article_<%= articleDisplay.getCompanyId() %>_<%= articleDisplay.getGroupId() %>_<%= articleDisplay.getArticleId() %>_<%= articleDisplay.getVersion() %>">
 					<%= RuntimePageUtil.processXML(request, response, articleDisplay.getContent()) %>
 				</div>

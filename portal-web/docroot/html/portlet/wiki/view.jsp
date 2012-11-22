@@ -236,6 +236,7 @@ long portletDisplayDDMTemplateId = PortletDisplayTemplateUtil.getPortletDisplayT
 			</div>
 		</c:if>
 
+
 		<div class="page-categorization">
 			<div class="page-categories">
 				<liferay-ui:asset-categories-summary

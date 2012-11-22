@@ -1,0 +1,36 @@
+div[contenteditable=true] {
+	border: 1px solid #FFB914;
+}
+
+.notice-inline-edit {
+	background-color: #ffc;
+	border-radius: 5px;
+	border: 1px solid #900;
+	padding: 10px;
+
+	.notice-inline-edit-close {
+		cursor: pointer;
+		font-weight: bold;
+		margin-left: 0.4em;
+		text-decoration: underline;
+	}
+
+	.notice-inline-edit-text {
+		color: #900;
+		font-weight: bold;
+	}
+}
+
+.notice-inline-edit-error {
+	.notice-inline-edit {
+		background-color: #ff0000;
+	}
+
+	.notice-inline-edit-text {
+		color: #ffc;
+	}
+
+	.notice-inline-edit-close {
+		color: #ffff64;
+	}
+}

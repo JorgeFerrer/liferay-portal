@@ -37,11 +37,31 @@ if (!workflowAssetPreview && article.isApproved()) {
 else {
 	articleDisplay = JournalArticleLocalServiceUtil.getArticleDisplay(article, null, null, languageId, 1, null, themeDisplay);
 }
+
+String articleContentId = "journal-article-content" + article.getArticleId();
+boolean inlineEditEnabled = Validator.isNull(article.getStructureId()) && JournalArticlePermission.contains(permissionChecker, article, ActionKeys.UPDATE) && !WorkflowDefinitionLinkLocalServiceUtil.hasWorkflowDefinitionLink(themeDisplay.getCompanyId(), scopeGroupId, JournalArticle.class.getName());
 %>
 
-<div class="journal-content-article">
+<div class="journal-content-article" <c:if test="<%= inlineEditEnabled %>">contenteditable="true" id="<%= articleContentId %>" spellcheck="false"</c:if>>
 	<%= RuntimePageUtil.processXML(request, response, articleDisplay.getContent()) %>
 </div>
+
+<c:if test="<%= inlineEditEnabled %>">
+	<liferay-portlet:actionURL var="updateArticleContent" portletName="<%= PortletKeys.JOURNAL %>">
+		<portlet:param name="struts_action" value="/journal/edit_article" />
+		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.UPDATE_CONTENT %>" />
+		<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
+		<portlet:param name="languageId" value="<%= languageId %>" />
+		<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
+	</liferay-portlet:actionURL>
+
+	<liferay-ui:input-editor
+		editorImpl="ckeditor"
+		inlineEdit="<%= true %>"
+		inlineEditSaveURL="<%= updateArticleContent %>"
+		name="<%= articleContentId %>"
+	/>
+</c:if>
 
 <c:if test="<%= articleDisplay.isPaginate() %>">
 
