@@ -96,7 +96,19 @@ public class RuntimePageImpl implements RuntimePage {
 			TemplateResource templateResource)
 		throws Exception {
 
-		doDispatch(pageContext, portletId, templateResource, true);
+		StringBundler sb = null;
+
+		sb = doDispatch(pageContext, portletId, templateResource, true);
+
+		sb.writeTo(pageContext.getOut());
+	}
+
+	public StringBundler processTemplateSilently(
+			PageContext pageContext, String portletId,
+			TemplateResource templateResource)
+		throws Exception {
+
+		return doDispatch(pageContext, portletId, templateResource, true);
 	}
 
 	public void processTemplate(
@@ -218,7 +230,7 @@ public class RuntimePageImpl implements RuntimePage {
 		}
 	}
 
-	protected void doDispatch(
+	protected StringBundler doDispatch(
 			PageContext pageContext, String portletId,
 			TemplateResource templateResource, boolean processTemplate)
 		throws Exception {
@@ -243,6 +255,8 @@ public class RuntimePageImpl implements RuntimePage {
 		ClassLoader contextClassLoader =
 			PACLClassLoaderUtil.getContextClassLoader();
 
+		StringBundler sb = null;
+
 		try {
 			TemplateContextType templateContextType =
 				TemplateContextType.STANDARD;
@@ -256,7 +270,7 @@ public class RuntimePageImpl implements RuntimePage {
 			}
 
 			if (processTemplate) {
-				doProcessTemplate(
+				sb = doProcessTemplate(
 					pageContext, portletId, templateResource,
 					templateContextType);
 			}
@@ -272,6 +286,8 @@ public class RuntimePageImpl implements RuntimePage {
 				PACLClassLoaderUtil.setContextClassLoader(contextClassLoader);
 			}
 		}
+
+		return sb;
 	}
 
 	protected void doProcessCustomizationSettings(
@@ -316,7 +332,7 @@ public class RuntimePageImpl implements RuntimePage {
 		}
 	}
 
-	protected void doProcessTemplate(
+	protected StringBundler doProcessTemplate(
 			PageContext pageContext, String portletId,
 			TemplateResource templateResource,
 			TemplateContextType templateContextType)
@@ -463,7 +479,7 @@ public class RuntimePageImpl implements RuntimePage {
 			unsyncStringWriter.toString(), "[$TEMPLATE_PORTLET_", "$]",
 			contentsMap);
 
-		sb.writeTo(pageContext.getOut());
+		return sb;
 	}
 
 	protected LayoutTemplate getLayoutTemplate(String velocityTemplateId) {

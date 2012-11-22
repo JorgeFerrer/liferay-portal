@@ -16,6 +16,7 @@ package com.liferay.portlet.layoutconfiguration.util;
 
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.template.TemplateResource;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portlet.layoutconfiguration.util.xml.RuntimeLogic;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +50,15 @@ public class RuntimePageUtil {
 		throws Exception {
 
 		getRuntimePage().processTemplate(
+			pageContext, portletId, templateResource);
+	}
+
+	public static StringBundler processTemplateSilently(
+			PageContext pageContext, String portletId,
+			TemplateResource templateResource)
+		throws Exception {
+
+		return getRuntimePage().processTemplateSilently(
 			pageContext, portletId, templateResource);
 	}
 

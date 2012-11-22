@@ -47,9 +47,19 @@ if (!denyAccess && (themeDisplay.isStatePopUp() || (layoutTypePortlet.hasStateMa
 		content = LayoutTemplateLocalServiceUtil.getContent("max", true, theme.getThemeId());
 	}
 
+	StringBundler sb = null;
+
 	if (Validator.isNotNull(velocityTemplateId) && Validator.isNotNull(content)) {
-		RuntimePageUtil.processTemplate(pageContext, ppid, new StringTemplateResource(velocityTemplateId, content));
+		sb = RuntimePageUtil.processTemplateSilently(pageContext, ppid, new StringTemplateResource(velocityTemplateId, content));
 	}
+
+	%>
+	<div id="breadcrumbs">
+		<liferay-ui:breadcrumb />
+	</div>
+	<%
+
+	sb.writeTo(pageContext.getOut());
 }
 else {
 	String description = StringPool.BLANK;
