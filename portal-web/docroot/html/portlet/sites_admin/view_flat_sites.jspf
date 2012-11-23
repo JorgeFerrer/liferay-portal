@@ -29,7 +29,7 @@
 
 	groupParams.put("site", Boolean.TRUE);
 
-	if (!permissionChecker.isCompanyAdmin()) {
+	if (!permissionChecker.isCompanyAdmin() && !permissionChecker.hasPermission(0, Group.class.getName(), 0, ActionKeys.VIEW)) {
 		groupParams.put("usersGroups", new Long(user.getUserId()));
 		//groupParams.put("active", Boolean.TRUE);
 	}
