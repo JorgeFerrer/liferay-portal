@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.staging.permission.StagingPermissionUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
@@ -211,10 +210,11 @@ public class PortletPermissionImpl implements PortletPermission {
 		}
 
 		if ((layout != null) && layout.isTypeControlPanel()) {
-			String category = GetterUtil.getString(
-				portlet.getControlPanelEntryCategory());
+			String category = portlet.getControlPanelEntryCategory();
 
-			if (category.equals(PortletCategoryKeys.CONTENT) {
+			if ((category != null) &&
+				category.equals(PortletCategoryKeys.CONTENT)) {
+
 				layout = null;
 			}
 		}
