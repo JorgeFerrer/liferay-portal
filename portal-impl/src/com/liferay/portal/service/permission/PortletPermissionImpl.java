@@ -214,7 +214,7 @@ public class PortletPermissionImpl implements PortletPermission {
 			String category = GetterUtil.getString(
 				portlet.getControlPanelEntryCategory());
 
-			if (category.equals(PortletCategoryKeys.CONTENT)) {
+			if (category.equals(PortletCategoryKeys.CONTENT) {
 				layout = null;
 			}
 		}
