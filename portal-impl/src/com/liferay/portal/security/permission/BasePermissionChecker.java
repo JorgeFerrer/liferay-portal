@@ -21,7 +21,6 @@ import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.admin.util.OmniadminUtil;
 
 import java.util.Collections;
@@ -119,14 +118,10 @@ public abstract class BasePermissionChecker implements PermissionChecker {
 	}
 
 	public boolean isCheckGuest() {
-		return checkGuest;
+		return true;
 	}
 
 	public boolean isCheckGuest(long groupId) {
-		if (checkGuest) {
-			return true;
-		}
-
 		return !isGroupMember(groupId);
 	}
 
@@ -162,7 +157,6 @@ public abstract class BasePermissionChecker implements PermissionChecker {
 	public void setValues(PortletRequest portletRequest) {
 	}
 
-	protected boolean checkGuest = PropsValues.PERMISSIONS_CHECK_GUEST_ENABLED;
 	protected long defaultUserId;
 	protected Boolean omniadmin;
 	protected Role ownerRole;
