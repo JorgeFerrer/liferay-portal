@@ -300,16 +300,16 @@ if (Validator.isNotNull(content)) {
 													String imageURL = _getTemplateImage(themeDisplay, ddmTemplate);
 												%>
 
-													<liferay-portlet:renderURL portletName="<%= PortletKeys.PORTLET_DISPLAY_TEMPLATES %>" var="templateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+													<liferay-portlet:renderURL portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" var="editTemplateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 														<portlet:param name="struts_action" value="/dynamic_data_mapping/edit_template" />
 														<portlet:param name="groupId" value="<%= String.valueOf(scopeGroupId) %>" />
 														<portlet:param name="classNameId" value="<%= String.valueOf(classNameId) %>" />
-														<portlet:param name="templateId" value="<%= (ddmTemplate != null) ? String.valueOf(ddmTemplate.getTemplateId()) : StringPool.BLANK %>" />
+														<portlet:param name="templateId" value="<%= String.valueOf(ddmTemplate.getTemplateId()) %>" />
 													</liferay-portlet:renderURL>
 
 													<aui:option
 														data-img="<%= imageURL != null ? imageURL : StringPool.BLANK %>"
-														data-url="<%= templateURL %>"
+														data-url="<%= editTemplateURL %>"
 														label="<%= HtmlUtil.escape(ddmTemplate.getName(locale)) %>"
 														selected="<%= templateId.equals(ddmTemplate.getTemplateId()) %>"
 														value="<%= ddmTemplate.getTemplateId() %>"
@@ -688,20 +688,20 @@ if (Validator.isNotNull(content)) {
 						width: 820
 					},
 					id: windowId,
-					title: '<%= UnicodeLanguageUtil.get(pageContext, "application-display-templates") %>',
+					title: '<%= UnicodeLanguageUtil.get(pageContext, "templates") %>',
 
 					<%
 					DDMTemplate ddmTemplate = DDMTemplateLocalServiceUtil.fetchTemplate(groupId, templateId);
 					%>
 
-					<liferay-portlet:renderURL portletName="<%= PortletKeys.PORTLET_DISPLAY_TEMPLATES %>" var="templateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+					<liferay-portlet:renderURL portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" var="editTemplateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 						<portlet:param name="struts_action" value="/dynamic_data_mapping/edit_template" />
 						<portlet:param name="groupId" value="<%= String.valueOf(groupId) %>" />
 						<portlet:param name="classNameId" value="<%= String.valueOf(classNameId) %>" />
 						<portlet:param name="templateId" value="<%= (ddmTemplate != null) ? String.valueOf(ddmTemplate.getTemplateId()) : StringPool.BLANK %>" />
 					</liferay-portlet:renderURL>
 
-					uri: '<%= templateURL %>'
+					uri: '<%= editTemplateURL %>'
 					}
 				);
 			}
@@ -740,7 +740,7 @@ if (Validator.isNotNull(content)) {
 				'click',
 				function(event) {
 					var selectedOption = templateIdSelector.one(':selected');
-					var templateURL = selectedOption.attr('data-url');
+					var editTemplateURL = selectedOption.attr('data-url');
 
 					Liferay.Util.openWindow(
 					{
@@ -750,7 +750,7 @@ if (Validator.isNotNull(content)) {
 						},
 						id: windowId,
 						title: '<%= UnicodeLanguageUtil.get(pageContext, "templates") %>',
-						uri: templateURL
+						uri: editTemplateURL
 						}
 					);
 				}
