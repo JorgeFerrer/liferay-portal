@@ -274,7 +274,7 @@ public class DDMPortletDataHandlerImpl extends BasePortletDataHandler {
 					existingTemplate.getTemplateId(), template.getNameMap(),
 					template.getDescriptionMap(), template.getType(),
 					template.getMode(), template.getLanguage(),
-					template.getScript(), template.isCacheable(),
+					template.getScript(), false, template.isCacheable(),
 					template.isSmallImage(), template.getSmallImageURL(),
 					smallFile, serviceContext);
 			}
@@ -322,7 +322,7 @@ public class DDMPortletDataHandlerImpl extends BasePortletDataHandler {
 				template.getTemplateKey(), template.getNameMap(),
 				template.getDescriptionMap(), template.getType(),
 				template.getMode(), template.getLanguage(),
-				template.getScript(), template.isCacheable(),
+				template.getScript(), false, template.isCacheable(),
 				template.isSmallImage(), template.getSmallImageURL(), smallFile,
 				serviceContext);
 		}
@@ -331,7 +331,7 @@ public class DDMPortletDataHandlerImpl extends BasePortletDataHandler {
 				userId, groupId, template.getClassNameId(), classPK, null,
 				template.getNameMap(), template.getDescriptionMap(),
 				template.getType(), template.getMode(), template.getLanguage(),
-				template.getScript(), template.isCacheable(),
+				template.getScript(), false, template.isCacheable(),
 				template.isSmallImage(), template.getSmallImageURL(), smallFile,
 				serviceContext);
 

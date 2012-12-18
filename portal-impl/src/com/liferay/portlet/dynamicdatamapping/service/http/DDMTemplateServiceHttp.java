@@ -104,9 +104,9 @@ public class DDMTemplateServiceHttp {
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		java.lang.String language, java.lang.String script,
+		boolean formatScript, boolean cacheable, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -116,8 +116,8 @@ public class DDMTemplateServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					classNameId, classPK, templateKey, nameMap, descriptionMap,
-					type, mode, language, script, cacheable, smallImage,
-					smallImageURL, smallImageFile, serviceContext);
+					type, mode, language, script, formatScript, cacheable,
+					smallImage, smallImageURL, smallImageFile, serviceContext);
 
 			Object returnObj = null;
 
@@ -793,9 +793,9 @@ public class DDMTemplateServiceHttp {
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		java.lang.String language, java.lang.String script,
+		boolean formatScript, boolean cacheable, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -805,7 +805,7 @@ public class DDMTemplateServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					templateId, nameMap, descriptionMap, type, mode, language,
-					script, cacheable, smallImage, smallImageURL,
+					script, formatScript, cacheable, smallImage, smallImageURL,
 					smallImageFile, serviceContext);
 
 			Object returnObj = null;
@@ -845,7 +845,7 @@ public class DDMTemplateServiceHttp {
 			long.class, long.class, long.class, java.lang.String.class,
 			java.util.Map.class, java.util.Map.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class,
-			java.lang.String.class, boolean.class, boolean.class,
+			java.lang.String.class, boolean.class, boolean.class, boolean.class,
 			java.lang.String.class, java.io.File.class,
 			com.liferay.portal.service.ServiceContext.class
 		};
@@ -934,7 +934,7 @@ public class DDMTemplateServiceHttp {
 			long.class, java.util.Map.class, java.util.Map.class,
 			java.lang.String.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class, boolean.class,
-			boolean.class, java.lang.String.class, java.io.File.class,
-			com.liferay.portal.service.ServiceContext.class
+			boolean.class, boolean.class, java.lang.String.class,
+			java.io.File.class, com.liferay.portal.service.ServiceContext.class
 		};
 }

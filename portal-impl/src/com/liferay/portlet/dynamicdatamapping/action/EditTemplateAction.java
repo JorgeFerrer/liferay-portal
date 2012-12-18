@@ -235,6 +235,8 @@ public class EditTemplateAction extends PortletAction {
 			script = scriptContent;
 		}
 
+		boolean formatScript = ParamUtil.getBoolean(
+			uploadPortletRequest, "formatScript");
 		boolean cacheable = ParamUtil.getBoolean(
 			uploadPortletRequest, "cacheable");
 		boolean smallImage = ParamUtil.getBoolean(
@@ -251,14 +253,14 @@ public class EditTemplateAction extends PortletAction {
 		if (templateId <= 0) {
 			template = DDMTemplateServiceUtil.addTemplate(
 				groupId, classNameId, classPK, null, nameMap, descriptionMap,
-				type, mode, language, script, cacheable, smallImage,
-				smallImageURL, smallImageFile, serviceContext);
+				type, mode, language, script, formatScript, cacheable,
+				smallImage, smallImageURL, smallImageFile, serviceContext);
 		}
 		else {
 			template = DDMTemplateServiceUtil.updateTemplate(
 				templateId, nameMap, descriptionMap, type, mode, language,
-				script, cacheable, smallImage, smallImageURL, smallImageFile,
-				serviceContext);
+				script, formatScript, cacheable, smallImage, smallImageURL,
+				smallImageFile, serviceContext);
 		}
 
 		String portletResource = ParamUtil.getString(

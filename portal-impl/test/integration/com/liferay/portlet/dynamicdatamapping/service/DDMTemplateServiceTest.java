@@ -223,7 +223,7 @@ public class DDMTemplateServiceTest extends BaseDDMServiceTestCase {
 			template.getTemplateId(), template.getNameMap(),
 			template.getDescriptionMap(), template.getType(),
 			template.getMode(), template.getLanguage(), template.getScript(),
-			template.isCacheable(), template.isSmallImage(),
+			false, template.isCacheable(), template.isSmallImage(),
 			template.getSmallImageURL(), null,
 			ServiceTestUtil.getServiceContext());
 	}

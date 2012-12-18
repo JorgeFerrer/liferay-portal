@@ -288,16 +288,17 @@ public class DDMTemplateLocalServiceUtil {
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		java.lang.String language, java.lang.String script,
+		boolean formatScript, boolean cacheable, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addTemplate(userId, groupId, classNameId, classPK,
 			templateKey, nameMap, descriptionMap, type, mode, language, script,
-			cacheable, smallImage, smallImageURL, smallImageFile, serviceContext);
+			formatScript, cacheable, smallImage, smallImageURL, smallImageFile,
+			serviceContext);
 	}
 
 	public static void addTemplateResources(
@@ -512,16 +513,16 @@ public class DDMTemplateLocalServiceUtil {
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.lang.String type, java.lang.String mode,
-		java.lang.String language, java.lang.String script, boolean cacheable,
-		boolean smallImage, java.lang.String smallImageURL,
-		java.io.File smallImageFile,
+		java.lang.String language, java.lang.String script,
+		boolean formatScript, boolean cacheable, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateTemplate(templateId, nameMap, descriptionMap, type,
-			mode, language, script, cacheable, smallImage, smallImageURL,
-			smallImageFile, serviceContext);
+			mode, language, script, formatScript, cacheable, smallImage,
+			smallImageURL, smallImageFile, serviceContext);
 	}
 
 	public static DDMTemplateLocalService getService() {

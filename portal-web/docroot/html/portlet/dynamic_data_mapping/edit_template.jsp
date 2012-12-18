@@ -69,6 +69,12 @@ String structureAvailableFields = ParamUtil.getString(request, "structureAvailab
 if (Validator.isNotNull(structureAvailableFields)) {
 	scopeAvailableFields = structureAvailableFields;
 }
+
+boolean cacheable = BeanParamUtil.getBoolean(template, request, "cacheable");
+
+if (template == null) {
+	cacheable = true;
+}
 %>
 
 <portlet:actionURL var="editTemplateURL">
@@ -155,6 +161,16 @@ if (Validator.isNotNull(structureAvailableFields)) {
 		<liferay-ui:panel-container cssClass="lfr-structure-entry-details-container" extended="<%= false %>" id="templateDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="templateDetailsSectionPanel" persistState="<%= true %>" title="details">
 				<aui:input name="description" />
+
+				<aui:input label="format-script" name="formatScript" type="checkbox" />
+
+				<c:if test="<%= template == null %>">
+					<aui:field-wrapper label="permissions">
+						<liferay-ui:input-permissions modelName="<%= DDMTemplate.class.getName() %>" />
+					</aui:field-wrapper>
+				</c:if>
+
+				<aui:input helpMessage="dynamicdatamapping-template-cacheable-help" name="cacheable" value="<%= new Boolean(cacheable) %>" />
 
 				<c:if test="<%= template != null %>">
 					<aui:field-wrapper label="url">

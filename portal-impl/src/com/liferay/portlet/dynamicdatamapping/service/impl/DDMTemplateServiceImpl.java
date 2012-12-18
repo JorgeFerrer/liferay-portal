@@ -57,16 +57,17 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 
 		return ddmTemplateLocalService.addTemplate(
 			getUserId(), groupId, classNameId, classPK, null, nameMap,
-			descriptionMap, type, mode, language, script, false, false, null,
-			null, serviceContext);
+			descriptionMap, type, mode, language, script, false, false, false,
+			null, null, serviceContext);
 	}
 
 	public DDMTemplate addTemplate(
 			long groupId, long classNameId, long classPK, String templateKey,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String type, String mode, String language, String script,
-			boolean cacheable, boolean smallImage, String smallImageURL,
-			File smallImageFile, ServiceContext serviceContext)
+			boolean formatScript, boolean cacheable, boolean smallImage,
+			String smallImageURL, File smallImageFile,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		String ddmResource = ParamUtil.getString(serviceContext, "ddmResource");
@@ -80,8 +81,9 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 
 		return ddmTemplateLocalService.addTemplate(
 			getUserId(), groupId, classNameId, classPK, templateKey, nameMap,
-			descriptionMap, type, mode, language, script, cacheable, smallImage,
-			smallImageURL, smallImageFile, serviceContext);
+			descriptionMap, type, mode, language, script, formatScript,
+			cacheable, smallImage, smallImageURL, smallImageFile,
+			serviceContext);
 	}
 
 	public DDMTemplate copyTemplate(
@@ -264,9 +266,9 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public DDMTemplate updateTemplate(
 			long templateId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String type, String mode,
-			String language, String script, boolean cacheable,
-			boolean smallImage, String smallImageURL, File smallImageFile,
-			ServiceContext serviceContext)
+			String language, String script, boolean formatScript,
+			boolean cacheable, boolean smallImage, String smallImageURL,
+			File smallImageFile, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		DDMTemplatePermission.check(
@@ -274,7 +276,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 
 		return ddmTemplateLocalService.updateTemplate(
 			templateId, nameMap, descriptionMap, type, mode, language, script,
-			cacheable, smallImage, smallImageURL, smallImageFile,
+			formatScript, cacheable, smallImage, smallImageURL, smallImageFile,
 			serviceContext);
 	}
 

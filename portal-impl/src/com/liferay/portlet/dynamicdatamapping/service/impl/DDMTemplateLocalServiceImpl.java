@@ -40,6 +40,8 @@ import com.liferay.portlet.dynamicdatamapping.TemplateSmallImageNameException;
 import com.liferay.portlet.dynamicdatamapping.TemplateSmallImageSizeException;
 import com.liferay.portlet.dynamicdatamapping.model.DDMTemplate;
 import com.liferay.portlet.dynamicdatamapping.service.base.DDMTemplateLocalServiceBaseImpl;
+import com.liferay.portlet.dynamicdatamapping.util.DDMXMLUtil;
+import com.liferay.portlet.journal.TemplateXslException;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,17 +69,17 @@ public class DDMTemplateLocalServiceImpl
 
 		return addTemplate(
 			userId, groupId, classNameId, classPK, null, nameMap,
-			descriptionMap, type, mode, language, script, false, false, null,
-			null, serviceContext);
+			descriptionMap, type, mode, language, script, false, false, false,
+			null, null, serviceContext);
 	}
 
 	public DDMTemplate addTemplate(
 			long userId, long groupId, long classNameId, long classPK,
 			String templateKey, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String type, String mode,
-			String language, String script, boolean cacheable,
-			boolean smallImage, String smallImageURL, File smallImageFile,
-			ServiceContext serviceContext)
+			String language, String script, boolean formatScript,
+			boolean cacheable, boolean smallImage, String smallImageURL,
+			File smallImageFile, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Template
@@ -90,6 +92,15 @@ public class DDMTemplateLocalServiceImpl
 		}
 		else {
 			templateKey = templateKey.trim().toUpperCase();
+		}
+
+		try {
+			if (formatScript) {
+				script = DDMXMLUtil.formatXML(script);
+			}
+		}
+		catch (Exception e) {
+			throw new TemplateXslException();
 		}
 
 		byte[] smallImageBytes = null;
@@ -185,8 +196,8 @@ public class DDMTemplateLocalServiceImpl
 	}
 
 	public DDMTemplate copyTemplate(
-			long userId, long templateId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
+		long userId, long templateId, Map<Locale, String> nameMap,
+		Map<Locale, String> descriptionMap, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		DDMTemplate template = ddmTemplatePersistence.findByPrimaryKey(
@@ -195,7 +206,7 @@ public class DDMTemplateLocalServiceImpl
 		File smallImageFile = null;
 
 		if (template.isSmallImage() &&
-				Validator.isNull(template.getSmallImageURL())) {
+			Validator.isNull(template.getSmallImageURL())) {
 
 			Image smallImage = ImageUtil.fetchByPrimaryKey(
 				template.getSmallImageId());
@@ -216,7 +227,7 @@ public class DDMTemplateLocalServiceImpl
 			userId, template.getGroupId(), template.getClassNameId(),
 			template.getClassPK(), null, nameMap, descriptionMap,
 			template.getType(), template.getMode(), template.getLanguage(),
-			template.getScript(), template.isCacheable(),
+			template.getScript(), false, template.isCacheable(),
 			template.isSmallImage(), template.getSmallImageURL(),
 			smallImageFile, serviceContext);
 	}
@@ -447,9 +458,9 @@ public class DDMTemplateLocalServiceImpl
 	public DDMTemplate updateTemplate(
 			long templateId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String type, String mode,
-			String language, String script, boolean cacheable,
-			boolean smallImage, String smallImageURL, File smallImageFile,
-			ServiceContext serviceContext)
+			String language, String script, boolean formatScript,
+			boolean cacheable, boolean smallImage, String smallImageURL,
+			File smallImageFile, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		byte[] smallImageBytes = null;
@@ -458,6 +469,15 @@ public class DDMTemplateLocalServiceImpl
 			smallImageBytes = FileUtil.getBytes(smallImageFile);
 		}
 		catch (IOException ioe) {
+		}
+
+		try {
+			if (formatScript) {
+				script = DDMXMLUtil.formatXML(script);
+			}
+		}
+		catch (Exception e) {
+			throw new TemplateXslException();
 		}
 
 		validate(
