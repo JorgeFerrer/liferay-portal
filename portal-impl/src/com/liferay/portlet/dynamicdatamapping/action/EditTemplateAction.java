@@ -43,9 +43,9 @@ import com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants;
 import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateServiceUtil;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.Locale;
 import java.util.Map;
 
@@ -313,4 +313,5 @@ public class EditTemplateAction extends PortletAction {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(EditTemplateAction.class);
+
 }
