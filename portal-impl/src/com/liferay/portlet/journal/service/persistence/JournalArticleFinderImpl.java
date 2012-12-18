@@ -120,7 +120,7 @@ public class JournalArticleFinderImpl
 	public int countByG_F_S(long groupId, List<Long> folderIds, int status)
 		throws SystemException {
 
-		return doCountByG_F_S(groupId, folderIds, status, true);
+		return doCountByG_F_S(groupId, folderIds, status, false);
 	}
 
 	public int countByG_C_S_S(
@@ -227,7 +227,7 @@ public class JournalArticleFinderImpl
 			long groupId, List<Long> folderIds, int status)
 		throws SystemException {
 
-		return doCountByG_F_S(groupId, folderIds, status, false);
+		return doCountByG_F_S(groupId, folderIds, status, true);
 	}
 
 	public int filterCountByG_C_S_S(
