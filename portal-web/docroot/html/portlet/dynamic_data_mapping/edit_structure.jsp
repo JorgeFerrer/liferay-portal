@@ -156,7 +156,7 @@ if (Validator.isNotNull(script)) {
 
 				<aui:input name="description" />
 
-				<aui:field-wrapper label="parent-data-definition">
+				<aui:field-wrapper label="parent-structure">
 					<aui:input name="parentStructureId" type="hidden" value="<%= parentStructureId %>" />
 
 					<c:choose>
