@@ -174,6 +174,9 @@ public interface PermissionChecker extends Cloneable {
 	public boolean isCheckGuest();
 
 	/**
+	public boolean isCheckGuest(long groupId);
+
+	/**
 	 * @deprecated As of 6.1, renamed to {@link #isGroupAdmin(long)}
 	 */
 	public boolean isCommunityAdmin(long groupId);

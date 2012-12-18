@@ -122,6 +122,14 @@ public abstract class BasePermissionChecker implements PermissionChecker {
 		return checkGuest;
 	}
 
+	public boolean isCheckGuest(long groupId) {
+		if (checkGuest) {
+			return true;
+		}
+
+		return !isGroupMember(groupId);
+	}
+
 	/**
 	 * @deprecated As of 6.1, renamed to {@link #isGroupAdmin(long)}
 	 */

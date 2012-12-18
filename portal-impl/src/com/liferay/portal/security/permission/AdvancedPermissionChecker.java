@@ -263,7 +263,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 
 		ResourceBlockIdsBag resourceBlockIdsBag =
 			PermissionCacheUtil.getResourceBlockIdsBag(
-				companyId, groupId, userId, name, checkGuest);
+				companyId, groupId, userId, name, isCheckGuest(groupId));
 
 		if (resourceBlockIdsBag != null) {
 			return resourceBlockIdsBag;
@@ -277,7 +277,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 					getCompanyId(), groupId, name, roleIds);
 
 			PermissionCacheUtil.putResourceBlockIdsBag(
-				companyId, groupId, userId, name, checkGuest,
+				companyId, groupId, userId, name, isCheckGuest(groupId),
 				resourceBlockIdsBag);
 
 			return resourceBlockIdsBag;
@@ -288,7 +288,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 			}
 
 			PermissionCacheUtil.putResourceBlockIdsBag(
-				companyId, userId, groupId, name, checkGuest,
+				companyId, userId, groupId, name, isCheckGuest(groupId),
 				resourceBlockIdsBag);
 		}
 	}
@@ -304,7 +304,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 		}
 
 		if (bag != null) {
-			if (checkGuest) {
+			if (isCheckGuest(groupId)) {
 				Set<Long> roleIds = SetUtil.fromArray(bag.getRoleIds());
 
 				try {
@@ -559,8 +559,8 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 		}
 
 		Boolean value = PermissionCacheUtil.getPermission(
-			user.getUserId(), signedIn, checkGuest, groupId, name, primKey,
-			actionId);
+			user.getUserId(), signedIn, isCheckGuest(groupId), groupId, name,
+			primKey, actionId);
 
 		if (value == null) {
 			try {
@@ -580,8 +580,8 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 				}
 
 				PermissionCacheUtil.putPermission(
-					user.getUserId(), signedIn, checkGuest, groupId, name,
-					primKey, actionId, value);
+					user.getUserId(), signedIn, isCheckGuest(groupId), groupId,
+					name, primKey, actionId, value);
 			}
 		}
 
@@ -877,7 +877,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 
 			boolean value = false;
 
-			if (checkGuest) {
+			if (isCheckGuest(groupId)) {
 				value = hasGuestPermission(groupId, name, primKey, actionId);
 			}
 
