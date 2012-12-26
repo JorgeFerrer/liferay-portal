@@ -658,6 +658,13 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 		}
 		else {
 			toLocalRepository = getLocalRepository(newFolderId, 0, 0);
+
+			Folder toFolder = toLocalRepository.getFolder(newFolderId);
+
+			if (toFolder.isMountPoint()) {
+				toLocalRepository = getLocalRepository(
+					toFolder.getRepositoryId());
+			}
 		}
 
 		if (fromLocalRepository.getRepositoryId() ==
