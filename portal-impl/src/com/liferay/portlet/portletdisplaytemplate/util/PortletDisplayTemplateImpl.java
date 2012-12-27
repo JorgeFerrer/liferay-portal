@@ -18,9 +18,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.GenericServletWrapper;
 import com.liferay.portal.kernel.servlet.PipingServletResponse;
-import com.liferay.portal.kernel.staging.StagingConstants;
 import com.liferay.portal.kernel.templateparser.Transformer;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -117,10 +115,8 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 				Group stagingGroup = GroupLocalServiceUtil.getStagingGroup(
 					scopeGroup.getGroupId());
 
-				if (GetterUtil.getBoolean(
-						scopeGroup.getTypeSettingsProperty(
-							StagingConstants.STAGED_PORTLET +
-								PortletKeys.PORTLET_DISPLAY_TEMPLATES))) {
+				if (scopeGroup.isStagedPortlet(
+						PortletKeys.PORTLET_DISPLAY_TEMPLATES)) {
 
 					return stagingGroup.getGroupId();
 				}
@@ -128,10 +124,8 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 			else if (scopeGroup.getLiveGroupId() > 0) {
 				Group liveGroup = scopeGroup.getLiveGroup();
 
-				if (!GetterUtil.getBoolean(
-						liveGroup.getTypeSettingsProperty(
-							StagingConstants.STAGED_PORTLET +
-								PortletKeys.PORTLET_DISPLAY_TEMPLATES))) {
+				if (!liveGroup.isStagedPortlet(
+						PortletKeys.PORTLET_DISPLAY_TEMPLATES)) {
 
 					return liveGroup.getGroupId();
 				}
