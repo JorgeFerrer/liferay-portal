@@ -111,17 +111,11 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 		try {
 			Group scopeGroup = themeDisplay.getScopeGroup();
 
-			if (scopeGroup.hasStagingGroup()) {
-				Group stagingGroup = GroupLocalServiceUtil.getStagingGroup(
-					scopeGroup.getGroupId());
-
-				if (scopeGroup.isStagedPortlet(
-						PortletKeys.PORTLET_DISPLAY_TEMPLATES)) {
-
-					return stagingGroup.getGroupId();
-				}
+			if (scopeGroup.isLayout()) {
+				scopeGroup = scopeGroup.getParentGroup();
 			}
-			else if (scopeGroup.isStagingGroup()) {
+
+			if (scopeGroup.isStagingGroup()) {
 				Group liveGroup = scopeGroup.getLiveGroup();
 
 				if (!liveGroup.isStagedPortlet(
@@ -130,6 +124,8 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 					return liveGroup.getGroupId();
 				}
 			}
+
+			return scopeGroup.getGroupId();
 		}
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
