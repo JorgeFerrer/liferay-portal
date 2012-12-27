@@ -5771,16 +5771,16 @@ public class PortalImpl implements Portal {
 
 		String name = null;
 		String primaryKey = null;
+		Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 
 		if (portletActions) {
 			name = rootPortletId;
 			primaryKey = portletPrimaryKey;
 		}
 		else {
-			Group group = GroupLocalServiceUtil.fetchGroup(groupId);
-
 			if ((group != null) && group.isStagingGroup()) {
 				groupId = group.getLiveGroupId();
+				group = group.getLiveGroup();
 			}
 
 			name = ResourceActionsUtil.getPortletBaseResource(rootPortletId);
@@ -5800,7 +5800,10 @@ public class PortalImpl implements Portal {
 			return;
 		}
 
-		if (layout.isTypeControlPanel()) {
+		if (layout.isTypeControlPanel() &&
+			!group.hasPublicLayouts() &&
+			!group.hasPrivateLayouts()) {
+
 			ResourceLocalServiceUtil.addResources(
 				companyId, groupId, 0, name, primaryKey, portletActions, true,
 				true);
@@ -5808,7 +5811,7 @@ public class PortalImpl implements Portal {
 		else {
 			ResourceLocalServiceUtil.addResources(
 				companyId, groupId, 0, name, primaryKey, portletActions, true,
-				!layout.isPrivateLayout());
+				group.hasPublicLayouts());
 		}
 	}
 
