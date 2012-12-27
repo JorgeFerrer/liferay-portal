@@ -121,7 +121,7 @@ Group ddmTemplateGroup = GroupServiceUtil.getGroup(ddmTemplateGroupId);
 	id="selectDDMTemplate"
 	image="<%= icon %>"
 	label="<%= true %>"
-	message='<%= LanguageUtil.format(pageContext, "manage-display-templates-for-x", ddmTemplateGroup.getName(), false) %>'
+	message='<%= LanguageUtil.format(pageContext, "manage-display-templates-for-x", ddmTemplateGroup.getDescriptiveName(locale), false) %>'
 	url="javascript:;"
 />
 
