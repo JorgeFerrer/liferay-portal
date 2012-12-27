@@ -1972,7 +1972,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>183</portlet-name>
-		<icon>/html/icons/application_display_styles.png</icon>
+		<icon>/html/icons/portlet_display_template.png</icon>
 		<parent-struts-path>dynamic_data_mapping</parent-struts-path>
 		<portlet-url-class>com.liferay.portal.struts.StrutsActionPortletURL</portlet-url-class>
 		<portlet-data-handler-class>com.liferay.portlet.portletdisplaytemplate.lar.PortletDisplayTemplatePortletDataHandlerImpl</portlet-data-handler-class>
