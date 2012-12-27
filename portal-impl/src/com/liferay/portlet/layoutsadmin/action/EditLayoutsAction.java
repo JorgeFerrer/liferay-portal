@@ -452,11 +452,27 @@ public class EditLayoutsAction extends PortletAction {
 			}
 		}
 		else if (cmd.equals("reset_prototype")) {
-			if (!LayoutPermissionUtil.contains(
-					permissionChecker, layout, ActionKeys.UPDATE) ||
-				!GroupPermissionUtil.contains(
-					permissionChecker, layout.getGroupId(),
-					ActionKeys.UPDATE)) {
+			if (group.isUser()) {
+				User groupUser = UserLocalServiceUtil.getUserById(
+					group.getClassPK());
+
+				if (!LayoutPermissionUtil.contains(
+						permissionChecker, layout, ActionKeys.UPDATE)||
+					!UserPermissionUtil.contains(
+						permissionChecker, groupUser.getUserId(),
+						groupUser.getOrganizationIds(), ActionKeys.UPDATE)) {
+
+					throw new PrincipalException();
+				}
+				else {
+					return;
+				}
+			}
+			else if (!LayoutPermissionUtil.contains(
+						permissionChecker, layout, ActionKeys.UPDATE) ||
+					 !GroupPermissionUtil.contains(
+						permissionChecker, layout.getGroupId(),
+						ActionKeys.UPDATE)) {
 
 				throw new PrincipalException();
 			}
