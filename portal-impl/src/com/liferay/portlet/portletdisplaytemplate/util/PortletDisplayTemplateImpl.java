@@ -121,7 +121,7 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 					return stagingGroup.getGroupId();
 				}
 			}
-			else if (scopeGroup.getLiveGroupId() > 0) {
+			else if (scopeGroup.isStagingGroup()) {
 				Group liveGroup = scopeGroup.getLiveGroup();
 
 				if (!liveGroup.isStagedPortlet(
