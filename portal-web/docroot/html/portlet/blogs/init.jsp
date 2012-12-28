@@ -59,7 +59,7 @@ if (Validator.isNotNull(portletResource)) {
 }
 
 int pageDelta = GetterUtil.getInteger(preferences.getValue("pageDelta", StringPool.BLANK), SearchContainer.DEFAULT_DELTA);
-String pageDisplayStyle = preferences.getValue("pageDisplayStyle", RSSUtil.DISPLAY_STYLE_FULL_CONTENT);
+String pageDisplayStyle = preferences.getValue("pageDisplayStyle", BlogsUtil.DISPLAY_STYLE_FULL_CONTENT);
 int pageAbstractLength = PropsValues.BLOGS_PAGE_ABSTRACT_LENGTH;
 boolean enableFlags = GetterUtil.getBoolean(preferences.getValue("enableFlags", null), true);
 boolean enableRelatedAssets = GetterUtil.getBoolean(preferences.getValue("enableRelatedAssets", null), true);
