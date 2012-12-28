@@ -5766,15 +5766,26 @@ public class PortalImpl implements Portal {
 
 		String rootPortletId = portlet.getRootPortletId();
 
-		String portletPrimaryKey = PortletPermissionUtil.getPrimaryKey(
-			layout.getPlid(), portlet.getPortletId());
-
-		String name = null;
-		String primaryKey = null;
-
 		if (portletActions) {
-			name = rootPortletId;
-			primaryKey = portletPrimaryKey;
+			String portletPrimaryKey = PortletPermissionUtil.getPrimaryKey(
+				layout.getPlid(), portlet.getPortletId());
+
+			if (Validator.isNull(rootPortletId)) {
+				return;
+			}
+
+			int count =
+				ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
+					companyId, rootPortletId,
+					ResourceConstants.SCOPE_INDIVIDUAL, portletPrimaryKey);
+
+			if (count > 0) {
+				return;
+			}
+
+			ResourceLocalServiceUtil.addResources(
+				companyId, groupId, 0, rootPortletId, portletPrimaryKey,
+				portletActions, true, !layout.isPrivateLayout());
 		}
 		else {
 			Group group = GroupLocalServiceUtil.fetchGroup(groupId);
@@ -5783,32 +5794,27 @@ public class PortalImpl implements Portal {
 				groupId = group.getLiveGroupId();
 			}
 
-			name = ResourceActionsUtil.getPortletBaseResource(rootPortletId);
-			primaryKey = String.valueOf(groupId);
-		}
+			String name = ResourceActionsUtil.getPortletBaseResource(
+				rootPortletId);
 
-		if (Validator.isNull(name)) {
-			return;
-		}
+			String primaryKey = String.valueOf(groupId);
 
-		int count =
-			ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
-				companyId, name, ResourceConstants.SCOPE_INDIVIDUAL,
-				primaryKey);
+			if (Validator.isNull(name)) {
+				return;
+			}
 
-		if (count > 0) {
-			return;
-		}
+			int count =
+				ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
+					companyId, name, ResourceConstants.SCOPE_INDIVIDUAL,
+					primaryKey);
 
-		if (layout.isTypeControlPanel()) {
+			if (count > 0) {
+				return;
+			}
+
 			ResourceLocalServiceUtil.addResources(
 				companyId, groupId, 0, name, primaryKey, portletActions, true,
 				true);
-		}
-		else {
-			ResourceLocalServiceUtil.addResources(
-				companyId, groupId, 0, name, primaryKey, portletActions, true,
-				!layout.isPrivateLayout());
 		}
 	}
 
