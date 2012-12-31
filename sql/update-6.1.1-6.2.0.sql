@@ -343,6 +343,8 @@ alter table MBMessage drop column attachments;
 
 drop table OrgGroupPermission;
 
+alter table PasswordPolicy add regex VARCHAR(75) null;
+
 drop table Permission_;
 
 alter table RepositoryEntry add manualCheckInRequired BOOLEAN;

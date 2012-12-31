@@ -1731,6 +1731,8 @@ public interface PropsKeys {
 
 	public static final String PASSWORDS_DEFAULT_POLICY_NAME = "passwords.default.policy.name";
 
+	public static final String PASSWORDS_DEFAULT_POLICY_REGEX = "passwords.default.policy.regex";
+
 	public static final String PASSWORDS_DEFAULT_POLICY_RESET_FAILURE_COUNT = "passwords.default.policy.reset.failure.count";
 
 	public static final String PASSWORDS_DEFAULT_POLICY_RESET_TICKET_MAX_AGE = "passwords.default.policy.reset.ticket.max.age";
