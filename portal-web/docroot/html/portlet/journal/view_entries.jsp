@@ -210,7 +210,7 @@ int total = 0;
 		%>
 
 	</c:when>
-	<c:when test='<%= Validator.isNotNull(displayTerms.getTemplateId()) || displayTerms.isNavigationRecent() %>'>
+	<c:when test="<%= Validator.isNotNull(displayTerms.getTemplateId()) || displayTerms.isNavigationRecent() %>">
 
 		<%
 		results = JournalArticleServiceUtil.search(company.getCompanyId(), searchTerms.getGroupId(), searchTerms.getFolderIds(), JournalArticleConstants.CLASSNAME_ID_DEFAULT, searchTerms.getKeywords(), searchTerms.getVersionObj(), null, searchTerms.getStructureId(), searchTerms.getTemplateId(), searchTerms.getDisplayDateGT(), searchTerms.getDisplayDateLT(), searchTerms.getStatusCode(), searchTerms.getReviewDate(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
