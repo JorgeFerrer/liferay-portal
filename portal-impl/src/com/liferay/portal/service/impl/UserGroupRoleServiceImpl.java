@@ -16,6 +16,9 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.service.base.UserGroupRoleServiceBaseImpl;
 import com.liferay.portal.service.permission.UserGroupRolePermissionUtil;
 
@@ -47,13 +50,37 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 	public void deleteUserGroupRoles(long userId, long groupId, long[] roleIds)
 		throws PortalException, SystemException {
 
+		long[] filteredRoles = roleIds;
+
 		for (long roleId : roleIds) {
 			UserGroupRolePermissionUtil.check(
 				getPermissionChecker(), groupId, roleId);
+
+			Role role = roleLocalService.getRole(roleId);
+
+			if (role.getName().equals(RoleConstants.SITE_ADMINISTRATOR) ||
+			    role.getName().equals(RoleConstants.SITE_OWNER)) {
+
+				if (!userService.isUnsetGroupUserAllowed(groupId, userId)) {
+					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
+				}
+			}
+			else if (role.getName().equals(
+				RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
+			         role.getName().equals(RoleConstants.ORGANIZATION_OWNER)) {
+
+				if (!userService.isUnsetOrganizationUserAllowed(groupId, userId)) {
+					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
+				}
+			}
+		}
+
+		if (filteredRoles.length == 0) {
+			return;
 		}
 
 		userGroupRoleLocalService.deleteUserGroupRoles(
-			userId, groupId, roleIds);
+			userId, groupId, filteredRoles);
 	}
 
 	public void deleteUserGroupRoles(long[] userIds, long groupId, long roleId)
@@ -61,6 +88,20 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 		UserGroupRolePermissionUtil.check(
 			getPermissionChecker(), groupId, roleId);
+
+		Role role = roleLocalService.getRole(roleId);
+
+		if (role.getName().equals(RoleConstants.SITE_ADMINISTRATOR) ||
+			role.getName().equals(RoleConstants.SITE_OWNER)) {
+
+			userService.filterUnsetGroupUserIds(groupId, userIds);
+		}
+		else if (role.getName().equals(
+					RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
+		         role.getName().equals(RoleConstants.ORGANIZATION_OWNER)) {
+
+			userService.filterUnsetOrganizationUserIds(groupId, userIds);
+		}
 
 		userGroupRoleLocalService.deleteUserGroupRoles(
 			userIds, groupId, roleId);
