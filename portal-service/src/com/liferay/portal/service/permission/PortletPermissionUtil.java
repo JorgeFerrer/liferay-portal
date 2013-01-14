@@ -265,6 +265,15 @@ public class PortletPermissionUtil {
 			permissionChecker, scopeGroupId, layout, portlet, portletMode);
 	}
 
+	public static boolean hasControlPanelAccessPermission(
+			PermissionChecker permissionChecker, long scopeGroupId,
+			Portlet portlet)
+		throws PortalException, SystemException {
+
+		return getPortletPermission().hasControlPanelAccessPermission(
+			permissionChecker, scopeGroupId, portlet);
+	}
+
 	public static boolean hasLayoutManagerPermission(
 		String portletId, String actionId) {
 
