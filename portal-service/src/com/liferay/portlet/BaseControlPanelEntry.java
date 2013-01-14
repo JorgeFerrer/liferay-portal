@@ -115,11 +115,16 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 
 		String category = portlet.getControlPanelEntryCategory();
 
-		if (category.equals(PortletCategoryKeys.CONTENT) &&
-			permissionChecker.isGroupAdmin(group.getGroupId()) &&
-			!group.isUser()) {
+		if (category.equals(PortletCategoryKeys.CONTENT)) {
+			if (group.isLayout() && !portlet.isScopeable()) {
+				return false;
+			}
 
-			return true;
+			if (permissionChecker.isGroupAdmin(group.getGroupId()) &&
+				!group.isUser()) {
+
+				return true;
+			}
 		}
 
 		long groupId = group.getGroupId();

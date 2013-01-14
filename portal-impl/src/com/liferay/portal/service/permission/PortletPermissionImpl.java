@@ -30,10 +30,12 @@ import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.util.PortletCategoryKeys;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.portlet.ControlPanelEntry;
 import com.liferay.portlet.sites.util.SitesUtil;
 
 import java.util.Collection;
@@ -269,8 +271,12 @@ public class PortletPermissionImpl implements PortletPermission {
 			return hasPermission.booleanValue();
 		}
 
-		if (actionId.equals(ActionKeys.VIEW) && group.isControlPanel()) {
-			return true;
+		if (group.isControlPanel() && actionId.equals(ActionKeys.VIEW)) {
+			Portlet portlet = PortletLocalServiceUtil.getPortletById(
+				layout.getCompanyId(), portletId);
+
+			return hasControlPanelAccessPermission(
+				permissionChecker, groupId, portlet);
 		}
 
 		if (strict) {
@@ -434,6 +440,27 @@ public class PortletPermissionImpl implements PortletPermission {
 		}
 
 		return access;
+	}
+
+	public boolean hasControlPanelAccessPermission(
+			PermissionChecker permissionChecker, long scopeGroupId,
+			Portlet portlet)
+		throws PortalException, SystemException {
+
+		Group group = GroupLocalServiceUtil.getGroup(scopeGroupId);
+
+		ControlPanelEntry controlPanelEntry =
+			portlet.getControlPanelEntryInstance();
+
+		try {
+			return controlPanelEntry.hasAccessPermission(
+				permissionChecker, group, portlet);
+		}
+		catch (Exception e) {
+			_log.warn("Cannot process control panel access permission", e);
+
+			return false;
+		}
 	}
 
 	public boolean hasLayoutManagerPermission(
