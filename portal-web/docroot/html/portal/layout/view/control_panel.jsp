@@ -59,16 +59,8 @@ List<Layout> scopeLayouts = new ArrayList<Layout>();
 
 Portlet portlet = null;
 
-boolean denyAccess = false;
-
 if (Validator.isNotNull(ppid)) {
 	portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), ppid);
-
-	if ((portlet == null) ||
-		(!portlet.isSystem() && !PortalUtil.isControlPanelPortlet(ppid, category, themeDisplay)) && !PortalUtil.isAllowAddPortletDefaultResource(request, portlet)) {
-
-		denyAccess = true;
-	}
 }
 
 request.setAttribute("control_panel.jsp-ppid", ppid);

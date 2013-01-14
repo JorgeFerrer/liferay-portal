@@ -161,6 +161,11 @@ public interface PortletPermission {
 			Layout layout, Portlet portlet, PortletMode portletMode)
 		throws PortalException, SystemException;
 
+	public boolean hasControlPanelAccessPermission(
+			PermissionChecker permissionChecker, long scopeGroupId,
+			Portlet portlet)
+		throws PortalException, SystemException;
+
 	public boolean hasLayoutManagerPermission(
 		String portletId, String actionId);
 
