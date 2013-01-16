@@ -5756,10 +5756,11 @@ public class PortalImpl implements Portal {
 	}
 
 	protected void addDefaultModelResource(
-			long companyId, long groupId, String name)
+			long companyId, long groupId, Portlet portlet)
 		throws PortalException, SystemException {
 
-		String primaryKey = null;
+		String name = ResourceActionsUtil.getPortletBaseResource(
+				portlet.getRootPortletId());
 
 		Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 
@@ -5767,7 +5768,7 @@ public class PortalImpl implements Portal {
 			groupId = group.getLiveGroupId();
 		}
 
-		primaryKey = String.valueOf(groupId);
+		String primaryKey = String.valueOf(groupId);
 
 		if (Validator.isNull(name)) {
 			return;
@@ -5828,10 +5829,7 @@ public class PortalImpl implements Portal {
 			addDefaultPortletResource(companyId, groupId, layout, portlet);
 		}
 		else {
-			String name = ResourceActionsUtil.getPortletBaseResource(
-				portlet.getRootPortletId());
-
-			addDefaultModelResource(companyId, groupId, name);
+			addDefaultModelResource(companyId, groupId, portlet);
 		}
 	}
 
