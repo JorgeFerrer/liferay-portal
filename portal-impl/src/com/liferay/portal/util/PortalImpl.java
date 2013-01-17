@@ -256,6 +256,7 @@ import org.apache.struts.Globals;
  * @author Wesley Gong
  * @author Hugo Huijser
  * @author Juan Fernández
+ * @author Sampsa Sohlman
  */
 public class PortalImpl implements Portal {
 
@@ -597,18 +598,19 @@ public class PortalImpl implements Portal {
 			groupId = getScopeGroupId(layout, portlet.getPortletId());
 		}
 
-		addDefaultResource(
-			themeDisplay.getCompanyId(), groupId, layout, portlet, true);
-		addDefaultResource(
-			themeDisplay.getCompanyId(), groupId, layout, portlet, false);
+		addDefaultPortletResource(
+			themeDisplay.getCompanyId(), groupId, layout, portlet);
+		addDefaultModelResource(themeDisplay.getCompanyId(), groupId, portlet);
 	}
 
 	public void addPortletDefaultResource(
 			long companyId, Layout layout, Portlet portlet)
 		throws PortalException, SystemException {
 
-		addDefaultResource(companyId, layout, portlet, true);
-		addDefaultResource(companyId, layout, portlet, false);
+		long groupId = getScopeGroupId(layout, portlet.getPortletId());
+
+		addDefaultPortletResource(companyId, groupId, layout, portlet);
+		addDefaultModelResource(companyId, groupId, portlet);
 	}
 
 	public String addPreservedParameters(
@@ -5808,29 +5810,6 @@ public class PortalImpl implements Portal {
 		ResourceLocalServiceUtil.addResources(
 			companyId, groupId, 0, name, primaryKey, true, true,
 			!layout.isPrivateLayout());
-	}
-
-	protected void addDefaultResource(
-			long companyId, Layout layout, Portlet portlet,
-			boolean portletActions)
-		throws PortalException, SystemException {
-
-		long groupId = getScopeGroupId(layout, portlet.getPortletId());
-
-		addDefaultResource(companyId, groupId, layout, portlet, portletActions);
-	}
-
-	protected void addDefaultResource(
-			long companyId, long groupId, Layout layout, Portlet portlet,
-			boolean portletActions)
-		throws PortalException, SystemException {
-
-		if (portletActions) {
-			addDefaultPortletResource(companyId, groupId, layout, portlet);
-		}
-		else {
-			addDefaultModelResource(companyId, groupId, portlet);
-		}
 	}
 
 	protected String buildI18NPath(Locale locale) {
