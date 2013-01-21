@@ -18,6 +18,8 @@
 JournalArticle curArticle = null;
 JournalFolder curFolder = null;
 
+String curArticleLabel = null;
+
 if (result instanceof JournalFolder) {
 	curFolder = (JournalFolder)result;
 
@@ -27,5 +29,21 @@ else {
 	curArticle = (JournalArticle)result;
 
 	curArticle = curArticle.toEscapedModel();
+
+	curArticleLabel = curArticle.getTitle(locale);
+
+	if(!JournalArticleLocalServiceUtil.isLatestVersion(curArticle.getGroupId(), curArticle.getArticleId(), curArticle.getVersion())) {
+		JournalArticle curArticleLastVersion = JournalArticleLocalServiceUtil.getLatestArticle(curArticle.getResourcePrimKey(), WorkflowConstants.STATUS_ANY, true);
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(curArticleLastVersion.getTitle(locale));
+		sb.append(StringPool.SPACE);
+		sb.append(StringPool.OPEN_PARENTHESIS);
+		sb.append(LanguageUtil.format(pageContext, "matches-found-in-version", String.valueOf(curArticle.getVersion()), false));
+		sb.append(StringPool.CLOSE_PARENTHESIS);
+
+		curArticleLabel = sb.toString();
+	}
 }
 %>

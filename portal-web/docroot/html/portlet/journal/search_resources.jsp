@@ -246,6 +246,7 @@ boolean advancedSearch = ParamUtil.getBoolean(liferayPortletRequest, ArticleDisp
 									tempRowURL.setParameter("articleId", curArticle.getArticleId());
 
 									request.setAttribute("view_entries.jsp-article", curArticle);
+									request.setAttribute("view_entries.jsp-articleLabel", curArticleLabel);
 									request.setAttribute("view_entries.jsp-tempRowURL", tempRowURL);
 									%>
 
