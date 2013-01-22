@@ -24,7 +24,7 @@ row.addText(curArticle.getArticleId());
 
 TextSearchEntry articleTitleTextSearchEntry = new TextSearchEntry();
 
-articleTitleTextSearchEntry.setName(articleTitle);
+articleTitleTextSearchEntry.setName(curArticleLabel);
 
 row.addSearchEntry(articleTitleTextSearchEntry);
 

@@ -287,6 +287,7 @@ for (int i = 0; i < results.size(); i++) {
 					tempRowURL.setParameter("articleId", curArticle.getArticleId());
 
 					request.setAttribute("view_entries.jsp-article", curArticle);
+					request.setAttribute("view_entries.jsp-articleLabel", curArticleLabel);
 
 					request.setAttribute("view_entries.jsp-tempRowURL", tempRowURL);
 					%>
@@ -344,7 +345,7 @@ for (int i = 0; i < results.size(); i++) {
 					Map<String, Object> data = new HashMap<String, Object>();
 
 					data.put("draggable", JournalArticlePermission.contains(permissionChecker, curArticle, ActionKeys.DELETE) || JournalArticlePermission.contains(permissionChecker, curArticle, ActionKeys.UPDATE));
-					data.put("title", curArticle.getTitle(locale));
+					data.put("title", curArticleLabel);
 
 					row.setData(data);
 					%>

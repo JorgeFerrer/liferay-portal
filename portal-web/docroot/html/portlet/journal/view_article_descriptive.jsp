@@ -19,6 +19,8 @@
 <%
 JournalArticle article = (JournalArticle)request.getAttribute("view_entries.jsp-article");
 
+String articleLabel = (String)request.getAttribute("view_entries.jsp-articleLabel");
+
 PortletURL tempRowURL = (PortletURL)request.getAttribute("view_entries.jsp-tempRowURL");
 %>
 
@@ -33,6 +35,6 @@ PortletURL tempRowURL = (PortletURL)request.getAttribute("view_entries.jsp-tempR
 	thumbnailDivStyle="height: 136px; width: 136px;"
 	thumbnailSrc='<%= themeDisplay.getPathThemeImages() + "/file_system/large/default.png" %>'
 	thumbnailStyle="max-height: 128px; max-width: 128px;"
-	title="<%= article.getTitle(locale) %>"
+	title="<%= articleLabel %>"
 	url="<%= tempRowURL.toString() %>"
 />
