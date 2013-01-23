@@ -76,7 +76,7 @@ boolean useRichEditor = editorType.equals("rich");
 	</liferay-ui:panel>
 </liferay-ui:panel-container>
 
-<aui:script use="aui-ace-editor">
+<aui:script use="aui-ace-editor,aui-ace-autocomplete">
 	var editorType = '<%= HtmlUtil.escapeJS(editorType) %>';
 
 	var plainEditorField = A.one('#<portlet:namespace />plainEditorField');
@@ -146,7 +146,24 @@ boolean useRichEditor = editorType.equals("rich");
 					boundingBox: '#<portlet:namespace />richEditor',
 					width: '100%',
 					height: '400',
-					mode: '<%= EditorUtil.getEditorMode(langType) %>'
+					mode: '<%= EditorUtil.getEditorMode(langType) %>',
+					plugins: [
+						{
+							fn: A.AceEditor.AutoCompleteBase,
+							cfg: {
+								processor: new A.AceEditor.AutoCompleteFreemarker(
+									{
+										io: {
+											url: 'The URL here',
+											data: {
+												// custom data here
+											}
+										}
+									}
+								)
+							}
+						}
+					]
 				}
 			).render();
 
