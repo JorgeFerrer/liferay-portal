@@ -27,6 +27,8 @@ import com.liferay.portal.RequiredGroupException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -47,6 +49,7 @@ import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutSet;
+import com.liferay.portal.model.LayoutSetPrototype;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.MembershipRequestConstants;
 import com.liferay.portal.model.Role;
@@ -55,6 +58,8 @@ import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetPrototypeServiceUtil;
 import com.liferay.portal.service.LayoutSetServiceUtil;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.MembershipRequestServiceUtil;
@@ -131,6 +136,9 @@ public class EditGroupAction extends PortletAction {
 			}
 			else if (cmd.equals(Constants.DELETE)) {
 				deleteGroups(actionRequest);
+			}
+			else if (cmd.equals(Constants.RESET_MERGE_FAIL_COUNT)) {
+				resetMergeFailCountAndMerge(actionRequest);
 			}
 
 			sendRedirect(
@@ -275,6 +283,89 @@ public class EditGroupAction extends PortletAction {
 		}
 
 		return teams;
+	}
+
+	protected void resetMergeFailCountAndMerge(ActionRequest actionRequest)
+		throws Exception {
+
+		long targetGroupId = ParamUtil.getLong(actionRequest, "groupId");
+		boolean privateLayoutSet = ParamUtil.getBoolean(
+			actionRequest, "privateLayoutSet");
+		long layoutSetPrototypeId = ParamUtil.getLong(
+			actionRequest, "layoutSetPrototypeId");
+		boolean forceMergeNow = ParamUtil.getBoolean(
+			actionRequest, "forceMergeNow");
+
+		// reset counter
+
+		LayoutSetPrototype layoutSetPrototype =
+			LayoutSetPrototypeServiceUtil.getLayoutSetPrototype(
+				layoutSetPrototypeId);
+
+		LayoutSet layoutSetPrototypeLayoutSet =
+			layoutSetPrototype.getLayoutSet();
+
+		SitesUtil.setMergeFailCount(layoutSetPrototypeLayoutSet, 0);
+
+		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSetPrototypeLayoutSet);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("'merge-fail-count' was reset for layoutSetPrototype " +
+				layoutSetPrototypeId);
+		}
+
+		// force merge from template
+
+		if (forceMergeNow) {
+
+			LayoutSet targetGroupLayoutSet =
+				LayoutSetLocalServiceUtil.getLayoutSet(
+					targetGroupId, privateLayoutSet);
+
+			Group targetGroup = GroupLocalServiceUtil.getGroup(targetGroupId);
+
+			// enable link, if disabled
+
+			if (!targetGroupLayoutSet.isLayoutSetPrototypeLinkEnabled()) {
+
+				LayoutSetLocalServiceUtil.updateLayoutSetPrototypeLinkEnabled(
+					targetGroupId, privateLayoutSet, true,
+					layoutSetPrototype.getUuid());
+
+				targetGroupLayoutSet =
+					LayoutSetLocalServiceUtil.getLayoutSet(
+						targetGroupId, privateLayoutSet);
+			}
+
+			// reset merge timestamps
+
+			SitesUtil.resetPrototype(targetGroupLayoutSet);
+
+			// do the merge
+
+			SitesUtil.mergeLayoutSetPrototypeLayouts(
+				targetGroup, targetGroupLayoutSet);
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Site template " + layoutSetPrototypeId +
+					" was merged to group " + targetGroupId );
+			}
+		}
+
+		// check whether reset (and possible merge) was successful
+
+		layoutSetPrototype =
+			LayoutSetPrototypeServiceUtil.getLayoutSetPrototype(
+				layoutSetPrototypeId);
+
+		int mergeFailCountAfterMerge = SitesUtil.getMergeFailCount(
+			layoutSetPrototype);
+
+		if (mergeFailCountAfterMerge > 0) {
+
+			SessionErrors.add(
+				actionRequest, "templateMergeFailedSeeLogsForDetails");
+		}
 	}
 
 	protected void updateActive(ActionRequest actionRequest, String cmd)
@@ -693,5 +784,7 @@ public class EditGroupAction extends PortletAction {
 	}
 
 	private static final int _LAYOUT_SET_VISIBILITY_PRIVATE = 1;
+
+	private static Log _log = LogFactoryUtil.getLog(EditGroupAction.class);
 
 }
