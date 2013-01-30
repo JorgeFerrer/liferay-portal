@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
@@ -137,7 +138,9 @@ public class EditScopeAction extends EditConfigurationAction {
 				renderRequest, "portlet.portlet_configuration.edit_scope"));
 	}
 
-	protected Tuple getNewScope(ActionRequest actionRequest) throws Exception {
+	protected Tuple getNewScope(ActionRequest actionRequest, Portlet portlet)
+		throws Exception {
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -159,9 +162,11 @@ public class EditScopeAction extends EditConfigurationAction {
 			String scopeLayoutUuid = ParamUtil.getString(
 				actionRequest, "scopeLayoutUuid");
 
+			Group group = layout.getGroup();
+
 			Layout scopeLayout =
 				LayoutLocalServiceUtil.getLayoutByUuidAndGroupId(
-					scopeLayoutUuid, layout.getGroupId(),
+					scopeLayoutUuid, group.getGroupId(),
 					layout.isPrivateLayout());
 
 			if (!scopeLayout.hasScopeGroup()) {
@@ -177,6 +182,39 @@ public class EditScopeAction extends EditConfigurationAction {
 
 			scopeGroupId = scopeLayout.getGroupId();
 			scopeName = scopeLayout.getName(themeDisplay.getLocale());
+
+			Group liveGroup = group.getLiveGroup();
+
+			if ((liveGroup != null) && !liveGroup.isStagedRemotely() &&
+				!liveGroup.isStagedPortlet(portlet.getPortletId())) {
+
+				Layout liveScopeLayout =
+					LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(
+						scopeLayoutUuid, liveGroup.getGroupId(),
+						layout.isPrivateLayout());
+
+				if ((liveScopeLayout != null) &&
+					!liveScopeLayout.hasScopeGroup()) {
+
+					String name = String.valueOf(liveScopeLayout.getPlid());
+
+					Group liveScopeGroup = GroupLocalServiceUtil.addGroup(
+						themeDisplay.getUserId(),
+						GroupConstants.DEFAULT_PARENT_GROUP_ID,
+						Layout.class.getName(), liveScopeLayout.getPlid(),
+						GroupConstants.DEFAULT_LIVE_GROUP_ID, name, null, 0,
+						null, false, true, null);
+
+					if (liveScopeGroup != null) {
+						Group oldScopeGroup = scopeLayout.getScopeGroup();
+
+						oldScopeGroup.setLiveGroupId(
+							liveScopeGroup.getGroupId());
+
+						GroupLocalServiceUtil.updateGroup(oldScopeGroup);
+					}
+				}
+			}
 		}
 		else {
 			throw new IllegalArgumentException(
@@ -289,7 +327,7 @@ public class EditScopeAction extends EditConfigurationAction {
 		String portletTitle = getPortletTitle(
 			actionRequest, portlet, preferences);
 
-		Tuple newScopeTuple = getNewScope(actionRequest);
+		Tuple newScopeTuple = getNewScope(actionRequest, portlet);
 
 		long newScopeGroupId = (Long)newScopeTuple.getObject(0);
 
