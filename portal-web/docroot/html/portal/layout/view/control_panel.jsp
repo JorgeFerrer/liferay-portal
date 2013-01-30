@@ -25,7 +25,7 @@ if (controlPanelCategory.equals(PortletCategoryKeys.CONTENT) && Validator.isNull
 	List<Portlet> portlets = PortalUtil.getControlPanelPortlets(PortletCategoryKeys.CONTENT, themeDisplay);
 
 	for (Portlet portlet : portlets) {
-		if (PortletPermissionUtil.contains(permissionChecker, scopeGroupId, 0, portlet.getPortletId(), ActionKeys.ACCESS_IN_CONTROL_PANEL, true)) {
+		if (PortletPermissionUtil.hasControlPanelAccessPermission(permissionChecker, scopeGroupId, portlet)) {
 			ppid = portlet.getPortletId();
 
 			break;

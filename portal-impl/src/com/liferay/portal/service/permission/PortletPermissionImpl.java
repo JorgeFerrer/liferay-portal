@@ -293,22 +293,6 @@ public class PortletPermissionImpl implements PortletPermission {
 	}
 
 	public boolean contains(
-		PermissionChecker permissionChecker, long groupId, long plid,
-		Collection<Portlet> portlets, String actionId) {
-
-		for (Portlet portlet : portlets) {
-			if (permissionChecker.hasPermission(
-					groupId, portlet.getPortletId(), portlet.getPortletId(),
-					ActionKeys.ACCESS_IN_CONTROL_PANEL)) {
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public boolean contains(
 			PermissionChecker permissionChecker, long groupId, long plid,
 			Portlet portlet, String actionId)
 		throws PortalException, SystemException {
@@ -436,6 +420,22 @@ public class PortletPermissionImpl implements PortletPermission {
 		}
 
 		return access;
+	}
+
+	public boolean hasControlPanelAccessPermission(
+			PermissionChecker permissionChecker, long groupId,
+			Collection<Portlet> portlets)
+		throws PortalException, SystemException {
+
+		for (Portlet portlet : portlets) {
+			if (hasControlPanelAccessPermission(
+					permissionChecker, groupId, portlet)) {
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public boolean hasControlPanelAccessPermission(
