@@ -16,6 +16,7 @@ package com.liferay.portlet;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.Portlet;
@@ -23,6 +24,7 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletCategoryKeys;
 
 /**
@@ -114,6 +116,10 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 		}
 
 		String category = portlet.getControlPanelEntryCategory();
+
+		if(category == null){
+			category = StringPool.BLANK;
+		}
 
 		if (category.equals(PortletCategoryKeys.CONTENT)) {
 			if (group.isLayout() && !portlet.isScopeable()) {

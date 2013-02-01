@@ -272,11 +272,7 @@ public class PortletPermissionImpl implements PortletPermission {
 		}
 
 		if (group.isControlPanel() && actionId.equals(ActionKeys.VIEW)) {
-			Portlet portlet = PortletLocalServiceUtil.getPortletById(
-				layout.getCompanyId(), portletId);
-
-			return hasControlPanelAccessPermission(
-				permissionChecker, groupId, portlet);
+			return true;
 		}
 
 		if (strict) {
