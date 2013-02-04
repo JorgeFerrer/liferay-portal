@@ -16,6 +16,7 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -26,7 +27,7 @@ import com.liferay.portal.util.PropsValues;
 public class EmailAddressValidatorFactory {
 
 	public static EmailAddressValidator getInstance() {
-		if (_emailAddressValidator == null) {
+		if (_originalEmailAddressValidator == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Instantiate " + PropsValues.USERS_EMAIL_ADDRESS_VALIDATOR);
@@ -36,7 +37,7 @@ public class EmailAddressValidatorFactory {
 				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
-				_emailAddressValidator =
+				_originalEmailAddressValidator =
 					(EmailAddressValidator)InstanceFactory.newInstance(
 						classLoader, PropsValues.USERS_EMAIL_ADDRESS_VALIDATOR);
 			}
@@ -45,8 +46,13 @@ public class EmailAddressValidatorFactory {
 			}
 		}
 
+		if (_emailAddressValidator == null) {
+			_emailAddressValidator = _originalEmailAddressValidator;
+		}
+
 		if (_log.isDebugEnabled()) {
-			_log.debug("Return " + _emailAddressValidator.getClass().getName());
+			_log.debug(
+				"Return " + ClassUtil.getClassName(_emailAddressValidator));
 		}
 
 		return _emailAddressValidator;
@@ -56,15 +62,21 @@ public class EmailAddressValidatorFactory {
 		EmailAddressValidator emailAddressValidator) {
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Set " + emailAddressValidator.getClass().getName());
+			_log.debug("Set " + ClassUtil.getClassName(emailAddressValidator));
 		}
 
-		_emailAddressValidator = emailAddressValidator;
+		if (emailAddressValidator == null) {
+			_emailAddressValidator = _originalEmailAddressValidator;
+		}
+		else {
+			_emailAddressValidator = emailAddressValidator;
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		EmailAddressValidatorFactory.class);
 
 	private static EmailAddressValidator _emailAddressValidator;
+	private static EmailAddressValidator _originalEmailAddressValidator;
 
 }

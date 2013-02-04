@@ -16,6 +16,7 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -26,7 +27,7 @@ import com.liferay.portal.util.PropsValues;
 public class FullNameValidatorFactory {
 
 	public static FullNameValidator getInstance() {
-		if (_fullNameValidator == null) {
+		if (_originalFullNameValidator == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Instantiate " + PropsValues.USERS_FULL_NAME_VALIDATOR);
@@ -36,7 +37,7 @@ public class FullNameValidatorFactory {
 				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
-				_fullNameValidator =
+				_originalFullNameValidator =
 					(FullNameValidator)InstanceFactory.newInstance(
 						classLoader, PropsValues.USERS_FULL_NAME_VALIDATOR);
 			}
@@ -45,8 +46,12 @@ public class FullNameValidatorFactory {
 			}
 		}
 
+		if (_fullNameValidator == null) {
+			_fullNameValidator = _originalFullNameValidator;
+		}
+
 		if (_log.isDebugEnabled()) {
-			_log.debug("Return " + _fullNameValidator.getClass().getName());
+			_log.debug("Return " + ClassUtil.getClassName(_fullNameValidator));
 		}
 
 		return _fullNameValidator;
@@ -54,15 +59,21 @@ public class FullNameValidatorFactory {
 
 	public static void setInstance(FullNameValidator fullNameValidator) {
 		if (_log.isDebugEnabled()) {
-			_log.debug("Set " + fullNameValidator.getClass().getName());
+			_log.debug("Set " + ClassUtil.getClassName(fullNameValidator));
 		}
 
-		_fullNameValidator = fullNameValidator;
+		if (fullNameValidator == null) {
+			_fullNameValidator = _originalFullNameValidator;
+		}
+		else {
+			_fullNameValidator = fullNameValidator;
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		FullNameValidatorFactory.class);
 
 	private static FullNameValidator _fullNameValidator;
+	private static FullNameValidator _originalFullNameValidator;
 
 }

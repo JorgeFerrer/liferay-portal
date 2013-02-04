@@ -16,6 +16,7 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -26,7 +27,7 @@ import com.liferay.portal.util.PropsValues;
 public class MembershipPolicyFactory {
 
 	public static MembershipPolicy getInstance() {
-		if (_membershipPolicy == null) {
+		if (_originalMembershipPolicy == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Instantiate " + PropsValues.USERS_MEMBERSHIP_POLICY);
@@ -36,7 +37,7 @@ public class MembershipPolicyFactory {
 				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
-				_membershipPolicy =
+				_originalMembershipPolicy =
 					(MembershipPolicy)InstanceFactory.newInstance(
 						classLoader, PropsValues.USERS_MEMBERSHIP_POLICY);
 			}
@@ -45,8 +46,12 @@ public class MembershipPolicyFactory {
 			}
 		}
 
+		if (_membershipPolicy == null) {
+			_membershipPolicy = _originalMembershipPolicy;
+		}
+
 		if (_log.isDebugEnabled()) {
-			_log.debug("Return " + _membershipPolicy.getClass().getName());
+			_log.debug("Return " + ClassUtil.getClassName(_membershipPolicy));
 		}
 
 		return _membershipPolicy;
@@ -54,15 +59,21 @@ public class MembershipPolicyFactory {
 
 	public static void setInstance(MembershipPolicy membershipPolicy) {
 		if (_log.isDebugEnabled()) {
-			_log.debug("Set " + membershipPolicy.getClass().getName());
+			_log.debug("Set " + ClassUtil.getClassName(membershipPolicy));
 		}
 
-		_membershipPolicy = membershipPolicy;
+		if (membershipPolicy == null) {
+			_membershipPolicy = _originalMembershipPolicy;
+		}
+		else {
+			_membershipPolicy = membershipPolicy;
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		MembershipPolicyFactory.class);
 
 	private static MembershipPolicy _membershipPolicy;
+	private static MembershipPolicy _originalMembershipPolicy;
 
 }

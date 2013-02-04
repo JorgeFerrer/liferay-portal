@@ -97,6 +97,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The group local service is responsible for accessing, creating, modifying and
@@ -473,6 +474,10 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		MembershipPolicy membershipPolicy =
 			MembershipPolicyFactory.getInstance();
 
+		if (!membershipPolicy.isApplicableUser(user)) {
+			return;
+		}
+
 		LinkedHashMap<String, Object> groupParams =
 			new LinkedHashMap<String, Object>();
 
@@ -480,20 +485,20 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		groupParams.put("site", Boolean.TRUE);
 		groupParams.put("usersGroups", user.getUserId());
 
-		List<Group> userGroups = search(
+		List<Group> groups = search(
 			user.getCompanyId(), groupParams, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS);
 
-		for (Group userGroup : userGroups) {
-			if (!membershipPolicy.isMembershipAllowed(userGroup, user)) {
+		for (Group group : groups) {
+			if (!membershipPolicy.isMembershipAllowed(group, user)) {
 				unsetUserGroups(
-					user.getUserId(), new long[] {userGroup.getGroupId()});
+					user.getUserId(), new long[] {group.getGroupId()});
 			}
 		}
 
-		List<Group> groups = membershipPolicy.getMandatoryGroups(user);
+		Set<Group> mandatoryGroups = membershipPolicy.getMandatoryGroups(user);
 
-		for (Group group : groups) {
+		for (Group group : mandatoryGroups) {
 			if (!hasUserGroup(user.getUserId(), group.getGroupId(), false)) {
 				addUserGroups(
 					user.getUserId(), new long[] {group.getGroupId()});

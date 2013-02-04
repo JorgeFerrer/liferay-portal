@@ -31,6 +31,7 @@ import com.liferay.portal.service.persistence.UserGroupRolePK;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Jorge Ferrer
@@ -84,6 +85,10 @@ public class UserGroupRoleLocalServiceImpl
 		MembershipPolicy membershipPolicy =
 			MembershipPolicyFactory.getInstance();
 
+		if (!membershipPolicy.isApplicableUser(user)) {
+			return;
+		}
+
 		LinkedHashMap<String, Object> groupParams =
 			new LinkedHashMap<String, Object>();
 
@@ -91,35 +96,35 @@ public class UserGroupRoleLocalServiceImpl
 		groupParams.put("site", Boolean.TRUE);
 		groupParams.put("usersGroups", user.getUserId());
 
-		List<Group> userGroups = groupLocalService.search(
+		List<Group> groups = groupLocalService.search(
 			user.getCompanyId(), groupParams, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS);
 
-		for (Group userGroup : userGroups) {
-			List<Role> mandatoryRoles = membershipPolicy.getMandatoryRoles(
-				userGroup, user);
+		for (Group group : groups) {
+			Set<Role> mandatoryRoles = membershipPolicy.getMandatoryRoles(
+				group, user);
 
 			for (Role role : mandatoryRoles) {
 				if (!hasUserGroupRole(
-						user.getUserId(), userGroup.getGroupId(),
-						role.getRoleId(), false)) {
+						user.getUserId(), group.getGroupId(), role.getRoleId(),
+						false)) {
 
 					addUserGroupRoles(
-						user.getUserId(), userGroup.getGroupId(),
+						user.getUserId(), group.getGroupId(),
 						new long[] {role.getRoleId()});
 				}
 			}
 
-			List<Role> forbiddenRoles = membershipPolicy.getForbiddenRoles(
-				userGroup, user);
+			Set<Role> forbiddenRoles = membershipPolicy.getForbiddenRoles(
+				group, user);
 
 			for (Role role : forbiddenRoles) {
 				if (hasUserGroupRole(
-						user.getUserId(), userGroup.getGroupId(),
-						role.getRoleId(), false)) {
+						user.getUserId(), group.getGroupId(), role.getRoleId(),
+						false)) {
 
 					deleteUserGroupRoles(
-						user.getUserId(), userGroup.getGroupId(),
+						user.getUserId(), group.getGroupId(),
 						new long[] {role.getRoleId()});
 				}
 			}

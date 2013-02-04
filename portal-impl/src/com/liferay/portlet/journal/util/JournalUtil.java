@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -948,34 +949,31 @@ public class JournalUtil {
 
 		String script = ddmTemplate.getScript();
 
-		if (transform) {
+		if (!transform) {
+			return script;
+		}
 
-			// Listeners
+		String[] transformerListenerClassNames = PropsUtil.getArray(
+			PropsKeys.JOURNAL_TRANSFORMER_LISTENER);
 
-			String[] listeners = PropsUtil.getArray(
-				PropsKeys.JOURNAL_TRANSFORMER_LISTENER);
+		for (String transformerListenerClassName :
+				transformerListenerClassNames) {
 
-			for (int i = 0; i < listeners.length; i++) {
-				TransformerListener listener = null;
+			TransformerListener transformerListener = null;
 
-				try {
-					listener = (TransformerListener)Class.forName(
-						listeners[i]).newInstance();
+			try {
+				transformerListener =
+					(TransformerListener)InstanceFactory.newInstance(
+						transformerListenerClassName);
 
-					listener.setTemplateDriven(true);
-					listener.setLanguageId(languageId);
-					listener.setTokens(tokens);
-				}
-				catch (Exception e) {
-					_log.error(e, e);
-				}
-
-				// Modify transform script
-
-				if (listener != null) {
-					script = listener.onScript(script);
-				}
+				continue;
 			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
+
+			script = transformerListener.onScript(
+				script, null, languageId, tokens);
 		}
 
 		return script;

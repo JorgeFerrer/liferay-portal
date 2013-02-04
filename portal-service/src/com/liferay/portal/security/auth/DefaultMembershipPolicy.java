@@ -15,30 +15,84 @@
 package com.liferay.portal.security.auth;
 
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
+import com.liferay.portal.model.UserGroup;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Sergio González
  */
 public class DefaultMembershipPolicy implements MembershipPolicy {
 
-	public List<Role> getForbiddenRoles(Group group, User user) {
-		return Collections.emptyList();
+	public Set<Group> getForbiddenGroups(User user) {
+		return Collections.emptySet();
 	}
 
-	public List<Group> getMandatoryGroups(User user) {
-		return Collections.emptyList();
+	public Set<Organization> getForbiddenOrganizations(User user) {
+		return Collections.emptySet();
 	}
 
-	public List<Role> getMandatoryRoles(Group group, User user) {
-		return Collections.emptyList();
+	public Set<Role> getForbiddenRoles(Group group, User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Role> getForbiddenRoles(Organization organization, User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Role> getForbiddenRoles(User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<UserGroup> getForbiddenUserGroups(User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Group> getMandatoryGroups(User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Organization> getMandatoryOrganizations(User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Role> getMandatoryRoles(Group group, User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Role> getMandatoryRoles(Organization organization, User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<Role> getMandatoryRoles(User user) {
+		return Collections.emptySet();
+	}
+
+	public Set<UserGroup> getMandatoryUserGroups(User user) {
+		return Collections.emptySet();
+	}
+
+	public boolean isApplicableUser(User user) {
+		return false;
 	}
 
 	public boolean isMembershipAllowed(Group group, User user) {
+		return true;
+	}
+
+	public boolean isMembershipAllowed(Organization organization, User user) {
+		return true;
+	}
+
+	public boolean isMembershipAllowed(Role role, User user) {
+		return true;
+	}
+
+	public boolean isMembershipAllowed(UserGroup userGroup, User user) {
 		return true;
 	}
 

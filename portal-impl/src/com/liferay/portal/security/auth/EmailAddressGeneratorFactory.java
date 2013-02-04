@@ -16,6 +16,7 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -26,7 +27,7 @@ import com.liferay.portal.util.PropsValues;
 public class EmailAddressGeneratorFactory {
 
 	public static EmailAddressGenerator getInstance() {
-		if (_emailAddressGenerator == null) {
+		if (_originalEmailAddressGenerator == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Instantiate " + PropsValues.USERS_EMAIL_ADDRESS_GENERATOR);
@@ -36,7 +37,7 @@ public class EmailAddressGeneratorFactory {
 				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
-				_emailAddressGenerator =
+				_originalEmailAddressGenerator =
 					(EmailAddressGenerator)InstanceFactory.newInstance(
 						classLoader, PropsValues.USERS_EMAIL_ADDRESS_GENERATOR);
 			}
@@ -45,8 +46,13 @@ public class EmailAddressGeneratorFactory {
 			}
 		}
 
+		if (_emailAddressGenerator == null) {
+			_emailAddressGenerator = _originalEmailAddressGenerator;
+		}
+
 		if (_log.isDebugEnabled()) {
-			_log.debug("Return " + _emailAddressGenerator.getClass().getName());
+			_log.debug(
+				"Return " + ClassUtil.getClassName(_emailAddressGenerator));
 		}
 
 		return _emailAddressGenerator;
@@ -56,15 +62,21 @@ public class EmailAddressGeneratorFactory {
 		EmailAddressGenerator emailAddressGenerator) {
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Set " + emailAddressGenerator.getClass().getName());
+			_log.debug("Set " + ClassUtil.getClassName(emailAddressGenerator));
 		}
 
-		_emailAddressGenerator = emailAddressGenerator;
+		if (emailAddressGenerator == null) {
+			_emailAddressGenerator = _originalEmailAddressGenerator;
+		}
+		else {
+			_emailAddressGenerator = emailAddressGenerator;
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		EmailAddressGeneratorFactory.class);
 
 	private static EmailAddressGenerator _emailAddressGenerator;
+	private static EmailAddressGenerator _originalEmailAddressGenerator;
 
 }

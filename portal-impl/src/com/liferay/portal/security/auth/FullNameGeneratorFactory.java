@@ -16,6 +16,7 @@ package com.liferay.portal.security.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.security.pacl.PACLClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -26,7 +27,7 @@ import com.liferay.portal.util.PropsValues;
 public class FullNameGeneratorFactory {
 
 	public static FullNameGenerator getInstance() {
-		if (_fullNameGenerator == null) {
+		if (_originalFullNameGenerator == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Instantiate " + PropsValues.USERS_FULL_NAME_GENERATOR);
@@ -36,7 +37,7 @@ public class FullNameGeneratorFactory {
 				PACLClassLoaderUtil.getPortalClassLoader();
 
 			try {
-				_fullNameGenerator =
+				_originalFullNameGenerator =
 					(FullNameGenerator)InstanceFactory.newInstance(
 						classLoader, PropsValues.USERS_FULL_NAME_GENERATOR);
 			}
@@ -45,8 +46,12 @@ public class FullNameGeneratorFactory {
 			}
 		}
 
+		if (_fullNameGenerator == null) {
+			_fullNameGenerator = _originalFullNameGenerator;
+		}
+
 		if (_log.isDebugEnabled()) {
-			_log.debug("Return " + _fullNameGenerator.getClass().getName());
+			_log.debug("Return " + ClassUtil.getClassName(_fullNameGenerator));
 		}
 
 		return _fullNameGenerator;
@@ -54,15 +59,21 @@ public class FullNameGeneratorFactory {
 
 	public static void setInstance(FullNameGenerator fullNameValidator) {
 		if (_log.isDebugEnabled()) {
-			_log.debug("Set " + fullNameValidator.getClass().getName());
+			_log.debug("Set " + ClassUtil.getClassName(fullNameValidator));
 		}
 
-		_fullNameGenerator = fullNameValidator;
+		if (fullNameValidator == null) {
+			_fullNameGenerator = _originalFullNameGenerator;
+		}
+		else {
+			_fullNameGenerator = fullNameValidator;
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
 		FullNameValidatorFactory.class);
 
 	private static FullNameGenerator _fullNameGenerator;
+	private static FullNameGenerator _originalFullNameGenerator;
 
 }
