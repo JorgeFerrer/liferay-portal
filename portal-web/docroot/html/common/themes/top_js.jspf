@@ -168,7 +168,7 @@
 					return "<%= themeDisplay.getScopeGroupId() %>";
 				},
 				getScopeGroupIdOrLiveGroupId: function() {
-					return "<%= themeDisplay.getScopeGroupIdOrLiveGroupId() %>";
+					return "<%= themeDisplay.getSiteGroupIdOrLiveGroupId() %>";
 				},
 				getSiteGroupId: function() {
 					return "<%= themeDisplay.getSiteGroupId() %>";

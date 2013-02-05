@@ -393,10 +393,14 @@ public class ThemeDisplay
 		return _scopeGroupId;
 	}
 
+	/**
+	 * @deprecated As of 6.2 renamed to
+	 * 	{@link #getSiteGroupIdOrLiveGroupId()} ()}
+	 */
 	public long getScopeGroupIdOrLiveGroupId()
 		throws PortalException, SystemException {
 
-		return StagingUtil.getLiveGroupId(_scopeGroupId);
+		return getSiteGroupIdOrLiveGroupId();
 	}
 
 	public String getScopeGroupName() throws PortalException, SystemException {
