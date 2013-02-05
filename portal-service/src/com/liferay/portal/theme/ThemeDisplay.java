@@ -256,7 +256,6 @@ public class ThemeDisplay
 	 * @deprecated As of 6.2 renamed to {@link #getSiteGroupName()}
 	 */
 	public String getParentGroupName() throws PortalException, SystemException {
-
 		return getSiteGroupName();
 	}
 
