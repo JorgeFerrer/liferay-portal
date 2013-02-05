@@ -36,6 +36,7 @@ import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Phone;
 import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.model.UserGroupRole;
@@ -44,6 +45,7 @@ import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.base.UserServiceBaseImpl;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.OrganizationPermissionUtil;
@@ -1772,17 +1774,32 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			oldGroupIds = new long[oldGroups.size()];
 
 			for (int i = 0; i < oldGroups.size(); i++) {
-				Group group = oldGroups.get(i);
+				Group oldGroup = oldGroups.get(i);
 
-				if (!ArrayUtil.contains(groupIds, group.getGroupId()) &&
-					!GroupPermissionUtil.contains(
-						permissionChecker, group.getGroupId(),
-						ActionKeys.ASSIGN_MEMBERS)) {
+				if (!ArrayUtil.contains(groupIds, oldGroup.getGroupId())) {
+					if (!GroupPermissionUtil.contains(
+							permissionChecker, oldGroup.getGroupId(),
+							ActionKeys.ASSIGN_MEMBERS)) {
 
-					groupIds = ArrayUtil.append(groupIds, group.getGroupId());
+						groupIds = ArrayUtil.append(
+							groupIds, oldGroup.getGroupId());
+					}
+					else if (
+						!permissionChecker.isGroupOwner(
+							oldGroup.getGroupId()) &&
+						(UserGroupRoleLocalServiceUtil.hasUserGroupRole(
+							userId, oldGroup.getGroupId(),
+							RoleConstants.SITE_ADMINISTRATOR, true) ||
+						 UserGroupRoleLocalServiceUtil.hasUserGroupRole(
+							 userId, oldGroup.getGroupId(),
+							 RoleConstants.SITE_OWNER, true))) {
+
+						groupIds = ArrayUtil.append(
+							groupIds, oldGroup.getGroupId());
+					}
 				}
 
-				oldGroupIds[i] = group.getGroupId();
+				oldGroupIds[i] = oldGroup.getGroupId();
 			}
 		}
 
@@ -1817,19 +1834,36 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			oldOrganizationIds = new long[oldOrganizations.size()];
 
 			for (int i = 0; i < oldOrganizations.size(); i++) {
-				Organization organization = oldOrganizations.get(i);
+				Organization oldOrganization = oldOrganizations.get(i);
+				Group oldGroup = oldOrganization.getGroup();
 
 				if (!ArrayUtil.contains(
-						organizationIds, organization.getOrganizationId()) &&
+						organizationIds, oldOrganization.getOrganizationId()) &&
 					!OrganizationPermissionUtil.contains(
-						permissionChecker, organization.getOrganizationId(),
+						permissionChecker, oldOrganization.getOrganizationId(),
 						ActionKeys.ASSIGN_MEMBERS)) {
 
 					organizationIds = ArrayUtil.append(
-						organizationIds, organization.getOrganizationId());
+						organizationIds, oldOrganization.getOrganizationId());
+				}
+				else {
+					if (
+						!permissionChecker.isGroupOwner(
+							oldGroup.getGroupId()) &&
+						(UserGroupRoleLocalServiceUtil.hasUserGroupRole(
+							userId, oldGroup.getGroupId(),
+							RoleConstants.ORGANIZATION_ADMINISTRATOR, true) ||
+						 UserGroupRoleLocalServiceUtil.hasUserGroupRole(
+							 userId, oldGroup.getGroupId(),
+							 RoleConstants.ORGANIZATION_OWNER, true))) {
+
+						organizationIds = ArrayUtil.append(
+							organizationIds,
+							oldOrganization.getOrganizationId());
+					}
 				}
 
-				oldOrganizationIds[i] = organization.getOrganizationId();
+				oldOrganizationIds[i] = oldOrganization.getOrganizationId();
 			}
 		}
 
