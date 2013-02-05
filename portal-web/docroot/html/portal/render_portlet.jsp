@@ -1117,7 +1117,7 @@ if (themeDisplay.isStatePopUp()) {
 }
 
 themeDisplay.setScopeGroupId(previousScopeGroupId);
-themeDisplay.setParentGroupId(previousSiteGroupId);
+themeDisplay.setSiteGroupId(previousSiteGroupId);
 
 if (showPortletCssIcon) {
 	themeDisplay.setIncludePortletCssJs(true);
