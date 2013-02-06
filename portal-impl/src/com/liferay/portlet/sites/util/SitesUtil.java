@@ -643,6 +643,15 @@ public class SitesUtil {
 		return parameterMap;
 	}
 
+	/**
+	 * Returns count of failed merge attempts done from given
+	 * layoutPrototype to some linked layout.
+	 *
+	 * @param layoutPrototype page template that is being inspected
+	 * @return count of failed merge attempts since last success
+	 * @throws PortalException in case or retrival errors
+	 * @throws SystemException in case of system errors
+	 */
 	public static int getMergeFailCount(LayoutPrototype layoutPrototype)
 		throws PortalException, SystemException {
 
@@ -668,6 +677,15 @@ public class SitesUtil {
 		return mergeFailCount;
 	}
 
+	/**
+	 * Returns count of failed merge attempts done from given
+	 * layoutSetPrototype to some linked site.
+	 *
+	 * @param layoutSetPrototype site template that is being inspected
+	 * @return count of failed merge attempts since last success
+	 * @throws PortalException in case or retrival errors
+	 * @throws SystemException in case of system errors
+	 */
 	public static int getMergeFailCount(LayoutSetPrototype layoutSetPrototype)
 		throws PortalException, SystemException {
 

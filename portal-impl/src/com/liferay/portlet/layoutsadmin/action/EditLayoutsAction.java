@@ -682,6 +682,25 @@ public class EditLayoutsAction extends PortletAction {
 		return _CHECK_METHOD_ON_PROCESS_ACTION;
 	}
 
+	/**
+	 * Resets the counter of previously failed merges from page template and
+	 * performs the merge from the page template to given layout.
+	 *
+	 * <p>
+	 * Couple of parameters are retrieved from <code>actionRequest</code>:
+	 * </p>
+	 *
+	 * <ul>
+	 * <li>
+	 * <code>layoutPlid</code>: target layout plid where the template should be
+	 * merged, i.e. created from a page template.
+	 * </li>
+	 * </ul>
+	 *
+	 * @param actionRequest portlet request used to retrieve parameters
+	 * @throws Exception when errors occur during resetting of merging of page
+	 * template
+	 */
 	private void resetMergeFailCountAndMerge(ActionRequest actionRequest)
 		throws Exception {
 

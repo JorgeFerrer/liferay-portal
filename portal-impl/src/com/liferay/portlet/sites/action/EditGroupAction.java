@@ -287,6 +287,34 @@ public class EditGroupAction extends PortletAction {
 		return teams;
 	}
 
+	/**
+	 * Resets the counter of previously failed merges from site template and
+	 * optionally performs the merge from the site template to given layout set.
+	 * Couple of parameters are retrieved from <code>actionRequest</code>:
+	 *
+	 * <ul>
+	 * <li>
+	 * <code>groupId</code>: target group where the template should be merged,
+	 * i.e. a group with layout set created from a site template.
+	 * </li>
+	 * <li>
+	 * <code>privateLayoutSet</code>: whether we will be merging to private
+	 * (value == true) or public (value == false) pages of given target group
+	 * </li>
+	 * <li>
+	 * <code>layoutSetPrototypeId</code>: is of site template, that we'll be
+	 * resetting and merging from
+	 * </li>
+	 * <li>
+	 * <code>forceMergeNow</code>: whether you want only to reset the counter
+	 * (value = false) or also perform immediate merge of content (value = true)
+	 * </li>
+	 * </ul>
+	 *
+	 * @param actionRequest portlet request used to retrieve parameters
+	 * @throws Exception when errors occur during resetting of merging of site
+	 * template
+	 */
 	protected void resetMergeFailCountAndMerge(ActionRequest actionRequest)
 		throws Exception {
 
