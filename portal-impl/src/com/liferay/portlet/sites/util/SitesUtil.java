@@ -643,6 +643,57 @@ public class SitesUtil {
 		return parameterMap;
 	}
 
+	public static int getMergeFailCount(LayoutPrototype layoutPrototype)
+		throws PortalException, SystemException {
+
+		if (layoutPrototype == null) {
+			throw new IllegalArgumentException("LayoutPrototype has to be " +
+				"not null");
+		}
+
+		if (layoutPrototype.getLayoutPrototypeId() == 0) {
+			throw new IllegalArgumentException("layoutSetPrototype has to " +
+				"have non-zero layoutPrototypeId: " +
+				layoutPrototype.getLayoutPrototypeId());
+		}
+
+		Layout layoutPrototypeLayout = layoutPrototype.getLayout();
+
+		UnicodeProperties prototypeTypeSettingsProperties =
+			layoutPrototypeLayout.getTypeSettingsProperties();
+
+		int mergeFailCount = GetterUtil.getInteger(
+			prototypeTypeSettingsProperties.getProperty(MERGE_FAIL_COUNT));
+
+		return mergeFailCount;
+	}
+
+	public static int getMergeFailCount(LayoutSetPrototype layoutSetPrototype)
+		throws PortalException, SystemException {
+
+		if (layoutSetPrototype == null) {
+			throw new IllegalArgumentException("LayoutSetPrototype has to be " +
+				"not null");
+		}
+
+		if (layoutSetPrototype.getLayoutSetPrototypeId() == 0) {
+			throw new IllegalArgumentException("LayoutSetPrototype has to " +
+				"have non-zero layoutSetPrototypeId: " +
+				layoutSetPrototype.getLayoutSetPrototypeId());
+		}
+
+		LayoutSet layoutSetPrototypeLayoutSet =
+			layoutSetPrototype.getLayoutSet();
+
+		UnicodeProperties layoutSetPrototypeSettingsProperties =
+			layoutSetPrototypeLayoutSet.getSettingsProperties();
+
+		int mergeFailCount = GetterUtil.getInteger(
+			layoutSetPrototypeSettingsProperties.getProperty(MERGE_FAIL_COUNT));
+
+		return mergeFailCount;
+	}
+
 	public static void importLayoutSetPrototype(
 			LayoutSetPrototype layoutSetPrototype, InputStream inputStream,
 			ServiceContext serviceContext)
@@ -1129,6 +1180,21 @@ public class SitesUtil {
 		LayoutLocalServiceUtil.updateLayout(layout);
 
 		LayoutSet layoutSet = layout.getLayoutSet();
+
+		resetPrototype(layoutSet);
+	}
+
+	/**
+	 * This method resets the state of linked site template to given layout set.
+	 *
+	 * @param layoutSet the target layout set, which needs to be linked to
+	 *                     a site template and link needs to be enabled.
+	 * @throws PortalException
+	 * @throws SystemException
+	 */
+	public static void resetPrototype(LayoutSet layoutSet)
+		throws PortalException, SystemException {
+
 		UnicodeProperties settingsProperties =
 			layoutSet.getSettingsProperties();
 
@@ -1138,6 +1204,57 @@ public class SitesUtil {
 			LAST_RESET_TIME, String.valueOf(System.currentTimeMillis()));
 
 		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSet);
+	}
+
+	/**
+	 * Updates merge fail count for this page template's layout. Does not
+	 * invoke any persistence update, this is up to the caller.
+	 *
+	 * @param layoutPrototypeLayout layout of the page template, for
+	 *                              which you want to set the merge fail
+	 *                              count
+	 * @param newMergeFailCount new fail count to be set for the page template
+	 */
+	public static void setMergeFailCount(
+			Layout layoutPrototypeLayout, int newMergeFailCount) {
+
+		UnicodeProperties prototypeTypeSettingsProperties =
+			layoutPrototypeLayout.getTypeSettingsProperties();
+
+		if (newMergeFailCount == 0) {
+
+		prototypeTypeSettingsProperties.remove(MERGE_FAIL_COUNT);
+		}
+		else {
+
+			prototypeTypeSettingsProperties.setProperty(
+				MERGE_FAIL_COUNT, String.valueOf(newMergeFailCount));
+		}
+	}
+
+	/**
+	 * Updates merge fail count for this site template's layout set. Does not
+	 * invoke any persistence update, this is up to the caller.
+	 *
+	 * @param layoutSetPrototypeLayoutSet layout set of the site template, for
+	 *                                    which you want to set the merge fail
+	 *                                    count
+	 * @param newMergeFailCount new fail count to be set for the site template
+	 */
+	public static void setMergeFailCount(
+			LayoutSet layoutSetPrototypeLayoutSet, int newMergeFailCount) {
+
+		UnicodeProperties settingsProperties =
+			layoutSetPrototypeLayoutSet.getSettingsProperties();
+
+		if (newMergeFailCount == 0) {
+
+			settingsProperties.remove(MERGE_FAIL_COUNT);
+		}
+		else {
+			settingsProperties.setProperty(
+				MERGE_FAIL_COUNT, String.valueOf(newMergeFailCount));
+		}
 	}
 
 	public static void updateLayoutScopes(
