@@ -135,13 +135,13 @@ public class EditLayoutPrototypeAction extends PortletAction {
 	}
 
 	/**
-	 * Resets the counter of failed merges done from this page template. This
-	 * is necessary, when threshold was met and no more merges would be done.
-	 * For details on threshold, see SitesUtil class.
+	 * Resets the counter of failed merges done from this page template. This is
+	 * necessary, when threshold was met and no more merges would be done. For
+	 * details on threshold, see SitesUtil class.
 	 *
-	 * @param actionRequest
-	 * @throws Exception
-	 * @see com.liferay.portlet.sites.util.SitesUtil
+	 * @param  actionRequest portlet request used to get parameters
+	 * @throws Exception in case of any errors
+	 * @see    com.liferay.portlet.sites.util.SitesUtil
 	 */
 	protected void resetMergeFailCount(ActionRequest actionRequest)
 		throws Exception {

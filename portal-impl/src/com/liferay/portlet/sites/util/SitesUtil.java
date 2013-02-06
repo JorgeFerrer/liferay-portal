@@ -644,10 +644,10 @@ public class SitesUtil {
 	}
 
 	/**
-	 * Returns count of failed merge attempts done from given
-	 * layoutPrototype to some linked layout.
+	 * Returns count of failed merge attempts done from given layoutPrototype to
+	 * some linked layout.
 	 *
-	 * @param layoutPrototype page template that is being inspected
+	 * @param  layoutPrototype page template that is being inspected
 	 * @return count of failed merge attempts since last success
 	 * @throws PortalException in case or retrival errors
 	 * @throws SystemException in case of system errors
@@ -678,10 +678,10 @@ public class SitesUtil {
 	}
 
 	/**
-	 * Returns count of failed merge attempts done from given
-	 * layoutSetPrototype to some linked site.
+	 * Returns count of failed merge attempts done from given layoutSetPrototype
+	 * to some linked site.
 	 *
-	 * @param layoutSetPrototype site template that is being inspected
+	 * @param  layoutSetPrototype site template that is being inspected
 	 * @return count of failed merge attempts since last success
 	 * @throws PortalException in case or retrival errors
 	 * @throws SystemException in case of system errors
@@ -1206,10 +1206,8 @@ public class SitesUtil {
 	/**
 	 * This method resets the state of linked site template to given layout set.
 	 *
-	 * @param layoutSet the target layout set, which needs to be linked to
-	 *                     a site template and link needs to be enabled.
-	 * @throws PortalException
-	 * @throws SystemException
+	 * @param layoutSet the target layout set, which needs to be linked to a
+	 *        site template and link needs to be enabled.
 	 */
 	public static void resetPrototype(LayoutSet layoutSet)
 		throws PortalException, SystemException {
@@ -1226,12 +1224,11 @@ public class SitesUtil {
 	}
 
 	/**
-	 * Updates merge fail count for this page template's layout. Does not
-	 * invoke any persistence update, this is up to the caller.
+	 * Updates merge fail count for this page template's layout. Does not invoke
+	 * any persistence update, this is up to the caller.
 	 *
-	 * @param layoutPrototypeLayout layout of the page template, for
-	 *                              which you want to set the merge fail
-	 *                              count
+	 * @param layoutPrototypeLayout layout of the page template, for which you
+	 *        want to set the merge fail count
 	 * @param newMergeFailCount new fail count to be set for the page template
 	 */
 	public static void setMergeFailCount(
@@ -1256,8 +1253,7 @@ public class SitesUtil {
 	 * invoke any persistence update, this is up to the caller.
 	 *
 	 * @param layoutSetPrototypeLayoutSet layout set of the site template, for
-	 *                                    which you want to set the merge fail
-	 *                                    count
+	 *        which you want to set the merge fail count
 	 * @param newMergeFailCount new fail count to be set for the site template
 	 */
 	public static void setMergeFailCount(

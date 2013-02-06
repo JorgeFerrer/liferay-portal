@@ -697,9 +697,9 @@ public class EditLayoutsAction extends PortletAction {
 	 * </li>
 	 * </ul>
 	 *
-	 * @param actionRequest portlet request used to retrieve parameters
+	 * @param  actionRequest portlet request used to retrieve parameters
 	 * @throws Exception when errors occur during resetting of merging of page
-	 * template
+	 *         template
 	 */
 	protected void resetMergeFailCountAndMerge(ActionRequest actionRequest)
 		throws Exception {
