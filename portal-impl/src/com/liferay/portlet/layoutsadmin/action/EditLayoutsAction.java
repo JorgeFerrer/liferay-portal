@@ -701,13 +701,12 @@ public class EditLayoutsAction extends PortletAction {
 	 * @throws Exception when errors occur during resetting of merging of page
 	 * template
 	 */
-	private void resetMergeFailCountAndMerge(ActionRequest actionRequest)
+	protected void resetMergeFailCountAndMerge(ActionRequest actionRequest)
 		throws Exception {
 
-		long targetLayoutPlid = ParamUtil.getLong(
-			actionRequest, "layoutPlid");
+		long targetLayoutPlid = ParamUtil.getLong(actionRequest, "layoutPlid");
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		// reset counter
@@ -734,13 +733,11 @@ public class EditLayoutsAction extends PortletAction {
 		if (!targetLayout.isLayoutPrototypeLinkEnabled()) {
 
 			targetLayout.setLayoutPrototypeLinkEnabled(true);
-			targetLayout.setLayoutPrototypeUuid(
-				layoutPrototype.getUuid());
+			targetLayout.setLayoutPrototypeUuid(layoutPrototype.getUuid());
 
 			LayoutLocalServiceUtil.updateLayout(targetLayout);
 
-			targetLayout = LayoutLocalServiceUtil.getLayout(
-				targetLayoutPlid);
+			targetLayout = LayoutLocalServiceUtil.getLayout(targetLayoutPlid);
 		}
 
 		// reset merge timestamps

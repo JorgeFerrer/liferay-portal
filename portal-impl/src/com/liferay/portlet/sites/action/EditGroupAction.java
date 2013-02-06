@@ -340,7 +340,8 @@ public class EditGroupAction extends PortletAction {
 		LayoutSetLocalServiceUtil.updateLayoutSet(layoutSetPrototypeLayoutSet);
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("'merge-fail-count' was reset for layoutSetPrototype " +
+			_log.debug(
+				"'merge-fail-count' was reset for layoutSetPrototype " +
 				layoutSetPrototypeId);
 		}
 
@@ -377,7 +378,8 @@ public class EditGroupAction extends PortletAction {
 				targetGroup, targetGroupLayoutSet);
 
 			if (_log.isDebugEnabled()) {
-				_log.debug("Site template " + layoutSetPrototypeId +
+				_log.debug(
+					"Site template " + layoutSetPrototypeId +
 					" was merged to group " + targetGroupId );
 			}
 		}

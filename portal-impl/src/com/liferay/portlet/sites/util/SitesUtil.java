@@ -656,13 +656,13 @@ public class SitesUtil {
 		throws PortalException, SystemException {
 
 		if (layoutPrototype == null) {
-			throw new IllegalArgumentException("LayoutPrototype has to be " +
-				"not null");
+			throw new IllegalArgumentException(
+				"LayoutPrototype has to be not null");
 		}
 
 		if (layoutPrototype.getLayoutPrototypeId() == 0) {
-			throw new IllegalArgumentException("layoutSetPrototype has to " +
-				"have non-zero layoutPrototypeId: " +
+			throw new IllegalArgumentException(
+				"layoutSetPrototype has to have non-zero layoutPrototypeId: " +
 				layoutPrototype.getLayoutPrototypeId());
 		}
 
@@ -690,13 +690,14 @@ public class SitesUtil {
 		throws PortalException, SystemException {
 
 		if (layoutSetPrototype == null) {
-			throw new IllegalArgumentException("LayoutSetPrototype has to be " +
-				"not null");
+			throw new IllegalArgumentException(
+				"LayoutSetPrototype has to be not null");
 		}
 
 		if (layoutSetPrototype.getLayoutSetPrototypeId() == 0) {
-			throw new IllegalArgumentException("LayoutSetPrototype has to " +
-				"have non-zero layoutSetPrototypeId: " +
+			throw new IllegalArgumentException(
+				"LayoutSetPrototype has to have non-zero " +
+				"layoutSetPrototypeId: " +
 				layoutSetPrototype.getLayoutSetPrototypeId());
 		}
 
