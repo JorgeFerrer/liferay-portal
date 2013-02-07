@@ -31,6 +31,10 @@ public class XSLContext implements TemplateContext {
 		return _transformer.getParameter(key);
 	}
 
+	public String[] getKeys() {
+		throw new UnsupportedOperationException();
+	}
+
 	public Transformer getTransformer() {
 		return _transformer;
 	}

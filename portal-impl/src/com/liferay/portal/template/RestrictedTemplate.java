@@ -39,6 +39,10 @@ public class RestrictedTemplate implements Template {
 		return _template.get(key);
 	}
 
+	public String[] getKeys() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void prepare(HttpServletRequest request) {
 		_template.prepare(request);
 	}
