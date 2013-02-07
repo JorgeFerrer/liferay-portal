@@ -77,11 +77,11 @@ public class OrganizationPermissionUtil {
 		return _organizationPermission;
 	}
 
-	public static boolean hasUnsetOrganizationUserPermission(
+	public static boolean hasAdminAndOwnerRoleRestriction(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 
-		return getOrganizationPermission().hasUnsetOrganizationUserPermission(
+		return getOrganizationPermission().hasAdminAndOwnerRoleRestriction(
 			permissionChecker, groupId, userId);
 	}
 

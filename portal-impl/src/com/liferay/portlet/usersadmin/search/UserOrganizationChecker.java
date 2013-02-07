@@ -70,7 +70,7 @@ public class UserOrganizationChecker extends RowChecker {
 			PermissionChecker permissionChecker =
 				PermissionThreadLocal.getPermissionChecker();
 
-			if (OrganizationPermissionUtil.hasUnsetOrganizationUserPermission(
+			if (!OrganizationPermissionUtil.hasAdminAndOwnerRoleRestriction(
 					permissionChecker, _organization.getGroupId(),
 					user.getUserId())) {
 

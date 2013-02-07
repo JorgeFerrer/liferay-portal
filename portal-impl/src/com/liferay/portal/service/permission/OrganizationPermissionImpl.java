@@ -120,21 +120,25 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 		return false;
 	}
 
-	public boolean hasUnsetOrganizationUserPermission(
+	public boolean hasAdminAndOwnerRoleRestriction(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 
+		if (permissionChecker.isCompanyAdmin()){
+			return false;
+		}
+		
 		Role adminRole = RoleLocalServiceUtil.getRole(
 			permissionChecker.getCompanyId(),
 			RoleConstants.ORGANIZATION_ADMINISTRATOR);
 		Role ownerRole = RoleLocalServiceUtil.getRole(
 			permissionChecker.getCompanyId(), RoleConstants.ORGANIZATION_OWNER);
-
+		
 		if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(
 				permissionChecker.getUserId(), groupId,
 				ownerRole.getRoleId())) {
 
-			return true;
+			return false;
 		}
 
 		if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(
@@ -142,10 +146,10 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 			UserGroupRoleLocalServiceUtil.hasUserGroupRole(
 				userId, groupId, adminRole.getRoleId())) {
 
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	protected boolean contains(

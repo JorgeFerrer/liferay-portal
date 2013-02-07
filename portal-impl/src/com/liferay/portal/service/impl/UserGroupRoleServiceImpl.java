@@ -66,7 +66,7 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 			if (roleName.equals(RoleConstants.SITE_ADMINISTRATOR) ||
 				roleName.equals(RoleConstants.SITE_OWNER)) {
 
-				if (!GroupPermissionUtil.hasUnsetGroupUserPermission(
+				if (GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(
 						getPermissionChecker(), groupId, userId)) {
 
 					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
@@ -76,8 +76,8 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 						RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
 					 roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
 
-				if (!OrganizationPermissionUtil.
-						hasUnsetOrganizationUserPermission(
+				if (OrganizationPermissionUtil.
+						hasAdminAndOwnerRoleRestriction(
 							getPermissionChecker(), groupId, userId)) {
 
 					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);

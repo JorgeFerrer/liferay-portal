@@ -1777,28 +1777,18 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 				Group oldGroup = oldGroups.get(i);
 
 				if (!ArrayUtil.contains(groupIds, oldGroup.getGroupId())) {
+					
 					if (!GroupPermissionUtil.contains(
 							permissionChecker, oldGroup.getGroupId(),
-							ActionKeys.ASSIGN_MEMBERS)) {
-
-						groupIds = ArrayUtil.append(
-							groupIds, oldGroup.getGroupId());
-					}
-					else if (
-						!permissionChecker.isGroupOwner(
-							oldGroup.getGroupId()) &&
-						(UserGroupRoleLocalServiceUtil.hasUserGroupRole(
-							userId, oldGroup.getGroupId(),
-							RoleConstants.SITE_ADMINISTRATOR, true) ||
-						 UserGroupRoleLocalServiceUtil.hasUserGroupRole(
-							 userId, oldGroup.getGroupId(),
-							 RoleConstants.SITE_OWNER, true))) {
-
+							ActionKeys.ASSIGN_MEMBERS) ||
+						GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(
+							permissionChecker, oldGroup.getGroupId(), userId)){
+						
 						groupIds = ArrayUtil.append(
 							groupIds, oldGroup.getGroupId());
 					}
 				}
-
+				
 				oldGroupIds[i] = oldGroup.getGroupId();
 			}
 		}
@@ -1838,27 +1828,19 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 				Group oldGroup = oldOrganization.getGroup();
 
 				if (!ArrayUtil.contains(
-						organizationIds, oldOrganization.getOrganizationId()) &&
-					!OrganizationPermissionUtil.contains(
-						permissionChecker, oldOrganization.getOrganizationId(),
-						ActionKeys.ASSIGN_MEMBERS)) {
-
-					organizationIds = ArrayUtil.append(
-						organizationIds, oldOrganization.getOrganizationId());
-				}
-				else {
-					if (
-						!permissionChecker.isGroupOwner(
-							oldGroup.getGroupId()) &&
-						(UserGroupRoleLocalServiceUtil.hasUserGroupRole(
-							userId, oldGroup.getGroupId(),
-							RoleConstants.ORGANIZATION_ADMINISTRATOR, true) ||
-						 UserGroupRoleLocalServiceUtil.hasUserGroupRole(
-							 userId, oldGroup.getGroupId(),
-							 RoleConstants.ORGANIZATION_OWNER, true))) {
-
+						organizationIds, oldOrganization.getOrganizationId())) {
+					
+					if 	(!OrganizationPermissionUtil.contains(
+							permissionChecker, 
+							oldOrganization.getOrganizationId(),
+							ActionKeys.ASSIGN_MEMBERS) || 
+						  OrganizationPermissionUtil.
+						  	hasAdminAndOwnerRoleRestriction(
+						  		permissionChecker, oldGroup.getGroupId(),
+						  		userId)) {
+						
 						organizationIds = ArrayUtil.append(
-							organizationIds,
+							organizationIds, 
 							oldOrganization.getOrganizationId());
 					}
 				}
@@ -1989,12 +1971,48 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 				userId);
 
 			for (UserGroupRole oldUserGroupRole : oldUserGroupRoles) {
-				if (!userGroupRoles.contains(oldUserGroupRole) &&
-					!UserGroupRolePermissionUtil.contains(
-						permissionChecker, oldUserGroupRole.getGroupId(),
-						oldUserGroupRole.getRoleId())) {
+				if (!userGroupRoles.contains(oldUserGroupRole)){
+					
+					if (!UserGroupRolePermissionUtil.contains(
+							permissionChecker, oldUserGroupRole.getGroupId(),
+							oldUserGroupRole.getRoleId())) {
+						
+						userGroupRoles.add(oldUserGroupRole);	
+					}
+					else {
+						
+						Role oldRole = oldUserGroupRole.getRole();
+						
+						String oldRoleName = oldRole.getName();
+						
+						if (oldRoleName.equals(
+								RoleConstants.SITE_ADMINISTRATOR) ||
+							oldRoleName.equals(RoleConstants.SITE_OWNER)) {
 
-					userGroupRoles.add(oldUserGroupRole);
+							if (GroupPermissionUtil.
+									hasAdminAndOwnerRoleRestriction(
+										getPermissionChecker(), 
+										oldUserGroupRole.getGroupId(), 
+										userId)) {
+
+									userGroupRoles.add(oldUserGroupRole);	
+								}
+							}
+						else if (oldRoleName.equals(
+									RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
+								oldRoleName.equals(
+									RoleConstants.ORGANIZATION_OWNER)) {
+
+							if (OrganizationPermissionUtil.
+									hasAdminAndOwnerRoleRestriction(
+										getPermissionChecker(),
+										oldUserGroupRole.getGroupId(),
+										userId)) {
+							
+								userGroupRoles.add(oldUserGroupRole);
+							}
+						}
+					}			
 				}
 			}
 		}

@@ -49,7 +49,7 @@ public interface OrganizationPermission {
 			String actionId)
 		throws PortalException, SystemException;
 
-	public boolean hasUnsetOrganizationUserPermission(
+	public boolean hasAdminAndOwnerRoleRestriction(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException;
 

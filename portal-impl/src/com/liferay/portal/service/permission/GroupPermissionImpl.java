@@ -170,17 +170,21 @@ public class GroupPermissionImpl implements GroupPermission {
 			0, Group.class.getName(), 0, actionId);
 	}
 
-	public boolean hasUnsetGroupUserPermission(
+	public boolean hasAdminAndOwnerRoleRestriction(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 
+		if (permissionChecker.isCompanyAdmin()){
+			return false;
+		}
+		
 		Role adminRole = RoleLocalServiceUtil.getRole(
 			permissionChecker.getCompanyId(), RoleConstants.SITE_ADMINISTRATOR);
 		Role ownerRole = RoleLocalServiceUtil.getRole(
 			permissionChecker.getCompanyId(), RoleConstants.SITE_OWNER);
 		Role organizationOwnerRole = RoleLocalServiceUtil.getRole(
 			permissionChecker.getCompanyId(), RoleConstants.ORGANIZATION_OWNER);
-
+		
 		if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(
 				permissionChecker.getUserId(), groupId, ownerRole.getRoleId())
 			||
@@ -188,7 +192,7 @@ public class GroupPermissionImpl implements GroupPermission {
 				permissionChecker.getUserId(), groupId,
 				organizationOwnerRole.getRoleId())) {
 
-			return true;
+			return false;
 		}
 
 		if (UserGroupRoleLocalServiceUtil.hasUserGroupRole(
@@ -196,10 +200,10 @@ public class GroupPermissionImpl implements GroupPermission {
 			UserGroupRoleLocalServiceUtil.hasUserGroupRole(
 				userId, groupId, adminRole.getRoleId())) {
 
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 }
