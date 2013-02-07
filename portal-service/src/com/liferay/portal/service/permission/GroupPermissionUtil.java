@@ -74,6 +74,14 @@ public class GroupPermissionUtil {
 		return _groupPermission;
 	}
 
+	public static boolean hasAdminAndOwnerRoleRestriction(
+			PermissionChecker permissionChecker, long groupId, long userId)
+		throws PortalException, SystemException {
+
+		return getGroupPermission().hasAdminAndOwnerRoleRestriction(
+			permissionChecker, groupId, userId);
+	}
+
 	public void setGroupPermission(GroupPermission groupPermission) {
 		PortalRuntimePermission.checkSetBeanProperty(getClass());
 
