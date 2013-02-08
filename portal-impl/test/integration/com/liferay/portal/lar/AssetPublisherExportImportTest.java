@@ -120,13 +120,13 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 
 		preferenceMap.put(
 			"defaultScope",
-			new String[] {"GroupId_" + companyGroup.getGroupId()});
+			new String[] {"Group_" + companyGroup.getGroupId()});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
 			_layout, preferenceMap);
 
 		Assert.assertEquals(
-			"GroupId_" + companyGroup.getGroupId(),
+			"Group_" + companyGroup.getGroupId(),
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
@@ -213,7 +213,7 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		preferenceMap.put(
 			"scopeIds",
 			new String[] {
-				"GroupId_" + companyGroup.getGroupId(),
+				"Group_" + companyGroup.getGroupId(),
 				"LayoutUuid_" + _layout.getUuid(),
 				"LayoutUuid_" + secondLayout.getUuid()
 			});
@@ -231,7 +231,7 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
-			"GroupId_" + companyGroup.getGroupId() + ",LayoutUuid_" +
+			"Group_" + companyGroup.getGroupId() + ",LayoutUuid_" +
 				_importedLayout.getUuid() + ",LayoutUuid_" +
 					importedSecondLayout.getUuid(),
 			StringUtil.merge(portletPreferences.getValues("scopeIds", null)));
