@@ -195,7 +195,7 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 			Group group = GroupLocalServiceUtil.getGroup(groupId);
 
-			if (!group.hasAncestor(themeDisplay.getScopeGroupId())) {
+			if (!group.hasAncestor(themeDisplay.getSiteGroupId())) {
 				throw new PrincipalException();
 			}
 		}
