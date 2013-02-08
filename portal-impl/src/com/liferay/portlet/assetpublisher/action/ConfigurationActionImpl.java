@@ -14,6 +14,8 @@
 
 package com.liferay.portlet.assetpublisher.action;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.portlet.LiferayPortletConfig;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -32,6 +34,7 @@ import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
@@ -187,38 +190,51 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 		Layout layout = themeDisplay.getLayout();
 
+		if (!isScopeIdSelectable(
+				themeDisplay.getPermissionChecker(), scopeId,
+				themeDisplay.getCompanyGroupId(), layout)) {
+
+			throw new PrincipalException();
+		}
+	}
+
+	protected boolean isScopeIdSelectable(
+			PermissionChecker permissionChecker, String scopeId,
+			long companyGroupId, Layout layout)
+		throws PortalException, SystemException {
+
 		long groupId = AssetPublisherUtil.getGroupIdFromScopeId(
-			scopeId, themeDisplay.getSiteGroupId(), layout.isPrivateLayout());
+			scopeId, layout.getGroupId(), layout.isPrivateLayout());
 
 		if (scopeId.startsWith(
 				AssetPublisherUtil.SCOPE_ID_CHILD_GROUP_PREFIX)) {
 
 			Group group = GroupLocalServiceUtil.getGroup(groupId);
 
-			if (!group.hasAncestor(themeDisplay.getSiteGroupId())) {
-				throw new PrincipalException();
+			if (!group.hasAncestor(layout.getGroupId())) {
+				return false;
 			}
 		}
 		else if (scopeId.startsWith(
 					AssetPublisherUtil.SCOPE_ID_PARENT_GROUP_PREFIX)) {
 
-			Group siteGroup = themeDisplay.getSiteGroup();
+			Group siteGroup = layout.getGroup();
 
 			if (!siteGroup.hasAncestor(groupId)) {
-				throw new PrincipalException();
+				return false;
 			}
 
 			if (!SitesUtil.isContentSharingWithChildrenEnabled(siteGroup)) {
-				GroupPermissionUtil.check(
-					themeDisplay.getPermissionChecker(), groupId,
-					ActionKeys.UPDATE);
+				return GroupPermissionUtil.contains(
+					permissionChecker, groupId, ActionKeys.UPDATE);
 			}
 		}
-		else if (groupId != themeDisplay.getCompanyGroupId()) {
-			GroupPermissionUtil.check(
-				themeDisplay.getPermissionChecker(), groupId,
-				ActionKeys.UPDATE);
+		else if (groupId != companyGroupId) {
+			return GroupPermissionUtil.contains(
+				permissionChecker, groupId, ActionKeys.UPDATE);
 		}
+
+		return true;
 	}
 
 	protected String[] getClassTypeIds(
