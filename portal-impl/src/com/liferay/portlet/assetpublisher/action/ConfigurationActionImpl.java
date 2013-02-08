@@ -14,8 +14,6 @@
 
 package com.liferay.portlet.assetpublisher.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.portlet.LiferayPortletConfig;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -28,16 +26,11 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
@@ -47,7 +40,6 @@ import com.liferay.portlet.asset.AssetTagException;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
 import com.liferay.portlet.assetpublisher.util.AssetPublisherUtil;
-import com.liferay.portlet.sites.util.SitesUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -190,51 +182,12 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 		Layout layout = themeDisplay.getLayout();
 
-		if (!isScopeIdSelectable(
+		if (!AssetPublisherUtil.isScopeIdSelectable(
 				themeDisplay.getPermissionChecker(), scopeId,
 				themeDisplay.getCompanyGroupId(), layout)) {
 
 			throw new PrincipalException();
 		}
-	}
-
-	protected boolean isScopeIdSelectable(
-			PermissionChecker permissionChecker, String scopeId,
-			long companyGroupId, Layout layout)
-		throws PortalException, SystemException {
-
-		long groupId = AssetPublisherUtil.getGroupIdFromScopeId(
-			scopeId, layout.getGroupId(), layout.isPrivateLayout());
-
-		if (scopeId.startsWith(
-				AssetPublisherUtil.SCOPE_ID_CHILD_GROUP_PREFIX)) {
-
-			Group group = GroupLocalServiceUtil.getGroup(groupId);
-
-			if (!group.hasAncestor(layout.getGroupId())) {
-				return false;
-			}
-		}
-		else if (scopeId.startsWith(
-					AssetPublisherUtil.SCOPE_ID_PARENT_GROUP_PREFIX)) {
-
-			Group siteGroup = layout.getGroup();
-
-			if (!siteGroup.hasAncestor(groupId)) {
-				return false;
-			}
-
-			if (!SitesUtil.isContentSharingWithChildrenEnabled(siteGroup)) {
-				return GroupPermissionUtil.contains(
-					permissionChecker, groupId, ActionKeys.UPDATE);
-			}
-		}
-		else if (groupId != companyGroupId) {
-			return GroupPermissionUtil.contains(
-				permissionChecker, groupId, ActionKeys.UPDATE);
-		}
-
-		return true;
 	}
 
 	protected String[] getClassTypeIds(

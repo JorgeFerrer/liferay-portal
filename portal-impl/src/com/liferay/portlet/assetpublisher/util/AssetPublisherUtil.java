@@ -53,6 +53,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.ServiceContextUtil;
 import com.liferay.portal.service.SubscriptionLocalServiceUtil;
+import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.service.persistence.PortletPreferencesActionableDynamicQuery;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -72,6 +73,7 @@ import com.liferay.portlet.asset.service.AssetEntryServiceUtil;
 import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
 import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
 import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portlet.sites.util.SitesUtil;
 import com.liferay.util.ContentUtil;
 
 import java.io.IOException;
@@ -813,6 +815,45 @@ public class AssetPublisherUtil {
 		}
 
 		return key;
+	}
+
+	public static boolean isScopeIdSelectable(
+			PermissionChecker permissionChecker, String scopeId,
+			long companyGroupId, Layout layout)
+		throws PortalException, SystemException {
+
+		long groupId = AssetPublisherUtil.getGroupIdFromScopeId(
+			scopeId, layout.getGroupId(), layout.isPrivateLayout());
+
+		if (scopeId.startsWith(
+				AssetPublisherUtil.SCOPE_ID_CHILD_GROUP_PREFIX)) {
+
+			Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+			if (!group.hasAncestor(layout.getGroupId())) {
+				return false;
+			}
+		}
+		else if (scopeId.startsWith(
+					AssetPublisherUtil.SCOPE_ID_PARENT_GROUP_PREFIX)) {
+
+			Group siteGroup = layout.getGroup();
+
+			if (!siteGroup.hasAncestor(groupId)) {
+				return false;
+			}
+
+			if (!SitesUtil.isContentSharingWithChildrenEnabled(siteGroup)) {
+				return GroupPermissionUtil.contains(
+					permissionChecker, groupId, ActionKeys.UPDATE);
+			}
+		}
+		else if (groupId != companyGroupId) {
+			return GroupPermissionUtil.contains(
+				permissionChecker, groupId, ActionKeys.UPDATE);
+		}
+
+		return true;
 	}
 
 	public static boolean isSubscribed(
