@@ -44,6 +44,7 @@ import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
@@ -692,7 +693,22 @@ public class AssetPublisherUtil {
 				LayoutLocalServiceUtil.getLayoutByUuidAndGroupId(
 					layoutUuid, siteGroupId, privateLayout);
 
-			Group scopeIdGroup = scopeIdLayout.getScopeGroup();
+			Group scopeIdGroup = null;
+
+			if (scopeIdLayout.hasScopeGroup()) {
+				scopeIdGroup = scopeIdLayout.getScopeGroup();
+			}
+			else {
+				long userId = PrincipalThreadLocal.getUserId();
+
+				String name = String.valueOf(scopeIdLayout.getPlid());
+
+				scopeIdGroup = GroupLocalServiceUtil.addGroup(
+					userId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
+					Layout.class.getName(), scopeIdLayout.getPlid(),
+					GroupConstants.DEFAULT_LIVE_GROUP_ID, name, null, 0, null,
+					false, true, null);
+			}
 
 			return scopeIdGroup.getGroupId();
 		}
