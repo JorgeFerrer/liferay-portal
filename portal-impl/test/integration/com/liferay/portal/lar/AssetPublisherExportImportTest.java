@@ -17,6 +17,7 @@ package com.liferay.portal.lar;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
@@ -36,6 +37,7 @@ import com.liferay.portal.test.MainServletExecutionTestListener;
 import com.liferay.portal.test.TransactionalCallbackAwareExecutionTestListener;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.TestPropsValues;
+import com.liferay.portlet.assetpublisher.util.AssetPublisherUtil;
 
 import java.io.File;
 
@@ -94,7 +96,8 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		preferenceMap.put(
 			"scopeIds",
 			new String[] {
-				"ChildGroup_" + childGroup.getGroupId()
+				AssetPublisherUtil.SCOPE_ID_CHILD_GROUP_PREFIX +
+					childGroup.getGroupId()
 			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
@@ -120,13 +123,17 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 
 		preferenceMap.put(
 			"defaultScope",
-			new String[] {"Group_" + companyGroup.getGroupId()});
+			new String[] {
+				AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX +
+					companyGroup.getGroupId()
+			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
 			_layout, preferenceMap);
 
 		Assert.assertEquals(
-			"Group_" + companyGroup.getGroupId(),
+			AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX +
+				companyGroup.getGroupId(),
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
@@ -158,13 +165,18 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		addGroup(TestPropsValues.getUserId(), _layout);
 
 		preferenceMap.put(
-			"defaultScope", new String[] {"LayoutUuid_" + _layout.getUuid()});
+			"defaultScope",
+			new String[] {
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+					_layout.getUuid()
+			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
 			_layout, preferenceMap);
 
 		Assert.assertEquals(
-			"LayoutUuid_" + _importedLayout.getUuid(),
+			AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+				_importedLayout.getUuid(),
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
@@ -178,13 +190,17 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		addGroup(TestPropsValues.getUserId(), _layout);
 
 		preferenceMap.put(
-			"defaultScope", new String[] {"Layout_" + _layout.getLayoutId()});
+			"defaultScope", new String[] {
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_PREFIX +
+					_layout.getLayoutId()
+			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
 			_layout, preferenceMap);
 
 		Assert.assertEquals(
-			"LayoutUuid_" + _importedLayout.getUuid(),
+			AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+				_importedLayout.getUuid(),
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
@@ -213,9 +229,12 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		preferenceMap.put(
 			"scopeIds",
 			new String[] {
-				"Group_" + companyGroup.getGroupId(),
-				"LayoutUuid_" + _layout.getUuid(),
-				"LayoutUuid_" + secondLayout.getUuid()
+				AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX +
+					companyGroup.getGroupId(),
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+					_layout.getUuid(),
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+					secondLayout.getUuid()
 			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
@@ -231,9 +250,12 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
-			"Group_" + companyGroup.getGroupId() + ",LayoutUuid_" +
-				_importedLayout.getUuid() + ",LayoutUuid_" +
-					importedSecondLayout.getUuid(),
+			AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX +
+				companyGroup.getGroupId() + StringPool.COMMA +
+					AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+						_importedLayout.getUuid() + StringPool.COMMA +
+							AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+								importedSecondLayout.getUuid(),
 			StringUtil.merge(portletPreferences.getValues("scopeIds", null)));
 	}
 
@@ -253,8 +275,10 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 		preferenceMap.put(
 			"scopeIds",
 			new String[] {
-				"Layout_" + _layout.getLayoutId(),
-				"Layout_" + secondLayout.getLayoutId()
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_PREFIX +
+					_layout.getLayoutId(),
+				AssetPublisherUtil.SCOPE_ID_LAYOUT_PREFIX +
+					secondLayout.getLayoutId()
 			});
 
 		PortletPreferences portletPreferences = getImportedPortletPreferences(
@@ -270,8 +294,10 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 			portletPreferences.getValue("defaultScope", null));
 		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
 		Assert.assertEquals(
-			"LayoutUuid_" + _importedLayout.getUuid() + ",LayoutUuid_" +
-				importedSecondLayout.getUuid(),
+			AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+				_importedLayout.getUuid() + StringPool.COMMA +
+					AssetPublisherUtil.SCOPE_ID_LAYOUT_UUID_PREFIX +
+						importedSecondLayout.getUuid(),
 			StringUtil.merge(portletPreferences.getValues("scopeIds", null)));
 	}
 
