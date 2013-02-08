@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
@@ -78,6 +79,34 @@ public class AssetPublisherExportImportTest extends BaseExportImportTestCase {
 
 		_layout = ServiceTestUtil.addLayout(
 			_group.getGroupId(), ServiceTestUtil.randomString());
+	}
+
+	@Test
+	public void testChildLayoutScopeIds() throws Exception {
+		Map<String, String[]> preferenceMap = new HashMap<String, String[]>();
+
+		Group childGroup = ServiceTestUtil.addGroup(
+			_group.getGroupId(), ServiceTestUtil.randomString());
+
+		preferenceMap.put(
+			"defaultScope", new String[] {Boolean.FALSE.toString()});
+
+		preferenceMap.put(
+			"scopeIds",
+			new String[] {
+				"ChildGroup_" + childGroup.getGroupId()
+			});
+
+		PortletPreferences portletPreferences = getImportedPortletPreferences(
+			_layout, preferenceMap);
+
+		Assert.assertEquals(
+			Boolean.FALSE.toString(),
+			portletPreferences.getValue("defaultScope", null));
+		Assert.assertEquals(null, portletPreferences.getValue("scopeId", null));
+		Assert.assertTrue(
+			"The child groupId should have been filtered out on import",
+			Validator.isNull(portletPreferences.getValues("scopeIds", null)));
 	}
 
 	@Test
