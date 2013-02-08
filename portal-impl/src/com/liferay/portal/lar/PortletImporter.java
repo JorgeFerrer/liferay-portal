@@ -1845,7 +1845,7 @@ public class PortletImporter {
 
 	protected void updateAssetPublisherScopeIds(
 			javax.portlet.PortletPreferences jxPreferences, String key,
-			long groupId, long plid)
+			long companyGroupId, long plid)
 		throws Exception {
 
 		String[] oldValues = jxPreferences.getValues(key, null);
@@ -1854,8 +1854,8 @@ public class PortletImporter {
 			return;
 		}
 
-		String groupScopeId =
-			AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX + groupId;
+		String companyGroupScopeId =
+			AssetPublisherUtil.SCOPE_ID_GROUP_PREFIX + companyGroupId;
 
 		String[] newValues = new String[oldValues.length];
 
@@ -1863,7 +1863,7 @@ public class PortletImporter {
 			String oldValue = oldValues[i];
 
 			newValues[i] = StringUtil.replace(
-				oldValue, "[$GROUP_SCOPE_ID$]", groupScopeId);
+				oldValue, "[$COMPANY_GROUP_SCOPE_ID$]", companyGroupScopeId);
 		}
 
 		jxPreferences.setValues(key, newValues);
