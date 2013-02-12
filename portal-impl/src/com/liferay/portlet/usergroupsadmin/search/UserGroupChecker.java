@@ -70,7 +70,7 @@ public class UserGroupChecker extends RowChecker {
 			PermissionChecker permissionChecker =
 				PermissionThreadLocal.getPermissionChecker();
 
-			if (GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(
+			if (GroupPermissionUtil.hasMembershipProtected(
 					permissionChecker, _group.getGroupId(), user.getUserId())) {
 
 				return true;

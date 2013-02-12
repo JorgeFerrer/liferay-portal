@@ -1936,7 +1936,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 							permissionChecker, oldGroup.getGroupId(),
 							ActionKeys.ASSIGN_MEMBERS) ||
 						mandatoryGroups.contains(oldGroup) ||
-						GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(
+						GroupPermissionUtil.hasMembershipProtected(
 							permissionChecker, oldGroup.getGroupId(), userId)) {
 
 						groupIds = ArrayUtil.append(
@@ -2027,10 +2027,9 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 							oldOrganization.getOrganizationId(),
 							ActionKeys.ASSIGN_MEMBERS) ||
 						 mandatoryOrganizations.contains(oldOrganization) ||
-						 OrganizationPermissionUtil.
-						  	hasAdminAndOwnerRoleRestriction(
-						  		permissionChecker, oldGroup.getGroupId(),
-						  		userId)) {
+						 OrganizationPermissionUtil.hasMembershipProtected(
+							 permissionChecker, oldGroup.getGroupId(),
+							 userId)) {
 
 						organizationIds = ArrayUtil.append(
 							organizationIds,
@@ -2467,11 +2466,10 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 									oldRoleName.equals(
 										RoleConstants.SITE_OWNER)) {
 
-								if (GroupPermissionUtil.
-										hasAdminAndOwnerRoleRestriction(
-											getPermissionChecker(),
-											oldUserGroupRole.getGroupId(),
-											userId)) {
+								if (GroupPermissionUtil.hasMembershipProtected(
+										getPermissionChecker(),
+										oldUserGroupRole.getGroupId(),
+										userId)) {
 
 									userGroupRoles.add(oldUserGroupRole);
 								}
@@ -2499,7 +2497,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 										RoleConstants.ORGANIZATION_OWNER)) {
 
 								if (OrganizationPermissionUtil.
-										hasAdminAndOwnerRoleRestriction(
+										hasMembershipProtected(
 											getPermissionChecker(),
 											oldUserGroupRole.getGroupId(),
 											userId)) {

@@ -120,7 +120,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 		return false;
 	}
 
-	public boolean hasAdminAndOwnerRoleRestriction(
+	public boolean hasMembershipProtected(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 

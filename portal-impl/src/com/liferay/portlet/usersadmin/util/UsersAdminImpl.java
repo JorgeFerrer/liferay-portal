@@ -336,7 +336,7 @@ public class UsersAdminImpl implements UsersAdmin {
 		long[] filteredUserIds = userIds;
 
 		for (int i = 0; i < userIds.length; i++) {
-			if (GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(
+			if (GroupPermissionUtil.hasMembershipProtected(
 					permissionChecker, groupId, userIds[i])) {
 
 				filteredUserIds = ArrayUtil.remove(filteredUserIds, userIds[i]);
@@ -353,7 +353,7 @@ public class UsersAdminImpl implements UsersAdmin {
 		long[] filteredUserIds = userIds;
 
 		for (int i = 0; i < userIds.length; i++) {
-			if (OrganizationPermissionUtil.hasAdminAndOwnerRoleRestriction(
+			if (OrganizationPermissionUtil.hasMembershipProtected(
 					permissionChecker, groupId, userIds[i])) {
 
 				filteredUserIds = ArrayUtil.remove(filteredUserIds, userIds[i]);

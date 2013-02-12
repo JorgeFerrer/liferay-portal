@@ -46,7 +46,7 @@ public interface GroupPermission {
 	public boolean contains(
 		PermissionChecker permissionChecker, String actionId);
 
-	public boolean hasAdminAndOwnerRoleRestriction(
+	public boolean hasMembershipProtected(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException;
 

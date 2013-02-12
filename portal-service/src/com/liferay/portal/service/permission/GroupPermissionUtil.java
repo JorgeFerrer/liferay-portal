@@ -74,11 +74,11 @@ public class GroupPermissionUtil {
 		return _groupPermission;
 	}
 
-	public static boolean hasAdminAndOwnerRoleRestriction(
+	public static boolean hasMembershipProtected(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 
-		return getGroupPermission().hasAdminAndOwnerRoleRestriction(
+		return getGroupPermission().hasMembershipProtected(
 			permissionChecker, groupId, userId);
 	}
 

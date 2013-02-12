@@ -170,7 +170,7 @@ public class GroupPermissionImpl implements GroupPermission {
 			0, Group.class.getName(), 0, actionId);
 	}
 
-	public boolean hasAdminAndOwnerRoleRestriction(
+	public boolean hasMembershipProtected(
 			PermissionChecker permissionChecker, long groupId, long userId)
 		throws PortalException, SystemException {
 

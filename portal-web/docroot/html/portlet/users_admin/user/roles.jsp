@@ -171,7 +171,7 @@ userGroupRoles.addAll(siteRoles);
 				value="<%= HtmlUtil.escape(userGroupRole.getGroup().getDescriptiveName(locale)) %>"
 			/>
 
-			<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !OrganizationPermissionUtil.hasAdminAndOwnerRoleRestriction(permissionChecker, userGroupRole.getGroupId(), userGroupRole.getUserId()) %>">
+			<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !OrganizationPermissionUtil.hasMembershipProtected(permissionChecker, userGroupRole.getGroupId(), userGroupRole.getUserId()) %>">
 				<liferay-ui:search-container-column-text>
 					<a class="modify-link" data-groupId="<%= userGroupRole.getGroupId() %>" data-rowId="<%= userGroupRole.getRoleId() %>" href="javascript:;"><%= removeRoleIcon %></a>
 				</liferay-ui:search-container-column-text>
@@ -248,7 +248,7 @@ userGroupRoles.addAll(siteRoles);
 					value="<%= HtmlUtil.escape(userGroupRole.getGroup().getDescriptiveName(locale)) %>"
 				/>
 
-				<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !GroupPermissionUtil.hasAdminAndOwnerRoleRestriction(permissionChecker, userGroupRole.getGroupId(), selUser.getUserId()) %>">
+				<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !GroupPermissionUtil.hasMembershipProtected(permissionChecker, userGroupRole.getGroupId(), selUser.getUserId()) %>">
 					<liferay-ui:search-container-column-text>
 						<a class="modify-link" data-groupId="<%= userGroupRole.getGroupId() %>" data-rowId="<%= userGroupRole.getRoleId() %>" href="javascript:;"><%= removeRoleIcon %></a>
 					</liferay-ui:search-container-column-text>
