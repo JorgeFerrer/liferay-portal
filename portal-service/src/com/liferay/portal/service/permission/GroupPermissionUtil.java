@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.security.permission.PermissionChecker;
 
 /**
@@ -80,6 +81,15 @@ public class GroupPermissionUtil {
 
 		return getGroupPermission().hasMembershipProtected(
 			permissionChecker, groupId, userId);
+	}
+
+	public static boolean hasRoleProtected(
+			PermissionChecker permissionChecker, long groupId, long userId,
+			Role role)
+		throws PortalException, SystemException {
+
+		return getGroupPermission().hasRoleProtected(
+			permissionChecker, groupId, userId, role);
 	}
 
 	public void setGroupPermission(GroupPermission groupPermission) {

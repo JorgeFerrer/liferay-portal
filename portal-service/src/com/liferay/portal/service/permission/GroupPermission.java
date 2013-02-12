@@ -17,6 +17,7 @@ package com.liferay.portal.service.permission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.security.permission.PermissionChecker;
 
 /**
@@ -48,6 +49,11 @@ public interface GroupPermission {
 
 	public boolean hasMembershipProtected(
 			PermissionChecker permissionChecker, long groupId, long userId)
+		throws PortalException, SystemException;
+
+	public boolean hasRoleProtected(
+			PermissionChecker permissionChecker, long groupId, long userId,
+			Role role)
 		throws PortalException, SystemException;
 
 }

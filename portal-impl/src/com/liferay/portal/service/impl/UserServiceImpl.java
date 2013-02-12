@@ -1928,23 +1928,20 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			oldGroupIds = new long[oldGroups.size()];
 
 			for (int i = 0; i < oldGroups.size(); i++) {
-				Group oldGroup = oldGroups.get(i);
+				Group group = oldGroups.get(i);
 
-				if (!ArrayUtil.contains(groupIds, oldGroup.getGroupId())) {
+				if (!ArrayUtil.contains(groupIds, group.getGroupId()) &&
+					(!GroupPermissionUtil.contains(
+						permissionChecker, group.getGroupId(),
+						ActionKeys.ASSIGN_MEMBERS) ||
+					 GroupPermissionUtil.hasMembershipProtected(
+						 permissionChecker, group.getGroupId(), userId) ||
+					 mandatoryGroups.contains(group))) {
 
-					if (!GroupPermissionUtil.contains(
-							permissionChecker, oldGroup.getGroupId(),
-							ActionKeys.ASSIGN_MEMBERS) ||
-						mandatoryGroups.contains(oldGroup) ||
-						GroupPermissionUtil.hasMembershipProtected(
-							permissionChecker, oldGroup.getGroupId(), userId)) {
-
-						groupIds = ArrayUtil.append(
-							groupIds, oldGroup.getGroupId());
-					}
+					groupIds = ArrayUtil.append(groupIds, group.getGroupId());
 				}
 
-				oldGroupIds[i] = oldGroup.getGroupId();
+				oldGroupIds[i] = group.getGroupId();
 			}
 		}
 
@@ -2016,28 +2013,24 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			oldOrganizationIds = new long[oldOrganizations.size()];
 
 			for (int i = 0; i < oldOrganizations.size(); i++) {
-				Organization oldOrganization = oldOrganizations.get(i);
-				Group oldGroup = oldOrganization.getGroup();
+				Organization organization = oldOrganizations.get(i);
+				Group organizationGroup = organization.getGroup();
 
 				if (!ArrayUtil.contains(
-						organizationIds, oldOrganization.getOrganizationId())) {
+						organizationIds, organization.getOrganizationId()) &&
+					(!OrganizationPermissionUtil.contains(
+						permissionChecker, organization.getOrganizationId(),
+						ActionKeys.ASSIGN_MEMBERS) ||
+					 OrganizationPermissionUtil.hasMembershipProtected(
+						 permissionChecker, organizationGroup.getGroupId(),
+						 userId) ||
+					 mandatoryOrganizations.contains(organization))) {
 
-					if (!OrganizationPermissionUtil.contains(
-							permissionChecker,
-							oldOrganization.getOrganizationId(),
-							ActionKeys.ASSIGN_MEMBERS) ||
-						 mandatoryOrganizations.contains(oldOrganization) ||
-						 OrganizationPermissionUtil.hasMembershipProtected(
-							 permissionChecker, oldGroup.getGroupId(),
-							 userId)) {
-
-						organizationIds = ArrayUtil.append(
-							organizationIds,
-							oldOrganization.getOrganizationId());
-					}
+					organizationIds = ArrayUtil.append(
+						organizationIds, organization.getOrganizationId());
 				}
 
-				oldOrganizationIds[i] = oldOrganization.getOrganizationId();
+				oldOrganizationIds[i] = organization.getOrganizationId();
 			}
 		}
 
@@ -2445,67 +2438,42 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 				userId);
 
 			for (UserGroupRole oldUserGroupRole : oldUserGroupRoles) {
-				if (!userGroupRoles.contains(oldUserGroupRole)) {
-					if (!UserGroupRolePermissionUtil.contains(
+				Role role = oldUserGroupRole.getRole();
+
+				if (role.getType() == RoleConstants.TYPE_SITE) {
+					if (!userGroupRoles.contains(oldUserGroupRole) &&
+						(!UserGroupRolePermissionUtil.contains(
 							permissionChecker, oldUserGroupRole.getGroupId(),
-							oldUserGroupRole.getRoleId())) {
+							oldUserGroupRole.getRoleId()) ||
+						 GroupPermissionUtil.hasRoleProtected(
+							 getPermissionChecker(),
+							 oldUserGroupRole.getGroupId(), userId, role) ||
+						 mandatoryRoles.contains(role))) {
 
 						userGroupRoles.add(oldUserGroupRole);
 					}
-					else {
-						Role oldRole = oldUserGroupRole.getRole();
+				}
+				else if (role.getType() == RoleConstants.TYPE_ORGANIZATION) {
+					Group group = oldUserGroupRole.getGroup();
 
-						String oldRoleName = oldRole.getName();
+					Organization organization =
+						organizationPersistence.findByPrimaryKey(
+							group.getOrganizationId());
 
-						if (oldRole.getType() == RoleConstants.TYPE_SITE) {
-							if (mandatoryRoles.contains(oldRole)) {
-								userGroupRoles.add(oldUserGroupRole);
-							}
-							else if (oldRoleName.equals(
-										RoleConstants.SITE_ADMINISTRATOR) ||
-									oldRoleName.equals(
-										RoleConstants.SITE_OWNER)) {
+					Set<Role> mandatoryOrganizationRoles =
+						MembershipPolicyUtil.getMandatoryRoles(
+							organization, user);
 
-								if (GroupPermissionUtil.hasMembershipProtected(
-										getPermissionChecker(),
-										oldUserGroupRole.getGroupId(),
-										userId)) {
+					if (!userGroupRoles.contains(oldUserGroupRole) &&
+						(OrganizationPermissionUtil.hasRoleProtected(
+							getPermissionChecker(),
+							oldUserGroupRole.getGroupId(), userId, role) ||
+						 !UserGroupRolePermissionUtil.contains(
+							permissionChecker, oldUserGroupRole.getGroupId(),
+							oldUserGroupRole.getRoleId()) ||
+						 mandatoryOrganizationRoles.contains(role))) {
 
-									userGroupRoles.add(oldUserGroupRole);
-								}
-							}
-						}
-						else if (oldRole.getType() ==
-							RoleConstants.TYPE_ORGANIZATION) {
-
-							Group oldGroup = oldUserGroupRole.getGroup();
-
-							Organization organization =
-								organizationPersistence.findByPrimaryKey(
-									oldGroup.getOrganizationId());
-
-							Set<Role> mandatoryOrganizationRoles =
-								MembershipPolicyUtil.getMandatoryRoles(
-									organization, user);
-
-							if (mandatoryOrganizationRoles.contains(oldRole)) {
-								userGroupRoles.add(oldUserGroupRole);
-							}
-							else if (oldRoleName.equals(
-									RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
-									oldRoleName.equals(
-										RoleConstants.ORGANIZATION_OWNER)) {
-
-								if (OrganizationPermissionUtil.
-										hasMembershipProtected(
-											getPermissionChecker(),
-											oldUserGroupRole.getGroupId(),
-											userId)) {
-
-									userGroupRoles.add(oldUserGroupRole);
-								}
-							}
-						}
+						userGroupRoles.add(oldUserGroupRole);
 					}
 				}
 			}

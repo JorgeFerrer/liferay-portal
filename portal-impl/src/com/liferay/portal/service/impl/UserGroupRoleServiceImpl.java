@@ -73,26 +73,15 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 			Role role = roleLocalService.getRole(roleId);
 
-			String roleName = role.getName();
+			if (GroupPermissionUtil.hasRoleProtected(
+					getPermissionChecker(), groupId, userId, role)) {
 
-			if (roleName.equals(RoleConstants.SITE_ADMINISTRATOR) ||
-				roleName.equals(RoleConstants.SITE_OWNER)) {
-
-				if (GroupPermissionUtil.hasMembershipProtected(
-						getPermissionChecker(), groupId, userId)) {
-
-					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
-				}
+				filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
 			}
-			else if (roleName.equals(
-						RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
-					 roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
+			else if (OrganizationPermissionUtil.hasRoleProtected(
+						getPermissionChecker(), groupId, userId, role)) {
 
-				if (OrganizationPermissionUtil.hasMembershipProtected(
-						getPermissionChecker(), groupId, userId)) {
-
-					filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
-				}
+				filteredRoles = ArrayUtil.remove(filteredRoles, roleId);
 			}
 		}
 
