@@ -22,9 +22,12 @@ import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortletCategoryKeys;
+
+import java.util.List;
 
 /**
  * @author Jorge Ferrer
@@ -140,11 +143,15 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 			groupId = 0;
 		}
 
-		if (PortletPermissionUtil.contains(
-				permissionChecker, groupId, getDefaultPlid(group, category),
-				portlet.getPortletId(), ActionKeys.ACCESS_IN_CONTROL_PANEL,
-				true)) {
+		String portletId = portlet.getPortletId();
 
+		List<String> actions = ResourceActionsUtil.getResourceActions(
+			portletId);
+
+		if (actions.contains(ActionKeys.ACCESS_IN_CONTROL_PANEL) &&
+			PortletPermissionUtil.contains(
+				permissionChecker, groupId, getDefaultPlid(group, category),
+				portletId, ActionKeys.ACCESS_IN_CONTROL_PANEL, true)) {
 			return true;
 		}
 
