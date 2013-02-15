@@ -24,6 +24,8 @@ public interface TemplateContext {
 
 	public Object get(String key);
 
+	public String[] getKeys();
+
 	public void put(String key, Object value);
 
 }

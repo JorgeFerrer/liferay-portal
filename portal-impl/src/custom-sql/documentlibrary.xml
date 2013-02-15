@@ -132,7 +132,7 @@
 					SELECT
 						DISTINCT DLFileEntry.fileEntryId
 					FROM
-						DLFileEntry dLFileEntry
+						DLFileEntry
 					[$JOIN$]
 					WHERE
 						(DLFileEntry.groupId = ?) AND
@@ -152,7 +152,7 @@
 					SELECT
 						DISTINCT DLFileEntry.fileEntryId
 					FROM
-						DLFileEntry dLFileEntry
+						DLFileEntry
 					INNER JOIN
 						DLFileVersion ON
 							(DLFileVersion.fileEntryId = DLFileEntry.fileEntryId)

@@ -1152,9 +1152,10 @@ public class DDMStructureLocalServiceWrapper implements DDMStructureLocalService
 	description
 	* @param xsd the structure's new XML schema definition
 	* @param serviceContext the service context to be applied. Can set the
-	modification date.
+	structure's modification date.
 	* @return the updated structure
-	* @throws PortalException if a portal exception occurred
+	* @throws PortalException if a matching structure could not be found, if
+	the XSD was not well-formed, or if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portlet.dynamicdatamapping.model.DDMStructure updateStructure(
@@ -1182,9 +1183,10 @@ public class DDMStructureLocalServiceWrapper implements DDMStructureLocalService
 	descriptions
 	* @param xsd the structure's new XML schema definition
 	* @param serviceContext the service context to be applied. Can set the
-	modification date
+	structure's modification date.
 	* @return the updated structure
-	* @throws PortalException if a portal exception occurred
+	* @throws PortalException if a matching structure could not be found, if
+	the XSD was not well-formed, or if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portlet.dynamicdatamapping.model.DDMStructure updateStructure(
@@ -1197,6 +1199,52 @@ public class DDMStructureLocalServiceWrapper implements DDMStructureLocalService
 			com.liferay.portal.kernel.exception.SystemException {
 		return _ddmStructureLocalService.updateStructure(structureId,
 			parentStructureId, nameMap, descriptionMap, xsd, serviceContext);
+	}
+
+	/**
+	* Updates the structure matching the structure ID, replacing its XSD with a
+	* new one.
+	*
+	* @param structureId the primary key of the structure
+	* @param xsd the structure's new XML schema definition
+	* @param serviceContext the service context to be applied. Can set the
+	structure's modification date.
+	* @return the updated structure
+	* @throws PortalException if a matching structure could not be found, if
+	the XSD was not well-formed, or if a portal exception occurred
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portlet.dynamicdatamapping.model.DDMStructure updateXSD(
+		long structureId, java.lang.String xsd,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _ddmStructureLocalService.updateXSD(structureId, xsd,
+			serviceContext);
+	}
+
+	/**
+	* Updates the structure matching the structure ID, replacing the metadata
+	* entry of the named field.
+	*
+	* @param structureId the primary key of the structure
+	* @param fieldName the name of the field whose metadata to update
+	* @param metadataEntryName the metadata entry's name
+	* @param metadataEntryValue the metadata entry's value
+	* @param serviceContext the service context to be applied. Can set the
+	structure's modification date.
+	* @throws PortalException if a matching structure could not be found, if
+	the XSD was not well-formed, or if a portal exception occurred
+	* @throws SystemException if a system exception occurred
+	*/
+	public void updateXSDFieldMetadata(long structureId,
+		java.lang.String fieldName, java.lang.String metadataEntryName,
+		java.lang.String metadataEntryValue,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_ddmStructureLocalService.updateXSDFieldMetadata(structureId,
+			fieldName, metadataEntryName, metadataEntryValue, serviceContext);
 	}
 
 	/**

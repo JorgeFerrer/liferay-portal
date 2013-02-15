@@ -1297,6 +1297,11 @@
 			ddmURL.setParameter('ddmResource', config.ddmResource);
 			ddmURL.setParameter('ddmResourceActionId', config.ddmResourceActionId);
 			ddmURL.setParameter('groupId', config.groupId);
+
+			if ('refererPortletName' in config) {
+				ddmURL.setParameter('refererPortletName', config.refererPortletName);
+			}
+
 			ddmURL.setParameter('saveCallback', config.saveCallback);
 			ddmURL.setParameter('scopeAvailableFields', config.availableFields);
 			ddmURL.setParameter('scopeStorageType', config.storageType);

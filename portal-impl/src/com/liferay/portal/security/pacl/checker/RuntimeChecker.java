@@ -153,6 +153,59 @@ public class RuntimeChecker extends BaseReflectChecker {
 		}
 	}
 
+	@Override
+	public AuthorizationProperty generateAuthorizationProperty(
+		Object... arguments) {
+
+		if ((arguments == null) || (arguments.length != 1) ||
+			!(arguments[0] instanceof Permission)) {
+
+			return null;
+		}
+
+		Permission permission = (Permission)arguments[0];
+
+		String name = permission.getName();
+
+		String key = null;
+		String value = null;
+
+		if (name.startsWith(RUNTIME_PERMISSION_GET_CLASSLOADER)) {
+			key = "security-manager-class-loader-reference-ids";
+
+			if (name.equals(RUNTIME_PERMISSION_GET_CLASSLOADER)) {
+				value = "portal";
+			}
+			else {
+				value = name.substring(
+					RUNTIME_PERMISSION_GET_CLASSLOADER.length() + 1);
+			}
+		}
+		else if (name.startsWith(RUNTIME_PERMISSION_GET_ENV)) {
+			key = "security-manager-environment-variables";
+
+			value = name.substring(RUNTIME_PERMISSION_GET_ENV.length() + 1);
+
+			// Since we are using a regular expression, we cannot allow a lone *
+			// as the rule
+
+			if (value.equals(StringPool.STAR)) {
+				value = StringPool.DOUBLE_BACK_SLASH + value;
+			}
+		}
+		else {
+			return null;
+		}
+
+		AuthorizationProperty authorizationProperty =
+			new AuthorizationProperty();
+
+		authorizationProperty.setKey(key);
+		authorizationProperty.setValue(value);
+
+		return authorizationProperty;
+	}
+
 	protected boolean hasAccessClassInPackage(String pkg) {
 
 		// TODO

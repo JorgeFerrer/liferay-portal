@@ -30,6 +30,7 @@ import java.util.Properties;
 
 /**
  * @author Brian Wing Shun Chan
+ * @author Raymond Augé
  */
 public class PACLPolicyManager {
 
@@ -37,12 +38,12 @@ public class PACLPolicyManager {
 		String servletContextName, ClassLoader classLoader,
 		Properties properties) {
 
-		boolean active = GetterUtil.getBoolean(
-			properties.get("security-manager-enabled"));
-
 		PACLPolicy paclPolicy = null;
 
-		if (active) {
+		State state = State.parse(
+			properties.getProperty("security-manager-enabled", "false"));
+
+		if (state == State.ENABLED) {
 			paclPolicy = new ActivePACLPolicy(
 				servletContextName, classLoader, properties);
 		}
@@ -114,6 +115,20 @@ public class PACLPolicyManager {
 
 			ServiceBeanAopCacheManagerUtil.reset();
 		}
+	}
+
+	public enum State {
+
+		DISABLED, ENABLED, GENERATING_AUTHORIZATION_PROPERTY;
+
+		public static State parse(String state) {
+			if (GetterUtil.getBoolean(state) == true) {
+				return ENABLED;
+			}
+
+			return DISABLED;
+		}
+
 	}
 
 	private static void _overridePortalSecurityManager() {
