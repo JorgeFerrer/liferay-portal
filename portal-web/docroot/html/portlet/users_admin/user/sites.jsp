@@ -81,17 +81,17 @@ List<Group> groups = (List<Group>)request.getAttribute("user.groups");
 		Set<Group> mandatoryGroups = MembershipPolicyUtil.getMandatoryGroups(selUser);
 		%>
 
-		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !mandatoryGroups.contains(group) %>">
-			<liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text>
+			<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !mandatoryGroups.contains(group) && GroupPermissionUtil.contains(permissionChecker, group.getGroupId(), ActionKeys.ASSIGN_MEMBERS) %>">
 				<a class="modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeGroupIcon %></a>
-			</liferay-ui:search-container-column-text>
-		</c:if>
+			</c:if>
+		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
 
 	<liferay-ui:search-iterator paginate="<%= false %>" />
 </liferay-ui:search-container>
 
-<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) %>">
+<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && permissionChecker.hasPermission(0, Group.class.getName(), company.getCompanyId(), ActionKeys.ASSIGN_MEMBERS) %>">
 	<br />
 
 	<liferay-ui:icon

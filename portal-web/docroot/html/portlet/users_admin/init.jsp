@@ -54,6 +54,9 @@ page import="com.liferay.portal.UserSmsException" %><%@
 page import="com.liferay.portal.WebsiteURLException" %><%@
 page import="com.liferay.portal.security.auth.MembershipPolicyUtil" %><%@
 page import="com.liferay.portal.service.permission.OrganizationPermissionUtil" %><%@
+page import="com.liferay.portal.service.permission.RolePermissionUtil" %><%@
+page import="com.liferay.portal.service.permission.UserGroupPermissionUtil" %><%@
+page import="com.liferay.portal.service.permission.UserGroupRolePermissionUtil" %><%@
 page import="com.liferay.portal.service.permission.UserPermissionUtil" %><%@
 page import="com.liferay.portlet.announcements.model.AnnouncementsDelivery" %><%@
 page import="com.liferay.portlet.announcements.model.AnnouncementsEntryConstants" %><%@
@@ -86,13 +89,7 @@ if (!(portletName.equals(PortletKeys.PASSWORD_POLICIES_ADMIN) || portletName.equ
 }
 
 boolean filterManageableGroups = true;
-
 boolean filterManageableOrganizations = true;
-
-if (permissionChecker.hasPermission(0, Organization.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
-	filterManageableOrganizations = false;
-}
-
 boolean filterManageableRoles = true;
 boolean filterManageableUserGroupRoles = true;
 boolean filterManageableUserGroups = true;
@@ -107,6 +104,23 @@ if (portletName.equals(PortletKeys.MY_ACCOUNT)) {
 else if (permissionChecker.isCompanyAdmin()) {
 	filterManageableGroups = false;
 	filterManageableOrganizations = false;
+	filterManageableUserGroups = false;
+}
+
+if (filterManageableGroups && permissionChecker.hasPermission(0, Group.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
+	filterManageableGroups = false;
+}
+
+if (filterManageableOrganizations && permissionChecker.hasPermission(0, Organization.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
+	filterManageableOrganizations = false;
+}
+
+if (filterManageableRoles && permissionChecker.hasPermission(0, Role.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
+	filterManageableRoles = false;
+	filterManageableUserGroupRoles = false;
+}
+
+if (filterManageableUserGroups && permissionChecker.hasPermission(0, UserGroup.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
 	filterManageableUserGroups = false;
 }
 %>
