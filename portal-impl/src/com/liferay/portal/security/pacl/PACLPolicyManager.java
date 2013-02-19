@@ -38,21 +38,22 @@ public class PACLPolicyManager {
 		String servletContextName, ClassLoader classLoader,
 		Properties properties) {
 
-		PACLPolicy paclPolicy = null;
+		String value = properties.getProperty(
+			"security-manager-enabled", "false");
 
-		State state = State.parse(
-			properties.getProperty("security-manager-enabled", "false"));
+		if (value.equals("generate")) {
+			return new GeneratingPACLPolicy(
+				servletContextName, classLoader, properties);
+		}
 
-		if (state == State.ENABLED) {
-			paclPolicy = new ActivePACLPolicy(
+		if (GetterUtil.getBoolean(value)) {
+			return new ActivePACLPolicy(
 				servletContextName, classLoader, properties);
 		}
 		else {
-			paclPolicy = new InactivePACLPolicy(
+			return new InactivePACLPolicy(
 				servletContextName, classLoader, properties);
 		}
-
-		return paclPolicy;
 	}
 
 	public static int getActiveCount() {
@@ -115,20 +116,6 @@ public class PACLPolicyManager {
 
 			ServiceBeanAopCacheManagerUtil.reset();
 		}
-	}
-
-	public enum State {
-
-		DISABLED, ENABLED, GENERATING_AUTHORIZATION_PROPERTY;
-
-		public static State parse(String state) {
-			if (GetterUtil.getBoolean(state) == true) {
-				return ENABLED;
-			}
-
-			return DISABLED;
-		}
-
 	}
 
 	private static void _overridePortalSecurityManager() {

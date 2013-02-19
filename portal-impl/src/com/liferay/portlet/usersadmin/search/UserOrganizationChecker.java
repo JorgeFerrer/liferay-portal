@@ -84,6 +84,12 @@ public class UserOrganizationChecker extends RowChecker {
 			PermissionChecker permissionChecker =
 				PermissionThreadLocal.getPermissionChecker();
 
+			if (MembershipPolicyUtil.isMembershipProtected(
+					permissionChecker, _organization, user)) {
+
+				return true;
+			}
+
 			return !UserPermissionUtil.contains(
 				permissionChecker, user.getUserId(), ActionKeys.UPDATE);
 		}

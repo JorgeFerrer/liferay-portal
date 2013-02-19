@@ -45,6 +45,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.model.Website;
+import com.liferay.portal.security.auth.MembershipPolicyUtil;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.AddressLocalServiceUtil;
@@ -175,6 +176,29 @@ public class UsersAdminImpl implements UsersAdmin {
 		}
 
 		return roleIds;
+	}
+
+	public long[] filterDeleteGroupRoleUserIds(
+			PermissionChecker permissionChecker, long groupId, long roleId,
+			long[] userIds)
+		throws PortalException, SystemException {
+
+		long[] filteredUserIds = userIds;
+
+		Group group = GroupLocalServiceUtil.getGroup(groupId);
+		Role role = RoleLocalServiceUtil.getRole(roleId);
+
+		for (long userId : userIds) {
+			User user = UserLocalServiceUtil.getUser(userId);
+
+			if (MembershipPolicyUtil.isMembershipProtected(
+					permissionChecker, group, role, user)) {
+
+				filteredUserIds = ArrayUtil.remove(filteredUserIds, userId);
+			}
+		}
+
+		return filteredUserIds;
 	}
 
 	public List<Role> filterGroupRoles(
@@ -340,6 +364,26 @@ public class UsersAdminImpl implements UsersAdmin {
 		}
 
 		return filteredRoles;
+	}
+
+	public long[] filterUnsetGroupUserIds(
+			PermissionChecker permissionChecker, long groupId, long[] userIds)
+		throws PortalException, SystemException {
+
+		long[] filteredUserIds = userIds;
+
+		for (long userId : userIds) {
+			Group group = GroupLocalServiceUtil.getGroup(groupId);
+			User user = UserLocalServiceUtil.getUser(userId);
+
+			if (MembershipPolicyUtil.isMembershipProtected(
+					permissionChecker, group, user)) {
+
+				filteredUserIds = ArrayUtil.remove(filteredUserIds, userId);
+			}
+		}
+
+		return filteredUserIds;
 	}
 
 	public List<UserGroupRole> filterUserGroupRoles(

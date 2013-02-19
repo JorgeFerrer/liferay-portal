@@ -217,21 +217,16 @@ boolean hasLayoutUpdatePermission = LayoutPermissionUtil.contains(permissionChec
 				Layout refererLayout = LayoutLocalServiceUtil.fetchLayout(themeDisplay.getRefererPlid());
 
 				if (refererLayout != null) {
-					Group refererGroup = refererLayout.getGroup();
+					Group refererLayoutGroup = refererLayout.getGroup();
+					Group refererGroup = GroupLocalServiceUtil.fetchGroup(themeDisplay.getRefererGroupId());
 
-					if (refererGroup.isUserGroup()) {
-						Group scopeGroup = themeDisplay.getScopeGroup();
-
-						if (scopeGroup.isUser()) {
-							refererGroup = scopeGroup;
-
-							refererLayout = new VirtualLayout(refererLayout, refererGroup);
-						}
+					if (refererGroup != null) {
+						refererLayout = new VirtualLayout(refererLayout, refererGroup);
 					}
 
-					refererGroupDescriptiveName = refererGroup.getDescriptiveName(locale);
+					refererGroupDescriptiveName = refererLayoutGroup.getDescriptiveName(locale);
 
-					if (refererGroup.isUser() && (refererGroup.getClassPK() == user.getUserId())) {
+					if (refererLayoutGroup.isUser() && (refererLayoutGroup.getClassPK() == user.getUserId())) {
 						if (refererLayout.isPublicLayout()) {
 							refererGroupDescriptiveName = LanguageUtil.get(pageContext, "my-public-pages");
 						}
