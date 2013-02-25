@@ -269,6 +269,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			userPersistence.getGroups(permissionChecker.getUserId(), 0, max));
 		groups.addAll(
 			getUserOrganizationsGroups(permissionChecker.getUserId(), 0, max));
+		groups.addAll(getUserSites());
 
 		List<UserGroup> userGroups = userPersistence.getUserGroups(
 			permissionChecker.getUserId(), 0, max);
