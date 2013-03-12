@@ -35,7 +35,7 @@ boolean useRichEditor = editorType.equals("rich");
 
 <aui:input name="scriptContent" type="hidden" value="<%= script %>" />
 
-<liferay-ui:panel-container extended="<%= false %>" id="templateScriptPanelContainer" persistState="<%= true %>">
+<liferay-ui:panel-container extended="<%= false %>" id="templateScriptContainer" persistState="<%= true %>">
 	<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="templateScriptSectionPanel" persistState="<%= true %>" title="script">
 		<div class="editor-toolbar">
 			<aui:select cssClass="language-type" inlineField="<%= true %>" label="" name="language" title="language-type">
@@ -65,27 +65,140 @@ boolean useRichEditor = editorType.equals("rich");
 				<aui:option label="plain" selected="<%= !useRichEditor %>" value="plain" />
 			</aui:select>
 		</div>
+		
+		<div class="lfr-template-editor-container">
+			<%
+			String cssClassPalette = "lfr-template-palette-container";
 
-		<div class="lfr-plain-editor <%= useRichEditor ? "aui-helper-hidden" : StringPool.BLANK %>" id="<portlet:namespace />plainEditor">
-			<aui:input cssClass="lfr-template-editor" inputCssClass="lfr-editor-textarea" label="" name="plainEditorField" onKeyDown="Liferay.Util.checkTab(this); Liferay.Util.disableEsc();" type="textarea" value="" wrap="off" />
+			if (!language.equalsIgnoreCase("ftl")) {
+				cssClassPalette += " aui-helper-hidden";
+			}
+			%>
+
+			<div class="<%= cssClassPalette %>" id="<portlet:namespace />templatePaletteContainer">
+				<div class="minimize-panels" id="<portlet:namespace />paletteToggler">
+					<a href="javascript:;">
+						<span><liferay-ui:message key="minimize-panels" /></span>
+					</a>
+				</div>
+
+				<div class="lfr-template-palette" id="<portlet:namespace />paletteDataContainer">
+					<div id="<portlet:namespace />paletteData">
+						<div>
+							<div class="palette-item-header aui-toggler-header-expanded">
+								<span class="palette-item-header-icon"></span>
+								<span>Fields</span>
+							</div>
+							<ul class="palette-item-content">
+								<li class="palette-item-container">
+									<span class="palette-item" data-content1="<#list animals as being>" data-content2="</#list>" title="This is an example tooltip.<br>It will provide useful information<br>For more information, click &lt;a href=&quot;liferay.com&quot; target=&quot;blank&quot;&gt;here&lt;/a&gt;">Picture</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item"
+										data-content1="<#list animals as being>"
+										data-content2="<li>\${being.name} for \${being.price} Euros"
+										data-content3="</#list>" title="Test123">Link</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">Preference</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">Collection</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">Email</span>
+								</li>
+							</ul>
+						</div>
+						<div>
+							<div class="palette-item-header aui-toggler-header-expanded">
+								<span class="palette-item-header-icon"></span>
+								<span>Variables</span>
+							</div>
+							<ul class="palette-item-content">
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">themeDsiplay</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">request</span>
+								</li>
+								<li class="palette-item-container">
+									<span class="palette-item" title="Test123">serviceLocator</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="lfr-editor-container lfr-editor-container-full" id="<portlet:namespace />editorContainer">
+				<div class="lfr-plain-editor <%= useRichEditor ? "aui-helper-hidden" : StringPool.BLANK %>" id="<portlet:namespace />plainEditor">
+					<aui:input cssClass="lfr-template-editor" inputCssClass="lfr-editor-textarea" label="" name="plainEditorField" onKeyDown="Liferay.Util.checkTab(this); Liferay.Util.disableEsc();" type="textarea" value="" wrap="off" />
+				</div>
+
+				<div class="lfr-rich-editor <%= !useRichEditor ? "aui-helper-hidden" : StringPool.BLANK %>" id="<portlet:namespace />richEditor"></div>
+			</div>
 		</div>
-
-		<div class="lfr-rich-editor <%= !useRichEditor ? "aui-helper-hidden" : StringPool.BLANK %>" id="<portlet:namespace />richEditor"></div>
 
 		<aui:input label="script-file" name="script" type="file" />
 	</liferay-ui:panel>
 </liferay-ui:panel-container>
 
-<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin">
+<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin,aui-toggler,aui-tooltip,event-mouseenter,transition">
+	var Util = Liferay.Util;
+
+	var AObject = A.Object;
+
+	var CSS_HIDDEN = 'aui-helper-hidden';
+
+	var CSS_EDITOR_CONTAINER_FULL = 'lfr-editor-container-full';
+
+	var CSS_EDITOR_CONTAINER_PALETTE_MINIMIZED = 'lfr-editor-container-palette-minimized';
+
+	var CSS_PALETTE_CONTAINER_MINIMIZED = 'lfr-template-palette-container-minimized';
+
 	var editorType = '<%= HtmlUtil.escapeJS(editorType) %>';
 
-	var plainEditorField = A.one('#<portlet:namespace />plainEditorField');
+	var panelScriptContainer = A.one('#templateScriptContainer');
+
+	var plainEditorField = panelScriptContainer.one('#<portlet:namespace />plainEditorField');
+
+	var selectLanguageNode = panelScriptContainer.one('#<portlet:namespace />language');
+
+	var paletteContainer = panelScriptContainer.one('#<portlet:namespace />templatePaletteContainer');
+
+	var paletteDataContainer = panelScriptContainer.one('#<portlet:namespace />paletteDataContainer');
+
+	var paletteDataNode = panelScriptContainer.one('#<portlet:namespace />paletteData');
+
+	var paletteToggler = panelScriptContainer.one('#<portlet:namespace />paletteToggler');
+
+	var paletteTogglerLink = paletteToggler.one('a');
+
+	var editorContainer = panelScriptContainer.one('#<portlet:namespace />editorContainer');
+
+	var selectLanguageNode = panelScriptContainer.one('#<portlet:namespace />language');
 
 	var richEditor;
 
 	var prevEditorContent;
 
-	var selectLanguageNode = A.one('#<portlet:namespace />language');
+	var paletteMouseEnterLeaveHandles;
+
+	var eventOpacities = {
+		mouseenter: 1,
+		mouseleave: 0
+	};
+
+	function attachPaletteMouseEnterLeave() {
+		paletteMouseEnterLeaveHandles = paletteContainer.on(['mouseenter', 'mouseleave'], togglePaletteAction);
+	}
+
+	function detachPaletteMouseEnterLeave() {
+		if (paletteMouseEnterLeaveHandles) {
+			paletteMouseEnterLeaveHandles.detach();
+		}
+	}
 
 	function getEditorContent(type) {
 		var content = '';
@@ -100,6 +213,95 @@ boolean useRichEditor = editorType.equals("rich");
 		return content;
 	}
 
+	function getSelectedLanguage() {
+		return selectLanguageNode.one('option:selected').val();
+	}
+
+	function hidePalette() {
+		paletteContainer.addClass(CSS_HIDDEN);
+
+		editorContainer.addClass(CSS_EDITOR_CONTAINER_FULL);
+	}
+
+	function onPaletteItemChosen(event) {
+		var editor = richEditor.getEditor();
+
+		var item = event.currentTarget;
+
+		var contentAttrs = Util.getAttributes(item, "data-content");
+
+		var curCursorPosition;
+
+		var processed;
+
+		AObject.each(
+			contentAttrs,
+			function(item, index) {
+				if (processed) {
+					editor.insert('\n');
+
+					curCursorPosition = editor.getCursorPosition();
+
+					editor.insert('\n');
+				}
+
+				processed = true;
+
+				editor.insert(item);
+			}
+		);
+
+		if (curCursorPosition) {
+			editor.moveCursorToPosition(curCursorPosition);
+		}
+
+		editor.focus();
+	}
+
+	function minimizePalette() {
+		paletteDataNode.remove();
+
+		detachPaletteMouseEnterLeave();
+
+		paletteContainer.transition(
+			{
+				duration: 0.5,
+				width: '13px'
+			},
+			function() {
+				paletteContainer.addClass(CSS_PALETTE_CONTAINER_MINIMIZED);
+
+				editorContainer.addClass(CSS_EDITOR_CONTAINER_PALETTE_MINIMIZED);
+
+				paletteToggler.setStyle('opacity', '1');
+			}
+		);
+	}
+
+	function maximizePalette() {
+		editorContainer.removeClass(CSS_EDITOR_CONTAINER_PALETTE_MINIMIZED);
+
+		paletteContainer.transition(
+			{
+				duration: 0.5,
+				width: '200px'
+			},
+			function() {
+				paletteContainer.removeClass(CSS_PALETTE_CONTAINER_MINIMIZED);
+
+				paletteDataContainer.appendChild(paletteDataNode);
+
+				attachPaletteMouseEnterLeave();
+			}
+		);
+	}
+
+	function onTemplateLanguageChange(event) {
+		updatePalette(event);
+
+		updateEditorPlugins(event);
+	}
+
 	function setEditorContent(type, content) {
 		if (type == 'plain') {
 			plainEditorField.val(content);
@@ -111,8 +313,39 @@ boolean useRichEditor = editorType.equals("rich");
 		prevEditorContent = content;
 	}
 
+	function showPalette() {
+		editorContainer.removeClass(CSS_EDITOR_CONTAINER_FULL);
+
+		paletteContainer.removeClass(CSS_HIDDEN);
+	}
+
+	function togglePalette() {
+		if (paletteContainer.hasClass(CSS_PALETTE_CONTAINER_MINIMIZED)) {
+			maximizePalette();
+		}
+		else {
+			minimizePalette();
+		}
+	}
+
+	function togglePaletteAction(event) {
+		var opacity = 0;
+
+		if (!paletteContainer.hasClass(CSS_PALETTE_CONTAINER_MINIMIZED)) {
+			if (event) {
+				opacity = eventOpacities[event.type];
+			}
+
+			paletteToggler.transition(
+				{
+					opacity: opacity
+				}
+			);
+		}
+	}
+
 	function updateEditorPlugins(event) {
-		var selectedOptionValue = selectLanguageNode.one('option:selected').val();
+		var selectedOptionValue = getSelectedLanguage();
 
 		if (selectedOptionValue === 'ftl') {
 			richEditor.plug(
@@ -138,7 +371,7 @@ boolean useRichEditor = editorType.equals("rich");
 	function updateEditorType(event) {
 		var oldEditorType = editorType;
 
-		var newEditorType = A.one('#<portlet:namespace />editorType').val();
+		var newEditorType = panelScriptContainer.one('#<portlet:namespace />editorType').val();
 
 		var oldEditorContent = getEditorContent(oldEditorType);
 
@@ -146,16 +379,32 @@ boolean useRichEditor = editorType.equals("rich");
 
 		var richEditorType = (newEditorType != 'plain');
 
-		A.one('#<portlet:namespace />plainEditor').toggle(!richEditorType);
-		A.one('#<portlet:namespace />richEditor').toggle(richEditorType);
+		panelScriptContainer.one('#<portlet:namespace />plainEditor').toggle(!richEditorType);
+		panelScriptContainer.one('#<portlet:namespace />richEditor').toggle(richEditorType);
 
 		if (richEditorType) {
+			hidePalette();
+
 			richEditor.editor.resize();
+		}
+		else {
+			showPalette();
 		}
 
 		A.io.request('<portlet:renderURL><portlet:param name="struts_action" value="/dynamic_data_mapping/edit_template_display" /></portlet:renderURL>&editorType=' + newEditorType);
 
 		editorType = newEditorType;
+	}
+
+	function updatePalette() {
+		var selectedLanguage = getSelectedLanguage();
+
+		if (selectedLanguage === 'ftl') {
+			showPalette();
+		}
+		else {
+			hidePalette();
+		}
 	}
 
 	<%
@@ -174,13 +423,13 @@ boolean useRichEditor = editorType.equals("rich");
 				}
 			).render();
 
-			var editorContentElement = A.one('#<portlet:namespace />scriptContent');
+			var editorContentElement = panelScriptContainer.one('#<portlet:namespace />scriptContent');
 
 			if (editorContentElement) {
 				setEditorContent(editorType, editorContentElement.val());
 			}
 
-			A.one('#<portlet:namespace />editorType').on('change', updateEditorType);
+			panelScriptContainer.one('#<portlet:namespace />editorType').on('change', updateEditorType);
 
 			Liferay.on(
 				'<portlet:namespace />saveTemplate',
@@ -189,9 +438,32 @@ boolean useRichEditor = editorType.equals("rich");
 				}
 			);
 
-			selectLanguageNode.on('change', updateEditorPlugins);
+			selectLanguageNode.on('change', onTemplateLanguageChange);
 
 			updateEditorPlugins();
+
+			paletteContainer.delegate('click', onPaletteItemChosen, '.palette-item');
+
+			attachPaletteMouseEnterLeave();
+
+			paletteToggler.on('click', togglePalette);
+
+			var togglerDelegate = new A.TogglerDelegate(
+				{
+					animated: true,
+					container: paletteDataContainer,
+					content: '.palette-item-content',
+					header: '.palette-item-header'
+				}
+			);
+
+			var t1 = new A.Tooltip(
+				{
+					align: { points: [ 'bl', 'tr' ] },
+					title: true,
+					trigger: '.palette-item'
+				}
+			).render(paletteContainer);
 		},
 		'#<portlet:namespace />richEditor'
 	);
