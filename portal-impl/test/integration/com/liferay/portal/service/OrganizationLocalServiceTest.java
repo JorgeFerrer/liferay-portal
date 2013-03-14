@@ -51,7 +51,7 @@ public class OrganizationLocalServiceTest {
 				user.getUserId(),
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
 				"testAddOrganization",
-				OrganizationConstants.TYPE_REGULAR_ORGANIZATION, false, 0, 0,
+				OrganizationConstants.TYPE_REGULAR_ORGANIZATION, 0, 0,
 				ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
 				false, null);
 

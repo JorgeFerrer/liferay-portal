@@ -49,7 +49,7 @@ public class OrganizationTestUtil {
 			ServiceTestUtil.randomString(), false, null);
 
 		return OrganizationLocalServiceUtil.addOrganization(
-			user.getUserId(), parentOrganizationId, name, type, false, 0, 0,
+			user.getUserId(), parentOrganizationId, name, type, 0, 0,
 			ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
 			site, ServiceTestUtil.getServiceContext());
 	}
