@@ -99,6 +99,28 @@ public class OrganizationLocalServiceImpl
 		PermissionCacheUtil.clearCache();
 	}
 
+	/**
+	 * Adds an organization.
+	 *
+	 * <p>
+	 * This method handles the creation and bookkeeping of the organization
+	 * including its resources, metadata, and internal data structures. It is
+	 * not necessary to make a subsequent call to {@link
+	 * #addOrganizationResources(long, Organization)}.
+	 * </p>
+	 *
+	 * @param  userId the primary key of the creator/owner of the organization
+	 * @param  parentOrganizationId the primary key of the organization's parent
+	 *         organization
+	 * @param  name the organization's name
+	 * @param  site whether the organization is to be associated with a main
+	 *         site
+	 * @return the organization
+	 * @throws PortalException if a creator or parent organization with the
+	 *         primary key could not be found or if the organization's
+	 *         information was invalid
+	 * @throws SystemException if a system exception occurred
+	 */
 	public Organization addOrganization(
 			long userId, long parentOrganizationId, String name, boolean site)
 		throws PortalException, SystemException {
