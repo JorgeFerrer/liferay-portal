@@ -182,7 +182,11 @@ public class OrganizationLocalServiceImpl
 				organizationPersistence.fetchByPrimaryKey(parentOrganizationId);
 
 			if (parentOrganization != null) {
-				parentGroupId = parentOrganization.getGroupId();
+				Group parentGroup = parentOrganization.getGroup();
+
+				if (site && parentGroup.isSite()) {
+					parentGroupId = parentOrganization.getGroupId();
+				}
 			}
 		}
 
