@@ -1594,7 +1594,14 @@ public class OrganizationLocalServiceImpl
 					organizationPersistence.fetchByPrimaryKey(
 						parentOrganizationId);
 
-				parentGroupId = parentOrganization.getGroupId();
+				Group parentGroup = parentOrganization.getGroup();
+
+				if (site && parentGroup.isSite()) {
+					parentGroupId = parentOrganization.getGroupId();
+				}
+				else {
+					parentGroupId = GroupConstants.DEFAULT_PARENT_GROUP_ID;
+				}
 			}
 			else {
 				parentGroupId = GroupConstants.DEFAULT_PARENT_GROUP_ID;
