@@ -15,8 +15,6 @@
 package com.liferay.portal.service;
 
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.ListTypeConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.OrganizationConstants;
 import com.liferay.portal.model.User;
@@ -50,10 +48,7 @@ public class OrganizationLocalServiceTest {
 			OrganizationLocalServiceUtil.addOrganization(
 				user.getUserId(),
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
-				"testAddOrganization",
-				OrganizationConstants.TYPE_REGULAR_ORGANIZATION, 0, 0,
-				ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
-				false, null);
+				"Organization", false);
 
 		List<Organization> organizations = user.getOrganizations(true);
 

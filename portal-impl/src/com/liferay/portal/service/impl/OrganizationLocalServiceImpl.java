@@ -99,6 +99,17 @@ public class OrganizationLocalServiceImpl
 		PermissionCacheUtil.clearCache();
 	}
 
+	public Organization addOrganization(
+			long userId, long parentOrganizationId, String name, boolean site)
+		throws PortalException, SystemException {
+
+		return addOrganization(
+			userId, parentOrganizationId, name,
+			OrganizationConstants.TYPE_REGULAR_ORGANIZATION, 0, 0,
+			ListTypeConstants.ORGANIZATION_STATUS_DEFAULT, StringPool.BLANK,
+			site, null);
+	}
+
 	/**
 	 * Adds an organization.
 	 *
