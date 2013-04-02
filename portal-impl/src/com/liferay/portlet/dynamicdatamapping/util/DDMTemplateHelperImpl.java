@@ -124,6 +124,41 @@ public class DDMTemplateHelperImpl implements DDMTemplateHelper {
 		List<TemplateVariableDefinition> variableDefinitions =
 			new UniqueList<TemplateVariableDefinition>();
 
+		// Declared variables
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		DDMTemplate ddmTemplate = (DDMTemplate)request.getAttribute(
+			WebKeys.DYNAMIC_DATA_MAPPING_TEMPLATE);
+
+		long classPK = BeanParamUtil.getLong(ddmTemplate, request, "classPK");
+		long classNameId = BeanParamUtil.getLong(
+			ddmTemplate, request, "classNameId");
+
+		if (classPK > 0) {
+			DDMStructure ddmStructure = DDMStructureServiceUtil.getStructure(
+				classPK);
+
+			classNameId = ddmStructure.getClassNameId();
+		}
+		else if (ddmTemplate != null) {
+			classNameId = ddmTemplate.getClassNameId();
+		}
+
+		Map<String, TemplateVariableGroup> templateVariableGroups =
+			TemplateContextHelper.getTemplateVariableGroups(
+				classNameId, classPK, themeDisplay.getLocale());
+
+		for (TemplateVariableGroup templateVariableGroup :
+				templateVariableGroups.values()) {
+
+			variableDefinitions.addAll(
+				templateVariableGroup.getTemplateVariableDefinitions());
+		}
+
+		// Other variables
+
 		TemplateResource templateResource = new StringTemplateResource(
 			_TEMPLATE_ID, _TEMPLATE_CONTENT);
 
