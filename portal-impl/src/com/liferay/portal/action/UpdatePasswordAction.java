@@ -19,7 +19,9 @@ import com.liferay.portal.UserLockoutException;
 import com.liferay.portal.UserPasswordException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.CompanyConstants;
@@ -36,6 +38,7 @@ import com.liferay.portal.struts.ActionConstants;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
+import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.PortletURLImpl;
@@ -97,14 +100,32 @@ public class UpdatePasswordAction extends Action {
 		try {
 			updatePassword(request, response, themeDisplay, ticket);
 
+			String defaultLandingPagePath = PrefsPropsUtil.getString(
+				themeDisplay.getCompanyId(),
+				PropsKeys.DEFAULT_LANDING_PAGE_PATH);
+
 			String redirect = ParamUtil.getString(request, WebKeys.REFERER);
 
 			if (Validator.isNull(redirect)) {
-				PortletURL portletURL = new PortletURLImpl(
-					request, PortletKeys.LOGIN, themeDisplay.getPlid(),
-					PortletRequest.RENDER_PHASE);
+				if (Validator.isNull(defaultLandingPagePath)) {
+					PortletURL portletURL = new PortletURLImpl(
+						request, PortletKeys.LOGIN, themeDisplay.getPlid(),
+						PortletRequest.RENDER_PHASE);
 
-				redirect = portletURL.toString();
+					redirect = portletURL.toString();
+				}
+				else {
+					redirect = defaultLandingPagePath;
+				}
+			}
+			else if (Validator.isNotNull(defaultLandingPagePath)) {
+				String currentURL = PortalUtil.getCurrentURL(request);
+
+				String redirectPath = HttpUtil.getPath(redirect);
+
+				if (currentURL.startsWith(redirectPath)) {
+					redirect = defaultLandingPagePath;
+				}
 			}
 
 			response.sendRedirect(redirect);
