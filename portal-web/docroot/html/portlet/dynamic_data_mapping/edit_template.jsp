@@ -42,7 +42,7 @@ if ((structure == null) && (template != null)) {
 
 String type = BeanParamUtil.getString(template, request, "type", DDMTemplateConstants.TEMPLATE_TYPE_FORM);
 String mode = BeanParamUtil.getString(template, request, "mode", DDMTemplateConstants.TEMPLATE_MODE_CREATE);
-String language = BeanParamUtil.getString(template, request, "language", TemplateConstants.LANG_TYPE_VM);
+String language = BeanParamUtil.getString(template, request, "language", PropsValues.DYNAMIC_DATA_MAPPING_TEMPLATE_LANGUAGE_DEFAULT);
 String script = BeanParamUtil.getString(template, request, "script");
 Set<String> supportedLanguageTypes = TemplateManagerUtil.getTemplateManagerNames();
 
