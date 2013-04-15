@@ -39,30 +39,6 @@ templateVariableGroups = TemplateContextHelper.getTemplateVariableGroups(classNa
 
 <liferay-ui:panel-container extended="<%= false %>" id="templateScriptContainer" persistState="<%= true %>">
 	<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="templateScriptSectionPanel" persistState="<%= true %>" title="script">
-		<div class="editor-toolbar">
-			<aui:select cssClass="language-type" inlineField="<%= true %>" label="" name="language" title="language-type">
-
-				<%
-				for (String curLangType : supportedLanguageTypes) {
-					StringBundler sb = new StringBundler(6);
-
-					sb.append(LanguageUtil.get(pageContext, curLangType + "[stands-for]"));
-					sb.append(StringPool.SPACE);
-					sb.append(StringPool.OPEN_PARENTHESIS);
-					sb.append(StringPool.PERIOD);
-					sb.append(curLangType);
-					sb.append(StringPool.CLOSE_PARENTHESIS);
-				%>
-
-					<aui:option label="<%= sb.toString() %>" selected="<%= language.equals(curLangType) %>" value="<%= curLangType %>" />
-
-				<%
-				}
-				%>
-
-			</aui:select>
-		</div>
-
 		<div class="lfr-template-editor-container">
 			<c:if test="<%= !templateVariableGroups.isEmpty() %>">
 				<div class="lfr-template-palette-container<%= (language.equalsIgnoreCase("ftl") || language.equalsIgnoreCase("vm")) ? "" : " aui-helper-hidden" %>" id="<portlet:namespace />templatePaletteContainer">
@@ -187,10 +163,11 @@ templateVariableGroups = TemplateContextHelper.getTemplateVariableGroups(classNa
 	var AObject = A.Object;
 	var Util = Liferay.Util;
 
+	var selectLanguageNode = A.one('#<portlet:namespace />language');
+
 	var panelScriptContainer = A.one('#templateScriptContainer');
 
 	var editorContainer = panelScriptContainer.one('#<portlet:namespace />editorContainer');
-	var selectLanguageNode = panelScriptContainer.one('#<portlet:namespace />language');
 
 	var prevEditorContent;
 	var richEditor;
