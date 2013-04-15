@@ -215,12 +215,7 @@
 		border: 1px solid #CCC;
 		border-bottom: none;
 		font-size: 0.8em;
-	}
-
-	.editor-type {
-		display: block;
-		padding: .2em;
-		text-align: right;
+		overflow: hidden;
 	}
 
 	.language-type {
