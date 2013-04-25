@@ -5775,7 +5775,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		int userCount = searchCount(
 			companyId, null, WorkflowConstants.STATUS_APPROVED, null);
 
-		if (userCount > company.getMaxUsers()) {
+		if (userCount >= company.getMaxUsers()) {
 			throw new CompanyMaxUsersException();
 		}
 	}

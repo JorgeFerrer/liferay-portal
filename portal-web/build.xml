@@ -23,6 +23,7 @@
 		<pathelement path="docroot/WEB-INF/classes" />
 		<pathelement path="${classpath.jsp}" />
 		<pathelement location="${project.dir}/portal-impl/portal-impl.jar" />
+		<pathelement location="${project.dir}/portal-pacl/portal-pacl.jar" />
 		<pathelement location="${project.dir}/portal-service/portal-service.jar" />
 		<pathelement location="${project.dir}/util-bridges/util-bridges.jar" />
 		<pathelement location="${project.dir}/util-java/util-java.jar" />
@@ -1125,6 +1126,17 @@
 			</else>
 		</if>
 
+		<if>
+			<available file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp" />
+			<then>
+				<move
+					failonerror="false"
+					file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp"
+					tofile="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp"
+				/>
+			</then>
+		</if>
+
 		<java
 			classname="org.apache.jasper.JspC"
 			classpathref="jspc.classpath"
@@ -1135,6 +1147,17 @@
 		>
 			<arg line="${arg.line}" />
 		</java>
+
+		<if>
+			<available file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp" />
+			<then>
+				<move
+					failonerror="false"
+					file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp"
+					tofile="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp"
+				/>
+			</then>
+		</if>
 
 		<echo>${jspc.output}</echo>
 

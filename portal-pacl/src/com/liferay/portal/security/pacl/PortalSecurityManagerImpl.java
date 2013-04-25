@@ -297,6 +297,10 @@ public class PortalSecurityManagerImpl extends SecurityManager
 		return _policy;
 	}
 
+	public boolean isActive() {
+		return PACLPolicyManager.isActive();
+	}
+
 	protected void initClass(Class<?> clazz) {
 		_log.debug(
 			"Loading " + clazz.getName() + " and " +
