@@ -23,6 +23,7 @@ long groupId = GetterUtil.getLong((String)request.getAttribute("liferay-ui:stagi
 String icon = GetterUtil.getString((String)request.getAttribute("liferay-ui:staging:icon"));
 long layoutSetBranchId = GetterUtil.getLong((String)request.getAttribute("liferay-ui:staging:layoutSetBranchId"));
 String message = GetterUtil.getString((String)request.getAttribute("liferay-ui:staging:message"));
+boolean onlyActions = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:staging:onlyActions"));
 boolean privateLayout = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:staging:privateLayout"));
 long selPlid = GetterUtil.getLong((String)request.getAttribute("liferay-ui:staging:selPlid"));
 boolean showManageBranches = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:staging:showManageBranches"));
@@ -118,9 +119,16 @@ String publishScheduleMessage = LanguageUtil.get(pageContext, publishScheduleDia
 </liferay-portlet:renderURL>
 
 <c:if test="<%= stagingGroup != null %>">
-	<span class="staging-icon-menu-container">
-		<liferay-ui:icon-menu align="auto" cssClass="<%= cssClass %>" direction="down" extended="<%= extended %>" icon="<%= extended ? icon : StringPool.BLANK %>" message="<%= extended ? message : StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
-			<%@ include file="staging_actions.jspf" %>
-		</liferay-ui:icon-menu>
-	</span>
+	<c:choose>
+		<c:when test="<%= onlyActions %>">
+			<%@ include file="/html/taglib/ui/staging/staging_actions.jspf" %>
+		</c:when>
+		<c:otherwise>
+			<span class="staging-icon-menu-container">
+				<liferay-ui:icon-menu align="auto" cssClass="<%= cssClass %>" direction="down" extended="<%= extended %>" icon="<%= extended ? icon : StringPool.BLANK %>" message="<%= extended ? message : StringPool.BLANK %>" showWhenSingleIcon="<%= true %>">
+					<%@ include file="/html/taglib/ui/staging/staging_actions.jspf" %>
+				</liferay-ui:icon-menu>
+			</span>
+		</c:otherwise>
+	</c:choose>
 </c:if>
