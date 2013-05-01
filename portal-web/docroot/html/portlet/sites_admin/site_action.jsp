@@ -61,6 +61,10 @@ if (row == null) {
 		/>
 	</c:if>
 
+	<c:if test="<%= group.isCompany() && hasUpdatePermission %>">
+		<liferay-ui:staging extended="<%= true %>" groupId="<%= group.getGroupId() %>" onlyActions="<%= true %>" showManageBranches="<%= false %>" />
+	</c:if>
+
 	<c:if test="<%= !group.isCompany() && GroupPermissionUtil.contains(permissionChecker, group.getGroupId(), ActionKeys.MANAGE_LAYOUTS) %>">
 		<liferay-portlet:renderURL doAsGroupId="<%= group.getGroupId() %>" portletName="<%= PortletKeys.GROUP_PAGES %>" var="managePagesURL">
 			<portlet:param name="redirect" value="<%= currentURL %>" />
