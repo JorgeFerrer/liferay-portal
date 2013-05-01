@@ -174,10 +174,6 @@
 								%>
 
 							</liferay-ui:icon-menu>
-
-							<c:if test="<%= curLiveGroup.isCompany() %>">
-								<liferay-ui:staging cssClass="manage-pages-branch-menu" extended="<%= true %>" groupId="<%= curLiveGroup.getGroupId() %>" icon="/common/tool.png" showManageBranches="<%= false %>" />
-							</c:if>
 						</c:when>
 						<c:otherwise>
 							<liferay-ui:icon
