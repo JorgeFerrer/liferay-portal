@@ -92,7 +92,9 @@
 					if (PortalUtil.isCompanyControlPanelVisible(themeDisplay)) {
 						Group companyGroup = GroupLocalServiceUtil.getCompanyGroup(themeDisplay.getCompanyId());
 
-						manageableSites.add(0, companyGroup);
+						if (!manageableSites.contains(companyGroup)) {
+							manageableSites.add(0, companyGroup);
+						}
 					}
 				}
 
