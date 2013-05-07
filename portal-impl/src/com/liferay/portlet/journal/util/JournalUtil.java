@@ -1537,6 +1537,7 @@ public class JournalUtil {
 			layoutSetFriendlyUrl = friendlyUrlCurrent + group.getFriendlyURL();
 		}
 
+		tokens.put("article_group_id", String.valueOf(groupId));
 		tokens.put("cdn_host", themeDisplayElement.elementText("cdn-host"));
 		tokens.put("company_id", themeDisplayElement.elementText("company-id"));
 		tokens.put("friendly_url_current", friendlyUrlCurrent);
@@ -1550,7 +1551,6 @@ public class JournalUtil {
 			"friendly_url_public",
 			themeDisplayElement.elementText("path-friendly-url-public"));
 		tokens.put("group_friendly_url", group.getFriendlyURL());
-		tokens.put("group_id", String.valueOf(groupId));
 		tokens.put("image_path", themeDisplayElement.elementText("path-image"));
 		tokens.put("layout_set_friendly_url", layoutSetFriendlyUrl);
 		tokens.put("main_path", themeDisplayElement.elementText("path-main"));
@@ -1567,6 +1567,11 @@ public class JournalUtil {
 		tokens.put(
 			"root_path", themeDisplayElement.elementText("path-context"));
 		tokens.put(
+			"scope_group_id",
+			themeDisplayElement.elementText("scope-group-id"));
+		tokens.put(
+			"site_group_id", themeDisplayElement.elementText("site-group-id"));
+		tokens.put(
 			"theme_image_path",
 			themeDisplayElement.elementText("path-theme-images"));
 
@@ -1580,6 +1585,7 @@ public class JournalUtil {
 		tokens.put(
 			"friendly_url_private",
 			themeDisplayElement.elementText("path-friendly-url-private-group"));
+		tokens.put("group_id", String.valueOf(groupId));
 		tokens.put(
 			"page_url",
 			themeDisplayElement.elementText("path-friendly-url-public"));
@@ -1617,6 +1623,7 @@ public class JournalUtil {
 			layoutSetFriendlyUrl = friendlyUrlCurrent + group.getFriendlyURL();
 		}
 
+		tokens.put("article_group_id", String.valueOf(groupId));
 		tokens.put("cdn_host", themeDisplay.getCDNHost());
 		tokens.put("company_id", String.valueOf(themeDisplay.getCompanyId()));
 		tokens.put("friendly_url_current", friendlyUrlCurrent);
@@ -1629,7 +1636,6 @@ public class JournalUtil {
 		tokens.put(
 			"friendly_url_public", themeDisplay.getPathFriendlyURLPublic());
 		tokens.put("group_friendly_url", group.getFriendlyURL());
-		tokens.put("group_id", String.valueOf(groupId));
 		tokens.put("image_path", themeDisplay.getPathImage());
 		tokens.put("layout_set_friendly_url", layoutSetFriendlyUrl);
 		tokens.put("main_path", themeDisplay.getPathMain());
@@ -1639,6 +1645,10 @@ public class JournalUtil {
 		tokens.put(
 			"protocol", HttpUtil.getProtocol(themeDisplay.getURLPortal()));
 		tokens.put("root_path", themeDisplay.getPathContext());
+		tokens.put(
+			"site_group_id", String.valueOf(themeDisplay.getSiteGroupId()));
+		tokens.put(
+			"scope_group_id", String.valueOf(themeDisplay.getScopeGroupId()));
 		tokens.put("theme_image_path", themeDisplay.getPathThemeImages());
 
 		_populateCustomTokens(tokens);
@@ -1649,6 +1659,7 @@ public class JournalUtil {
 		tokens.put(
 			"friendly_url_private",
 			themeDisplay.getPathFriendlyURLPrivateGroup());
+		tokens.put("group_id", String.valueOf(groupId));
 		tokens.put("page_url", themeDisplay.getPathFriendlyURLPublic());
 	}
 
