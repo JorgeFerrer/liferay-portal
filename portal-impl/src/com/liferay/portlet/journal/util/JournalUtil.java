@@ -1001,24 +1001,24 @@ public class JournalUtil {
 	}
 
 	public static Map<String, String> getTokens(
-			long groupId, ThemeDisplay themeDisplay)
+			long articleGroupId, ThemeDisplay themeDisplay)
 		throws PortalException, SystemException {
 
-		return getTokens(groupId, themeDisplay, null);
+		return getTokens(articleGroupId, themeDisplay, null);
 	}
 
 	public static Map<String, String> getTokens(
-			long groupId, ThemeDisplay themeDisplay, String xmlRequest)
+			long articleGroupId, ThemeDisplay themeDisplay, String xmlRequest)
 		throws PortalException, SystemException {
 
 		Map<String, String> tokens = new HashMap<String, String>();
 
 		if (themeDisplay != null) {
-			_populateTokens(tokens, groupId, themeDisplay);
+			_populateTokens(tokens, articleGroupId, themeDisplay);
 		}
 		else if (Validator.isNotNull(xmlRequest)) {
 			try {
-				_populateTokens(tokens, groupId, xmlRequest);
+				_populateTokens(tokens, articleGroupId, xmlRequest);
 			}
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
@@ -1494,7 +1494,7 @@ public class JournalUtil {
 	}
 
 	private static void _populateTokens(
-			Map<String, String> tokens, long groupId, String xmlRequest)
+			Map<String, String> tokens, long articleGroupId, String xmlRequest)
 		throws Exception {
 
 		Document requestDocument = SAXReaderUtil.read(xmlRequest);
@@ -1537,7 +1537,7 @@ public class JournalUtil {
 			layoutSetFriendlyUrl = friendlyUrlCurrent + group.getFriendlyURL();
 		}
 
-		tokens.put("article_group_id", String.valueOf(groupId));
+		tokens.put("article_group_id", String.valueOf(articleGroupId));
 		tokens.put("cdn_host", themeDisplayElement.elementText("cdn-host"));
 		tokens.put("company_id", themeDisplayElement.elementText("company-id"));
 		tokens.put("friendly_url_current", friendlyUrlCurrent);
@@ -1585,14 +1585,15 @@ public class JournalUtil {
 		tokens.put(
 			"friendly_url_private",
 			themeDisplayElement.elementText("path-friendly-url-private-group"));
-		tokens.put("group_id", String.valueOf(groupId));
+		tokens.put("group_id", String.valueOf(articleGroupId));
 		tokens.put(
 			"page_url",
 			themeDisplayElement.elementText("path-friendly-url-public"));
 	}
 
 	private static void _populateTokens(
-			Map<String, String> tokens, long groupId, ThemeDisplay themeDisplay)
+			Map<String, String> tokens, long articleGroupId,
+			ThemeDisplay themeDisplay)
 		throws PortalException, SystemException {
 
 		Layout layout = themeDisplay.getLayout();
@@ -1623,7 +1624,7 @@ public class JournalUtil {
 			layoutSetFriendlyUrl = friendlyUrlCurrent + group.getFriendlyURL();
 		}
 
-		tokens.put("article_group_id", String.valueOf(groupId));
+		tokens.put("article_group_id", String.valueOf(articleGroupId));
 		tokens.put("cdn_host", themeDisplay.getCDNHost());
 		tokens.put("company_id", String.valueOf(themeDisplay.getCompanyId()));
 		tokens.put("friendly_url_current", friendlyUrlCurrent);
@@ -1659,7 +1660,7 @@ public class JournalUtil {
 		tokens.put(
 			"friendly_url_private",
 			themeDisplay.getPathFriendlyURLPrivateGroup());
-		tokens.put("group_id", String.valueOf(groupId));
+		tokens.put("group_id", String.valueOf(articleGroupId));
 		tokens.put("page_url", themeDisplay.getPathFriendlyURLPublic());
 	}
 
