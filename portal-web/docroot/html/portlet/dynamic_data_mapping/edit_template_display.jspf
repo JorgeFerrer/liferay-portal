@@ -312,7 +312,7 @@ templateVariableGroups = TemplateContextHelper.getTemplateVariableGroups(classNa
 		if (AutoComplete) {
 			var processor = new AutoComplete(
 				{
-					variables: <%= DDMTemplateHelperUtil.getAutocompleteJSON(request) %>
+					variables: <%= DDMTemplateHelperUtil.getAutocompleteJSON(request, language) %>
 				}
 			);
 
