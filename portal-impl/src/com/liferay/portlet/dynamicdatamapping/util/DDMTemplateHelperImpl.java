@@ -168,7 +168,7 @@ public class DDMTemplateHelperImpl implements DDMTemplateHelper {
 
 		Map<String, TemplateVariableGroup> templateVariableGroups =
 			TemplateContextHelper.getTemplateVariableGroups(
-				classNameId, classPK, themeDisplay.getLocale());
+				classNameId, classPK, language, themeDisplay.getLocale());
 
 		for (TemplateVariableGroup templateVariableGroup :
 				templateVariableGroups.values()) {

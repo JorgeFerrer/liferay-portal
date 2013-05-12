@@ -121,7 +121,7 @@ import org.apache.struts.tiles.ComponentContext;
 public class TemplateContextHelper {
 
 	public static Map<String, TemplateVariableGroup> getTemplateVariableGroups(
-			long classNameId, long classPK, Locale locale)
+			long classNameId, long classPK, String language, Locale locale)
 		throws Exception {
 
 		TemplateHandler templateHandler =
@@ -132,7 +132,8 @@ public class TemplateContextHelper {
 		}
 
 		Map<String, TemplateVariableGroup> templateVariableGroups =
-			templateHandler.getTemplateVariableGroups(classPK, locale);
+			templateHandler.getTemplateVariableGroups(
+				classPK, language, locale);
 
 		TemplateVariableGroup portalServicesTemplateVariableGroup =
 			new TemplateVariableGroup("portal-services");

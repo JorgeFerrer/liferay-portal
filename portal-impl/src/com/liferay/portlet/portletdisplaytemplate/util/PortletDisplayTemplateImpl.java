@@ -164,7 +164,9 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 		return portletDisplayDDMTemplateId;
 	}
 
-	public Map<String, TemplateVariableGroup> getTemplateVariableGroups() {
+	public Map<String, TemplateVariableGroup> getTemplateVariableGroups(
+			String language) {
+
 		Map<String, TemplateVariableGroup> templateVariableGroups =
 			new LinkedHashMap<String, TemplateVariableGroup>();
 

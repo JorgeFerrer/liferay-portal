@@ -37,7 +37,7 @@ import java.util.Map;
 public abstract class BaseDDMTemplateHandler extends BaseTemplateHandler {
 
 	public Map<String, TemplateVariableGroup> getTemplateVariableGroups(
-			long classPK, Locale locale)
+			long classPK, String language, Locale locale)
 		throws Exception {
 
 		Map<String, TemplateVariableGroup> templateVariableGroups =
