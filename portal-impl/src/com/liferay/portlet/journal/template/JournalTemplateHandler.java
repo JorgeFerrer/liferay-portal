@@ -77,4 +77,15 @@ public class JournalTemplateHandler extends BaseDDMTemplateHandler {
 		return templateVariableGroups;
 	}
 
+	@Override
+	protected TemplateVariableGroup getUtilTemplateVariableGroup() {
+		TemplateVariableGroup utilTemplateVariableGroup =
+			super.getUtilTemplateVariableGroup();
+
+		utilTemplateVariableGroup.addVariable(
+			"xml-request", String.class, "xmlRequest");
+
+		return utilTemplateVariableGroup;
+	}
+
 }

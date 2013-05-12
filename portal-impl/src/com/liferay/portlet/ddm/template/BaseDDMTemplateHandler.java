@@ -113,8 +113,6 @@ public abstract class BaseDDMTemplateHandler extends BaseTemplateHandler {
 			"random-namespace", String.class, "randomNamespace");
 		templateVariableGroup.addVariable(
 			"templates-path", String.class, "templatesPath");
-		templateVariableGroup.addVariable(
-			"xml-request", String.class, "xmlRequest");
 
 		return templateVariableGroup;
 	}
