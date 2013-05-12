@@ -190,8 +190,6 @@ public class DDMTemplateHelperImpl implements DDMTemplateHelper {
 			TemplateConstants.LANG_TYPE_FTL, templateResource,
 			TemplateContextType.STANDARD);
 
-		template.prepare(request);
-
 		for (String key : template.getKeys()) {
 			Object value = template.get(key);
 

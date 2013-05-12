@@ -134,12 +134,6 @@ public class TemplateContextHelper {
 		Map<String, TemplateVariableGroup> templateVariableGroups =
 			templateHandler.getTemplateVariableGroups(classPK, locale);
 
-		TemplateVariableGroup utilTemplateVariableGroup =
-			templateVariableGroups.get("util");
-
-		utilTemplateVariableGroup.addVariable(
-			"http-request", HttpServletRequest.class, "request");
-
 		TemplateVariableGroup portalServicesTemplateVariableGroup =
 			new TemplateVariableGroup("portal-services");
 
