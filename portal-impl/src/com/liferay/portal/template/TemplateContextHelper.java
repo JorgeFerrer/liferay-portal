@@ -672,7 +672,7 @@ public class TemplateContextHelper {
 			Method method = clazz.getMethod(
 				"layoutIcon", new Class[] {Layout.class});
 
-			variables.put("velocityTaglib#layoutIcon", method);
+			variables.put("velocityTaglib_layoutIcon", method);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
