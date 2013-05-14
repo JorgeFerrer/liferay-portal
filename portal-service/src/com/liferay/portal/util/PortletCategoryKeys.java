@@ -20,9 +20,8 @@ package com.liferay.portal.util;
 public class PortletCategoryKeys {
 
 	public static final String[] ALL = {
-		PortletCategoryKeys.MARKETPLACE, PortletCategoryKeys.MY,
-		PortletCategoryKeys.CONTENT, PortletCategoryKeys.PORTAL,
-		PortletCategoryKeys.SERVER
+		PortletCategoryKeys.MARKETPLACE, PortletCategoryKeys.CONTENT,
+		PortletCategoryKeys.PORTAL, PortletCategoryKeys.SERVER
 	};
 
 	public static final String CONTENT = "content";

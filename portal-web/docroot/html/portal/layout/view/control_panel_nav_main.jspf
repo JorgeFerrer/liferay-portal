@@ -15,42 +15,44 @@
 --%>
 
 <div>
-	<aui:nav-bar cssClass="control-panel-bar-main">
-		<aui:nav>
-			<aui:nav-item href="<%= themeDisplay.getURLControlPanel() %>" iconClass="icon-tasks" label="<%= StringPool.NBSP %>" selected="<%= Validator.isNull(controlPanelCategory) %>" />
+	<c:if test="<%= !controlPanelCategory.equals(PortletCategoryKeys.MY) %>">
+		<aui:nav-bar cssClass="control-panel-bar-main">
+			<aui:nav>
+				<aui:nav-item href="<%= themeDisplay.getURLControlPanel() %>" iconClass="icon-tasks" label="<%= StringPool.NBSP %>" selected="<%= Validator.isNull(controlPanelCategory) %>" />
 
-			<%
-			String[] categories = PortletCategoryKeys.ALL;
+				<%
+				String[] categories = PortletCategoryKeys.ALL;
 
-			for (String curCategory : categories) {
-				String urlControlPanelCategory = HttpUtil.setParameter(themeDisplay.getURLControlPanel(), "controlPanelCategory", curCategory);
+				for (String curCategory : categories) {
+					String urlControlPanelCategory = HttpUtil.setParameter(themeDisplay.getURLControlPanel(), "controlPanelCategory", curCategory);
 
-				String iconClass = StringPool.BLANK;
+					String iconClass = StringPool.BLANK;
 
-				if (curCategory.equals(PortletCategoryKeys.CONTENT)) {
-					iconClass = "icon-globe";
+					if (curCategory.equals(PortletCategoryKeys.CONTENT)) {
+						iconClass = "icon-globe";
+					}
+					else if (curCategory.equals(PortletCategoryKeys.MARKETPLACE)) {
+						iconClass = "icon-gift";
+					}
+					else if (curCategory.equals(PortletCategoryKeys.PORTAL)) {
+						iconClass = "icon-user";
+					}
+					else if (curCategory.equals(PortletCategoryKeys.SERVER)) {
+						iconClass = "icon-hdd";
+					}
+				%>
+
+					<c:if test="<%= _hasPortlets(curCategory, themeDisplay) %>">
+						<aui:nav-item href="<%= urlControlPanelCategory %>" iconClass="<%= iconClass %>" label='<%= "category." + curCategory %>' selected="<%= controlPanelCategory.equals(curCategory) %>" />
+					</c:if>
+
+				<%
 				}
-				else if (curCategory.equals(PortletCategoryKeys.MARKETPLACE)) {
-					iconClass = "icon-gift";
-				}
-				else if (curCategory.equals(PortletCategoryKeys.PORTAL)) {
-					iconClass = "icon-user";
-				}
-				else if (curCategory.equals(PortletCategoryKeys.SERVER)) {
-					iconClass = "icon-hdd";
-				}
-			%>
+				%>
 
-				<c:if test="<%= _hasPortlets(curCategory, themeDisplay) %>">
-					<aui:nav-item href="<%= urlControlPanelCategory %>" iconClass="<%= iconClass %>" label='<%= "category." + curCategory %>' selected="<%= controlPanelCategory.equals(curCategory) %>" />
-				</c:if>
-
-			<%
-			}
-			%>
-
-		</aui:nav>
-	</aui:nav-bar>
+			</aui:nav>
+		</aui:nav-bar>
+	</c:if>
 
 	<%
 	if (portlets.size() > 1) {
