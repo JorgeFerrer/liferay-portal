@@ -156,164 +156,61 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			</optgroup>
 
 			<%
-			List<Portlet> myPortlets = new ArrayList<Portlet>();
-			List<Portlet> configurationPortlets = new ArrayList<Portlet>();
-			List<Portlet> contentPortlets = new ArrayList<Portlet>();
-			List<Portlet> serverPortlets = new ArrayList<Portlet>();
-			List<Portlet> usersAdminPortlets = new ArrayList<Portlet>();
-			List<Portlet> sitesAdminPortlets = new ArrayList<Portlet>();
+			Map<String, List<Portlet>> portletsMap = new LinkedHashMap<String, List<Portlet>>(PortletCategoryKeys.ALL.length);
 
 			for (Portlet portlet : portlets) {
-				if (Validator.isNull(portlet.getPortletId()) || Validator.isNull(portlet.getControlPanelEntryCategory())) {
+				String controlPanelCategory = portlet.getControlPanelEntryCategory();
+
+				if (Validator.isNull(portlet.getPortletId()) || Validator.isNull(controlPanelCategory)) {
 					continue;
 				}
 
-				if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.CONFIGURATION) && (role.getType() == RoleConstants.TYPE_REGULAR)) {
-					configurationPortlets.add(portlet);
+				List<Portlet> categoryPortlets = portletsMap.get(controlPanelCategory);
+
+				if (categoryPortlets == null) {
+					categoryPortlets = new ArrayList<Portlet>();
+
+					portletsMap.put(controlPanelCategory, categoryPortlets);
 				}
-				else if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.CONTENT)) {
-					contentPortlets.add(portlet);
+
+				if (controlPanelCategory.equals(PortletCategoryKeys.CONTENT) ||
+				    (controlPanelCategory.equals(PortletCategoryKeys.SERVER) && (role.getType() == RoleConstants.TYPE_REGULAR) && !Validator.equals(portlet.getControlPanelEntryClass(), OmniadminControlPanelEntry.class.getName())) ||
+				    (role.getType() == RoleConstants.TYPE_REGULAR)) {
+
+					categoryPortlets.add(portlet);
 				}
-				else if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.MY) && (role.getType() == RoleConstants.TYPE_REGULAR)) {
-					myPortlets.add(portlet);
+			}
+
+			for (String controlPanelCategory : PortletCategoryKeys.ALL) {
+				List<Portlet> categoryPortlets = portletsMap.get(controlPanelCategory);
+
+				if (categoryPortlets == null) {
+					continue;
 				}
-				else if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.SERVER) && (role.getType() == RoleConstants.TYPE_REGULAR) && !Validator.equals(portlet.getControlPanelEntryClass(), OmniadminControlPanelEntry.class.getName())) {
-					serverPortlets.add(portlet);
-				}
-				else if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.SITES) && (role.getType() == RoleConstants.TYPE_REGULAR)) {
-					sitesAdminPortlets.add(portlet);
-				}
-				else if (portlet.getControlPanelEntryCategory().equals(PortletCategoryKeys.USERS) && (role.getType() == RoleConstants.TYPE_REGULAR)) {
-					usersAdminPortlets.add(portlet);
-				}
+			%>
+
+				<c:if test="<%= !categoryPortlets.isEmpty() %>">
+					<optgroup label="<liferay-ui:message key='<%= "control-panel-" + controlPanelCategory %>' />">
+
+						<%
+						for (Portlet portlet : categoryPortlets) {
+							editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+							editPermissionsURL.setParameter("showModelResources", "0");
+						%>
+
+							<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
+
+						<%
+						}
+						%>
+
+					</optgroup>
+				</c:if>
+
+			<%
 			}
 			%>
 
-			<c:if test="<%= !myPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-personal" />">
-
-					<%
-					for (Portlet portlet : myPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !contentPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-site" />">
-
-					<%
-					for (Portlet portlet : contentPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !usersAdminPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-users" />">
-
-					<%
-					for (Portlet portlet : usersAdminPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !sitesAdminPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-sites" />">
-
-					<%
-					for (Portlet portlet : sitesAdminPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !configurationPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-configuration" />">
-
-					<%
-					for (Portlet portlet : configurationPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !sitesAdminPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-sites" />">
-
-					<%
-					for (Portlet portlet : sitesAdminPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
-
-			<c:if test="<%= !serverPortlets.isEmpty() %>">
-				<optgroup label="<liferay-ui:message key="control-panel-server" />">
-
-					<%
-					for (Portlet portlet : serverPortlets) {
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
-					%>
-
-						<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-					<%
-					}
-					%>
-
-				</optgroup>
-			</c:if>
 		</aui:select>
 	</aui:fieldset>
 </aui:form>
