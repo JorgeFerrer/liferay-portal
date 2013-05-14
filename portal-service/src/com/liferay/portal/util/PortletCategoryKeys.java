@@ -20,9 +20,12 @@ package com.liferay.portal.util;
 public class PortletCategoryKeys {
 
 	public static final String[] ALL = {
-		PortletCategoryKeys.MARKETPLACE, PortletCategoryKeys.CONTENT,
-		PortletCategoryKeys.PORTAL, PortletCategoryKeys.SERVER
+		PortletCategoryKeys.USERS, PortletCategoryKeys.SITES,
+		PortletCategoryKeys.CONFIGURATION, PortletCategoryKeys.MARKETPLACE,
+		PortletCategoryKeys.CONTENT, PortletCategoryKeys.SERVER
 	};
+
+	public static final String CONFIGURATION = "configuration";
 
 	public static final String CONTENT = "content";
 
@@ -30,8 +33,15 @@ public class PortletCategoryKeys {
 
 	public static final String MY = "my";
 
-	public static final String PORTAL = "portal";
+	/**
+	 * @deprecated As of 6.2.0, replaced by USERS, SITES or CONFIGURATION.
+	 */
+	public static final String PORTAL = CONFIGURATION;
 
 	public static final String SERVER = "server";
+
+	public static final String SITES = "sites";
+
+	public static final String USERS = "users";
 
 }

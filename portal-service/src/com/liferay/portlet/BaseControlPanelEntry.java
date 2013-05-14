@@ -137,8 +137,11 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 
 		long groupId = group.getGroupId();
 
-		if (category.equals(PortletCategoryKeys.PORTAL) ||
-			category.equals(PortletCategoryKeys.SERVER)) {
+		if (category.equals(PortletCategoryKeys.CONFIGURATION) ||
+			category.equals(PortletCategoryKeys.MARKETPLACE) ||
+			category.equals(PortletCategoryKeys.SERVER) ||
+			category.equals(PortletCategoryKeys.SITES) ||
+			category.equals(PortletCategoryKeys.USERS)) {
 
 			groupId = 0;
 		}

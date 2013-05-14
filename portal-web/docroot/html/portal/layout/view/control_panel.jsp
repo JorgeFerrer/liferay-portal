@@ -92,19 +92,21 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 			panelBodyCssClass += " panel-page-application";
 		}
 
-		if (category.equals(PortletCategoryKeys.CONTENT)) {
+		if (category.equals(PortletCategoryKeys.CONFIGURATION)) {
+			panelCategory += " panel-manage-configuration";
+		}
+		else if (category.equals(PortletCategoryKeys.CONTENT)) {
 			panelCategory += " panel-manage-content";
 		}
 		else if (category.equals(PortletCategoryKeys.MY)) {
 			panelCategory += " panel-manage-my";
 			categoryTitle = user.getFullName();
 		}
-		else if (category.equals(PortletCategoryKeys.PORTAL)) {
-			panelCategory += " panel-manage-portal";
-
-			if (CompanyLocalServiceUtil.getCompaniesCount(false) > 1) {
-				categoryTitle += " " + company.getName();
-			}
+		else if (category.equals(PortletCategoryKeys.SITES)) {
+			panelCategory += " panel-manage-sites";
+		}
+		else if (category.equals(PortletCategoryKeys.USERS)) {
+			panelCategory += " panel-manage-users";
 		}
 		else if (category.equals(PortletCategoryKeys.SERVER)) {
 			panelCategory += " panel-manage-server";
