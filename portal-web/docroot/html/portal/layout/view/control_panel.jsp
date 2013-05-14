@@ -21,9 +21,9 @@ String ppid = ParamUtil.getString(request, "p_p_id");
 
 String controlPanelCategory = themeDisplay.getControlPanelCategory();
 
-if (controlPanelCategory.equals(PortletCategoryKeys.CONTENT) && Validator.isNull(ppid)) {
-	List<Portlet> portlets = PortalUtil.getControlPanelPortlets(PortletCategoryKeys.CONTENT, themeDisplay);
+List<Portlet> portlets = PortalUtil.getControlPanelPortlets(controlPanelCategory, themeDisplay);
 
+if (Validator.isNull(ppid)) {
 	for (Portlet portlet : portlets) {
 		if (PortletPermissionUtil.hasControlPanelAccessPermission(permissionChecker, scopeGroupId, portlet)) {
 			ppid = portlet.getPortletId();
@@ -127,17 +127,37 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 		%>
 
 		<div id="content-wrapper">
-			<aui:container cssClass="<%= panelCategory %>">
-				<aui:row>
-					<aui:col cssClass="panel-page-menu" width="<%= 25 %>">
-						<liferay-portlet:runtime portletName="160" />
-					</aui:col>
+			<div class="<%= panelCategory %>">
 
-					<aui:col cssClass="<%= panelBodyCssClass %>" width="<%= 75 %>">
-						<%@ include file="/html/portal/layout/view/panel_content.jspf" %>
-					</aui:col>
-				</aui:row>
-			</aui:container>
+				<%@include file="/html/portal/layout/view/control_panel_nav_main.jspf" %>
+
+				<div class="<%= panelBodyCssClass %>">
+					<c:choose>
+						<c:when test="<%= Validator.isNull(controlPanelCategory) %>">
+							<%@ include file="/html/portal/layout/view/control_panel_home.jspf" %>
+						</c:when>
+						<c:when test="<%= !controlPanelCategory.equals(PortletCategoryKeys.CONTENT) || Validator.isNull(themeDisplay.getDoAsGroupId()) %>">
+							<%@ include file="/html/portal/layout/view/panel_content.jspf" %>
+						</c:when>
+						<c:otherwise>
+							<aui:container cssClass="<%= panelCategory %>">
+								<aui:row>
+									<h1><%= curGroup.getDescriptiveName(themeDisplay.getLocale()) %></h1>
+								</aui:row>
+								<aui:row>
+									<aui:col cssClass="panel-page-menu" width="<%= 25 %>">
+										<liferay-portlet:runtime portletName="160" />
+									</aui:col>
+
+									<aui:col cssClass="<%= panelBodyCssClass %>"  width="<%= 75 %>">
+										<%@ include file="/html/portal/layout/view/panel_content.jspf" %>
+									</aui:col>
+								</aui:row>
+							</aui:container>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
 		</div>
 	</c:when>
 	<c:otherwise>
