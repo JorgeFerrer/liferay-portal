@@ -21,6 +21,10 @@ String ppid = ParamUtil.getString(request, "p_p_id");
 
 String controlPanelCategory = themeDisplay.getControlPanelCategory();
 
+if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
+	controlPanelCategory = PortletCategoryKeys.SITE_ADMINISTRATION;
+}
+
 List<Portlet> portlets = PortalUtil.getControlPanelPortlets(controlPanelCategory, themeDisplay);
 
 if (Validator.isNull(ppid)) {
@@ -95,9 +99,6 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 		if (category.equals(PortletCategoryKeys.CONFIGURATION)) {
 			panelCategory += " panel-manage-configuration";
 		}
-		else if (category.equals(PortletCategoryKeys.CONTENT)) {
-			panelCategory += " panel-manage-content";
-		}
 		else if (category.equals(PortletCategoryKeys.MY)) {
 			panelCategory += " panel-manage-my";
 			categoryTitle = user.getFullName();
@@ -123,7 +124,7 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 			curGroup = scopeLayout.getGroup();
 		}
 
-		if (Validator.isNotNull(categoryTitle) && !category.equals(PortletCategoryKeys.CONTENT)) {
+		if (Validator.isNotNull(categoryTitle) && !category.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
 			PortalUtil.addPortletBreadcrumbEntry(request, categoryTitle, null);
 		}
 		%>
@@ -138,7 +139,7 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 						<c:when test="<%= Validator.isNull(controlPanelCategory) %>">
 							<%@ include file="/html/portal/layout/view/control_panel_home.jspf" %>
 						</c:when>
-						<c:when test="<%= !controlPanelCategory.equals(PortletCategoryKeys.CONTENT) || Validator.isNull(themeDisplay.getDoAsGroupId()) %>">
+						<c:when test="<%= ((portlet != null) && !portlet.getControlPanelEntryCategory().startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) || Validator.isNull(themeDisplay.getDoAsGroupId()) %>">
 							<%@ include file="/html/portal/layout/view/panel_content.jspf" %>
 						</c:when>
 						<c:otherwise>

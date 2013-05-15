@@ -57,7 +57,7 @@
 			if (curCategory.equals(PortletCategoryKeys.MY)) {
 				title = HtmlUtil.escape(StringUtil.shorten(user.getFullName(), 25));
 			}
-			else if (curCategory.equals(PortletCategoryKeys.CONTENT)) {
+			else if (curCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
 				Layout scopeLayout = null;
 
 				curGroup = themeDisplay.getScopeGroup();
@@ -130,7 +130,7 @@
 					curGroupName = curLiveGroup.getDescriptiveName(locale);
 				}
 
-				if (category.equals(PortletCategoryKeys.CONTENT)) {
+				if (category.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
 					PortalUtil.addPortletBreadcrumbEntry(request, curGroupName, null);
 				}
 
@@ -140,7 +140,7 @@
 				else {
 					curGroupLabel = scopeLayout.getName(locale);
 
-					if (category.equals(PortletCategoryKeys.CONTENT)) {
+					if (category.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
 						PortalUtil.addPortletBreadcrumbEntry(request, curGroupLabel, null);
 					}
 				}
@@ -209,7 +209,7 @@
 			%>
 
 			<liferay-util:buffer var="categoryPortletsContent">
-				<c:if test="<%= !scopeLayouts.isEmpty() && curCategory.equals(PortletCategoryKeys.CONTENT) %>">
+				<c:if test="<%= !scopeLayouts.isEmpty() && curCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION) %>">
 					<div class="nobr lfr-title-scope-selector">
 						<liferay-ui:icon-menu direction="down" icon="" message='<%= LanguageUtil.get(pageContext, "scope") + StringPool.COLON + StringPool.SPACE + curGroupLabel %>'>
 							<liferay-ui:icon
