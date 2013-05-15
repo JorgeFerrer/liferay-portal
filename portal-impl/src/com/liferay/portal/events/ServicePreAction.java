@@ -787,7 +787,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setShowSignInIcon(!signedIn);
 		themeDisplay.setShowSignOutIcon(signedIn);
 
-		boolean showManageSiteIcon = false;
+		boolean showSiteAdministrationIcon = false;
 
 		long controlPanelPlid = 0;
 
@@ -798,13 +798,13 @@ public class ServicePreAction extends Action {
 				PortalUtil.getControlPanelPortlets(
 					PortletCategoryKeys.SITE_ADMINISTRATION, themeDisplay);
 
-			showManageSiteIcon =
+			showSiteAdministrationIcon =
 				PortletPermissionUtil.hasControlPanelAccessPermission(
 					permissionChecker, scopeGroupId,
 					siteAdministrationPortlets);
 		}
 
-		themeDisplay.setShowManageSiteIcon(showManageSiteIcon);
+		themeDisplay.setShowSiteAdministrationIcon(showSiteAdministrationIcon);
 
 		themeDisplay.setShowStagingIcon(false);
 
@@ -873,15 +873,15 @@ public class ServicePreAction extends Action {
 
 		themeDisplay.setURLHome(urlHome);
 
-		String manageSiteURL = urlControlPanel;
+		String siteAdministrationURL = urlControlPanel;
 
-		manageSiteURL = HttpUtil.addParameter(
-			manageSiteURL, "controlPanelCategory",
+		siteAdministrationURL = HttpUtil.addParameter(
+			siteAdministrationURL, "controlPanelCategory",
 			PortletCategoryKeys.CURRENT_SITE);
-		manageSiteURL = HttpUtil.addParameter(
-			manageSiteURL, "doAsGroupId", siteGroupId);
+		siteAdministrationURL = HttpUtil.addParameter(
+			siteAdministrationURL, "doAsGroupId", siteGroupId);
 
-		themeDisplay.setURLManageSite(manageSiteURL);
+		themeDisplay.setURLSiteAdministration(siteAdministrationURL);
 
 		if (layout != null) {
 			if (layout.isTypePortlet()) {
@@ -1201,7 +1201,6 @@ public class ServicePreAction extends Action {
 		if (group.isLayoutPrototype()) {
 			themeDisplay.setShowControlPanelIcon(false);
 			themeDisplay.setShowHomeIcon(false);
-			themeDisplay.setShowManageSiteIcon(false);
 			themeDisplay.setShowManageSiteMembershipsIcon(false);
 			themeDisplay.setShowMyAccountIcon(false);
 			themeDisplay.setShowPageCustomizationIcon(false);
@@ -1209,6 +1208,7 @@ public class ServicePreAction extends Action {
 			themeDisplay.setShowPortalIcon(false);
 			themeDisplay.setShowSignInIcon(false);
 			themeDisplay.setShowSignOutIcon(false);
+			themeDisplay.setShowSiteAdministrationIcon(false);
 			themeDisplay.setShowSiteSettingsIcon(false);
 			themeDisplay.setShowStagingIcon(false);
 		}
@@ -1220,9 +1220,9 @@ public class ServicePreAction extends Action {
 
 		if (group.hasStagingGroup() && !group.isStagingGroup()) {
 			themeDisplay.setShowLayoutTemplatesIcon(false);
-			themeDisplay.setShowManageSiteIcon(false);
 			themeDisplay.setShowPageCustomizationIcon(false);
 			themeDisplay.setShowPageSettingsIcon(false);
+			themeDisplay.setShowSiteAdministrationIcon(false);
 			themeDisplay.setShowSiteMapSettingsIcon(false);
 			themeDisplay.setShowSiteSettingsIcon(false);
 		}

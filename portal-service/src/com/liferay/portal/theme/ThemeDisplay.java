@@ -553,10 +553,6 @@ public class ThemeDisplay
 		return _urlLayoutTemplates;
 	}
 
-	public String getURLManageSite() {
-		return _urlManageSite;
-	}
-
 	public PortletURL getURLManageSiteMemberships() {
 		return _urlManageSiteMemberships;
 	}
@@ -585,11 +581,15 @@ public class ThemeDisplay
 		return _urlSignOut;
 	}
 
+	public String getURLSiteAdministration() {
+		return _urlSiteAdministration;
+	}
+
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #getURLManageSite()}
+	 * @deprecated As of 6.2.0, replaced by {@link #getURLSiteAdministration()}
 	 */
 	public String getURLSiteContent() {
-		return getURLManageSite();
+		return getURLSiteAdministration();
 	}
 
 	public PortletURL getURLSiteMapSettings() {
@@ -702,10 +702,6 @@ public class ThemeDisplay
 		return _showLayoutTemplatesIcon;
 	}
 
-	public boolean isShowManageSiteIcon() {
-		return _showManageSiteIcon;
-	}
-
 	public boolean isShowManageSiteMembershipsIcon() {
 		return _showManageSiteMembershipsIcon;
 	}
@@ -734,11 +730,15 @@ public class ThemeDisplay
 		return _showSignOutIcon;
 	}
 
+	public boolean isShowSiteAdministrationIcon() {
+		return _showSiteAdministrationIcon;
+	}
+
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowManageSiteIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
 	 */
 	public boolean isShowSiteContentIcon() {
-		return isShowManageSiteIcon();
+		return isShowSiteAdministrationIcon();
 	}
 
 	public boolean isShowSiteMapSettingsIcon() {
@@ -1210,10 +1210,6 @@ public class ThemeDisplay
 		_showLayoutTemplatesIcon = showLayoutTemplatesIcon;
 	}
 
-	public void setShowManageSiteIcon(boolean showManageSiteIcon) {
-		_showManageSiteIcon = showManageSiteIcon;
-	}
-
 	public void setShowManageSiteMembershipsIcon(
 		boolean showManageSiteMembershipsIcon) {
 
@@ -1246,12 +1242,18 @@ public class ThemeDisplay
 		_showSignOutIcon = showSignOutIcon;
 	}
 
+	public void setShowSiteAdministrationIcon(
+		boolean showSiteAdministrationIcon) {
+
+		_showSiteAdministrationIcon = showSiteAdministrationIcon;
+	}
+
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
-	 *             #setShowManageSiteIcon(boolean)}
+	 *             #setShowSiteAdministrationIcon(boolean)}
 	 */
 	public void setShowSiteContentIcon(boolean showSiteContentIcon) {
-		setShowManageSiteIcon(showSiteContentIcon);
+		setShowSiteAdministrationIcon(showSiteContentIcon);
 	}
 
 	public void setShowSiteMapSettingsIcon(boolean showSiteMapSettingsIcon) {
@@ -1353,10 +1355,6 @@ public class ThemeDisplay
 		_urlLayoutTemplates = urlLayoutTemplates;
 	}
 
-	public void setURLManageSite(String urlManageSite) {
-		_urlManageSite = urlManageSite;
-	}
-
 	public void setURLManageSiteMemberships(
 		PortletURL urlManageSiteMemberships) {
 
@@ -1387,11 +1385,15 @@ public class ThemeDisplay
 		_urlSignOut = urlSignOut;
 	}
 
+	public void setURLSiteAdministration(String urlSiteAdministration) {
+		_urlSiteAdministration = urlSiteAdministration;
+	}
+
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #setURLManageSite(String)}
+	 * @deprecated As of 6.2.0, replaced by {@link #setURLSiteAdministration(String)}
 	 */
 	public void setURLSiteContent(String urlSiteContent) {
-		setURLManageSite(urlSiteContent);
+		setURLSiteAdministration(urlSiteContent);
 	}
 
 	public void setURLSiteMapSettings(PortletURL urlSiteMapSettings) {
@@ -1510,7 +1512,6 @@ public class ThemeDisplay
 	private boolean _showControlPanelIcon;
 	private boolean _showHomeIcon;
 	private boolean _showLayoutTemplatesIcon;
-	private boolean _showManageSiteIcon;
 	private boolean _showManageSiteMembershipsIcon;
 	private boolean _showMyAccountIcon;
 	private boolean _showPageCustomizationIcon;
@@ -1518,6 +1519,7 @@ public class ThemeDisplay
 	private boolean _showPortalIcon;
 	private boolean _showSignInIcon;
 	private boolean _showSignOutIcon;
+	private boolean _showSiteAdministrationIcon;
 	private boolean _showSiteMapSettingsIcon;
 	private boolean _showSiteSettingsIcon;
 	private boolean _showStagingIcon;
@@ -1542,7 +1544,6 @@ public class ThemeDisplay
 	private String _urlCurrent = StringPool.BLANK;
 	private String _urlHome = StringPool.BLANK;
 	private String _urlLayoutTemplates = StringPool.BLANK;
-	private String _urlManageSite = StringPool.BLANK;
 	private transient PortletURL _urlManageSiteMemberships = null;
 	private transient PortletURL _urlMyAccount = null;
 	private transient PortletURL _urlPageSettings = null;
@@ -1550,6 +1551,7 @@ public class ThemeDisplay
 	private transient PortletURL _urlPublishToLive = null;
 	private String _urlSignIn = StringPool.BLANK;
 	private String _urlSignOut = StringPool.BLANK;
+	private String _urlSiteAdministration = StringPool.BLANK;
 	private transient PortletURL _urlSiteMapSettings = null;
 	private transient PortletURL _urlSiteSettings = null;
 	private transient PortletURL _urlUpdateManager = null;
