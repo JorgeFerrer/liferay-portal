@@ -82,3 +82,39 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZo
 %>
 
 <%@ include file="/html/portlet/sites_admin/init-ext.jsp" %>
+
+<%!
+private Portlet _getFirstSiteAdministrationPortlet(ThemeDisplay themeDisplay) throws PortalException, SystemException {
+	Portlet siteAdministrationPortlet = null;
+
+	for (String category : PortletCategoryKeys.SITE_ADMINISTRATION_ALL) {
+		List<Portlet> portlets = PortalUtil.getControlPanelPortlets(category, themeDisplay);
+
+		if (portlets.isEmpty()) {
+			continue;
+		}
+
+		return portlets.get(0);
+	}
+
+	return siteAdministrationPortlet;
+}
+
+private PortletURL _getSiteAdministrationURL(PortletResponse portletResponse, ThemeDisplay themeDisplay) throws PortalException, SystemException {
+	LiferayPortletResponse liferayPortletResponse = (LiferayPortletResponse) portletResponse;
+
+	Portlet siteAdministrationPortlet = _getFirstSiteAdministrationPortlet(themeDisplay);
+
+	if (siteAdministrationPortlet == null) {
+		return null;
+	}
+
+	LiferayPortletURL siteAdministrationURL = liferayPortletResponse.createRenderURL(siteAdministrationPortlet.getPortletName());
+
+	siteAdministrationURL.setControlPanelCategory(PortletCategoryKeys.SITES);
+	siteAdministrationURL.setDoAsGroupId(themeDisplay.getScopeGroupId());
+	siteAdministrationURL.setParameter("redirect", themeDisplay.getURLCurrent());
+
+	return siteAdministrationURL;
+}
+%>
