@@ -75,7 +75,7 @@
 
 		siteThemeDisplay.setScopeGroupId(curGroup.getGroupId());
 
-		PortletURL siteAdministrationURL = _getSiteAdministrationURL(renderResponse, siteThemeDisplay);
+		PortletURL siteAdministrationURL = PortalUtil.getSiteAdministrationURL(renderResponse, siteThemeDisplay);
 
 		if (siteAdministrationURL != null) {
 			rowURL = siteAdministrationURL.toString();
