@@ -71,6 +71,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutSetLocalServiceUtil;
+import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -379,12 +380,21 @@ public class ServicePreAction extends Action {
 			}
 
 			if (Validator.isNull(controlPanelCategory) &&
-				Validator.isNotNull(ppid) &&
-				(LiferayWindowState.isPopUp(request) ||
-				 LiferayWindowState.isExclusive(request))) {
+				Validator.isNotNull(ppid)) {
 
-				controlPanelCategory =
-					_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX + ppid;
+				if (LiferayWindowState.isPopUp(request) ||
+					LiferayWindowState.isExclusive(request)) {
+
+					controlPanelCategory =
+						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX + ppid;
+				}
+				else {
+					Portlet portlet = PortletLocalServiceUtil.getPortletById(
+						companyId, ppid);
+
+					controlPanelCategory =
+						portlet.getControlPanelEntryCategory();
+				}
 			}
 
 			boolean viewableGroup = LayoutPermissionUtil.contains(
