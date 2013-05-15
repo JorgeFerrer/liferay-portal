@@ -553,6 +553,9 @@ public class ThemeDisplay
 		return _urlLayoutTemplates;
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #getURLSiteAdministration()}
+	 */
 	public PortletURL getURLManageSiteMemberships() {
 		return _urlManageSiteMemberships;
 	}
@@ -592,10 +595,16 @@ public class ThemeDisplay
 		return getURLSiteAdministration();
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 */
 	public PortletURL getURLSiteMapSettings() {
 		return _urlSiteMapSettings;
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #getURLSiteAdministration()}
+	 */
 	public PortletURL getURLSiteSettings() {
 		return _urlSiteSettings;
 	}
@@ -702,6 +711,9 @@ public class ThemeDisplay
 		return _showLayoutTemplatesIcon;
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 */
 	public boolean isShowManageSiteMembershipsIcon() {
 		return _showManageSiteMembershipsIcon;
 	}
@@ -741,10 +753,16 @@ public class ThemeDisplay
 		return isShowSiteAdministrationIcon();
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 */
 	public boolean isShowSiteMapSettingsIcon() {
 		return _showSiteMapSettingsIcon;
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 */
 	public boolean isShowSiteSettingsIcon() {
 		return _showSiteSettingsIcon;
 	}
