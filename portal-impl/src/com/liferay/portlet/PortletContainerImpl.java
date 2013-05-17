@@ -166,6 +166,10 @@ public class PortletContainerImpl implements PortletContainer {
 			HttpServletRequest request, Portlet portlet)
 		throws Exception {
 
+		if (PropsValues.PORTLET_SETUP_LINK_TO_LAYOUT_RENDER_PHASE_ONLY) {
+			return request;
+		}
+
 		if (!PropsValues.PORTLET_EVENT_DISTRIBUTION_LAYOUT_SET) {
 			return request;
 		}
