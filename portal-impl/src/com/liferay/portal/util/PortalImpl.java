@@ -2750,7 +2750,8 @@ public class PortalImpl implements Portal {
 		String groupFriendlyURL = getGroupFriendlyURL(
 			layout.getGroup(), layout.isPrivateLayout(), themeDisplay);
 
-		return groupFriendlyURL.concat(layout.getFriendlyURL());
+		return groupFriendlyURL.concat(
+			layout.getFriendlyURL(themeDisplay.getLocale()));
 	}
 
 	@Override
