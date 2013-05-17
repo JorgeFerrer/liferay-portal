@@ -6432,6 +6432,11 @@ public class PortalImpl implements Portal {
 				LayoutSet curLayoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
 					themeDisplay.getSiteGroupId(), privateLayoutSet);
 
+				if (themeDisplay.getDoAsGroupId() > 0) {
+					curLayoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+						themeDisplay.getDoAsGroupId(), privateLayoutSet);
+				}
+
 				if (canonicalURL ||
 					((layoutSet.getLayoutSetId() !=
 						curLayoutSet.getLayoutSetId()) &&
