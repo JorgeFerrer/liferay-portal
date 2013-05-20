@@ -4993,6 +4993,9 @@ public class PortalImpl implements Portal {
 			null, null, portletConfig, actionRequest, actionResponse);
 	}
 
+	/**
+	 * @deprecated As of 6.2 with no direct replacement
+	 */
 	public boolean isAllowAddPortletDefaultResource(
 			HttpServletRequest request, Portlet portlet)
 		throws PortalException, SystemException {
@@ -6659,6 +6662,9 @@ public class PortalImpl implements Portal {
 		return true;
 	}
 
+	/**
+	 * @deprecated As of 6.2 with no direct replacement
+	 */
 	protected boolean isPanelSelectedPortlet(
 		ThemeDisplay themeDisplay, String portletId) {
 
