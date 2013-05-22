@@ -23,7 +23,7 @@ String controlPanelCategory = themeDisplay.getControlPanelCategory();
 
 boolean showControlPanelMenu = true;
 
-if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE) || controlPanelCategory.equals(PortletCategoryKeys.MY)) {
+if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
 	showControlPanelMenu = false;
 }
 
