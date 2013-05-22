@@ -34,11 +34,18 @@ if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
 List<Portlet> portlets = PortalUtil.getControlPanelPortlets(controlPanelCategory, themeDisplay);
 
 if (Validator.isNull(ppid)) {
-	for (Portlet portlet : portlets) {
-		if (PortletPermissionUtil.hasControlPanelAccessPermission(permissionChecker, scopeGroupId, portlet)) {
-			ppid = portlet.getPortletId();
+	if (controlPanelCategory.equals(PortletCategoryKeys.SITE_ADMINISTRATION)) {
+		Portlet firstPortlet = PortalUtil.getFirstSiteAdministrationPortlet(themeDisplay);
 
-			break;
+		ppid = firstPortlet.getPortletId();
+	}
+	else {
+		for (Portlet portlet : portlets) {
+			if (PortletPermissionUtil.hasControlPanelAccessPermission(permissionChecker, scopeGroupId, portlet)) {
+				ppid = portlet.getPortletId();
+
+				break;
+			}
 		}
 	}
 }
