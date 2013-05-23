@@ -70,6 +70,7 @@ import com.liferay.portal.service.TeamLocalServiceUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.asset.AssetCategoryException;
 import com.liferay.portlet.asset.AssetTagException;
@@ -128,7 +129,8 @@ public class EditGroupAction extends PortletAction {
 
 					PortletURL siteAdministrationURL =
 						PortalUtil.getSiteAdministrationURL(
-							actionResponse, themeDisplay);
+							actionResponse, themeDisplay,
+							PortletKeys.SITE_SETTINGS);
 
 					redirect = siteAdministrationURL.toString();
 				}
