@@ -29,6 +29,7 @@ public class LoggerHandler implements InvocationHandler {
 		_logger = new Logger(liferaySelenium);
 	}
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] arguments)
 		throws Throwable {
 

@@ -246,6 +246,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutSet addLayoutSet(LayoutSet layoutSet)
 		throws SystemException {
 		layoutSet.setNew(true);
@@ -259,6 +260,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param layoutSetId the primary key for the new layout set
 	 * @return the new layout set
 	 */
+	@Override
 	public LayoutSet createLayoutSet(long layoutSetId) {
 		return layoutSetPersistence.create(layoutSetId);
 	}
@@ -272,6 +274,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutSet deleteLayoutSet(long layoutSetId)
 		throws PortalException, SystemException {
 		return layoutSetPersistence.remove(layoutSetId);
@@ -285,11 +288,13 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutSet deleteLayoutSet(LayoutSet layoutSet)
 		throws SystemException {
 		return layoutSetPersistence.remove(layoutSet);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -304,6 +309,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -323,6 +329,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -344,6 +351,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -358,11 +366,13 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return layoutSetPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public LayoutSet fetchLayoutSet(long layoutSetId) throws SystemException {
 		return layoutSetPersistence.fetchByPrimaryKey(layoutSetId);
 	}
@@ -375,11 +385,13 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a layout set with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutSet getLayoutSet(long layoutSetId)
 		throws PortalException, SystemException {
 		return layoutSetPersistence.findByPrimaryKey(layoutSetId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return layoutSetPersistence.findByPrimaryKey(primaryKeyObj);
@@ -397,6 +409,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of layout sets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutSet> getLayoutSets(int start, int end)
 		throws SystemException {
 		return layoutSetPersistence.findAll(start, end);
@@ -408,6 +421,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of layout sets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getLayoutSetsCount() throws SystemException {
 		return layoutSetPersistence.countAll();
 	}
@@ -420,6 +434,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutSet updateLayoutSet(LayoutSet layoutSet)
 		throws SystemException {
 		return layoutSetPersistence.update(layoutSet);
@@ -3800,6 +3815,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3809,6 +3825,7 @@ public abstract class LayoutSetLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

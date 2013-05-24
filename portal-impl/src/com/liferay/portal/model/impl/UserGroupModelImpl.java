@@ -175,26 +175,32 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 	public UserGroupModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _userGroupId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setUserGroupId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _userGroupId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return UserGroup.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return UserGroup.class.getName();
 	}
@@ -287,6 +293,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		}
 	}
 
+	@Override
 	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
@@ -297,6 +304,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -309,20 +317,24 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	@JSON
 	public long getUserGroupId() {
 		return _userGroupId;
 	}
 
+	@Override
 	public void setUserGroupId(long userGroupId) {
 		_userGroupId = userGroupId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -339,23 +351,28 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return _originalCompanyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -366,33 +383,40 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	@JSON
 	public long getParentUserGroupId() {
 		return _parentUserGroupId;
 	}
 
+	@Override
 	public void setParentUserGroupId(long parentUserGroupId) {
 		_columnBitmask |= PARENTUSERGROUPID_COLUMN_BITMASK;
 
@@ -409,6 +433,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return _originalParentUserGroupId;
 	}
 
+	@Override
 	@JSON
 	public String getName() {
 		if (_name == null) {
@@ -419,6 +444,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		}
 	}
 
+	@Override
 	public void setName(String name) {
 		_columnBitmask = -1L;
 
@@ -433,6 +459,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return GetterUtil.getString(_originalName);
 	}
 
+	@Override
 	@JSON
 	public String getDescription() {
 		if (_description == null) {
@@ -443,19 +470,23 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		}
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 	}
 
+	@Override
 	@JSON
 	public boolean getAddedByLDAPImport() {
 		return _addedByLDAPImport;
 	}
 
+	@Override
 	public boolean isAddedByLDAPImport() {
 		return _addedByLDAPImport;
 	}
 
+	@Override
 	public void setAddedByLDAPImport(boolean addedByLDAPImport) {
 		_addedByLDAPImport = addedByLDAPImport;
 	}
@@ -508,6 +539,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return userGroupImpl;
 	}
 
+	@Override
 	public int compareTo(UserGroup userGroup) {
 		int value = 0;
 
@@ -664,6 +696,7 @@ public class UserGroupModelImpl extends BaseModelImpl<UserGroup>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(37);
 

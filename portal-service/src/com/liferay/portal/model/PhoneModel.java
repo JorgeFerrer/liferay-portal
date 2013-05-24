@@ -64,6 +64,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 * @return the uuid of this phone
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -71,6 +72,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param uuid the uuid of this phone
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -92,6 +94,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the company ID of this phone
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -99,6 +102,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param companyId the company ID of this phone
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -106,6 +110,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the user ID of this phone
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -113,6 +118,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param userId the user ID of this phone
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -121,6 +127,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 * @return the user uuid of this phone
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -128,6 +135,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param userUuid the user uuid of this phone
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -136,6 +144,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 * @return the user name of this phone
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -143,6 +152,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param userName the user name of this phone
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -150,6 +160,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the create date of this phone
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -157,6 +168,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param createDate the create date of this phone
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -164,6 +176,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the modified date of this phone
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -171,6 +184,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param modifiedDate the modified date of this phone
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -178,6 +192,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the fully qualified class name of this phone
 	 */
+	@Override
 	public String getClassName();
 
 	public void setClassName(String className);
@@ -187,6 +202,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the class name ID of this phone
 	 */
+	@Override
 	public long getClassNameId();
 
 	/**
@@ -194,6 +210,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param classNameId the class name ID of this phone
 	 */
+	@Override
 	public void setClassNameId(long classNameId);
 
 	/**
@@ -201,6 +218,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @return the class p k of this phone
 	 */
+	@Override
 	public long getClassPK();
 
 	/**
@@ -208,6 +226,7 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 *
 	 * @param classPK the class p k of this phone
 	 */
+	@Override
 	public void setClassPK(long classPK);
 
 	/**
@@ -275,41 +294,60 @@ public interface PhoneModel extends AttachedModel, BaseModel<Phone>, StagedModel
 	 */
 	public void setPrimary(boolean primary);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(Phone phone);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<Phone> toCacheModel();
 
+	@Override
 	public Phone toEscapedModel();
 
+	@Override
 	public Phone toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

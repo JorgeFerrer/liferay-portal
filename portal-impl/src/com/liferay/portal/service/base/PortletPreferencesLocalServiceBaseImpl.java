@@ -247,6 +247,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public PortletPreferences addPortletPreferences(
 		PortletPreferences portletPreferences) throws SystemException {
 		portletPreferences.setNew(true);
@@ -260,6 +261,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @param portletPreferencesId the primary key for the new portlet preferences
 	 * @return the new portlet preferences
 	 */
+	@Override
 	public PortletPreferences createPortletPreferences(
 		long portletPreferencesId) {
 		return portletPreferencesPersistence.create(portletPreferencesId);
@@ -274,6 +276,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public PortletPreferences deletePortletPreferences(
 		long portletPreferencesId) throws PortalException, SystemException {
 		return portletPreferencesPersistence.remove(portletPreferencesId);
@@ -287,11 +290,13 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public PortletPreferences deletePortletPreferences(
 		PortletPreferences portletPreferences) throws SystemException {
 		return portletPreferencesPersistence.remove(portletPreferences);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -306,6 +311,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -325,6 +331,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -346,6 +353,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -360,11 +368,13 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return portletPreferencesPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public PortletPreferences fetchPortletPreferences(long portletPreferencesId)
 		throws SystemException {
 		return portletPreferencesPersistence.fetchByPrimaryKey(portletPreferencesId);
@@ -378,11 +388,13 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @throws PortalException if a portlet preferences with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PortletPreferences getPortletPreferences(long portletPreferencesId)
 		throws PortalException, SystemException {
 		return portletPreferencesPersistence.findByPrimaryKey(portletPreferencesId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return portletPreferencesPersistence.findByPrimaryKey(primaryKeyObj);
@@ -400,6 +412,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the range of portlet preferenceses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PortletPreferences> getPortletPreferenceses(int start, int end)
 		throws SystemException {
 		return portletPreferencesPersistence.findAll(start, end);
@@ -411,6 +424,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @return the number of portlet preferenceses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getPortletPreferencesesCount() throws SystemException {
 		return portletPreferencesPersistence.countAll();
 	}
@@ -423,6 +437,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public PortletPreferences updatePortletPreferences(
 		PortletPreferences portletPreferences) throws SystemException {
 		return portletPreferencesPersistence.update(portletPreferences);
@@ -3803,6 +3818,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3812,6 +3828,7 @@ public abstract class PortletPreferencesLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

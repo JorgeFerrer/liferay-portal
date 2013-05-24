@@ -64,6 +64,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 * @return the uuid of this organization
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -71,6 +72,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param uuid the uuid of this organization
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -92,6 +94,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @return the company ID of this organization
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -99,6 +102,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param companyId the company ID of this organization
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -106,6 +110,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @return the user ID of this organization
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -113,6 +118,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param userId the user ID of this organization
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -121,6 +127,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 * @return the user uuid of this organization
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -128,6 +135,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param userUuid the user uuid of this organization
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -136,6 +144,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 * @return the user name of this organization
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -143,6 +152,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param userName the user name of this organization
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -150,6 +160,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @return the create date of this organization
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -157,6 +168,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param createDate the create date of this organization
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -164,6 +176,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @return the modified date of this organization
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -171,6 +184,7 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 *
 	 * @param modifiedDate the modified date of this organization
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -309,41 +323,60 @@ public interface OrganizationModel extends BaseModel<Organization>, StagedModel 
 	 */
 	public void setComments(String comments);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(Organization organization);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<Organization> toCacheModel();
 
+	@Override
 	public Organization toEscapedModel();
 
+	@Override
 	public Organization toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

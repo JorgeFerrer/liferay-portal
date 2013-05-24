@@ -101,26 +101,32 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 	public BTEntryModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _btEntryId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setBtEntryId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _btEntryId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return BTEntry.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return BTEntry.class.getName();
 	}
@@ -236,18 +242,22 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public long getBtEntryId() {
 		return _btEntryId;
 	}
 
+	@Override
 	public void setBtEntryId(long btEntryId) {
 		_btEntryId = btEntryId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -264,30 +274,37 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		return _originalGroupId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -297,26 +314,32 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -326,10 +349,12 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 	}
 
+	@Override
 	public String getServletContextNames() {
 		if (_servletContextNames == null) {
 			return StringPool.BLANK;
@@ -339,10 +364,12 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public void setServletContextNames(String servletContextNames) {
 		_servletContextNames = servletContextNames;
 	}
 
+	@Override
 	public String getTaskExecutorClassName() {
 		if (_taskExecutorClassName == null) {
 			return StringPool.BLANK;
@@ -352,6 +379,7 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public void setTaskExecutorClassName(String taskExecutorClassName) {
 		_columnBitmask |= TASKEXECUTORCLASSNAME_COLUMN_BITMASK;
 
@@ -366,6 +394,7 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		return GetterUtil.getString(_originalTaskExecutorClassName);
 	}
 
+	@Override
 	public String getTaskContext() {
 		if (_taskContext == null) {
 			return StringPool.BLANK;
@@ -375,34 +404,42 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		}
 	}
 
+	@Override
 	public void setTaskContext(String taskContext) {
 		_taskContext = taskContext;
 	}
 
+	@Override
 	public boolean getCompleted() {
 		return _completed;
 	}
 
+	@Override
 	public boolean isCompleted() {
 		return _completed;
 	}
 
+	@Override
 	public void setCompleted(boolean completed) {
 		_completed = completed;
 	}
 
+	@Override
 	public Date getCompletionDate() {
 		return _completionDate;
 	}
 
+	@Override
 	public void setCompletionDate(Date completionDate) {
 		_completionDate = completionDate;
 	}
 
+	@Override
 	public int getStatus() {
 		return _status;
 	}
 
+	@Override
 	public void setStatus(int status) {
 		_columnBitmask |= STATUS_COLUMN_BITMASK;
 
@@ -470,6 +507,7 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		return btEntryImpl;
 	}
 
+	@Override
 	public int compareTo(BTEntry btEntry) {
 		long primaryKey = btEntry.getPrimaryKey();
 
@@ -653,6 +691,7 @@ public class BTEntryModelImpl extends BaseModelImpl<BTEntry>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(46);
 

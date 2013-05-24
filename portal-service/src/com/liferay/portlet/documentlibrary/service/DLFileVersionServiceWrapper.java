@@ -35,6 +35,7 @@ public class DLFileVersionServiceWrapper implements DLFileVersionService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _dlFileVersionService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class DLFileVersionServiceWrapper implements DLFileVersionService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_dlFileVersionService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileVersion getFileVersion(
 		long fileVersionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -55,6 +58,7 @@ public class DLFileVersionServiceWrapper implements DLFileVersionService,
 		return _dlFileVersionService.getFileVersion(fileVersionId);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileVersion getLatestFileVersion(
 		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,10 +81,12 @@ public class DLFileVersionServiceWrapper implements DLFileVersionService,
 		_dlFileVersionService = dlFileVersionService;
 	}
 
+	@Override
 	public DLFileVersionService getWrappedService() {
 		return _dlFileVersionService;
 	}
 
+	@Override
 	public void setWrappedService(DLFileVersionService dlFileVersionService) {
 		_dlFileVersionService = dlFileVersionService;
 	}

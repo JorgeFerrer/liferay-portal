@@ -247,6 +247,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public EmailAddress addEmailAddress(EmailAddress emailAddress)
 		throws SystemException {
 		emailAddress.setNew(true);
@@ -260,6 +261,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @param emailAddressId the primary key for the new email address
 	 * @return the new email address
 	 */
+	@Override
 	public EmailAddress createEmailAddress(long emailAddressId) {
 		return emailAddressPersistence.create(emailAddressId);
 	}
@@ -273,6 +275,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public EmailAddress deleteEmailAddress(long emailAddressId)
 		throws PortalException, SystemException {
 		return emailAddressPersistence.remove(emailAddressId);
@@ -286,11 +289,13 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public EmailAddress deleteEmailAddress(EmailAddress emailAddress)
 		throws SystemException {
 		return emailAddressPersistence.remove(emailAddress);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return emailAddressPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public EmailAddress fetchEmailAddress(long emailAddressId)
 		throws SystemException {
 		return emailAddressPersistence.fetchByPrimaryKey(emailAddressId);
@@ -377,11 +387,13 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @throws PortalException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress getEmailAddress(long emailAddressId)
 		throws PortalException, SystemException {
 		return emailAddressPersistence.findByPrimaryKey(emailAddressId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return emailAddressPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the range of email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> getEmailAddresses(int start, int end)
 		throws SystemException {
 		return emailAddressPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @return the number of email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getEmailAddressesCount() throws SystemException {
 		return emailAddressPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public EmailAddress updateEmailAddress(EmailAddress emailAddress)
 		throws SystemException {
 		return emailAddressPersistence.update(emailAddress);
@@ -3802,6 +3817,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

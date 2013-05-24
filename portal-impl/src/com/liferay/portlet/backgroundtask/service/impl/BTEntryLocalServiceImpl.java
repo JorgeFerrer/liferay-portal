@@ -44,10 +44,10 @@ import java.util.concurrent.Callable;
 /**
  * @author Daniel Kocsis
  * @author Michael C. Han
- *
  */
 public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 
+	@Override
 	public BTEntry addEntry(
 			long userId, long groupId, String name,
 			String[] servletContextNames, Class<?> taskExecutorClass,
@@ -85,6 +85,7 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 		TransactionCommitCallbackRegistryUtil.registerCallback(
 			new Callable<Void>() {
 
+				@Override
 				public Void call() throws Exception {
 					Message message = new Message();
 
@@ -101,6 +102,7 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 		return entry;
 	}
 
+	@Override
 	public void addEntryAttachment(
 			long userId, long entryId, String fileName, File file)
 		throws PortalException, SystemException {
@@ -115,6 +117,7 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 			folder.getFolderId(), file, fileName, null);
 	}
 
+	@Override
 	public void addEntryAttachment(
 			long userId, long entryId, String fileName, InputStream inputStream)
 		throws PortalException, SystemException {
@@ -129,6 +132,7 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 			folder.getFolderId(), inputStream, fileName, null);
 	}
 
+	@Override
 	public BTEntry deleteEntry(BTEntry entry)
 		throws PortalException, SystemException {
 
@@ -141,16 +145,19 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 		return btEntryPersistence.remove(entry);
 	}
 
+	@Override
 	public BTEntry fetchEntry(long entryId) throws SystemException {
 		return btEntryPersistence.fetchByPrimaryKey(entryId);
 	}
 
+	@Override
 	public List<BTEntry> getEntries(long groupId, String taskExecutorClassName)
 		throws SystemException {
 
 		return btEntryPersistence.findByG_T(groupId, taskExecutorClassName);
 	}
 
+	@Override
 	public List<BTEntry> getEntries(
 			long groupId, String taskExecutorClassName, int status)
 		throws SystemException {
@@ -159,12 +166,14 @@ public class BTEntryLocalServiceImpl extends BTEntryLocalServiceBaseImpl {
 			groupId, taskExecutorClassName, status);
 	}
 
+	@Override
 	public BTEntry getEntry(long entryId)
 		throws PortalException, SystemException {
 
 		return btEntryPersistence.findByPrimaryKey(entryId);
 	}
 
+	@Override
 	public BTEntry updateEntry(
 			long entryId, Map<String, Serializable> taskContextMap, int status,
 			ServiceContext serviceContext)

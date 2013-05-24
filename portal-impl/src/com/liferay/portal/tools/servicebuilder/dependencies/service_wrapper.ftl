@@ -19,6 +19,8 @@ public class ${entity.name}${sessionTypeName}ServiceWrapper implements ${entity.
 		<#if !method.isConstructor() && method.isPublic() && serviceBuilder.isCustomMethod(method)>
 			${serviceBuilder.getJavadocComment(method)}
 
+			@Override
+
 			<#if method.name = "dynamicQuery" && (method.parameters?size != 0)>
 				@SuppressWarnings("rawtypes")
 			</#if>
@@ -81,10 +83,12 @@ public class ${entity.name}${sessionTypeName}ServiceWrapper implements ${entity.
 		_${entity.varName}${sessionTypeName}Service = ${entity.varName}${sessionTypeName}Service;
 	}
 
+	@Override
 	public ${entity.name}${sessionTypeName}Service getWrappedService() {
 		return _${entity.varName}${sessionTypeName}Service;
 	}
 
+	@Override
 	public void setWrappedService(${entity.name}${sessionTypeName}Service ${entity.varName}${sessionTypeName}Service) {
 		_${entity.varName}${sessionTypeName}Service = ${entity.varName}${sessionTypeName}Service;
 	}

@@ -135,6 +135,7 @@ public class SocketWelder extends BaseWelder {
 	protected class SocketWelderServerSocketConfigurator
 		implements ServerSocketConfigurator {
 
+		@Override
 		public void configure(ServerSocket serverSocket)
 			throws SocketException {
 

@@ -247,6 +247,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceBlock addResourceBlock(ResourceBlock resourceBlock)
 		throws SystemException {
 		resourceBlock.setNew(true);
@@ -260,6 +261,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @param resourceBlockId the primary key for the new resource block
 	 * @return the new resource block
 	 */
+	@Override
 	public ResourceBlock createResourceBlock(long resourceBlockId) {
 		return resourceBlockPersistence.create(resourceBlockId);
 	}
@@ -273,6 +275,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceBlock deleteResourceBlock(long resourceBlockId)
 		throws PortalException, SystemException {
 		return resourceBlockPersistence.remove(resourceBlockId);
@@ -286,11 +289,13 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceBlock deleteResourceBlock(ResourceBlock resourceBlock)
 		throws SystemException {
 		return resourceBlockPersistence.remove(resourceBlock);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return resourceBlockPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ResourceBlock fetchResourceBlock(long resourceBlockId)
 		throws SystemException {
 		return resourceBlockPersistence.fetchByPrimaryKey(resourceBlockId);
@@ -377,11 +387,13 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @throws PortalException if a resource block with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlock getResourceBlock(long resourceBlockId)
 		throws PortalException, SystemException {
 		return resourceBlockPersistence.findByPrimaryKey(resourceBlockId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return resourceBlockPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the range of resource blocks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlock> getResourceBlocks(int start, int end)
 		throws SystemException {
 		return resourceBlockPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @return the number of resource blocks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getResourceBlocksCount() throws SystemException {
 		return resourceBlockPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceBlock updateResourceBlock(ResourceBlock resourceBlock)
 		throws SystemException {
 		return resourceBlockPersistence.update(resourceBlock);
@@ -3802,6 +3817,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

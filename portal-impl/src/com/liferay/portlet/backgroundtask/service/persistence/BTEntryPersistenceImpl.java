@@ -109,6 +109,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T(long groupId, String taskExecutorClassName)
 		throws SystemException {
 		return findByG_T(groupId, taskExecutorClassName, QueryUtil.ALL_POS,
@@ -129,6 +130,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the range of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T(long groupId, String taskExecutorClassName,
 		int start, int end) throws SystemException {
 		return findByG_T(groupId, taskExecutorClassName, start, end, null);
@@ -149,6 +151,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the ordered range of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T(long groupId, String taskExecutorClassName,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -281,6 +284,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry findByG_T_First(long groupId, String taskExecutorClassName,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
@@ -315,6 +319,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the first matching b t entry, or <code>null</code> if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry fetchByG_T_First(long groupId, String taskExecutorClassName,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<BTEntry> list = findByG_T(groupId, taskExecutorClassName, 0, 1,
@@ -337,6 +342,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry findByG_T_Last(long groupId, String taskExecutorClassName,
 		OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
@@ -371,6 +377,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the last matching b t entry, or <code>null</code> if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry fetchByG_T_Last(long groupId, String taskExecutorClassName,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_T(groupId, taskExecutorClassName);
@@ -396,6 +403,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a b t entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry[] findByG_T_PrevAndNext(long btEntryId, long groupId,
 		String taskExecutorClassName, OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
@@ -556,6 +564,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @param taskExecutorClassName the task executor class name
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_T(long groupId, String taskExecutorClassName)
 		throws SystemException {
 		for (BTEntry btEntry : findByG_T(groupId, taskExecutorClassName,
@@ -572,6 +581,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the number of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_T(long groupId, String taskExecutorClassName)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_T;
@@ -677,6 +687,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T_S(long groupId,
 		String taskExecutorClassName, int status) throws SystemException {
 		return findByG_T_S(groupId, taskExecutorClassName, status,
@@ -698,6 +709,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the range of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T_S(long groupId,
 		String taskExecutorClassName, int status, int start, int end)
 		throws SystemException {
@@ -721,6 +733,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the ordered range of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findByG_T_S(long groupId,
 		String taskExecutorClassName, int status, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -859,6 +872,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry findByG_T_S_First(long groupId,
 		String taskExecutorClassName, int status,
 		OrderByComparator orderByComparator)
@@ -898,6 +912,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the first matching b t entry, or <code>null</code> if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry fetchByG_T_S_First(long groupId,
 		String taskExecutorClassName, int status,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -922,6 +937,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry findByG_T_S_Last(long groupId, String taskExecutorClassName,
 		int status, OrderByComparator orderByComparator)
 		throws NoSuchEntryException, SystemException {
@@ -960,6 +976,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the last matching b t entry, or <code>null</code> if a matching b t entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry fetchByG_T_S_Last(long groupId,
 		String taskExecutorClassName, int status,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -987,6 +1004,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a b t entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry[] findByG_T_S_PrevAndNext(long btEntryId, long groupId,
 		String taskExecutorClassName, int status,
 		OrderByComparator orderByComparator)
@@ -1153,6 +1171,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @param status the status
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_T_S(long groupId, String taskExecutorClassName,
 		int status) throws SystemException {
 		for (BTEntry btEntry : findByG_T_S(groupId, taskExecutorClassName,
@@ -1170,6 +1189,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the number of matching b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_T_S(long groupId, String taskExecutorClassName,
 		int status) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_T_S;
@@ -1251,6 +1271,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 *
 	 * @param btEntry the b t entry
 	 */
+	@Override
 	public void cacheResult(BTEntry btEntry) {
 		EntityCacheUtil.putResult(BTEntryModelImpl.ENTITY_CACHE_ENABLED,
 			BTEntryImpl.class, btEntry.getPrimaryKey(), btEntry);
@@ -1263,6 +1284,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 *
 	 * @param btEntries the b t entries
 	 */
+	@Override
 	public void cacheResult(List<BTEntry> btEntries) {
 		for (BTEntry btEntry : btEntries) {
 			if (EntityCacheUtil.getResult(
@@ -1329,6 +1351,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @param btEntryId the primary key for the new b t entry
 	 * @return the new b t entry
 	 */
+	@Override
 	public BTEntry create(long btEntryId) {
 		BTEntry btEntry = new BTEntryImpl();
 
@@ -1346,6 +1369,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a b t entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry remove(long btEntryId)
 		throws NoSuchEntryException, SystemException {
 		return remove((Serializable)btEntryId);
@@ -1573,6 +1597,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @throws com.liferay.portlet.backgroundtask.NoSuchEntryException if a b t entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry findByPrimaryKey(long btEntryId)
 		throws NoSuchEntryException, SystemException {
 		return findByPrimaryKey((Serializable)btEntryId);
@@ -1632,6 +1657,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the b t entry, or <code>null</code> if a b t entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BTEntry fetchByPrimaryKey(long btEntryId) throws SystemException {
 		return fetchByPrimaryKey((Serializable)btEntryId);
 	}
@@ -1642,6 +1668,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1658,6 +1685,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the range of b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findAll(int start, int end) throws SystemException {
 		return findAll(start, end, null);
 	}
@@ -1675,6 +1703,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the ordered range of b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BTEntry> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1760,6 +1789,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (BTEntry btEntry : findAll()) {
 			remove(btEntry);
@@ -1772,6 +1802,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 	 * @return the number of b t entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1857,6 +1888,7 @@ public class BTEntryPersistenceImpl extends BasePersistenceImpl<BTEntry>
 		};
 
 	private static CacheModel<BTEntry> _nullBTEntryCacheModel = new CacheModel<BTEntry>() {
+			@Override
 			public BTEntry toEntityModel() {
 				return _nullBTEntry;
 			}

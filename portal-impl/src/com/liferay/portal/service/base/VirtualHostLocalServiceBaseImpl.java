@@ -247,6 +247,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public VirtualHost addVirtualHost(VirtualHost virtualHost)
 		throws SystemException {
 		virtualHost.setNew(true);
@@ -260,6 +261,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @param virtualHostId the primary key for the new virtual host
 	 * @return the new virtual host
 	 */
+	@Override
 	public VirtualHost createVirtualHost(long virtualHostId) {
 		return virtualHostPersistence.create(virtualHostId);
 	}
@@ -273,6 +275,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public VirtualHost deleteVirtualHost(long virtualHostId)
 		throws PortalException, SystemException {
 		return virtualHostPersistence.remove(virtualHostId);
@@ -286,11 +289,13 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public VirtualHost deleteVirtualHost(VirtualHost virtualHost)
 		throws SystemException {
 		return virtualHostPersistence.remove(virtualHost);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return virtualHostPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public VirtualHost fetchVirtualHost(long virtualHostId)
 		throws SystemException {
 		return virtualHostPersistence.fetchByPrimaryKey(virtualHostId);
@@ -377,11 +387,13 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @throws PortalException if a virtual host with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public VirtualHost getVirtualHost(long virtualHostId)
 		throws PortalException, SystemException {
 		return virtualHostPersistence.findByPrimaryKey(virtualHostId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return virtualHostPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the range of virtual hosts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<VirtualHost> getVirtualHosts(int start, int end)
 		throws SystemException {
 		return virtualHostPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @return the number of virtual hosts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getVirtualHostsCount() throws SystemException {
 		return virtualHostPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public VirtualHost updateVirtualHost(VirtualHost virtualHost)
 		throws SystemException {
 		return virtualHostPersistence.update(virtualHost);
@@ -3802,6 +3817,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class VirtualHostLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -247,6 +247,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ClusterGroup addClusterGroup(ClusterGroup clusterGroup)
 		throws SystemException {
 		clusterGroup.setNew(true);
@@ -260,6 +261,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @param clusterGroupId the primary key for the new cluster group
 	 * @return the new cluster group
 	 */
+	@Override
 	public ClusterGroup createClusterGroup(long clusterGroupId) {
 		return clusterGroupPersistence.create(clusterGroupId);
 	}
@@ -273,6 +275,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ClusterGroup deleteClusterGroup(long clusterGroupId)
 		throws PortalException, SystemException {
 		return clusterGroupPersistence.remove(clusterGroupId);
@@ -286,11 +289,13 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ClusterGroup deleteClusterGroup(ClusterGroup clusterGroup)
 		throws SystemException {
 		return clusterGroupPersistence.remove(clusterGroup);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return clusterGroupPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ClusterGroup fetchClusterGroup(long clusterGroupId)
 		throws SystemException {
 		return clusterGroupPersistence.fetchByPrimaryKey(clusterGroupId);
@@ -377,11 +387,13 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @throws PortalException if a cluster group with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ClusterGroup getClusterGroup(long clusterGroupId)
 		throws PortalException, SystemException {
 		return clusterGroupPersistence.findByPrimaryKey(clusterGroupId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return clusterGroupPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the range of cluster groups
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ClusterGroup> getClusterGroups(int start, int end)
 		throws SystemException {
 		return clusterGroupPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @return the number of cluster groups
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getClusterGroupsCount() throws SystemException {
 		return clusterGroupPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ClusterGroup updateClusterGroup(ClusterGroup clusterGroup)
 		throws SystemException {
 		return clusterGroupPersistence.update(clusterGroup);
@@ -3802,6 +3817,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class ClusterGroupLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

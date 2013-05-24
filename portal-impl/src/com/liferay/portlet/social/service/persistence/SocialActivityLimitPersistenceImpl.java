@@ -112,6 +112,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByUserId(long userId)
 		throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -130,6 +131,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the range of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByUserId(long userId, int start,
 		int end) throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -149,6 +151,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the ordered range of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByUserId(long userId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -255,6 +258,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -285,6 +289,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the first matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<SocialActivityLimit> list = findByUserId(userId, 0, 1,
@@ -306,6 +311,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -336,6 +342,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the last matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
@@ -360,6 +367,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit[] findByUserId_PrevAndNext(
 		long activityLimitId, long userId, OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -501,6 +509,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUserId(long userId) throws SystemException {
 		for (SocialActivityLimit socialActivityLimit : findByUserId(userId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -515,6 +524,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the number of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUserId(long userId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
 
@@ -591,6 +601,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByC_C(long classNameId, long classPK)
 		throws SystemException {
 		return findByC_C(classNameId, classPK, QueryUtil.ALL_POS,
@@ -611,6 +622,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the range of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByC_C(long classNameId, long classPK,
 		int start, int end) throws SystemException {
 		return findByC_C(classNameId, classPK, start, end, null);
@@ -631,6 +643,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the ordered range of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findByC_C(long classNameId, long classPK,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -748,6 +761,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByC_C_First(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -782,6 +796,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the first matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByC_C_First(long classNameId, long classPK,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<SocialActivityLimit> list = findByC_C(classNameId, classPK, 0, 1,
@@ -804,6 +819,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByC_C_Last(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -838,6 +854,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the last matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByC_C_Last(long classNameId, long classPK,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_C(classNameId, classPK);
@@ -863,6 +880,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit[] findByC_C_PrevAndNext(long activityLimitId,
 		long classNameId, long classPK, OrderByComparator orderByComparator)
 		throws NoSuchActivityLimitException, SystemException {
@@ -1009,6 +1027,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @param classPK the class p k
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C(long classNameId, long classPK)
 		throws SystemException {
 		for (SocialActivityLimit socialActivityLimit : findByC_C(classNameId,
@@ -1025,6 +1044,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the number of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C(long classNameId, long classPK)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C;
@@ -1114,6 +1134,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByG_U_C_C_A_A(long groupId, long userId,
 		long classNameId, long classPK, int activityType,
 		String activityCounterName)
@@ -1168,6 +1189,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByG_U_C_C_A_A(long groupId, long userId,
 		long classNameId, long classPK, int activityType,
 		String activityCounterName) throws SystemException {
@@ -1188,6 +1210,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the matching social activity limit, or <code>null</code> if a matching social activity limit could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByG_U_C_C_A_A(long groupId, long userId,
 		long classNameId, long classPK, int activityType,
 		String activityCounterName, boolean retrieveFromCache)
@@ -1329,6 +1352,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the social activity limit that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit removeByG_U_C_C_A_A(long groupId, long userId,
 		long classNameId, long classPK, int activityType,
 		String activityCounterName)
@@ -1351,6 +1375,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the number of matching social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_U_C_C_A_A(long groupId, long userId, long classNameId,
 		long classPK, int activityType, String activityCounterName)
 		throws SystemException {
@@ -1452,6 +1477,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 *
 	 * @param socialActivityLimit the social activity limit
 	 */
+	@Override
 	public void cacheResult(SocialActivityLimit socialActivityLimit) {
 		EntityCacheUtil.putResult(SocialActivityLimitModelImpl.ENTITY_CACHE_ENABLED,
 			SocialActivityLimitImpl.class, socialActivityLimit.getPrimaryKey(),
@@ -1475,6 +1501,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 *
 	 * @param socialActivityLimits the social activity limits
 	 */
+	@Override
 	public void cacheResult(List<SocialActivityLimit> socialActivityLimits) {
 		for (SocialActivityLimit socialActivityLimit : socialActivityLimits) {
 			if (EntityCacheUtil.getResult(
@@ -1618,6 +1645,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @param activityLimitId the primary key for the new social activity limit
 	 * @return the new social activity limit
 	 */
+	@Override
 	public SocialActivityLimit create(long activityLimitId) {
 		SocialActivityLimit socialActivityLimit = new SocialActivityLimitImpl();
 
@@ -1635,6 +1663,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit remove(long activityLimitId)
 		throws NoSuchActivityLimitException, SystemException {
 		return remove((Serializable)activityLimitId);
@@ -1858,6 +1887,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @throws com.liferay.portlet.social.NoSuchActivityLimitException if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit findByPrimaryKey(long activityLimitId)
 		throws NoSuchActivityLimitException, SystemException {
 		return findByPrimaryKey((Serializable)activityLimitId);
@@ -1919,6 +1949,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the social activity limit, or <code>null</code> if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit fetchByPrimaryKey(long activityLimitId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)activityLimitId);
@@ -1930,6 +1961,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1946,6 +1978,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the range of social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1964,6 +1997,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the ordered range of social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2049,6 +2083,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SocialActivityLimit socialActivityLimit : findAll()) {
 			remove(socialActivityLimit);
@@ -2061,6 +2096,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 	 * @return the number of social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2147,6 +2183,7 @@ public class SocialActivityLimitPersistenceImpl extends BasePersistenceImpl<Soci
 
 	private static CacheModel<SocialActivityLimit> _nullSocialActivityLimitCacheModel =
 		new CacheModel<SocialActivityLimit>() {
+			@Override
 			public SocialActivityLimit toEntityModel() {
 				return _nullSocialActivityLimit;
 			}

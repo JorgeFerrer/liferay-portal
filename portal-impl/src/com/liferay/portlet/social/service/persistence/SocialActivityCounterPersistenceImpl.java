@@ -115,6 +115,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByC_C(long classNameId, long classPK)
 		throws SystemException {
 		return findByC_C(classNameId, classPK, QueryUtil.ALL_POS,
@@ -135,6 +136,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the range of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByC_C(long classNameId,
 		long classPK, int start, int end) throws SystemException {
 		return findByC_C(classNameId, classPK, start, end, null);
@@ -155,6 +157,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the ordered range of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByC_C(long classNameId,
 		long classPK, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -272,6 +275,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByC_C_First(long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
@@ -306,6 +310,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the first matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByC_C_First(long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -329,6 +334,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByC_C_Last(long classNameId, long classPK,
 		OrderByComparator orderByComparator)
 		throws NoSuchActivityCounterException, SystemException {
@@ -363,6 +369,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the last matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByC_C_Last(long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -389,6 +396,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a social activity counter with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter[] findByC_C_PrevAndNext(
 		long activityCounterId, long classNameId, long classPK,
 		OrderByComparator orderByComparator)
@@ -536,6 +544,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @param classPK the class p k
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C(long classNameId, long classPK)
 		throws SystemException {
 		for (SocialActivityCounter socialActivityCounter : findByC_C(
@@ -552,6 +561,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the number of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C(long classNameId, long classPK)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C;
@@ -646,6 +656,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByG_C_C_O(long groupId,
 		long classNameId, long classPK, int ownerType)
 		throws SystemException {
@@ -669,6 +680,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the range of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByG_C_C_O(long groupId,
 		long classNameId, long classPK, int ownerType, int start, int end)
 		throws SystemException {
@@ -693,6 +705,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the ordered range of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findByG_C_C_O(long groupId,
 		long classNameId, long classPK, int ownerType, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -822,6 +835,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByG_C_C_O_First(long groupId,
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator)
@@ -865,6 +879,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the first matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_O_First(long groupId,
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -890,6 +905,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByG_C_C_O_Last(long groupId,
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator)
@@ -933,6 +949,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the last matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_O_Last(long groupId,
 		long classNameId, long classPK, int ownerType,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -961,6 +978,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a social activity counter with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter[] findByG_C_C_O_PrevAndNext(
 		long activityCounterId, long groupId, long classNameId, long classPK,
 		int ownerType, OrderByComparator orderByComparator)
@@ -1121,6 +1139,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @param ownerType the owner type
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_C_C_O(long groupId, long classNameId, long classPK,
 		int ownerType) throws SystemException {
 		for (SocialActivityCounter socialActivityCounter : findByG_C_C_O(
@@ -1140,6 +1159,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the number of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_C_C_O(long groupId, long classNameId, long classPK,
 		int ownerType) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_C_O;
@@ -1241,6 +1261,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByG_C_C_N_O_S(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int startPeriod) throws NoSuchActivityCounterException, SystemException {
@@ -1294,6 +1315,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_N_O_S(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int startPeriod) throws SystemException {
@@ -1314,6 +1336,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_N_O_S(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int startPeriod, boolean retrieveFromCache) throws SystemException {
@@ -1451,6 +1474,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the social activity counter that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter removeByG_C_C_N_O_S(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int startPeriod) throws NoSuchActivityCounterException, SystemException {
@@ -1472,6 +1496,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the number of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_C_C_N_O_S(long groupId, long classNameId, long classPK,
 		String name, int ownerType, int startPeriod) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_C_N_O_S;
@@ -1599,6 +1624,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByG_C_C_N_O_E(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int endPeriod) throws NoSuchActivityCounterException, SystemException {
@@ -1652,6 +1678,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_N_O_E(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int endPeriod) throws SystemException {
@@ -1672,6 +1699,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the matching social activity counter, or <code>null</code> if a matching social activity counter could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByG_C_C_N_O_E(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int endPeriod, boolean retrieveFromCache) throws SystemException {
@@ -1809,6 +1837,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the social activity counter that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter removeByG_C_C_N_O_E(long groupId,
 		long classNameId, long classPK, String name, int ownerType,
 		int endPeriod) throws NoSuchActivityCounterException, SystemException {
@@ -1830,6 +1859,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the number of matching social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_C_C_N_O_E(long groupId, long classNameId, long classPK,
 		String name, int ownerType, int endPeriod) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_C_C_N_O_E;
@@ -1926,6 +1956,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 *
 	 * @param socialActivityCounter the social activity counter
 	 */
+	@Override
 	public void cacheResult(SocialActivityCounter socialActivityCounter) {
 		EntityCacheUtil.putResult(SocialActivityCounterModelImpl.ENTITY_CACHE_ENABLED,
 			SocialActivityCounterImpl.class,
@@ -1959,6 +1990,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 *
 	 * @param socialActivityCounters the social activity counters
 	 */
+	@Override
 	public void cacheResult(List<SocialActivityCounter> socialActivityCounters) {
 		for (SocialActivityCounter socialActivityCounter : socialActivityCounters) {
 			if (EntityCacheUtil.getResult(
@@ -2161,6 +2193,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @param activityCounterId the primary key for the new social activity counter
 	 * @return the new social activity counter
 	 */
+	@Override
 	public SocialActivityCounter create(long activityCounterId) {
 		SocialActivityCounter socialActivityCounter = new SocialActivityCounterImpl();
 
@@ -2178,6 +2211,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a social activity counter with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter remove(long activityCounterId)
 		throws NoSuchActivityCounterException, SystemException {
 		return remove((Serializable)activityCounterId);
@@ -2413,6 +2447,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @throws com.liferay.portlet.social.NoSuchActivityCounterException if a social activity counter with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter findByPrimaryKey(long activityCounterId)
 		throws NoSuchActivityCounterException, SystemException {
 		return findByPrimaryKey((Serializable)activityCounterId);
@@ -2474,6 +2509,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the social activity counter, or <code>null</code> if a social activity counter with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityCounter fetchByPrimaryKey(long activityCounterId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)activityCounterId);
@@ -2485,6 +2521,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -2501,6 +2538,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the range of social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -2519,6 +2557,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the ordered range of social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityCounter> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2604,6 +2643,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SocialActivityCounter socialActivityCounter : findAll()) {
 			remove(socialActivityCounter);
@@ -2616,6 +2656,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 	 * @return the number of social activity counters
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2710,6 +2751,7 @@ public class SocialActivityCounterPersistenceImpl extends BasePersistenceImpl<So
 
 	private static CacheModel<SocialActivityCounter> _nullSocialActivityCounterCacheModel =
 		new CacheModel<SocialActivityCounter>() {
+			@Override
 			public SocialActivityCounter toEntityModel() {
 				return _nullSocialActivityCounter;
 			}

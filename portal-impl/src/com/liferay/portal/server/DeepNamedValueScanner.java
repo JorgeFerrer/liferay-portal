@@ -556,6 +556,7 @@ public class DeepNamedValueScanner {
 		extends ObjectValuePair<String, IntegerWrapper>
 		implements Comparable<Dataset> {
 
+		@Override
 		public int compareTo(Dataset dataset) {
 			IntegerWrapper integerWrapper = dataset.getValue();
 

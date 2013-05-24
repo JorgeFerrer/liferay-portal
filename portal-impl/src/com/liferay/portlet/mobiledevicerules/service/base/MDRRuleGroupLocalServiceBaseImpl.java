@@ -90,6 +90,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRRuleGroup addMDRRuleGroup(MDRRuleGroup mdrRuleGroup)
 		throws SystemException {
 		mdrRuleGroup.setNew(true);
@@ -103,6 +104,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @param ruleGroupId the primary key for the new m d r rule group
 	 * @return the new m d r rule group
 	 */
+	@Override
 	public MDRRuleGroup createMDRRuleGroup(long ruleGroupId) {
 		return mdrRuleGroupPersistence.create(ruleGroupId);
 	}
@@ -116,6 +118,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRRuleGroup deleteMDRRuleGroup(long ruleGroupId)
 		throws PortalException, SystemException {
 		return mdrRuleGroupPersistence.remove(ruleGroupId);
@@ -129,11 +132,13 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRRuleGroup deleteMDRRuleGroup(MDRRuleGroup mdrRuleGroup)
 		throws SystemException {
 		return mdrRuleGroupPersistence.remove(mdrRuleGroup);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -148,6 +153,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -167,6 +173,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -188,6 +195,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -202,11 +210,13 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return mdrRuleGroupPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public MDRRuleGroup fetchMDRRuleGroup(long ruleGroupId)
 		throws SystemException {
 		return mdrRuleGroupPersistence.fetchByPrimaryKey(ruleGroupId);
@@ -220,11 +230,13 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws PortalException if a m d r rule group with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRRuleGroup getMDRRuleGroup(long ruleGroupId)
 		throws PortalException, SystemException {
 		return mdrRuleGroupPersistence.findByPrimaryKey(ruleGroupId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return mdrRuleGroupPersistence.findByPrimaryKey(primaryKeyObj);
@@ -239,6 +251,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws PortalException if a matching m d r rule group could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRRuleGroup getMDRRuleGroupByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return mdrRuleGroupPersistence.findByUUID_G(uuid, groupId);
@@ -256,6 +269,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the range of m d r rule groups
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<MDRRuleGroup> getMDRRuleGroups(int start, int end)
 		throws SystemException {
 		return mdrRuleGroupPersistence.findAll(start, end);
@@ -267,6 +281,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @return the number of m d r rule groups
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getMDRRuleGroupsCount() throws SystemException {
 		return mdrRuleGroupPersistence.countAll();
 	}
@@ -279,6 +294,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRRuleGroup updateMDRRuleGroup(MDRRuleGroup mdrRuleGroup)
 		throws SystemException {
 		return mdrRuleGroupPersistence.update(mdrRuleGroup);
@@ -721,6 +737,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -730,6 +747,7 @@ public abstract class MDRRuleGroupLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -50,10 +50,12 @@ public class JournalDDMDisplay extends BaseDDMDisplay {
 		return backURL;
 	}
 
+	@Override
 	public String getPortletId() {
 		return PortletKeys.JOURNAL;
 	}
 
+	@Override
 	public String getResourceName() {
 		return JournalPermission.RESOURCE_NAME;
 	}

@@ -38,6 +38,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the shopping order that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder addShoppingOrder(
 		com.liferay.portlet.shopping.model.ShoppingOrder shoppingOrder)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @param orderId the primary key for the new shopping order
 	* @return the new shopping order
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder createShoppingOrder(
 		long orderId) {
 		return _shoppingOrderLocalService.createShoppingOrder(orderId);
@@ -63,6 +65,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @throws PortalException if a shopping order with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder deleteShoppingOrder(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the shopping order that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder deleteShoppingOrder(
 		com.liferay.portlet.shopping.model.ShoppingOrder shoppingOrder)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderLocalService.deleteShoppingOrder(shoppingOrder);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _shoppingOrderLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -135,6 +142,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -152,12 +160,14 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder fetchShoppingOrder(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -172,6 +182,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @throws PortalException if a shopping order with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder getShoppingOrder(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -179,6 +190,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.getShoppingOrder(orderId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -198,6 +210,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the range of shopping orders
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.shopping.model.ShoppingOrder> getShoppingOrders(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -210,6 +223,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the number of shopping orders
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getShoppingOrdersCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderLocalService.getShoppingOrdersCount();
@@ -222,6 +236,7 @@ public class ShoppingOrderLocalServiceWrapper
 	* @return the shopping order that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder updateShoppingOrder(
 		com.liferay.portlet.shopping.model.ShoppingOrder shoppingOrder)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -233,6 +248,7 @@ public class ShoppingOrderLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _shoppingOrderLocalService.getBeanIdentifier();
 	}
@@ -242,10 +258,12 @@ public class ShoppingOrderLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_shoppingOrderLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder addLatestOrder(
 		long userId, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -253,6 +271,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.addLatestOrder(userId, groupId);
 	}
 
+	@Override
 	public void completeOrder(java.lang.String number,
 		java.lang.String ppTxnId, java.lang.String ppPaymentStatus,
 		double ppPaymentGross, java.lang.String ppReceiverEmail,
@@ -265,12 +284,14 @@ public class ShoppingOrderLocalServiceWrapper
 			updateInventory, serviceContext);
 	}
 
+	@Override
 	public void deleteOrder(long orderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingOrderLocalService.deleteOrder(orderId);
 	}
 
+	@Override
 	public void deleteOrder(
 		com.liferay.portlet.shopping.model.ShoppingOrder order)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -278,12 +299,14 @@ public class ShoppingOrderLocalServiceWrapper
 		_shoppingOrderLocalService.deleteOrder(order);
 	}
 
+	@Override
 	public void deleteOrders(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingOrderLocalService.deleteOrders(groupId);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder getLatestOrder(
 		long userId, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -291,6 +314,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.getLatestOrder(userId, groupId);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder getOrder(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -298,6 +322,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.getOrder(orderId);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder getOrder(
 		java.lang.String number)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -305,6 +330,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.getOrder(number);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder getPayPalTxnIdOrder(
 		java.lang.String ppTxnId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -312,6 +338,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.getPayPalTxnIdOrder(ppTxnId);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder saveLatestOrder(
 		com.liferay.portlet.shopping.model.ShoppingCart cart)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -319,6 +346,7 @@ public class ShoppingOrderLocalServiceWrapper
 		return _shoppingOrderLocalService.saveLatestOrder(cart);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.shopping.model.ShoppingOrder> search(
 		long groupId, long companyId, long userId, java.lang.String number,
 		java.lang.String billingFirstName, java.lang.String billingLastName,
@@ -333,6 +361,7 @@ public class ShoppingOrderLocalServiceWrapper
 			ppPaymentStatus, andOperator, start, end);
 	}
 
+	@Override
 	public int searchCount(long groupId, long companyId, long userId,
 		java.lang.String number, java.lang.String billingFirstName,
 		java.lang.String billingLastName, java.lang.String billingEmailAddress,
@@ -346,6 +375,7 @@ public class ShoppingOrderLocalServiceWrapper
 			shippingEmailAddress, ppPaymentStatus, andOperator);
 	}
 
+	@Override
 	public void sendEmail(long orderId, java.lang.String emailType,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -353,6 +383,7 @@ public class ShoppingOrderLocalServiceWrapper
 		_shoppingOrderLocalService.sendEmail(orderId, emailType, serviceContext);
 	}
 
+	@Override
 	public void sendEmail(
 		com.liferay.portlet.shopping.model.ShoppingOrder order,
 		java.lang.String emailType,
@@ -362,6 +393,7 @@ public class ShoppingOrderLocalServiceWrapper
 		_shoppingOrderLocalService.sendEmail(order, emailType, serviceContext);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder updateLatestOrder(
 		long userId, long groupId, java.lang.String billingFirstName,
 		java.lang.String billingLastName, java.lang.String billingEmailAddress,
@@ -389,6 +421,7 @@ public class ShoppingOrderLocalServiceWrapper
 			ccNumber, ccExpMonth, ccExpYear, ccVerNumber, comments);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder updateOrder(
 		long orderId, java.lang.String ppTxnId,
 		java.lang.String ppPaymentStatus, double ppPaymentGross,
@@ -399,6 +432,7 @@ public class ShoppingOrderLocalServiceWrapper
 			ppPaymentStatus, ppPaymentGross, ppReceiverEmail, ppPayerEmail);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrder updateOrder(
 		long orderId, java.lang.String billingFirstName,
 		java.lang.String billingLastName, java.lang.String billingEmailAddress,
@@ -441,10 +475,12 @@ public class ShoppingOrderLocalServiceWrapper
 		_shoppingOrderLocalService = shoppingOrderLocalService;
 	}
 
+	@Override
 	public ShoppingOrderLocalService getWrappedService() {
 		return _shoppingOrderLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ShoppingOrderLocalService shoppingOrderLocalService) {
 		_shoppingOrderLocalService = shoppingOrderLocalService;

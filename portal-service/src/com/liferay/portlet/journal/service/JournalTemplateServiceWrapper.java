@@ -35,6 +35,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _journalTemplateService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_journalTemplateService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate addTemplate(
 		long groupId, java.lang.String templateId, boolean autoTemplateId,
 		java.lang.String structureId,
@@ -65,6 +68,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			smallFile, serviceContext);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate addTemplate(
 		long groupId, java.lang.String templateId, boolean autoTemplateId,
 		java.lang.String structureId,
@@ -80,6 +84,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			formatXsl, langType, cacheable, serviceContext);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate copyTemplate(
 		long groupId, java.lang.String oldTemplateId,
 		java.lang.String newTemplateId, boolean autoTemplateId)
@@ -89,12 +94,14 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			newTemplateId, autoTemplateId);
 	}
 
+	@Override
 	public void deleteTemplate(long groupId, java.lang.String templateId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalTemplateService.deleteTemplate(groupId, templateId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalTemplate> getStructureTemplates(
 		long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -102,6 +109,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			structureId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate getTemplate(
 		long groupId, java.lang.String templateId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -109,6 +117,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 		return _journalTemplateService.getTemplate(groupId, templateId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate getTemplate(
 		long groupId, java.lang.String templateId,
 		boolean includeGlobalTemplates)
@@ -118,6 +127,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			includeGlobalTemplates);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalTemplate> search(
 		long companyId, long[] groupIds, java.lang.String keywords,
 		java.lang.String structureId, java.lang.String structureIdComparator,
@@ -127,6 +137,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			structureId, structureIdComparator, start, end, obc);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalTemplate> search(
 		long companyId, long[] groupIds, java.lang.String templateId,
 		java.lang.String structureId, java.lang.String structureIdComparator,
@@ -139,6 +150,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			start, end, obc);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String keywords, java.lang.String structureId,
 		java.lang.String structureIdComparator)
@@ -147,6 +159,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			keywords, structureId, structureIdComparator);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String templateId, java.lang.String structureId,
 		java.lang.String structureIdComparator, java.lang.String name,
@@ -157,6 +170,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			andOperator);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate updateTemplate(
 		long groupId, java.lang.String templateId,
 		java.lang.String structureId,
@@ -173,6 +187,7 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 			cacheable, smallImage, smallImageURL, smallFile, serviceContext);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalTemplate updateTemplate(
 		long groupId, java.lang.String templateId,
 		java.lang.String structureId,
@@ -203,10 +218,12 @@ public class JournalTemplateServiceWrapper implements JournalTemplateService,
 		_journalTemplateService = journalTemplateService;
 	}
 
+	@Override
 	public JournalTemplateService getWrappedService() {
 		return _journalTemplateService;
 	}
 
+	@Override
 	public void setWrappedService(JournalTemplateService journalTemplateService) {
 		_journalTemplateService = journalTemplateService;
 	}

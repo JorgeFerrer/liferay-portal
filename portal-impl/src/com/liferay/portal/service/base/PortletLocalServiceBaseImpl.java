@@ -246,6 +246,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Portlet addPortlet(Portlet portlet) throws SystemException {
 		portlet.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param id the primary key for the new portlet
 	 * @return the new portlet
 	 */
+	@Override
 	public Portlet createPortlet(long id) {
 		return portletPersistence.create(id);
 	}
@@ -271,6 +273,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Portlet deletePortlet(long id)
 		throws PortalException, SystemException {
 		return portletPersistence.remove(id);
@@ -284,10 +287,12 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Portlet deletePortlet(Portlet portlet) throws SystemException {
 		return portletPersistence.remove(portlet);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return portletPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Portlet fetchPortlet(long id) throws SystemException {
 		return portletPersistence.fetchByPrimaryKey(id);
 	}
@@ -372,10 +382,12 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a portlet with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Portlet getPortlet(long id) throws PortalException, SystemException {
 		return portletPersistence.findByPrimaryKey(id);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return portletPersistence.findByPrimaryKey(primaryKeyObj);
@@ -393,6 +405,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of portlets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Portlet> getPortlets(int start, int end)
 		throws SystemException {
 		return portletPersistence.findAll(start, end);
@@ -404,6 +417,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of portlets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getPortletsCount() throws SystemException {
 		return portletPersistence.countAll();
 	}
@@ -416,6 +430,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Portlet updatePortlet(Portlet portlet) throws SystemException {
 		return portletPersistence.update(portlet);
 	}
@@ -3795,6 +3810,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3804,6 +3820,7 @@ public abstract class PortletLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

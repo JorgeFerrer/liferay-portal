@@ -118,6 +118,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid(String uuid)
 		throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -136,6 +137,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -155,6 +157,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -275,6 +278,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -305,6 +309,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -325,6 +330,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -355,6 +361,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -379,6 +386,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByUuid_PrevAndNext(long id, String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -534,6 +542,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (JournalTemplate journalTemplate : findByUuid(uuid,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -548,6 +557,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -631,6 +641,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByUUID_G(String uuid, long groupId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = fetchByUUID_G(uuid, groupId);
@@ -666,6 +677,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		return fetchByUUID_G(uuid, groupId, true);
@@ -680,6 +692,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { uuid, groupId };
@@ -786,6 +799,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the journal template that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate removeByUUID_G(String uuid, long groupId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = findByUUID_G(uuid, groupId);
@@ -801,6 +815,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
@@ -901,6 +916,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -921,6 +937,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -941,6 +958,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1072,6 +1090,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1106,6 +1125,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -1128,6 +1148,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1162,6 +1183,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -1187,6 +1209,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByUuid_C_PrevAndNext(long id, String uuid,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1347,6 +1370,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (JournalTemplate journalTemplate : findByUuid_C(uuid, companyId,
@@ -1363,6 +1387,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1461,6 +1486,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByGroupId(long groupId)
 		throws SystemException {
 		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -1479,6 +1505,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByGroupId(long groupId, int start, int end)
 		throws SystemException {
 		return findByGroupId(groupId, start, end, null);
@@ -1498,6 +1525,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1604,6 +1632,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1634,6 +1663,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByGroupId_First(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByGroupId(groupId, 0, 1,
@@ -1655,6 +1685,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1685,6 +1716,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
@@ -1709,6 +1741,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByGroupId_PrevAndNext(long id, long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -1851,6 +1884,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByGroupId(long groupId)
 		throws SystemException {
 		return filterFindByGroupId(groupId, QueryUtil.ALL_POS,
@@ -1870,6 +1904,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByGroupId(long groupId, int start,
 		int end) throws SystemException {
 		return filterFindByGroupId(groupId, start, end, null);
@@ -1889,6 +1924,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
@@ -1980,6 +2016,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] filterFindByGroupId_PrevAndNext(long id,
 		long groupId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -2160,6 +2197,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param groupId the group ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByGroupId(long groupId) throws SystemException {
 		for (JournalTemplate journalTemplate : findByGroupId(groupId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2174,6 +2212,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByGroupId(long groupId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUPID;
 
@@ -2226,6 +2265,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByGroupId(long groupId) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return countByGroupId(groupId);
@@ -2298,6 +2338,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByTemplateId(String templateId)
 		throws SystemException {
 		return findByTemplateId(templateId, QueryUtil.ALL_POS,
@@ -2317,6 +2358,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByTemplateId(String templateId, int start,
 		int end) throws SystemException {
 		return findByTemplateId(templateId, start, end, null);
@@ -2336,6 +2378,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByTemplateId(String templateId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2457,6 +2500,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByTemplateId_First(String templateId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -2487,6 +2531,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByTemplateId_First(String templateId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByTemplateId(templateId, 0, 1,
@@ -2508,6 +2553,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByTemplateId_Last(String templateId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -2538,6 +2584,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByTemplateId_Last(String templateId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByTemplateId(templateId);
@@ -2562,6 +2609,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByTemplateId_PrevAndNext(long id,
 		String templateId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -2717,6 +2765,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param templateId the template ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByTemplateId(String templateId) throws SystemException {
 		for (JournalTemplate journalTemplate : findByTemplateId(templateId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2731,6 +2780,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByTemplateId(String templateId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_TEMPLATEID;
 
@@ -2824,6 +2874,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByStructureId(String structureId)
 		throws SystemException {
 		return findByStructureId(structureId, QueryUtil.ALL_POS,
@@ -2843,6 +2894,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByStructureId(String structureId,
 		int start, int end) throws SystemException {
 		return findByStructureId(structureId, start, end, null);
@@ -2862,6 +2914,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByStructureId(String structureId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2984,6 +3037,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByStructureId_First(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -3014,6 +3068,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByStructureId_First(String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByStructureId(structureId, 0, 1,
@@ -3035,6 +3090,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByStructureId_Last(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -3065,6 +3121,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByStructureId_Last(String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByStructureId(structureId);
@@ -3089,6 +3146,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByStructureId_PrevAndNext(long id,
 		String structureId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -3244,6 +3302,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param structureId the structure ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByStructureId(String structureId)
 		throws SystemException {
 		for (JournalTemplate journalTemplate : findByStructureId(structureId,
@@ -3259,6 +3318,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByStructureId(String structureId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_STRUCTUREID;
 
@@ -3339,6 +3399,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findBySmallImageId(long smallImageId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = fetchBySmallImageId(smallImageId);
@@ -3370,6 +3431,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchBySmallImageId(long smallImageId)
 		throws SystemException {
 		return fetchBySmallImageId(smallImageId, true);
@@ -3383,6 +3445,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchBySmallImageId(long smallImageId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { smallImageId };
@@ -3474,6 +3537,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the journal template that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate removeBySmallImageId(long smallImageId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = findBySmallImageId(smallImageId);
@@ -3488,6 +3552,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countBySmallImageId(long smallImageId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_SMALLIMAGEID;
 
@@ -3554,6 +3619,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByG_T(long groupId, String templateId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = fetchByG_T(groupId, templateId);
@@ -3589,6 +3655,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByG_T(long groupId, String templateId)
 		throws SystemException {
 		return fetchByG_T(groupId, templateId, true);
@@ -3603,6 +3670,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByG_T(long groupId, String templateId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { groupId, templateId };
@@ -3710,6 +3778,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the journal template that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate removeByG_T(long groupId, String templateId)
 		throws NoSuchTemplateException, SystemException {
 		JournalTemplate journalTemplate = findByG_T(groupId, templateId);
@@ -3725,6 +3794,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_T(long groupId, String templateId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_T;
@@ -3828,6 +3898,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long groupId, String structureId)
 		throws SystemException {
 		return findByG_S(groupId, structureId, QueryUtil.ALL_POS,
@@ -3848,6 +3919,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long groupId, String structureId,
 		int start, int end) throws SystemException {
 		return findByG_S(groupId, structureId, start, end, null);
@@ -3868,6 +3940,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long groupId, String structureId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -4000,6 +4073,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByG_S_First(long groupId, String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -4034,6 +4108,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the first matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByG_S_First(long groupId, String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalTemplate> list = findByG_S(groupId, structureId, 0, 1,
@@ -4056,6 +4131,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByG_S_Last(long groupId, String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -4090,6 +4166,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the last matching journal template, or <code>null</code> if a matching journal template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByG_S_Last(long groupId, String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_S(groupId, structureId);
@@ -4115,6 +4192,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] findByG_S_PrevAndNext(long id, long groupId,
 		String structureId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -4276,6 +4354,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long groupId,
 		String structureId) throws SystemException {
 		return filterFindByG_S(groupId, structureId, QueryUtil.ALL_POS,
@@ -4296,6 +4375,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long groupId,
 		String structureId, int start, int end) throws SystemException {
 		return filterFindByG_S(groupId, structureId, start, end, null);
@@ -4316,6 +4396,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long groupId,
 		String structureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -4427,6 +4508,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate[] filterFindByG_S_PrevAndNext(long id, long groupId,
 		String structureId, OrderByComparator orderByComparator)
 		throws NoSuchTemplateException, SystemException {
@@ -4628,6 +4710,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long[] groupIds,
 		String structureId) throws SystemException {
 		return filterFindByG_S(groupIds, structureId, QueryUtil.ALL_POS,
@@ -4648,6 +4731,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long[] groupIds,
 		String structureId, int start, int end) throws SystemException {
 		return filterFindByG_S(groupIds, structureId, start, end, null);
@@ -4668,6 +4752,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> filterFindByG_S(long[] groupIds,
 		String structureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -4797,6 +4882,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long[] groupIds, String structureId)
 		throws SystemException {
 		return findByG_S(groupIds, structureId, QueryUtil.ALL_POS,
@@ -4817,6 +4903,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long[] groupIds, String structureId,
 		int start, int end) throws SystemException {
 		return findByG_S(groupIds, structureId, start, end, null);
@@ -4837,6 +4924,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findByG_S(long[] groupIds, String structureId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -4986,6 +5074,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param structureId the structure ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_S(long groupId, String structureId)
 		throws SystemException {
 		for (JournalTemplate journalTemplate : findByG_S(groupId, structureId,
@@ -5002,6 +5091,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_S(long groupId, String structureId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_S;
@@ -5074,6 +5164,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_S(long[] groupIds, String structureId)
 		throws SystemException {
 		Object[] finderArgs = new Object[] {
@@ -5172,6 +5263,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByG_S(long groupId, String structureId)
 		throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
@@ -5240,6 +5332,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of matching journal templates that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByG_S(long[] groupIds, String structureId)
 		throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupIds)) {
@@ -5342,6 +5435,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 *
 	 * @param journalTemplate the journal template
 	 */
+	@Override
 	public void cacheResult(JournalTemplate journalTemplate) {
 		EntityCacheUtil.putResult(JournalTemplateModelImpl.ENTITY_CACHE_ENABLED,
 			JournalTemplateImpl.class, journalTemplate.getPrimaryKey(),
@@ -5367,6 +5461,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 *
 	 * @param journalTemplates the journal templates
 	 */
+	@Override
 	public void cacheResult(List<JournalTemplate> journalTemplates) {
 		for (JournalTemplate journalTemplate : journalTemplates) {
 			if (EntityCacheUtil.getResult(
@@ -5561,6 +5656,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @param id the primary key for the new journal template
 	 * @return the new journal template
 	 */
+	@Override
 	public JournalTemplate create(long id) {
 		JournalTemplate journalTemplate = new JournalTemplateImpl();
 
@@ -5582,6 +5678,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate remove(long id)
 		throws NoSuchTemplateException, SystemException {
 		return remove((Serializable)id);
@@ -5895,6 +5992,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @throws com.liferay.portlet.journal.NoSuchTemplateException if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate findByPrimaryKey(long id)
 		throws NoSuchTemplateException, SystemException {
 		return findByPrimaryKey((Serializable)id);
@@ -5956,6 +6054,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the journal template, or <code>null</code> if a journal template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalTemplate fetchByPrimaryKey(long id) throws SystemException {
 		return fetchByPrimaryKey((Serializable)id);
 	}
@@ -5966,6 +6065,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -5982,6 +6082,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the range of journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -6000,6 +6101,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the ordered range of journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalTemplate> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -6085,6 +6187,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (JournalTemplate journalTemplate : findAll()) {
 			remove(journalTemplate);
@@ -6097,6 +6200,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 	 * @return the number of journal templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -6200,6 +6304,7 @@ public class JournalTemplatePersistenceImpl extends BasePersistenceImpl<JournalT
 		};
 
 	private static CacheModel<JournalTemplate> _nullJournalTemplateCacheModel = new CacheModel<JournalTemplate>() {
+			@Override
 			public JournalTemplate toEntityModel() {
 				return _nullJournalTemplate;
 			}

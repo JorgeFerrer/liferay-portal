@@ -95,6 +95,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDMStructure addDDMStructure(DDMStructure ddmStructure)
 		throws SystemException {
 		ddmStructure.setNew(true);
@@ -108,6 +109,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @param structureId the primary key for the new d d m structure
 	 * @return the new d d m structure
 	 */
+	@Override
 	public DDMStructure createDDMStructure(long structureId) {
 		return ddmStructurePersistence.create(structureId);
 	}
@@ -121,6 +123,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDMStructure deleteDDMStructure(long structureId)
 		throws PortalException, SystemException {
 		return ddmStructurePersistence.remove(structureId);
@@ -134,11 +137,13 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDMStructure deleteDDMStructure(DDMStructure ddmStructure)
 		throws SystemException {
 		return ddmStructurePersistence.remove(ddmStructure);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -153,6 +158,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -172,6 +178,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -193,6 +200,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -207,11 +215,13 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return ddmStructurePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DDMStructure fetchDDMStructure(long structureId)
 		throws SystemException {
 		return ddmStructurePersistence.fetchByPrimaryKey(structureId);
@@ -225,11 +235,13 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws PortalException if a d d m structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDMStructure getDDMStructure(long structureId)
 		throws PortalException, SystemException {
 		return ddmStructurePersistence.findByPrimaryKey(structureId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return ddmStructurePersistence.findByPrimaryKey(primaryKeyObj);
@@ -244,6 +256,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws PortalException if a matching d d m structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDMStructure getDDMStructureByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return ddmStructurePersistence.findByUUID_G(uuid, groupId);
@@ -261,6 +274,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the range of d d m structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDMStructure> getDDMStructures(int start, int end)
 		throws SystemException {
 		return ddmStructurePersistence.findAll(start, end);
@@ -272,6 +286,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @return the number of d d m structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDDMStructuresCount() throws SystemException {
 		return ddmStructurePersistence.countAll();
 	}
@@ -284,6 +299,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDMStructure updateDDMStructure(DDMStructure ddmStructure)
 		throws SystemException {
 		return ddmStructurePersistence.update(ddmStructure);
@@ -292,6 +308,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDDMStructure(long fileEntryTypeId,
 		long structureId) throws SystemException {
 		dlFileEntryTypePersistence.addDDMStructure(fileEntryTypeId, structureId);
@@ -300,6 +317,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDDMStructure(long fileEntryTypeId,
 		DDMStructure ddmStructure) throws SystemException {
 		dlFileEntryTypePersistence.addDDMStructure(fileEntryTypeId, ddmStructure);
@@ -308,6 +326,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDDMStructures(long fileEntryTypeId,
 		long[] structureIds) throws SystemException {
 		dlFileEntryTypePersistence.addDDMStructures(fileEntryTypeId,
@@ -317,6 +336,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDDMStructures(long fileEntryTypeId,
 		List<DDMStructure> DDMStructures) throws SystemException {
 		dlFileEntryTypePersistence.addDDMStructures(fileEntryTypeId,
@@ -326,6 +346,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearDLFileEntryTypeDDMStructures(long fileEntryTypeId)
 		throws SystemException {
 		dlFileEntryTypePersistence.clearDDMStructures(fileEntryTypeId);
@@ -334,6 +355,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDDMStructure(long fileEntryTypeId,
 		long structureId) throws SystemException {
 		dlFileEntryTypePersistence.removeDDMStructure(fileEntryTypeId,
@@ -343,6 +365,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDDMStructure(long fileEntryTypeId,
 		DDMStructure ddmStructure) throws SystemException {
 		dlFileEntryTypePersistence.removeDDMStructure(fileEntryTypeId,
@@ -352,6 +375,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDDMStructures(long fileEntryTypeId,
 		long[] structureIds) throws SystemException {
 		dlFileEntryTypePersistence.removeDDMStructures(fileEntryTypeId,
@@ -361,6 +385,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDDMStructures(long fileEntryTypeId,
 		List<DDMStructure> DDMStructures) throws SystemException {
 		dlFileEntryTypePersistence.removeDDMStructures(fileEntryTypeId,
@@ -370,6 +395,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDMStructure> getDLFileEntryTypeDDMStructures(
 		long fileEntryTypeId) throws SystemException {
 		return dlFileEntryTypePersistence.getDDMStructures(fileEntryTypeId);
@@ -378,6 +404,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDMStructure> getDLFileEntryTypeDDMStructures(
 		long fileEntryTypeId, int start, int end) throws SystemException {
 		return dlFileEntryTypePersistence.getDDMStructures(fileEntryTypeId,
@@ -387,6 +414,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDMStructure> getDLFileEntryTypeDDMStructures(
 		long fileEntryTypeId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -397,6 +425,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileEntryTypeDDMStructuresCount(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.getDDMStructuresSize(fileEntryTypeId);
@@ -405,6 +434,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFileEntryTypeDDMStructure(long fileEntryTypeId,
 		long structureId) throws SystemException {
 		return dlFileEntryTypePersistence.containsDDMStructure(fileEntryTypeId,
@@ -414,6 +444,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFileEntryTypeDDMStructures(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.containsDDMStructures(fileEntryTypeId);
@@ -422,6 +453,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setDLFileEntryTypeDDMStructures(long fileEntryTypeId,
 		long[] structureIds) throws SystemException {
 		dlFileEntryTypePersistence.setDDMStructures(fileEntryTypeId,
@@ -962,6 +994,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -971,6 +1004,7 @@ public abstract class DDMStructureLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -32,6 +32,7 @@ public class GroupServiceWrapper implements GroupService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _groupService.getBeanIdentifier();
 	}
@@ -41,6 +42,7 @@ public class GroupServiceWrapper implements GroupService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_groupService.setBeanIdentifier(beanIdentifier);
 	}
@@ -69,6 +71,7 @@ public class GroupServiceWrapper implements GroupService,
 	valid friendly URL could not be created for the group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group addGroup(long parentGroupId,
 		long liveGroupId, java.lang.String name, java.lang.String description,
 		int type, java.lang.String friendlyURL, boolean site, boolean active,
@@ -104,6 +107,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	String, int, String, boolean, boolean, ServiceContext)}
 	*/
+	@Override
 	public com.liferay.portal.model.Group addGroup(long parentGroupId,
 		java.lang.String name, java.lang.String description, int type,
 		java.lang.String friendlyURL, boolean site, boolean active,
@@ -118,6 +122,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, String,
 	String, int, String, boolean, boolean, ServiceContext)}
 	*/
+	@Override
 	public com.liferay.portal.model.Group addGroup(java.lang.String name,
 		java.lang.String description, int type, java.lang.String friendlyURL,
 		boolean site, boolean active,
@@ -137,6 +142,7 @@ public class GroupServiceWrapper implements GroupService,
 	role
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addRoleGroups(long roleId, long[] groupIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -154,6 +160,7 @@ public class GroupServiceWrapper implements GroupService,
 	user's company
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void checkRemoteStagingGroup(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -176,6 +183,7 @@ public class GroupServiceWrapper implements GroupService,
 	could not be found, or if the group was a system group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteGroup(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -192,6 +200,7 @@ public class GroupServiceWrapper implements GroupService,
 	group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group getGroup(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -208,6 +217,7 @@ public class GroupServiceWrapper implements GroupService,
 	current user did not have permission to view the group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group getGroup(long companyId,
 		java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -227,6 +237,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getManageableSites(
 		java.util.Collection<com.liferay.portal.model.Portlet> portlets, int max)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -242,6 +253,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getOrganizationsGroups(
 		java.util.List<com.liferay.portal.model.Organization> organizations)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -259,6 +271,7 @@ public class GroupServiceWrapper implements GroupService,
 	current user did not have permission to view the group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group getUserGroup(long companyId,
 		long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -275,6 +288,7 @@ public class GroupServiceWrapper implements GroupService,
 	found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserGroupsGroups(
 		java.util.List<com.liferay.portal.model.UserGroup> userGroups)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -307,6 +321,7 @@ public class GroupServiceWrapper implements GroupService,
 	or if another portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserOrganizationsGroups(
 		long userId, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -314,6 +329,7 @@ public class GroupServiceWrapper implements GroupService,
 		return _groupService.getUserOrganizationsGroups(userId, start, end);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserPlaces(
 		long userId, java.lang.String[] classNames,
 		boolean includeControlPanel, int max)
@@ -357,6 +373,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserPlaces(
 		long userId, java.lang.String[] classNames, int max)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -364,6 +381,7 @@ public class GroupServiceWrapper implements GroupService,
 		return _groupService.getUserPlaces(userId, classNames, max);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserPlaces(
 		long userId, java.lang.String[] classNames, java.lang.String name,
 		boolean active, boolean includeControlPanel, int start, int end)
@@ -406,6 +424,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserPlaces(
 		java.lang.String[] classNames, int max)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -423,6 +442,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getUserPlacesCount()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -438,6 +458,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> getUserSites()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -457,6 +478,7 @@ public class GroupServiceWrapper implements GroupService,
 	view the user or group members
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasUserGroup(long userId, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -496,6 +518,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Group> search(
 		long companyId, java.lang.String name, java.lang.String description,
 		java.lang.String[] params, int start, int end)
@@ -523,6 +546,7 @@ public class GroupServiceWrapper implements GroupService,
 	* @return the number of matching groups
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int searchCount(long companyId, java.lang.String name,
 		java.lang.String description, java.lang.String[] params)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -539,6 +563,7 @@ public class GroupServiceWrapper implements GroupService,
 	update the role
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setRoleGroups(long roleId, long[] groupIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -554,6 +579,7 @@ public class GroupServiceWrapper implements GroupService,
 	role
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void unsetRoleGroups(long roleId, long[] groupIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -572,6 +598,7 @@ public class GroupServiceWrapper implements GroupService,
 	a valid friendly URL could not be created for the group
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group updateFriendlyURL(long groupId,
 		java.lang.String friendlyURL)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -601,6 +628,7 @@ public class GroupServiceWrapper implements GroupService,
 	friendly URL was invalid or could one not be created
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group updateGroup(long groupId,
 		long parentGroupId, java.lang.String name,
 		java.lang.String description, int type, java.lang.String friendlyURL,
@@ -622,6 +650,7 @@ public class GroupServiceWrapper implements GroupService,
 	group or if a group with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Group updateGroup(long groupId,
 		java.lang.String typeSettings)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -643,10 +672,12 @@ public class GroupServiceWrapper implements GroupService,
 		_groupService = groupService;
 	}
 
+	@Override
 	public GroupService getWrappedService() {
 		return _groupService;
 	}
 
+	@Override
 	public void setWrappedService(GroupService groupService) {
 		_groupService = groupService;
 	}

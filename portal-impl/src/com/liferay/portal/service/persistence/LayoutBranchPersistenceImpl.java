@@ -108,6 +108,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByLayoutSetBranchId(long layoutSetBranchId)
 		throws SystemException {
 		return findByLayoutSetBranchId(layoutSetBranchId, QueryUtil.ALL_POS,
@@ -127,6 +128,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the range of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByLayoutSetBranchId(long layoutSetBranchId,
 		int start, int end) throws SystemException {
 		return findByLayoutSetBranchId(layoutSetBranchId, start, end, null);
@@ -146,6 +148,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the ordered range of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByLayoutSetBranchId(long layoutSetBranchId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -257,6 +260,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByLayoutSetBranchId_First(long layoutSetBranchId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutBranchException, SystemException {
@@ -287,6 +291,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the first matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByLayoutSetBranchId_First(long layoutSetBranchId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutBranch> list = findByLayoutSetBranchId(layoutSetBranchId, 0,
@@ -308,6 +313,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByLayoutSetBranchId_Last(long layoutSetBranchId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutBranchException, SystemException {
@@ -338,6 +344,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the last matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByLayoutSetBranchId_Last(long layoutSetBranchId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByLayoutSetBranchId(layoutSetBranchId);
@@ -362,6 +369,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a layout branch with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch[] findByLayoutSetBranchId_PrevAndNext(
 		long LayoutBranchId, long layoutSetBranchId,
 		OrderByComparator orderByComparator)
@@ -504,6 +512,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @param layoutSetBranchId the layout set branch ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByLayoutSetBranchId(long layoutSetBranchId)
 		throws SystemException {
 		for (LayoutBranch layoutBranch : findByLayoutSetBranchId(
@@ -519,6 +528,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the number of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByLayoutSetBranchId(long layoutSetBranchId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_LAYOUTSETBRANCHID;
@@ -595,6 +605,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByL_P(long layoutSetBranchId, long plid)
 		throws SystemException {
 		return findByL_P(layoutSetBranchId, plid, QueryUtil.ALL_POS,
@@ -615,6 +626,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the range of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByL_P(long layoutSetBranchId, long plid,
 		int start, int end) throws SystemException {
 		return findByL_P(layoutSetBranchId, plid, start, end, null);
@@ -635,6 +647,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the ordered range of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findByL_P(long layoutSetBranchId, long plid,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -752,6 +765,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByL_P_First(long layoutSetBranchId, long plid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutBranchException, SystemException {
@@ -786,6 +800,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the first matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_First(long layoutSetBranchId, long plid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutBranch> list = findByL_P(layoutSetBranchId, plid, 0, 1,
@@ -808,6 +823,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByL_P_Last(long layoutSetBranchId, long plid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutBranchException, SystemException {
@@ -842,6 +858,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the last matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_Last(long layoutSetBranchId, long plid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByL_P(layoutSetBranchId, plid);
@@ -867,6 +884,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a layout branch with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch[] findByL_P_PrevAndNext(long LayoutBranchId,
 		long layoutSetBranchId, long plid, OrderByComparator orderByComparator)
 		throws NoSuchLayoutBranchException, SystemException {
@@ -1013,6 +1031,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @param plid the plid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByL_P(long layoutSetBranchId, long plid)
 		throws SystemException {
 		for (LayoutBranch layoutBranch : findByL_P(layoutSetBranchId, plid,
@@ -1029,6 +1048,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the number of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByL_P(long layoutSetBranchId, long plid)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_L_P;
@@ -1109,6 +1129,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByL_P_N(long layoutSetBranchId, long plid,
 		String name) throws NoSuchLayoutBranchException, SystemException {
 		LayoutBranch layoutBranch = fetchByL_P_N(layoutSetBranchId, plid, name);
@@ -1148,6 +1169,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_N(long layoutSetBranchId, long plid,
 		String name) throws SystemException {
 		return fetchByL_P_N(layoutSetBranchId, plid, name, true);
@@ -1163,6 +1185,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_N(long layoutSetBranchId, long plid,
 		String name, boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { layoutSetBranchId, plid, name };
@@ -1276,6 +1299,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the layout branch that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch removeByL_P_N(long layoutSetBranchId, long plid,
 		String name) throws NoSuchLayoutBranchException, SystemException {
 		LayoutBranch layoutBranch = findByL_P_N(layoutSetBranchId, plid, name);
@@ -1292,6 +1316,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the number of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByL_P_N(long layoutSetBranchId, long plid, String name)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_L_P_N;
@@ -1393,6 +1418,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByL_P_M(long layoutSetBranchId, long plid,
 		boolean master) throws NoSuchLayoutBranchException, SystemException {
 		LayoutBranch layoutBranch = fetchByL_P_M(layoutSetBranchId, plid, master);
@@ -1432,6 +1458,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_M(long layoutSetBranchId, long plid,
 		boolean master) throws SystemException {
 		return fetchByL_P_M(layoutSetBranchId, plid, master, true);
@@ -1447,6 +1474,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the matching layout branch, or <code>null</code> if a matching layout branch could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByL_P_M(long layoutSetBranchId, long plid,
 		boolean master, boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { layoutSetBranchId, plid, master };
@@ -1552,6 +1580,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the layout branch that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch removeByL_P_M(long layoutSetBranchId, long plid,
 		boolean master) throws NoSuchLayoutBranchException, SystemException {
 		LayoutBranch layoutBranch = findByL_P_M(layoutSetBranchId, plid, master);
@@ -1568,6 +1597,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the number of matching layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByL_P_M(long layoutSetBranchId, long plid, boolean master)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_L_P_M;
@@ -1631,6 +1661,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 *
 	 * @param layoutBranch the layout branch
 	 */
+	@Override
 	public void cacheResult(LayoutBranch layoutBranch) {
 		EntityCacheUtil.putResult(LayoutBranchModelImpl.ENTITY_CACHE_ENABLED,
 			LayoutBranchImpl.class, layoutBranch.getPrimaryKey(), layoutBranch);
@@ -1655,6 +1686,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 *
 	 * @param layoutBranchs the layout branchs
 	 */
+	@Override
 	public void cacheResult(List<LayoutBranch> layoutBranchs) {
 		for (LayoutBranch layoutBranch : layoutBranchs) {
 			if (EntityCacheUtil.getResult(
@@ -1822,6 +1854,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @param LayoutBranchId the primary key for the new layout branch
 	 * @return the new layout branch
 	 */
+	@Override
 	public LayoutBranch create(long LayoutBranchId) {
 		LayoutBranch layoutBranch = new LayoutBranchImpl();
 
@@ -1839,6 +1872,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a layout branch with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch remove(long LayoutBranchId)
 		throws NoSuchLayoutBranchException, SystemException {
 		return remove((Serializable)LayoutBranchId);
@@ -2063,6 +2097,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @throws com.liferay.portal.NoSuchLayoutBranchException if a layout branch with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch findByPrimaryKey(long LayoutBranchId)
 		throws NoSuchLayoutBranchException, SystemException {
 		return findByPrimaryKey((Serializable)LayoutBranchId);
@@ -2123,6 +2158,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the layout branch, or <code>null</code> if a layout branch with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutBranch fetchByPrimaryKey(long LayoutBranchId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)LayoutBranchId);
@@ -2134,6 +2170,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -2150,6 +2187,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the range of layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -2168,6 +2206,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the ordered range of layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutBranch> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2253,6 +2292,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (LayoutBranch layoutBranch : findAll()) {
 			remove(layoutBranch);
@@ -2265,6 +2305,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 	 * @return the number of layout branchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2350,6 +2391,7 @@ public class LayoutBranchPersistenceImpl extends BasePersistenceImpl<LayoutBranc
 		};
 
 	private static CacheModel<LayoutBranch> _nullLayoutBranchCacheModel = new CacheModel<LayoutBranch>() {
+			@Override
 			public LayoutBranch toEntityModel() {
 				return _nullLayoutBranch;
 			}

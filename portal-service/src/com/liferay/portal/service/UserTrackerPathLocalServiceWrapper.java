@@ -36,6 +36,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the user tracker path that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath addUserTrackerPath(
 		com.liferay.portal.model.UserTrackerPath userTrackerPath)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @param userTrackerPathId the primary key for the new user tracker path
 	* @return the new user tracker path
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath createUserTrackerPath(
 		long userTrackerPathId) {
 		return _userTrackerPathLocalService.createUserTrackerPath(userTrackerPathId);
@@ -61,6 +63,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @throws PortalException if a user tracker path with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath deleteUserTrackerPath(
 		long userTrackerPathId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the user tracker path that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath deleteUserTrackerPath(
 		com.liferay.portal.model.UserTrackerPath userTrackerPath)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _userTrackerPathLocalService.deleteUserTrackerPath(userTrackerPath);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _userTrackerPathLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _userTrackerPathLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.UserTrackerPath fetchUserTrackerPath(
 		long userTrackerPathId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -171,6 +181,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @throws PortalException if a user tracker path with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath getUserTrackerPath(
 		long userTrackerPathId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -178,6 +189,7 @@ public class UserTrackerPathLocalServiceWrapper
 		return _userTrackerPathLocalService.getUserTrackerPath(userTrackerPathId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -197,6 +209,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the range of user tracker paths
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.UserTrackerPath> getUserTrackerPaths(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -209,6 +222,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the number of user tracker paths
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getUserTrackerPathsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _userTrackerPathLocalService.getUserTrackerPathsCount();
@@ -221,6 +235,7 @@ public class UserTrackerPathLocalServiceWrapper
 	* @return the user tracker path that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.UserTrackerPath updateUserTrackerPath(
 		com.liferay.portal.model.UserTrackerPath userTrackerPath)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -232,6 +247,7 @@ public class UserTrackerPathLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _userTrackerPathLocalService.getBeanIdentifier();
 	}
@@ -241,10 +257,12 @@ public class UserTrackerPathLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_userTrackerPathLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.UserTrackerPath> getUserTrackerPaths(
 		long userTrackerId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -267,10 +285,12 @@ public class UserTrackerPathLocalServiceWrapper
 		_userTrackerPathLocalService = userTrackerPathLocalService;
 	}
 
+	@Override
 	public UserTrackerPathLocalService getWrappedService() {
 		return _userTrackerPathLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		UserTrackerPathLocalService userTrackerPathLocalService) {
 		_userTrackerPathLocalService = userTrackerPathLocalService;

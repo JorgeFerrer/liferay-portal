@@ -38,6 +38,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the blogs stats user that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser addBlogsStatsUser(
 		com.liferay.portlet.blogs.model.BlogsStatsUser blogsStatsUser)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @param statsUserId the primary key for the new blogs stats user
 	* @return the new blogs stats user
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser createBlogsStatsUser(
 		long statsUserId) {
 		return _blogsStatsUserLocalService.createBlogsStatsUser(statsUserId);
@@ -63,6 +65,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @throws PortalException if a blogs stats user with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser deleteBlogsStatsUser(
 		long statsUserId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the blogs stats user that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser deleteBlogsStatsUser(
 		com.liferay.portlet.blogs.model.BlogsStatsUser blogsStatsUser)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.deleteBlogsStatsUser(blogsStatsUser);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _blogsStatsUserLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -135,6 +142,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -152,12 +160,14 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser fetchBlogsStatsUser(
 		long statsUserId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -172,6 +182,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @throws PortalException if a blogs stats user with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser getBlogsStatsUser(
 		long statsUserId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -179,6 +190,7 @@ public class BlogsStatsUserLocalServiceWrapper
 		return _blogsStatsUserLocalService.getBlogsStatsUser(statsUserId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -198,6 +210,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the range of blogs stats users
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getBlogsStatsUsers(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -210,6 +223,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the number of blogs stats users
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getBlogsStatsUsersCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.getBlogsStatsUsersCount();
@@ -222,6 +236,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	* @return the blogs stats user that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser updateBlogsStatsUser(
 		com.liferay.portlet.blogs.model.BlogsStatsUser blogsStatsUser)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -233,6 +248,7 @@ public class BlogsStatsUserLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _blogsStatsUserLocalService.getBeanIdentifier();
 	}
@@ -242,32 +258,38 @@ public class BlogsStatsUserLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_blogsStatsUserLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void deleteStatsUser(
 		com.liferay.portlet.blogs.model.BlogsStatsUser statsUsers)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_blogsStatsUserLocalService.deleteStatsUser(statsUsers);
 	}
 
+	@Override
 	public void deleteStatsUser(long statsUserId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_blogsStatsUserLocalService.deleteStatsUser(statsUserId);
 	}
 
+	@Override
 	public void deleteStatsUserByGroupId(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_blogsStatsUserLocalService.deleteStatsUserByGroupId(groupId);
 	}
 
+	@Override
 	public void deleteStatsUserByUserId(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_blogsStatsUserLocalService.deleteStatsUserByUserId(userId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getCompanyStatsUsers(
 		long companyId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -275,6 +297,7 @@ public class BlogsStatsUserLocalServiceWrapper
 			start, end);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getCompanyStatsUsers(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -283,11 +306,13 @@ public class BlogsStatsUserLocalServiceWrapper
 			start, end, obc);
 	}
 
+	@Override
 	public int getCompanyStatsUsersCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.getCompanyStatsUsersCount(companyId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getGroupsStatsUsers(
 		long companyId, long groupId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -295,6 +320,7 @@ public class BlogsStatsUserLocalServiceWrapper
 			groupId, start, end);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getGroupStatsUsers(
 		long groupId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -302,6 +328,7 @@ public class BlogsStatsUserLocalServiceWrapper
 			end);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getGroupStatsUsers(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -310,11 +337,13 @@ public class BlogsStatsUserLocalServiceWrapper
 			end, obc);
 	}
 
+	@Override
 	public int getGroupStatsUsersCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.getGroupStatsUsersCount(groupId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getOrganizationStatsUsers(
 		long organizationId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -322,6 +351,7 @@ public class BlogsStatsUserLocalServiceWrapper
 			start, end);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.blogs.model.BlogsStatsUser> getOrganizationStatsUsers(
 		long organizationId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -330,11 +360,13 @@ public class BlogsStatsUserLocalServiceWrapper
 			start, end, obc);
 	}
 
+	@Override
 	public int getOrganizationStatsUsersCount(long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _blogsStatsUserLocalService.getOrganizationStatsUsersCount(organizationId);
 	}
 
+	@Override
 	public com.liferay.portlet.blogs.model.BlogsStatsUser getStatsUser(
 		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -342,12 +374,14 @@ public class BlogsStatsUserLocalServiceWrapper
 		return _blogsStatsUserLocalService.getStatsUser(groupId, userId);
 	}
 
+	@Override
 	public void updateStatsUser(long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_blogsStatsUserLocalService.updateStatsUser(groupId, userId);
 	}
 
+	@Override
 	public void updateStatsUser(long groupId, long userId,
 		java.util.Date displayDate)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -370,10 +404,12 @@ public class BlogsStatsUserLocalServiceWrapper
 		_blogsStatsUserLocalService = blogsStatsUserLocalService;
 	}
 
+	@Override
 	public BlogsStatsUserLocalService getWrappedService() {
 		return _blogsStatsUserLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		BlogsStatsUserLocalService blogsStatsUserLocalService) {
 		_blogsStatsUserLocalService = blogsStatsUserLocalService;

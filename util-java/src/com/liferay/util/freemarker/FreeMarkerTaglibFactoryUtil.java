@@ -44,10 +44,12 @@ public class FreeMarkerTaglibFactoryUtil implements CacheRegistryItem {
 		return new TaglibFactoryCacheWrapper(servletContext);
 	}
 
+	@Override
 	public String getRegistryName() {
 		return _registryName;
 	}
 
+	@Override
 	public void invalidate() {
 		_templateModels.clear();
 	}
@@ -89,6 +91,7 @@ public class FreeMarkerTaglibFactoryUtil implements CacheRegistryItem {
 					servletContext,
 					new FinalizeAction() {
 
+						@Override
 						public void doFinalize() {
 							CacheRegistryUtil.unregister(name);
 						}
@@ -124,6 +127,7 @@ public class FreeMarkerTaglibFactoryUtil implements CacheRegistryItem {
 			_taglibFactory = new TaglibFactory(servletContext);
 		}
 
+		@Override
 		public TemplateModel get(String uri) throws TemplateModelException {
 			TemplateModel templateModel = _templateModels.get(uri);
 
@@ -136,6 +140,7 @@ public class FreeMarkerTaglibFactoryUtil implements CacheRegistryItem {
 			return templateModel;
 		}
 
+		@Override
 		public boolean isEmpty() {
 			return false;
 		}

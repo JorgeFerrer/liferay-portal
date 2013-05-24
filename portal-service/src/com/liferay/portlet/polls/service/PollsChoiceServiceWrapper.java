@@ -34,6 +34,7 @@ public class PollsChoiceServiceWrapper implements PollsChoiceService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _pollsChoiceService.getBeanIdentifier();
 	}
@@ -43,6 +44,7 @@ public class PollsChoiceServiceWrapper implements PollsChoiceService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_pollsChoiceService.setBeanIdentifier(beanIdentifier);
 	}
@@ -62,10 +64,12 @@ public class PollsChoiceServiceWrapper implements PollsChoiceService,
 		_pollsChoiceService = pollsChoiceService;
 	}
 
+	@Override
 	public PollsChoiceService getWrappedService() {
 		return _pollsChoiceService;
 	}
 
+	@Override
 	public void setWrappedService(PollsChoiceService pollsChoiceService) {
 		_pollsChoiceService = pollsChoiceService;
 	}

@@ -115,6 +115,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid(String uuid)
 		throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -133,6 +134,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -152,6 +154,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -272,6 +275,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -302,6 +306,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the first matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<PasswordPolicy> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -322,6 +327,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -351,6 +357,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the last matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -375,6 +382,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] findByUuid_PrevAndNext(long passwordPolicyId,
 		String uuid, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -531,6 +539,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid(String uuid)
 		throws SystemException {
 		return filterFindByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -549,6 +558,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return filterFindByUuid(uuid, start, end, null);
@@ -568,6 +578,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid(String uuid, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
@@ -673,6 +684,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] filterFindByUuid_PrevAndNext(
 		long passwordPolicyId, String uuid, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -868,6 +880,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (PasswordPolicy passwordPolicy : findByUuid(uuid,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -882,6 +895,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -948,6 +962,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByUuid(String uuid) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return countByUuid(uuid);
@@ -1040,6 +1055,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -1060,6 +1076,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -1080,6 +1097,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1211,6 +1229,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -1245,6 +1264,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the first matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<PasswordPolicy> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -1267,6 +1287,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -1301,6 +1322,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the last matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -1326,6 +1348,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] findByUuid_C_PrevAndNext(long passwordPolicyId,
 		String uuid, long companyId, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -1487,6 +1510,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return filterFindByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -1507,6 +1531,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return filterFindByUuid_C(uuid, companyId, start, end, null);
@@ -1527,6 +1552,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1638,6 +1664,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] filterFindByUuid_C_PrevAndNext(
 		long passwordPolicyId, String uuid, long companyId,
 		OrderByComparator orderByComparator)
@@ -1839,6 +1866,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (PasswordPolicy passwordPolicy : findByUuid_C(uuid, companyId,
@@ -1855,6 +1883,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1927,6 +1956,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
@@ -2024,6 +2054,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -2043,6 +2074,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByCompanyId(long companyId, int start,
 		int end) throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -2062,6 +2094,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findByCompanyId(long companyId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2168,6 +2201,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -2198,6 +2232,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the first matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<PasswordPolicy> list = findByCompanyId(companyId, 0, 1,
@@ -2219,6 +2254,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -2249,6 +2285,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the last matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -2273,6 +2310,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] findByCompanyId_PrevAndNext(long passwordPolicyId,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchPasswordPolicyException, SystemException {
@@ -2415,6 +2453,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByCompanyId(long companyId)
 		throws SystemException {
 		return filterFindByCompanyId(companyId, QueryUtil.ALL_POS,
@@ -2434,6 +2473,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByCompanyId(long companyId,
 		int start, int end) throws SystemException {
 		return filterFindByCompanyId(companyId, start, end, null);
@@ -2453,6 +2493,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> filterFindByCompanyId(long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2545,6 +2586,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy[] filterFindByCompanyId_PrevAndNext(
 		long passwordPolicyId, long companyId,
 		OrderByComparator orderByComparator)
@@ -2727,6 +2769,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (PasswordPolicy passwordPolicy : findByCompanyId(companyId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2741,6 +2784,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -2793,6 +2837,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByCompanyId(long companyId) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
 			return countByCompanyId(companyId);
@@ -2855,6 +2900,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByC_DP(long companyId, boolean defaultPolicy)
 		throws NoSuchPasswordPolicyException, SystemException {
 		PasswordPolicy passwordPolicy = fetchByC_DP(companyId, defaultPolicy);
@@ -2890,6 +2936,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByC_DP(long companyId, boolean defaultPolicy)
 		throws SystemException {
 		return fetchByC_DP(companyId, defaultPolicy, true);
@@ -2904,6 +2951,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByC_DP(long companyId, boolean defaultPolicy,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { companyId, defaultPolicy };
@@ -3002,6 +3050,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the password policy that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy removeByC_DP(long companyId, boolean defaultPolicy)
 		throws NoSuchPasswordPolicyException, SystemException {
 		PasswordPolicy passwordPolicy = findByC_DP(companyId, defaultPolicy);
@@ -3017,6 +3066,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_DP(long companyId, boolean defaultPolicy)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_DP;
@@ -3089,6 +3139,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByC_N(long companyId, String name)
 		throws NoSuchPasswordPolicyException, SystemException {
 		PasswordPolicy passwordPolicy = fetchByC_N(companyId, name);
@@ -3124,6 +3175,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByC_N(long companyId, String name)
 		throws SystemException {
 		return fetchByC_N(companyId, name, true);
@@ -3138,6 +3190,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the matching password policy, or <code>null</code> if a matching password policy could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByC_N(long companyId, String name,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { companyId, name };
@@ -3244,6 +3297,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the password policy that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy removeByC_N(long companyId, String name)
 		throws NoSuchPasswordPolicyException, SystemException {
 		PasswordPolicy passwordPolicy = findByC_N(companyId, name);
@@ -3259,6 +3313,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of matching password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_N(long companyId, String name)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_N;
@@ -3333,6 +3388,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 *
 	 * @param passwordPolicy the password policy
 	 */
+	@Override
 	public void cacheResult(PasswordPolicy passwordPolicy) {
 		EntityCacheUtil.putResult(PasswordPolicyModelImpl.ENTITY_CACHE_ENABLED,
 			PasswordPolicyImpl.class, passwordPolicy.getPrimaryKey(),
@@ -3355,6 +3411,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 *
 	 * @param passwordPolicies the password policies
 	 */
+	@Override
 	public void cacheResult(List<PasswordPolicy> passwordPolicies) {
 		for (PasswordPolicy passwordPolicy : passwordPolicies) {
 			if (EntityCacheUtil.getResult(
@@ -3516,6 +3573,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @param passwordPolicyId the primary key for the new password policy
 	 * @return the new password policy
 	 */
+	@Override
 	public PasswordPolicy create(long passwordPolicyId) {
 		PasswordPolicy passwordPolicy = new PasswordPolicyImpl();
 
@@ -3537,6 +3595,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy remove(long passwordPolicyId)
 		throws NoSuchPasswordPolicyException, SystemException {
 		return remove((Serializable)passwordPolicyId);
@@ -3809,6 +3868,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @throws com.liferay.portal.NoSuchPasswordPolicyException if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy findByPrimaryKey(long passwordPolicyId)
 		throws NoSuchPasswordPolicyException, SystemException {
 		return findByPrimaryKey((Serializable)passwordPolicyId);
@@ -3870,6 +3930,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the password policy, or <code>null</code> if a password policy with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordPolicy fetchByPrimaryKey(long passwordPolicyId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)passwordPolicyId);
@@ -3881,6 +3942,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -3897,6 +3959,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the range of password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -3915,6 +3978,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the ordered range of password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordPolicy> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -4000,6 +4064,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (PasswordPolicy passwordPolicy : findAll()) {
 			remove(passwordPolicy);
@@ -4012,6 +4077,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 	 * @return the number of password policies
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -4115,6 +4181,7 @@ public class PasswordPolicyPersistenceImpl extends BasePersistenceImpl<PasswordP
 		};
 
 	private static CacheModel<PasswordPolicy> _nullPasswordPolicyCacheModel = new CacheModel<PasswordPolicy>() {
+			@Override
 			public PasswordPolicy toEntityModel() {
 				return _nullPasswordPolicy;
 			}

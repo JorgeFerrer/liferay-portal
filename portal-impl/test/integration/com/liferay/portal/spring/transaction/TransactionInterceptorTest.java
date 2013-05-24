@@ -112,6 +112,7 @@ public class TransactionInterceptorTest {
 			_platformTransactionManager = platformTransactionManager;
 		}
 
+		@Override
 		public void commit(TransactionStatus transactionStatus)
 			throws TransactionException {
 
@@ -120,6 +121,7 @@ public class TransactionInterceptorTest {
 			throw new RuntimeException("MockPlatformTransactionManager");
 		}
 
+		@Override
 		public TransactionStatus getTransaction(
 				TransactionDefinition transactionDefinition)
 			throws TransactionException {
@@ -128,6 +130,7 @@ public class TransactionInterceptorTest {
 				transactionDefinition);
 		}
 
+		@Override
 		public void rollback(TransactionStatus transactionStatus)
 			throws TransactionException {
 

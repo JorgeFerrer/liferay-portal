@@ -866,6 +866,7 @@ public class TemplateContextHelper {
 
 	private static class NoPACL implements PACL {
 
+		@Override
 		public TemplateControlContext getTemplateControlContext() {
 			ClassLoader contextClassLoader =
 				ClassLoaderUtil.getContextClassLoader();
@@ -891,6 +892,7 @@ public class TemplateContextHelper {
 			_restricted = restricted;
 		}
 
+		@Override
 		public Map<String, Object> run() {
 			return doGetHelperUtilities(_classLoader, _restricted);
 		}

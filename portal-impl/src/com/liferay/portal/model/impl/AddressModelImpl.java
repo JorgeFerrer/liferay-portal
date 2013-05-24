@@ -173,26 +173,32 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 	public AddressModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _addressId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setAddressId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _addressId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Address.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Address.class.getName();
 	}
@@ -341,6 +347,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
@@ -351,6 +358,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -363,20 +371,24 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	@JSON
 	public long getAddressId() {
 		return _addressId;
 	}
 
+	@Override
 	public void setAddressId(long addressId) {
 		_addressId = addressId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -393,11 +405,13 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return _originalCompanyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -410,10 +424,12 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -422,6 +438,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return _originalUserId;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -432,30 +449,36 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_columnBitmask = -1L;
 
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getClassName() {
 		if (getClassNameId() <= 0) {
 			return StringPool.BLANK;
@@ -464,6 +487,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return PortalUtil.getClassName(getClassNameId());
 	}
 
+	@Override
 	public void setClassName(String className) {
 		long classNameId = 0;
 
@@ -474,11 +498,13 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		setClassNameId(classNameId);
 	}
 
+	@Override
 	@JSON
 	public long getClassNameId() {
 		return _classNameId;
 	}
 
+	@Override
 	public void setClassNameId(long classNameId) {
 		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
@@ -495,11 +521,13 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return _originalClassNameId;
 	}
 
+	@Override
 	@JSON
 	public long getClassPK() {
 		return _classPK;
 	}
 
+	@Override
 	public void setClassPK(long classPK) {
 		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
@@ -516,6 +544,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return _originalClassPK;
 	}
 
+	@Override
 	@JSON
 	public String getStreet1() {
 		if (_street1 == null) {
@@ -526,10 +555,12 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setStreet1(String street1) {
 		_street1 = street1;
 	}
 
+	@Override
 	@JSON
 	public String getStreet2() {
 		if (_street2 == null) {
@@ -540,10 +571,12 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setStreet2(String street2) {
 		_street2 = street2;
 	}
 
+	@Override
 	@JSON
 	public String getStreet3() {
 		if (_street3 == null) {
@@ -554,10 +587,12 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setStreet3(String street3) {
 		_street3 = street3;
 	}
 
+	@Override
 	@JSON
 	public String getCity() {
 		if (_city == null) {
@@ -568,10 +603,12 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setCity(String city) {
 		_city = city;
 	}
 
+	@Override
 	@JSON
 	public String getZip() {
 		if (_zip == null) {
@@ -582,46 +619,56 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		}
 	}
 
+	@Override
 	public void setZip(String zip) {
 		_zip = zip;
 	}
 
+	@Override
 	@JSON
 	public long getRegionId() {
 		return _regionId;
 	}
 
+	@Override
 	public void setRegionId(long regionId) {
 		_regionId = regionId;
 	}
 
+	@Override
 	@JSON
 	public long getCountryId() {
 		return _countryId;
 	}
 
+	@Override
 	public void setCountryId(long countryId) {
 		_countryId = countryId;
 	}
 
+	@Override
 	@JSON
 	public int getTypeId() {
 		return _typeId;
 	}
 
+	@Override
 	public void setTypeId(int typeId) {
 		_typeId = typeId;
 	}
 
+	@Override
 	@JSON
 	public boolean getMailing() {
 		return _mailing;
 	}
 
+	@Override
 	public boolean isMailing() {
 		return _mailing;
 	}
 
+	@Override
 	public void setMailing(boolean mailing) {
 		_columnBitmask |= MAILING_COLUMN_BITMASK;
 
@@ -638,15 +685,18 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return _originalMailing;
 	}
 
+	@Override
 	@JSON
 	public boolean getPrimary() {
 		return _primary;
 	}
 
+	@Override
 	public boolean isPrimary() {
 		return _primary;
 	}
 
+	@Override
 	public void setPrimary(boolean primary) {
 		_columnBitmask |= PRIMARY_COLUMN_BITMASK;
 
@@ -719,6 +769,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return addressImpl;
 	}
 
+	@Override
 	public int compareTo(Address address) {
 		int value = 0;
 
@@ -939,6 +990,7 @@ public class AddressModelImpl extends BaseModelImpl<Address>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(61);
 

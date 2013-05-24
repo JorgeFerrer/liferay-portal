@@ -32,6 +32,7 @@ public class ThemeServiceWrapper implements ThemeService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _themeService.getBeanIdentifier();
 	}
@@ -41,15 +42,18 @@ public class ThemeServiceWrapper implements ThemeService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_themeService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Theme> getThemes(
 		long companyId) {
 		return _themeService.getThemes(companyId);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.json.JSONArray getWARThemes() {
 		return _themeService.getWARThemes();
 	}
@@ -68,10 +72,12 @@ public class ThemeServiceWrapper implements ThemeService,
 		_themeService = themeService;
 	}
 
+	@Override
 	public ThemeService getWrappedService() {
 		return _themeService;
 	}
 
+	@Override
 	public void setWrappedService(ThemeService themeService) {
 		_themeService = themeService;
 	}

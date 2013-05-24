@@ -38,6 +38,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the journal article image that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage addJournalArticleImage(
 		com.liferay.portlet.journal.model.JournalArticleImage journalArticleImage)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @param articleImageId the primary key for the new journal article image
 	* @return the new journal article image
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage createJournalArticleImage(
 		long articleImageId) {
 		return _journalArticleImageLocalService.createJournalArticleImage(articleImageId);
@@ -63,6 +65,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @throws PortalException if a journal article image with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage deleteJournalArticleImage(
 		long articleImageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the journal article image that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage deleteJournalArticleImage(
 		com.liferay.portlet.journal.model.JournalArticleImage journalArticleImage)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleImageLocalService.deleteJournalArticleImage(journalArticleImage);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _journalArticleImageLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -136,6 +143,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -153,12 +161,14 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleImageLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage fetchJournalArticleImage(
 		long articleImageId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -173,6 +183,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @throws PortalException if a journal article image with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage getJournalArticleImage(
 		long articleImageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -180,6 +191,7 @@ public class JournalArticleImageLocalServiceWrapper
 		return _journalArticleImageLocalService.getJournalArticleImage(articleImageId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -199,6 +211,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the range of journal article images
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalArticleImage> getJournalArticleImages(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -212,6 +225,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the number of journal article images
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getJournalArticleImagesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalArticleImageLocalService.getJournalArticleImagesCount();
@@ -224,6 +238,7 @@ public class JournalArticleImageLocalServiceWrapper
 	* @return the journal article image that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage updateJournalArticleImage(
 		com.liferay.portlet.journal.model.JournalArticleImage journalArticleImage)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -235,6 +250,7 @@ public class JournalArticleImageLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _journalArticleImageLocalService.getBeanIdentifier();
 	}
@@ -244,10 +260,12 @@ public class JournalArticleImageLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_journalArticleImageLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void addArticleImageId(long articleImageId, long groupId,
 		java.lang.String articleId, double version,
 		java.lang.String elInstanceId, java.lang.String elName,
@@ -258,17 +276,20 @@ public class JournalArticleImageLocalServiceWrapper
 			groupId, articleId, version, elInstanceId, elName, languageId);
 	}
 
+	@Override
 	public void deleteArticleImage(
 		com.liferay.portlet.journal.model.JournalArticleImage articleImage)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_journalArticleImageLocalService.deleteArticleImage(articleImage);
 	}
 
+	@Override
 	public void deleteArticleImage(long articleImageId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_journalArticleImageLocalService.deleteArticleImage(articleImageId);
 	}
 
+	@Override
 	public void deleteArticleImage(long groupId, java.lang.String articleId,
 		double version, java.lang.String elInstanceId, java.lang.String elName,
 		java.lang.String languageId)
@@ -277,6 +298,7 @@ public class JournalArticleImageLocalServiceWrapper
 			version, elInstanceId, elName, languageId);
 	}
 
+	@Override
 	public void deleteImages(long groupId, java.lang.String articleId,
 		double version)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -284,6 +306,7 @@ public class JournalArticleImageLocalServiceWrapper
 			version);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalArticleImage getArticleImage(
 		long articleImageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -291,6 +314,7 @@ public class JournalArticleImageLocalServiceWrapper
 		return _journalArticleImageLocalService.getArticleImage(articleImageId);
 	}
 
+	@Override
 	public long getArticleImageId(long groupId, java.lang.String articleId,
 		double version, java.lang.String elInstanceId, java.lang.String elName,
 		java.lang.String languageId)
@@ -299,6 +323,7 @@ public class JournalArticleImageLocalServiceWrapper
 			articleId, version, elInstanceId, elName, languageId);
 	}
 
+	@Override
 	public long getArticleImageId(long groupId, java.lang.String articleId,
 		double version, java.lang.String elInstanceId, java.lang.String elName,
 		java.lang.String languageId, boolean tempImage)
@@ -307,6 +332,7 @@ public class JournalArticleImageLocalServiceWrapper
 			articleId, version, elInstanceId, elName, languageId, tempImage);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalArticleImage> getArticleImages(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -328,10 +354,12 @@ public class JournalArticleImageLocalServiceWrapper
 		_journalArticleImageLocalService = journalArticleImageLocalService;
 	}
 
+	@Override
 	public JournalArticleImageLocalService getWrappedService() {
 		return _journalArticleImageLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		JournalArticleImageLocalService journalArticleImageLocalService) {
 		_journalArticleImageLocalService = journalArticleImageLocalService;

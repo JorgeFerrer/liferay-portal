@@ -163,6 +163,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalArticle addJournalArticle(JournalArticle journalArticle)
 		throws SystemException {
 		journalArticle.setNew(true);
@@ -176,6 +177,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @param id the primary key for the new journal article
 	 * @return the new journal article
 	 */
+	@Override
 	public JournalArticle createJournalArticle(long id) {
 		return journalArticlePersistence.create(id);
 	}
@@ -189,6 +191,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalArticle deleteJournalArticle(long id)
 		throws PortalException, SystemException {
 		return journalArticlePersistence.remove(id);
@@ -202,11 +205,13 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalArticle deleteJournalArticle(JournalArticle journalArticle)
 		throws SystemException {
 		return journalArticlePersistence.remove(journalArticle);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -221,6 +226,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -240,6 +246,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -261,6 +268,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -275,11 +283,13 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return journalArticlePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public JournalArticle fetchJournalArticle(long id)
 		throws SystemException {
 		return journalArticlePersistence.fetchByPrimaryKey(id);
@@ -293,11 +303,13 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws PortalException if a journal article with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalArticle getJournalArticle(long id)
 		throws PortalException, SystemException {
 		return journalArticlePersistence.findByPrimaryKey(id);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return journalArticlePersistence.findByPrimaryKey(primaryKeyObj);
@@ -312,6 +324,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws PortalException if a matching journal article could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalArticle getJournalArticleByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return journalArticlePersistence.findByUUID_G(uuid, groupId);
@@ -329,6 +342,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the range of journal articles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalArticle> getJournalArticles(int start, int end)
 		throws SystemException {
 		return journalArticlePersistence.findAll(start, end);
@@ -340,6 +354,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @return the number of journal articles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getJournalArticlesCount() throws SystemException {
 		return journalArticlePersistence.countAll();
 	}
@@ -352,6 +367,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalArticle updateJournalArticle(JournalArticle journalArticle)
 		throws SystemException {
 		return journalArticlePersistence.update(journalArticle);
@@ -2142,6 +2158,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -2151,6 +2168,7 @@ public abstract class JournalArticleLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

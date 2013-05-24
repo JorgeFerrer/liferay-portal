@@ -39,6 +39,7 @@ public class ClassLoaderUtil {
 		return AccessController.doPrivileged(
 			new PrivilegedAction<ClassLoader> () {
 
+				@Override
 				public ClassLoader run() {
 					List<ClassLoader> classLoaders = new ArrayList<ClassLoader>(
 						servletContextNames.length + 2);
@@ -72,6 +73,7 @@ public class ClassLoaderUtil {
 		return AccessController.doPrivileged(
 			new PrivilegedAction<ClassLoader>() {
 
+				@Override
 				public ClassLoader run() {
 					return clazz.getClassLoader();
 				}
@@ -84,6 +86,7 @@ public class ClassLoaderUtil {
 		return AccessController.doPrivileged(
 			new PrivilegedAction<ClassLoader>() {
 
+				@Override
 				public ClassLoader run() {
 					return _getContextClassLoader();
 				}
@@ -98,6 +101,7 @@ public class ClassLoaderUtil {
 		return AccessController.doPrivileged(
 			new PrivilegedAction<ClassLoader> () {
 
+				@Override
 				public ClassLoader run() {
 					ClassLoader pluginClassLoader = _getPluginClassLoader(
 						servletContextName);
@@ -113,6 +117,7 @@ public class ClassLoaderUtil {
 		return AccessController.doPrivileged(
 			new PrivilegedAction<ClassLoader>() {
 
+				@Override
 				public ClassLoader run() {
 					return PortalClassLoaderUtil.getClassLoader();
 				}
@@ -125,6 +130,7 @@ public class ClassLoaderUtil {
 		AccessController.doPrivileged(
 			new PrivilegedAction<Void>() {
 
+				@Override
 				public Void run() {
 					Thread thread = Thread.currentThread();
 

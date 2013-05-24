@@ -63,6 +63,7 @@ public class SelectorIntraband extends BaseIntraband {
 		super.close();
 	}
 
+	@Override
 	public RegistrationReference registerChannel(Channel channel)
 		throws IOException {
 
@@ -117,6 +118,7 @@ public class SelectorIntraband extends BaseIntraband {
 		}
 	}
 
+	@Override
 	public RegistrationReference registerChannel(
 			ScatteringByteChannel scatteringByteChannel,
 			GatheringByteChannel gatheringByteChannel)
@@ -237,6 +239,7 @@ public class SelectorIntraband extends BaseIntraband {
 			_writeSelectableChannel = writeSelectableChannel;
 		}
 
+		@Override
 		public RegistrationReference call() throws Exception {
 			if (_readSelectableChannel == _writeSelectableChannel) {
 
@@ -363,6 +366,7 @@ public class SelectorIntraband extends BaseIntraband {
 
 	private class PollingJob implements Runnable {
 
+		@Override
 		public void run() {
 			try {
 				try {

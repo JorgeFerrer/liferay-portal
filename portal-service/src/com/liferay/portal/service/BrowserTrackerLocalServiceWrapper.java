@@ -36,6 +36,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the browser tracker that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker addBrowserTracker(
 		com.liferay.portal.model.BrowserTracker browserTracker)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @param browserTrackerId the primary key for the new browser tracker
 	* @return the new browser tracker
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker createBrowserTracker(
 		long browserTrackerId) {
 		return _browserTrackerLocalService.createBrowserTracker(browserTrackerId);
@@ -61,6 +63,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @throws PortalException if a browser tracker with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker deleteBrowserTracker(
 		long browserTrackerId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the browser tracker that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker deleteBrowserTracker(
 		com.liferay.portal.model.BrowserTracker browserTracker)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _browserTrackerLocalService.deleteBrowserTracker(browserTracker);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _browserTrackerLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -133,6 +140,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -150,12 +158,14 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _browserTrackerLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.BrowserTracker fetchBrowserTracker(
 		long browserTrackerId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -170,6 +180,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @throws PortalException if a browser tracker with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker getBrowserTracker(
 		long browserTrackerId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -177,6 +188,7 @@ public class BrowserTrackerLocalServiceWrapper
 		return _browserTrackerLocalService.getBrowserTracker(browserTrackerId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -196,6 +208,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the range of browser trackers
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.BrowserTracker> getBrowserTrackers(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -208,6 +221,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the number of browser trackers
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getBrowserTrackersCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _browserTrackerLocalService.getBrowserTrackersCount();
@@ -220,6 +234,7 @@ public class BrowserTrackerLocalServiceWrapper
 	* @return the browser tracker that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.BrowserTracker updateBrowserTracker(
 		com.liferay.portal.model.BrowserTracker browserTracker)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -231,6 +246,7 @@ public class BrowserTrackerLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _browserTrackerLocalService.getBeanIdentifier();
 	}
@@ -240,21 +256,25 @@ public class BrowserTrackerLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_browserTrackerLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void deleteUserBrowserTracker(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_browserTrackerLocalService.deleteUserBrowserTracker(userId);
 	}
 
+	@Override
 	public com.liferay.portal.model.BrowserTracker getBrowserTracker(
 		long userId, long browserKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _browserTrackerLocalService.getBrowserTracker(userId, browserKey);
 	}
 
+	@Override
 	public com.liferay.portal.model.BrowserTracker updateBrowserTracker(
 		long userId, long browserKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -277,10 +297,12 @@ public class BrowserTrackerLocalServiceWrapper
 		_browserTrackerLocalService = browserTrackerLocalService;
 	}
 
+	@Override
 	public BrowserTrackerLocalService getWrappedService() {
 		return _browserTrackerLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		BrowserTrackerLocalService browserTrackerLocalService) {
 		_browserTrackerLocalService = browserTrackerLocalService;

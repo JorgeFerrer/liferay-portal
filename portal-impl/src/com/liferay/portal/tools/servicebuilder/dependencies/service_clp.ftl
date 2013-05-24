@@ -33,6 +33,8 @@ public class ${entity.name}${sessionTypeName}ServiceClp implements ${entity.name
 			<#assign returnTypeName = serviceBuilder.getTypeGenericsName(method.returns)>
 			<#assign parameters = method.parameters>
 
+			@Override
+
 			<#if method.name = "dynamicQuery" && (method.parameters?size != 0)>
 				@SuppressWarnings("rawtypes")
 			</#if>

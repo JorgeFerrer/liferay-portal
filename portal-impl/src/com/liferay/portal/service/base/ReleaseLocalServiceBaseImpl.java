@@ -246,6 +246,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Release addRelease(Release release) throws SystemException {
 		release.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param releaseId the primary key for the new release
 	 * @return the new release
 	 */
+	@Override
 	public Release createRelease(long releaseId) {
 		return releasePersistence.create(releaseId);
 	}
@@ -271,6 +273,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Release deleteRelease(long releaseId)
 		throws PortalException, SystemException {
 		return releasePersistence.remove(releaseId);
@@ -284,10 +287,12 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Release deleteRelease(Release release) throws SystemException {
 		return releasePersistence.remove(release);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return releasePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Release fetchRelease(long releaseId) throws SystemException {
 		return releasePersistence.fetchByPrimaryKey(releaseId);
 	}
@@ -372,11 +382,13 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a release with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Release getRelease(long releaseId)
 		throws PortalException, SystemException {
 		return releasePersistence.findByPrimaryKey(releaseId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return releasePersistence.findByPrimaryKey(primaryKeyObj);
@@ -394,6 +406,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of releases
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Release> getReleases(int start, int end)
 		throws SystemException {
 		return releasePersistence.findAll(start, end);
@@ -405,6 +418,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of releases
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getReleasesCount() throws SystemException {
 		return releasePersistence.countAll();
 	}
@@ -417,6 +431,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Release updateRelease(Release release) throws SystemException {
 		return releasePersistence.update(release);
 	}
@@ -3796,6 +3811,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3805,6 +3821,7 @@ public abstract class ReleaseLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -36,6 +36,7 @@ public class AnnouncementsEntryServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _announcementsEntryService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class AnnouncementsEntryServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_announcementsEntryService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.announcements.model.AnnouncementsEntry addEntry(
 		long plid, long classNameId, long classPK, java.lang.String title,
 		java.lang.String content, java.lang.String url, java.lang.String type,
@@ -72,6 +75,7 @@ public class AnnouncementsEntryServiceWrapper
 	String, String, String, String, int, int, int, int, int,
 	boolean, int, int, int, int, int, int, boolean)}
 	*/
+	@Override
 	public com.liferay.portlet.announcements.model.AnnouncementsEntry addEntry(
 		long plid, long classNameId, long classPK, java.lang.String title,
 		java.lang.String content, java.lang.String url, java.lang.String type,
@@ -88,12 +92,14 @@ public class AnnouncementsEntryServiceWrapper
 			expirationDateHour, expirationDateMinute, priority, alert);
 	}
 
+	@Override
 	public void deleteEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_announcementsEntryService.deleteEntry(entryId);
 	}
 
+	@Override
 	public com.liferay.portlet.announcements.model.AnnouncementsEntry getEntry(
 		long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -101,6 +107,7 @@ public class AnnouncementsEntryServiceWrapper
 		return _announcementsEntryService.getEntry(entryId);
 	}
 
+	@Override
 	public com.liferay.portlet.announcements.model.AnnouncementsEntry updateEntry(
 		long entryId, java.lang.String title, java.lang.String content,
 		java.lang.String url, java.lang.String type, int displayDateMonth,
@@ -132,10 +139,12 @@ public class AnnouncementsEntryServiceWrapper
 		_announcementsEntryService = announcementsEntryService;
 	}
 
+	@Override
 	public AnnouncementsEntryService getWrappedService() {
 		return _announcementsEntryService;
 	}
 
+	@Override
 	public void setWrappedService(
 		AnnouncementsEntryService announcementsEntryService) {
 		_announcementsEntryService = announcementsEntryService;

@@ -596,7 +596,8 @@ public class ThemeDisplay
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #isShowSiteAdministrationIcon()}
 	 */
 	public PortletURL getURLSiteMapSettings() {
 		return _urlSiteMapSettings;
@@ -712,7 +713,8 @@ public class ThemeDisplay
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #isShowSiteAdministrationIcon()}
 	 */
 	public boolean isShowManageSiteMembershipsIcon() {
 		return _showManageSiteMembershipsIcon;
@@ -747,21 +749,24 @@ public class ThemeDisplay
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #isShowSiteAdministrationIcon()}
 	 */
 	public boolean isShowSiteContentIcon() {
 		return isShowSiteAdministrationIcon();
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #isShowSiteAdministrationIcon()}
 	 */
 	public boolean isShowSiteMapSettingsIcon() {
 		return _showSiteMapSettingsIcon;
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isShowSiteAdministrationIcon()}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #isShowSiteAdministrationIcon()}
 	 */
 	public boolean isShowSiteSettingsIcon() {
 		return _showSiteSettingsIcon;
@@ -815,6 +820,7 @@ public class ThemeDisplay
 		return _widget;
 	}
 
+	@Override
 	public ThemeDisplay merge(ThemeDisplay themeDisplay) {
 		if ((themeDisplay == null) || (themeDisplay == this)) {
 			return this;
@@ -1409,7 +1415,8 @@ public class ThemeDisplay
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #setURLSiteAdministration(String)}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #setURLSiteAdministration(String)}
 	 */
 	public void setURLSiteContent(String urlSiteContent) {
 		setURLSiteAdministration(urlSiteContent);

@@ -65,6 +65,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 * @return the uuid of this website
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -72,6 +73,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param uuid the uuid of this website
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -93,6 +95,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the company ID of this website
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -100,6 +103,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param companyId the company ID of this website
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -107,6 +111,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the user ID of this website
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -114,6 +119,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param userId the user ID of this website
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -122,6 +128,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 * @return the user uuid of this website
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -129,6 +136,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param userUuid the user uuid of this website
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -137,6 +145,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 * @return the user name of this website
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -144,6 +153,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param userName the user name of this website
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -151,6 +161,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the create date of this website
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -158,6 +169,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param createDate the create date of this website
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -165,6 +177,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the modified date of this website
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -172,6 +185,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param modifiedDate the modified date of this website
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -179,6 +193,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the fully qualified class name of this website
 	 */
+	@Override
 	public String getClassName();
 
 	public void setClassName(String className);
@@ -188,6 +203,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the class name ID of this website
 	 */
+	@Override
 	public long getClassNameId();
 
 	/**
@@ -195,6 +211,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param classNameId the class name ID of this website
 	 */
+	@Override
 	public void setClassNameId(long classNameId);
 
 	/**
@@ -202,6 +219,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @return the class p k of this website
 	 */
+	@Override
 	public long getClassPK();
 
 	/**
@@ -209,6 +227,7 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 *
 	 * @param classPK the class p k of this website
 	 */
+	@Override
 	public void setClassPK(long classPK);
 
 	/**
@@ -261,41 +280,60 @@ public interface WebsiteModel extends AttachedModel, BaseModel<Website>,
 	 */
 	public void setPrimary(boolean primary);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(Website website);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<Website> toCacheModel();
 
+	@Override
 	public Website toEscapedModel();
 
+	@Override
 	public Website toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

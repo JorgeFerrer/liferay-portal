@@ -270,10 +270,12 @@ public class PortalSecurityManagerImpl extends SecurityManager
 		AccessController.checkPermission(permission);
 	}
 
+	@Override
 	public Policy getPolicy() {
 		return _policy;
 	}
 
+	@Override
 	public boolean isActive() {
 		return PACLPolicyManager.isActive();
 	}
@@ -431,6 +433,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 	private static class DoBeanLocatorImplPACL implements BeanLocatorImpl.PACL {
 
+		@Override
 		public Object getBean(final Object bean, ClassLoader classLoader) {
 			if (classLoader == ClassLoaderUtil.getPortalClassLoader()) {
 				Class<?> callerClass = Reflection.getCallerClass(5);
@@ -445,6 +448,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 			InvocationHandler invocationHandler = new InvocationHandler() {
 
+				@Override
 				public Object invoke(
 						Object proxy, Method method, Object[] arguments)
 					throws Throwable {
@@ -466,6 +470,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoDataSourceFactoryImplPACL
 		implements DataSourceFactoryImpl.PACL {
 
+		@Override
 		public DataSource getDataSource(DataSource dataSource) {
 			return new PACLDataSource(dataSource);
 		}
@@ -475,6 +480,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoDirectRequestDispatcherFactoryImplPACL
 		implements DirectRequestDispatcherFactoryImpl.PACL {
 
+		@Override
 		public RequestDispatcher getRequestDispatcher(
 			ServletContext servletContext,
 			RequestDispatcher requestDispatcher) {
@@ -491,6 +497,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 	private static class DoDoPrivilegedPACL implements DoPrivilegedUtil.PACL {
 
+		@Override
 		public <T> T wrap(PrivilegedAction<T> privilegedAction) {
 			if (!PACLPolicyManager.isActive()) {
 				return privilegedAction.run();
@@ -500,6 +507,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				AccessController.doPrivileged(privilegedAction));
 		}
 
+		@Override
 		public <T> T wrap(
 				PrivilegedExceptionAction<T> privilegedExceptionAction)
 			throws Exception {
@@ -512,10 +520,12 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				AccessController.doPrivileged(privilegedExceptionAction));
 		}
 
+		@Override
 		public <T> T wrap(T t) {
 			return DoPrivilegedFactory.wrap(t);
 		}
 
+		@Override
 		public <T> T wrap(T t, boolean checkActive) {
 			if (!PACLPolicyManager.isActive()) {
 				return t;
@@ -528,6 +538,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 	private static class DoHotDeployImplPACL implements HotDeployImpl.PACL {
 
+		@Override
 		public void initPolicy(
 			String servletContextName, ClassLoader classLoader,
 			Properties properties) {
@@ -538,6 +549,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			PACLPolicyManager.register(classLoader, paclPolicy);
 		}
 
+		@Override
 		public void unregister(ClassLoader classLoader) {
 			PACLPolicyManager.unregister(classLoader);
 		}
@@ -547,6 +559,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalFilePermissionPACL
 		implements PortalFilePermission.PACL {
 
+		@Override
 		public void checkCopy(String source, String destination) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -565,6 +578,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkWrite(destination);
 		}
 
+		@Override
 		public void checkDelete(String path) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -579,6 +593,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkDelete(path);
 		}
 
+		@Override
 		public void checkMove(String source, String destination) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -599,6 +614,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkDelete(destination);
 		}
 
+		@Override
 		public void checkRead(String path) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -613,6 +629,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkRead(path);
 		}
 
+		@Override
 		public void checkWrite(String path) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -632,6 +649,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalHookPermissionPACL
 		implements PortalHookPermission.PACL {
 
+		@Override
 		public void checkPermission(
 			String name, ClassLoader portletClassLoader, Object subject) {
 
@@ -655,6 +673,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalMessageBusPermissionPACL
 		implements PortalMessageBusPermission.PACL {
 
+		@Override
 		public void checkListen(String destinationName) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -669,6 +688,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkSend(String destinationName) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -688,6 +708,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalRuntimePermissionPACL
 		implements PortalRuntimePermission.PACL {
 
+		@Override
 		public void checkDynamicQuery(Class<?> implClass) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -717,6 +738,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkExpandoBridge(String className) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -731,6 +753,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkGetBeanProperty(
 			String servletContextName, Class<?> clazz, String property) {
 
@@ -758,6 +781,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkGetClassLoader(String classLoaderReferenceId) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -776,6 +800,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkPortletBagPool(String portletId) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -790,6 +815,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkSearchEngine(String searchEngineId) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -804,6 +830,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkSetBeanProperty(
 			String servletContextName, Class<?> clazz, String property) {
 
@@ -822,6 +849,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			securityManager.checkPermission(permission);
 		}
 
+		@Override
 		public void checkThreadPoolExecutor(String name) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -841,6 +869,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalServicePermissionPACL
 		implements PortalServicePermission.PACL {
 
+		@Override
 		public void checkService(
 			Object object, Method method, Object[] arguments) {
 
@@ -889,6 +918,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortalSocketPermissionPACL
 		implements PortalSocketPermission.PACL {
 
+		@Override
 		public void checkPermission(String host, String action) {
 			SecurityManager securityManager = System.getSecurityManager();
 
@@ -906,6 +936,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoPortletApplicationContextPACL
 		implements PortletApplicationContext.PACL {
 
+		@Override
 		public ClassLoader getBeanClassLoader() {
 			if (PACLPolicyManager.isActive()) {
 				return DoPrivilegedFactory.wrap(
@@ -949,6 +980,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoServiceBeanAopProxyPACL
 		implements ServiceBeanAopProxy.PACL {
 
+		@Override
 		public InvocationHandler getInvocationHandler(
 			InvocationHandler invocationHandler,
 			AdvisedSupport advisedSupport) {
@@ -961,6 +993,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static class DoTemplateContextHelperPACL
 		implements TemplateContextHelper.PACL {
 
+		@Override
 		public TemplateControlContext getTemplateControlContext() {
 			PACLPolicy paclPolicy = PACLUtil.getPACLPolicy();
 

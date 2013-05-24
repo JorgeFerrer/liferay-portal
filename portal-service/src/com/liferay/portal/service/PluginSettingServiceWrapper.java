@@ -33,6 +33,7 @@ public class PluginSettingServiceWrapper implements PluginSettingService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _pluginSettingService.getBeanIdentifier();
 	}
@@ -42,10 +43,12 @@ public class PluginSettingServiceWrapper implements PluginSettingService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_pluginSettingService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.PluginSetting updatePluginSetting(
 		long companyId, java.lang.String pluginId, java.lang.String pluginType,
 		java.lang.String roles, boolean active)
@@ -70,10 +73,12 @@ public class PluginSettingServiceWrapper implements PluginSettingService,
 		_pluginSettingService = pluginSettingService;
 	}
 
+	@Override
 	public PluginSettingService getWrappedService() {
 		return _pluginSettingService;
 	}
 
+	@Override
 	public void setWrappedService(PluginSettingService pluginSettingService) {
 		_pluginSettingService = pluginSettingService;
 	}

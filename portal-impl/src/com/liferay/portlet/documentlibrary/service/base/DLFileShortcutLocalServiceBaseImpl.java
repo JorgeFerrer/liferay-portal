@@ -112,6 +112,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileShortcut addDLFileShortcut(DLFileShortcut dlFileShortcut)
 		throws SystemException {
 		dlFileShortcut.setNew(true);
@@ -125,6 +126,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @param fileShortcutId the primary key for the new document library file shortcut
 	 * @return the new document library file shortcut
 	 */
+	@Override
 	public DLFileShortcut createDLFileShortcut(long fileShortcutId) {
 		return dlFileShortcutPersistence.create(fileShortcutId);
 	}
@@ -138,6 +140,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileShortcut deleteDLFileShortcut(long fileShortcutId)
 		throws PortalException, SystemException {
 		return dlFileShortcutPersistence.remove(fileShortcutId);
@@ -151,11 +154,13 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileShortcut deleteDLFileShortcut(DLFileShortcut dlFileShortcut)
 		throws SystemException {
 		return dlFileShortcutPersistence.remove(dlFileShortcut);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -170,6 +175,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -189,6 +195,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -210,6 +217,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -224,11 +232,13 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileShortcutPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileShortcut fetchDLFileShortcut(long fileShortcutId)
 		throws SystemException {
 		return dlFileShortcutPersistence.fetchByPrimaryKey(fileShortcutId);
@@ -242,11 +252,13 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws PortalException if a document library file shortcut with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileShortcut getDLFileShortcut(long fileShortcutId)
 		throws PortalException, SystemException {
 		return dlFileShortcutPersistence.findByPrimaryKey(fileShortcutId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileShortcutPersistence.findByPrimaryKey(primaryKeyObj);
@@ -261,6 +273,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws PortalException if a matching document library file shortcut could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileShortcut getDLFileShortcutByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return dlFileShortcutPersistence.findByUUID_G(uuid, groupId);
@@ -278,6 +291,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the range of document library file shortcuts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileShortcut> getDLFileShortcuts(int start, int end)
 		throws SystemException {
 		return dlFileShortcutPersistence.findAll(start, end);
@@ -289,6 +303,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @return the number of document library file shortcuts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileShortcutsCount() throws SystemException {
 		return dlFileShortcutPersistence.countAll();
 	}
@@ -301,6 +316,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileShortcut updateDLFileShortcut(DLFileShortcut dlFileShortcut)
 		throws SystemException {
 		return dlFileShortcutPersistence.update(dlFileShortcut);
@@ -1157,6 +1173,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1166,6 +1183,7 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

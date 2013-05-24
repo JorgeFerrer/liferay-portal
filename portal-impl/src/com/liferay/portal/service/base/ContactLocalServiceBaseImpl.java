@@ -246,6 +246,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Contact addContact(Contact contact) throws SystemException {
 		contact.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param contactId the primary key for the new contact
 	 * @return the new contact
 	 */
+	@Override
 	public Contact createContact(long contactId) {
 		return contactPersistence.create(contactId);
 	}
@@ -271,6 +273,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Contact deleteContact(long contactId)
 		throws PortalException, SystemException {
 		return contactPersistence.remove(contactId);
@@ -284,10 +287,12 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Contact deleteContact(Contact contact) throws SystemException {
 		return contactPersistence.remove(contact);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return contactPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Contact fetchContact(long contactId) throws SystemException {
 		return contactPersistence.fetchByPrimaryKey(contactId);
 	}
@@ -372,11 +382,13 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a contact with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Contact getContact(long contactId)
 		throws PortalException, SystemException {
 		return contactPersistence.findByPrimaryKey(contactId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return contactPersistence.findByPrimaryKey(primaryKeyObj);
@@ -394,6 +406,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of contacts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Contact> getContacts(int start, int end)
 		throws SystemException {
 		return contactPersistence.findAll(start, end);
@@ -405,6 +418,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of contacts
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getContactsCount() throws SystemException {
 		return contactPersistence.countAll();
 	}
@@ -417,6 +431,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Contact updateContact(Contact contact) throws SystemException {
 		return contactPersistence.update(contact);
 	}
@@ -3796,6 +3811,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3805,6 +3821,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

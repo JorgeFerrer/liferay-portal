@@ -50,6 +50,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	public static final String FIND_BY_G_N =
 		MDRRuleGroupFinder.class.getName() + ".findByG_N";
 
+	@Override
 	public int countByKeywords(
 			long groupId, String keywords, LinkedHashMap<String, Object> params)
 		throws SystemException {
@@ -67,6 +68,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 		return countByG_N(groupId, names, params, andOperator);
 	}
 
+	@Override
 	public int countByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
 			boolean andOperator)
@@ -77,6 +79,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 		return countByG_N(groupId, names, params, andOperator);
 	}
 
+	@Override
 	public int countByG_N(
 			long groupId, String[] names, LinkedHashMap<String, Object> params,
 			boolean andOperator)
@@ -130,6 +133,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 		}
 	}
 
+	@Override
 	public List<MDRRuleGroup> findByKeywords(
 			long groupId, String keywords, LinkedHashMap<String, Object> params,
 			int start, int end)
@@ -148,6 +152,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 		return findByG_N(groupId, names, params, andOperator, start, end);
 	}
 
+	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
 			boolean andOperator)
@@ -158,6 +163,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 			QueryUtil.ALL_POS);
 	}
 
+	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
 			boolean andOperator, int start, int end)
@@ -168,6 +174,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 		return findByG_N(groupId, names, params, andOperator, start, end);
 	}
 
+	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String[] names, LinkedHashMap<String, Object> params,
 			boolean andOperator, int start, int end)

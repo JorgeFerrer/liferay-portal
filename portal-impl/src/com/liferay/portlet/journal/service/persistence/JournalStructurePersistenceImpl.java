@@ -118,6 +118,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid(String uuid)
 		throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -136,6 +137,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -155,6 +157,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -275,6 +278,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -305,6 +309,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalStructure> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -325,6 +330,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -355,6 +361,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -379,6 +386,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByUuid_PrevAndNext(long id, String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -534,6 +542,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (JournalStructure journalStructure : findByUuid(uuid,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -548,6 +557,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -631,6 +641,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByUUID_G(String uuid, long groupId)
 		throws NoSuchStructureException, SystemException {
 		JournalStructure journalStructure = fetchByUUID_G(uuid, groupId);
@@ -666,6 +677,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		return fetchByUUID_G(uuid, groupId, true);
@@ -680,6 +692,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { uuid, groupId };
@@ -786,6 +799,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the journal structure that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure removeByUUID_G(String uuid, long groupId)
 		throws NoSuchStructureException, SystemException {
 		JournalStructure journalStructure = findByUUID_G(uuid, groupId);
@@ -801,6 +815,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
@@ -901,6 +916,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -921,6 +937,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -941,6 +958,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1072,6 +1090,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1106,6 +1125,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalStructure> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -1128,6 +1148,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1162,6 +1183,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -1187,6 +1209,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByUuid_C_PrevAndNext(long id, String uuid,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1347,6 +1370,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (JournalStructure journalStructure : findByUuid_C(uuid, companyId,
@@ -1363,6 +1387,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1465,6 +1490,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long groupId)
 		throws SystemException {
 		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -1483,6 +1509,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long groupId, int start, int end)
 		throws SystemException {
 		return findByGroupId(groupId, start, end, null);
@@ -1502,6 +1529,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1608,6 +1636,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1638,6 +1667,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByGroupId_First(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalStructure> list = findByGroupId(groupId, 0, 1,
@@ -1659,6 +1689,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1689,6 +1720,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
@@ -1713,6 +1745,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByGroupId_PrevAndNext(long id, long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -1855,6 +1888,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long groupId)
 		throws SystemException {
 		return filterFindByGroupId(groupId, QueryUtil.ALL_POS,
@@ -1874,6 +1908,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long groupId, int start,
 		int end) throws SystemException {
 		return filterFindByGroupId(groupId, start, end, null);
@@ -1893,6 +1928,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
@@ -1984,6 +2020,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] filterFindByGroupId_PrevAndNext(long id,
 		long groupId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -2165,6 +2202,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long[] groupIds)
 		throws SystemException {
 		return filterFindByGroupId(groupIds, QueryUtil.ALL_POS,
@@ -2184,6 +2222,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long[] groupIds,
 		int start, int end) throws SystemException {
 		return filterFindByGroupId(groupIds, start, end, null);
@@ -2203,6 +2242,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByGroupId(long[] groupIds,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2310,6 +2350,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long[] groupIds)
 		throws SystemException {
 		return findByGroupId(groupIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -2329,6 +2370,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long[] groupIds, int start,
 		int end) throws SystemException {
 		return findByGroupId(groupIds, start, end, null);
@@ -2348,6 +2390,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByGroupId(long[] groupIds, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if ((groupIds != null) && (groupIds.length == 1)) {
@@ -2472,6 +2515,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param groupId the group ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByGroupId(long groupId) throws SystemException {
 		for (JournalStructure journalStructure : findByGroupId(groupId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2486,6 +2530,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByGroupId(long groupId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUPID;
 
@@ -2538,6 +2583,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByGroupId(long[] groupIds) throws SystemException {
 		Object[] finderArgs = new Object[] { StringUtil.merge(groupIds) };
 
@@ -2612,6 +2658,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByGroupId(long groupId) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return countByGroupId(groupId);
@@ -2660,6 +2707,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByGroupId(long[] groupIds) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupIds)) {
 			return countByGroupId(groupIds);
@@ -2756,6 +2804,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByStructureId(String structureId)
 		throws SystemException {
 		return findByStructureId(structureId, QueryUtil.ALL_POS,
@@ -2775,6 +2824,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByStructureId(String structureId,
 		int start, int end) throws SystemException {
 		return findByStructureId(structureId, start, end, null);
@@ -2794,6 +2844,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByStructureId(String structureId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2916,6 +2967,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByStructureId_First(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -2946,6 +2998,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByStructureId_First(String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<JournalStructure> list = findByStructureId(structureId, 0, 1,
@@ -2967,6 +3020,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByStructureId_Last(String structureId,
 		OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -2997,6 +3051,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByStructureId_Last(String structureId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByStructureId(structureId);
@@ -3021,6 +3076,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByStructureId_PrevAndNext(long id,
 		String structureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -3176,6 +3232,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param structureId the structure ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByStructureId(String structureId)
 		throws SystemException {
 		for (JournalStructure journalStructure : findByStructureId(
@@ -3191,6 +3248,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByStructureId(String structureId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_STRUCTUREID;
 
@@ -3284,6 +3342,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByParentStructureId(
 		String parentStructureId) throws SystemException {
 		return findByParentStructureId(parentStructureId, QueryUtil.ALL_POS,
@@ -3303,6 +3362,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByParentStructureId(
 		String parentStructureId, int start, int end) throws SystemException {
 		return findByParentStructureId(parentStructureId, start, end, null);
@@ -3322,6 +3382,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByParentStructureId(
 		String parentStructureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3448,6 +3509,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByParentStructureId_First(
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -3478,6 +3540,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByParentStructureId_First(
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3500,6 +3563,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByParentStructureId_Last(
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -3530,6 +3594,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByParentStructureId_Last(
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3555,6 +3620,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByParentStructureId_PrevAndNext(long id,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -3712,6 +3778,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param parentStructureId the parent structure ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByParentStructureId(String parentStructureId)
 		throws SystemException {
 		for (JournalStructure journalStructure : findByParentStructureId(
@@ -3727,6 +3794,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByParentStructureId(String parentStructureId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_PARENTSTRUCTUREID;
@@ -3813,6 +3881,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByG_S(long groupId, String structureId)
 		throws NoSuchStructureException, SystemException {
 		JournalStructure journalStructure = fetchByG_S(groupId, structureId);
@@ -3848,6 +3917,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByG_S(long groupId, String structureId)
 		throws SystemException {
 		return fetchByG_S(groupId, structureId, true);
@@ -3862,6 +3932,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByG_S(long groupId, String structureId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { groupId, structureId };
@@ -3970,6 +4041,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the journal structure that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure removeByG_S(long groupId, String structureId)
 		throws NoSuchStructureException, SystemException {
 		JournalStructure journalStructure = findByG_S(groupId, structureId);
@@ -3985,6 +4057,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_S(long groupId, String structureId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_S;
@@ -4084,6 +4157,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByG_P(long groupId,
 		String parentStructureId) throws SystemException {
 		return findByG_P(groupId, parentStructureId, QueryUtil.ALL_POS,
@@ -4104,6 +4178,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByG_P(long groupId,
 		String parentStructureId, int start, int end) throws SystemException {
 		return findByG_P(groupId, parentStructureId, start, end, null);
@@ -4124,6 +4199,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findByG_P(long groupId,
 		String parentStructureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -4256,6 +4332,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByG_P_First(long groupId,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -4290,6 +4367,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the first matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByG_P_First(long groupId,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -4313,6 +4391,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByG_P_Last(long groupId,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -4347,6 +4426,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the last matching journal structure, or <code>null</code> if a matching journal structure could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByG_P_Last(long groupId,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -4373,6 +4453,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] findByG_P_PrevAndNext(long id, long groupId,
 		String parentStructureId, OrderByComparator orderByComparator)
 		throws NoSuchStructureException, SystemException {
@@ -4535,6 +4616,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByG_P(long groupId,
 		String parentStructureId) throws SystemException {
 		return filterFindByG_P(groupId, parentStructureId, QueryUtil.ALL_POS,
@@ -4555,6 +4637,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByG_P(long groupId,
 		String parentStructureId, int start, int end) throws SystemException {
 		return filterFindByG_P(groupId, parentStructureId, start, end, null);
@@ -4575,6 +4658,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> filterFindByG_P(long groupId,
 		String parentStructureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -4687,6 +4771,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure[] filterFindByG_P_PrevAndNext(long id,
 		long groupId, String parentStructureId,
 		OrderByComparator orderByComparator)
@@ -4889,6 +4974,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param parentStructureId the parent structure ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_P(long groupId, String parentStructureId)
 		throws SystemException {
 		for (JournalStructure journalStructure : findByG_P(groupId,
@@ -4905,6 +4991,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_P(long groupId, String parentStructureId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_P;
@@ -4977,6 +5064,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of matching journal structures that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByG_P(long groupId, String parentStructureId)
 		throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
@@ -5047,6 +5135,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 *
 	 * @param journalStructure the journal structure
 	 */
+	@Override
 	public void cacheResult(JournalStructure journalStructure) {
 		EntityCacheUtil.putResult(JournalStructureModelImpl.ENTITY_CACHE_ENABLED,
 			JournalStructureImpl.class, journalStructure.getPrimaryKey(),
@@ -5070,6 +5159,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 *
 	 * @param journalStructures the journal structures
 	 */
+	@Override
 	public void cacheResult(List<JournalStructure> journalStructures) {
 		for (JournalStructure journalStructure : journalStructures) {
 			if (EntityCacheUtil.getResult(
@@ -5233,6 +5323,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @param id the primary key for the new journal structure
 	 * @return the new journal structure
 	 */
+	@Override
 	public JournalStructure create(long id) {
 		JournalStructure journalStructure = new JournalStructureImpl();
 
@@ -5254,6 +5345,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure remove(long id)
 		throws NoSuchStructureException, SystemException {
 		return remove((Serializable)id);
@@ -5565,6 +5657,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @throws com.liferay.portlet.journal.NoSuchStructureException if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure findByPrimaryKey(long id)
 		throws NoSuchStructureException, SystemException {
 		return findByPrimaryKey((Serializable)id);
@@ -5626,6 +5719,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the journal structure, or <code>null</code> if a journal structure with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalStructure fetchByPrimaryKey(long id)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)id);
@@ -5637,6 +5731,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -5653,6 +5748,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the range of journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -5671,6 +5767,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the ordered range of journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalStructure> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -5756,6 +5853,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (JournalStructure journalStructure : findAll()) {
 			remove(journalStructure);
@@ -5768,6 +5866,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 	 * @return the number of journal structures
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -5871,6 +5970,7 @@ public class JournalStructurePersistenceImpl extends BasePersistenceImpl<Journal
 		};
 
 	private static CacheModel<JournalStructure> _nullJournalStructureCacheModel = new CacheModel<JournalStructure>() {
+			@Override
 			public JournalStructure toEntityModel() {
 				return _nullJournalStructure;
 			}

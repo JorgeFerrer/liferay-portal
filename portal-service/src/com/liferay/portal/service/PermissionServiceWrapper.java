@@ -32,6 +32,7 @@ public class PermissionServiceWrapper implements PermissionService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _permissionService.getBeanIdentifier();
 	}
@@ -41,6 +42,7 @@ public class PermissionServiceWrapper implements PermissionService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_permissionService.setBeanIdentifier(beanIdentifier);
 	}
@@ -56,6 +58,7 @@ public class PermissionServiceWrapper implements PermissionService,
 	the permission information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void checkPermission(long groupId, java.lang.String name,
 		long primKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -74,6 +77,7 @@ public class PermissionServiceWrapper implements PermissionService,
 	the permission information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void checkPermission(long groupId, java.lang.String name,
 		java.lang.String primKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -95,10 +99,12 @@ public class PermissionServiceWrapper implements PermissionService,
 		_permissionService = permissionService;
 	}
 
+	@Override
 	public PermissionService getWrappedService() {
 		return _permissionService;
 	}
 
+	@Override
 	public void setWrappedService(PermissionService permissionService) {
 		_permissionService = permissionService;
 	}

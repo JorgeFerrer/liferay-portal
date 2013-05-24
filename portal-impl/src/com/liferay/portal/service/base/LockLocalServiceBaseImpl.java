@@ -246,6 +246,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Lock addLock(Lock lock) throws SystemException {
 		lock.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param lockId the primary key for the new lock
 	 * @return the new lock
 	 */
+	@Override
 	public Lock createLock(long lockId) {
 		return lockPersistence.create(lockId);
 	}
@@ -271,6 +273,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Lock deleteLock(long lockId) throws PortalException, SystemException {
 		return lockPersistence.remove(lockId);
 	}
@@ -283,10 +286,12 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Lock deleteLock(Lock lock) throws SystemException {
 		return lockPersistence.remove(lock);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -301,6 +306,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -320,6 +326,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -340,6 +347,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -354,11 +362,13 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return lockPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Lock fetchLock(long lockId) throws SystemException {
 		return lockPersistence.fetchByPrimaryKey(lockId);
 	}
@@ -371,10 +381,12 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a lock with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Lock getLock(long lockId) throws PortalException, SystemException {
 		return lockPersistence.findByPrimaryKey(lockId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return lockPersistence.findByPrimaryKey(primaryKeyObj);
@@ -392,6 +404,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of locks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Lock> getLocks(int start, int end) throws SystemException {
 		return lockPersistence.findAll(start, end);
 	}
@@ -402,6 +415,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of locks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getLocksCount() throws SystemException {
 		return lockPersistence.countAll();
 	}
@@ -414,6 +428,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Lock updateLock(Lock lock) throws SystemException {
 		return lockPersistence.update(lock);
 	}
@@ -3793,6 +3808,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3802,6 +3818,7 @@ public abstract class LockLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

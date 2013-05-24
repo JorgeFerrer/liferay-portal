@@ -46,6 +46,7 @@ public class LayoutPrototypeLocalServiceImpl
 	 * @deprecated As of 6.2.0, replaced by {@link #addLayoutPrototype(long,
 	 *             long, Map, String, boolean, ServiceContext)}
 	 */
+	@Override
 	public LayoutPrototype addLayoutPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			String description, boolean active)
@@ -56,6 +57,7 @@ public class LayoutPrototypeLocalServiceImpl
 			new ServiceContext());
 	}
 
+	@Override
 	public LayoutPrototype addLayoutPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			String description, boolean active, ServiceContext serviceContext)
@@ -158,6 +160,7 @@ public class LayoutPrototypeLocalServiceImpl
 		return deleteLayoutPrototype(layoutPrototype);
 	}
 
+	@Override
 	public void deleteNondefaultLayoutPrototypes(long companyId)
 		throws PortalException, SystemException {
 
@@ -173,6 +176,7 @@ public class LayoutPrototypeLocalServiceImpl
 		}
 	}
 
+	@Override
 	public LayoutPrototype fetchLayoutPrototypeByUuidAndCompanyId(
 			String uuid, long companyId)
 		throws SystemException {
@@ -185,12 +189,14 @@ public class LayoutPrototypeLocalServiceImpl
 	 * @deprecated As of 6.2.0, replaced by {@link
 	 *             #getLayoutPrototypeByUuidAndCompanyId(String, long)}
 	 */
+	@Override
 	public LayoutPrototype getLayoutPrototypeByUuid(String uuid)
 		throws PortalException, SystemException {
 
 		return layoutPrototypePersistence.findByUuid_First(uuid, null);
 	}
 
+	@Override
 	public LayoutPrototype getLayoutPrototypeByUuidAndCompanyId(
 			String uuid, long companyId)
 		throws PortalException, SystemException {
@@ -199,6 +205,7 @@ public class LayoutPrototypeLocalServiceImpl
 			uuid, companyId, null);
 	}
 
+	@Override
 	public List<LayoutPrototype> search(
 			long companyId, Boolean active, int start, int end,
 			OrderByComparator obc)
@@ -214,6 +221,7 @@ public class LayoutPrototypeLocalServiceImpl
 		}
 	}
 
+	@Override
 	public int searchCount(long companyId, Boolean active)
 		throws SystemException {
 
@@ -229,6 +237,7 @@ public class LayoutPrototypeLocalServiceImpl
 	 * @deprecated As of 6.2.0, replaced by {@link #updateLayoutPrototype(long,
 	 *             Map, String, boolean, ServiceContext)}
 	 */
+	@Override
 	public LayoutPrototype updateLayoutPrototype(
 			long layoutPrototypeId, Map<Locale, String> nameMap,
 			String description, boolean active)
@@ -238,6 +247,7 @@ public class LayoutPrototypeLocalServiceImpl
 			layoutPrototypeId, nameMap, description, active, null);
 	}
 
+	@Override
 	public LayoutPrototype updateLayoutPrototype(
 			long layoutPrototypeId, Map<Locale, String> nameMap,
 			String description, boolean active, ServiceContext serviceContext)

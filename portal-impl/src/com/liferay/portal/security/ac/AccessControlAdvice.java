@@ -64,14 +64,17 @@ public class AccessControlAdvice
 	private static AccessControlled _nullAccessControlled =
 		new AccessControlled() {
 
+		@Override
 		public Class<? extends Annotation> annotationType() {
 			return AccessControlled.class;
 		}
 
+		@Override
 		public boolean guestAccessEnabled() {
 			return false;
 		}
 
+		@Override
 		public boolean hostAllowedValidationEnabled() {
 			return true;
 		}

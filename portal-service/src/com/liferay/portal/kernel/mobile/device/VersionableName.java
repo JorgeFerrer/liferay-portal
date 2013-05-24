@@ -65,6 +65,7 @@ public class VersionableName
 		_versions.add(version);
 	}
 
+	@Override
 	public int compareTo(VersionableName versionableName) {
 		return _name.toUpperCase().compareTo(
 			versionableName.getName().toUpperCase());

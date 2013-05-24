@@ -34,14 +34,17 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		_btEntry = btEntry;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return BTEntry.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return BTEntry.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -63,6 +66,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long btEntryId = (Long)attributes.get("btEntryId");
 
@@ -156,6 +160,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the primary key of this b t entry
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _btEntry.getPrimaryKey();
 	}
@@ -165,6 +170,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param primaryKey the primary key of this b t entry
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_btEntry.setPrimaryKey(primaryKey);
 	}
@@ -174,6 +180,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the bt entry ID of this b t entry
 	*/
+	@Override
 	public long getBtEntryId() {
 		return _btEntry.getBtEntryId();
 	}
@@ -183,6 +190,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param btEntryId the bt entry ID of this b t entry
 	*/
+	@Override
 	public void setBtEntryId(long btEntryId) {
 		_btEntry.setBtEntryId(btEntryId);
 	}
@@ -192,6 +200,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the group ID of this b t entry
 	*/
+	@Override
 	public long getGroupId() {
 		return _btEntry.getGroupId();
 	}
@@ -201,6 +210,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param groupId the group ID of this b t entry
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_btEntry.setGroupId(groupId);
 	}
@@ -210,6 +220,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the company ID of this b t entry
 	*/
+	@Override
 	public long getCompanyId() {
 		return _btEntry.getCompanyId();
 	}
@@ -219,6 +230,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param companyId the company ID of this b t entry
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_btEntry.setCompanyId(companyId);
 	}
@@ -228,6 +240,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the user ID of this b t entry
 	*/
+	@Override
 	public long getUserId() {
 		return _btEntry.getUserId();
 	}
@@ -237,6 +250,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param userId the user ID of this b t entry
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_btEntry.setUserId(userId);
 	}
@@ -247,6 +261,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	* @return the user uuid of this b t entry
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.getUserUuid();
@@ -257,6 +272,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param userUuid the user uuid of this b t entry
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_btEntry.setUserUuid(userUuid);
 	}
@@ -266,6 +282,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the user name of this b t entry
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _btEntry.getUserName();
 	}
@@ -275,6 +292,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param userName the user name of this b t entry
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_btEntry.setUserName(userName);
 	}
@@ -284,6 +302,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the create date of this b t entry
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _btEntry.getCreateDate();
 	}
@@ -293,6 +312,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param createDate the create date of this b t entry
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_btEntry.setCreateDate(createDate);
 	}
@@ -302,6 +322,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the modified date of this b t entry
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _btEntry.getModifiedDate();
 	}
@@ -311,6 +332,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param modifiedDate the modified date of this b t entry
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_btEntry.setModifiedDate(modifiedDate);
 	}
@@ -320,6 +342,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the name of this b t entry
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _btEntry.getName();
 	}
@@ -329,6 +352,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param name the name of this b t entry
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_btEntry.setName(name);
 	}
@@ -338,6 +362,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the servlet context names of this b t entry
 	*/
+	@Override
 	public java.lang.String getServletContextNames() {
 		return _btEntry.getServletContextNames();
 	}
@@ -347,6 +372,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param servletContextNames the servlet context names of this b t entry
 	*/
+	@Override
 	public void setServletContextNames(java.lang.String servletContextNames) {
 		_btEntry.setServletContextNames(servletContextNames);
 	}
@@ -356,6 +382,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the task executor class name of this b t entry
 	*/
+	@Override
 	public java.lang.String getTaskExecutorClassName() {
 		return _btEntry.getTaskExecutorClassName();
 	}
@@ -365,6 +392,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param taskExecutorClassName the task executor class name of this b t entry
 	*/
+	@Override
 	public void setTaskExecutorClassName(java.lang.String taskExecutorClassName) {
 		_btEntry.setTaskExecutorClassName(taskExecutorClassName);
 	}
@@ -374,6 +402,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the task context of this b t entry
 	*/
+	@Override
 	public java.lang.String getTaskContext() {
 		return _btEntry.getTaskContext();
 	}
@@ -383,6 +412,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param taskContext the task context of this b t entry
 	*/
+	@Override
 	public void setTaskContext(java.lang.String taskContext) {
 		_btEntry.setTaskContext(taskContext);
 	}
@@ -392,6 +422,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the completed of this b t entry
 	*/
+	@Override
 	public boolean getCompleted() {
 		return _btEntry.getCompleted();
 	}
@@ -401,6 +432,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return <code>true</code> if this b t entry is completed; <code>false</code> otherwise
 	*/
+	@Override
 	public boolean isCompleted() {
 		return _btEntry.isCompleted();
 	}
@@ -410,6 +442,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param completed the completed of this b t entry
 	*/
+	@Override
 	public void setCompleted(boolean completed) {
 		_btEntry.setCompleted(completed);
 	}
@@ -419,6 +452,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the completion date of this b t entry
 	*/
+	@Override
 	public java.util.Date getCompletionDate() {
 		return _btEntry.getCompletionDate();
 	}
@@ -428,6 +462,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param completionDate the completion date of this b t entry
 	*/
+	@Override
 	public void setCompletionDate(java.util.Date completionDate) {
 		_btEntry.setCompletionDate(completionDate);
 	}
@@ -437,6 +472,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @return the status of this b t entry
 	*/
+	@Override
 	public int getStatus() {
 		return _btEntry.getStatus();
 	}
@@ -446,52 +482,64 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 	*
 	* @param status the status of this b t entry
 	*/
+	@Override
 	public void setStatus(int status) {
 		_btEntry.setStatus(status);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _btEntry.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_btEntry.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _btEntry.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_btEntry.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _btEntry.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _btEntry.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_btEntry.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _btEntry.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_btEntry.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_btEntry.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_btEntry.setExpandoBridgeAttributes(serviceContext);
@@ -502,6 +550,7 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		return new BTEntryWrapper((BTEntry)_btEntry.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.portlet.backgroundtask.model.BTEntry btEntry) {
 		return _btEntry.compareTo(btEntry);
@@ -512,14 +561,17 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		return _btEntry.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.portlet.backgroundtask.model.BTEntry> toCacheModel() {
 		return _btEntry.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry toEscapedModel() {
 		return new BTEntryWrapper(_btEntry.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry toUnescapedModel() {
 		return new BTEntryWrapper(_btEntry.toUnescapedModel());
 	}
@@ -529,42 +581,50 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		return _btEntry.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _btEntry.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_btEntry.persist();
 	}
 
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder addAttachmentsFolder()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.addAttachmentsFolder();
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.kernel.repository.model.FileEntry> getAttachmentsFileEntries()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.getAttachmentsFileEntries();
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.kernel.repository.model.FileEntry> getAttachmentsFileEntries(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.getAttachmentsFileEntries(start, end);
 	}
 
+	@Override
 	public int getAttachmentsFileEntriesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.getAttachmentsFileEntriesCount();
 	}
 
+	@Override
 	public long getAttachmentsFolderId()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntry.getAttachmentsFolderId();
 	}
 
+	@Override
 	public java.util.Map<java.lang.String, java.io.Serializable> getTaskContextMap() {
 		return _btEntry.getTaskContextMap();
 	}
@@ -576,10 +636,12 @@ public class BTEntryWrapper implements BTEntry, ModelWrapper<BTEntry> {
 		return _btEntry;
 	}
 
+	@Override
 	public BTEntry getWrappedModel() {
 		return _btEntry;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_btEntry.resetOriginalValues();
 	}

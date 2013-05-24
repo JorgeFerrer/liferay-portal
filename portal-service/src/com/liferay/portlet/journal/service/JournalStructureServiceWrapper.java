@@ -35,6 +35,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _journalStructureService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_journalStructureService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure addStructure(
 		long groupId, java.lang.String structureId, boolean autoStructureId,
 		java.lang.String parentStructureId,
@@ -62,6 +65,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			serviceContext);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure copyStructure(
 		long groupId, java.lang.String oldStructureId,
 		java.lang.String newStructureId, boolean autoStructureId)
@@ -71,12 +75,14 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			newStructureId, autoStructureId);
 	}
 
+	@Override
 	public void deleteStructure(long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalStructureService.deleteStructure(groupId, structureId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getStructure(
 		long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -84,6 +90,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 		return _journalStructureService.getStructure(groupId, structureId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getStructure(
 		long groupId, java.lang.String structureId,
 		boolean includeGlobalStructures)
@@ -93,18 +100,21 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			includeGlobalStructures);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getStructures(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureService.getStructures(groupId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getStructures(
 		long[] groupIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureService.getStructures(groupIds);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> search(
 		long companyId, long[] groupIds, java.lang.String keywords, int start,
 		int end, com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -113,6 +123,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			start, end, obc);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> search(
 		long companyId, long[] groupIds, java.lang.String structureId,
 		java.lang.String name, java.lang.String description,
@@ -123,6 +134,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			structureId, name, description, andOperator, start, end, obc);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String keywords)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -130,6 +142,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			keywords);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String structureId, java.lang.String name,
 		java.lang.String description, boolean andOperator)
@@ -138,6 +151,7 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 			structureId, name, description, andOperator);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure updateStructure(
 		long groupId, java.lang.String structureId,
 		java.lang.String parentStructureId,
@@ -166,10 +180,12 @@ public class JournalStructureServiceWrapper implements JournalStructureService,
 		_journalStructureService = journalStructureService;
 	}
 
+	@Override
 	public JournalStructureService getWrappedService() {
 		return _journalStructureService;
 	}
 
+	@Override
 	public void setWrappedService(
 		JournalStructureService journalStructureService) {
 		_journalStructureService = journalStructureService;

@@ -34,6 +34,7 @@ public class FlagsEntryServiceWrapper implements FlagsEntryService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _flagsEntryService.getBeanIdentifier();
 	}
@@ -43,10 +44,12 @@ public class FlagsEntryServiceWrapper implements FlagsEntryService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_flagsEntryService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void addEntry(java.lang.String className, long classPK,
 		java.lang.String reporterEmailAddress, long reportedUserId,
 		java.lang.String contentTitle, java.lang.String contentURL,
@@ -70,10 +73,12 @@ public class FlagsEntryServiceWrapper implements FlagsEntryService,
 		_flagsEntryService = flagsEntryService;
 	}
 
+	@Override
 	public FlagsEntryService getWrappedService() {
 		return _flagsEntryService;
 	}
 
+	@Override
 	public void setWrappedService(FlagsEntryService flagsEntryService) {
 		_flagsEntryService = flagsEntryService;
 	}

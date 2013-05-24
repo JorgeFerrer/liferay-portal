@@ -29,6 +29,7 @@ import java.util.Map;
 @DoPrivileged
 public class XSLManager extends BaseTemplateManager {
 
+	@Override
 	public void destroy() {
 		if (_templateContextHelper == null) {
 			return;
@@ -39,14 +40,17 @@ public class XSLManager extends BaseTemplateManager {
 		_templateContextHelper = null;
 	}
 
+	@Override
 	public void destroy(ClassLoader classLoader) {
 		_templateContextHelper.removeHelperUtilities(classLoader);
 	}
 
+	@Override
 	public String getName() {
 		return TemplateConstants.LANG_TYPE_XSL;
 	}
 
+	@Override
 	public void init() {
 	}
 

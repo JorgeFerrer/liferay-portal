@@ -108,6 +108,7 @@ public class DDMImpl implements DDM {
 
 	public static final String TYPE_SELECT = "select";
 
+	@Override
 	public DDMDisplay getDDMDisplay(ServiceContext serviceContext) {
 		String refererPortletName = (String)serviceContext.getAttribute(
 			"refererPortletName");
@@ -119,6 +120,7 @@ public class DDMImpl implements DDM {
 		return DDMDisplayRegistryUtil.getDDMDisplay(refererPortletName);
 	}
 
+	@Override
 	public Serializable getDisplayFieldValue(
 			Serializable fieldValue, String type, Locale locale)
 		throws Exception {
@@ -153,6 +155,7 @@ public class DDMImpl implements DDM {
 		return fieldValue;
 	}
 
+	@Override
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId,
 			ServiceContext serviceContext)
@@ -162,6 +165,7 @@ public class DDMImpl implements DDM {
 			ddmStructureId, ddmTemplateId, StringPool.BLANK, serviceContext);
 	}
 
+	@Override
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId, String fieldNamespace,
 			ServiceContext serviceContext)
@@ -191,12 +195,14 @@ public class DDMImpl implements DDM {
 		return fields;
 	}
 
+	@Override
 	public Fields getFields(long ddmStructureId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		return getFields(ddmStructureId, 0, serviceContext);
 	}
 
+	@Override
 	public Fields getFields(
 			long ddmStructureId, String fieldNamespace,
 			ServiceContext serviceContext)
@@ -205,6 +211,7 @@ public class DDMImpl implements DDM {
 		return getFields(ddmStructureId, 0, fieldNamespace, serviceContext);
 	}
 
+	@Override
 	public String[] getFieldsDisplayValues(Field fieldsDisplayField)
 		throws Exception {
 
@@ -228,6 +235,7 @@ public class DDMImpl implements DDM {
 			new String[fieldsDisplayValues.size()]);
 	}
 
+	@Override
 	public String getFileUploadPath(BaseModel<?> baseModel) {
 		StringBundler sb = new StringBundler(7);
 
@@ -271,6 +279,7 @@ public class DDMImpl implements DDM {
 		return sb.toString();
 	}
 
+	@Override
 	public Serializable getIndexedFieldValue(
 			Serializable fieldValue, String type)
 		throws Exception {
@@ -298,6 +307,7 @@ public class DDMImpl implements DDM {
 		return fieldValue;
 	}
 
+	@Override
 	public OrderByComparator getStructureOrderByComparator(
 		String orderByCol, String orderByType) {
 
@@ -319,6 +329,7 @@ public class DDMImpl implements DDM {
 		return orderByComparator;
 	}
 
+	@Override
 	public OrderByComparator getTemplateOrderByComparator(
 		String orderByCol, String orderByType) {
 
@@ -340,6 +351,7 @@ public class DDMImpl implements DDM {
 		return orderByComparator;
 	}
 
+	@Override
 	public Fields mergeFields(Fields newFields, Fields existingFields) {
 		Iterator<Field> itr = newFields.iterator(true);
 
@@ -364,6 +376,7 @@ public class DDMImpl implements DDM {
 		return existingFields;
 	}
 
+	@Override
 	public void sendFieldFile(
 			HttpServletRequest request, HttpServletResponse response,
 			Field field, int valueIndex)
@@ -395,6 +408,7 @@ public class DDMImpl implements DDM {
 			request, response, fileName, is, contentLength, contentType);
 	}
 
+	@Override
 	public void uploadFieldFile(
 			long structureId, long storageId, BaseModel<?> baseModel,
 			String fieldName, ServiceContext serviceContext)
@@ -405,6 +419,7 @@ public class DDMImpl implements DDM {
 			serviceContext);
 	}
 
+	@Override
 	public void uploadFieldFile(
 			long structureId, long storageId, BaseModel<?> baseModel,
 			String fieldName, String fieldNamespace,

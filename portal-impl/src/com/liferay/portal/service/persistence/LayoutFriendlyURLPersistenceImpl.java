@@ -113,6 +113,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid(String uuid)
 		throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -131,6 +132,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -150,6 +152,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -270,6 +273,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -300,6 +304,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutFriendlyURL> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -320,6 +325,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -350,6 +356,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -374,6 +381,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByUuid_PrevAndNext(
 		long layoutFriendlyURLId, String uuid,
 		OrderByComparator orderByComparator)
@@ -530,6 +538,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByUuid(uuid,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -544,6 +553,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -627,6 +637,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByUUID_G(String uuid, long groupId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		LayoutFriendlyURL layoutFriendlyURL = fetchByUUID_G(uuid, groupId);
@@ -662,6 +673,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		return fetchByUUID_G(uuid, groupId, true);
@@ -676,6 +688,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { uuid, groupId };
@@ -782,6 +795,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the layout friendly u r l that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL removeByUUID_G(String uuid, long groupId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		LayoutFriendlyURL layoutFriendlyURL = findByUUID_G(uuid, groupId);
@@ -797,6 +811,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
@@ -896,6 +911,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -916,6 +932,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -936,6 +953,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1067,6 +1085,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -1101,6 +1120,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutFriendlyURL> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -1123,6 +1143,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -1157,6 +1178,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -1182,6 +1204,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByUuid_C_PrevAndNext(
 		long layoutFriendlyURLId, String uuid, long companyId,
 		OrderByComparator orderByComparator)
@@ -1343,6 +1366,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByUuid_C(uuid,
@@ -1359,6 +1383,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1456,6 +1481,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByGroupId(long groupId)
 		throws SystemException {
 		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -1474,6 +1500,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByGroupId(long groupId, int start,
 		int end) throws SystemException {
 		return findByGroupId(groupId, start, end, null);
@@ -1493,6 +1520,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1599,6 +1627,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -1629,6 +1658,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByGroupId_First(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutFriendlyURL> list = findByGroupId(groupId, 0, 1,
@@ -1650,6 +1680,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -1680,6 +1711,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
@@ -1704,6 +1736,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByGroupId_PrevAndNext(
 		long layoutFriendlyURLId, long groupId,
 		OrderByComparator orderByComparator)
@@ -1846,6 +1879,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param groupId the group ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByGroupId(long groupId) throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByGroupId(groupId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -1860,6 +1894,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByGroupId(long groupId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUPID;
 
@@ -1936,6 +1971,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -1955,6 +1991,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByCompanyId(long companyId, int start,
 		int end) throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -1974,6 +2011,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByCompanyId(long companyId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2080,6 +2118,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -2110,6 +2149,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutFriendlyURL> list = findByCompanyId(companyId, 0, 1,
@@ -2131,6 +2171,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -2161,6 +2202,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -2185,6 +2227,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByCompanyId_PrevAndNext(
 		long layoutFriendlyURLId, long companyId,
 		OrderByComparator orderByComparator)
@@ -2327,6 +2370,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByCompanyId(companyId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2341,6 +2385,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -2415,6 +2460,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByPlid(long plid)
 		throws SystemException {
 		return findByPlid(plid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -2433,6 +2479,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByPlid(long plid, int start, int end)
 		throws SystemException {
 		return findByPlid(plid, start, end, null);
@@ -2452,6 +2499,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByPlid(long plid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2558,6 +2606,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByPlid_First(long plid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -2588,6 +2637,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByPlid_First(long plid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<LayoutFriendlyURL> list = findByPlid(plid, 0, 1, orderByComparator);
@@ -2608,6 +2658,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByPlid_Last(long plid,
 		OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -2638,6 +2689,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByPlid_Last(long plid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByPlid(plid);
@@ -2662,6 +2714,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByPlid_PrevAndNext(
 		long layoutFriendlyURLId, long plid, OrderByComparator orderByComparator)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -2803,6 +2856,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param plid the plid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByPlid(long plid) throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByPlid(plid,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2817,6 +2871,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByPlid(long plid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_PLID;
 
@@ -2884,6 +2939,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByP_L(long plid, String languageId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		LayoutFriendlyURL layoutFriendlyURL = fetchByP_L(plid, languageId);
@@ -2919,6 +2975,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByP_L(long plid, String languageId)
 		throws SystemException {
 		return fetchByP_L(plid, languageId, true);
@@ -2933,6 +2990,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByP_L(long plid, String languageId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { plid, languageId };
@@ -3040,6 +3098,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the layout friendly u r l that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL removeByP_L(long plid, String languageId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		LayoutFriendlyURL layoutFriendlyURL = findByP_L(plid, languageId);
@@ -3055,6 +3114,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByP_L(long plid, String languageId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_P_L;
@@ -3162,6 +3222,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByG_P_F(long groupId,
 		boolean privateLayout, String friendlyURL) throws SystemException {
 		return findByG_P_F(groupId, privateLayout, friendlyURL,
@@ -3183,6 +3244,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByG_P_F(long groupId,
 		boolean privateLayout, String friendlyURL, int start, int end)
 		throws SystemException {
@@ -3205,6 +3267,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findByG_P_F(long groupId,
 		boolean privateLayout, String friendlyURL, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3343,6 +3406,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByG_P_F_First(long groupId,
 		boolean privateLayout, String friendlyURL,
 		OrderByComparator orderByComparator)
@@ -3382,6 +3446,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the first matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByG_P_F_First(long groupId,
 		boolean privateLayout, String friendlyURL,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3406,6 +3471,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByG_P_F_Last(long groupId,
 		boolean privateLayout, String friendlyURL,
 		OrderByComparator orderByComparator)
@@ -3445,6 +3511,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the last matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByG_P_F_Last(long groupId,
 		boolean privateLayout, String friendlyURL,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3472,6 +3539,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL[] findByG_P_F_PrevAndNext(
 		long layoutFriendlyURLId, long groupId, boolean privateLayout,
 		String friendlyURL, OrderByComparator orderByComparator)
@@ -3640,6 +3708,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param friendlyURL the friendly u r l
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_P_F(long groupId, boolean privateLayout,
 		String friendlyURL) throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findByG_P_F(groupId,
@@ -3658,6 +3727,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_P_F(long groupId, boolean privateLayout,
 		String friendlyURL) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_P_F;
@@ -3762,6 +3832,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByG_P_F_L(long groupId, boolean privateLayout,
 		String friendlyURL, String languageId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -3807,6 +3878,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByG_P_F_L(long groupId,
 		boolean privateLayout, String friendlyURL, String languageId)
 		throws SystemException {
@@ -3825,6 +3897,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the matching layout friendly u r l, or <code>null</code> if a matching layout friendly u r l could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByG_P_F_L(long groupId,
 		boolean privateLayout, String friendlyURL, String languageId,
 		boolean retrieveFromCache) throws SystemException {
@@ -3966,6 +4039,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the layout friendly u r l that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL removeByG_P_F_L(long groupId,
 		boolean privateLayout, String friendlyURL, String languageId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
@@ -3985,6 +4059,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of matching layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_P_F_L(long groupId, boolean privateLayout,
 		String friendlyURL, String languageId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_P_F_L;
@@ -4087,6 +4162,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 *
 	 * @param layoutFriendlyURL the layout friendly u r l
 	 */
+	@Override
 	public void cacheResult(LayoutFriendlyURL layoutFriendlyURL) {
 		EntityCacheUtil.putResult(LayoutFriendlyURLModelImpl.ENTITY_CACHE_ENABLED,
 			LayoutFriendlyURLImpl.class, layoutFriendlyURL.getPrimaryKey(),
@@ -4118,6 +4194,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 *
 	 * @param layoutFriendlyURLs the layout friendly u r ls
 	 */
+	@Override
 	public void cacheResult(List<LayoutFriendlyURL> layoutFriendlyURLs) {
 		for (LayoutFriendlyURL layoutFriendlyURL : layoutFriendlyURLs) {
 			if (EntityCacheUtil.getResult(
@@ -4331,6 +4408,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @param layoutFriendlyURLId the primary key for the new layout friendly u r l
 	 * @return the new layout friendly u r l
 	 */
+	@Override
 	public LayoutFriendlyURL create(long layoutFriendlyURLId) {
 		LayoutFriendlyURL layoutFriendlyURL = new LayoutFriendlyURLImpl();
 
@@ -4352,6 +4430,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL remove(long layoutFriendlyURLId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		return remove((Serializable)layoutFriendlyURLId);
@@ -4656,6 +4735,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @throws com.liferay.portal.NoSuchLayoutFriendlyURLException if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL findByPrimaryKey(long layoutFriendlyURLId)
 		throws NoSuchLayoutFriendlyURLException, SystemException {
 		return findByPrimaryKey((Serializable)layoutFriendlyURLId);
@@ -4717,6 +4797,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the layout friendly u r l, or <code>null</code> if a layout friendly u r l with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutFriendlyURL fetchByPrimaryKey(long layoutFriendlyURLId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)layoutFriendlyURLId);
@@ -4728,6 +4809,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -4744,6 +4826,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the range of layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -4762,6 +4845,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the ordered range of layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutFriendlyURL> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -4847,6 +4931,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (LayoutFriendlyURL layoutFriendlyURL : findAll()) {
 			remove(layoutFriendlyURL);
@@ -4859,6 +4944,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 	 * @return the number of layout friendly u r ls
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -4953,6 +5039,7 @@ public class LayoutFriendlyURLPersistenceImpl extends BasePersistenceImpl<Layout
 
 	private static CacheModel<LayoutFriendlyURL> _nullLayoutFriendlyURLCacheModel =
 		new CacheModel<LayoutFriendlyURL>() {
+			@Override
 			public LayoutFriendlyURL toEntityModel() {
 				return _nullLayoutFriendlyURL;
 			}

@@ -36,6 +36,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 	 *             String, String, String, String, String, long, long, int,
 	 *             boolean, boolean, ServiceContext)}
 	 */
+	@Override
 	public Address addAddress(
 			String className, long classPK, String street1, String street2,
 			String street3, String city, String zip, long regionId,
@@ -50,6 +51,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			zip, regionId, countryId, typeId, mailing, primary);
 	}
 
+	@Override
 	public Address addAddress(
 			String className, long classPK, String street1, String street2,
 			String street3, String city, String zip, long regionId,
@@ -65,6 +67,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			zip, regionId, countryId, typeId, mailing, primary, serviceContext);
 	}
 
+	@Override
 	public void deleteAddress(long addressId)
 		throws PortalException, SystemException {
 
@@ -77,6 +80,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 		addressLocalService.deleteAddress(addressId);
 	}
 
+	@Override
 	public Address getAddress(long addressId)
 		throws PortalException, SystemException {
 
@@ -89,6 +93,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 		return address;
 	}
 
+	@Override
 	public List<Address> getAddresses(String className, long classPK)
 		throws PortalException, SystemException {
 
@@ -101,6 +106,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			user.getCompanyId(), className, classPK);
 	}
 
+	@Override
 	public Address updateAddress(
 			long addressId, String street1, String street2, String street3,
 			String city, String zip, long regionId, long countryId, int typeId,

@@ -123,6 +123,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFolder addDLFolder(DLFolder dlFolder) throws SystemException {
 		dlFolder.setNew(true);
 
@@ -135,6 +136,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param folderId the primary key for the new document library folder
 	 * @return the new document library folder
 	 */
+	@Override
 	public DLFolder createDLFolder(long folderId) {
 		return dlFolderPersistence.create(folderId);
 	}
@@ -148,6 +150,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFolder deleteDLFolder(long folderId)
 		throws PortalException, SystemException {
 		return dlFolderPersistence.remove(folderId);
@@ -161,10 +164,12 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFolder deleteDLFolder(DLFolder dlFolder) throws SystemException {
 		return dlFolderPersistence.remove(dlFolder);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -179,6 +184,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -198,6 +204,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -218,6 +225,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -232,11 +240,13 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFolderPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFolder fetchDLFolder(long folderId) throws SystemException {
 		return dlFolderPersistence.fetchByPrimaryKey(folderId);
 	}
@@ -249,11 +259,13 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a document library folder with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFolder getDLFolder(long folderId)
 		throws PortalException, SystemException {
 		return dlFolderPersistence.findByPrimaryKey(folderId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFolderPersistence.findByPrimaryKey(primaryKeyObj);
@@ -268,6 +280,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching document library folder could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFolder getDLFolderByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return dlFolderPersistence.findByUUID_G(uuid, groupId);
@@ -285,6 +298,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of document library folders
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFolder> getDLFolders(int start, int end)
 		throws SystemException {
 		return dlFolderPersistence.findAll(start, end);
@@ -296,6 +310,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of document library folders
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFoldersCount() throws SystemException {
 		return dlFolderPersistence.countAll();
 	}
@@ -308,6 +323,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFolder updateDLFolder(DLFolder dlFolder) throws SystemException {
 		return dlFolderPersistence.update(dlFolder);
 	}
@@ -315,6 +331,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDLFolder(long fileEntryTypeId, long folderId)
 		throws SystemException {
 		dlFileEntryTypePersistence.addDLFolder(fileEntryTypeId, folderId);
@@ -323,6 +340,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDLFolder(long fileEntryTypeId,
 		DLFolder dlFolder) throws SystemException {
 		dlFileEntryTypePersistence.addDLFolder(fileEntryTypeId, dlFolder);
@@ -331,6 +349,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		long[] folderIds) throws SystemException {
 		dlFileEntryTypePersistence.addDLFolders(fileEntryTypeId, folderIds);
@@ -339,6 +358,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		List<DLFolder> DLFolders) throws SystemException {
 		dlFileEntryTypePersistence.addDLFolders(fileEntryTypeId, DLFolders);
@@ -347,6 +367,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearDLFileEntryTypeDLFolders(long fileEntryTypeId)
 		throws SystemException {
 		dlFileEntryTypePersistence.clearDLFolders(fileEntryTypeId);
@@ -355,6 +376,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDLFolder(long fileEntryTypeId,
 		long folderId) throws SystemException {
 		dlFileEntryTypePersistence.removeDLFolder(fileEntryTypeId, folderId);
@@ -363,6 +385,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDLFolder(long fileEntryTypeId,
 		DLFolder dlFolder) throws SystemException {
 		dlFileEntryTypePersistence.removeDLFolder(fileEntryTypeId, dlFolder);
@@ -371,6 +394,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		long[] folderIds) throws SystemException {
 		dlFileEntryTypePersistence.removeDLFolders(fileEntryTypeId, folderIds);
@@ -379,6 +403,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		List<DLFolder> DLFolders) throws SystemException {
 		dlFileEntryTypePersistence.removeDLFolders(fileEntryTypeId, DLFolders);
@@ -387,6 +412,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFolder> getDLFileEntryTypeDLFolders(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.getDLFolders(fileEntryTypeId);
@@ -395,6 +421,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFolder> getDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		int start, int end) throws SystemException {
 		return dlFileEntryTypePersistence.getDLFolders(fileEntryTypeId, start,
@@ -404,6 +431,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFolder> getDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -414,6 +442,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileEntryTypeDLFoldersCount(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.getDLFoldersSize(fileEntryTypeId);
@@ -422,6 +451,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFileEntryTypeDLFolder(long fileEntryTypeId,
 		long folderId) throws SystemException {
 		return dlFileEntryTypePersistence.containsDLFolder(fileEntryTypeId,
@@ -431,6 +461,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFileEntryTypeDLFolders(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.containsDLFolders(fileEntryTypeId);
@@ -439,6 +470,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setDLFileEntryTypeDLFolders(long fileEntryTypeId,
 		long[] folderIds) throws SystemException {
 		dlFileEntryTypePersistence.setDLFolders(fileEntryTypeId, folderIds);
@@ -1518,6 +1550,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1527,6 +1560,7 @@ public abstract class DLFolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

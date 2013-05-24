@@ -33,6 +33,7 @@ public class ClassLoaderSession implements Session {
 		_classLoader = classLoader;
 	}
 
+	@Override
 	@NotPrivileged
 	public void clear() throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -53,6 +54,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Connection close() throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -73,6 +75,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public boolean contains(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -93,6 +96,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	public Query createQuery(String queryString) throws ORMException {
 		Thread currentThread = Thread.currentThread();
 
@@ -112,6 +116,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	public Query createQuery(String queryString, boolean strictName)
 		throws ORMException {
 
@@ -133,6 +138,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	public SQLQuery createSQLQuery(String queryString) throws ORMException {
 		Thread currentThread = Thread.currentThread();
 
@@ -152,6 +158,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	public SQLQuery createSQLQuery(String queryString, boolean strictName)
 		throws ORMException {
 
@@ -173,6 +180,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public void delete(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -193,6 +201,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public void evict(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -213,6 +222,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public void flush() throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -233,6 +243,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Object get(Class<?> clazz, Serializable id) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -253,6 +264,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Object get(Class<?> clazz, Serializable id, LockMode lockMode)
 		throws ORMException {
@@ -275,6 +287,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Object getWrappedSession() throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -295,6 +308,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Object load(Class<?> clazz, Serializable id) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -315,6 +329,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Object merge(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -335,6 +350,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public Serializable save(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();
@@ -355,6 +371,7 @@ public class ClassLoaderSession implements Session {
 		}
 	}
 
+	@Override
 	@NotPrivileged
 	public void saveOrUpdate(Object object) throws ORMException {
 		Thread currentThread = Thread.currentThread();

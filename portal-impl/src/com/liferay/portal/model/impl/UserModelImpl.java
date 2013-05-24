@@ -257,26 +257,32 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 	public UserModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _userId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setUserId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _userId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return User.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return User.class.getName();
 	}
@@ -577,6 +583,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
@@ -587,6 +594,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -599,11 +607,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -616,10 +626,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -628,11 +640,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalUserId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -649,11 +663,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalCompanyId;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
@@ -668,11 +684,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalCreateDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_columnBitmask |= MODIFIEDDATE_COLUMN_BITMASK;
 
@@ -687,15 +705,18 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalModifiedDate;
 	}
 
+	@Override
 	@JSON
 	public boolean getDefaultUser() {
 		return _defaultUser;
 	}
 
+	@Override
 	public boolean isDefaultUser() {
 		return _defaultUser;
 	}
 
+	@Override
 	public void setDefaultUser(boolean defaultUser) {
 		_columnBitmask |= DEFAULTUSER_COLUMN_BITMASK;
 
@@ -712,11 +733,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalDefaultUser;
 	}
 
+	@Override
 	@JSON
 	public long getContactId() {
 		return _contactId;
 	}
 
+	@Override
 	public void setContactId(long contactId) {
 		_columnBitmask |= CONTACTID_COLUMN_BITMASK;
 
@@ -733,6 +756,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalContactId;
 	}
 
+	@Override
 	@JSON(include = false)
 	public String getPassword() {
 		if (_password == null) {
@@ -743,45 +767,55 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setPassword(String password) {
 		_password = password;
 	}
 
+	@Override
 	@JSON(include = false)
 	public boolean getPasswordEncrypted() {
 		return _passwordEncrypted;
 	}
 
+	@Override
 	public boolean isPasswordEncrypted() {
 		return _passwordEncrypted;
 	}
 
+	@Override
 	public void setPasswordEncrypted(boolean passwordEncrypted) {
 		_passwordEncrypted = passwordEncrypted;
 	}
 
+	@Override
 	@JSON(include = false)
 	public boolean getPasswordReset() {
 		return _passwordReset;
 	}
 
+	@Override
 	public boolean isPasswordReset() {
 		return _passwordReset;
 	}
 
+	@Override
 	public void setPasswordReset(boolean passwordReset) {
 		_passwordReset = passwordReset;
 	}
 
+	@Override
 	@JSON(include = false)
 	public Date getPasswordModifiedDate() {
 		return _passwordModifiedDate;
 	}
 
+	@Override
 	public void setPasswordModifiedDate(Date passwordModifiedDate) {
 		_passwordModifiedDate = passwordModifiedDate;
 	}
 
+	@Override
 	@JSON(include = false)
 	public String getDigest() {
 		if (_digest == null) {
@@ -792,10 +826,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setDigest(String digest) {
 		_digest = digest;
 	}
 
+	@Override
 	@JSON
 	public String getReminderQueryQuestion() {
 		if (_reminderQueryQuestion == null) {
@@ -806,10 +842,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setReminderQueryQuestion(String reminderQueryQuestion) {
 		_reminderQueryQuestion = reminderQueryQuestion;
 	}
 
+	@Override
 	@JSON
 	public String getReminderQueryAnswer() {
 		if (_reminderQueryAnswer == null) {
@@ -820,19 +858,23 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setReminderQueryAnswer(String reminderQueryAnswer) {
 		_reminderQueryAnswer = reminderQueryAnswer;
 	}
 
+	@Override
 	@JSON
 	public int getGraceLoginCount() {
 		return _graceLoginCount;
 	}
 
+	@Override
 	public void setGraceLoginCount(int graceLoginCount) {
 		_graceLoginCount = graceLoginCount;
 	}
 
+	@Override
 	@JSON
 	public String getScreenName() {
 		if (_screenName == null) {
@@ -843,6 +885,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setScreenName(String screenName) {
 		_columnBitmask |= SCREENNAME_COLUMN_BITMASK;
 
@@ -857,6 +900,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return GetterUtil.getString(_originalScreenName);
 	}
 
+	@Override
 	@JSON
 	public String getEmailAddress() {
 		if (_emailAddress == null) {
@@ -867,6 +911,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setEmailAddress(String emailAddress) {
 		_columnBitmask |= EMAILADDRESS_COLUMN_BITMASK;
 
@@ -881,11 +926,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return GetterUtil.getString(_originalEmailAddress);
 	}
 
+	@Override
 	@JSON
 	public long getFacebookId() {
 		return _facebookId;
 	}
 
+	@Override
 	public void setFacebookId(long facebookId) {
 		_columnBitmask |= FACEBOOKID_COLUMN_BITMASK;
 
@@ -902,15 +949,18 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalFacebookId;
 	}
 
+	@Override
 	@JSON
 	public long getLdapServerId() {
 		return _ldapServerId;
 	}
 
+	@Override
 	public void setLdapServerId(long ldapServerId) {
 		_ldapServerId = ldapServerId;
 	}
 
+	@Override
 	@JSON
 	public String getOpenId() {
 		if (_openId == null) {
@@ -921,6 +971,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setOpenId(String openId) {
 		_columnBitmask |= OPENID_COLUMN_BITMASK;
 
@@ -935,11 +986,13 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return GetterUtil.getString(_originalOpenId);
 	}
 
+	@Override
 	@JSON
 	public long getPortraitId() {
 		return _portraitId;
 	}
 
+	@Override
 	public void setPortraitId(long portraitId) {
 		_columnBitmask |= PORTRAITID_COLUMN_BITMASK;
 
@@ -956,6 +1009,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return _originalPortraitId;
 	}
 
+	@Override
 	@JSON
 	public String getLanguageId() {
 		if (_languageId == null) {
@@ -966,10 +1020,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setLanguageId(String languageId) {
 		_languageId = languageId;
 	}
 
+	@Override
 	@JSON
 	public String getTimeZoneId() {
 		if (_timeZoneId == null) {
@@ -980,10 +1036,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setTimeZoneId(String timeZoneId) {
 		_timeZoneId = timeZoneId;
 	}
 
+	@Override
 	@JSON
 	public String getGreeting() {
 		if (_greeting == null) {
@@ -994,10 +1052,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setGreeting(String greeting) {
 		_greeting = greeting;
 	}
 
+	@Override
 	@JSON
 	public String getComments() {
 		if (_comments == null) {
@@ -1008,10 +1068,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setComments(String comments) {
 		_comments = comments;
 	}
 
+	@Override
 	@JSON
 	public String getFirstName() {
 		if (_firstName == null) {
@@ -1022,10 +1084,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setFirstName(String firstName) {
 		_firstName = firstName;
 	}
 
+	@Override
 	@JSON
 	public String getMiddleName() {
 		if (_middleName == null) {
@@ -1036,10 +1100,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setMiddleName(String middleName) {
 		_middleName = middleName;
 	}
 
+	@Override
 	@JSON
 	public String getLastName() {
 		if (_lastName == null) {
@@ -1050,10 +1116,12 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setLastName(String lastName) {
 		_lastName = lastName;
 	}
 
+	@Override
 	@JSON
 	public String getJobTitle() {
 		if (_jobTitle == null) {
@@ -1064,19 +1132,23 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setJobTitle(String jobTitle) {
 		_jobTitle = jobTitle;
 	}
 
+	@Override
 	@JSON
 	public Date getLoginDate() {
 		return _loginDate;
 	}
 
+	@Override
 	public void setLoginDate(Date loginDate) {
 		_loginDate = loginDate;
 	}
 
+	@Override
 	@JSON
 	public String getLoginIP() {
 		if (_loginIP == null) {
@@ -1087,19 +1159,23 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setLoginIP(String loginIP) {
 		_loginIP = loginIP;
 	}
 
+	@Override
 	@JSON
 	public Date getLastLoginDate() {
 		return _lastLoginDate;
 	}
 
+	@Override
 	public void setLastLoginDate(Date lastLoginDate) {
 		_lastLoginDate = lastLoginDate;
 	}
 
+	@Override
 	@JSON
 	public String getLastLoginIP() {
 		if (_lastLoginIP == null) {
@@ -1110,81 +1186,99 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		}
 	}
 
+	@Override
 	public void setLastLoginIP(String lastLoginIP) {
 		_lastLoginIP = lastLoginIP;
 	}
 
+	@Override
 	@JSON
 	public Date getLastFailedLoginDate() {
 		return _lastFailedLoginDate;
 	}
 
+	@Override
 	public void setLastFailedLoginDate(Date lastFailedLoginDate) {
 		_lastFailedLoginDate = lastFailedLoginDate;
 	}
 
+	@Override
 	@JSON
 	public int getFailedLoginAttempts() {
 		return _failedLoginAttempts;
 	}
 
+	@Override
 	public void setFailedLoginAttempts(int failedLoginAttempts) {
 		_failedLoginAttempts = failedLoginAttempts;
 	}
 
+	@Override
 	@JSON
 	public boolean getLockout() {
 		return _lockout;
 	}
 
+	@Override
 	public boolean isLockout() {
 		return _lockout;
 	}
 
+	@Override
 	public void setLockout(boolean lockout) {
 		_lockout = lockout;
 	}
 
+	@Override
 	@JSON
 	public Date getLockoutDate() {
 		return _lockoutDate;
 	}
 
+	@Override
 	public void setLockoutDate(Date lockoutDate) {
 		_lockoutDate = lockoutDate;
 	}
 
+	@Override
 	@JSON
 	public boolean getAgreedToTermsOfUse() {
 		return _agreedToTermsOfUse;
 	}
 
+	@Override
 	public boolean isAgreedToTermsOfUse() {
 		return _agreedToTermsOfUse;
 	}
 
+	@Override
 	public void setAgreedToTermsOfUse(boolean agreedToTermsOfUse) {
 		_agreedToTermsOfUse = agreedToTermsOfUse;
 	}
 
+	@Override
 	@JSON
 	public boolean getEmailAddressVerified() {
 		return _emailAddressVerified;
 	}
 
+	@Override
 	public boolean isEmailAddressVerified() {
 		return _emailAddressVerified;
 	}
 
+	@Override
 	public void setEmailAddressVerified(boolean emailAddressVerified) {
 		_emailAddressVerified = emailAddressVerified;
 	}
 
+	@Override
 	@JSON
 	public int getStatus() {
 		return _status;
 	}
 
+	@Override
 	public void setStatus(int status) {
 		_columnBitmask |= STATUS_COLUMN_BITMASK;
 
@@ -1278,6 +1372,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return userImpl;
 	}
 
+	@Override
 	public int compareTo(User user) {
 		long primaryKey = user.getPrimaryKey();
 
@@ -1701,6 +1796,7 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(124);
 

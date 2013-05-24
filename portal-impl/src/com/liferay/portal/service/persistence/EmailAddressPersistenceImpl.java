@@ -110,6 +110,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid(String uuid) throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -127,6 +128,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -146,6 +148,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -266,6 +269,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -295,6 +299,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<EmailAddress> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -315,6 +320,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -344,6 +350,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -368,6 +375,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByUuid_PrevAndNext(long emailAddressId,
 		String uuid, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -523,6 +531,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (EmailAddress emailAddress : findByUuid(uuid, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -537,6 +546,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -629,6 +639,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -649,6 +660,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -669,6 +681,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -800,6 +813,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -834,6 +848,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<EmailAddress> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -856,6 +871,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -890,6 +906,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -915,6 +932,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByUuid_C_PrevAndNext(long emailAddressId,
 		String uuid, long companyId, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1075,6 +1093,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (EmailAddress emailAddress : findByUuid_C(uuid, companyId,
@@ -1091,6 +1110,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1188,6 +1208,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -1207,6 +1228,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByCompanyId(long companyId, int start, int end)
 		throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -1226,6 +1248,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByCompanyId(long companyId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1332,6 +1355,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1362,6 +1386,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<EmailAddress> list = findByCompanyId(companyId, 0, 1,
@@ -1383,6 +1408,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1413,6 +1439,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -1437,6 +1464,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByCompanyId_PrevAndNext(long emailAddressId,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1578,6 +1606,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (EmailAddress emailAddress : findByCompanyId(companyId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -1592,6 +1621,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -1666,6 +1696,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUserId(long userId)
 		throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -1684,6 +1715,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUserId(long userId, int start, int end)
 		throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -1703,6 +1735,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1809,6 +1842,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1839,6 +1873,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<EmailAddress> list = findByUserId(userId, 0, 1, orderByComparator);
@@ -1859,6 +1894,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -1888,6 +1924,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
@@ -1912,6 +1949,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByUserId_PrevAndNext(long emailAddressId,
 		long userId, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2053,6 +2091,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUserId(long userId) throws SystemException {
 		for (EmailAddress emailAddress : findByUserId(userId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2067,6 +2106,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUserId(long userId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
 
@@ -2142,6 +2182,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C(long companyId, long classNameId)
 		throws SystemException {
 		return findByC_C(companyId, classNameId, QueryUtil.ALL_POS,
@@ -2162,6 +2203,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C(long companyId, long classNameId,
 		int start, int end) throws SystemException {
 		return findByC_C(companyId, classNameId, start, end, null);
@@ -2182,6 +2224,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C(long companyId, long classNameId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2299,6 +2342,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_First(long companyId, long classNameId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2333,6 +2377,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_First(long companyId, long classNameId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<EmailAddress> list = findByC_C(companyId, classNameId, 0, 1,
@@ -2355,6 +2400,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_Last(long companyId, long classNameId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2389,6 +2435,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_Last(long companyId, long classNameId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_C(companyId, classNameId);
@@ -2414,6 +2461,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByC_C_PrevAndNext(long emailAddressId,
 		long companyId, long classNameId, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2560,6 +2608,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param classNameId the class name ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C(long companyId, long classNameId)
 		throws SystemException {
 		for (EmailAddress emailAddress : findByC_C(companyId, classNameId,
@@ -2576,6 +2625,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C(long companyId, long classNameId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C;
@@ -2663,6 +2713,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C(long companyId, long classNameId,
 		long classPK) throws SystemException {
 		return findByC_C_C(companyId, classNameId, classPK, QueryUtil.ALL_POS,
@@ -2684,6 +2735,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C(long companyId, long classNameId,
 		long classPK, int start, int end) throws SystemException {
 		return findByC_C_C(companyId, classNameId, classPK, start, end, null);
@@ -2705,6 +2757,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C(long companyId, long classNameId,
 		long classPK, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2828,6 +2881,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_C_First(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2866,6 +2920,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_C_First(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2890,6 +2945,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_C_Last(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -2928,6 +2984,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_C_Last(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2955,6 +3012,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByC_C_C_PrevAndNext(long emailAddressId,
 		long companyId, long classNameId, long classPK,
 		OrderByComparator orderByComparator)
@@ -3107,6 +3165,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param classPK the class p k
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C_C(long companyId, long classNameId, long classPK)
 		throws SystemException {
 		for (EmailAddress emailAddress : findByC_C_C(companyId, classNameId,
@@ -3124,6 +3183,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C_C(long companyId, long classNameId, long classPK)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C_C;
@@ -3222,6 +3282,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary) throws SystemException {
 		return findByC_C_C_P(companyId, classNameId, classPK, primary,
@@ -3244,6 +3305,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary, int start, int end)
 		throws SystemException {
@@ -3268,6 +3330,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3397,6 +3460,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_C_P_First(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -3439,6 +3503,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the first matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_C_P_First(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3464,6 +3529,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByC_C_C_P_Last(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws NoSuchEmailAddressException, SystemException {
@@ -3506,6 +3572,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the last matching email address, or <code>null</code> if a matching email address could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByC_C_C_P_Last(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3534,6 +3601,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress[] findByC_C_C_P_PrevAndNext(long emailAddressId,
 		long companyId, long classNameId, long classPK, boolean primary,
 		OrderByComparator orderByComparator)
@@ -3694,6 +3762,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param primary the primary
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C_C_P(long companyId, long classNameId, long classPK,
 		boolean primary) throws SystemException {
 		for (EmailAddress emailAddress : findByC_C_C_P(companyId, classNameId,
@@ -3712,6 +3781,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of matching email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C_C_P(long companyId, long classNameId, long classPK,
 		boolean primary) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C_C_P;
@@ -3782,6 +3852,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 *
 	 * @param emailAddress the email address
 	 */
+	@Override
 	public void cacheResult(EmailAddress emailAddress) {
 		EntityCacheUtil.putResult(EmailAddressModelImpl.ENTITY_CACHE_ENABLED,
 			EmailAddressImpl.class, emailAddress.getPrimaryKey(), emailAddress);
@@ -3794,6 +3865,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 *
 	 * @param emailAddresses the email addresses
 	 */
+	@Override
 	public void cacheResult(List<EmailAddress> emailAddresses) {
 		for (EmailAddress emailAddress : emailAddresses) {
 			if (EntityCacheUtil.getResult(
@@ -3860,6 +3932,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @param emailAddressId the primary key for the new email address
 	 * @return the new email address
 	 */
+	@Override
 	public EmailAddress create(long emailAddressId) {
 		EmailAddress emailAddress = new EmailAddressImpl();
 
@@ -3881,6 +3954,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress remove(long emailAddressId)
 		throws NoSuchEmailAddressException, SystemException {
 		return remove((Serializable)emailAddressId);
@@ -4213,6 +4287,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @throws com.liferay.portal.NoSuchEmailAddressException if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress findByPrimaryKey(long emailAddressId)
 		throws NoSuchEmailAddressException, SystemException {
 		return findByPrimaryKey((Serializable)emailAddressId);
@@ -4273,6 +4348,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the email address, or <code>null</code> if a email address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public EmailAddress fetchByPrimaryKey(long emailAddressId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)emailAddressId);
@@ -4284,6 +4360,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -4300,6 +4377,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the range of email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -4318,6 +4396,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the ordered range of email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<EmailAddress> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -4403,6 +4482,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (EmailAddress emailAddress : findAll()) {
 			remove(emailAddress);
@@ -4415,6 +4495,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 	 * @return the number of email addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -4508,6 +4589,7 @@ public class EmailAddressPersistenceImpl extends BasePersistenceImpl<EmailAddres
 		};
 
 	private static CacheModel<EmailAddress> _nullEmailAddressCacheModel = new CacheModel<EmailAddress>() {
+			@Override
 			public EmailAddress toEntityModel() {
 				return _nullEmailAddress;
 			}

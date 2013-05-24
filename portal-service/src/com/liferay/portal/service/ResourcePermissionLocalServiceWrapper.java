@@ -36,6 +36,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permission that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission addResourcePermission(
 		com.liferay.portal.model.ResourcePermission resourcePermission)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @param resourcePermissionId the primary key for the new resource permission
 	* @return the new resource permission
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission createResourcePermission(
 		long resourcePermissionId) {
 		return _resourcePermissionLocalService.createResourcePermission(resourcePermissionId);
@@ -61,6 +63,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if a resource permission with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission deleteResourcePermission(
 		long resourcePermissionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permission that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission deleteResourcePermission(
 		com.liferay.portal.model.ResourcePermission resourcePermission)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourcePermissionLocalService.deleteResourcePermission(resourcePermission);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _resourcePermissionLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourcePermissionLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.ResourcePermission fetchResourcePermission(
 		long resourcePermissionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -171,6 +181,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if a resource permission with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission getResourcePermission(
 		long resourcePermissionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -178,6 +189,7 @@ public class ResourcePermissionLocalServiceWrapper
 		return _resourcePermissionLocalService.getResourcePermission(resourcePermissionId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -197,6 +209,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the range of resource permissions
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getResourcePermissions(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -209,6 +222,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the number of resource permissions
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getResourcePermissionsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourcePermissionLocalService.getResourcePermissionsCount();
@@ -221,6 +235,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permission that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission updateResourcePermission(
 		com.liferay.portal.model.ResourcePermission resourcePermission)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -232,6 +247,7 @@ public class ResourcePermissionLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _resourcePermissionLocalService.getBeanIdentifier();
 	}
@@ -241,6 +257,7 @@ public class ResourcePermissionLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_resourcePermissionLocalService.setBeanIdentifier(beanIdentifier);
 	}
@@ -284,6 +301,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addResourcePermission(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long roleId,
 		java.lang.String actionId)
@@ -311,6 +329,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @param resourceActionBitwiseValue the bitwise IDs of the actions
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addResourcePermissions(java.lang.String resourceName,
 		java.lang.String roleName, int scope, long resourceActionBitwiseValue)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -341,6 +360,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteResourcePermissions(long companyId,
 		java.lang.String name, int scope, long primKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -372,6 +392,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteResourcePermissions(long companyId,
 		java.lang.String name, int scope, java.lang.String primKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -397,6 +418,7 @@ public class ResourcePermissionLocalServiceWrapper
 	one of the actions on the resource
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<java.lang.String> getAvailableResourcePermissionActionIds(
 		long companyId, java.lang.String name, int scope,
 		java.lang.String primKey, long roleId,
@@ -407,6 +429,7 @@ public class ResourcePermissionLocalServiceWrapper
 			name, scope, primKey, roleId, actionIds);
 	}
 
+	@Override
 	public java.util.Map<java.lang.Long, java.util.Set<java.lang.String>> getAvailableResourcePermissionActionIds(
 		long companyId, java.lang.String name, int scope,
 		java.lang.String primKey, long[] roleIds,
@@ -432,6 +455,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if no matching resources could be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourcePermission getResourcePermission(
 		long companyId, java.lang.String name, int scope,
 		java.lang.String primKey, long roleId)
@@ -452,6 +476,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permissions at the scope of the type
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getResourcePermissions(
 		long companyId, java.lang.String name, int scope,
 		java.lang.String primKey)
@@ -471,6 +496,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the number of resource permissions at the scope of the type
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getResourcePermissionsCount(long companyId,
 		java.lang.String name, int scope, java.lang.String primKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -489,6 +515,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permissions associated with the resource
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getResourceResourcePermissions(
 		long companyId, long groupId, java.lang.String name,
 		java.lang.String primKey)
@@ -504,6 +531,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permissions for the role
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getRoleResourcePermissions(
 		long roleId) throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourcePermissionLocalService.getRoleResourcePermissions(roleId);
@@ -530,6 +558,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the range of resource permissions for the role at the scopes
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getRoleResourcePermissions(
 		long roleId, int[] scopes, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -554,6 +583,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return the resource permissions where scope = any &#63;
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourcePermission> getScopeResourcePermissions(
 		int[] scopes)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -571,6 +601,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @return <code>true</code> if the resource permission grants permission to
 	perform the resource action
 	*/
+	@Override
 	public boolean hasActionId(
 		com.liferay.portal.model.ResourcePermission resourcePermission,
 		com.liferay.portal.model.ResourceAction resourceAction) {
@@ -599,6 +630,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasResourcePermission(
 		java.util.List<com.liferay.portal.model.Resource> resources,
 		long[] roleIds, java.lang.String actionId)
@@ -631,6 +663,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasResourcePermission(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long roleId,
 		java.lang.String actionId)
@@ -664,6 +697,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasResourcePermission(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long[] roleIds,
 		java.lang.String actionId)
@@ -673,6 +707,7 @@ public class ResourcePermissionLocalServiceWrapper
 			name, scope, primKey, roleIds, actionId);
 	}
 
+	@Override
 	public boolean[] hasResourcePermissions(long companyId,
 		java.lang.String name, int scope, java.lang.String primKey,
 		long[] roleIds, java.lang.String actionId)
@@ -704,6 +739,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasScopeResourcePermission(long companyId,
 		java.lang.String name, int scope, long roleId, java.lang.String actionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -721,6 +757,7 @@ public class ResourcePermissionLocalServiceWrapper
 	* @throws PortalException if a role with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void mergePermissions(long fromRoleId, long toRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -739,6 +776,7 @@ public class ResourcePermissionLocalServiceWrapper
 	key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void reassignPermissions(long resourcePermissionId, long toRoleId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -768,6 +806,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void removeResourcePermission(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long roleId,
 		java.lang.String actionId)
@@ -793,6 +832,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void removeResourcePermissions(long companyId,
 		java.lang.String name, int scope, long roleId, java.lang.String actionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -831,6 +871,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setOwnerResourcePermissions(long companyId,
 		java.lang.String name, int scope, java.lang.String primKey,
 		long roleId, long ownerId, java.lang.String[] actionIds)
@@ -867,6 +908,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setResourcePermissions(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long roleId,
 		java.lang.String[] actionIds)
@@ -902,6 +944,7 @@ public class ResourcePermissionLocalServiceWrapper
 	action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setResourcePermissions(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey,
 		java.util.Map<java.lang.Long, java.lang.String[]> roleIdsToActionIds)
@@ -926,10 +969,12 @@ public class ResourcePermissionLocalServiceWrapper
 		_resourcePermissionLocalService = resourcePermissionLocalService;
 	}
 
+	@Override
 	public ResourcePermissionLocalService getWrappedService() {
 		return _resourcePermissionLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ResourcePermissionLocalService resourcePermissionLocalService) {
 		_resourcePermissionLocalService = resourcePermissionLocalService;

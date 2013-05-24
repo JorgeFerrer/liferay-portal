@@ -65,6 +65,7 @@ public class DLFileRankCacheModel implements CacheModel<DLFileRank>,
 		return sb.toString();
 	}
 
+	@Override
 	public DLFileRank toEntityModel() {
 		DLFileRankImpl dlFileRankImpl = new DLFileRankImpl();
 
@@ -109,6 +110,7 @@ public class DLFileRankCacheModel implements CacheModel<DLFileRank>,
 		return dlFileRankImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		fileRankId = objectInput.readLong();
@@ -122,6 +124,7 @@ public class DLFileRankCacheModel implements CacheModel<DLFileRank>,
 		active = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

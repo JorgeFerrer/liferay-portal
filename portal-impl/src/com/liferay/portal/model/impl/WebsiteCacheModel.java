@@ -67,6 +67,7 @@ public class WebsiteCacheModel implements CacheModel<Website>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public Website toEntityModel() {
 		WebsiteImpl websiteImpl = new WebsiteImpl();
 
@@ -120,6 +121,7 @@ public class WebsiteCacheModel implements CacheModel<Website>, Externalizable {
 		return websiteImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		websiteId = objectInput.readLong();
@@ -135,6 +137,7 @@ public class WebsiteCacheModel implements CacheModel<Website>, Externalizable {
 		primary = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

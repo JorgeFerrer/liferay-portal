@@ -101,26 +101,32 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 	public DLFileRankModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _fileRankId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setFileRankId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _fileRankId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return DLFileRank.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return DLFileRank.class.getName();
 	}
@@ -206,6 +212,7 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -215,6 +222,7 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -227,18 +235,22 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	public long getFileRankId() {
 		return _fileRankId;
 	}
 
+	@Override
 	public void setFileRankId(long fileRankId) {
 		_fileRankId = fileRankId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -255,10 +267,12 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return _originalGroupId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -275,10 +289,12 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return _originalCompanyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -291,10 +307,12 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -303,6 +321,7 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return _originalUserId;
 	}
 
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -312,32 +331,39 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_columnBitmask = -1L;
 
 		_createDate = createDate;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public long getFileEntryId() {
 		return _fileEntryId;
 	}
 
+	@Override
 	public void setFileEntryId(long fileEntryId) {
 		_columnBitmask |= FILEENTRYID_COLUMN_BITMASK;
 
@@ -354,14 +380,17 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return _originalFileEntryId;
 	}
 
+	@Override
 	public boolean getActive() {
 		return _active;
 	}
 
+	@Override
 	public boolean isActive() {
 		return _active;
 	}
 
+	@Override
 	public void setActive(boolean active) {
 		_columnBitmask |= ACTIVE_COLUMN_BITMASK;
 
@@ -425,6 +454,7 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return dlFileRankImpl;
 	}
 
+	@Override
 	public int compareTo(DLFileRank dlFileRank) {
 		int value = 0;
 
@@ -577,6 +607,7 @@ public class DLFileRankModelImpl extends BaseModelImpl<DLFileRank>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(34);
 

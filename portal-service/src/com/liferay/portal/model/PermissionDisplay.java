@@ -38,6 +38,7 @@ public class PermissionDisplay
 		_actionLabel = actionLabel;
 	}
 
+	@Override
 	public int compareTo(PermissionDisplay permissionDisplay) {
 		int value = getPortletLabel().compareTo(
 			permissionDisplay.getPortletLabel());

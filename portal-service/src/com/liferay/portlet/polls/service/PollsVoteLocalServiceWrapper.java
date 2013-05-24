@@ -37,6 +37,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the polls vote that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote addPollsVote(
 		com.liferay.portlet.polls.model.PollsVote pollsVote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -49,6 +50,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @param voteId the primary key for the new polls vote
 	* @return the new polls vote
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote createPollsVote(
 		long voteId) {
 		return _pollsVoteLocalService.createPollsVote(voteId);
@@ -62,6 +64,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @throws PortalException if a polls vote with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote deletePollsVote(
 		long voteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -76,12 +79,14 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the polls vote that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote deletePollsVote(
 		com.liferay.portlet.polls.model.PollsVote pollsVote)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.deletePollsVote(pollsVote);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _pollsVoteLocalService.dynamicQuery();
 	}
@@ -93,6 +98,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -113,6 +119,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote fetchPollsVote(long voteId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.fetchPollsVote(voteId);
@@ -170,12 +180,14 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @throws PortalException if a polls vote with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote getPollsVote(long voteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getPollsVote(voteId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -192,6 +204,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @throws PortalException if a matching polls vote could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote getPollsVoteByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -211,6 +224,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the range of polls votes
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.polls.model.PollsVote> getPollsVotes(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -223,6 +237,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the number of polls votes
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getPollsVotesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getPollsVotesCount();
@@ -235,6 +250,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	* @return the polls vote that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote updatePollsVote(
 		com.liferay.portlet.polls.model.PollsVote pollsVote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -246,6 +262,7 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _pollsVoteLocalService.getBeanIdentifier();
 	}
@@ -255,10 +272,12 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_pollsVoteLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote addVote(long userId,
 		long questionId, long choiceId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -268,28 +287,33 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 			serviceContext);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.polls.model.PollsVote> getChoiceVotes(
 		long choiceId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getChoiceVotes(choiceId, start, end);
 	}
 
+	@Override
 	public int getChoiceVotesCount(long choiceId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getChoiceVotesCount(choiceId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.polls.model.PollsVote> getQuestionVotes(
 		long questionId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getQuestionVotes(questionId, start, end);
 	}
 
+	@Override
 	public int getQuestionVotesCount(long questionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _pollsVoteLocalService.getQuestionVotesCount(questionId);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsVote getVote(long questionId,
 		long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -312,10 +336,12 @@ public class PollsVoteLocalServiceWrapper implements PollsVoteLocalService,
 		_pollsVoteLocalService = pollsVoteLocalService;
 	}
 
+	@Override
 	public PollsVoteLocalService getWrappedService() {
 		return _pollsVoteLocalService;
 	}
 
+	@Override
 	public void setWrappedService(PollsVoteLocalService pollsVoteLocalService) {
 		_pollsVoteLocalService = pollsVoteLocalService;
 	}

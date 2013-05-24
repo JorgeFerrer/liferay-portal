@@ -106,6 +106,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalFeed addJournalFeed(JournalFeed journalFeed)
 		throws SystemException {
 		journalFeed.setNew(true);
@@ -119,6 +120,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @param id the primary key for the new journal feed
 	 * @return the new journal feed
 	 */
+	@Override
 	public JournalFeed createJournalFeed(long id) {
 		return journalFeedPersistence.create(id);
 	}
@@ -132,6 +134,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalFeed deleteJournalFeed(long id)
 		throws PortalException, SystemException {
 		return journalFeedPersistence.remove(id);
@@ -145,11 +148,13 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalFeed deleteJournalFeed(JournalFeed journalFeed)
 		throws SystemException {
 		return journalFeedPersistence.remove(journalFeed);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -164,6 +169,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -183,6 +189,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -204,6 +211,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -218,11 +226,13 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return journalFeedPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public JournalFeed fetchJournalFeed(long id) throws SystemException {
 		return journalFeedPersistence.fetchByPrimaryKey(id);
 	}
@@ -235,11 +245,13 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws PortalException if a journal feed with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalFeed getJournalFeed(long id)
 		throws PortalException, SystemException {
 		return journalFeedPersistence.findByPrimaryKey(id);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return journalFeedPersistence.findByPrimaryKey(primaryKeyObj);
@@ -254,6 +266,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws PortalException if a matching journal feed could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalFeed getJournalFeedByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return journalFeedPersistence.findByUUID_G(uuid, groupId);
@@ -271,6 +284,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the range of journal feeds
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalFeed> getJournalFeeds(int start, int end)
 		throws SystemException {
 		return journalFeedPersistence.findAll(start, end);
@@ -282,6 +296,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @return the number of journal feeds
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getJournalFeedsCount() throws SystemException {
 		return journalFeedPersistence.countAll();
 	}
@@ -294,6 +309,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalFeed updateJournalFeed(JournalFeed journalFeed)
 		throws SystemException {
 		return journalFeedPersistence.update(journalFeed);
@@ -1044,6 +1060,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1053,6 +1070,7 @@ public abstract class JournalFeedLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

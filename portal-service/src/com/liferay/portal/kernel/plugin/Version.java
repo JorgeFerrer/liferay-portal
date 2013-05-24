@@ -104,6 +104,7 @@ public class Version implements Comparable<Version>, Serializable {
 				version.getBuildNumber()));
 	}
 
+	@Override
 	public int compareTo(Version version) {
 		if (version == null) {
 			return 1;

@@ -32,6 +32,7 @@ public class AccountServiceWrapper implements AccountService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _accountService.getBeanIdentifier();
 	}
@@ -41,6 +42,7 @@ public class AccountServiceWrapper implements AccountService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_accountService.setBeanIdentifier(beanIdentifier);
 	}
@@ -59,10 +61,12 @@ public class AccountServiceWrapper implements AccountService,
 		_accountService = accountService;
 	}
 
+	@Override
 	public AccountService getWrappedService() {
 		return _accountService;
 	}
 
+	@Override
 	public void setWrappedService(AccountService accountService) {
 		_accountService = accountService;
 	}

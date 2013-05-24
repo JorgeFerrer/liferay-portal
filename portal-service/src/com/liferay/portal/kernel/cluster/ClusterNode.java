@@ -39,6 +39,7 @@ public class ClusterNode implements Comparable<ClusterNode>, Serializable {
 		_inetAddress = inetAddress;
 	}
 
+	@Override
 	public int compareTo(ClusterNode clusterNode) {
 		InetAddress inetAddress = clusterNode._inetAddress;
 

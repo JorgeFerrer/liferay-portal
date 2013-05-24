@@ -69,6 +69,7 @@ public class PhoneCacheModel implements CacheModel<Phone>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public Phone toEntityModel() {
 		PhoneImpl phoneImpl = new PhoneImpl();
 
@@ -129,6 +130,7 @@ public class PhoneCacheModel implements CacheModel<Phone>, Externalizable {
 		return phoneImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		phoneId = objectInput.readLong();
@@ -145,6 +147,7 @@ public class PhoneCacheModel implements CacheModel<Phone>, Externalizable {
 		primary = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

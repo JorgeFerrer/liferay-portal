@@ -105,6 +105,7 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public Layout toEntityModel() {
 		LayoutImpl layoutImpl = new LayoutImpl();
 
@@ -264,6 +265,7 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable {
 		return layoutImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		plid = objectInput.readLong();
@@ -298,6 +300,7 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable {
 		sourcePrototypeLayoutUuid = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

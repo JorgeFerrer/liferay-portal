@@ -124,6 +124,7 @@ import javax.sql.DataSource;
 		</#list>
 		 */
 		@Indexable(type = IndexableType.REINDEX)
+		@Override
 		public ${entity.name} add${entity.name}(${entity.name} ${entity.varName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			${entity.varName}.setNew(true);
 
@@ -136,6 +137,7 @@ import javax.sql.DataSource;
 		 * @param ${entity.PKVarName} the primary key for the new ${entity.humanName}
 		 * @return the new ${entity.humanName}
 		 */
+		@Override
 		public ${entity.name} create${entity.name}(${entity.PKClassName} ${entity.PKVarName}) {
 			return ${entity.varName}Persistence.create(${entity.PKVarName});
 		}
@@ -158,6 +160,7 @@ import javax.sql.DataSource;
 		</#list>
 		 */
 		@Indexable(type = IndexableType.DELETE)
+		@Override
 		public ${entity.name} delete${entity.name}(${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			return ${entity.varName}Persistence.remove(${entity.PKVarName});
 		}
@@ -178,10 +181,12 @@ import javax.sql.DataSource;
 		</#list>
 		 */
 		@Indexable(type = IndexableType.DELETE)
+		@Override
 		public ${entity.name} delete${entity.name}(${entity.name} ${entity.varName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			return ${entity.varName}Persistence.remove(${entity.varName});
 		}
 
+		@Override
 		public DynamicQuery dynamicQuery() {
 			Class<?> clazz = getClass();
 
@@ -195,6 +200,7 @@ import javax.sql.DataSource;
 		 * @return the matching rows
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		@SuppressWarnings("rawtypes")
 		public List dynamicQuery(DynamicQuery dynamicQuery) throws SystemException {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery);
@@ -213,6 +219,7 @@ import javax.sql.DataSource;
 		 * @return the range of matching rows
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		@SuppressWarnings("rawtypes")
 		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) throws SystemException {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery, start, end);
@@ -232,6 +239,7 @@ import javax.sql.DataSource;
 		 * @return the ordered range of matching rows
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		@SuppressWarnings("rawtypes")
 		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end, OrderByComparator orderByComparator) throws SystemException {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery, start, end, orderByComparator);
@@ -244,12 +252,14 @@ import javax.sql.DataSource;
 		 * @return the number of rows that match the dynamic query
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		public long dynamicQueryCount(DynamicQuery dynamicQuery) throws SystemException {
 			return ${entity.varName}Persistence.countWithDynamicQuery(dynamicQuery);
 		}
 
 		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "fetch" + entity.name, [entity.PKClassName], ["SystemException"])>
 
+		@Override
 		public ${entity.name} fetch${entity.name}(${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			return ${entity.varName}Persistence.fetchByPrimaryKey(${entity.PKVarName});
 		}
@@ -271,10 +281,12 @@ import javax.sql.DataSource;
 		</#if>
 		</#list>
 		 */
+		@Override
 		public ${entity.name} get${entity.name}(${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			return ${entity.varName}Persistence.findByPrimaryKey(${entity.PKVarName});
 		}
 
+		@Override
 		public PersistedModel getPersistedModel(Serializable primaryKeyObj) throws PortalException, SystemException {
 			return ${entity.varName}Persistence.findByPrimaryKey(primaryKeyObj);
 		}
@@ -298,6 +310,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public ${entity.name} get${entity.name}ByUuidAndGroupId(String uuid, long groupId, boolean privateLayout) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${entity.varName}Persistence.findByUUID_G_P(uuid, groupId, privateLayout);
 				}
@@ -318,6 +331,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public ${entity.name} get${entity.name}ByUuidAndGroupId(String uuid, long groupId) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${entity.varName}Persistence.findByUUID_G(uuid, groupId);
 				}
@@ -336,6 +350,7 @@ import javax.sql.DataSource;
 		 * @return the range of ${entity.humanNames}
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		public List<${entity.name}> get${entity.names}(int start, int end) throws SystemException {
 			return ${entity.varName}Persistence.findAll(start, end);
 		}
@@ -346,6 +361,7 @@ import javax.sql.DataSource;
 		 * @return the number of ${entity.humanNames}
 		 * @throws SystemException if a system exception occurred
 		 */
+		@Override
 		public int get${entity.names}Count() throws SystemException {
 			return ${entity.varName}Persistence.countAll();
 		}
@@ -366,12 +382,14 @@ import javax.sql.DataSource;
 		</#list>
 		 */
 		@Indexable(type = IndexableType.REINDEX)
+		@Override
 		public ${entity.name} update${entity.name}(${entity.name} ${entity.varName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 			return ${entity.varName}Persistence.update(${entity.varName});
 		}
 
 		<#list entity.blobList as column>
 			<#if column.lazy>
+				@Override
 				public ${entity.name}${column.methodName}BlobModel get${column.methodName}BlobModel(Serializable primaryKey) throws SystemException {
 					Session session = null;
 
@@ -405,6 +423,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void add${tempEntity.name}${entity.name}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.add${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
@@ -420,6 +439,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void add${tempEntity.name}${entity.name}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.name} ${entity.varName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.add${entity.name}(${tempEntity.PKVarName}, ${entity.varName});
 				}
@@ -435,6 +455,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void add${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName}[] ${entity.PKVarNames}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.add${entity.names}(${tempEntity.PKVarName}, ${entity.PKVarNames});
 				}
@@ -450,6 +471,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void add${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, List<${entity.name}> ${entity.names}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.add${entity.names}(${tempEntity.PKVarName}, ${entity.names});
 				}
@@ -465,6 +487,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void clear${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.clear${entity.names}(${tempEntity.PKVarName});
 				}
@@ -480,6 +503,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void delete${tempEntity.name}${entity.name}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.remove${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
@@ -495,6 +519,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void delete${tempEntity.name}${entity.name}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.name} ${entity.varName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.remove${entity.name}(${tempEntity.PKVarName}, ${entity.varName});
 				}
@@ -510,6 +535,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void delete${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName}[] ${entity.PKVarNames}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.remove${entity.names}(${tempEntity.PKVarName}, ${entity.PKVarNames});
 				}
@@ -525,6 +551,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void delete${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, List<${entity.name}> ${entity.names}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.remove${entity.names}(${tempEntity.PKVarName}, ${entity.names});
 				}
@@ -540,6 +567,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public List<${entity.name}> get${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName});
 				}
@@ -555,6 +583,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public List<${entity.name}> get${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, int start, int end) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName}, start, end);
 				}
@@ -570,6 +599,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public List<${entity.name}> get${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, int start, int end, OrderByComparator orderByComparator) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName}, start, end, orderByComparator);
 				}
@@ -585,6 +615,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public int get${tempEntity.name}${entity.names}Count(${tempEntity.PKClassName} ${tempEntity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.get${entity.names}Size(${tempEntity.PKVarName});
 				}
@@ -600,6 +631,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public boolean has${tempEntity.name}${entity.name}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.contains${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
@@ -615,6 +647,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public boolean has${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					return ${tempEntity.varName}Persistence.contains${entity.names}(${tempEntity.PKVarName});
 				}
@@ -630,6 +663,7 @@ import javax.sql.DataSource;
 				</#if>
 				</#list>
 				 */
+				@Override
 				public void set${tempEntity.name}${entity.names}(${tempEntity.PKClassName} ${tempEntity.PKVarName}, ${entity.PKClassName}[] ${entity.PKVarNames}) throws ${stringUtil.merge(serviceBaseExceptions)} {
 					${tempEntity.varName}Persistence.set${entity.names}(${tempEntity.PKVarName}, ${entity.PKVarNames});
 				}
@@ -750,6 +784,7 @@ import javax.sql.DataSource;
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -759,11 +794,13 @@ import javax.sql.DataSource;
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
 	<#if pluginName != "">
+		@Override
 		public Object invokeMethod(
 				String name, String[] parameterTypes, Object[] arguments)
 			throws Throwable {

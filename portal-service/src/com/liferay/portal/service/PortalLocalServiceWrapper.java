@@ -32,6 +32,7 @@ public class PortalLocalServiceWrapper implements PortalLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _portalLocalService.getBeanIdentifier();
 	}
@@ -41,6 +42,7 @@ public class PortalLocalServiceWrapper implements PortalLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_portalLocalService.setBeanIdentifier(beanIdentifier);
 	}
@@ -60,10 +62,12 @@ public class PortalLocalServiceWrapper implements PortalLocalService,
 		_portalLocalService = portalLocalService;
 	}
 
+	@Override
 	public PortalLocalService getWrappedService() {
 		return _portalLocalService;
 	}
 
+	@Override
 	public void setWrappedService(PortalLocalService portalLocalService) {
 		_portalLocalService = portalLocalService;
 	}

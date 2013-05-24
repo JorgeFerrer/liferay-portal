@@ -250,6 +250,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Role addRole(Role role) throws SystemException {
 		role.setNew(true);
 
@@ -262,6 +263,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param roleId the primary key for the new role
 	 * @return the new role
 	 */
+	@Override
 	public Role createRole(long roleId) {
 		return rolePersistence.create(roleId);
 	}
@@ -275,6 +277,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Role deleteRole(long roleId) throws PortalException, SystemException {
 		return rolePersistence.remove(roleId);
 	}
@@ -288,10 +291,12 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Role deleteRole(Role role) throws PortalException, SystemException {
 		return rolePersistence.remove(role);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -306,6 +311,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -325,6 +331,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return rolePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Role fetchRole(long roleId) throws SystemException {
 		return rolePersistence.fetchByPrimaryKey(roleId);
 	}
@@ -376,10 +386,12 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a role with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Role getRole(long roleId) throws PortalException, SystemException {
 		return rolePersistence.findByPrimaryKey(roleId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return rolePersistence.findByPrimaryKey(primaryKeyObj);
@@ -397,6 +409,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of roles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getRoles(int start, int end) throws SystemException {
 		return rolePersistence.findAll(start, end);
 	}
@@ -407,6 +420,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of roles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getRolesCount() throws SystemException {
 		return rolePersistence.countAll();
 	}
@@ -419,6 +433,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Role updateRole(Role role) throws SystemException {
 		return rolePersistence.update(role);
 	}
@@ -426,6 +441,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addGroupRole(long groupId, long roleId)
 		throws SystemException {
 		groupPersistence.addRole(groupId, roleId);
@@ -434,6 +450,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addGroupRole(long groupId, Role role) throws SystemException {
 		groupPersistence.addRole(groupId, role);
 	}
@@ -441,6 +458,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addGroupRoles(long groupId, long[] roleIds)
 		throws SystemException {
 		groupPersistence.addRoles(groupId, roleIds);
@@ -449,6 +467,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addGroupRoles(long groupId, List<Role> Roles)
 		throws SystemException {
 		groupPersistence.addRoles(groupId, Roles);
@@ -457,6 +476,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearGroupRoles(long groupId) throws SystemException {
 		groupPersistence.clearRoles(groupId);
 	}
@@ -464,6 +484,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteGroupRole(long groupId, long roleId)
 		throws SystemException {
 		groupPersistence.removeRole(groupId, roleId);
@@ -472,6 +493,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteGroupRole(long groupId, Role role)
 		throws SystemException {
 		groupPersistence.removeRole(groupId, role);
@@ -480,6 +502,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteGroupRoles(long groupId, long[] roleIds)
 		throws SystemException {
 		groupPersistence.removeRoles(groupId, roleIds);
@@ -488,6 +511,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteGroupRoles(long groupId, List<Role> Roles)
 		throws SystemException {
 		groupPersistence.removeRoles(groupId, Roles);
@@ -496,6 +520,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getGroupRoles(long groupId) throws SystemException {
 		return groupPersistence.getRoles(groupId);
 	}
@@ -503,6 +528,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getGroupRoles(long groupId, int start, int end)
 		throws SystemException {
 		return groupPersistence.getRoles(groupId, start, end);
@@ -511,6 +537,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getGroupRoles(long groupId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		return groupPersistence.getRoles(groupId, start, end, orderByComparator);
@@ -519,6 +546,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getGroupRolesCount(long groupId) throws SystemException {
 		return groupPersistence.getRolesSize(groupId);
 	}
@@ -526,6 +554,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasGroupRole(long groupId, long roleId)
 		throws SystemException {
 		return groupPersistence.containsRole(groupId, roleId);
@@ -534,6 +563,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasGroupRoles(long groupId) throws SystemException {
 		return groupPersistence.containsRoles(groupId);
 	}
@@ -541,6 +571,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setGroupRoles(long groupId, long[] roleIds)
 		throws SystemException {
 		groupPersistence.setRoles(groupId, roleIds);
@@ -549,6 +580,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addUserRole(long userId, long roleId) throws SystemException {
 		userPersistence.addRole(userId, roleId);
 	}
@@ -556,6 +588,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addUserRole(long userId, Role role) throws SystemException {
 		userPersistence.addRole(userId, role);
 	}
@@ -564,6 +597,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addUserRoles(long userId, long[] roleIds)
 		throws PortalException, SystemException {
 		userPersistence.addRoles(userId, roleIds);
@@ -573,6 +607,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addUserRoles(long userId, List<Role> Roles)
 		throws PortalException, SystemException {
 		userPersistence.addRoles(userId, Roles);
@@ -581,6 +616,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearUserRoles(long userId) throws SystemException {
 		userPersistence.clearRoles(userId);
 	}
@@ -588,6 +624,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteUserRole(long userId, long roleId)
 		throws SystemException {
 		userPersistence.removeRole(userId, roleId);
@@ -596,6 +633,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteUserRole(long userId, Role role)
 		throws SystemException {
 		userPersistence.removeRole(userId, role);
@@ -604,6 +642,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteUserRoles(long userId, long[] roleIds)
 		throws SystemException {
 		userPersistence.removeRoles(userId, roleIds);
@@ -612,6 +651,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteUserRoles(long userId, List<Role> Roles)
 		throws SystemException {
 		userPersistence.removeRoles(userId, Roles);
@@ -620,6 +660,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getUserRoles(long userId) throws SystemException {
 		return userPersistence.getRoles(userId);
 	}
@@ -627,6 +668,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getUserRoles(long userId, int start, int end)
 		throws SystemException {
 		return userPersistence.getRoles(userId, start, end);
@@ -635,6 +677,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Role> getUserRoles(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		return userPersistence.getRoles(userId, start, end, orderByComparator);
@@ -643,6 +686,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getUserRolesCount(long userId) throws SystemException {
 		return userPersistence.getRolesSize(userId);
 	}
@@ -650,6 +694,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasUserRole(long userId, long roleId)
 		throws SystemException {
 		return userPersistence.containsRole(userId, roleId);
@@ -658,6 +703,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasUserRoles(long userId) throws SystemException {
 		return userPersistence.containsRoles(userId);
 	}
@@ -666,6 +712,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setUserRoles(long userId, long[] roleIds)
 		throws PortalException, SystemException {
 		userPersistence.setRoles(userId, roleIds);
@@ -4102,6 +4149,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -4111,6 +4159,7 @@ public abstract class RoleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -246,6 +246,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Phone addPhone(Phone phone) throws SystemException {
 		phone.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param phoneId the primary key for the new phone
 	 * @return the new phone
 	 */
+	@Override
 	public Phone createPhone(long phoneId) {
 		return phonePersistence.create(phoneId);
 	}
@@ -271,6 +273,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Phone deletePhone(long phoneId)
 		throws PortalException, SystemException {
 		return phonePersistence.remove(phoneId);
@@ -284,10 +287,12 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Phone deletePhone(Phone phone) throws SystemException {
 		return phonePersistence.remove(phone);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return phonePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Phone fetchPhone(long phoneId) throws SystemException {
 		return phonePersistence.fetchByPrimaryKey(phoneId);
 	}
@@ -372,10 +382,12 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone getPhone(long phoneId) throws PortalException, SystemException {
 		return phonePersistence.findByPrimaryKey(phoneId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return phonePersistence.findByPrimaryKey(primaryKeyObj);
@@ -393,6 +405,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> getPhones(int start, int end) throws SystemException {
 		return phonePersistence.findAll(start, end);
 	}
@@ -403,6 +416,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getPhonesCount() throws SystemException {
 		return phonePersistence.countAll();
 	}
@@ -415,6 +429,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Phone updatePhone(Phone phone) throws SystemException {
 		return phonePersistence.update(phone);
 	}
@@ -3794,6 +3809,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3803,6 +3819,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

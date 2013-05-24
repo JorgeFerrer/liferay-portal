@@ -247,6 +247,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public PasswordTracker addPasswordTracker(PasswordTracker passwordTracker)
 		throws SystemException {
 		passwordTracker.setNew(true);
@@ -260,6 +261,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @param passwordTrackerId the primary key for the new password tracker
 	 * @return the new password tracker
 	 */
+	@Override
 	public PasswordTracker createPasswordTracker(long passwordTrackerId) {
 		return passwordTrackerPersistence.create(passwordTrackerId);
 	}
@@ -273,6 +275,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public PasswordTracker deletePasswordTracker(long passwordTrackerId)
 		throws PortalException, SystemException {
 		return passwordTrackerPersistence.remove(passwordTrackerId);
@@ -286,11 +289,13 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public PasswordTracker deletePasswordTracker(
 		PasswordTracker passwordTracker) throws SystemException {
 		return passwordTrackerPersistence.remove(passwordTracker);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return passwordTrackerPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public PasswordTracker fetchPasswordTracker(long passwordTrackerId)
 		throws SystemException {
 		return passwordTrackerPersistence.fetchByPrimaryKey(passwordTrackerId);
@@ -377,11 +387,13 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @throws PortalException if a password tracker with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public PasswordTracker getPasswordTracker(long passwordTrackerId)
 		throws PortalException, SystemException {
 		return passwordTrackerPersistence.findByPrimaryKey(passwordTrackerId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return passwordTrackerPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the range of password trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<PasswordTracker> getPasswordTrackers(int start, int end)
 		throws SystemException {
 		return passwordTrackerPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @return the number of password trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getPasswordTrackersCount() throws SystemException {
 		return passwordTrackerPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public PasswordTracker updatePasswordTracker(
 		PasswordTracker passwordTracker) throws SystemException {
 		return passwordTrackerPersistence.update(passwordTracker);
@@ -3802,6 +3817,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class PasswordTrackerLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

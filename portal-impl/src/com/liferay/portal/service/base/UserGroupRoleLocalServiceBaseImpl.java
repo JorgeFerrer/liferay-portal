@@ -248,6 +248,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserGroupRole addUserGroupRole(UserGroupRole userGroupRole)
 		throws SystemException {
 		userGroupRole.setNew(true);
@@ -261,6 +262,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @param userGroupRolePK the primary key for the new user group role
 	 * @return the new user group role
 	 */
+	@Override
 	public UserGroupRole createUserGroupRole(UserGroupRolePK userGroupRolePK) {
 		return userGroupRolePersistence.create(userGroupRolePK);
 	}
@@ -274,6 +276,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserGroupRole deleteUserGroupRole(UserGroupRolePK userGroupRolePK)
 		throws PortalException, SystemException {
 		return userGroupRolePersistence.remove(userGroupRolePK);
@@ -287,11 +290,13 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserGroupRole deleteUserGroupRole(UserGroupRole userGroupRole)
 		throws SystemException {
 		return userGroupRolePersistence.remove(userGroupRole);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -306,6 +311,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -325,6 +331,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -346,6 +353,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -360,11 +368,13 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return userGroupRolePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public UserGroupRole fetchUserGroupRole(UserGroupRolePK userGroupRolePK)
 		throws SystemException {
 		return userGroupRolePersistence.fetchByPrimaryKey(userGroupRolePK);
@@ -378,11 +388,13 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @throws PortalException if a user group role with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public UserGroupRole getUserGroupRole(UserGroupRolePK userGroupRolePK)
 		throws PortalException, SystemException {
 		return userGroupRolePersistence.findByPrimaryKey(userGroupRolePK);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return userGroupRolePersistence.findByPrimaryKey(primaryKeyObj);
@@ -400,6 +412,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the range of user group roles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<UserGroupRole> getUserGroupRoles(int start, int end)
 		throws SystemException {
 		return userGroupRolePersistence.findAll(start, end);
@@ -411,6 +424,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @return the number of user group roles
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getUserGroupRolesCount() throws SystemException {
 		return userGroupRolePersistence.countAll();
 	}
@@ -423,6 +437,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserGroupRole updateUserGroupRole(UserGroupRole userGroupRole)
 		throws SystemException {
 		return userGroupRolePersistence.update(userGroupRole);
@@ -3803,6 +3818,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3812,6 +3828,7 @@ public abstract class UserGroupRoleLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

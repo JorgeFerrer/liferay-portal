@@ -38,6 +38,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the journal structure that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure addJournalStructure(
 		com.liferay.portlet.journal.model.JournalStructure journalStructure)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class JournalStructureLocalServiceWrapper
 	* @param id the primary key for the new journal structure
 	* @return the new journal structure
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure createJournalStructure(
 		long id) {
 		return _journalStructureLocalService.createJournalStructure(id);
@@ -63,6 +65,7 @@ public class JournalStructureLocalServiceWrapper
 	* @throws PortalException if a journal structure with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure deleteJournalStructure(
 		long id)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class JournalStructureLocalServiceWrapper
 	* @return the journal structure that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure deleteJournalStructure(
 		com.liferay.portlet.journal.model.JournalStructure journalStructure)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.deleteJournalStructure(journalStructure);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _journalStructureLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -136,6 +143,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -153,12 +161,14 @@ public class JournalStructureLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure fetchJournalStructure(
 		long id) throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.fetchJournalStructure(id);
@@ -172,6 +182,7 @@ public class JournalStructureLocalServiceWrapper
 	* @throws PortalException if a journal structure with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getJournalStructure(
 		long id)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -179,6 +190,7 @@ public class JournalStructureLocalServiceWrapper
 		return _journalStructureLocalService.getJournalStructure(id);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -195,6 +207,7 @@ public class JournalStructureLocalServiceWrapper
 	* @throws PortalException if a matching journal structure could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getJournalStructureByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -215,6 +228,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the range of journal structures
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getJournalStructures(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -227,6 +241,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the number of journal structures
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getJournalStructuresCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.getJournalStructuresCount();
@@ -239,6 +254,7 @@ public class JournalStructureLocalServiceWrapper
 	* @return the journal structure that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure updateJournalStructure(
 		com.liferay.portlet.journal.model.JournalStructure journalStructure)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -250,6 +266,7 @@ public class JournalStructureLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _journalStructureLocalService.getBeanIdentifier();
 	}
@@ -259,10 +276,12 @@ public class JournalStructureLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_journalStructureLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure addStructure(
 		long userId, long groupId, java.lang.String structureId,
 		boolean autoStructureId, java.lang.String parentStructureId,
@@ -277,6 +296,7 @@ public class JournalStructureLocalServiceWrapper
 			descriptionMap, xsd, serviceContext);
 	}
 
+	@Override
 	public void addStructureResources(
 		com.liferay.portlet.journal.model.JournalStructure structure,
 		boolean addGroupPermissions, boolean addGuestPermissions)
@@ -286,6 +306,7 @@ public class JournalStructureLocalServiceWrapper
 			addGroupPermissions, addGuestPermissions);
 	}
 
+	@Override
 	public void addStructureResources(
 		com.liferay.portlet.journal.model.JournalStructure structure,
 		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
@@ -295,6 +316,7 @@ public class JournalStructureLocalServiceWrapper
 			groupPermissions, guestPermissions);
 	}
 
+	@Override
 	public void addStructureResources(long groupId,
 		java.lang.String structureId, boolean addGroupPermissions,
 		boolean addGuestPermissions)
@@ -304,6 +326,7 @@ public class JournalStructureLocalServiceWrapper
 			structureId, addGroupPermissions, addGuestPermissions);
 	}
 
+	@Override
 	public void addStructureResources(long groupId,
 		java.lang.String structureId, java.lang.String[] groupPermissions,
 		java.lang.String[] guestPermissions)
@@ -313,12 +336,14 @@ public class JournalStructureLocalServiceWrapper
 			structureId, groupPermissions, guestPermissions);
 	}
 
+	@Override
 	public void checkNewLine(long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalStructureLocalService.checkNewLine(groupId, structureId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure copyStructure(
 		long userId, long groupId, java.lang.String oldStructureId,
 		java.lang.String newStructureId, boolean autoStructureId)
@@ -328,6 +353,7 @@ public class JournalStructureLocalServiceWrapper
 			oldStructureId, newStructureId, autoStructureId);
 	}
 
+	@Override
 	public void deleteStructure(
 		com.liferay.portlet.journal.model.JournalStructure structure)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -335,18 +361,21 @@ public class JournalStructureLocalServiceWrapper
 		_journalStructureLocalService.deleteStructure(structure);
 	}
 
+	@Override
 	public void deleteStructure(long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalStructureLocalService.deleteStructure(groupId, structureId);
 	}
 
+	@Override
 	public void deleteStructures(long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_journalStructureLocalService.deleteStructures(groupId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getStructure(
 		long id)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -354,6 +383,7 @@ public class JournalStructureLocalServiceWrapper
 		return _journalStructureLocalService.getStructure(id);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getStructure(
 		long groupId, java.lang.String structureId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -361,6 +391,7 @@ public class JournalStructureLocalServiceWrapper
 		return _journalStructureLocalService.getStructure(groupId, structureId);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure getStructure(
 		long groupId, java.lang.String structureId,
 		boolean includeGlobalStructures)
@@ -370,28 +401,33 @@ public class JournalStructureLocalServiceWrapper
 			includeGlobalStructures);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getStructures()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.getStructures();
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getStructures(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.getStructures(groupId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> getStructures(
 		long groupId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.getStructures(groupId, start, end);
 	}
 
+	@Override
 	public int getStructuresCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructureLocalService.getStructuresCount(groupId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> search(
 		long companyId, long[] groupIds, java.lang.String keywords, int start,
 		int end, com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -400,6 +436,7 @@ public class JournalStructureLocalServiceWrapper
 			keywords, start, end, obc);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.journal.model.JournalStructure> search(
 		long companyId, long[] groupIds, java.lang.String structureId,
 		java.lang.String name, java.lang.String description,
@@ -410,6 +447,7 @@ public class JournalStructureLocalServiceWrapper
 			structureId, name, description, andOperator, start, end, obc);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String keywords)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -417,6 +455,7 @@ public class JournalStructureLocalServiceWrapper
 			keywords);
 	}
 
+	@Override
 	public int searchCount(long companyId, long[] groupIds,
 		java.lang.String structureId, java.lang.String name,
 		java.lang.String description, boolean andOperator)
@@ -425,6 +464,7 @@ public class JournalStructureLocalServiceWrapper
 			structureId, name, description, andOperator);
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure updateStructure(
 		long groupId, java.lang.String structureId,
 		java.lang.String parentStructureId,
@@ -454,10 +494,12 @@ public class JournalStructureLocalServiceWrapper
 		_journalStructureLocalService = journalStructureLocalService;
 	}
 
+	@Override
 	public JournalStructureLocalService getWrappedService() {
 		return _journalStructureLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		JournalStructureLocalService journalStructureLocalService) {
 		_journalStructureLocalService = journalStructureLocalService;

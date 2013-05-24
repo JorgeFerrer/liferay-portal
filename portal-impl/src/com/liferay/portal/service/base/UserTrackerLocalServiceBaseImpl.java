@@ -247,6 +247,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserTracker addUserTracker(UserTracker userTracker)
 		throws SystemException {
 		userTracker.setNew(true);
@@ -260,6 +261,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @param userTrackerId the primary key for the new user tracker
 	 * @return the new user tracker
 	 */
+	@Override
 	public UserTracker createUserTracker(long userTrackerId) {
 		return userTrackerPersistence.create(userTrackerId);
 	}
@@ -273,6 +275,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserTracker deleteUserTracker(long userTrackerId)
 		throws PortalException, SystemException {
 		return userTrackerPersistence.remove(userTrackerId);
@@ -286,11 +289,13 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserTracker deleteUserTracker(UserTracker userTracker)
 		throws SystemException {
 		return userTrackerPersistence.remove(userTracker);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return userTrackerPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public UserTracker fetchUserTracker(long userTrackerId)
 		throws SystemException {
 		return userTrackerPersistence.fetchByPrimaryKey(userTrackerId);
@@ -377,11 +387,13 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @throws PortalException if a user tracker with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public UserTracker getUserTracker(long userTrackerId)
 		throws PortalException, SystemException {
 		return userTrackerPersistence.findByPrimaryKey(userTrackerId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return userTrackerPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the range of user trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<UserTracker> getUserTrackers(int start, int end)
 		throws SystemException {
 		return userTrackerPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @return the number of user trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getUserTrackersCount() throws SystemException {
 		return userTrackerPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserTracker updateUserTracker(UserTracker userTracker)
 		throws SystemException {
 		return userTrackerPersistence.update(userTracker);
@@ -3802,6 +3817,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

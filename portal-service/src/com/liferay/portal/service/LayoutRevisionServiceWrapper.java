@@ -33,6 +33,7 @@ public class LayoutRevisionServiceWrapper implements LayoutRevisionService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _layoutRevisionService.getBeanIdentifier();
 	}
@@ -42,10 +43,12 @@ public class LayoutRevisionServiceWrapper implements LayoutRevisionService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_layoutRevisionService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.LayoutRevision addLayoutRevision(
 		long userId, long layoutSetBranchId, long layoutBranchId,
 		long parentLayoutRevisionId, boolean head, long plid,
@@ -82,10 +85,12 @@ public class LayoutRevisionServiceWrapper implements LayoutRevisionService,
 		_layoutRevisionService = layoutRevisionService;
 	}
 
+	@Override
 	public LayoutRevisionService getWrappedService() {
 		return _layoutRevisionService;
 	}
 
+	@Override
 	public void setWrappedService(LayoutRevisionService layoutRevisionService) {
 		_layoutRevisionService = layoutRevisionService;
 	}

@@ -247,6 +247,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WebDAVProps addWebDAVProps(WebDAVProps webDAVProps)
 		throws SystemException {
 		webDAVProps.setNew(true);
@@ -260,6 +261,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @param webDavPropsId the primary key for the new web d a v props
 	 * @return the new web d a v props
 	 */
+	@Override
 	public WebDAVProps createWebDAVProps(long webDavPropsId) {
 		return webDAVPropsPersistence.create(webDavPropsId);
 	}
@@ -273,6 +275,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WebDAVProps deleteWebDAVProps(long webDavPropsId)
 		throws PortalException, SystemException {
 		return webDAVPropsPersistence.remove(webDavPropsId);
@@ -286,11 +289,13 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WebDAVProps deleteWebDAVProps(WebDAVProps webDAVProps)
 		throws SystemException {
 		return webDAVPropsPersistence.remove(webDAVProps);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return webDAVPropsPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public WebDAVProps fetchWebDAVProps(long webDavPropsId)
 		throws SystemException {
 		return webDAVPropsPersistence.fetchByPrimaryKey(webDavPropsId);
@@ -377,11 +387,13 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @throws PortalException if a web d a v props with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public WebDAVProps getWebDAVProps(long webDavPropsId)
 		throws PortalException, SystemException {
 		return webDAVPropsPersistence.findByPrimaryKey(webDavPropsId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return webDAVPropsPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the range of web d a v propses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<WebDAVProps> getWebDAVPropses(int start, int end)
 		throws SystemException {
 		return webDAVPropsPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @return the number of web d a v propses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getWebDAVPropsesCount() throws SystemException {
 		return webDAVPropsPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WebDAVProps updateWebDAVProps(WebDAVProps webDAVProps)
 		throws SystemException {
 		return webDAVPropsPersistence.update(webDAVProps);
@@ -3802,6 +3817,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class WebDAVPropsLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

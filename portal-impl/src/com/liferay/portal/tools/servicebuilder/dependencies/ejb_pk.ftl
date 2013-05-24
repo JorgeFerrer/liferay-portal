@@ -51,6 +51,7 @@ public class ${entity.PKClassName} implements Comparable<${entity.PKClassName}>,
 		</#if>
 	</#list>
 
+	@Override
 	public int compareTo(${entity.PKClassName} pk) {
 		if (pk == null) {
 			return -1;

@@ -183,26 +183,32 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 	public DDMTemplateModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _templateId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setTemplateId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _templateId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return DDMTemplate.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return DDMTemplate.class.getName();
 	}
@@ -365,6 +371,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
@@ -375,6 +382,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -387,20 +395,24 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	@JSON
 	public long getTemplateId() {
 		return _templateId;
 	}
 
+	@Override
 	public void setTemplateId(long templateId) {
 		_templateId = templateId;
 	}
 
+	@Override
 	@JSON
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -417,11 +429,13 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return _originalGroupId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -438,23 +452,28 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return _originalCompanyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -465,28 +484,34 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getClassName() {
 		if (getClassNameId() <= 0) {
 			return StringPool.BLANK;
@@ -495,6 +520,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return PortalUtil.getClassName(getClassNameId());
 	}
 
+	@Override
 	public void setClassName(String className) {
 		long classNameId = 0;
 
@@ -505,11 +531,13 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		setClassNameId(classNameId);
 	}
 
+	@Override
 	@JSON
 	public long getClassNameId() {
 		return _classNameId;
 	}
 
+	@Override
 	public void setClassNameId(long classNameId) {
 		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
@@ -526,11 +554,13 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return _originalClassNameId;
 	}
 
+	@Override
 	@JSON
 	public long getClassPK() {
 		return _classPK;
 	}
 
+	@Override
 	public void setClassPK(long classPK) {
 		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
@@ -547,6 +577,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return _originalClassPK;
 	}
 
+	@Override
 	@JSON
 	public String getTemplateKey() {
 		if (_templateKey == null) {
@@ -557,6 +588,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setTemplateKey(String templateKey) {
 		_columnBitmask |= TEMPLATEKEY_COLUMN_BITMASK;
 
@@ -571,6 +603,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return GetterUtil.getString(_originalTemplateKey);
 	}
 
+	@Override
 	@JSON
 	public String getName() {
 		if (_name == null) {
@@ -581,50 +614,60 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public String getName(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId);
 	}
 
+	@Override
 	public String getName(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId, useDefault);
 	}
 
+	@Override
 	public String getName(String languageId) {
 		return LocalizationUtil.getLocalization(getName(), languageId);
 	}
 
+	@Override
 	public String getName(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(getName(), languageId,
 			useDefault);
 	}
 
+	@Override
 	public String getNameCurrentLanguageId() {
 		return _nameCurrentLanguageId;
 	}
 
 	@JSON
+	@Override
 	public String getNameCurrentValue() {
 		Locale locale = getLocale(_nameCurrentLanguageId);
 
 		return getName(locale);
 	}
 
+	@Override
 	public Map<Locale, String> getNameMap() {
 		return LocalizationUtil.getLocalizationMap(getName());
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 	}
 
+	@Override
 	public void setName(String name, Locale locale) {
 		setName(name, locale, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setName(String name, Locale locale, Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
@@ -639,14 +682,17 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setNameCurrentLanguageId(String languageId) {
 		_nameCurrentLanguageId = languageId;
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap) {
 		setNameMap(nameMap, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap, Locale defaultLocale) {
 		if (nameMap == null) {
 			return;
@@ -656,6 +702,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
+	@Override
 	@JSON
 	public String getDescription() {
 		if (_description == null) {
@@ -666,50 +713,60 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public String getDescription(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getDescription(languageId);
 	}
 
+	@Override
 	public String getDescription(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getDescription(languageId, useDefault);
 	}
 
+	@Override
 	public String getDescription(String languageId) {
 		return LocalizationUtil.getLocalization(getDescription(), languageId);
 	}
 
+	@Override
 	public String getDescription(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(getDescription(), languageId,
 			useDefault);
 	}
 
+	@Override
 	public String getDescriptionCurrentLanguageId() {
 		return _descriptionCurrentLanguageId;
 	}
 
 	@JSON
+	@Override
 	public String getDescriptionCurrentValue() {
 		Locale locale = getLocale(_descriptionCurrentLanguageId);
 
 		return getDescription(locale);
 	}
 
+	@Override
 	public Map<Locale, String> getDescriptionMap() {
 		return LocalizationUtil.getLocalizationMap(getDescription());
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 	}
 
+	@Override
 	public void setDescription(String description, Locale locale) {
 		setDescription(description, locale, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setDescription(String description, Locale locale,
 		Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
@@ -726,14 +783,17 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setDescriptionCurrentLanguageId(String languageId) {
 		_descriptionCurrentLanguageId = languageId;
 	}
 
+	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap) {
 		setDescriptionMap(descriptionMap, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap,
 		Locale defaultLocale) {
 		if (descriptionMap == null) {
@@ -745,6 +805,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
+	@Override
 	@JSON
 	public String getType() {
 		if (_type == null) {
@@ -755,6 +816,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setType(String type) {
 		_columnBitmask |= TYPE_COLUMN_BITMASK;
 
@@ -769,6 +831,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return GetterUtil.getString(_originalType);
 	}
 
+	@Override
 	@JSON
 	public String getMode() {
 		if (_mode == null) {
@@ -779,6 +842,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setMode(String mode) {
 		_columnBitmask |= MODE_COLUMN_BITMASK;
 
@@ -793,6 +857,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return GetterUtil.getString(_originalMode);
 	}
 
+	@Override
 	@JSON
 	public String getLanguage() {
 		if (_language == null) {
@@ -803,6 +868,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setLanguage(String language) {
 		_columnBitmask |= LANGUAGE_COLUMN_BITMASK;
 
@@ -817,6 +883,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return GetterUtil.getString(_originalLanguage);
 	}
 
+	@Override
 	@JSON
 	public String getScript() {
 		if (_script == null) {
@@ -827,45 +894,55 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setScript(String script) {
 		_script = script;
 	}
 
+	@Override
 	@JSON
 	public boolean getCacheable() {
 		return _cacheable;
 	}
 
+	@Override
 	public boolean isCacheable() {
 		return _cacheable;
 	}
 
+	@Override
 	public void setCacheable(boolean cacheable) {
 		_cacheable = cacheable;
 	}
 
+	@Override
 	@JSON
 	public boolean getSmallImage() {
 		return _smallImage;
 	}
 
+	@Override
 	public boolean isSmallImage() {
 		return _smallImage;
 	}
 
+	@Override
 	public void setSmallImage(boolean smallImage) {
 		_smallImage = smallImage;
 	}
 
+	@Override
 	@JSON
 	public long getSmallImageId() {
 		return _smallImageId;
 	}
 
+	@Override
 	public void setSmallImageId(long smallImageId) {
 		_smallImageId = smallImageId;
 	}
 
+	@Override
 	@JSON
 	public String getSmallImageURL() {
 		if (_smallImageURL == null) {
@@ -876,6 +953,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		}
 	}
 
+	@Override
 	public void setSmallImageURL(String smallImageURL) {
 		_smallImageURL = smallImageURL;
 	}
@@ -897,6 +975,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		expandoBridge.setAttributes(serviceContext);
 	}
 
+	@Override
 	@SuppressWarnings("unused")
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
@@ -947,6 +1026,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return ddmTemplateImpl;
 	}
 
+	@Override
 	public int compareTo(DDMTemplate ddmTemplate) {
 		long primaryKey = ddmTemplate.getPrimaryKey();
 
@@ -1195,6 +1275,7 @@ public class DDMTemplateModelImpl extends BaseModelImpl<DDMTemplate>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(67);
 

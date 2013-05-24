@@ -45,6 +45,7 @@ public class ModuleAutoDeployListener extends BaseAutoDeployListener {
 		_autoDeployer = new ThreadSafeAutoDeployer(new ModuleAutoDeployer());
 	}
 
+	@Override
 	public void deploy(AutoDeploymentContext autoDeploymentContext)
 		throws AutoDeployException {
 

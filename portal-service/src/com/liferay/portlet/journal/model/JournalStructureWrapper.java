@@ -35,14 +35,17 @@ public class JournalStructureWrapper implements JournalStructure,
 		_journalStructure = journalStructure;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return JournalStructure.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return JournalStructure.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -63,6 +66,7 @@ public class JournalStructureWrapper implements JournalStructure,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		String uuid = (String)attributes.get("uuid");
 
@@ -148,6 +152,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the primary key of this journal structure
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _journalStructure.getPrimaryKey();
 	}
@@ -157,6 +162,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param primaryKey the primary key of this journal structure
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_journalStructure.setPrimaryKey(primaryKey);
 	}
@@ -166,6 +172,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the uuid of this journal structure
 	*/
+	@Override
 	public java.lang.String getUuid() {
 		return _journalStructure.getUuid();
 	}
@@ -175,6 +182,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param uuid the uuid of this journal structure
 	*/
+	@Override
 	public void setUuid(java.lang.String uuid) {
 		_journalStructure.setUuid(uuid);
 	}
@@ -184,6 +192,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the ID of this journal structure
 	*/
+	@Override
 	public long getId() {
 		return _journalStructure.getId();
 	}
@@ -193,6 +202,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param id the ID of this journal structure
 	*/
+	@Override
 	public void setId(long id) {
 		_journalStructure.setId(id);
 	}
@@ -202,6 +212,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the group ID of this journal structure
 	*/
+	@Override
 	public long getGroupId() {
 		return _journalStructure.getGroupId();
 	}
@@ -211,6 +222,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param groupId the group ID of this journal structure
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_journalStructure.setGroupId(groupId);
 	}
@@ -220,6 +232,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the company ID of this journal structure
 	*/
+	@Override
 	public long getCompanyId() {
 		return _journalStructure.getCompanyId();
 	}
@@ -229,6 +242,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param companyId the company ID of this journal structure
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_journalStructure.setCompanyId(companyId);
 	}
@@ -238,6 +252,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the user ID of this journal structure
 	*/
+	@Override
 	public long getUserId() {
 		return _journalStructure.getUserId();
 	}
@@ -247,6 +262,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param userId the user ID of this journal structure
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_journalStructure.setUserId(userId);
 	}
@@ -257,6 +273,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @return the user uuid of this journal structure
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _journalStructure.getUserUuid();
@@ -267,6 +284,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param userUuid the user uuid of this journal structure
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_journalStructure.setUserUuid(userUuid);
 	}
@@ -276,6 +294,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the user name of this journal structure
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _journalStructure.getUserName();
 	}
@@ -285,6 +304,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param userName the user name of this journal structure
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_journalStructure.setUserName(userName);
 	}
@@ -294,6 +314,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the create date of this journal structure
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _journalStructure.getCreateDate();
 	}
@@ -303,6 +324,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param createDate the create date of this journal structure
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_journalStructure.setCreateDate(createDate);
 	}
@@ -312,6 +334,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the modified date of this journal structure
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _journalStructure.getModifiedDate();
 	}
@@ -321,6 +344,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param modifiedDate the modified date of this journal structure
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_journalStructure.setModifiedDate(modifiedDate);
 	}
@@ -330,6 +354,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the structure ID of this journal structure
 	*/
+	@Override
 	public java.lang.String getStructureId() {
 		return _journalStructure.getStructureId();
 	}
@@ -339,6 +364,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param structureId the structure ID of this journal structure
 	*/
+	@Override
 	public void setStructureId(java.lang.String structureId) {
 		_journalStructure.setStructureId(structureId);
 	}
@@ -348,6 +374,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the parent structure ID of this journal structure
 	*/
+	@Override
 	public java.lang.String getParentStructureId() {
 		return _journalStructure.getParentStructureId();
 	}
@@ -357,6 +384,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param parentStructureId the parent structure ID of this journal structure
 	*/
+	@Override
 	public void setParentStructureId(java.lang.String parentStructureId) {
 		_journalStructure.setParentStructureId(parentStructureId);
 	}
@@ -366,6 +394,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the name of this journal structure
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _journalStructure.getName();
 	}
@@ -376,6 +405,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param locale the locale of the language
 	* @return the localized name of this journal structure
 	*/
+	@Override
 	public java.lang.String getName(java.util.Locale locale) {
 		return _journalStructure.getName(locale);
 	}
@@ -387,6 +417,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized name of this journal structure. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
 	*/
+	@Override
 	public java.lang.String getName(java.util.Locale locale, boolean useDefault) {
 		return _journalStructure.getName(locale, useDefault);
 	}
@@ -397,6 +428,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param languageId the ID of the language
 	* @return the localized name of this journal structure
 	*/
+	@Override
 	public java.lang.String getName(java.lang.String languageId) {
 		return _journalStructure.getName(languageId);
 	}
@@ -408,15 +440,18 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized name of this journal structure
 	*/
+	@Override
 	public java.lang.String getName(java.lang.String languageId,
 		boolean useDefault) {
 		return _journalStructure.getName(languageId, useDefault);
 	}
 
+	@Override
 	public java.lang.String getNameCurrentLanguageId() {
 		return _journalStructure.getNameCurrentLanguageId();
 	}
 
+	@Override
 	public java.lang.String getNameCurrentValue() {
 		return _journalStructure.getNameCurrentValue();
 	}
@@ -426,6 +461,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the locales and localized names of this journal structure
 	*/
+	@Override
 	public java.util.Map<java.util.Locale, java.lang.String> getNameMap() {
 		return _journalStructure.getNameMap();
 	}
@@ -435,6 +471,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param name the name of this journal structure
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_journalStructure.setName(name);
 	}
@@ -445,6 +482,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param name the localized name of this journal structure
 	* @param locale the locale of the language
 	*/
+	@Override
 	public void setName(java.lang.String name, java.util.Locale locale) {
 		_journalStructure.setName(name, locale);
 	}
@@ -456,11 +494,13 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param locale the locale of the language
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setName(java.lang.String name, java.util.Locale locale,
 		java.util.Locale defaultLocale) {
 		_journalStructure.setName(name, locale, defaultLocale);
 	}
 
+	@Override
 	public void setNameCurrentLanguageId(java.lang.String languageId) {
 		_journalStructure.setNameCurrentLanguageId(languageId);
 	}
@@ -470,6 +510,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param nameMap the locales and localized names of this journal structure
 	*/
+	@Override
 	public void setNameMap(
 		java.util.Map<java.util.Locale, java.lang.String> nameMap) {
 		_journalStructure.setNameMap(nameMap);
@@ -481,6 +522,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param nameMap the locales and localized names of this journal structure
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setNameMap(
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Locale defaultLocale) {
@@ -492,6 +534,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the description of this journal structure
 	*/
+	@Override
 	public java.lang.String getDescription() {
 		return _journalStructure.getDescription();
 	}
@@ -502,6 +545,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param locale the locale of the language
 	* @return the localized description of this journal structure
 	*/
+	@Override
 	public java.lang.String getDescription(java.util.Locale locale) {
 		return _journalStructure.getDescription(locale);
 	}
@@ -513,6 +557,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized description of this journal structure. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
 	*/
+	@Override
 	public java.lang.String getDescription(java.util.Locale locale,
 		boolean useDefault) {
 		return _journalStructure.getDescription(locale, useDefault);
@@ -524,6 +569,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param languageId the ID of the language
 	* @return the localized description of this journal structure
 	*/
+	@Override
 	public java.lang.String getDescription(java.lang.String languageId) {
 		return _journalStructure.getDescription(languageId);
 	}
@@ -535,15 +581,18 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized description of this journal structure
 	*/
+	@Override
 	public java.lang.String getDescription(java.lang.String languageId,
 		boolean useDefault) {
 		return _journalStructure.getDescription(languageId, useDefault);
 	}
 
+	@Override
 	public java.lang.String getDescriptionCurrentLanguageId() {
 		return _journalStructure.getDescriptionCurrentLanguageId();
 	}
 
+	@Override
 	public java.lang.String getDescriptionCurrentValue() {
 		return _journalStructure.getDescriptionCurrentValue();
 	}
@@ -553,6 +602,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the locales and localized descriptions of this journal structure
 	*/
+	@Override
 	public java.util.Map<java.util.Locale, java.lang.String> getDescriptionMap() {
 		return _journalStructure.getDescriptionMap();
 	}
@@ -562,6 +612,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param description the description of this journal structure
 	*/
+	@Override
 	public void setDescription(java.lang.String description) {
 		_journalStructure.setDescription(description);
 	}
@@ -572,6 +623,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param description the localized description of this journal structure
 	* @param locale the locale of the language
 	*/
+	@Override
 	public void setDescription(java.lang.String description,
 		java.util.Locale locale) {
 		_journalStructure.setDescription(description, locale);
@@ -584,11 +636,13 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param locale the locale of the language
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setDescription(java.lang.String description,
 		java.util.Locale locale, java.util.Locale defaultLocale) {
 		_journalStructure.setDescription(description, locale, defaultLocale);
 	}
 
+	@Override
 	public void setDescriptionCurrentLanguageId(java.lang.String languageId) {
 		_journalStructure.setDescriptionCurrentLanguageId(languageId);
 	}
@@ -598,6 +652,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param descriptionMap the locales and localized descriptions of this journal structure
 	*/
+	@Override
 	public void setDescriptionMap(
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap) {
 		_journalStructure.setDescriptionMap(descriptionMap);
@@ -609,6 +664,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	* @param descriptionMap the locales and localized descriptions of this journal structure
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setDescriptionMap(
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		java.util.Locale defaultLocale) {
@@ -620,6 +676,7 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @return the xsd of this journal structure
 	*/
+	@Override
 	public java.lang.String getXsd() {
 		return _journalStructure.getXsd();
 	}
@@ -629,57 +686,70 @@ public class JournalStructureWrapper implements JournalStructure,
 	*
 	* @param xsd the xsd of this journal structure
 	*/
+	@Override
 	public void setXsd(java.lang.String xsd) {
 		_journalStructure.setXsd(xsd);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _journalStructure.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_journalStructure.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _journalStructure.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_journalStructure.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _journalStructure.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _journalStructure.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_journalStructure.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _journalStructure.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_journalStructure.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_journalStructure.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_journalStructure.setExpandoBridgeAttributes(serviceContext);
 	}
 
+	@Override
 	public void prepareLocalizedFieldsForImport(
 		java.util.Locale defaultImportLocale)
 		throws com.liferay.portal.LocaleException {
@@ -691,6 +761,7 @@ public class JournalStructureWrapper implements JournalStructure,
 		return new JournalStructureWrapper((JournalStructure)_journalStructure.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.portlet.journal.model.JournalStructure journalStructure) {
 		return _journalStructure.compareTo(journalStructure);
@@ -701,14 +772,17 @@ public class JournalStructureWrapper implements JournalStructure,
 		return _journalStructure.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.portlet.journal.model.JournalStructure> toCacheModel() {
 		return _journalStructure.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure toEscapedModel() {
 		return new JournalStructureWrapper(_journalStructure.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.portlet.journal.model.JournalStructure toUnescapedModel() {
 		return new JournalStructureWrapper(_journalStructure.toUnescapedModel());
 	}
@@ -718,15 +792,18 @@ public class JournalStructureWrapper implements JournalStructure,
 		return _journalStructure.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _journalStructure.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_journalStructure.persist();
 	}
 
+	@Override
 	public java.lang.String getMergedXsd() {
 		return _journalStructure.getMergedXsd();
 	}
@@ -738,10 +815,12 @@ public class JournalStructureWrapper implements JournalStructure,
 		return _journalStructure;
 	}
 
+	@Override
 	public JournalStructure getWrappedModel() {
 		return _journalStructure;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_journalStructure.resetOriginalValues();
 	}

@@ -111,6 +111,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalContentSearch addJournalContentSearch(
 		JournalContentSearch journalContentSearch) throws SystemException {
 		journalContentSearch.setNew(true);
@@ -124,6 +125,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @param contentSearchId the primary key for the new journal content search
 	 * @return the new journal content search
 	 */
+	@Override
 	public JournalContentSearch createJournalContentSearch(long contentSearchId) {
 		return journalContentSearchPersistence.create(contentSearchId);
 	}
@@ -137,6 +139,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalContentSearch deleteJournalContentSearch(long contentSearchId)
 		throws PortalException, SystemException {
 		return journalContentSearchPersistence.remove(contentSearchId);
@@ -150,11 +153,13 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalContentSearch deleteJournalContentSearch(
 		JournalContentSearch journalContentSearch) throws SystemException {
 		return journalContentSearchPersistence.remove(journalContentSearch);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -169,6 +174,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -188,6 +194,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -209,6 +216,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -223,11 +231,13 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return journalContentSearchPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public JournalContentSearch fetchJournalContentSearch(long contentSearchId)
 		throws SystemException {
 		return journalContentSearchPersistence.fetchByPrimaryKey(contentSearchId);
@@ -241,11 +251,13 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @throws PortalException if a journal content search with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalContentSearch getJournalContentSearch(long contentSearchId)
 		throws PortalException, SystemException {
 		return journalContentSearchPersistence.findByPrimaryKey(contentSearchId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return journalContentSearchPersistence.findByPrimaryKey(primaryKeyObj);
@@ -263,6 +275,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the range of journal content searchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalContentSearch> getJournalContentSearchs(int start,
 		int end) throws SystemException {
 		return journalContentSearchPersistence.findAll(start, end);
@@ -274,6 +287,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @return the number of journal content searchs
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getJournalContentSearchsCount() throws SystemException {
 		return journalContentSearchPersistence.countAll();
 	}
@@ -286,6 +300,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalContentSearch updateJournalContentSearch(
 		JournalContentSearch journalContentSearch) throws SystemException {
 		return journalContentSearchPersistence.update(journalContentSearch);
@@ -1126,6 +1141,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1135,6 +1151,7 @@ public abstract class JournalContentSearchLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

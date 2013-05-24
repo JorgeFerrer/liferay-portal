@@ -32,6 +32,7 @@ public class ListTypeServiceWrapper implements ListTypeService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _listTypeService.getBeanIdentifier();
 	}
@@ -41,28 +42,33 @@ public class ListTypeServiceWrapper implements ListTypeService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_listTypeService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.ListType getListType(int listTypeId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _listTypeService.getListType(listTypeId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.ListType> getListTypes(
 		java.lang.String type)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _listTypeService.getListTypes(type);
 	}
 
+	@Override
 	public void validate(int listTypeId, long classNameId, java.lang.String type)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_listTypeService.validate(listTypeId, classNameId, type);
 	}
 
+	@Override
 	public void validate(int listTypeId, java.lang.String type)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -83,10 +89,12 @@ public class ListTypeServiceWrapper implements ListTypeService,
 		_listTypeService = listTypeService;
 	}
 
+	@Override
 	public ListTypeService getWrappedService() {
 		return _listTypeService;
 	}
 
+	@Override
 	public void setWrappedService(ListTypeService listTypeService) {
 		_listTypeService = listTypeService;
 	}

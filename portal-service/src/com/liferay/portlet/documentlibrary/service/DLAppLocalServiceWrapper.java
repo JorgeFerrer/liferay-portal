@@ -34,6 +34,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _dlAppLocalService.getBeanIdentifier();
 	}
@@ -43,6 +44,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_dlAppLocalService.setBeanIdentifier(beanIdentifier);
 	}
@@ -80,6 +82,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	file entry's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry addFileEntry(
 		long userId, long repositoryId, long folderId,
 		java.lang.String sourceFileName, java.lang.String mimeType,
@@ -127,6 +130,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	file entry's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry addFileEntry(
 		long userId, long repositoryId, long folderId,
 		java.lang.String sourceFileName, java.lang.String mimeType,
@@ -175,6 +179,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	file entry's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry addFileEntry(
 		long userId, long repositoryId, long folderId,
 		java.lang.String sourceFileName, java.lang.String mimeType,
@@ -201,6 +206,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileRank addFileRank(
 		long repositoryId, long companyId, long userId, long fileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -226,6 +232,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	found, or if the file shortcut's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileShortcut addFileShortcut(
 		long userId, long repositoryId, long folderId, long toFileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -252,6 +259,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	new folder's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder addFolder(
 		long userId, long repositoryId, long parentFolderId,
 		java.lang.String name, java.lang.String description,
@@ -270,6 +278,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the repository could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteAll(long repositoryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -283,6 +292,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileEntry(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -296,6 +306,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @param fileEntryId the primary key of the file entry
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileRanksByFileEntryId(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_dlAppLocalService.deleteFileRanksByFileEntryId(fileEntryId);
@@ -308,6 +319,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @param userId the primary key of the user
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileRanksByUserId(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_dlAppLocalService.deleteFileRanksByUserId(userId);
@@ -321,6 +333,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file shortcut could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileShortcut(
 		com.liferay.portlet.documentlibrary.model.DLFileShortcut dlFileShortcut)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -336,6 +349,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file shortcut could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileShortcut(long fileShortcutId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -351,6 +365,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFileShortcuts(long toFileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -364,6 +379,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the folder could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteFolder(long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -378,6 +394,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry getFileEntry(
 		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -395,6 +412,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry getFileEntry(
 		long groupId, long folderId, java.lang.String title)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -411,6 +429,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry getFileEntryByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -427,6 +446,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @return the file ranks from the user
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLFileRank> getFileRanks(
 		long repositoryId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -442,6 +462,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file shortcut could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileShortcut getFileShortcut(
 		long fileShortcutId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -457,6 +478,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileVersion getFileVersion(
 		long fileVersionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -472,6 +494,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the folder could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder getFolder(
 		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -489,6 +512,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the folder could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder getFolder(
 		long repositoryId, long parentFolderId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -506,6 +530,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder getMountFolder(
 		long repositoryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -525,6 +550,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry moveFileEntry(
 		long userId, long fileEntryId, long newFolderId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -542,6 +568,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry moveFileEntryToTrash(
 		long userId, long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -557,6 +584,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void restoreFileEntryFromTrash(long userId, long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -573,6 +601,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the user or group could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void subscribeFileEntryType(long userId, long groupId,
 		long fileEntryTypeId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -591,6 +620,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the user or group could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void subscribeFolder(long userId, long groupId, long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -607,6 +637,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the user or group could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void unsubscribeFileEntryType(long userId, long groupId,
 		long fileEntryTypeId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -625,6 +656,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the user or group could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void unsubscribeFolder(long userId, long groupId, long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -644,6 +676,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry or version could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void updateAsset(long userId,
 		com.liferay.portal.kernel.repository.model.FileEntry fileEntry,
 		com.liferay.portal.kernel.repository.model.FileVersion fileVersion,
@@ -691,6 +724,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry updateFileEntry(
 		long userId, long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
@@ -741,6 +775,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry updateFileEntry(
 		long userId, long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
@@ -791,6 +826,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if the file entry could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.FileEntry updateFileEntry(
 		long userId, long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
@@ -817,6 +853,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileRank updateFileRank(
 		long repositoryId, long companyId, long userId, long fileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -842,6 +879,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLFileShortcut updateFileShortcut(
 		long userId, long fileShortcutId, long folderId, long toFileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -861,6 +899,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	to
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void updateFileShortcuts(long toRepositoryId, long oldToFileEntryId,
 		long newToFileEntryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -892,6 +931,7 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 	found, or if the new parent folder's information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.kernel.repository.model.Folder updateFolder(
 		long folderId, long parentFolderId, java.lang.String name,
 		java.lang.String description,
@@ -916,10 +956,12 @@ public class DLAppLocalServiceWrapper implements DLAppLocalService,
 		_dlAppLocalService = dlAppLocalService;
 	}
 
+	@Override
 	public DLAppLocalService getWrappedService() {
 		return _dlAppLocalService;
 	}
 
+	@Override
 	public void setWrappedService(DLAppLocalService dlAppLocalService) {
 		_dlAppLocalService = dlAppLocalService;
 	}

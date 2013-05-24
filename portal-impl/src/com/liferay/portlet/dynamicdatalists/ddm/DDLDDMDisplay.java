@@ -23,10 +23,12 @@ import com.liferay.portlet.dynamicdatamapping.util.BaseDDMDisplay;
  */
 public class DDLDDMDisplay extends BaseDDMDisplay {
 
+	@Override
 	public String getPortletId() {
 		return PortletKeys.DYNAMIC_DATA_LISTS;
 	}
 
+	@Override
 	public String getResourceName() {
 		return DDLPermission.RESOURCE_NAME;
 	}

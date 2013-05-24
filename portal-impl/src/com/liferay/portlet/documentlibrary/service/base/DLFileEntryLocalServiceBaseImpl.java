@@ -143,6 +143,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntry addDLFileEntry(DLFileEntry dlFileEntry)
 		throws SystemException {
 		dlFileEntry.setNew(true);
@@ -156,6 +157,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @param fileEntryId the primary key for the new document library file entry
 	 * @return the new document library file entry
 	 */
+	@Override
 	public DLFileEntry createDLFileEntry(long fileEntryId) {
 		return dlFileEntryPersistence.create(fileEntryId);
 	}
@@ -169,6 +171,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntry deleteDLFileEntry(long fileEntryId)
 		throws PortalException, SystemException {
 		return dlFileEntryPersistence.remove(fileEntryId);
@@ -182,11 +185,13 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntry deleteDLFileEntry(DLFileEntry dlFileEntry)
 		throws SystemException {
 		return dlFileEntryPersistence.remove(dlFileEntry);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -201,6 +206,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -220,6 +226,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -241,6 +248,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -255,11 +263,13 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileEntryPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileEntry fetchDLFileEntry(long fileEntryId)
 		throws SystemException {
 		return dlFileEntryPersistence.fetchByPrimaryKey(fileEntryId);
@@ -273,11 +283,13 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws PortalException if a document library file entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileEntry getDLFileEntry(long fileEntryId)
 		throws PortalException, SystemException {
 		return dlFileEntryPersistence.findByPrimaryKey(fileEntryId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileEntryPersistence.findByPrimaryKey(primaryKeyObj);
@@ -292,6 +304,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws PortalException if a matching document library file entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileEntry getDLFileEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return dlFileEntryPersistence.findByUUID_G(uuid, groupId);
@@ -309,6 +322,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the range of document library file entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntry> getDLFileEntries(int start, int end)
 		throws SystemException {
 		return dlFileEntryPersistence.findAll(start, end);
@@ -320,6 +334,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @return the number of document library file entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileEntriesCount() throws SystemException {
 		return dlFileEntryPersistence.countAll();
 	}
@@ -332,6 +347,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntry updateDLFileEntry(DLFileEntry dlFileEntry)
 		throws SystemException {
 		return dlFileEntryPersistence.update(dlFileEntry);
@@ -1765,6 +1781,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1774,6 +1791,7 @@ public abstract class DLFileEntryLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

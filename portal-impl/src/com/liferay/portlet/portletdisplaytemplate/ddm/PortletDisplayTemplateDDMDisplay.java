@@ -60,10 +60,12 @@ public class PortletDisplayTemplateDDMDisplay extends BaseDDMDisplay {
 		return backURL;
 	}
 
+	@Override
 	public String getPortletId() {
 		return PortletKeys.PORTLET_DISPLAY_TEMPLATES;
 	}
 
+	@Override
 	public String getResourceName() {
 		return StringPool.BLANK;
 	}

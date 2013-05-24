@@ -327,6 +327,7 @@ public class PortalPolicy extends Policy {
 	private class FieldPrivilegedExceptionAction
 		implements PrivilegedExceptionAction<Field> {
 
+		@Override
 		public Field run() throws Exception {
 			Field field = ProtectionDomain.class.getDeclaredField("key");
 
@@ -340,6 +341,7 @@ public class PortalPolicy extends Policy {
 	private class ProtectionDomainsPrivilegedExceptionAction
 		implements PrivilegedExceptionAction<List<ProtectionDomain>> {
 
+		@Override
 		public List<ProtectionDomain> run() throws Exception {
 			List<ProtectionDomain> protectionDomains =
 				new ArrayList<ProtectionDomain>();

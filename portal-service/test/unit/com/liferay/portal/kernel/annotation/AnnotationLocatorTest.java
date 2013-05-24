@@ -456,10 +456,12 @@ public class AnnotationLocatorTest {
 
 		return new Method() {
 
+			@Override
 			public Class<? extends Annotation> annotationType() {
 				return Method.class;
 			}
 
+			@Override
 			public int value() {
 				return value;
 			}
@@ -680,10 +682,12 @@ public class AnnotationLocatorTest {
 	private Mix _mix(final int value) {
 		return new Mix() {
 
+			@Override
 			public int value() {
 				return value;
 			}
 
+			@Override
 			public Class<? extends Annotation> annotationType() {
 				return Mix.class;
 			}
@@ -694,10 +698,12 @@ public class AnnotationLocatorTest {
 	private Type _type(final int value) {
 		return new Type() {
 
+			@Override
 			public int value() {
 				return value;
 			}
 
+			@Override
 			public Class<? extends Annotation> annotationType() {
 				return Type.class;
 			}
@@ -754,11 +760,13 @@ public class AnnotationLocatorTest {
 	@Type(value = 5)
 	private class OriginClass implements OriginInterface2, OriginInterface1 {
 
+		@Override
 		@Method(value = 5)
 		@Mix(value = 5)
 		public void originMethod1() {
 		}
 
+		@Override
 		public void originMethod2() {
 		}
 
@@ -790,10 +798,12 @@ public class AnnotationLocatorTest {
 		public void originMethod2() {
 		}
 
+		@Override
 		@Method(value = 2)
 		public void superMethod1() {
 		}
 
+		@Override
 		public void superMethod2() {
 		}
 
@@ -810,6 +820,7 @@ public class AnnotationLocatorTest {
 	@Type(value = 6)
 	private interface SuperInterface2 extends SuperInterface1 {
 
+		@Override
 		@Method(value = 6)
 		@Mix(value = 6)
 		void originMethod1();
@@ -836,11 +847,13 @@ public class AnnotationLocatorTest {
 		public void superMethod2() {
 		}
 
+		@Override
 		@Method(value = 1)
 		@Mix(value = 1)
 		public void testMethod1() {
 		}
 
+		@Override
 		public void testMethod2() {
 		}
 
@@ -858,6 +871,7 @@ public class AnnotationLocatorTest {
 	@Mix(value = 3)
 	private interface TestInterface2 extends TestInterface1, SuperInterface2 {
 
+		@Override
 		@Method(value = 3)
 		public void superMethod1();
 

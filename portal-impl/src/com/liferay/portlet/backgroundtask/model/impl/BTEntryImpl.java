@@ -41,6 +41,7 @@ public class BTEntryImpl extends BTEntryBaseImpl {
 	public BTEntryImpl() {
 	}
 
+	@Override
 	public Folder addAttachmentsFolder()
 		throws PortalException, SystemException {
 
@@ -69,10 +70,12 @@ public class BTEntryImpl extends BTEntryBaseImpl {
 		return folder;
 	}
 
+	@Override
 	public List<FileEntry> getAttachmentsFileEntries() throws SystemException {
 		return getAttachmentsFileEntries(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
+	@Override
 	public List<FileEntry> getAttachmentsFileEntries(int start, int end)
 		throws SystemException {
 
@@ -89,6 +92,7 @@ public class BTEntryImpl extends BTEntryBaseImpl {
 		return fileEntries;
 	}
 
+	@Override
 	public int getAttachmentsFileEntriesCount() throws SystemException {
 		int attachmentsFileEntriesCount = 0;
 
@@ -104,6 +108,7 @@ public class BTEntryImpl extends BTEntryBaseImpl {
 		return attachmentsFileEntriesCount;
 	}
 
+	@Override
 	public long getAttachmentsFolderId() throws SystemException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
@@ -138,6 +143,7 @@ public class BTEntryImpl extends BTEntryBaseImpl {
 		return _attachmentsFolderId;
 	}
 
+	@Override
 	public Map<String, Serializable> getTaskContextMap() {
 		if (_taskContextMap != null) {
 			return _taskContextMap;

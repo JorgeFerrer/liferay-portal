@@ -247,6 +247,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WorkflowDefinitionLink addWorkflowDefinitionLink(
 		WorkflowDefinitionLink workflowDefinitionLink)
 		throws SystemException {
@@ -261,6 +262,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @param workflowDefinitionLinkId the primary key for the new workflow definition link
 	 * @return the new workflow definition link
 	 */
+	@Override
 	public WorkflowDefinitionLink createWorkflowDefinitionLink(
 		long workflowDefinitionLinkId) {
 		return workflowDefinitionLinkPersistence.create(workflowDefinitionLinkId);
@@ -275,6 +277,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WorkflowDefinitionLink deleteWorkflowDefinitionLink(
 		long workflowDefinitionLinkId) throws PortalException, SystemException {
 		return workflowDefinitionLinkPersistence.remove(workflowDefinitionLinkId);
@@ -288,12 +291,14 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WorkflowDefinitionLink deleteWorkflowDefinitionLink(
 		WorkflowDefinitionLink workflowDefinitionLink)
 		throws SystemException {
 		return workflowDefinitionLinkPersistence.remove(workflowDefinitionLink);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -308,6 +313,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -327,6 +333,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -348,6 +355,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -362,11 +370,13 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return workflowDefinitionLinkPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public WorkflowDefinitionLink fetchWorkflowDefinitionLink(
 		long workflowDefinitionLinkId) throws SystemException {
 		return workflowDefinitionLinkPersistence.fetchByPrimaryKey(workflowDefinitionLinkId);
@@ -380,11 +390,13 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @throws PortalException if a workflow definition link with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public WorkflowDefinitionLink getWorkflowDefinitionLink(
 		long workflowDefinitionLinkId) throws PortalException, SystemException {
 		return workflowDefinitionLinkPersistence.findByPrimaryKey(workflowDefinitionLinkId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return workflowDefinitionLinkPersistence.findByPrimaryKey(primaryKeyObj);
@@ -402,6 +414,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the range of workflow definition links
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<WorkflowDefinitionLink> getWorkflowDefinitionLinks(int start,
 		int end) throws SystemException {
 		return workflowDefinitionLinkPersistence.findAll(start, end);
@@ -413,6 +426,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @return the number of workflow definition links
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getWorkflowDefinitionLinksCount() throws SystemException {
 		return workflowDefinitionLinkPersistence.countAll();
 	}
@@ -425,6 +439,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WorkflowDefinitionLink updateWorkflowDefinitionLink(
 		WorkflowDefinitionLink workflowDefinitionLink)
 		throws SystemException {
@@ -3806,6 +3821,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3815,6 +3831,7 @@ public abstract class WorkflowDefinitionLinkLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

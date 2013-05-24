@@ -1888,13 +1888,23 @@ public class ServiceBuilder {
 	}
 
 	private void _createExtendedModel(Entity entity) throws Exception {
-		JavaClass javaClass = _getJavaClass(
+		JavaClass modelImplJavaClass = _getJavaClass(
 			_outputPath + "/model/impl/" + entity.getName() + "Impl.java");
+
+		List<JavaMethod> methods = ListUtil.fromArray(
+			_getMethods(modelImplJavaClass));
+
+		JavaClass modelJavaClass = _getJavaClass(
+			_serviceOutputPath + "/model/" + entity.getName() + "Model.java");
+
+		for (JavaMethod method : _getMethods(modelJavaClass)) {
+			methods.remove(method);
+		}
 
 		Map<String, Object> context = _getContext();
 
 		context.put("entity", entity);
-		context.put("methods", _getMethods(javaClass));
+		context.put("methods", methods.toArray(new Object[methods.size()]));
 
 		// Content
 

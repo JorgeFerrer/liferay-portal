@@ -192,24 +192,29 @@ public class BeanLocatorTest {
 			PortalBeanLocatorUtil.setBeanLocator(
 				new BeanLocator() {
 
+					@Override
 					public ClassLoader getClassLoader() {
 						return null;
 					}
 
+					@Override
 					public String[] getNames() {
 						return null;
 					}
 
+					@Override
 					public Class<?> getType(String name) {
 						return null;
 					}
 
+					@Override
 					public <T> Map<String, T> locate(Class<T> clazz)
 						throws BeanLocatorException {
 
 						return null;
 					}
 
+					@Override
 					public Object locate(String name) {
 						return null;
 					}

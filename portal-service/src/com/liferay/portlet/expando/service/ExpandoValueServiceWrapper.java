@@ -34,6 +34,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _expandoValueService.getBeanIdentifier();
 	}
@@ -43,10 +44,12 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_expandoValueService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoValue addValue(
 		long companyId, java.lang.String className, java.lang.String tableName,
 		java.lang.String columnName, long classPK, java.lang.Object data)
@@ -56,6 +59,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 			columnName, classPK, data);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoValue addValue(
 		long companyId, java.lang.String className, java.lang.String tableName,
 		java.lang.String columnName, long classPK, java.lang.String data)
@@ -65,6 +69,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 			columnName, classPK, data);
 	}
 
+	@Override
 	public void addValues(long companyId, java.lang.String className,
 		java.lang.String tableName, long classPK,
 		java.util.Map<java.lang.String, java.io.Serializable> attributeValues)
@@ -74,6 +79,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 			classPK, attributeValues);
 	}
 
+	@Override
 	public java.util.Map<java.lang.String, java.io.Serializable> getData(
 		long companyId, java.lang.String className, java.lang.String tableName,
 		java.util.Collection<java.lang.String> columnNames, long classPK)
@@ -83,6 +89,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 			columnNames, classPK);
 	}
 
+	@Override
 	public java.io.Serializable getData(long companyId,
 		java.lang.String className, java.lang.String tableName,
 		java.lang.String columnName, long classPK)
@@ -92,6 +99,7 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 			columnName, classPK);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.json.JSONObject getJSONData(
 		long companyId, java.lang.String className, java.lang.String tableName,
 		java.lang.String columnName, long classPK)
@@ -116,10 +124,12 @@ public class ExpandoValueServiceWrapper implements ExpandoValueService,
 		_expandoValueService = expandoValueService;
 	}
 
+	@Override
 	public ExpandoValueService getWrappedService() {
 		return _expandoValueService;
 	}
 
+	@Override
 	public void setWrappedService(ExpandoValueService expandoValueService) {
 		_expandoValueService = expandoValueService;
 	}

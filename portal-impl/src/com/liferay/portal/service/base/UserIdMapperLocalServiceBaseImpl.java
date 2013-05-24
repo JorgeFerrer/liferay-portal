@@ -247,6 +247,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserIdMapper addUserIdMapper(UserIdMapper userIdMapper)
 		throws SystemException {
 		userIdMapper.setNew(true);
@@ -260,6 +261,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @param userIdMapperId the primary key for the new user ID mapper
 	 * @return the new user ID mapper
 	 */
+	@Override
 	public UserIdMapper createUserIdMapper(long userIdMapperId) {
 		return userIdMapperPersistence.create(userIdMapperId);
 	}
@@ -273,6 +275,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserIdMapper deleteUserIdMapper(long userIdMapperId)
 		throws PortalException, SystemException {
 		return userIdMapperPersistence.remove(userIdMapperId);
@@ -286,11 +289,13 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserIdMapper deleteUserIdMapper(UserIdMapper userIdMapper)
 		throws SystemException {
 		return userIdMapperPersistence.remove(userIdMapper);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return userIdMapperPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public UserIdMapper fetchUserIdMapper(long userIdMapperId)
 		throws SystemException {
 		return userIdMapperPersistence.fetchByPrimaryKey(userIdMapperId);
@@ -377,11 +387,13 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @throws PortalException if a user ID mapper with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public UserIdMapper getUserIdMapper(long userIdMapperId)
 		throws PortalException, SystemException {
 		return userIdMapperPersistence.findByPrimaryKey(userIdMapperId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return userIdMapperPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the range of user ID mappers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<UserIdMapper> getUserIdMappers(int start, int end)
 		throws SystemException {
 		return userIdMapperPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @return the number of user ID mappers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getUserIdMappersCount() throws SystemException {
 		return userIdMapperPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserIdMapper updateUserIdMapper(UserIdMapper userIdMapper)
 		throws SystemException {
 		return userIdMapperPersistence.update(userIdMapper);
@@ -3802,6 +3817,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class UserIdMapperLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

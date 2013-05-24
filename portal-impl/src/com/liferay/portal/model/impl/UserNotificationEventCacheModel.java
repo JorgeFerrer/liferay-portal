@@ -60,6 +60,7 @@ public class UserNotificationEventCacheModel implements CacheModel<UserNotificat
 		return sb.toString();
 	}
 
+	@Override
 	public UserNotificationEvent toEntityModel() {
 		UserNotificationEventImpl userNotificationEventImpl = new UserNotificationEventImpl();
 
@@ -98,6 +99,7 @@ public class UserNotificationEventCacheModel implements CacheModel<UserNotificat
 		return userNotificationEventImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		userNotificationEventId = objectInput.readLong();
@@ -110,6 +112,7 @@ public class UserNotificationEventCacheModel implements CacheModel<UserNotificat
 		archived = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

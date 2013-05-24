@@ -35,6 +35,7 @@ public class AnnouncementsFlagServiceWrapper implements AnnouncementsFlagService
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _announcementsFlagService.getBeanIdentifier();
 	}
@@ -44,22 +45,26 @@ public class AnnouncementsFlagServiceWrapper implements AnnouncementsFlagService
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_announcementsFlagService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void addFlag(long entryId, int value)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_announcementsFlagService.addFlag(entryId, value);
 	}
 
+	@Override
 	public void deleteFlag(long flagId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_announcementsFlagService.deleteFlag(flagId);
 	}
 
+	@Override
 	public com.liferay.portlet.announcements.model.AnnouncementsFlag getFlag(
 		long entryId, int value)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -82,10 +87,12 @@ public class AnnouncementsFlagServiceWrapper implements AnnouncementsFlagService
 		_announcementsFlagService = announcementsFlagService;
 	}
 
+	@Override
 	public AnnouncementsFlagService getWrappedService() {
 		return _announcementsFlagService;
 	}
 
+	@Override
 	public void setWrappedService(
 		AnnouncementsFlagService announcementsFlagService) {
 		_announcementsFlagService = announcementsFlagService;

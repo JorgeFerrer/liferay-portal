@@ -85,6 +85,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRAction addMDRAction(MDRAction mdrAction)
 		throws SystemException {
 		mdrAction.setNew(true);
@@ -98,6 +99,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param actionId the primary key for the new m d r action
 	 * @return the new m d r action
 	 */
+	@Override
 	public MDRAction createMDRAction(long actionId) {
 		return mdrActionPersistence.create(actionId);
 	}
@@ -111,6 +113,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRAction deleteMDRAction(long actionId)
 		throws PortalException, SystemException {
 		return mdrActionPersistence.remove(actionId);
@@ -124,11 +127,13 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRAction deleteMDRAction(MDRAction mdrAction)
 		throws SystemException {
 		return mdrActionPersistence.remove(mdrAction);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -143,6 +148,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -162,6 +168,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -183,6 +190,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -197,11 +205,13 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return mdrActionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public MDRAction fetchMDRAction(long actionId) throws SystemException {
 		return mdrActionPersistence.fetchByPrimaryKey(actionId);
 	}
@@ -214,11 +224,13 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a m d r action with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRAction getMDRAction(long actionId)
 		throws PortalException, SystemException {
 		return mdrActionPersistence.findByPrimaryKey(actionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return mdrActionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -233,6 +245,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching m d r action could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRAction getMDRActionByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return mdrActionPersistence.findByUUID_G(uuid, groupId);
@@ -250,6 +263,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<MDRAction> getMDRActions(int start, int end)
 		throws SystemException {
 		return mdrActionPersistence.findAll(start, end);
@@ -261,6 +275,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of m d r actions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getMDRActionsCount() throws SystemException {
 		return mdrActionPersistence.countAll();
 	}
@@ -273,6 +288,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRAction updateMDRAction(MDRAction mdrAction)
 		throws SystemException {
 		return mdrActionPersistence.update(mdrAction);
@@ -643,6 +659,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -652,6 +669,7 @@ public abstract class MDRActionLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

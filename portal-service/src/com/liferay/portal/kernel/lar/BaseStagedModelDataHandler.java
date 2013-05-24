@@ -26,6 +26,7 @@ import com.liferay.portal.model.StagedModel;
 public abstract class BaseStagedModelDataHandler<T extends StagedModel>
 	implements StagedModelDataHandler<T> {
 
+	@Override
 	public void exportStagedModel(
 			PortletDataContext portletDataContext, T stagedModel)
 		throws PortletDataException {
@@ -49,16 +50,20 @@ public abstract class BaseStagedModelDataHandler<T extends StagedModel>
 		}
 	}
 
+	@Override
 	public String getClassName(StagedModel stagedModel) {
 		return stagedModel.getModelClassName();
 	}
 
+	@Override
 	public abstract String[] getClassNames();
 
+	@Override
 	public String getDisplayName(T stagedModel) {
 		return stagedModel.getUuid();
 	}
 
+	@Override
 	public void importStagedModel(
 			PortletDataContext portletDataContext, T stagedModel)
 		throws PortletDataException {
@@ -82,6 +87,7 @@ public abstract class BaseStagedModelDataHandler<T extends StagedModel>
 		}
 	}
 
+	@Override
 	public boolean validateReference(
 		Element rootElement, Element referenceElement) {
 

@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class DDMTemplateHelperImpl implements DDMTemplateHelper {
 
+	@Override
 	public DDMStructure fetchStructure(DDMTemplate template) {
 		try {
 			long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
@@ -64,6 +65,7 @@ public class DDMTemplateHelperImpl implements DDMTemplateHelper {
 		return null;
 	}
 
+	@Override
 	public String getAutocompleteJSON(
 			HttpServletRequest request, String language)
 		throws Exception {

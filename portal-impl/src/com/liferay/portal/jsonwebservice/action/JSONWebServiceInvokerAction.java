@@ -67,10 +67,12 @@ public class JSONWebServiceInvokerAction implements JSONWebServiceAction {
 		}
 	}
 
+	@Override
 	public JSONWebServiceActionMapping getJSONWebServiceActionMapping() {
 		return null;
 	}
 
+	@Override
 	public Object invoke() throws Exception {
 		Object command = JSONFactoryUtil.looseDeserializeSafe(_command);
 
@@ -132,6 +134,7 @@ public class JSONWebServiceInvokerAction implements JSONWebServiceAction {
 
 	public class InvokerResult implements JSONSerializable {
 
+		@Override
 		public String toJSONString() {
 			if (_result == null) {
 				return JSONFactoryUtil.getNullJSON();

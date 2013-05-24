@@ -37,6 +37,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the document library content that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent addDLContent(
 		com.liferay.portlet.documentlibrary.model.DLContent dlContent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -49,6 +50,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @param contentId the primary key for the new document library content
 	* @return the new document library content
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent createDLContent(
 		long contentId) {
 		return _dlContentLocalService.createDLContent(contentId);
@@ -62,6 +64,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @throws PortalException if a document library content with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent deleteDLContent(
 		long contentId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -76,12 +79,14 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the document library content that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent deleteDLContent(
 		com.liferay.portlet.documentlibrary.model.DLContent dlContent)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.deleteDLContent(dlContent);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _dlContentLocalService.dynamicQuery();
 	}
@@ -93,6 +98,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -113,6 +119,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent fetchDLContent(
 		long contentId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -171,6 +181,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @throws PortalException if a document library content with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent getDLContent(
 		long contentId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -178,6 +189,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 		return _dlContentLocalService.getDLContent(contentId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -197,6 +209,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the range of document library contents
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLContent> getDLContents(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -209,6 +222,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the number of document library contents
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getDLContentsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.getDLContentsCount();
@@ -221,12 +235,14 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	* @return the document library content that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent updateDLContent(
 		com.liferay.portlet.documentlibrary.model.DLContent dlContent)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.updateDLContent(dlContent);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContentDataBlobModel getDataBlobModel(
 		java.io.Serializable primaryKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -238,6 +254,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _dlContentLocalService.getBeanIdentifier();
 	}
@@ -247,10 +264,12 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_dlContentLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent addContent(
 		long companyId, long repositoryId, java.lang.String path,
 		java.lang.String version, byte[] bytes)
@@ -259,6 +278,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			version, bytes);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent addContent(
 		long companyId, long repositoryId, java.lang.String path,
 		java.lang.String version, java.io.InputStream inputStream, long size)
@@ -267,6 +287,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			version, inputStream, size);
 	}
 
+	@Override
 	public void deleteContent(long companyId, long repositoryId,
 		java.lang.String path, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -275,12 +296,14 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			version);
 	}
 
+	@Override
 	public void deleteContents(long companyId, long repositoryId,
 		java.lang.String path)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_dlContentLocalService.deleteContents(companyId, repositoryId, path);
 	}
 
+	@Override
 	public void deleteContentsByDirectory(long companyId, long repositoryId,
 		java.lang.String dirName)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -288,6 +311,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			repositoryId, dirName);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent getContent(
 		long companyId, long repositoryId, java.lang.String path)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -295,6 +319,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 		return _dlContentLocalService.getContent(companyId, repositoryId, path);
 	}
 
+	@Override
 	public com.liferay.portlet.documentlibrary.model.DLContent getContent(
 		long companyId, long repositoryId, java.lang.String path,
 		java.lang.String version)
@@ -304,18 +329,21 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			version);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLContent> getContents(
 		long companyId, long repositoryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.getContents(companyId, repositoryId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLContent> getContents(
 		long companyId, long repositoryId, java.lang.String path)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _dlContentLocalService.getContents(companyId, repositoryId, path);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.documentlibrary.model.DLContent> getContentsByDirectory(
 		long companyId, long repositoryId, java.lang.String dirName)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -323,6 +351,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			repositoryId, dirName);
 	}
 
+	@Override
 	public boolean hasContent(long companyId, long repositoryId,
 		java.lang.String path, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -330,6 +359,7 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 			version);
 	}
 
+	@Override
 	public void updateDLContent(long companyId, long oldRepositoryId,
 		long newRepositoryId, java.lang.String oldPath, java.lang.String newPath)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -352,10 +382,12 @@ public class DLContentLocalServiceWrapper implements DLContentLocalService,
 		_dlContentLocalService = dlContentLocalService;
 	}
 
+	@Override
 	public DLContentLocalService getWrappedService() {
 		return _dlContentLocalService;
 	}
 
+	@Override
 	public void setWrappedService(DLContentLocalService dlContentLocalService) {
 		_dlContentLocalService = dlContentLocalService;
 	}

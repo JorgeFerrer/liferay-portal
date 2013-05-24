@@ -64,6 +64,7 @@ public class ScriptData implements Mergeable<ScriptData>, Serializable {
 		}
 	}
 
+	@Override
 	public ScriptData merge(ScriptData scriptData) {
 		if ((scriptData != null) && (scriptData != this)) {
 			_portletDataMap.putAll(scriptData._portletDataMap);

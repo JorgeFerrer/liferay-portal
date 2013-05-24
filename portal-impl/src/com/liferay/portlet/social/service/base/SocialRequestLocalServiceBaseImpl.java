@@ -96,6 +96,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialRequest addSocialRequest(SocialRequest socialRequest)
 		throws SystemException {
 		socialRequest.setNew(true);
@@ -109,6 +110,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @param requestId the primary key for the new social request
 	 * @return the new social request
 	 */
+	@Override
 	public SocialRequest createSocialRequest(long requestId) {
 		return socialRequestPersistence.create(requestId);
 	}
@@ -122,6 +124,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialRequest deleteSocialRequest(long requestId)
 		throws PortalException, SystemException {
 		return socialRequestPersistence.remove(requestId);
@@ -135,11 +138,13 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialRequest deleteSocialRequest(SocialRequest socialRequest)
 		throws SystemException {
 		return socialRequestPersistence.remove(socialRequest);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -154,6 +159,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -173,6 +179,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -194,6 +201,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -208,11 +216,13 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return socialRequestPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SocialRequest fetchSocialRequest(long requestId)
 		throws SystemException {
 		return socialRequestPersistence.fetchByPrimaryKey(requestId);
@@ -226,11 +236,13 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws PortalException if a social request with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialRequest getSocialRequest(long requestId)
 		throws PortalException, SystemException {
 		return socialRequestPersistence.findByPrimaryKey(requestId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return socialRequestPersistence.findByPrimaryKey(primaryKeyObj);
@@ -245,6 +257,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws PortalException if a matching social request could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialRequest getSocialRequestByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return socialRequestPersistence.findByUUID_G(uuid, groupId);
@@ -262,6 +275,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the range of social requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialRequest> getSocialRequests(int start, int end)
 		throws SystemException {
 		return socialRequestPersistence.findAll(start, end);
@@ -273,6 +287,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @return the number of social requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSocialRequestsCount() throws SystemException {
 		return socialRequestPersistence.countAll();
 	}
@@ -285,6 +300,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialRequest updateSocialRequest(SocialRequest socialRequest)
 		throws SystemException {
 		return socialRequestPersistence.update(socialRequest);
@@ -851,6 +867,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -860,6 +877,7 @@ public abstract class SocialRequestLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

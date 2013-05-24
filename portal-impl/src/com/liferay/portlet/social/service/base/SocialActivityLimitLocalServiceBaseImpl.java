@@ -100,6 +100,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialActivityLimit addSocialActivityLimit(
 		SocialActivityLimit socialActivityLimit) throws SystemException {
 		socialActivityLimit.setNew(true);
@@ -113,6 +114,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @param activityLimitId the primary key for the new social activity limit
 	 * @return the new social activity limit
 	 */
+	@Override
 	public SocialActivityLimit createSocialActivityLimit(long activityLimitId) {
 		return socialActivityLimitPersistence.create(activityLimitId);
 	}
@@ -126,6 +128,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialActivityLimit deleteSocialActivityLimit(long activityLimitId)
 		throws PortalException, SystemException {
 		return socialActivityLimitPersistence.remove(activityLimitId);
@@ -139,11 +142,13 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialActivityLimit deleteSocialActivityLimit(
 		SocialActivityLimit socialActivityLimit) throws SystemException {
 		return socialActivityLimitPersistence.remove(socialActivityLimit);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -158,6 +163,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -177,6 +183,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -198,6 +205,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -212,11 +220,13 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return socialActivityLimitPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SocialActivityLimit fetchSocialActivityLimit(long activityLimitId)
 		throws SystemException {
 		return socialActivityLimitPersistence.fetchByPrimaryKey(activityLimitId);
@@ -230,11 +240,13 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @throws PortalException if a social activity limit with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivityLimit getSocialActivityLimit(long activityLimitId)
 		throws PortalException, SystemException {
 		return socialActivityLimitPersistence.findByPrimaryKey(activityLimitId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return socialActivityLimitPersistence.findByPrimaryKey(primaryKeyObj);
@@ -252,6 +264,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the range of social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivityLimit> getSocialActivityLimits(int start, int end)
 		throws SystemException {
 		return socialActivityLimitPersistence.findAll(start, end);
@@ -263,6 +276,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @return the number of social activity limits
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSocialActivityLimitsCount() throws SystemException {
 		return socialActivityLimitPersistence.countAll();
 	}
@@ -275,6 +289,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialActivityLimit updateSocialActivityLimit(
 		SocialActivityLimit socialActivityLimit) throws SystemException {
 		return socialActivityLimitPersistence.update(socialActivityLimit);
@@ -913,6 +928,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -922,6 +938,7 @@ public abstract class SocialActivityLimitLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

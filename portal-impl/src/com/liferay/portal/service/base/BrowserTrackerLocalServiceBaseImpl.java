@@ -247,6 +247,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public BrowserTracker addBrowserTracker(BrowserTracker browserTracker)
 		throws SystemException {
 		browserTracker.setNew(true);
@@ -260,6 +261,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @param browserTrackerId the primary key for the new browser tracker
 	 * @return the new browser tracker
 	 */
+	@Override
 	public BrowserTracker createBrowserTracker(long browserTrackerId) {
 		return browserTrackerPersistence.create(browserTrackerId);
 	}
@@ -273,6 +275,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public BrowserTracker deleteBrowserTracker(long browserTrackerId)
 		throws PortalException, SystemException {
 		return browserTrackerPersistence.remove(browserTrackerId);
@@ -286,11 +289,13 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public BrowserTracker deleteBrowserTracker(BrowserTracker browserTracker)
 		throws SystemException {
 		return browserTrackerPersistence.remove(browserTracker);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return browserTrackerPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public BrowserTracker fetchBrowserTracker(long browserTrackerId)
 		throws SystemException {
 		return browserTrackerPersistence.fetchByPrimaryKey(browserTrackerId);
@@ -377,11 +387,13 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @throws PortalException if a browser tracker with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public BrowserTracker getBrowserTracker(long browserTrackerId)
 		throws PortalException, SystemException {
 		return browserTrackerPersistence.findByPrimaryKey(browserTrackerId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return browserTrackerPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the range of browser trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<BrowserTracker> getBrowserTrackers(int start, int end)
 		throws SystemException {
 		return browserTrackerPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @return the number of browser trackers
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getBrowserTrackersCount() throws SystemException {
 		return browserTrackerPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public BrowserTracker updateBrowserTracker(BrowserTracker browserTracker)
 		throws SystemException {
 		return browserTrackerPersistence.update(browserTracker);
@@ -3802,6 +3817,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class BrowserTrackerLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -73,7 +73,7 @@ public class AssetPublisherExportImportTest
 	extends BasePortletExportImportTestCase {
 
 	@Test
-	public void testAnyDocumentType() throws Exception {
+	public void testAnyDLFileEntryType() throws Exception {
 		DDMStructure ddmStructure = DDMStructureTestUtil.addStructure(
 			group.getGroupId(), DLFileEntryType.class.getName());
 
@@ -247,7 +247,7 @@ public class AssetPublisherExportImportTest
 	}
 
 	@Test
-	public void testSeveralDocumentTypes() throws Exception {
+	public void testSeveralDLFileEntryTypes() throws Exception {
 		DDMStructure ddmStructure1 = DDMStructureTestUtil.addStructure(
 			group.getGroupId(), DLFileEntryType.class.getName());
 

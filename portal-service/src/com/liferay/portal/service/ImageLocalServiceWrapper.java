@@ -34,6 +34,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the image that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Image addImage(
 		com.liferay.portal.model.Image image)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -46,6 +47,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @param imageId the primary key for the new image
 	* @return the new image
 	*/
+	@Override
 	public com.liferay.portal.model.Image createImage(long imageId) {
 		return _imageLocalService.createImage(imageId);
 	}
@@ -58,6 +60,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @throws PortalException if a image with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Image deleteImage(long imageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -71,12 +74,14 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the image that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Image deleteImage(
 		com.liferay.portal.model.Image image)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.deleteImage(image);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _imageLocalService.dynamicQuery();
 	}
@@ -88,6 +93,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -108,6 +114,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -129,6 +136,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -146,12 +154,14 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image fetchImage(long imageId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.fetchImage(imageId);
@@ -165,12 +175,14 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @throws PortalException if a image with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Image getImage(long imageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.getImage(imageId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -190,6 +202,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the range of images
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Image> getImages(int start,
 		int end) throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.getImages(start, end);
@@ -201,6 +214,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the number of images
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getImagesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.getImagesCount();
@@ -213,6 +227,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	* @return the image that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Image updateImage(
 		com.liferay.portal.model.Image image)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -224,6 +239,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _imageLocalService.getBeanIdentifier();
 	}
@@ -233,34 +249,41 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_imageLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image getCompanyLogo(long imageId) {
 		return _imageLocalService.getCompanyLogo(imageId);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image getImageOrDefault(long imageId) {
 		return _imageLocalService.getImageOrDefault(imageId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Image> getImages()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.getImages();
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Image> getImagesBySize(
 		int size) throws com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.getImagesBySize(size);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image updateImage(long imageId, byte[] bytes)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _imageLocalService.updateImage(imageId, bytes);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image updateImage(long imageId,
 		byte[] bytes, java.lang.String type, int height, int width, int size)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -269,6 +292,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 			width, size);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image updateImage(long imageId,
 		java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -276,6 +300,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 		return _imageLocalService.updateImage(imageId, file);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image updateImage(long imageId,
 		java.io.InputStream is)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -283,6 +308,7 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 		return _imageLocalService.updateImage(imageId, is);
 	}
 
+	@Override
 	public com.liferay.portal.model.Image updateImage(long imageId,
 		java.io.InputStream is, boolean cleanUpStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -304,10 +330,12 @@ public class ImageLocalServiceWrapper implements ImageLocalService,
 		_imageLocalService = imageLocalService;
 	}
 
+	@Override
 	public ImageLocalService getWrappedService() {
 		return _imageLocalService;
 	}
 
+	@Override
 	public void setWrappedService(ImageLocalService imageLocalService) {
 		_imageLocalService = imageLocalService;
 	}

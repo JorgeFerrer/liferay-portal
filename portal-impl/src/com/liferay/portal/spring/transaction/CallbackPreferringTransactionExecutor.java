@@ -34,6 +34,7 @@ import org.springframework.transaction.support.TransactionCallback;
 public class CallbackPreferringTransactionExecutor
 	extends BaseTransactionExecutor {
 
+	@Override
 	public Object execute(
 			PlatformTransactionManager platformTransactionManager,
 			TransactionAttribute transactionAttribute,
@@ -84,6 +85,7 @@ public class CallbackPreferringTransactionExecutor
 			_methodInvocation = methodInvocation;
 		}
 
+		@Override
 		public Object doInTransaction(TransactionStatus transactionStatus) {
 			boolean newTransaction = transactionStatus.isNewTransaction();
 

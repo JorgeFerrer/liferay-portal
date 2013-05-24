@@ -102,6 +102,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalArticleImage addJournalArticleImage(
 		JournalArticleImage journalArticleImage) throws SystemException {
 		journalArticleImage.setNew(true);
@@ -115,6 +116,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @param articleImageId the primary key for the new journal article image
 	 * @return the new journal article image
 	 */
+	@Override
 	public JournalArticleImage createJournalArticleImage(long articleImageId) {
 		return journalArticleImagePersistence.create(articleImageId);
 	}
@@ -128,6 +130,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalArticleImage deleteJournalArticleImage(long articleImageId)
 		throws PortalException, SystemException {
 		return journalArticleImagePersistence.remove(articleImageId);
@@ -141,11 +144,13 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalArticleImage deleteJournalArticleImage(
 		JournalArticleImage journalArticleImage) throws SystemException {
 		return journalArticleImagePersistence.remove(journalArticleImage);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -160,6 +165,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -179,6 +185,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -200,6 +207,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -214,11 +222,13 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return journalArticleImagePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public JournalArticleImage fetchJournalArticleImage(long articleImageId)
 		throws SystemException {
 		return journalArticleImagePersistence.fetchByPrimaryKey(articleImageId);
@@ -232,11 +242,13 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @throws PortalException if a journal article image with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalArticleImage getJournalArticleImage(long articleImageId)
 		throws PortalException, SystemException {
 		return journalArticleImagePersistence.findByPrimaryKey(articleImageId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return journalArticleImagePersistence.findByPrimaryKey(primaryKeyObj);
@@ -254,6 +266,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the range of journal article images
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalArticleImage> getJournalArticleImages(int start, int end)
 		throws SystemException {
 		return journalArticleImagePersistence.findAll(start, end);
@@ -265,6 +278,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @return the number of journal article images
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getJournalArticleImagesCount() throws SystemException {
 		return journalArticleImagePersistence.countAll();
 	}
@@ -277,6 +291,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalArticleImage updateJournalArticleImage(
 		JournalArticleImage journalArticleImage) throws SystemException {
 		return journalArticleImagePersistence.update(journalArticleImage);
@@ -951,6 +966,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -960,6 +976,7 @@ public abstract class JournalArticleImageLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

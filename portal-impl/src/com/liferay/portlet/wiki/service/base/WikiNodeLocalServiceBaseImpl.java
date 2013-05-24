@@ -99,6 +99,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WikiNode addWikiNode(WikiNode wikiNode) throws SystemException {
 		wikiNode.setNew(true);
 
@@ -111,6 +112,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param nodeId the primary key for the new wiki node
 	 * @return the new wiki node
 	 */
+	@Override
 	public WikiNode createWikiNode(long nodeId) {
 		return wikiNodePersistence.create(nodeId);
 	}
@@ -124,6 +126,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WikiNode deleteWikiNode(long nodeId)
 		throws PortalException, SystemException {
 		return wikiNodePersistence.remove(nodeId);
@@ -137,10 +140,12 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public WikiNode deleteWikiNode(WikiNode wikiNode) throws SystemException {
 		return wikiNodePersistence.remove(wikiNode);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -155,6 +160,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -174,6 +180,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -194,6 +201,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -208,11 +216,13 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return wikiNodePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public WikiNode fetchWikiNode(long nodeId) throws SystemException {
 		return wikiNodePersistence.fetchByPrimaryKey(nodeId);
 	}
@@ -225,11 +235,13 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a wiki node with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public WikiNode getWikiNode(long nodeId)
 		throws PortalException, SystemException {
 		return wikiNodePersistence.findByPrimaryKey(nodeId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return wikiNodePersistence.findByPrimaryKey(primaryKeyObj);
@@ -244,6 +256,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching wiki node could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public WikiNode getWikiNodeByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return wikiNodePersistence.findByUUID_G(uuid, groupId);
@@ -261,6 +274,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of wiki nodes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<WikiNode> getWikiNodes(int start, int end)
 		throws SystemException {
 		return wikiNodePersistence.findAll(start, end);
@@ -272,6 +286,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of wiki nodes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getWikiNodesCount() throws SystemException {
 		return wikiNodePersistence.countAll();
 	}
@@ -284,6 +299,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public WikiNode updateWikiNode(WikiNode wikiNode) throws SystemException {
 		return wikiNodePersistence.update(wikiNode);
 	}
@@ -913,6 +929,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -922,6 +939,7 @@ public abstract class WikiNodeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

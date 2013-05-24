@@ -62,6 +62,7 @@ public class SocialActivitySetCacheModel implements CacheModel<SocialActivitySet
 		return sb.toString();
 	}
 
+	@Override
 	public SocialActivitySet toEntityModel() {
 		SocialActivitySetImpl socialActivitySetImpl = new SocialActivitySetImpl();
 
@@ -81,6 +82,7 @@ public class SocialActivitySetCacheModel implements CacheModel<SocialActivitySet
 		return socialActivitySetImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		activitySetId = objectInput.readLong();
 		groupId = objectInput.readLong();
@@ -94,6 +96,7 @@ public class SocialActivitySetCacheModel implements CacheModel<SocialActivitySet
 		activityCount = objectInput.readInt();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(activitySetId);

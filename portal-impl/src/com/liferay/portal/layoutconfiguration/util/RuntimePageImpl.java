@@ -87,6 +87,7 @@ import org.apache.commons.lang.time.StopWatch;
 @DoPrivileged
 public class RuntimePageImpl implements RuntimePage {
 
+	@Override
 	public StringBundler getProcessedTemplate(
 			PageContext pageContext, String portletId,
 			TemplateResource templateResource)
@@ -95,6 +96,7 @@ public class RuntimePageImpl implements RuntimePage {
 		return doDispatch(pageContext, portletId, templateResource, true);
 	}
 
+	@Override
 	public void processCustomizationSettings(
 			PageContext pageContext, TemplateResource templateResource)
 		throws Exception {
@@ -102,6 +104,7 @@ public class RuntimePageImpl implements RuntimePage {
 		doDispatch(pageContext, null, templateResource, false);
 	}
 
+	@Override
 	public void processTemplate(
 			PageContext pageContext, String portletId,
 			TemplateResource templateResource)
@@ -113,6 +116,7 @@ public class RuntimePageImpl implements RuntimePage {
 		sb.writeTo(pageContext.getOut());
 	}
 
+	@Override
 	public void processTemplate(
 			PageContext pageContext, TemplateResource templateResource)
 		throws Exception {
@@ -120,6 +124,7 @@ public class RuntimePageImpl implements RuntimePage {
 		processTemplate(pageContext, null, templateResource);
 	}
 
+	@Override
 	public String processXML(
 			HttpServletRequest request, HttpServletResponse response,
 			String content)
@@ -146,6 +151,7 @@ public class RuntimePageImpl implements RuntimePage {
 		return content;
 	}
 
+	@Override
 	public String processXML(
 			HttpServletRequest request, String content,
 			RuntimeLogic runtimeLogic)

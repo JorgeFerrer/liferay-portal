@@ -30,6 +30,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
 public class ImportExportPermissionConversionFilter
 	implements PermissionConversionFilter {
 
+	@Override
 	public boolean accept(Role role, ResourcePermission resourcePermission)
 		throws SystemException {
 
@@ -54,6 +55,7 @@ public class ImportExportPermissionConversionFilter
 		return false;
 	}
 
+	@Override
 	public boolean accept(
 			Role role, ResourceTypePermission resourceTypePermission)
 		throws SystemException {

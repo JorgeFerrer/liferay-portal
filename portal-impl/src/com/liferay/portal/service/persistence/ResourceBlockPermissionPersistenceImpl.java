@@ -111,6 +111,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByResourceBlockId(
 		long resourceBlockId) throws SystemException {
 		return findByResourceBlockId(resourceBlockId, QueryUtil.ALL_POS,
@@ -130,6 +131,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the range of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByResourceBlockId(
 		long resourceBlockId, int start, int end) throws SystemException {
 		return findByResourceBlockId(resourceBlockId, start, end, null);
@@ -149,6 +151,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the ordered range of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByResourceBlockId(
 		long resourceBlockId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -260,6 +263,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByResourceBlockId_First(
 		long resourceBlockId, OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockPermissionException, SystemException {
@@ -290,6 +294,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the first matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByResourceBlockId_First(
 		long resourceBlockId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -312,6 +317,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByResourceBlockId_Last(
 		long resourceBlockId, OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockPermissionException, SystemException {
@@ -342,6 +348,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the last matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByResourceBlockId_Last(
 		long resourceBlockId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -367,6 +374,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission[] findByResourceBlockId_PrevAndNext(
 		long resourceBlockPermissionId, long resourceBlockId,
 		OrderByComparator orderByComparator)
@@ -512,6 +520,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @param resourceBlockId the resource block ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByResourceBlockId(long resourceBlockId)
 		throws SystemException {
 		for (ResourceBlockPermission resourceBlockPermission : findByResourceBlockId(
@@ -527,6 +536,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the number of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByResourceBlockId(long resourceBlockId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_RESOURCEBLOCKID;
@@ -604,6 +614,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByRoleId(long roleId)
 		throws SystemException {
 		return findByRoleId(roleId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -622,6 +633,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the range of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByRoleId(long roleId, int start,
 		int end) throws SystemException {
 		return findByRoleId(roleId, start, end, null);
@@ -641,6 +653,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the ordered range of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findByRoleId(long roleId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -747,6 +760,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByRoleId_First(long roleId,
 		OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockPermissionException, SystemException {
@@ -777,6 +791,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the first matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByRoleId_First(long roleId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<ResourceBlockPermission> list = findByRoleId(roleId, 0, 1,
@@ -798,6 +813,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByRoleId_Last(long roleId,
 		OrderByComparator orderByComparator)
 		throws NoSuchResourceBlockPermissionException, SystemException {
@@ -828,6 +844,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the last matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByRoleId_Last(long roleId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByRoleId(roleId);
@@ -852,6 +869,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission[] findByRoleId_PrevAndNext(
 		long resourceBlockPermissionId, long roleId,
 		OrderByComparator orderByComparator)
@@ -994,6 +1012,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @param roleId the role ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByRoleId(long roleId) throws SystemException {
 		for (ResourceBlockPermission resourceBlockPermission : findByRoleId(
 				roleId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -1008,6 +1027,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the number of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByRoleId(long roleId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_ROLEID;
 
@@ -1075,6 +1095,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByR_R(long resourceBlockId, long roleId)
 		throws NoSuchResourceBlockPermissionException, SystemException {
 		ResourceBlockPermission resourceBlockPermission = fetchByR_R(resourceBlockId,
@@ -1111,6 +1132,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByR_R(long resourceBlockId, long roleId)
 		throws SystemException {
 		return fetchByR_R(resourceBlockId, roleId, true);
@@ -1125,6 +1147,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the matching resource block permission, or <code>null</code> if a matching resource block permission could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByR_R(long resourceBlockId,
 		long roleId, boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { resourceBlockId, roleId };
@@ -1216,6 +1239,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the resource block permission that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission removeByR_R(long resourceBlockId, long roleId)
 		throws NoSuchResourceBlockPermissionException, SystemException {
 		ResourceBlockPermission resourceBlockPermission = findByR_R(resourceBlockId,
@@ -1232,6 +1256,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the number of matching resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByR_R(long resourceBlockId, long roleId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_R_R;
@@ -1290,6 +1315,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 *
 	 * @param resourceBlockPermission the resource block permission
 	 */
+	@Override
 	public void cacheResult(ResourceBlockPermission resourceBlockPermission) {
 		EntityCacheUtil.putResult(ResourceBlockPermissionModelImpl.ENTITY_CACHE_ENABLED,
 			ResourceBlockPermissionImpl.class,
@@ -1309,6 +1335,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 *
 	 * @param resourceBlockPermissions the resource block permissions
 	 */
+	@Override
 	public void cacheResult(
 		List<ResourceBlockPermission> resourceBlockPermissions) {
 		for (ResourceBlockPermission resourceBlockPermission : resourceBlockPermissions) {
@@ -1439,6 +1466,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @param resourceBlockPermissionId the primary key for the new resource block permission
 	 * @return the new resource block permission
 	 */
+	@Override
 	public ResourceBlockPermission create(long resourceBlockPermissionId) {
 		ResourceBlockPermission resourceBlockPermission = new ResourceBlockPermissionImpl();
 
@@ -1456,6 +1484,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission remove(long resourceBlockPermissionId)
 		throws NoSuchResourceBlockPermissionException, SystemException {
 		return remove((Serializable)resourceBlockPermissionId);
@@ -1675,6 +1704,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @throws com.liferay.portal.NoSuchResourceBlockPermissionException if a resource block permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission findByPrimaryKey(
 		long resourceBlockPermissionId)
 		throws NoSuchResourceBlockPermissionException, SystemException {
@@ -1737,6 +1767,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the resource block permission, or <code>null</code> if a resource block permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceBlockPermission fetchByPrimaryKey(
 		long resourceBlockPermissionId) throws SystemException {
 		return fetchByPrimaryKey((Serializable)resourceBlockPermissionId);
@@ -1748,6 +1779,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1764,6 +1796,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the range of resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1782,6 +1815,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the ordered range of resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceBlockPermission> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1867,6 +1901,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (ResourceBlockPermission resourceBlockPermission : findAll()) {
 			remove(resourceBlockPermission);
@@ -1879,6 +1914,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 	 * @return the number of resource block permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1965,6 +2001,7 @@ public class ResourceBlockPermissionPersistenceImpl extends BasePersistenceImpl<
 
 	private static CacheModel<ResourceBlockPermission> _nullResourceBlockPermissionCacheModel =
 		new CacheModel<ResourceBlockPermission>() {
+			@Override
 			public ResourceBlockPermission toEntityModel() {
 				return _nullResourceBlockPermission;
 			}

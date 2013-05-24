@@ -99,26 +99,32 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 	public SocialActivitySetModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _activitySetId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setActivitySetId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _activitySetId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SocialActivitySet.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SocialActivitySet.class.getName();
 	}
@@ -204,18 +210,22 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		}
 	}
 
+	@Override
 	public long getActivitySetId() {
 		return _activitySetId;
 	}
 
+	@Override
 	public void setActivitySetId(long activitySetId) {
 		_activitySetId = activitySetId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -232,18 +242,22 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return _originalGroupId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -256,10 +270,12 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -268,24 +284,29 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return _originalUserId;
 	}
 
+	@Override
 	public long getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(long createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public long getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(long modifiedDate) {
 		_columnBitmask = -1L;
 
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getClassName() {
 		if (getClassNameId() <= 0) {
 			return StringPool.BLANK;
@@ -294,6 +315,7 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return PortalUtil.getClassName(getClassNameId());
 	}
 
+	@Override
 	public void setClassName(String className) {
 		long classNameId = 0;
 
@@ -304,10 +326,12 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		setClassNameId(classNameId);
 	}
 
+	@Override
 	public long getClassNameId() {
 		return _classNameId;
 	}
 
+	@Override
 	public void setClassNameId(long classNameId) {
 		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
@@ -324,10 +348,12 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return _originalClassNameId;
 	}
 
+	@Override
 	public long getClassPK() {
 		return _classPK;
 	}
 
+	@Override
 	public void setClassPK(long classPK) {
 		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
@@ -344,10 +370,12 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return _originalClassPK;
 	}
 
+	@Override
 	public int getType() {
 		return _type;
 	}
 
+	@Override
 	public void setType(int type) {
 		_columnBitmask |= TYPE_COLUMN_BITMASK;
 
@@ -364,10 +392,12 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return _originalType;
 	}
 
+	@Override
 	public int getActivityCount() {
 		return _activityCount;
 	}
 
+	@Override
 	public void setActivityCount(int activityCount) {
 		_activityCount = activityCount;
 	}
@@ -419,6 +449,7 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return socialActivitySetImpl;
 	}
 
+	@Override
 	public int compareTo(SocialActivitySet socialActivitySet) {
 		int value = 0;
 
@@ -551,6 +582,7 @@ public class SocialActivitySetModelImpl extends BaseModelImpl<SocialActivitySet>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(34);
 

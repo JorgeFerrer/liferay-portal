@@ -110,6 +110,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid(String uuid) throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -127,6 +128,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -146,6 +148,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -266,6 +269,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -295,6 +299,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<Phone> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -315,6 +320,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -344,6 +350,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -367,6 +374,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByUuid_PrevAndNext(long phoneId, String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -521,6 +529,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (Phone phone : findByUuid(uuid, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -535,6 +544,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -627,6 +637,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -647,6 +658,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid_C(String uuid, long companyId, int start,
 		int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -667,6 +679,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUuid_C(String uuid, long companyId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -797,6 +810,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -830,6 +844,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<Phone> list = findByUuid_C(uuid, companyId, 0, 1, orderByComparator);
@@ -851,6 +866,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -884,6 +900,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -909,6 +926,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByUuid_C_PrevAndNext(long phoneId, String uuid,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1069,6 +1087,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (Phone phone : findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -1085,6 +1104,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1182,6 +1202,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -1201,6 +1222,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByCompanyId(long companyId, int start, int end)
 		throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -1220,6 +1242,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByCompanyId(long companyId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1326,6 +1349,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1355,6 +1379,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<Phone> list = findByCompanyId(companyId, 0, 1, orderByComparator);
@@ -1375,6 +1400,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1404,6 +1430,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -1428,6 +1455,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByCompanyId_PrevAndNext(long phoneId, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1568,6 +1596,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (Phone phone : findByCompanyId(companyId, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -1582,6 +1611,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -1656,6 +1686,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUserId(long userId) throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1673,6 +1704,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUserId(long userId, int start, int end)
 		throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -1692,6 +1724,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1798,6 +1831,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1827,6 +1861,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<Phone> list = findByUserId(userId, 0, 1, orderByComparator);
@@ -1847,6 +1882,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -1876,6 +1912,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
@@ -1900,6 +1937,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByUserId_PrevAndNext(long phoneId, long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2040,6 +2078,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUserId(long userId) throws SystemException {
 		for (Phone phone : findByUserId(userId, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -2054,6 +2093,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUserId(long userId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
 
@@ -2129,6 +2169,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C(long companyId, long classNameId)
 		throws SystemException {
 		return findByC_C(companyId, classNameId, QueryUtil.ALL_POS,
@@ -2149,6 +2190,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C(long companyId, long classNameId, int start,
 		int end) throws SystemException {
 		return findByC_C(companyId, classNameId, start, end, null);
@@ -2169,6 +2211,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C(long companyId, long classNameId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2285,6 +2328,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_First(long companyId, long classNameId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2318,6 +2362,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_First(long companyId, long classNameId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<Phone> list = findByC_C(companyId, classNameId, 0, 1,
@@ -2340,6 +2385,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_Last(long companyId, long classNameId,
 		OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2373,6 +2419,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_Last(long companyId, long classNameId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByC_C(companyId, classNameId);
@@ -2398,6 +2445,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByC_C_PrevAndNext(long phoneId, long companyId,
 		long classNameId, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2544,6 +2592,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param classNameId the class name ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C(long companyId, long classNameId)
 		throws SystemException {
 		for (Phone phone : findByC_C(companyId, classNameId, QueryUtil.ALL_POS,
@@ -2560,6 +2609,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C(long companyId, long classNameId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C;
@@ -2647,6 +2697,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C(long companyId, long classNameId,
 		long classPK) throws SystemException {
 		return findByC_C_C(companyId, classNameId, classPK, QueryUtil.ALL_POS,
@@ -2668,6 +2719,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C(long companyId, long classNameId,
 		long classPK, int start, int end) throws SystemException {
 		return findByC_C_C(companyId, classNameId, classPK, start, end, null);
@@ -2689,6 +2741,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C(long companyId, long classNameId,
 		long classPK, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2812,6 +2865,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_C_First(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2850,6 +2904,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_C_First(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2874,6 +2929,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_C_Last(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -2912,6 +2968,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_C_Last(long companyId, long classNameId,
 		long classPK, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -2939,6 +2996,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByC_C_C_PrevAndNext(long phoneId, long companyId,
 		long classNameId, long classPK, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -3090,6 +3148,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param classPK the class p k
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C_C(long companyId, long classNameId, long classPK)
 		throws SystemException {
 		for (Phone phone : findByC_C_C(companyId, classNameId, classPK,
@@ -3107,6 +3166,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C_C(long companyId, long classNameId, long classPK)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C_C;
@@ -3205,6 +3265,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary) throws SystemException {
 		return findByC_C_C_P(companyId, classNameId, classPK, primary,
@@ -3227,6 +3288,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary, int start, int end)
 		throws SystemException {
@@ -3251,6 +3313,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findByC_C_C_P(long companyId, long classNameId,
 		long classPK, boolean primary, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -3380,6 +3443,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_C_P_First(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -3422,6 +3486,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the first matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_C_P_First(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3447,6 +3512,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByC_C_C_P_Last(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws NoSuchPhoneException, SystemException {
@@ -3489,6 +3555,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the last matching phone, or <code>null</code> if a matching phone could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByC_C_C_P_Last(long companyId, long classNameId,
 		long classPK, boolean primary, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3517,6 +3584,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone[] findByC_C_C_P_PrevAndNext(long phoneId, long companyId,
 		long classNameId, long classPK, boolean primary,
 		OrderByComparator orderByComparator)
@@ -3674,6 +3742,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param primary the primary
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_C_C_P(long companyId, long classNameId, long classPK,
 		boolean primary) throws SystemException {
 		for (Phone phone : findByC_C_C_P(companyId, classNameId, classPK,
@@ -3692,6 +3761,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of matching phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_C_C_P(long companyId, long classNameId, long classPK,
 		boolean primary) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_C_C_P;
@@ -3762,6 +3832,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 *
 	 * @param phone the phone
 	 */
+	@Override
 	public void cacheResult(Phone phone) {
 		EntityCacheUtil.putResult(PhoneModelImpl.ENTITY_CACHE_ENABLED,
 			PhoneImpl.class, phone.getPrimaryKey(), phone);
@@ -3774,6 +3845,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 *
 	 * @param phones the phones
 	 */
+	@Override
 	public void cacheResult(List<Phone> phones) {
 		for (Phone phone : phones) {
 			if (EntityCacheUtil.getResult(PhoneModelImpl.ENTITY_CACHE_ENABLED,
@@ -3839,6 +3911,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @param phoneId the primary key for the new phone
 	 * @return the new phone
 	 */
+	@Override
 	public Phone create(long phoneId) {
 		Phone phone = new PhoneImpl();
 
@@ -3860,6 +3933,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone remove(long phoneId)
 		throws NoSuchPhoneException, SystemException {
 		return remove((Serializable)phoneId);
@@ -4184,6 +4258,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @throws com.liferay.portal.NoSuchPhoneException if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone findByPrimaryKey(long phoneId)
 		throws NoSuchPhoneException, SystemException {
 		return findByPrimaryKey((Serializable)phoneId);
@@ -4243,6 +4318,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the phone, or <code>null</code> if a phone with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Phone fetchByPrimaryKey(long phoneId) throws SystemException {
 		return fetchByPrimaryKey((Serializable)phoneId);
 	}
@@ -4253,6 +4329,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -4269,6 +4346,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the range of phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findAll(int start, int end) throws SystemException {
 		return findAll(start, end, null);
 	}
@@ -4286,6 +4364,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the ordered range of phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Phone> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -4371,6 +4450,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (Phone phone : findAll()) {
 			remove(phone);
@@ -4383,6 +4463,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 	 * @return the number of phones
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -4476,6 +4557,7 @@ public class PhonePersistenceImpl extends BasePersistenceImpl<Phone>
 		};
 
 	private static CacheModel<Phone> _nullPhoneCacheModel = new CacheModel<Phone>() {
+			@Override
 			public Phone toEntityModel() {
 				return _nullPhone;
 			}

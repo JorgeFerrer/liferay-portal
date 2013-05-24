@@ -95,26 +95,32 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 	public LayoutFriendlyURLModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _layoutFriendlyURLId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setLayoutFriendlyURLId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _layoutFriendlyURLId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return LayoutFriendlyURL.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return LayoutFriendlyURL.class.getName();
 	}
@@ -186,6 +192,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -195,6 +202,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -207,18 +215,22 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	public long getLayoutFriendlyURLId() {
 		return _layoutFriendlyURLId;
 	}
 
+	@Override
 	public void setLayoutFriendlyURLId(long layoutFriendlyURLId) {
 		_layoutFriendlyURLId = layoutFriendlyURLId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -235,10 +247,12 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return _originalGroupId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -255,10 +269,12 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return _originalCompanyId;
 	}
 
+	@Override
 	public long getPlid() {
 		return _plid;
 	}
 
+	@Override
 	public void setPlid(long plid) {
 		_columnBitmask |= PLID_COLUMN_BITMASK;
 
@@ -275,14 +291,17 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return _originalPlid;
 	}
 
+	@Override
 	public boolean getPrivateLayout() {
 		return _privateLayout;
 	}
 
+	@Override
 	public boolean isPrivateLayout() {
 		return _privateLayout;
 	}
 
+	@Override
 	public void setPrivateLayout(boolean privateLayout) {
 		_columnBitmask |= PRIVATELAYOUT_COLUMN_BITMASK;
 
@@ -299,6 +318,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return _originalPrivateLayout;
 	}
 
+	@Override
 	public String getFriendlyURL() {
 		if (_friendlyURL == null) {
 			return StringPool.BLANK;
@@ -308,6 +328,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		}
 	}
 
+	@Override
 	public void setFriendlyURL(String friendlyURL) {
 		_columnBitmask |= FRIENDLYURL_COLUMN_BITMASK;
 
@@ -322,6 +343,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return GetterUtil.getString(_originalFriendlyURL);
 	}
 
+	@Override
 	public String getLanguageId() {
 		if (_languageId == null) {
 			return StringPool.BLANK;
@@ -331,6 +353,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		}
 	}
 
+	@Override
 	public void setLanguageId(String languageId) {
 		_columnBitmask |= LANGUAGEID_COLUMN_BITMASK;
 
@@ -390,6 +413,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return layoutFriendlyURLImpl;
 	}
 
+	@Override
 	public int compareTo(LayoutFriendlyURL layoutFriendlyURL) {
 		long primaryKey = layoutFriendlyURL.getPrimaryKey();
 
@@ -526,6 +550,7 @@ public class LayoutFriendlyURLModelImpl extends BaseModelImpl<LayoutFriendlyURL>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(28);
 

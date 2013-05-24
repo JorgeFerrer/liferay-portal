@@ -35,6 +35,7 @@ public class PollsQuestionServiceWrapper implements PollsQuestionService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _pollsQuestionService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class PollsQuestionServiceWrapper implements PollsQuestionService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_pollsQuestionService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsQuestion addQuestion(
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
@@ -63,12 +66,14 @@ public class PollsQuestionServiceWrapper implements PollsQuestionService,
 			serviceContext);
 	}
 
+	@Override
 	public void deleteQuestion(long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_pollsQuestionService.deleteQuestion(questionId);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsQuestion getQuestion(
 		long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -76,6 +81,7 @@ public class PollsQuestionServiceWrapper implements PollsQuestionService,
 		return _pollsQuestionService.getQuestion(questionId);
 	}
 
+	@Override
 	public com.liferay.portlet.polls.model.PollsQuestion updateQuestion(
 		long questionId,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
@@ -107,10 +113,12 @@ public class PollsQuestionServiceWrapper implements PollsQuestionService,
 		_pollsQuestionService = pollsQuestionService;
 	}
 
+	@Override
 	public PollsQuestionService getWrappedService() {
 		return _pollsQuestionService;
 	}
 
+	@Override
 	public void setWrappedService(PollsQuestionService pollsQuestionService) {
 		_pollsQuestionService = pollsQuestionService;
 	}

@@ -94,6 +94,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDMTemplate addDDMTemplate(DDMTemplate ddmTemplate)
 		throws SystemException {
 		ddmTemplate.setNew(true);
@@ -107,6 +108,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @param templateId the primary key for the new d d m template
 	 * @return the new d d m template
 	 */
+	@Override
 	public DDMTemplate createDDMTemplate(long templateId) {
 		return ddmTemplatePersistence.create(templateId);
 	}
@@ -120,6 +122,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDMTemplate deleteDDMTemplate(long templateId)
 		throws PortalException, SystemException {
 		return ddmTemplatePersistence.remove(templateId);
@@ -133,11 +136,13 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDMTemplate deleteDDMTemplate(DDMTemplate ddmTemplate)
 		throws SystemException {
 		return ddmTemplatePersistence.remove(ddmTemplate);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -152,6 +157,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -171,6 +177,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -192,6 +199,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -206,11 +214,13 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return ddmTemplatePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DDMTemplate fetchDDMTemplate(long templateId)
 		throws SystemException {
 		return ddmTemplatePersistence.fetchByPrimaryKey(templateId);
@@ -224,11 +234,13 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws PortalException if a d d m template with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDMTemplate getDDMTemplate(long templateId)
 		throws PortalException, SystemException {
 		return ddmTemplatePersistence.findByPrimaryKey(templateId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return ddmTemplatePersistence.findByPrimaryKey(primaryKeyObj);
@@ -243,6 +255,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws PortalException if a matching d d m template could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDMTemplate getDDMTemplateByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return ddmTemplatePersistence.findByUUID_G(uuid, groupId);
@@ -260,6 +273,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the range of d d m templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDMTemplate> getDDMTemplates(int start, int end)
 		throws SystemException {
 		return ddmTemplatePersistence.findAll(start, end);
@@ -271,6 +285,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @return the number of d d m templates
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDDMTemplatesCount() throws SystemException {
 		return ddmTemplatePersistence.countAll();
 	}
@@ -283,6 +298,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDMTemplate updateDDMTemplate(DDMTemplate ddmTemplate)
 		throws SystemException {
 		return ddmTemplatePersistence.update(ddmTemplate);
@@ -800,6 +816,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -809,6 +826,7 @@ public abstract class DDMTemplateLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

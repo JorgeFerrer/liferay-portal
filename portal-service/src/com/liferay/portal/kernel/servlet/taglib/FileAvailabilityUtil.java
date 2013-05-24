@@ -87,6 +87,7 @@ public class FileAvailabilityUtil {
 			_path = path;
 		}
 
+		@Override
 		public URL run() throws Exception {
 			return _servletContext.getResource(_path);
 		}

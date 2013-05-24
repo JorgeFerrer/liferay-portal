@@ -246,6 +246,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Address addAddress(Address address) throws SystemException {
 		address.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param addressId the primary key for the new address
 	 * @return the new address
 	 */
+	@Override
 	public Address createAddress(long addressId) {
 		return addressPersistence.create(addressId);
 	}
@@ -271,6 +273,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Address deleteAddress(long addressId)
 		throws PortalException, SystemException {
 		return addressPersistence.remove(addressId);
@@ -284,10 +287,12 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Address deleteAddress(Address address) throws SystemException {
 		return addressPersistence.remove(address);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return addressPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Address fetchAddress(long addressId) throws SystemException {
 		return addressPersistence.fetchByPrimaryKey(addressId);
 	}
@@ -372,11 +382,13 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a address with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Address getAddress(long addressId)
 		throws PortalException, SystemException {
 		return addressPersistence.findByPrimaryKey(addressId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return addressPersistence.findByPrimaryKey(primaryKeyObj);
@@ -394,6 +406,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Address> getAddresses(int start, int end)
 		throws SystemException {
 		return addressPersistence.findAll(start, end);
@@ -405,6 +418,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of addresses
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getAddressesCount() throws SystemException {
 		return addressPersistence.countAll();
 	}
@@ -417,6 +431,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Address updateAddress(Address address) throws SystemException {
 		return addressPersistence.update(address);
 	}
@@ -3796,6 +3811,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3805,6 +3821,7 @@ public abstract class AddressLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

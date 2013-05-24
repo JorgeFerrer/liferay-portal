@@ -81,6 +81,7 @@ public class AddressCacheModel implements CacheModel<Address>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public Address toEntityModel() {
 		AddressImpl addressImpl = new AddressImpl();
 
@@ -165,6 +166,7 @@ public class AddressCacheModel implements CacheModel<Address>, Externalizable {
 		return addressImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		addressId = objectInput.readLong();
@@ -187,6 +189,7 @@ public class AddressCacheModel implements CacheModel<Address>, Externalizable {
 		primary = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

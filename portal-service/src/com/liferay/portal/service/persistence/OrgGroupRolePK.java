@@ -60,6 +60,7 @@ public class OrgGroupRolePK implements Comparable<OrgGroupRolePK>, Serializable 
 		this.roleId = roleId;
 	}
 
+	@Override
 	public int compareTo(OrgGroupRolePK pk) {
 		if (pk == null) {
 			return -1;

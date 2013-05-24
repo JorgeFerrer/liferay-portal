@@ -247,6 +247,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceTypePermission addResourceTypePermission(
 		ResourceTypePermission resourceTypePermission)
 		throws SystemException {
@@ -261,6 +262,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @param resourceTypePermissionId the primary key for the new resource type permission
 	 * @return the new resource type permission
 	 */
+	@Override
 	public ResourceTypePermission createResourceTypePermission(
 		long resourceTypePermissionId) {
 		return resourceTypePermissionPersistence.create(resourceTypePermissionId);
@@ -275,6 +277,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceTypePermission deleteResourceTypePermission(
 		long resourceTypePermissionId) throws PortalException, SystemException {
 		return resourceTypePermissionPersistence.remove(resourceTypePermissionId);
@@ -288,12 +291,14 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceTypePermission deleteResourceTypePermission(
 		ResourceTypePermission resourceTypePermission)
 		throws SystemException {
 		return resourceTypePermissionPersistence.remove(resourceTypePermission);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -308,6 +313,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -327,6 +333,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -348,6 +355,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -362,11 +370,13 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return resourceTypePermissionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ResourceTypePermission fetchResourceTypePermission(
 		long resourceTypePermissionId) throws SystemException {
 		return resourceTypePermissionPersistence.fetchByPrimaryKey(resourceTypePermissionId);
@@ -380,11 +390,13 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @throws PortalException if a resource type permission with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceTypePermission getResourceTypePermission(
 		long resourceTypePermissionId) throws PortalException, SystemException {
 		return resourceTypePermissionPersistence.findByPrimaryKey(resourceTypePermissionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return resourceTypePermissionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -402,6 +414,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the range of resource type permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceTypePermission> getResourceTypePermissions(int start,
 		int end) throws SystemException {
 		return resourceTypePermissionPersistence.findAll(start, end);
@@ -413,6 +426,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @return the number of resource type permissions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getResourceTypePermissionsCount() throws SystemException {
 		return resourceTypePermissionPersistence.countAll();
 	}
@@ -425,6 +439,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceTypePermission updateResourceTypePermission(
 		ResourceTypePermission resourceTypePermission)
 		throws SystemException {
@@ -3806,6 +3821,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3815,6 +3831,7 @@ public abstract class ResourceTypePermissionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

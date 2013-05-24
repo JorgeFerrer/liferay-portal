@@ -65,6 +65,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 * @return the uuid of this address
 	 */
 	@AutoEscape
+	@Override
 	public String getUuid();
 
 	/**
@@ -72,6 +73,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param uuid the uuid of this address
 	 */
+	@Override
 	public void setUuid(String uuid);
 
 	/**
@@ -93,6 +95,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the company ID of this address
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -100,6 +103,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param companyId the company ID of this address
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -107,6 +111,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the user ID of this address
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -114,6 +119,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param userId the user ID of this address
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -122,6 +128,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 * @return the user uuid of this address
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -129,6 +136,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param userUuid the user uuid of this address
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -137,6 +145,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 * @return the user name of this address
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -144,6 +153,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param userName the user name of this address
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -151,6 +161,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the create date of this address
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -158,6 +169,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param createDate the create date of this address
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -165,6 +177,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the modified date of this address
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -172,6 +185,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param modifiedDate the modified date of this address
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -179,6 +193,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the fully qualified class name of this address
 	 */
+	@Override
 	public String getClassName();
 
 	public void setClassName(String className);
@@ -188,6 +203,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the class name ID of this address
 	 */
+	@Override
 	public long getClassNameId();
 
 	/**
@@ -195,6 +211,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param classNameId the class name ID of this address
 	 */
+	@Override
 	public void setClassNameId(long classNameId);
 
 	/**
@@ -202,6 +219,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @return the class p k of this address
 	 */
+	@Override
 	public long getClassPK();
 
 	/**
@@ -209,6 +227,7 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 *
 	 * @param classPK the class p k of this address
 	 */
+	@Override
 	public void setClassPK(long classPK);
 
 	/**
@@ -370,41 +389,60 @@ public interface AddressModel extends AttachedModel, BaseModel<Address>,
 	 */
 	public void setPrimary(boolean primary);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(Address address);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<Address> toCacheModel();
 
+	@Override
 	public Address toEscapedModel();
 
+	@Override
 	public Address toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

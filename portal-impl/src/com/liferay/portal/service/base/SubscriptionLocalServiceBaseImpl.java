@@ -259,6 +259,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Subscription addSubscription(Subscription subscription)
 		throws SystemException {
 		subscription.setNew(true);
@@ -272,6 +273,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @param subscriptionId the primary key for the new subscription
 	 * @return the new subscription
 	 */
+	@Override
 	public Subscription createSubscription(long subscriptionId) {
 		return subscriptionPersistence.create(subscriptionId);
 	}
@@ -285,6 +287,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Subscription deleteSubscription(long subscriptionId)
 		throws PortalException, SystemException {
 		return subscriptionPersistence.remove(subscriptionId);
@@ -299,11 +302,13 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Subscription deleteSubscription(Subscription subscription)
 		throws PortalException, SystemException {
 		return subscriptionPersistence.remove(subscription);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -318,6 +323,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -337,6 +343,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -358,6 +365,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -372,11 +380,13 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return subscriptionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Subscription fetchSubscription(long subscriptionId)
 		throws SystemException {
 		return subscriptionPersistence.fetchByPrimaryKey(subscriptionId);
@@ -390,11 +400,13 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @throws PortalException if a subscription with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Subscription getSubscription(long subscriptionId)
 		throws PortalException, SystemException {
 		return subscriptionPersistence.findByPrimaryKey(subscriptionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return subscriptionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -412,6 +424,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the range of subscriptions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Subscription> getSubscriptions(int start, int end)
 		throws SystemException {
 		return subscriptionPersistence.findAll(start, end);
@@ -423,6 +436,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @return the number of subscriptions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSubscriptionsCount() throws SystemException {
 		return subscriptionPersistence.countAll();
 	}
@@ -435,6 +449,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Subscription updateSubscription(Subscription subscription)
 		throws SystemException {
 		return subscriptionPersistence.update(subscription);
@@ -4019,6 +4034,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -4028,6 +4044,7 @@ public abstract class SubscriptionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

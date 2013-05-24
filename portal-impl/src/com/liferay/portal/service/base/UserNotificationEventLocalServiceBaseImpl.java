@@ -247,6 +247,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserNotificationEvent addUserNotificationEvent(
 		UserNotificationEvent userNotificationEvent) throws SystemException {
 		userNotificationEvent.setNew(true);
@@ -260,6 +261,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @param userNotificationEventId the primary key for the new user notification event
 	 * @return the new user notification event
 	 */
+	@Override
 	public UserNotificationEvent createUserNotificationEvent(
 		long userNotificationEventId) {
 		return userNotificationEventPersistence.create(userNotificationEventId);
@@ -274,6 +276,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserNotificationEvent deleteUserNotificationEvent(
 		long userNotificationEventId) throws PortalException, SystemException {
 		return userNotificationEventPersistence.remove(userNotificationEventId);
@@ -287,11 +290,13 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public UserNotificationEvent deleteUserNotificationEvent(
 		UserNotificationEvent userNotificationEvent) throws SystemException {
 		return userNotificationEventPersistence.remove(userNotificationEvent);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -306,6 +311,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -325,6 +331,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -346,6 +353,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -360,11 +368,13 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return userNotificationEventPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public UserNotificationEvent fetchUserNotificationEvent(
 		long userNotificationEventId) throws SystemException {
 		return userNotificationEventPersistence.fetchByPrimaryKey(userNotificationEventId);
@@ -378,11 +388,13 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @throws PortalException if a user notification event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public UserNotificationEvent getUserNotificationEvent(
 		long userNotificationEventId) throws PortalException, SystemException {
 		return userNotificationEventPersistence.findByPrimaryKey(userNotificationEventId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return userNotificationEventPersistence.findByPrimaryKey(primaryKeyObj);
@@ -400,6 +412,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the range of user notification events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<UserNotificationEvent> getUserNotificationEvents(int start,
 		int end) throws SystemException {
 		return userNotificationEventPersistence.findAll(start, end);
@@ -411,6 +424,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @return the number of user notification events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getUserNotificationEventsCount() throws SystemException {
 		return userNotificationEventPersistence.countAll();
 	}
@@ -423,6 +437,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public UserNotificationEvent updateUserNotificationEvent(
 		UserNotificationEvent userNotificationEvent) throws SystemException {
 		return userNotificationEventPersistence.update(userNotificationEvent);
@@ -3803,6 +3818,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3812,6 +3828,7 @@ public abstract class UserNotificationEventLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

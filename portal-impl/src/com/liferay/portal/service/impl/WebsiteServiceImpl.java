@@ -34,6 +34,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	 * @deprecated As of 6.2.0, replaced by {@link #addWebsite( String, long,
 	 *             String, int, boolean, ServiceContext)}
 	 */
+	@Override
 	public Website addWebsite(
 			String className, long classPK, String url, int typeId,
 			boolean primary)
@@ -46,6 +47,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 			getUserId(), className, classPK, url, typeId, primary);
 	}
 
+	@Override
 	public Website addWebsite(
 			String className, long classPK, String url, int typeId,
 			boolean primary, ServiceContext serviceContext)
@@ -59,6 +61,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 			serviceContext);
 	}
 
+	@Override
 	public void deleteWebsite(long websiteId)
 		throws PortalException, SystemException {
 
@@ -71,6 +74,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 		websiteLocalService.deleteWebsite(websiteId);
 	}
 
+	@Override
 	public Website getWebsite(long websiteId)
 		throws PortalException, SystemException {
 
@@ -83,6 +87,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 		return website;
 	}
 
+	@Override
 	public List<Website> getWebsites(String className, long classPK)
 		throws PortalException, SystemException {
 
@@ -95,6 +100,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 			user.getCompanyId(), className, classPK);
 	}
 
+	@Override
 	public Website updateWebsite(
 			long websiteId, String url, int typeId, boolean primary)
 		throws PortalException, SystemException {

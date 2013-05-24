@@ -246,6 +246,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Shard addShard(Shard shard) throws SystemException {
 		shard.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param shardId the primary key for the new shard
 	 * @return the new shard
 	 */
+	@Override
 	public Shard createShard(long shardId) {
 		return shardPersistence.create(shardId);
 	}
@@ -271,6 +273,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Shard deleteShard(long shardId)
 		throws PortalException, SystemException {
 		return shardPersistence.remove(shardId);
@@ -284,10 +287,12 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Shard deleteShard(Shard shard) throws SystemException {
 		return shardPersistence.remove(shard);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return shardPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Shard fetchShard(long shardId) throws SystemException {
 		return shardPersistence.fetchByPrimaryKey(shardId);
 	}
@@ -372,10 +382,12 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a shard with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Shard getShard(long shardId) throws PortalException, SystemException {
 		return shardPersistence.findByPrimaryKey(shardId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return shardPersistence.findByPrimaryKey(primaryKeyObj);
@@ -393,6 +405,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of shards
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Shard> getShards(int start, int end) throws SystemException {
 		return shardPersistence.findAll(start, end);
 	}
@@ -403,6 +416,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of shards
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getShardsCount() throws SystemException {
 		return shardPersistence.countAll();
 	}
@@ -415,6 +429,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Shard updateShard(Shard shard) throws SystemException {
 		return shardPersistence.update(shard);
 	}
@@ -3794,6 +3809,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3803,6 +3819,7 @@ public abstract class ShardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -85,6 +85,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRRule addMDRRule(MDRRule mdrRule) throws SystemException {
 		mdrRule.setNew(true);
 
@@ -97,6 +98,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param ruleId the primary key for the new m d r rule
 	 * @return the new m d r rule
 	 */
+	@Override
 	public MDRRule createMDRRule(long ruleId) {
 		return mdrRulePersistence.create(ruleId);
 	}
@@ -110,6 +112,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRRule deleteMDRRule(long ruleId)
 		throws PortalException, SystemException {
 		return mdrRulePersistence.remove(ruleId);
@@ -123,10 +126,12 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MDRRule deleteMDRRule(MDRRule mdrRule) throws SystemException {
 		return mdrRulePersistence.remove(mdrRule);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -141,6 +146,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -160,6 +166,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -180,6 +187,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -194,11 +202,13 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return mdrRulePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public MDRRule fetchMDRRule(long ruleId) throws SystemException {
 		return mdrRulePersistence.fetchByPrimaryKey(ruleId);
 	}
@@ -211,11 +221,13 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a m d r rule with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRRule getMDRRule(long ruleId)
 		throws PortalException, SystemException {
 		return mdrRulePersistence.findByPrimaryKey(ruleId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return mdrRulePersistence.findByPrimaryKey(primaryKeyObj);
@@ -230,6 +242,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching m d r rule could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MDRRule getMDRRuleByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return mdrRulePersistence.findByUUID_G(uuid, groupId);
@@ -247,6 +260,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of m d r rules
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<MDRRule> getMDRRules(int start, int end)
 		throws SystemException {
 		return mdrRulePersistence.findAll(start, end);
@@ -258,6 +272,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of m d r rules
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getMDRRulesCount() throws SystemException {
 		return mdrRulePersistence.countAll();
 	}
@@ -270,6 +285,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MDRRule updateMDRRule(MDRRule mdrRule) throws SystemException {
 		return mdrRulePersistence.update(mdrRule);
 	}
@@ -639,6 +655,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -648,6 +665,7 @@ public abstract class MDRRuleLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

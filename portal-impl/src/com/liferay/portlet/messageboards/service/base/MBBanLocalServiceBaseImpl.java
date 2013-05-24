@@ -95,6 +95,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MBBan addMBBan(MBBan mbBan) throws SystemException {
 		mbBan.setNew(true);
 
@@ -107,6 +108,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param banId the primary key for the new message boards ban
 	 * @return the new message boards ban
 	 */
+	@Override
 	public MBBan createMBBan(long banId) {
 		return mbBanPersistence.create(banId);
 	}
@@ -120,6 +122,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MBBan deleteMBBan(long banId)
 		throws PortalException, SystemException {
 		return mbBanPersistence.remove(banId);
@@ -133,10 +136,12 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MBBan deleteMBBan(MBBan mbBan) throws SystemException {
 		return mbBanPersistence.remove(mbBan);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -151,6 +156,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -170,6 +176,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -190,6 +197,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -204,11 +212,13 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return mbBanPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public MBBan fetchMBBan(long banId) throws SystemException {
 		return mbBanPersistence.fetchByPrimaryKey(banId);
 	}
@@ -221,10 +231,12 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a message boards ban with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MBBan getMBBan(long banId) throws PortalException, SystemException {
 		return mbBanPersistence.findByPrimaryKey(banId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return mbBanPersistence.findByPrimaryKey(primaryKeyObj);
@@ -239,6 +251,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching message boards ban could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MBBan getMBBanByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return mbBanPersistence.findByUUID_G(uuid, groupId);
@@ -256,6 +269,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of message boards bans
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<MBBan> getMBBans(int start, int end) throws SystemException {
 		return mbBanPersistence.findAll(start, end);
 	}
@@ -266,6 +280,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of message boards bans
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getMBBansCount() throws SystemException {
 		return mbBanPersistence.countAll();
 	}
@@ -278,6 +293,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MBBan updateMBBan(MBBan mbBan) throws SystemException {
 		return mbBanPersistence.update(mbBan);
 	}
@@ -833,6 +849,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -842,6 +859,7 @@ public abstract class MBBanLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

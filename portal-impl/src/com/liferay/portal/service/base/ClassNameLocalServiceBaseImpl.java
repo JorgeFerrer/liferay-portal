@@ -246,6 +246,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ClassName addClassName(ClassName className)
 		throws SystemException {
 		className.setNew(true);
@@ -259,6 +260,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param classNameId the primary key for the new class name
 	 * @return the new class name
 	 */
+	@Override
 	public ClassName createClassName(long classNameId) {
 		return classNamePersistence.create(classNameId);
 	}
@@ -272,6 +274,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ClassName deleteClassName(long classNameId)
 		throws PortalException, SystemException {
 		return classNamePersistence.remove(classNameId);
@@ -285,11 +288,13 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ClassName deleteClassName(ClassName className)
 		throws SystemException {
 		return classNamePersistence.remove(className);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -304,6 +309,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -323,6 +329,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -344,6 +351,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -358,11 +366,13 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return classNamePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ClassName fetchClassName(long classNameId) throws SystemException {
 		return classNamePersistence.fetchByPrimaryKey(classNameId);
 	}
@@ -375,11 +385,13 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a class name with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ClassName getClassName(long classNameId)
 		throws PortalException, SystemException {
 		return classNamePersistence.findByPrimaryKey(classNameId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return classNamePersistence.findByPrimaryKey(primaryKeyObj);
@@ -397,6 +409,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of class names
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ClassName> getClassNames(int start, int end)
 		throws SystemException {
 		return classNamePersistence.findAll(start, end);
@@ -408,6 +421,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of class names
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getClassNamesCount() throws SystemException {
 		return classNamePersistence.countAll();
 	}
@@ -420,6 +434,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ClassName updateClassName(ClassName className)
 		throws SystemException {
 		return classNamePersistence.update(className);
@@ -3800,6 +3815,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3809,6 +3825,7 @@ public abstract class ClassNameLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

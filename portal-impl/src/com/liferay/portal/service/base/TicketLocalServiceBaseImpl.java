@@ -246,6 +246,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Ticket addTicket(Ticket ticket) throws SystemException {
 		ticket.setNew(true);
 
@@ -258,6 +259,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param ticketId the primary key for the new ticket
 	 * @return the new ticket
 	 */
+	@Override
 	public Ticket createTicket(long ticketId) {
 		return ticketPersistence.create(ticketId);
 	}
@@ -271,6 +273,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Ticket deleteTicket(long ticketId)
 		throws PortalException, SystemException {
 		return ticketPersistence.remove(ticketId);
@@ -284,10 +287,12 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Ticket deleteTicket(Ticket ticket) throws SystemException {
 		return ticketPersistence.remove(ticket);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -302,6 +307,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -321,6 +327,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -341,6 +348,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -355,11 +363,13 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return ticketPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Ticket fetchTicket(long ticketId) throws SystemException {
 		return ticketPersistence.fetchByPrimaryKey(ticketId);
 	}
@@ -372,11 +382,13 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a ticket with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Ticket getTicket(long ticketId)
 		throws PortalException, SystemException {
 		return ticketPersistence.findByPrimaryKey(ticketId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return ticketPersistence.findByPrimaryKey(primaryKeyObj);
@@ -394,6 +406,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of tickets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Ticket> getTickets(int start, int end)
 		throws SystemException {
 		return ticketPersistence.findAll(start, end);
@@ -405,6 +418,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of tickets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getTicketsCount() throws SystemException {
 		return ticketPersistence.countAll();
 	}
@@ -417,6 +431,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Ticket updateTicket(Ticket ticket) throws SystemException {
 		return ticketPersistence.update(ticket);
 	}
@@ -3796,6 +3811,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3805,6 +3821,7 @@ public abstract class TicketLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

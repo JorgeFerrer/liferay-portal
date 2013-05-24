@@ -929,6 +929,7 @@ public class EditServerAction extends PortletAction {
 			_master = master;
 		}
 
+		@Override
 		public void run() {
 			_countDownLatch.countDown();
 

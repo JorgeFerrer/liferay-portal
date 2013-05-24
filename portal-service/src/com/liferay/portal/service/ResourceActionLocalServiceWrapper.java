@@ -36,6 +36,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the resource action that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction addResourceAction(
 		com.liferay.portal.model.ResourceAction resourceAction)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class ResourceActionLocalServiceWrapper
 	* @param resourceActionId the primary key for the new resource action
 	* @return the new resource action
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction createResourceAction(
 		long resourceActionId) {
 		return _resourceActionLocalService.createResourceAction(resourceActionId);
@@ -61,6 +63,7 @@ public class ResourceActionLocalServiceWrapper
 	* @throws PortalException if a resource action with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction deleteResourceAction(
 		long resourceActionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class ResourceActionLocalServiceWrapper
 	* @return the resource action that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction deleteResourceAction(
 		com.liferay.portal.model.ResourceAction resourceAction)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourceActionLocalService.deleteResourceAction(resourceAction);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _resourceActionLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -133,6 +140,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -150,12 +158,14 @@ public class ResourceActionLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourceActionLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.ResourceAction fetchResourceAction(
 		long resourceActionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -170,6 +180,7 @@ public class ResourceActionLocalServiceWrapper
 	* @throws PortalException if a resource action with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction getResourceAction(
 		long resourceActionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -177,6 +188,7 @@ public class ResourceActionLocalServiceWrapper
 		return _resourceActionLocalService.getResourceAction(resourceActionId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -196,6 +208,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the range of resource actions
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourceAction> getResourceActions(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -208,6 +221,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the number of resource actions
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getResourceActionsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _resourceActionLocalService.getResourceActionsCount();
@@ -220,6 +234,7 @@ public class ResourceActionLocalServiceWrapper
 	* @return the resource action that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ResourceAction updateResourceAction(
 		com.liferay.portal.model.ResourceAction resourceAction)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -231,6 +246,7 @@ public class ResourceActionLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _resourceActionLocalService.getBeanIdentifier();
 	}
@@ -240,21 +256,25 @@ public class ResourceActionLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_resourceActionLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void checkResourceActions()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_resourceActionLocalService.checkResourceActions();
 	}
 
+	@Override
 	public void checkResourceActions(java.lang.String name,
 		java.util.List<java.lang.String> actionIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_resourceActionLocalService.checkResourceActions(name, actionIds);
 	}
 
+	@Override
 	public void checkResourceActions(java.lang.String name,
 		java.util.List<java.lang.String> actionIds, boolean addDefaultActions)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -262,17 +282,20 @@ public class ResourceActionLocalServiceWrapper
 			addDefaultActions);
 	}
 
+	@Override
 	public com.liferay.portal.model.ResourceAction fetchResourceAction(
 		java.lang.String name, java.lang.String actionId) {
 		return _resourceActionLocalService.fetchResourceAction(name, actionId);
 	}
 
+	@Override
 	public com.liferay.portal.model.ResourceAction getResourceAction(
 		java.lang.String name, java.lang.String actionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _resourceActionLocalService.getResourceAction(name, actionId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.ResourceAction> getResourceActions(
 		java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -294,10 +317,12 @@ public class ResourceActionLocalServiceWrapper
 		_resourceActionLocalService = resourceActionLocalService;
 	}
 
+	@Override
 	public ResourceActionLocalService getWrappedService() {
 		return _resourceActionLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ResourceActionLocalService resourceActionLocalService) {
 		_resourceActionLocalService = resourceActionLocalService;

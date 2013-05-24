@@ -38,6 +38,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the shopping order item that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem addShoppingOrderItem(
 		com.liferay.portlet.shopping.model.ShoppingOrderItem shoppingOrderItem)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @param orderItemId the primary key for the new shopping order item
 	* @return the new shopping order item
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem createShoppingOrderItem(
 		long orderItemId) {
 		return _shoppingOrderItemLocalService.createShoppingOrderItem(orderItemId);
@@ -63,6 +65,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @throws PortalException if a shopping order item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem deleteShoppingOrderItem(
 		long orderItemId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the shopping order item that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem deleteShoppingOrderItem(
 		com.liferay.portlet.shopping.model.ShoppingOrderItem shoppingOrderItem)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderItemLocalService.deleteShoppingOrderItem(shoppingOrderItem);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _shoppingOrderItemLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -136,6 +143,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -153,12 +161,14 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderItemLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem fetchShoppingOrderItem(
 		long orderItemId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -173,6 +183,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @throws PortalException if a shopping order item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem getShoppingOrderItem(
 		long orderItemId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -180,6 +191,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 		return _shoppingOrderItemLocalService.getShoppingOrderItem(orderItemId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -199,6 +211,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the range of shopping order items
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.shopping.model.ShoppingOrderItem> getShoppingOrderItems(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -211,6 +224,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the number of shopping order items
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getShoppingOrderItemsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingOrderItemLocalService.getShoppingOrderItemsCount();
@@ -223,6 +237,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	* @return the shopping order item that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.shopping.model.ShoppingOrderItem updateShoppingOrderItem(
 		com.liferay.portlet.shopping.model.ShoppingOrderItem shoppingOrderItem)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -234,6 +249,7 @@ public class ShoppingOrderItemLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _shoppingOrderItemLocalService.getBeanIdentifier();
 	}
@@ -243,10 +259,12 @@ public class ShoppingOrderItemLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_shoppingOrderItemLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.shopping.model.ShoppingOrderItem> getOrderItems(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -268,10 +286,12 @@ public class ShoppingOrderItemLocalServiceWrapper
 		_shoppingOrderItemLocalService = shoppingOrderItemLocalService;
 	}
 
+	@Override
 	public ShoppingOrderItemLocalService getWrappedService() {
 		return _shoppingOrderItemLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ShoppingOrderItemLocalService shoppingOrderItemLocalService) {
 		_shoppingOrderItemLocalService = shoppingOrderItemLocalService;

@@ -116,6 +116,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MBCategory addMBCategory(MBCategory mbCategory)
 		throws SystemException {
 		mbCategory.setNew(true);
@@ -129,6 +130,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @param categoryId the primary key for the new message boards category
 	 * @return the new message boards category
 	 */
+	@Override
 	public MBCategory createMBCategory(long categoryId) {
 		return mbCategoryPersistence.create(categoryId);
 	}
@@ -142,6 +144,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MBCategory deleteMBCategory(long categoryId)
 		throws PortalException, SystemException {
 		return mbCategoryPersistence.remove(categoryId);
@@ -155,11 +158,13 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public MBCategory deleteMBCategory(MBCategory mbCategory)
 		throws SystemException {
 		return mbCategoryPersistence.remove(mbCategory);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -174,6 +179,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -193,6 +199,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -214,6 +221,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -228,11 +236,13 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return mbCategoryPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public MBCategory fetchMBCategory(long categoryId)
 		throws SystemException {
 		return mbCategoryPersistence.fetchByPrimaryKey(categoryId);
@@ -246,11 +256,13 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws PortalException if a message boards category with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MBCategory getMBCategory(long categoryId)
 		throws PortalException, SystemException {
 		return mbCategoryPersistence.findByPrimaryKey(categoryId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return mbCategoryPersistence.findByPrimaryKey(primaryKeyObj);
@@ -265,6 +277,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws PortalException if a matching message boards category could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public MBCategory getMBCategoryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return mbCategoryPersistence.findByUUID_G(uuid, groupId);
@@ -282,6 +295,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the range of message boards categories
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<MBCategory> getMBCategories(int start, int end)
 		throws SystemException {
 		return mbCategoryPersistence.findAll(start, end);
@@ -293,6 +307,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @return the number of message boards categories
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getMBCategoriesCount() throws SystemException {
 		return mbCategoryPersistence.countAll();
 	}
@@ -305,6 +320,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public MBCategory updateMBCategory(MBCategory mbCategory)
 		throws SystemException {
 		return mbCategoryPersistence.update(mbCategory);
@@ -1230,6 +1246,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1239,6 +1256,7 @@ public abstract class MBCategoryLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

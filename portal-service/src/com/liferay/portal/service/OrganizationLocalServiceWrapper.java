@@ -35,6 +35,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the organization that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization addOrganization(
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -47,6 +48,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @param organizationId the primary key for the new organization
 	* @return the new organization
 	*/
+	@Override
 	public com.liferay.portal.model.Organization createOrganization(
 		long organizationId) {
 		return _organizationLocalService.createOrganization(organizationId);
@@ -60,6 +62,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a organization with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization deleteOrganization(
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,6 +78,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization deleteOrganization(
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -82,6 +86,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 		return _organizationLocalService.deleteOrganization(organization);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _organizationLocalService.dynamicQuery();
 	}
@@ -93,6 +98,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -113,6 +119,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.Organization fetchOrganization(
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -171,6 +181,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a organization with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization getOrganization(
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -178,6 +189,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 		return _organizationLocalService.getOrganization(organizationId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -197,6 +209,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the range of organizations
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getOrganizations(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -209,6 +222,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the number of organizations
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getOrganizationsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getOrganizationsCount();
@@ -221,6 +235,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the organization that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization updateOrganization(
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -230,6 +245,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addGroupOrganization(long groupId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.addGroupOrganization(groupId, organizationId);
@@ -238,6 +254,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addGroupOrganization(long groupId,
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -248,6 +265,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addGroupOrganizations(long groupId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -258,6 +276,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addGroupOrganizations(long groupId,
 		java.util.List<com.liferay.portal.model.Organization> Organizations)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -268,6 +287,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void clearGroupOrganizations(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.clearGroupOrganizations(groupId);
@@ -276,6 +296,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteGroupOrganization(long groupId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.deleteGroupOrganization(groupId,
@@ -285,6 +306,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteGroupOrganization(long groupId,
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -294,6 +316,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteGroupOrganizations(long groupId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.deleteGroupOrganizations(groupId,
@@ -303,6 +326,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteGroupOrganizations(long groupId,
 		java.util.List<com.liferay.portal.model.Organization> Organizations)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -313,6 +337,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getGroupOrganizations(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -322,6 +347,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getGroupOrganizations(
 		long groupId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -332,6 +358,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getGroupOrganizations(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -343,6 +370,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getGroupOrganizationsCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getGroupOrganizationsCount(groupId);
@@ -351,6 +379,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasGroupOrganization(long groupId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.hasGroupOrganization(groupId,
@@ -360,6 +389,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasGroupOrganizations(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.hasGroupOrganizations(groupId);
@@ -369,6 +399,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setGroupOrganizations(long groupId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -378,6 +409,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addUserOrganization(long userId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.addUserOrganization(userId, organizationId);
@@ -386,6 +418,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addUserOrganization(long userId,
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -395,6 +428,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addUserOrganizations(long userId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.addUserOrganizations(userId, organizationIds);
@@ -403,6 +437,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addUserOrganizations(long userId,
 		java.util.List<com.liferay.portal.model.Organization> Organizations)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -412,6 +447,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void clearUserOrganizations(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.clearUserOrganizations(userId);
@@ -420,6 +456,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteUserOrganization(long userId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.deleteUserOrganization(userId, organizationId);
@@ -428,6 +465,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteUserOrganization(long userId,
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -437,6 +475,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteUserOrganizations(long userId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.deleteUserOrganizations(userId,
@@ -446,6 +485,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteUserOrganizations(long userId,
 		java.util.List<com.liferay.portal.model.Organization> Organizations)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -455,6 +495,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getUserOrganizations(
 		long userId) throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getUserOrganizations(userId);
@@ -463,6 +504,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getUserOrganizations(
 		long userId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -472,6 +514,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getUserOrganizations(
 		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -483,6 +526,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getUserOrganizationsCount(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getUserOrganizationsCount(userId);
@@ -491,6 +535,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasUserOrganization(long userId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.hasUserOrganization(userId,
@@ -500,6 +545,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasUserOrganizations(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.hasUserOrganizations(userId);
@@ -508,6 +554,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	/**
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setUserOrganizations(long userId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.setUserOrganizations(userId, organizationIds);
@@ -518,6 +565,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _organizationLocalService.getBeanIdentifier();
 	}
@@ -527,6 +575,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_organizationLocalService.setBeanIdentifier(beanIdentifier);
 	}
@@ -553,6 +602,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization addOrganization(long userId,
 		long parentOrganizationId, java.lang.String name, boolean site)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -597,6 +647,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	String, String, long, long, int, String, boolean,
 	ServiceContext)}
 	*/
+	@Override
 	public com.liferay.portal.model.Organization addOrganization(long userId,
 		long parentOrganizationId, java.lang.String name,
 		java.lang.String type, boolean recursable, long regionId,
@@ -639,6 +690,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	information was invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization addOrganization(long userId,
 		long parentOrganizationId, java.lang.String name,
 		java.lang.String type, long regionId, long countryId, int statusId,
@@ -660,6 +712,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addOrganizationResources(long userId,
 		com.liferay.portal.model.Organization organization)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -675,6 +728,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @param organizationIds the primary keys of the organizations
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addPasswordPolicyOrganizations(long passwordPolicyId,
 		long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -691,18 +745,21 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void deleteLogo(long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_organizationLocalService.deleteLogo(organizationId);
 	}
 
+	@Override
 	public com.liferay.portal.model.Organization fetchOrganization(
 		long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.fetchOrganization(companyId, name);
 	}
 
+	@Override
 	public com.liferay.portal.model.Organization fetchOrganizationByUuidAndCompanyId(
 		java.lang.String uuid, long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -720,6 +777,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization getOrganization(
 		long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -736,11 +794,13 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	<code>0</code> if the organization could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long getOrganizationId(long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getOrganizationId(companyId, name);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getOrganizations(
 		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -759,6 +819,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the organizations belonging to the parent organization
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getOrganizations(
 		long companyId, long parentOrganizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -791,6 +852,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @see com.liferay.portal.service.persistence.OrganizationPersistence#findByC_P(
 	long, long, int, int)
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getOrganizations(
 		long companyId, long parentOrganizationId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -807,6 +869,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getOrganizations(
 		long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -823,6 +886,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the number of organizations belonging to the parent organization
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getOrganizationsCount(long companyId, long parentOrganizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getOrganizationsCount(companyId,
@@ -839,6 +903,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getParentOrganizations(
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -854,6 +919,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the suborganizations of the organizations
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getSuborganizations(
 		java.util.List<com.liferay.portal.model.Organization> organizations)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -868,6 +934,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the suborganizations of the organization
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getSuborganizations(
 		long companyId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -883,6 +950,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the count of suborganizations of the organization
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getSuborganizationsCount(long companyId, long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _organizationLocalService.getSuborganizationsCount(companyId,
@@ -898,6 +966,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the intersection of <code>allOrganizations</code> and
 	<code>availableOrganizations</code>
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getSubsetOrganizations(
 		java.util.List<com.liferay.portal.model.Organization> allOrganizations,
 		java.util.List<com.liferay.portal.model.Organization> availableOrganizations) {
@@ -919,6 +988,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a user with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> getUserOrganizations(
 		long userId, boolean includeAdministrative)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -937,6 +1007,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	organization; <code>false</code> otherwise
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public boolean hasPasswordPolicyOrganization(long passwordPolicyId,
 		long organizationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -993,6 +1064,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public boolean hasUserOrganization(long userId, long organizationId,
 		boolean inheritSuborganizations, boolean includeSpecifiedOrganization)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -1016,6 +1088,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void rebuildTree(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1045,6 +1118,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @return the range of all the organizations of the company
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> search(
 		long companyId,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
@@ -1086,6 +1160,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portlet.usersadmin.util.OrganizationIndexer
 	*/
+	@Override
 	public com.liferay.portal.kernel.search.Hits search(long companyId,
 		long parentOrganizationId, java.lang.String keywords,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
@@ -1132,6 +1207,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> search(
 		long companyId, long parentOrganizationId, java.lang.String keywords,
 		java.lang.String type, java.lang.Long regionId,
@@ -1184,6 +1260,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> search(
 		long companyId, long parentOrganizationId, java.lang.String keywords,
 		java.lang.String type, java.lang.Long regionId,
@@ -1240,6 +1317,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> search(
 		long companyId, long parentOrganizationId, java.lang.String name,
 		java.lang.String type, java.lang.String street, java.lang.String city,
@@ -1300,6 +1378,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.Organization> search(
 		long companyId, long parentOrganizationId, java.lang.String name,
 		java.lang.String type, java.lang.String street, java.lang.String city,
@@ -1355,6 +1434,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portlet.usersadmin.util.OrganizationIndexer
 	*/
+	@Override
 	public com.liferay.portal.kernel.search.Hits search(long companyId,
 		long parentOrganizationId, java.lang.String name,
 		java.lang.String type, java.lang.String street, java.lang.String city,
@@ -1391,6 +1471,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public int searchCount(long companyId, long parentOrganizationId,
 		java.lang.String keywords, java.lang.String type,
 		java.lang.Long regionId, java.lang.Long countryId,
@@ -1429,6 +1510,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws SystemException if a system exception occurred
 	* @see com.liferay.portal.service.persistence.OrganizationFinder
 	*/
+	@Override
 	public int searchCount(long companyId, long parentOrganizationId,
 		java.lang.String name, java.lang.String type, java.lang.String street,
 		java.lang.String city, java.lang.String zip, java.lang.Long regionId,
@@ -1449,6 +1531,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a portal exception occurred
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void unsetGroupOrganizations(long groupId, long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1463,6 +1546,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @param organizationIds the primary keys of the organizations
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void unsetPasswordPolicyOrganizations(long passwordPolicyId,
 		long[] organizationIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -1481,6 +1565,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	* @throws PortalException if a user with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void updateAsset(long userId,
 		com.liferay.portal.model.Organization organization,
 		long[] assetCategoryIds, java.lang.String[] assetTagNames)
@@ -1520,6 +1605,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	long, long, String, String, long, long, int, String, boolean,
 	ServiceContext)}
 	*/
+	@Override
 	public com.liferay.portal.model.Organization updateOrganization(
 		long companyId, long organizationId, long parentOrganizationId,
 		java.lang.String name, java.lang.String type, boolean recursable,
@@ -1557,6 +1643,7 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	invalid
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.Organization updateOrganization(
 		long companyId, long organizationId, long parentOrganizationId,
 		java.lang.String name, java.lang.String type, long regionId,
@@ -1584,10 +1671,12 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 		_organizationLocalService = organizationLocalService;
 	}
 
+	@Override
 	public OrganizationLocalService getWrappedService() {
 		return _organizationLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		OrganizationLocalService organizationLocalService) {
 		_organizationLocalService = organizationLocalService;

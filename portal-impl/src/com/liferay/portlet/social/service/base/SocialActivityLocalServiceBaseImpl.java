@@ -108,6 +108,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialActivity addSocialActivity(SocialActivity socialActivity)
 		throws SystemException {
 		socialActivity.setNew(true);
@@ -121,6 +122,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @param activityId the primary key for the new social activity
 	 * @return the new social activity
 	 */
+	@Override
 	public SocialActivity createSocialActivity(long activityId) {
 		return socialActivityPersistence.create(activityId);
 	}
@@ -134,6 +136,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialActivity deleteSocialActivity(long activityId)
 		throws PortalException, SystemException {
 		return socialActivityPersistence.remove(activityId);
@@ -147,11 +150,13 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SocialActivity deleteSocialActivity(SocialActivity socialActivity)
 		throws SystemException {
 		return socialActivityPersistence.remove(socialActivity);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -166,6 +171,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -185,6 +191,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -206,6 +213,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -220,11 +228,13 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return socialActivityPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SocialActivity fetchSocialActivity(long activityId)
 		throws SystemException {
 		return socialActivityPersistence.fetchByPrimaryKey(activityId);
@@ -238,11 +248,13 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @throws PortalException if a social activity with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SocialActivity getSocialActivity(long activityId)
 		throws PortalException, SystemException {
 		return socialActivityPersistence.findByPrimaryKey(activityId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return socialActivityPersistence.findByPrimaryKey(primaryKeyObj);
@@ -260,6 +272,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the range of social activities
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SocialActivity> getSocialActivities(int start, int end)
 		throws SystemException {
 		return socialActivityPersistence.findAll(start, end);
@@ -271,6 +284,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @return the number of social activities
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSocialActivitiesCount() throws SystemException {
 		return socialActivityPersistence.countAll();
 	}
@@ -283,6 +297,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SocialActivity updateSocialActivity(SocialActivity socialActivity)
 		throws SystemException {
 		return socialActivityPersistence.update(socialActivity);
@@ -1067,6 +1082,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1076,6 +1092,7 @@ public abstract class SocialActivityLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -103,6 +103,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntryMetadata addDLFileEntryMetadata(
 		DLFileEntryMetadata dlFileEntryMetadata) throws SystemException {
 		dlFileEntryMetadata.setNew(true);
@@ -116,6 +117,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @param fileEntryMetadataId the primary key for the new document library file entry metadata
 	 * @return the new document library file entry metadata
 	 */
+	@Override
 	public DLFileEntryMetadata createDLFileEntryMetadata(
 		long fileEntryMetadataId) {
 		return dlFileEntryMetadataPersistence.create(fileEntryMetadataId);
@@ -130,6 +132,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntryMetadata deleteDLFileEntryMetadata(
 		long fileEntryMetadataId) throws PortalException, SystemException {
 		return dlFileEntryMetadataPersistence.remove(fileEntryMetadataId);
@@ -143,11 +146,13 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntryMetadata deleteDLFileEntryMetadata(
 		DLFileEntryMetadata dlFileEntryMetadata) throws SystemException {
 		return dlFileEntryMetadataPersistence.remove(dlFileEntryMetadata);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -162,6 +167,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -181,6 +187,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -202,6 +209,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -216,11 +224,13 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileEntryMetadataPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileEntryMetadata fetchDLFileEntryMetadata(
 		long fileEntryMetadataId) throws SystemException {
 		return dlFileEntryMetadataPersistence.fetchByPrimaryKey(fileEntryMetadataId);
@@ -234,11 +244,13 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @throws PortalException if a document library file entry metadata with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileEntryMetadata getDLFileEntryMetadata(long fileEntryMetadataId)
 		throws PortalException, SystemException {
 		return dlFileEntryMetadataPersistence.findByPrimaryKey(fileEntryMetadataId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileEntryMetadataPersistence.findByPrimaryKey(primaryKeyObj);
@@ -256,6 +268,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the range of document library file entry metadatas
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryMetadata> getDLFileEntryMetadatas(int start, int end)
 		throws SystemException {
 		return dlFileEntryMetadataPersistence.findAll(start, end);
@@ -267,6 +280,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @return the number of document library file entry metadatas
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileEntryMetadatasCount() throws SystemException {
 		return dlFileEntryMetadataPersistence.countAll();
 	}
@@ -279,6 +293,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntryMetadata updateDLFileEntryMetadata(
 		DLFileEntryMetadata dlFileEntryMetadata) throws SystemException {
 		return dlFileEntryMetadataPersistence.update(dlFileEntryMetadata);
@@ -970,6 +985,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -979,6 +995,7 @@ public abstract class DLFileEntryMetadataLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

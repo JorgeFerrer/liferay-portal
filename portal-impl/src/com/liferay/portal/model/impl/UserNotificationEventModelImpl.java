@@ -95,26 +95,32 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 	public UserNotificationEventModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _userNotificationEventId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setUserNotificationEventId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _userNotificationEventId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return UserNotificationEvent.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return UserNotificationEvent.class.getName();
 	}
@@ -194,6 +200,7 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -203,6 +210,7 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -215,18 +223,22 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	public long getUserNotificationEventId() {
 		return _userNotificationEventId;
 	}
 
+	@Override
 	public void setUserNotificationEventId(long userNotificationEventId) {
 		_userNotificationEventId = userNotificationEventId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -243,10 +255,12 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		return _originalCompanyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -259,10 +273,12 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -271,6 +287,7 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		return _originalUserId;
 	}
 
+	@Override
 	public String getType() {
 		if (_type == null) {
 			return StringPool.BLANK;
@@ -280,28 +297,34 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		}
 	}
 
+	@Override
 	public void setType(String type) {
 		_type = type;
 	}
 
+	@Override
 	public long getTimestamp() {
 		return _timestamp;
 	}
 
+	@Override
 	public void setTimestamp(long timestamp) {
 		_columnBitmask = -1L;
 
 		_timestamp = timestamp;
 	}
 
+	@Override
 	public long getDeliverBy() {
 		return _deliverBy;
 	}
 
+	@Override
 	public void setDeliverBy(long deliverBy) {
 		_deliverBy = deliverBy;
 	}
 
+	@Override
 	public String getPayload() {
 		if (_payload == null) {
 			return StringPool.BLANK;
@@ -311,18 +334,22 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		}
 	}
 
+	@Override
 	public void setPayload(String payload) {
 		_payload = payload;
 	}
 
+	@Override
 	public boolean getArchived() {
 		return _archived;
 	}
 
+	@Override
 	public boolean isArchived() {
 		return _archived;
 	}
 
+	@Override
 	public void setArchived(boolean archived) {
 		_columnBitmask |= ARCHIVED_COLUMN_BITMASK;
 
@@ -385,6 +412,7 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		return userNotificationEventImpl;
 	}
 
+	@Override
 	public int compareTo(UserNotificationEvent userNotificationEvent) {
 		int value = 0;
 
@@ -525,6 +553,7 @@ public class UserNotificationEventModelImpl extends BaseModelImpl<UserNotificati
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(31);
 

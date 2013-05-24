@@ -44,6 +44,7 @@ public class Entity {
 	public static final Accessor<Entity, String> NAME_ACCESSOR =
 		new Accessor<Entity, String>() {
 
+			@Override
 			public String get(Entity entity) {
 				return entity.getName();
 			}

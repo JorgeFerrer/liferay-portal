@@ -22,6 +22,7 @@ import com.liferay.portlet.backgroundtask.model.BTEntry;
 public abstract class BaseBackgroundTaskExecutor
 	implements BackgroundTaskExecutor {
 
+	@Override
 	public void execute(BTEntry entry, ClassLoader classLoader)
 		throws Exception {
 

@@ -48,8 +48,12 @@ import com.liferay.portal.service.PersistedModelLocalService;
 public interface ${entity.name}${sessionTypeName}Service
 	extends Base${sessionTypeName}Service
 
+	<#assign overrideMethodNames = []>
+
 	<#if pluginName != "">
 		, Invokable${sessionTypeName}Service
+
+		<#assign overrideMethodNames = overrideMethodNames + ["invokeMethod"]>
 	</#if>
 
 	<#if (sessionTypeName == "Local") && entity.hasColumns()>
@@ -58,6 +62,8 @@ public interface ${entity.name}${sessionTypeName}Service
 		<#else>
 			, PersistedModelLocalService
 		</#if>
+
+		<#assign overrideMethodNames = overrideMethodNames + ["getPersistedModel"]>
 	</#if>
 
 	{
@@ -75,6 +81,10 @@ public interface ${entity.name}${sessionTypeName}Service
 	<#list methods as method>
 		<#if !method.isConstructor() && !method.isStatic() && method.isPublic() && serviceBuilder.isCustomMethod(method) && !serviceBuilder.isDuplicateMethod(method, tempMap)>
 			${serviceBuilder.getJavadocComment(method)}
+
+			<#if overrideMethodNames?seq_index_of(method.name) != -1>
+				@Override
+			</#if>
 
 			<#if method.name = "dynamicQuery" && (method.parameters?size != 0)>
 				@SuppressWarnings("rawtypes")

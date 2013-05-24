@@ -81,6 +81,7 @@ public class JournalTemplateCacheModel implements CacheModel<JournalTemplate>,
 		return sb.toString();
 	}
 
+	@Override
 	public JournalTemplate toEntityModel() {
 		JournalTemplateImpl journalTemplateImpl = new JournalTemplateImpl();
 
@@ -175,6 +176,7 @@ public class JournalTemplateCacheModel implements CacheModel<JournalTemplate>,
 		return journalTemplateImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		id = objectInput.readLong();
@@ -196,6 +198,7 @@ public class JournalTemplateCacheModel implements CacheModel<JournalTemplate>,
 		smallImageURL = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

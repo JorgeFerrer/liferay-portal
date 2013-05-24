@@ -163,6 +163,7 @@ public class DateUtilTest extends PowerMockito {
 		).thenAnswer(
 			new Answer<SimpleDateFormat>() {
 
+				@Override
 				public SimpleDateFormat answer(
 						InvocationOnMock invocationOnMock)
 					throws Throwable {

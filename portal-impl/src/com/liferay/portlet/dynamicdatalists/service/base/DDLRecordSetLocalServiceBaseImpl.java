@@ -90,6 +90,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDLRecordSet addDDLRecordSet(DDLRecordSet ddlRecordSet)
 		throws SystemException {
 		ddlRecordSet.setNew(true);
@@ -103,6 +104,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @param recordSetId the primary key for the new d d l record set
 	 * @return the new d d l record set
 	 */
+	@Override
 	public DDLRecordSet createDDLRecordSet(long recordSetId) {
 		return ddlRecordSetPersistence.create(recordSetId);
 	}
@@ -116,6 +118,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDLRecordSet deleteDDLRecordSet(long recordSetId)
 		throws PortalException, SystemException {
 		return ddlRecordSetPersistence.remove(recordSetId);
@@ -129,11 +132,13 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DDLRecordSet deleteDDLRecordSet(DDLRecordSet ddlRecordSet)
 		throws SystemException {
 		return ddlRecordSetPersistence.remove(ddlRecordSet);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -148,6 +153,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -167,6 +173,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -188,6 +195,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -202,11 +210,13 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return ddlRecordSetPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DDLRecordSet fetchDDLRecordSet(long recordSetId)
 		throws SystemException {
 		return ddlRecordSetPersistence.fetchByPrimaryKey(recordSetId);
@@ -220,11 +230,13 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws PortalException if a d d l record set with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDLRecordSet getDDLRecordSet(long recordSetId)
 		throws PortalException, SystemException {
 		return ddlRecordSetPersistence.findByPrimaryKey(recordSetId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return ddlRecordSetPersistence.findByPrimaryKey(primaryKeyObj);
@@ -239,6 +251,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws PortalException if a matching d d l record set could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DDLRecordSet getDDLRecordSetByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return ddlRecordSetPersistence.findByUUID_G(uuid, groupId);
@@ -256,6 +269,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the range of d d l record sets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DDLRecordSet> getDDLRecordSets(int start, int end)
 		throws SystemException {
 		return ddlRecordSetPersistence.findAll(start, end);
@@ -267,6 +281,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @return the number of d d l record sets
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDDLRecordSetsCount() throws SystemException {
 		return ddlRecordSetPersistence.countAll();
 	}
@@ -279,6 +294,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DDLRecordSet updateDDLRecordSet(DDLRecordSet ddlRecordSet)
 		throws SystemException {
 		return ddlRecordSetPersistence.update(ddlRecordSet);
@@ -725,6 +741,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -734,6 +751,7 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

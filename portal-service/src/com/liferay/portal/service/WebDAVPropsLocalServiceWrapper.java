@@ -35,6 +35,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the web d a v props that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps addWebDAVProps(
 		com.liferay.portal.model.WebDAVProps webDAVProps)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -47,6 +48,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @param webDavPropsId the primary key for the new web d a v props
 	* @return the new web d a v props
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps createWebDAVProps(
 		long webDavPropsId) {
 		return _webDAVPropsLocalService.createWebDAVProps(webDavPropsId);
@@ -60,6 +62,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @throws PortalException if a web d a v props with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps deleteWebDAVProps(
 		long webDavPropsId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -74,12 +77,14 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the web d a v props that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps deleteWebDAVProps(
 		com.liferay.portal.model.WebDAVProps webDAVProps)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webDAVPropsLocalService.deleteWebDAVProps(webDAVProps);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _webDAVPropsLocalService.dynamicQuery();
 	}
@@ -91,6 +96,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -111,6 +117,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -132,6 +139,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -149,12 +157,14 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webDAVPropsLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.WebDAVProps fetchWebDAVProps(
 		long webDavPropsId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -169,6 +179,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @throws PortalException if a web d a v props with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps getWebDAVProps(
 		long webDavPropsId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -176,6 +187,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 		return _webDAVPropsLocalService.getWebDAVProps(webDavPropsId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -195,6 +207,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the range of web d a v propses
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.WebDAVProps> getWebDAVPropses(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -207,6 +220,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the number of web d a v propses
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getWebDAVPropsesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webDAVPropsLocalService.getWebDAVPropsesCount();
@@ -219,6 +233,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	* @return the web d a v props that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.WebDAVProps updateWebDAVProps(
 		com.liferay.portal.model.WebDAVProps webDAVProps)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -230,6 +245,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _webDAVPropsLocalService.getBeanIdentifier();
 	}
@@ -239,15 +255,18 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_webDAVPropsLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void deleteWebDAVProps(java.lang.String className, long classPK)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_webDAVPropsLocalService.deleteWebDAVProps(className, classPK);
 	}
 
+	@Override
 	public com.liferay.portal.model.WebDAVProps getWebDAVProps(long companyId,
 		java.lang.String className, long classPK)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -255,6 +274,7 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 			classPK);
 	}
 
+	@Override
 	public void storeWebDAVProps(
 		com.liferay.portal.model.WebDAVProps webDavProps)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -277,10 +297,12 @@ public class WebDAVPropsLocalServiceWrapper implements WebDAVPropsLocalService,
 		_webDAVPropsLocalService = webDAVPropsLocalService;
 	}
 
+	@Override
 	public WebDAVPropsLocalService getWrappedService() {
 		return _webDAVPropsLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		WebDAVPropsLocalService webDAVPropsLocalService) {
 		_webDAVPropsLocalService = webDAVPropsLocalService;

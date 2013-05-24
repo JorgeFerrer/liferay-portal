@@ -34,6 +34,7 @@ public class ResourcePermissionServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _resourcePermissionService.getBeanIdentifier();
 	}
@@ -43,6 +44,7 @@ public class ResourcePermissionServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_resourcePermissionService.setBeanIdentifier(beanIdentifier);
 	}
@@ -88,6 +90,7 @@ public class ResourcePermissionServiceWrapper
 	and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void addResourcePermission(long groupId, long companyId,
 		java.lang.String name, int scope, java.lang.String primKey,
 		long roleId, java.lang.String actionId)
@@ -121,6 +124,7 @@ public class ResourcePermissionServiceWrapper
 	resource action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void removeResourcePermission(long groupId, long companyId,
 		java.lang.String name, int scope, java.lang.String primKey,
 		long roleId, java.lang.String actionId)
@@ -148,6 +152,7 @@ public class ResourcePermissionServiceWrapper
 	resource action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void removeResourcePermissions(long groupId, long companyId,
 		java.lang.String name, int scope, long roleId, java.lang.String actionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -184,6 +189,7 @@ public class ResourcePermissionServiceWrapper
 	resource action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setIndividualResourcePermissions(long groupId, long companyId,
 		java.lang.String name, java.lang.String primKey, long roleId,
 		java.lang.String[] actionIds)
@@ -220,6 +226,7 @@ public class ResourcePermissionServiceWrapper
 	resource action with the name and action ID could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public void setIndividualResourcePermissions(long groupId, long companyId,
 		java.lang.String name, java.lang.String primKey,
 		java.util.Map<java.lang.Long, java.lang.String[]> roleIdsToActionIds)
@@ -244,10 +251,12 @@ public class ResourcePermissionServiceWrapper
 		_resourcePermissionService = resourcePermissionService;
 	}
 
+	@Override
 	public ResourcePermissionService getWrappedService() {
 		return _resourcePermissionService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ResourcePermissionService resourcePermissionService) {
 		_resourcePermissionService = resourcePermissionService;

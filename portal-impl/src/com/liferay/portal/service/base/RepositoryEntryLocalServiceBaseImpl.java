@@ -247,6 +247,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public RepositoryEntry addRepositoryEntry(RepositoryEntry repositoryEntry)
 		throws SystemException {
 		repositoryEntry.setNew(true);
@@ -260,6 +261,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @param repositoryEntryId the primary key for the new repository entry
 	 * @return the new repository entry
 	 */
+	@Override
 	public RepositoryEntry createRepositoryEntry(long repositoryEntryId) {
 		return repositoryEntryPersistence.create(repositoryEntryId);
 	}
@@ -273,6 +275,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public RepositoryEntry deleteRepositoryEntry(long repositoryEntryId)
 		throws PortalException, SystemException {
 		return repositoryEntryPersistence.remove(repositoryEntryId);
@@ -286,11 +289,13 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public RepositoryEntry deleteRepositoryEntry(
 		RepositoryEntry repositoryEntry) throws SystemException {
 		return repositoryEntryPersistence.remove(repositoryEntry);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return repositoryEntryPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public RepositoryEntry fetchRepositoryEntry(long repositoryEntryId)
 		throws SystemException {
 		return repositoryEntryPersistence.fetchByPrimaryKey(repositoryEntryId);
@@ -377,11 +387,13 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws PortalException if a repository entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public RepositoryEntry getRepositoryEntry(long repositoryEntryId)
 		throws PortalException, SystemException {
 		return repositoryEntryPersistence.findByPrimaryKey(repositoryEntryId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return repositoryEntryPersistence.findByPrimaryKey(primaryKeyObj);
@@ -396,6 +408,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws PortalException if a matching repository entry could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public RepositoryEntry getRepositoryEntryByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return repositoryEntryPersistence.findByUUID_G(uuid, groupId);
@@ -413,6 +426,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the range of repository entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<RepositoryEntry> getRepositoryEntries(int start, int end)
 		throws SystemException {
 		return repositoryEntryPersistence.findAll(start, end);
@@ -424,6 +438,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @return the number of repository entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getRepositoryEntriesCount() throws SystemException {
 		return repositoryEntryPersistence.countAll();
 	}
@@ -436,6 +451,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public RepositoryEntry updateRepositoryEntry(
 		RepositoryEntry repositoryEntry) throws SystemException {
 		return repositoryEntryPersistence.update(repositoryEntry);
@@ -3816,6 +3832,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3825,6 +3842,7 @@ public abstract class RepositoryEntryLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

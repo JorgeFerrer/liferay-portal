@@ -101,6 +101,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileVersion addDLFileVersion(DLFileVersion dlFileVersion)
 		throws SystemException {
 		dlFileVersion.setNew(true);
@@ -114,6 +115,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @param fileVersionId the primary key for the new document library file version
 	 * @return the new document library file version
 	 */
+	@Override
 	public DLFileVersion createDLFileVersion(long fileVersionId) {
 		return dlFileVersionPersistence.create(fileVersionId);
 	}
@@ -127,6 +129,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileVersion deleteDLFileVersion(long fileVersionId)
 		throws PortalException, SystemException {
 		return dlFileVersionPersistence.remove(fileVersionId);
@@ -140,11 +143,13 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileVersion deleteDLFileVersion(DLFileVersion dlFileVersion)
 		throws SystemException {
 		return dlFileVersionPersistence.remove(dlFileVersion);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -159,6 +164,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -178,6 +184,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -199,6 +206,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -213,11 +221,13 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileVersionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileVersion fetchDLFileVersion(long fileVersionId)
 		throws SystemException {
 		return dlFileVersionPersistence.fetchByPrimaryKey(fileVersionId);
@@ -231,11 +241,13 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws PortalException if a document library file version with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileVersion getDLFileVersion(long fileVersionId)
 		throws PortalException, SystemException {
 		return dlFileVersionPersistence.findByPrimaryKey(fileVersionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileVersionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -250,6 +262,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws PortalException if a matching document library file version could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileVersion getDLFileVersionByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return dlFileVersionPersistence.findByUUID_G(uuid, groupId);
@@ -267,6 +280,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the range of document library file versions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileVersion> getDLFileVersions(int start, int end)
 		throws SystemException {
 		return dlFileVersionPersistence.findAll(start, end);
@@ -278,6 +292,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @return the number of document library file versions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileVersionsCount() throws SystemException {
 		return dlFileVersionPersistence.countAll();
 	}
@@ -290,6 +305,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileVersion updateDLFileVersion(DLFileVersion dlFileVersion)
 		throws SystemException {
 		return dlFileVersionPersistence.update(dlFileVersion);
@@ -943,6 +959,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -952,6 +969,7 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

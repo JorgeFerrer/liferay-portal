@@ -39,7 +39,8 @@ public class PortletCategoryKeys {
 	public static final String MY = "my";
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #CONFIGURATION}, {@link #SITES}, or {@link #USERS}.
+	 * @deprecated As of 6.2.0, replaced by {@link #CONFIGURATION}, {@link
+	 *             #SITES}, or {@link #USERS}.
 	 */
 	public static final String PORTAL = CONFIGURATION;
 

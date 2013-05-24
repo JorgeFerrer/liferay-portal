@@ -35,6 +35,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the cluster group that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup addClusterGroup(
 		com.liferay.portal.model.ClusterGroup clusterGroup)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -47,6 +48,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @param clusterGroupId the primary key for the new cluster group
 	* @return the new cluster group
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup createClusterGroup(
 		long clusterGroupId) {
 		return _clusterGroupLocalService.createClusterGroup(clusterGroupId);
@@ -60,6 +62,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @throws PortalException if a cluster group with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup deleteClusterGroup(
 		long clusterGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -74,12 +77,14 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the cluster group that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup deleteClusterGroup(
 		com.liferay.portal.model.ClusterGroup clusterGroup)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _clusterGroupLocalService.deleteClusterGroup(clusterGroup);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _clusterGroupLocalService.dynamicQuery();
 	}
@@ -91,6 +96,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -111,6 +117,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -132,6 +139,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -149,12 +157,14 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _clusterGroupLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.model.ClusterGroup fetchClusterGroup(
 		long clusterGroupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -169,6 +179,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @throws PortalException if a cluster group with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup getClusterGroup(
 		long clusterGroupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -176,6 +187,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 		return _clusterGroupLocalService.getClusterGroup(clusterGroupId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -195,6 +207,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the range of cluster groups
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.model.ClusterGroup> getClusterGroups(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -207,6 +220,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the number of cluster groups
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getClusterGroupsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _clusterGroupLocalService.getClusterGroupsCount();
@@ -219,6 +233,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	* @return the cluster group that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.model.ClusterGroup updateClusterGroup(
 		com.liferay.portal.model.ClusterGroup clusterGroup)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -230,6 +245,7 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _clusterGroupLocalService.getBeanIdentifier();
 	}
@@ -239,16 +255,19 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_clusterGroupLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.ClusterGroup addClusterGroup(
 		java.lang.String name, java.util.List<java.lang.String> clusterNodeIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _clusterGroupLocalService.addClusterGroup(name, clusterNodeIds);
 	}
 
+	@Override
 	public com.liferay.portal.model.ClusterGroup addWholeClusterGroup(
 		java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -270,10 +289,12 @@ public class ClusterGroupLocalServiceWrapper implements ClusterGroupLocalService
 		_clusterGroupLocalService = clusterGroupLocalService;
 	}
 
+	@Override
 	public ClusterGroupLocalService getWrappedService() {
 		return _clusterGroupLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		ClusterGroupLocalService clusterGroupLocalService) {
 		_clusterGroupLocalService = clusterGroupLocalService;

@@ -247,6 +247,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceAction addResourceAction(ResourceAction resourceAction)
 		throws SystemException {
 		resourceAction.setNew(true);
@@ -260,6 +261,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @param resourceActionId the primary key for the new resource action
 	 * @return the new resource action
 	 */
+	@Override
 	public ResourceAction createResourceAction(long resourceActionId) {
 		return resourceActionPersistence.create(resourceActionId);
 	}
@@ -273,6 +275,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceAction deleteResourceAction(long resourceActionId)
 		throws PortalException, SystemException {
 		return resourceActionPersistence.remove(resourceActionId);
@@ -286,11 +289,13 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ResourceAction deleteResourceAction(ResourceAction resourceAction)
 		throws SystemException {
 		return resourceActionPersistence.remove(resourceAction);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return resourceActionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ResourceAction fetchResourceAction(long resourceActionId)
 		throws SystemException {
 		return resourceActionPersistence.fetchByPrimaryKey(resourceActionId);
@@ -377,11 +387,13 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @throws PortalException if a resource action with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ResourceAction getResourceAction(long resourceActionId)
 		throws PortalException, SystemException {
 		return resourceActionPersistence.findByPrimaryKey(resourceActionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return resourceActionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the range of resource actions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ResourceAction> getResourceActions(int start, int end)
 		throws SystemException {
 		return resourceActionPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @return the number of resource actions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getResourceActionsCount() throws SystemException {
 		return resourceActionPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ResourceAction updateResourceAction(ResourceAction resourceAction)
 		throws SystemException {
 		return resourceActionPersistence.update(resourceAction);
@@ -3802,6 +3817,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class ResourceActionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

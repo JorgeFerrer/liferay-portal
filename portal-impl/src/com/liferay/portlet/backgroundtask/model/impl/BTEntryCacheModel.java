@@ -72,6 +72,7 @@ public class BTEntryCacheModel implements CacheModel<BTEntry>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public BTEntry toEntityModel() {
 		BTEntryImpl btEntryImpl = new BTEntryImpl();
 
@@ -145,6 +146,7 @@ public class BTEntryCacheModel implements CacheModel<BTEntry>, Externalizable {
 		return btEntryImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		btEntryId = objectInput.readLong();
 		groupId = objectInput.readLong();
@@ -162,6 +164,7 @@ public class BTEntryCacheModel implements CacheModel<BTEntry>, Externalizable {
 		status = objectInput.readInt();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(btEntryId);

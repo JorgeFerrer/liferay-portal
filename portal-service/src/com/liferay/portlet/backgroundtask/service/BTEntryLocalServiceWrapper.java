@@ -36,6 +36,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the b t entry that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry addBTEntry(
 		com.liferay.portlet.backgroundtask.model.BTEntry btEntry)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @param btEntryId the primary key for the new b t entry
 	* @return the new b t entry
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry createBTEntry(
 		long btEntryId) {
 		return _btEntryLocalService.createBTEntry(btEntryId);
@@ -61,6 +63,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @throws PortalException if a b t entry with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry deleteBTEntry(
 		long btEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the b t entry that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry deleteBTEntry(
 		com.liferay.portlet.backgroundtask.model.BTEntry btEntry)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntryLocalService.deleteBTEntry(btEntry);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _btEntryLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -133,6 +140,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -150,12 +158,14 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntryLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry fetchBTEntry(
 		long btEntryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -170,6 +180,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @throws PortalException if a b t entry with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry getBTEntry(
 		long btEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -177,6 +188,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 		return _btEntryLocalService.getBTEntry(btEntryId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -196,6 +208,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the range of b t entries
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portlet.backgroundtask.model.BTEntry> getBTEntries(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -208,6 +221,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the number of b t entries
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getBTEntriesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntryLocalService.getBTEntriesCount();
@@ -220,6 +234,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	* @return the b t entry that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry updateBTEntry(
 		com.liferay.portlet.backgroundtask.model.BTEntry btEntry)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -231,6 +246,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _btEntryLocalService.getBeanIdentifier();
 	}
@@ -240,10 +256,12 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_btEntryLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry addEntry(
 		long userId, long groupId, java.lang.String name,
 		java.lang.String[] servletContextNames,
@@ -257,6 +275,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 			serviceContext);
 	}
 
+	@Override
 	public void addEntryAttachment(long userId, long entryId,
 		java.lang.String fileName, java.io.File file)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -264,6 +283,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 		_btEntryLocalService.addEntryAttachment(userId, entryId, fileName, file);
 	}
 
+	@Override
 	public void addEntryAttachment(long userId, long entryId,
 		java.lang.String fileName, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -272,6 +292,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 			inputStream);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry deleteEntry(
 		com.liferay.portlet.backgroundtask.model.BTEntry entry)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -279,18 +300,21 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 		return _btEntryLocalService.deleteEntry(entry);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry fetchEntry(
 		long entryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntryLocalService.fetchEntry(entryId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.backgroundtask.model.BTEntry> getEntries(
 		long groupId, java.lang.String taskExecutorClassName)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _btEntryLocalService.getEntries(groupId, taskExecutorClassName);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portlet.backgroundtask.model.BTEntry> getEntries(
 		long groupId, java.lang.String taskExecutorClassName, int status)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -298,6 +322,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 			status);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry getEntry(
 		long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -305,6 +330,7 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 		return _btEntryLocalService.getEntry(entryId);
 	}
 
+	@Override
 	public com.liferay.portlet.backgroundtask.model.BTEntry updateEntry(
 		long entryId,
 		java.util.Map<java.lang.String, java.io.Serializable> taskContextMap,
@@ -330,10 +356,12 @@ public class BTEntryLocalServiceWrapper implements BTEntryLocalService,
 		_btEntryLocalService = btEntryLocalService;
 	}
 
+	@Override
 	public BTEntryLocalService getWrappedService() {
 		return _btEntryLocalService;
 	}
 
+	@Override
 	public void setWrappedService(BTEntryLocalService btEntryLocalService) {
 		_btEntryLocalService = btEntryLocalService;
 	}

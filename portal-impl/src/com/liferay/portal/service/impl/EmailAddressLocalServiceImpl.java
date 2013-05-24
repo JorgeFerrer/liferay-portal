@@ -39,6 +39,7 @@ public class EmailAddressLocalServiceImpl
 	 * @deprecated As of 6.2.0, replaced by {@link #addEmailAddress(long,
 	 *             String, long, String, int, boolean, ServiceContext)}
 	 */
+	@Override
 	public EmailAddress addEmailAddress(
 			long userId, String className, long classPK, String address,
 			int typeId, boolean primary)
@@ -49,6 +50,7 @@ public class EmailAddressLocalServiceImpl
 			new ServiceContext());
 	}
 
+	@Override
 	public EmailAddress addEmailAddress(
 			long userId, String className, long classPK, String address,
 			int typeId, boolean primary, ServiceContext serviceContext)
@@ -84,6 +86,7 @@ public class EmailAddressLocalServiceImpl
 		return emailAddress;
 	}
 
+	@Override
 	public void deleteEmailAddresses(
 			long companyId, String className, long classPK)
 		throws SystemException {
@@ -98,6 +101,7 @@ public class EmailAddressLocalServiceImpl
 		}
 	}
 
+	@Override
 	public EmailAddress fetchEmailAddressByUuidAndCompanyId(
 			String uuid, long companyId)
 		throws SystemException {
@@ -106,10 +110,12 @@ public class EmailAddressLocalServiceImpl
 			uuid, companyId, null);
 	}
 
+	@Override
 	public List<EmailAddress> getEmailAddresses() throws SystemException {
 		return emailAddressPersistence.findAll();
 	}
 
+	@Override
 	public List<EmailAddress> getEmailAddresses(
 			long companyId, String className, long classPK)
 		throws SystemException {
@@ -120,6 +126,7 @@ public class EmailAddressLocalServiceImpl
 			companyId, classNameId, classPK);
 	}
 
+	@Override
 	public EmailAddress updateEmailAddress(
 			long emailAddressId, String address, int typeId, boolean primary)
 		throws PortalException, SystemException {

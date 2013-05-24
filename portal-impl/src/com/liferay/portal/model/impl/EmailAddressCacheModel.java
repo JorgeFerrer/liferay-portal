@@ -68,6 +68,7 @@ public class EmailAddressCacheModel implements CacheModel<EmailAddress>,
 		return sb.toString();
 	}
 
+	@Override
 	public EmailAddress toEntityModel() {
 		EmailAddressImpl emailAddressImpl = new EmailAddressImpl();
 
@@ -121,6 +122,7 @@ public class EmailAddressCacheModel implements CacheModel<EmailAddress>,
 		return emailAddressImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		emailAddressId = objectInput.readLong();
@@ -136,6 +138,7 @@ public class EmailAddressCacheModel implements CacheModel<EmailAddress>,
 		primary = objectInput.readBoolean();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

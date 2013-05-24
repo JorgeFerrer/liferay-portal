@@ -251,6 +251,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Image addImage(Image image) throws SystemException {
 		image.setNew(true);
 
@@ -263,6 +264,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param imageId the primary key for the new image
 	 * @return the new image
 	 */
+	@Override
 	public Image createImage(long imageId) {
 		return imagePersistence.create(imageId);
 	}
@@ -276,6 +278,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Image deleteImage(long imageId)
 		throws PortalException, SystemException {
 		return imagePersistence.remove(imageId);
@@ -289,10 +292,12 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Image deleteImage(Image image) throws SystemException {
 		return imagePersistence.remove(image);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -307,6 +312,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -326,6 +332,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -346,6 +353,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -360,11 +368,13 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return imagePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Image fetchImage(long imageId) throws SystemException {
 		return imagePersistence.fetchByPrimaryKey(imageId);
 	}
@@ -377,10 +387,12 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a image with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Image getImage(long imageId) throws PortalException, SystemException {
 		return imagePersistence.findByPrimaryKey(imageId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return imagePersistence.findByPrimaryKey(primaryKeyObj);
@@ -398,6 +410,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of images
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Image> getImages(int start, int end) throws SystemException {
 		return imagePersistence.findAll(start, end);
 	}
@@ -408,6 +421,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of images
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getImagesCount() throws SystemException {
 		return imagePersistence.countAll();
 	}
@@ -420,6 +434,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Image updateImage(Image image) throws SystemException {
 		return imagePersistence.update(image);
 	}
@@ -3873,6 +3888,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3882,6 +3898,7 @@ public abstract class ImageLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -36,6 +36,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the counter that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.counter.model.Counter addCounter(
 		com.liferay.counter.model.Counter counter)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -48,6 +49,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @param name the primary key for the new counter
 	* @return the new counter
 	*/
+	@Override
 	public com.liferay.counter.model.Counter createCounter(
 		java.lang.String name) {
 		return _counterLocalService.createCounter(name);
@@ -61,6 +63,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @throws PortalException if a counter with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.counter.model.Counter deleteCounter(
 		java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -75,12 +78,14 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the counter that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.counter.model.Counter deleteCounter(
 		com.liferay.counter.model.Counter counter)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.deleteCounter(counter);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _counterLocalService.dynamicQuery();
 	}
@@ -92,6 +97,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -112,6 +118,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -133,6 +140,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -150,12 +158,14 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.counter.model.Counter fetchCounter(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.fetchCounter(name);
@@ -169,12 +179,14 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @throws PortalException if a counter with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.counter.model.Counter getCounter(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.getCounter(name);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -194,6 +206,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the range of counters
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.counter.model.Counter> getCounters(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -206,6 +219,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the number of counters
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getCountersCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.getCountersCount();
@@ -218,6 +232,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	* @return the counter that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.counter.model.Counter updateCounter(
 		com.liferay.counter.model.Counter counter)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -229,6 +244,7 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _counterLocalService.getBeanIdentifier();
 	}
@@ -238,40 +254,48 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_counterLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.util.List<java.lang.String> getNames()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.getNames();
 	}
 
+	@Override
 	public long increment()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.increment();
 	}
 
+	@Override
 	public long increment(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.increment(name);
 	}
 
+	@Override
 	public long increment(java.lang.String name, int size)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _counterLocalService.increment(name, size);
 	}
 
+	@Override
 	public void rename(java.lang.String oldName, java.lang.String newName)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_counterLocalService.rename(oldName, newName);
 	}
 
+	@Override
 	public void reset(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_counterLocalService.reset(name);
 	}
 
+	@Override
 	public void reset(java.lang.String name, long size)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_counterLocalService.reset(name, size);
@@ -292,10 +316,12 @@ public class CounterLocalServiceWrapper implements CounterLocalService,
 		_counterLocalService = counterLocalService;
 	}
 
+	@Override
 	public CounterLocalService getWrappedService() {
 		return _counterLocalService;
 	}
 
+	@Override
 	public void setWrappedService(CounterLocalService counterLocalService) {
 		_counterLocalService = counterLocalService;
 	}

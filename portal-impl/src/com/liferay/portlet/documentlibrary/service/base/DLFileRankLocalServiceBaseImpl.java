@@ -105,6 +105,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileRank addDLFileRank(DLFileRank dlFileRank)
 		throws SystemException {
 		dlFileRank.setNew(true);
@@ -118,6 +119,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @param fileRankId the primary key for the new document library file rank
 	 * @return the new document library file rank
 	 */
+	@Override
 	public DLFileRank createDLFileRank(long fileRankId) {
 		return dlFileRankPersistence.create(fileRankId);
 	}
@@ -131,6 +133,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileRank deleteDLFileRank(long fileRankId)
 		throws PortalException, SystemException {
 		return dlFileRankPersistence.remove(fileRankId);
@@ -144,11 +147,13 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileRank deleteDLFileRank(DLFileRank dlFileRank)
 		throws SystemException {
 		return dlFileRankPersistence.remove(dlFileRank);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -163,6 +168,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -182,6 +188,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -203,6 +210,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -217,11 +225,13 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileRankPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileRank fetchDLFileRank(long fileRankId)
 		throws SystemException {
 		return dlFileRankPersistence.fetchByPrimaryKey(fileRankId);
@@ -235,11 +245,13 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws PortalException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank getDLFileRank(long fileRankId)
 		throws PortalException, SystemException {
 		return dlFileRankPersistence.findByPrimaryKey(fileRankId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileRankPersistence.findByPrimaryKey(primaryKeyObj);
@@ -254,6 +266,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws PortalException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank getDLFileRankByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return dlFileRankPersistence.findByUUID_G(uuid, groupId);
@@ -271,6 +284,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the range of document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> getDLFileRanks(int start, int end)
 		throws SystemException {
 		return dlFileRankPersistence.findAll(start, end);
@@ -282,6 +296,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @return the number of document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileRanksCount() throws SystemException {
 		return dlFileRankPersistence.countAll();
 	}
@@ -294,6 +309,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileRank updateDLFileRank(DLFileRank dlFileRank)
 		throws SystemException {
 		return dlFileRankPersistence.update(dlFileRank);
@@ -1019,6 +1035,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1028,6 +1045,7 @@ public abstract class DLFileRankLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

@@ -33,6 +33,7 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _layoutSetBranchService.getBeanIdentifier();
 	}
@@ -42,10 +43,12 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_layoutSetBranchService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public com.liferay.portal.model.LayoutSetBranch addLayoutSetBranch(
 		long groupId, boolean privateLayout, java.lang.String name,
 		java.lang.String description, boolean master,
@@ -58,12 +61,14 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 			serviceContext);
 	}
 
+	@Override
 	public void deleteLayoutSetBranch(long layoutSetBranchId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_layoutSetBranchService.deleteLayoutSetBranch(layoutSetBranchId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.model.LayoutSetBranch> getLayoutSetBranches(
 		long groupId, boolean privateLayout)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -71,6 +76,7 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 			privateLayout);
 	}
 
+	@Override
 	public com.liferay.portal.model.LayoutSetBranch mergeLayoutSetBranch(
 		long layoutSetBranchId, long mergeLayoutSetBranchId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -80,6 +86,7 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 			mergeLayoutSetBranchId, serviceContext);
 	}
 
+	@Override
 	public com.liferay.portal.model.LayoutSetBranch updateLayoutSetBranch(
 		long groupId, long layoutSetBranchId, java.lang.String name,
 		java.lang.String description,
@@ -105,10 +112,12 @@ public class LayoutSetBranchServiceWrapper implements LayoutSetBranchService,
 		_layoutSetBranchService = layoutSetBranchService;
 	}
 
+	@Override
 	public LayoutSetBranchService getWrappedService() {
 		return _layoutSetBranchService;
 	}
 
+	@Override
 	public void setWrappedService(LayoutSetBranchService layoutSetBranchService) {
 		_layoutSetBranchService = layoutSetBranchService;
 	}

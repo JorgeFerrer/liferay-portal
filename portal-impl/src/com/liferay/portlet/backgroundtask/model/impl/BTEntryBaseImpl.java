@@ -38,6 +38,7 @@ public abstract class BTEntryBaseImpl extends BTEntryModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a b t entry model instance should use the {@link BTEntry} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			BTEntryLocalServiceUtil.addBTEntry(this);

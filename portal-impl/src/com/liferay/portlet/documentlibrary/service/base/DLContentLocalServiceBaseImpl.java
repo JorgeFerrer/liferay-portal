@@ -102,6 +102,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLContent addDLContent(DLContent dlContent)
 		throws SystemException {
 		dlContent.setNew(true);
@@ -115,6 +116,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param contentId the primary key for the new document library content
 	 * @return the new document library content
 	 */
+	@Override
 	public DLContent createDLContent(long contentId) {
 		return dlContentPersistence.create(contentId);
 	}
@@ -128,6 +130,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLContent deleteDLContent(long contentId)
 		throws PortalException, SystemException {
 		return dlContentPersistence.remove(contentId);
@@ -141,11 +144,13 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLContent deleteDLContent(DLContent dlContent)
 		throws SystemException {
 		return dlContentPersistence.remove(dlContent);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -160,6 +165,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -179,6 +185,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -200,6 +207,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -214,11 +222,13 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlContentPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLContent fetchDLContent(long contentId) throws SystemException {
 		return dlContentPersistence.fetchByPrimaryKey(contentId);
 	}
@@ -231,11 +241,13 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a document library content with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLContent getDLContent(long contentId)
 		throws PortalException, SystemException {
 		return dlContentPersistence.findByPrimaryKey(contentId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlContentPersistence.findByPrimaryKey(primaryKeyObj);
@@ -253,6 +265,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of document library contents
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLContent> getDLContents(int start, int end)
 		throws SystemException {
 		return dlContentPersistence.findAll(start, end);
@@ -264,6 +277,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of document library contents
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLContentsCount() throws SystemException {
 		return dlContentPersistence.countAll();
 	}
@@ -276,11 +290,13 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLContent updateDLContent(DLContent dlContent)
 		throws SystemException {
 		return dlContentPersistence.update(dlContent);
 	}
 
+	@Override
 	public DLContentDataBlobModel getDataBlobModel(Serializable primaryKey)
 		throws SystemException {
 		Session session = null;
@@ -947,6 +963,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -956,6 +973,7 @@ public abstract class DLContentLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

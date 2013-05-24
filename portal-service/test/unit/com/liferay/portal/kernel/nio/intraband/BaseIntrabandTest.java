@@ -161,6 +161,7 @@ public class BaseIntrabandTest {
 				}
 			}
 
+			@Override
 			public Void call() {
 				for (int i = _start; i < _end; i++) {
 					DatagramReceiveHandler outputDatagramReceiveHandler =
@@ -1504,22 +1505,27 @@ public class BaseIntrabandTest {
 	private static class MockGatheringByteChannel
 		implements GatheringByteChannel {
 
+		@Override
 		public void close() throws IOException {
 			throw new IOException();
 		}
 
+		@Override
 		public boolean isOpen() {
 			return true;
 		}
 
+		@Override
 		public int write(ByteBuffer byteBuffer) throws IOException {
 			throw new IOException();
 		}
 
+		@Override
 		public long write(ByteBuffer[] byteBuffers) throws IOException {
 			throw new IOException();
 		}
 
+		@Override
 		public long write(ByteBuffer[] byteBuffers, int offset, int length)
 			throws IOException {
 
@@ -1535,14 +1541,17 @@ public class BaseIntrabandTest {
 			_eofOnDataBufferReading = eofOnDataBufferReading;
 		}
 
+		@Override
 		public void close() throws IOException {
 			throw new IOException();
 		}
 
+		@Override
 		public boolean isOpen() {
 			return true;
 		}
 
+		@Override
 		public int read(ByteBuffer byteBuffer) {
 			if (_eofOnDataBufferReading && (byteBuffer.capacity() == 14)) {
 				BigEndianCodec.putInt(byteBuffer.array(), 10, 1);
@@ -1556,10 +1565,12 @@ public class BaseIntrabandTest {
 			}
 		}
 
+		@Override
 		public long read(ByteBuffer[] byteBuffers) {
 			return -1;
 		}
 
+		@Override
 		public long read(ByteBuffer[] byteBuffers, int offset, int length) {
 			return -1;
 		}

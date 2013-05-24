@@ -109,6 +109,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntryType addDLFileEntryType(DLFileEntryType dlFileEntryType)
 		throws SystemException {
 		dlFileEntryType.setNew(true);
@@ -122,6 +123,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @param fileEntryTypeId the primary key for the new document library file entry type
 	 * @return the new document library file entry type
 	 */
+	@Override
 	public DLFileEntryType createDLFileEntryType(long fileEntryTypeId) {
 		return dlFileEntryTypePersistence.create(fileEntryTypeId);
 	}
@@ -135,6 +137,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntryType deleteDLFileEntryType(long fileEntryTypeId)
 		throws PortalException, SystemException {
 		return dlFileEntryTypePersistence.remove(fileEntryTypeId);
@@ -148,11 +151,13 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public DLFileEntryType deleteDLFileEntryType(
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		return dlFileEntryTypePersistence.remove(dlFileEntryType);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -167,6 +172,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -186,6 +192,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -207,6 +214,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -221,11 +229,13 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return dlFileEntryTypePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public DLFileEntryType fetchDLFileEntryType(long fileEntryTypeId)
 		throws SystemException {
 		return dlFileEntryTypePersistence.fetchByPrimaryKey(fileEntryTypeId);
@@ -239,11 +249,13 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws PortalException if a document library file entry type with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileEntryType getDLFileEntryType(long fileEntryTypeId)
 		throws PortalException, SystemException {
 		return dlFileEntryTypePersistence.findByPrimaryKey(fileEntryTypeId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return dlFileEntryTypePersistence.findByPrimaryKey(primaryKeyObj);
@@ -258,6 +270,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws PortalException if a matching document library file entry type could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileEntryType getDLFileEntryTypeByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return dlFileEntryTypePersistence.findByUUID_G(uuid, groupId);
@@ -275,6 +288,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the range of document library file entry types
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDLFileEntryTypes(int start, int end)
 		throws SystemException {
 		return dlFileEntryTypePersistence.findAll(start, end);
@@ -286,6 +300,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @return the number of document library file entry types
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFileEntryTypesCount() throws SystemException {
 		return dlFileEntryTypePersistence.countAll();
 	}
@@ -298,6 +313,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public DLFileEntryType updateDLFileEntryType(
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		return dlFileEntryTypePersistence.update(dlFileEntryType);
@@ -306,6 +322,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFolderDLFileEntryType(long folderId, long fileEntryTypeId)
 		throws SystemException {
 		dlFolderPersistence.addDLFileEntryType(folderId, fileEntryTypeId);
@@ -314,6 +331,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFolderDLFileEntryType(long folderId,
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		dlFolderPersistence.addDLFileEntryType(folderId, dlFileEntryType);
@@ -322,6 +340,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFolderDLFileEntryTypes(long folderId,
 		long[] fileEntryTypeIds) throws SystemException {
 		dlFolderPersistence.addDLFileEntryTypes(folderId, fileEntryTypeIds);
@@ -330,6 +349,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDLFolderDLFileEntryTypes(long folderId,
 		List<DLFileEntryType> DLFileEntryTypes) throws SystemException {
 		dlFolderPersistence.addDLFileEntryTypes(folderId, DLFileEntryTypes);
@@ -338,6 +358,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearDLFolderDLFileEntryTypes(long folderId)
 		throws SystemException {
 		dlFolderPersistence.clearDLFileEntryTypes(folderId);
@@ -346,6 +367,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFolderDLFileEntryType(long folderId,
 		long fileEntryTypeId) throws SystemException {
 		dlFolderPersistence.removeDLFileEntryType(folderId, fileEntryTypeId);
@@ -354,6 +376,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFolderDLFileEntryType(long folderId,
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		dlFolderPersistence.removeDLFileEntryType(folderId, dlFileEntryType);
@@ -362,6 +385,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFolderDLFileEntryTypes(long folderId,
 		long[] fileEntryTypeIds) throws SystemException {
 		dlFolderPersistence.removeDLFileEntryTypes(folderId, fileEntryTypeIds);
@@ -370,6 +394,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDLFolderDLFileEntryTypes(long folderId,
 		List<DLFileEntryType> DLFileEntryTypes) throws SystemException {
 		dlFolderPersistence.removeDLFileEntryTypes(folderId, DLFileEntryTypes);
@@ -378,6 +403,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDLFolderDLFileEntryTypes(long folderId)
 		throws SystemException {
 		return dlFolderPersistence.getDLFileEntryTypes(folderId);
@@ -386,6 +412,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDLFolderDLFileEntryTypes(long folderId,
 		int start, int end) throws SystemException {
 		return dlFolderPersistence.getDLFileEntryTypes(folderId, start, end);
@@ -394,6 +421,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDLFolderDLFileEntryTypes(long folderId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -404,6 +432,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDLFolderDLFileEntryTypesCount(long folderId)
 		throws SystemException {
 		return dlFolderPersistence.getDLFileEntryTypesSize(folderId);
@@ -412,6 +441,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFolderDLFileEntryType(long folderId,
 		long fileEntryTypeId) throws SystemException {
 		return dlFolderPersistence.containsDLFileEntryType(folderId,
@@ -421,6 +451,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDLFolderDLFileEntryTypes(long folderId)
 		throws SystemException {
 		return dlFolderPersistence.containsDLFileEntryTypes(folderId);
@@ -429,6 +460,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setDLFolderDLFileEntryTypes(long folderId,
 		long[] fileEntryTypeIds) throws SystemException {
 		dlFolderPersistence.setDLFileEntryTypes(folderId, fileEntryTypeIds);
@@ -437,6 +469,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDDMStructureDLFileEntryType(long structureId,
 		long fileEntryTypeId) throws SystemException {
 		ddmStructurePersistence.addDLFileEntryType(structureId, fileEntryTypeId);
@@ -445,6 +478,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDDMStructureDLFileEntryType(long structureId,
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		ddmStructurePersistence.addDLFileEntryType(structureId, dlFileEntryType);
@@ -453,6 +487,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDDMStructureDLFileEntryTypes(long structureId,
 		long[] fileEntryTypeIds) throws SystemException {
 		ddmStructurePersistence.addDLFileEntryTypes(structureId,
@@ -462,6 +497,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void addDDMStructureDLFileEntryTypes(long structureId,
 		List<DLFileEntryType> DLFileEntryTypes) throws SystemException {
 		ddmStructurePersistence.addDLFileEntryTypes(structureId,
@@ -471,6 +507,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void clearDDMStructureDLFileEntryTypes(long structureId)
 		throws SystemException {
 		ddmStructurePersistence.clearDLFileEntryTypes(structureId);
@@ -479,6 +516,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDDMStructureDLFileEntryType(long structureId,
 		long fileEntryTypeId) throws SystemException {
 		ddmStructurePersistence.removeDLFileEntryType(structureId,
@@ -488,6 +526,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDDMStructureDLFileEntryType(long structureId,
 		DLFileEntryType dlFileEntryType) throws SystemException {
 		ddmStructurePersistence.removeDLFileEntryType(structureId,
@@ -497,6 +536,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDDMStructureDLFileEntryTypes(long structureId,
 		long[] fileEntryTypeIds) throws SystemException {
 		ddmStructurePersistence.removeDLFileEntryTypes(structureId,
@@ -506,6 +546,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void deleteDDMStructureDLFileEntryTypes(long structureId,
 		List<DLFileEntryType> DLFileEntryTypes) throws SystemException {
 		ddmStructurePersistence.removeDLFileEntryTypes(structureId,
@@ -515,6 +556,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDDMStructureDLFileEntryTypes(
 		long structureId) throws SystemException {
 		return ddmStructurePersistence.getDLFileEntryTypes(structureId);
@@ -523,6 +565,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDDMStructureDLFileEntryTypes(
 		long structureId, int start, int end) throws SystemException {
 		return ddmStructurePersistence.getDLFileEntryTypes(structureId, start,
@@ -532,6 +575,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileEntryType> getDDMStructureDLFileEntryTypes(
 		long structureId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -542,6 +586,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDDMStructureDLFileEntryTypesCount(long structureId)
 		throws SystemException {
 		return ddmStructurePersistence.getDLFileEntryTypesSize(structureId);
@@ -550,6 +595,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDDMStructureDLFileEntryType(long structureId,
 		long fileEntryTypeId) throws SystemException {
 		return ddmStructurePersistence.containsDLFileEntryType(structureId,
@@ -559,6 +605,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public boolean hasDDMStructureDLFileEntryTypes(long structureId)
 		throws SystemException {
 		return ddmStructurePersistence.containsDLFileEntryTypes(structureId);
@@ -567,6 +614,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	/**
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void setDDMStructureDLFileEntryTypes(long structureId,
 		long[] fileEntryTypeIds) throws SystemException {
 		ddmStructurePersistence.setDLFileEntryTypes(structureId,
@@ -1371,6 +1419,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1380,6 +1429,7 @@ public abstract class DLFileEntryTypeLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

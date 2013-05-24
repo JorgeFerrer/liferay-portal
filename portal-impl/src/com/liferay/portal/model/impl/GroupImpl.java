@@ -93,6 +93,7 @@ public class GroupImpl extends GroupBaseImpl {
 	public GroupImpl() {
 	}
 
+	@Override
 	public String buildTreePath() throws PortalException, SystemException {
 		StringBundler sb = new StringBundler();
 
@@ -101,6 +102,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return sb.toString();
 	}
 
+	@Override
 	public List<Group> getAncestors() throws PortalException, SystemException {
 		Group group = null;
 
@@ -122,11 +124,13 @@ public class GroupImpl extends GroupBaseImpl {
 		return groups;
 	}
 
+	@Override
 	public List<Group> getChildren(boolean site) throws SystemException {
 		return GroupLocalServiceUtil.getGroups(
 			getCompanyId(), getGroupId(), site);
 	}
 
+	@Override
 	public List<Group> getChildrenWithLayouts(boolean site, int start, int end)
 		throws SystemException {
 
@@ -134,6 +138,7 @@ public class GroupImpl extends GroupBaseImpl {
 			getCompanyId(), getGroupId(), site, start, end);
 	}
 
+	@Override
 	public int getChildrenWithLayoutsCount(boolean site)
 		throws SystemException {
 
@@ -141,24 +146,29 @@ public class GroupImpl extends GroupBaseImpl {
 			getCompanyId(), getGroupId(), site);
 	}
 
+	@Override
 	public long getDefaultPrivatePlid() {
 		return getDefaultPlid(true);
 	}
 
+	@Override
 	public long getDefaultPublicPlid() {
 		return getDefaultPlid(false);
 	}
 
+	@Override
 	public String getDescriptiveName() throws PortalException, SystemException {
 		return getDescriptiveName(LocaleUtil.getDefault());
 	}
 
+	@Override
 	public String getDescriptiveName(Locale locale)
 		throws PortalException, SystemException {
 
 		return GroupLocalServiceUtil.getGroupDescriptiveName(this, locale);
 	}
 
+	@Override
 	public String getIconURL(ThemeDisplay themeDisplay) {
 		String iconURL = themeDisplay.getPathThemeImages() + "/common/";
 
@@ -181,6 +191,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return iconURL;
 	}
 
+	@Override
 	public Group getLiveGroup() {
 		if (!isStagingGroup()) {
 			return null;
@@ -200,6 +211,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public String getLiveParentTypeSettingsProperty(String key) {
 		UnicodeProperties typeSettingsProperties =
 			getParentLiveGroupTypeSettingsProperties();
@@ -207,6 +219,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return typeSettingsProperties.getProperty(key);
 	}
 
+	@Override
 	public long getOrganizationId() {
 		if (isOrganization()) {
 			if (isStagingGroup()) {
@@ -222,6 +235,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return 0;
 	}
 
+	@Override
 	public Group getParentGroup() throws PortalException, SystemException {
 		long parentGroupId = getParentGroupId();
 
@@ -232,6 +246,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return GroupLocalServiceUtil.getGroup(parentGroupId);
 	}
 
+	@Override
 	public UnicodeProperties getParentLiveGroupTypeSettingsProperties() {
 		try {
 			if (isLayout()) {
@@ -253,6 +268,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return getTypeSettingsProperties();
 	}
 
+	@Override
 	public String getPathFriendlyURL(
 		boolean privateLayout, ThemeDisplay themeDisplay) {
 
@@ -269,6 +285,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public LayoutSet getPrivateLayoutSet() {
 		LayoutSet layoutSet = null;
 
@@ -283,6 +300,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return layoutSet;
 	}
 
+	@Override
 	public int getPrivateLayoutsPageCount() {
 		try {
 			return LayoutLocalServiceUtil.getLayoutsCount(this, true);
@@ -294,6 +312,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return 0;
 	}
 
+	@Override
 	public LayoutSet getPublicLayoutSet() {
 		LayoutSet layoutSet = null;
 
@@ -308,6 +327,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return layoutSet;
 	}
 
+	@Override
 	public int getPublicLayoutsPageCount() {
 		try {
 			return LayoutLocalServiceUtil.getLayoutsCount(this, false);
@@ -319,6 +339,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return 0;
 	}
 
+	@Override
 	public String getScopeDescriptiveName(ThemeDisplay themeDisplay)
 		throws PortalException, SystemException {
 
@@ -355,6 +376,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public String getScopeLabel(ThemeDisplay themeDisplay) {
 		String label = "site";
 
@@ -381,6 +403,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return label;
 	}
 
+	@Override
 	public Group getStagingGroup() {
 		if (isStagingGroup()) {
 			return null;
@@ -401,6 +424,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public String getTypeLabel() {
 		return GroupConstants.getTypeLabel(getType());
 	}
@@ -415,6 +439,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public UnicodeProperties getTypeSettingsProperties() {
 		if (_typeSettingsProperties == null) {
 			_typeSettingsProperties = new UnicodeProperties(true);
@@ -430,12 +455,14 @@ public class GroupImpl extends GroupBaseImpl {
 		return _typeSettingsProperties;
 	}
 
+	@Override
 	public String getTypeSettingsProperty(String key) {
 		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
 
 		return typeSettingsProperties.getProperty(key);
 	}
 
+	@Override
 	public boolean hasAncestor(long groupId) {
 		Group group = null;
 
@@ -457,6 +484,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return false;
 	}
 
+	@Override
 	public boolean hasPrivateLayouts() {
 		if (getPrivateLayoutsPageCount() > 0) {
 			return true;
@@ -466,6 +494,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public boolean hasPublicLayouts() {
 		if (getPublicLayoutsPageCount() > 0) {
 			return true;
@@ -475,6 +504,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public boolean hasStagingGroup() {
 		if (isStagingGroup()) {
 			return false;
@@ -495,14 +525,17 @@ public class GroupImpl extends GroupBaseImpl {
 	/**
 	 * @deprecated As of 6.1, renamed to {@link #isRegularSite}
 	 */
+	@Override
 	public boolean isCommunity() {
 		return isRegularSite();
 	}
 
+	@Override
 	public boolean isCompany() {
 		return hasClassName(Company.class);
 	}
 
+	@Override
 	public boolean isControlPanel() {
 		String name = getName();
 
@@ -514,6 +547,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public boolean isGuest() {
 		String name = getName();
 
@@ -525,6 +559,7 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public boolean isInStagingPortlet(String portletId) {
 		Group liveGroup = getLiveGroup();
 
@@ -535,18 +570,22 @@ public class GroupImpl extends GroupBaseImpl {
 		return liveGroup.isStagedPortlet(portletId);
 	}
 
+	@Override
 	public boolean isLayout() {
 		return hasClassName(Layout.class);
 	}
 
+	@Override
 	public boolean isLayoutPrototype() {
 		return hasClassName(LayoutPrototype.class);
 	}
 
+	@Override
 	public boolean isLayoutSetPrototype() {
 		return hasClassName(LayoutSetPrototype.class);
 	}
 
+	@Override
 	public boolean isLimitedToParentSiteMembers() {
 		if ((getParentGroupId() != GroupConstants.DEFAULT_PARENT_GROUP_ID) &&
 			(getType() ==
@@ -558,14 +597,17 @@ public class GroupImpl extends GroupBaseImpl {
 		return false;
 	}
 
+	@Override
 	public boolean isOrganization() {
 		return hasClassName(Organization.class);
 	}
 
+	@Override
 	public boolean isRegularSite() {
 		return hasClassName(Group.class);
 	}
 
+	@Override
 	public boolean isRoot() {
 		if (getParentGroupId() ==
 				GroupConstants.DEFAULT_PARENT_GROUP_ID) {
@@ -576,6 +618,7 @@ public class GroupImpl extends GroupBaseImpl {
 		return false;
 	}
 
+	@Override
 	public boolean isShowSite(
 			PermissionChecker permissionChecker, boolean privateSite)
 		throws PortalException, SystemException {
@@ -657,11 +700,13 @@ public class GroupImpl extends GroupBaseImpl {
 		return showSite;
 	}
 
+	@Override
 	public boolean isStaged() {
 		return GetterUtil.getBoolean(
 			getLiveParentTypeSettingsProperty("staged"));
 	}
 
+	@Override
 	public boolean isStagedPortlet(String portletId) {
 		UnicodeProperties typeSettingsProperties =
 			getParentLiveGroupTypeSettingsProperties();
@@ -713,11 +758,13 @@ public class GroupImpl extends GroupBaseImpl {
 		return true;
 	}
 
+	@Override
 	public boolean isStagedRemotely() {
 		return GetterUtil.getBoolean(
 			getLiveParentTypeSettingsProperty("stagedRemotely"));
 	}
 
+	@Override
 	public boolean isStagingGroup() {
 		if (getLiveGroupId() == GroupConstants.DEFAULT_LIVE_GROUP_ID) {
 			return false;
@@ -727,14 +774,17 @@ public class GroupImpl extends GroupBaseImpl {
 		}
 	}
 
+	@Override
 	public boolean isUser() {
 		return hasClassName(User.class);
 	}
 
+	@Override
 	public boolean isUserGroup() {
 		return hasClassName(UserGroup.class);
 	}
 
+	@Override
 	public boolean isUserPersonalSite() {
 		return hasClassName(UserPersonalSite.class);
 	}
@@ -746,6 +796,7 @@ public class GroupImpl extends GroupBaseImpl {
 		super.setTypeSettings(typeSettings);
 	}
 
+	@Override
 	public void setTypeSettingsProperties(
 		UnicodeProperties typeSettingsProperties) {
 

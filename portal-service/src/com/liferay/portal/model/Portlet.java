@@ -32,6 +32,7 @@ public interface Portlet extends PortletModel, PersistedModel {
 	 * Never modify this interface directly. Add methods to {@link com.liferay.portal.model.impl.PortletImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static final Accessor<Portlet, String> PORTLET_ID_ACCESSOR = new Accessor<Portlet, String>() {
+			@Override
 			public String get(Portlet portlet) {
 				return portlet.getPortletId();
 			}
@@ -64,29 +65,12 @@ public interface Portlet extends PortletModel, PersistedModel {
 		com.liferay.portal.kernel.scheduler.SchedulerEntry schedulerEntry);
 
 	/**
-	* Creates and returns a copy of this object.
-	*
-	* @return a copy of this object
-	*/
-	public java.lang.Object clone();
-
-	/**
-	* Compares this portlet to the specified object.
-	*
-	* @param portlet the portlet to compare this portlet against
-	* @return the value 0 if the argument portlet is equal to this portlet; a
-	value less than -1 if this portlet is less than the portlet
-	argument; and 1 if this portlet is greater than the portlet
-	argument
-	*/
-	public int compareTo(com.liferay.portal.model.Portlet portlet);
-
-	/**
 	* Checks whether this portlet is equal to the specified object.
 	*
 	* @param obj the object to compare this portlet against
 	* @return <code>true</code> if the portlet is equal to the specified object
 	*/
+	@Override
 	public boolean equals(java.lang.Object obj);
 
 	/**
@@ -2010,13 +1994,6 @@ public interface Portlet extends PortletModel, PersistedModel {
 	*/
 	public void setRoleMappers(
 		java.util.Map<java.lang.String, java.lang.String> roleMappers);
-
-	/**
-	* Sets a string of ordered comma delimited portlet IDs.
-	*
-	* @param roles a string of ordered comma delimited portlet IDs
-	*/
-	public void setRoles(java.lang.String roles);
 
 	/**
 	* Sets an array of required roles of the portlet.

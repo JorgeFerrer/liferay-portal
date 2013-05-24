@@ -33,6 +33,7 @@ public class UserGroupRoleServiceWrapper implements UserGroupRoleService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _userGroupRoleService.getBeanIdentifier();
 	}
@@ -42,28 +43,33 @@ public class UserGroupRoleServiceWrapper implements UserGroupRoleService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_userGroupRoleService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public void addUserGroupRoles(long userId, long groupId, long[] roleIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_userGroupRoleService.addUserGroupRoles(userId, groupId, roleIds);
 	}
 
+	@Override
 	public void addUserGroupRoles(long[] userIds, long groupId, long roleId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_userGroupRoleService.addUserGroupRoles(userIds, groupId, roleId);
 	}
 
+	@Override
 	public void deleteUserGroupRoles(long userId, long groupId, long[] roleIds)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_userGroupRoleService.deleteUserGroupRoles(userId, groupId, roleIds);
 	}
 
+	@Override
 	public void deleteUserGroupRoles(long[] userIds, long groupId, long roleId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -85,10 +91,12 @@ public class UserGroupRoleServiceWrapper implements UserGroupRoleService,
 		_userGroupRoleService = userGroupRoleService;
 	}
 
+	@Override
 	public UserGroupRoleService getWrappedService() {
 		return _userGroupRoleService;
 	}
 
+	@Override
 	public void setWrappedService(UserGroupRoleService userGroupRoleService) {
 		_userGroupRoleService = userGroupRoleService;
 	}

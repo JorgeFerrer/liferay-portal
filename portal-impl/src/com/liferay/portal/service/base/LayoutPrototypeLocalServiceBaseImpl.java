@@ -247,6 +247,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutPrototype addLayoutPrototype(LayoutPrototype layoutPrototype)
 		throws SystemException {
 		layoutPrototype.setNew(true);
@@ -260,6 +261,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @param layoutPrototypeId the primary key for the new layout prototype
 	 * @return the new layout prototype
 	 */
+	@Override
 	public LayoutPrototype createLayoutPrototype(long layoutPrototypeId) {
 		return layoutPrototypePersistence.create(layoutPrototypeId);
 	}
@@ -273,6 +275,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutPrototype deleteLayoutPrototype(long layoutPrototypeId)
 		throws PortalException, SystemException {
 		return layoutPrototypePersistence.remove(layoutPrototypeId);
@@ -287,12 +290,14 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutPrototype deleteLayoutPrototype(
 		LayoutPrototype layoutPrototype)
 		throws PortalException, SystemException {
 		return layoutPrototypePersistence.remove(layoutPrototype);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -307,6 +312,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -326,6 +332,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -347,6 +354,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -361,11 +369,13 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return layoutPrototypePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public LayoutPrototype fetchLayoutPrototype(long layoutPrototypeId)
 		throws SystemException {
 		return layoutPrototypePersistence.fetchByPrimaryKey(layoutPrototypeId);
@@ -379,11 +389,13 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @throws PortalException if a layout prototype with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutPrototype getLayoutPrototype(long layoutPrototypeId)
 		throws PortalException, SystemException {
 		return layoutPrototypePersistence.findByPrimaryKey(layoutPrototypeId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return layoutPrototypePersistence.findByPrimaryKey(primaryKeyObj);
@@ -401,6 +413,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the range of layout prototypes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutPrototype> getLayoutPrototypes(int start, int end)
 		throws SystemException {
 		return layoutPrototypePersistence.findAll(start, end);
@@ -412,6 +425,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @return the number of layout prototypes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getLayoutPrototypesCount() throws SystemException {
 		return layoutPrototypePersistence.countAll();
 	}
@@ -424,6 +438,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutPrototype updateLayoutPrototype(
 		LayoutPrototype layoutPrototype) throws SystemException {
 		return layoutPrototypePersistence.update(layoutPrototype);
@@ -3804,6 +3819,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3813,6 +3829,7 @@ public abstract class LayoutPrototypeLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

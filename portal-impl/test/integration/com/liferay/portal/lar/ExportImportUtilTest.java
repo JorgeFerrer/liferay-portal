@@ -382,25 +382,31 @@ public class ExportImportUtilTest {
 
 	private class TestReaderWriter implements ZipReader, ZipWriter {
 
+		@Override
 		public void addEntry(String name, byte[] bytes) {
 			_binaryEntries.add(name);
 		}
 
+		@Override
 		public void addEntry(String name, InputStream inputStream) {
 			_binaryEntries.add(name);
 		}
 
+		@Override
 		public void addEntry(String name, String s) {
 			_entries.put(name, s);
 		}
 
+		@Override
 		public void addEntry(String name, StringBuilder sb) {
 			_entries.put(name, sb.toString());
 		}
 
+		@Override
 		public void close() {
 		}
 
+		@Override
 		public byte[] finish() {
 			return new byte[0];
 		}
@@ -409,30 +415,37 @@ public class ExportImportUtilTest {
 			return _binaryEntries;
 		}
 
+		@Override
 		public List<String> getEntries() {
 			return new ArrayList<String>(_entries.keySet());
 		}
 
+		@Override
 		public byte[] getEntryAsByteArray(String name) {
 			return null;
 		}
 
+		@Override
 		public InputStream getEntryAsInputStream(String name) {
 			return null;
 		}
 
+		@Override
 		public String getEntryAsString(String name) {
 			return _entries.get(name);
 		}
 
+		@Override
 		public List<String> getFolderEntries(String path) {
 			return null;
 		}
 
+		@Override
 		public File getFile() {
 			return null;
 		}
 
+		@Override
 		public String getPath() {
 			return StringPool.BLANK;
 		}

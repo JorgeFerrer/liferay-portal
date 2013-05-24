@@ -29,6 +29,7 @@ import java.util.Map;
  */
 public abstract class BaseTemplateManager implements TemplateManager {
 
+	@Override
 	@NotPrivileged
 	public Template getTemplate(
 		TemplateResource templateResource, boolean restricted) {
@@ -36,6 +37,7 @@ public abstract class BaseTemplateManager implements TemplateManager {
 		return getTemplate(templateResource, null, restricted);
 	}
 
+	@Override
 	@NotPrivileged
 	public Template getTemplate(
 		TemplateResource templateResource,
@@ -74,6 +76,7 @@ public abstract class BaseTemplateManager implements TemplateManager {
 			_helperUtilities = helperUtilities;
 		}
 
+		@Override
 		public Template run() {
 			return doGetTemplate(
 				_templateResource, _errorTemplateResource, _restricted,

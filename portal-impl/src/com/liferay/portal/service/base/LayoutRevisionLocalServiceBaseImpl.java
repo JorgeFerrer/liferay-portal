@@ -247,6 +247,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutRevision addLayoutRevision(LayoutRevision layoutRevision)
 		throws SystemException {
 		layoutRevision.setNew(true);
@@ -260,6 +261,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @param layoutRevisionId the primary key for the new layout revision
 	 * @return the new layout revision
 	 */
+	@Override
 	public LayoutRevision createLayoutRevision(long layoutRevisionId) {
 		return layoutRevisionPersistence.create(layoutRevisionId);
 	}
@@ -273,6 +275,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutRevision deleteLayoutRevision(long layoutRevisionId)
 		throws PortalException, SystemException {
 		return layoutRevisionPersistence.remove(layoutRevisionId);
@@ -287,11 +290,13 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public LayoutRevision deleteLayoutRevision(LayoutRevision layoutRevision)
 		throws PortalException, SystemException {
 		return layoutRevisionPersistence.remove(layoutRevision);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -306,6 +311,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -325,6 +331,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -346,6 +353,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -360,11 +368,13 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return layoutRevisionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public LayoutRevision fetchLayoutRevision(long layoutRevisionId)
 		throws SystemException {
 		return layoutRevisionPersistence.fetchByPrimaryKey(layoutRevisionId);
@@ -378,11 +388,13 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @throws PortalException if a layout revision with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public LayoutRevision getLayoutRevision(long layoutRevisionId)
 		throws PortalException, SystemException {
 		return layoutRevisionPersistence.findByPrimaryKey(layoutRevisionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return layoutRevisionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -400,6 +412,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the range of layout revisions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<LayoutRevision> getLayoutRevisions(int start, int end)
 		throws SystemException {
 		return layoutRevisionPersistence.findAll(start, end);
@@ -411,6 +424,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @return the number of layout revisions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getLayoutRevisionsCount() throws SystemException {
 		return layoutRevisionPersistence.countAll();
 	}
@@ -423,6 +437,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public LayoutRevision updateLayoutRevision(LayoutRevision layoutRevision)
 		throws SystemException {
 		return layoutRevisionPersistence.update(layoutRevision);
@@ -3803,6 +3818,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3812,6 +3828,7 @@ public abstract class LayoutRevisionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

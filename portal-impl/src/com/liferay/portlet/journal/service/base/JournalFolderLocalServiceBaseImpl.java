@@ -124,6 +124,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalFolder addJournalFolder(JournalFolder journalFolder)
 		throws SystemException {
 		journalFolder.setNew(true);
@@ -137,6 +138,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @param folderId the primary key for the new journal folder
 	 * @return the new journal folder
 	 */
+	@Override
 	public JournalFolder createJournalFolder(long folderId) {
 		return journalFolderPersistence.create(folderId);
 	}
@@ -150,6 +152,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalFolder deleteJournalFolder(long folderId)
 		throws PortalException, SystemException {
 		return journalFolderPersistence.remove(folderId);
@@ -163,11 +166,13 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public JournalFolder deleteJournalFolder(JournalFolder journalFolder)
 		throws SystemException {
 		return journalFolderPersistence.remove(journalFolder);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -182,6 +187,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -201,6 +207,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -222,6 +229,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -236,11 +244,13 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return journalFolderPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public JournalFolder fetchJournalFolder(long folderId)
 		throws SystemException {
 		return journalFolderPersistence.fetchByPrimaryKey(folderId);
@@ -254,11 +264,13 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws PortalException if a journal folder with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalFolder getJournalFolder(long folderId)
 		throws PortalException, SystemException {
 		return journalFolderPersistence.findByPrimaryKey(folderId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return journalFolderPersistence.findByPrimaryKey(primaryKeyObj);
@@ -273,6 +285,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws PortalException if a matching journal folder could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public JournalFolder getJournalFolderByUuidAndGroupId(String uuid,
 		long groupId) throws PortalException, SystemException {
 		return journalFolderPersistence.findByUUID_G(uuid, groupId);
@@ -290,6 +303,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the range of journal folders
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<JournalFolder> getJournalFolders(int start, int end)
 		throws SystemException {
 		return journalFolderPersistence.findAll(start, end);
@@ -301,6 +315,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @return the number of journal folders
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getJournalFoldersCount() throws SystemException {
 		return journalFolderPersistence.countAll();
 	}
@@ -313,6 +328,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public JournalFolder updateJournalFolder(JournalFolder journalFolder)
 		throws SystemException {
 		return journalFolderPersistence.update(journalFolder);
@@ -1399,6 +1415,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -1408,6 +1425,7 @@ public abstract class JournalFolderLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}

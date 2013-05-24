@@ -158,26 +158,32 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 	public WebsiteModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _websiteId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setWebsiteId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _websiteId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Website.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Website.class.getName();
 	}
@@ -277,6 +283,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		}
 	}
 
+	@Override
 	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
@@ -287,6 +294,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -299,20 +307,24 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return GetterUtil.getString(_originalUuid);
 	}
 
+	@Override
 	@JSON
 	public long getWebsiteId() {
 		return _websiteId;
 	}
 
+	@Override
 	public void setWebsiteId(long websiteId) {
 		_websiteId = websiteId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -329,11 +341,13 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return _originalCompanyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -346,10 +360,12 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -358,6 +374,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return _originalUserId;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -368,30 +385,36 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_columnBitmask = -1L;
 
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getClassName() {
 		if (getClassNameId() <= 0) {
 			return StringPool.BLANK;
@@ -400,6 +423,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return PortalUtil.getClassName(getClassNameId());
 	}
 
+	@Override
 	public void setClassName(String className) {
 		long classNameId = 0;
 
@@ -410,11 +434,13 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		setClassNameId(classNameId);
 	}
 
+	@Override
 	@JSON
 	public long getClassNameId() {
 		return _classNameId;
 	}
 
+	@Override
 	public void setClassNameId(long classNameId) {
 		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
@@ -431,11 +457,13 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return _originalClassNameId;
 	}
 
+	@Override
 	@JSON
 	public long getClassPK() {
 		return _classPK;
 	}
 
+	@Override
 	public void setClassPK(long classPK) {
 		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
@@ -452,6 +480,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return _originalClassPK;
 	}
 
+	@Override
 	@JSON
 	public String getUrl() {
 		if (_url == null) {
@@ -462,28 +491,34 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		}
 	}
 
+	@Override
 	public void setUrl(String url) {
 		_url = url;
 	}
 
+	@Override
 	@JSON
 	public int getTypeId() {
 		return _typeId;
 	}
 
+	@Override
 	public void setTypeId(int typeId) {
 		_typeId = typeId;
 	}
 
+	@Override
 	@JSON
 	public boolean getPrimary() {
 		return _primary;
 	}
 
+	@Override
 	public boolean isPrimary() {
 		return _primary;
 	}
 
+	@Override
 	public void setPrimary(boolean primary) {
 		_columnBitmask |= PRIMARY_COLUMN_BITMASK;
 
@@ -549,6 +584,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return websiteImpl;
 	}
 
+	@Override
 	public int compareTo(Website website) {
 		int value = 0;
 
@@ -713,6 +749,7 @@ public class WebsiteModelImpl extends BaseModelImpl<Website>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(40);
 

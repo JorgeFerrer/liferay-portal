@@ -111,6 +111,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid(String uuid) throws SystemException {
 		return findByUuid(uuid, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -128,6 +129,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid(String uuid, int start, int end)
 		throws SystemException {
 		return findByUuid(uuid, start, end, null);
@@ -147,6 +149,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid(String uuid, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -267,6 +270,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUuid_First(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -296,6 +300,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUuid_First(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<DLFileRank> list = findByUuid(uuid, 0, 1, orderByComparator);
@@ -316,6 +321,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUuid_Last(String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -345,6 +351,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUuid_Last(String uuid,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
@@ -369,6 +376,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByUuid_PrevAndNext(long fileRankId, String uuid,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -524,6 +532,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param uuid the uuid
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid(String uuid) throws SystemException {
 		for (DLFileRank dlFileRank : findByUuid(uuid, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -538,6 +547,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid(String uuid) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID;
 
@@ -620,6 +630,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUUID_G(String uuid, long groupId)
 		throws NoSuchFileRankException, SystemException {
 		DLFileRank dlFileRank = fetchByUUID_G(uuid, groupId);
@@ -655,6 +666,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		return fetchByUUID_G(uuid, groupId, true);
@@ -669,6 +681,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { uuid, groupId };
@@ -775,6 +788,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the document library file rank that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank removeByUUID_G(String uuid, long groupId)
 		throws NoSuchFileRankException, SystemException {
 		DLFileRank dlFileRank = findByUUID_G(uuid, groupId);
@@ -790,6 +804,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUUID_G(String uuid, long groupId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_G;
@@ -888,6 +903,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		return findByUuid_C(uuid, companyId, QueryUtil.ALL_POS,
@@ -908,6 +924,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid_C(String uuid, long companyId,
 		int start, int end) throws SystemException {
 		return findByUuid_C(uuid, companyId, start, end, null);
@@ -928,6 +945,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUuid_C(String uuid, long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -1059,6 +1077,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1093,6 +1112,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUuid_C_First(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<DLFileRank> list = findByUuid_C(uuid, companyId, 0, 1,
@@ -1115,6 +1135,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1149,6 +1170,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUuid_C_Last(String uuid, long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
@@ -1174,6 +1196,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByUuid_C_PrevAndNext(long fileRankId, String uuid,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1334,6 +1357,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		for (DLFileRank dlFileRank : findByUuid_C(uuid, companyId,
@@ -1350,6 +1374,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUuid_C(String uuid, long companyId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_UUID_C;
@@ -1446,6 +1471,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUserId(long userId) throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1463,6 +1489,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUserId(long userId, int start, int end)
 		throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -1482,6 +1509,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1588,6 +1616,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1617,6 +1646,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<DLFileRank> list = findByUserId(userId, 0, 1, orderByComparator);
@@ -1637,6 +1667,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1666,6 +1697,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
@@ -1690,6 +1722,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByUserId_PrevAndNext(long fileRankId, long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -1831,6 +1864,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByUserId(long userId) throws SystemException {
 		for (DLFileRank dlFileRank : findByUserId(userId, QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null)) {
@@ -1845,6 +1879,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByUserId(long userId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
 
@@ -1920,6 +1955,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByFileEntryId(long fileEntryId)
 		throws SystemException {
 		return findByFileEntryId(fileEntryId, QueryUtil.ALL_POS,
@@ -1939,6 +1975,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByFileEntryId(long fileEntryId, int start,
 		int end) throws SystemException {
 		return findByFileEntryId(fileEntryId, start, end, null);
@@ -1958,6 +1995,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByFileEntryId(long fileEntryId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2064,6 +2102,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByFileEntryId_First(long fileEntryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2094,6 +2133,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByFileEntryId_First(long fileEntryId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<DLFileRank> list = findByFileEntryId(fileEntryId, 0, 1,
@@ -2115,6 +2155,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByFileEntryId_Last(long fileEntryId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2145,6 +2186,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByFileEntryId_Last(long fileEntryId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByFileEntryId(fileEntryId);
@@ -2169,6 +2211,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByFileEntryId_PrevAndNext(long fileRankId,
 		long fileEntryId, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2310,6 +2353,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param fileEntryId the file entry ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByFileEntryId(long fileEntryId) throws SystemException {
 		for (DLFileRank dlFileRank : findByFileEntryId(fileEntryId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -2324,6 +2368,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByFileEntryId(long fileEntryId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_FILEENTRYID;
 
@@ -2399,6 +2444,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U(long groupId, long userId)
 		throws SystemException {
 		return findByG_U(groupId, userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -2419,6 +2465,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U(long groupId, long userId, int start,
 		int end) throws SystemException {
 		return findByG_U(groupId, userId, start, end, null);
@@ -2439,6 +2486,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U(long groupId, long userId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2555,6 +2603,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByG_U_First(long groupId, long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2589,6 +2638,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByG_U_First(long groupId, long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<DLFileRank> list = findByG_U(groupId, userId, 0, 1,
@@ -2611,6 +2661,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByG_U_Last(long groupId, long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2645,6 +2696,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByG_U_Last(long groupId, long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByG_U(groupId, userId);
@@ -2670,6 +2722,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByG_U_PrevAndNext(long fileRankId, long groupId,
 		long userId, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -2816,6 +2869,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_U(long groupId, long userId)
 		throws SystemException {
 		for (DLFileRank dlFileRank : findByG_U(groupId, userId,
@@ -2832,6 +2886,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_U(long groupId, long userId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_U;
 
@@ -2921,6 +2976,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U_A(long groupId, long userId,
 		boolean active) throws SystemException {
 		return findByG_U_A(groupId, userId, active, QueryUtil.ALL_POS,
@@ -2942,6 +2998,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U_A(long groupId, long userId,
 		boolean active, int start, int end) throws SystemException {
 		return findByG_U_A(groupId, userId, active, start, end, null);
@@ -2963,6 +3020,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findByG_U_A(long groupId, long userId,
 		boolean active, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3086,6 +3144,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByG_U_A_First(long groupId, long userId,
 		boolean active, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -3124,6 +3183,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the first matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByG_U_A_First(long groupId, long userId,
 		boolean active, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3148,6 +3208,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByG_U_A_Last(long groupId, long userId,
 		boolean active, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -3186,6 +3247,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the last matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByG_U_A_Last(long groupId, long userId,
 		boolean active, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -3213,6 +3275,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank[] findByG_U_A_PrevAndNext(long fileRankId, long groupId,
 		long userId, boolean active, OrderByComparator orderByComparator)
 		throws NoSuchFileRankException, SystemException {
@@ -3364,6 +3427,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param active the active
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByG_U_A(long groupId, long userId, boolean active)
 		throws SystemException {
 		for (DLFileRank dlFileRank : findByG_U_A(groupId, userId, active,
@@ -3381,6 +3445,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByG_U_A(long groupId, long userId, boolean active)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_U_A;
@@ -3464,6 +3529,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByC_U_F(long companyId, long userId, long fileEntryId)
 		throws NoSuchFileRankException, SystemException {
 		DLFileRank dlFileRank = fetchByC_U_F(companyId, userId, fileEntryId);
@@ -3503,6 +3569,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByC_U_F(long companyId, long userId, long fileEntryId)
 		throws SystemException {
 		return fetchByC_U_F(companyId, userId, fileEntryId, true);
@@ -3518,6 +3585,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the matching document library file rank, or <code>null</code> if a matching document library file rank could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByC_U_F(long companyId, long userId,
 		long fileEntryId, boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { companyId, userId, fileEntryId };
@@ -3616,6 +3684,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the document library file rank that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank removeByC_U_F(long companyId, long userId,
 		long fileEntryId) throws NoSuchFileRankException, SystemException {
 		DLFileRank dlFileRank = findByC_U_F(companyId, userId, fileEntryId);
@@ -3632,6 +3701,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of matching document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_U_F(long companyId, long userId, long fileEntryId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_U_F;
@@ -3695,6 +3765,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 *
 	 * @param dlFileRank the document library file rank
 	 */
+	@Override
 	public void cacheResult(DLFileRank dlFileRank) {
 		EntityCacheUtil.putResult(DLFileRankModelImpl.ENTITY_CACHE_ENABLED,
 			DLFileRankImpl.class, dlFileRank.getPrimaryKey(), dlFileRank);
@@ -3717,6 +3788,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 *
 	 * @param dlFileRanks the document library file ranks
 	 */
+	@Override
 	public void cacheResult(List<DLFileRank> dlFileRanks) {
 		for (DLFileRank dlFileRank : dlFileRanks) {
 			if (EntityCacheUtil.getResult(
@@ -3880,6 +3952,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @param fileRankId the primary key for the new document library file rank
 	 * @return the new document library file rank
 	 */
+	@Override
 	public DLFileRank create(long fileRankId) {
 		DLFileRank dlFileRank = new DLFileRankImpl();
 
@@ -3901,6 +3974,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank remove(long fileRankId)
 		throws NoSuchFileRankException, SystemException {
 		return remove((Serializable)fileRankId);
@@ -4209,6 +4283,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @throws com.liferay.portlet.documentlibrary.NoSuchFileRankException if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank findByPrimaryKey(long fileRankId)
 		throws NoSuchFileRankException, SystemException {
 		return findByPrimaryKey((Serializable)fileRankId);
@@ -4269,6 +4344,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the document library file rank, or <code>null</code> if a document library file rank with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public DLFileRank fetchByPrimaryKey(long fileRankId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)fileRankId);
@@ -4280,6 +4356,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -4296,6 +4373,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the range of document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -4314,6 +4392,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the ordered range of document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<DLFileRank> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -4399,6 +4478,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (DLFileRank dlFileRank : findAll()) {
 			remove(dlFileRank);
@@ -4411,6 +4491,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 	 * @return the number of document library file ranks
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -4504,6 +4585,7 @@ public class DLFileRankPersistenceImpl extends BasePersistenceImpl<DLFileRank>
 		};
 
 	private static CacheModel<DLFileRank> _nullDLFileRankCacheModel = new CacheModel<DLFileRank>() {
+			@Override
 			public DLFileRank toEntityModel() {
 				return _nullDLFileRank;
 			}

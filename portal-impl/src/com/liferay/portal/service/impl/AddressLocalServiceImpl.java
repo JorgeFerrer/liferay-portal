@@ -45,6 +45,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	 *             long, String, String, String, String, String, long, long,
 	 *             int, boolean, boolean, ServiceContext)}
 	 */
+	@Override
 	public Address addAddress(
 			long userId, String className, long classPK, String street1,
 			String street2, String street3, String city, String zip,
@@ -58,6 +59,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 			new ServiceContext());
 	}
 
+	@Override
 	public Address addAddress(
 			long userId, String className, long classPK, String street1,
 			String street2, String street3, String city, String zip,
@@ -101,6 +103,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		return address;
 	}
 
+	@Override
 	public void deleteAddresses(long companyId, String className, long classPK)
 		throws SystemException {
 
@@ -114,16 +117,19 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		}
 	}
 
+	@Override
 	public Address fetchAddressByUuidAndCompanyId(String uuid, long companyId)
 		throws SystemException {
 
 		return addressPersistence.fetchByUuid_C_First(uuid, companyId, null);
 	}
 
+	@Override
 	public List<Address> getAddresses() throws SystemException {
 		return addressPersistence.findAll();
 	}
 
+	@Override
 	public List<Address> getAddresses(
 			long companyId, String className, long classPK)
 		throws SystemException {
@@ -133,6 +139,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 		return addressPersistence.findByC_C_C(companyId, classNameId, classPK);
 	}
 
+	@Override
 	public Address updateAddress(
 			long addressId, String street1, String street2, String street3,
 			String city, String zip, long regionId, long countryId, int typeId,

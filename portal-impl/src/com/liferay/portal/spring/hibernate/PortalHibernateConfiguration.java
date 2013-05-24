@@ -254,6 +254,7 @@ public class PortalHibernateConfiguration extends LocalSessionFactoryBean {
 		ProxyFactory.classLoaderProvider =
 			new ProxyFactory.ClassLoaderProvider() {
 
+				@Override
 				public ClassLoader get(ProxyFactory proxyFactory) {
 					synchronized (_proxyFactoryClassLoaders) {
 						ClassLoader classLoader = _proxyFactoryClassLoaders.get(

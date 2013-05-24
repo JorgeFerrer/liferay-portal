@@ -140,6 +140,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.currentThread().setContextClassLoader(
@@ -170,6 +171,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.setDefaultUncaughtExceptionHandler(null);
@@ -200,6 +202,7 @@ public class ThreadTest {
 			Thread thread = new Thread(
 				new Runnable() {
 
+					@Override
 					public void run() {
 					}
 
@@ -291,6 +294,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.currentThread().checkAccess();
@@ -319,6 +323,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.getAllStackTraces();
@@ -348,6 +353,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.currentThread().getContextClassLoader();
@@ -377,6 +383,7 @@ public class ThreadTest {
 		FutureTask<Exception> futureTask = new FutureTask<Exception>(
 			new Callable<Exception>() {
 
+				@Override
 				public Exception call() throws Exception {
 					try {
 						Thread.currentThread().getStackTrace();
@@ -407,6 +414,7 @@ public class ThreadTest {
 				"liferay/hot_deploy",
 				new Callable<Void>() {
 
+					@Override
 					public Void call() throws Exception {
 						return null;
 					}
@@ -427,6 +435,7 @@ public class ThreadTest {
 				"liferay/test_pacl",
 				new Callable<Void>() {
 
+					@Override
 					public Void call() throws Exception {
 						return null;
 					}

@@ -388,10 +388,12 @@ public class PortalCacheDatagramReceiveHandlerTest {
 			_name = name;
 		}
 
+		@Override
 		public void destroy() {
 			_destroyed = true;
 		}
 
+		@Override
 		public Collection<String> get(Collection<String> keys) {
 			if (_testKeys.equals(keys)) {
 				return _testValues;
@@ -400,6 +402,7 @@ public class PortalCacheDatagramReceiveHandlerTest {
 			return null;
 		}
 
+		@Override
 		public String get(String key) {
 			if (_TEST_KEY.equals(key)) {
 				return _TEST_VALUE;
@@ -408,42 +411,51 @@ public class PortalCacheDatagramReceiveHandlerTest {
 			return null;
 		}
 
+		@Override
 		public String getName() {
 			return _name;
 		}
 
+		@Override
 		public void put(String key, String value) {
 			_key = key;
 			_value = value;
 		}
 
+		@Override
 		public void put(String key, String value, int timeToLive) {
 			_key = key;
 			_value = value;
 			_timeToLive = timeToLive;
 		}
 
+		@Override
 		public void registerCacheListener(
 			CacheListener<String, String> cacheListener) {
 		}
 
+		@Override
 		public void registerCacheListener(
 			CacheListener<String, String> cacheListener,
 			CacheListenerScope cacheListenerScope) {
 		}
 
+		@Override
 		public void remove(String key) {
 			_key = key;
 		}
 
+		@Override
 		public void removeAll() {
 			_removeAll = true;
 		}
 
+		@Override
 		public void unregisterCacheListener(
 			CacheListener<String, String> cacheListener) {
 		}
 
+		@Override
 		public void unregisterCacheListeners() {
 		}
 
@@ -459,13 +471,16 @@ public class PortalCacheDatagramReceiveHandlerTest {
 	private class MockPortalCacheManager
 		implements PortalCacheManager<String, String> {
 
+		@Override
 		public void clearAll() {
 		}
 
+		@Override
 		public PortalCache<String, String> getCache(String name) {
 			return getCache(name, false);
 		}
 
+		@Override
 		public PortalCache<String, String> getCache(
 			String name, boolean blocking) {
 
@@ -480,10 +495,12 @@ public class PortalCacheDatagramReceiveHandlerTest {
 			return portalCache;
 		}
 
+		@Override
 		public void reconfigureCaches(URL configurationURL) {
 			_configurationURL = configurationURL;
 		}
 
+		@Override
 		public void removeCache(String name) {
 		}
 

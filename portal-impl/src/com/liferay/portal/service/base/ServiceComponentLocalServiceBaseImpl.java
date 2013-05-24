@@ -247,6 +247,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ServiceComponent addServiceComponent(
 		ServiceComponent serviceComponent) throws SystemException {
 		serviceComponent.setNew(true);
@@ -260,6 +261,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @param serviceComponentId the primary key for the new service component
 	 * @return the new service component
 	 */
+	@Override
 	public ServiceComponent createServiceComponent(long serviceComponentId) {
 		return serviceComponentPersistence.create(serviceComponentId);
 	}
@@ -273,6 +275,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ServiceComponent deleteServiceComponent(long serviceComponentId)
 		throws PortalException, SystemException {
 		return serviceComponentPersistence.remove(serviceComponentId);
@@ -286,11 +289,13 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public ServiceComponent deleteServiceComponent(
 		ServiceComponent serviceComponent) throws SystemException {
 		return serviceComponentPersistence.remove(serviceComponent);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -305,6 +310,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -324,6 +330,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -345,6 +352,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -359,11 +367,13 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return serviceComponentPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public ServiceComponent fetchServiceComponent(long serviceComponentId)
 		throws SystemException {
 		return serviceComponentPersistence.fetchByPrimaryKey(serviceComponentId);
@@ -377,11 +387,13 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @throws PortalException if a service component with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public ServiceComponent getServiceComponent(long serviceComponentId)
 		throws PortalException, SystemException {
 		return serviceComponentPersistence.findByPrimaryKey(serviceComponentId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return serviceComponentPersistence.findByPrimaryKey(primaryKeyObj);
@@ -399,6 +411,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the range of service components
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<ServiceComponent> getServiceComponents(int start, int end)
 		throws SystemException {
 		return serviceComponentPersistence.findAll(start, end);
@@ -410,6 +423,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @return the number of service components
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getServiceComponentsCount() throws SystemException {
 		return serviceComponentPersistence.countAll();
 	}
@@ -422,6 +436,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public ServiceComponent updateServiceComponent(
 		ServiceComponent serviceComponent) throws SystemException {
 		return serviceComponentPersistence.update(serviceComponent);
@@ -3802,6 +3817,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -3811,6 +3827,7 @@ public abstract class ServiceComponentLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
