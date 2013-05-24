@@ -621,6 +621,10 @@ public class ThemeDisplay
 		return _user.getUserId();
 	}
 
+	public boolean hasTypeControlPanelLayout() {
+		return _layout.isTypeControlPanel();
+	}
+
 	public boolean isAddSessionIdToURL() {
 		return _addSessionIdToURL;
 	}
