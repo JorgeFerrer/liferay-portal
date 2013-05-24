@@ -25,8 +25,6 @@ import com.liferay.portal.kernel.workflow.WorkflowHandler;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowInstance;
 import com.liferay.portal.kernel.workflow.WorkflowInstanceManagerUtil;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.WorkflowInstanceLinkLocalServiceUtil;
@@ -154,11 +152,7 @@ public class EditWorkflowInstanceAction extends PortletAction {
 		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLink(
 			companyId, groupId, className, classPK);
 
-		Layout layout = themeDisplay.getLayout();
-
-		Group layoutGroup = layout.getGroup();
-
-		if (layoutGroup.isControlPanel() &&
+		if (themeDisplay.hasTypeControlPanelLayout() &&
 			(WorkflowInstanceManagerUtil.getWorkflowInstanceCount(
 				companyId, userId, null, null, null) == 0)) {
 

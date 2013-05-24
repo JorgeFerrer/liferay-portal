@@ -65,7 +65,7 @@ request.setAttribute("edit_site_assignments.jsp-portletURL", portletURL);
 %>
 
 <c:choose>
-	<c:when test="<%= selUser == null %>">
+	<c:when test="<%= selUser == null && themeDisplay.hasTypeControlPanelLayout() %>">
 		<liferay-ui:header
 			backURL="<%= redirect %>"
 			escapeXml="<%= false %>"

@@ -63,8 +63,6 @@ public class InputPermissionsParamsTag extends TagSupport {
 
 			Layout layout = themeDisplay.getLayout();
 
-			Group layoutGroup = layout.getGroup();
-
 			Group group = themeDisplay.getScopeGroup();
 
 			List<String> supportedActions =
@@ -88,7 +86,7 @@ public class InputPermissionsParamsTag extends TagSupport {
 
 				boolean guestChecked = false;
 
-				if (layoutGroup.isControlPanel()) {
+				if (themeDisplay.hasTypeControlPanelLayout()) {
 					if (!group.hasPrivateLayouts() &&
 						guestDefaultActions.contains(action)) {
 
@@ -148,12 +146,10 @@ public class InputPermissionsParamsTag extends TagSupport {
 
 		Layout layout = themeDisplay.getLayout();
 
-		Group layoutGroup = layout.getGroup();
-
 		List<String> guestDefaultActions =
 			ResourceActionsUtil.getModelResourceGuestDefaultActions(modelName);
 
-		if (layoutGroup.isControlPanel()) {
+		if (themeDisplay.hasTypeControlPanelLayout()) {
 			Group group = themeDisplay.getScopeGroup();
 
 			if (!group.hasPrivateLayouts() &&
