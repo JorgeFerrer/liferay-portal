@@ -1438,8 +1438,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 			controlPanelEntryCategory = PortletCategoryKeys.APPS;
 		}
 
-		portletModel.setControlPanelEntryCategory(
-			controlPanelEntryCategory);
+		portletModel.setControlPanelEntryCategory(controlPanelEntryCategory);
 
 		portletModel.setControlPanelEntryWeight(
 			GetterUtil.getDouble(
