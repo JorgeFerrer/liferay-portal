@@ -34,9 +34,6 @@
 					else if (curCategory.equals(PortletCategoryKeys.CONFIGURATION)) {
 						iconClass = "icon-cog";
 					}
-					else if (curCategory.equals(PortletCategoryKeys.MARKETPLACE)) {
-						iconClass = "icon-gift";
-					}
 					else if (curCategory.equals(PortletCategoryKeys.SITES)) {
 						iconClass = "icon-globe";
 					}

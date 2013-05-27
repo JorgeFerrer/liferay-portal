@@ -21,8 +21,7 @@ public class PortletCategoryKeys {
 
 	public static final String[] ALL = {
 		PortletCategoryKeys.USERS, PortletCategoryKeys.SITES,
-		PortletCategoryKeys.APPS, PortletCategoryKeys.CONFIGURATION,
-		PortletCategoryKeys.MARKETPLACE
+		PortletCategoryKeys.APPS, PortletCategoryKeys.CONFIGURATION
 	};
 
 	public static final String APPS = "apps";
@@ -36,6 +35,9 @@ public class PortletCategoryKeys {
 
 	public static final String CURRENT_SITE = "current_site";
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #APPS}
+	 */
 	public static final String MARKETPLACE = "marketplace";
 
 	public static final String MY = "my";

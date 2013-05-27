@@ -142,7 +142,6 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 
 		if (category.equals(PortletCategoryKeys.APPS) ||
 			category.equals(PortletCategoryKeys.CONFIGURATION) ||
-			category.equals(PortletCategoryKeys.MARKETPLACE) ||
 			category.equals(PortletCategoryKeys.SITES) ||
 			category.equals(PortletCategoryKeys.USERS)) {
 

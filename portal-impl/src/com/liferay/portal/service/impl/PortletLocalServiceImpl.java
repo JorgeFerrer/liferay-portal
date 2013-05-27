@@ -69,6 +69,7 @@ import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.service.base.PortletLocalServiceBaseImpl;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletCategoryKeys;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebAppPool;
@@ -1418,10 +1419,18 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 			GetterUtil.getString(
 				portletElement.elementText("xml-rpc-method-class"),
 				portletModel.getXmlRpcMethodClass()));
+
+		String controlPanelEntryCategory = GetterUtil.getString(
+			portletElement.elementText("control-panel-entry-category"),
+			portletModel.getControlPanelEntryCategory());
+
+		if (Validator.equals(controlPanelEntryCategory, "marketplace")) {
+			controlPanelEntryCategory = PortletCategoryKeys.APPS;
+		}
+
 		portletModel.setControlPanelEntryCategory(
-			GetterUtil.getString(
-				portletElement.elementText("control-panel-entry-category"),
-				portletModel.getControlPanelEntryCategory()));
+			controlPanelEntryCategory);
+
 		portletModel.setControlPanelEntryWeight(
 			GetterUtil.getDouble(
 				portletElement.elementText("control-panel-entry-weight"),
