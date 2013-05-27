@@ -1424,7 +1424,17 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 			portletElement.elementText("control-panel-entry-category"),
 			portletModel.getControlPanelEntryCategory());
 
-		if (Validator.equals(controlPanelEntryCategory, "marketplace")) {
+		if (Validator.equals(controlPanelEntryCategory, "content")) {
+			controlPanelEntryCategory =
+				PortletCategoryKeys.SITE_ADMINISTRATION_CONTENT;
+		}
+		else if (Validator.equals(controlPanelEntryCategory, "marketplace")) {
+			controlPanelEntryCategory = PortletCategoryKeys.APPS;
+		}
+		else if (Validator.equals(controlPanelEntryCategory, "portal")) {
+			controlPanelEntryCategory = PortletCategoryKeys.USERS;
+		}
+		else if (Validator.equals(controlPanelEntryCategory, "server")) {
 			controlPanelEntryCategory = PortletCategoryKeys.APPS;
 		}
 
