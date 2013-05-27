@@ -122,27 +122,29 @@ String[][] categorySections = {mainSections, seoSections, advancedSections, misc
 	<liferay-util:param name="toolbarItem" value='<%= (group == null) ? "add" : "browse" %>' />
 </liferay-util:include>
 
-<%
-boolean localizeTitle = true;
-String title = "new-site";
+<c:if test="<%= (group == null) || !layout.isTypeControlPanel() %>">
+	<%
+	boolean localizeTitle = true;
+	String title = "new-site";
 
-if (group != null) {
-	localizeTitle= false;
-	title = group.getDescriptiveName(locale);
-}
-else if (layoutSetPrototype != null) {
-	localizeTitle= false;
-	title = layoutSetPrototype.getName(locale);
-}
-%>
+	if (group != null) {
+		localizeTitle= false;
+		title = group.getDescriptiveName(locale);
+	}
+	else if (layoutSetPrototype != null) {
+		localizeTitle= false;
+		title = layoutSetPrototype.getName(locale);
+	}
+	%>
 
-<liferay-ui:header
-	backURL="<%= backURL %>"
-	escapeXml="<%= false %>"
-	localizeTitle="<%= localizeTitle %>"
-	showBackURL="<%= showBackURL %>"
-	title="<%= HtmlUtil.escape(title) %>"
-/>
+	<liferay-ui:header
+		backURL="<%= backURL %>"
+		escapeXml="<%= false %>"
+		localizeTitle="<%= localizeTitle %>"
+		showBackURL="<%= showBackURL %>"
+		title="<%= HtmlUtil.escape(title) %>"
+	/>
+</c:if>
 
 <portlet:actionURL var="editSiteURL">
 	<portlet:param name="struts_action" value="/sites_admin/edit_site" />
