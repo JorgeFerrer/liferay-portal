@@ -118,10 +118,6 @@ if ((group != null) && group.isCompany()) {
 String[][] categorySections = {mainSections, seoSections, advancedSections, miscellaneousSections};
 %>
 
-<liferay-util:include page="/html/portlet/sites_admin/toolbar.jsp">
-	<liferay-util:param name="toolbarItem" value='<%= (group == null) ? "add" : "browse" %>' />
-</liferay-util:include>
-
 <c:if test="<%= (group == null) || !layout.isTypeControlPanel() %>">
 	<%
 	boolean localizeTitle = true;
