@@ -29,9 +29,13 @@ public interface KnownDevices {
 
 	public Map<Capability, Set<String>> getDeviceIds();
 
+	public Set<Dimensions> getDisplaySizes();
+
 	public Set<VersionableName> getOperatingSystems();
 
 	public Set<String> getPointingMethods();
+
+	public Set<Dimensions> getScreenResolutions();
 
 	public void reload() throws Exception;
 
