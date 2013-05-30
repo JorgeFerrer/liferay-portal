@@ -541,7 +541,8 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 
 	@Override
 	public void iconHelp(String message) throws Exception {
-		IconHelpTag iconHelpTag = new IconHelpTag();
+		com.liferay.taglib.ui.IconHelpTag iconHelpTag =
+			new com.liferay.taglib.ui.IconHelpTag();
 
 		setUp(iconHelpTag);
 
