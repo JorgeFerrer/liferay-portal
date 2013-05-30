@@ -162,4 +162,11 @@
 		list-style: none;
 		margin-bottom: 15px;
 	}
+
+    .control-panel-home-category-header {
+	    border-bottom: 1px #009ec3;
+	    border-bottom-style: solid;
+	    color: #009ec3;
+	    margin-bottom: 30px;
+    }
 }
