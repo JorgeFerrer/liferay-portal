@@ -14,6 +14,8 @@
  */
 --%>
 
+<%@ include file="/html/portlet/control_panel_home/init.jsp" %>
+
 <aui:container cssClass="control-panel-home-menu">
 	<aui:row>
 
