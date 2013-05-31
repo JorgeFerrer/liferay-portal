@@ -17,6 +17,7 @@ package com.liferay.portal.kernel.plugin;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 /**
  * @author Jorge Ferrer
@@ -138,7 +140,56 @@ public class Version implements Comparable<Version>, Serializable {
 			return result;
 		}
 
-		return getBuildNumber().compareTo(version.getBuildNumber());
+		String[] previousBuildNumber = StringUtil.split(
+			version.getBuildNumber(), StringPool.PERIOD);
+		String[] newBuildNumber = StringUtil.split(
+			getBuildNumber(), StringPool.PERIOD);
+
+		int legnth = previousBuildNumber.length > newBuildNumber.length ?
+			newBuildNumber.length : previousBuildNumber.length;
+
+		for (int i = 0; i < legnth; i++) {
+			if (_pattern.matcher(previousBuildNumber[i]).matches() &&
+				_pattern.matcher(newBuildNumber[i]).matches()) {
+
+				result = _compareBuildNumber(
+					Integer.parseInt(previousBuildNumber[i]),
+					Integer.parseInt(newBuildNumber[i]));
+
+				if (result == 0) {
+					continue;
+				}
+				else {
+					return result;
+				}
+			}
+			else {
+				result = _compareBuildNumber(
+					Integer.parseInt(
+						StringUtil.extractDigits(previousBuildNumber[i])),
+					Integer.parseInt(
+						StringUtil.extractDigits(newBuildNumber[i])));
+
+				if (result == 0) {
+					result =
+						getBuildNumber().compareTo(version.getBuildNumber());
+
+					if (result != 0) {
+						return result;
+					}
+				}
+				else {
+					return result;
+				}
+			}
+		}
+
+		if (previousBuildNumber.length > newBuildNumber.length) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
 	}
 
 	@Override
@@ -295,6 +346,20 @@ public class Version implements Comparable<Version>, Serializable {
 		_buildNumber = sb.toString();
 	}
 
+	private static int _compareBuildNumber(
+		int previousBuildNumber, int newBuildNumber) {
+
+		if (previousBuildNumber < newBuildNumber) {
+			return 1;
+		}
+		else if (previousBuildNumber > newBuildNumber) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+	}
+
 	private static boolean _contains(
 		String containerString, String numberString) {
 
@@ -343,6 +408,8 @@ public class Version implements Comparable<Version>, Serializable {
 	}
 
 	private static final String _SEPARATOR = StringPool.PERIOD;
+
+	private static Pattern _pattern = Pattern.compile("[0-9]*");
 
 	private static Map<String, Version> _versions =
 		new ConcurrentHashMap<String, Version>();
