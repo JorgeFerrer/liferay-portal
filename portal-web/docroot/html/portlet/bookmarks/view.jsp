@@ -266,7 +266,9 @@ if (folder != null) {
 		</aui:row>
 
 		<%
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, topLink), currentURL);
+		if (!layout.isTypeControlPanel()) {
+			PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, topLink), currentURL);
+		}
 
 		PortalUtil.setPageSubtitle(LanguageUtil.get(pageContext, StringUtil.replace(topLink, StringPool.UNDERLINE, StringPool.DASH)), request);
 		%>

@@ -30,14 +30,18 @@ boolean mergeWithParentFolderDisabled = ParamUtil.getBoolean(request, "mergeWith
 if (folder != null) {
 	BookmarksUtil.addPortletBreadcrumbEntries(folderId, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	}
 }
 else {
 	if (parentFolderId > 0) {
 		BookmarksUtil.addPortletBreadcrumbEntries(parentFolderId, request, renderResponse);
 	}
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-folder"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-folder"), currentURL);
+	}
 }
 %>
 

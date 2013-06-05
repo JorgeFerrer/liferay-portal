@@ -31,12 +31,16 @@ long folderId = BeanParamUtil.getLong(entry, request, "folderId");
 if (entry != null) {
 	BookmarksUtil.addPortletBreadcrumbEntries(entry, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	}
 }
 else {
 	BookmarksUtil.addPortletBreadcrumbEntries(folderId, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-entry"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-entry"), currentURL);
+	}
 }
 %>
 <c:if test="<%= Validator.isNull(referringPortletResource) %>">
