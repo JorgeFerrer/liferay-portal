@@ -39,10 +39,11 @@ else {
 	BookmarksUtil.addPortletBreadcrumbEntries(folderId, request, renderResponse);
 
 	if (!layout.isTypeControlPanel()) {
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-entry"), currentURL);
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-bookmark"), currentURL);
 	}
 }
 %>
+
 <c:if test="<%= Validator.isNull(referringPortletResource) %>">
 	<liferay-util:include page="/html/portlet/bookmarks/top_links.jsp" />
 </c:if>
@@ -62,7 +63,7 @@ else {
 	<liferay-ui:header
 		backURL="<%= backURL %>"
 		localizeTitle="<%= (entry == null) %>"
-		title='<%= (entry == null) ? "new-bookmark" : entry.getName() %>'
+		title='<%= (entry == null) ? "add-bookmark" : LanguageUtil.format(pageContext, "edit-x", entry.getName()) %>'
 	/>
 
 	<liferay-ui:error exception="<%= EntryURLException.class %>" message="please-enter-a-valid-url" />
