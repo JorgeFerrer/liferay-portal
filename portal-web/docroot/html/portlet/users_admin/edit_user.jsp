@@ -158,6 +158,10 @@ if (selUser != null) {
 
 String[][] categorySections = {mainSections, identificationSections, miscellaneousSections};
 
+if (organizations.size() == 1) {
+	UsersAdminUtil.addPortletBreadcrumbEntries(organizations.get(0), request, renderResponse);
+}
+
 if (selUser != null) {
 	if (!portletName.equals(PortletKeys.MY_ACCOUNT)) {
 		PortalUtil.addPortletBreadcrumbEntry(request, selUser.getFullName(), null);
