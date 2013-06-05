@@ -162,11 +162,6 @@ if (selUser != null) {
 	if (!portletName.equals(PortletKeys.MY_ACCOUNT)) {
 		PortalUtil.addPortletBreadcrumbEntry(request, selUser.getFullName(), null);
 	}
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-user"), currentURL);
 }
 %>
 
@@ -186,8 +181,9 @@ else {
 
 <liferay-ui:header
 	backURL="<%= backURL %>"
+	escapeXml="<%= false %>"
 	localizeTitle="<%= (selUser == null) %>"
-	title='<%= (selUser == null) ? "new-user" : selUser.getFullName() %>'
+	title='<%= (selUser == null) ? "add-user" : LanguageUtil.format(pageContext, "edit-user-x", HtmlUtil.escape(selUser.getFullName())) %>'
 />
 
 <portlet:actionURL var="editUserActionURL">

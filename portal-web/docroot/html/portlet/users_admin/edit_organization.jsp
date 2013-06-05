@@ -23,6 +23,7 @@ String backURL = ParamUtil.getString(request, "backURL", redirect);
 Organization organization = (Organization)request.getAttribute(WebKeys.ORGANIZATION);
 
 long organizationId = BeanParamUtil.getLong(organization, request, "organizationId");
+String type = BeanParamUtil.getString(organization, request, "type");
 
 String[] mainSections = PropsValues.ORGANIZATIONS_FORM_ADD_MAIN;
 String[] identificationSections = PropsValues.ORGANIZATIONS_FORM_ADD_IDENTIFICATION;
@@ -36,13 +37,20 @@ if (organization != null) {
 
 String[][] categorySections = {mainSections, identificationSections, miscellaneousSections};
 
-if (organization != null) {
-	UsersAdminUtil.addPortletBreadcrumbEntries(organization, request, renderResponse);
+String headerTitle = null;
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+if (organization != null) {
+	headerTitle = LanguageUtil.format(pageContext, "edit-x", organization.getName());
+}
+else if (Validator.isNotNull(type)) {
+	headerTitle = LanguageUtil.format(pageContext, "add-x", type);
 }
 else {
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-organization"), currentURL);
+	headerTitle = LanguageUtil.get(pageContext, "add-organization");
+}
+
+if (organization != null) {
+	UsersAdminUtil.addPortletBreadcrumbEntries(organization, request, renderResponse);
 }
 %>
 
@@ -59,7 +67,7 @@ else {
 <liferay-ui:header
 	backURL="<%= backURL %>"
 	localizeTitle="<%= (organization == null) %>"
-	title='<%= (organization == null) ? "new-organization" : organization.getName() %>'
+	title="<%= headerTitle %>"
 />
 
 <portlet:actionURL var="editOrganizationActionURL">
