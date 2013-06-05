@@ -27,8 +27,18 @@ BookmarksEntry entry = (BookmarksEntry)request.getAttribute(WebKeys.BOOKMARKS_EN
 long entryId = BeanParamUtil.getLong(entry, request, "entryId");
 
 long folderId = BeanParamUtil.getLong(entry, request, "folderId");
-%>
 
+if (entry != null) {
+	BookmarksUtil.addPortletBreadcrumbEntries(entry, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	BookmarksUtil.addPortletBreadcrumbEntries(folderId, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-entry"), currentURL);
+}
+%>
 <c:if test="<%= Validator.isNull(referringPortletResource) %>">
 	<liferay-util:include page="/html/portlet/bookmarks/top_links.jsp" />
 </c:if>
@@ -179,16 +189,3 @@ long folderId = BeanParamUtil.getLong(entry, request, "folderId");
 		}
 	);
 </aui:script>
-
-<%
-if (entry != null) {
-	BookmarksUtil.addPortletBreadcrumbEntries(entry, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	BookmarksUtil.addPortletBreadcrumbEntries(folderId, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-entry"), currentURL);
-}
-%>
