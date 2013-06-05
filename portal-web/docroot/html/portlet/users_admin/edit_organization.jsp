@@ -35,6 +35,15 @@ if (organization != null) {
 }
 
 String[][] categorySections = {mainSections, identificationSections, miscellaneousSections};
+
+if (organization != null) {
+	UsersAdminUtil.addPortletBreadcrumbEntries(organization, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-organization"), currentURL);
+}
 %>
 
 <aui:nav-bar>
@@ -42,6 +51,10 @@ String[][] categorySections = {mainSections, identificationSections, miscellaneo
 		<liferay-util:param name="toolbarItem" value='<%= (organization == null) ? "add" : "view" %>' />
 	</liferay-util:include>
 </aui:nav-bar>
+
+<div id="breadcrumb">
+	<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+</div>
 
 <liferay-ui:header
 	backURL="<%= backURL %>"
@@ -109,17 +122,6 @@ String[][] categorySections = {mainSections, identificationSections, miscellaneo
 		Liferay.Util.focusFormField(document.<portlet:namespace />fm.<portlet:namespace />name);
 	</c:if>
 </aui:script>
-
-<%
-if (organization != null) {
-	UsersAdminUtil.addPortletBreadcrumbEntries(organization, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-organization"), currentURL);
-}
-%>
 
 <%!
 private static final String[] _CATEGORY_NAMES = {"organization-information", "identification", "miscellaneous"};

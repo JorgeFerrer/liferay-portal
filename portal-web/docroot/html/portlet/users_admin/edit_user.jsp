@@ -157,6 +157,17 @@ if (selUser != null) {
 }
 
 String[][] categorySections = {mainSections, identificationSections, miscellaneousSections};
+
+if (selUser != null) {
+	if (!portletName.equals(PortletKeys.MY_ACCOUNT)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, selUser.getFullName(), null);
+	}
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-user"), currentURL);
+}
 %>
 
 <liferay-ui:error exception="<%= CompanyMaxUsersException.class %>" message="unable-to-create-user-account-because-the-maximum-number-of-users-has-been-reached" />
@@ -167,6 +178,10 @@ String[][] categorySections = {mainSections, identificationSections, miscellaneo
 			<liferay-util:param name="toolbarItem" value='<%= (selUser == null) ? "add" : "view" %>' />
 		</liferay-util:include>
 	</aui:nav-bar>
+
+	<div id="breadcrumb">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
 </c:if>
 
 <liferay-ui:header
@@ -272,19 +287,6 @@ if (selUser != null) {
 		Liferay.Util.focusFormField(document.<portlet:namespace />fm.<portlet:namespace />screenName);
 	</c:if>
 </aui:script>
-
-<%
-if (selUser != null) {
-	if (!portletName.equals(PortletKeys.MY_ACCOUNT)) {
-		PortalUtil.addPortletBreadcrumbEntry(request, selUser.getFullName(), null);
-	}
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-user"), currentURL);
-}
-%>
 
 <%!
 private static final String[] _CATEGORY_NAMES = {"user-information", "identification", "miscellaneous"};
