@@ -27,16 +27,24 @@ public class VersionTest extends TestCase {
 		assertLater("1.2.0", "1.1.1");
 	}
 
+	public void testBuildNumber() {
+		assertPrevious("1.1.1.0", "1.1.1.1");
+		assertPrevious("1.1.1.9", "1.1.1.10");
+		assertLater("1.1.1.20", "1.1.1.19");
+	}
+
 	public void testMajorNumber() {
 		assertPrevious("1.1", "1.1.1");
 		assertLater("2", "1.1.1");
 		assertLater("2", "1");
+		assertLater("10", "9");
 	}
 
 	public void testMinorNumber() {
 		assertPrevious("1.1", "1.1.1");
 		assertLater("1.2", "1.1.1");
 		assertLater("1.2", "1.1");
+		assertLater("1.10", "1.9");
 	}
 
 	public void testPlus() {
@@ -60,6 +68,7 @@ public class VersionTest extends TestCase {
 		assertIncludes("*", "1");
 		assertIncludes("*", "1.2");
 		assertIncludes("*", "1.2.3");
+		assertIncludes("*", "1.2.3.4");
 	}
 
 	protected void assertIncludes(String first, String second) {
