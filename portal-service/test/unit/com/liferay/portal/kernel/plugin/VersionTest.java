@@ -27,6 +27,13 @@ public class VersionTest extends TestCase {
 		assertLater("1.2.0", "1.1.1");
 	}
 
+	public void testBuildNumber() {
+		assertPrevious("1.1.1.0", "1.1.1.1");
+		assertPrevious("1.1.1.1", "1.1.1.1.1");
+		assertPrevious("1.1.1.2+", "1.1.1.10");
+		assertLater("1.1.1.2+", "1.1.1.2");
+	}
+
 	public void testMajorNumber() {
 		assertPrevious("1.1", "1.1.1");
 		assertLater("2", "1.1.1");
