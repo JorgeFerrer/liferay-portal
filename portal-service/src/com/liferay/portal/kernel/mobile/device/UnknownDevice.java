@@ -102,6 +102,11 @@ public class UnknownDevice extends AbstractDevice {
 		return false;
 	}
 
+	@Override
+	public boolean supportsDualOrientation() {
+		return false;
+	}
+
 	private UnknownDevice() {
 	}
 

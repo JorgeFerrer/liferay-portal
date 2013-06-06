@@ -56,4 +56,6 @@ public interface Device extends Serializable {
 
 	public boolean isTablet();
 
+	public boolean supportsDualOrientation();
+
 }
