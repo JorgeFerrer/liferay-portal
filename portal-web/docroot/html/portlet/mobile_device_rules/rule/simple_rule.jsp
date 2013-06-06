@@ -111,12 +111,13 @@ Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResol
 		value="<%= minDisplayHeight %>"
 		/>
 
-	(<liferay-ui:message key="known-dispay-sizes" />
-
+	(
 	<aui:select
+		helpMessage='<%= PluginPackageUtil.isInstalled("wurfl-web") ? StringPool.BLANK : "known-dispay-sizes-help" %>'
 		id="min-known-dispay-sizes"
 		inlineField="<%= true %>"
-		label=""
+		inlineLabel="true"
+		label="known-dispay-sizes"
 		multiple="<%= false %>"
 		name="min-known-dispay-sizes"
 		style="max-width:100px;"
@@ -161,12 +162,13 @@ Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResol
 		value="<%= maxDisplayHeight %>"
 		/>
 
-	(<liferay-ui:message key="known-dispay-sizes" />
-
+	(
 	<aui:select
+		helpMessage='<%= PluginPackageUtil.isInstalled("wurfl-web") ? StringPool.BLANK : "known-dispay-sizes-help" %>'
 		id="max-known-dispay-sizes"
 		inlineField="<%= true %>"
-		label=""
+		inlineLabel="true"
+		label="known-dispay-sizes"
 		multiple="<%= false %>"
 		name="max-known-dispay-sizes"
 		style="max-width:100px;"
@@ -213,12 +215,13 @@ Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResol
 		value="<%= minResolutionHeight %>"
 		/>
 
-	(<liferay-ui:message key="known-screen-resolutions" />
-
+	(
 	<aui:select
+		helpMessage='<%= PluginPackageUtil.isInstalled("wurfl-web") ? StringPool.BLANK : "known-screen-resolutions-help" %>'
 		id="min-known-screen-resolutions"
 		inlineField="<%= true %>"
-		label=""
+		inlineLabel="true"
+		label="known-screen-resolutions"
 		multiple="<%= false %>"
 		name="min-known-screen-resolutions"
 		style="max-width:100px;"
@@ -263,12 +266,13 @@ Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResol
 		value="<%= maxResolutionHeight %>"
 		/>
 
-	(<liferay-ui:message key="known-screen-resolutions" />
-
+	(
 	<aui:select
+		helpMessage='<%= PluginPackageUtil.isInstalled("wurfl-web") ? StringPool.BLANK : "known-screen-resolutions-help" %>'
 		id="max-known-screen-resolutions"
 		inlineField="<%= true %>"
-		label=""
+		inlineLabel="true"
+		label="known-screen-resolutions"
 		multiple="<%= false %>"
 		name="max-known-screen-resolutions"
 		style="max-width:100px;"
