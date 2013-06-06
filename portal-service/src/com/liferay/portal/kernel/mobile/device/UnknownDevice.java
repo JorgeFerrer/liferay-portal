@@ -54,6 +54,11 @@ public class UnknownDevice extends AbstractDevice {
 	}
 
 	@Override
+	public Dimensions getDisplaySize() {
+		return Dimensions.UNKNOWN;
+	}
+
+	@Override
 	public String getModel() {
 		return VersionableName.UNKNOWN.getName();
 	}
@@ -73,8 +78,17 @@ public class UnknownDevice extends AbstractDevice {
 		return VersionableName.UNKNOWN.getName();
 	}
 
+	/**
+	 * @deprecated please use {@link #getResolution()} instead
+	 */
 	@Override
+	@Deprecated
 	public Dimensions getScreenSize() {
+		return getResolution();
+	}
+
+	@Override
+	public Dimensions getResolution() {
 		return Dimensions.UNKNOWN;
 	}
 
@@ -88,9 +102,16 @@ public class UnknownDevice extends AbstractDevice {
 		return false;
 	}
 
+	@Override
+	public boolean supportsDualOrientation() {
+		return false;
+	}
+	
 	private UnknownDevice() {
 	}
 
 	private static UnknownDevice _instance = new UnknownDevice();
+
+
 
 }

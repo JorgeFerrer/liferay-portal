@@ -62,6 +62,13 @@ public class DeviceDetectionUtil {
 		return deviceIds.get(capability);
 	}
 
+	public static Set<Dimensions> getKnownDisplaySizes() {
+		KnownDevices knownDevices =
+			getDeviceRecognitionProvider().getKnownDevices();
+
+		return knownDevices.getDisplaySizes();
+	}
+
 	public static Set<VersionableName> getKnownOperatingSystems() {
 		KnownDevices knownDevices =
 			getDeviceRecognitionProvider().getKnownDevices();
@@ -74,6 +81,13 @@ public class DeviceDetectionUtil {
 			getDeviceRecognitionProvider().getKnownDevices();
 
 		return knownDevices.getPointingMethods();
+	}
+
+	public static Set<Dimensions> getKnownScreenResolutions() {
+		KnownDevices knownDevices =
+			getDeviceRecognitionProvider().getKnownDevices();
+
+		return knownDevices.getScreenResolutions();
 	}
 
 	public void setDeviceRecognitionProvider(
