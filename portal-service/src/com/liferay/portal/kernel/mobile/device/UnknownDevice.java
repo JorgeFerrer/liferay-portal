@@ -54,6 +54,11 @@ public class UnknownDevice extends AbstractDevice {
 	}
 
 	@Override
+	public Dimensions getDisplaySize() {
+		return Dimensions.UNKNOWN;
+	}
+
+	@Override
 	public String getModel() {
 		return VersionableName.UNKNOWN.getName();
 	}
@@ -74,8 +79,17 @@ public class UnknownDevice extends AbstractDevice {
 	}
 
 	@Override
-	public Dimensions getScreenSize() {
+	public Dimensions getResolution() {
 		return Dimensions.UNKNOWN;
+	}
+
+	/**
+	 * @deprecated As of 6.2.0 please use {@link #getResolution()} instead
+	 */
+	@Override
+	@Deprecated
+	public Dimensions getScreenSize() {
+		return getResolution();
 	}
 
 	@Override

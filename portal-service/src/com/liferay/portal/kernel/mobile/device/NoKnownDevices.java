@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Class represents unknown device
@@ -47,6 +48,11 @@ public class NoKnownDevices implements KnownDevices {
 	}
 
 	@Override
+	public Set<Dimensions> getDisplaySizes() {
+		return _displaySizes;
+	}
+
+	@Override
 	public Set<VersionableName> getOperatingSystems() {
 		return _operatingSystems;
 	}
@@ -54,6 +60,11 @@ public class NoKnownDevices implements KnownDevices {
 	@Override
 	public Set<String> getPointingMethods() {
 		return _pointingMethods;
+	}
+
+	@Override
+	public Set<Dimensions> getScreenResolutions() {
+		return _screenResolutins;
 	}
 
 	@Override
@@ -69,6 +80,8 @@ public class NoKnownDevices implements KnownDevices {
 
 		_browsers = Collections.unmodifiableSet(_browsers);
 
+		_displaySizes = Collections.unmodifiableSet(_displaySizes);
+
 		_operatingSystems.add(VersionableName.UNKNOWN);
 
 		_operatingSystems = Collections.unmodifiableSet(_operatingSystems);
@@ -76,14 +89,18 @@ public class NoKnownDevices implements KnownDevices {
 		_pointingMethods.add(VersionableName.UNKNOWN.getName());
 
 		_pointingMethods = Collections.unmodifiableSet(_pointingMethods);
+
+		_screenResolutins = Collections.unmodifiableSet(_screenResolutins);
 	}
 
 	private static NoKnownDevices _instance = new NoKnownDevices();
 
 	private Set<VersionableName> _brands = new HashSet<VersionableName>();
 	private Set<VersionableName> _browsers = new HashSet<VersionableName>();
+	private Set<Dimensions> _displaySizes = new TreeSet<Dimensions>();
 	private Set<VersionableName> _operatingSystems =
 		new HashSet<VersionableName>();
 	private Set<String> _pointingMethods = new HashSet<String>();
+	private Set<Dimensions> _screenResolutins = new TreeSet<Dimensions>();
 
 }
