@@ -14,6 +14,8 @@
 
 package com.liferay.portal.mobile.device.rulegroup.rule.impl;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mobile.device.Device;
 import com.liferay.portal.kernel.mobile.device.rulegroup.rule.RuleHandler;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -25,79 +27,295 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.mobiledevicerules.model.MDRRule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
 /**
  * @author Edward Han
+ * @author Milen Daynkov
  */
 public class SimpleRuleHandler implements RuleHandler {
 
+	public static final String PROPERTY_DISPLAY_HEIGHT = "display_height";
+	public static final String PROPERTY_DISPLAY_WIDTH = "display_width";
+	public static final String PROPERTY_OS = "os";
+	public static final String PROPERTY_RESOLUTION_HEIGHT = "resolution_height";
+	public static final String PROPERTY_RESOLUTION_WIDTH = "resolution_width";
+	public static final String PROPERTY_TABLET = "tablet";
+
 	public static String getHandlerType() {
+
 		return SimpleRuleHandler.class.getName();
 	}
 
 	@Override
 	public boolean evaluateRule(MDRRule mdrRule, ThemeDisplay themeDisplay) {
+
 		Device device = themeDisplay.getDevice();
 
-		if ((device == null) || Validator.isNull(device.getOS())) {
+		if (_log.isDebugEnabled()) {
+			_log.debug("Evaluating rule '" + mdrRule.getNameCurrentValue() +
+				"'!");
+		}
+
+		if (device == null) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Skipping rule '" + mdrRule.getNameCurrentValue() +
+					"'! Mising device information!");
+			}
+
 			return false;
 		}
 
 		UnicodeProperties typeSettingsProperties =
 			mdrRule.getTypeSettingsProperties();
 
-		boolean result = true;
+		// check OS
 
-		String os = typeSettingsProperties.get("os");
+		String os = typeSettingsProperties.get(PROPERTY_OS);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device OS: " + device.getOS());
+		}
 
 		if (Validator.isNotNull(os)) {
 			String[] operatingSystems = StringUtil.split(os);
 
-			if (ArrayUtil.contains(operatingSystems, device.getOS())) {
-				result = true;
+			if (!ArrayUtil.contains(operatingSystems, device.getOS())) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device OS does not match! Rule condition: " +
+						Arrays.toString(operatingSystems));
+				}
+
+				return false;
 			}
-			else {
-				result = false;
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device OS matches rule condition: " +
+					operatingSystems);
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for device OS!");
 			}
 		}
 
-		String tablet = typeSettingsProperties.get("tablet");
+		// check OS
+
+		String tablet = typeSettingsProperties.get(PROPERTY_TABLET);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device is tablet : " +
+				(device.isTablet() ? "yes" : "no"));
+		}
 
 		if (Validator.isNotNull(tablet)) {
 			boolean tabletBoolean = GetterUtil.getBoolean(tablet);
 
-			if (result && (tabletBoolean == device.isTablet())) {
-				result = true;
+			if (tabletBoolean != device.isTablet()) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device type does not match! Rule condition: is tablet = " +
+						(tabletBoolean ? "yes" : "no"));
+				}
+
+				return false;
 			}
-			else {
-				result = false;
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device type matches rule condition: is tablet = " +
+					(tabletBoolean ? "yes" : "no"));
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for device type!");
 			}
 		}
 
-		return result;
+		String ruleStringValue;
+		int deviceValue;
+		int ruleValue;
+
+		// check display width
+
+		ruleStringValue = typeSettingsProperties.get(PROPERTY_DISPLAY_WIDTH);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device display width: " +
+				device.getDisplaySize().getWidth());
+		}
+
+		if (Validator.isNotNull(ruleStringValue)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValue);
+			deviceValue = device.getDisplaySize().getWidth();
+
+			if (ruleValue != deviceValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device display width does not match! Rule condition: " +
+						ruleValue);
+				}
+
+				return false;
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device display width matches rule condition: " +
+					ruleValue);
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for device display width!");
+			}
+		}
+
+		// check display height
+
+		ruleStringValue = typeSettingsProperties.get(PROPERTY_DISPLAY_HEIGHT);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device display height: " +
+				device.getDisplaySize().getHeight());
+		}
+
+		if (Validator.isNotNull(ruleStringValue)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValue);
+			deviceValue = device.getDisplaySize().getHeight();
+
+			if (ruleValue != deviceValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device display height does not match! Rule condition: " +
+						ruleValue);
+				}
+
+				return false;
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device display height matches rule condition: " +
+					ruleValue);
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for device display height!");
+			}
+		}
+
+		// check resolution height
+
+		ruleStringValue = typeSettingsProperties.get(
+			PROPERTY_RESOLUTION_HEIGHT);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device resolution height: " +
+				device.getResolution().getHeight());
+		}
+
+		if (Validator.isNotNull(ruleStringValue)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValue);
+			deviceValue = device.getResolution().getHeight();
+
+			if (ruleValue != deviceValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device resolution height does not match! Rule condition: " +
+						ruleValue);
+				}
+
+				return false;
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device resolution height matches rule condition: " +
+					ruleValue);
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for Device resolution width!");
+			}
+		}
+
+		// check resolution width
+
+		ruleStringValue = typeSettingsProperties.get(PROPERTY_RESOLUTION_WIDTH);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device resolution width: " +
+				device.getResolution().getWidth());
+		}
+
+		if (Validator.isNotNull(ruleStringValue)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValue);
+			deviceValue = device.getResolution().getWidth();
+
+			if (ruleValue != deviceValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" +
+						mdrRule.getNameCurrentValue() +
+						"'! Device resolution width does not match! Rule condition: " +
+						ruleValue);
+				}
+
+				return false;
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Device resolution width matches rule condition: " +
+					ruleValue);
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition for device resolution height!");
+			}
+		}
+
+		// if we are here then either everything matches or there are no
+		// conditions. Thus we return true
+
+		return true;
 	}
 
 	@Override
 	public Collection<String> getPropertyNames() {
+
 		return _propertyNames;
 	}
 
 	@Override
 	public String getType() {
+
 		return getHandlerType();
 	}
 
-	private static Collection<String> _propertyNames;
+	private static Log _log = LogFactoryUtil.getLog(SimpleRuleHandler.class);
 
 	static {
-		_propertyNames = new ArrayList<String>(2);
+		_propertyNames = new ArrayList<String>(6);
 
-		_propertyNames.add("os");
-		_propertyNames.add("tablet");
+		_propertyNames.add(PROPERTY_OS);
+		_propertyNames.add(PROPERTY_TABLET);
+		_propertyNames.add(PROPERTY_DISPLAY_WIDTH);
+		_propertyNames.add(PROPERTY_DISPLAY_HEIGHT);
+		_propertyNames.add(PROPERTY_RESOLUTION_WIDTH);
+		_propertyNames.add(PROPERTY_RESOLUTION_HEIGHT);
 
 		_propertyNames = Collections.unmodifiableCollection(_propertyNames);
 	}
+
+	private static Collection<String> _propertyNames;
 
 }
