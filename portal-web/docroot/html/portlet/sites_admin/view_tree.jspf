@@ -44,9 +44,7 @@ if (group != null) {
 	<liferay-util:include page="/html/portlet/sites_admin/toolbar.jsp">
 		<liferay-util:param name="toolbarItem" value='<%= (group == null) ? "add" : "browse" %>' />
 	</liferay-util:include>
-</c:if>
 
-<c:if test="<%= (group != null) && !layout.isTypeControlPanel() %>">
 	<portlet:renderURL var="headerBackURL">
 		<portlet:param name="struts_action" value="/sites_admin/view" />
 		<portlet:param name="groupId" value="<%= String.valueOf(parentGroupId) %>" />
