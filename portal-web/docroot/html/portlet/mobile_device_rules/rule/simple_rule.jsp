@@ -21,10 +21,15 @@ MDRRule rule = (MDRRule)request.getAttribute(WebKeys.MOBILE_DEVICE_RULES_RULE);
 
 Set<String> operatingSystems = Collections.emptySet();
 int tablet = 0;
-String displayHeight = "";
-String displayWidth = "";
-String resolutionHeight = "";
-String resolutionWidth = "";
+String separator = " x ";
+String maxDisplayHeight = "";
+String maxDisplayWidth = "";
+String maxResolutionHeight = "";
+String maxResolutionWidth = "";
+String minDisplayHeight = "";
+String minDisplayWidth = "";
+String minResolutionHeight = "";
+String minResolutionWidth = "";
 
 if (rule != null) {
 	UnicodeProperties typeSettingsProperties = rule.getTypeSettingsProperties();
@@ -40,11 +45,18 @@ if (rule != null) {
 		tablet = 2;
 	}
 
-	displayHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_HEIGHT));
-	displayWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_WIDTH));
-	resolutionHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_HEIGHT));
-	resolutionWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_WIDTH));
+	maxDisplayHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_MAX_HEIGHT));
+	maxDisplayWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_MAX_WIDTH));
+	maxResolutionHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_HEIGHT));
+	maxResolutionWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_WIDTH));
+	minDisplayHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_MIN_HEIGHT));
+	minDisplayWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_DISPLAY_MIN_WIDTH));
+	minResolutionHeight = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_HEIGHT));
+	minResolutionWidth = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_WIDTH));
 }
+
+Set<Dimensions> knownDisplaySizes = DeviceDetectionUtil.getKnownDisplaySizes();
+Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResolutions();
 %>
 
 <h3><liferay-ui:message key="generic-product-information" /></h3>
@@ -75,95 +87,210 @@ if (rule != null) {
 
 <h3><liferay-ui:message key="screen-size-in-millimiters" /></h3>
 
-<aui:select
-	id="known-dispay-sizes"
-	label="known-dispay-sizes"
-	multiple="<%= false %>"
-	name="known-dispay-sizes"
-	>
-
-	<aui:option label="" />
-
-	<%
-	Set<Dimensions> knownDisplaySizes = DeviceDetectionUtil.getKnownDisplaySizes();
-
-	for (Dimensions knownDisplaySize : knownDisplaySizes) {
-	%>
-
-		<aui:option label='<%= knownDisplaySize.getWidth() + " x " + knownDisplaySize.getHeight() %>' />
-
-	<%
-	}
-	%>
-
-</aui:select>
-
 
 <div class="row-fields">
+	<liferay-ui:message key="minimum-display-size" />
+
 	<aui:input
-		cssClass="custom-display-field aui-field-digits"
-		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_WIDTH %>"
+		cssClass="custom-min-display-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_WIDTH %>"
 		inlineField="<%= true %>"
 		label="width"
-		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_WIDTH %>"
-		value="<%= displayWidth %>"
+		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_WIDTH %>"
+		style="max-width:50px;"
+		value="<%= minDisplayWidth %>"
 		/>
-	X
+	<%= separator %>
 	<aui:input
-		cssClass="custom-display-field aui-field-digits"
-		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_HEIGHT %>"
+		cssClass="custom-min-display-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_HEIGHT %>"
 		inlineField="<%= true %>"
 		label="height"
-		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_HEIGHT %>"
-		value="<%= displayHeight %>"
+		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_HEIGHT %>"
+		style="max-width:50px;"
+		value="<%= minDisplayHeight %>"
 		/>
+
+	(<liferay-ui:message key="known-dispay-sizes" />
+
+	<aui:select
+		id="min-known-dispay-sizes"
+		inlineField="<%= true %>"
+		label=""
+		multiple="<%= false %>"
+		name="min-known-dispay-sizes"
+		style="max-width:100px;"
+		>
+
+		<aui:option label="" />
+
+		<%
+		for (Dimensions knownDisplaySize : knownDisplaySizes) {
+		%>
+
+			<aui:option label="<%= knownDisplaySize.getWidth() + separator + knownDisplaySize.getHeight() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+	)
 </div>
 
+<div class="row-fields">
+	<liferay-ui:message key="maximum-display-size" />
+
+	<aui:input
+		cssClass="custom-max-display-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_WIDTH %>"
+		inlineField="<%= true %>"
+		label="width"
+		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_WIDTH %>"
+		style="max-width:50px;"
+		value="<%= maxDisplayWidth %>"
+		/>
+	<%= separator %>
+	<aui:input
+		cssClass="custom-max-display-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_HEIGHT %>"
+		inlineField="<%= true %>"
+		label="height"
+		name="<%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_HEIGHT %>"
+		style="max-width:50px;"
+		value="<%= maxDisplayHeight %>"
+		/>
+
+	(<liferay-ui:message key="known-dispay-sizes" />
+
+	<aui:select
+		id="max-known-dispay-sizes"
+		inlineField="<%= true %>"
+		label=""
+		multiple="<%= false %>"
+		name="max-known-dispay-sizes"
+		style="max-width:100px;"
+		>
+
+		<aui:option label="" />
+
+		<%
+		for (Dimensions knownDisplaySize : knownDisplaySizes) {
+		%>
+
+			<aui:option label="<%= knownDisplaySize.getWidth() + separator + knownDisplaySize.getHeight() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+	)
+</div>
 
 <h3><liferay-ui:message key="screen-resolution" /></h3>
 
-<aui:select
-	id="known-screen-resolutions"
-	label="known-screen-resolutions"
-	multiple="<%= false %>"
-	name="known-screen-resolutions"
-	>
-
-	<aui:option label="" />
-
-	<%
-	Set<Dimensions> knownScreenResolutions = DeviceDetectionUtil.getKnownScreenResolutions();
-
-	for (Dimensions knownScreenResolution : knownScreenResolutions) {
-	%>
-
-		<aui:option label='<%= knownScreenResolution.getWidth() + " x " + knownScreenResolution.getHeight() %>' />
-
-	<%
-	}
-	%>
-
-</aui:select>
-
 <div class="row-fields">
+	<liferay-ui:message key="minimum-screen-resolution" />
+
 	<aui:input
-		cssClass="custom-resolution-field aui-field-digits"
-		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_WIDTH %>"
+		cssClass="custom-min-resolution-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_WIDTH %>"
 		inlineField="<%= true %>"
 		label="width"
-		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_WIDTH %>"
-		value="<%= resolutionWidth %>"
+		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_WIDTH %>"
+		style="max-width:50px;"
+		value="<%= minResolutionWidth %>"
 		/>
-	X
+	<%= separator %>
 	<aui:input
-		cssClass="custom-resolution-field aui-field-digits"
-		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_HEIGHT %>"
+		cssClass="custom-min-resolution-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_HEIGHT %>"
 		inlineField="<%= true %>"
 		label="height"
-		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_HEIGHT %>"
-		value="<%= resolutionHeight %>"
+		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_HEIGHT %>"
+		style="max-width:50px;"
+		value="<%= minResolutionHeight %>"
 		/>
+
+	(<liferay-ui:message key="known-screen-resolutions" />
+
+	<aui:select
+		id="min-known-screen-resolutions"
+		inlineField="<%= true %>"
+		label=""
+		multiple="<%= false %>"
+		name="min-known-screen-resolutions"
+		style="max-width:100px;"
+		>
+
+		<aui:option label="" />
+
+		<%
+		for (Dimensions knownScreenResolution : knownScreenResolutions) {
+		%>
+
+			<aui:option label="<%= knownScreenResolution.getWidth() + separator + knownScreenResolution.getHeight() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+	)
 </div>
+
+<div class="row-fields">
+	<liferay-ui:message key="maximum-screen-resolution" />
+
+	<aui:input
+		cssClass="custom-max-resolution-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_WIDTH %>"
+		inlineField="<%= true %>"
+		label="width"
+		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_WIDTH %>"
+		style="max-width:50px;"
+		value="<%= maxResolutionWidth %>"
+		/>
+	<%= separator %>
+	<aui:input
+		cssClass="custom-max-resolution-field aui-field-digits"
+		id="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_HEIGHT %>"
+		inlineField="<%= true %>"
+		label="height"
+		name="<%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_HEIGHT %>"
+		style="max-width:50px;"
+		value="<%= maxResolutionHeight %>"
+		/>
+
+	(<liferay-ui:message key="known-screen-resolutions" />
+
+	<aui:select
+		id="max-known-screen-resolutions"
+		inlineField="<%= true %>"
+		label=""
+		multiple="<%= false %>"
+		name="max-known-screen-resolutions"
+		style="max-width:100px;"
+		>
+
+		<aui:option label="" />
+
+		<%
+		for (Dimensions knownScreenResolution : knownScreenResolutions) {
+		%>
+
+			<aui:option label="<%= knownScreenResolution.getWidth() + separator + knownScreenResolution.getHeight() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+	)
+
+</div>
+
 
 <script>
 
@@ -172,43 +299,84 @@ if (rule != null) {
 	YUI().use(
 		'aui-node',
 		function(Y) {
-			var knownSizes = Y.one('#<portlet:namespace/>known-dispay-sizes');
-			var sizeWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_WIDTH %>');
-			var sizeHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_HEIGHT %>');
+			var maxKnownSizes = Y.one('#<portlet:namespace/>max-known-dispay-sizes');
+			var maxSizeHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_HEIGHT %>');
+			var maxSizeWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_MAX_WIDTH %>');
 
-			var knownResolutions = Y.one('#<portlet:namespace/>known-screen-resolutions');
-			var resWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_WIDTH %>');
-			var resHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_HEIGHT %>');
+			var minKnownSizes = Y.one('#<portlet:namespace/>min-known-dispay-sizes');
+			var minSizeHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_HEIGHT %>');
+			var minSizeWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_DISPLAY_MIN_WIDTH %>');
 
-			knownSizes.on(
+			var maxKnownResolutions = Y.one('#<portlet:namespace/>max-known-screen-resolutions');
+			var maxResWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_WIDTH %>');
+			var maxResHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_MAX_HEIGHT %>');
+
+			var minKnownResolutions = Y.one('#<portlet:namespace/>min-known-screen-resolutions');
+			var minResWidth = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_WIDTH %>');
+			var minResHeight = Y.one('#<portlet:namespace/><%= SimpleRuleHandler.PROPERTY_RESOLUTION_MIN_HEIGHT %>');
+
+			maxKnownSizes.on(
 			    'change',
 			    function() {
-			  		var sizes = knownSizes.val().split(" x ");
-			  		sizeWidth.val(sizes[0]);
-			  		sizeHeight.val(sizes[1]);
+			  		var sizes = maxKnownSizes.val().split("<%= separator %>");
+			  		maxSizeWidth.val(sizes[0]);
+			  		maxSizeHeight.val(sizes[1]);
 			    }
 			);
 
-			knownResolutions.on(
+			minKnownSizes.on(
+			    'change',
+			    function() {
+			  		var sizes = minKnownSizes.val().split("<%= separator %>");
+			  		minSizeWidth.val(sizes[0]);
+			  		minSizeHeight.val(sizes[1]);
+			    }
+			);
+
+			maxKnownResolutions.on(
 				'change',
 				function() {
-					var sizes = knownResolutions.val().split(" x ");
-					resWidth.val(sizes[0]);
-					resHeight.val(sizes[1]);
+					var sizes = maxKnownResolutions.val().split("<%= separator %>");
+					maxResWidth.val(sizes[0]);
+					maxResHeight.val(sizes[1]);
 			  	}
 			);
 
-			Y.all('.custom-display-field').on(
+			minKnownResolutions.on(
 				'change',
 				function() {
-					knownSizes.set('selectedIndex', 0);
+					var sizes = minKnownResolutions.val().split("<%= separator %>");
+					minResWidth.val(sizes[0]);
+					minResHeight.val(sizes[1]);
 			  	}
 			);
 
-			Y.all('.custom-resolution-field').on(
+			Y.all('.custom-max-display-field').on(
 				'change',
 				function() {
-					knownResolutions.set('selectedIndex', 0);
+					maxKnownSizes.set('selectedIndex', 0);
+			  	}
+			);
+
+
+			Y.all('.custom-min-display-field').on(
+				'change',
+				function() {
+					minKnownSizes.set('selectedIndex', 0);
+			  	}
+			);
+
+			Y.all('.custom-max-resolution-field').on(
+				'change',
+				function() {
+					maxKnownResolutions.set('selectedIndex', 0);
+			  	}
+			);
+
+			Y.all('.custom-min-resolution-field').on(
+				'change',
+				function() {
+					minKnownResolutions.set('selectedIndex', 0);
 			  	}
 			);
 		}

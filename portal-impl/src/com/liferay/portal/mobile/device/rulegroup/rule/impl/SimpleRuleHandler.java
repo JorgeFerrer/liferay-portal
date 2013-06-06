@@ -37,11 +37,21 @@ import java.util.Collections;
  */
 public class SimpleRuleHandler implements RuleHandler {
 
-	public static final String PROPERTY_DISPLAY_HEIGHT = "display_height";
-	public static final String PROPERTY_DISPLAY_WIDTH = "display_width";
+	public static final String PROPERTY_DISPLAY_MAX_HEIGHT =
+		"display_height_max";
+	public static final String PROPERTY_DISPLAY_MAX_WIDTH = "display_width_max";
+	public static final String PROPERTY_DISPLAY_MIN_HEIGHT =
+		"display_height_min";
+	public static final String PROPERTY_DISPLAY_MIN_WIDTH = "display_width_min";
 	public static final String PROPERTY_OS = "os";
-	public static final String PROPERTY_RESOLUTION_HEIGHT = "resolution_height";
-	public static final String PROPERTY_RESOLUTION_WIDTH = "resolution_width";
+	public static final String PROPERTY_RESOLUTION_MAX_HEIGHT =
+		"resolution_height_max";
+	public static final String PROPERTY_RESOLUTION_MAX_WIDTH =
+		"resolution_width_max";
+	public static final String PROPERTY_RESOLUTION_MIN_HEIGHT =
+		"resolution_height_min";
+	public static final String PROPERTY_RESOLUTION_MIN_WIDTH =
+		"resolution_width_min";
 	public static final String PROPERTY_TABLET = "tablet";
 
 	public static String getHandlerType() {
@@ -76,7 +86,7 @@ public class SimpleRuleHandler implements RuleHandler {
 		String os = typeSettingsProperties.get(PROPERTY_OS);
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Device OS: " + device.getOS());
+			_log.debug("Device's OS: " + device.getOS());
 		}
 
 		if (Validator.isNotNull(os)) {
@@ -86,7 +96,7 @@ public class SimpleRuleHandler implements RuleHandler {
 				if (_log.isDebugEnabled()) {
 					_log.debug("Skipping rule '" +
 						mdrRule.getNameCurrentValue() +
-						"'! Device OS does not match! Rule condition: " +
+						"'! Device's OS does not match rule condition: " +
 						Arrays.toString(operatingSystems));
 				}
 
@@ -94,13 +104,13 @@ public class SimpleRuleHandler implements RuleHandler {
 			}
 
 			if (_log.isDebugEnabled()) {
-				_log.debug("Device OS matches rule condition: " +
+				_log.debug("Device's OS matches rule condition: " +
 					operatingSystems);
 			}
 		}
 		else {
 			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for device OS!");
+				_log.debug("No condition defined for device OS!");
 			}
 		}
 
@@ -109,8 +119,8 @@ public class SimpleRuleHandler implements RuleHandler {
 		String tablet = typeSettingsProperties.get(PROPERTY_TABLET);
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Device is tablet : " +
-				(device.isTablet() ? "yes" : "no"));
+			_log.debug("Device type : " +
+				(device.isTablet() ? "tablet" : "other device"));
 		}
 
 		if (Validator.isNotNull(tablet)) {
@@ -121,166 +131,61 @@ public class SimpleRuleHandler implements RuleHandler {
 					_log.debug("Skipping rule '" +
 						mdrRule.getNameCurrentValue() +
 						"'! Device type does not match! Rule condition: is tablet = " +
-						(tabletBoolean ? "yes" : "no"));
+						(tabletBoolean ? "tablet" : "other device"));
 				}
 
 				return false;
 			}
 
 			if (_log.isDebugEnabled()) {
-				_log.debug("Device type matches rule condition: is tablet = " +
-					(tabletBoolean ? "yes" : "no"));
+				_log.debug("Device type matches rule condition: " +
+					(tabletBoolean ? "tablet" : "other device"));
 			}
 		}
 		else {
 			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for device type!");
-			}
-		}
-
-		String ruleStringValue;
-		int deviceValue;
-		int ruleValue;
-
-		// check display width
-
-		ruleStringValue = typeSettingsProperties.get(PROPERTY_DISPLAY_WIDTH);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Device display width: " +
-				device.getDisplaySize().getWidth());
-		}
-
-		if (Validator.isNotNull(ruleStringValue)) {
-			ruleValue = GetterUtil.getInteger(ruleStringValue);
-			deviceValue = device.getDisplaySize().getWidth();
-
-			if (ruleValue != deviceValue) {
-				if (_log.isDebugEnabled()) {
-					_log.debug("Skipping rule '" +
-						mdrRule.getNameCurrentValue() +
-						"'! Device display width does not match! Rule condition: " +
-						ruleValue);
-				}
-
-				return false;
-			}
-
-			if (_log.isDebugEnabled()) {
-				_log.debug("Device display width matches rule condition: " +
-					ruleValue);
-			}
-		}
-		else {
-			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for device display width!");
+				_log.debug("No condition defined for device type!");
 			}
 		}
 
 		// check display height
 
-		ruleStringValue = typeSettingsProperties.get(PROPERTY_DISPLAY_HEIGHT);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Device display height: " +
-				device.getDisplaySize().getHeight());
+		if (!between(
+				device.getDisplaySize().getHeight(),
+			typeSettingsProperties.get(PROPERTY_DISPLAY_MIN_HEIGHT),
+			typeSettingsProperties.get(PROPERTY_DISPLAY_MAX_HEIGHT),
+			mdrRule.getNameCurrentValue(), "display height")) {
+			return false;
 		}
 
-		if (Validator.isNotNull(ruleStringValue)) {
-			ruleValue = GetterUtil.getInteger(ruleStringValue);
-			deviceValue = device.getDisplaySize().getHeight();
+		// check display width
 
-			if (ruleValue != deviceValue) {
-				if (_log.isDebugEnabled()) {
-					_log.debug("Skipping rule '" +
-						mdrRule.getNameCurrentValue() +
-						"'! Device display height does not match! Rule condition: " +
-						ruleValue);
-				}
-
-				return false;
-			}
-
-			if (_log.isDebugEnabled()) {
-				_log.debug("Device display height matches rule condition: " +
-					ruleValue);
-			}
-		}
-		else {
-			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for device display height!");
-			}
+		if (!between(
+				device.getDisplaySize().getWidth(),
+			typeSettingsProperties.get(PROPERTY_DISPLAY_MIN_WIDTH),
+			typeSettingsProperties.get(PROPERTY_DISPLAY_MAX_WIDTH),
+			mdrRule.getNameCurrentValue(), "display width")) {
+			return false;
 		}
 
 		// check resolution height
 
-		ruleStringValue = typeSettingsProperties.get(
-			PROPERTY_RESOLUTION_HEIGHT);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Device resolution height: " +
-				device.getResolution().getHeight());
-		}
-
-		if (Validator.isNotNull(ruleStringValue)) {
-			ruleValue = GetterUtil.getInteger(ruleStringValue);
-			deviceValue = device.getResolution().getHeight();
-
-			if (ruleValue != deviceValue) {
-				if (_log.isDebugEnabled()) {
-					_log.debug("Skipping rule '" +
-						mdrRule.getNameCurrentValue() +
-						"'! Device resolution height does not match! Rule condition: " +
-						ruleValue);
-				}
-
-				return false;
-			}
-
-			if (_log.isDebugEnabled()) {
-				_log.debug("Device resolution height matches rule condition: " +
-					ruleValue);
-			}
-		}
-		else {
-			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for Device resolution width!");
-			}
+		if (!between(
+				device.getResolution().getHeight(),
+			typeSettingsProperties.get(PROPERTY_RESOLUTION_MIN_HEIGHT),
+			typeSettingsProperties.get(PROPERTY_RESOLUTION_MAX_HEIGHT),
+			mdrRule.getNameCurrentValue(), "resolution height")) {
+			return false;
 		}
 
 		// check resolution width
 
-		ruleStringValue = typeSettingsProperties.get(PROPERTY_RESOLUTION_WIDTH);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug("Device resolution width: " +
-				device.getResolution().getWidth());
-		}
-
-		if (Validator.isNotNull(ruleStringValue)) {
-			ruleValue = GetterUtil.getInteger(ruleStringValue);
-			deviceValue = device.getResolution().getWidth();
-
-			if (ruleValue != deviceValue) {
-				if (_log.isDebugEnabled()) {
-					_log.debug("Skipping rule '" +
-						mdrRule.getNameCurrentValue() +
-						"'! Device resolution width does not match! Rule condition: " +
-						ruleValue);
-				}
-
-				return false;
-			}
-
-			if (_log.isDebugEnabled()) {
-				_log.debug("Device resolution width matches rule condition: " +
-					ruleValue);
-			}
-		}
-		else {
-			if (_log.isDebugEnabled()) {
-				_log.debug("No condition for device resolution height!");
-			}
+		if (!between(
+				device.getResolution().getWidth(),
+			typeSettingsProperties.get(PROPERTY_RESOLUTION_MIN_WIDTH),
+			typeSettingsProperties.get(PROPERTY_RESOLUTION_MAX_WIDTH),
+			mdrRule.getNameCurrentValue(), "resolution width")) {
+			return false;
 		}
 
 		// if we are here then either everything matches or there are no
@@ -301,17 +206,96 @@ public class SimpleRuleHandler implements RuleHandler {
 		return getHandlerType();
 	}
 
+	protected boolean between(
+		int value, String ruleStringValueMin, String ruleStringValueMax,
+		String logRuleName, String logDescription) {
+
+		int ruleValue;
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Device's " + logDescription + ": " + value);
+		}
+
+		if (Validator.isNull(ruleStringValueMax) &&
+			Validator.isNull(ruleStringValueMin)) {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition defined for device's " +
+					logDescription + "!");
+			}
+
+			return true;
+		}
+
+		if (Validator.isNotNull(ruleStringValueMax)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValueMax);
+
+			if (value > ruleValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" + logRuleName +
+						"'! Device's " + logDescription + " > max " +
+						logRuleName + "(" + ruleValue + ")");
+				}
+
+				return false;
+			}
+			else {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Device's " + logDescription +
+						" matches rule condition: <= " + ruleValue);
+				}
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition defined for device's max " +
+					logDescription + "!");
+			}
+		}
+
+		if (Validator.isNotNull(ruleStringValueMin)) {
+			ruleValue = GetterUtil.getInteger(ruleStringValueMin);
+
+			if (value < ruleValue) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Skipping rule '" + logRuleName +
+						"'! Device's " + logDescription + " < min " +
+						logRuleName + "(" + ruleValue + ")");
+				}
+
+				return false;
+			}
+			else {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Device's " + logDescription +
+						" matches rule condition: >= " + ruleValue);
+				}
+			}
+		}
+		else {
+			if (_log.isDebugEnabled()) {
+				_log.debug("No condition defined for device's min " +
+					logDescription + "!");
+			}
+		}
+
+		return true;
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(SimpleRuleHandler.class);
 
 	static {
-		_propertyNames = new ArrayList<String>(6);
+		_propertyNames = new ArrayList<String>(10);
 
 		_propertyNames.add(PROPERTY_OS);
+		_propertyNames.add(PROPERTY_DISPLAY_MAX_WIDTH);
+		_propertyNames.add(PROPERTY_DISPLAY_MIN_WIDTH);
+		_propertyNames.add(PROPERTY_DISPLAY_MAX_HEIGHT);
+		_propertyNames.add(PROPERTY_DISPLAY_MIN_HEIGHT);
+		_propertyNames.add(PROPERTY_RESOLUTION_MAX_WIDTH);
+		_propertyNames.add(PROPERTY_RESOLUTION_MIN_WIDTH);
+		_propertyNames.add(PROPERTY_RESOLUTION_MAX_HEIGHT);
+		_propertyNames.add(PROPERTY_RESOLUTION_MIN_HEIGHT);
 		_propertyNames.add(PROPERTY_TABLET);
-		_propertyNames.add(PROPERTY_DISPLAY_WIDTH);
-		_propertyNames.add(PROPERTY_DISPLAY_HEIGHT);
-		_propertyNames.add(PROPERTY_RESOLUTION_WIDTH);
-		_propertyNames.add(PROPERTY_RESOLUTION_HEIGHT);
 
 		_propertyNames = Collections.unmodifiableCollection(_propertyNames);
 	}
