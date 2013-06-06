@@ -221,6 +221,11 @@ public class Version implements Comparable<Version>, Serializable {
 
 						return true;
 					}
+					else if (_contains(
+								getBuildNumber(), version.getBuildNumber())) {
+
+						return true;
+					}
 				}
 				else if (_contains(getBugFix(), version.getBugFix())) {
 					return true;
@@ -287,21 +292,6 @@ public class Version implements Comparable<Version>, Serializable {
 		}
 	}
 
-	private int _compareAsIntegers(String first, String second) {
-		int firstInteger = GetterUtil.getInteger(first);
-		int secondInteger = GetterUtil.getInteger(second);
-
-		if (firstInteger < secondInteger) {
-			return -1;
-		}
-		else if (firstInteger == secondInteger) {
-			return 0;
-		}
-		else {
-			return 1;
-		}
-	}
-
 	private static boolean _contains(
 		String containerString, String numberString) {
 
@@ -347,6 +337,21 @@ public class Version implements Comparable<Version>, Serializable {
 		}
 
 		return sb.toString();
+	}
+
+	private int _compareAsIntegers(String first, String second) {
+		int firstInteger = GetterUtil.getInteger(first);
+		int secondInteger = GetterUtil.getInteger(second);
+
+		if (firstInteger < secondInteger) {
+			return -1;
+		}
+		else if (firstInteger == secondInteger) {
+			return 0;
+		}
+		else {
+			return 1;
+		}
 	}
 
 	private static final String _SEPARATOR = StringPool.PERIOD;

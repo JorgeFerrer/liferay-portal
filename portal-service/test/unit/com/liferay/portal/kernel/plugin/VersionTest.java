@@ -60,6 +60,11 @@ public class VersionTest extends TestCase {
 		assertIncludes("1.1.2+", "1.1.2");
 		assertIncludes("1.1.2+", "1.1.13");
 		assertNotIncludes("1.1.2+", "1.2");
+		assertIncludes("1.1.1.1+", "1.1.1.13");
+		assertIncludes("1.1.1.2+", "1.1.1.13");
+		assertNotIncludes("1.1.1.2+", "1.1.2");
+		assertIncludes("1.1.1.2+", "1.1.1.10");
+		assertNotIncludes("1.1.1.10+", "1.1.1.9");
 	}
 
 	public void testStar() {
