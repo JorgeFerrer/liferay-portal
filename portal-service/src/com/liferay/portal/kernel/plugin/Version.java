@@ -221,6 +221,11 @@ public class Version implements Comparable<Version>, Serializable {
 
 						return true;
 					}
+					else if (
+						_contains(getBuildNumber(), version.getBuildNumber())) {
+
+						return true;
+					}
 				}
 				else if (_contains(getBugFix(), version.getBugFix())) {
 					return true;
