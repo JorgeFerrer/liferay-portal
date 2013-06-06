@@ -34,7 +34,17 @@ if ((group != null) && !group.isRoot()) {
 
 	parentGroupName = HtmlUtil.escape(parentGroup.getDescriptiveName());
 }
+
+if (group != null) {
+	SitesUtil.addPortletBreadcrumbEntries(group, request, renderResponse);
+}
 %>
+
+<c:if test="<%= layout.isTypeControlPanel() %>">
+	<div id="breadcrumb">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
+</c:if>
 
 <c:if test="<%= (group != null) && !layout.isTypeControlPanel() %>">
 	<portlet:renderURL var="headerBackURL">
@@ -182,10 +192,5 @@ if ((group != null) && !group.isRoot()) {
 
 			<liferay-util:include page="/html/portlet/sites_admin/site_action.jsp" />
 		</aui:col>
-
-		<%
-		SitesUtil.addPortletBreadcrumbEntries(group, request, renderResponse);
-		%>
-
 	</c:if>
 </aui:row>
