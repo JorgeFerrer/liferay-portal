@@ -54,7 +54,28 @@ if ((category == null) && (mailingList == null)) {
 	catch (NoSuchMailingListException nsmle) {
 	}
 }
+
+if (category != null) {
+	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	if (parentCategoryId > 0) {
+		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
+	}
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+}
 %>
+
+<c:if test="<%= layout.isTypeControlPanel() %>" >
+	<c:if test="<%= ((category != null) || parentCategoryId > 0) %>" >
+		<div id="breadcrumb">
+			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+		</div>
+	</c:if>
+</c:if>
 
 <liferay-ui:header
 	backURL="<%= redirect %>"
@@ -238,18 +259,3 @@ if ((category == null) && (mailingList == null)) {
 	Liferay.Util.toggleBoxes('<portlet:namespace />mailingListActiveCheckbox', '<portlet:namespace />mailingListSettings');
 	Liferay.Util.toggleBoxes('<portlet:namespace />outCustomCheckbox', '<portlet:namespace />outCustomSettings');
 </aui:script>
-
-<%
-if (category != null) {
-	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	if (parentCategoryId > 0) {
-		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
-	}
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
-}
-%>

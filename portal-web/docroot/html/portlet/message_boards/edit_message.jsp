@@ -74,7 +74,29 @@ if (Validator.isNull(redirect)) {
 
 	redirect = viewMessageURL.toString();
 }
+
+if (curParentMessage != null) {
+	MBUtil.addPortletBreadcrumbEntries(curParentMessage, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "reply"), currentURL);
+}
+else if (message != null) {
+	MBUtil.addPortletBreadcrumbEntries(message, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	MBUtil.addPortletBreadcrumbEntries(categoryId, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-message"), currentURL);
+}
 %>
+
+<c:if test="<%= layout.isTypeControlPanel() %>" >
+	<div id="breadcrumb">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
+</c:if>
 
 <liferay-ui:header
 	backURL="<%= redirect %>"
@@ -584,21 +606,3 @@ if (Validator.isNull(redirect)) {
 
 	</aui:script>
 </c:if>
-
-<%
-if (curParentMessage != null) {
-	MBUtil.addPortletBreadcrumbEntries(curParentMessage, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "reply"), currentURL);
-}
-else if (message != null) {
-	MBUtil.addPortletBreadcrumbEntries(message, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	MBUtil.addPortletBreadcrumbEntries(categoryId, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-message"), currentURL);
-}
-%>

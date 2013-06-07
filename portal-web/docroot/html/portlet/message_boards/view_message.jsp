@@ -21,12 +21,26 @@ MBMessageDisplay messageDisplay = (MBMessageDisplay)request.getAttribute(WebKeys
 
 MBCategory category = messageDisplay.getCategory();
 
+MBMessage message = messageDisplay.getMessage();
+
 String displayStyle = BeanPropertiesUtil.getString(category, "displayStyle", MBCategoryConstants.DEFAULT_DISPLAY_STYLE);
 
 if (Validator.isNull(displayStyle)) {
 	displayStyle = MBCategoryConstants.DEFAULT_DISPLAY_STYLE;
 }
+
+if ((category.getCategoryId() != MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) || layout.isTypeControlPanel()) {
+	MBUtil.addPortletBreadcrumbEntries(message, request, renderResponse);
+}
 %>
+
+<c:if test="<%= layout.isTypeControlPanel() %>">
+	<c:if test="<%= category.getCategoryId() != MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID %>">
+		<div id="breadcrumb">
+			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+		</div>
+	</c:if>
+</c:if>
 
 <div class="displayStyle-<%= displayStyle %>">
 	<liferay-util:include page='<%= "/html/portlet/message_boards/view_message_" + displayStyle + ".jsp" %>' />
