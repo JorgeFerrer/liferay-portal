@@ -78,21 +78,27 @@ if (Validator.isNull(redirect)) {
 if (curParentMessage != null) {
 	MBUtil.addPortletBreadcrumbEntries(curParentMessage, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "reply"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "reply"), currentURL);
+	}
 }
 else if (message != null) {
 	MBUtil.addPortletBreadcrumbEntries(message, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	}
 }
 else {
 	MBUtil.addPortletBreadcrumbEntries(categoryId, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-message"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-message"), currentURL);
+	}
 }
 %>
 
-<c:if test="<%= layout.isTypeControlPanel() %>" >
+<c:if test="<%= layout.isTypeControlPanel() %>">
 	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
 
 	<div id="breadcrumb">
@@ -103,7 +109,7 @@ else {
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (message == null) %>"
-	title='<%= (message == null) ? "new-message" : message.getSubject() %>'
+	title='<%= (curParentMessage != null) ? LanguageUtil.format(pageContext, "reply-x", curParentMessage.getSubject()) : (message == null) ? "add-message" : LanguageUtil.format(pageContext, "edit-x",message.getSubject()) %>'
 />
 
 <c:if test="<%= preview %>">

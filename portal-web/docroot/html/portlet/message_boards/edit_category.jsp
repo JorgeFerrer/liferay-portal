@@ -57,22 +57,24 @@ if ((category == null) && (mailingList == null)) {
 
 if (category != null) {
 	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	}
 }
 else {
 	if (parentCategoryId > 0) {
 		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
 	}
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+	}
 }
 %>
 
-<c:if test="<%= layout.isTypeControlPanel() %>" >
+<c:if test="<%= layout.isTypeControlPanel() %>">
 	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
 
-	<c:if test="<%= ((category != null) || parentCategoryId > 0) %>" >
+	<c:if test="<%= ((category != null) || parentCategoryId > 0) %>">
 		<div id="breadcrumb">
 			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
 		</div>
@@ -82,7 +84,7 @@ else {
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (category == null) %>"
-	title='<%= (category == null) ? "new-category" : category.getName() %>'
+	title='<%= (category == null) ? "add-category" : LanguageUtil.format(pageContext, "edit-x", category.getName() %>'
 />
 
 <portlet:actionURL var="editCategoryURL">
