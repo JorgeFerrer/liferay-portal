@@ -93,6 +93,8 @@ else {
 %>
 
 <c:if test="<%= layout.isTypeControlPanel() %>" >
+	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
+
 	<div id="breadcrumb">
 		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
 	</div>
