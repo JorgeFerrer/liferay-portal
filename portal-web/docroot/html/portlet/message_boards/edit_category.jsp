@@ -72,19 +72,17 @@ else {
 %>
 
 <c:if test="<%= layout.isTypeControlPanel() %>">
-	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
+	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />          <!-- ¿PORQUÉ SÓLO EN EL PANEL DE CONTROL? -->
 
-	<c:if test="<%= ((category != null) || parentCategoryId > 0) %>">
-		<div id="breadcrumb">
-			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-		</div>
-	</c:if>
+	<div id="breadcrumb">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
 </c:if>
 
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (category == null) %>"
-	title='<%= (category == null) ? "add-category" : LanguageUtil.format(pageContext, "edit-x", category.getName() %>'
+	title='<%= (category == null) ? "add-category" : LanguageUtil.format(pageContext, "edit-x", category.getName()) %>'
 />
 
 <portlet:actionURL var="editCategoryURL">

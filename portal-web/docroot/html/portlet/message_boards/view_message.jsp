@@ -37,11 +37,9 @@ if ((category.getCategoryId() != MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID)
 <c:if test="<%= layout.isTypeControlPanel() %>">
 	<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
 
-	<c:if test="<%= category.getCategoryId() != MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID %>">
-		<div id="breadcrumb">
-			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-		</div>
-	</c:if>
+	<div id="breadcrumb">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
 </c:if>
 
 <div class="displayStyle-<%= displayStyle %>">
