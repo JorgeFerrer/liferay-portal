@@ -28,6 +28,8 @@ if (Validator.isNull(displayStyle)) {
 }
 %>
 
+<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
+
 <div class="displayStyle-<%= displayStyle %>">
 	<liferay-util:include page='<%= "/html/portlet/message_boards/view_message_" + displayStyle + ".jsp" %>' />
 </div>

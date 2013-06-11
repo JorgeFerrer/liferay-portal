@@ -56,6 +56,8 @@ if ((category == null) && (mailingList == null)) {
 }
 %>
 
+<liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
+
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (category == null) %>"
