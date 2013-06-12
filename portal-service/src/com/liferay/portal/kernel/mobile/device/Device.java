@@ -34,6 +34,8 @@ public interface Device extends Serializable {
 
 	public String getCapability(String name);
 
+	public Dimensions getDisplaySize();
+
 	public String getModel();
 
 	public String getOS();
@@ -42,10 +44,18 @@ public interface Device extends Serializable {
 
 	public String getPointingMethod();
 
+	public Dimensions getResolution();
+
+	/**
+	 * @deprecated As of 6.2.0 please use {@link #getResolution()} instead
+	 */
+	@Deprecated
 	public Dimensions getScreenSize();
 
 	public boolean hasQwertyKeyboard();
 
 	public boolean isTablet();
+
+	public boolean supportsDualOrientation();
 
 }
