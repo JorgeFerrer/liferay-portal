@@ -54,6 +54,19 @@ if ((category == null) && (mailingList == null)) {
 	catch (NoSuchMailingListException nsmle) {
 	}
 }
+
+if (category != null) {
+	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+}
+else {
+	if (parentCategoryId > 0) {
+		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
+	}
+
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+}
 %>
 
 <liferay-util:include page="/html/portlet/message_boards/top_links.jsp" />
@@ -240,18 +253,3 @@ if ((category == null) && (mailingList == null)) {
 	Liferay.Util.toggleBoxes('<portlet:namespace />mailingListActiveCheckbox', '<portlet:namespace />mailingListSettings');
 	Liferay.Util.toggleBoxes('<portlet:namespace />outCustomCheckbox', '<portlet:namespace />outCustomSettings');
 </aui:script>
-
-<%
-if (category != null) {
-	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
-}
-else {
-	if (parentCategoryId > 0) {
-		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
-	}
-
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
-}
-%>
