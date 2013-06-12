@@ -58,14 +58,18 @@ if ((category == null) && (mailingList == null)) {
 if (category != null) {
 	MBUtil.addPortletBreadcrumbEntries(category, request, renderResponse);
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "edit"), currentURL);
+	}
 }
 else {
 	if (parentCategoryId > 0) {
 		MBUtil.addPortletBreadcrumbEntries(parentCategoryId, request, renderResponse);
 	}
 
-	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+	if (!layout.isTypeControlPanel()) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "add-category"), currentURL);
+	}
 }
 %>
 
@@ -74,7 +78,7 @@ else {
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (category == null) %>"
-	title='<%= (category == null) ? "new-category" : category.getName() %>'
+	title='<%= (category == null) ? "add-category" : LanguageUtil.format(pageContext, "edit-x", category.getName()) %>'
 />
 
 <portlet:actionURL var="editCategoryURL">
