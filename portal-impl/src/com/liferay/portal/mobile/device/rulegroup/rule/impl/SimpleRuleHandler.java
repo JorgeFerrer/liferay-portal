@@ -14,11 +14,14 @@
 
 package com.liferay.portal.mobile.device.rulegroup.rule.impl;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mobile.device.Device;
 import com.liferay.portal.kernel.mobile.device.Dimensions;
 import com.liferay.portal.kernel.mobile.device.rulegroup.rule.RuleHandler;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -26,6 +29,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.mobiledevicerules.model.MDRRule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -64,14 +68,24 @@ public class SimpleRuleHandler implements RuleHandler {
 	public static final String PROPERTY_TABLET = "tablet";
 
 	public static String getHandlerType() {
+
 		return SimpleRuleHandler.class.getName();
 	}
 
 	@Override
 	public boolean evaluateRule(MDRRule mdrRule, ThemeDisplay themeDisplay) {
+
 		Device device = themeDisplay.getDevice();
 
-		if ((device == null) || Validator.isNull(device.getOS())) {
+		if (device == null) {
+			if (_log.isDebugEnabled()) {
+				StringBuilder sb =
+					new StringBuilder("Skipping rule '").append(
+						mdrRule.getNameCurrentValue()).append(
+						"'! Mising device information!");
+				_log.debug(sb.toString());
+			}
+
 			return false;
 		}
 
@@ -84,8 +98,20 @@ public class SimpleRuleHandler implements RuleHandler {
 			String[] operatingSystems = StringUtil.split(os);
 
 			if (!ArrayUtil.contains(operatingSystems, device.getOS())) {
+				logRuleStatus(
+					mdrRule, RuleStatus.NO_MATCH, PROPERTY_OS, device.getOS(),
+					"one of ", operatingSystems);
 				return false;
 			}
+
+			logRuleStatus(
+				mdrRule, RuleStatus.MATCH, PROPERTY_OS, device.getOS(),
+				"one of ", operatingSystems);
+		}
+		else {
+			logRuleStatus(
+				mdrRule, RuleStatus.NO_CONDITION, PROPERTY_OS, device.getOS(),
+				"one of ");
 		}
 
 		String tablet = typeSettingsProperties.get(PROPERTY_TABLET);
@@ -94,13 +120,26 @@ public class SimpleRuleHandler implements RuleHandler {
 			boolean tabletBoolean = GetterUtil.getBoolean(tablet);
 
 			if (tabletBoolean != device.isTablet()) {
+				logRuleStatus(
+					mdrRule, RuleStatus.NO_MATCH, PROPERTY_TABLET,
+					String.valueOf(device.isTablet()), "=", tablet);
 				return false;
 			}
+
+			logRuleStatus(
+				mdrRule, RuleStatus.MATCH, PROPERTY_TABLET,
+				String.valueOf(device.isTablet()), "=", tablet);
+		}
+		else {
+			logRuleStatus(
+				mdrRule, RuleStatus.NO_CONDITION, PROPERTY_TABLET,
+				String.valueOf(device.isTablet()), "=");
 		}
 
 		Dimensions screenPhysicalSize = device.getScreenPhysicalSize();
 
 		if (!isValidValue(
+				mdrRule, "screen physical height",
 				screenPhysicalSize.getHeight(),
 				typeSettingsProperties.get(
 					PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX),
@@ -111,7 +150,7 @@ public class SimpleRuleHandler implements RuleHandler {
 		}
 
 		if (!isValidValue(
-				screenPhysicalSize.getWidth(),
+				mdrRule, "screen physical width", screenPhysicalSize.getWidth(),
 				typeSettingsProperties.get(
 					PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX),
 				typeSettingsProperties.get(
@@ -123,6 +162,7 @@ public class SimpleRuleHandler implements RuleHandler {
 		Dimensions screenResolution = device.getScreenResolution();
 
 		if (!isValidValue(
+				mdrRule, "screen resolution height",
 				screenResolution.getHeight(),
 				typeSettingsProperties.get(
 					PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX),
@@ -133,7 +173,7 @@ public class SimpleRuleHandler implements RuleHandler {
 		}
 
 		if (!isValidValue(
-				screenResolution.getWidth(),
+				mdrRule, "screen resolution width", screenResolution.getWidth(),
 				typeSettingsProperties.get(
 					PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX),
 				typeSettingsProperties.get(
@@ -147,16 +187,22 @@ public class SimpleRuleHandler implements RuleHandler {
 
 	@Override
 	public Collection<String> getPropertyNames() {
+
 		return _propertyNames;
 	}
 
 	@Override
 	public String getType() {
+
 		return getHandlerType();
 	}
 
-	protected boolean isValidValue(float value, String max, String min) {
+	protected boolean isValidValue(
+		MDRRule rule, String capability, float value, String max, String min) {
+
 		if (Validator.isNull(max) && Validator.isNull(min)) {
+			logRuleStatus(rule, RuleStatus.NO_CONDITION, capability,
+			String.valueOf(value), "");
 			return true;
 		}
 
@@ -164,22 +210,121 @@ public class SimpleRuleHandler implements RuleHandler {
 			float maxFloat = GetterUtil.getFloat(max);
 
 			if (value > maxFloat) {
+				logRuleStatus(
+					rule, RuleStatus.NO_MATCH, capability,
+					String.valueOf(value), "<= ", String.valueOf(maxFloat));
 				return false;
 			}
+
+			logRuleStatus(
+				rule, RuleStatus.MATCH, capability, String.valueOf(value),
+				"<= ", String.valueOf(maxFloat));
 		}
 
 		if (Validator.isNotNull(min)) {
-			float minFLoat = GetterUtil.getFloat(min);
+			float minFloat = GetterUtil.getFloat(min);
 
-			if (value < minFLoat) {
+			if (value < minFloat) {
+				logRuleStatus(
+					rule, RuleStatus.NO_MATCH, capability,
+					String.valueOf(value), ">= ", String.valueOf(minFloat));
 				return false;
 			}
+
+			logRuleStatus(
+				rule, RuleStatus.MATCH, capability, String.valueOf(value),
+				">= ", String.valueOf(minFloat));
 		}
 
 		return true;
 	}
 
+	protected void logRuleStatus(
+		MDRRule rule, RuleStatus status, String capability, String value,
+		String condition, String... expectedValues) {
+
+		if (rule == null)
+			return;
+
+		if (_log.isDebugEnabled()) {
+			StringBundler sb = new StringBundler();
+
+			switch (status) {
+
+			case MATCH:
+				sb.append("Processing rule '").append(
+					rule.getNameCurrentValue()).append(
+					"'! Device's capability '").append(capability).append(
+					"' is '").append(value).append("' which matches");
+
+				if (expectedValues != null) {
+					String expected;
+
+					if (expectedValues.length > 1) {
+						expected = Arrays.toString(expectedValues);
+					}
+					else {
+						expected = expectedValues[0];
+					}
+
+					sb.append(" the rule condition '").append(condition).append(
+						expected).append("'!");
+				}
+				else {
+					sb.append(" the rule condition!");
+				}
+
+				break;
+
+			case NO_MATCH:
+				sb.append("Skipping rule '").append(
+					rule.getNameCurrentValue()).append(
+						"'! Device's capability '").append(capability).append(
+					"' is '").append(value).append("' which does not match");
+
+				if (expectedValues != null) {
+					String expected;
+
+					if (expectedValues.length > 1) {
+						expected = Arrays.toString(expectedValues);
+					}
+					else {
+						expected = expectedValues[0];
+					}
+
+					sb.append(" the rule condition '").append(condition).append(
+						expected).append("'!");
+				}
+				else {
+					sb.append(" the rule condition!");
+				}
+
+				break;
+
+			case NO_CONDITION:
+
+				sb.append("Processing rule '").append(
+					rule.getNameCurrentValue()).append(
+					"'! Device's capability '").append(capability).append(
+					"' is '").append(value).append(
+					"'! The rule is valid for any value!");
+
+				break;
+			}
+
+			if (sb.length() > 0) {
+				_log.debug(sb.toString());
+			}
+
+		}
+
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SimpleRuleHandler.class);
+
 	private static Collection<String> _propertyNames;
+
+	private enum RuleStatus {MATCH, NO_CONDITION, NO_MATCH};
 
 	static {
 		_propertyNames = new ArrayList<String>(10);
