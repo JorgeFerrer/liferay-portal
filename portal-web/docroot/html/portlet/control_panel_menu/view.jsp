@@ -41,7 +41,7 @@
 		%>
 
 				<liferay-ui:panel collapsible="<%= true %>" cssClass="panel-page-category unstyled" extended="<%= true %>" id='<%= "panel-manage-" + curCategory %>' persistState="<%= true %>" title="<%= title %>">
-					<c:if test='<%= curCategory.equals("site.content") %>'>
+					<c:if test='<%= curCategory.equals(PortletCategoryKeys.SITE_ADMINISTRATION_CONTENT) %>'>
 
 						<%
 						Group curSite = themeDisplay.getSiteGroup();
@@ -52,7 +52,7 @@
 						scopeLayouts.addAll(LayoutLocalServiceUtil.getScopeGroupLayouts(curSite.getGroupId(), true));
 						%>
 
-						<c:if test='<%= !scopeLayouts.isEmpty() && curCategory.equals("site.content") %>'>
+						<c:if test='<%= !scopeLayouts.isEmpty() && curCategory.equals(PortletCategoryKeys.SITE_ADMINISTRATION_CONTENT) %>'>
 							<div class="nobr lfr-title-scope-selector">
 								<liferay-ui:icon-menu direction="down" icon="" message='<%= LanguageUtil.get(pageContext, "scope") %>'>
 									<liferay-ui:icon
