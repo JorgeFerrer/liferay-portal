@@ -23,6 +23,8 @@ MBMessage message = messageDisplay.getMessage();
 
 MBCategory category = messageDisplay.getCategory();
 
+MBMessage message = messageDisplay.getMessage();
+
 String displayStyle = BeanPropertiesUtil.getString(category, "displayStyle", MBCategoryConstants.DEFAULT_DISPLAY_STYLE);
 
 if (Validator.isNull(displayStyle)) {
