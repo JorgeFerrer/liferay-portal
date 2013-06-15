@@ -19,7 +19,7 @@
 <div class="control-panel-home-actions">
 
 	<%
-	Map<String, List<Portlet>> categoriesMap = (Map<String, List<Portlet>>)request.getAttribute(WebKeys.CONTROL_PANEL_CATEGORIES_MAP);
+	Map<String, List<Portlet>> categoriesMap = PortalUtil.getControlPanelCategoriesMap(request);
 
 	for (String category : categoriesMap.keySet()) {
 	%>

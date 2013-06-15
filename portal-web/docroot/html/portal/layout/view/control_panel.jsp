@@ -134,7 +134,7 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 						<c:when test="<%= Validator.isNull(controlPanelCategory) %>">
 
 							<%
-							Map<String, List<Portlet>> categoriesMap = _getCategoriesMap(themeDisplay);
+							Map<String, List<Portlet>> categoriesMap = PortalUtil.getControlPanelCategoriesMap(request);
 
 							if (categoriesMap.size() == 1) {
 								for (String curCategory : categoriesMap.keySet()) {
@@ -198,19 +198,3 @@ request.setAttribute("control_panel.jsp-ppid", ppid);
 </c:choose>
 
 <%@ include file="/html/portal/layout/view/common.jspf" %>
-
-<%!
-private Map<String, List<Portlet>> _getCategoriesMap(ThemeDisplay themeDisplay) throws SystemException {
-	Map<String, List<Portlet>> categoriesMap = new LinkedHashMap<String, List<Portlet>>();
-
-	for (String category : PortletCategoryKeys.ALL) {
-		List<Portlet> portlets = PortalUtil.getControlPanelPortlets(category, themeDisplay);
-
-		if (!portlets.isEmpty()) {
-			categoriesMap.put(category, portlets);
-		}
-	}
-
-	return categoriesMap;
-}
-%>

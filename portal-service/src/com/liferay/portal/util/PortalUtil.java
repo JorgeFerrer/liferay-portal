@@ -352,6 +352,13 @@ public class PortalUtil {
 		return getPortal().getComputerName();
 	}
 
+	public static Map<String, List<Portlet>> getControlPanelCategoriesMap(
+			HttpServletRequest request)
+		throws SystemException {
+
+		return getPortal().getControlPanelCategoriesMap(request);
+	}
+
 	public static String getControlPanelCategory(
 			String portletId, ThemeDisplay themeDisplay)
 		throws SystemException {
