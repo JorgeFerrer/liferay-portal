@@ -1439,37 +1439,6 @@ public class PortalImpl implements Portal {
 			PortletCategoryKeys.ALL);
 	}
 
-	protected Map<String, List<Portlet>> getCategoriesMap(
-			HttpServletRequest request, String attributeName,
-			String[] categoriesArray)
-		throws SystemException {
-
-		Map<String, List<Portlet>> categoriesMap =
-			(Map<String, List<Portlet>>)request.getAttribute(attributeName);
-
-		if (categoriesMap != null) {
-			return categoriesMap;
-		}
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		categoriesMap = new LinkedHashMap<String, List<Portlet>>();
-
-		for (String category : categoriesArray) {
-			List<Portlet> portlets = getControlPanelPortlets(
-				category, themeDisplay);
-
-			if (!portlets.isEmpty()) {
-				categoriesMap.put(category, portlets);
-			}
-		}
-
-		request.setAttribute(attributeName, categoriesMap);
-
-		return categoriesMap;
-	}
-
 	@Override
 	public String getControlPanelCategory(
 			String portletId, ThemeDisplay themeDisplay)
@@ -6845,6 +6814,37 @@ public class PortalImpl implements Portal {
 		}
 
 		return locale;
+	}
+
+	protected Map<String, List<Portlet>> getCategoriesMap(
+			HttpServletRequest request, String attributeName,
+			String[] categoriesArray)
+		throws SystemException {
+
+		Map<String, List<Portlet>> categoriesMap =
+			(Map<String, List<Portlet>>)request.getAttribute(attributeName);
+
+		if (categoriesMap != null) {
+			return categoriesMap;
+		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		categoriesMap = new LinkedHashMap<String, List<Portlet>>();
+
+		for (String category : categoriesArray) {
+			List<Portlet> portlets = getControlPanelPortlets(
+				category, themeDisplay);
+
+			if (!portlets.isEmpty()) {
+				categoriesMap.put(category, portlets);
+			}
+		}
+
+		request.setAttribute(attributeName, categoriesMap);
+
+		return categoriesMap;
 	}
 
 	protected long getDefaultScopeGroupId(long companyId)
