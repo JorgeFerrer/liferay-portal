@@ -99,10 +99,6 @@ Map<String, List<Portlet>> categoriesMap = PortalUtil.getSiteAdministrationCateg
 
 					<%
 					for (Portlet portlet : portlets) {
-						if (!portlet.isActive() || portlet.isInstanceable()) {
-							continue;
-						}
-
 						String portletId = portlet.getPortletId();
 					%>
 
