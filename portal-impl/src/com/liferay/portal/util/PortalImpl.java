@@ -3610,7 +3610,7 @@ public class PortalImpl implements Portal {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Portlet " + portletId +
-						" does not exist on a page in group " + groupId);
+					" does not exist on a page in group " + groupId);
 			}
 		}
 
@@ -4479,6 +4479,16 @@ public class PortalImpl implements Portal {
 
 		return getSelectedUser(
 			getHttpServletRequest(portletRequest), checkPermission);
+	}
+
+	@Override
+	public Map<String, List<Portlet>> getSiteAdministrationCategoriesMap(
+			HttpServletRequest request)
+		throws SystemException {
+
+		return getCategoriesMap(
+			request, WebKeys.SITE_ADMINISTRATION_CATEGORIES_MAP,
+			PortletCategoryKeys.SITE_ADMINISTRATION_ALL);
 	}
 
 	@Override
