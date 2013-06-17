@@ -1434,9 +1434,18 @@ public class PortalImpl implements Portal {
 			HttpServletRequest request)
 		throws SystemException {
 
+		return getCategoriesMap(
+			request, WebKeys.CONTROL_PANEL_CATEGORIES_MAP,
+			PortletCategoryKeys.ALL);
+	}
+
+	protected Map<String, List<Portlet>> getCategoriesMap(
+			HttpServletRequest request, String attributeName,
+			String[] categoriesArray)
+		throws SystemException {
+
 		Map<String, List<Portlet>> categoriesMap =
-			(Map<String, List<Portlet>>)request.getAttribute(
-				WebKeys.CONTROL_PANEL_CATEGORIES_MAP);
+			(Map<String, List<Portlet>>)request.getAttribute(attributeName);
 
 		if (categoriesMap != null) {
 			return categoriesMap;
@@ -1447,7 +1456,7 @@ public class PortalImpl implements Portal {
 
 		categoriesMap = new LinkedHashMap<String, List<Portlet>>();
 
-		for (String category : PortletCategoryKeys.ALL) {
+		for (String category : categoriesArray) {
 			List<Portlet> portlets = getControlPanelPortlets(
 				category, themeDisplay);
 
@@ -1456,8 +1465,7 @@ public class PortalImpl implements Portal {
 			}
 		}
 
-		request.setAttribute(
-			WebKeys.CONTROL_PANEL_CATEGORIES_MAP, categoriesMap);
+		request.setAttribute(attributeName, categoriesMap);
 
 		return categoriesMap;
 	}
