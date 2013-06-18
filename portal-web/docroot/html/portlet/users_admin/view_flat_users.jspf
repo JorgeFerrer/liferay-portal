@@ -113,7 +113,6 @@ if (!ParamUtil.getBoolean(renderRequest, "advancedSearch")) {
 		}
 		%>
 
-
 		<c:if test="<%= layout.isTypeControlPanel() %>">
 			<div id="breadcrumb">
 				<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
