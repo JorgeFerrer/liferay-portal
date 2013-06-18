@@ -815,14 +815,10 @@ public class ServicePreAction extends Action {
 
 		boolean showSiteAdministrationIcon = false;
 
-		long controlPanelPlid = 0;
-
 		if (signedIn &&
 			GroupPermissionUtil.contains(
 				permissionChecker, group,
 				ActionKeys.VIEW_SITE_ADMINISTRATION)) {
-
-			controlPanelPlid = PortalUtil.getControlPanelPlid(companyId);
 
 			showSiteAdministrationIcon = true;
 		}
@@ -934,6 +930,8 @@ public class ServicePreAction extends Action {
 						"Liferay.Dockbar.loadAddPanel();");
 				}
 			}
+
+			long controlPanelPlid = PortalUtil.getControlPanelPlid(companyId);;
 
 			if (hasUpdateLayoutPermission) {
 				themeDisplay.setShowPageSettingsIcon(true);
