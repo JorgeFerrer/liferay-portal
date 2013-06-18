@@ -430,8 +430,8 @@ public class ServicePreAction extends Action {
 					 (!viewableGroup ||
 					  (!redirectToDefaultLayout &&
 					   !LayoutPermissionUtil.contains(
-						   permissionChecker, layout, false,
-						   ActionKeys.VIEW)))) {
+						   permissionChecker, layout, controlPanelCategory,
+						   false, ActionKeys.VIEW)))) {
 
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
@@ -1687,6 +1687,13 @@ public class ServicePreAction extends Action {
 
 		Group group = layout.getGroup();
 
+		String controlPanelCategory = null;
+
+		if (group.isControlPanel()) {
+			controlPanelCategory = ParamUtil.getString(
+				request, "controlPanelCategory");
+
+		}
 		boolean hasViewLayoutPermission = false;
 		boolean hasViewStagingPermission =
 			(group.isStagingGroup() || group.isStagedRemotely()) &&
@@ -1708,7 +1715,8 @@ public class ServicePreAction extends Action {
 
 			if (!curLayout.isHidden() &&
 				(LayoutPermissionUtil.contains(
-					permissionChecker, curLayout, false, ActionKeys.VIEW) ||
+					permissionChecker, curLayout, controlPanelCategory, false,
+					ActionKeys.VIEW) ||
 				 hasViewStagingPermission)) {
 
 				if (accessibleLayouts.isEmpty() && !hasViewLayoutPermission) {
