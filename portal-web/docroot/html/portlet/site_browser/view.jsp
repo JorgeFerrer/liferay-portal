@@ -27,6 +27,10 @@ boolean includeUserPersonalSite = ParamUtil.getBoolean(request, "includeUserPers
 String callback = ParamUtil.getString(request, "callback");
 String target = ParamUtil.getString(request, "target");
 
+if (Validator.isNull(type) && (types.length > 0)) {
+	type = types[0];
+}
+
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("struts_action", "/site_browser/view");
