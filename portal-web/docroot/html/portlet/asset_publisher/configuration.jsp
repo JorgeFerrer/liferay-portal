@@ -189,17 +189,17 @@ String emailBodyParam = emailParam + "Body_" + currentLanguageId;
 					List<String> typesList = new ArrayList<String>();
 
 					if (PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.SITES_CONTENT_SHARING_THROUGH_ADMINISTRATORS_ENABLED)) {
-						typesList.add("manageableSites");
+						typesList.add("sites-that-i-administer");
 					}
 
 					if (GroupLocalServiceUtil.getGroupsCount(company.getCompanyId(), layout.getGroupId(), Boolean.TRUE) > 0) {
-						typesList.add("childSites");
+						typesList.add("child-sites");
 					}
 
 					Group siteGroup = themeDisplay.getSiteGroup();
 
 					if (!siteGroup.isRoot()) {
-						typesList.add("parentSites");
+						typesList.add("parent-sites");
 					}
 					%>
 
