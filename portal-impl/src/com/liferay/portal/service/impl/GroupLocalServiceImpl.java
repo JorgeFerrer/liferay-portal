@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.GroupThreadLocal;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -671,183 +672,194 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group deleteGroup(Group group)
 		throws PortalException, SystemException {
 
-		if ((group.isCompany() || PortalUtil.isSystemGroup(group.getName())) &&
-			!CompanyThreadLocal.isDeleteInProcess()) {
-
-			throw new RequiredGroupException(
-				String.valueOf(group.getGroupId()),
-				RequiredGroupException.SYSTEM_GROUP);
-		}
-
-		if (groupPersistence.countByC_P_S(
-				group.getCompanyId(), group.getGroupId(), true) > 0) {
-
-			throw new RequiredGroupException(
-				String.valueOf(group.getGroupId()),
-				RequiredGroupException.PARENT_GROUP);
-		}
-
-		// Layout set branches
-
-		layoutSetBranchLocalService.deleteLayoutSetBranches(
-			group.getGroupId(), true, true);
-
-		layoutSetBranchLocalService.deleteLayoutSetBranches(
-			group.getGroupId(), false, true);
-
-		// Layout sets
-
-		ServiceContext serviceContext = new ServiceContext();
+		boolean deleteInProcess = GroupThreadLocal.isDeleteInProcess();
 
 		try {
-			layoutSetLocalService.deleteLayoutSet(
-				group.getGroupId(), true, serviceContext);
-		}
-		catch (NoSuchLayoutSetException nslse) {
-		}
+			GroupThreadLocal.setDeleteInProcess(true);
 
-		try {
-			layoutSetLocalService.deleteLayoutSet(
-				group.getGroupId(), false, serviceContext);
-		}
-		catch (NoSuchLayoutSetException nslse) {
-		}
+			if ((group.isCompany() ||
+				 PortalUtil.isSystemGroup(group.getName())) &&
+				!CompanyThreadLocal.isDeleteInProcess()) {
 
-		// Group roles
+				throw new RequiredGroupException(
+					String.valueOf(group.getGroupId()),
+					RequiredGroupException.SYSTEM_GROUP);
+			}
 
-		userGroupRoleLocalService.deleteUserGroupRolesByGroupId(
-			group.getGroupId());
+			if (groupPersistence.countByC_P_S(
+					group.getCompanyId(), group.getGroupId(), true) > 0) {
 
-		// User group roles
+				throw new RequiredGroupException(
+					String.valueOf(group.getGroupId()),
+					RequiredGroupException.PARENT_GROUP);
+			}
 
-		userGroupGroupRoleLocalService.deleteUserGroupGroupRolesByGroupId(
-			group.getGroupId());
+			// Layout set branches
 
-		// Membership requests
+			layoutSetBranchLocalService.deleteLayoutSetBranches(
+				group.getGroupId(), true, true);
 
-		membershipRequestLocalService.deleteMembershipRequests(
-			group.getGroupId());
+			layoutSetBranchLocalService.deleteLayoutSetBranches(
+				group.getGroupId(), false, true);
 
-		// Portlet preferences
+			// Layout sets
 
-		portletPreferencesLocalService.deletePortletPreferences(
-			group.getGroupId(), PortletKeys.PREFS_OWNER_TYPE_GROUP,
-			PortletKeys.PREFS_PLID_SHARED);
+			ServiceContext serviceContext = new ServiceContext();
 
-		// Repositories
-
-		repositoryLocalService.deleteRepositories(group.getGroupId());
-
-		// Subscriptions
-
-		subscriptionLocalService.deleteSubscriptions(
-			group.getCompanyId(), BlogsEntry.class.getName(),
-			group.getGroupId());
-		subscriptionLocalService.deleteSubscriptions(
-			group.getCompanyId(), JournalArticle.class.getName(),
-			group.getGroupId());
-
-		// Teams
-
-		teamLocalService.deleteTeams(group.getGroupId());
-
-		// Staging
-
-		unscheduleStaging(group);
-
-		if (group.hasStagingGroup()) {
 			try {
-				StagingUtil.disableStaging(group, serviceContext);
+				layoutSetLocalService.deleteLayoutSet(
+					group.getGroupId(), true, serviceContext);
 			}
-			catch (Exception e) {
-				_log.error(
-					"Unable to disable staging for group " +
-						group.getGroupId());
+			catch (NoSuchLayoutSetException nslse) {
 			}
+
+			try {
+				layoutSetLocalService.deleteLayoutSet(
+					group.getGroupId(), false, serviceContext);
+			}
+			catch (NoSuchLayoutSetException nslse) {
+			}
+
+			// Group roles
+
+			userGroupRoleLocalService.deleteUserGroupRolesByGroupId(
+				group.getGroupId());
+
+			// User group roles
+
+			userGroupGroupRoleLocalService.deleteUserGroupGroupRolesByGroupId(
+				group.getGroupId());
+
+			// Membership requests
+
+			membershipRequestLocalService.deleteMembershipRequests(
+				group.getGroupId());
+
+			// Portlet preferences
+
+			portletPreferencesLocalService.deletePortletPreferences(
+				group.getGroupId(), PortletKeys.PREFS_OWNER_TYPE_GROUP,
+				PortletKeys.PREFS_PLID_SHARED);
+
+			// Repositories
+
+			repositoryLocalService.deleteRepositories(group.getGroupId());
+
+			// Subscriptions
+
+			subscriptionLocalService.deleteSubscriptions(
+				group.getCompanyId(), BlogsEntry.class.getName(),
+				group.getGroupId());
+			subscriptionLocalService.deleteSubscriptions(
+				group.getCompanyId(), JournalArticle.class.getName(),
+				group.getGroupId());
+
+			// Teams
+
+			teamLocalService.deleteTeams(group.getGroupId());
+
+			// Staging
+
+			unscheduleStaging(group);
+
+			if (group.hasStagingGroup()) {
+				try {
+					StagingUtil.disableStaging(group, serviceContext);
+				}
+				catch (Exception e) {
+					_log.error(
+						"Unable to disable staging for group " +
+							group.getGroupId());
+				}
+			}
+
+			// Themes
+
+			ThemeLoader themeLoader =
+				ThemeLoaderFactory.getDefaultThemeLoader();
+
+			if (themeLoader != null) {
+				String themePath =
+					themeLoader.getFileStorage() + StringPool.SLASH +
+						group.getGroupId();
+
+				FileUtil.deltree(themePath + "-private");
+				FileUtil.deltree(themePath + "-public");
+			}
+
+			// Portlet data
+
+			deletePortletData(group);
+
+			// Asset
+
+			if (group.isRegularSite()) {
+				assetEntryLocalService.deleteEntry(
+					Group.class.getName(), group.getGroupId());
+			}
+
+			assetVocabularyLocalService.deleteVocabularies(group.getGroupId());
+
+			// Shopping
+
+			shoppingCartLocalService.deleteGroupCarts(group.getGroupId());
+			shoppingCategoryLocalService.deleteCategories(group.getGroupId());
+			shoppingCouponLocalService.deleteCoupons(group.getGroupId());
+			shoppingOrderLocalService.deleteOrders(group.getGroupId());
+
+			// Social
+
+			socialActivityLocalService.deleteActivities(group.getGroupId());
+			socialActivitySettingLocalService.deleteActivitySettings(
+				group.getGroupId());
+
+			// Software catalog
+
+			scFrameworkVersionLocalService.deleteFrameworkVersions(
+				group.getGroupId());
+			scProductEntryLocalService.deleteProductEntries(group.getGroupId());
+
+			// Resources
+
+			List<ResourcePermission> resourcePermissions =
+				resourcePermissionPersistence.findByC_LikeP(
+					group.getCompanyId(), String.valueOf(group.getGroupId()));
+
+			for (ResourcePermission resourcePermission : resourcePermissions) {
+				resourcePermissionLocalService.deleteResourcePermission(
+					resourcePermission);
+			}
+
+			if (!group.isStagingGroup() &&
+				(group.isOrganization() || group.isRegularSite())) {
+
+				resourceLocalService.deleteResource(
+					group.getCompanyId(), Group.class.getName(),
+					ResourceConstants.SCOPE_INDIVIDUAL, group.getGroupId());
+			}
+
+			// Group
+
+			if (!group.isStagingGroup() && group.isOrganization() &&
+				group.isSite()) {
+
+				group.setSite(false);
+
+				groupPersistence.update(group);
+			}
+			else {
+				groupPersistence.remove(group);
+			}
+
+			// Permission cache
+
+			PermissionCacheUtil.clearCache();
+
+			return group;
 		}
-
-		// Themes
-
-		ThemeLoader themeLoader = ThemeLoaderFactory.getDefaultThemeLoader();
-
-		if (themeLoader != null) {
-			String themePath =
-				themeLoader.getFileStorage() + StringPool.SLASH +
-					group.getGroupId();
-
-			FileUtil.deltree(themePath + "-private");
-			FileUtil.deltree(themePath + "-public");
+		finally {
+			GroupThreadLocal.setDeleteInProcess(deleteInProcess);
 		}
-
-		// Portlet data
-
-		deletePortletData(group);
-
-		// Asset
-
-		if (group.isRegularSite()) {
-			assetEntryLocalService.deleteEntry(
-				Group.class.getName(), group.getGroupId());
-		}
-
-		assetVocabularyLocalService.deleteVocabularies(group.getGroupId());
-
-		// Shopping
-
-		shoppingCartLocalService.deleteGroupCarts(group.getGroupId());
-		shoppingCategoryLocalService.deleteCategories(group.getGroupId());
-		shoppingCouponLocalService.deleteCoupons(group.getGroupId());
-		shoppingOrderLocalService.deleteOrders(group.getGroupId());
-
-		// Social
-
-		socialActivityLocalService.deleteActivities(group.getGroupId());
-		socialActivitySettingLocalService.deleteActivitySettings(
-			group.getGroupId());
-
-		// Software catalog
-
-		scFrameworkVersionLocalService.deleteFrameworkVersions(
-			group.getGroupId());
-		scProductEntryLocalService.deleteProductEntries(group.getGroupId());
-
-		// Resources
-
-		List<ResourcePermission> resourcePermissions =
-			resourcePermissionPersistence.findByC_LikeP(
-				group.getCompanyId(), String.valueOf(group.getGroupId()));
-
-		for (ResourcePermission resourcePermission : resourcePermissions) {
-			resourcePermissionLocalService.deleteResourcePermission(
-				resourcePermission);
-		}
-
-		if (!group.isStagingGroup() &&
-			(group.isOrganization() || group.isRegularSite())) {
-
-			resourceLocalService.deleteResource(
-				group.getCompanyId(), Group.class.getName(),
-				ResourceConstants.SCOPE_INDIVIDUAL, group.getGroupId());
-		}
-
-		// Group
-
-		if (!group.isStagingGroup() && group.isOrganization() &&
-			group.isSite()) {
-
-			group.setSite(false);
-
-			groupPersistence.update(group);
-		}
-		else {
-			groupPersistence.remove(group);
-		}
-
-		// Permission cache
-
-		PermissionCacheUtil.clearCache();
-
-		return group;
 	}
 
 	/**
