@@ -51,11 +51,11 @@ boolean print = ParamUtil.getString(request, "viewMode").equals(Constants.PRINT)
 
 PortletURL viewPageURL = renderResponse.createRenderURL();
 
-if (portletName.equals(PortletKeys.WIKI)) {
+if (portletName.equals(PortletKeys.WIKI) || portletName.equals(PortletKeys.WIKI_ADMIN)) {
 	viewPageURL.setParameter("struts_action", "/wiki/view");
 }
 else {
-	viewPageURL.setParameter("struts_action", "/wiki/view_page_activities");
+	viewPageURL.setParameter("struts_action", "/wiki_display/view_page");
 }
 
 viewPageURL.setParameter("nodeName", node.getName());
