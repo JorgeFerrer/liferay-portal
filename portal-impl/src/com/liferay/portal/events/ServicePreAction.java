@@ -2171,6 +2171,11 @@ public class ServicePreAction extends Action {
 			PermissionChecker permissionChecker, Layout layout, String action)
 		throws PortalException, SystemException {
 
+		if (layout.isTypeControlPanel()) {
+			return hasLayoutPermission(
+				permissionChecker, layout, null, false, action);
+		}
+
 		return LayoutPermissionUtil.contains(permissionChecker, layout, action);
 	}
 
@@ -2180,9 +2185,28 @@ public class ServicePreAction extends Action {
 			String action)
 		throws PortalException, SystemException {
 
+		// Control panel layouts are only viewable by authenticated users
+
+		if (layout.isTypeControlPanel()) {
+			if (!permissionChecker.isSignedIn()) {
+				return false;
+			}
+
+			if (PortalPermissionUtil.contains(
+					permissionChecker, ActionKeys.VIEW_CONTROL_PANEL)) {
+
+				return true;
+			}
+
+			if (Validator.isNotNull(controlPanelCategory)) {
+				return true;
+			}
+
+			return false;
+		}
+
 		return LayoutPermissionUtil.contains(
-			permissionChecker, layout, controlPanelCategory, checkViewableGroup,
-			action);
+			permissionChecker, layout, checkViewableGroup, action);
 	}
 
 	private static final String _CONTROL_PANEL_CATEGORY_PORTLET_PREFIX =
