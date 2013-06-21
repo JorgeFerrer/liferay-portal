@@ -150,6 +150,8 @@ public interface SiteMembershipPolicy {
 			List<UserGroupRole> removeUserGroupRoles)
 		throws PortalException, SystemException;
 
+	public boolean isManualMembershipManagementDisallowed(long groupId);
+
 	/**
 	 * Returns <code>true</code> if the user can be added to the site. Liferay's
 	 * UI calls this method.

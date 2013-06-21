@@ -52,6 +52,11 @@ public abstract class BaseSiteMembershipPolicy implements SiteMembershipPolicy {
 	}
 
 	@Override
+	public boolean isManualMembershipManagementDisallowed(long groupId) {
+		return false;
+	}
+
+	@Override
 	@SuppressWarnings("unused")
 	public boolean isMembershipAllowed(long userId, long groupId)
 		throws PortalException, SystemException {
