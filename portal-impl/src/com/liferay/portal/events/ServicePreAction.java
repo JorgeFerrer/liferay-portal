@@ -320,6 +320,16 @@ public class ServicePreAction extends Action {
 			timeZone = company.getTimeZone();
 		}
 
+		// Scope
+
+		long scopeGroupId = PortalUtil.getScopeGroupId(request);
+
+		if ((scopeGroupId <= 0) && (doAsGroupId > 0)) {
+			scopeGroupId = doAsGroupId;
+		}
+
+		long siteGroupId = PortalUtil.getSiteGroupId(scopeGroupId);
+
 		// Layouts
 
 		if (signedIn) {
@@ -385,7 +395,7 @@ public class ServicePreAction extends Action {
 				 LiferayWindowState.isExclusive(request))) {
 
 				controlPanelCategory =
-					_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX + ppid;
+					_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX;
 			}
 			else if (Validator.isNotNull(ppid)) {
 				Portlet portlet = PortletLocalServiceUtil.getPortletById(
@@ -411,10 +421,11 @@ public class ServicePreAction extends Action {
 				}
 			}
 
-			boolean viewableGroup = LayoutPermissionUtil.contains(
+			boolean viewableGroup = hasLayoutPermission(
 				permissionChecker, layout, controlPanelCategory, true,
-				ActionKeys.VIEW);
-			boolean viewableStaging = GroupPermissionUtil.contains(
+				ActionKeys.VIEW, scopeGroupId);
+			boolean viewableStaging = !group.isControlPanel() &&
+				GroupPermissionUtil.contains(
 				permissionChecker, group.getGroupId(), ActionKeys.VIEW_STAGING);
 
 			if (viewableStaging) {
@@ -428,9 +439,9 @@ public class ServicePreAction extends Action {
 			else if (!isLoginRequest(request) &&
 					 (!viewableGroup ||
 					  (!redirectToDefaultLayout &&
-					   !LayoutPermissionUtil.contains(
+					   !hasLayoutPermission(
 						   permissionChecker, layout, controlPanelCategory,
-						   false, ActionKeys.VIEW)))) {
+						   false, ActionKeys.VIEW, scopeGroupId)))) {
 
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
@@ -482,7 +493,7 @@ public class ServicePreAction extends Action {
 		}
 
 		Object[] viewableLayouts = getViewableLayouts(
-			request, user, permissionChecker, layout, layouts);
+			request, user, permissionChecker, layout, layouts, scopeGroupId);
 
 		String layoutSetLogo = null;
 
@@ -502,7 +513,7 @@ public class ServicePreAction extends Action {
 		LayoutTypePortlet layoutTypePortlet = null;
 
 		layouts = mergeAdditionalLayouts(
-			request, user, permissionChecker, layout, layouts);
+			request, user, permissionChecker, layout, layouts, scopeGroupId);
 
 		LayoutSet layoutSet = null;
 
@@ -513,10 +524,10 @@ public class ServicePreAction extends Action {
 			request, "customized_view", true);
 
 		if (layout != null) {
-			hasCustomizeLayoutPermission = LayoutPermissionUtil.contains(
-				permissionChecker, layout, ActionKeys.CUSTOMIZE);
-			hasUpdateLayoutPermission = LayoutPermissionUtil.contains(
-				permissionChecker, layout, ActionKeys.UPDATE);
+			hasCustomizeLayoutPermission = hasLayoutPermission(
+				permissionChecker, layout, ActionKeys.CUSTOMIZE, scopeGroupId);
+			hasUpdateLayoutPermission = hasLayoutPermission(
+				permissionChecker, layout, ActionKeys.UPDATE, scopeGroupId);
 
 			layoutSet = layout.getLayoutSet();
 
@@ -639,16 +650,6 @@ public class ServicePreAction extends Action {
 			request.setAttribute(WebKeys.LAYOUT, layout);
 			request.setAttribute(WebKeys.LAYOUTS, layouts);
 		}
-
-		// Scope
-
-		long scopeGroupId = PortalUtil.getScopeGroupId(request);
-
-		if ((scopeGroupId <= 0) && (doAsGroupId > 0)) {
-			scopeGroupId = doAsGroupId;
-		}
-
-		long siteGroupId = PortalUtil.getSiteGroupId(scopeGroupId);
 
 		// Theme and color scheme
 
@@ -1030,9 +1031,8 @@ public class ServicePreAction extends Action {
 
 			boolean hasAddLayoutGroupPermission = GroupPermissionUtil.contains(
 				permissionChecker, scopeGroupId, ActionKeys.ADD_LAYOUT);
-			boolean hasAddLayoutLayoutPermission =
-				LayoutPermissionUtil.contains(
-					permissionChecker, layout, ActionKeys.ADD_LAYOUT);
+			boolean hasAddLayoutLayoutPermission = hasLayoutPermission(
+				permissionChecker, layout, ActionKeys.ADD_LAYOUT, scopeGroupId);
 			boolean hasManageLayoutsGroupPermission =
 				GroupPermissionUtil.contains(
 					permissionChecker, scopeGroupId, ActionKeys.MANAGE_LAYOUTS);
@@ -1672,7 +1672,7 @@ public class ServicePreAction extends Action {
 	protected Object[] getViewableLayouts(
 			HttpServletRequest request, User user,
 			PermissionChecker permissionChecker, Layout layout,
-			List<Layout> layouts)
+			List<Layout> layouts, long scopeGroupId)
 		throws PortalException, SystemException {
 
 		if ((layouts == null) || layouts.isEmpty()) {
@@ -1684,12 +1684,13 @@ public class ServicePreAction extends Action {
 		boolean hasViewLayoutPermission = false;
 		boolean hasViewStagingPermission =
 			(group.isStagingGroup() || group.isStagedRemotely()) &&
-			 GroupPermissionUtil.contains(
-				 permissionChecker, group.getGroupId(),
-				 ActionKeys.VIEW_STAGING);
+			(!group.isControlPanel() && GroupPermissionUtil.contains(
+				permissionChecker, group.getGroupId(),
+				ActionKeys.VIEW_STAGING));
 
-		if (LayoutPermissionUtil.contains(
-				permissionChecker, layout, false, ActionKeys.VIEW) ||
+		if (hasLayoutPermission(
+				permissionChecker, layout, false, ActionKeys.VIEW, scopeGroupId)
+			||
 			hasViewStagingPermission) {
 
 			hasViewLayoutPermission = true;
@@ -1708,9 +1709,9 @@ public class ServicePreAction extends Action {
 			Layout curLayout = layouts.get(i);
 
 			if (!curLayout.isHidden() &&
-				(LayoutPermissionUtil.contains(
-					permissionChecker, curLayout, controlPanelCategory, false,
-					ActionKeys.VIEW) ||
+				(hasLayoutPermission(
+					permissionChecker, curLayout, controlPanelCategory,
+					false, ActionKeys.VIEW, scopeGroupId) ||
 				 hasViewStagingPermission)) {
 
 				if (accessibleLayouts.isEmpty() && !hasViewLayoutPermission) {
@@ -1836,7 +1837,7 @@ public class ServicePreAction extends Action {
 	protected List<Layout> mergeAdditionalLayouts(
 			HttpServletRequest request, User user,
 			PermissionChecker permissionChecker, Layout layout,
-			List<Layout> layouts)
+			List<Layout> layouts, long scopeGroupId)
 		throws PortalException, SystemException {
 
 		if ((layout == null) || layout.isPrivateLayout()) {
@@ -1866,7 +1867,8 @@ public class ServicePreAction extends Action {
 				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
 			Object[] viewableLayouts = getViewableLayouts(
-				request, user, permissionChecker, layout, guestLayouts);
+				request, user, permissionChecker, layout, guestLayouts,
+				scopeGroupId);
 
 			guestLayouts = (List<Layout>)viewableLayouts[1];
 
@@ -1916,7 +1918,8 @@ public class ServicePreAction extends Action {
 						LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
 				Object[] viewableLayouts = getViewableLayouts(
-					request, user, permissionChecker, layout, previousLayouts);
+					request, user, permissionChecker, layout, previousLayouts,
+					scopeGroupId);
 
 				previousLayouts = (List<Layout>)viewableLayouts[1];
 
@@ -2157,6 +2160,71 @@ public class ServicePreAction extends Action {
 
 	protected File privateLARFile;
 	protected File publicLARFile;
+
+	private boolean hasLayoutPermission(
+			PermissionChecker permissionChecker, Layout layout,
+			boolean checkViewableGroup, String action, long scopeGroupId)
+		throws PortalException, SystemException {
+
+		return hasLayoutPermission(
+			permissionChecker, layout, null, checkViewableGroup, action,
+			scopeGroupId);
+	}
+
+	private boolean hasLayoutPermission(
+			PermissionChecker permissionChecker, Layout layout, String action,
+			long scopeGroupId)
+		throws PortalException, SystemException {
+
+		if (layout.isTypeControlPanel()) {
+			return hasLayoutPermission(
+				permissionChecker, layout, null, false, action, scopeGroupId);
+		}
+
+		return LayoutPermissionUtil.contains(permissionChecker, layout, action);
+	}
+
+	private boolean hasLayoutPermission(
+			PermissionChecker permissionChecker, Layout layout,
+			String controlPanelCategory, boolean checkViewableGroup,
+			String action, long scopeGroupId)
+		throws PortalException, SystemException {
+
+		// Control panel security checks:
+		// 1st authorization layer ... access to control panel layout/site
+		// 2nd authorization layer ... permission check to VIEW specific portlet
+
+		// This is 1st authorization layer
+
+		if (layout.isTypeControlPanel()) {
+			if (!permissionChecker.isSignedIn()) {
+				return false;
+			}
+
+			if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
+				if (GroupPermissionUtil.contains(
+					permissionChecker, scopeGroupId,
+					ActionKeys.VIEW_SITE_ADMINISTRATION)) {
+
+					return true;
+				}
+			}
+			else if (controlPanelCategory.equals(PortletCategoryKeys.MY)) {
+				return true; // Checked in layer 2
+			}
+			else if (controlPanelCategory.equals(
+				_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX)) {
+
+				return true; // Checked in layer 2?
+			}
+
+			return PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.VIEW_CONTROL_PANEL);
+		}
+
+		return LayoutPermissionUtil.contains(
+			permissionChecker, layout, checkViewableGroup, action);
+	}
 
 	private static final String _CONTROL_PANEL_CATEGORY_PORTLET_PREFIX =
 		"portlet_";
