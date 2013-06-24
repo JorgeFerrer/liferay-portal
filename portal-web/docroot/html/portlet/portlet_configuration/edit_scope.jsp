@@ -17,34 +17,20 @@
 <%@ include file="/html/portlet/portlet_configuration/init.jsp" %>
 
 <%
-String scopeType = GetterUtil.getString(portletPreferences.getValue("lfrScopeType", null));
-String scopeLayoutUuid = GetterUtil.getString(portletPreferences.getValue("lfrScopeLayoutUuid", null));
+long[] selectedGroupIds = PortletConfigurationUtil.getGroupIds(portletPreferences, scopeGroupId, layout);
 
 Group group = null;
 
-if (Validator.isNull(scopeType)) {
-	group = themeDisplay.getSiteGroup();
-}
-else if (scopeType.equals("company")) {
-	group = GroupLocalServiceUtil.getGroup(themeDisplay.getCompanyGroupId());
-}
-else if (scopeType.equals("layout")) {
-	for (Layout scopeGroupLayout : LayoutLocalServiceUtil.getScopeGroupLayouts(layout.getGroupId(), layout.isPrivateLayout())) {
-		if (scopeLayoutUuid.equals(scopeGroupLayout.getUuid())) {
-			group = GroupLocalServiceUtil.getLayoutGroup(scopeGroupLayout.getCompanyId(), scopeGroupLayout.getPlid());
-
-			break;
-		}
-	}
-
-	if (group == null) {
-		group = themeDisplay.getSiteGroup();
-	}
+if (selectedGroupIds.length > 0) {
+	group = GroupLocalServiceUtil.getGroup(selectedGroupIds[0]);
 }
 
 Set<Group> availableGroups = new LinkedHashSet<Group>();
 
-availableGroups.add(group);
+if (group != null) {
+	availableGroups.add(group);
+}
+
 availableGroups.add(themeDisplay.getSiteGroup());
 availableGroups.add(company.getGroup());
 
@@ -63,19 +49,6 @@ for (Layout scopeGroupLayout : LayoutLocalServiceUtil.getScopeGroupLayouts(layou
 
 			<%
 			for (Group availableGroup : availableGroups) {
-				String availableGroupScopeType = StringPool.BLANK;
-				String availableGroupScopeLayoutUuid = StringPool.BLANK;
-
-				if (availableGroup.isCompany()) {
-					availableGroupScopeType = "company";
-				}
-				else if (availableGroup.isLayout()) {
-					availableGroupScopeType = "layout";
-
-					Layout availableGroupLayout = LayoutLocalServiceUtil.getLayout(availableGroup.getClassPK());
-
-					availableGroupScopeLayoutUuid = availableGroupLayout.getUuid();
-				}
 			%>
 
 				<liferay-portlet:actionURL var="setScopeURL">
@@ -83,8 +56,7 @@ for (Layout scopeGroupLayout : LayoutLocalServiceUtil.getScopeGroupLayouts(layou
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="portletResource" value="<%= portletResource %>" />
 					<portlet:param name="struts_action" value="/portlet_configuration/edit_scope" />
-					<portlet:param name="scopeType" value="<%= availableGroupScopeType %>" />
-					<portlet:param name="scopeLayoutUuid" value="<%= availableGroupScopeLayoutUuid %>" />
+					<portlet:param name="scopeId" value="<%= PortletConfigurationUtil.getScopeId(availableGroup, scopeGroupId) %>" />
 				</liferay-portlet:actionURL>
 
 				<liferay-ui:icon
@@ -105,8 +77,7 @@ for (Layout scopeGroupLayout : LayoutLocalServiceUtil.getScopeGroupLayouts(layou
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="portletResource" value="<%= portletResource %>" />
 					<portlet:param name="struts_action" value="/portlet_configuration/edit_scope" />
-					<portlet:param name="scopeType" value="layout" />
-					<portlet:param name="scopeLayoutUuid" value="<%= layout.getUuid() %>" />
+					<portlet:param name="scopeId" value="<%= PortletConfigurationUtil.SCOPE_ID_LAYOUT_UUID_PREFIX + layout.getUuid() %>" />
 				</liferay-portlet:actionURL>
 
 				<liferay-ui:icon
