@@ -24,6 +24,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 
 import java.util.List;
 import java.util.Locale;
@@ -37,15 +38,20 @@ import javax.portlet.PortletRequest;
  */
 public interface AssetPublisher {
 
-	public static final String SCOPE_ID_CHILD_GROUP_PREFIX = "ChildGroup_";
+	public static final String SCOPE_ID_CHILD_GROUP_PREFIX =
+		PortletConfigurationUtil.SCOPE_ID_CHILD_GROUP_PREFIX;
 
-	public static final String SCOPE_ID_GROUP_PREFIX = "Group_";
+	public static final String SCOPE_ID_GROUP_PREFIX =
+		PortletConfigurationUtil.SCOPE_ID_GROUP_PREFIX;
 
-	public static final String SCOPE_ID_LAYOUT_PREFIX = "Layout_";
+	public static final String SCOPE_ID_LAYOUT_PREFIX =
+		PortletConfigurationUtil.SCOPE_ID_LAYOUT_PREFIX;
 
-	public static final String SCOPE_ID_LAYOUT_UUID_PREFIX = "LayoutUuid_";
+	public static final String SCOPE_ID_LAYOUT_UUID_PREFIX =
+		PortletConfigurationUtil.SCOPE_ID_LAYOUT_UUID_PREFIX;
 
-	public static final String SCOPE_ID_PARENT_GROUP_PREFIX = "ParentGroup_";
+	public static final String SCOPE_ID_PARENT_GROUP_PREFIX =
+		PortletConfigurationUtil.SCOPE_ID_PARENT_GROUP_PREFIX;
 
 	public void addAndStoreSelection(
 			PortletRequest portletRequest, String className, long classPK,

@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PrimitiveLongList;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -41,18 +40,15 @@ import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Group;
-import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.service.SubscriptionLocalServiceUtil;
-import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.service.persistence.PortletPreferencesActionableDynamicQuery;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -72,7 +68,7 @@ import com.liferay.portlet.asset.service.AssetEntryServiceUtil;
 import com.liferay.portlet.asset.service.AssetTagLocalServiceUtil;
 import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
 import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.sites.util.SitesUtil;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 import com.liferay.util.ContentUtil;
 
 import java.io.IOException;
@@ -663,72 +659,8 @@ public class AssetPublisherImpl implements AssetPublisher {
 			String scopeId, long siteGroupId, boolean privateLayout)
 		throws PortalException, SystemException {
 
-		if (scopeId.startsWith(SCOPE_ID_CHILD_GROUP_PREFIX)) {
-			String scopeIdSuffix = scopeId.substring(
-				SCOPE_ID_CHILD_GROUP_PREFIX.length());
-
-			return GetterUtil.getLong(scopeIdSuffix);
-		}
-		else if (scopeId.startsWith(SCOPE_ID_GROUP_PREFIX)) {
-			String scopeIdSuffix = scopeId.substring(
-				SCOPE_ID_GROUP_PREFIX.length());
-
-			if (scopeIdSuffix.equals(GroupConstants.DEFAULT)) {
-				return siteGroupId;
-			}
-
-			return GetterUtil.getLong(scopeIdSuffix);
-		}
-		else if (scopeId.startsWith(SCOPE_ID_LAYOUT_UUID_PREFIX)) {
-			String layoutUuid = scopeId.substring(
-				SCOPE_ID_LAYOUT_UUID_PREFIX.length());
-
-			Layout scopeIdLayout =
-				LayoutLocalServiceUtil.getLayoutByUuidAndGroupId(
-					layoutUuid, siteGroupId, privateLayout);
-
-			Group scopeIdGroup = null;
-
-			if (scopeIdLayout.hasScopeGroup()) {
-				scopeIdGroup = scopeIdLayout.getScopeGroup();
-			}
-			else {
-				scopeIdGroup = GroupLocalServiceUtil.addGroup(
-					PrincipalThreadLocal.getUserId(),
-					GroupConstants.DEFAULT_PARENT_GROUP_ID,
-					Layout.class.getName(), scopeIdLayout.getPlid(),
-					GroupConstants.DEFAULT_LIVE_GROUP_ID,
-					String.valueOf(scopeIdLayout.getPlid()), null, 0, null,
-					false, true, null);
-			}
-
-			return scopeIdGroup.getGroupId();
-		}
-		else if (scopeId.startsWith(SCOPE_ID_LAYOUT_PREFIX)) {
-
-			// Legacy preferences
-
-			String scopeIdSuffix = scopeId.substring(
-				SCOPE_ID_LAYOUT_PREFIX.length());
-
-			long scopeIdLayoutId = GetterUtil.getLong(scopeIdSuffix);
-
-			Layout scopeIdLayout = LayoutLocalServiceUtil.getLayout(
-				siteGroupId, privateLayout, scopeIdLayoutId);
-
-			Group scopeIdGroup = scopeIdLayout.getScopeGroup();
-
-			return scopeIdGroup.getGroupId();
-		}
-		else if (scopeId.startsWith(SCOPE_ID_PARENT_GROUP_PREFIX)) {
-			String scopeIdSuffix = scopeId.substring(
-				SCOPE_ID_PARENT_GROUP_PREFIX.length());
-
-			return GetterUtil.getLong(scopeIdSuffix);
-		}
-		else {
-			throw new IllegalArgumentException("Invalid scope ID " + scopeId);
-		}
+		return PortletConfigurationUtil.getGroupIdFromScopeId(
+			scopeId, siteGroupId, privateLayout);
 	}
 
 	@Override
@@ -736,26 +668,8 @@ public class AssetPublisherImpl implements AssetPublisher {
 		PortletPreferences portletPreferences, long scopeGroupId,
 		Layout layout) {
 
-		String[] scopeIds = portletPreferences.getValues(
-			"scopeIds", new String[] {SCOPE_ID_GROUP_PREFIX + scopeGroupId});
-
-		long[] groupIds = new long[scopeIds.length];
-
-		int i = 0;
-
-		for (String scopeId : scopeIds) {
-			try {
-				groupIds[i] = getGroupIdFromScopeId(
-					scopeId, scopeGroupId, layout.isPrivateLayout());
-
-				i++;
-			}
-			catch (Exception e) {
-				continue;
-			}
-		}
-
-		return groupIds;
+		return PortletConfigurationUtil.getGroupIds(
+			portletPreferences, scopeGroupId, layout);
 	}
 
 	@Override
@@ -776,34 +690,7 @@ public class AssetPublisherImpl implements AssetPublisher {
 	public String getScopeId(Group group, long scopeGroupId)
 		throws PortalException, SystemException {
 
-		String key = null;
-
-		if (group.isLayout()) {
-			Layout layout = LayoutLocalServiceUtil.getLayout(
-				group.getClassPK());
-
-			key = SCOPE_ID_LAYOUT_UUID_PREFIX + layout.getUuid();
-		}
-		else if (group.isLayoutPrototype() ||
-				 (group.getGroupId() == scopeGroupId)) {
-
-			key = SCOPE_ID_GROUP_PREFIX + GroupConstants.DEFAULT;
-		}
-		else {
-			Group scopeGroup = GroupLocalServiceUtil.getGroup(scopeGroupId);
-
-			if (scopeGroup.hasAncestor(group.getGroupId())) {
-				key = SCOPE_ID_PARENT_GROUP_PREFIX + group.getGroupId();
-			}
-			else if (group.hasAncestor(scopeGroup.getGroupId())) {
-				key = SCOPE_ID_CHILD_GROUP_PREFIX + group.getGroupId();
-			}
-			else {
-				key = SCOPE_ID_GROUP_PREFIX + group.getGroupId();
-			}
-		}
-
-		return key;
+		return PortletConfigurationUtil.getScopeId(group, scopeGroupId);
 	}
 
 	@Override
@@ -812,44 +699,8 @@ public class AssetPublisherImpl implements AssetPublisher {
 			long companyGroupId, Layout layout)
 		throws PortalException, SystemException {
 
-		long groupId = getGroupIdFromScopeId(
-			scopeId, layout.getGroupId(), layout.isPrivateLayout());
-
-		if (scopeId.startsWith(SCOPE_ID_CHILD_GROUP_PREFIX)) {
-			Group group = GroupLocalServiceUtil.getGroup(groupId);
-
-			if (!group.hasAncestor(layout.getGroupId())) {
-				return false;
-			}
-		}
-		else if (scopeId.startsWith(SCOPE_ID_PARENT_GROUP_PREFIX)) {
-			Group siteGroup = layout.getGroup();
-
-			if (!siteGroup.hasAncestor(groupId)) {
-				return false;
-			}
-
-			if (SitesUtil.isContentSharingWithChildrenEnabled(siteGroup)) {
-				return true;
-			}
-
-			if (!PrefsPropsUtil.getBoolean(
-					layout.getCompanyId(),
-					PropsKeys.
-					SITES_CONTENT_SHARING_THROUGH_ADMINISTRATORS_ENABLED)) {
-
-				return false;
-			}
-
-			return GroupPermissionUtil.contains(
-				permissionChecker, groupId, ActionKeys.UPDATE);
-		}
-		else if (groupId != companyGroupId) {
-			return GroupPermissionUtil.contains(
-				permissionChecker, groupId, ActionKeys.UPDATE);
-		}
-
-		return true;
+		return PortletConfigurationUtil.isScopeIdSelectable(
+			permissionChecker, scopeId, companyGroupId, layout);
 	}
 
 	@Override
