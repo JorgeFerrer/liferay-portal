@@ -150,6 +150,8 @@ public interface SiteMembershipPolicy {
 			List<UserGroupRole> removeUserGroupRoles)
 		throws PortalException, SystemException;
 
+	public List<Long> getManualMembershipManagementDisallowedGroupIds();
+
 	public boolean isManualMembershipManagementDisallowed(long groupId);
 
 	/**

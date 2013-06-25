@@ -34,6 +34,7 @@ import com.liferay.portal.service.persistence.UserGroupRolePK;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,11 @@ public abstract class BaseSiteMembershipPolicy implements SiteMembershipPolicy {
 			List<UserGroupRole> addUserGroupRoles,
 			List<UserGroupRole> removeUserGroupRoles)
 		throws PortalException, SystemException {
+	}
+
+	@Override
+	public List<Long> getManualMembershipManagementDisallowedGroupIds() {
+		return Collections.emptyList();
 	}
 
 	@Override
