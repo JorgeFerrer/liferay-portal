@@ -58,6 +58,22 @@ public class SiteMembershipPolicyUtil {
 			addUserGroupRoles, removeUserGroupRoles);
 	}
 
+	public static List<Long> getManualMembershipManagementDisallowedGroupIds() {
+		SiteMembershipPolicy siteMembershipPolicy =
+			SiteMembershipPolicyFactoryUtil.getSiteMembershipPolicy();
+
+		return siteMembershipPolicy.
+			getManualMembershipManagementDisallowedGroupIds();
+	}
+
+	public static boolean isManualMembershipManagementDisallowed(long groupId) {
+		SiteMembershipPolicy siteMembershipPolicy =
+			SiteMembershipPolicyFactoryUtil.getSiteMembershipPolicy();
+
+		return siteMembershipPolicy.isManualMembershipManagementDisallowed(
+			groupId);
+	}
+
 	public static boolean isMembershipAllowed(long userId, long groupId)
 		throws PortalException, SystemException {
 
