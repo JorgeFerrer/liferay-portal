@@ -16,6 +16,7 @@ package com.liferay.portlet.sitesadmin;
 
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.security.membershippolicy.SiteMembershipPolicyUtil;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
@@ -36,6 +37,12 @@ public class SiteMembershipsControlPanelEntry extends BaseControlPanelEntry {
 			!GroupPermissionUtil.contains(
 				permissionChecker, group.getGroupId(),
 				ActionKeys.ASSIGN_MEMBERS)) {
+
+			return true;
+		}
+
+		if (SiteMembershipPolicyUtil.isManualMembershipManagementDisallowed(
+				group.getGroupId())) {
 
 			return true;
 		}
