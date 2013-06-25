@@ -150,8 +150,25 @@ public interface SiteMembershipPolicy {
 			List<UserGroupRole> removeUserGroupRoles)
 		throws PortalException, SystemException;
 
+	/**
+	 * Returns a list of sites that denies access to site membership management
+	 * features (Site Membership Portlet in Control Panel, selecting sites for a
+	 * user to become a member of...)
+	 *
+	 * @return the list of sites that denies access to site membership
+	 *         management features
+	 */
 	public List<Long> getManualMembershipManagementDisallowedGroupIds();
 
+	/**
+	 * Returns <code>true</code> if the UI denies access to site membership
+	 * management features (Site Membership Portlet in Control Panel, selecting
+	 * sites for a user to become a member of...)
+	 *
+	 * @param  groupId the primary key of the site
+	 * @return <code>true</code> if the UI denies access to site membership
+	 *         management features; <code>false</code> otherwise
+	 */
 	public boolean isManualMembershipManagementDisallowed(long groupId);
 
 	/**
