@@ -29,7 +29,6 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.mobiledevicerules.model.MDRRule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -39,145 +38,80 @@ import java.util.Collections;
  */
 public class SimpleRuleHandler implements RuleHandler {
 
+	public static final String PROPERTY_MAX_SUFFIX = "-max";
+
+	public static final String PROPERTY_MIN_SUFFIX = "-min";
+
 	public static final String PROPERTY_OS = "os";
 
-	public static final String PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX =
-		"screen-physical-height-max";
+	public static final String PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX =
+		"screen-physical-height";
 
-	public static final String PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN =
-		"screen-physical-height-min";
+	public static final String PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX =
+		"screen-physical-width";
 
-	public static final String PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX =
-		"screen-physical-width-max";
+	public static final String PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX =
+		"screen-resolution-height";
 
-	public static final String PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN =
-		"screen-physical-width-min";
-
-	public static final String PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX =
-		"screen-resolution-height-max";
-
-	public static final String PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN =
-		"screen-resolution-height-min";
-
-	public static final String PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX =
-		"screen-resolution-width-max";
-
-	public static final String PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN =
-		"screen-resolution-width-min";
+	public static final String PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX =
+		"screen-resolution-width";
 
 	public static final String PROPERTY_TABLET = "tablet";
 
 	public static String getHandlerType() {
-
 		return SimpleRuleHandler.class.getName();
 	}
 
 	@Override
 	public boolean evaluateRule(MDRRule mdrRule, ThemeDisplay themeDisplay) {
-
 		Device device = themeDisplay.getDevice();
 
 		if (device == null) {
 			if (_log.isDebugEnabled()) {
-				StringBuilder sb =
-					new StringBuilder("Skipping rule '").append(
-						mdrRule.getNameCurrentValue()).append(
-						"'! Mising device information!");
-				_log.debug(sb.toString());
+				_log.debug(
+					"Rule evaluation is not possible because the information " +
+						"about the device is not available");
 			}
 
 			return false;
 		}
 
-		UnicodeProperties typeSettingsProperties =
-			mdrRule.getTypeSettingsProperties();
-
-		String os = typeSettingsProperties.get(PROPERTY_OS);
-
-		if (Validator.isNotNull(os)) {
-			String[] operatingSystems = StringUtil.split(os);
-
-			if (!ArrayUtil.contains(operatingSystems, device.getOS())) {
-				logRuleStatus(
-					mdrRule, RuleStatus.NO_MATCH, PROPERTY_OS, device.getOS(),
-					"one of ", operatingSystems);
-				return false;
-			}
-
-			logRuleStatus(
-				mdrRule, RuleStatus.MATCH, PROPERTY_OS, device.getOS(),
-				"one of ", operatingSystems);
-		}
-		else {
-			logRuleStatus(
-				mdrRule, RuleStatus.NO_CONDITION, PROPERTY_OS, device.getOS(),
-				"one of ");
+		if (!isValidMultiValue(mdrRule, PROPERTY_OS, device.getOS())) {
+			return false;
 		}
 
-		String tablet = typeSettingsProperties.get(PROPERTY_TABLET);
-
-		if (Validator.isNotNull(tablet)) {
-			boolean tabletBoolean = GetterUtil.getBoolean(tablet);
-
-			if (tabletBoolean != device.isTablet()) {
-				logRuleStatus(
-					mdrRule, RuleStatus.NO_MATCH, PROPERTY_TABLET,
-					String.valueOf(device.isTablet()), "=", tablet);
-				return false;
-			}
-
-			logRuleStatus(
-				mdrRule, RuleStatus.MATCH, PROPERTY_TABLET,
-				String.valueOf(device.isTablet()), "=", tablet);
-		}
-		else {
-			logRuleStatus(
-				mdrRule, RuleStatus.NO_CONDITION, PROPERTY_TABLET,
-				String.valueOf(device.isTablet()), "=");
+		if (!isValidBooleanValue(mdrRule, PROPERTY_TABLET, device.isTablet())) {
+			return false;
 		}
 
 		Dimensions screenPhysicalSize = device.getScreenPhysicalSize();
 
-		if (!isValidValue(
-				mdrRule, "screen physical height",
-				screenPhysicalSize.getHeight(),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN))) {
+		if (!isValidRangeValue(
+				mdrRule, PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX,
+				screenPhysicalSize.getHeight())) {
 
 			return false;
 		}
 
-		if (!isValidValue(
-				mdrRule, "screen physical width", screenPhysicalSize.getWidth(),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN))) {
+		if (!isValidRangeValue(
+				mdrRule, PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX,
+				screenPhysicalSize.getWidth())) {
 
 			return false;
 		}
 
 		Dimensions screenResolution = device.getScreenResolution();
 
-		if (!isValidValue(
-				mdrRule, "screen resolution height",
-				screenResolution.getHeight(),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN))) {
+		if (!isValidRangeValue(
+				mdrRule, PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX,
+				screenResolution.getHeight())) {
 
 			return false;
 		}
 
-		if (!isValidValue(
-				mdrRule, "screen resolution width", screenResolution.getWidth(),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX),
-				typeSettingsProperties.get(
-					PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN))) {
+		if (!isValidRangeValue(
+				mdrRule, PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX,
+				screenResolution.getWidth())) {
 
 			return false;
 		}
@@ -187,22 +121,96 @@ public class SimpleRuleHandler implements RuleHandler {
 
 	@Override
 	public Collection<String> getPropertyNames() {
-
 		return _propertyNames;
 	}
 
 	@Override
 	public String getType() {
-
 		return getHandlerType();
 	}
 
-	protected boolean isValidValue(
-		MDRRule rule, String capability, float value, String max, String min) {
+	protected StringBundler getLogStringBundler(
+		MDRRule mdrRule, String property, String value, boolean valid) {
+
+		StringBundler sb = new StringBundler();
+
+		sb.append("Rule ");
+		sb.append(mdrRule.getNameCurrentValue());
+		sb.append(": Value for '");
+		sb.append(property);
+		sb.append("' is '");
+		sb.append(value);
+		sb.append("' which is");
+
+		if (!valid) {
+			sb.append(" NOT ");
+		}
+
+		return sb;
+	}
+
+	protected boolean isValidBooleanValue(
+		MDRRule mdrRule, String property, boolean value) {
+
+		UnicodeProperties typeSettingsProperties =
+			mdrRule.getTypeSettingsProperties();
+
+		String validValueString = typeSettingsProperties.get(property);
+
+		if (Validator.isNull(validValueString)) {
+			return true;
+		}
+
+		boolean ruleValue = GetterUtil.getBoolean(validValueString);
+
+		if (ruleValue != value) {
+			logBooleanValue(mdrRule, property, value, false);
+
+			return false;
+		}
+
+		logBooleanValue(mdrRule, property, value, true);
+
+		return true;
+	}
+
+	protected boolean isValidMultiValue(
+		MDRRule mdrRule, String property, String value) {
+
+		UnicodeProperties typeSettingsProperties =
+			mdrRule.getTypeSettingsProperties();
+
+		String validValueString = typeSettingsProperties.get(property);
+
+		if (Validator.isNull(validValueString)) {
+			return true;
+		}
+
+		String[] validValues = StringUtil.split(validValueString);
+
+		if (!ArrayUtil.contains(validValues, value)) {
+			logMultiValue(mdrRule, property, value, validValues, false);
+
+			return false;
+		}
+
+		logMultiValue(mdrRule, property, value, validValues, true);
+
+		return true;
+	}
+
+	protected boolean isValidRangeValue(
+		MDRRule mdrRule, String property, float value) {
+
+		UnicodeProperties typeSettingsProperties =
+			mdrRule.getTypeSettingsProperties();
+
+		String max = typeSettingsProperties.get(property + PROPERTY_MAX_SUFFIX);
+		String min = typeSettingsProperties.get(property + PROPERTY_MIN_SUFFIX);
 
 		if (Validator.isNull(max) && Validator.isNull(min)) {
-			logRuleStatus(rule, RuleStatus.NO_CONDITION, capability,
-			String.valueOf(value), "");
+			logRangeValue(mdrRule, property, value, max, min, true);
+
 			return true;
 		}
 
@@ -210,134 +218,108 @@ public class SimpleRuleHandler implements RuleHandler {
 			float maxFloat = GetterUtil.getFloat(max);
 
 			if (value > maxFloat) {
-				logRuleStatus(
-					rule, RuleStatus.NO_MATCH, capability,
-					String.valueOf(value), "<= ", String.valueOf(maxFloat));
+				logRangeValue(mdrRule, property, value, max, min, false);
+
 				return false;
 			}
 
-			logRuleStatus(
-				rule, RuleStatus.MATCH, capability, String.valueOf(value),
-				"<= ", String.valueOf(maxFloat));
+			logRangeValue(mdrRule, property, value, max, min, true);
 		}
 
 		if (Validator.isNotNull(min)) {
 			float minFloat = GetterUtil.getFloat(min);
 
 			if (value < minFloat) {
-				logRuleStatus(
-					rule, RuleStatus.NO_MATCH, capability,
-					String.valueOf(value), ">= ", String.valueOf(minFloat));
+				logRangeValue(mdrRule, property, value, max, min, false);
+
 				return false;
 			}
 
-			logRuleStatus(
-				rule, RuleStatus.MATCH, capability, String.valueOf(value),
-				">= ", String.valueOf(minFloat));
+			logRangeValue(mdrRule, property, value, max, min, true);
 		}
 
 		return true;
 	}
 
-	protected void logRuleStatus(
-		MDRRule rule, RuleStatus status, String capability, String value,
-		String condition, String... expectedValues) {
+	protected void logBooleanValue(
+		MDRRule mdrRule, String property, boolean value, boolean valid) {
 
-		if (rule == null)
+		if (!_log.isDebugEnabled()) {
 			return;
-
-		if (_log.isDebugEnabled()) {
-			StringBundler sb = new StringBundler();
-
-			switch (status) {
-
-			case MATCH:
-				sb.append("Processing rule '").append(
-					rule.getNameCurrentValue()).append(
-					"'! Device's capability '").append(capability).append(
-					"' is '").append(value).append("' which matches");
-
-				if (expectedValues != null) {
-					String expected;
-
-					if (expectedValues.length > 1) {
-						expected = Arrays.toString(expectedValues);
-					}
-					else {
-						expected = expectedValues[0];
-					}
-
-					sb.append(" the rule condition '").append(condition).append(
-						expected).append("'!");
-				}
-				else {
-					sb.append(" the rule condition!");
-				}
-
-				break;
-
-			case NO_MATCH:
-				sb.append("Skipping rule '").append(
-					rule.getNameCurrentValue()).append(
-						"'! Device's capability '").append(capability).append(
-					"' is '").append(value).append("' which does not match");
-
-				if (expectedValues != null) {
-					String expected;
-
-					if (expectedValues.length > 1) {
-						expected = Arrays.toString(expectedValues);
-					}
-					else {
-						expected = expectedValues[0];
-					}
-
-					sb.append(" the rule condition '").append(condition).append(
-						expected).append("'!");
-				}
-				else {
-					sb.append(" the rule condition!");
-				}
-
-				break;
-
-			case NO_CONDITION:
-
-				sb.append("Processing rule '").append(
-					rule.getNameCurrentValue()).append(
-					"'! Device's capability '").append(capability).append(
-					"' is '").append(value).append(
-					"'! The rule is valid for any value!");
-
-				break;
-			}
-
-			if (sb.length() > 0) {
-				_log.debug(sb.toString());
-			}
-
 		}
 
+		StringBundler sb = getLogStringBundler(
+			mdrRule, property, String.valueOf(value), valid);
+
+		sb.append("valid.");
+
+		_log.debug(sb.toString());
+	}
+
+	protected void logMultiValue(
+		MDRRule mdrRule, String property, String value, String[] validValues,
+		boolean valid) {
+
+		if (!_log.isDebugEnabled()) {
+			return;
+		}
+
+		StringBundler sb = getLogStringBundler(mdrRule, property, value, valid);
+
+		sb.append("within the allowed values (");
+		sb.append(StringUtil.merge(validValues));
+		sb.append(")");
+
+		_log.debug(sb.toString());
+	}
+
+	protected void logRangeValue(
+		MDRRule mdrRule, String property, float value, String max, String min,
+		boolean valid) {
+
+		if (!_log.isDebugEnabled()) {
+			return;
+		}
+
+		StringBundler sb = getLogStringBundler(
+			mdrRule, property, String.valueOf(value), valid);
+
+		sb.append("within the allowed range");
+
+		if (Validator.isNotNull(max) && Validator.isNotNull(min)) {
+			sb.append(" (");
+			sb.append(min);
+			sb.append(", ");
+			sb.append(max);
+			sb.append(")");
+		}
+
+		_log.debug(sb.toString());
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SimpleRuleHandler.class);
-
 	private static Collection<String> _propertyNames;
-
-	private enum RuleStatus {MATCH, NO_CONDITION, NO_MATCH};
 
 	static {
 		_propertyNames = new ArrayList<String>(10);
 
 		_propertyNames.add(PROPERTY_OS);
-		_propertyNames.add(PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX);
-		_propertyNames.add(PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN);
-		_propertyNames.add(PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX);
-		_propertyNames.add(PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN);
-		_propertyNames.add(PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX);
-		_propertyNames.add(PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN);
-		_propertyNames.add(PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX);
-		_propertyNames.add(PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN);
+		_propertyNames.add(
+			PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX + PROPERTY_MAX_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX + PROPERTY_MIN_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX + PROPERTY_MAX_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX + PROPERTY_MIN_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX + PROPERTY_MAX_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX + PROPERTY_MIN_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX + PROPERTY_MAX_SUFFIX);
+		_propertyNames.add(
+			PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX + PROPERTY_MIN_SUFFIX);
 		_propertyNames.add(PROPERTY_TABLET);
 
 		_propertyNames = Collections.unmodifiableCollection(_propertyNames);
