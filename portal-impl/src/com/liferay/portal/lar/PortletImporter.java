@@ -1118,7 +1118,7 @@ public class PortletImporter {
 
 		long plid = 0;
 		String portletSetupTitle = StringPool.BLANK;
-		String scopeType = StringPool.BLANK;
+		String scopeId = StringPool.BLANK;
 		String scopeLayoutUuid = StringPool.BLANK;
 
 		if (layout != null) {
@@ -1134,13 +1134,10 @@ public class PortletImporter {
 						"portletSetupTitle_" + languageId,
 						PortalUtil.getPortletTitle(portletId, languageId)));
 
-				scopeType = GetterUtil.getString(
-					jxPreferences.getValue("lfrScopeType", null));
-				scopeLayoutUuid = GetterUtil.getString(
-					jxPreferences.getValue("lfrScopeLayoutUuid", null));
+				scopeId = GetterUtil.getString(
+					jxPreferences.getValue("lfrScopeId", null));
 
-				portletDataContext.setScopeType(scopeType);
-				portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
+				portletDataContext.setScopeId(scopeId);
 			}
 		}
 
@@ -1264,14 +1261,12 @@ public class PortletImporter {
 			try {
 				jxPreferences.setValue(
 					"portletSetupTitle_" + languageId, portletSetupTitle);
-				jxPreferences.setValue("lfrScopeType", scopeType);
-				jxPreferences.setValue("lfrScopeLayoutUuid", scopeLayoutUuid);
+				jxPreferences.setValue("lfrScopeId", scopeId);
 
 				jxPreferences.store();
 			}
 			finally {
-				portletDataContext.setScopeType(scopeType);
-				portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
+				portletDataContext.setScopeId(scopeId);
 			}
 		}
 	}
@@ -1740,7 +1735,7 @@ public class PortletImporter {
 
 		portletDataContext.setScopeGroupId(groupId);
 		portletDataContext.setScopeLayoutUuid(StringPool.BLANK);
-		portletDataContext.setScopeType(StringPool.BLANK);
+		portletDataContext.setScopeId(StringPool.BLANK);
 	}
 
 	protected void setPortletScope(
@@ -1752,13 +1747,10 @@ public class PortletImporter {
 
 		// Portlet data scope
 
-		String scopeLayoutUuid = GetterUtil.getString(
-			portletElement.attributeValue("scope-layout-uuid"));
-		String scopeLayoutType = GetterUtil.getString(
-			portletElement.attributeValue("scope-layout-type"));
+		String scopeId = GetterUtil.getString(
+			portletElement.attributeValue("scope-id"));
 
-		portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
-		portletDataContext.setScopeType(scopeLayoutType);
+		portletDataContext.setScopeId(scopeId);
 
 		// Layout scope
 
@@ -2075,7 +2067,7 @@ public class PortletImporter {
 
 				String scopeLayoutUuid =
 					portletDataContext.getScopeLayoutUuid();
-				String scopeType = portletDataContext.getScopeType();
+				String scopeType = portletDataContext.getScopeId();
 
 				if (!ArrayUtil.contains(dataPortletPreferences, name) ||
 					(Validator.isNull(scopeLayoutUuid) &&

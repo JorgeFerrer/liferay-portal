@@ -36,6 +36,7 @@ import java.util.Map;
 
 import javax.portlet.PortletPreferences;
 
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -207,7 +208,8 @@ public abstract class BasePrototypePropagationTestCase extends PowerMockito {
 			layoutSetPrototypePortletPreferences.setValue(
 				"groupId", String.valueOf(globalGroupId));
 			layoutSetPrototypePortletPreferences.setValue(
-				"lfrScopeType", "company");
+				"scopeIds",
+				PortletConfigurationUtil.SCOPE_ID_GROUP_PREFIX + globalGroupId);
 		}
 
 		LayoutTestUtil.updatePortletPreferences(

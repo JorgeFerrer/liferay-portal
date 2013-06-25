@@ -55,7 +55,6 @@ import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletItemLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
@@ -91,6 +90,7 @@ import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.messageboards.model.MBDiscussion;
 import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.service.MBDiscussionLocalServiceUtil;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 import com.liferay.portlet.ratings.model.RatingsEntry;
 import com.liferay.util.xml.DocUtil;
 
@@ -406,26 +406,11 @@ public class PortletExporter {
 			PortletPreferencesFactoryUtil.getLayoutPortletSetup(
 				layout, portletId);
 
-		String scopeType = GetterUtil.getString(
-			jxPreferences.getValue("lfrScopeType", null));
-		String scopeLayoutUuid = GetterUtil.getString(
-			jxPreferences.getValue("lfrScopeLayoutUuid", null));
+		String scopeId = GetterUtil.getString(
+			jxPreferences.getValue("lfrScopeId", null));
 
-		if (Validator.isNotNull(scopeType)) {
-			Group scopeGroup = null;
-
-			if (scopeType.equals("company")) {
-				scopeGroup = GroupLocalServiceUtil.getCompanyGroup(
-					layout.getCompanyId());
-			}
-			else if (Validator.isNotNull(scopeLayoutUuid)) {
-				scopeGroup = layout.getScopeGroup();
-			}
-
-			if (scopeGroup != null) {
-				scopeGroupId = scopeGroup.getGroupId();
-			}
-		}
+		scopeGroupId = PortletConfigurationUtil.getGroupIdFromScopeId(
+			scopeId, layout.getGroupId(), layout.isPrivateLayout());
 
 		PortletDataContext portletDataContext =
 			PortletDataContextFactoryUtil.createExportPortletDataContext(
@@ -437,8 +422,7 @@ public class PortletExporter {
 
 		portletDataContext.setPlid(plid);
 		portletDataContext.setOldPlid(plid);
-		portletDataContext.setScopeType(scopeType);
-		portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
+		portletDataContext.setScopeId(scopeId);
 
 		Document document = SAXReaderUtil.createDocument();
 
@@ -1033,9 +1017,7 @@ public class PortletExporter {
 			"root-portlet-id", PortletConstants.getRootPortletId(portletId));
 		portletElement.addAttribute("old-plid", String.valueOf(plid));
 		portletElement.addAttribute(
-			"scope-layout-type", portletDataContext.getScopeType());
-		portletElement.addAttribute(
-			"scope-layout-uuid", portletDataContext.getScopeLayoutUuid());
+			"scope-id", portletDataContext.getScopeId());
 		portletElement.addAttribute(
 			"private-layout", String.valueOf(layout.isPrivateLayout()));
 
@@ -1051,7 +1033,7 @@ public class PortletExporter {
 
 				sb.append(portletId);
 				sb.append(StringPool.AT);
-				sb.append(portletDataContext.getScopeType());
+				sb.append(portletDataContext.getScopeId());
 				sb.append(StringPool.AT);
 				sb.append(portletDataContext.getScopeLayoutUuid());
 
@@ -1215,6 +1197,14 @@ public class PortletExporter {
 		else if (rootPotletId.equals(PortletKeys.TAGS_CATEGORIES_NAVIGATION)) {
 			preferencesXML = updateAssetCategoriesNavigationPortletPreferences(
 				preferencesXML, plid);
+		}
+		else {
+			javax.portlet.PortletPreferences jxPreferences =
+				PortletPreferencesFactoryUtil.fromDefaultXML(preferencesXML);
+
+			updateScopeIds(portletDataContext, jxPreferences, plid);
+
+			preferencesXML = PortletPreferencesFactoryUtil.toXML(jxPreferences);
 		}
 
 		Document document = SAXReaderUtil.read(preferencesXML);
@@ -1674,19 +1664,19 @@ public class PortletExporter {
 					AssetCategory.class.getName());
 			}
 			else if (name.equals("scopeIds")) {
-				updateAssetPublisherScopeIds(
-					portletDataContext, jxPreferences, name, plid);
+				updateScopeIds(portletDataContext, jxPreferences, plid);
 			}
 		}
 
 		return PortletPreferencesFactoryUtil.toXML(jxPreferences);
 	}
 
-	protected void updateAssetPublisherScopeIds(
+	protected void updateScopeIds(
 			PortletDataContext portletDataContext,
-			javax.portlet.PortletPreferences jxPreferences, String key,
-			long plid)
+			javax.portlet.PortletPreferences jxPreferences, long plid)
 		throws Exception {
+
+		String key = "scopeIds";
 
 		String[] oldValues = jxPreferences.getValues(key, null);
 

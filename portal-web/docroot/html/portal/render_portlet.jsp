@@ -68,9 +68,11 @@ else {
 	privateLayout = layout.isPrivateLayout();
 }
 
-String scopeLayoutUuid = portletPreferences.getValue("lfrScopeLayoutUuid", null);
+String scopeId = portletPreferences.getValue("lfrScopeId", null);
 
-if (Validator.isNotNull(scopeLayoutUuid)) {
+if (Validator.isNotNull(scopeId) && scopeId.startsWith(PortletConfigurationUtil.SCOPE_ID_LAYOUT_PREFIX)) {
+	String scopeLayoutUuid = portletId.substring(PortletConfigurationUtil.SCOPE_ID_LAYOUT_PREFIX.length());
+
 	Layout scopeLayout = LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(scopeLayoutUuid, group.getGroupId(), privateLayout);
 
 	if (scopeLayout != null) {

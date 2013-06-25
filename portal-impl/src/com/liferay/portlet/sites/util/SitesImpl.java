@@ -95,6 +95,7 @@ import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.PortletPreferencesImpl;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 
 import java.io.File;
 import java.io.InputStream;
@@ -1421,10 +1422,13 @@ public class SitesImpl implements Sites {
 			String languageId)
 		throws Exception {
 
-		String scopeType = GetterUtil.getString(
-			sourcePreferences.getValue("lfrScopeType", null));
+		String scopeId = GetterUtil.getString(
+			sourcePreferences.getValue("lfrScopeId", null));
 
-		if (Validator.isNull(scopeType) || !scopeType.equals("layout")) {
+		if (Validator.isNull(scopeId) ||
+			!scopeId.startsWith(
+				PortletConfigurationUtil.SCOPE_ID_LAYOUT_PREFIX)) {
+
 			return;
 		}
 
@@ -1449,11 +1453,13 @@ public class SitesImpl implements Sites {
 			portletTitle, String.valueOf(sourceLayout.getLayoutId()),
 			targetLayout.getName(languageId));
 
+		Group scopeGroup = targetScopeLayout.getScopeGroup();
+		String targetScopeId = PortletConfigurationUtil.getScopeId(
+			targetLayout.getGroup(), scopeGroup.getGroupId());
+
 		targetPreferences.setValue(
 			"groupId", String.valueOf(targetLayout.getGroupId()));
-		targetPreferences.setValue("lfrScopeType", "layout");
-		targetPreferences.setValue(
-			"lfrScopeLayoutUuid", targetLayout.getUuid());
+		targetPreferences.setValue("lfrScopeId", targetScopeId);
 		targetPreferences.setValue(
 			"portletSetupTitle_" + languageId, newPortletTitle);
 		targetPreferences.setValue(

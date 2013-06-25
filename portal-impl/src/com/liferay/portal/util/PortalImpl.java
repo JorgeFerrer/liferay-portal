@@ -196,6 +196,7 @@ import com.liferay.portlet.login.util.LoginUtil;
 import com.liferay.portlet.messageboards.action.EditDiscussionAction;
 import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.model.MBThread;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 import com.liferay.portlet.social.model.SocialRelationConstants;
 import com.liferay.portlet.social.util.FacebookUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
@@ -4383,32 +4384,15 @@ public class PortalImpl implements Portal {
 				PortletPreferencesFactoryUtil.getStrictLayoutPortletSetup(
 					layout, portletId);
 
-			String scopeType = GetterUtil.getString(
-				portletSetup.getValue("lfrScopeType", null));
+			String scopeId = GetterUtil.getString(
+				portletSetup.getValue("lfrScopeId", null));
 
-			if (Validator.isNull(scopeType)) {
+			if (Validator.isNull(scopeId)) {
 				return layout.getGroupId();
 			}
 
-			if (scopeType.equals("company")) {
-				Group companyGroup = GroupLocalServiceUtil.getCompanyGroup(
-					layout.getCompanyId());
-
-				return companyGroup.getGroupId();
-			}
-			else {
-				String scopeLayoutUuid = GetterUtil.getString(
-					portletSetup.getValue("lfrScopeLayoutUuid", null));
-
-				Layout scopeLayout =
-					LayoutLocalServiceUtil.getLayoutByUuidAndGroupId(
-						scopeLayoutUuid, layout.getGroupId(),
-						layout.isPrivateLayout());
-
-				Group scopeGroup = scopeLayout.getScopeGroup();
-
-				return scopeGroup.getGroupId();
-			}
+			return PortletConfigurationUtil.getGroupIdFromScopeId(
+				scopeId, layout.getGroupId(), layout.isPrivateLayout());
 		}
 		catch (Exception e) {
 			return layout.getGroupId();

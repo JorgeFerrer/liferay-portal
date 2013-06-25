@@ -1136,8 +1136,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public String getScopeType() {
-		return _scopeType;
+	public String getScopeId() {
+		return _scopeId;
 	}
 
 	@Override
@@ -1770,13 +1770,8 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void setScopeLayoutUuid(String scopeLayoutUuid) {
-		_scopeLayoutUuid = scopeLayoutUuid;
-	}
-
-	@Override
-	public void setScopeType(String scopeType) {
-		_scopeType = scopeType;
+	public void setScopeId(String scopeId) {
+		_scopeId = scopeId;
 	}
 
 	@Override
@@ -2293,7 +2288,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	private Set<String> _scopedPrimaryKeys = new HashSet<String>();
 	private long _scopeGroupId;
 	private String _scopeLayoutUuid;
-	private String _scopeType;
+	private String _scopeId;
 	private long _sourceCompanyGroupId;
 	private long _sourceCompanyId;
 	private long _sourceGroupId;

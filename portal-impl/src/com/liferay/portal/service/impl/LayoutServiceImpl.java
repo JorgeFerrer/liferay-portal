@@ -47,6 +47,7 @@ import com.liferay.portal.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 
 import java.io.File;
 import java.io.InputStream;
@@ -601,16 +602,7 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
-		String scopeGroupLayoutUuid = null;
-
 		Group scopeGroup = groupLocalService.getGroup(scopeGroupId);
-
-		if (scopeGroup.isLayout()) {
-			Layout scopeGroupLayout = layoutLocalService.getLayout(
-				scopeGroup.getClassPK());
-
-			scopeGroupLayoutUuid = scopeGroupLayout.getUuid();
-		}
 
 		Map<Long, javax.portlet.PortletPreferences> jxPreferencesMap =
 			PortletPreferencesFactoryUtil.getPortletSetupMap(
@@ -651,31 +643,18 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 			javax.portlet.PortletPreferences jxPreferences = entry.getValue();
 
-			String scopeType = GetterUtil.getString(
-				jxPreferences.getValue("lfrScopeType", null));
+			String scopeId = GetterUtil.getString(
+				jxPreferences.getValue("lfrScopeId", null));
 
-			if (scopeGroup.isLayout()) {
-				String scopeLayoutUuid = GetterUtil.getString(
-					jxPreferences.getValue("lfrScopeLayoutUuid", null));
-
-				if (Validator.isNotNull(scopeType) &&
-					Validator.isNotNull(scopeLayoutUuid) &&
-					scopeLayoutUuid.equals(scopeGroupLayoutUuid)) {
-
-					return layout.getPlid();
-				}
+			if (Validator.isNull(scopeId)) {
+				return layout.getPlid();
 			}
-			else if (scopeGroup.isCompany()) {
-				if (Validator.isNotNull(scopeType) &&
-					scopeType.equals("company")) {
 
-					return layout.getPlid();
-				}
-			}
-			else {
-				if (Validator.isNull(scopeType)) {
-					return layout.getPlid();
-				}
+			long scopeIdGroupId = PortletConfigurationUtil.getGroupIdFromScopeId(
+				scopeId, layout.getGroupId(), layout.isPrivateLayout());
+
+			if (scopeGroupId == scopeIdGroupId) {
+				return layout.getPlid();
 			}
 		}
 

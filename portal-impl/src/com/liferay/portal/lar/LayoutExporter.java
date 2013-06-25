@@ -54,7 +54,6 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.impl.LayoutImpl;
-import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutPrototypeLocalServiceUtil;
@@ -72,6 +71,7 @@ import com.liferay.portlet.asset.model.AssetCategory;
 import com.liferay.portlet.asset.model.AssetVocabulary;
 import com.liferay.portlet.asset.service.AssetVocabularyLocalServiceUtil;
 import com.liferay.portlet.asset.service.persistence.AssetCategoryUtil;
+import com.liferay.portlet.portletconfiguration.util.PortletConfigurationUtil;
 import com.liferay.util.ContentUtil;
 
 import java.io.File;
@@ -545,7 +545,7 @@ public class LayoutExporter {
 			portletDataContext.setPlid(plid);
 			portletDataContext.setOldPlid(plid);
 			portletDataContext.setScopeGroupId(scopeGroupId);
-			portletDataContext.setScopeType(scopeType);
+			portletDataContext.setScopeId(scopeType);
 			portletDataContext.setScopeLayoutUuid(scopeLayoutUuid);
 
 			boolean[] exportPortletControls = getExportPortletControls(
@@ -706,43 +706,12 @@ public class LayoutExporter {
 				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
 					layout, portletId);
 
-			String scopeType = GetterUtil.getString(
-				jxPreferences.getValue("lfrScopeType", null));
-			String scopeLayoutUuid = GetterUtil.getString(
-				jxPreferences.getValue("lfrScopeLayoutUuid", null));
+			String scopeId = GetterUtil.getString(
+				jxPreferences.getValue("lfrScopeId", null));
 
-			long scopeGroupId = portletDataContext.getScopeGroupId();
-
-			if (Validator.isNotNull(scopeType)) {
-				Group scopeGroup = null;
-
-				if (scopeType.equals("company")) {
-					scopeGroup = GroupLocalServiceUtil.getCompanyGroup(
-						layout.getCompanyId());
-				}
-				else if (scopeType.equals("layout")) {
-					Layout scopeLayout = null;
-
-					scopeLayout =
-						LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(
-							scopeLayoutUuid, portletDataContext.getGroupId(),
-							portletDataContext.isPrivateLayout());
-
-					if (scopeLayout == null) {
-						continue;
-					}
-
-					scopeGroup = scopeLayout.getScopeGroup();
-				}
-				else {
-					throw new IllegalArgumentException(
-						"Scope type " + scopeType + " is invalid");
-				}
-
-				if (scopeGroup != null) {
-					scopeGroupId = scopeGroup.getGroupId();
-				}
-			}
+			long scopeGroupId = PortletConfigurationUtil.getGroupIdFromScopeId(
+				scopeId, portletDataContext.getGroupId(),
+				layout.isPrivateLayout());
 
 			String key = PortletPermissionUtil.getPrimaryKey(
 				layout.getPlid(), portletId);
@@ -750,8 +719,7 @@ public class LayoutExporter {
 			portletIds.put(
 				key,
 				new Object[] {
-					portletId, layout.getPlid(), scopeGroupId, scopeType,
-					scopeLayoutUuid
+					portletId, layout.getPlid(), scopeGroupId, scopeId
 				}
 			);
 		}
