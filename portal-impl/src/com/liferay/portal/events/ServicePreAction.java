@@ -411,9 +411,8 @@ public class ServicePreAction extends Action {
 				}
 			}
 
-			boolean viewableGroup = LayoutPermissionUtil.contains(
-				permissionChecker, layout, controlPanelCategory, true,
-				ActionKeys.VIEW);
+			boolean viewableGroup = hasAccessPermission(
+				permissionChecker, layout, controlPanelCategory, true);
 			boolean viewableStaging = GroupPermissionUtil.contains(
 				permissionChecker, group.getGroupId(), ActionKeys.VIEW_STAGING);
 
@@ -428,9 +427,9 @@ public class ServicePreAction extends Action {
 			else if (!isLoginRequest(request) &&
 					 (!viewableGroup ||
 					  (!redirectToDefaultLayout &&
-					   !LayoutPermissionUtil.contains(
+					   !hasAccessPermission(
 						   permissionChecker, layout, controlPanelCategory,
-						   false, ActionKeys.VIEW)))) {
+						   false)))) {
 
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
@@ -1690,9 +1689,8 @@ public class ServicePreAction extends Action {
 				 permissionChecker, group.getGroupId(),
 				 ActionKeys.VIEW_STAGING);
 
-		if (LayoutPermissionUtil.contains(
-				permissionChecker, layout, controlPanelCategory, false,
-				ActionKeys.VIEW) ||
+		if (hasAccessPermission(
+				permissionChecker, layout, controlPanelCategory, false) ||
 			hasViewStagingPermission) {
 
 			hasViewLayoutPermission = true;
@@ -1704,9 +1702,9 @@ public class ServicePreAction extends Action {
 			Layout curLayout = layouts.get(i);
 
 			if (!curLayout.isHidden() &&
-				(LayoutPermissionUtil.contains(
-					permissionChecker, curLayout, controlPanelCategory, false,
-					ActionKeys.VIEW) ||
+				(hasAccessPermission(
+					permissionChecker, curLayout, controlPanelCategory,
+					false) ||
 				 hasViewStagingPermission)) {
 
 				if (accessibleLayouts.isEmpty() && !hasViewLayoutPermission) {
@@ -1736,6 +1734,16 @@ public class ServicePreAction extends Action {
 		}
 
 		return new Object[] {layout, layouts};
+	}
+
+	protected boolean hasAccessPermission(
+			PermissionChecker permissionChecker, Layout layout,
+			String controlPanelCategory, boolean checkViewableGroup)
+		throws PortalException, SystemException {
+
+		return LayoutPermissionUtil.contains(
+			permissionChecker, layout, controlPanelCategory, checkViewableGroup,
+			ActionKeys.VIEW);
 	}
 
 	protected Boolean hasPowerUserRole(User user) throws Exception {
