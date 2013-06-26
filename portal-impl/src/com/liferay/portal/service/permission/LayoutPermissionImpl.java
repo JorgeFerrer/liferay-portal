@@ -172,6 +172,12 @@ public class LayoutPermissionImpl implements LayoutPermission {
 			boolean checkLayoutUpdateable, String actionId)
 		throws PortalException, SystemException {
 
+		if (layout.isTypeControlPanel()) {
+			throw new IllegalArgumentException(
+				"LayoutPermission should never be invoked within the " +
+					"Control Panel");
+		}
+
 		if (checkLayoutUpdateable &&
 			!actionId.equals(ActionKeys.CUSTOMIZE) &&
 			!actionId.equals(ActionKeys.VIEW) &&
