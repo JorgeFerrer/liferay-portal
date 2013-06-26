@@ -363,16 +363,6 @@ public class ServicePreAction extends Action {
 			}
 		}
 
-		// Scope
-
-		long scopeGroupId = PortalUtil.getScopeGroupId(request);
-
-		if ((scopeGroupId <= 0) && (doAsGroupId > 0)) {
-			scopeGroupId = doAsGroupId;
-		}
-
-		long siteGroupId = PortalUtil.getSiteGroupId(scopeGroupId);
-
 		String ppid = ParamUtil.getString(request, "p_p_id");
 
 		Boolean redirectToDefaultLayout = (Boolean)request.getAttribute(
@@ -422,7 +412,7 @@ public class ServicePreAction extends Action {
 			}
 
 			boolean viewableGroup = hasAccessPermission(
-				permissionChecker, siteGroupId, layout, controlPanelCategory,
+				permissionChecker, layout, doAsGroupId, controlPanelCategory,
 				true);
 			boolean viewableStaging =
 				!group.isControlPanel() &&
@@ -442,7 +432,7 @@ public class ServicePreAction extends Action {
 					 (!viewableGroup ||
 					  (!redirectToDefaultLayout &&
 					   !hasAccessPermission(
-						   permissionChecker, siteGroupId, layout,
+						   permissionChecker, layout, doAsGroupId,
 						   controlPanelCategory, false)))) {
 
 				if (user.isDefaultUser() &&
@@ -495,7 +485,7 @@ public class ServicePreAction extends Action {
 		}
 
 		Object[] viewableLayouts = getViewableLayouts(
-			request, user, permissionChecker, siteGroupId, layout, layouts,
+			request, user, permissionChecker, layout, layouts, doAsGroupId,
 			controlPanelCategory);
 
 		String layoutSetLogo = null;
@@ -516,7 +506,7 @@ public class ServicePreAction extends Action {
 		LayoutTypePortlet layoutTypePortlet = null;
 
 		layouts = mergeAdditionalLayouts(
-			request, user, permissionChecker, siteGroupId, layout, layouts,
+			request, user, permissionChecker, layout, layouts, doAsGroupId,
 			controlPanelCategory);
 
 		LayoutSet layoutSet = null;
@@ -656,6 +646,16 @@ public class ServicePreAction extends Action {
 			request.setAttribute(WebKeys.LAYOUT, layout);
 			request.setAttribute(WebKeys.LAYOUTS, layouts);
 		}
+
+		// Scope
+
+		long scopeGroupId = PortalUtil.getScopeGroupId(request);
+
+		if ((scopeGroupId <= 0) && (doAsGroupId > 0)) {
+			scopeGroupId = doAsGroupId;
+		}
+
+		long siteGroupId = PortalUtil.getSiteGroupId(scopeGroupId);
 
 		// Theme and color scheme
 
@@ -1679,8 +1679,8 @@ public class ServicePreAction extends Action {
 
 	protected Object[] getViewableLayouts(
 			HttpServletRequest request, User user,
-			PermissionChecker permissionChecker, long siteGroupId,
-			Layout layout, List<Layout> layouts, String controlPanelCategory)
+			PermissionChecker permissionChecker, Layout layout,
+			List<Layout> layouts, long doAsGroupId, String controlPanelCategory)
 		throws PortalException, SystemException {
 
 		if ((layouts == null) || layouts.isEmpty()) {
@@ -1698,8 +1698,8 @@ public class ServicePreAction extends Action {
 				 ActionKeys.VIEW_STAGING);
 
 		if (hasAccessPermission(
-				permissionChecker, siteGroupId, layout, controlPanelCategory,
-			false) ||
+				permissionChecker, layout, doAsGroupId, controlPanelCategory,
+				false) ||
 			hasViewStagingPermission) {
 
 			hasViewLayoutPermission = true;
@@ -1712,7 +1712,7 @@ public class ServicePreAction extends Action {
 
 			if (!curLayout.isHidden() &&
 				(hasAccessPermission(
-					permissionChecker, siteGroupId, curLayout,
+					permissionChecker, curLayout, doAsGroupId,
 					controlPanelCategory, false) ||
 				 hasViewStagingPermission)) {
 
@@ -1746,8 +1746,8 @@ public class ServicePreAction extends Action {
 	}
 
 	protected boolean hasAccessPermission(
-			PermissionChecker permissionChecker, long siteGroupId,
-			Layout layout, String controlPanelCategory,
+			PermissionChecker permissionChecker, Layout layout,
+			long doAsGroupId, String controlPanelCategory,
 			boolean checkViewableGroup)
 		throws PortalException, SystemException {
 
@@ -1756,17 +1756,33 @@ public class ServicePreAction extends Action {
 				return false;
 			}
 
-			if (PortalPermissionUtil.contains(
-					permissionChecker, ActionKeys.VIEW_CONTROL_PANEL)) {
+			if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
+				if (doAsGroupId <= 0) {
+					return false;
+				}
+
+				Group group = GroupLocalServiceUtil.getGroup(doAsGroupId);
+
+				if (group.isLayout()) {
+					group = group.getParentGroup();
+				}
+
+				if (GroupPermissionUtil.contains(
+						permissionChecker, group.getGroupId(),
+						ActionKeys.VIEW_SITE_ADMINISTRATION)) {
+
+					return true;
+				}
+			}
+			else if (controlPanelCategory.equals(PortletCategoryKeys.MY) ||
+					 controlPanelCategory.startsWith(
+						 _CONTROL_PANEL_CATEGORY_PORTLET_PREFIX)) {
 
 				return true;
 			}
 
-			if (Validator.isNotNull(controlPanelCategory)) {
-				return true;
-			}
-
-			return false;
+			return PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.VIEW_CONTROL_PANEL);
 		}
 
 		return LayoutPermissionUtil.contains(
@@ -1867,8 +1883,8 @@ public class ServicePreAction extends Action {
 
 	protected List<Layout> mergeAdditionalLayouts(
 			HttpServletRequest request, User user,
-			PermissionChecker permissionChecker, long siteGroupId,
-			Layout layout, List<Layout> layouts, String controlPanelCategory)
+			PermissionChecker permissionChecker, Layout layout,
+			List<Layout> layouts, long doAsGroupId, String controlPanelCategory)
 		throws PortalException, SystemException {
 
 		if ((layout == null) || layout.isPrivateLayout()) {
@@ -1898,8 +1914,8 @@ public class ServicePreAction extends Action {
 				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
 			Object[] viewableLayouts = getViewableLayouts(
-				request, user, permissionChecker, siteGroupId, layout,
-				guestLayouts, controlPanelCategory);
+				request, user, permissionChecker, layout, guestLayouts,
+				doAsGroupId, controlPanelCategory);
 
 			guestLayouts = (List<Layout>)viewableLayouts[1];
 
@@ -1949,8 +1965,8 @@ public class ServicePreAction extends Action {
 						LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
 
 				Object[] viewableLayouts = getViewableLayouts(
-					request, user, permissionChecker, siteGroupId, layout,
-					previousLayouts, controlPanelCategory);
+					request, user, permissionChecker, layout, previousLayouts,
+					doAsGroupId, controlPanelCategory);
 
 				previousLayouts = (List<Layout>)viewableLayouts[1];
 
