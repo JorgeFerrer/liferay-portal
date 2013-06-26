@@ -1768,8 +1768,7 @@ public class ServicePreAction extends Action {
 		}
 
 		return LayoutPermissionUtil.contains(
-			permissionChecker, layout, controlPanelCategory, checkViewableGroup,
-			ActionKeys.VIEW);
+			permissionChecker, layout, checkViewableGroup, ActionKeys.VIEW);
 	}
 
 	protected Boolean hasPowerUserRole(User user) throws Exception {
@@ -1860,7 +1859,7 @@ public class ServicePreAction extends Action {
 
 		return LayoutPermissionUtil.contains(
 			permissionChecker, groupId, privateLayout, layoutId,
-			controlPanelCategory, ActionKeys.VIEW);
+			ActionKeys.VIEW);
 	}
 
 	protected List<Layout> mergeAdditionalLayouts(
