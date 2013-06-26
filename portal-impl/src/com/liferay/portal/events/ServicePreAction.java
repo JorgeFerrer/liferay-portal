@@ -413,8 +413,11 @@ public class ServicePreAction extends Action {
 
 			boolean viewableGroup = hasAccessPermission(
 				permissionChecker, layout, controlPanelCategory, true);
-			boolean viewableStaging = GroupPermissionUtil.contains(
-				permissionChecker, group.getGroupId(), ActionKeys.VIEW_STAGING);
+			boolean viewableStaging =
+				!group.isControlPanel() &&
+				GroupPermissionUtil.contains(
+					permissionChecker, group.getGroupId(),
+					ActionKeys.VIEW_STAGING);
 
 			if (viewableStaging) {
 				layouts = LayoutLocalServiceUtil.getLayouts(
@@ -514,10 +517,12 @@ public class ServicePreAction extends Action {
 			request, "customized_view", true);
 
 		if (layout != null) {
-			hasCustomizeLayoutPermission = LayoutPermissionUtil.contains(
-				permissionChecker, layout, ActionKeys.CUSTOMIZE);
-			hasUpdateLayoutPermission = LayoutPermissionUtil.contains(
-				permissionChecker, layout, ActionKeys.UPDATE);
+			if (!layout.isTypeControlPanel()) {
+				hasCustomizeLayoutPermission = LayoutPermissionUtil.contains(
+					permissionChecker, layout, ActionKeys.CUSTOMIZE);
+				hasUpdateLayoutPermission = LayoutPermissionUtil.contains(
+					permissionChecker, layout, ActionKeys.UPDATE);
+			}
 
 			layoutSet = layout.getLayoutSet();
 
@@ -1032,6 +1037,7 @@ public class ServicePreAction extends Action {
 			boolean hasAddLayoutGroupPermission = GroupPermissionUtil.contains(
 				permissionChecker, scopeGroupId, ActionKeys.ADD_LAYOUT);
 			boolean hasAddLayoutLayoutPermission =
+				!layout.isTypeControlPanel() &&
 				LayoutPermissionUtil.contains(
 					permissionChecker, layout, ActionKeys.ADD_LAYOUT);
 			boolean hasManageLayoutsGroupPermission =
@@ -1685,6 +1691,7 @@ public class ServicePreAction extends Action {
 		boolean hasViewLayoutPermission = false;
 		boolean hasViewStagingPermission =
 			(group.isStagingGroup() || group.isStagedRemotely()) &&
+			 !group.isControlPanel() &&
 			 GroupPermissionUtil.contains(
 				 permissionChecker, group.getGroupId(),
 				 ActionKeys.VIEW_STAGING);
