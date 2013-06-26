@@ -16,7 +16,6 @@ package com.liferay.portal.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
@@ -222,26 +221,6 @@ public class LayoutPermissionImpl implements LayoutPermission {
 
 				return true;
 			}
-		}
-
-		// Control panel layouts are only viewable by authenticated users
-
-		if (group.isControlPanel()) {
-			if (!permissionChecker.isSignedIn()) {
-				return false;
-			}
-
-			if (PortalPermissionUtil.contains(
-					permissionChecker, ActionKeys.VIEW_CONTROL_PANEL)) {
-
-				return true;
-			}
-
-			if (Validator.isNotNull(controlPanelCategory)) {
-				return true;
-			}
-
-			return false;
 		}
 
 		if (GroupPermissionUtil.contains(
