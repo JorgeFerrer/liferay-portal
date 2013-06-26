@@ -394,8 +394,7 @@ public class ServicePreAction extends Action {
 				(LiferayWindowState.isPopUp(request) ||
 				 LiferayWindowState.isExclusive(request))) {
 
-				controlPanelCategory =
-					_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX + ppid;
+				controlPanelCategory = PortletCategoryKeys.PORTLET;
 			}
 			else if (Validator.isNotNull(ppid)) {
 				Portlet portlet = PortletLocalServiceUtil.getPortletById(
@@ -963,8 +962,7 @@ public class ServicePreAction extends Action {
 
 				if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
 					pageSettingsURL.setControlPanelCategory(
-						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX +
-							PortletKeys.LAYOUTS_ADMIN);
+						PortletCategoryKeys.PORTLET);
 					pageSettingsURL.setParameter("closeRedirect", currentURL);
 					pageSettingsURL.setWindowState(LiferayWindowState.POP_UP);
 				}
@@ -1010,8 +1008,7 @@ public class ServicePreAction extends Action {
 							DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
 
 						manageSiteMembershipsURL.setControlPanelCategory(
-							_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX +
-								PortletKeys.SITE_MEMBERSHIPS_ADMIN);
+							PortletCategoryKeys.PORTLET);
 						manageSiteMembershipsURL.setWindowState(
 							LiferayWindowState.POP_UP);
 					}
@@ -1071,8 +1068,7 @@ public class ServicePreAction extends Action {
 
 				if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
 					siteSettingsURL.setControlPanelCategory(
-						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX +
-							PortletKeys.SITE_SETTINGS);
+						PortletCategoryKeys.PORTLET);
 					siteSettingsURL.setParameter("closeRedirect", currentURL);
 					siteSettingsURL.setWindowState(LiferayWindowState.POP_UP);
 				}
@@ -1114,8 +1110,7 @@ public class ServicePreAction extends Action {
 
 				if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
 					siteMapSettingsURL.setControlPanelCategory(
-						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX +
-							PortletKeys.LAYOUTS_ADMIN);
+						PortletCategoryKeys.PORTLET);
 					siteMapSettingsURL.setParameter(
 						"closeRedirect", currentURL);
 					siteMapSettingsURL.setWindowState(
@@ -1763,8 +1758,8 @@ public class ServicePreAction extends Action {
 				}
 			}
 			else if (controlPanelCategory.equals(PortletCategoryKeys.MY) ||
-					 controlPanelCategory.startsWith(
-						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX)) {
+					 controlPanelCategory.equals(PortletCategoryKeys.PORTLET)) {
+
 				return true;
 			}
 
@@ -2194,9 +2189,6 @@ public class ServicePreAction extends Action {
 
 	protected File privateLARFile;
 	protected File publicLARFile;
-
-	private static final String _CONTROL_PANEL_CATEGORY_PORTLET_PREFIX =
-		"portlet_";
 
 	private static final String _PATH_PORTAL_LAYOUT = "/portal/layout";
 
