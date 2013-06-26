@@ -1754,17 +1754,22 @@ public class ServicePreAction extends Action {
 				return false;
 			}
 
-			if (PortalPermissionUtil.contains(
-					permissionChecker, ActionKeys.VIEW_CONTROL_PANEL)) {
+			if (controlPanelCategory.equals(PortletCategoryKeys.CURRENT_SITE)) {
+				if (GroupPermissionUtil.contains(
+						permissionChecker, siteGroupId,
+						ActionKeys.VIEW_SITE_ADMINISTRATION)) {
 
+					return true;
+				}
+			}
+			else if (controlPanelCategory.equals(PortletCategoryKeys.MY) ||
+					 controlPanelCategory.startsWith(
+						_CONTROL_PANEL_CATEGORY_PORTLET_PREFIX)) {
 				return true;
 			}
 
-			if (Validator.isNotNull(controlPanelCategory)) {
-				return true;
-			}
-
-			return false;
+			return PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.VIEW_CONTROL_PANEL);
 		}
 
 		return LayoutPermissionUtil.contains(
