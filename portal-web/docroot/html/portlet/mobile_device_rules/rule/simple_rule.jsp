@@ -32,6 +32,16 @@ String screenResolutionHeightMin = StringPool.BLANK;
 String screenResolutionWidthMax = StringPool.BLANK;
 String screenResolutionWidthMin = StringPool.BLANK;
 
+String PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX = SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX + SimpleRuleHandler.PROPERTY_MAX_SUFFIX;
+String PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN = SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_PREFIX + SimpleRuleHandler.PROPERTY_MIN_SUFFIX;
+String PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX = SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX + SimpleRuleHandler.PROPERTY_MAX_SUFFIX;
+String PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN = SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_PREFIX + SimpleRuleHandler.PROPERTY_MIN_SUFFIX;
+String PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX = SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX + SimpleRuleHandler.PROPERTY_MAX_SUFFIX;
+String PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN = SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_PREFIX + SimpleRuleHandler.PROPERTY_MIN_SUFFIX;
+String PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX = SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX + SimpleRuleHandler.PROPERTY_MAX_SUFFIX;
+String PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN = SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_PREFIX + SimpleRuleHandler.PROPERTY_MIN_SUFFIX;
+
+
 if (rule != null) {
 	UnicodeProperties typeSettingsProperties = rule.getTypeSettingsProperties();
 
@@ -46,20 +56,20 @@ if (rule != null) {
 		tablet = 2;
 	}
 
-	screenPhysicalHeightMax = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX));
-	screenPhysicalHeightMin = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN));
-	screenPhysicalWidthMax = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX));
-	screenPhysicalWidthMin = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN));
+	screenPhysicalHeightMax = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX));
+	screenPhysicalHeightMin = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN));
+	screenPhysicalWidthMax = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX));
+	screenPhysicalWidthMin = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN));
 
-	screenResolutionHeightMax = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX));
-	screenResolutionHeightMin = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN));
-	screenResolutionWidthMax = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX));
-	screenResolutionWidthMin = GetterUtil.getString(typeSettingsProperties.get(SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN));
+	screenResolutionHeightMax = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX));
+	screenResolutionHeightMin = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN));
+	screenResolutionWidthMax = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX));
+	screenResolutionWidthMin = GetterUtil.getString(typeSettingsProperties.get(PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN));
 }
 %>
 
 <aui:fieldset label="operating-system-and-type">
-	<aui:select multiple="<%= true %>" name="os">
+	<aui:select multiple="<%= true %>" name="<%= SimpleRuleHandler.PROPERTY_OS %>">
 		<aui:option label="any-os" selected="<%= operatingSystems.isEmpty() %>" value="" />
 
 		<%
@@ -76,7 +86,7 @@ if (rule != null) {
 
 	</aui:select>
 
-	<aui:select label="device-type" name="tablet">
+	<aui:select label="device-type" name="<%=SimpleRuleHandler.PROPERTY_TABLET %>">
 		<aui:option label="any" selected="<%= tablet == 0 %>" value="" />
 		<aui:option label="tablets" selected="<%= tablet == 1 %>" value="<%= true %>" />
 		<aui:option label="other-devices" selected="<%= tablet == 2 %>" value="<%= false %>" />
@@ -89,10 +99,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="physical-screen-size-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN %>"
+			id="<%= PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN %>"
 			inlineField="<%= true %>"
 			label="width"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN %>"
+			name="<%= PROPERTY_SCREEN_PHYSICAL_WIDTH_MIN %>"
 			placeholder="mm"
 			value="<%= screenPhysicalWidthMin %>"
 		/>
@@ -101,10 +111,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="physical-screen-size-field-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN %>"
+			id="<%= PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN %>"
 			inlineField="<%= true %>"
 			label="height"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN %>"
+			name="<%= PROPERTY_SCREEN_PHYSICAL_HEIGHT_MIN %>"
 			placeholder="mm"
 			value="<%= screenPhysicalHeightMin %>"
 		/>
@@ -115,10 +125,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="physical-physical-screen-size-field-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX %>"
+			id="<%= PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX %>"
 			inlineField="<%= true %>"
 			label="width"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX %>"
+			name="<%= PROPERTY_SCREEN_PHYSICAL_WIDTH_MAX %>"
 			placeholder="mm"
 			value="<%= screenPhysicalWidthMax %>"
 		/>
@@ -127,10 +137,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="screen-physical-size-field-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX %>"
+			id="<%= PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX %>"
 			inlineField="<%= true %>"
 			label="height"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX %>"
+			name="<%= PROPERTY_SCREEN_PHYSICAL_HEIGHT_MAX %>"
 			placeholder="mm"
 			value="<%= screenPhysicalHeightMax %>"
 		/>
@@ -143,10 +153,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="screen-resolution-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN %>"
+			id="<%= PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN %>"
 			inlineField="<%= true %>"
 			label="width"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN %>"
+			name="<%= PROPERTY_SCREEN_RESOLUTION_WIDTH_MIN %>"
 			placeholder="px"
 			value="<%= screenResolutionWidthMin %>"
 		/>
@@ -155,10 +165,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="screen-resolution-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN %>"
+			id="<%= PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN %>"
 			inlineField="<%= true %>"
 			label="height"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN %>"
+			name="<%= PROPERTY_SCREEN_RESOLUTION_HEIGHT_MIN %>"
 			placeholder="px"
 			value="<%= screenResolutionHeightMin %>"
 		/>
@@ -169,10 +179,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="screen-resolution-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX %>"
+			id="<%= PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX %>"
 			inlineField="<%= true %>"
 			label="width"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX %>"
+			name="<%= PROPERTY_SCREEN_RESOLUTION_WIDTH_MAX %>"
 			placeholder="px"
 			value="<%= screenResolutionWidthMax %>"
 		/>
@@ -181,10 +191,10 @@ if (rule != null) {
 
 		<aui:input
 			cssClass="screen-resolution-field aui-field-digits"
-			id="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX %>"
+			id="<%= PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX %>"
 			inlineField="<%= true %>"
 			label="height"
-			name="<%= SimpleRuleHandler.PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX %>"
+			name="<%= PROPERTY_SCREEN_RESOLUTION_HEIGHT_MAX %>"
 			placeholder="px"
 			value="<%= screenResolutionHeightMax %>"
 		/>
