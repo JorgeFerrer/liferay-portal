@@ -140,10 +140,10 @@ public class SimpleRuleHandler implements RuleHandler {
 		sb.append(property);
 		sb.append("' is '");
 		sb.append(value);
-		sb.append("' which is");
+		sb.append("' which is ");
 
 		if (!valid) {
-			sb.append(" NOT ");
+			sb.append("NOT ");
 		}
 
 		return sb;
