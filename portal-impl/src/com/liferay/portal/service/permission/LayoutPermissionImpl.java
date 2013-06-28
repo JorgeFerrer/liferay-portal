@@ -173,9 +173,7 @@ public class LayoutPermissionImpl implements LayoutPermission {
 		throws PortalException, SystemException {
 
 		if (layout.isTypeControlPanel()) {
-			throw new IllegalArgumentException(
-				"LayoutPermission should never be invoked within the " +
-					"Control Panel");
+			return false;
 		}
 
 		if (checkLayoutUpdateable &&
