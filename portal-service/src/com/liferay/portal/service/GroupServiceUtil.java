@@ -70,6 +70,9 @@ public class GroupServiceUtil {
 	<code>null</code>)
 	* @param site whether the group is to be associated with a main site
 	* @param active whether the group is active
+	* @param manualMembership whether manual membership is allowed
+	* @param membershipRestriction the membership restriction (by default
+	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set the asset category IDs and asset tag
 	names for the group, and can set whether the group is for staging
@@ -83,12 +86,14 @@ public class GroupServiceUtil {
 	public static com.liferay.portal.model.Group addGroup(long parentGroupId,
 		long liveGroupId, java.lang.String name, java.lang.String description,
 		int type, java.lang.String friendlyURL, boolean site, boolean active,
+		boolean manualMembership, int membershipType,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addGroup(parentGroupId, liveGroupId, name, description,
-			type, friendlyURL, site, active, serviceContext);
+			type, friendlyURL, site, active, manualMembership, membershipType,
+			serviceContext);
 	}
 
 	/**
@@ -114,7 +119,8 @@ public class GroupServiceUtil {
 	if a valid friendly URL could not be created for the group
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	String, int, String, boolean, boolean, ServiceContext)}
+	String, int, String, boolean, boolean, boolean, int,
+	ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long parentGroupId,
 		java.lang.String name, java.lang.String description, int type,
@@ -128,8 +134,9 @@ public class GroupServiceUtil {
 	}
 
 	/**
-	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, String,
-	String, int, String, boolean, boolean, ServiceContext)}
+	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
+	String, int, String, boolean, boolean, boolean, int,
+	ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(
 		java.lang.String name, java.lang.String description, int type,
@@ -795,6 +802,9 @@ public class GroupServiceUtil {
 	* @param friendlyURL the group's new friendlyURL (optionally
 	<code>null</code>)
 	* @param active whether the group is active
+	* @param manualMembership whether manual membership is allowed
+	* @param membershipRestriction the membership restriction (by default
+	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set the asset category IDs and asset tag
 	names for the group.
@@ -807,12 +817,14 @@ public class GroupServiceUtil {
 	public static com.liferay.portal.model.Group updateGroup(long groupId,
 		long parentGroupId, java.lang.String name,
 		java.lang.String description, int type, java.lang.String friendlyURL,
-		boolean active, com.liferay.portal.service.ServiceContext serviceContext)
+		boolean active, boolean manualMembership, int membershipRestriction,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateGroup(groupId, parentGroupId, name, description,
-			type, friendlyURL, active, serviceContext);
+			type, friendlyURL, active, manualMembership, membershipRestriction,
+			serviceContext);
 	}
 
 	/**
