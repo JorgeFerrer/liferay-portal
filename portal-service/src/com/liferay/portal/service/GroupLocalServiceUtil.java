@@ -864,6 +864,9 @@ public class GroupLocalServiceUtil {
 	<code>null</code>)
 	* @param site whether the group is to be associated with a main site
 	* @param active whether the group is active
+	* @param manualMembership whether manual membership is allowed
+	* @param membershipRestriction the membership restriction (by default
+	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set asset category IDs and asset tag
 	names for the group, and whether the group is for staging.
@@ -877,13 +880,14 @@ public class GroupLocalServiceUtil {
 		long parentGroupId, java.lang.String className, long classPK,
 		long liveGroupId, java.lang.String name, java.lang.String description,
 		int type, java.lang.String friendlyURL, boolean site, boolean active,
+		boolean manualMembership, int membershipRestriction,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addGroup(userId, parentGroupId, className, classPK,
 			liveGroupId, name, description, type, friendlyURL, site, active,
-			serviceContext);
+			manualMembership, membershipRestriction, serviceContext);
 	}
 
 	/**
@@ -912,7 +916,7 @@ public class GroupLocalServiceUtil {
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	ServiceContext)}
+	boolean, int, ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		long parentGroupId, java.lang.String className, long classPK,
@@ -953,7 +957,7 @@ public class GroupLocalServiceUtil {
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	ServiceContext)}
+	boolean, int, ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		java.lang.String className, long classPK, long liveGroupId,
@@ -992,7 +996,7 @@ public class GroupLocalServiceUtil {
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	ServiceContext)}
+	boolean, int, ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		java.lang.String className, long classPK, java.lang.String name,
@@ -2822,6 +2826,9 @@ public class GroupLocalServiceUtil {
 	* @param friendlyURL the group's new friendlyURL (optionally
 	<code>null</code>)
 	* @param active whether the group is active
+	* @param manualMembership whether manual membership is allowed
+	* @param membershipRestriction the membership restriction (by default
+	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set asset category IDs and asset tag
 	names for the group.
@@ -2834,12 +2841,14 @@ public class GroupLocalServiceUtil {
 	public static com.liferay.portal.model.Group updateGroup(long groupId,
 		long parentGroupId, java.lang.String name,
 		java.lang.String description, int type, java.lang.String friendlyURL,
-		boolean active, com.liferay.portal.service.ServiceContext serviceContext)
+		boolean active, boolean manualMembership, int membershipRestriction,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateGroup(groupId, parentGroupId, name, description,
-			type, friendlyURL, active, serviceContext);
+			type, friendlyURL, active, manualMembership, membershipRestriction,
+			serviceContext);
 	}
 
 	/**
