@@ -33,6 +33,9 @@ Map<String, TemplateVariableGroup> templateVariableGroups = TemplateContextHelpe
 		<div class="control-group lfr-template-editor-container">
 			<c:if test="<%= !templateVariableGroups.isEmpty() %>">
 				<div class="lfr-template-palette-container pull-left<%= (language.equalsIgnoreCase("ftl") || language.equalsIgnoreCase("vm")) ? "" : " hide" %>" id="<portlet:namespace />templatePaletteContainer">
+					<div class="search" id="<portlet:namespace />paletteSearchContainer">
+						<input class="field search-query span12" id="<portlet:namespace />paletteSearch" placeholder='<%= LanguageUtil.get(pageContext, "search") %>' type="text">
+					</div>
 					<div class="lfr-template-palette" id="<portlet:namespace />paletteDataContainer">
 						<div id="<portlet:namespace />paletteData">
 
@@ -93,7 +96,7 @@ Map<String, TemplateVariableGroup> templateVariableGroups = TemplateContextHelpe
 	</liferay-ui:panel>
 </liferay-ui:panel-container>
 
-<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin,aui-ace-autocomplete-velocity,aui-toggler,aui-popover,event-mouseenter,event-outside,resize,transition">
+<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin,aui-ace-autocomplete-velocity,aui-toggler,aui-popover,aui-live-search-deprecated,event-mouseenter,event-outside,resize,transition">
 	var ACPlugin = A.Plugin.AceAutoComplete;
 	var AObject = A.Object;
 	var Util = Liferay.Util;
@@ -114,6 +117,68 @@ Map<String, TemplateVariableGroup> templateVariableGroups = TemplateContextHelpe
 	<c:if test="<%= !templateVariableGroups.isEmpty() %>">
 		var paletteContainer = panelScriptContainer.one('#<portlet:namespace />templatePaletteContainer');
 		var paletteDataContainer = panelScriptContainer.one('#<portlet:namespace />paletteDataContainer');
+
+		function createLiveSearch() {
+			var instance = this;
+
+			var trim = A.Lang.trim;
+
+			var paletteSectonsNode = paletteDataContainer.all('.palette-section');
+
+			var noResultsNode;
+
+			function getNoResultsNode() {
+				if (!noResultsNode) {
+					noResultsNode = A.Node.create('<div class="alert"><%= LanguageUtil.get(pageContext, "there-are-no-results") %></div>');
+				}
+
+				return noResultsNode;
+			}
+
+			var liveSearch = new A.LiveSearch(
+				{
+					input: A.one('#' + '<portlet:namespace />paletteSearch'),
+					nodes: '.palette-item-container',
+
+					data: function(node) {
+						return trim(node.one('.palette-item').text());
+					},
+
+					after: {
+						search: function(event) {
+							var foundVisibleSection;
+
+							paletteSectonsNode.each(
+								function(item, index, collection) {
+									var action = 'addClass';
+
+									var visibleItem = item.one('.palette-item-container:not(.hide)');
+
+									if (visibleItem) {
+										action = 'removeClass';
+
+										foundVisibleSection = true;
+									}
+
+									item[action]('hide');
+								}
+							);
+
+							var noResultsNode = getNoResultsNode();
+
+							if (foundVisibleSection) {
+								noResultsNode.remove();
+							}
+							else {
+								paletteDataContainer.appendChild(noResultsNode);
+							}
+						}
+					}
+				}
+			);
+
+			instance._liveSearch = liveSearch;
+		}
 
 		function onPaletteItemChosen(event) {
 			var editor = richEditor.getEditor();
@@ -312,6 +377,8 @@ Map<String, TemplateVariableGroup> templateVariableGroups = TemplateContextHelpe
 					},
 					'.palette-item'
 				);
+
+				createLiveSearch();
 			</c:if>
 		},
 		'#<portlet:namespace />richEditor'
