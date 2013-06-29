@@ -192,17 +192,17 @@
 		margin: 10px 0 0 10px;
 	}
 
-	.lfr-template-palette-container {
+	.lfr-permission-navigation-container {
 		width: 275px;
 
-		.lfr-template-palette {
+		.lfr-permission-navigation {
 			overflow: auto;
 			width: 100%;
 
-			.palette-item-header {
+			.permission-navigation-item-header {
 				font-weight: bold;
 
-				.palette-item-header-icon {
+				.permission-navigation-item-header-icon {
 					background: url() no-repeat 50%;
 					display: inline-block;
 					height: 10px;
@@ -210,21 +210,21 @@
 				}
 			}
 
-			.toggler-header-collapsed .palette-item-header-icon {
+			.toggler-header-collapsed .permission-navigation-item-header-icon {
 				background-image: url(@theme_image_path@/arrows/05_right.png);
 			}
 
-			.toggler-header-expanded .palette-item-header-icon {
+			.toggler-header-expanded .permission-navigation-item-header-icon {
 				background-image: url(@theme_image_path@/arrows/05_down.png);
 				vertical-align: middle;
 			}
 
-			.palette-item-header {
+			.permission-navigation-item-header {
 				cursor: pointer;
 				margin: 0.5em;
 			}
 
-			.palette-item-content .palette-item-container {
+			.permission-navigation-item-content .permission-navigation-item-container {
 				cursor: pointer;
 				line-height: 1.8em;
 				overflow: hidden;

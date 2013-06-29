@@ -22,9 +22,9 @@ List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyI
 portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
 %>
 
-<div class="lfr-template-palette-container pull-left" id="<portlet:namespace />templatePaletteContainer">
-	<div class="lfr-template-palette" id="<portlet:namespace />paletteDataContainer">
-		<div id="<portlet:namespace />paletteData">
+<div class="lfr-permission-navigation-container pull-left" id="<portlet:namespace />permissionNavigationContainer">
+	<div class="lfr-permission-navigation" id="<portlet:namespace />permissionNavigationDataContainer">
+		<div id="<portlet:namespace />permissionNavigationData">
 
 			<%
 			PortletURL viewPermissionsURL = renderResponse.createRenderURL();
@@ -35,9 +35,9 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			viewPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			%>
 
-			<div class="palette-section">
-				<div class="palette-item-header">
-					<span class="palette-item-header-icon"></span>
+			<div class="permission-navigation-section">
+				<div class="permission-navigation-item-header">
+					<span class="permission-navigation-item-header-icon"></span>
 
 					<span><aui:a href="<%= viewPermissionsURL.toString() %>"><liferay-ui:message key="summary" /></aui:a></span>
 				</div>
@@ -45,22 +45,22 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 
 			<c:choose>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_SITE %>">
-					<div class="palette-section">
-						<div class="palette-item-header toggler-header-expanded">
-							<span class="palette-item-header-icon"></span>
+					<div class="permission-navigation-section">
+						<div class="permission-navigation-item-header toggler-header-expanded">
+							<span class="permission-navigation-item-header-icon"></span>
 
 							<span><liferay-ui:message key="administration" /></span>
 						</div>
 
-						<ul class="palette-item-content">
+						<ul class="permission-navigation-item-content">
 
 							<%
 							editPermissionsURL.setParameter("portletResource", PortletKeys.SITES_ADMIN);
 							editPermissionsURL.setParameter("showModelResources", "1");
 							%>
 
-							<li class="palette-item-container">
-								<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+							<li class="permission-navigation-item-container">
+								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
 										<liferay-ui:message key="site-administration" />
 									</aui:a>
@@ -70,22 +70,22 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 					</div>
 				</c:when>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_ORGANIZATION %>">
-					<div class="palette-section">
-						<div class="palette-item-header toggler-header-expanded">
-							<span class="palette-item-header-icon"></span>
+					<div class="permission-navigation-section">
+						<div class="permission-navigation-item-header toggler-header-expanded">
+							<span class="permission-navigation-item-header-icon"></span>
 
 							<span><liferay-ui:message key="administration" /></span>
 						</div>
 
-						<ul class="palette-item-content">
+						<ul class="permission-navigation-item-content">
 
 							<%
 							editPermissionsURL.setParameter("portletResource", PortletKeys.USERS_ADMIN);
 							editPermissionsURL.setParameter("showModelResources", "1");
 							%>
 
-							<li class="palette-item-container">
-								<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+							<li class="permission-navigation-item-container">
+								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
 										<liferay-ui:message key="organization-administration" />
 									</aui:a>
@@ -95,14 +95,14 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="palette-section">
-						<div class="palette-item-header toggler-header-expanded">
-							<span class="palette-item-header-icon"></span>
+					<div class="permission-navigation-section">
+						<div class="permission-navigation-item-header toggler-header-expanded">
+							<span class="permission-navigation-item-header-icon"></span>
 
 							<span><liferay-ui:message key="portal" /></span>
 						</div>
 
-						<ul class="palette-item-content">
+						<ul class="permission-navigation-item-content">
 
 							<%
 							if (role.getType() == RoleConstants.TYPE_REGULAR) {
@@ -110,8 +110,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 								editPermissionsURL.setParameter("showModelResources", "0");
 							%>
 
-								<li class="palette-item-container">
-									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<li class="permission-navigation-item-container">
+									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
 											<liferay-ui:message key="general" />
 										</aui:a>
@@ -144,8 +144,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 								editPermissionsURL.setParameter("showModelResources", "1");
 							%>
 
-								<li class="palette-item-container">
-									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<li class="permission-navigation-item-container">
+									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
 											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 										</aui:a>
@@ -161,14 +161,14 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 				</c:otherwise>
 			</c:choose>
 
-			<div class="palette-section">
-				<div class="palette-item-header toggler-header-expanded">
-					<span class="palette-item-header-icon"></span>
+			<div class="permission-navigation-section">
+				<div class="permission-navigation-item-header toggler-header-expanded">
+					<span class="permission-navigation-item-header-icon"></span>
 
 					<span><liferay-ui:message key="site-content" /></span>
 				</div>
 
-				<ul class="palette-item-content">
+				<ul class="permission-navigation-item-content">
 
 					<%
 					for (Portlet portlet : portlets) {
@@ -186,8 +186,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 						editPermissionsURL.setParameter("showModelResources", "1");
 					%>
 
-						<li class="palette-item-container">
-							<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+						<li class="permission-navigation-item-container">
+							<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 								<aui:a href="<%= editPermissionsURL.toString() %>">
 									<liferay-ui:message key="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" />
 								</aui:a>
@@ -213,14 +213,14 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			}
 			%>
 
-			<div class="palette-section">
-				<div class="palette-item-header toggler-header-expanded">
-					<span class="palette-item-header-icon"></span>
+			<div class="permission-navigation-section">
+				<div class="permission-navigation-item-header toggler-header-expanded">
+					<span class="permission-navigation-item-header-icon"></span>
 
 					<span><liferay-ui:message key="site-applications" /></span>
 				</div>
 
-				<ul class="palette-item-content">
+				<ul class="permission-navigation-item-content">
 
 					<%
 					for (Portlet portlet : portlets) {
@@ -232,8 +232,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 						editPermissionsURL.setParameter("showModelResources", "0");
 					%>
 
-						<li class="palette-item-container">
-							<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+						<li class="permission-navigation-item-container">
+							<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 								<aui:a href="<%= editPermissionsURL.toString() %>">
 									<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 								</aui:a>
@@ -284,14 +284,14 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			%>
 
 				<c:if test="<%= !categoryPortlets.isEmpty() %>">
-					<div class="palette-section">
-						<div class="palette-item-header toggler-header-expanded">
-							<span class="palette-item-header-icon"></span>
+					<div class="permission-navigation-section">
+						<div class="permission-navigation-item-header toggler-header-expanded">
+							<span class="permission-navigation-item-header-icon"></span>
 
 							<span><liferay-ui:message key='<%= "control-panel-" + controlPanelCategory %>' /></span>
 						</div>
 
-						<ul class="palette-item-content">
+						<ul class="permission-navigation-item-content">
 
 							<%
 							for (Portlet portlet : categoryPortlets) {
@@ -299,8 +299,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 								editPermissionsURL.setParameter("showModelResources", "0");
 							%>
 
-								<li class="palette-item-container">
-									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<li class="permission-navigation-item-container">
+									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
 											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 										</aui:a>
