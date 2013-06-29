@@ -250,31 +250,6 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			<%
 			String[] categories = ArrayUtil.append(PortletCategoryKeys.ALL, PortletCategoryKeys.MY);
 
-			Map<String, List<Portlet>> portletsMap = new LinkedHashMap<String, List<Portlet>>(categories.length);
-
-			for (Portlet portlet : portlets) {
-				String controlPanelCategory = portlet.getControlPanelEntryCategory();
-
-				if (Validator.isNull(portlet.getPortletId()) || Validator.isNull(controlPanelCategory)) {
-					continue;
-				}
-
-				List<Portlet> categoryPortlets = portletsMap.get(controlPanelCategory);
-
-				if (categoryPortlets == null) {
-					categoryPortlets = new ArrayList<Portlet>();
-
-					portletsMap.put(controlPanelCategory, categoryPortlets);
-				}
-
-				if (controlPanelCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION) ||
-					(controlPanelCategory.equals(PortletCategoryKeys.APPS) && (role.getType() == RoleConstants.TYPE_REGULAR) && !Validator.equals(portlet.getControlPanelEntryClass(), OmniadminControlPanelEntry.class.getName())) ||
-					(role.getType() == RoleConstants.TYPE_REGULAR)) {
-
-					categoryPortlets.add(portlet);
-				}
-			}
-
 			if (categories.length > 0) {
 			%>
 
@@ -288,7 +263,7 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 
 						<%
 						for (String controlPanelCategory : categories) {
-							List<Portlet> categoryPortlets = portletsMap.get(controlPanelCategory);
+							Set<Portlet> categoryPortlets = PortalUtil.getControlPanelPortlets(company.getCompanyId(), controlPanelCategory);
 
 							if (categoryPortlets == null) {
 								continue;
