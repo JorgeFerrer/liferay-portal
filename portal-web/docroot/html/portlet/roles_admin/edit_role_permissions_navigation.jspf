@@ -94,7 +94,7 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 						</ul>
 					</div>
 				</c:when>
-				<c:otherwise>
+				<c:when test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
 					<div class="permission-navigation-section">
 						<div class="permission-navigation-item-header toggler-header-expanded">
 							<span class="permission-navigation-item-header-icon"></span>
@@ -105,60 +105,20 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 						<ul class="permission-navigation-item-content">
 
 							<%
-							if (role.getType() == RoleConstants.TYPE_REGULAR) {
-								editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
-								editPermissionsURL.setParameter("showModelResources", "0");
+							editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
+							editPermissionsURL.setParameter("showModelResources", "0");
 							%>
 
-								<li class="permission-navigation-item-container">
-									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
-										<aui:a href="<%= editPermissionsURL.toString() %>">
-											<liferay-ui:message key="general" />
-										</aui:a>
-									</span>
-								</li>
-
-							<%
-							}
-
-							for (Portlet portlet : portlets) {
-								if (Validator.isNull(portlet.getPortletId()) || !_isPortalPortlet(portlet.getPortletId())) {
-									continue;
-								}
-
-								List<String> curModelResources = ResourceActionsUtil.getPortletModelResources(portlet.getPortletId());
-
-								if (!portlet.getPortletId().equals(PortletKeys.PORTAL) && curModelResources.isEmpty()) {
-									continue;
-								}
-
-								if ((role.getType() == RoleConstants.TYPE_SITE) && !_isSitePortlet(portlet.getPortletId())) {
-									continue;
-								}
-
-								if ((role.getType() == RoleConstants.TYPE_ORGANIZATION) && !_isOrganizationPortlet(portlet.getPortletId())) {
-									continue;
-								}
-
-								editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-								editPermissionsURL.setParameter("showModelResources", "1");
-							%>
-
-								<li class="permission-navigation-item-container">
-									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
-										<aui:a href="<%= editPermissionsURL.toString() %>">
-											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
-										</aui:a>
-									</span>
-								</li>
-
-							<%
-							}
-							%>
-
+							<li class="permission-navigation-item-container">
+								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+									<aui:a href="<%= editPermissionsURL.toString() %>">
+										<liferay-ui:message key="general" />
+									</aui:a>
+								</span>
+							</li>
 						</ul>
 					</div>
-				</c:otherwise>
+				</c:when>
 			</c:choose>
 
 			<div class="permission-navigation-section">
@@ -379,10 +339,6 @@ private boolean _isCurrent(String url, String portletResource, boolean showModel
 	}
 }
 
-private boolean _isOrganizationPortlet(String portletId) {
-	return _organizationPortletIds.contains(portletId);
-}
-
 private boolean _isPortalPortlet(String portletId) {
 	return _portalPortletIds.contains(portletId);
 }
@@ -390,11 +346,6 @@ private boolean _isPortalPortlet(String portletId) {
 private static Set<String> _sitePortletIds = SetUtil.fromArray(
 	new String[] {
 		PortletKeys.SITES_ADMIN
-	});
-
-private static Set<String> _organizationPortletIds = SetUtil.fromArray(
-	new String[] {
-		PortletKeys.USERS_ADMIN
 	});
 
 private static Set<String> _portalPortletIds = SetUtil.fromArray(
