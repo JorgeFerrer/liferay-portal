@@ -275,7 +275,7 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 									<div class="permission-navigation-item-header toggler-header-expanded">
 										<span class="permission-navigation-item-header-icon"></span>
 
-										<span><liferay-ui:message key='<%= controlPanelCategory %>' /></span>
+										<span><liferay-ui:message key='<%= "category." + controlPanelCategory %>' /></span>
 									</div>
 
 									<ul class="permission-navigation-item-content">
