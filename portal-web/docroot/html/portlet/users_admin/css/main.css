@@ -224,6 +224,10 @@
 				margin: 0.5em;
 			}
 
+			.permission-navigation-item.selected {
+				font-weight: bold;
+			}
+
 			.permission-navigation-item-content .permission-navigation-item-container {
 				cursor: pointer;
 				line-height: 1.8em;
