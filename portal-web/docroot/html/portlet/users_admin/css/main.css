@@ -231,6 +231,10 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
+
+            .permission-navigation-section .permission-navigation-section {
+	            margin-left: 1em;
+            }
 		}
 	}
 
