@@ -49,6 +49,7 @@ if (Validator.isNotNull(portletResource)) {
 }
 
 boolean showModelResources = ParamUtil.getBoolean(request, "showModelResources", true);
+boolean showPortletResource = ParamUtil.getBoolean(request, "showPortletResource", !showModelResources);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -130,46 +131,45 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 						<aui:input name="portletResource" type="hidden" value="<%= portletResource %>" />
 						<aui:input name="modelResources" type="hidden" value='<%= (modelResources == null) ? "" : StringUtil.merge(modelResources) %>' />
 						<aui:input name="showModelResources" type="hidden" value="<%= String.valueOf(showModelResources) %>" />
+						<aui:input name="showPortletResource" type="hidden" value="<%= String.valueOf(showPortletResource) %>" />
 						<aui:input name="selectedTargets" type="hidden" />
 
-						<c:choose>
-							<c:when test="<%= !showModelResources %>">
-								<h3><%= portletResourceLabel %></h3>
+						<c:if test="<%= showPortletResource %>">
+							<h3><%= portletResourceLabel %></h3>
+
+							<%
+							request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
+							%>
+
+							<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+						</c:if>
+						<c:if test="<%= showModelResources && (modelResources != null) && !modelResources.isEmpty() %>">
+
+							<%
+							modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
+
+							for (int i = 0; i < modelResources.size(); i++) {
+								String curModelResource = (String)modelResources.get(i);
+
+								String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
+								%>
+
+								<h3><%= curModelResourceName %></h3>
 
 								<%
-								request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
+								request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
+
+								request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
+								request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
 								%>
 
 								<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
-							</c:when>
-							<c:when test="<%= (modelResources != null) && !modelResources.isEmpty() %>">
 
-								<%
-								modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
+							<%
+							}
+							%>
 
-								for (int i = 0; i < modelResources.size(); i++) {
-									String curModelResource = (String)modelResources.get(i);
-
-									String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
-									%>
-
-									<h3><%= curModelResourceName %></h3>
-
-									<%
-									request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
-
-									request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
-									request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
-									%>
-
-									<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
-
-								<%
-								}
-								%>
-
-							</c:when>
-						</c:choose>
+						</c:if>
 
 						<aui:button-row>
 							<aui:button onClick='<%= renderResponse.getNamespace() + "updateActions();" %>' value="save" />

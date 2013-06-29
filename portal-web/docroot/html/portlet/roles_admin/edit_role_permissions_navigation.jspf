@@ -261,7 +261,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 
 					for (Portlet portlet : myAccountPortlets) {
 						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
+						editPermissionsURL.setParameter("showModelResources", "1");
+						editPermissionsURL.setParameter("showPortletResource", "1");
 					%>
 
 						<li class="permission-navigation-item-container">
@@ -315,7 +316,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 										<%
 										for (Portlet portlet : categoryPortlets) {
 											editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-											editPermissionsURL.setParameter("showModelResources", "0");
+											editPermissionsURL.setParameter("showModelResources", "1");
+											editPermissionsURL.setParameter("showPortletResource", "1");
 										%>
 
 											<li class="permission-navigation-item-container">
