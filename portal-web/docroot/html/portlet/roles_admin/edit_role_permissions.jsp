@@ -183,7 +183,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	</aui:row>
 </aui:container>
 
-<aui:script>
+<aui:script use="aui-toggler">
 	function <portlet:namespace />removeGroup(pos, target) {
 		var selectedGroupIds = document.<portlet:namespace />fm['<portlet:namespace />groupIds' + target].value.split(",");
 		var selectedGroupNames = document.<portlet:namespace />fm['<portlet:namespace />groupNames' + target].value.split("@@");
@@ -246,6 +246,20 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
 		nameEl.innerHTML = groupsHTML;
 	}
+
+	A.on(
+		'domready',
+		function(event) {
+			var togglerDelegate = new A.TogglerDelegate(
+				{
+					animated: true,
+					container: <portlet:namespace />permissionNavigationDataContainer,
+					content: '.permission-navigation-item-content',
+					header: '.permission-navigation-item-header'
+				}
+			);
+		}
+	);
 
 	Liferay.provide(
 		window,
