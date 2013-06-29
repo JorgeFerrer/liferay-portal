@@ -22,106 +22,184 @@ List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyI
 portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
 %>
 
-<aui:form action="<%= currentURL %>" name="resourceSelection">
-	<aui:fieldset>
-		<aui:select changesContext="<%= true %>" name="add-permissions" onchange='<%= renderResponse.getNamespace() + "addPermissions(this);" %>'>
-			<aui:option label="" />
+<div class="lfr-template-palette-container pull-left" id="<portlet:namespace />templatePaletteContainer">
+	<div class="lfr-template-palette" id="<portlet:namespace />paletteDataContainer">
+		<div id="<portlet:namespace />paletteData">
+
+			<%
+			PortletURL viewPermissionsURL = renderResponse.createRenderURL();
+
+			viewPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
+			viewPermissionsURL.setParameter(Constants.CMD, Constants.VIEW);
+			viewPermissionsURL.setParameter("tabs1", "roles");
+			viewPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
+			%>
+
+			<div class="palette-section">
+				<div class="palette-item-header">
+					<span class="palette-item-header-icon"></span>
+
+					<span><aui:a href="<%= viewPermissionsURL.toString() %>"><liferay-ui:message key="summary" /></aui:a></span>
+				</div>
+			</div>
 
 			<c:choose>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_SITE %>">
-					<optgroup label="<liferay-ui:message key="administration" />">
+					<div class="palette-section">
+						<div class="palette-item-header toggler-header-expanded">
+							<span class="palette-item-header-icon"></span>
 
-						<%
-						editPermissionsURL.setParameter("portletResource", PortletKeys.SITES_ADMIN);
-						editPermissionsURL.setParameter("showModelResources", "1");
-						%>
+							<span><liferay-ui:message key="administration" /></span>
+						</div>
 
-						<aui:option label="site-administration" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-					</optgroup>
+						<ul class="palette-item-content">
+
+							<%
+							editPermissionsURL.setParameter("portletResource", PortletKeys.SITES_ADMIN);
+							editPermissionsURL.setParameter("showModelResources", "1");
+							%>
+
+							<li class="palette-item-container">
+								<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+									<aui:a href="<%= editPermissionsURL.toString() %>">
+										<liferay-ui:message key="site-administration" />
+									</aui:a>
+								</span>
+							</li>
+						</ul>
+					</div>
 				</c:when>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_ORGANIZATION %>">
-					<optgroup label="<liferay-ui:message key="administration" />">
+					<div class="palette-section">
+						<div class="palette-item-header toggler-header-expanded">
+							<span class="palette-item-header-icon"></span>
 
-						<%
-						editPermissionsURL.setParameter("portletResource", PortletKeys.USERS_ADMIN);
-						editPermissionsURL.setParameter("showModelResources", "1");
-						%>
+							<span><liferay-ui:message key="administration" /></span>
+						</div>
 
-						<aui:option label="organization-administration" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-					</optgroup>
+						<ul class="palette-item-content">
+
+							<%
+							editPermissionsURL.setParameter("portletResource", PortletKeys.USERS_ADMIN);
+							editPermissionsURL.setParameter("showModelResources", "1");
+							%>
+
+							<li class="palette-item-container">
+								<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+									<aui:a href="<%= editPermissionsURL.toString() %>">
+										<liferay-ui:message key="organization-administration" />
+									</aui:a>
+								</span>
+							</li>
+						</ul>
+					</div>
 				</c:when>
 				<c:otherwise>
-					<optgroup label="<liferay-ui:message key="portal" />">
+					<div class="palette-section">
+						<div class="palette-item-header toggler-header-expanded">
+							<span class="palette-item-header-icon"></span>
 
-						<%
-						if (role.getType() == RoleConstants.TYPE_REGULAR) {
-							editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
-							editPermissionsURL.setParameter("showModelResources", "0");
-						%>
+							<span><liferay-ui:message key="portal" /></span>
+						</div>
 
-							<aui:option label="general" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
+						<ul class="palette-item-content">
 
-						<%
-						}
+							<%
+							if (role.getType() == RoleConstants.TYPE_REGULAR) {
+								editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
+								editPermissionsURL.setParameter("showModelResources", "0");
+							%>
 
-						for (Portlet portlet : portlets) {
-							if (Validator.isNull(portlet.getPortletId()) || !_isPortalPortlet(portlet.getPortletId())) {
-								continue;
+								<li class="palette-item-container">
+									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+										<aui:a href="<%= editPermissionsURL.toString() %>">
+											<liferay-ui:message key="general" />
+										</aui:a>
+									</span>
+								</li>
+
+							<%
 							}
 
-							List<String> curModelResources = ResourceActionsUtil.getPortletModelResources(portlet.getPortletId());
+							for (Portlet portlet : portlets) {
+								if (Validator.isNull(portlet.getPortletId()) || !_isPortalPortlet(portlet.getPortletId())) {
+									continue;
+								}
 
-							if (!portlet.getPortletId().equals(PortletKeys.PORTAL) && curModelResources.isEmpty()) {
-								continue;
+								List<String> curModelResources = ResourceActionsUtil.getPortletModelResources(portlet.getPortletId());
+
+								if (!portlet.getPortletId().equals(PortletKeys.PORTAL) && curModelResources.isEmpty()) {
+									continue;
+								}
+
+								if ((role.getType() == RoleConstants.TYPE_SITE) && !_isSitePortlet(portlet.getPortletId())) {
+									continue;
+								}
+
+								if ((role.getType() == RoleConstants.TYPE_ORGANIZATION) && !_isOrganizationPortlet(portlet.getPortletId())) {
+									continue;
+								}
+
+								editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+								editPermissionsURL.setParameter("showModelResources", "1");
+							%>
+
+								<li class="palette-item-container">
+									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+										<aui:a href="<%= editPermissionsURL.toString() %>">
+											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+										</aui:a>
+									</span>
+								</li>
+
+							<%
 							}
+							%>
 
-							if ((role.getType() == RoleConstants.TYPE_SITE) && !_isSitePortlet(portlet.getPortletId())) {
-								continue;
-							}
-
-							if ((role.getType() == RoleConstants.TYPE_ORGANIZATION) && !_isOrganizationPortlet(portlet.getPortletId())) {
-								continue;
-							}
-
-							editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-							editPermissionsURL.setParameter("showModelResources", "1");
-						%>
-
-							<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-						<%
-						}
-						%>
-
-					</optgroup>
+						</ul>
+					</div>
 				</c:otherwise>
 			</c:choose>
 
-			<optgroup label="<liferay-ui:message key="site-content" />">
+			<div class="palette-section">
+				<div class="palette-item-header toggler-header-expanded">
+					<span class="palette-item-header-icon"></span>
 
-				<%
-				for (Portlet portlet : portlets) {
-					if (Validator.isNull(portlet.getPortletId()) || _isPortalPortlet(portlet.getPortletId())) {
-						continue;
+					<span><liferay-ui:message key="site-content" /></span>
+				</div>
+
+				<ul class="palette-item-content">
+
+					<%
+					for (Portlet portlet : portlets) {
+						if (Validator.isNull(portlet.getPortletId()) || _isPortalPortlet(portlet.getPortletId())) {
+							continue;
+						}
+
+						List<String> curModelResources = ResourceActionsUtil.getPortletModelResources(portlet.getPortletId());
+
+						if (curModelResources.isEmpty()) {
+							continue;
+						}
+
+						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+						editPermissionsURL.setParameter("showModelResources", "1");
+					%>
+
+						<li class="palette-item-container">
+							<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<aui:a href="<%= editPermissionsURL.toString() %>">
+									<liferay-ui:message key="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" />
+								</aui:a>
+							</span>
+						</li>
+
+					<%
 					}
+					%>
 
-					List<String> curModelResources = ResourceActionsUtil.getPortletModelResources(portlet.getPortletId());
-
-					if (curModelResources.isEmpty()) {
-						continue;
-					}
-
-					editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-					editPermissionsURL.setParameter("showModelResources", "1");
-				%>
-
-					<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-				<%
-				}
-				%>
-
-			</optgroup>
+				</ul>
+			</div>
 
 			<%
 			Set<String> hiddenPortletIds = Collections.emptySet();
@@ -135,25 +213,39 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			}
 			%>
 
-			<optgroup label="<liferay-ui:message key="site-applications" />">
+			<div class="palette-section">
+				<div class="palette-item-header toggler-header-expanded">
+					<span class="palette-item-header-icon"></span>
 
-				<%
-				for (Portlet portlet : portlets) {
-					if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId()) || portlet.isSystem()) {
-						continue;
+					<span><liferay-ui:message key="site-applications" /></span>
+				</div>
+
+				<ul class="palette-item-content">
+
+					<%
+					for (Portlet portlet : portlets) {
+						if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId()) || portlet.isSystem()) {
+							continue;
+						}
+
+						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+						editPermissionsURL.setParameter("showModelResources", "0");
+					%>
+
+						<li class="palette-item-container">
+							<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<aui:a href="<%= editPermissionsURL.toString() %>">
+									<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+								</aui:a>
+							</span>
+						</li>
+
+					<%
 					}
+					%>
 
-					editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-					editPermissionsURL.setParameter("showModelResources", "0");
-				%>
-
-					<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
-
-				<%
-				}
-				%>
-
-			</optgroup>
+				</ul>
+			</div>
 
 			<%
 			String[] categories = ArrayUtil.append(PortletCategoryKeys.ALL, PortletCategoryKeys.MY);
@@ -192,30 +284,44 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 			%>
 
 				<c:if test="<%= !categoryPortlets.isEmpty() %>">
-					<optgroup label="<liferay-ui:message key='<%= "control-panel-" + controlPanelCategory %>' />">
+					<div class="palette-section">
+						<div class="palette-item-header toggler-header-expanded">
+							<span class="palette-item-header-icon"></span>
 
-						<%
-						for (Portlet portlet : categoryPortlets) {
-							editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-							editPermissionsURL.setParameter("showModelResources", "0");
-						%>
+							<span><liferay-ui:message key='<%= "control-panel-" + controlPanelCategory %>' /></span>
+						</div>
 
-							<aui:option label="<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>" selected="<%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources) %>" value="<%= editPermissionsURL.toString() %>" />
+						<ul class="palette-item-content">
 
-						<%
-						}
-						%>
+							<%
+							for (Portlet portlet : categoryPortlets) {
+								editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+								editPermissionsURL.setParameter("showModelResources", "0");
+							%>
 
-					</optgroup>
+								<li class="palette-item-container">
+									<span class='palette-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+										<aui:a href="<%= editPermissionsURL.toString() %>">
+											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+										</aui:a>
+									</span>
+								</li>
+
+							<%
+							}
+							%>
+
+						</ul>
+					</div>
 				</c:if>
 
 			<%
 			}
 			%>
 
-		</aui:select>
-	</aui:fieldset>
-</aui:form>
+		</div>
+	</div>
+</div>
 
 <%!
 private boolean _isSitePortlet(String portletId) {

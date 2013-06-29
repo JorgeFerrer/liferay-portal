@@ -98,104 +98,92 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 <liferay-ui:success key="permissionDeleted" message="the-permission-was-deleted" />
 <liferay-ui:success key="permissionsUpdated" message="the-role-permissions-were-updated" />
 
-<c:if test="<%= !portletName.equals(PortletKeys.ADMIN_SERVER) %>">
-	<%@ include file="/html/portlet/roles_admin/edit_role_permissions_navigation.jspf" %>
-</c:if>
-
-<c:choose>
-	<c:when test="<%= cmd.equals(Constants.VIEW) %>">
-		<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_summary.jsp" />
-
-		<c:if test="<%= portletName.equals(PortletKeys.ADMIN_SERVER) %>">
-			<br />
-
-			<aui:button href="<%= redirect %>" type="cancel" />
+<aui:container>
+	<aui:row>
+		<c:if test="<%= !portletName.equals(PortletKeys.ADMIN_SERVER) %>">
+			<aui:col width="<%= 25 %>">
+				<%@ include file="/html/portlet/roles_admin/edit_role_permissions_navigation.jspf" %>
+			</aui:col>
 		</c:if>
-	</c:when>
-	<c:otherwise>
-		<portlet:actionURL var="editRolePermissionsURL">
-			<portlet:param name="struts_action" value="/roles_admin/edit_role_permissions" />
-		</portlet:actionURL>
 
-		<aui:form action="<%= editRolePermissionsURL %>" method="post" name="fm">
-			<aui:input name="<%= Constants.CMD %>" type="hidden" />
-			<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
-			<aui:input name="redirect" type="hidden" />
-			<aui:input name="roleId" type="hidden" value="<%= role.getRoleId() %>" />
-			<aui:input name="portletResource" type="hidden" value="<%= portletResource %>" />
-			<aui:input name="modelResources" type="hidden" value='<%= (modelResources == null) ? "" : StringUtil.merge(modelResources) %>' />
-			<aui:input name="showModelResources" type="hidden" value="<%= String.valueOf(showModelResources) %>" />
-			<aui:input name="selectedTargets" type="hidden" />
-
+		<aui:col width="<%= portletName.equals(PortletKeys.ADMIN_SERVER) ? 100 : 75 %>">
 			<c:choose>
-				<c:when test="<%= !showModelResources %>">
-					<h3><%= portletResourceLabel %></h3>
+				<c:when test="<%= cmd.equals(Constants.VIEW) %>">
+					<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_summary.jsp" />
 
-					<%
-					request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
-					%>
+					<c:if test="<%= portletName.equals(PortletKeys.ADMIN_SERVER) %>">
+						<br />
 
-					<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+						<aui:button href="<%= redirect %>" type="cancel" />
+					</c:if>
 				</c:when>
-				<c:when test="<%= (modelResources != null) && !modelResources.isEmpty() %>">
+				<c:otherwise>
+					<portlet:actionURL var="editRolePermissionsURL">
+						<portlet:param name="struts_action" value="/roles_admin/edit_role_permissions" />
+					</portlet:actionURL>
 
-					<%
-					modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
+					<aui:form action="<%= editRolePermissionsURL %>" method="post" name="fm">
+						<aui:input name="<%= Constants.CMD %>" type="hidden" />
+						<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
+						<aui:input name="redirect" type="hidden" />
+						<aui:input name="roleId" type="hidden" value="<%= role.getRoleId() %>" />
+						<aui:input name="portletResource" type="hidden" value="<%= portletResource %>" />
+						<aui:input name="modelResources" type="hidden" value='<%= (modelResources == null) ? "" : StringUtil.merge(modelResources) %>' />
+						<aui:input name="showModelResources" type="hidden" value="<%= String.valueOf(showModelResources) %>" />
+						<aui:input name="selectedTargets" type="hidden" />
 
-					for (int i = 0; i < modelResources.size(); i++) {
-						String curModelResource = (String)modelResources.get(i);
+						<c:choose>
+							<c:when test="<%= !showModelResources %>">
+								<h3><%= portletResourceLabel %></h3>
 
-						String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
-						%>
+								<%
+								request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
+								%>
 
-						<h3><%= curModelResourceName %></h3>
+								<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+							</c:when>
+							<c:when test="<%= (modelResources != null) && !modelResources.isEmpty() %>">
 
-						<%
-						request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
+								<%
+								modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
 
-						request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
-						request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
-						%>
+								for (int i = 0; i < modelResources.size(); i++) {
+									String curModelResource = (String)modelResources.get(i);
 
-						<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+									String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
+									%>
 
-					<%
-					}
-					%>
+									<h3><%= curModelResourceName %></h3>
 
-				</c:when>
+									<%
+									request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
+
+									request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
+									request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
+									%>
+
+									<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+
+								<%
+								}
+								%>
+
+							</c:when>
+						</c:choose>
+
+						<aui:button-row>
+							<aui:button onClick='<%= renderResponse.getNamespace() + "updateActions();" %>' value="save" />
+
+							<aui:button href="<%= redirect %>" type="cancel" />
+						</aui:button-row>
+					</aui:form>
+				</c:otherwise>
 			</c:choose>
-
-			<aui:button-row>
-				<aui:button onClick='<%= renderResponse.getNamespace() + "updateActions();" %>' value="save" />
-
-				<aui:button href="<%= redirect %>" type="cancel" />
-			</aui:button-row>
-		</aui:form>
-	</c:otherwise>
-</c:choose>
+		</aui:col>
+	</aui:row>
+</aui:container>
 
 <aui:script>
-	function <portlet:namespace />addPermissions(field) {
-		var permissionsURL = field.value;
-
-		if (permissionsURL == '') {
-
-			<%
-			PortletURL viewPermissionsURL = renderResponse.createRenderURL();
-
-			viewPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
-			viewPermissionsURL.setParameter(Constants.CMD, Constants.VIEW);
-			viewPermissionsURL.setParameter("tabs1", "roles");
-			viewPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
-			%>
-
-			permissionsURL = '<%= viewPermissionsURL %>';
-		}
-
-		location.href = permissionsURL;
-	}
-
 	function <portlet:namespace />removeGroup(pos, target) {
 		var selectedGroupIds = document.<portlet:namespace />fm['<portlet:namespace />groupIds' + target].value.split(",");
 		var selectedGroupNames = document.<portlet:namespace />fm['<portlet:namespace />groupNames' + target].value.split("@@");
