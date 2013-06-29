@@ -247,8 +247,40 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 				</ul>
 			</div>
 
+			<div class="permission-navigation-section">
+				<div class="permission-navigation-item-header toggler-header-expanded">
+					<span class="permission-navigation-item-header-icon"></span>
+
+					<span><liferay-ui:message key="my-account" /></span>
+				</div>
+
+				<ul class="permission-navigation-item-content">
+
+					<%
+					Set<Portlet> myAccountPortlets = PortalUtil.getControlPanelPortlets(company.getCompanyId(), PortletCategoryKeys.MY);
+
+					for (Portlet portlet : myAccountPortlets) {
+						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+						editPermissionsURL.setParameter("showModelResources", "0");
+					%>
+
+						<li class="permission-navigation-item-container">
+							<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+								<aui:a href="<%= editPermissionsURL.toString() %>">
+									<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+								</aui:a>
+							</span>
+						</li>
+
+					<%
+					}
+					%>
+
+				</ul>
+			</div>
+
 			<%
-			String[] categories = ArrayUtil.append(PortletCategoryKeys.ALL, PortletCategoryKeys.MY);
+			String[] categories = ArrayUtil.append(PortletCategoryKeys.ALL);
 
 			if (categories.length > 0) {
 			%>
