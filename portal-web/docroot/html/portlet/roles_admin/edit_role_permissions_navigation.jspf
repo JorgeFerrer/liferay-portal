@@ -14,14 +14,6 @@
  */
 --%>
 
-<%
-boolean includeSystemPortlets = true;
-
-List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyId(), includeSystemPortlets, false);
-
-portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
-%>
-
 <div class="lfr-permission-navigation-container pull-left" id="<portlet:namespace />permissionNavigationContainer">
 	<div class="lfr-permission-navigation" id="<portlet:namespace />permissionNavigationDataContainer">
 		<div id="<portlet:namespace />permissionNavigationData">
@@ -197,8 +189,14 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 				<ul class="permission-navigation-item-content">
 
 					<%
+					boolean includeSystemPortlets = false;
+
+					List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyId(), includeSystemPortlets, false);
+
+					portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
+
 					for (Portlet portlet : portlets) {
-						if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId()) || portlet.isSystem()) {
+						if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId())) {
 							continue;
 						}
 
