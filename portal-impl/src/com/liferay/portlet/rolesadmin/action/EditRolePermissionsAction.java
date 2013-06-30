@@ -258,24 +258,17 @@ public class EditRolePermissionsAction extends PortletAction {
 			actionRequest, "portletResource");
 		String[] modelResources = StringUtil.split(
 			ParamUtil.getString(actionRequest, "modelResources"));
-		boolean showModelResources = ParamUtil.getBoolean(
-			actionRequest, "showModelResources");
-		boolean showPortletResource = ParamUtil.getBoolean(
-			actionRequest, "showPortletResource");
 
 		Map<String, List<String>> resourceActionsMap =
 			new HashMap<String, List<String>>();
 
-		if (showModelResources) {
-			for (String modelResource : modelResources) {
-				resourceActionsMap.put(
-					modelResource,
-					ResourceActionsUtil.getResourceActions(
-						null, modelResource));
-			}
+		for (String modelResource : modelResources) {
+			resourceActionsMap.put(
+				modelResource,
+				ResourceActionsUtil.getResourceActions(null, modelResource));
 		}
 
-		if (showPortletResource && Validator.isNotNull(portletResource)) {
+		if (Validator.isNotNull(portletResource)) {
 			resourceActionsMap.put(
 				portletResource,
 				ResourceActionsUtil.getResourceActions(portletResource, null));

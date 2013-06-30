@@ -48,9 +48,6 @@ if (Validator.isNotNull(portletResource)) {
 	modelResources = ResourceActionsUtil.getPortletModelResources(portletResource);
 }
 
-boolean showModelResources = ParamUtil.getBoolean(request, "showModelResources", true);
-boolean showPortletResource = ParamUtil.getBoolean(request, "showPortletResource", !showModelResources);
-
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
@@ -130,20 +127,17 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 						<aui:input name="roleId" type="hidden" value="<%= role.getRoleId() %>" />
 						<aui:input name="portletResource" type="hidden" value="<%= portletResource %>" />
 						<aui:input name="modelResources" type="hidden" value='<%= (modelResources == null) ? "" : StringUtil.merge(modelResources) %>' />
-						<aui:input name="showModelResources" type="hidden" value="<%= String.valueOf(showModelResources) %>" />
-						<aui:input name="showPortletResource" type="hidden" value="<%= String.valueOf(showPortletResource) %>" />
 						<aui:input name="selectedTargets" type="hidden" />
 
-						<c:if test="<%= showPortletResource %>">
-							<h3><%= portletResourceLabel %></h3>
+						<h3><%= portletResourceLabel %></h3>
 
-							<%
-							request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
-							%>
+						<%
+						request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
+						%>
 
-							<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
-						</c:if>
-						<c:if test="<%= showModelResources && (modelResources != null) && !modelResources.isEmpty() %>">
+						<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+
+						<c:if test="<%= (modelResources != null) && !modelResources.isEmpty() %>">
 
 							<h3><liferay-ui:message key="resources" /></h3>
 

@@ -176,13 +176,6 @@ for (int i = 0; i < results.size(); i++) {
 	editPermissionsURL.setParameter("redirect", permissionsSummaryURL.toString());
 	editPermissionsURL.setParameter("portletResource", curPortletName);
 
-	if (curPortletName.equals(PortletKeys.PORTAL) || curPortletName.equals(curResource)) {
-		editPermissionsURL.setParameter("showModelResources", "0");
-	}
-	else {
-		editPermissionsURL.setParameter("showModelResources", "1");
-	}
-
 	row.addText(curPortletLabel, editPermissionsURL);
 	row.addText(curModelLabel);
 	row.addText(actionLabel);
