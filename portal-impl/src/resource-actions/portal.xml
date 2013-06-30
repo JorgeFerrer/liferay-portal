@@ -367,6 +367,9 @@
 		<model-name>com.liferay.portal.model.Group</model-name>
 		<portlet-ref>
 			<portlet-name>134</portlet-name>
+			<portlet-name>156</portlet-name>
+			<portlet-name>165</portlet-name>
+			<portlet-name>174</portlet-name>
 		</portlet-ref>
 		<permissions>
 			<supports>
