@@ -203,7 +203,8 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 						}
 
 						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "0");
+						editPermissionsURL.setParameter("showModelResources", "1");
+						editPermissionsURL.setParameter("showPortletResource", "1");
 					%>
 
 						<li class="permission-navigation-item-container">
