@@ -140,62 +140,59 @@
 
 					<%
 					}
-					%>
 
-				</div>
-			</div>
+					Set<String> hiddenPortletIds = Collections.emptySet();
 
-			<%
-			Set<String> hiddenPortletIds = Collections.emptySet();
+					PortletCategory portletCategory = (PortletCategory)WebAppPool.get(company.getCompanyId(), WebKeys.PORTLET_CATEGORY);
 
-			PortletCategory portletCategory = (PortletCategory)WebAppPool.get(company.getCompanyId(), WebKeys.PORTLET_CATEGORY);
+					PortletCategory hiddentPortletCategory = portletCategory.getCategory(PortletCategoryConstants.NAME_HIDDEN);
 
-			PortletCategory hiddentPortletCategory = portletCategory.getCategory(PortletCategoryConstants.NAME_HIDDEN);
-
-			if (hiddentPortletCategory != null) {
-				hiddenPortletIds = hiddentPortletCategory.getPortletIds();
-			}
-			%>
-
-			<div class="permission-navigation-section">
-				<div class="permission-navigation-item-header toggler-header-expanded">
-					<span class="permission-navigation-item-header-icon"></span>
-
-					<span><liferay-ui:message key="site-applications" /></span>
-				</div>
-
-				<ul class="permission-navigation-item-content">
-
-					<%
-					boolean includeSystemPortlets = false;
-
-					List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyId(), includeSystemPortlets, false);
-
-					portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
-
-					for (Portlet portlet : portlets) {
-						if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId())) {
-							continue;
-						}
-
-						editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-						editPermissionsURL.setParameter("showModelResources", "1");
-						editPermissionsURL.setParameter("showPortletResource", "1");
-					%>
-
-						<li class="permission-navigation-item-container">
-							<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
-								<aui:a href="<%= editPermissionsURL.toString() %>">
-									<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
-								</aui:a>
-							</span>
-						</li>
-
-					<%
+					if (hiddentPortletCategory != null) {
+						hiddenPortletIds = hiddentPortletCategory.getPortletIds();
 					}
 					%>
 
-				</ul>
+					<div class="permission-navigation-section">
+						<div class="permission-navigation-item-header toggler-header-expanded">
+							<span class="permission-navigation-item-header-icon"></span>
+
+							<span><liferay-ui:message key="applications" /></span>
+						</div>
+
+						<ul class="permission-navigation-item-content">
+
+							<%
+							boolean includeSystemPortlets = false;
+
+							List<Portlet> portlets = PortletLocalServiceUtil.getPortlets(company.getCompanyId(), includeSystemPortlets, false);
+
+							portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
+
+							for (Portlet portlet : portlets) {
+								if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId())) {
+									continue;
+								}
+
+								editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+								editPermissionsURL.setParameter("showModelResources", "1");
+								editPermissionsURL.setParameter("showPortletResource", "1");
+							%>
+
+								<li class="permission-navigation-item-container">
+									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+										<aui:a href="<%= editPermissionsURL.toString() %>">
+											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+										</aui:a>
+									</span>
+								</li>
+
+							<%
+							}
+							%>
+
+						</ul>
+					</div>
+				</div>
 			</div>
 
 			<c:if test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
