@@ -183,7 +183,123 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	</aui:row>
 </aui:container>
 
-<aui:script use="aui-toggler">
+<aui:script use="aui-toggler,autocomplete-base,autocomplete-filters">
+	var AArray = A.Array;
+
+	var permissionNavigationDataContainer = A.one('#<portlet:namespace />permissionNavigationDataContainer');
+
+	function createLiveSearch() {
+		var instance = this;
+
+		var trim = A.Lang.trim;
+
+		var PermissionNavigationSearch = A.Component.create (
+			{
+				AUGMENTS: [A.AutoCompleteBase],
+
+				EXTENDS: A.Base,
+
+				NAME: 'searchpermissioNnavigation',
+
+				prototype: {
+					initializer: function() {
+						var instance = this;
+
+						instance._bindUIACBase();
+						instance._syncUIACBase();
+					}
+				}
+			}
+		);
+
+		var getItems = function() {
+			var results = [];
+
+			permissionNavigationItems.each(
+				function(node) {
+					results.push(
+						{
+							node: node.ancestor(),
+							data: trim(node.text())
+						}
+					);
+				}
+			);
+
+			return results;
+		};
+
+		var getNoResultsNode = function() {
+			if (!noResultsNode) {
+				noResultsNode = A.Node.create('<div class="alert"><%= LanguageUtil.get(pageContext, "there-are-no-results") %></div>');
+			}
+
+			return noResultsNode;
+		};
+
+		var permissionNavigationItems = permissionNavigationDataContainer.all('.permission-navigation-item');
+
+		var permissionNavigationSectionsNode = permissionNavigationDataContainer.all('.permission-navigation-section');
+
+		var noResultsNode;
+
+		var permissionNavigationSearch = new PermissionNavigationSearch(
+			{
+				inputNode: '#<portlet:namespace />permissionNavigationSearch',
+				minQueryLength: 0,
+				nodes: '.permission-navigation-item-container',
+				resultFilters: 'phraseMatch',
+				resultTextLocator: 'data',
+				source: getItems()
+			}
+		);
+
+		permissionNavigationSearch.on(
+			'results',
+			function(event) {
+				permissionNavigationItems.each(
+					function(item, index, collection) {
+						item.ancestor().addClass('hide');
+					}
+				);
+
+				AArray.each(
+					event.results,
+					function(item, index, collection) {
+						item.raw.node.removeClass('hide');
+					}
+				);
+
+				var foundVisibleSection;
+
+				permissionNavigationSectionsNode.each(
+					function(item, index, collection) {
+						var action = 'addClass';
+
+						var visibleItem = item.one('.permission-navigation-item-container:not(.hide)');
+
+						if (visibleItem) {
+							action = 'removeClass';
+
+							foundVisibleSection = true;
+						}
+
+						item[action]('hide');
+					}
+				);
+
+				var noResultsNode = getNoResultsNode();
+
+				if (foundVisibleSection) {
+					noResultsNode.remove();
+				}
+				else {
+					permissionNavigationDataContainer.appendChild(noResultsNode);
+				}
+			}
+		);
+	}
+
 	function <portlet:namespace />removeGroup(pos, target) {
 		var selectedGroupIds = document.<portlet:namespace />fm['<portlet:namespace />groupIds' + target].value.split(",");
 		var selectedGroupNames = document.<portlet:namespace />fm['<portlet:namespace />groupNames' + target].value.split("@@");
@@ -258,6 +374,8 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 					header: '.permission-navigation-item-header'
 				}
 			);
+
+			createLiveSearch();
 		}
 	);
 
