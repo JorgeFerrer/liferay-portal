@@ -145,30 +145,35 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 						</c:if>
 						<c:if test="<%= showModelResources && (modelResources != null) && !modelResources.isEmpty() %>">
 
-							<%
-							modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
+							<h3><liferay-ui:message key="resources" /></h3>
 
-							for (int i = 0; i < modelResources.size(); i++) {
-								String curModelResource = (String)modelResources.get(i);
-
-								String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
-								%>
-
-								<h3><%= curModelResourceName %></h3>
+							<div class="permission-group">
 
 								<%
-								request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
+								modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
 
-								request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
-								request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
+								for (int i = 0; i < modelResources.size(); i++) {
+									String curModelResource = (String)modelResources.get(i);
+
+									String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
+									%>
+
+									<h4><%= curModelResourceName %></h4>
+
+									<%
+									request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
+
+									request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
+									request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
+									%>
+
+									<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
+
+								<%
+								}
 								%>
 
-								<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
-
-							<%
-							}
-							%>
-
+							</div>
 						</c:if>
 
 						<aui:button-row>
