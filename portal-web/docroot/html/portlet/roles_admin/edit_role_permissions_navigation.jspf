@@ -36,31 +36,6 @@
 			</div>
 
 			<c:choose>
-				<c:when test="<%= role.getType() == RoleConstants.TYPE_SITE %>">
-					<div class="permission-navigation-section">
-						<div class="permission-navigation-item-header toggler-header-expanded">
-							<span class="permission-navigation-item-header-icon"></span>
-
-							<span><liferay-ui:message key="administration" /></span>
-						</div>
-
-						<ul class="permission-navigation-item-content">
-
-							<%
-							editPermissionsURL.setParameter("portletResource", PortletKeys.SITES_ADMIN);
-							editPermissionsURL.setParameter("showModelResources", "1");
-							%>
-
-							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
-									<aui:a href="<%= editPermissionsURL.toString() %>">
-										<liferay-ui:message key="site-administration" />
-									</aui:a>
-								</span>
-							</li>
-						</ul>
-					</div>
-				</c:when>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_ORGANIZATION %>">
 					<div class="permission-navigation-section">
 						<div class="permission-navigation-item-header toggler-header-expanded">
