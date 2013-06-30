@@ -255,72 +255,57 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 					</ul>
 				</div>
 
-				<%
-				String[] categories = ArrayUtil.append(PortletCategoryKeys.ALL);
+				<div class="permission-navigation-section">
+					<div class="permission-navigation-item-header toggler-header-expanded">
+						<span class="permission-navigation-item-header-icon"></span>
 
-				if (categories.length > 0) {
-				%>
+						<span><liferay-ui:message key="control-panel" /></span>
+					</div>
+					<div class="permission-navigation-item-content">
 
-					<div class="permission-navigation-section">
-						<div class="permission-navigation-item-header toggler-header-expanded">
-							<span class="permission-navigation-item-header-icon"></span>
+						<%
+						for (String category : PortletCategoryKeys.ALL) {
+							Set<Portlet> categoryPortlets = PortalUtil.getControlPanelPortlets(company.getCompanyId(), category);
+						%>
 
-							<span><liferay-ui:message key="control-panel" /></span>
-						</div>
-						<div class="permission-navigation-item-content">
+							<c:if test="<%= !categoryPortlets.isEmpty() %>">
+								<div class="permission-navigation-section">
+									<div class="permission-navigation-item-header toggler-header-expanded">
+										<span class="permission-navigation-item-header-icon"></span>
 
-							<%
-							for (String controlPanelCategory : categories) {
-								Set<Portlet> categoryPortlets = PortalUtil.getControlPanelPortlets(company.getCompanyId(), controlPanelCategory);
-
-								if (categoryPortlets == null) {
-									continue;
-								}
-							%>
-
-								<c:if test="<%= !categoryPortlets.isEmpty() %>">
-									<div class="permission-navigation-section">
-										<div class="permission-navigation-item-header toggler-header-expanded">
-											<span class="permission-navigation-item-header-icon"></span>
-
-											<span><liferay-ui:message key='<%= "category." + controlPanelCategory %>' /></span>
-										</div>
-
-										<ul class="permission-navigation-item-content">
-
-											<%
-											for (Portlet portlet : categoryPortlets) {
-												editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
-												editPermissionsURL.setParameter("showModelResources", "1");
-												editPermissionsURL.setParameter("showPortletResource", "1");
-											%>
-
-												<li class="permission-navigation-item-container">
-													<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
-														<aui:a href="<%= editPermissionsURL.toString() %>">
-															<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
-														</aui:a>
-													</span>
-												</li>
-
-											<%
-											}
-											%>
-
-										</ul>
+										<span><liferay-ui:message key='<%= "category." + category %>' /></span>
 									</div>
-								</c:if>
 
-							<%
-							}
-							%>
+									<ul class="permission-navigation-item-content">
 
-						</div>
+										<%
+										for (Portlet portlet : categoryPortlets) {
+											editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+											editPermissionsURL.setParameter("showModelResources", "1");
+											editPermissionsURL.setParameter("showPortletResource", "1");
+										%>
 
-					<%
-					}
-					%>
+											<li class="permission-navigation-item-container">
+												<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource, showModelResources)? "selected" : "" %>'>
+													<aui:a href="<%= editPermissionsURL.toString() %>">
+														<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+													</aui:a>
+												</span>
+											</li>
 
+										<%
+										}
+										%>
+
+									</ul>
+								</div>
+							</c:if>
+
+						<%
+						}
+						%>
+
+					</div>
 				</div>
 			</c:if>
 		</div>
@@ -328,10 +313,6 @@ portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, local
 </div>
 
 <%!
-private boolean _isSitePortlet(String portletId) {
-	return _sitePortletIds.contains(portletId);
-}
-
 private boolean _isCurrent(String url, String portletResource, boolean showModelResources) {
 	if (Validator.isNull(portletResource)) {
 		return false;
@@ -352,27 +333,4 @@ private boolean _isCurrent(String url, String portletResource, boolean showModel
 		return false;
 	}
 }
-
-private boolean _isPortalPortlet(String portletId) {
-	return _portalPortletIds.contains(portletId);
-}
-
-private static Set<String> _sitePortletIds = SetUtil.fromArray(
-	new String[] {
-		PortletKeys.SITES_ADMIN
-	});
-
-private static Set<String> _portalPortletIds = SetUtil.fromArray(
-	new String[] {
-		PortletKeys.EXPANDO,
-		PortletKeys.LAYOUT_PROTOTYPE,
-		PortletKeys.LAYOUT_SET_PROTOTYPE,
-		PortletKeys.MONITORING,
-		PortletKeys.PASSWORD_POLICIES_ADMIN,
-		PortletKeys.PLUGINS_ADMIN,
-		PortletKeys.PORTAL_SETTINGS,
-		PortletKeys.ROLES_ADMIN,
-		PortletKeys.SITES_ADMIN,
-		PortletKeys.USERS_ADMIN
-	});
 %>
