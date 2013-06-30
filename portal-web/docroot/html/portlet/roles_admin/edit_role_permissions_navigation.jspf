@@ -44,19 +44,21 @@
 						<div class="permission-navigation-item-header toggler-header-expanded">
 							<span class="permission-navigation-item-header-icon"></span>
 
-							<span><liferay-ui:message key="administration" /></span>
+							<span><liferay-ui:message key="organization" /></span>
 						</div>
 
 						<ul class="permission-navigation-item-content">
 
 							<%
-							editPermissionsURL.setParameter("portletResource", PortletKeys.USERS_ADMIN);
+							Portlet usersAdminPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), PortletKeys.USERS_ADMIN);
+
+							editPermissionsURL.setParameter("portletResource", usersAdminPortlet.getPortletId());
 							%>
 
 							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+								<span class='permission-navigation-item <%= portletResource.equals(usersAdminPortlet.getPortletId())? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
-										<liferay-ui:message key="organization-administration" />
+										<%= PortalUtil.getPortletLongTitle(usersAdminPortlet, application, locale) %>
 									</aui:a>
 								</span>
 							</li>
