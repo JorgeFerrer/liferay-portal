@@ -78,7 +78,7 @@
 							%>
 
 							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+								<span class='permission-navigation-item <%= portletResource.equals(PortletKeys.PORTAL)? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
 										<liferay-ui:message key="general" />
 									</aui:a>
@@ -119,7 +119,7 @@
 									%>
 
 										<li class="permission-navigation-item-container">
-											<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+											<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
 												<aui:a href="<%= editPermissionsURL.toString() %>">
 													<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 												</aui:a>
@@ -173,7 +173,7 @@
 							%>
 
 								<li class="permission-navigation-item-container">
-									<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+									<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
 											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 										</aui:a>
@@ -207,7 +207,7 @@
 						%>
 
 							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+								<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
 										<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 									</aui:a>
@@ -250,7 +250,7 @@
 										%>
 
 											<li class="permission-navigation-item-container">
-												<span class='permission-navigation-item <%= _isCurrent(editPermissionsURL.toString(), portletResource)? "selected" : "" %>'>
+												<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
 													<aui:a href="<%= editPermissionsURL.toString() %>">
 														<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
 													</aui:a>
@@ -275,20 +275,3 @@
 		</div>
 	</div>
 </div>
-
-<%!
-private boolean _isCurrent(String url, String portletResource) {
-	if (Validator.isNull(portletResource)) {
-		return false;
-	}
-
-	if (url.contains("portletResource=" + portletResource + StringPool.AMPERSAND) ||
-		url.endsWith("portletResource=" + portletResource)) {
-
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-%>
