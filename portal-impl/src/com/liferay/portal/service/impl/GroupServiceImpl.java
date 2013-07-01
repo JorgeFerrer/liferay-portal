@@ -82,6 +82,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @param  site whether the group is to be associated with a main site
 	 * @param  active whether the group is active
 	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set the asset category IDs and asset tag
 	 *         names for the group, and can set whether the group is for staging
@@ -145,7 +147,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 *             if a valid friendly URL could not be created for the group
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	 *             String, int, String, boolean, boolean, boolean,
+	 *             String, int, String, boolean, boolean, boolean, int,
 	 *             ServiceContext)}
 	 */
 	@Override
@@ -163,7 +165,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	 *             String, int, String, boolean, boolean, boolean,
+	 *             String, int, String, boolean, boolean, boolean, int,
 	 *             ServiceContext)}
 	 */
 	@Override
@@ -1065,6 +1067,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  active whether the group is active
 	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set the asset category IDs and asset tag
 	 *         names for the group.
