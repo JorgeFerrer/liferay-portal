@@ -150,7 +150,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 							<div class="permission-group">
 
 								<%
-								modelResources = ListUtil.sort(modelResources, new ModelResourceComparator(locale));
+								modelResources = ListUtil.sort(modelResources, new ModelResourceWeightComparator());
 
 								for (int i = 0; i < modelResources.size(); i++) {
 									String curModelResource = (String)modelResources.get(i);
