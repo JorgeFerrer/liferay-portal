@@ -17,8 +17,8 @@ package com.liferay.portal.security.permission.comparator;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 
 import java.io.Serializable;
+
 import java.util.Comparator;
-import java.util.Locale;
 
 /**
  * @author Jorge Ferrer
