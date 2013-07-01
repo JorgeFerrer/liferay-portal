@@ -219,7 +219,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			long userId, long parentGroupId, String className, long classPK,
 			long liveGroupId, String name, String description, int type,
 			String friendlyURL, boolean site, boolean active,
-			boolean manualMembership, ServiceContext serviceContext)
+			boolean manualMembership, int membershipRestriction,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Group
@@ -322,6 +323,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		group.setSite(site);
 		group.setActive(active);
 		group.setManualMembership(manualMembership);
+		group.setMembershipRestriction(membershipRestriction);
 
 		if ((serviceContext != null) && (classNameId == groupClassNameId) &&
 			!user.isDefaultUser()) {
@@ -417,7 +419,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, parentGroupId, className, classPK,
 			GroupConstants.DEFAULT_LIVE_GROUP_ID, name, description, type,
-			friendlyURL, site, active, true, serviceContext);
+			friendlyURL, site, active, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, serviceContext);
 	}
 
 	/**
@@ -459,7 +462,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, className, classPK,
 			liveGroupId, name, description, type, friendlyURL, site, active,
-			true, serviceContext);
+			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
+			serviceContext);
 	}
 
 	/**
@@ -499,7 +503,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, className, classPK,
 			GroupConstants.DEFAULT_LIVE_GROUP_ID, name, description, type,
-			friendlyURL, site, active, true, serviceContext);
+			friendlyURL, site, active, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, serviceContext);
 	}
 
 	/**
@@ -563,7 +568,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				Company.class.getName(), companyId,
 				GroupConstants.DEFAULT_LIVE_GROUP_ID, GroupConstants.GLOBAL,
 				null, 0, GroupConstants.GLOBAL_FRIENDLY_URL, true, true, true,
-				null);
+				GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null);
 		}
 	}
 
@@ -628,7 +633,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				group = groupLocalService.addGroup(
 					defaultUserId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
 					className, classPK, GroupConstants.DEFAULT_LIVE_GROUP_ID,
-					name, null, type, friendlyURL, site, true, true, null);
+					name, null, type, friendlyURL, site, true, true,
+					GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null);
 
 				if (name.equals(GroupConstants.USER_PERSONAL_SITE)) {
 					initUserPersonalSitePermissions(group);
@@ -3237,7 +3243,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group updateGroup(
 			long groupId, long parentGroupId, String name, String description,
 			int type, String friendlyURL, boolean active,
-			boolean manualMembership, ServiceContext serviceContext)
+			boolean manualMembership, int membershipRestriction,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
@@ -3285,6 +3292,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		group.setFriendlyURL(friendlyURL);
 		group.setActive(active);
 		group.setManualMembership(manualMembership);
+		group.setMembershipRestriction(membershipRestriction);
 
 		if ((serviceContext != null) && group.isSite()) {
 			group.setExpandoBridgeAttributes(serviceContext);
