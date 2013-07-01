@@ -34,12 +34,7 @@ String portletResourceLabel = null;
 if (Validator.isNotNull(portletResource)) {
 	Portlet portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletResource);
 
-	if (portlet.getPortletId().equals(PortletKeys.PORTAL)) {
-		portletResourceLabel = LanguageUtil.get(pageContext, "general");
-	}
-	else {
-		portletResourceLabel = PortalUtil.getPortletLongTitle(portlet, application, locale);
-	}
+	portletResourceLabel = PortalUtil.getPortletLongTitle(portlet, application, locale);
 }
 
 List modelResources = null;

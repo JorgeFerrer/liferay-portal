@@ -30,63 +30,37 @@
 			viewPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			%>
 
-			<div class="permission-navigation-section">
-				<div class="permission-navigation-item-header">
-					<span class="permission-navigation-item-header-icon"></span>
-
-					<span><aui:a href="<%= viewPermissionsURL.toString() %>"><liferay-ui:message key="summary" /></aui:a></span>
-				</div>
+			<div class='permission-navigation-item-all <%= Validator.isNull(portletResource)? "selected" : "" %>'>
+				<aui:a href="<%= viewPermissionsURL.toString() %>">
+					<liferay-ui:message key="all" />
+				</aui:a>
 			</div>
 
 			<c:choose>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_ORGANIZATION %>">
-					<div class="permission-navigation-section">
-						<div class="permission-navigation-item-header toggler-header-expanded">
-							<span class="permission-navigation-item-header-icon"></span>
 
-							<span><liferay-ui:message key="organization" /></span>
-						</div>
+					<%
+					Portlet usersAdminPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), PortletKeys.USERS_ADMIN);
 
-						<ul class="permission-navigation-item-content">
+					editPermissionsURL.setParameter("portletResource", usersAdminPortlet.getPortletId());
+					%>
 
-							<%
-							Portlet usersAdminPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), PortletKeys.USERS_ADMIN);
-
-							editPermissionsURL.setParameter("portletResource", usersAdminPortlet.getPortletId());
-							%>
-
-							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= portletResource.equals(usersAdminPortlet.getPortletId())? "selected" : "" %>'>
-									<aui:a href="<%= editPermissionsURL.toString() %>">
-										<%= PortalUtil.getPortletLongTitle(usersAdminPortlet, application, locale) %>
-									</aui:a>
-								</span>
-							</li>
-						</ul>
+					<div class='permission-navigation-item-users-admin <%= portletResource.equals(usersAdminPortlet.getPortletId())? "selected" : "" %>'>
+						<aui:a href="<%= editPermissionsURL.toString() %>">
+							<%= PortalUtil.getPortletLongTitle(usersAdminPortlet, application, locale) %>
+						</aui:a>
 					</div>
 				</c:when>
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
-					<div class="permission-navigation-section">
-						<div class="permission-navigation-item-header toggler-header-expanded">
-							<span class="permission-navigation-item-header-icon"></span>
 
-							<span><liferay-ui:message key="portal" /></span>
-						</div>
+					<%
+					editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
+					%>
 
-						<ul class="permission-navigation-item-content">
-
-							<%
-							editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
-							%>
-
-							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= portletResource.equals(PortletKeys.PORTAL)? "selected" : "" %>'>
-									<aui:a href="<%= editPermissionsURL.toString() %>">
-										<liferay-ui:message key="general" />
-									</aui:a>
-								</span>
-							</li>
-						</ul>
+					<div class='permission-navigation-item-portal <%= portletResource.equals(PortletKeys.PORTAL)? "selected" : "" %>'>
+						<aui:a href="<%= editPermissionsURL.toString() %>">
+							<liferay-ui:message key="portal" />
+						</aui:a>
 					</div>
 				</c:when>
 			</c:choose>

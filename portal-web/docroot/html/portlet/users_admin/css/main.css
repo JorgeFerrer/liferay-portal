@@ -210,6 +210,10 @@
 				}
 			}
 
+			.selected {
+				font-weight: bold;
+			}
+
 			.toggler-header-collapsed .permission-navigation-item-header-icon {
 				background-image: url(@theme_image_path@/arrows/05_right.png);
 			}
@@ -222,10 +226,6 @@
 			.permission-navigation-item-header {
 				cursor: pointer;
 				margin: 0.5em;
-			}
-
-			.permission-navigation-item.selected {
-				font-weight: bold;
 			}
 
 			.permission-navigation-item-content .permission-navigation-item-container {
