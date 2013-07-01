@@ -29,10 +29,11 @@ Role role = (Role)request.getAttribute(WebKeys.ROLE);
 
 String portletResource = ParamUtil.getString(request, "portletResource");
 
+Portlet portlet = null;
 String portletResourceLabel = null;
 
 if (Validator.isNotNull(portletResource)) {
-	Portlet portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletResource);
+	portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletResource);
 
 	portletResourceLabel = PortalUtil.getPortletLongTitle(portlet, application, locale);
 }
@@ -128,13 +129,24 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
 						<%
 						request.setAttribute("edit_role_permissions.jsp-curPortletResource", portletResource);
+
+						String applicationPermissionsLabel = "application-permissions";
+
+						if (portletResource.equals(PortletKeys.PORTAL)) {
+							applicationPermissionsLabel = StringPool.BLANK;
+						}
+						else if ((portlet != null) && Validator.isNotNull(portlet.getControlPanelEntryCategory())) {
+							applicationPermissionsLabel = "general-permissions";
+						}
 						%>
+
+						<h4><liferay-ui:message key="<%= applicationPermissionsLabel %>" /></h4>
 
 						<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
 
 						<c:if test="<%= (modelResources != null) && !modelResources.isEmpty() %>">
 
-							<h3><liferay-ui:message key="resources" /></h3>
+							<h4><liferay-ui:message key="resource-permissions" /></h4>
 
 							<div class="permission-group">
 
@@ -147,7 +159,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 									String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
 									%>
 
-									<h4><%= curModelResourceName %></h4>
+									<h5><%= curModelResourceName %></h5>
 
 									<%
 									request.removeAttribute("edit_role_permissions.jsp-curPortletResource");

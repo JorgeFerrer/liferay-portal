@@ -90,14 +90,14 @@
 								<ul class="permission-navigation-item-content">
 
 									<%
-									for (Portlet portlet : categoryPortlets) {
-										editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+									for (Portlet categoryPortlet : categoryPortlets) {
+										editPermissionsURL.setParameter("portletResource", categoryPortlet.getPortletId());
 									%>
 
 										<li class="permission-navigation-item-container">
-											<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
+											<span class='permission-navigation-item <%= portletResource.equals(categoryPortlet.getPortletId())? "selected" : "" %>'>
 												<aui:a href="<%= editPermissionsURL.toString() %>">
-													<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+													<%= PortalUtil.getPortletLongTitle(categoryPortlet, application, locale) %>
 												</aui:a>
 											</span>
 										</li>
@@ -140,18 +140,19 @@
 
 							portlets = ListUtil.sort(portlets, new PortletTitleComparator(application, locale));
 
-							for (Portlet portlet : portlets) {
-								if (Validator.isNull(portlet.getPortletId()) || hiddenPortletIds.contains(portlet.getPortletId())) {
+							for (Portlet curPortlet : portlets) {
+								if (Validator.isNull(curPortlet.getPortletId()) || hiddenPortletIds.contains(curPortlet.getPortletId())) {
 									continue;
 								}
 
-								editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+								editPermissionsURL.setParameter("portletResource", curPortlet.getPortletId());
 							%>
 
 								<li class="permission-navigation-item-container">
-									<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
+									<span class='permission-navigation-item <%= portletResource.equals(curPortlet.getPortletId())? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
-											<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+											<%= PortalUtil.getPortletLongTitle(
+												curPortlet, application, locale) %>
 										</aui:a>
 									</span>
 								</li>
@@ -178,14 +179,14 @@
 						<%
 						Set<Portlet> myAccountPortlets = PortalUtil.getControlPanelPortlets(company.getCompanyId(), PortletCategoryKeys.MY);
 
-						for (Portlet portlet : myAccountPortlets) {
-							editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+						for (Portlet myAccountPortlet : myAccountPortlets) {
+							editPermissionsURL.setParameter("portletResource", myAccountPortlet.getPortletId());
 						%>
 
 							<li class="permission-navigation-item-container">
-								<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
+								<span class='permission-navigation-item <%= portletResource.equals(myAccountPortlet.getPortletId())? "selected" : "" %>'>
 									<aui:a href="<%= editPermissionsURL.toString() %>">
-										<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+										<%= PortalUtil.getPortletLongTitle(myAccountPortlet, application, locale) %>
 									</aui:a>
 								</span>
 							</li>
@@ -221,14 +222,14 @@
 									<ul class="permission-navigation-item-content">
 
 										<%
-										for (Portlet portlet : categoryPortlets) {
-											editPermissionsURL.setParameter("portletResource", portlet.getPortletId());
+										for (Portlet categoryPortlet : categoryPortlets) {
+											editPermissionsURL.setParameter("portletResource", categoryPortlet.getPortletId());
 										%>
 
 											<li class="permission-navigation-item-container">
-												<span class='permission-navigation-item <%= portletResource.equals(portlet.getPortletId())? "selected" : "" %>'>
+												<span class='permission-navigation-item <%= portletResource.equals(categoryPortlet.getPortletId())? "selected" : "" %>'>
 													<aui:a href="<%= editPermissionsURL.toString() %>">
-														<%= PortalUtil.getPortletLongTitle(portlet, application, locale) %>
+														<%= PortalUtil.getPortletLongTitle(categoryPortlet, application, locale) %>
 													</aui:a>
 												</span>
 											</li>
