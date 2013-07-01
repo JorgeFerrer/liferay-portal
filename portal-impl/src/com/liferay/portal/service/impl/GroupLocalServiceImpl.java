@@ -205,6 +205,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  site whether the group is to be associated with a main site
 	 * @param  active whether the group is active
 	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         {@link
+	 *         com.liferay.portal.model.GroupConstants#DEFAULT_MEMBERSHIP_RESTRICTION})
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set asset category IDs and asset tag
 	 *         names for the group, and whether the group is for staging.
@@ -407,7 +410,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             boolean, ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -450,7 +453,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             boolean, ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -491,7 +494,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             boolean, ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -3230,6 +3233,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  active whether the group is active
 	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         {@link
+	 *         com.liferay.portal.model.GroupConstants#DEFAULT_MEMBERSHIP_RESTRICTION})
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set asset category IDs and asset tag
 	 *         names for the group.
