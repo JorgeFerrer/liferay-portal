@@ -6166,7 +6166,7 @@ public class JournalArticleLocalServiceImpl
 		Locale articleDefaultLocale = LocaleUtil.fromLanguageId(
 			LocalizationUtil.getDefaultLocale(content));
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales(groupId);
 
 		if (!ArrayUtil.contains(availableLocales, articleDefaultLocale)) {
 			LocaleException le = new LocaleException(
