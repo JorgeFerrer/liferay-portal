@@ -19,7 +19,7 @@
 <%
 User user2 = company.getDefaultUser();
 
-Locale[] locales = LanguageUtil.getAvailableLocales();
+Locale[] locales = LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
 String[] languageIds = LocaleUtil.toLanguageIds(locales);
 
 String timeZoneId = ParamUtil.getString(request, "timeZoneId", user2.getTimeZoneId());

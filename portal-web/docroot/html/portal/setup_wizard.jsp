@@ -16,6 +16,7 @@
 
 <%@ include file="/html/portal/init.jsp" %>
 
+<%@ page import="com.liferay.portal.kernel.language.Language" %>
 <%@ page import="com.liferay.portal.setup.SetupWizardUtil" %>
 
 <style>
@@ -72,7 +73,7 @@
 									<%
 									String languageId = GetterUtil.getString((String)session.getAttribute(WebKeys.SETUP_WIZARD_DEFAULT_LOCALE), SetupWizardUtil.getDefaultLanguageId());
 
-									Locale[] locales = LanguageUtil.getAvailableLocales();
+									Locale[] locales = LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
 
 									for (Locale curLocale : locales) {
 									%>
