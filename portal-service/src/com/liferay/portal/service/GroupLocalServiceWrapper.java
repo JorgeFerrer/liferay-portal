@@ -932,9 +932,6 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 	<code>null</code>)
 	* @param site whether the group is to be associated with a main site
 	* @param active whether the group is active
-	* @param manualMembership whether manual membership is allowed
-	* @param membershipRestriction the membership restriction (by default
-	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set asset category IDs and asset tag
 	names for the group, and whether the group is for staging.
@@ -984,7 +981,7 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	boolean, int, ServiceContext)}
+	ServiceContext)}
 	*/
 	@Override
 	public com.liferay.portal.model.Group addGroup(long userId,
@@ -1026,7 +1023,7 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	boolean, int, ServiceContext)}
+	ServiceContext)}
 	*/
 	@Override
 	public com.liferay.portal.model.Group addGroup(long userId,
@@ -1066,7 +1063,7 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 	* @throws SystemException if a system exception occurred
 	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	long, long, String, String, int, String, boolean, boolean,
-	boolean, int, ServiceContext)}
+	ServiceContext)}
 	*/
 	@Override
 	public com.liferay.portal.model.Group addGroup(long userId,
@@ -2955,9 +2952,6 @@ public class GroupLocalServiceWrapper implements GroupLocalService,
 	* @param friendlyURL the group's new friendlyURL (optionally
 	<code>null</code>)
 	* @param active whether the group is active
-	* @param manualMembership whether manual membership is allowed
-	* @param membershipRestriction the membership restriction (by default
-	GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	* @param serviceContext the service context to be applied (optionally
 	<code>null</code>). Can set asset category IDs and asset tag
 	names for the group.
