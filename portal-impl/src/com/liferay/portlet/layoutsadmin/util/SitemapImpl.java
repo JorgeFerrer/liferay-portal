@@ -203,7 +203,8 @@ public class SitemapImpl implements Sitemap {
 			addURLElement(
 				element, articleURL, null, journalArticle.getModifiedDate());
 
-			Locale[] availableLocales = LanguageUtil.getAvailableLocales();
+			Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+				journalArticle.getGroupId());
 
 			if (availableLocales.length > 1) {
 				Locale defaultLocale = LocaleUtil.getDefault();
@@ -248,7 +249,8 @@ public class SitemapImpl implements Sitemap {
 			element, layoutFullURL, typeSettingsProperties,
 			layout.getModifiedDate());
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+			layout.getGroupId());
 
 		if (availableLocales.length > 1) {
 			Locale defaultLocale = LocaleUtil.getDefault();

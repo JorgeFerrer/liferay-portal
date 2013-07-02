@@ -57,7 +57,10 @@ public class DDMIndexerImpl implements DDMIndexer {
 					continue;
 				}
 
-				for (Locale locale : LanguageUtil.getAvailableLocales()) {
+				for (Locale locale :
+						LanguageUtil.getAvailableLocales(
+							ddmStructure.getGroupId())) {
+
 					String name = encodeName(
 						ddmStructure.getStructureId(), field.getName(), locale);
 

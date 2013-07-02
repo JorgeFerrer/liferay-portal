@@ -1064,7 +1064,8 @@ public class LayoutImporter {
 			StringUtil.split(
 				_headerElement.attributeValue("available-locales")));
 
-		Locale[] targetAvailableLocales = LanguageUtil.getAvailableLocales();
+		Locale[] targetAvailableLocales = LanguageUtil.getAvailableLocales(
+			portletDataContext.getScopeGroupId());
 
 		for (Locale sourceAvailableLocale : sourceAvailableLocales) {
 			if (!ArrayUtil.contains(

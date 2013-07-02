@@ -1426,7 +1426,7 @@ public class DDMStructureLocalServiceImpl
 			throw new StructureXsdException();
 		}
 
-		validate(nameMap, xsd);
+		validate(structure.getGroupId(), nameMap, xsd);
 
 		structure.setModifiedDate(serviceContext.getModifiedDate(null));
 		structure.setParentStructureId(parentStructureId);
@@ -1660,10 +1660,11 @@ public class DDMStructureLocalServiceImpl
 			throw sdske;
 		}
 
-		validate(nameMap, xsd);
+		validate(groupId, nameMap, xsd);
 	}
 
-	protected void validate(Map<Locale, String> nameMap, String xsd)
+	protected void validate(
+			long groupId, Map<Locale, String> nameMap, String xsd)
 		throws PortalException {
 
 		if (Validator.isNull(xsd)) {
@@ -1686,7 +1687,7 @@ public class DDMStructureLocalServiceImpl
 				Locale contentDefaultLocale = LocaleUtil.fromLanguageId(
 					rootElement.attributeValue("default-locale"));
 
-				validateLanguages(nameMap, contentDefaultLocale);
+				validateLanguages(groupId, nameMap, contentDefaultLocale);
 
 				elements.addAll(rootElement.elements());
 
@@ -1713,7 +1714,8 @@ public class DDMStructureLocalServiceImpl
 	}
 
 	protected void validateLanguages(
-			Map<Locale, String> nameMap, Locale contentDefaultLocale)
+			long groupId, Map<Locale, String> nameMap,
+			Locale contentDefaultLocale)
 		throws PortalException {
 
 		String name = nameMap.get(contentDefaultLocale);
@@ -1722,7 +1724,7 @@ public class DDMStructureLocalServiceImpl
 			throw new StructureNameException();
 		}
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales(groupId);
 
 		if (!ArrayUtil.contains(availableLocales, contentDefaultLocale)) {
 			Long companyId = CompanyThreadLocal.getCompanyId();

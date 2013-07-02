@@ -147,14 +147,14 @@ public class EditWorkflowDefinitionAction extends PortletAction {
 		}
 	}
 
-	protected String getTitle(Map<Locale, String> titleMap) {
+	protected String getTitle(long groupId, Map<Locale, String> titleMap) {
 		if (titleMap == null) {
 			return null;
 		}
 
 		String value = StringPool.BLANK;
 
-		Locale[] locales = LanguageUtil.getAvailableLocales();
+		Locale[] locales = LanguageUtil.getAvailableLocales(groupId);
 
 		for (Locale locale : locales) {
 			String languageId = LocaleUtil.toLanguageId(locale);
@@ -207,13 +207,14 @@ public class EditWorkflowDefinitionAction extends PortletAction {
 
 				WorkflowDefinitionManagerUtil.updateTitle(
 					themeDisplay.getCompanyId(), themeDisplay.getUserId(), name,
-					version, getTitle(titleMap));
+					version, getTitle(themeDisplay.getSiteGroupId(), titleMap));
 			}
 			else {
 				workflowDefinition =
 					WorkflowDefinitionManagerUtil.deployWorkflowDefinition(
 						themeDisplay.getCompanyId(), themeDisplay.getUserId(),
-						getTitle(titleMap), inputStream);
+						getTitle(themeDisplay.getSiteGroupId(), titleMap),
+						inputStream);
 			}
 
 			actionRequest.setAttribute(
