@@ -32,6 +32,18 @@ LayoutSet publicLayoutSet = null;
 LayoutSetPrototype publicLayoutSetPrototype = null;
 boolean publicLayoutSetPrototypeLinkEnabled = true;
 
+boolean manualMembership = true;
+
+if (liveGroup != null) {
+	manualMembership = GetterUtil.getBoolean(liveGroup.isManualMembership(), true);
+}
+
+boolean membershipRestriction = false;
+
+if ((liveGroup != null) && (liveGroup.getMembershipRestriction() == GroupConstants.MEMBERSHIP_RESTRICTION_TO_PARENT_SITE_MEMBERS)) {
+	membershipRestriction = true;
+}
+
 if (showPrototypes && (group != null)) {
 	try {
 		LayoutLocalServiceUtil.getLayouts(liveGroup.getGroupId(), true, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
@@ -132,14 +144,21 @@ if (showPrototypes && (group != null)) {
 	<aui:input name="description" />
 
 	<c:if test="<%= (group == null) || !group.isCompany() %>">
+		<aui:input name="active" value="<%= true %>" />
+	</c:if>
+
+	<h3><liferay-ui:message key="membership-options" /></h3>
+
+	<c:if test="<%= (group == null) || !group.isCompany() %>">
 		<aui:select label="membership-type" name="type">
 			<aui:option label="open" value="<%= GroupConstants.TYPE_SITE_OPEN %>" />
-			<aui:option label="limited-to-parent-site-members" value="<%= GroupConstants.TYPE_SITE_LIMITED_TO_PARENT_SITE_MEMBERS %>" />
 			<aui:option label="restricted" value="<%= GroupConstants.TYPE_SITE_RESTRICTED %>" />
 			<aui:option label="private" value="<%= GroupConstants.TYPE_SITE_PRIVATE %>" />
 		</aui:select>
 
-		<aui:input name="active" value="<%= true %>" />
+		<aui:input label="allow-manual-membership-management" name="manualMembership" value="<%= manualMembership %>" />
+
+		<aui:input label="limited-to-parent-site-members" name="membershipRestriction" type="checkbox" value="<%= membershipRestriction %>" />
 	</c:if>
 
 	<c:if test="<%= (group != null) && !group.isCompany() %>">
@@ -510,7 +529,7 @@ boolean hasUnlinkLayoutSetPrototypePermission = PortalPermissionUtil.contains(pe
 	<br />
 
 	<portlet:renderURL var="groupSelectorURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-		<portlet:param name="struts_action" value="/users_admin/select_site" />
+		<portlet:param name="struts_action" value="/sites_admin/select_site" />
 		<portlet:param name="groupId" value='<%= (group != null) ? String.valueOf(group.getGroupId()) : "0" %>' />
 	</portlet:renderURL>
 

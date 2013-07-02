@@ -204,6 +204,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  site whether the group is to be associated with a main site
 	 * @param  active whether the group is active
+	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set asset category IDs and asset tag
 	 *         names for the group, and whether the group is for staging.
@@ -218,6 +221,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			long userId, long parentGroupId, String className, long classPK,
 			long liveGroupId, String name, String description, int type,
 			String friendlyURL, boolean site, boolean active,
+			boolean manualMembership, int membershipRestriction,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -299,7 +303,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		validateFriendlyURL(
 			user.getCompanyId(), groupId, classNameId, classPK, friendlyURL);
 
-		validateParentGroup(groupId, parentGroupId, type);
+		validateParentGroup(groupId, parentGroupId, membershipRestriction);
 
 		Group group = groupPersistence.create(groupId);
 
@@ -320,6 +324,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		group.setFriendlyURL(friendlyURL);
 		group.setSite(site);
 		group.setActive(active);
+		group.setManualMembership(manualMembership);
+		group.setMembershipRestriction(membershipRestriction);
 
 		if ((serviceContext != null) && (classNameId == groupClassNameId) &&
 			!user.isDefaultUser()) {
@@ -403,7 +409,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -415,7 +421,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, parentGroupId, className, classPK,
 			GroupConstants.DEFAULT_LIVE_GROUP_ID, name, description, type,
-			friendlyURL, site, active, serviceContext);
+			friendlyURL, site, active, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, serviceContext);
 	}
 
 	/**
@@ -445,7 +452,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -457,6 +464,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, className, classPK,
 			liveGroupId, name, description, type, friendlyURL, site, active,
+			true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
 			serviceContext);
 	}
 
@@ -485,7 +493,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, String, boolean, boolean,
-	 *             ServiceContext)}
+	 *             boolean, int, ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -497,7 +505,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return addGroup(
 			userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, className, classPK,
 			GroupConstants.DEFAULT_LIVE_GROUP_ID, name, description, type,
-			friendlyURL, site, active, serviceContext);
+			friendlyURL, site, active, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, serviceContext);
 	}
 
 	/**
@@ -560,7 +569,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				defaultUserId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
 				Company.class.getName(), companyId,
 				GroupConstants.DEFAULT_LIVE_GROUP_ID, GroupConstants.GLOBAL,
-				null, 0, GroupConstants.GLOBAL_FRIENDLY_URL, true, true, null);
+				null, 0, GroupConstants.GLOBAL_FRIENDLY_URL, true, true, true,
+				GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null);
 		}
 	}
 
@@ -625,7 +635,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				group = groupLocalService.addGroup(
 					defaultUserId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
 					className, classPK, GroupConstants.DEFAULT_LIVE_GROUP_ID,
-					name, null, type, friendlyURL, site, true, null);
+					name, null, type, friendlyURL, site, true, true,
+					GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, null);
 
 				if (name.equals(GroupConstants.USER_PERSONAL_SITE)) {
 					initUserPersonalSitePermissions(group);
@@ -3220,6 +3231,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  friendlyURL the group's new friendlyURL (optionally
 	 *         <code>null</code>)
 	 * @param  active whether the group is active
+	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION)
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set asset category IDs and asset tag
 	 *         names for the group.
@@ -3233,6 +3247,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public Group updateGroup(
 			long groupId, long parentGroupId, String name, String description,
 			int type, String friendlyURL, boolean active,
+			boolean manualMembership, int membershipRestriction,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -3271,7 +3286,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			group.getCompanyId(), group.getGroupId(), group.getClassNameId(),
 			group.getClassPK(), friendlyURL);
 
-		validateParentGroup(group.getGroupId(), parentGroupId, type);
+		validateParentGroup(
+			group.getGroupId(), parentGroupId, membershipRestriction);
 
 		group.setParentGroupId(parentGroupId);
 		group.setTreePath(group.buildTreePath());
@@ -3280,6 +3296,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		group.setType(type);
 		group.setFriendlyURL(friendlyURL);
 		group.setActive(active);
+		group.setManualMembership(manualMembership);
+		group.setMembershipRestriction(membershipRestriction);
 
 		if ((serviceContext != null) && group.isSite()) {
 			group.setExpandoBridgeAttributes(serviceContext);
@@ -3944,10 +3962,11 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	}
 
 	protected void validateParentGroup(
-			long groupId, long parentGroupId, int type)
+			long groupId, long parentGroupId, int membershipRestriction)
 		throws PortalException, SystemException {
 
-		if ((type == GroupConstants.TYPE_SITE_LIMITED_TO_PARENT_SITE_MEMBERS) &&
+		if ((membershipRestriction ==
+				GroupConstants.MEMBERSHIP_RESTRICTION_TO_PARENT_SITE_MEMBERS) &&
 			(parentGroupId == GroupConstants.DEFAULT_PARENT_GROUP_ID)) {
 
 			throw new GroupParentException(GroupParentException.MISSING_PARENT);
