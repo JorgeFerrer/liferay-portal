@@ -14,6 +14,7 @@
 
 package com.liferay.portal.util;
 
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -97,7 +98,7 @@ public class LocalizationImplUnitTest extends PowerMockito {
 			portalAvailableLocales);
 
 		when(
-			LanguageUtil.getAvailableLocales()
+			LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE)
 		).thenReturn(
 			portalLocales
 		);

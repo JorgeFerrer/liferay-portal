@@ -37,11 +37,11 @@ if (Validator.isNotNull(defaultLanguageId)) {
 	defaultLocale = LocaleUtil.fromLanguageId(defaultLanguageId);
 }
 else {
-	defaultLocale = LocaleUtil.getDefault();
+	defaultLocale = LocaleUtil.getDefault(themeDisplay.getSiteGroupId());
 	defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 }
 
-Locale[] locales = LanguageUtil.getAvailableLocales();
+Locale[] locales = LanguageUtil.getAvailableLocales(themeDisplay.getSiteGroupId());
 
 String mainLanguageId = defaultLanguageId;
 

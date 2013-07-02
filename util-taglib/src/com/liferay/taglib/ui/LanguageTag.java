@@ -16,6 +16,8 @@ package com.liferay.taglib.ui;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.Locale;
@@ -76,6 +78,9 @@ public class LanguageTag extends IncludeTag {
 
 	@Override
 	protected void setAttributes(HttpServletRequest request) {
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		request.setAttribute(
 			"liferay-ui:language:displayCurrentLocale",
 			String.valueOf(_displayCurrentLocale));
@@ -87,7 +92,8 @@ public class LanguageTag extends IncludeTag {
 		Locale[] locales = null;
 
 		if ((_languageIds == null) || (_languageIds.length == 0)) {
-			locales = LanguageUtil.getAvailableLocales();
+			locales = LanguageUtil.getAvailableLocales(
+				themeDisplay.getSiteGroupId());
 		}
 		else {
 			locales = LocaleUtil.fromLanguageIds(_languageIds);

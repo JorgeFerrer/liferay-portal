@@ -29,6 +29,8 @@ import javax.servlet.jsp.PageContext;
  */
 public interface Language {
 
+	public static final int COMPANY_LOCALE_SCOPE = 0;
+
 	public String format(Locale locale, String pattern, List<Object> arguments);
 
 	public String format(Locale locale, String pattern, Object argument);
@@ -101,7 +103,12 @@ public interface Language {
 		PortletConfig portletConfig, Locale locale, String key,
 		String defaultValue);
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #getAvailableLocales(long)}
+	 */
 	public Locale[] getAvailableLocales();
+
+	public Locale[] getAvailableLocales(long groupId);
 
 	public String getCharset(Locale locale);
 
@@ -135,13 +142,27 @@ public interface Language {
 
 	public boolean isAvailableLanguageCode(String languageCode);
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  Locale)}
+	 */
 	public boolean isAvailableLocale(Locale locale);
 
+	public boolean isAvailableLocale(long groupId, Locale locale);
+
+	public boolean isAvailableLocale(long groupId, String languageId);
+
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  String)}
+	 */
 	public boolean isAvailableLocale(String languageId);
 
 	public boolean isBetaLocale(Locale locale);
 
 	public boolean isDuplicateLanguageCode(String languageCode);
+
+	public void resetAvailableGroupLocales(long groupId);
 
 	public void resetAvailableLocales(long companyId);
 

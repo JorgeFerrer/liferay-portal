@@ -184,8 +184,15 @@ public class LanguageUtil {
 		return getLanguage().get(portletConfig, locale, key, defaultValue);
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #getAvailableLocales(long)}
+	 */
 	public static Locale[] getAvailableLocales() {
 		return getLanguage().getAvailableLocales();
+	}
+
+	public static Locale[] getAvailableLocales(long groupId) {
+		return getLanguage().getAvailableLocales(groupId);
 	}
 
 	public static String getCharset(Locale locale) {
@@ -260,10 +267,26 @@ public class LanguageUtil {
 		return getLanguage().isAvailableLanguageCode(languageCode);
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  Locale)}
+	 */
 	public static boolean isAvailableLocale(Locale locale) {
 		return getLanguage().isAvailableLocale(locale);
 	}
 
+	public static boolean isAvailableLocale(long groupId, Locale locale) {
+		return getLanguage().isAvailableLocale(groupId, locale);
+	}
+
+	public static boolean isAvailableLocale(long groupId, String languageId) {
+		return getLanguage().isAvailableLocale(groupId, languageId);
+	}
+
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  String)}
+	 */
 	public static boolean isAvailableLocale(String languageId) {
 		return getLanguage().isAvailableLocale(languageId);
 	}
@@ -280,6 +303,10 @@ public class LanguageUtil {
 		String value = getLanguage().get(locale, key, StringPool.BLANK);
 
 		return Validator.isNotNull(value);
+	}
+
+	public static void resetAvailableGroupLocales(long groupId) {
+		getLanguage().resetAvailableGroupLocales(groupId);
 	}
 
 	public static void resetAvailableLocales(long companyId) {

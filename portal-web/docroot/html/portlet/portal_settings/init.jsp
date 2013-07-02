@@ -21,6 +21,7 @@ page import="com.liferay.portal.CompanyMxException" %><%@
 page import="com.liferay.portal.CompanyVirtualHostException" %><%@
 page import="com.liferay.portal.LocaleException" %><%@
 page import="com.liferay.portal.kernel.facebook.FacebookConnectUtil" %><%@
+page import="com.liferay.portal.kernel.language.Language" %><%@
 page import="com.liferay.portal.kernel.ldap.DuplicateLDAPServerNameException" %><%@
 page import="com.liferay.portal.kernel.ldap.LDAPFilterException" %><%@
 page import="com.liferay.portal.kernel.ldap.LDAPServerNameException" %><%@
@@ -39,5 +40,7 @@ page import="java.net.URL" %>
 page import="javax.naming.directory.Attributes" %><%@
 page import="javax.naming.directory.SearchResult" %><%@
 page import="javax.naming.ldap.LdapContext" %>
+
+page import="com.liferay.portal.kernel.language.Language" %>
 
 <%@ include file="/html/portlet/portal_settings/init-ext.jsp" %>

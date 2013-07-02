@@ -441,7 +441,9 @@ public class PortletExporter {
 
 		headerElement.addAttribute(
 			"available-locales",
-			StringUtil.merge(LanguageUtil.getAvailableLocales()));
+			StringUtil.merge(
+				LanguageUtil.getAvailableLocales(
+					portletDataContext.getScopeGroupId())));
 		headerElement.addAttribute(
 			"build-number", String.valueOf(ReleaseInfo.getBuildNumber()));
 		headerElement.addAttribute("export-date", Time.getRFC822());

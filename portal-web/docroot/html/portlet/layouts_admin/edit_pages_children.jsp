@@ -66,7 +66,7 @@ if (!StringUtil.contains(tabs4Names, tabs4)) {
 		String type = ParamUtil.getString(request, "type");
 		boolean hidden = ParamUtil.getBoolean(request, "hidden");
 
-		Locale defaultLocale = LocaleUtil.getDefault();
+		Locale defaultLocale = LocaleUtil.getDefault(themeDisplay.getSiteGroupId());
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 		%>
 

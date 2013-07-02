@@ -18,6 +18,7 @@
 <%@ page import="com.liferay.portal.kernel.servlet.HttpHeaders" %>
 <%@ page import="com.liferay.portal.kernel.util.ContentTypes" %>
 <%@ page import="com.liferay.portal.kernel.util.LocaleUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 
 <%@ page import="java.util.Locale" %>
 
@@ -28,7 +29,9 @@ String languageId = LanguageUtil.getLanguageId(request);
 
 Locale locale = LocaleUtil.fromLanguageId(languageId);
 
-Locale[] locales = LanguageUtil.getAvailableLocales();
+long groupId = ParamUtil.getLong(request, "groupId");
+
+Locale[] locales = LanguageUtil.getAvailableLocales(groupId);
 %>
 
 AUI.add(

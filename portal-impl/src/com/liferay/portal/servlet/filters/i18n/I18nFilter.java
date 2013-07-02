@@ -14,6 +14,7 @@
 
 package com.liferay.portal.servlet.filters.i18n;
 
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -152,7 +153,9 @@ public class I18nFilter extends BasePortalFilter {
 
 		Locale locale = LocaleUtil.fromLanguageId(i18nLanguageId);
 
-		if (!LanguageUtil.isAvailableLocale(locale)) {
+		if (!LanguageUtil.isAvailableLocale(
+				Language.COMPANY_LOCALE_SCOPE, locale)) {
+
 			return null;
 		}
 

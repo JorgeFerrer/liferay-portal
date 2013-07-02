@@ -37,7 +37,7 @@ if (!themeDisplay.isSignedIn() && layout.isPublicLayout()) {
 	<link href="<%= HtmlUtil.escapeAttribute(canonicalURL) %>" rel="canonical" />
 
 	<%
-	Locale defaultLocale = LocaleUtil.getDefault();
+	Locale defaultLocale = LocaleUtil.getDefault(themeDisplay.getSiteGroupId());
 	%>
 
 	<c:if test="<%= locale.equals(defaultLocale) %>">
