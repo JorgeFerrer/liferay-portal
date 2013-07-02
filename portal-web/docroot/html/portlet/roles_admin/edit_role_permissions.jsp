@@ -193,6 +193,8 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
 	var permissionNavigationDataContainer = A.one('#<portlet:namespace />permissionNavigationDataContainer');
 
+	var togglerDelegate;
+
 	function createLiveSearch() {
 		var instance = this;
 
@@ -256,6 +258,18 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 				resultFilters: 'phraseMatch',
 				resultTextLocator: 'data',
 				source: getItems()
+			}
+		);
+
+		permissionNavigationSearch.on(
+			'query',
+			function(event) {
+				if (event.query) {
+					togglerDelegate.expandAll();
+				}
+				else {
+					togglerDelegate.collapseAll();
+				}
 			}
 		);
 
@@ -371,7 +385,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	A.on(
 		'domready',
 		function(event) {
-			var togglerDelegate = new A.TogglerDelegate(
+			togglerDelegate = new A.TogglerDelegate(
 				{
 					animated: true,
 					container: <portlet:namespace />permissionNavigationDataContainer,
