@@ -145,7 +145,9 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 						}
 						%>
 
-						<h4><liferay-ui:message key="<%= applicationPermissionsLabel %>" /> <liferay-ui:icon-help message='<%= applicationPermissionsLabel + "-help" %>' /></h4>
+						<c:if test="<%= Validator.isNotNull(applicationPermissionsLabel) %>">
+							<h4><liferay-ui:message key="<%= applicationPermissionsLabel %>" /> <liferay-ui:icon-help message='<%= applicationPermissionsLabel + "-help" %>' /></h4>
+						</c:if>
 
 						<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_resource.jsp" />
 
