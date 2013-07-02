@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -923,7 +924,8 @@ public class PortalImpl implements Portal {
 	public Locale[] getAlternateLocales(HttpServletRequest request)
 		throws PortalException, SystemException {
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+			Language.COMPANY_LOCALE_SCOPE);
 
 		long mainJournalArticleId = ParamUtil.getLong(request, "p_j_a_id");
 
@@ -3099,31 +3101,61 @@ public class PortalImpl implements Portal {
 			}
 		}
 
+		Locale locale = null;
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		if (themeDisplay != null) {
-			return themeDisplay.getLocale();
+			locale = themeDisplay.getLocale();
+
+			if (LanguageUtil.isAvailableLocale(
+					themeDisplay.getSiteGroupId(), locale)) {
+
+				return locale;
+			}
+		}
+
+		long groupId = 0;
+
+		try {
+			long scopeGroupId = getScopeGroupId(request);
+
+			groupId = getSiteGroupId(scopeGroupId);
+		}
+		catch (Exception e) {
 		}
 
 		String i18nLanguageId = (String)request.getAttribute(
 			WebKeys.I18N_LANGUAGE_ID);
 
 		if (Validator.isNotNull(i18nLanguageId)) {
-			return LocaleUtil.fromLanguageId(i18nLanguageId);
+			locale = LocaleUtil.fromLanguageId(i18nLanguageId);
+
+			if (LanguageUtil.isAvailableLocale(groupId, locale)) {
+				return locale;
+			}
 		}
 
 		String doAsUserLanguageId = ParamUtil.getString(
 			request, "doAsUserLanguageId");
 
 		if (Validator.isNotNull(doAsUserLanguageId)) {
-			return LocaleUtil.fromLanguageId(doAsUserLanguageId);
+			locale = LocaleUtil.fromLanguageId(doAsUserLanguageId);
+
+			if (LanguageUtil.isAvailableLocale(groupId, locale)) {
+				return locale;
+			}
 		}
 
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute(Globals.LOCALE_KEY) != null) {
-			return (Locale)session.getAttribute(Globals.LOCALE_KEY);
+			locale = (Locale)session.getAttribute(Globals.LOCALE_KEY);
+
+			if (LanguageUtil.isAvailableLocale(groupId, locale)) {
+				return locale;
+			}
 		}
 
 		// Get locale from the user
@@ -3137,14 +3169,16 @@ public class PortalImpl implements Portal {
 		}
 
 		if ((user != null) && !user.isDefaultUser()) {
-			Locale userLocale = getAvailableLocale(user.getLocale());
+			Locale userLocale = getAvailableLocale(groupId, user.getLocale());
 
 			if (userLocale != null) {
-				if (initialize) {
-					setLocale(request, response, userLocale);
-				}
+				if (LanguageUtil.isAvailableLocale(groupId, userLocale)) {
+					if (initialize) {
+						setLocale(request, response, userLocale);
+					}
 
-				return userLocale;
+					return userLocale;
+				}
 			}
 		}
 
@@ -3155,14 +3189,16 @@ public class PortalImpl implements Portal {
 
 		if (Validator.isNotNull(languageId)) {
 			Locale cookieLocale = getAvailableLocale(
-				LocaleUtil.fromLanguageId(languageId));
+				groupId, LocaleUtil.fromLanguageId(languageId));
 
 			if (cookieLocale != null) {
-				if (initialize) {
-					setLocale(request, response, cookieLocale);
-				}
+				if (LanguageUtil.isAvailableLocale(groupId, cookieLocale)) {
+					if (initialize) {
+						setLocale(request, response, cookieLocale);
+					}
 
-				return cookieLocale;
+					return cookieLocale;
+				}
 			}
 		}
 
@@ -3173,14 +3209,18 @@ public class PortalImpl implements Portal {
 
 			while (locales.hasMoreElements()) {
 				Locale requestLocale = getAvailableLocale(
-					locales.nextElement());
+					groupId, locales.nextElement());
 
 				if (requestLocale != null) {
-					if (initialize) {
-						setLocale(request, response, requestLocale);
-					}
+					if (LanguageUtil.isAvailableLocale(
+							groupId, requestLocale)) {
 
-					return requestLocale;
+						if (initialize) {
+							setLocale(request, response, requestLocale);
+						}
+
+						return requestLocale;
+					}
 				}
 			}
 		}
@@ -3211,17 +3251,26 @@ public class PortalImpl implements Portal {
 			return null;
 		}
 
-		Locale defaultUserLocale = getAvailableLocale(defaultUser.getLocale());
+		Locale defaultUserLocale = getAvailableLocale(
+			groupId, defaultUser.getLocale());
 
-		if (defaultUserLocale == null) {
-			return null;
+		if (defaultUserLocale != null) {
+			if (LanguageUtil.isAvailableLocale(groupId, defaultUserLocale)) {
+				if (initialize) {
+					setLocale(request, response, defaultUserLocale);
+				}
+
+				return defaultUserLocale;
+			}
 		}
 
-		if (initialize) {
-			setLocale(request, response, defaultUserLocale);
+		try {
+			return LocaleUtil.getDefault(groupId);
+		}
+		catch (Exception e) {
 		}
 
-		return defaultUserLocale;
+		return LocaleUtil.getDefault();
 	}
 
 	@Override
@@ -6814,7 +6863,7 @@ public class PortalImpl implements Portal {
 		return filteredPortlets;
 	}
 
-	protected Locale getAvailableLocale(Locale locale) {
+	protected Locale getAvailableLocale(long groupId, Locale locale) {
 		if (Validator.isNull(locale.getCountry())) {
 
 			// Locales must contain a country code
@@ -6822,7 +6871,7 @@ public class PortalImpl implements Portal {
 			locale = LanguageUtil.getLocale(locale.getLanguage());
 		}
 
-		if (!LanguageUtil.isAvailableLocale(locale)) {
+		if (!LanguageUtil.isAvailableLocale(groupId, locale)) {
 			return null;
 		}
 
