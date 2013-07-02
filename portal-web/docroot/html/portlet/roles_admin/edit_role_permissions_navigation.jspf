@@ -58,12 +58,6 @@
 					editPermissionsURL.setParameter("portletResource", PortletKeys.PORTAL);
 					%>
 
-					<div class='permission-navigation-item-portal <%= portletResource.equals(PortletKeys.PORTAL)? "selected" : "" %>'>
-						<aui:a href="<%= editPermissionsURL.toString() %>">
-							<liferay-ui:message key="portal" />
-						</aui:a>
-					</div>
-
 					<div class="permission-navigation-section">
 						<div class="permission-navigation-item-header toggler-header toggler-header-expanded">
 							<span class="permission-navigation-item-header-icon"></span>
@@ -71,6 +65,18 @@
 							<span><liferay-ui:message key="control-panel" /></span>
 						</div>
 						<div class="permission-navigation-item-content toggler-content toggler-content-expanded">
+
+							<div class="permission-navigation-section">
+								<ul class="permission-navigation-item-content">
+									<li class="permission-navigation-item-container">
+										<span class='permission-navigation-item <%= portletResource.equals(PortletKeys.PORTAL)? "selected" : "" %>'>
+											<aui:a href="<%= editPermissionsURL.toString() %>">
+												<liferay-ui:message key="general-permissions" />
+											</aui:a>
+										</span>
+									</li>
+								</ul>
+							</div>
 
 							<%
 							for (String category : PortletCategoryKeys.ALL) {
