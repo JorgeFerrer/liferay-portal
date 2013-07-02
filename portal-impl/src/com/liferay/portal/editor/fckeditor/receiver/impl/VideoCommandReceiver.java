@@ -14,24 +14,16 @@
 
 package com.liferay.portal.editor.fckeditor.receiver.impl;
 
-import com.liferay.portal.editor.fckeditor.command.CommandArgument;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
-import com.liferay.portlet.documentlibrary.util.DLUtil;
 import com.liferay.portlet.documentlibrary.util.VideoProcessorUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -41,29 +33,8 @@ import org.w3c.dom.Node;
 public class VideoCommandReceiver extends DocumentCommandReceiver {
 
 	@Override
-	protected void getFiles(
-			CommandArgument commandArgument, Document document, Node rootNode)
-		throws Exception {
-
-		Set<String> videoMimesSet = VideoProcessorUtil.getVideoMimeTypes();
-		String[] videoMimeTypes = null;
-
-		if (Validator.isNotNull(videoMimesSet)) {
-			videoMimeTypes = ArrayUtil.toStringArray(videoMimesSet.toArray());
-		}
-
-		Element filesElement = document.createElement("Files");
-
-		rootNode.appendChild(filesElement);
-
-		if (Validator.isNull(commandArgument.getCurrentGroupName())) {
-			return;
-		}
-
-		Group group = commandArgument.getCurrentGroup();
-
-		Folder folder = getFolder(
-			group.getGroupId(), commandArgument.getCurrentFolder());
+	protected List<FileEntry> getFileEntries(Folder folder) throws Exception {
+		String[] videoMimeTypes = getVideoMimeTypes();
 
 		List<FileEntry> fileEntries = null;
 
@@ -76,25 +47,25 @@ public class VideoCommandReceiver extends DocumentCommandReceiver {
 				folder.getRepositoryId(), folder.getFolderId());
 		}
 
+		List<FileEntry> generatedVideoEntries = new ArrayList<FileEntry>();
+
 		for (FileEntry fileEntry : fileEntries) {
 			if (VideoProcessorUtil.hasVideo(fileEntry.getFileVersion())) {
-				Element fileElement = document.createElement("File");
-
-				filesElement.appendChild(fileElement);
-
-				fileElement.setAttribute("name", fileEntry.getTitle());
-				fileElement.setAttribute("desc", fileEntry.getTitle());
-				fileElement.setAttribute("size", getSize(fileEntry.getSize()));
-
-				ThemeDisplay themeDisplay = commandArgument.getThemeDisplay();
-
-				String url = DLUtil.getPreviewURL(
-					fileEntry, fileEntry.getFileVersion(), themeDisplay,
-					StringPool.BLANK, false, false);
-
-				fileElement.setAttribute("url", url);
+				generatedVideoEntries.add(fileEntry);
 			}
 		}
+
+		return generatedVideoEntries;
+	}
+
+	private String[] getVideoMimeTypes() {
+		Set<String> videoMimesSet = VideoProcessorUtil.getVideoMimeTypes();
+
+		if (Validator.isNull(videoMimesSet)) {
+			return null;
+		}
+
+		return ArrayUtil.toStringArray(videoMimesSet.toArray());
 	}
 
 }
