@@ -25,6 +25,16 @@ String curPortletResource = (String)request.getAttribute("edit_role_permissions.
 String curModelResource = (String)request.getAttribute("edit_role_permissions.jsp-curModelResource");
 String curModelResourceName = (String)request.getAttribute("edit_role_permissions.jsp-curModelResourceName");
 
+Portlet curPortlet = null;
+String curPortletId = StringPool.BLANK;
+String curPortletControlPanelEntryCategory = StringPool.BLANK;
+
+if (Validator.isNotNull(curPortletResource)) {
+	curPortlet = PortletLocalServiceUtil.getPortletById(themeDisplay.getCompanyId(), curPortletResource);
+	curPortletId = curPortlet.getPortletId();
+	curPortletControlPanelEntryCategory = curPortlet.getControlPanelEntryCategory();
+}
+
 List curActions = ResourceActionsUtil.getResourceActions(curPortletResource, curModelResource);
 
 curActions = ListUtil.sort(curActions, new ActionComparator(locale));
@@ -35,7 +45,23 @@ List<String> headerNames = new ArrayList<String>();
 
 headerNames.add("action");
 
-if (role.getType() == RoleConstants.TYPE_REGULAR) {
+boolean showScope = true;
+
+if (curPortletId.equals(PortletKeys.PORTAL)) {
+	showScope = false;
+}
+else if (role.getType() != RoleConstants.TYPE_REGULAR) {
+	showScope = false;
+}
+else if (Validator.isNotNull(curPortletControlPanelEntryCategory) && !curPortletControlPanelEntryCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
+	showScope = false;
+}
+
+if (Validator.isNotNull(curModelResource) && curModelResource.equals(Group.class.getName())) {
+	showScope = true;
+}
+
+if (showScope) {
 	headerNames.add("scope");
 	headerNames.add(StringPool.BLANK);
 }
@@ -62,8 +88,6 @@ for (int i = 0; i < results.size(); i++) {
 	}
 
 	if (Validator.isNotNull(curPortletResource)) {
-		Portlet curPortlet = PortletLocalServiceUtil.getPortletById(themeDisplay.getCompanyId(), curPortletResource);
-
 		if (actionId.equals(ActionKeys.ACCESS_IN_CONTROL_PANEL) && Validator.isNull(curPortlet.getControlPanelEntryCategory())) {
 			continue;
 		}
@@ -153,7 +177,7 @@ for (int i = 0; i < results.size(); i++) {
 
 	row.addText(actionMessage);
 
-	if (role.getType() == RoleConstants.TYPE_REGULAR) {
+	if (showScope) {
 		row.addJSP("/html/portlet/roles_admin/edit_role_permissions_resource_scope.jsp");
 
 		row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/html/portlet/roles_admin/edit_role_permissions_resource_action.jsp");

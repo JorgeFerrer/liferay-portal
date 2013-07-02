@@ -168,8 +168,6 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 									<h5><%= curModelResourceName %></h5>
 
 									<%
-									request.removeAttribute("edit_role_permissions.jsp-curPortletResource");
-
 									request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);
 									request.setAttribute("edit_role_permissions.jsp-curModelResourceName", curModelResourceName);
 									%>
