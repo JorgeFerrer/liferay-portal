@@ -876,15 +876,15 @@ public class GroupLocalServiceUtil {
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		long parentGroupId, java.lang.String className, long classPK,
 		long liveGroupId, java.lang.String name, java.lang.String description,
-		int type, java.lang.String friendlyURL, boolean site, boolean active,
-		boolean manualMembership, int membershipRestriction,
+		int type, boolean manualMembership, int membershipRestriction,
+		java.lang.String friendlyURL, boolean site, boolean active,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addGroup(userId, parentGroupId, className, classPK,
-			liveGroupId, name, description, type, friendlyURL, site, active,
-			manualMembership, membershipRestriction, serviceContext);
+			liveGroupId, name, description, type, manualMembership,
+			membershipRestriction, friendlyURL, site, active, serviceContext);
 	}
 
 	/**
@@ -952,9 +952,7 @@ public class GroupLocalServiceUtil {
 	found, or if a valid friendly URL could not be created for
 	the group
 	* @throws SystemException if a system exception occurred
-	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	long, long, String, String, int, String, boolean, boolean,
-	ServiceContext)}
+	* @deprecated As of 6.2.0, replaced by {@link com.liferay.portal.service.GroupLocalService#addGroup(long, long, String, long, long, String, String, int, boolean, int, String, boolean, boolean, com.liferay.portal.service.ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		java.lang.String className, long classPK, long liveGroupId,
@@ -991,9 +989,7 @@ public class GroupLocalServiceUtil {
 	found, or if a valid friendly URL could not be created for
 	the group
 	* @throws SystemException if a system exception occurred
-	* @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	long, long, String, String, int, String, boolean, boolean,
-	ServiceContext)}
+	* @deprecated As of 6.2.0, replaced by {@link com.liferay.portal.service.GroupLocalService#addGroup(long, long, String, long, long, String, String, int, boolean, int, String, boolean, boolean, com.liferay.portal.service.ServiceContext)}
 	*/
 	public static com.liferay.portal.model.Group addGroup(long userId,
 		java.lang.String className, long classPK, java.lang.String name,
@@ -2834,14 +2830,14 @@ public class GroupLocalServiceUtil {
 	*/
 	public static com.liferay.portal.model.Group updateGroup(long groupId,
 		long parentGroupId, java.lang.String name,
-		java.lang.String description, int type, java.lang.String friendlyURL,
-		boolean active, boolean manualMembership, int membershipRestriction,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		java.lang.String description, int type, boolean manualMembership,
+		int membershipRestriction, java.lang.String friendlyURL,
+		boolean active, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateGroup(groupId, parentGroupId, name, description,
-			type, friendlyURL, active, manualMembership, membershipRestriction,
+			type, manualMembership, membershipRestriction, friendlyURL, active,
 			serviceContext);
 	}
 

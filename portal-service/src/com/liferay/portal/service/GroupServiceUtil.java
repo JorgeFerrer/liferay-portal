@@ -89,8 +89,8 @@ public class GroupServiceUtil {
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addGroup(parentGroupId, liveGroupId, name, description,
-			type, friendlyURL, site, active, manualMembership, membershipType,
-			serviceContext);
+			type, manualMembership, membershipType, friendlyURL, site, active,
+		   serviceContext);
 	}
 
 	/**
