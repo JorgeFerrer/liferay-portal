@@ -30,10 +30,13 @@ import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CompanyConstants;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -437,9 +440,25 @@ public class LanguageImpl implements Language {
 		}
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #getAvailableLocales(long)}
+	 */
 	@Override
 	public Locale[] getAvailableLocales() {
-		return _getInstance()._locales;
+		return getAvailableLocales(COMPANY_LOCALE_SCOPE);
+	}
+
+	@Override
+	public Locale[] getAvailableLocales(long groupId) {
+		if (groupId == COMPANY_LOCALE_SCOPE) {
+			return _getInstance()._locales;
+		}
+
+		if (_groupLocales.get(groupId) == null) {
+			initGroupLocales(groupId);
+		}
+
+		return _groupLocales.get(groupId);
 	}
 
 	@Override
@@ -587,14 +606,35 @@ public class LanguageImpl implements Language {
 		return _getInstance()._localesMap.containsKey(languageCode);
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  Locale)}
+	 */
 	@Override
 	public boolean isAvailableLocale(Locale locale) {
-		return _getInstance()._localesSet.contains(locale);
+		return isAvailableLocale(COMPANY_LOCALE_SCOPE, locale);
 	}
 
 	@Override
-	public boolean isAvailableLocale(String languageId) {
-		Locale[] locales = getAvailableLocales();
+	public boolean isAvailableLocale(long groupId, Locale locale) {
+		if (groupId == COMPANY_LOCALE_SCOPE) {
+			return _getInstance()._localesSet.contains(locale);
+		}
+
+		Set<Locale> localesSet = _groupLocalesSet.get(groupId);
+
+		if (localesSet == null) {
+			initGroupLocales(groupId);
+		}
+
+		localesSet = _groupLocalesSet.get(groupId);
+
+		return localesSet.contains(locale);
+	}
+
+	@Override
+	public boolean isAvailableLocale(long groupId, String languageId) {
+		Locale[] locales = getAvailableLocales(groupId);
 
 		for (Locale locale : locales) {
 			if (languageId.equals(locale.toString())) {
@@ -605,6 +645,15 @@ public class LanguageImpl implements Language {
 		return false;
 	}
 
+	/**
+	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
+	 *  String)}
+	 */
+	@Override
+	public boolean isAvailableLocale(String languageId) {
+		return isAvailableLocale(COMPANY_LOCALE_SCOPE, languageId);
+	}
+
 	@Override
 	public boolean isBetaLocale(Locale locale) {
 		return _getInstance()._localesBetaSet.contains(locale);
@@ -613,6 +662,11 @@ public class LanguageImpl implements Language {
 	@Override
 	public boolean isDuplicateLanguageCode(String languageCode) {
 		return _getInstance()._duplicateLanguageCodes.contains(languageCode);
+	}
+
+	@Override
+	public void resetAvailableGroupLocales(long groupId) {
+		_resetAvailableGroupLocales(groupId);
 	}
 
 	@Override
@@ -828,8 +882,63 @@ public class LanguageImpl implements Language {
 		return ResourceBundleUtil.getString(resourceBundle, key);
 	}
 
+	private void _resetAvailableGroupLocales(long groupId) {
+		_groupLocales.remove(groupId);
+		_groupLocalesMap.remove(groupId);
+		_groupLocalesSet.remove(groupId);
+	}
+
 	private void _resetAvailableLocales(long companyId) {
 		_instances.remove(companyId);
+	}
+
+	private void initGroupLocales(long groupId) {
+		String[] groupLocalesArray = PropsValues.LOCALES;
+
+		try {
+			Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+			UnicodeProperties typeSettingsProperties =
+				group.getTypeSettingsProperties();
+
+			groupLocalesArray = StringUtil.split(
+				typeSettingsProperties.getProperty("locales"));
+		}
+		catch (Exception e) {
+			groupLocalesArray = PropsValues.LOCALES_ENABLED;
+		}
+
+		Locale[] groupLocales = new Locale[groupLocalesArray.length];
+		Map<String, Locale> groupLocalesMap = new HashMap<String, Locale>(
+			groupLocalesArray.length);
+		Set<Locale> groupLocalesSet = new HashSet<Locale>(
+			groupLocalesArray.length);
+
+		for (int i = 0; i < groupLocalesArray.length; i++) {
+			String languageId = groupLocalesArray[i];
+
+			Locale locale = LocaleUtil.fromLanguageId(languageId, false);
+
+			String language = languageId;
+
+			int pos = languageId.indexOf(CharPool.UNDERLINE);
+
+			if (pos > 0) {
+				language = languageId.substring(0, pos);
+			}
+
+			groupLocales[i] = locale;
+
+			if (!groupLocalesMap.containsKey(language)) {
+				groupLocalesMap.put(language, locale);
+			}
+
+			groupLocalesSet.add(locale);
+		}
+
+		_groupLocales.put(groupId, groupLocales);
+		_groupLocalesMap.put(groupId, groupLocalesMap);
+		_groupLocalesSet.put(groupId, groupLocalesSet);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(LanguageImpl.class);
@@ -839,6 +948,11 @@ public class LanguageImpl implements Language {
 
 	private Map<String, String> _charEncodings;
 	private Set<String> _duplicateLanguageCodes;
+	private Map<Long, Locale[]> _groupLocales = new HashMap<Long, Locale[]>();
+	private Map<Long, Map<String, Locale>> _groupLocalesMap =
+		new HashMap<Long, Map<String, Locale>>();
+	private Map<Long, Set<Locale>> _groupLocalesSet =
+		new HashMap<Long, Set<Locale>>();
 	private Locale[] _locales;
 	private Set<Locale> _localesBetaSet;
 	private Map<String, Locale> _localesMap;
