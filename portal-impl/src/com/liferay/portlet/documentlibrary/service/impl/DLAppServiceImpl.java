@@ -977,7 +977,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 
 		return repository.getFileEntries(
 			folderId, mimeTypes, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}	
+	}
 
 	/**
 	 * Returns a range of all the file entries and shortcuts in the folder.
