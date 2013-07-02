@@ -81,6 +81,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @param  site whether the group is to be associated with a main site
 	 * @param  active whether the group is active
+	 * @param  manualMembership whether manual membership is allowed
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set the asset category IDs and asset tag
 	 *         names for the group, and can set whether the group is for staging
@@ -95,7 +96,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public Group addGroup(
 			long parentGroupId, long liveGroupId, String name,
 			String description, int type, String friendlyURL, boolean site,
-			boolean active, ServiceContext serviceContext)
+			boolean active, boolean manualMembership, int membershipType,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		if (parentGroupId == GroupConstants.DEFAULT_PARENT_GROUP_ID) {
@@ -110,7 +112,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 		Group group = groupLocalService.addGroup(
 			getUserId(), parentGroupId, null, 0, liveGroupId, name, description,
-			type, friendlyURL, site, active, serviceContext);
+			type, friendlyURL, site, active, manualMembership, membershipType,
+			serviceContext);
 
 		if (site) {
 			SiteMembershipPolicyUtil.verifyPolicy(group);
@@ -142,7 +145,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 *             if a valid friendly URL could not be created for the group
 	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
-	 *             String, int, String, boolean, boolean, ServiceContext)}
+	 *             String, int, String, boolean, boolean, boolean, int,
+	 *             ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -153,12 +157,14 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 		return addGroup(
 			parentGroupId, GroupConstants.DEFAULT_LIVE_GROUP_ID, name,
-			description, type, friendlyURL, site, active, serviceContext);
+			description, type, friendlyURL, site, active, true,
+			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION, serviceContext);
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, String,
-	 *             String, int, String, boolean, boolean, ServiceContext)}
+	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
+	 *             String, int, String, boolean, boolean, boolean, int,
+	 *             ServiceContext)}
 	 */
 	@Override
 	public Group addGroup(
@@ -389,14 +395,15 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * Returns a range of all the site groups for which the user has control
 	 * panel access.
 	 *
-	 * @param  portlets the portlets to manage
-	 * @param  max the upper bound of the range of groups to consider (not
-	 *         inclusive)
-	 * @return the range of site groups for which the user has Control Panel
-	 *         access
-	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
-	 * @deprecated As of 6.2.0, replaced by {@link #getManageableSiteGroups(Collection, int)}
+	 * @param      portlets the portlets to manage
+	 * @param      max the upper bound of the range of groups to consider (not
+	 *             inclusive)
+	 * @return     the range of site groups for which the user has Control Panel
+	 *             access
+	 * @throws     PortalException if a portal exception occurred
+	 * @throws     SystemException if a system exception occurred
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #getManageableSiteGroups(Collection, int)}
 	 */
 	@Override
 	public List<Group> getManageableSites(Collection<Portlet> portlets, int max)
@@ -1058,6 +1065,10 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @param  friendlyURL the group's new friendlyURL (optionally
 	 *         <code>null</code>)
 	 * @param  active whether the group is active
+	 * @param  manualMembership whether manual membership is allowed
+	 * @param  membershipRestriction the membership restriction (by default
+	 *         {@link
+	 *         com.liferay.portal.model.GroupConstants#DEFAULT_MEMBERSHIP_RESTRICTION})
 	 * @param  serviceContext the service context to be applied (optionally
 	 *         <code>null</code>). Can set the asset category IDs and asset tag
 	 *         names for the group.
@@ -1071,6 +1082,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public Group updateGroup(
 			long groupId, long parentGroupId, String name, String description,
 			int type, String friendlyURL, boolean active,
+			boolean manualMembership, int membershipRestriction,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -1108,7 +1120,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 			group = groupLocalService.updateGroup(
 				groupId, parentGroupId, name, description, type, friendlyURL,
-				active, serviceContext);
+				active, manualMembership, membershipRestriction,
+				serviceContext);
 
 			SiteMembershipPolicyUtil.verifyPolicy(
 				group, oldGroup, oldAssetCategories, oldAssetTags,
@@ -1119,7 +1132,8 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 		else {
 			return groupLocalService.updateGroup(
 				groupId, parentGroupId, name, description, type, friendlyURL,
-				active, serviceContext);
+				active, manualMembership, membershipRestriction,
+				serviceContext);
 		}
 	}
 
