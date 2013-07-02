@@ -455,7 +455,7 @@
 			dest="docroot/html/js/editor/ckeditor/plugins"
 			src="third-party/${wsc.file}"
 		/>
-	</target>	
+	</target>
 
 	<target name="build-css">
 		<java
