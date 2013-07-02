@@ -40,7 +40,7 @@ if (role.getType() == RoleConstants.TYPE_REGULAR) {
 
 headerNames.add(StringPool.BLANK);
 
-SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, permissionsAllURL, headerNames, "this-role-does-not-have-any-permissions");
+SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 50, permissionsAllURL, headerNames, "this-role-does-not-have-any-permissions");
 
 List<Permission> permissions = PermissionConverterUtil.convertPermissions(role);
 
