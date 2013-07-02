@@ -14,6 +14,7 @@
 
 package com.liferay.portlet.workflowdefinitions.action;
 
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -154,7 +155,8 @@ public class EditWorkflowDefinitionAction extends PortletAction {
 
 		String value = StringPool.BLANK;
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(groupId);
+		Locale[] locales =
+			LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
 
 		for (Locale locale : locales) {
 			String languageId = LocaleUtil.toLanguageId(locale);
