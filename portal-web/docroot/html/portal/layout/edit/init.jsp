@@ -25,8 +25,8 @@ Layout selLayout = (Layout)request.getAttribute(WebKeys.SEL_LAYOUT);
 
 String currentLanguageId = LanguageUtil.getLanguageId(request);
 Locale currentLocale = LocaleUtil.fromLanguageId(currentLanguageId);
-Locale defaultLocale = LocaleUtil.getDefault();
+Locale defaultLocale = LocaleUtil.getDefault(themeDisplay.getSiteGroupId());
 String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 
-Locale[] locales = LanguageUtil.getAvailableLocales();
+Locale[] locales = LanguageUtil.getAvailableLocales(themeDisplay.getSiteGroupId());
 %>

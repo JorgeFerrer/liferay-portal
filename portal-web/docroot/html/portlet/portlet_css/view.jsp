@@ -39,7 +39,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 						<aui:select inlineField="<%= true %>" label="portlet-title" name="lfr-portlet-language">
 
 							<%
-							Locale[] locales = LanguageUtil.getAvailableLocales();
+							Locale[] locales = LanguageUtil.getAvailableLocales(themeDisplay.getSiteGroupId());
 
 							for (int i = 0; i < locales.length; i++) {
 							%>

@@ -23,7 +23,7 @@ Layout selLayout = (Layout)request.getAttribute("edit_pages.jsp-selLayout");
 
 LayoutTypePortletImpl selLayoutTypePortlet = new LayoutTypePortletImpl(selLayout);
 
-Locale defaultLocale = LocaleUtil.getDefault();
+Locale defaultLocale = LocaleUtil.getDefault(themeDisplay.getSiteGroupId());
 String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 %>
 

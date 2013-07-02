@@ -29,7 +29,7 @@ if (group.isUser()) {
 <liferay-ui:flags
 	className="<%= Layout.class.getName() %>"
 	classPK="<%= layout.getPlid() %>"
-	contentTitle="<%= layout.getHTMLTitle(LocaleUtil.getDefault()) %>"
+	contentTitle="<%= layout.getHTMLTitle(LocaleUtil.getDefault(themeDisplay.getSiteGroupId())) %>"
 	message="flag-this-page"
 	reportedUserId="<%= reportedUserId %>"
 />

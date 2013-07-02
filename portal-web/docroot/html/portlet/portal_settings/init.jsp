@@ -28,8 +28,9 @@ page import="com.liferay.portal.security.auth.AuthSettingsUtil" %><%@
 page import="com.liferay.portal.security.ldap.LDAPSettingsUtil" %><%@
 page import="com.liferay.portal.security.ldap.PortalLDAPUtil" %><%@
 page import="com.liferay.portal.servlet.filters.sso.opensso.OpenSSOUtil" %><%@
-page import="com.liferay.portlet.documentlibrary.NoSuchFileException" %><%@
-page import="com.liferay.util.ldap.LDAPUtil" %>
+page import="com.liferay.portal.kernel.language.Language" %><%@
+page import="com.liferay.portlet.documentlibrary.NoSuchFileException" %><%@<%@
+<%@ page import="com.liferay.util.ldap.LDAPUtil" %>
 
 <%@ page import="java.net.HttpURLConnection" %><%@
 page import="java.net.MalformedURLException" %><%@
@@ -39,5 +40,7 @@ page import="java.net.URL" %>
 page import="javax.naming.directory.Attributes" %><%@
 page import="javax.naming.directory.SearchResult" %><%@
 page import="javax.naming.ldap.LdapContext" %>
+
+page import="com.liferay.portal.kernel.language.Language" %>
 
 <%@ include file="/html/portlet/portal_settings/init-ext.jsp" %>

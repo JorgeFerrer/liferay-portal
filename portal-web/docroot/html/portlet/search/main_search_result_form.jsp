@@ -205,7 +205,7 @@ PortletURL portletURL = (PortletURL)request.getAttribute("search.jsp-portletURL"
 
 						PortletURL categoryURL = PortletURLUtil.clone(portletURL, renderResponse);
 
-						categoryURL.setParameter(Field.ASSET_CATEGORY_TITLES, assetCategory.getTitle(LocaleUtil.getDefault()));
+						categoryURL.setParameter(Field.ASSET_CATEGORY_TITLES, assetCategory.getTitle(LocaleUtil.getDefault(themeDisplay.getSiteGroupId())));
 					%>
 
 						<c:if test="<%= i == 0 %>">
