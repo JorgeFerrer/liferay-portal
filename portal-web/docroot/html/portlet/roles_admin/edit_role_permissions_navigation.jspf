@@ -209,8 +209,7 @@
 								<li class="permission-navigation-item-container">
 									<span class='permission-navigation-item <%= portletResource.equals(curPortlet.getPortletId())? "selected" : "" %>'>
 										<aui:a href="<%= editPermissionsURL.toString() %>">
-											<%= PortalUtil.getPortletLongTitle(
-												curPortlet, application, locale) %>
+											<%= PortalUtil.getPortletLongTitle(curPortlet, application, locale) %>
 										</aui:a>
 									</span>
 								</li>
