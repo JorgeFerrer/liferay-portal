@@ -4806,6 +4806,11 @@ public class PortalImpl implements Portal {
 		sb.append("&languageId=");
 		sb.append(themeDisplay.getLanguageId());
 
+		// Language id
+
+		sb.append("&groupId=");
+		sb.append(themeDisplay.getSiteGroupId());
+
 		// Build number
 
 		sb.append("&b=");
