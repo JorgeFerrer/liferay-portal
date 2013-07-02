@@ -16,7 +16,7 @@
 
 <%@ include file="/html/portlet/roles_admin/init.jsp" %>
 
-<h3><liferay-ui:message key="all" /></h3>
+<h3><liferay-ui:message key="summary" /></h3>
 
 <%
 Role role = (Role)request.getAttribute("edit_role_permissions.jsp-role");

@@ -31,9 +31,9 @@
 			viewPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			%>
 
-			<div class='permission-navigation-item-all <%= Validator.isNull(portletResource)? "selected" : "" %>'>
+			<div class='permission-navigation-item-summary <%= Validator.isNull(portletResource)? "selected" : "" %>'>
 				<aui:a href="<%= viewPermissionsURL.toString() %>">
-					<liferay-ui:message key="all" />
+					<liferay-ui:message key="summary" />
 				</aui:a>
 			</div>
 
