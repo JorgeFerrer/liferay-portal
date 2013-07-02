@@ -35,7 +35,7 @@ headerNames.add("resource");
 headerNames.add("action");
 
 if (role.getType() == RoleConstants.TYPE_REGULAR) {
-	headerNames.add("scope");
+	headerNames.add("sites");
 }
 
 headerNames.add(StringPool.BLANK);
@@ -176,7 +176,7 @@ for (int i = 0; i < results.size(); i++) {
 	row.addText(actionLabel);
 
 	if (scope == ResourceConstants.SCOPE_COMPANY) {
-		row.addText(LanguageUtil.get(pageContext, "portal"));
+		row.addText(LanguageUtil.get(pageContext, "all-sites"));
 	}
 	else if (scope == ResourceConstants.SCOPE_GROUP_TEMPLATE) {
 	}

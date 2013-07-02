@@ -62,7 +62,7 @@ if (Validator.isNotNull(curModelResource) && curModelResource.equals(Group.class
 }
 
 if (showScope) {
-	headerNames.add("scope");
+	headerNames.add("sites");
 	headerNames.add(StringPool.BLANK);
 }
 
