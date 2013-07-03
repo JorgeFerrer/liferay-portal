@@ -34,7 +34,7 @@ long ruleGroupId = BeanParamUtil.getLong(ruleGroup, request, "ruleGroupId");
 String title = StringPool.BLANK;
 
 if (ruleGroup != null) {
-	title = LanguageUtil.format(pageContext, "new-rule-for-x", ruleGroup.getName(locale), false);
+	title = LanguageUtil.format(pageContext, "new-classification-rule-for-x", ruleGroup.getName(locale), false);
 
 	if (rule != null) {
 		title = rule.getName(locale) + " (" + ruleGroup.getName(locale) + ")";
@@ -52,7 +52,7 @@ Collection<String> ruleHandlerTypes = RuleGroupProcessorUtil.getRuleHandlerTypes
 
 <c:if test="<%= rule == null %>">
 	<div class="alert alert-info">
-		<liferay-ui:message key="rule-help" />
+		<liferay-ui:message key="classification-rule-help" />
 	</div>
 </c:if>
 
@@ -67,7 +67,7 @@ Collection<String> ruleHandlerTypes = RuleGroupProcessorUtil.getRuleHandlerTypes
 	<aui:input name="ruleId" type="hidden" value="<%= ruleId %>" />
 
 	<liferay-ui:error exception="<%= NoSuchRuleException.class %>" message="rule-does-not-exist" />
-	<liferay-ui:error exception="<%= NoSuchRuleGroupException.class %>" message="rule-group-does-not-exist" />
+	<liferay-ui:error exception="<%= NoSuchRuleGroupException.class %>" message="device-family-does-not-exist" />
 	<liferay-ui:error exception="<%= UnknownRuleHandlerException.class %>" message="please-select-a-rule-type" />
 
 	<aui:model-context bean="<%= rule %>" model="<%= MDRRule.class %>" />
