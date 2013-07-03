@@ -267,11 +267,11 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			var results = [];
 
 			permissionNavigationItems.each(
-				function(node) {
+				function(item, index, collection) {
 					results.push(
 						{
-							node: node.ancestor(),
-							data: trim(node.text())
+							node: item.ancestor(),
+							data: trim(item.text())
 						}
 					);
 				}
