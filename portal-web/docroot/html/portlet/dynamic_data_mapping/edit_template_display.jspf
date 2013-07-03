@@ -203,13 +203,17 @@ Map<String, TemplateVariableGroup> templateVariableGroups = TemplateContextHelpe
 
 					paletteSectionsNode.each(
 						function(item, index, collection) {
+							var action = 'addClass';
+
 							var visibleItem = item.one('.palette-item-container:not(.hide)');
 
 							if (visibleItem) {
+								action = 'removeClass';
+
 								foundVisibleSection = true;
 							}
 
-							item.toggleClass('hide', visibleItem);
+							item[action]('hide');
 						}
 					);
 

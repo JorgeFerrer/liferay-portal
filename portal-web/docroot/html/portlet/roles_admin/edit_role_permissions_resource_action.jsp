@@ -38,9 +38,9 @@ Boolean supportsFilterByGroup = (Boolean)objArray[5];
 
 	<liferay-ui:icon
 		id="<%= targetId %>"
-		image="add"
+		image="edit"
 		label="<%= true %>"
-		message="limit-scope"
+		message="change"
 		url="javascript:;"
 	/>
 
