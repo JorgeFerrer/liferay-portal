@@ -63,7 +63,6 @@ if (Validator.isNotNull(curModelResource) && curModelResource.equals(Group.class
 
 if (showScope) {
 	headerNames.add("sites");
-	headerNames.add(StringPool.BLANK);
 }
 
 SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, renderResponse.createRenderURL(), headerNames, "there-are-no-actions");
@@ -179,8 +178,6 @@ for (int i = 0; i < results.size(); i++) {
 
 	if (showScope) {
 		row.addJSP("/html/portlet/roles_admin/edit_role_permissions_resource_scope.jsp");
-
-		row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/html/portlet/roles_admin/edit_role_permissions_resource_action.jsp");
 	}
 
 	resultRows.add(row);

@@ -185,7 +185,7 @@
 	}
 
 	.permission-scopes {
-		display: block;
+		margin-right: 10px;
 
 		&.empty {
 			display: none;
