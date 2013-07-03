@@ -40,6 +40,8 @@ if (ruleGroup != null) {
 		title = rule.getName(locale) + " (" + ruleGroup.getName(locale) + ")";
 	}
 }
+
+Collection<String> ruleHandlerTypes = RuleGroupProcessorUtil.getRuleHandlerTypes();
 %>
 
 <liferay-ui:header
@@ -81,19 +83,32 @@ if (ruleGroup != null) {
 
 		<aui:input name="description" />
 
-		<aui:select changesContext="<%= true %>" name="type" showEmptyOption="<%= true %>">
+		<c:choose>
+			<c:when test="<%= ruleHandlerTypes.size() == 1 %>">
 
-			<%
-			for (String ruleHandlerType : RuleGroupProcessorUtil.getRuleHandlerTypes()) {
-			%>
+				<%
+				String ruleHandlerType = ruleHandlerTypes.iterator().next();
+				%>
 
-				<aui:option label="<%= ruleHandlerType %>" selected="<%= type.equals(ruleHandlerType) %>" />
+				<aui:input name="type" type="hidden" value="<%= ruleHandlerType %>" />
 
-			<%
-			}
-	   		%>
+			</c:when>
+			<c:otherwise>
+				<aui:select changesContext="<%= true %>" name="type" showEmptyOption="<%= true %>">
 
-		</aui:select>
+					<%
+					for (String ruleHandlerType : ruleHandlerTypes) {
+					%>
+
+						<aui:option label="<%= ruleHandlerType %>" selected="<%= type.equals(ruleHandlerType) %>" />
+
+					<%
+					}
+					%>
+
+				</aui:select>
+			</c:otherwise>
+		</c:choose>
 
 		<div id="<%= renderResponse.getNamespace() %>typeSettings">
 			<c:if test="<%= Validator.isNotNull(editorJSP) %>">
@@ -112,31 +127,41 @@ if (ruleGroup != null) {
 	var typeNode = A.one('#<portlet:namespace />type');
 	var typeSettings = A.one('#<portlet:namespace />typeSettings');
 
-	typeNode.on(
-		'change',
-		function(event) {
-			A.io.request(
-				<portlet:resourceURL var="editorURL">
-					<portlet:param name="struts_action" value="/mobile_device_rules/edit_rule_editor" />
-				</portlet:resourceURL>
+	var loadTypeFields = function() {
+		A.io.request(
+			<portlet:resourceURL var="editorURL">
+				<portlet:param name="struts_action" value="/mobile_device_rules/edit_rule_editor" />
+			</portlet:resourceURL>
 
-				'<%= editorURL.toString() %>',
-				{
-					data: {
-						ruleId: <%= ruleId %>,
-						type: typeNode.val()
-					},
-					on: {
-						success: function(event, id, obj) {
-							var response = this.get('responseData');
+			'<%= editorURL.toString() %>',
+			{
+				data: {
+					ruleId: <%= ruleId %>,
+					type: typeNode.val()
+				},
+				on: {
+					success: function(event, id, obj) {
+						var response = this.get('responseData');
 
-							if (typeSettings) {
-								typeSettings.html(response);
-							}
+						if (typeSettings) {
+							typeSettings.html(response);
 						}
 					}
 				}
+			}
+		);
+	}
+
+	<c:choose>
+		<c:when test="<%= ruleHandlerTypes.size() == 1 %>">
+			loadTypeFields();
+		</c:when>
+		<c:otherwise>
+			typeNode.on(
+				'change',
+				loadTypeFields
 			);
-		}
-	);
+		</c:otherwise>
+	</c:choose>
+
 </aui:script>
