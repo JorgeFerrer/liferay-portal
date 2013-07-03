@@ -173,6 +173,8 @@ for (int i = 0; i < results.size(); i++) {
 
 	permissionsSb.append("<a href=\"");
 	permissionsSb.append(editPermissionsURL);
+	permissionsSb.append(StringPool.POUND);
+	permissionsSb.append(_getResourceHtmlId(curResource));
 	permissionsSb.append("\">");
 	permissionsSb.append(curPortletLabel);
 
