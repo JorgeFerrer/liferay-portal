@@ -167,7 +167,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 									String curModelResourceName = ResourceActionsUtil.getModelResource(pageContext, curModelResource);
 									%>
 
-									<h5><%= curModelResourceName %></h5>
+									<h5 id="<%= _getResourceHtmlId(curModelResource) %>"><%= curModelResourceName %></h5>
 
 									<%
 									request.setAttribute("edit_role_permissions.jsp-curModelResource", curModelResource);

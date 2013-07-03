@@ -50,3 +50,14 @@ if (permissionChecker.isCompanyAdmin()) {
 %>
 
 <%@ include file="/html/portlet/roles_admin/init-ext.jsp" %>
+
+<%!
+private StringBundler _getResourceHtmlId(String resource) {
+	StringBundler sb = new StringBundler(2);
+
+	sb.append("resource_");
+	sb.append(resource.replace('.', '_'));
+
+	return sb;
+}
+%>
