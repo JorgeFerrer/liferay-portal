@@ -30,9 +30,7 @@ permissionsAllURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
 List<String> headerNames = new ArrayList<String>();
 
-headerNames.add("resource-set");
-headerNames.add("resource");
-headerNames.add("action");
+headerNames.add("permissions");
 
 if (role.getType() == RoleConstants.TYPE_REGULAR) {
 	headerNames.add("sites");
@@ -171,9 +169,26 @@ for (int i = 0; i < results.size(); i++) {
 	editPermissionsURL.setParameter("redirect", permissionsAllURL.toString());
 	editPermissionsURL.setParameter("portletResource", curPortletName);
 
-	row.addText(curPortletLabel, editPermissionsURL);
-	row.addText(curModelLabel);
-	row.addText(actionLabel);
+	StringBundler permissionsSb = new StringBundler();
+
+	permissionsSb.append("<a href=\"");
+	permissionsSb.append(editPermissionsURL);
+	permissionsSb.append("\">");
+	permissionsSb.append(curPortletLabel);
+
+	if (Validator.isNotNull(curModelLabel)) {
+		permissionsSb.append(" > ");
+		permissionsSb.append(curModelLabel);
+	}
+
+	permissionsSb.append("</a>");
+
+	permissionsSb.append(": ");
+	permissionsSb.append("<strong>");
+	permissionsSb.append(actionLabel);
+	permissionsSb.append("</strong>");
+
+	row.addText(permissionsSb.toString());
 
 	if (scope == ResourceConstants.SCOPE_COMPANY) {
 		row.addText(LanguageUtil.get(pageContext, "all-sites"));
