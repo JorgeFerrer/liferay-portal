@@ -142,7 +142,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	}
 </aui:script>
 
-<aui:script use="aui-toggler,autocomplete-base,autocomplete-filters">
+<aui:script use="aui-io-request,aui-loading-mask-deprecated,aui-parse-content,aui-toggler,autocomplete-base,autocomplete-filters">
 	var AArray = A.Array;
 
 	var permissionNavigationDataContainer = A.one('#<portlet:namespace />permissionNavigationDataContainer');
@@ -270,6 +270,45 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 					permissionNavigationDataContainer.appendChild(noResultsNode);
 				}
 			}
+		);
+	}
+
+	function processNavigationLinks() {
+		var permissionContentContainerNode = A.one('#<portlet:namespace />permissionContentContainer');
+
+		permissionContentContainerNode.plug(A.Plugin.ParseContent);
+
+		var navigationLink = permissionNavigationDataContainer.delegate(
+			'click',
+			function(event) {
+				event.preventDefault();
+
+				permissionContentContainerNode.plug(A.LoadingMask);
+
+				permissionContentContainerNode.loadingmask.show();
+
+				var navigationLinkURL = event.currentTarget.attr('href');
+
+				A.io.request(
+					navigationLinkURL,
+					{
+						on: {
+							failure: function() {
+								permissionContentContainerNode.loadingmask.hide();
+							},
+							success: function(event, id, obj) {
+								permissionContentContainerNode.loadingmask.hide();
+
+								var responseData = this.get('responseData');
+
+								permissionContentContainerNode.empty();
+								permissionContentContainerNode.setContent(responseData);
+							}
+						}
+					}
+				);
+			},
+			'.permission-navigation-link'
 		);
 	}
 
