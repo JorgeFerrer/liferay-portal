@@ -217,6 +217,10 @@
 
 	.control-panel-home-menu {
 		margin-top: 40px;
+
+		.control-panel-home-link .taglib-icon .taglib-text {
+			text-decoration: none;
+		}
 	}
 
 	.control-panel-home-menu li {
