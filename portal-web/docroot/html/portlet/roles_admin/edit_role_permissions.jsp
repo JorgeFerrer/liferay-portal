@@ -77,7 +77,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 <liferay-ui:success key="permissionDeleted" message="the-permission-was-deleted" />
 <liferay-ui:success key="permissionsUpdated" message="the-role-permissions-were-updated" />
 
-<aui:container>
+<aui:container id="permissionContainer">
 	<aui:row>
 		<c:if test="<%= !portletName.equals(PortletKeys.ADMIN_SERVER) %>">
 			<aui:col width="<%= 25 %>">
@@ -274,11 +274,12 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	}
 
 	function processNavigationLinks() {
-		var permissionContentContainerNode = A.one('#<portlet:namespace />permissionContentContainer');
+		var permissionContainerNode = A.one('#<portlet:namespace />permissionContainer');
+		var permissionContentContainerNode = permissionContainerNode.one('#<portlet:namespace />permissionContentContainer');
 
 		permissionContentContainerNode.plug(A.Plugin.ParseContent);
 
-		var navigationLink = permissionNavigationDataContainer.delegate(
+		var navigationLink = permissionContainerNode.delegate(
 			'click',
 			function(event) {
 				event.preventDefault();
