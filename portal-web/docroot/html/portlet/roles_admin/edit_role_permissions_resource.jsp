@@ -51,9 +51,9 @@ if (showScope) {
 	headerNames.add("sites");
 }
 
-SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, renderResponse.createRenderURL(), headerNames, "there-are-no-actions");
+SearchContainer searchContainer = new SearchContainer(liferayPortletRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, liferayPortletResponse.createRenderURL(), headerNames, "there-are-no-actions");
 
-searchContainer.setRowChecker(new ResourceActionRowChecker(renderResponse));
+searchContainer.setRowChecker(new ResourceActionRowChecker(liferayPortletResponse));
 
 int total = curActions.size();
 

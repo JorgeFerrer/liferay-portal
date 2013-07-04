@@ -21,7 +21,7 @@
 <%
 Role role = (Role)request.getAttribute("edit_role_permissions.jsp-role");
 
-PortletURL permissionsAllURL = renderResponse.createRenderURL();
+PortletURL permissionsAllURL = liferayPortletResponse.createRenderURL();
 
 permissionsAllURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
 permissionsAllURL.setParameter(Constants.CMD, Constants.VIEW);
@@ -38,7 +38,7 @@ if (role.getType() == RoleConstants.TYPE_REGULAR) {
 
 headerNames.add(StringPool.BLANK);
 
-SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 50, permissionsAllURL, headerNames, "this-role-does-not-have-any-permissions");
+SearchContainer searchContainer = new SearchContainer(liferayPortletRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 50, permissionsAllURL, headerNames, "this-role-does-not-have-any-permissions");
 
 List<Permission> permissions = PermissionConverterUtil.convertPermissions(role);
 
@@ -160,7 +160,7 @@ for (int i = 0; i < results.size(); i++) {
 		continue;
 	}
 
-	PortletURL editPermissionsURL = renderResponse.createRenderURL();
+	PortletURL editPermissionsURL = liferayPortletResponse.createRenderURL();
 
 	editPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
 	editPermissionsURL.setParameter(Constants.CMD, Constants.EDIT);

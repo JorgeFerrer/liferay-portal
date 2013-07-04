@@ -115,14 +115,14 @@ if (Validator.isNotNull(portletResource)) {
 	</c:if>
 
 	<aui:button-row>
-		<aui:button onClick='<%= renderResponse.getNamespace() + "updateActions();" %>' value="save" />
+		<aui:button onClick='<%= liferayPortletResponse.getNamespace() + "updateActions();" %>' value="save" />
 
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
 
 <%
-PortletURL definePermissionsURL = renderResponse.createRenderURL();
+PortletURL definePermissionsURL = liferayPortletResponse.createRenderURL();
 
 definePermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
 definePermissionsURL.setParameter(Constants.CMD, Constants.VIEW);
@@ -132,7 +132,7 @@ definePermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "define-permissions"), definePermissionsURL.toString());
 
 if (Validator.isNotNull(portletResource)) {
-	PortletURL resourceURL = renderResponse.createRenderURL();
+	PortletURL resourceURL = liferayPortletResponse.createRenderURL();
 
 	resourceURL.setParameter("struts_action", "/roles_admin/edit_role");
 	resourceURL.setParameter(Constants.CMD, Constants.EDIT);
