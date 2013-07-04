@@ -45,21 +45,7 @@ List<String> headerNames = new ArrayList<String>();
 
 headerNames.add("action");
 
-boolean showScope = true;
-
-if (curPortletId.equals(PortletKeys.PORTAL)) {
-	showScope = false;
-}
-else if (role.getType() != RoleConstants.TYPE_REGULAR) {
-	showScope = false;
-}
-else if (Validator.isNotNull(curPortletControlPanelEntryCategory) && !curPortletControlPanelEntryCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
-	showScope = false;
-}
-
-if (Validator.isNotNull(curModelResource) && curModelResource.equals(Group.class.getName())) {
-	showScope = true;
-}
+boolean showScope = _isShowScope(role, curModelResource, curPortletId);
 
 if (showScope) {
 	headerNames.add("sites");

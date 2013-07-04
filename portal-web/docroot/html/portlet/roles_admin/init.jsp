@@ -60,4 +60,35 @@ private StringBundler _getResourceHtmlId(String resource) {
 
 	return sb;
 }
+
+private boolean _isShowScope(
+		Role role, String curModelResource, String curPortletResource)
+	throws SystemException {
+
+	boolean showScope = true;
+
+	Portlet curPortlet = null;
+	String curPortletControlPanelEntryCategory = StringPool.BLANK;
+
+	if (Validator.isNotNull(curPortletResource)) {
+		curPortlet = PortletLocalServiceUtil.getPortletById(role.getCompanyId(), curPortletResource);
+		curPortletControlPanelEntryCategory = curPortlet.getControlPanelEntryCategory();
+	}
+
+	if (curPortletResource.equals(PortletKeys.PORTAL)) {
+		showScope = false;
+	}
+	else if (role.getType() != RoleConstants.TYPE_REGULAR) {
+		showScope = false;
+	}
+	else if (Validator.isNotNull(curPortletControlPanelEntryCategory) && !curPortletControlPanelEntryCategory.startsWith(PortletCategoryKeys.SITE_ADMINISTRATION)) {
+		showScope = false;
+	}
+
+	if (Validator.isNotNull(curModelResource) && curModelResource.equals(Group.class.getName())) {
+		showScope = true;
+	}
+
+	return showScope;
+}
 %>
