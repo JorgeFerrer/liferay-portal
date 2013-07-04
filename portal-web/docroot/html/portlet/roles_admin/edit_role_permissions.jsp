@@ -37,7 +37,7 @@ portletURL.setParameter("tabs2", tabs2);
 portletURL.setParameter("backURL", backURL);
 portletURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
-PortletURL editPermissionsURL = renderResponse.createRenderURL();
+ResourceURL editPermissionsURL = renderResponse.createResourceURL();
 
 editPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
 editPermissionsURL.setParameter(Constants.CMD, Constants.EDIT);
@@ -85,7 +85,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			</aui:col>
 		</c:if>
 
-		<aui:col width="<%= portletName.equals(PortletKeys.ADMIN_SERVER) ? 100 : 75 %>">
+		<aui:col id="permissionContentContainer" width="<%= portletName.equals(PortletKeys.ADMIN_SERVER) ? 100 : 75 %>">
 			<c:choose>
 				<c:when test="<%= cmd.equals(Constants.VIEW) %>">
 					<liferay-util:include page="/html/portlet/roles_admin/edit_role_permissions_summary.jsp" />
@@ -352,6 +352,7 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			);
 
 			createLiveSearch();
+			processNavigationLinks();
 		}
 	);
 

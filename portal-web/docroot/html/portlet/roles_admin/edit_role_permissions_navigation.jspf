@@ -23,7 +23,7 @@
 		<div id="<portlet:namespace />permissionNavigationData">
 
 			<%
-			PortletURL viewPermissionsURL = renderResponse.createRenderURL();
+			ResourceURL viewPermissionsURL = renderResponse.createResourceURL();
 
 			viewPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
 			viewPermissionsURL.setParameter(Constants.CMD, Constants.VIEW);
