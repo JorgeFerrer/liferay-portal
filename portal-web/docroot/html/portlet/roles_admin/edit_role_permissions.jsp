@@ -36,15 +36,15 @@ portletURL.setParameter("tabs1", tabs1);
 portletURL.setParameter("tabs2", tabs2);
 portletURL.setParameter("backURL", backURL);
 portletURL.setParameter("roleId", String.valueOf(role.getRoleId()));
-
-ResourceURL editPermissionsURL = renderResponse.createResourceURL();
-
-editPermissionsURL.setParameter("struts_action", "/roles_admin/edit_role_permissions");
-editPermissionsURL.setParameter(Constants.CMD, Constants.EDIT);
-editPermissionsURL.setParameter("tabs1", "roles");
-editPermissionsURL.setParameter("redirect", backURL);
-editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 %>
+
+<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" varImpl="editPermissionsURL">
+	<portlet:param name="struts_action" value="/roles_admin/edit_role_permissions" />
+	<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.EDIT %>" />
+	<portlet:param name="tabs1" value="roles" />
+	<portlet:param name="redirect" value="<%= backURL %>" />
+	<portlet:param name="roleId" value="<%= String.valueOf(role.getRoleId()) %>" />
+</liferay-portlet:resourceURL>
 
 <c:choose>
 	<c:when test="<%= !portletName.equals(PortletKeys.ADMIN_SERVER) %>">
