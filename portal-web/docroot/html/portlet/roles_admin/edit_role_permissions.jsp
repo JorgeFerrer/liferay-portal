@@ -142,8 +142,11 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 	}
 </aui:script>
 
-<aui:script use="aui-io-request,aui-loading-mask-deprecated,aui-parse-content,aui-toggler,autocomplete-base,autocomplete-filters">
+<aui:script use="aui-io-request,aui-loading-mask-deprecated,aui-parse-content,aui-toggler,autocomplete-base,autocomplete-filters,liferay-notice">
 	var AArray = A.Array;
+	var AParseContent = A.Plugin.ParseContent;
+
+	var notification;
 
 	var permissionNavigationDataContainer = A.one('#<portlet:namespace />permissionNavigationDataContainer');
 
@@ -273,11 +276,28 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 		);
 	}
 
+	function getNotification() {
+		if (!notification) {
+			notification = new Liferay.Notice(
+				{
+					closeText: false,
+					content: '<%= UnicodeLanguageUtil.get(pageContext, "your-request-failed-to-complete") %>' + '<button type="button" class="close">&times;</button>',
+					noticeClass: 'hide',
+					timeout: 10000,
+					toggleText: false,
+					type: 'warning',
+					useAnimation: true
+				}
+			)
+		}
+
+		return notification;
+	}
+
 	function processNavigationLinks() {
 		var permissionContainerNode = A.one('#<portlet:namespace />permissionContainer');
-		var permissionContentContainerNode = permissionContainerNode.one('#<portlet:namespace />permissionContentContainer');
 
-		permissionContentContainerNode.plug(A.Plugin.ParseContent);
+		var permissionContentContainerNode = permissionContainerNode.one('#<portlet:namespace />permissionContentContainer');
 
 		var navigationLink = permissionContainerNode.delegate(
 			'click',
@@ -288,21 +308,30 @@ editPermissionsURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 
 				permissionContentContainerNode.loadingmask.show();
 
-				var navigationLinkURL = event.currentTarget.attr('href');
+				permissionContentContainerNode.unplug(AParseContent);
 
 				A.io.request(
-					navigationLinkURL,
+					event.currentTarget.attr('href'),
 					{
 						on: {
 							failure: function() {
 								permissionContentContainerNode.loadingmask.hide();
+
+								getNotification().show();
 							},
 							success: function(event, id, obj) {
-								permissionContentContainerNode.loadingmask.hide();
+								if (notification) {
+									notification.hide();
+								}
+
+								permissionContentContainerNode.unplug(A.LoadingMask);
+
+								permissionContentContainerNode.plug(AParseContent);
 
 								var responseData = this.get('responseData');
 
 								permissionContentContainerNode.empty();
+
 								permissionContentContainerNode.setContent(responseData);
 							}
 						}
