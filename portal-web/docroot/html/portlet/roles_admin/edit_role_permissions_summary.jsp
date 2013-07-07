@@ -179,7 +179,9 @@ for (int i = 0; i < results.size(); i++) {
 	permissionsSb.append(curPortletLabel);
 
 	if (Validator.isNotNull(curModelLabel)) {
-		permissionsSb.append(" > ");
+		permissionsSb.append(StringPool.SPACE);
+		permissionsSb.append(StringPool.GREATER_THAN);
+		permissionsSb.append(StringPool.SPACE);
 		permissionsSb.append(curModelLabel);
 	}
 
