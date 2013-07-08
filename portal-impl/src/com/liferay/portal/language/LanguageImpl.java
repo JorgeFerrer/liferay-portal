@@ -455,7 +455,7 @@ public class LanguageImpl implements Language {
 		}
 
 		if (_groupLocales.get(groupId) == null) {
-			initGroupLocales(groupId);
+			_initGroupLocales(groupId);
 		}
 
 		return _groupLocales.get(groupId);
@@ -624,7 +624,7 @@ public class LanguageImpl implements Language {
 		Set<Locale> localesSet = _groupLocalesSet.get(groupId);
 
 		if (localesSet == null) {
-			initGroupLocales(groupId);
+			_initGroupLocales(groupId);
 		}
 
 		localesSet = _groupLocalesSet.get(groupId);
@@ -882,17 +882,7 @@ public class LanguageImpl implements Language {
 		return ResourceBundleUtil.getString(resourceBundle, key);
 	}
 
-	private void _resetAvailableGroupLocales(long groupId) {
-		_groupLocales.remove(groupId);
-		_groupLocalesMap.remove(groupId);
-		_groupLocalesSet.remove(groupId);
-	}
-
-	private void _resetAvailableLocales(long companyId) {
-		_instances.remove(companyId);
-	}
-
-	private void initGroupLocales(long groupId) {
+	private void _initGroupLocales(long groupId) {
 		String[] groupLocalesArray = PropsValues.LOCALES;
 
 		try {
@@ -939,6 +929,16 @@ public class LanguageImpl implements Language {
 		_groupLocales.put(groupId, groupLocales);
 		_groupLocalesMap.put(groupId, groupLocalesMap);
 		_groupLocalesSet.put(groupId, groupLocalesSet);
+	}
+
+	private void _resetAvailableGroupLocales(long groupId) {
+		_groupLocales.remove(groupId);
+		_groupLocalesMap.remove(groupId);
+		_groupLocalesSet.remove(groupId);
+	}
+
+	private void _resetAvailableLocales(long companyId) {
+		_instances.remove(companyId);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(LanguageImpl.class);

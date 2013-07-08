@@ -1725,8 +1725,8 @@ public class DDMStructureLocalServiceImpl
 			throw new StructureNameException();
 		}
 
-		Locale[] availableLocales =
-			LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+			Language.COMPANY_LOCALE_SCOPE);
 
 		if (!ArrayUtil.contains(availableLocales, contentDefaultLocale)) {
 			Long companyId = CompanyThreadLocal.getCompanyId();
