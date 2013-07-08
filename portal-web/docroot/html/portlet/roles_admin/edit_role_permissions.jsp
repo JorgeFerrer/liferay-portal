@@ -281,7 +281,7 @@ portletURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			notification = new Liferay.Notice(
 				{
 					closeText: false,
-					content: '<%= UnicodeLanguageUtil.get(pageContext, "your-request-failed-to-complete") %>' + '<button type="button" class="close">&times;</button>',
+					content: '<%= UnicodeLanguageUtil.get(pageContext, "sorry,-we-were-not-able-to-access-the-server") %>' + '<button type="button" class="close">&times;</button>',
 					noticeClass: 'hide',
 					timeout: 10000,
 					toggleText: false,
