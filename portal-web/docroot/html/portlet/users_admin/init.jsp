@@ -52,7 +52,6 @@ page import="com.liferay.portal.UserPortraitSizeException" %><%@
 page import="com.liferay.portal.UserScreenNameException" %><%@
 page import="com.liferay.portal.UserSmsException" %><%@
 page import="com.liferay.portal.WebsiteURLException" %><%@
-page import="com.liferay.portal.kernel.language.Language" %><%@
 page import="com.liferay.portal.security.membershippolicy.OrganizationMembershipPolicyUtil" %><%@
 page import="com.liferay.portal.security.membershippolicy.RoleMembershipPolicyUtil" %><%@
 page import="com.liferay.portal.security.membershippolicy.SiteMembershipPolicyUtil" %><%@

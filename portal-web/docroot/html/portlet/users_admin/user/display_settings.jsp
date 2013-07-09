@@ -33,7 +33,7 @@ String timeZoneId = BeanParamUtil.getString(selUser, request, "timeZoneId", user
 		<%
 		Locale selLocale = LocaleUtil.fromLanguageId(languageId);
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Locale languageLocale = locale;
 

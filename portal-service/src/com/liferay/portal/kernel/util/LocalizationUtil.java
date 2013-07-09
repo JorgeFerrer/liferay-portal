@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.util;
 
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 
@@ -148,8 +147,7 @@ public class LocalizationUtil {
 
 		List<Locale> modifiedLocales = new ArrayList<Locale>();
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (Locale locale : locales) {
 			String oldValue = oldMap.get(locale);

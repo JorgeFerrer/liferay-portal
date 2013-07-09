@@ -25,7 +25,7 @@ String currentLanguageId = LanguageUtil.getLanguageId(request);
 Locale defaultLocale = LocaleUtil.getDefault();
 String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 
-Locale[] locales = LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
+Locale[] locales = LanguageUtil.getAvailableLocales();
 
 if ((organization != null) && Validator.isNull(reminderQueries)) {
 	reminderQueries = StringUtil.merge(organization.getReminderQueryQuestions(defaultLocale), StringPool.NEW_LINE);

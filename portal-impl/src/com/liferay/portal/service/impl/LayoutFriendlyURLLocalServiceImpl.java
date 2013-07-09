@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -92,8 +91,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			new ArrayList<LayoutFriendlyURL>();
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (Locale locale : locales) {
 			String friendlyURL = friendlyURLMap.get(locale);
@@ -226,8 +224,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			new ArrayList<LayoutFriendlyURL>();
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (Locale locale : locales) {
 			String friendlyURL = friendlyURLMap.get(locale);

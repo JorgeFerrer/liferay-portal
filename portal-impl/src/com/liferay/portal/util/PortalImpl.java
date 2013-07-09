@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -924,8 +923,7 @@ public class PortalImpl implements Portal {
 	public Locale[] getAlternateLocales(HttpServletRequest request)
 		throws PortalException, SystemException {
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
 
 		long mainJournalArticleId = ParamUtil.getLong(request, "p_j_a_id");
 

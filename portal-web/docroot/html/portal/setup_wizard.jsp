@@ -73,7 +73,7 @@
 									<%
 									String languageId = GetterUtil.getString((String)session.getAttribute(WebKeys.SETUP_WIZARD_DEFAULT_LOCALE), SetupWizardUtil.getDefaultLanguageId());
 
-									Locale[] locales = LanguageUtil.getAvailableLocales(Language.COMPANY_LOCALE_SCOPE);
+									Locale[] locales = LanguageUtil.getAvailableLocales();
 
 									for (Locale curLocale : locales) {
 									%>

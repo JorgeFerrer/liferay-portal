@@ -17,7 +17,6 @@ package com.liferay.portal.util;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -66,8 +65,7 @@ public class LocalizationImpl implements Localization {
 
 	@Override
 	public Object deserialize(JSONObject jsonObject) {
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Map<Locale, String> map = new HashMap<Locale, String>();
 
@@ -97,8 +95,7 @@ public class LocalizationImpl implements Localization {
 		String className, long classPK, Locale contentDefaultLocale,
 		Locale[] contentAvailableLocales) {
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
 
 		if (ArrayUtil.contains(availableLocales, contentDefaultLocale)) {
 			return contentDefaultLocale;
@@ -305,8 +302,7 @@ public class LocalizationImpl implements Localization {
 	public Map<Locale, String> getLocalizationMap(
 		HttpServletRequest request, String parameter) {
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Map<Locale, String> map = new HashMap<Locale, String>();
 
@@ -326,8 +322,7 @@ public class LocalizationImpl implements Localization {
 	public Map<Locale, String> getLocalizationMap(
 		PortletPreferences preferences, String parameter) {
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Map<Locale, String> map = new HashMap<Locale, String>();
 
@@ -349,8 +344,7 @@ public class LocalizationImpl implements Localization {
 	public Map<Locale, String> getLocalizationMap(
 		PortletRequest portletRequest, String parameter) {
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Map<Locale, String> map = new HashMap<Locale, String>();
 
@@ -376,8 +370,7 @@ public class LocalizationImpl implements Localization {
 	public Map<Locale, String> getLocalizationMap(
 		String xml, boolean useDefault) {
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		Map<Locale, String> map = new HashMap<Locale, String>();
 
@@ -411,8 +404,7 @@ public class LocalizationImpl implements Localization {
 		Locale[] locales = null;
 
 		if (includeBetaLocales) {
-			locales = LanguageUtil.getAvailableLocales(
-				Language.COMPANY_LOCALE_SCOPE);
+			locales = LanguageUtil.getAvailableLocales();
 		}
 		else {
 			locales = LanguageUtil.getSupportedLocales();
@@ -456,8 +448,7 @@ public class LocalizationImpl implements Localization {
 
 		String xml = StringPool.BLANK;
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 		Locale defaultLocale = LocaleUtil.getDefault();
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 
@@ -727,8 +718,7 @@ public class LocalizationImpl implements Localization {
 		Map<Locale, String> localizationMap, String xml, String key,
 		String defaultLanguageId) {
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (Locale locale : locales) {
 			String value = localizationMap.get(locale);

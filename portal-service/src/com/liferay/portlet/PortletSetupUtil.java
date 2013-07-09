@@ -16,7 +16,6 @@ package com.liferay.portlet;
 
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -87,8 +86,7 @@ public class PortletSetupUtil {
 
 		portletDataJSONObject.put("titles", titlesJSONObject);
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (int i = 0; i < locales.length; i++) {
 			String languageId = LocaleUtil.toLanguageId(locales[i]);

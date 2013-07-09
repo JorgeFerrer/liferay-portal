@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.deploy.hot.BaseHotDeployListener;
 import com.liferay.portal.kernel.deploy.hot.HotDeployEvent;
 import com.liferay.portal.kernel.deploy.hot.HotDeployException;
 import com.liferay.portal.kernel.javadoc.JavadocManagerUtil;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lar.StagedModelDataHandler;
 import com.liferay.portal.kernel.lar.StagedModelDataHandlerRegistryUtil;
@@ -671,8 +670,7 @@ public class PortletHotDeployListener extends BaseHotDeployListener {
 			"language.bundle");
 
 		if (Validator.isNotNull(languageBundleName)) {
-			Locale[] locales = LanguageUtil.getAvailableLocales(
-				Language.COMPANY_LOCALE_SCOPE);
+			Locale[] locales = LanguageUtil.getAvailableLocales();
 
 			for (Locale locale : locales) {
 				ResourceBundle resourceBundle = ResourceBundle.getBundle(

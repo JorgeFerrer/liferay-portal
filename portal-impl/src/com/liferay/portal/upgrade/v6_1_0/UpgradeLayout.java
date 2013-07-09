@@ -15,7 +15,6 @@
 package com.liferay.portal.upgrade.v6_1_0;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -178,8 +177,7 @@ public class UpgradeLayout extends UpgradeProcess {
 
 		String xml = null;
 
-		Locale[] locales = LanguageUtil.getAvailableLocales(
-			Language.COMPANY_LOCALE_SCOPE);
+		Locale[] locales = LanguageUtil.getAvailableLocales();
 
 		for (Locale locale : locales) {
 			String languageId = LocaleUtil.toLanguageId(locale);
