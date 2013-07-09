@@ -883,7 +883,7 @@ public class LanguageImpl implements Language {
 	}
 
 	private void _initGroupLocales(long groupId) {
-		String[] groupLocalesArray = PropsValues.LOCALES;
+		String[] groupLocalesArray = null;
 
 		try {
 			Group group = GroupLocalServiceUtil.getGroup(groupId);
