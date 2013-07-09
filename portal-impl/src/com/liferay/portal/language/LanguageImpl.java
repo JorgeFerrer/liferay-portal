@@ -440,18 +440,15 @@ public class LanguageImpl implements Language {
 		}
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #getAvailableLocales(long)}
-	 */
 	@Override
 	public Locale[] getAvailableLocales() {
-		return getAvailableLocales(COMPANY_LOCALE_SCOPE);
+		return _getInstance()._locales;
 	}
 
 	@Override
 	public Locale[] getAvailableLocales(long groupId) {
-		if (groupId == COMPANY_LOCALE_SCOPE) {
-			return _getInstance()._locales;
+		if (groupId <= 0) {
+			return getAvailableLocales();
 		}
 
 		if (_groupLocales.get(groupId) == null) {
@@ -606,19 +603,15 @@ public class LanguageImpl implements Language {
 		return _getInstance()._localesMap.containsKey(languageCode);
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
-	 *  Locale)}
-	 */
 	@Override
 	public boolean isAvailableLocale(Locale locale) {
-		return isAvailableLocale(COMPANY_LOCALE_SCOPE, locale);
+		return _getInstance()._localesSet.contains(locale);
 	}
 
 	@Override
 	public boolean isAvailableLocale(long groupId, Locale locale) {
-		if (groupId == COMPANY_LOCALE_SCOPE) {
-			return _getInstance()._localesSet.contains(locale);
+		if (groupId <= 0) {
+			return isAvailableLocale(locale);
 		}
 
 		Set<Locale> localesSet = _groupLocalesSet.get(groupId);
@@ -645,13 +638,17 @@ public class LanguageImpl implements Language {
 		return false;
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
-	 *  String)}
-	 */
 	@Override
 	public boolean isAvailableLocale(String languageId) {
-		return isAvailableLocale(COMPANY_LOCALE_SCOPE, languageId);
+		Locale[] locales = getAvailableLocales();
+
+		for (Locale locale : locales) {
+			if (languageId.equals(locale.toString())) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override

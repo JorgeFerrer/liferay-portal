@@ -184,9 +184,6 @@ public class LanguageUtil {
 		return getLanguage().get(portletConfig, locale, key, defaultValue);
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #getAvailableLocales(long)}
-	 */
 	public static Locale[] getAvailableLocales() {
 		return getLanguage().getAvailableLocales();
 	}
@@ -267,10 +264,6 @@ public class LanguageUtil {
 		return getLanguage().isAvailableLanguageCode(languageCode);
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link #isAvailableLocale(long,
-	 *  Locale)}
-	 */
 	public static boolean isAvailableLocale(Locale locale) {
 		return getLanguage().isAvailableLocale(locale);
 	}

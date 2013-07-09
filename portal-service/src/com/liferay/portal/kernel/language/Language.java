@@ -29,8 +29,6 @@ import javax.servlet.jsp.PageContext;
  */
 public interface Language {
 
-	public static final int COMPANY_LOCALE_SCOPE = 0;
-
 	public String format(Locale locale, String pattern, List<Object> arguments);
 
 	public String format(Locale locale, String pattern, Object argument);
