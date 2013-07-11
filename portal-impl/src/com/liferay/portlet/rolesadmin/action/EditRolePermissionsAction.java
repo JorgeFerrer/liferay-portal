@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -281,6 +280,8 @@ public class EditRolePermissionsAction extends PortletAction {
 			actionRequest, "portletResource");
 		String[] modelResources = StringUtil.split(
 			ParamUtil.getString(actionRequest, "modelResources"));
+		String[] relatedPortletResources = StringUtil.split(
+			ParamUtil.getString(actionRequest, "relatedPortletResources"));
 
 		Map<String, List<String>> resourceActionsMap =
 			new HashMap<String, List<String>>();
@@ -295,6 +296,13 @@ public class EditRolePermissionsAction extends PortletAction {
 			resourceActionsMap.put(
 				portletResource,
 				ResourceActionsUtil.getResourceActions(portletResource, null));
+		}
+
+		for (String extraPortletResource : relatedPortletResources) {
+			resourceActionsMap.put(
+				extraPortletResource,
+				ResourceActionsUtil.getResourceActions(
+					extraPortletResource, null));
 		}
 
 		String[] selectedTargets = StringUtil.split(
