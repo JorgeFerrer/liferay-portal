@@ -116,8 +116,6 @@ if (Validator.isNotNull(portletResource)) {
 
 	<aui:button-row>
 		<aui:button onClick='<%= liferayPortletResponse.getNamespace() + "updateActions();" %>' value="save" />
-
-		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
 
