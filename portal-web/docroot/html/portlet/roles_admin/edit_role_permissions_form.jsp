@@ -131,8 +131,6 @@ if (Validator.isNotNull(portletResource)) {
 
 			List<TemplateHandler> templateHandlers = TemplateHandlerRegistryUtil.getTemplateHandlers();
 
-			searchContainer.setTotal(templateHandlers.size());
-
 			String actionId = ActionKeys.ADD_PORTLET_DISPLAY_TEMPLATE;
 			int scope = ResourceConstants.SCOPE_COMPANY;
 			boolean supportsFilterByGroup = true;
@@ -140,6 +138,8 @@ if (Validator.isNotNull(portletResource)) {
 			List resultRows = searchContainer.getResultRows();
 
 			Set<String> relatedPortletResources = new HashSet<String>();
+
+			int count = 0;
 
 			for (int i = 0; i < templateHandlers.size(); i++) {
 				TemplateHandler templateHandler = templateHandlers.get(i);
@@ -178,7 +178,11 @@ if (Validator.isNotNull(portletResource)) {
 				row.addJSP("/html/portlet/roles_admin/edit_role_permissions_resource_scope.jsp");
 
 				resultRows.add(row);
+
+				count++;
 			}
+
+			searchContainer.setTotal(count);
 			%>
 
 			<aui:input name="relatedPortletResources" type="hidden" value="<%= StringUtil.merge(relatedPortletResources) %>" />
