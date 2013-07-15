@@ -43,13 +43,13 @@ public interface PortletFileRepository {
 	public FileEntry addPortletFileEntry(
 			long groupId, long userId, String className, long classPK,
 			String portletId, long folderId, File file, String fileName,
-			String mimeType)
+			String mimeType, boolean indexingEnabled)
 		throws PortalException, SystemException;
 
 	public FileEntry addPortletFileEntry(
 			long groupId, long userId, String className, long classPK,
 			String portletId, long folderId, InputStream inputStream,
-			String fileName, String mimeType)
+			String fileName, String mimeType, boolean indexingEnabled)
 		throws PortalException, SystemException;
 
 	public Folder addPortletFolder(

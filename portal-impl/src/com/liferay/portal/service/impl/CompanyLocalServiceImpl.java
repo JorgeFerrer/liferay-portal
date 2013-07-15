@@ -51,6 +51,7 @@ import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.model.Contact;
 import com.liferay.portal.model.ContactConstants;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.LayoutSetPrototype;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
@@ -1049,6 +1050,21 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 					validateLocales(newLocales);
 
 					LanguageUtil.resetAvailableLocales(companyId);
+
+					// Invalidate cache of all layout set prototypes that belong
+					// to this company. See LPS-36403.
+
+					Date now = new Date();
+
+					for (LayoutSetPrototype layoutSetPrototype :
+							layoutSetPrototypeLocalService.
+								getLayoutSetPrototypes(companyId)) {
+
+						layoutSetPrototype.setModifiedDate(now);
+
+						layoutSetPrototypeLocalService.updateLayoutSetPrototype(
+							layoutSetPrototype);
+					}
 				}
 			}
 

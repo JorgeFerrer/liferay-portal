@@ -13,6 +13,18 @@
 			<bean class="com.liferay.portal.lar.PortletDataContextFactoryImpl" />
 		</property>
 	</bean>
+	<bean id="com.liferay.portal.kernel.lar.PortletDataHandlerStatusMessageSenderUtil" class="com.liferay.portal.kernel.lar.PortletDataHandlerStatusMessageSenderUtil">
+		<property name="portletDataHandlerStatusMessageSender">
+			<bean class="com.liferay.portal.lar.PortletDataHandlerStatusMessageSenderImpl">
+				<property name="singleDestinationMessageSender">
+					<bean class="com.liferay.portal.kernel.messaging.sender.DefaultSingleDestinationMessageSender">
+						<property name="destinationName" value="liferay/background_task_status" />
+						<property name="messageSender" ref="com.liferay.portal.kernel.messaging.sender.MessageSender" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
 	<bean id="com.liferay.portal.kernel.staging.LayoutStagingUtil" class="com.liferay.portal.kernel.staging.LayoutStagingUtil">
 		<property name="layoutStaging">
 			<bean class="com.liferay.portal.staging.LayoutStagingImpl" />

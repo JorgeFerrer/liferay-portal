@@ -249,7 +249,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		FileEntry fileEntry = PortletFileRepositoryUtil.addPortletFileEntry(
 			page.getGroupId(), userId, WikiPage.class.getName(),
 			page.getResourcePrimKey(), PortletKeys.WIKI, folder.getFolderId(),
-			file, fileName, mimeType);
+			file, fileName, mimeType, true);
 
 		if (userId == 0) {
 			userId = page.getUserId();
@@ -280,7 +280,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		FileEntry fileEntry = PortletFileRepositoryUtil.addPortletFileEntry(
 			page.getGroupId(), userId, WikiPage.class.getName(),
 			page.getResourcePrimKey(), PortletKeys.WIKI, folder.getFolderId(),
-			inputStream, fileName, mimeType);
+			inputStream, fileName, mimeType, true);
 
 		if (userId == 0) {
 			userId = page.getUserId();

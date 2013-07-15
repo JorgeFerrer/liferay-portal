@@ -45,7 +45,7 @@ public class TempFileUtil {
 
 		return PortletFileRepositoryUtil.addPortletFileEntry(
 			groupId, userId, StringPool.BLANK, 0, PortletKeys.DOCUMENT_LIBRARY,
-			folder.getFolderId(), file, fileName, mimeType);
+			folder.getFolderId(), file, fileName, mimeType, false);
 	}
 
 	public static FileEntry addTempFile(
@@ -57,7 +57,7 @@ public class TempFileUtil {
 
 		return PortletFileRepositoryUtil.addPortletFileEntry(
 			groupId, userId, StringPool.BLANK, 0, PortletKeys.DOCUMENT_LIBRARY,
-			folder.getFolderId(), inputStream, fileName, mimeType);
+			folder.getFolderId(), inputStream, fileName, mimeType, false);
 	}
 
 	public static void deleteTempFile(long fileEntryId)

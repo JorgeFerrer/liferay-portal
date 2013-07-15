@@ -38,6 +38,35 @@ public class PortletDataContextFactoryImpl
 	implements PortletDataContextFactory {
 
 	@Override
+	public PortletDataContext clonePortletDataContext(
+		PortletDataContext portletDataContext) {
+
+		PortletDataContext clonePortletDataContext =
+			new PortletDataContextImpl();
+
+		clonePortletDataContext.setCompanyId(portletDataContext.getCompanyId());
+		clonePortletDataContext.setCompanyGroupId(
+			portletDataContext.getCompanyGroupId());
+		clonePortletDataContext.setDataStrategy(
+			portletDataContext.getDataStrategy());
+		clonePortletDataContext.setEndDate(portletDataContext.getEndDate());
+		clonePortletDataContext.setGroupId(portletDataContext.getGroupId());
+		clonePortletDataContext.setNewLayouts(
+			portletDataContext.getNewLayouts());
+		clonePortletDataContext.setParameterMap(
+			portletDataContext.getParameterMap());
+		clonePortletDataContext.setScopeGroupId(
+			portletDataContext.getScopeGroupId());
+		clonePortletDataContext.setStartDate(portletDataContext.getStartDate());
+		clonePortletDataContext.setUserIdStrategy(
+			portletDataContext.getUserIdStrategy());
+		clonePortletDataContext.setUserPersonalSiteGroupId(
+			portletDataContext.getUserPersonalSiteGroupId());
+
+		return clonePortletDataContext;
+	}
+
+	@Override
 	public PortletDataContext createExportPortletDataContext(
 			long companyId, long groupId, Map<String, String[]> parameterMap,
 			Date startDate, Date endDate, ZipWriter zipWriter)
@@ -88,7 +117,6 @@ public class PortletDataContextFactoryImpl
 		PortletDataContext portletDataContext = createPortletDataContext(
 			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
 
-		portletDataContext.setCompanyId(themeDisplay.getCompanyId());
 		portletDataContext.setEndDate(endDate);
 		portletDataContext.setStartDate(startDate);
 

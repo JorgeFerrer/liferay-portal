@@ -200,6 +200,13 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
+	public List<LayoutSetPrototype> getLayoutSetPrototypes(long companyId)
+		throws SystemException {
+
+		return layoutSetPrototypePersistence.findByCompanyId(companyId);
+	}
+
+	@Override
 	public List<LayoutSetPrototype> search(
 			long companyId, Boolean active, int start, int end,
 			OrderByComparator obc)

@@ -332,6 +332,12 @@ public class LayoutSetPrototypeLocalServiceUtil {
 		return getService().getLayoutSetPrototypeByUuid(uuid);
 	}
 
+	public static java.util.List<com.liferay.portal.model.LayoutSetPrototype> getLayoutSetPrototypes(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLayoutSetPrototypes(companyId);
+	}
+
 	public static java.util.List<com.liferay.portal.model.LayoutSetPrototype> search(
 		long companyId, java.lang.Boolean active, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)

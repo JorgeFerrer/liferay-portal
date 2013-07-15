@@ -281,6 +281,8 @@ public class EditScopeAction extends PortletAction {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		String oldScopeName = getOldScopeName(actionRequest, portlet);
+
 		PortletPreferences portletPreferences = actionRequest.getPreferences();
 
 		String scopeType = ParamUtil.getString(actionRequest, "scopeType");
@@ -305,7 +307,6 @@ public class EditScopeAction extends PortletAction {
 
 		portletPreferences.setValue("groupId", String.valueOf(newScopeGroupId));
 
-		String oldScopeName = getOldScopeName(actionRequest, portlet);
 		String newScopeName = (String)newScopeTuple.getObject(1);
 
 		String newPortletTitle = PortalUtil.getNewPortletTitle(
