@@ -89,14 +89,14 @@ public abstract class BaseSocialActivityInterpreterTestCase
 		request.setAttribute(
 			WebKeys.CURRENT_URL, "http://localhost:80/web/guest/home");
 
+		request.setAttribute(WebKeys.USER, TestPropsValues.getUser());
+
 		ServicePreAction servicePreAction = new ServicePreAction();
 
 		ThemeDisplay themeDisplay = servicePreAction.initThemeDisplay(
 			request, new MockHttpServletResponse());
 
 		request.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
-
-		request.setAttribute(WebKeys.USER, TestPropsValues.getUser());
 
 		serviceContext = ServiceContextFactory.getInstance(request);
 	}

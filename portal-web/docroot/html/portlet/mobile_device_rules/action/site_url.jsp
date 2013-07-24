@@ -20,7 +20,7 @@
 long actionGroupId = GetterUtil.getLong(typeSettingsProperties.getProperty("groupId"));
 %>
 
-<aui:select label="site" name="groupId" onChange='<%= liferayPortletResponse.getNamespace() + "changeDisplay();" %>'>
+<aui:select label="site" name="groupId" onChange='<%= liferayPortletResponse.getNamespace() + "changeDisplay();" %>'  required="<%= true %>">
 	<aui:option disabled="<%= true %>" label="select-a-site" selected="<%= actionGroupId == 0 %>" value="0" />
 
 	<%

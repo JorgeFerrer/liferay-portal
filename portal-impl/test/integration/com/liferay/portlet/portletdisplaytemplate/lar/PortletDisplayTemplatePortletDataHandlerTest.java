@@ -49,7 +49,7 @@ public class PortletDisplayTemplatePortletDataHandlerTest
 
 	@Override
 	protected void addStagedModels() throws Exception {
-		for (Class<?> clazz : _DDM_TEPMLATE_CLASSES) {
+		for (Class<?> clazz : _DDM_TEMPLATE_CLASSES) {
 			DDMTemplateTestUtil.addTemplate(
 				stagingGroup.getGroupId(), PortalUtil.getClassNameId(clazz), 0);
 
@@ -66,7 +66,7 @@ public class PortletDisplayTemplatePortletDataHandlerTest
 		return PortletKeys.PORTLET_DISPLAY_TEMPLATES;
 	}
 
-	private Class<?>[] _DDM_TEPMLATE_CLASSES = {
+	private Class<?>[] _DDM_TEMPLATE_CLASSES = {
 		AssetCategory.class, AssetEntry.class, AssetTag.class, BlogsEntry.class,
 		DDLRecordSet.class, FileEntry.class, JournalArticle.class,
 		LayoutSet.class, WikiPage.class

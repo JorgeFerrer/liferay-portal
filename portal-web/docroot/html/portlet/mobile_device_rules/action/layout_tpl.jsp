@@ -19,6 +19,10 @@
 <%
 String layoutTemplateId = GetterUtil.getString(typeSettingsProperties.getProperty("layoutTemplateId"));
 
+if (Validator.isBlank(layoutTemplateId)) {
+	layoutTemplateId = PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID;
+}
+
 List<LayoutTemplate> layoutTemplates = LayoutTemplateLocalServiceUtil.getLayoutTemplates();
 
 int columnsCount = 3;
@@ -28,4 +32,4 @@ int columnsCount = 3;
 
 <h5><%= LanguageUtil.get(pageContext, "layout-template") %></h5>
 
-<%@ include file="/html/portlet/layouts_admin/layout/layout_templates.jspf" %>
+<%@ include file="/html/portlet/layouts_admin/layout/layout_templates_list.jspf" %>
