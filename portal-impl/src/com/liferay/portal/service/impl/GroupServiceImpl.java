@@ -388,18 +388,18 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 		List<Group> groups = new UniqueList<Group>();
 
-		groups.addAll(getUserPlacesGroups(null, max));
+		List<Group> userPlacesGroups = getUserPlacesGroups(null, max);
 
-		Iterator<Group> itr = groups.iterator();
+		Iterator<Group> itr = userPlacesGroups.iterator();
 
 		while (itr.hasNext()) {
 			Group group = itr.next();
 
-			if (!group.isSite() ||
-				!PortletPermissionUtil.hasControlPanelAccessPermission(
+			if (group.isSite() &&
+				PortletPermissionUtil.hasControlPanelAccessPermission(
 					permissionChecker, group.getGroupId(), portlets)) {
 
-				itr.remove();
+				groups.add(group);
 			}
 		}
 
