@@ -35,13 +35,6 @@ if (group == null) {
 
 <aui:nav-bar>
 	<aui:nav>
-
-		<%
-		assignMembersURL.setParameter("toolbarItem", "view-members");
-		%>
-
-		<aui:nav-item href="<%= assignMembersURL.toString() %>" label="view-members" selected='<%= toolbarItem.equals("view-members") %>' />
-
 		<c:if test="<%= GroupPermissionUtil.contains(permissionChecker, group.getGroupId(), ActionKeys.ASSIGN_MEMBERS) %>">
 			<aui:nav-item dropdown="<%= true %>" iconClass="icon-plus" label="add-members" selected='<%= toolbarItem.equals("add-members") %>'>
 
