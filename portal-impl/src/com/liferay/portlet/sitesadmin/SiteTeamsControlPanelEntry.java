@@ -22,7 +22,6 @@ import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portlet.BaseControlPanelEntry;
 
 /**
- * @author Raymond Augé
  * @author Jorge Ferrer
  */
 public class SiteTeamsControlPanelEntry extends BaseControlPanelEntry {
@@ -48,7 +47,7 @@ public class SiteTeamsControlPanelEntry extends BaseControlPanelEntry {
 
 		if (GroupPermissionUtil.contains(
 				permissionChecker, group.getGroupId(),
-				ActionKeys.ASSIGN_MEMBERS)) {
+				ActionKeys.MANAGE_TEAMS)) {
 
 			return true;
 		}

@@ -86,15 +86,6 @@ if (group == null) {
 			</aui:nav-item>
 		</c:if>
 
-		<c:if test="<%= GroupPermissionUtil.contains(permissionChecker, group.getGroupId(), ActionKeys.MANAGE_TEAMS) %>">
-			<portlet:renderURL var="manageTeamsURL">
-				<portlet:param name="struts_action" value="/sites_admin/view_teams" />
-				<portlet:param name="redirect" value="<%= currentURL %>" />
-			</portlet:renderURL>
-
-			<aui:nav-item href="<%= manageTeamsURL %>" label="view-teams" selected='<%= toolbarItem.equals("view-teams") %>' />
-		</c:if>
-
 		<c:if test="<%= group.getType() == GroupConstants.TYPE_SITE_RESTRICTED %>">
 			<portlet:renderURL var="viewMembershipRequestsURL">
 				<portlet:param name="struts_action" value="/sites_admin/view_membership_requests" />
