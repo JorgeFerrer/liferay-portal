@@ -14,6 +14,8 @@
 
 package com.liferay.portlet.sitesadmin;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -22,7 +24,6 @@ import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portlet.BaseControlPanelEntry;
 
 /**
- * @author Raymond Augé
  * @author Jorge Ferrer
  */
 public class SiteTeamsControlPanelEntry extends BaseControlPanelEntry {
@@ -32,8 +33,8 @@ public class SiteTeamsControlPanelEntry extends BaseControlPanelEntry {
 			PermissionChecker permissionChecker, Group group, Portlet portlet)
 		throws Exception {
 
-		if (group.isCompany() || group.isLayoutSetPrototype() ||
-			!group.isManualMembership() || group.isUser()) {
+		if (group.isCompany() || group.isUser() ||
+			!group.isManualMembership()) {
 
 			return true;
 		}
@@ -42,13 +43,13 @@ public class SiteTeamsControlPanelEntry extends BaseControlPanelEntry {
 	}
 
 	@Override
-	protected boolean hasPermissionImplicitlyGranted(
+	protected boolean hasAccessPermissionExplicitlyGranted(
 			PermissionChecker permissionChecker, Group group, Portlet portlet)
-		throws Exception {
+		throws PortalException, SystemException {
 
 		if (GroupPermissionUtil.contains(
 				permissionChecker, group.getGroupId(),
-				ActionKeys.ASSIGN_MEMBERS)) {
+				ActionKeys.MANAGE_TEAMS)) {
 
 			return true;
 		}
