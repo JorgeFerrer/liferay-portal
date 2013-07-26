@@ -151,6 +151,7 @@ else {
 			A.io.request(
 				<portlet:resourceURL var="editorURL">
 					<portlet:param name="struts_action" value="/mobile_device_rules/edit_action_editor" />
+					<portlet:param name="ajax" value="true" />
 				</portlet:resourceURL>
 
 				'<%= editorURL.toString() %>',
@@ -164,13 +165,14 @@ else {
 							var typeSettings = A.one('#<portlet:namespace />typeSettings');
 
 							if (typeSettings) {
-								typeSettings.html(this.get('responseData'));
+								typeSettings.plug(A.Plugin.ParseContent);
+								typeSettings.setContent(this.get('responseData'));
 							}
 						}
 					}
 				}
 			);
 		},
-		['aui-io']
+		['aui-io', 'aui-parse-content']
 	);
 </aui:script>
