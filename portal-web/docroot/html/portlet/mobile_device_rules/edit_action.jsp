@@ -149,11 +149,10 @@ else {
 			var A = AUI();
 
 			A.io.request(
-				<portlet:resourceURL var="editorURL">
+				<liferay-portlet:resourceURL copyCurrentRenderParameters="false" var="editorURL">
 					<portlet:param name="struts_action" value="/mobile_device_rules/edit_action_editor" />
 					<portlet:param name="ajax" value="true" />
-				</portlet:resourceURL>
-
+				</liferay-portlet:resourceURL>
 				'<%= editorURL.toString() %>',
 				{
 					data: {
