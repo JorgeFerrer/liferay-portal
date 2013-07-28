@@ -30,8 +30,6 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("struts_action", "/mobile_device_rules/view_actions");
 portletURL.setParameter("redirect", redirect);
 portletURL.setParameter("ruleGroupInstanceId", String.valueOf(ruleGroupInstanceId));
-
-String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 %>
 
 <liferay-ui:header
@@ -90,8 +88,6 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 
 			<aui:nav-bar>
 				<aui:nav>
-					<aui:nav-item href="<%= portletURL %>" label="view-all" selected='<%= toolbarItem.equals("view-all") %>' />
-
 					<aui:nav-item href="<%= addURL %>" iconClass="icon-plus" label="add-action" />
 				</aui:nav>
 			</aui:nav-bar>
