@@ -153,6 +153,7 @@ else {
 					<portlet:param name="struts_action" value="/mobile_device_rules/edit_action_editor" />
 					<portlet:param name="ajax" value="true" />
 				</liferay-portlet:resourceURL>
+
 				'<%= editorURL.toString() %>',
 				{
 					data: {
