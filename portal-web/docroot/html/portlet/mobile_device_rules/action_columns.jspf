@@ -14,12 +14,6 @@
  */
 --%>
 
-<liferay-ui:search-container-column-text
-	href="<%= rowURL %>"
-	name="name"
-	value="<%= action.getName(locale) %>"
-/>
-
 <%
 Group group = GroupLocalServiceUtil.getGroup(action.getGroupId());
 %>
@@ -30,10 +24,10 @@ Group group = GroupLocalServiceUtil.getGroup(action.getGroupId());
 	value="<%= LanguageUtil.get(pageContext, group.getScopeLabel(themeDisplay)) %>"
 />
 
-<liferay-ui:search-container-column-date
+<liferay-ui:search-container-column-text
 	href="<%= rowURL %>"
-	name="modified-date"
-	value="<%= action.getModifiedDate() %>"
+	name="name"
+	value="<%= action.getName(locale) %>"
 />
 
 <liferay-ui:search-container-column-text
@@ -47,6 +41,12 @@ Group group = GroupLocalServiceUtil.getGroup(action.getGroupId());
 	name="type"
 	translate="<%= true %>"
 	value="<%= action.getType() %>"
+/>
+
+<liferay-ui:search-container-column-date
+	href="<%= rowURL %>"
+	name="modified-date"
+	value="<%= action.getModifiedDate() %>"
 />
 
 <liferay-ui:search-container-column-jsp
