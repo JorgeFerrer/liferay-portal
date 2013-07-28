@@ -18,6 +18,19 @@
 
 <%
 String url = GetterUtil.getString(typeSettingsProperties.get("url"));
+boolean isAjax = GetterUtil.getBoolean(request.getParameter("ajax"));
 %>
 
-<aui:input cssClass="lfr-input-text-container" name="url" type="text" value="<%= url %>" />
+<aui:input cssClass="lfr-input-text-container" name="url" type="text" value="<%= url %>">
+	<aui:validator name="required" />
+</aui:input>
+
+<c:if test="<%= isAjax %>">
+	<aui:script>
+		var rules = Liferay.Form.get('<portlet:namespace />fm').formValidator.get('rules');
+		var fieldName = '<portlet:namespace />url';
+		if (!(fieldName in rules)) {
+			rules[fieldName] = {"required": true, "custom": false};
+		}
+	</aui:script>
+</c:if>
