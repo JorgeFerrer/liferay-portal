@@ -174,20 +174,20 @@ public class EditActionAction extends EditRuleAction {
 
 	protected void deleteActions(ActionRequest actionRequest) throws Exception {
 
-		long[] deleteActionIds = null;
+		long[] actionIds = null;
 
 		long actionId = ParamUtil.getLong(actionRequest, "actionId");
 
 		if (actionId > 0) {
-			deleteActionIds = new long[] {actionId};
+			actionIds = new long[] {actionId};
 		}
 		else {
-			deleteActionIds = StringUtil.split(
-				ParamUtil.getString(actionRequest, "deleteActionIds"), 0L);
+			actionIds = StringUtil.split(
+				ParamUtil.getString(actionRequest, "actionIds"), 0L);
 		}
 
-		for (long deleteRuleGroupId : deleteActionIds) {
-			MDRActionServiceUtil.deleteAction(deleteRuleGroupId);
+		for (long curActionId : actionIds) {
+			MDRActionServiceUtil.deleteAction(curActionId);
 		}
 	}
 
