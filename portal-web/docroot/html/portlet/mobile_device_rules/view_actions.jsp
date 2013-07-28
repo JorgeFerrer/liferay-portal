@@ -44,7 +44,7 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 
 	<aui:input name="<%= Constants.CMD %>" type="hidden" />
 	<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
-	<aui:input name="deleteActionIds" type="hidden" />
+	<aui:input name="actionIds" type="hidden" />
 
 	<liferay-ui:search-container
 		delta="<%= 5 %>"
@@ -57,11 +57,11 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 		<liferay-ui:search-container-results>
 
 			<%
-				results = MDRActionLocalServiceUtil.getActions(ruleGroupInstanceId, searchContainer.getStart(), searchContainer.getEnd());
-				total = MDRActionLocalServiceUtil.getActionsCount(ruleGroupInstanceId);
+			results = MDRActionLocalServiceUtil.getActions(ruleGroupInstanceId, searchContainer.getStart(), searchContainer.getEnd());
+			total = MDRActionLocalServiceUtil.getActionsCount(ruleGroupInstanceId);
 
-				pageContext.setAttribute("results", results);
-				pageContext.setAttribute("total", total);
+			pageContext.setAttribute("results", results);
+			pageContext.setAttribute("total", total);
 			%>
 
 		</liferay-ui:search-container-results>
@@ -118,7 +118,7 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 			if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-delete-this") %>')) {
 				document.<portlet:namespace />fm.method = "post";
 				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.DELETE %>";
-				document.<portlet:namespace />fm.<portlet:namespace />deleteActionIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fm, '<portlet:namespace />allRowIds');
+				document.<portlet:namespace />fm.<portlet:namespace />actionIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fm, '<portlet:namespace />allRowIds');
 
 				submitForm(document.<portlet:namespace />fm, "<portlet:actionURL><portlet:param name="struts_action" value="/mobile_device_rules/edit_action" /></portlet:actionURL>");
 			}
