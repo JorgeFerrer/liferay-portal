@@ -28,7 +28,9 @@ boolean isAjax = GetterUtil.getBoolean(request.getParameter("ajax"));
 <c:if test="<%= isAjax %>">
 	<aui:script>
 		var rules = Liferay.Form.get('<portlet:namespace />fm').formValidator.get('rules');
+
 		var fieldName = '<portlet:namespace />url';
+
 		if (!(fieldName in rules)) {
 			rules[fieldName] = {"required": true, "custom": false};
 		}
