@@ -26,13 +26,20 @@ boolean ajax = GetterUtil.getBoolean(request.getParameter("ajax"));
 </aui:input>
 
 <c:if test="<%= ajax %>">
-	<aui:script>
-		var rules = Liferay.Form.get('<portlet:namespace />fm').formValidator.get('rules');
+	<aui:script use="liferay-form">
+		var form = Liferay.Form.get('<portlet:namespace />fm');
 
-		var fieldName = '<portlet:namespace />url';
+		if (form) {
+			var rules = form.formValidator.get('rules');
 
-		if (!(fieldName in rules)) {
-			rules[fieldName] = {"required": true, "custom": false};
+			var fieldName = '<portlet:namespace />url';
+
+			if (!(fieldName in rules)) {
+				rules[fieldName] = {
+					custom: false,
+					required: true
+				};
+			}
 		}
 	</aui:script>
 </c:if>
