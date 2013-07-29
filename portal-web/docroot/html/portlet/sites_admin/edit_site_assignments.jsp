@@ -66,16 +66,6 @@ request.setAttribute("edit_site_assignments.jsp-portletURL", portletURL);
 
 <c:choose>
 	<c:when test="<%= (selUser == null) && (userGroupId == 0) %>">
-		<c:if test="<%= !layout.isTypeControlPanel() %>">
-			<liferay-ui:header
-				backURL="<%= redirect %>"
-				escapeXml="<%= false %>"
-				localizeTitle="<%= false %>"
-				showBackURL="<%= showBackURL %>"
-				title="<%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>"
-			/>
-		</c:if>
-
 		<c:choose>
 			<c:when test='<%= tabs2.equals("available") %>'>
 				<liferay-ui:header
