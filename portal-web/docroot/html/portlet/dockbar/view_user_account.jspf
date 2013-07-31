@@ -142,7 +142,7 @@ if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
                 <aui:nav-item anchorCssClass='<%= themeDisplay.isImpersonated() ? "" : useDialog %>' href="<%= myAccountURL %>" iconClass="icon-user" label="my-account" title="my-account" />
             </c:if>
 
-            <c:if test="<%= themeDisplay.isShowSignOutIcon() && !themeDisplay.isImpersonated()%>">
+            <c:if test="<%= themeDisplay.isShowSignOutIcon() %>">
                 <aui:nav-item cssClass="sign-out" href="<%= themeDisplay.getURLSignOut() %>" iconClass="icon-off" label="sign-out" />
             </c:if>
 		</aui:nav-item>
