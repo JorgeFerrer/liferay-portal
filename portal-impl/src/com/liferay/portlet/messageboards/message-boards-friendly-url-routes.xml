@@ -13,13 +13,13 @@
 		<implicit-parameter name="struts_action">/message_boards/view</implicit-parameter>
 	</route>
 	<route>
-		<pattern>/get_message_attachment/{messageId:\d+}/{fileName:[^/]+}</pattern>
+		<pattern>/attachment/{messageId:\d+}/{fileName:[^/]+}</pattern>
 		<implicit-parameter name="p_p_state">normal</implicit-parameter>
 		<implicit-parameter name="status">0</implicit-parameter>
 		<implicit-parameter name="struts_action">/message_boards/get_message_attachment</implicit-parameter>
 	</route>
 	<route>
-		<pattern>/get_message_attachment/{messageId:\d+}/{status}/{fileName:[^/]+}</pattern>
+		<pattern>/attachment/{messageId:\d+}/{status}/{fileName:[^/]+}</pattern>
 		<implicit-parameter name="p_p_state">normal</implicit-parameter>
 		<implicit-parameter name="struts_action">/message_boards/get_message_attachment</implicit-parameter>
 	</route>
