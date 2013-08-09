@@ -41,10 +41,12 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +78,7 @@ public class ServiceContext implements Cloneable, Serializable {
 	public ServiceContext() {
 		_attributes = new LinkedHashMap<String, Serializable>();
 		_expandoBridgeAttributes = new LinkedHashMap<String, Serializable>();
+		_userIds = new HashSet<Long>();
 	}
 
 	/**
@@ -125,6 +128,7 @@ public class ServiceContext implements Cloneable, Serializable {
 		serviceContext.setSignedIn(isSignedIn());
 		serviceContext.setUserDisplayURL(getUserDisplayURL());
 		serviceContext.setUserId(getUserId());
+		serviceContext.setUserIds(getUserIds());
 		serviceContext.setUuid(getUuid());
 		serviceContext.setWorkflowAction(getWorkflowAction());
 
@@ -700,6 +704,10 @@ public class ServiceContext implements Cloneable, Serializable {
 	 */
 	public long getUserId() {
 		return _userId;
+	}
+
+	public Set<Long> getUserIds() {
+		return _userIds;
 	}
 
 	/**
@@ -1426,6 +1434,10 @@ public class ServiceContext implements Cloneable, Serializable {
 		_userId = userId;
 	}
 
+	public void setUserIds(Set<Long> userIds) {
+		_userIds = userIds;
+	}
+
 	/**
 	 * Sets the UUID of this service context's current entity.
 	 *
@@ -1510,6 +1522,7 @@ public class ServiceContext implements Cloneable, Serializable {
 	private TimeZone _timeZone;
 	private String _userDisplayURL;
 	private long _userId;
+	private Set<Long> _userIds;
 	private String _uuid;
 	private int _workflowAction = WorkflowConstants.ACTION_PUBLISH;
 
