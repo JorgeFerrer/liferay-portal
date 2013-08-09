@@ -706,6 +706,11 @@ public class ServiceContext implements Cloneable, Serializable {
 		return _userId;
 	}
 
+	/**
+	 * Returns the set of user IDs stored in this service context.
+	 *
+	 * @return the set of user IDs
+	 */
 	public Set<Long> getUserIds() {
 		return _userIds;
 	}
@@ -1434,6 +1439,11 @@ public class ServiceContext implements Cloneable, Serializable {
 		_userId = userId;
 	}
 
+	/**
+	 * Stores a set of user IDs.
+	 *
+	 * @param userIds the set of user IDs
+	 */
 	public void setUserIds(Set<Long> userIds) {
 		_userIds = userIds;
 	}

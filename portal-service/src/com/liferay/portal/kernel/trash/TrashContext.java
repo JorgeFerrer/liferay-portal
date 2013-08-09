@@ -26,6 +26,15 @@ import java.util.Set;
  */
 public class TrashContext extends ServiceContext {
 
+	/**
+	 * Returns a map of trashed entity statuses for the given className. The
+	 * keys of the map are usually primary keys of child entities that were
+	 * moved to the trash as a result of trashing one of their ancestors. If the
+	 * map does not exist, it will be created.
+	 *
+	 * @param  className the class name
+	 * @return the map of trashed entity statuses
+	 */
 	public Map<Long, Integer> getDependentStatuses(String className) {
 		HashMap<String, HashMap<Long, Integer>> dependentStatusMaps =
 			(HashMap<String, HashMap<Long, Integer>>)getAttribute(
@@ -50,6 +59,13 @@ public class TrashContext extends ServiceContext {
 		return dependentStatuses;
 	}
 
+	/**
+	 * Returns a set of trashed entity IDs for the given className. If the set
+	 * does not exist, it will be created.
+	 *
+	 * @param  className the class name
+	 * @return the set of trashed entity IDs
+	 */
 	public Set<Long> getEntityIds(String className) {
 		HashMap<String, HashSet<Long>> entityIdsMap =
 			(HashMap<String, HashSet<Long>>)getAttribute(
@@ -72,6 +88,14 @@ public class TrashContext extends ServiceContext {
 		return entityIds;
 	}
 
+	/**
+	 * Stores a map of trashed entity statuses for the given class name. The
+	 * keys of the map are usually primary keys of child entities that were
+	 * moved to the trash as a result of trashing one of their ancestors. If the
+	 * map does not exist, it will be created.
+	 *
+	 * @param className the class name
+	 */
 	public void setDependentStatuses(
 		String className, HashMap<Long, Integer> dependentStatuses) {
 
@@ -93,6 +117,11 @@ public class TrashContext extends ServiceContext {
 		dependentStatusMaps.put(className, dependentStatuses);
 	}
 
+	/**
+	 * Stores a set of trashed entity IDs for the given className.
+	 *
+	 * @param className the class name
+	 */
 	public void setEntityIds(String className, HashSet<Long> entityIds) {
 		if (entityIds == null) {
 			return;
