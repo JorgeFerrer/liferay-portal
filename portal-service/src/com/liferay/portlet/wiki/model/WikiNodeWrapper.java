@@ -65,6 +65,7 @@ public class WikiNodeWrapper implements WikiNode, ModelWrapper<WikiNode> {
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
+		attributes.put("trashEntryId", getTrashEntryId());
 
 		return attributes;
 	}
@@ -159,6 +160,12 @@ public class WikiNodeWrapper implements WikiNode, ModelWrapper<WikiNode> {
 
 		if (statusDate != null) {
 			setStatusDate(statusDate);
+		}
+
+		Long trashEntryId = (Long)attributes.get("trashEntryId");
+
+		if (trashEntryId != null) {
+			setTrashEntryId(trashEntryId);
 		}
 	}
 
@@ -527,6 +534,80 @@ public class WikiNodeWrapper implements WikiNode, ModelWrapper<WikiNode> {
 	}
 
 	/**
+	* Returns the trash entry ID of this wiki node.
+	*
+	* @return the trash entry ID of this wiki node
+	*/
+	@Override
+	public long getTrashEntryId() {
+		return _wikiNode.getTrashEntryId();
+	}
+
+	/**
+	* Sets the trash entry ID of this wiki node.
+	*
+	* @param trashEntryId the trash entry ID of this wiki node
+	*/
+	@Override
+	public void setTrashEntryId(long trashEntryId) {
+		_wikiNode.setTrashEntryId(trashEntryId);
+	}
+
+	/**
+	* Returns the trash entry created when this wiki node was moved to trash. The trash entry may belong to one of the ancestors of this wiki node.
+	*
+	* @return the trash entry created when this wiki node was moved to trash
+	*/
+	@Override
+	public com.liferay.portlet.trash.model.TrashEntry getTrashEntry()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _wikiNode.getTrashEntry();
+	}
+
+	/**
+	* Returns the trash handler for this wiki node.
+	*
+	* @return the trash handler for this wiki node
+	*/
+	@Override
+	public com.liferay.portal.kernel.trash.TrashHandler getTrashHandler() {
+		return _wikiNode.getTrashHandler();
+	}
+
+	/**
+	* Returns <code>true</code> if this wiki node is in trash.
+	*
+	* @return <code>true</code> if this wiki node is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrash() {
+		return _wikiNode.isInTrash();
+	}
+
+	/**
+	* Returns <code>true</code> if the parent of this wiki node is in trash.
+	*
+	* @return <code>true</code> if the parent of this wiki node is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrashContainer()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _wikiNode.isInTrashContainer();
+	}
+
+	/**
+	* Returns <code>true</code> if this wiki node was directly moved to the trash.
+	*
+	* @return <code>true</code> if this wiki node was directly moved to the trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isTrashEntry() {
+		return _wikiNode.isTrashEntry();
+	}
+
+	/**
 	* @deprecated As of 6.1.0, replaced by {@link #isApproved()}
 	*/
 	@Override
@@ -592,16 +673,6 @@ public class WikiNodeWrapper implements WikiNode, ModelWrapper<WikiNode> {
 	@Override
 	public boolean isIncomplete() {
 		return _wikiNode.isIncomplete();
-	}
-
-	/**
-	* Returns <code>true</code> if this wiki node is in the Recycle Bin.
-	*
-	* @return <code>true</code> if this wiki node is in the Recycle Bin; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isInTrash() {
-		return _wikiNode.isInTrash();
 	}
 
 	/**

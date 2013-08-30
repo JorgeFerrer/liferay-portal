@@ -69,6 +69,7 @@ public class MBCategoryWrapper implements MBCategory, ModelWrapper<MBCategory> {
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
+		attributes.put("trashEntryId", getTrashEntryId());
 
 		return attributes;
 	}
@@ -187,6 +188,12 @@ public class MBCategoryWrapper implements MBCategory, ModelWrapper<MBCategory> {
 
 		if (statusDate != null) {
 			setStatusDate(statusDate);
+		}
+
+		Long trashEntryId = (Long)attributes.get("trashEntryId");
+
+		if (trashEntryId != null) {
+			setTrashEntryId(trashEntryId);
 		}
 	}
 
@@ -635,6 +642,80 @@ public class MBCategoryWrapper implements MBCategory, ModelWrapper<MBCategory> {
 	}
 
 	/**
+	* Returns the trash entry ID of this message boards category.
+	*
+	* @return the trash entry ID of this message boards category
+	*/
+	@Override
+	public long getTrashEntryId() {
+		return _mbCategory.getTrashEntryId();
+	}
+
+	/**
+	* Sets the trash entry ID of this message boards category.
+	*
+	* @param trashEntryId the trash entry ID of this message boards category
+	*/
+	@Override
+	public void setTrashEntryId(long trashEntryId) {
+		_mbCategory.setTrashEntryId(trashEntryId);
+	}
+
+	/**
+	* Returns the trash entry created when this message boards category was moved to trash. The trash entry may belong to one of the ancestors of this message boards category.
+	*
+	* @return the trash entry created when this message boards category was moved to trash
+	*/
+	@Override
+	public com.liferay.portlet.trash.model.TrashEntry getTrashEntry()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _mbCategory.getTrashEntry();
+	}
+
+	/**
+	* Returns the trash handler for this message boards category.
+	*
+	* @return the trash handler for this message boards category
+	*/
+	@Override
+	public com.liferay.portal.kernel.trash.TrashHandler getTrashHandler() {
+		return _mbCategory.getTrashHandler();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards category is in trash.
+	*
+	* @return <code>true</code> if this message boards category is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrash() {
+		return _mbCategory.isInTrash();
+	}
+
+	/**
+	* Returns <code>true</code> if the parent of this message boards category is in trash.
+	*
+	* @return <code>true</code> if the parent of this message boards category is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrashContainer()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _mbCategory.isInTrashContainer();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards category was directly moved to the trash.
+	*
+	* @return <code>true</code> if this message boards category was directly moved to the trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isTrashEntry() {
+		return _mbCategory.isTrashEntry();
+	}
+
+	/**
 	* @deprecated As of 6.1.0, replaced by {@link #isApproved()}
 	*/
 	@Override
@@ -700,16 +781,6 @@ public class MBCategoryWrapper implements MBCategory, ModelWrapper<MBCategory> {
 	@Override
 	public boolean isIncomplete() {
 		return _mbCategory.isIncomplete();
-	}
-
-	/**
-	* Returns <code>true</code> if this message boards category is in the Recycle Bin.
-	*
-	* @return <code>true</code> if this message boards category is in the Recycle Bin; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isInTrash() {
-		return _mbCategory.isInTrash();
 	}
 
 	/**
@@ -911,11 +982,6 @@ public class MBCategoryWrapper implements MBCategory, ModelWrapper<MBCategory> {
 	@Override
 	public com.liferay.portlet.messageboards.model.MBCategory getTrashContainer() {
 		return _mbCategory.getTrashContainer();
-	}
-
-	@Override
-	public boolean isInTrashContainer() {
-		return _mbCategory.isInTrashContainer();
 	}
 
 	@Override
