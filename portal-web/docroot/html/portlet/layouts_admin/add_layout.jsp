@@ -23,7 +23,6 @@ long parentPlid = LayoutConstants.DEFAULT_PLID;
 long parentLayoutId = LayoutConstants.DEFAULT_PARENT_LAYOUT_ID;
 
 if (layout.isTypeControlPanel()) {
-
 	if (selPlid != 0) {
 		selLayout = LayoutLocalServiceUtil.getLayout(selPlid);
 
