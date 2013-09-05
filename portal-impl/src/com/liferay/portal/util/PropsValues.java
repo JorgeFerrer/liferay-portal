@@ -114,6 +114,8 @@ public class PropsValues {
 
 	public static final String ASSET_PUBLISHER_EMAIL_FROM_NAME = PropsUtil.get(PropsKeys.ASSET_PUBLISHER_EMAIL_FROM_NAME);
 
+	public static final String[] ASSET_PUBLISHER_QUERY_PROCESSORS = PropsUtil.getArray(PropsKeys.ASSET_PUBLISHER_QUERY_PROCESSORS);
+
 	public static final boolean ASSET_PUBLISHER_SEARCH_WITH_INDEX = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.ASSET_PUBLISHER_SEARCH_WITH_INDEX));
 
 	public static final String[] ASSET_TAG_PROPERTIES_DEFAULT = PropsUtil.getArray(PropsKeys.ASSET_TAG_PROPERTIES_DEFAULT);
