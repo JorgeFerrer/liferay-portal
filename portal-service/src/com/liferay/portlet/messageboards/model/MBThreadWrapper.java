@@ -71,6 +71,7 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
+		attributes.put("trashEntryId", getTrashEntryId());
 
 		return attributes;
 	}
@@ -201,6 +202,12 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 
 		if (statusDate != null) {
 			setStatusDate(statusDate);
+		}
+
+		Long trashEntryId = (Long)attributes.get("trashEntryId");
+
+		if (trashEntryId != null) {
+			setTrashEntryId(trashEntryId);
 		}
 	}
 
@@ -743,6 +750,80 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 	}
 
 	/**
+	* Returns the trash entry ID of this message boards thread.
+	*
+	* @return the trash entry ID of this message boards thread
+	*/
+	@Override
+	public long getTrashEntryId() {
+		return _mbThread.getTrashEntryId();
+	}
+
+	/**
+	* Sets the trash entry ID of this message boards thread.
+	*
+	* @param trashEntryId the trash entry ID of this message boards thread
+	*/
+	@Override
+	public void setTrashEntryId(long trashEntryId) {
+		_mbThread.setTrashEntryId(trashEntryId);
+	}
+
+	/**
+	* Returns the trash entry created when this message boards thread was moved to trash. The trash entry may belong to one of the ancestors of this message boards thread.
+	*
+	* @return the trash entry created when this message boards thread was moved to trash
+	*/
+	@Override
+	public com.liferay.portlet.trash.model.TrashEntry getTrashEntry()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _mbThread.getTrashEntry();
+	}
+
+	/**
+	* Returns the trash handler for this message boards thread.
+	*
+	* @return the trash handler for this message boards thread
+	*/
+	@Override
+	public com.liferay.portal.kernel.trash.TrashHandler getTrashHandler() {
+		return _mbThread.getTrashHandler();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards thread is in trash.
+	*
+	* @return <code>true</code> if this message boards thread is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrash() {
+		return _mbThread.isInTrash();
+	}
+
+	/**
+	* Returns <code>true</code> if the parent of this message boards thread is in trash.
+	*
+	* @return <code>true</code> if the parent of this message boards thread is in trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInTrashContainer()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _mbThread.isInTrashContainer();
+	}
+
+	/**
+	* Returns <code>true</code> if this message boards thread was directly moved to the trash.
+	*
+	* @return <code>true</code> if this message boards thread was directly moved to the trash; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isTrashEntry() {
+		return _mbThread.isTrashEntry();
+	}
+
+	/**
 	* @deprecated As of 6.1.0, replaced by {@link #isApproved()}
 	*/
 	@Override
@@ -808,16 +889,6 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 	@Override
 	public boolean isIncomplete() {
 		return _mbThread.isIncomplete();
-	}
-
-	/**
-	* Returns <code>true</code> if this message boards thread is in the Recycle Bin.
-	*
-	* @return <code>true</code> if this message boards thread is in the Recycle Bin; <code>false</code> otherwise
-	*/
-	@Override
-	public boolean isInTrash() {
-		return _mbThread.isInTrash();
 	}
 
 	/**
@@ -1034,11 +1105,6 @@ public class MBThreadWrapper implements MBThread, ModelWrapper<MBThread> {
 	@Override
 	public boolean hasLock(long userId) {
 		return _mbThread.hasLock(userId);
-	}
-
-	@Override
-	public boolean isInTrashContainer() {
-		return _mbThread.isInTrashContainer();
 	}
 
 	@Override
