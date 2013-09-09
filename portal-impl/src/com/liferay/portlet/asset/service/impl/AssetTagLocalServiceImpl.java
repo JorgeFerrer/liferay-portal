@@ -25,8 +25,10 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
@@ -167,9 +169,21 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	public void checkTags(long userId, long groupId, String[] names)
 		throws PortalException, SystemException {
 
+		checkTagsWithProperties(userId, groupId, names);
+	}
+
+	@Override
+	public List<AssetTag> checkTagsWithProperties(
+			long userId, long groupId, String[] names)
+		throws PortalException, SystemException {
+
+		List<AssetTag> tags = new ArrayList<AssetTag>();
+
 		for (String name : names) {
+			AssetTag tag = null;
+
 			try {
-				getTag(groupId, name);
+				tag = getTag(groupId, name);
 			}
 			catch (NoSuchTagException nste) {
 				ServiceContext serviceContext = new ServiceContext();
@@ -178,11 +192,40 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 				serviceContext.setAddGuestPermissions(true);
 				serviceContext.setScopeGroupId(groupId);
 
-				addTag(
+				tag = addTag(
 					userId, name, PropsValues.ASSET_TAG_PROPERTIES_DEFAULT,
 					serviceContext);
+
+				// Properties
+
+				Group companyGroup =
+					groupLocalService.getCompanyGroup(
+						CompanyThreadLocal.getCompanyId());
+
+				try {
+					AssetTag globalTag = getTag(
+						companyGroup.getGroupId(), name);
+
+					List<AssetTagProperty> tagProperties =
+						assetTagPropertyLocalService.getTagProperties(
+							globalTag.getTagId());
+
+					for (AssetTagProperty tagProperty : tagProperties) {
+						assetTagPropertyLocalService.addTagProperty(
+							userId, tag.getTagId(), tagProperty.getKey(),
+							tagProperty.getValue());
+					}
+				}
+				catch (NoSuchTagException nste2) {
+				}
+			}
+
+			if (tag != null) {
+				tags.add(tag);
 			}
 		}
+
+		return tags;
 	}
 
 	@Override
