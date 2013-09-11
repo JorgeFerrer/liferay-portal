@@ -365,7 +365,46 @@ public interface AssetTagLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	/**
+	* Checks whether the given tag <code>names</code> exist or not with the
+	* specified <code>groupId</code>.
+	*
+	* If a tag name does not exist in the group, adds a new tag with the
+	* specified name.
+	*
+	* @param userId the primary key of the user
+	* @param groupId the primary key of the group where the method checks the
+	names
+	* @param names the names of tags that the method looks for
+	* @throws PortalException if a portal exception occurred
+	* @throws SystemException if a system exception occurred
+	*/
 	public void checkTags(long userId, long groupId, java.lang.String[] names)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Checks whether the given tag <code>names</code> exist or not with the
+	* specified <code>groupId</code>.
+	*
+	* If a tag name does not exist in the group, adds a new tag with the
+	* specified name. When <code>checkGlobal</code> is <code>true</code>,
+	* returns the tag
+	* from the global group and preserves the tag properties in the new tag, if
+	* the tag can be found in the global scope.
+	*
+	* Returns the tags containing the newly added ones as well.
+	*
+	* @param userId the primary key of the user
+	* @param groupId the primary key of the group where the method checks the
+	names
+	* @param names the names of tags that the method looks for
+	* @param checkGlobal whether to check or not the names in the global group
+	* @throws PortalException if a portal exception occurred
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portlet.asset.model.AssetTag> checkTags(
+		long userId, long groupId, java.lang.String[] names, boolean checkGlobal)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

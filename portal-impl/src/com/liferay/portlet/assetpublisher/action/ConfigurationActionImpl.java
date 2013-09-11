@@ -727,7 +727,7 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 		if (name.equals("assetTags")) {
 			AssetTagLocalServiceUtil.checkTags(
-				userId, groupId, queryRule.getValues());
+				userId, groupId, queryRule.getValues(), true);
 		}
 
 		if (queryRules.contains(queryRule)) {
