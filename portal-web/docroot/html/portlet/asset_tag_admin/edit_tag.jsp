@@ -77,7 +77,7 @@ else {
 			<div class="add-tag-layer asset-tag-layer">
 				<aui:input name="tagId" type="hidden" value="<%= tagId %>" />
 
-				<aui:input cssClass="tag-name" name="name" />
+				<aui:input cssClass="tag-name" name="name" autoFocus="<%= true %>"/>
 
 				<c:if test="<%= PropsValues.ASSET_TAG_PERMISSIONS_ENABLED || PropsValues.ASSET_TAG_PROPERTIES_ENABLED %>">
 					<liferay-ui:panel-container extended="<%= false %>" id="assetTagPanelContainer" persistState="<%= true %>">
