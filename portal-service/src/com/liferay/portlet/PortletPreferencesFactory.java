@@ -63,8 +63,8 @@ public interface PortletPreferencesFactory {
 		throws SystemException;
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by
-	 *	{@link #getPortalPreferences(HttpSession, long, boolean)}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #getPortalPreferences(HttpSession, long, boolean)}
 	 */
 	public PortalPreferences getPortalPreferences(
 			HttpSession session, long companyId, long userId, boolean signedIn)
@@ -74,8 +74,8 @@ public interface PortletPreferencesFactory {
 		throws SystemException;
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by
-	 *	{@link #getPortalPreferences(long, boolean)}
+	 * @deprecated As of 6.2.0, replaced by {@link #getPortalPreferences(long,
+	 *             boolean)}
 	 */
 	public PortalPreferences getPortalPreferences(
 			long companyId, long userId, boolean signedIn)

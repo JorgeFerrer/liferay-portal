@@ -97,7 +97,7 @@ if (Validator.isNotNull(scriptContent)) {
 	</liferay-ui:panel>
 </liferay-ui:panel-container>
 
-<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin,aui-ace-autocomplete-velocity,aui-toggler,aui-popover,autocomplete-base,autocomplete-filters,event-mouseenter,event-outside,resize,transition">
+<aui:script use="aui-ace-autocomplete-freemarker,aui-ace-autocomplete-plugin,aui-ace-autocomplete-velocity,aui-toggler,aui-popover,autocomplete-base,autocomplete-filters,event-mouseenter,event-outside,liferay-util-window,resize,transition">
 	var AArray = A.Array;
 	var ACPlugin = A.Plugin.AceAutoComplete;
 	var AObject = A.Object;
@@ -113,13 +113,15 @@ if (Validator.isNotNull(scriptContent)) {
 
 	var editorContainer = panelScriptContainer.one('#<portlet:namespace />editorContainer');
 
-	var dialog = Liferay.Util.getWindow();
+	if (Liferay.Util.getTop() !== A.config.win) {
+		var dialog = Liferay.Util.getWindow();
 
-	if (dialog && A.Lang.isFunction(dialog._detachUIHandlesAutohide)) {
-		dialog._detachUIHandlesAutohide();
+		if (dialog && A.Lang.isFunction(dialog._detachUIHandlesAutohide)) {
+			dialog._detachUIHandlesAutohide();
 
-		if (dialog.iframe) {
-			dialog.iframe.set('closeOnEscape', false);
+			if (dialog.iframe) {
+				dialog.iframe.set('closeOnEscape', false);
+			}
 		}
 	}
 

@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
@@ -12,4 +11,16 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
+
+package com.liferay.portal.model;
+
+/**
+ * @author Carlos Sierra Andrés
+ */
+public interface UserRemotePreference {
+
+	public String getName();
+
+	public String getValue();
+
+}

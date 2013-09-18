@@ -853,6 +853,12 @@ public class RoleLocalServiceUtil {
 		return getService().getRoles(companyId);
 	}
 
+	public static java.util.List<com.liferay.portal.model.Role> getRoles(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getRoles(companyId, types);
+	}
+
 	/**
 	* Returns all the roles with the primary keys.
 	*

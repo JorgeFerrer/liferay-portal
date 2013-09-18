@@ -92,8 +92,8 @@ public class PortletPreferencesFactoryUtil {
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by
-	 *	{@link #getPortalPreferences(HttpSession, long, boolean)}
+	 * @deprecated As of 6.2.0, replaced by {@link
+	 *             #getPortalPreferences(HttpSession, long, boolean)}
 	 */
 	public static PortalPreferences getPortalPreferences(
 			HttpSession session, long companyId, long userId, boolean signedIn)
@@ -112,8 +112,8 @@ public class PortletPreferencesFactoryUtil {
 	}
 
 	/**
-	 * @deprecated As of 6.2.0, replaced by
-	 *	{@link #getPortalPreferences(long, boolean)}
+	 * @deprecated As of 6.2.0, replaced by {@link #getPortalPreferences(long,
+	 *             boolean)}
 	 */
 	public static PortalPreferences getPortalPreferences(
 			long companyId, long userId, boolean signedIn)

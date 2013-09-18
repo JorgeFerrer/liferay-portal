@@ -740,6 +740,11 @@ public interface RoleLocalService extends BaseLocalService,
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.portal.model.Role> getRoles(
+		long companyId, int[] types)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Returns all the roles with the primary keys.
 	*

@@ -107,41 +107,45 @@ AUI.add(
 					_bindUI: function() {
 						var instance = this;
 
-						instance.get('form').delegate(
-							STR_CLICK,
-							function(event) {
-								var portletId = event.currentTarget.attr('data-portletid');
+						var form = instance.get('form');
 
-								var portletTitle = event.currentTarget.attr('data-portlettitle');
+						if (form) {
+							form.delegate(
+								STR_CLICK,
+								function(event) {
+									var portletId = event.currentTarget.attr('data-portletid');
 
-								if (!portletTitle) {
-									portletTitle = Liferay.Language.get('configuration');
-								}
+									var portletTitle = event.currentTarget.attr('data-portlettitle');
 
-								var configurationDialog = instance._getConfigurationDialog(portletId, portletTitle);
+									if (!portletTitle) {
+										portletTitle = Liferay.Language.get('configuration');
+									}
 
-								configurationDialog.show();
-							},
-							'.configuration-link'
-						);
+									var configurationDialog = instance._getConfigurationDialog(portletId, portletTitle);
 
-						instance.get('form').delegate(
-							STR_CLICK,
-							function(event) {
-								var portletId = event.currentTarget.attr('data-portletid');
+									configurationDialog.show();
+								},
+								'.configuration-link'
+							);
 
-								var portletTitle = event.currentTarget.attr('data-portlettitle');
+							form.delegate(
+								STR_CLICK,
+								function(event) {
+									var portletId = event.currentTarget.attr('data-portletid');
 
-								if (!portletTitle) {
-									portletTitle = Liferay.Language.get('content');
-								}
+									var portletTitle = event.currentTarget.attr('data-portlettitle');
 
-								var contentDialog = instance._getContentDialog(portletId, portletTitle);
+									if (!portletTitle) {
+										portletTitle = Liferay.Language.get('content');
+									}
 
-								contentDialog.show();
-							},
-							'.content-link'
-						);
+									var contentDialog = instance._getContentDialog(portletId, portletTitle);
+
+									contentDialog.show();
+								},
+								'.content-link'
+							);
+						}
 
 						var contentOptionsLink = instance.byId('contentOptionsLink');
 
@@ -604,9 +608,50 @@ AUI.add(
 														click: function(event) {
 															event.domEvent.preventDefault();
 
-															instance._reloadForm();
+															var startDatePicker = Liferay.component(instance.ns('startDateDatePicker'));
+															var startTimePicker = Liferay.component(instance.ns('startTimeTimePicker'));
 
-															rangeDialog.hide();
+															var endDatePicker = Liferay.component(instance.ns('endDateDatePicker'));
+															var endTimePicker = Liferay.component(instance.ns('endTimeTimePicker'));
+
+															var startDate = startDatePicker.getDate();
+															var startTime = startTimePicker.getTime();
+
+															startDate.setHours(startTime.getHours());
+															startDate.setMinutes(startTime.getMinutes());
+															startDate.setSeconds(0);
+															startDate.setMilliseconds(0);
+
+															var endDate = endDatePicker.getDate();
+															var endTime = endTimePicker.getTime();
+
+															endDate.setHours(endTime.getHours());
+															endDate.setMinutes(endTime.getMinutes());
+															endDate.setSeconds(0);
+															endDate.setMilliseconds(0);
+
+															var endsLater = A.Date.isGreater(endDate, startDate);
+
+															if (endsLater) {
+																instance._reloadForm();
+
+																rangeDialog.hide();
+															}
+															else {
+																if (!instance._notice) {
+																	instance._notice = new Liferay.Notice(
+																		{
+																			closeText: false,
+																			content: Liferay.Language.get('end-date-must-be-greater-than-start-date') + '<button type="button" class="close">&times;</button>',
+																			timeout: 10000,
+																			toggleText: false,
+																			type: 'warning'
+																		}
+																	);
+																}
+
+																instance._notice.show();
+															}
 														}
 													},
 													label: Liferay.Language.get('ok'),
