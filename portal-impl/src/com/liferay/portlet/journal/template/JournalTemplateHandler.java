@@ -74,6 +74,7 @@ public class JournalTemplateHandler extends BaseDDMTemplateHandler {
 		else {
 			restrictedVariables = new String[0];
 		}
+
 		return restrictedVariables;
 	}
 
@@ -85,8 +86,11 @@ public class JournalTemplateHandler extends BaseDDMTemplateHandler {
 		Map<String, TemplateVariableGroup> templateVariableGroups =
 			super.getTemplateVariableGroups(classPK, language, locale);
 
+		String[] restrictedVariables = getRestrictedVariables(language);
+
 		TemplateVariableGroup journalServicesTemplateVariableGroup =
-			new TemplateVariableGroup("web-content-services");
+			new TemplateVariableGroup(
+				"web-content-services", restrictedVariables);
 
 		journalServicesTemplateVariableGroup.setAutocompleteEnabled(false);
 
