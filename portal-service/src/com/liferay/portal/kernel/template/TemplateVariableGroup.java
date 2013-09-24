@@ -137,6 +137,10 @@ public class TemplateVariableGroup {
 		return _autocompleteEnabled;
 	}
 
+	public boolean isEmpty() {
+		return _templateVariableDefinitions.isEmpty();
+	}
+
 	public void setAutocompleteEnabled(boolean autocompleteEnabled) {
 		_autocompleteEnabled = autocompleteEnabled;
 	}
