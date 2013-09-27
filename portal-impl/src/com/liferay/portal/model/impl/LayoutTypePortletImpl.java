@@ -1670,7 +1670,8 @@ public class LayoutTypePortletImpl
 		return false;
 	}
 
-	protected boolean hasPortletId(String portletId, boolean strict)
+	@Override
+	public boolean hasPortletId(String portletId, boolean strict)
 		throws PortalException, SystemException {
 
 		List<String> columns = getColumns();
