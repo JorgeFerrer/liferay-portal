@@ -63,6 +63,12 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import com.liferay.portlet.bookmarks.service.permission.BookmarksPermission;
+import com.liferay.portlet.documentlibrary.service.permission.DLPermission;
+import com.liferay.portlet.journal.service.permission.JournalPermission;
+import com.liferay.portlet.messageboards.service.permission.MBPermission;
+import com.liferay.portlet.mobiledevicerules.service.permission.MDRPermission;
+import com.liferay.portlet.shopping.service.permission.ShoppingPermission;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -463,38 +469,39 @@ public class EditRolePermissionsAction extends PortletAction {
 			String[] groupIds)
 		throws Exception {
 
-		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			role.getCompanyId(), portletId);
+		String modelResource = null;
 
-		String controlPanelCategory = portlet.getControlPanelEntryCategory();
+		if (Validator.equals(portletId, PortletKeys.BOOKMARKS)) {
+			modelResource = BookmarksPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.DOCUMENT_LIBRARY)) {
+			modelResource = DLPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.JOURNAL)) {
+			modelResource = JournalPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.MESSAGE_BOARDS)) {
+			modelResource = MBPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(
+			portletId, PortletKeys.MOBILE_DEVICE_SITE_ADMIN)) {
 
-		if (Validator.isNull(controlPanelCategory) ||
-				!controlPanelCategory.equals(
-					PortletCategoryKeys.SITE_ADMINISTRATION_CONTENT)) {
-			return;
+			modelResource = MDRPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.SHOPPING)) {
+			modelResource = ShoppingPermission.RESOURCE_NAME;
 		}
 
-		List<String> modelResources =
-			ResourceActionsUtil.getPortletModelResources(portletId);
+		if (modelResource != null) {
+			ResourceAction resourceAction =
+				ResourceActionLocalServiceUtil.fetchResourceAction(
+					modelResource, ActionKeys.VIEW);
 
-		if (!modelResources.isEmpty()) {
-			for (String modelResource : modelResources) {
-				if (ResourceActionsUtil.getModelResourceWeight(
-						modelResource) == 1.0) {
+			if (resourceAction != null){
+				updateAction(
+					role, scopeGroupId, modelResource,
+					ActionKeys.VIEW, true, scope, groupIds);
 
-					ResourceAction resourceAction =
-						ResourceActionLocalServiceUtil.fetchResourceAction(
-							modelResource, ActionKeys.VIEW);
-
-					if (resourceAction != null){
-						updateAction(
-							role, scopeGroupId, modelResource,
-							ActionKeys.VIEW, true, scope, groupIds);
-
-					}
-
-					return;
-				}
 			}
 		}
 	}
