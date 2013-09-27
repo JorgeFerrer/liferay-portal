@@ -46,6 +46,12 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletCategoryKeys;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.WebKeys;
+import com.liferay.portlet.bookmarks.service.permission.BookmarksPermission;
+import com.liferay.portlet.documentlibrary.service.permission.DLPermission;
+import com.liferay.portlet.journal.service.permission.JournalPermission;
+import com.liferay.portlet.messageboards.service.permission.MBPermission;
+import com.liferay.portlet.mobiledevicerules.service.permission.MDRPermission;
+import com.liferay.portlet.shopping.service.permission.ShoppingPermission;
 
 import java.util.HashMap;
 import java.util.List;
@@ -364,6 +370,10 @@ public class EditRolePermissionsAction extends PortletAction {
 					updateViewControlPanelPermission(
 						role, themeDisplay.getScopeGroupId(), selResource,
 						scope, groupIds);
+
+					updateViewRootResourcePermission(
+						role, themeDisplay.getScopeGroupId(), selResource,
+						scope, groupIds);
 				}
 			}
 		}
@@ -449,6 +459,48 @@ public class EditRolePermissionsAction extends PortletAction {
 			updateAction(
 				role, scopeGroupId, selResource, actionId, true, scope,
 				groupIds);
+		}
+	}
+
+	protected void updateViewRootResourcePermission(
+			Role role, long scopeGroupId, String portletId, int scope,
+			String[] groupIds)
+		throws Exception {
+
+		String modelResource = null;
+
+		if (Validator.equals(portletId, PortletKeys.BOOKMARKS)) {
+			modelResource = BookmarksPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.DOCUMENT_LIBRARY)) {
+			modelResource = DLPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.JOURNAL)) {
+			modelResource = JournalPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(
+					portletId, PortletKeys.MESSAGE_BOARDS_ADMIN)) {
+
+			modelResource = MBPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(
+					portletId, PortletKeys.MOBILE_DEVICE_SITE_ADMIN)) {
+
+			modelResource = MDRPermission.RESOURCE_NAME;
+		}
+		else if (Validator.equals(portletId, PortletKeys.SHOPPING)) {
+			modelResource = ShoppingPermission.RESOURCE_NAME;
+		}
+
+		if (modelResource != null) {
+			List<String> actions = ResourceActionsUtil.getModelResourceActions(
+				modelResource);
+
+			if (actions.contains(ActionKeys.VIEW)) {
+				updateAction(
+					role, scopeGroupId, modelResource, ActionKeys.VIEW, true,
+					scope, groupIds);
+			}
 		}
 	}
 
