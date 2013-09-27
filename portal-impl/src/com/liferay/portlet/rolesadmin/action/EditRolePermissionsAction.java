@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.ResourceAction;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
@@ -37,7 +36,6 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.security.permission.comparator.ActionComparator;
 import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.ResourceActionLocalServiceUtil;
 import com.liferay.portal.service.ResourceBlockLocalServiceUtil;
 import com.liferay.portal.service.ResourceBlockServiceUtil;
 import com.liferay.portal.service.ResourcePermissionServiceUtil;
@@ -48,6 +46,12 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletCategoryKeys;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.WebKeys;
+import com.liferay.portlet.bookmarks.service.permission.BookmarksPermission;
+import com.liferay.portlet.documentlibrary.service.permission.DLPermission;
+import com.liferay.portlet.journal.service.permission.JournalPermission;
+import com.liferay.portlet.messageboards.service.permission.MBPermission;
+import com.liferay.portlet.mobiledevicerules.service.permission.MDRPermission;
+import com.liferay.portlet.shopping.service.permission.ShoppingPermission;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,12 +67,6 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-import com.liferay.portlet.bookmarks.service.permission.BookmarksPermission;
-import com.liferay.portlet.documentlibrary.service.permission.DLPermission;
-import com.liferay.portlet.journal.service.permission.JournalPermission;
-import com.liferay.portlet.messageboards.service.permission.MBPermission;
-import com.liferay.portlet.mobiledevicerules.service.permission.MDRPermission;
-import com.liferay.portlet.shopping.service.permission.ShoppingPermission;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -480,11 +478,13 @@ public class EditRolePermissionsAction extends PortletAction {
 		else if (Validator.equals(portletId, PortletKeys.JOURNAL)) {
 			modelResource = JournalPermission.RESOURCE_NAME;
 		}
-		else if (Validator.equals(portletId, PortletKeys.MESSAGE_BOARDS)) {
+		else if (Validator.equals(
+					portletId, PortletKeys.MESSAGE_BOARDS_ADMIN)) {
+
 			modelResource = MBPermission.RESOURCE_NAME;
 		}
 		else if (Validator.equals(
-			portletId, PortletKeys.MOBILE_DEVICE_SITE_ADMIN)) {
+					portletId, PortletKeys.MOBILE_DEVICE_SITE_ADMIN)) {
 
 			modelResource = MDRPermission.RESOURCE_NAME;
 		}
@@ -496,12 +496,12 @@ public class EditRolePermissionsAction extends PortletAction {
 			List<String> actions = ResourceActionsUtil.getModelResourceActions(
 				modelResource);
 
-			if (actions.contains(ActionKeys.VIEW)){
+			if (actions.contains(ActionKeys.VIEW)) {
 				updateAction(
-					role, scopeGroupId, modelResource,
-					ActionKeys.VIEW, true, scope, groupIds);
-
+					role, scopeGroupId, modelResource, ActionKeys.VIEW, true,
+					scope, groupIds);
 			}
 		}
 	}
+
 }
