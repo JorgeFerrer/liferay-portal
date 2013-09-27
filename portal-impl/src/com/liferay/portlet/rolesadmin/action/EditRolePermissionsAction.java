@@ -477,30 +477,8 @@ public class EditRolePermissionsAction extends PortletAction {
 			String[] groupIds)
 		throws Exception {
 
-		String modelResource = null;
-
-		if (Validator.equals(portletId, PortletKeys.BOOKMARKS)) {
-			modelResource = BookmarksPermission.RESOURCE_NAME;
-		}
-		else if (Validator.equals(portletId, PortletKeys.DOCUMENT_LIBRARY)) {
-			modelResource = DLPermission.RESOURCE_NAME;
-		}
-		else if (Validator.equals(portletId, PortletKeys.JOURNAL)) {
-			modelResource = JournalPermission.RESOURCE_NAME;
-		}
-		else if (Validator.equals(
-					portletId, PortletKeys.MESSAGE_BOARDS_ADMIN)) {
-
-			modelResource = MBPermission.RESOURCE_NAME;
-		}
-		else if (Validator.equals(
-					portletId, PortletKeys.MOBILE_DEVICE_SITE_ADMIN)) {
-
-			modelResource = MDRPermission.RESOURCE_NAME;
-		}
-		else if (Validator.equals(portletId, PortletKeys.SHOPPING)) {
-			modelResource = ShoppingPermission.RESOURCE_NAME;
-		}
+		String modelResource = ResourceActionsUtil.getPortletRootModelResource(
+			portletId);
 
 		if (modelResource != null) {
 			List<String> actions = ResourceActionsUtil.getModelResourceActions(
