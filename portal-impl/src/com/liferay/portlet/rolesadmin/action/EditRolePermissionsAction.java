@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.ResourceAction;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
@@ -36,6 +37,7 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.security.permission.comparator.ActionComparator;
 import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.service.ResourceActionLocalServiceUtil;
 import com.liferay.portal.service.ResourceBlockLocalServiceUtil;
 import com.liferay.portal.service.ResourceBlockServiceUtil;
 import com.liferay.portal.service.ResourcePermissionServiceUtil;
@@ -364,6 +366,10 @@ public class EditRolePermissionsAction extends PortletAction {
 					updateViewControlPanelPermission(
 						role, themeDisplay.getScopeGroupId(), selResource,
 						scope, groupIds);
+
+					updateViewRootResourceModel(
+						role, themeDisplay.getScopeGroupId(), selResource,
+						scope, groupIds);
 				}
 			}
 		}
@@ -452,4 +458,44 @@ public class EditRolePermissionsAction extends PortletAction {
 		}
 	}
 
+	protected void updateViewRootResourceModel(
+			Role role, long scopeGroupId, String portletId, int scope,
+			String[] groupIds)
+		throws Exception {
+
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(
+			role.getCompanyId(), portletId);
+
+		String controlPanelCategory = portlet.getControlPanelEntryCategory();
+
+		if (Validator.isNull(controlPanelCategory) ||
+				!controlPanelCategory.equals(
+					PortletCategoryKeys.SITE_ADMINISTRATION_CONTENT)) {
+			return;
+		}
+
+		List<String> modelResources =
+			ResourceActionsUtil.getPortletModelResources(portletId);
+
+		if (!modelResources.isEmpty()) {
+			for (String modelResource : modelResources) {
+				if (ResourceActionsUtil.getModelResourceWeight(
+						modelResource) == 1.0) {
+
+					ResourceAction resourceAction =
+						ResourceActionLocalServiceUtil.fetchResourceAction(
+							modelResource, ActionKeys.VIEW);
+
+					if (resourceAction != null){
+						updateAction(
+							role, scopeGroupId, modelResource,
+							ActionKeys.VIEW, true, scope, groupIds);
+
+					}
+
+					return;
+				}
+			}
+		}
+	}
 }
