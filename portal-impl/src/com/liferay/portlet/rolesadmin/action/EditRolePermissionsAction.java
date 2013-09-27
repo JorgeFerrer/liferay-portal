@@ -367,7 +367,7 @@ public class EditRolePermissionsAction extends PortletAction {
 						role, themeDisplay.getScopeGroupId(), selResource,
 						scope, groupIds);
 
-					updateViewRootResourceModel(
+					updateViewRootResourcePermission(
 						role, themeDisplay.getScopeGroupId(), selResource,
 						scope, groupIds);
 				}
@@ -458,7 +458,7 @@ public class EditRolePermissionsAction extends PortletAction {
 		}
 	}
 
-	protected void updateViewRootResourceModel(
+	protected void updateViewRootResourcePermission(
 			Role role, long scopeGroupId, String portletId, int scope,
 			String[] groupIds)
 		throws Exception {
