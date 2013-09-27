@@ -493,11 +493,10 @@ public class EditRolePermissionsAction extends PortletAction {
 		}
 
 		if (modelResource != null) {
-			ResourceAction resourceAction =
-				ResourceActionLocalServiceUtil.fetchResourceAction(
-					modelResource, ActionKeys.VIEW);
+			List<String> actions = ResourceActionsUtil.getModelResourceActions(
+				modelResource);
 
-			if (resourceAction != null){
+			if (actions.contains(ActionKeys.VIEW)){
 				updateAction(
 					role, scopeGroupId, modelResource,
 					ActionKeys.VIEW, true, scope, groupIds);
