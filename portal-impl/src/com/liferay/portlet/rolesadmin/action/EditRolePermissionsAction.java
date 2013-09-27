@@ -317,6 +317,9 @@ public class EditRolePermissionsAction extends PortletAction {
 				ResourceActionsUtil.getResourceActions(null, modelResource));
 		}
 
+		int rootResourceScope = ResourceConstants.SCOPE_COMPANY;
+		String[] rootResourceGroupIds = null;
+
 		String[] selectedTargets = StringUtil.split(
 			ParamUtil.getString(actionRequest, "selectedTargets"));
 
@@ -371,11 +374,18 @@ public class EditRolePermissionsAction extends PortletAction {
 						role, themeDisplay.getScopeGroupId(), selResource,
 						scope, groupIds);
 
-					updateViewRootResourcePermission(
-						role, themeDisplay.getScopeGroupId(), selResource,
-						scope, groupIds);
+					rootResourceScope = scope;
+					rootResourceGroupIds = groupIds;
 				}
 			}
+		}
+
+		// LPS-38031
+
+		if (rootResourceGroupIds != null) {
+			updateViewRootResourcePermission(
+				role, themeDisplay.getScopeGroupId(), portletResource,
+				rootResourceScope, rootResourceGroupIds);
 		}
 
 		// Send redirect
