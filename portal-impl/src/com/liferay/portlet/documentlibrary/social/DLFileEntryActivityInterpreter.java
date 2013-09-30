@@ -81,26 +81,35 @@ public class DLFileEntryActivityInterpreter
 	}
 
 	protected String getFolderLink(
-		FileEntry fileEntry, ServiceContext serviceContext) {
+			final FileEntry fileEntry, ServiceContext serviceContext)
+		throws Exception {
 
-		StringBundler sb = new StringBundler(6);
+		long folderId = fileEntry.getFolderId();
+
+		StringBundler sb = new StringBundler(8); //TODO: change variable name
 
 		sb.append(serviceContext.getPortalURL());
 		sb.append(serviceContext.getPathMain());
 		sb.append("/document_library/find_folder?groupId=");
 		sb.append(fileEntry.getRepositoryId());
 		sb.append("&folderId=");
-		sb.append(fileEntry.getFolderId());
+		sb.append(folderId);
 
-		return sb.toString();
+		return getPathWithRedirect(
+			sb.toString(), fileEntry.getModelClassName(), folderId,
+			serviceContext);
 	}
 
 	@Override
 	protected String getPath(
-		SocialActivity activity, ServiceContext serviceContext) {
+			SocialActivity activity, ServiceContext serviceContext)
+		throws Exception {
 
-		return "/document_library/find_file_entry?fileEntryId=" +
-			activity.getClassPK();
+		long entryId = activity.getClassPK();
+
+		return getPathWithRedirect(
+			"/document_library/find_file_entry?fileEntryId=" + entryId,
+			activity.getClassName(), entryId, serviceContext);
 	}
 
 	@Override
