@@ -296,7 +296,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		if (staging) {
 			name = name.concat(" (Staging)");
-			friendlyURL = getStagingFriendlyURL(friendlyURL);
+			friendlyURL = getFriendlyURL(friendlyURL.concat("-staging"));
 		}
 
 		if (parentGroupId == GroupConstants.DEFAULT_PARENT_GROUP_ID) {
@@ -4096,10 +4096,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 
 		return CustomSQLUtil.keywords(name);
-	}
-
-	protected String getStagingFriendlyURL(String friendlyURL) {
-		return getFriendlyURL(friendlyURL.concat("-staging"));
 	}
 
 	protected void initImportLARFile() {
