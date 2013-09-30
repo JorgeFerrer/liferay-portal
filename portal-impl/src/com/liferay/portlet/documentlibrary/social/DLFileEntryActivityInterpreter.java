@@ -14,16 +14,12 @@
 
 package com.liferay.portlet.documentlibrary.social;
 
-import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.model.AssetRenderer;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
@@ -34,10 +30,6 @@ import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityConstants;
 import com.liferay.portlet.trash.util.TrashUtil;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
 
 /**
  * @author Ryan Park
@@ -89,39 +81,35 @@ public class DLFileEntryActivityInterpreter
 	}
 
 	protected String getFolderLink(
-			FileEntry fileEntry, ServiceContext serviceContext)
-		throws WindowStateException {
+			final FileEntry fileEntry, ServiceContext serviceContext)
+		throws Exception {
 
-		StringBundler sb = new StringBundler(8);
+		long folderId = fileEntry.getFolderId();
+
+		StringBundler sb = new StringBundler(8); //TODO: change variable name
 
 		sb.append(serviceContext.getPortalURL());
 		sb.append(serviceContext.getPathMain());
 		sb.append("/document_library/find_folder?groupId=");
 		sb.append(fileEntry.getRepositoryId());
 		sb.append("&folderId=");
-		sb.append(fileEntry.getFolderId());
-		sb.append("&noSuchEntryRedirect=");
+		sb.append(folderId);
 
-		LiferayPortletURL noSuchEntryRedirectURL = PortletURLFactoryUtil.create(
-			serviceContext.getRequest(), PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
-			serviceContext.getPlid(), PortletRequest.RENDER_PHASE);
-
-		noSuchEntryRedirectURL.setParameter(
-			"folderId", String.valueOf(fileEntry.getFolderId()));
-
-		noSuchEntryRedirectURL.setWindowState(WindowState.MAXIMIZED);
-
-		sb.append(HttpUtil.encodeURL(noSuchEntryRedirectURL.toString()));
-
-		return sb.toString();
+		return getPathWithRedirect(
+			sb.toString(), fileEntry.getModelClassName(), folderId,
+			serviceContext);
 	}
 
 	@Override
 	protected String getPath(
-		SocialActivity activity, ServiceContext serviceContext) {
+			SocialActivity activity, ServiceContext serviceContext)
+		throws Exception {
 
-		return "/document_library/find_file_entry?fileEntryId=" +
-			activity.getClassPK();
+		long entryId = activity.getClassPK();
+
+		return getPathWithRedirect(
+			"/document_library/find_file_entry?fileEntryId=" + entryId,
+			activity.getClassName(), entryId, serviceContext);
 	}
 
 	@Override
