@@ -19,7 +19,6 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.model.JournalArticleConstants;
 import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
@@ -28,9 +27,6 @@ import com.liferay.portlet.journal.service.permission.JournalPermission;
 import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityConstants;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Roberto Diaz
@@ -49,28 +45,18 @@ public class JournalArticleActivityInterpreter
 			SocialActivity activity, ServiceContext serviceContext)
 		throws Exception {
 
-		long articleId = activity.getClassPK();
-
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(
-				articleId);
+				activity.getClassPK());
 
 		if (Validator.isNotNull(article.getLayoutUuid())) {
 			String groupFriendlyURL = PortalUtil.getGroupFriendlyURL(
 				serviceContext.getScopeGroup(), false,
 				serviceContext.getThemeDisplay());
 
-			groupFriendlyURL = groupFriendlyURL.concat(
+			return groupFriendlyURL.concat(
 				JournalArticleConstants.CANONICAL_URL_SEPARATOR).concat(
 					article.getUrlTitle());
-
-			Map<String, String> parameters = new HashMap<String, String>();
-
-			parameters.put("articleId", String.valueOf(articleId));
-
-			return getPathWithRedirect(
-				PortletKeys.JOURNAL, groupFriendlyURL, parameters,
-				serviceContext);
 		}
 
 		return null;
