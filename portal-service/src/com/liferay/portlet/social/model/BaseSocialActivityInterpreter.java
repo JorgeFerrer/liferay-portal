@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.trash.TrashHandler;
 import com.liferay.portal.kernel.trash.TrashHandlerRegistryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -36,6 +37,9 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
+import com.liferay.portlet.asset.model.AssetRenderer;
+import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 import com.liferay.portlet.social.service.SocialActivitySetLocalServiceUtil;
 import com.liferay.portlet.social.service.persistence.SocialActivityUtil;
@@ -44,6 +48,7 @@ import com.liferay.portlet.trash.util.TrashUtil;
 import java.util.List;
 
 import javax.portlet.PortletURL;
+import javax.portlet.WindowState;
 
 /**
  * @author Brian Wing Shun Chan
@@ -370,6 +375,30 @@ public abstract class BaseSocialActivityInterpreter
 		throws Exception {
 
 		return StringPool.BLANK;
+	}
+
+	protected String getPathWithRedirect(
+			String urlPrefix, String className, long classPK,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		AssetRendererFactory assetRendererFactory =
+			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
+				className);
+
+		AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(
+			classPK);
+
+		PortletURL urlView = assetRenderer.getURLView(
+			serviceContext.getLiferayPortletResponse(), WindowState.MAXIMIZED);
+
+		StringBundler stringBundler = new StringBundler(3);
+
+		stringBundler.append(urlPrefix);
+		stringBundler.append("&noSuchEntryRedirect=");
+		stringBundler.append(HttpUtil.encodeURL(urlView.toString()));
+
+		return stringBundler.toString();
 	}
 
 	protected String getTitle(
