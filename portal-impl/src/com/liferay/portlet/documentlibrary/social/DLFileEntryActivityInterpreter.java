@@ -86,17 +86,17 @@ public class DLFileEntryActivityInterpreter
 
 		long folderId = fileEntry.getFolderId();
 
-		StringBundler sb = new StringBundler(8); //TODO: change variable name
+		StringBundler stringBundler = new StringBundler(8);
 
-		sb.append(serviceContext.getPortalURL());
-		sb.append(serviceContext.getPathMain());
-		sb.append("/document_library/find_folder?groupId=");
-		sb.append(fileEntry.getRepositoryId());
-		sb.append("&folderId=");
-		sb.append(folderId);
+		stringBundler.append(serviceContext.getPortalURL());
+		stringBundler.append(serviceContext.getPathMain());
+		stringBundler.append("/document_library/find_folder?groupId=");
+		stringBundler.append(fileEntry.getRepositoryId());
+		stringBundler.append("&folderId=");
+		stringBundler.append(folderId);
 
 		return getPathWithRedirect(
-			sb.toString(), fileEntry.getModelClassName(), folderId,
+			stringBundler.toString(), fileEntry.getModelClassName(), folderId,
 			serviceContext);
 	}
 
