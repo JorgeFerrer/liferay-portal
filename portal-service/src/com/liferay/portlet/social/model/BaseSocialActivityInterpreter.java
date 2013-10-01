@@ -377,28 +377,50 @@ public abstract class BaseSocialActivityInterpreter
 		return StringPool.BLANK;
 	}
 
-	protected String getPathWithRedirect(
-			String urlPrefix, String className, long classPK,
+	protected String addNoSuchEntryRedirect(
+			String url, String className, long classPK,
 			ServiceContext serviceContext)
+		throws Exception {
+
+		PortletURL urlView = getViewEntryPortletURL(
+			className, classPK, serviceContext);
+
+		if (urlView == null) {
+			return url;
+		}
+
+		return HttpUtil.setParameter(
+			url, "noSuchEntryRedirect", urlView.toString());
+	}
+
+	protected PortletURL getViewEntryPortletURL(
+			String className, long classPK, ServiceContext serviceContext)
 		throws Exception {
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
 				className);
 
+		if (assetRendererFactory == null) {
+			return null;
+		}
+
 		AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(
 			classPK);
 
-		PortletURL urlView = assetRenderer.getURLView(
-			serviceContext.getLiferayPortletResponse(), WindowState.MAXIMIZED);
+		if (assetRenderer == null) {
+			return null;
+		}
 
-		StringBundler stringBundler = new StringBundler(3);
+		LiferayPortletResponse liferayPortletResponse =
+			serviceContext.getLiferayPortletResponse();
 
-		stringBundler.append(urlPrefix);
-		stringBundler.append("&noSuchEntryRedirect=");
-		stringBundler.append(HttpUtil.encodeURL(urlView.toString()));
+		if (liferayPortletResponse == null) {
+			return null;
+		}
 
-		return stringBundler.toString();
+		return assetRenderer.getURLView(
+			liferayPortletResponse, WindowState.MAXIMIZED);
 	}
 
 	protected String getTitle(
