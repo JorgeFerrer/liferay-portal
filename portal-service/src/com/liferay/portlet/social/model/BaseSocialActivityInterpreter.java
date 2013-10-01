@@ -123,6 +123,22 @@ public abstract class BaseSocialActivityInterpreter
 		}
 	}
 
+	protected String addNoSuchEntryRedirect(
+			String url, String className, long classPK,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		PortletURL urlView = getViewEntryPortletURL(
+			className, classPK, serviceContext);
+
+		if (urlView == null) {
+			return url;
+		}
+
+		return HttpUtil.setParameter(
+			url, "noSuchEntryRedirect", urlView.toString());
+	}
+
 	protected String buildLink(String link, String text) {
 		StringBundler sb = new StringBundler(5);
 
@@ -378,52 +394,6 @@ public abstract class BaseSocialActivityInterpreter
 		return StringPool.BLANK;
 	}
 
-	protected String addNoSuchEntryRedirect(
-			String url, String className, long classPK,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		PortletURL urlView = getViewEntryPortletURL(
-			className, classPK, serviceContext);
-
-		if (urlView == null) {
-			return url;
-		}
-
-		return HttpUtil.setParameter(
-			url, "noSuchEntryRedirect", urlView.toString());
-	}
-
-	protected PortletURL getViewEntryPortletURL(
-			String className, long classPK, ServiceContext serviceContext)
-		throws Exception {
-
-		AssetRendererFactory assetRendererFactory =
-			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
-				className);
-
-		if (assetRendererFactory == null) {
-			return null;
-		}
-
-		AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(
-			classPK);
-
-		if (assetRenderer == null) {
-			return null;
-		}
-
-		LiferayPortletResponse liferayPortletResponse =
-			serviceContext.getLiferayPortletResponse();
-
-		if (liferayPortletResponse == null) {
-			return null;
-		}
-
-		return assetRenderer.getURLView(
-			liferayPortletResponse, WindowState.MAXIMIZED);
-	}
-
 	protected String getTitle(
 			SocialActivity activity, ServiceContext serviceContext)
 		throws Exception {
@@ -543,6 +513,42 @@ public abstract class BaseSocialActivityInterpreter
 	 */
 	protected String getValue(String json, String key, String defaultValue) {
 		return getJSONValue(json, key, defaultValue);
+	}
+
+	protected PortletURL getViewEntryPortletURL(
+			String className, long classPK, ServiceContext serviceContext)
+		throws Exception {
+
+		AssetRendererFactory assetRendererFactory =
+			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
+				className);
+
+		if (assetRendererFactory == null) {
+			return null;
+		}
+
+		if (classPK == 0) {
+			return assetRendererFactory.getURLView(
+				serviceContext.getLiferayPortletResponse(),
+				WindowState.MAXIMIZED);
+		}
+
+		AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(
+			classPK);
+
+		if (assetRenderer == null) {
+			return null;
+		}
+
+		LiferayPortletResponse liferayPortletResponse =
+			serviceContext.getLiferayPortletResponse();
+
+		if (liferayPortletResponse == null) {
+			return null;
+		}
+
+		return assetRenderer.getURLView(
+			liferayPortletResponse, WindowState.MAXIMIZED);
 	}
 
 	protected boolean hasPermissions(
