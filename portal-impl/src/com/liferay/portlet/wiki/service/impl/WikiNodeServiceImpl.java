@@ -113,6 +113,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 		return nodes;
 	}
 
+	@Override
 	public List<WikiNode> getNodes(long groupId, int start, int end)
 		throws PortalException, SystemException {
 
