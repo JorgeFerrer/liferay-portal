@@ -41,7 +41,7 @@ public class BookmarksFolderActivityInterpreter
 
 		long folderId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/bookmarks/find_folder?folderId=" + folderId,
 			activity.getClassName(), folderId, serviceContext);
 	}

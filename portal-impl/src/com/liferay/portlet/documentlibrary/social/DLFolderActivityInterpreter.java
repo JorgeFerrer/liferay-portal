@@ -40,7 +40,7 @@ public class DLFolderActivityInterpreter extends BaseSocialActivityInterpreter {
 
 		long folderID = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/document_library/find_folder?folderId=" + folderID,
 			activity.getClassName(), folderID, serviceContext);
 	}

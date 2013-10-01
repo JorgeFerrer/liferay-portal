@@ -42,7 +42,7 @@ public class BookmarksEntryActivityInterpreter
 
 		long entryId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/bookmarks/find_entry?entryId=" + entryId, activity.getClassName(),
 			entryId, serviceContext);
 	}

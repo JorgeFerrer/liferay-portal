@@ -41,7 +41,7 @@ public class JournalFolderActivityInterpreter
 
 		long folderId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/journal/find_folder?folderId=" + folderId,
 			activity.getClassName(), folderId, serviceContext);
 	}

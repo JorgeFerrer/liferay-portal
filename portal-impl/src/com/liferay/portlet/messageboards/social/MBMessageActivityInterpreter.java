@@ -59,7 +59,7 @@ public class MBMessageActivityInterpreter
 		sb.append("/message_boards/find_category?mbCategoryId=");
 		sb.append(categoryId);
 
-		String pathWithRedirect = getPathWithRedirect(
+		String pathWithRedirect = addNoSuchEntryRedirect(
 			sb.toString(), activity.getClassName(), categoryId, serviceContext);
 
 		return wrapLink(pathWithRedirect, "go-to-category", serviceContext);
@@ -72,7 +72,7 @@ public class MBMessageActivityInterpreter
 
 		long messageId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/message_boards/find_message?messageId=" + messageId,
 			activity.getClassName(), messageId, serviceContext);
 	}

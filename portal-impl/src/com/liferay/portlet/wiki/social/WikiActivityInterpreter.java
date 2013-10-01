@@ -105,7 +105,7 @@ public class WikiActivityInterpreter extends BaseSocialActivityInterpreter {
 
 		long resourcePrimKey = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/wiki/find_page?pageResourcePrimKey=" + resourcePrimKey,
 			activity.getClassName(), resourcePrimKey, serviceContext);
 	}

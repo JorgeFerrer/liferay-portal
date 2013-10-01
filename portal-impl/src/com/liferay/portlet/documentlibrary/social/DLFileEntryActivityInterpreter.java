@@ -24,6 +24,7 @@ import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.model.AssetRenderer;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
+import com.liferay.portlet.documentlibrary.model.DLFolder;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.permission.DLFileEntryPermission;
 import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
@@ -86,7 +87,7 @@ public class DLFileEntryActivityInterpreter
 
 		long folderId = fileEntry.getFolderId();
 
-		StringBundler sb = new StringBundler(8); //TODO: change variable name
+		StringBundler sb = new StringBundler(8);
 
 		sb.append(serviceContext.getPortalURL());
 		sb.append(serviceContext.getPathMain());
@@ -95,8 +96,8 @@ public class DLFileEntryActivityInterpreter
 		sb.append("&folderId=");
 		sb.append(folderId);
 
-		return getPathWithRedirect(
-			sb.toString(), fileEntry.getModelClassName(), folderId,
+		return addNoSuchEntryRedirect(
+			sb.toString(), DLFolder.class.getName(), folderId,
 			serviceContext);
 	}
 
@@ -107,7 +108,7 @@ public class DLFileEntryActivityInterpreter
 
 		long entryId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/document_library/find_file_entry?fileEntryId=" + entryId,
 			activity.getClassName(), entryId, serviceContext);
 	}

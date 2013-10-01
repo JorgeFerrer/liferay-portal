@@ -48,7 +48,7 @@ public class BlogsActivityInterpreter extends BaseSocialActivityInterpreter {
 
 		long entryId = activity.getClassPK();
 
-		return getPathWithRedirect(
+		return addNoSuchEntryRedirect(
 			"/blogs/find_entry?entryId=" + entryId, activity.getClassName(),
 			entryId, serviceContext);
 	}
