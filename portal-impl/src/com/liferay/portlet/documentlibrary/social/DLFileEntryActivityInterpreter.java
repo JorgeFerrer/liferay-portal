@@ -97,8 +97,7 @@ public class DLFileEntryActivityInterpreter
 		sb.append(folderId);
 
 		return addNoSuchEntryRedirect(
-			sb.toString(), DLFolder.class.getName(), folderId,
-			serviceContext);
+			sb.toString(), DLFolder.class.getName(), folderId, serviceContext);
 	}
 
 	@Override
