@@ -22,7 +22,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("struts_action", "/wiki/view_nodes");
 
 List<String> headerNames = new ArrayList<String>();
-
+ 
 headerNames.add("wiki");
 headerNames.add("num-of-pages");
 headerNames.add("last-post-date");
@@ -30,11 +30,11 @@ headerNames.add(StringPool.BLANK);
 
 SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, null);
 
-int total = WikiNodeLocalServiceUtil.getNodesCount(scopeGroupId);
+int total = WikiNodeServiceUtil.getNodesCount(scopeGroupId);
 
 searchContainer.setTotal(total);
 
-List results = WikiNodeLocalServiceUtil.getNodes(scopeGroupId, searchContainer.getStart(), searchContainer.getEnd());
+List results = WikiNodeServiceUtil.getNodes(scopeGroupId, searchContainer.getStart(), searchContainer.getEnd());
 
 searchContainer.setResults(results);
 %>
