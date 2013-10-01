@@ -445,6 +445,8 @@ if (Validator.isNotNull(content)) {
 			</aui:input>
 		</div>
 
+		<div class="journal-article-container-content-pagination"></div>
+
 		<div class="journal-article-container" id="<portlet:namespace />journalArticleContainer">
 			<c:choose>
 				<c:when test="<%= ddmStructure == null %>">
@@ -772,6 +774,39 @@ if (Validator.isNotNull(content)) {
 			);
 		}
 	</c:if>
+</aui:script>
+
+<aui:script use="aui-pagination">
+	var pages = A.all('#<portlet:namespace />journalArticleContainer .ddm-page');
+
+	var total = pages.size();
+
+	if (total > 0) {
+		var paginationConfig = {
+			boundingBox: '.journal-article-container-content-pagination',
+			circular: false,
+			on: {
+				changeRequest: function(event) {
+					var instance = this;
+
+					var state = event.state;
+
+					var page = pages.item(state.page - 1);
+
+					pages.hide();
+
+					page.show();
+
+					instance.setState(state);
+				}
+			},
+			page: 1,
+			total: total,
+			visible: total > 0
+		}
+
+		new A.Pagination(paginationConfig).render();
+	}
 </aui:script>
 
 <%!

@@ -45,6 +45,8 @@ int firstDayOfWeek = localeCal.getFirstDayOfWeek() - 1;
 
 			var TPL_SEPARATOR = '<div class="separator"></div>';
 
+			var TPL_PAGE = '<div data-type="page-break"> ' + Liferay.Language.get('page-break') + ' </div>';
+
 			var TPL_TEXT_HTML = '<textarea class="form-builder-field-node lfr-ddm-text-html"></textarea>';
 
 			var TPL_WCM_IMAGE = '<div class="lfr-wcm-image"></div>';
@@ -431,6 +433,49 @@ int firstDayOfWeek = localeCal.getFirstDayOfWeek() - 1;
 				}
 			);
 
+			var DDMPageField = A.Component.create(
+				{
+					ATTRS: {
+						acceptChildren: {
+							value: true
+						},
+
+						dataType: {
+							value: undefined
+						},
+
+						fieldNamespace: {
+							value: 'ddm'
+						},
+
+						showLabel: {
+							readOnly: true,
+							value: false
+						}
+					},
+
+					EXTENDS: A.FormBuilderField,
+
+					NAME: 'ddm-page',
+
+					prototype: {
+						getHTML: function() {
+							return TPL_PAGE;
+						},
+
+						getPropertyModel: function() {
+							return [
+								{
+									attributeName: 'type',
+									editor: false,
+									name: '<%= UnicodeLanguageUtil.get(pageContext, "type") %>'
+								}
+							];
+						}
+					}
+				}
+			);
+
 			var DDMSeparatorField = A.Component.create(
 				{
 					ATTRS: {
@@ -567,6 +612,7 @@ int firstDayOfWeek = localeCal.getFirstDayOfWeek() - 1;
 			FormBuilderTypes['ddm-integer'] = DDMIntegerField;
 			FormBuilderTypes['ddm-link-to-page'] = DDMLinkToPageField;
 			FormBuilderTypes['ddm-number'] = DDMNumberField;
+			FormBuilderTypes['ddm-page'] = DDMPageField;
 			FormBuilderTypes['ddm-paragraph'] = DDMParagraphField;
 			FormBuilderTypes['ddm-separator'] = DDMSeparatorField;
 			FormBuilderTypes['ddm-text-html'] = DDMHTMLTextField;

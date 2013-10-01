@@ -60,6 +60,10 @@
 		border-bottom: 1px solid #666;
 	}
 
+	.journal-article-container-content-paginator {
+		margin-top: 1em;
+	}
+
 	.journal-metadata {
 		min-height: 1.8em;
 	}
