@@ -77,7 +77,7 @@ searchContainer.setResults(results);
 
 		// Number of pages
 
-		int pagesCount = WikiPageLocalServiceUtil.getPagesCount(node.getNodeId(), true);
+		int pagesCount = WikiPageServiceUtil.getPagesCount(scopeGroupId, node.getNodeId(), true);
 
 		row.addText(String.valueOf(pagesCount), rowURL);
 
