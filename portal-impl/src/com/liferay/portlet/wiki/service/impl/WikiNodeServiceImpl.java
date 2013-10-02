@@ -25,6 +25,7 @@ import com.liferay.portlet.wiki.service.permission.WikiNodePermission;
 import com.liferay.portlet.wiki.service.permission.WikiPermission;
 
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -102,9 +103,10 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 			List<WikiNode> allNodes = wikiNodeLocalService.getNodes(
 				groupId, status);
 
-			for (WikiNode node: allNodes) {
-				if(WikiNodePermission.contains(
-						getPermissionChecker(), node, ActionKeys.VIEW)){
+			for (WikiNode node : allNodes) {
+				if (WikiNodePermission.contains(
+						getPermissionChecker(), node, ActionKeys.VIEW)) {
+
 					nodes.add(node);
 				}
 			}
@@ -124,21 +126,16 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	public List<WikiNode> getNodes(long groupId, int status, int start, int end)
 		throws PortalException, SystemException {
 
-		return wikiNodePersistence.filterFindByG_S(
-			groupId, status, start, end);
+		return wikiNodePersistence.filterFindByG_S(groupId, status, start, end);
 	}
 
 	@Override
-	public int getNodesCount(long groupId)
-		throws SystemException {
-
+	public int getNodesCount(long groupId) throws SystemException {
 		return getNodesCount(groupId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getNodesCount(long groupId, int status)
-		throws SystemException {
-
+	public int getNodesCount(long groupId, int status) throws SystemException {
 		return wikiNodePersistence.filterCountByG_S(groupId, status);
 	}
 

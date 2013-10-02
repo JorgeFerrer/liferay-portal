@@ -22,7 +22,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("struts_action", "/wiki/view_nodes");
 
 List<String> headerNames = new ArrayList<String>();
- 
+
 headerNames.add("wiki");
 headerNames.add("num-of-pages");
 headerNames.add("last-post-date");
