@@ -97,7 +97,7 @@ public class MBCategoryAssetRenderer extends BaseAssetRenderer {
 			WindowState windowState)
 		throws Exception {
 
-		PortletURL portletURL = assetRendererFactory.getURLView(
+		PortletURL portletURL = getAssetRendererFactory().getURLView(
 			liferayPortletResponse, windowState);
 
 		portletURL.setParameter("struts_action", "/message_boards/view");
