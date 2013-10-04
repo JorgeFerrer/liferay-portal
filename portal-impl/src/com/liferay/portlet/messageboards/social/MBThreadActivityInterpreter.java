@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.messageboards.model.MBCategory;
 import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
@@ -58,7 +59,16 @@ public class MBThreadActivityInterpreter extends BaseSocialActivityInterpreter {
 
 		String categoryLink = sb.toString();
 
-		return wrapLink(categoryLink, "go-to-category", serviceContext);
+		String className = activity.getClassName();
+		long classPK = activity.getClassPK();
+
+		String categoryLinkWithNoSuchEntryRedirect = addNoSuchEntryRedirect(
+			categoryLink, MBCategory.class.getName(), message.getCategoryId(),
+			serviceContext);
+
+		return wrapLink(
+			categoryLinkWithNoSuchEntryRedirect, "go-to-category",
+			serviceContext);
 	}
 
 	protected MBMessage getMessage(SocialActivity activity) throws Exception {
