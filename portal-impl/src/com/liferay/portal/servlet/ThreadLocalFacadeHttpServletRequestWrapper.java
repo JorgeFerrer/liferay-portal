@@ -108,7 +108,16 @@ public class ThreadLocalFacadeHttpServletRequestWrapper
 		HttpServletRequest httpServletRequest =
 			(HttpServletRequest)getRequest();
 
-		return httpServletRequest.getSession(create);
+		HttpSession session = httpServletRequest.getSession(create);
+
+		if (create && (session == null)) {
+			//This should never happen unless the main thread has given up
+			//on this render thread
+
+			throw new ThreadDeath();
+		}
+
+		return session;
 	}
 
 	@Override
