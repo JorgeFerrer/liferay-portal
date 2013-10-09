@@ -15,15 +15,12 @@
 package com.liferay.portalweb.portal;
 
 import com.liferay.portal.util.InitUtil;
-import com.liferay.portalweb.portal.util.BrowserCommands;
 import com.liferay.portalweb.portal.util.LiferaySeleneseTestCase;
 import com.liferay.portalweb.portal.util.SeleniumUtil;
 import com.liferay.portalweb.portal.util.TestPropsValues;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.openqa.selenium.os.ProcessUtils.ProcessStillAliveException;
 
 /**
  * @author Brian Wing Shun Chan
@@ -32,21 +29,6 @@ public class BaseTestCase extends LiferaySeleneseTestCase {
 
 	public BaseTestCase() {
 		InitUtil.initWithSpring();
-	}
-
-	/**
-	 * @deprecated As of 6.2.0
-	 */
-	@Override
-	public void runBare() throws Throwable {
-		try {
-			super.runBare();
-		}
-		catch (ProcessStillAliveException psae) {
-			BrowserCommands.killBrowser();
-
-			throw psae;
-		}
 	}
 
 	@Override

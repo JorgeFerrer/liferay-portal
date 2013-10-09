@@ -813,6 +813,8 @@ release was successful.</echo>
 		<antcall target="clean" />
 		<antcall target="start" />
 
+		<record name="prepare-generated-files.txt" action="start" />
+
 		<ant dir="portal-impl" target="build-iw" inheritAll="false" />
 		<ant dir="portal-impl" target="build-lib-versions" inheritAll="false" />
 		<ant dir="portal-impl" target="build-services" inheritAll="false" />
@@ -876,6 +878,19 @@ release was successful.</echo>
 		<script classpathref="project.classpath" language="beanshell">
 			project.setProperty("prepare-generated-files.tstamp", String.valueOf(System.currentTimeMillis()));
 		</script>
+
+		<record name="prepare-generated-files.txt" action="stop" />
+
+		<if>
+			<resourcecontains resource="prepare-generated-files.txt" substring="java.lang.RuntimeException" />
+			<then>
+				<delete file="prepare-generated-files.txt" />
+
+				<fail>Aborting due to Java exception.</fail>
+			</then>
+		</if>
+
+		<delete file="prepare-generated-files.txt" />
 
 		<echo file="prepare-generated-files.tstamp">${prepare-generated-files.tstamp}</echo>
 	</target>
