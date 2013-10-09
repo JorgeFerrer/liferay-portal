@@ -72,6 +72,12 @@
 	}
 }
 
+.nav-menu-style-arrows {
+	ul {
+		list-style-image: url(../images/navigation/bullet_selected.png);
+	}
+}
+
 /* ---------- Page template selector ---------- */
 
 .form-options {

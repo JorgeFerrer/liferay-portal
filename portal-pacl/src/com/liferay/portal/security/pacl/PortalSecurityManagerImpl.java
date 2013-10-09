@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.memory.EqualityWeakReference;
 import com.liferay.portal.kernel.memory.FinalizeManager;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.security.pacl.PACLConstants;
-import com.liferay.portal.kernel.security.pacl.permission.CheckMemberAccessPermission;
 import com.liferay.portal.kernel.security.pacl.permission.PortalFilePermission;
 import com.liferay.portal.kernel.security.pacl.permission.PortalHookPermission;
 import com.liferay.portal.kernel.security.pacl.permission.PortalMessageBusPermission;
@@ -312,6 +311,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 			Runnable runnable = new Runnable() {
 
+				@Override
 				public void run() {
 					if (securityManager != System.getSecurityManager()) {
 						System.setSecurityManager(securityManager);
@@ -343,6 +343,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				clazz.getDeclaredClasses().length + " inner classes");
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void initClasses() {
 
 		// Load dependent classes to prevent ClassCircularityError
@@ -356,7 +357,9 @@ public class PortalSecurityManagerImpl extends SecurityManager
 		initClass(ActivePACLPolicy.class);
 		initClass(BaseTemplateManager.class);
 		initClass(CentralizedThreadLocal.class);
-		initClass(CheckMemberAccessPermission.class);
+		initClass(
+			com.liferay.portal.kernel.security.pacl.permission.
+				CheckMemberAccessPermission.class);
 		initClass(DoPrivilegedBean.class);
 		initClass(DoPrivilegedFactory.class);
 		initClass(DoPrivilegedHandler.class);
