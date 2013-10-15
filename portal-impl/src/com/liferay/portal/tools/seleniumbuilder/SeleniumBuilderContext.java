@@ -72,10 +72,7 @@ public class SeleniumBuilderContext {
 			String content = _seleniumBuilderFileUtil.getNormalizedContent(
 				seleniumFileName);
 
-			Pattern pattern = Pattern.compile(
-				"public [a-z]* [A-Za-z0-9_]*\\(.*?\\)");
-
-			Matcher matcher = pattern.matcher(content);
+			Matcher matcher = _pattern.matcher(content);
 
 			while (matcher.find()) {
 				String methodSignature = matcher.group();
@@ -1196,6 +1193,9 @@ public class SeleniumBuilderContext {
 				1011, fileName, element, "test-suite", testSuite);
 		}
 	}
+
+	private static Pattern _pattern = Pattern.compile(
+		"public [a-z]* [A-Za-z0-9_]*\\(.*?\\)");
 
 	private Map<String, String> _actionClassNames =
 		new HashMap<String, String>();

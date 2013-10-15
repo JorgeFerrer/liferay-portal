@@ -253,10 +253,11 @@ public class PortletURLImpl
 		Portlet portlet = getPortlet();
 
 		if (portlet != null) {
-			FriendlyURLMapper mapper = portlet.getFriendlyURLMapperInstance();
+			FriendlyURLMapper friendlyURLMapper =
+				portlet.getFriendlyURLMapperInstance();
 
-			if (mapper != null) {
-				portletFriendlyURLPath = mapper.buildPath(this);
+			if (friendlyURLMapper != null) {
+				portletFriendlyURLPath = friendlyURLMapper.buildPath(this);
 
 				if (_log.isDebugEnabled()) {
 					_log.debug(
@@ -635,7 +636,10 @@ public class PortletURLImpl
 		throws PortletModeException {
 
 		if (_portletRequest != null) {
-			if (!getPortlet().hasPortletMode(
+			Portlet portlet = getPortlet();
+
+			if ((portlet != null) &&
+				!portlet.hasPortletMode(
 					_portletRequest.getResponseContentType(), portletMode)) {
 
 				throw new PortletModeException(
@@ -851,7 +855,8 @@ public class PortletURLImpl
 
 					if (_secure) {
 						_layoutFriendlyURL = HttpUtil.protocolize(
-							_layoutFriendlyURL, true);
+							_layoutFriendlyURL,
+							PropsValues.WEB_SERVER_HTTPS_PORT, true);
 					}
 				}
 			}

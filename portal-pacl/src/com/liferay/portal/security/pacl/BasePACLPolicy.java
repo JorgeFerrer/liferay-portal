@@ -116,6 +116,7 @@ public abstract class BasePACLPolicy implements PACLPolicy {
 		return _servletContextName;
 	}
 
+	@Override
 	public List<URL> getURLs() {
 		return _urls;
 	}

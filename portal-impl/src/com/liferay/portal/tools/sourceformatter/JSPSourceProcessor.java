@@ -236,6 +236,9 @@ public class JSPSourceProcessor extends BaseSourceProcessor {
 
 		List<String> fileNames = getFileNames(excludes, includes);
 
+		Pattern pattern = Pattern.compile(
+			"\\s*@\\s*include\\s*file=['\"](.*)['\"]");
+
 		for (String fileName : fileNames) {
 			File file = new File(BASEDIR + fileName);
 
@@ -244,7 +247,24 @@ public class JSPSourceProcessor extends BaseSourceProcessor {
 
 			String content = fileUtil.read(file);
 
-			_jspContents.put(fileName, content);
+			Matcher matcher = pattern.matcher(content);
+
+			String newContent = content;
+
+			while (matcher.find()) {
+				newContent = StringUtil.replaceFirst(
+					newContent, matcher.group(),
+					"@ include file=\"" + matcher.group(1) + "\"",
+					matcher.start());
+			}
+
+			if (isAutoFix() && !content.equals(newContent)) {
+				fileUtil.write(file, newContent);
+
+				sourceFormatterHelper.printError(fileName, file);
+			}
+
+			_jspContents.put(fileName, newContent);
 		}
 
 		for (String fileName : fileNames) {

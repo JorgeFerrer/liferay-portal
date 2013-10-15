@@ -123,6 +123,19 @@ public class ServletResponseUtil {
 		return ranges;
 	}
 
+	public static boolean isClientAbortException(IOException ioe) {
+		Class<?> clazz = ioe.getClass();
+
+		String className = clazz.getName();
+
+		if (className.equals(_CLIENT_ABORT_EXCEPTION)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public static void sendFile(
 			HttpServletRequest request, HttpServletResponse response,
 			String fileName, byte[] bytes)
@@ -595,19 +608,6 @@ public class ServletResponseUtil {
 			randomAccessInputStream.seek(start);
 
 			StreamUtil.transfer(randomAccessInputStream, outputStream, length);
-		}
-	}
-
-	protected static boolean isClientAbortException(IOException ioe) {
-		Class<?> clazz = ioe.getClass();
-
-		String className = clazz.getName();
-
-		if (className.equals(_CLIENT_ABORT_EXCEPTION)) {
-			return true;
-		}
-		else {
-			return false;
 		}
 	}
 

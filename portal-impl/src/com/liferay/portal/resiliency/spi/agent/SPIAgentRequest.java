@@ -15,6 +15,7 @@
 package com.liferay.portal.resiliency.spi.agent;
 
 import com.liferay.portal.kernel.io.AutoDeleteFileInputStream;
+import com.liferay.portal.kernel.resiliency.spi.SPIUtil;
 import com.liferay.portal.kernel.resiliency.spi.agent.annotation.Direction;
 import com.liferay.portal.kernel.servlet.PersistentHttpServletRequestWrapper;
 import com.liferay.portal.kernel.servlet.ServletInputStreamAdapter;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.CookieUtil;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -44,6 +46,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
@@ -56,6 +59,52 @@ import javax.servlet.http.HttpSession;
  */
 public class SPIAgentRequest extends SPIAgentSerializable {
 
+	public static void populatePortletSessionAttributes(
+		HttpServletRequest request, HttpSession session) {
+
+		if (!SPIUtil.isSPI()) {
+			return;
+		}
+
+		if (request.getAttribute(WebKeys.PORTLET_SESSION) != null) {
+			return;
+		}
+
+		SPIAgentRequest spiAgentRequest = (SPIAgentRequest)request.getAttribute(
+			WebKeys.SPI_AGENT_REQUEST);
+
+		if (spiAgentRequest == null) {
+			return;
+		}
+
+		request.setAttribute(WebKeys.PORTLET_SESSION, session);
+
+		Map<String, Serializable> originalSessionAttributes =
+			spiAgentRequest.originalSessionAttributes;
+
+		Map<String, Serializable> portletSessionAttributes =
+			(Map<String, Serializable>)originalSessionAttributes.remove(
+				WebKeys.PORTLET_SESSION_ATTRIBUTES.concat(
+					spiAgentRequest.servletContextName));
+
+		Set<String> sessionAttributeNames = SetUtil.fromEnumeration(
+			session.getAttributeNames());
+
+		if (portletSessionAttributes != null) {
+			for (Map.Entry<String, Serializable> entry :
+					portletSessionAttributes.entrySet()) {
+
+				session.setAttribute(entry.getKey(), entry.getValue());
+			}
+
+			sessionAttributeNames.removeAll(portletSessionAttributes.keySet());
+		}
+
+		for (String sessionAttributeName : sessionAttributeNames) {
+			session.removeAttribute(sessionAttributeName);
+		}
+	}
+
 	public SPIAgentRequest(HttpServletRequest request) throws IOException {
 		super(
 			((Portlet)request.getAttribute(
@@ -66,6 +115,10 @@ public class SPIAgentRequest extends SPIAgentSerializable {
 			request, Direction.REQUEST);
 		headerMap = extractRequestHeaders(request);
 		parameterMap = request.getParameterMap();
+		remoteAddr = request.getRemoteAddr();
+		remoteHost = request.getRemoteHost();
+		remotePort = request.getRemotePort();
+		remoteUser = request.getRemoteUser();
 		serverName = request.getServerName();
 		serverPort = request.getServerPort();
 
@@ -166,11 +219,11 @@ public class SPIAgentRequest extends SPIAgentSerializable {
 		return request;
 	}
 
-	public void populateSessionAttributes(HttpSession httpSession) {
+	public void populateSessionAttributes(HttpSession session) {
 		for (Map.Entry<String, Serializable> entry :
 				originalSessionAttributes.entrySet()) {
 
-			httpSession.setAttribute(entry.getKey(), entry.getValue());
+			session.setAttribute(entry.getKey(), entry.getValue());
 		}
 	}
 
@@ -237,6 +290,10 @@ public class SPIAgentRequest extends SPIAgentSerializable {
 	protected Map<String, Serializable> originalSessionAttributes;
 	protected Map<String, String[]> parameterMap;
 	protected Map<String, List<String>> regularParameterMap;
+	protected String remoteAddr;
+	protected String remoteHost;
+	protected int remotePort;
+	protected String remoteUser;
 	protected File requestBodyFile;
 	protected String serverName;
 	protected int serverPort;
@@ -333,6 +390,26 @@ public class SPIAgentRequest extends SPIAgentSerializable {
 		@Override
 		public String[] getParameterValues(String name) {
 			return parameterMap.get(name);
+		}
+
+		@Override
+		public String getRemoteAddr() {
+			return remoteAddr;
+		}
+
+		@Override
+		public String getRemoteHost() {
+			return remoteHost;
+		}
+
+		@Override
+		public int getRemotePort() {
+			return remotePort;
+		}
+
+		@Override
+		public String getRemoteUser() {
+			return remoteUser;
 		}
 
 		@Override
