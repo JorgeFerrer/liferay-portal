@@ -33,7 +33,6 @@ import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.dynamicdatamapping.NoSuchTemplateException;
 import com.liferay.portlet.dynamicdatamapping.RequiredTemplateException;
@@ -256,9 +255,10 @@ public class EditTemplateAction extends PortletAction {
 			uploadPortletRequest, "classNameId");
 		long classPK = ParamUtil.getLong(uploadPortletRequest, "classPK");
 		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
-			actionRequest, "name");
+			uploadPortletRequest, "name");
 		Map<Locale, String> descriptionMap =
-			LocalizationUtil.getLocalizationMap(actionRequest, "description");
+			LocalizationUtil.getLocalizationMap(
+				uploadPortletRequest, "description");
 		String type = ParamUtil.getString(uploadPortletRequest, "type");
 		String mode = ParamUtil.getString(uploadPortletRequest, "mode");
 		String language = ParamUtil.getString(
@@ -281,7 +281,7 @@ public class EditTemplateAction extends PortletAction {
 		File smallImageFile = uploadPortletRequest.getFile("smallImageFile");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			DDMTemplate.class.getName(), actionRequest);
+			DDMTemplate.class.getName(), uploadPortletRequest);
 
 		DDMTemplate template = null;
 
@@ -298,14 +298,10 @@ public class EditTemplateAction extends PortletAction {
 				smallImageFile, serviceContext);
 		}
 
-		String portletResource = ParamUtil.getString(
-			actionRequest, "portletResource");
+		PortletPreferences portletPreferences = getStrictPortletSetup(
+			actionRequest);
 
-		if (Validator.isNotNull(portletResource)) {
-			PortletPreferences portletPreferences =
-				PortletPreferencesFactoryUtil.getPortletSetup(
-					actionRequest, portletResource);
-
+		if (portletPreferences != null) {
 			if (type.equals(DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY)) {
 				portletPreferences.setValue(
 					"displayDDMTemplateId",

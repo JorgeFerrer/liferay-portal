@@ -475,7 +475,7 @@
 	</target>
 
 	<target name="build-test-ant-scripts">
-		<property name="build-test-ant-scripts.version" value="0" />
+		<property name="build-test-ant-scripts.version" value="4" />
 
 		<if>
 			<available file="portal-web/test-ant-scripts/version" />
@@ -542,6 +542,12 @@
 			<param name="test.ant.script.command" value="end-user-administration-acceptance" />
 			<param name="test.ant.script.database.minimal" value="true" />
 			<param name="test.ant.script.suite" value="EndUserAdministrationAcceptanceTestSuite" />
+		</antcall>
+
+		<antcall target="build-test-ant-script">
+			<param name="test.ant.script.command" value="end-user-administration-p4" />
+			<param name="test.ant.script.database.minimal" value="true" />
+			<param name="test.ant.script.suite" value="EndUserAdministrationP4TestSuite" />
 		</antcall>
 
 		<antcall target="build-test-ant-script">
@@ -614,6 +620,12 @@
 		</antcall>
 
 		<antcall target="build-test-ant-script">
+			<param name="test.ant.script.command" value="end-user-search-p5" />
+			<param name="test.ant.script.database.minimal" value="true" />
+			<param name="test.ant.script.suite" value="EndUserSearchP5TestSuite" />
+		</antcall>
+
+		<antcall target="build-test-ant-script">
 			<param name="test.ant.script.command" value="end-user-social-networking-acceptance" />
 			<param name="test.ant.script.database.minimal" value="true" />
 			<param name="test.ant.script.suite" value="EndUserSocialNetworkingAcceptanceTestSuite" />
@@ -624,7 +636,6 @@
 			<param name="test.ant.script.database.minimal" value="true" />
 			<param name="test.ant.script.plugin.themes" value="welcome-theme" />
 			<param name="test.ant.script.plugin.webs" value="resources-importer-web" />
-			<param name="test.ant.script.setup.wizard.enabled" value="true" />
 			<param name="test.ant.script.suite" value="EndUserUserinterfaceAcceptanceTestSuite" />
 		</antcall>
 
@@ -665,6 +676,13 @@
 			<param name="test.ant.script.database.minimal" value="true" />
 			<param name="test.ant.script.kaleo" value="true" />
 			<param name="test.ant.script.suite" value="EndUserWorkflowAcceptanceTestSuite" />
+		</antcall>
+
+		<antcall target="build-test-ant-script">
+			<param name="test.ant.script.command" value="end-user-workflow-acceptance" />
+			<param name="test.ant.script.database.minimal" value="true" />
+			<param name="test.ant.script.kaleo" value="true" />
+			<param name="test.ant.script.suite" value="EndUserWorkflowP5TestSuite" />
 		</antcall>
 
 		<antcall target="build-test-ant-script">

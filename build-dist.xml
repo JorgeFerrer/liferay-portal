@@ -813,6 +813,8 @@ release was successful.</echo>
 		<antcall target="clean" />
 		<antcall target="start" />
 
+		<record name="prepare-generated-files.txt" action="start" />
+
 		<ant dir="portal-impl" target="build-iw" inheritAll="false" />
 		<ant dir="portal-impl" target="build-lib-versions" inheritAll="false" />
 		<ant dir="portal-impl" target="build-services" inheritAll="false" />
@@ -876,6 +878,19 @@ release was successful.</echo>
 		<script classpathref="project.classpath" language="beanshell">
 			project.setProperty("prepare-generated-files.tstamp", String.valueOf(System.currentTimeMillis()));
 		</script>
+
+		<record name="prepare-generated-files.txt" action="stop" />
+
+		<if>
+			<resourcecontains resource="prepare-generated-files.txt" substring="java.lang.RuntimeException" />
+			<then>
+				<delete file="prepare-generated-files.txt" />
+
+				<fail>Aborting due to Java exception.</fail>
+			</then>
+		</if>
+
+		<delete file="prepare-generated-files.txt" />
 
 		<echo file="prepare-generated-files.tstamp">${prepare-generated-files.tstamp}</echo>
 	</target>
@@ -988,20 +1003,39 @@ release was successful.</echo>
 			</then>
 		</if>
 
-		<replace file="${app.server.glassfish.instance.dir}/config/domain.xml">
-			<replacetoken><![CDATA[<jvm-options>-Xmx512m</jvm-options>]]></replacetoken>
-			<replacevalue>
-				<![CDATA[
-					<jvm-options>-Dfile.encoding=UTF8</jvm-options>
-					<jvm-options>-Djava.net.preferIPv4Stack=true</jvm-options>
-					<jvm-options>@java.security.manager.option@</jvm-options>
-					<jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
-					<jvm-options>-Duser.timezone=GMT</jvm-options>
-					<jvm-options>-Xmx1024m</jvm-options>
-				]]>
-			</replacevalue>
-			<replacefilter token="@java.security.manager.option@" value="${java.security.manager.option}" />
-		</replace>
+		<if>
+			<equals arg1="${java.security.manager.option}" arg2="" />
+			<then>
+				<replace file="${app.server.glassfish.instance.dir}/config/domain.xml">
+					<replacetoken><![CDATA[<jvm-options>-Xmx512m</jvm-options>]]></replacetoken>
+					<replacevalue>
+						<![CDATA[
+							<jvm-options>-Dfile.encoding=UTF8</jvm-options>
+							<jvm-options>-Djava.net.preferIPv4Stack=true</jvm-options>
+							<jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
+							<jvm-options>-Duser.timezone=GMT</jvm-options>
+							<jvm-options>-Xmx1024m</jvm-options>
+						]]>
+					</replacevalue>
+				</replace>
+			</then>
+			<else>
+				<replace file="${app.server.glassfish.instance.dir}/config/domain.xml">
+					<replacetoken><![CDATA[<jvm-options>-Xmx512m</jvm-options>]]></replacetoken>
+					<replacevalue>
+						<![CDATA[
+							<jvm-options>-Dfile.encoding=UTF8</jvm-options>
+							<jvm-options>-Djava.net.preferIPv4Stack=true</jvm-options>
+							<jvm-options>@java.security.manager.option@</jvm-options>
+							<jvm-options>-Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false</jvm-options>
+							<jvm-options>-Duser.timezone=GMT</jvm-options>
+							<jvm-options>-Xmx1024m</jvm-options>
+						]]>
+					</replacevalue>
+					<replacefilter token="@java.security.manager.option@" value="${java.security.manager.option}" />
+				</replace>
+			</else>
+		</if>
 
 		<replace file="${app.server.glassfish.instance.dir}/config/domain.xml">
 			<replacetoken><![CDATA[<jvm-options>-XX:MaxPermSize=192m</jvm-options>]]></replacetoken>

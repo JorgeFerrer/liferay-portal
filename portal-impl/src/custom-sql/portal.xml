@@ -643,19 +643,6 @@
 				))
 		]]>
 	</sql>
-	<sql id="com.liferay.portal.service.persistence.OrganizationFinder.findByCompanyId">
-		<![CDATA[
-			SELECT
-				DISTINCT Organization_.organizationId AS orgId, Organization_.name AS orgName
-			FROM
-				Organization_
-			[$JOIN$]
-			WHERE
-				[$WHERE$]
-				(Organization_.companyId = ?) AND
-				(Organization_.parentOrganizationId != -1)
-		]]>
-	</sql>
 	<sql id="com.liferay.portal.service.persistence.OrganizationFinder.findByGroupId">
 		<![CDATA[
 			SELECT
