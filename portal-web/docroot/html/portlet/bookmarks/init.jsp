@@ -48,8 +48,14 @@ if (rootFolderId != BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 		BookmarksFolder rootFolder = BookmarksFolderServiceUtil.getFolder(rootFolderId);
 
 		rootFolderName = rootFolder.getName();
+
+		if (rootFolder.getGroupId() != scopeGroupId) {
+			rootFolderId = BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID;
+			rootFolderName = StringPool.BLANK;
+		}
 	}
 	catch (NoSuchFolderException nsfe) {
+		rootFolderId = BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 	}
 }
 
