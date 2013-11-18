@@ -347,7 +347,7 @@ public class PortletPreferencesFactoryImpl
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long scopeGroupId = themeDisplay.getSiteGroupId();
+		long siteGroupId = themeDisplay.getSiteGroupId();
 		long userId = PortalUtil.getUserId(request);
 		LayoutTypePortlet layoutTypePortlet =
 			themeDisplay.getLayoutTypePortlet();
@@ -364,7 +364,7 @@ public class PortletPreferencesFactoryImpl
 		}
 
 		return getPortletPreferencesIds(
-			scopeGroupId, userId, layout, portletId, modeEditGuest);
+			siteGroupId, userId, layout, portletId, modeEditGuest);
 	}
 
 	@Override
@@ -379,7 +379,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferencesIds getPortletPreferencesIds(
-			long scopeGroupId, long userId, Layout layout, String portletId,
+			long siteGroupId, long userId, Layout layout, String portletId,
 			boolean modeEditGuest)
 		throws PortalException, SystemException {
 
@@ -445,7 +445,7 @@ public class PortletPreferencesFactoryImpl
 				plid = PortletKeys.PREFS_PLID_SHARED;
 
 				if (portlet.isPreferencesOwnedByGroup()) {
-					ownerId = scopeGroupId;
+					ownerId = siteGroupId;
 					ownerType = PortletKeys.PREFS_OWNER_TYPE_GROUP;
 					portletId = PortletConstants.getRootPortletId(portletId);
 				}
@@ -509,12 +509,12 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			long scopeGroupId, Layout layout, String portletId,
+			long siteGroupId, Layout layout, String portletId,
 			String defaultPreferences)
 		throws SystemException {
 
 		return getPortletSetup(
-			scopeGroupId, layout, portletId, defaultPreferences, false);
+			siteGroupId, layout, portletId, defaultPreferences, false);
 	}
 
 	@Override
@@ -641,7 +641,7 @@ public class PortletPreferencesFactoryImpl
 	}
 
 	protected PortletPreferences getPortletSetup(
-			long scopeGroupId, Layout layout, String portletId,
+			long siteGroupId, Layout layout, String portletId,
 			String defaultPreferences, boolean strictMode)
 		throws SystemException {
 
@@ -676,7 +676,7 @@ public class PortletPreferencesFactoryImpl
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
 		long plid = layout.getPlid();
 
-		Group group = GroupLocalServiceUtil.fetchGroup(scopeGroupId);
+		Group group = GroupLocalServiceUtil.fetchGroup(siteGroupId);
 
 		if ((group != null) && group.isLayout()) {
 			plid = group.getClassPK();
@@ -690,8 +690,8 @@ public class PortletPreferencesFactoryImpl
 			plid = PortletKeys.PREFS_PLID_SHARED;
 
 			if (uniquePerGroup) {
-				if (scopeGroupId > LayoutConstants.DEFAULT_PLID) {
-					ownerId = scopeGroupId;
+				if (siteGroupId > LayoutConstants.DEFAULT_PLID) {
+					ownerId = siteGroupId;
 				}
 				else {
 					ownerId = layout.getGroupId();
