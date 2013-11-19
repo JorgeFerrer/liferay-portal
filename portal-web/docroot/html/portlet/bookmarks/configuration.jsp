@@ -51,7 +51,7 @@ String emailSubject = PrefsParamUtil.getString(portletPreferences, request, emai
 String emailBody = PrefsParamUtil.getString(portletPreferences, request, emailBodyParam, defaultEmailBody);
 
 try {
-	BookmarksFolder rootFolder = BookmarksFolderServiceUtil.getFolder(rootFolderId);
+	BookmarksFolder rootFolder = BookmarksFolderLocalServiceUtil.getFolder(rootFolderId);
 
 	rootFolderName = rootFolder.getName();
 
