@@ -1692,13 +1692,28 @@ public class LayoutTypePortletImpl
 			return false;
 		}
 
-		if((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
-				portletId) > 0) ||
-			 (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
-				portletId) > 0)){
-			return true;
+		List<Portlet> portlets = new ArrayList<Portlet>();
+
+		List<String> columns = getColumns();
+
+		for (int i = 0; i < columns.size(); i++) {
+			String columnId = columns.get(i);
+
+			portlets.addAll(getAllPortlets(columnId));
+		}
+
+		List<Portlet> staticPortlets = getStaticPortlets(
+			PropsKeys.LAYOUT_STATIC_PORTLETS_ALL);
+
+		for(Portlet embeddedPortlet: getEmbeddedPortlets(
+				portlets, staticPortlets)){
+			String embeddedPortletId = embeddedPortlet.getPortletId();
+
+			if(embeddedPortletId.equals(portletId) ||
+				PortletConstants.getRootPortletId(
+					embeddedPortletId).equals(portletId)){
+				return true;
+			}
 		}
 
 		return false;
