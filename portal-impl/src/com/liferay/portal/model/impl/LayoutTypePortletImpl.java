@@ -262,15 +262,7 @@ public class LayoutTypePortletImpl
 	public List<Portlet> getAllPortlets()
 		throws PortalException, SystemException {
 
-		List<Portlet> portlets = new ArrayList<Portlet>();
-
-		List<String> columns = getColumns();
-
-		for (int i = 0; i < columns.size(); i++) {
-			String columnId = columns.get(i);
-
-			portlets.addAll(getAllPortlets(columnId));
-		}
+		List<Portlet> portlets = getPortlets();
 
 		List<Portlet> staticPortlets = getStaticPortlets(
 			PropsKeys.LAYOUT_STATIC_PORTLETS_ALL);
@@ -585,9 +577,7 @@ public class LayoutTypePortletImpl
 			}
 		}
 
-		if (!strict &&
-			hasEmbeddedPortletId(portletId)) {
-
+		if (!strict && hasEmbeddedPortletId(portletId)) {
 			return true;
 		}
 
@@ -1692,15 +1682,7 @@ public class LayoutTypePortletImpl
 			return false;
 		}
 
-		List<Portlet> portlets = new ArrayList<Portlet>();
-
-		List<String> columns = getColumns();
-
-		for (int i = 0; i < columns.size(); i++) {
-			String columnId = columns.get(i);
-
-			portlets.addAll(getAllPortlets(columnId));
-		}
+		List<Portlet> portlets = getPortlets();
 
 		List<Portlet> staticPortlets = getStaticPortlets(
 			PropsKeys.LAYOUT_STATIC_PORTLETS_ALL);
