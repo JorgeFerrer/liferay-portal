@@ -585,19 +585,8 @@ public class LayoutTypePortletImpl
 			}
 		}
 
-		Layout layout = getLayout();
-
-		if (layout.isTypeControlPanel()) {
-			return false;
-		}
-
 		if (!strict &&
-			((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
-				portletId) > 0) ||
-			 (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
-				portletId) > 0))) {
+			hasEmbeddedPortletId(portletId)) {
 
 			return true;
 		}
@@ -1693,6 +1682,26 @@ public class LayoutTypePortletImpl
 		setUserPreference(key, value);
 
 		return value;
+	}
+
+	protected boolean hasEmbeddedPortletId(String portletId)
+			throws PortalException, SystemException {
+		Layout layout = getLayout();
+
+		if (layout.isTypeControlPanel()) {
+			return false;
+		}
+
+		if((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
+				portletId) > 0) ||
+			 (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
+				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
+				portletId) > 0)){
+			return true;
+		}
+
+		return false;
 	}
 
 	protected boolean hasNonstaticPortletId(String portletId) {
