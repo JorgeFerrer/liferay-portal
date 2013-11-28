@@ -1422,8 +1422,8 @@ public class LayoutTypePortletImpl
 	}
 
 	protected List<Portlet> getEmbeddedPortlets(
-			List<Portlet> columnPortlets, List<Portlet> staticPortlets)
-		throws SystemException {
+		List<Portlet> columnPortlets, List<Portlet> staticPortlets)
+				throws SystemException {
 
 		if (_embeddedPortlets != null) {
 			return _embeddedPortlets;
@@ -1453,22 +1453,7 @@ public class LayoutTypePortletImpl
 			Portlet portlet = PortletLocalServiceUtil.getPortletById(
 				getCompanyId(), portletId);
 
-			if (Validator.isNull(portletId) ||
-				columnPortlets.contains(portlet) ||
-				staticPortlets.contains(portlet) || !portlet.isReady() ||
-				portlet.isUndeployedPortlet() || !portlet.isActive()) {
-
-				continue;
-			}
-
-			if(isCustomizable() &&
-			   isCustomizedView() &&
-			   hasDefaultViewPortletId(portletId)){
-
-				continue;
-			}
-
-			if (portlet != null) {
+			if (isEmbeddedPortlet(portlet, columnPortlets, staticPortlets)) {
 				Portlet embeddedPortlet = portlet;
 
 				if (portlet.isInstanceable()) {
@@ -1793,6 +1778,28 @@ public class LayoutTypePortletImpl
 		}
 
 		return false;
+	}
+
+	protected boolean isEmbeddedPortlet(Portlet portlet,
+		List<Portlet> columnPortlets, List<Portlet> staticPortlets) {
+
+		if (portlet != null) {
+			if (columnPortlets.contains(portlet) ||
+				staticPortlets.contains(portlet) || !portlet.isReady() ||
+				portlet.isUndeployedPortlet() || !portlet.isActive()) {
+
+				return false;
+			}
+
+			if (isCustomizable() &&
+			   isCustomizedView() &&
+			   hasDefaultViewPortletId(portlet.getPortletId())){
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	protected boolean isLayoutSetPrototype() {
