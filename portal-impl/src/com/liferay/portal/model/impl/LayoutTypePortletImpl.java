@@ -1405,6 +1405,22 @@ public class LayoutTypePortletImpl
 		return layout.getCompanyId();
 	}
 
+	protected boolean hasDefaultViewPortletId(String portletId) {
+		for (String columnId: getColumns()) {
+			String columnValue = getTypeSettingsProperty(columnId);
+
+			for(String defaultViewPortletId: StringUtil.split(columnValue)) {
+				if(defaultViewPortletId.equals(portletId) ||
+					PortletConstants.getRootPortletId(
+							defaultViewPortletId).equals(portletId)) {
+
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	protected List<Portlet> getEmbeddedPortlets(
 			List<Portlet> columnPortlets, List<Portlet> staticPortlets)
 		throws SystemException {
@@ -1441,6 +1457,13 @@ public class LayoutTypePortletImpl
 				columnPortlets.contains(portlet) ||
 				staticPortlets.contains(portlet) || !portlet.isReady() ||
 				portlet.isUndeployedPortlet() || !portlet.isActive()) {
+
+				continue;
+			}
+
+			if(isCustomizable() &&
+			   isCustomizedView() &&
+			   hasDefaultViewPortletId(portletId)){
 
 				continue;
 			}
