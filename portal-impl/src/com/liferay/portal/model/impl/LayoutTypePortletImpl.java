@@ -1406,11 +1406,11 @@ public class LayoutTypePortletImpl
 	}
 
 	protected boolean hasDefaultViewPortletId(String portletId) {
-		for (String columnId: getColumns()) {
+		for (String columnId : getColumns()) {
 			String columnValue = getTypeSettingsProperty(columnId);
 
-			for(String defaultViewPortletId: StringUtil.split(columnValue)) {
-				if(defaultViewPortletId.equals(portletId) ||
+			for (String defaultViewPortletId : StringUtil.split(columnValue)) {
+				if (defaultViewPortletId.equals(portletId) ||
 					PortletConstants.getRootPortletId(
 							defaultViewPortletId).equals(portletId)) {
 
@@ -1418,6 +1418,7 @@ public class LayoutTypePortletImpl
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -1695,13 +1696,13 @@ public class LayoutTypePortletImpl
 		List<Portlet> staticPortlets = getStaticPortlets(
 			PropsKeys.LAYOUT_STATIC_PORTLETS_ALL);
 
-		for(Portlet embeddedPortlet: getEmbeddedPortlets(
-				portlets, staticPortlets)){
+		for (Portlet embeddedPortlet : getEmbeddedPortlets(
+				portlets, staticPortlets)) {
 			String embeddedPortletId = embeddedPortlet.getPortletId();
 
-			if(embeddedPortletId.equals(portletId) ||
+			if (embeddedPortletId.equals(portletId) ||
 				PortletConstants.getRootPortletId(
-					embeddedPortletId).equals(portletId)){
+					embeddedPortletId).equals(portletId)) {
 				return true;
 			}
 		}
@@ -1792,8 +1793,8 @@ public class LayoutTypePortletImpl
 			}
 
 			if (isCustomizable() &&
-			   isCustomizedView() &&
-			   hasDefaultViewPortletId(portlet.getPortletId())){
+				isCustomizedView() &&
+				hasDefaultViewPortletId(portlet.getPortletId())) {
 
 				return false;
 			}
