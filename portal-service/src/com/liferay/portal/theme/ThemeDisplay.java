@@ -212,6 +212,10 @@ public class ThemeDisplay
 		return _layout;
 	}
 
+	public long getLayoutGroupId() {
+		return _layout.getGroupId();
+	}
+
 	public List<Layout> getLayouts() {
 		return _layouts;
 	}
