@@ -155,11 +155,11 @@ if (organization != null) {
 						<c:if test="<%= teamsCount > 0 %>">
 							<div class="lfr-asset-metadata">
 								<div class="lfr-asset-icon lfr-asset-teams">
-									<portlet:renderURL var="manageTeamsURL">
-										<portlet:param name="struts_action" value="/users_admin/view_teams" />
-										<portlet:param name="redirect" value="<%= currentURL %>" />
-										<portlet:param name="groupId" value="<%= String.valueOf(organizationGroupId) %>" />
-									</portlet:renderURL>
+									<liferay-portlet:renderURL doAsGroupId="<%= organizationGroupId %>" portletName="<%= PortletKeys.SITE_TEAMS_ADMIN %>" var="manageTeamsURL">
+										<liferay-portlet:param name="struts_action" value="/sites_admin/view_teams" />
+										<liferay-portlet:param name="redirect" value="<%= currentURL %>" />
+										<liferay-portlet:param name="groupId" value="<%= String.valueOf(organizationGroupId) %>" />
+									</liferay-portlet:renderURL>
 
 									<aui:a href="<%= manageTeamsURL %>"> <%= teamsCount %> <liferay-ui:message key='<%= (teamsCount == 1) ? "team" : "teams" %>' /></aui:a>
 								</div>
