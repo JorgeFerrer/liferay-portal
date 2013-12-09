@@ -126,7 +126,6 @@ import com.liferay.portal.service.domain.DateParams;
 import com.liferay.portal.service.domain.Memberships;
 import com.liferay.portal.service.domain.Name;
 import com.liferay.portal.service.domain.PasswordOptions;
-import com.liferay.portal.service.domain.SocialSns;
 import com.liferay.portal.service.domain.UserDetails;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
@@ -4974,8 +4973,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public User updateUser(
 			long userId, UserDetails userDetails, boolean portrait,
 			byte[] portraitBytes, PasswordOptions passwordOptions,
-			Memberships memberships, SocialSns socialSns,
-			ServiceContext serviceContext)
+			Memberships memberships, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// User
@@ -5001,11 +4999,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				user.getCompanyId(), userId);
 		}
 
-		Name name = userDetails.getName();
+		validate(userId, userDetails, emailAddress);
 
-		validate(
-			userId, userDetails.getScreenName(), emailAddress,
-			userDetails.getOpenId(), name, socialSns);
+		Name name = userDetails.getName();
 
 		String password = passwordOptions.getPassword();
 
@@ -5123,7 +5119,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		contact.setMale(userDetails.isMale());
 		contact.setBirthday(birthday);
 
-		socialSns.populate(contact);
+		contact.setAimSn(userDetails.getAimSn());
+		contact.setFacebookSn(userDetails.getFacebookSn());
+		contact.setIcqSn(userDetails.getIcqSn());
+		contact.setJabberSn(userDetails.getJabberSn());
+		contact.setMsnSn(userDetails.getMsnSn());
+		contact.setMySpaceSn(userDetails.getMySpaceSn());
+		contact.setSkypeSn(userDetails.getSkypeSn());
+		contact.setSmsSn(userDetails.getSmsSn());
+		contact.setTwitterSn(userDetails.getTwitterSn());
+		contact.setYmSn(userDetails.getYmSn());
 
 		contact.setJobTitle(userDetails.getJobTitle());
 
@@ -5402,24 +5407,33 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			roles(roleIds). sites(groupIds). userGroups(userGroupIds). build();
 
 		UserDetails userDetails = new UserDetails.Builder().
+			aimSn(aimSn).
 			birthday(birthdayYear, birthdayMonth, birthdayDay).
 			comments(comments).
 			emailAddress(emailAddress).
 			facebookId(facebookId).
+			facebookSn(facebookSn).
 			greeting(greeting).
+			icqSn(icqSn).
+			jabberSn(jabberSn).
 			jobTitle(jobTitle).
 			language(languageId).
 			male(male).
+			msnSn(msnSn).
+			mySpaceSn(mySpaceSn).
 			name(firstName, middleName, lastName, prefixId, suffixId).
 			openId(openId).
-			screenName(screenName). timeZoneId(timeZoneId). build();
-		SocialSns socialSns = new SocialSns(
-			aimSn, facebookSn, icqSn, jabberSn, msnSn, mySpaceSn, skypeSn,
-			smsSn, twitterSn, ymSn);
+			screenName(screenName).
+			skypeSn(skypeSn).
+			smsSn(smsSn).
+			timeZoneId(timeZoneId).
+			twitterSn(twitterSn).
+			ymSn(ymSn).
+			build();
 
 		return updateUser(
 			userId, userDetails, portrait, portraitBytes, passwordOptions,
-			memberships, socialSns, serviceContext);
+			memberships, serviceContext);
 	}
 
 	/**
@@ -6232,11 +6246,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long userId, String screenName, String emailAddress, String openId,
-			Name name, SocialSns socialSns)
+			long userId, UserDetails userDetails, String emailAddress)
 		throws PortalException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
+
+		String screenName = userDetails.getScreenName();
 
 		if (!StringUtil.equalsIgnoreCase(user.getScreenName(), screenName)) {
 			validateScreenName(user.getCompanyId(), userId, screenName);
@@ -6244,7 +6259,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		validateEmailAddress(user.getCompanyId(), emailAddress);
 
-		validateOpenId(user.getCompanyId(), userId, openId);
+		validateOpenId(user.getCompanyId(), userId, userDetails.getOpenId());
 
 		if (!user.isDefaultUser()) {
 			if (Validator.isNotNull(emailAddress) &&
@@ -6258,10 +6273,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				}
 			}
 
-			validateFullName(user.getCompanyId(), name);
+			validateFullName(user.getCompanyId(), userDetails.getName());
 		}
 
-		String smsSn = socialSns.getSmsSn();
+		String smsSn = userDetails.getSmsSn();
 
 		if (Validator.isNotNull(smsSn) && !Validator.isEmailAddress(smsSn)) {
 			throw new UserSmsException();

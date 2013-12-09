@@ -2,6 +2,7 @@ package com.liferay.portal.service.domain;
 
 import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.Locale;
 
@@ -9,6 +10,12 @@ import java.util.Locale;
 public final class UserDetails {
 
 	public static class Builder {
+
+		public Builder aimSn(String aimSn) {
+			_aimSn = aimSn;
+
+			return this;
+		}
 
 		public Builder birthday(int year, int month, int day) {
 			_birthdayParams = new DateParams(year, month, day);
@@ -38,6 +45,12 @@ public final class UserDetails {
 			return this;
 		}
 
+		public Builder facebookSn(String facebookSn) {
+			_facebookSn = facebookSn;
+
+			return this;
+		}
+
 		public Builder female() {
 			_male = false;
 
@@ -46,6 +59,17 @@ public final class UserDetails {
 
 		public Builder greeting(String greeting) {
 			_greeting = greeting;
+
+			return this;
+		}
+
+		public Builder icqSn(String icqSn) {
+			_icqSn = icqSn;
+
+			return this;
+		}
+		public Builder jabberSn(String jabberSn) {
+			_jabberSn = jabberSn;
 
 			return this;
 		}
@@ -70,6 +94,18 @@ public final class UserDetails {
 
 		public Builder male(boolean male) {
 			_male = male;
+
+			return this;
+		}
+
+		public Builder msnSn(String msnSn) {
+			_msnSn = msnSn;
+
+			return this;
+		}
+
+		public Builder mySpaceSn(String mySpaceSn) {
+			_mySpaceSn = mySpaceSn;
 
 			return this;
 		}
@@ -110,25 +146,63 @@ public final class UserDetails {
 			return this;
 		}
 
+		public Builder skypeSn(String skypeSn) {
+			_skypeSn = skypeSn;
+
+			return this;
+		}
+
+		public Builder smsSn(String smsSn) {
+			_smsSn = smsSn;
+
+			return this;
+		}
+
 		public Builder timeZoneId(String timeZoneId) {
 			_timeZoneId = timeZoneId;
 
 			return this;
 		}
 
+		public Builder twitterSn(String twitterSn) {
+			_twitterSn = twitterSn;
+
+			return this;
+		}
+
+		public Builder ymSn(String ymSn) {
+			_ymSn = ymSn;
+
+			return this;
+		}
+
+		private String _aimSn;
 		private DateParams _birthdayParams;
 		private String _comments;
 		private String _emailAddress;
 		private long _facebookId;
+		private String _facebookSn;
 		private String _greeting;
+		private String _icqSn;
+		private String _jabberSn;
 		private String _jobTitle;
 		private String _languageId;
 		private boolean _male;
+		private String _msnSn;
+		private String _mySpaceSn;
 		private Name _name;
 		private String _openId;
 		private String _screenName;
+		private String _smsSn;
 		private String _timeZoneId;
+		private String _twitterSn;
+		private String _skypeSn;
+		private String _ymSn;
 
+	}
+
+	public String getAimSn() {
+		return _aimSn;
 	}
 
 	public DateParams getBirthdayParams() {
@@ -147,8 +221,20 @@ public final class UserDetails {
 		return _facebookId;
 	}
 
+	public String getFacebookSn() {
+		return _facebookSn;
+	}
+
 	public String getGreeting() {
 		return _greeting;
+	}
+
+	public String getIcqSn() {
+		return _icqSn;
+	}
+
+	public String getJabberSn() {
+		return _jabberSn;
 	}
 
 	public String getJobTitle() {
@@ -163,6 +249,14 @@ public final class UserDetails {
 		return LocaleUtil.fromLanguageId(_languageId);
 	}
 
+	public String getMsnSn() {
+		return _msnSn;
+	}
+
+	public String getMySpaceSn() {
+		return _mySpaceSn;
+	}
+
 	public Name getName() {
 		return _name;
 	}
@@ -175,40 +269,79 @@ public final class UserDetails {
 		return _screenName;
 	}
 
+	public String getSkypeSn() {
+		return _skypeSn;
+	}
+
+	public String getSmsSn() {
+		return _smsSn;
+	}
+
 	public String getTimeZoneId() {
 		return _timeZoneId;
 	}
 
+	public String getTwitterSn() {
+		return _twitterSn;
+	}
+
+	public String getYmSn() {
+		return _ymSn;
+	}
 	public boolean isMale() {
 		return _male;
 	}
 
 	private UserDetails(Builder builder) {
+		_aimSn = _lower(builder._aimSn);
 		_birthdayParams = builder._birthdayParams;
 		_comments = builder._comments;
 		_emailAddress = builder._emailAddress;
 		_facebookId = builder._facebookId;
+		_facebookSn = _lower(builder._facebookSn);
+		_icqSn = _lower(builder._icqSn);
 		_greeting = builder._greeting;
+		_jabberSn = _lower(builder._jabberSn);
 		_jobTitle = builder._jobTitle;
 		_languageId = builder._languageId;
 		_male = builder._male;
+		_msnSn = _lower(builder._msnSn);
+		_mySpaceSn = _lower(builder._mySpaceSn);
 		_name = builder._name;
 		_openId = builder._openId;
 		_screenName = builder._screenName;
+		_skypeSn = _lower(builder._skypeSn);
+		_smsSn = _lower(builder._smsSn);
 		_timeZoneId = builder._timeZoneId;
+		_twitterSn = _lower(builder._twitterSn);
+		_ymSn = _lower(builder._ymSn);
 	}
 
+	private String _lower(String value) {
+		return StringUtil.toLowerCase(value.trim());
+	}
+
+	private final String _aimSn;
 	private final DateParams _birthdayParams;
 	private final String _comments;
-	private String _emailAddress;
+	private final String _emailAddress;
 	private final long _facebookId;
+	private final String _facebookSn;
 	private final String _greeting;
+	private final String _icqSn;
+	private final String _jabberSn;
 	private final String _jobTitle;
-	private String _languageId;
+	private final String _languageId;
 	private final boolean _male;
+	private final String _msnSn;
+	private final String _mySpaceSn;
 	private final Name _name;
-	private String _openId;
-	private String _screenName;
+	private final String _openId;
+	private final String _screenName;
+	private final String _smsSn;
 	private final String _timeZoneId;
+	private final String _twitterSn;
+	private final String _skypeSn;
+	private final String _ymSn;
 
 }
