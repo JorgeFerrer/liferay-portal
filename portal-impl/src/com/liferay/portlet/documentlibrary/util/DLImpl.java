@@ -1129,18 +1129,7 @@ public class DLImpl implements DL {
 
 	@Override
 	public boolean isOfficeExtension(String extension) {
-		if (StringUtil.equalsIgnoreCase(extension, "doc") ||
-			StringUtil.equalsIgnoreCase(extension, "docx") ||
-			StringUtil.equalsIgnoreCase(extension, "dot") ||
-			StringUtil.equalsIgnoreCase(extension, "ppt") ||
-			StringUtil.equalsIgnoreCase(extension, "pptx") ||
-			StringUtil.equalsIgnoreCase(extension, "xls") ||
-			StringUtil.equalsIgnoreCase(extension, "xlsx")) {
-
-			return true;
-		}
-
-		return false;
+		return ArrayUtil.contains(_MICROSOFT_OFFICE_EXTENSIONS, extension);
 	}
 
 	@Override
@@ -1266,6 +1255,20 @@ public class DLImpl implements DL {
 	private static final String _DEFAULT_GENERIC_NAME = "default";
 
 	private static final long _DIVISOR = 256;
+
+	private static final String[] _MICROSOFT_OFFICE_EXTENSIONS = {
+		"accda", "accdb", "accdc", "accde", "accdp", "accdr", "accdt", "accdu",
+		"acl", "ade", "adp", "asd", "cnv", "crtx", "doc", "docm", "docx", "dot",
+		"dotm", "dotx", "grv", "iaf", "laccdb", "maf", "mam", "maq", "mar",
+		"mat", "mda", "mdb", "mde", "mdt", "mdw", "mpd", "mpp", "mpt", "oab",
+		"obi", "oft", "olm", "one", "onepkg", "ops", "ost", "pa", "pip", "pot",
+		"potm", "potx", "ppa", "ppam", "pps", "ppsm", "ppsx", "ppt", "pptm",
+		"pptx", "prf", "pst", "pub", "puz", "rpmsg", "sldm", "sldx", "slk",
+		"snp", "svd", "thmx", "vdx", "vrge08message", "vsd", "vss", "vst",
+		"vsx", "vtx", "wbk", "wll", "xar", "xl", "xla", "xlam", "xlb", "xlc",
+		"xll", "xlm", "xls", "xlsb", "xlsm", "xlsx", "xlt", "xltm", "xltx",
+		"xlw", "xsf", "xsn"
+	};
 
 	private static final String _STRUCTURE_KEY_PREFIX = "AUTO_";
 

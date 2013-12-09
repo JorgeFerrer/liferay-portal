@@ -929,8 +929,14 @@ public class JournalArticleLocalServiceImpl
 
 		// Images
 
+		String articleId = article.getArticleId();
+
+		if (article.isInTrash()) {
+			articleId = TrashUtil.getOriginalTitle(article.getArticleId());
+		}
+
 		journalArticleImageLocalService.deleteImages(
-			article.getGroupId(), article.getArticleId(), article.getVersion());
+			article.getGroupId(), articleId, article.getVersion());
 
 		// Expando
 
@@ -943,8 +949,7 @@ public class JournalArticleLocalServiceImpl
 
 			if (trashEntry != null) {
 				trashVersionLocalService.deleteTrashVersion(
-					trashEntry.getEntryId(), JournalArticle.class.getName(),
-					article.getId());
+					JournalArticle.class.getName(), article.getId());
 			}
 		}
 

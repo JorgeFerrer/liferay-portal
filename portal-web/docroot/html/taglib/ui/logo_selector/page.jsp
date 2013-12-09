@@ -19,45 +19,63 @@
 <%
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_ui_logo_selector") + StringPool.UNDERLINE;
 
+String currentLogoURL = (String)request.getAttribute("liferay-ui:logo-selector:currentLogoURL");
+boolean defaultLogo = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:logo-selector:defaultLogo"));
 String defaultLogoURL = (String)request.getAttribute("liferay-ui:logo-selector:defaultLogoURL");
 String editLogoFn = (String)request.getAttribute("liferay-ui:logo-selector:editLogoFn");
-String editLogoURL = (String)request.getAttribute("liferay-ui:logo-selector:editLogoURL");
-long imageId = GetterUtil.getLong((String)request.getAttribute("liferay-ui:logo-selector:imageId"));
 String logoDisplaySelector = (String)request.getAttribute("liferay-ui:logo-selector:logoDisplaySelector");
-User portraitUser = (User)request.getAttribute("liferay-ui:logo-selector:portraitUser");
+long maxFileSize = GetterUtil.getLong((String)request.getAttribute("liferay-ui:logo-selector:maxFileSize"));
 boolean showBackground = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:logo-selector:showBackground"));
+String tempImageFileName = (String)request.getAttribute("liferay-ui:logo-selector:tempImageFileName");
 
 boolean deleteLogo = ParamUtil.getBoolean(request, "deleteLogo");
+long fileEntryId = ParamUtil.getLong(request, "fileEntryId");
 
-String imageSrc = null;
+String imageURL = null;
 
-if (deleteLogo || ((imageId == 0) && (portraitUser == null))) {
-	imageSrc = defaultLogoURL;
+if (deleteLogo) {
+	imageURL = defaultLogoURL;
 }
-else if (portraitUser != null) {
-	imageSrc = UserConstants.getPortraitURL(themeDisplay.getPathImage(), true, portraitUser.getPortraitId(), portraitUser.getUserUuid());
+else if (fileEntryId > 0) {
+	ResourceURL previewURL = PortletURLFactoryUtil.create(portletRequest, PortletKeys.IMAGE_UPLOADER, plid, PortletRequest.RESOURCE_PHASE);
+
+	previewURL.setParameter("struts_action", "/image_uploader/view");
+	previewURL.setParameter(Constants.CMD, Constants.GET_TEMP);
+	previewURL.setParameter("tempImageFileName", tempImageFileName);
+
+	imageURL = previewURL.toString();
 }
 else {
-	imageSrc = themeDisplay.getPathImage() + "/logo?img_id=" + imageId + "&t" + WebServerServletTokenUtil.getToken(imageId);
+	imageURL = currentLogoURL;
 }
 %>
 
 <div class="taglib-logo-selector" id="<%= randomNamespace %>taglibLogoSelector">
 	<div class="taglib-logo-selector-content" id="<%= randomNamespace %>taglibLogoSelectorContent">
 		<a class='lfr-change-logo <%= showBackground ? "show-background" : StringPool.BLANK %>' href="javascript:;">
-			<img alt="<liferay-ui:message key="change-logo" />" class="img-polaroid avatar" id="<%= randomNamespace %>avatar" src="<%= imageSrc %>" />
+			<img alt="<liferay-ui:message key="current-image" />" class="img-polaroid avatar" id="<%= randomNamespace %>avatar" src="<%= HtmlUtil.escape(imageURL) %>" />
 		</a>
 
 		<div class="portrait-icons">
 			<div class="btn-group">
-				<aui:button cssClass="btn edit-logo" icon="icon-picture" value="change" />
-				<aui:button cssClass="btn delete-logo" disabled="<%= (imageId == 0) %>" icon="icon-remove" value="delete" />
+				<aui:button cssClass="btn edit-logo modify-link" icon="icon-picture" value="change" />
+				<aui:button cssClass="btn delete-logo modify-link" disabled="<%= defaultLogo && (fileEntryId == 0) %>" icon="icon-remove" value="delete" />
 			</div>
 
 			<aui:input name="deleteLogo" type="hidden" value="<%= deleteLogo %>" />
+
+			<aui:input name="fileEntryId" type="hidden" value="<%= fileEntryId %>" />
 		</div>
 	</div>
 </div>
+
+<liferay-portlet:renderURL portletName="<%= PortletKeys.IMAGE_UPLOADER %>" var="uploadImageURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+	<liferay-portlet:param name="struts_action" value="/image_uploader/view" />
+	<liferay-portlet:param name="currentLogoURL" value="<%= currentLogoURL %>" />
+	<liferay-portlet:param name="maxFileSize" value="<%= String.valueOf(maxFileSize) %>" />
+	<liferay-portlet:param name="randomNamespace" value="<%= randomNamespace %>" />
+	<liferay-portlet:param name="tempImageFileName" value="<%= tempImageFileName %>" />
+</liferay-portlet:renderURL>
 
 <aui:script use="liferay-logo-selector">
 	new Liferay.LogoSelector(
@@ -66,7 +84,7 @@ else {
 			contentBox: '#<%= randomNamespace %>taglibLogoSelectorContent',
 			defaultLogoURL: '<%= defaultLogoURL %>',
 			editLogoFn: '<%= editLogoFn %>',
-			editLogoURL: '<%= editLogoURL %>',
+			editLogoURL: '<%= uploadImageURL %>',
 			randomNamespace: '<%= randomNamespace %>',
 			logoDisplaySelector: '<%= logoDisplaySelector %>',
 			portletNamespace: '<portlet:namespace />'

@@ -142,7 +142,7 @@
 			<var name="portletCategoryName" value="Pages" />
 			<var name="portletName" value="${portletName}" />
 		</execute>
-     </command>
+	</command>
 
 	<command name="gotoPG">
 		<execute macro="Page#openURL" />
@@ -205,7 +205,18 @@
 			</else>
 		</if>
 
-		<execute action="Home#open" locator1="${pageAccessURL}${siteNameURL}${pageStagingURL}" />
+		<if>
+			<isset var="virtualHostsURL" />
+    		<then>
+     			<var name="siteNameURL" value="${virtualHostsURL}" />
+
+     			<execute action="Home#open" locator1="${siteNameURL}" />
+    		</then>
+    		<else>
+				<execute action="Home#open" locator1="${pageAccessURL}${siteNameURL}${pageStagingURL}" />
+			</else>
+		</if>
+
 	</command>
 
 	<command name="tearDownPG">
