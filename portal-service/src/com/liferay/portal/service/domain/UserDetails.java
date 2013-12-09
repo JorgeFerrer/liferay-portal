@@ -1,10 +1,12 @@
 package com.liferay.portal.service.domain;
 
+import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.util.Locale;
 
-public class UserDetails {
+@ProviderType
+public final class UserDetails {
 
 	public static class Builder {
 
@@ -188,6 +190,7 @@ public class UserDetails {
 		_facebookId = builder._facebookId;
 		_greeting = builder._greeting;
 		_jobTitle = builder._jobTitle;
+		_languageId = builder._languageId;
 		_male = builder._male;
 		_name = builder._name;
 		_openId = builder._openId;

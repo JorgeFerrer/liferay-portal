@@ -4245,25 +4245,29 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		serviceContext.setCreatorUserId(creatorUserId);
 
 		PasswordOptions passwordOptions = new PasswordOptions(password1, false);
-		Name name = new Name(
-			firstName, middleName, lastName, prefixId, suffixId);
-		DateParams birthdayParams = new DateParams(
-			birthdayYear, birthdayMonth, birthdayDay);
+		UserDetails userDetails = new UserDetails.Builder().
+			birthday(birthdayYear, birthdayMonth, birthdayDay).
+			emailAddress(emailAddress).
+			facebookId(facebookId).
+			jobTitle(jobTitle).
+			male(male).
+			name(firstName, middleName, lastName, prefixId, suffixId).
+			openId(openId).
+			screenName(screenName). build();
+
 		return updateIncompleteUser(
-			companyId, emailAddress, screenName, facebookId, openId,
-			passwordOptions, name, birthdayParams, locale, male, jobTitle,
-			updateUserInformation, sendEmail, serviceContext);
+			companyId, userDetails, passwordOptions, updateUserInformation,
+			sendEmail, serviceContext);
 	}
 
 	public User updateIncompleteUser(
-			long companyId, String emailAddress, String screenName,
-			long facebookId, String openId, PasswordOptions passwordOptions,
-			Name name, DateParams birthdayParams, Locale locale, boolean male,
-			String jobTitle, boolean updateUserInformation, boolean sendEmail,
-			ServiceContext serviceContext)
+			long companyId, UserDetails userDetails,
+			PasswordOptions passwordOptions, boolean updateUserInformation,
+			boolean sendEmail, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		User user = getUserByEmailAddress(companyId, emailAddress);
+		User user = getUserByEmailAddress(
+			companyId, userDetails.getEmailAddress());
 
 		if (user.getStatus() != WorkflowConstants.STATUS_INCOMPLETE) {
 			throw new PortalException("Invalid user status");
@@ -4273,7 +4277,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		String password = passwordOptions.getPassword();
 
-		if (facebookId > 0) {
+		if (userDetails.getFacebookId() > 0) {
 			if (password == null) {
 				password = PwdGenerator.getPassword();
 			}
@@ -4282,8 +4286,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (updateUserInformation) {
+			String screenName = userDetails.getScreenName();
+			Name name = userDetails.getName();
+
 			validate(
-				companyId, user.getUserId(), emailAddress, screenName, openId,
+				companyId, user.getUserId(), userDetails.getEmailAddress(),
+				userDetails.getScreenName(), userDetails.getOpenId(),
 				password, null, name);
 
 			if (PrefsPropsUtil.getBoolean(
@@ -4295,7 +4303,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 				try {
 					screenName = screenNameGenerator.generate(
-						companyId, user.getUserId(), emailAddress);
+						companyId, user.getUserId(),
+						userDetails.getEmailAddress());
 				}
 				catch (Exception e) {
 					throw new SystemException(e);
@@ -4309,7 +4318,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				name.getFirstName(), name.getMiddleName(), name.getLastName());
 
 			String greeting = LanguageUtil.format(
-				locale, "welcome-x", " " + fullName, false);
+				userDetails.getLocale(), "welcome-x", " " + fullName, false);
 
 			if (Validator.isNotNull(password)) {
 				user.setPassword(PasswordEncryptorUtil.encrypt(password));
@@ -4344,16 +4353,18 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			}
 
 			user.setScreenName(screenName);
-			user.setFacebookId(facebookId);
-			user.setOpenId(openId);
-			user.setLanguageId(locale.toString());
+			user.setFacebookId(userDetails.getFacebookId());
+			user.setOpenId(userDetails.getOpenId());
+			user.setLanguageId(userDetails.getLanguageId());
 			user.setTimeZoneId(defaultUser.getTimeZoneId());
 			user.setGreeting(greeting);
 
 			name.populate(user);
 
-			user.setJobTitle(jobTitle);
+			user.setJobTitle(userDetails.getJobTitle());
 			user.setExpandoBridgeAttributes(serviceContext);
+
+			DateParams birthdayParams = userDetails.getBirthdayParams();
 
 			Date birthday = getBirthday(
 				birthdayParams.getMonth(), birthdayParams.getDay(),
@@ -4363,9 +4374,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 			name.populate(contact);
 
-			contact.setMale(male);
+			contact.setMale(userDetails.isMale());
 			contact.setBirthday(birthday);
-			contact.setJobTitle(jobTitle);
+			contact.setJobTitle(userDetails.getJobTitle());
 
 			contactPersistence.update(contact, serviceContext);
 
@@ -4407,7 +4418,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			companyId, workflowUserId, User.class.getName(), user.getUserId(),
 			user, workflowServiceContext);
 
-		return getUserByEmailAddress(companyId, emailAddress);
+		return getUserByEmailAddress(companyId, userDetails.getEmailAddress());
 	}
 
 	/**
