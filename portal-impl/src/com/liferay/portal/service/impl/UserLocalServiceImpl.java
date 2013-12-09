@@ -127,6 +127,7 @@ import com.liferay.portal.service.domain.Memberships;
 import com.liferay.portal.service.domain.Name;
 import com.liferay.portal.service.domain.PasswordOptions;
 import com.liferay.portal.service.domain.SocialSns;
+import com.liferay.portal.service.domain.UserDetails;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
@@ -191,8 +192,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Name name = new Name(firstName, middleName, lastName);
 
 		return addDefaultAdminUser(
-			companyId, screenName, emailAddress,
-			name, locale);
+			companyId, screenName, emailAddress, name, locale);
 	}
 
 	public User addDefaultAdminUser(
@@ -250,14 +250,20 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		serviceContext.setCreatorUserId(creatorUserId);
 
-		DateParams birthdayParams = new DateParams(
-			birthdayYear, birthdayMonth, birthdayDay);
+		UserDetails userDetails = new UserDetails.Builder().
+			birthday(birthdayYear, birthdayMonth, birthdayDay).
+			emailAddress(emailAddress).
+			facebookId(facebookId).
+			jobTitle(jobTitle).
+			language(LocaleUtil.toLanguageId(locale)).
+			male(male).
+			name(name). openId(openId). screenName(screenName). build();
+
 		PasswordOptions passwordOptions = new PasswordOptions(password);
 
 		User defaultAdminUser = addUser(
-			companyId, emailAddress, screenName, facebookId, openId,
-			passwordOptions, memberships, name, birthdayParams,
-			locale, male, jobTitle, sendEmail, serviceContext);
+			companyId, userDetails, passwordOptions, memberships,
+			sendEmail, serviceContext);
 
 		updateEmailAddressVerified(defaultAdminUser.getUserId(), true);
 
@@ -612,26 +618,30 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		serviceContext.setCreatorUserId(creatorUserId);
 
 		PasswordOptions passwordOptions = new PasswordOptions(password1, false);
+
 		Memberships memberships = new Memberships.Builder().
 			organizations(organizationIds).
 			roles(roleIds). sites(groupIds). userGroups(userGroupIds). build();
-		Name name = new Name(
-			firstName, middleName, lastName, prefixId, suffixId);
-		DateParams birthdayParams = new DateParams(
-			birthdayYear, birthdayMonth, birthdayDay);
+
+		UserDetails userDetails = new UserDetails.Builder().
+			birthday(birthdayYear, birthdayMonth, birthdayDay).
+			emailAddress(emailAddress).
+			facebookId(facebookId).
+			jobTitle(jobTitle).
+			language(LocaleUtil.toLanguageId(locale)).
+			male(male).
+			name(firstName, middleName, lastName, prefixId, suffixId).
+			openId(openId). screenName(screenName). build();
 
 		return addUser(
-			companyId, emailAddress, screenName, facebookId, openId,
-			passwordOptions, memberships, name, birthdayParams, locale, male,
-			jobTitle, sendEmail, serviceContext);
+			companyId, userDetails, passwordOptions, memberships,
+			sendEmail, serviceContext);
 	}
 
 	public User addUser(
-			long companyId, String emailAddress, String screenName,
-			long facebookId, String openId, PasswordOptions passwordOptions,
-			Memberships memberships, Name name, DateParams birthdayParams,
-			Locale locale, boolean male, String jobTitle, boolean sendEmail,
-			ServiceContext serviceContext)
+			long companyId, UserDetails userDetails,
+			PasswordOptions passwordOptions, Memberships memberships,
+			boolean sendEmail, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
@@ -651,9 +661,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			}
 
 			return addUserWithWorkflow(
-				companyId, emailAddress, screenName, facebookId, openId,
-				passwordOptions, memberships, name, birthdayParams, locale,
-				male, jobTitle, sendEmail, serviceContext);
+				companyId, userDetails, passwordOptions, memberships, sendEmail,
+				serviceContext);
 		}
 		finally {
 			WorkflowThreadLocal.setEnabled(workflowEnabled);
@@ -761,31 +770,32 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Memberships memberships = new Memberships.Builder().
 			organizations(organizationIds).
 			roles(roleIds). sites(groupIds). userGroups(userGroupIds). build();
-		Name name = new Name(
-			firstName, middleName, lastName, prefixId, suffixId);
-		DateParams birthdayParams = new DateParams(
-			birthdayYear, birthdayMonth, birthdayDay);
+		UserDetails userDetails = new UserDetails.Builder().
+			birthday(birthdayYear, birthdayMonth, birthdayDay).
+			emailAddress(emailAddress).
+			facebookId(facebookId).
+			jobTitle(jobTitle).
+			male(male).
+			name(firstName, middleName, lastName, prefixId, suffixId).
+			openId(openId). screenName(screenName). build();
 
 		return addUserWithWorkflow(
-			companyId, emailAddress, screenName, facebookId, openId,
-			passwordOptions, memberships, name, birthdayParams, locale, male,
-			jobTitle, sendEmail, serviceContext);
+			companyId, userDetails, passwordOptions, memberships, sendEmail,
+			serviceContext);
 	}
 
 	@SuppressWarnings("deprecation")
 	public User addUserWithWorkflow(
-			long companyId, String emailAddress, String screenName,
-			long facebookId, String openId, PasswordOptions passwordOptions,
-			Memberships memberships, Name name, DateParams birthdayParams,
-			Locale locale, boolean male, String jobTitle, boolean sendEmail,
-			ServiceContext serviceContext)
+			long companyId, UserDetails userDetails,
+			PasswordOptions passwordOptions, Memberships memberships,
+			boolean sendEmail, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// User
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
-		screenName = getLogin(screenName);
-		openId = StringUtil.trim(openId);
+		String screenName = userDetails.getScreenName();
+		String emailAddress = userDetails.getEmailAddress();
 		Date now = new Date();
 
 		if (PrefsPropsUtil.getBoolean(
@@ -818,8 +828,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		validate(
-			companyId, userId, emailAddress, screenName, openId,
-			passwordOptions.getPassword(), memberships, name);
+			companyId, userId, emailAddress, screenName,
+			userDetails.getOpenId(), passwordOptions.getPassword(), memberships,
+			userDetails.getName());
 
 		if (Validator.isNull(screenName)) {
 			ScreenNameGenerator screenNameGenerator =
@@ -840,10 +851,15 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			FullNameGeneratorFactory.getInstance();
 
 		String fullName = fullNameGenerator.getFullName(
-			name.getFirstName(), name.getMiddleName(), name.getLastName());
+			userDetails.getName().getFirstName(), userDetails.getName().
+			getMiddleName(), userDetails.getName().getLastName());
 
-		String greeting = LanguageUtil.format(
-			locale, "welcome-x", " " + fullName, false);
+		String greeting = userDetails.getGreeting();
+
+		if (Validator.isNull(greeting)) {
+			greeting = LanguageUtil.format(
+				userDetails.getLocale(), "welcome-x", " " + fullName, false);
+		}
 
 		User user = userPersistence.create(userId);
 
@@ -903,7 +919,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		user.setDigest(StringPool.BLANK);
 		user.setScreenName(screenName);
 		user.setEmailAddress(emailAddress);
-		user.setFacebookId(facebookId);
+		user.setFacebookId(userDetails.getFacebookId());
 
 		Long ldapServerId = (Long)serviceContext.getAttribute("ldapServerId");
 
@@ -914,14 +930,22 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setLdapServerId(-1);
 		}
 
-		user.setOpenId(openId);
-		user.setLanguageId(LocaleUtil.toLanguageId(locale));
-		user.setTimeZoneId(defaultUser.getTimeZoneId());
+		user.setOpenId(userDetails.getOpenId());
+		user.setLanguageId(userDetails.getLanguageId());
+
+		String timeZoneId = userDetails.getTimeZoneId();
+
+		if (Validator.isNull(timeZoneId)) {
+			timeZoneId = defaultUser.getTimeZoneId();
+		}
+
+		user.setTimeZoneId(timeZoneId);
 		user.setGreeting(greeting);
+		user.setComments(userDetails.getComments());
 
-		name.populate(user);
+		userDetails.getName().populate(user);
 
-		user.setJobTitle(jobTitle);
+		user.setJobTitle(userDetails.getJobTitle());
 		user.setStatus(WorkflowConstants.STATUS_DRAFT);
 		user.setExpandoBridgeAttributes(serviceContext);
 
@@ -952,6 +976,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		// Contact
 
+		DateParams birthdayParams = userDetails.getBirthdayParams();
+
 		Date birthday = getBirthday(
 			birthdayParams.getMonth(), birthdayParams.getDay(),
 			birthdayParams.getYear());
@@ -969,11 +995,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		contact.setParentContactId(ContactConstants.DEFAULT_PARENT_CONTACT_ID);
 		contact.setEmailAddress(user.getEmailAddress());
 
-		name.populate(contact);
+		userDetails.getName().populate(contact);
 
-		contact.setMale(male);
+		contact.setMale(userDetails.isMale());
 		contact.setBirthday(birthday);
-		contact.setJobTitle(jobTitle);
+		contact.setJobTitle(userDetails.getJobTitle());
 
 		contactPersistence.update(contact, serviceContext);
 
@@ -4221,8 +4247,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		PasswordOptions passwordOptions = new PasswordOptions(password1, false);
 		Name name = new Name(
 			firstName, middleName, lastName, prefixId, suffixId);
-		DateParams birthdayParams =
-			new DateParams(birthdayYear, birthdayMonth, birthdayDay);
+		DateParams birthdayParams = new DateParams(
+			birthdayYear, birthdayMonth, birthdayDay);
 		return updateIncompleteUser(
 			companyId, emailAddress, screenName, facebookId, openId,
 			passwordOptions, name, birthdayParams, locale, male, jobTitle,
@@ -4935,12 +4961,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 	@SuppressWarnings("deprecation")
 	public User updateUser(
-			long userId, String emailAddress, String screenName,
-			long facebookId, String openId, boolean portrait,
+			long userId, UserDetails userDetails, boolean portrait,
 			byte[] portraitBytes, PasswordOptions passwordOptions,
-			Memberships memberships, Name name, DateParams birthdayParams,
-			SocialSns socialSns, String languageId, String timeZoneId,
-			String greeting, String comments, boolean male, String jobTitle,
+			Memberships memberships, SocialSns socialSns,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -4949,9 +4972,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = userPersistence.findByPrimaryKey(userId);
 		Company company = companyPersistence.findByPrimaryKey(
 			user.getCompanyId());
-		screenName = getLogin(screenName);
-		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
-		openId = openId.trim();
+		String emailAddress = userDetails.getEmailAddress();
 		String oldFullName = user.getFullName();
 		Date now = new Date();
 
@@ -4969,7 +4990,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				user.getCompanyId(), userId);
 		}
 
-		validate(userId, screenName, emailAddress, openId, name, socialSns);
+		Name name = userDetails.getName();
+
+		validate(
+			userId, userDetails.getScreenName(), emailAddress,
+			userDetails.getOpenId(), name, socialSns);
 
 		String password = passwordOptions.getPassword();
 
@@ -4999,8 +5024,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setReminderQueryAnswer(reminderQueryAnswer);
 		}
 
-		if (!StringUtil.equalsIgnoreCase(user.getScreenName(), screenName)) {
-			user.setScreenName(screenName);
+		if (!StringUtil.equalsIgnoreCase(
+				user.getScreenName(), userDetails.getScreenName())) {
+
+			user.setScreenName(userDetails.getScreenName());
 
 			user.setDigest(StringPool.BLANK);
 		}
@@ -5024,7 +5051,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			}
 		}
 
-		user.setFacebookId(facebookId);
+		user.setFacebookId(userDetails.getFacebookId());
 
 		Long ldapServerId = (Long)serviceContext.getAttribute("ldapServerId");
 
@@ -5032,7 +5059,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setLdapServerId(ldapServerId);
 		}
 
-		user.setOpenId(openId);
+		user.setOpenId(userDetails.getOpenId());
 
 		PortalUtil.updateImageId(
 			user, portrait, portraitBytes, "portraitId",
@@ -5040,19 +5067,21 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			PropsValues.USERS_IMAGE_MAX_HEIGHT,
 			PropsValues.USERS_IMAGE_MAX_WIDTH);
 
-		user.setLanguageId(languageId);
-		user.setTimeZoneId(timeZoneId);
-		user.setGreeting(greeting);
-		user.setComments(comments);
+		user.setLanguageId(userDetails.getLanguageId());
+		user.setTimeZoneId(userDetails.getTimeZoneId());
+		user.setGreeting(userDetails.getGreeting());
+		user.setComments(userDetails.getComments());
 
 		name.populate(user);
 
-		user.setJobTitle(jobTitle);
+		user.setJobTitle(userDetails.getJobTitle());
 		user.setExpandoBridgeAttributes(serviceContext);
 
 		userPersistence.update(user, serviceContext);
 
 		// Contact
+
+		DateParams birthdayParams = userDetails.getBirthdayParams();
 
 		Date birthday = getBirthday(
 			birthdayParams.getMonth(), birthdayParams.getDay(),
@@ -5080,12 +5109,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		name.populate(contact);
 
-		contact.setMale(male);
+		contact.setMale(userDetails.isMale());
 		contact.setBirthday(birthday);
 
 		socialSns.populate(contact);
 
-		contact.setJobTitle(jobTitle);
+		contact.setJobTitle(userDetails.getJobTitle());
 
 		contactPersistence.update(contact, serviceContext);
 
@@ -5094,7 +5123,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Group group = groupLocalService.getUserGroup(
 			user.getCompanyId(), userId);
 
-		group.setFriendlyURL(StringPool.SLASH + screenName);
+		group.setFriendlyURL(StringPool.SLASH + userDetails.getScreenName());
 
 		groupPersistence.update(group);
 
@@ -5361,19 +5390,25 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			organizations(organizationIds).
 			roles(roleIds). sites(groupIds). userGroups(userGroupIds). build();
 
-		Name name = new Name(
-			firstName, middleName, lastName, prefixId, suffixId);
-		DateParams birthdayParams = new DateParams(
-			birthdayYear, birthdayMonth, birthdayDay);
+		UserDetails userDetails = new UserDetails.Builder().
+			birthday(birthdayYear, birthdayMonth, birthdayDay).
+			comments(comments).
+			emailAddress(emailAddress).
+			facebookId(facebookId).
+			greeting(greeting).
+			jobTitle(jobTitle).
+			language(languageId).
+			male(male).
+			name(firstName, middleName, lastName, prefixId, suffixId).
+			openId(openId).
+			screenName(screenName). timeZoneId(timeZoneId). build();
 		SocialSns socialSns = new SocialSns(
 			aimSn, facebookSn, icqSn, jabberSn, msnSn, mySpaceSn, skypeSn,
 			smsSn, twitterSn, ymSn);
 
 		return updateUser(
-			userId, emailAddress, screenName, facebookId, openId, portrait,
-			portraitBytes, passwordOptions, memberships, name, birthdayParams,
-			socialSns, languageId, timeZoneId, greeting, comments, male,
-			jobTitle, serviceContext);
+			userId, userDetails, portrait, portraitBytes, passwordOptions,
+			memberships, socialSns, serviceContext);
 	}
 
 	/**
