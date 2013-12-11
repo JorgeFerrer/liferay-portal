@@ -827,9 +827,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		validate(
-			companyId, userId, emailAddress, screenName,
-			userDetails.getOpenId(), passwordOptions.getPassword(), memberships,
-			userDetails.getName());
+			companyId, userId, userDetails,
+			passwordOptions.getPassword(), memberships
+		);
 
 		if (Validator.isNull(screenName)) {
 			ScreenNameGenerator screenNameGenerator =
@@ -4288,10 +4288,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			String screenName = userDetails.getScreenName();
 			Name name = userDetails.getName();
 
-			validate(
-				companyId, user.getUserId(), userDetails.getEmailAddress(),
-				userDetails.getScreenName(), userDetails.getOpenId(),
-				password, null, name);
+			validate(companyId, user.getUserId(), userDetails, password, null);
 
 			if (PrefsPropsUtil.getBoolean(
 					companyId,
@@ -6201,13 +6198,13 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long companyId, long userId, String emailAddress, String screenName,
-			String openId, String password, Memberships memberships, Name name)
+			long companyId, long userId, UserDetails userDetails,
+			String password, Memberships memberships)
 		throws PortalException, SystemException {
 
 		validateCompanyMaxUsers(companyId);
 
-		validateScreenName(companyId, userId, screenName);
+		validateScreenName(companyId, userId, userDetails.getScreenName());
 
 		if (Validator.isNotNull(password)) {
 			PasswordPolicy passwordPolicy =
@@ -6217,19 +6214,22 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				companyId, 0, password, password, passwordPolicy);
 		}
 
+		String emailAddress = userDetails.getEmailAddress();
+
 		validateEmailAddress(companyId, emailAddress);
 
 		if (Validator.isNotNull(emailAddress)) {
-			User user = userPersistence.fetchByC_EA(companyId, emailAddress);
+			User user = userPersistence.fetchByC_EA(companyId,
+				emailAddress);
 
 			if ((user != null) && (user.getUserId() != userId)) {
 				throw new DuplicateUserEmailAddressException();
 			}
 		}
 
-		validateOpenId(companyId, userId, openId);
+		validateOpenId(companyId, userId, userDetails.getOpenId());
 
-		validateFullName(companyId, name);
+		validateFullName(companyId, userDetails.getName());
 
 		if ((memberships != null) &&
 			(memberships.getOrganizationIds() != null)) {
