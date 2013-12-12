@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
@@ -33,6 +34,7 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletPreferencesIds;
+import com.liferay.portal.model.PortletSettings;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
@@ -56,6 +58,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
@@ -328,6 +331,59 @@ public class PortletPreferencesFactoryImpl
 	}
 
 	@Override
+	public PortletSettings getPortletCompanySettings(
+			long companyId, String portletId)
+		throws SystemException {
+
+		PortletPreferencesIds companySettingsIds = new PortletPreferencesIds(
+			companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
+			portletId);
+
+		PortletPreferences companySettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				companySettingsIds);
+
+		Properties portalProperties = PropsUtil.getProperties(portletId, false);
+
+		return new PortletSettingsImpl(companySettings, portalProperties);
+	}
+
+	@Override
+	public PortletSettings getPortletInstanceSettings(
+			Layout layout, String portletId)
+		throws SystemException {
+
+		PortletPreferencesIds instanceSettingsIds = new PortletPreferencesIds(
+			layout.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			layout.getPlid(), portletId);
+
+		PortletPreferences instanceSettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				instanceSettingsIds);
+
+		PortletPreferencesIds siteSettingsIds = new PortletPreferencesIds(
+			layout.getCompanyId(), layout.getGroupId(),
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT_DEFAULTS_GROUP, 0, portletId);
+
+		PortletPreferences siteSettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(siteSettingsIds);
+
+		PortletPreferencesIds companySettingsIds = new PortletPreferencesIds(
+			layout.getCompanyId(), layout.getCompanyId(),
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT_DEFAULTS_COMPANY, 0, portletId);
+
+		PortletPreferences companySettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				companySettingsIds);
+
+		Properties portalProperties = PropsUtil.getProperties(portletId, false);
+
+		return new PortletSettingsImpl(
+			instanceSettings, siteSettings, companySettings, portalProperties);
+	}
+
+	@Override
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
 		throws PortalException, SystemException {
@@ -571,6 +627,34 @@ public class PortletPreferencesFactoryImpl
 		}
 
 		return portletSetupMap;
+	}
+
+	@Override
+	public PortletSettings getPortletSiteSettings(
+			long groupId, String portletId)
+		throws PortalException, SystemException {
+
+		Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+		PortletPreferencesIds siteSettingsIds = new PortletPreferencesIds(
+			group.getCompanyId(), groupId, PortletKeys.PREFS_OWNER_TYPE_GROUP,
+			0, portletId);
+
+		PortletPreferences siteSettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(siteSettingsIds);
+
+		PortletPreferencesIds companySettingsIds = new PortletPreferencesIds(
+			group.getCompanyId(), group.getCompanyId(),
+			PortletKeys.PREFS_OWNER_TYPE_GROUP_DEFAULTS_COMPANY, 0, portletId);
+
+		PortletPreferences companySettings =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				companySettingsIds);
+
+		Properties portalProperties = PropsUtil.getProperties(portletId, false);
+
+		return new PortletSettingsImpl(
+			siteSettings, companySettings, portalProperties);
 	}
 
 	@Override

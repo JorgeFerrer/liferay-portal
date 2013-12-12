@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermissio
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletPreferencesIds;
+import com.liferay.portal.model.PortletSettings;
 import com.liferay.portal.theme.ThemeDisplay;
 
 import java.util.Map;
@@ -141,6 +142,30 @@ public class PortletPreferencesFactoryUtil {
 
 		return getPortletPreferencesFactory().getPortalPreferences(
 			portletRequest);
+	}
+
+	public static PortletSettings getPortletCompanySettings(
+			long companyId, String portletId)
+		throws SystemException {
+
+		return getPortletPreferencesFactory().getPortletCompanySettings(
+			companyId, portletId);
+	}
+
+	public static PortletSettings getPortletInstanceSettings(
+			Layout layout, String portletId)
+		throws SystemException {
+
+		return getPortletPreferencesFactory().getPortletInstanceSettings(
+			layout, portletId);
+	}
+
+	public static PortletSettings getPortletSiteSettings(
+			long groupId, String portletId)
+		throws PortalException, SystemException {
+
+		return getPortletPreferencesFactory().getPortletSiteSettings(
+			groupId, portletId);
 	}
 
 	public static PortletPreferences getPortletPreferences(
