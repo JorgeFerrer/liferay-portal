@@ -722,6 +722,52 @@ public class AssetUtil {
 		return new String(textCharArray);
 	}
 
+	public static Map<Long, Boolean> viewableCategoryIds(
+			PermissionChecker permissionChecker, long[] categoryIds)
+		throws PortalException, SystemException {
+
+		Map<Long, Boolean> viewableCategoryIds = new HashMap<Long, Boolean>();
+
+		for (long categoryId : categoryIds) {
+			Boolean viewable = Boolean.FALSE;
+
+			AssetCategory category =
+				AssetCategoryLocalServiceUtil.fetchCategory(categoryId);
+
+			if ((category != null) &&
+				AssetCategoryPermission.contains(
+					permissionChecker, categoryId, ActionKeys.VIEW)) {
+
+				viewable = Boolean.TRUE;
+			}
+
+			viewableCategoryIds.put(categoryId, viewable);
+		}
+
+		return viewableCategoryIds;
+	}
+
+	public static Map<Long, Boolean> viewableTagIds(
+			PermissionChecker permissionChecker, long[] tagIds)
+		throws PortalException, SystemException {
+
+		Map<Long, Boolean> viewableTagIds = new HashMap<Long, Boolean>();
+
+		for (long tagId : tagIds) {
+			Boolean viewable = Boolean.FALSE;
+
+			if (AssetTagPermission.contains(
+					permissionChecker, tagId, ActionKeys.VIEW)) {
+
+				viewable = Boolean.TRUE;
+			}
+
+			viewableTagIds.put(tagId, viewable);
+		}
+
+		return viewableTagIds;
+	}
+
 	protected static Sort getSort(
 			String orderByType, String sortField, Locale locale)
 		throws Exception {
