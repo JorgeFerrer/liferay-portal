@@ -318,6 +318,10 @@ public class ServiceContext implements Cloneable, Serializable {
 		}
 	}
 
+	public long getCreatorUserId() {
+		return _creatorUserId;
+	}
+
 	/**
 	 * Returns the current URL of this service context
 	 *
@@ -1123,6 +1127,10 @@ public class ServiceContext implements Cloneable, Serializable {
 		_createDate = createDate;
 	}
 
+	public void setCreatorUserId(long creatorUserId) {
+		_creatorUserId = creatorUserId;
+	}
+
 	/**
 	 * Sets the current URL of this service context
 	 *
@@ -1486,6 +1494,7 @@ public class ServiceContext implements Cloneable, Serializable {
 	private String _command;
 	private long _companyId;
 	private Date _createDate;
+	private long _creatorUserId;
 	private String _currentURL;
 	private boolean _deriveDefaultPermissions;
 	private Map<String, Serializable> _expandoBridgeAttributes;
