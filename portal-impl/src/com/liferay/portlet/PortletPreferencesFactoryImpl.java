@@ -350,7 +350,6 @@ public class PortletPreferencesFactoryImpl
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long layoutGroupId = themeDisplay.getLayoutGroupId();
 		long userId = PortalUtil.getUserId(request);
 		LayoutTypePortlet layoutTypePortlet =
 			themeDisplay.getLayoutTypePortlet();
@@ -367,7 +366,7 @@ public class PortletPreferencesFactoryImpl
 		}
 
 		return getPortletPreferencesIds(
-			layoutGroupId, userId, layout, portletId, modeEditGuest);
+			userId, layout, portletId, modeEditGuest);
 	}
 
 	@Override
@@ -382,8 +381,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferencesIds getPortletPreferencesIds(
-			long layoutGroupId, long userId, Layout layout, String portletId,
-			boolean modeEditGuest)
+			long userId, Layout layout, String portletId, boolean modeEditGuest)
 		throws PortalException, SystemException {
 
 		PermissionChecker permissionChecker =
@@ -448,7 +446,7 @@ public class PortletPreferencesFactoryImpl
 				plid = PortletKeys.PREFS_PLID_SHARED;
 
 				if (portlet.isPreferencesOwnedByGroup()) {
-					ownerId = layoutGroupId;
+					ownerId = layout.getGroupId();
 					ownerType = PortletKeys.PREFS_OWNER_TYPE_GROUP;
 					portletId = PortletConstants.getRootPortletId(portletId);
 				}
@@ -466,6 +464,20 @@ public class PortletPreferencesFactoryImpl
 
 		return new PortletPreferencesIds(
 			layout.getCompanyId(), ownerId, ownerType, plid, portletId);
+	}
+
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #getPortletPreferencesIds(
+	 *             long, Layout, long, boolean)}
+	 */
+	@Override
+	public PortletPreferencesIds getPortletPreferencesIds(
+			long layoutGroupId, long userId, Layout layout, String portletId,
+			boolean modeEditGuest)
+		throws PortalException, SystemException {
+
+		return getPortletPreferencesIds(
+			userId, layout, portletId, modeEditGuest);
 	}
 
 	@Override
@@ -496,8 +508,8 @@ public class PortletPreferencesFactoryImpl
 			WebKeys.THEME_DISPLAY);
 
 		return getPortletSetup(
-			themeDisplay.getLayoutGroupId(), themeDisplay.getLayout(), portletId,
-			defaultPreferences);
+			themeDisplay.getLayoutGroupId(), themeDisplay.getLayout(),
+			portletId, defaultPreferences);
 	}
 
 	@Override
