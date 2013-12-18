@@ -108,6 +108,14 @@ public interface PortletPreferencesFactory {
 		throws PortalException, SystemException;
 
 	public PortletPreferencesIds getPortletPreferencesIds(
+			long userId, Layout layout, String portletId, boolean modeEditGuest)
+		throws PortalException, SystemException;
+
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #getPortletPreferencesIds(
+	 *             long, Layout, long, boolean)}
+	 */
+	public PortletPreferencesIds getPortletPreferencesIds(
 			long scopeGroupId, long userId, Layout layout, String portletId,
 			boolean modeEditGuest)
 		throws PortalException, SystemException;
