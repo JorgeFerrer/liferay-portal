@@ -30,7 +30,6 @@ import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.model.PortletPreferencesIds;
 import com.liferay.portal.service.base.PortletPreferencesLocalServiceBaseImpl;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.PortletPreferencesImpl;
@@ -173,23 +172,6 @@ public class PortletPreferencesLocalServiceImpl
 		return portletPreferencesPersistence.findAll();
 	}
 
-	public PortletPreferences getPortletInstanceSetup(String portletId, long plid)
-		throws SystemException {
-
-		return getPortletPreferences(
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, plid, portletId).get(0);
-	}
-
-	public PortletPreferences getPortletGroupSetup(String portletId, long groupId)
-		throws SystemException {
-		return getPortletPreferences(
-			PortletKeys.PREFS_OWNER_TYPE_GROUP, groupId, portletId).get(0);
-	}
-
-	public PortletPreferences getPortletCompanySetup(String portletId, long companyId) {
-		return null;
-	}
-
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
 			int ownerType, long plid, String portletId)
@@ -199,9 +181,6 @@ public class PortletPreferencesLocalServiceImpl
 			ownerType, plid, portletId);
 	}
 
-	/**
-	 * @deprecated As of 7.0.0
-	 */
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
 			long ownerId, int ownerType, long plid)
