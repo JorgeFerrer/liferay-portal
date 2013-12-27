@@ -1388,6 +1388,7 @@ public class PortletImpl extends PortletBaseImpl {
 	 *
 	 * @return <code>true</code> if preferences are shared across the entire
 	 *         company
+	 * @deprecated As of 7.0.0
 	 */
 	@Override
 	public boolean getPreferencesCompanyWide() {
@@ -1402,6 +1403,7 @@ public class PortletImpl extends PortletBaseImpl {
 	 * @return <code>true</code> if preferences are owned by the group when the
 	 *         portlet is shown in a group layout; <code>false</code> if
 	 *         preferences are owned by the user at all times.
+	 * @deprecated As of 7.0.0
 	 */
 	@Override
 	public boolean getPreferencesOwnedByGroup() {
@@ -1412,6 +1414,7 @@ public class PortletImpl extends PortletBaseImpl {
 	 * Returns <code>true</code> if preferences are unique per layout.
 	 *
 	 * @return <code>true</code> if preferences are unique per layout
+	 * @deprecated As of 7.0.0
 	 */
 	@Override
 	public boolean getPreferencesUniquePerLayout() {
