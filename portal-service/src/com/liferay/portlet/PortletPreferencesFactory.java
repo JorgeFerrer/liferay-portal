@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletPreferencesIds;
+import com.liferay.portal.model.PortletSettings;
 import com.liferay.portal.theme.ThemeDisplay;
 
 import java.util.Map;
@@ -95,6 +96,14 @@ public interface PortletPreferencesFactory {
 	public PortalPreferences getPortalPreferences(PortletRequest portletRequest)
 		throws SystemException;
 
+	public PortletSettings getPortletCompanySettings(
+			long companyId, String portletId)
+		throws SystemException;
+
+	public PortletSettings getPortletInstanceSettings(
+			Layout layout, String portletId)
+		throws SystemException;
+
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
 		throws PortalException, SystemException;
@@ -141,6 +150,10 @@ public interface PortletPreferencesFactory {
 			long companyId, long groupId, long ownerId, int ownerType,
 			String portletId, boolean privateLayout)
 		throws SystemException;
+
+	public PortletSettings getPortletSiteSettings(
+			long groupId, String portletId)
+		throws PortalException, SystemException;
 
 	public PortletPreferences getPreferences(HttpServletRequest request);
 
