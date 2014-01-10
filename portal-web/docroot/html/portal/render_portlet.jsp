@@ -32,6 +32,9 @@ int columnPos = GetterUtil.getInteger(request.getAttribute(WebKeys.RENDER_PORTLE
 int columnCount = GetterUtil.getInteger(request.getAttribute(WebKeys.RENDER_PORTLET_COLUMN_COUNT));
 Boolean renderPortletResource = (Boolean)request.getAttribute(WebKeys.RENDER_PORTLET_RESOURCE);
 
+boolean customizableColumn = layoutTypePortlet.isCustomizable() && !layoutTypePortlet.isColumnDisabled(columnId);
+boolean hasLayoutCustomizePermission = LayoutPermissionUtil.contains(permissionChecker, layout, ActionKeys.CUSTOMIZE);
+
 boolean runtimePortlet = (renderPortletResource != null) && renderPortletResource.booleanValue();
 
 boolean stateMax = layoutTypePortlet.hasStateMaxPortletId(portletId);
@@ -210,7 +213,7 @@ if (!portletId.equals(PortletKeys.PORTLET_CONFIGURATION)) {
 		}
 	}
 
-	if (layoutTypePortlet.isCustomizable() && !layoutTypePortlet.isColumnDisabled(columnId) && LayoutPermissionUtil.contains(permissionChecker, layout, ActionKeys.CUSTOMIZE)) {
+	if (customizableColumn && hasLayoutCustomizePermission) {
 		showConfigurationIcon = true;
 
 		if (PropsValues.PORTLET_CSS_ENABLED) {
@@ -263,7 +266,7 @@ if ((!themeDisplay.isSignedIn()) ||
 	showMaxIcon = PropsValues.LAYOUT_GUEST_SHOW_MAX_ICON;
 	showMinIcon = PropsValues.LAYOUT_GUEST_SHOW_MIN_ICON;
 
-	if (!(layoutTypePortlet.isCustomizable() && !layoutTypePortlet.isColumnDisabled(columnId) && LayoutPermissionUtil.contains(permissionChecker, layout, ActionKeys.CUSTOMIZE))) {
+	if (!(customizableColumn && hasLayoutCustomizePermission)) {
 		showCloseIcon = false;
 		showMoveIcon = false;
 	}
