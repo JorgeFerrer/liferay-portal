@@ -265,11 +265,6 @@ if ((!themeDisplay.isSignedIn()) ||
 
 	showMaxIcon = PropsValues.LAYOUT_GUEST_SHOW_MAX_ICON;
 	showMinIcon = PropsValues.LAYOUT_GUEST_SHOW_MIN_ICON;
-
-	if (!(customizableColumn && hasLayoutCustomizePermission)) {
-		showCloseIcon = false;
-		showMoveIcon = false;
-	}
 }
 
 // Portlets cannot be moved if the column is not customizable
