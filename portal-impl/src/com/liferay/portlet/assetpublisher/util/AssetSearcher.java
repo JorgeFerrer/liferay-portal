@@ -98,17 +98,28 @@ public class AssetSearcher extends BaseIndexer {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		long[] allCategoryIds = AssetUtil.filterCategoryIds(
-			permissionChecker, _assetEntryQuery.getAllCategoryIds());
+		long[] allCategoryIds = _assetEntryQuery.getAllCategoryIds();
 
 		if (allCategoryIds.length == 0) {
+			return;
+		}
+
+		long[] filteredAllCategoryIds = AssetUtil.filterCategoryIds(
+			permissionChecker, allCategoryIds);
+
+		// LPS-42908
+
+		if (checkAllQuery(
+				allCategoryIds, filteredAllCategoryIds, contextQuery,
+				Field.ASSET_CATEGORY_IDS)) {
+
 			return;
 		}
 
 		BooleanQuery categoryIdsQuery = BooleanQueryFactoryUtil.create(
 			searchContext);
 
-		for (long allCategoryId : allCategoryIds) {
+		for (long allCategoryId : filteredAllCategoryIds) {
 			AssetCategory assetCategory =
 				AssetCategoryLocalServiceUtil.fetchAssetCategory(allCategoryId);
 
@@ -147,10 +158,21 @@ public class AssetSearcher extends BaseIndexer {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		long[] allTagIds = AssetUtil.filterTagIds(
-			permissionChecker, _assetEntryQuery.getAllTagIds());
+		long[] allTagIds = _assetEntryQuery.getAllTagIds();
 
 		if (allTagIds.length == 0) {
+			return;
+		}
+
+		long[] filteredAllTagIds = AssetUtil.filterTagIds(
+			permissionChecker, allTagIds);
+
+		// LPS-42908
+
+		if (checkAllQuery(
+				allTagIds, filteredAllTagIds, contextQuery,
+				Field.ASSET_TAG_IDS)) {
+
 			return;
 		}
 
@@ -171,17 +193,28 @@ public class AssetSearcher extends BaseIndexer {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		long[] anyCategoryIds = AssetUtil.filterCategoryIds(
-			permissionChecker, _assetEntryQuery.getAnyCategoryIds());
+		long[] anyCategoryIds = _assetEntryQuery.getAnyCategoryIds();
 
 		if (anyCategoryIds.length == 0) {
+			return;
+		}
+
+		long[] filteredAnyCategoryIds = AssetUtil.filterCategoryIds(
+			permissionChecker, anyCategoryIds);
+
+		// LPS-42908
+
+		if (checkAnyQuery(
+				filteredAnyCategoryIds, contextQuery,
+				Field.ASSET_CATEGORY_IDS)) {
+
 			return;
 		}
 
 		BooleanQuery categoryIdsQuery = BooleanQueryFactoryUtil.create(
 			searchContext);
 
-		for (long anyCategoryId : anyCategoryIds) {
+		for (long anyCategoryId : filteredAnyCategoryIds) {
 			AssetCategory assetCategory =
 				AssetCategoryLocalServiceUtil.fetchAssetCategory(anyCategoryId);
 
@@ -215,10 +248,20 @@ public class AssetSearcher extends BaseIndexer {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		long[] anyTagIds = AssetUtil.filterTagIds(
-			permissionChecker, _assetEntryQuery.getAnyTagIds());
+		long[] anyTagIds = _assetEntryQuery.getAnyTagIds();
 
 		if (anyTagIds.length == 0) {
+			return;
+		}
+
+		long[] filteredAnyTagIds = AssetUtil.filterTagIds(
+			permissionChecker, anyTagIds);
+
+		// LPS-42908
+
+		if (checkAnyQuery(
+				filteredAnyTagIds, contextQuery, Field.ASSET_TAG_IDS)) {
+
 			return;
 		}
 
@@ -411,6 +454,33 @@ public class AssetSearcher extends BaseIndexer {
 		}
 
 		contextQuery.add(tagIdsQuery, BooleanClauseOccur.MUST_NOT);
+	}
+
+	protected boolean checkAllQuery(
+			long allIds[], long filteredIds[], BooleanQuery contextQuery,
+			String field)
+		throws Exception {
+
+		if (allIds.length != filteredIds.length) {
+			contextQuery.addTerm(field, "-1", false, BooleanClauseOccur.MUST);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	protected boolean checkAnyQuery(
+			long ids[], BooleanQuery contextQuery, String field)
+		throws Exception {
+
+		if (ids.length == 0) {
+			contextQuery.addTerm(field, "-1", false, BooleanClauseOccur.MUST);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
