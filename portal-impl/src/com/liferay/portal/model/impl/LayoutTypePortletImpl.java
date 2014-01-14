@@ -591,6 +591,12 @@ public class LayoutTypePortletImpl
 			return false;
 		}
 
+		if (isCustomizable() && isCustomizedView() &&
+			isDefaultViewPortletId(portletId)) {
+
+			return false;
+		}
+
 		if (!strict &&
 			((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
 				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
@@ -599,13 +605,7 @@ public class LayoutTypePortletImpl
 				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
 				portletId) > 0))) {
 
-			if (!(isCustomizable() &&
-					isCustomizedView() &&
-					isDefaultViewPortletId(portletId))) {
-
-					return true;
-			}
-
+			return true;
 		}
 
 		return false;
