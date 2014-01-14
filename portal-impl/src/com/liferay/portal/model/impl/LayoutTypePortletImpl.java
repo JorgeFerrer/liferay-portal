@@ -599,7 +599,13 @@ public class LayoutTypePortletImpl
 				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
 				portletId) > 0))) {
 
-			return true;
+			if (!(isCustomizable() &&
+					isCustomizedView() &&
+					isDefaultViewPortletId(portletId))) {
+
+					return true;
+			}
+
 		}
 
 		return false;
