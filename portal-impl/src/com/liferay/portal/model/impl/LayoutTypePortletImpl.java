@@ -599,7 +599,13 @@ public class LayoutTypePortletImpl
 				PortletKeys.PREFS_OWNER_TYPE_USER, layout.getPlid(),
 				portletId) > 0))) {
 
-			return true;
+			if (!(isCustomizable() &&
+					isCustomizedView() &&
+					isDefaultViewPortletId(portletId))) {
+
+					return true;
+			}
+
 		}
 
 		return false;
@@ -1790,6 +1796,30 @@ public class LayoutTypePortletImpl
 		return false;
 	}
 
+	protected boolean isDefaultViewPortletId(String portletId) {
+		LayoutTemplate layoutTemplate = getLayoutTemplate();
+
+		List<String> columns = layoutTemplate.getColumns();
+
+		for (int i = 0; i < columns.size(); i++) {
+			String columnId = columns.get(i);
+
+			String columnValue = getTypeSettingsProperty(columnId);
+
+			String[] columnValues = StringUtil.split(columnValue);
+
+			for (String defaultViewPortletId : columnValues) {
+				if (defaultViewPortletId.equals(portletId) ||
+					PortletConstants.getRootPortletId(
+						defaultViewPortletId).equals(portletId)) {
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 	protected void onRemoveFromLayout(String[] portletIds)
 		throws SystemException {
 
