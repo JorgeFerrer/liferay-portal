@@ -341,7 +341,10 @@ for (Group group : allGroups) {
 	</liferay-ui:search-container>
 
 	<c:choose>
-		<c:when test="<%= !groups.isEmpty() && !portletName.equals(PortletKeys.MY_ACCOUNT) %>">
+		<c:when test="<%= groups.isEmpty() || portletName.equals(PortletKeys.MY_ACCOUNT) %>">
+			<liferay-ui:message key="this-user-does-not-belong-to-a-site-to-which-a-site-role-can-be-assigned" />
+		</c:when>
+		<c:otherwise>
 			<liferay-ui:icon
 				cssClass="modify-link"
 				iconCssClass="icon-search"
@@ -393,9 +396,6 @@ for (Group group : allGroups) {
 					}
 				);
 			</aui:script>
-		</c:when>
-		<c:otherwise>
-			<liferay-ui:message key="this-user-does-not-belong-to-a-site-to-which-a-site-role-can-be-assigned" />
 		</c:otherwise>
 	</c:choose>
 </c:if>
