@@ -591,10 +591,12 @@ public class LayoutTypePortletImpl
 			return false;
 		}
 
-		if (isCustomizable() && isCustomizedView() &&
-			hasPortletIdInDefaultView(portletId)) {
+		if (isCustomizable() && isCustomizedView()) {
+			LayoutTypePortletImpl defaultLayoutTypePortlet = getDefault();
 
-			return false;
+			if (defaultLayoutTypePortlet.hasNonstaticPortletId(portletId)) {
+				return false;
+			}
 		}
 
 		if (!strict &&
@@ -1439,6 +1441,24 @@ public class LayoutTypePortletImpl
 		return layout.getCompanyId();
 	}
 
+	protected LayoutTypePortletImpl getDefault() {
+		if (!isCustomizedView()) {
+			return this;
+		}
+
+		LayoutTypePortletImpl defaultLayoutType = new LayoutTypePortletImpl(
+			getLayout());
+
+		defaultLayoutType._customizedView = false;
+		defaultLayoutType._portalPreferences = null;
+
+		defaultLayoutType._embeddedPortlets = _embeddedPortlets;
+		defaultLayoutType._layoutSetPrototypeLayout = _layoutSetPrototypeLayout;
+		defaultLayoutType._updatePermission = _updatePermission;
+
+		return defaultLayoutType;
+	}
+
 	protected List<Portlet> getEmbeddedPortlets(
 			List<Portlet> columnPortlets, List<Portlet> staticPortlets)
 		throws SystemException {
@@ -1735,31 +1755,6 @@ public class LayoutTypePortletImpl
 					nonstaticPortletId).equals(portletId)) {
 
 				return true;
-			}
-		}
-
-		return false;
-	}
-
-	protected boolean hasPortletIdInDefaultView(String portletId) {
-		LayoutTemplate layoutTemplate = getLayoutTemplate();
-
-		List<String> columns = layoutTemplate.getColumns();
-
-		for (int i = 0; i < columns.size(); i++) {
-			String columnId = columns.get(i);
-
-			String columnValue = getTypeSettingsProperty(columnId);
-
-			String[] columnValues = StringUtil.split(columnValue);
-
-			for (String defaultViewPortletId : columnValues) {
-				if (defaultViewPortletId.equals(portletId) ||
-					PortletConstants.getRootPortletId(
-						defaultViewPortletId).equals(portletId)) {
-
-					return true;
-				}
 			}
 		}
 
