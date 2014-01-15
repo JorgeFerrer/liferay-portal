@@ -592,7 +592,7 @@ public class LayoutTypePortletImpl
 		}
 
 		if (isCustomizable() && isCustomizedView() &&
-			isDefaultViewPortletId(portletId)) {
+			hasPortletIdInDefaultView(portletId)) {
 
 			return false;
 		}
@@ -1741,6 +1741,31 @@ public class LayoutTypePortletImpl
 		return false;
 	}
 
+	protected boolean hasPortletIdInDefaultView(String portletId) {
+		LayoutTemplate layoutTemplate = getLayoutTemplate();
+
+		List<String> columns = layoutTemplate.getColumns();
+
+		for (int i = 0; i < columns.size(); i++) {
+			String columnId = columns.get(i);
+
+			String columnValue = getTypeSettingsProperty(columnId);
+
+			String[] columnValues = StringUtil.split(columnValue);
+
+			for (String defaultViewPortletId : columnValues) {
+				if (defaultViewPortletId.equals(portletId) ||
+					PortletConstants.getRootPortletId(
+						defaultViewPortletId).equals(portletId)) {
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	protected boolean hasStaticPortletId(String columnId, String portletId)
 		throws PortalException, SystemException {
 
@@ -1796,30 +1821,6 @@ public class LayoutTypePortletImpl
 		return false;
 	}
 
-	protected boolean isDefaultViewPortletId(String portletId) {
-		LayoutTemplate layoutTemplate = getLayoutTemplate();
-
-		List<String> columns = layoutTemplate.getColumns();
-
-		for (int i = 0; i < columns.size(); i++) {
-			String columnId = columns.get(i);
-
-			String columnValue = getTypeSettingsProperty(columnId);
-
-			String[] columnValues = StringUtil.split(columnValue);
-
-			for (String defaultViewPortletId : columnValues) {
-				if (defaultViewPortletId.equals(portletId) ||
-					PortletConstants.getRootPortletId(
-						defaultViewPortletId).equals(portletId)) {
-
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
 	protected void onRemoveFromLayout(String[] portletIds)
 		throws SystemException {
 
