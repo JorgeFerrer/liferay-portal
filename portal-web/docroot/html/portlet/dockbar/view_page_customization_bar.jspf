@@ -96,65 +96,68 @@ boolean modifiedLayout = (layoutSet != null) && layoutSet.isLayoutSetPrototypeLi
 						</c:choose>
 					</div>
 
-					<div class="page-customization-bar-form">
-
-						<%
-						String taglibImage = "search";
-						String taglibMessage = "view-default-page";
-
-						if (!layoutTypePortlet.isCustomizedView()) {
-							taglibMessage = "view-my-customized-page";
-						}
-						else if (layoutTypePortlet.isDefaultUpdated()) {
-							taglibImage = "activate";
-							taglibMessage = "the-defaults-for-the-current-page-have-been-updated-click-here-to-see-them";
-						}
-						%>
-
-						<liferay-ui:icon id="toggleCustomizedView" label="<%= true %>" message="<%= taglibMessage %>" url="javascript:;" />
-
-						<c:if test="<%= layoutTypePortlet.isCustomizedView() %>">
-							<liferay-portlet:actionURL portletName="<%= PortletKeys.LAYOUTS_ADMIN %>" var="resetCustomizationViewURL">
-								<portlet:param name="struts_action" value="/layouts_admin/edit_layouts" />
-								<portlet:param name="groupId" value="<%= String.valueOf(themeDisplay.getSiteGroupId()) %>" />
-								<portlet:param name="<%= Constants.CMD %>" value="reset_customized_view" />
-							</liferay-portlet:actionURL>
+					<c:if test="<%= !group.isStagingGroup() %>" >
+						<div class="page-customization-bar-form">
 
 							<%
-							String taglibURL = "javascript:if (confirm('" + UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-reset-your-customizations-to-default") + "')){submitForm(document.hrefFm, '" + HttpUtil.encodeURL(resetCustomizationViewURL) + "');}";
+							String taglibImage = "search";
+							String taglibMessage = "view-default-page";
+
+							if (!layoutTypePortlet.isCustomizedView()) {
+								taglibMessage = "view-my-customized-page";
+							}
+							else if (layoutTypePortlet.isDefaultUpdated()) {
+								taglibImage = "activate";
+								taglibMessage = "the-defaults-for-the-current-page-have-been-updated-click-here-to-see-them";
+							}
 							%>
 
-							<liferay-ui:icon label="<%= true %>" message="reset-my-customizations" url="<%= taglibURL %>" />
-						</c:if>
-					</div>
-				</div>
+							<liferay-ui:icon id="toggleCustomizedView" label="<%= true %>" message="<%= taglibMessage %>" url="javascript:;" />
 
-				<aui:script>
-					Liferay.provide(
-						window,
-						'<portlet:namespace />toggleCustomizedView',
-						function(event) {
-							var A = AUI();
+							<c:if test="<%= layoutTypePortlet.isCustomizedView() %>">
+								<liferay-portlet:actionURL portletName="<%= PortletKeys.LAYOUTS_ADMIN %>" var="resetCustomizationViewURL">
+									<portlet:param name="struts_action" value="/layouts_admin/edit_layouts" />
+									<portlet:param name="groupId" value="<%= String.valueOf(themeDisplay.getSiteGroupId()) %>" />
+									<portlet:param name="<%= Constants.CMD %>" value="reset_customized_view" />
+								</liferay-portlet:actionURL>
 
-							A.io.request(
-								themeDisplay.getPathMain() + '/portal/update_layout',
-								{
-									data: {
-										cmd: 'toggle_customized_view',
-										customized_view: '<%= String.valueOf(!layoutTypePortlet.isCustomizedView()) %>',
-										p_auth: '<%= AuthTokenUtil.getToken(request) %>'
-									},
-									on: {
-										success: function(event, id, obj) {
-											window.location.href = themeDisplay.getLayoutURL();
+								<%
+								String taglibURL = "javascript:if (confirm('" + UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-reset-your-customizations-to-default") + "')){submitForm(document.hrefFm, '" + HttpUtil.encodeURL(resetCustomizationViewURL) + "');}";
+								%>
+
+								<liferay-ui:icon label="<%= true %>" message="reset-my-customizations" url="<%= taglibURL %>" />
+							</c:if>
+						</div>
+
+						<aui:script>
+						Liferay.provide(
+							window,
+							'<portlet:namespace />toggleCustomizedView',
+							function(event) {
+								var A = AUI();
+
+								A.io.request(
+									themeDisplay.getPathMain() + '/portal/update_layout',
+									{
+										data: {
+											cmd: 'toggle_customized_view',
+											customized_view: '<%= String.valueOf(!layoutTypePortlet.isCustomizedView()) %>',
+											p_auth: '<%= AuthTokenUtil.getToken(request) %>'
+										},
+										on: {
+											success: function(event, id, obj) {
+												window.location.href = themeDisplay.getLayoutURL();
+											}
 										}
 									}
-								}
-							);
-						},
-						['aui-io-request']
-					);
-				</aui:script>
+								);
+							},
+							['aui-io-request']
+						);
+					</aui:script>
+
+					</c:if>
+				</div>
 
 				<aui:script use="aui-base">
 					var toggleCustomizedView = A.one('#<portlet:namespace />toggleCustomizedView');
