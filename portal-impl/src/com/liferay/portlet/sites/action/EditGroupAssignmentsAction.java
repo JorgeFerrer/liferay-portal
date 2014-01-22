@@ -263,10 +263,6 @@ public class EditGroupAssignmentsAction extends PortletAction {
 
 		if (addRoleIds.length > 0) {
 			if (!UserLocalServiceUtil.hasGroupUser(groupId, user.getUserId())) {
-				ThemeDisplay themeDisplay =
-					(ThemeDisplay)actionRequest.getAttribute(
-						WebKeys.THEME_DISPLAY);
-
 				ServiceContext serviceContext =
 					ServiceContextFactory.getInstance(actionRequest);
 
@@ -275,7 +271,7 @@ public class EditGroupAssignmentsAction extends PortletAction {
 				UserServiceUtil.addGroupUsers(groupId, userIds, serviceContext);
 
 				LiveUsers.joinGroup(
-					themeDisplay.getCompanyId(), groupId, userIds);
+					user.getCompanyId(), groupId, userIds);
 			}
 
 			UserGroupRoleServiceUtil.addUserGroupRoles(
