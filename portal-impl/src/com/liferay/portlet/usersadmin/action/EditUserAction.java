@@ -721,30 +721,26 @@ public class EditUserAction extends PortletAction {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		if (!portletId.equals(PortletKeys.MY_ACCOUNT)) {
-			if (GroupPermissionUtil.contains(
-					permissionChecker, user.getGroup(), ActionKeys.UPDATE) &&
-				PortalPermissionUtil.contains(
-					permissionChecker,
-					ActionKeys.UNLINK_LAYOUT_SET_PROTOTYPE)) {
+		if (!portletId.equals(PortletKeys.MY_ACCOUNT) &&
+			GroupPermissionUtil.contains(
+				permissionChecker, user.getGroup(), ActionKeys.UPDATE) &&
+			PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.UNLINK_LAYOUT_SET_PROTOTYPE)) {
 
-				long publicLayoutSetPrototypeId = ParamUtil.getLong(
-					actionRequest, "publicLayoutSetPrototypeId");
-				long privateLayoutSetPrototypeId = ParamUtil.getLong(
-					actionRequest, "privateLayoutSetPrototypeId");
-				boolean publicLayoutSetPrototypeLinkEnabled =
-					ParamUtil.getBoolean(
-						actionRequest, "publicLayoutSetPrototypeLinkEnabled");
-				boolean privateLayoutSetPrototypeLinkEnabled =
-					ParamUtil.getBoolean(
-						actionRequest, "privateLayoutSetPrototypeLinkEnabled");
+			long publicLayoutSetPrototypeId = ParamUtil.getLong(
+				actionRequest, "publicLayoutSetPrototypeId");
+			long privateLayoutSetPrototypeId = ParamUtil.getLong(
+				actionRequest, "privateLayoutSetPrototypeId");
+			boolean publicLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
+				actionRequest, "publicLayoutSetPrototypeLinkEnabled");
+			boolean privateLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
+				actionRequest, "privateLayoutSetPrototypeLinkEnabled");
 
-				SitesUtil.updateLayoutSetPrototypesLinks(
-					user.getGroup(), publicLayoutSetPrototypeId,
-					privateLayoutSetPrototypeId,
-					publicLayoutSetPrototypeLinkEnabled,
-					privateLayoutSetPrototypeLinkEnabled);
-			}
+			SitesUtil.updateLayoutSetPrototypesLinks(
+				user.getGroup(), publicLayoutSetPrototypeId,
+				privateLayoutSetPrototypeId,
+				publicLayoutSetPrototypeLinkEnabled,
+				privateLayoutSetPrototypeLinkEnabled);
 		}
 
 		Company company = PortalUtil.getCompany(actionRequest);
