@@ -74,7 +74,6 @@ import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.membershippolicy.MembershipPolicyException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -719,7 +718,7 @@ public class EditUserAction extends PortletAction {
 		String portletId = serviceContext.getPortletId();
 
 		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
+			themeDisplay.getPermissionChecker();
 
 		if (!portletId.equals(PortletKeys.MY_ACCOUNT) &&
 			GroupPermissionUtil.contains(
