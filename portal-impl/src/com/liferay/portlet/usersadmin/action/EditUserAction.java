@@ -72,10 +72,14 @@ import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.model.Website;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.membershippolicy.MembershipPolicyException;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
+import com.liferay.portal.service.permission.GroupPermissionUtil;
+import com.liferay.portal.service.permission.PortalPermissionUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -713,7 +717,15 @@ public class EditUserAction extends PortletAction {
 
 		String portletId = serviceContext.getPortletId();
 
-		if (!portletId.equals(PortletKeys.MY_ACCOUNT)) {
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
+		if (!portletId.equals(PortletKeys.MY_ACCOUNT) &&
+			GroupPermissionUtil.contains(
+				permissionChecker, user.getGroup(), ActionKeys.UPDATE) &&
+			PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.UNLINK_LAYOUT_SET_PROTOTYPE)) {
+
 			long publicLayoutSetPrototypeId = ParamUtil.getLong(
 				actionRequest, "publicLayoutSetPrototypeId");
 			long privateLayoutSetPrototypeId = ParamUtil.getLong(
