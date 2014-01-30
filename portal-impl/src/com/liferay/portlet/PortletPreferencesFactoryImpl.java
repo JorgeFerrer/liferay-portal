@@ -351,6 +351,13 @@ public class PortletPreferencesFactoryImpl
 			WebKeys.THEME_DISPLAY);
 
 		long siteGroupId = themeDisplay.getSiteGroupId();
+
+		long companyGroupId = themeDisplay.getCompanyGroupId();
+
+		if (siteGroupId == companyGroupId) {
+			siteGroupId = layout.getGroupId();
+		}
+
 		long userId = PortalUtil.getUserId(request);
 		LayoutTypePortlet layoutTypePortlet =
 			themeDisplay.getLayoutTypePortlet();
