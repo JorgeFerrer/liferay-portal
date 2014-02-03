@@ -14,6 +14,7 @@
 
 package com.liferay.portal.service.util;
 
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletPreferences;
@@ -62,6 +63,16 @@ public class PortletPreferencesTestUtil {
 			portlet.getPortletId(), portlet, defaultPreferences);
 	}
 
+	public static javax.portlet.PortletPreferences fetchLayoutPreferences(
+			Layout layout, Portlet portlet)
+		throws Exception {
+
+		return PortletPreferencesLocalServiceUtil.fetchPreferences(
+			TestPropsValues.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
+			portlet.getPortletId());
+	}
+
 	public static PortletPreferencesImpl convert(
 			PortletPreferences portletPreferences)
 		throws Exception {
@@ -73,28 +84,27 @@ public class PortletPreferencesTestUtil {
 			portletPreferences.getPreferences());
 	}
 
-	public static javax.portlet.PortletPreferences fetchLayoutPreferences(
-			Layout layout, Portlet portlet)
-		throws Exception {
-
-		return PortletPreferencesLocalServiceUtil.fetchPreferences(
-			TestPropsValues.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
-			portlet.getPortletId());
-	}
-
 	public static String getPreferencesAsXMLString(
 		String name, String[] values) {
 
-		String preferencesAsXml = "<portlet-preferences><preference>";
-		preferencesAsXml+= "<name>" + name + "</name>";
+		StringBundler sb = new StringBundler(7 + (values.length * 3));
+
+		sb.append("<portlet-preferences>");
+		sb.append("<preference>");
+		sb.append("<name>");
+		sb.append(name);
+		sb.append("</name>");
 
 		for (String value : values) {
-			preferencesAsXml+= "<value>" + value + "</value>";
+			sb.append("<value>");
+			sb.append(value);
+			sb.append("</value>");
 		}
 
-		preferencesAsXml+="</preference></portlet-preferences>";
-		return preferencesAsXml;
+		sb.append("</preference>");
+		sb.append("</portlet-preferences>");
+
+		return sb.toString();
 	}
 
 }
