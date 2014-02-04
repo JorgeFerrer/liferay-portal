@@ -33,7 +33,6 @@ import com.liferay.portal.test.TransactionalCallbackAwareExecutionTestListener;
 import com.liferay.portal.util.GroupTestUtil;
 import com.liferay.portal.util.LayoutTestUtil;
 import com.liferay.portal.util.PortletKeys;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.TestPropsValues;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.PortletPreferencesImpl;
@@ -49,6 +48,7 @@ import org.junit.runner.RunWith;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
 @ExecutionTestListeners(
 	listeners = {
@@ -962,8 +962,19 @@ public class PortletPreferencesLocalServiceTest {
 
 	@Test
 	public void testGetStrictPreferences() throws Exception {
+		MockStrictPortletPreferencesLocalServiceImpl mockservice = new
+			MockStrictPortletPreferencesLocalServiceImpl(true);
+
+		mockservice.setPortletPreferencesPersistence(
+			(PortletPreferencesPersistence)PortalBeanLocatorUtil.locate(
+				PortletPreferencesPersistence.class.getName()));
+
+		mockservice.setPortletLocalService(
+			(PortletLocalService)PortalBeanLocatorUtil.locate(
+				PortletLocalService.class.getName()));
+
 		javax.portlet.PortletPreferences portletPreferences =
-			PortletPreferencesLocalServiceUtil.getStrictPreferences(
+			mockservice.getStrictPreferences(
 				TestPropsValues.getCompanyId(),
 				PortletKeys.PREFS_OWNER_ID_DEFAULT,
 				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, _layout.getPlid(),
@@ -976,6 +987,17 @@ public class PortletPreferencesLocalServiceTest {
 	public void testGetStrictPreferencesByPortletPreferencesIds()
 		throws Exception {
 
+		MockStrictPortletPreferencesLocalServiceImpl mockservice = new
+			MockStrictPortletPreferencesLocalServiceImpl(true);
+
+		mockservice.setPortletPreferencesPersistence(
+			(PortletPreferencesPersistence)PortalBeanLocatorUtil.locate(
+				PortletPreferencesPersistence.class.getName()));
+
+		mockservice.setPortletLocalService(
+			(PortletLocalService)PortalBeanLocatorUtil.locate(
+				PortletLocalService.class.getName()));
+
 		PortletPreferencesIds portletPreferencesIds =
 			new PortletPreferencesIds(
 				TestPropsValues.getCompanyId(),
@@ -984,16 +1006,15 @@ public class PortletPreferencesLocalServiceTest {
 				_portlet.getPortletId());
 
 		javax.portlet.PortletPreferences portletPreferences =
-			PortletPreferencesLocalServiceUtil.getStrictPreferences(
-				portletPreferencesIds);
+			mockservice.getStrictPreferences(portletPreferencesIds);
 
 		assertStrictPortletPreferences(portletPreferences);
 	}
 
 	@Test
 	public void testGetStrictPreferencesNotDefault() throws Exception {
-		MockPortletPreferencesLocalServiceImpl mockservice = new
-			MockPortletPreferencesLocalServiceImpl();
+		MockStrictPortletPreferencesLocalServiceImpl mockservice = new
+			MockStrictPortletPreferencesLocalServiceImpl(true);
 
 		mockservice.setPortletPreferencesPersistence(
 			(PortletPreferencesPersistence)PortalBeanLocatorUtil.locate(
@@ -1306,18 +1327,35 @@ public class PortletPreferencesLocalServiceTest {
 	private Layout _layout;
 	private Portlet _portlet;
 
-	private class MockPortletPreferencesLocalServiceImpl
+	private class MockStrictPortletPreferencesLocalServiceImpl
 		extends PortletPreferencesLocalServiceImpl {
 
+		public MockStrictPortletPreferencesLocalServiceImpl(boolean strict) {
+			this.strict = strict;
+		}
+
+		@Override
 		public javax.portlet.PortletPreferences getStrictPreferences(
-			long companyId, long ownerId, int ownerType, long plid,
-			String portletId, String defaultPreferences)
+				long companyId, long ownerId, int ownerType, long plid,
+				String portletId)
+			throws SystemException {
+
+			return getPreferences(
+				companyId, ownerId, ownerType, plid, portletId, null, strict);
+		}
+
+		protected javax.portlet.PortletPreferences getStrictPreferences(
+				long companyId, long ownerId, int ownerType, long plid,
+				String portletId, String defaultPreferences)
 			throws SystemException {
 
 			return getPreferences(
 				companyId, ownerId, ownerType, plid, portletId,
-				defaultPreferences, !PropsValues.TCK_URL);
+				defaultPreferences, strict);
 		}
+
+		private boolean strict;
+
 	}
 
 }
