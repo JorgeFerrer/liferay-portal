@@ -624,6 +624,22 @@ public class PortletPreferencesLocalServiceTest {
 	}
 
 	@Test
+	public void testGetNotStrictPortletPreferences() throws Exception {
+		MockStrictPortletPreferencesLocalServiceImpl mockService =
+			getMockStrictPortletPreferencesService(false);
+
+		javax.portlet.PortletPreferences portletPreferences =
+			mockService.getStrictPreferences(
+				TestPropsValues.getCompanyId(),
+				PortletKeys.PREFS_OWNER_ID_DEFAULT,
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, _layout.getPlid(),
+				_portlet.getPortletId());
+
+		assertOwnedByLayout(
+			_layout, (PortletPreferencesImpl)portletPreferences);
+	}
+
+	@Test
 	public void testGetPreferencesByOwnerLayoutPortlet() throws Exception {
 		Group group2 = GroupTestUtil.addGroup();
 
