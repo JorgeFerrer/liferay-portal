@@ -1307,6 +1307,10 @@ public class PortletPreferencesLocalServiceTest {
 			(PortletLocalService)PortalBeanLocatorUtil.locate(
 				PortletLocalService.class.getName()));
 
+		mockservice.setPortletPreferencesLocalService(
+			(PortletPreferencesLocalService)PortalBeanLocatorUtil.locate(
+				PortletPreferencesLocalService.class.getName()));
+
 		return mockservice;
 	}
 
