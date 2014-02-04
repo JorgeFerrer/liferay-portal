@@ -1776,7 +1776,14 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	public List<Subscription> findByC_U_C_C(long companyId, long userId,
 		long classNameId, long[] classPKs, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		if ((classPKs != null) && (classPKs.length == 1)) {
+		if (classPKs == null) {
+			classPKs = new long[0];
+		}
+		else {
+			classPKs = ArrayUtil.unique(classPKs);
+		}
+
+		if (classPKs.length == 1) {
 			Subscription subscription = fetchByC_U_C_C(companyId, userId,
 					classNameId, classPKs[0]);
 
@@ -1831,51 +1838,26 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 
 			query.append(_SQL_SELECT_SUBSCRIPTION_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_C_U_C_C_COMPANYID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
+			query.append(_FINDER_COLUMN_C_U_C_C_USERID_2);
 
-			query.append(_FINDER_COLUMN_C_U_C_C_COMPANYID_5);
+			query.append(_FINDER_COLUMN_C_U_C_C_CLASSNAMEID_2);
 
-			conjunctionable = true;
-
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_C_U_C_C_USERID_5);
-
-			conjunctionable = true;
-
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_C_U_C_C_CLASSNAMEID_5);
-
-			conjunctionable = true;
-
-			if ((classPKs == null) || (classPKs.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (classPKs.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < classPKs.length; i++) {
-					query.append(_FINDER_COLUMN_C_U_C_C_CLASSPK_5);
+				query.append(_FINDER_COLUMN_C_U_C_C_CLASSPK_7);
 
-					if ((i + 1) < classPKs.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(classPKs));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -1902,10 +1884,6 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 				qPos.add(userId);
 
 				qPos.add(classNameId);
-
-				if (classPKs != null) {
-					qPos.add(classPKs);
-				}
 
 				if (!pagination) {
 					list = (List<Subscription>)QueryUtil.list(q, getDialect(),
@@ -2216,6 +2194,13 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	@Override
 	public int countByC_U_C_C(long companyId, long userId, long classNameId,
 		long[] classPKs) throws SystemException {
+		if (classPKs == null) {
+			classPKs = new long[0];
+		}
+		else {
+			classPKs = ArrayUtil.unique(classPKs);
+		}
+
 		Object[] finderArgs = new Object[] {
 				companyId, userId, classNameId, StringUtil.merge(classPKs)
 			};
@@ -2228,51 +2213,26 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 
 			query.append(_SQL_COUNT_SUBSCRIPTION_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_C_U_C_C_COMPANYID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
+			query.append(_FINDER_COLUMN_C_U_C_C_USERID_2);
 
-			query.append(_FINDER_COLUMN_C_U_C_C_COMPANYID_5);
+			query.append(_FINDER_COLUMN_C_U_C_C_CLASSNAMEID_2);
 
-			conjunctionable = true;
-
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_C_U_C_C_USERID_5);
-
-			conjunctionable = true;
-
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_C_U_C_C_CLASSNAMEID_5);
-
-			conjunctionable = true;
-
-			if ((classPKs == null) || (classPKs.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (classPKs.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < classPKs.length; i++) {
-					query.append(_FINDER_COLUMN_C_U_C_C_CLASSPK_5);
+				query.append(_FINDER_COLUMN_C_U_C_C_CLASSPK_7);
 
-					if ((i + 1) < classPKs.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(classPKs));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -2290,10 +2250,6 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 				qPos.add(userId);
 
 				qPos.add(classNameId);
-
-				if (classPKs != null) {
-					qPos.add(classPKs);
-				}
 
 				count = (Long)q.uniqueResult();
 
@@ -2315,17 +2271,10 @@ public class SubscriptionPersistenceImpl extends BasePersistenceImpl<Subscriptio
 	}
 
 	private static final String _FINDER_COLUMN_C_U_C_C_COMPANYID_2 = "subscription.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_U_C_C_COMPANYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_C_U_C_C_COMPANYID_2) + ")";
 	private static final String _FINDER_COLUMN_C_U_C_C_USERID_2 = "subscription.userId = ? AND ";
-	private static final String _FINDER_COLUMN_C_U_C_C_USERID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_C_U_C_C_USERID_2) + ")";
 	private static final String _FINDER_COLUMN_C_U_C_C_CLASSNAMEID_2 = "subscription.classNameId = ? AND ";
-	private static final String _FINDER_COLUMN_C_U_C_C_CLASSNAMEID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_C_U_C_C_CLASSNAMEID_2) + ")";
 	private static final String _FINDER_COLUMN_C_U_C_C_CLASSPK_2 = "subscription.classPK = ?";
-	private static final String _FINDER_COLUMN_C_U_C_C_CLASSPK_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_C_U_C_C_CLASSPK_2) + ")";
+	private static final String _FINDER_COLUMN_C_U_C_C_CLASSPK_7 = "subscription.classPK IN (";
 
 	public SubscriptionPersistenceImpl() {
 		setModelClass(Subscription.class);

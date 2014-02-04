@@ -14,8 +14,6 @@
 
 package com.liferay.portal.tools;
 
-import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
-import com.liferay.portal.kernel.io.unsync.UnsyncPrintWriter;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -23,7 +21,6 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.SystemProperties;
-import com.liferay.portal.kernel.util.UnsyncPrintWriterPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelHintsConstants;
 import com.liferay.portal.scripting.ruby.RubyExecutor;
@@ -39,7 +36,6 @@ import com.liferay.portal.util.PropsImpl;
 import java.io.File;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -48,6 +44,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.apache.tools.ant.DirectoryScanner;
+
+import org.jruby.RubyArray;
+import org.jruby.RubyException;
+import org.jruby.embed.ScriptingContainer;
+import org.jruby.exceptions.RaiseException;
+import org.jruby.runtime.builtin.IRubyObject;
 
 /**
  * @author Brian Wing Shun Chan
@@ -158,16 +160,19 @@ public class SassToCssBuilder {
 
 		_initUtil(classLoader);
 
-		_rubyScript = StringUtil.read(
+		RubyExecutor rubyExecutor = new RubyExecutor();
+
+		rubyExecutor.setExecuteInSeparateThread(false);
+
+		ScriptingContainer scriptingContainer =
+			rubyExecutor.getScriptingContainer();
+
+		String rubyScript = StringUtil.read(
 			classLoader,
 			"com/liferay/portal/servlet/filters/dynamiccss" +
 				"/dependencies/main.rb");
 
-		_tempDir = SystemProperties.get(SystemProperties.TMP_DIR);
-
-		RubyExecutor rubyExecutor = new RubyExecutor();
-
-		rubyExecutor.setExecuteInSeparateThread(false);
+		Object scriptObject = scriptingContainer.runScriptlet(rubyScript);
 
 		List<String> fileNames = new ArrayList<String>();
 
@@ -185,7 +190,8 @@ public class SassToCssBuilder {
 
 		for (String fileName : fileNames) {
 			Callable<String> callable = new CacheSassCallable(
-				rubyExecutor, docrootDirName, portalCommonDirName, fileName);
+				scriptingContainer, scriptObject, docrootDirName,
+				portalCommonDirName, fileName);
 
 			futures.add(executorService.submit(callable));
 		}
@@ -290,45 +296,61 @@ public class SassToCssBuilder {
 	}
 
 	private String _parseSassFile(
-			RubyExecutor rubyExecutor, String docrootDirName,
-			String portalCommonDirName, String fileName)
+			ScriptingContainer scriptingContainer, Object scriptObject,
+			String docrootDirName, String portalCommonDirName, String fileName)
 		throws Exception {
 
+		String content = getContent(docrootDirName, fileName);
 		String filePath = docrootDirName.concat(fileName);
 
-		Map<String, Object> inputObjects = new HashMap<String, Object>();
+		Object[] arguments = new Object[] {
+			content, portalCommonDirName, filePath, _getCssThemePath(filePath),
+			_tempDir, false
+		};
 
-		inputObjects.put("commonSassPath", portalCommonDirName);
-		inputObjects.put("content", getContent(docrootDirName, fileName));
-		inputObjects.put("cssRealPath", filePath);
-		inputObjects.put("cssThemePath", _getCssThemePath(filePath));
-		inputObjects.put("sassCachePath", _tempDir);
+		try {
+			content = scriptingContainer.callMethod(
+				scriptObject, "process", arguments, String.class);
+		}
+		catch (Exception e) {
+			if (e instanceof RaiseException) {
+				RaiseException raiseException = (RaiseException)e;
 
-		UnsyncByteArrayOutputStream unsyncByteArrayOutputStream =
-			new UnsyncByteArrayOutputStream();
+				RubyException rubyException = raiseException.getException();
 
-		UnsyncPrintWriter unsyncPrintWriter = UnsyncPrintWriterPool.borrow(
-			unsyncByteArrayOutputStream);
+				System.err.println(
+					String.valueOf(rubyException.message.toJava(String.class)));
 
-		inputObjects.put("out", unsyncPrintWriter);
+				IRubyObject iRubyObject = rubyException.getBacktrace();
 
-		rubyExecutor.eval(null, inputObjects, null, _rubyScript);
+				RubyArray rubyArray = (RubyArray)iRubyObject.toJava(
+					RubyArray.class);
 
-		unsyncPrintWriter.flush();
+				for (int i = 0; i < rubyArray.size(); i++) {
+					Object object = rubyArray.get(i);
 
-		return unsyncByteArrayOutputStream.toString();
+					System.err.println(String.valueOf(object));
+				}
+			}
+			else {
+				e.printStackTrace();
+			}
+		}
+
+		return content;
 	}
 
-	private String _rubyScript;
-	private String _tempDir;
+	private String _tempDir = SystemProperties.get(SystemProperties.TMP_DIR);
 
 	private class CacheSassCallable implements Callable<String> {
 
 		public CacheSassCallable(
-			RubyExecutor rubyExecutor, String docrootDirName,
-			String portalCommonDirName, String fileName) {
+			ScriptingContainer scriptingContainer, Object scriptObject,
+			String docrootDirName, String portalCommonDirName,
+			String fileName) {
 
-			_rubyExecutor = rubyExecutor;
+			_scriptingContainer = scriptingContainer;
+			_scriptObject = scriptObject;
 			_docrootDirName = docrootDirName;
 			_portalCommonDirName = portalCommonDirName;
 			_fileName = fileName;
@@ -343,8 +365,8 @@ public class SassToCssBuilder {
 			File cacheFile = getCacheFile(fileName);
 
 			String parsedContent = _parseSassFile(
-				_rubyExecutor, _docrootDirName, _portalCommonDirName,
-				_fileName);
+				_scriptingContainer, _scriptObject, _docrootDirName,
+				_portalCommonDirName, _fileName);
 
 			FileUtil.write(cacheFile, parsedContent);
 
@@ -370,8 +392,8 @@ public class SassToCssBuilder {
 				lastModified = rtlCustomFile.lastModified();
 
 				String rtlCustomCss = _parseSassFile(
-					_rubyExecutor, _docrootDirName, _portalCommonDirName,
-					rtlCustomFileName);
+					_scriptingContainer, _scriptObject, _docrootDirName,
+					_portalCommonDirName, rtlCustomFileName);
 
 				rtlCss += rtlCustomCss;
 			}
@@ -389,7 +411,8 @@ public class SassToCssBuilder {
 		private String _docrootDirName;
 		private String _fileName;
 		private String _portalCommonDirName;
-		private RubyExecutor _rubyExecutor;
+		private ScriptingContainer _scriptingContainer;
+		private Object _scriptObject;
 
 	}
 

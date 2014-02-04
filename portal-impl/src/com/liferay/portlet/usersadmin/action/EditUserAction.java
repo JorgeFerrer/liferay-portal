@@ -72,10 +72,12 @@ import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.model.Website;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.membershippolicy.MembershipPolicyException;
+import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
+import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -714,6 +716,12 @@ public class EditUserAction extends PortletAction {
 		String portletId = serviceContext.getPortletId();
 
 		if (!portletId.equals(PortletKeys.MY_ACCOUNT)) {
+			Group group = user.getGroup();
+
+			boolean hasGroupUpdatePermission = GroupPermissionUtil.contains(
+				themeDisplay.getPermissionChecker(), group.getGroupId(),
+				ActionKeys.UPDATE);
+
 			long publicLayoutSetPrototypeId = ParamUtil.getLong(
 				actionRequest, "publicLayoutSetPrototypeId");
 			long privateLayoutSetPrototypeId = ParamUtil.getLong(
@@ -723,11 +731,16 @@ public class EditUserAction extends PortletAction {
 			boolean privateLayoutSetPrototypeLinkEnabled = ParamUtil.getBoolean(
 				actionRequest, "privateLayoutSetPrototypeLinkEnabled");
 
-			SitesUtil.updateLayoutSetPrototypesLinks(
-				user.getGroup(), publicLayoutSetPrototypeId,
-				privateLayoutSetPrototypeId,
-				publicLayoutSetPrototypeLinkEnabled,
-				privateLayoutSetPrototypeLinkEnabled);
+			if (hasGroupUpdatePermission &&
+				((publicLayoutSetPrototypeId > 0) ||
+				 (privateLayoutSetPrototypeId > 0))) {
+
+				SitesUtil.updateLayoutSetPrototypesLinks(
+					group, publicLayoutSetPrototypeId,
+					privateLayoutSetPrototypeId,
+					publicLayoutSetPrototypeLinkEnabled,
+					privateLayoutSetPrototypeLinkEnabled);
+			}
 		}
 
 		Company company = PortalUtil.getCompany(actionRequest);

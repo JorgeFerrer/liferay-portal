@@ -20,12 +20,14 @@ import com.liferay.portal.NoSuchImageException;
 import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.dao.orm.common.SQLTransformer;
+import com.liferay.portal.events.StartupHelperUtil;
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
 import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
 import com.liferay.portal.kernel.cluster.ClusterInvokeThreadLocal;
 import com.liferay.portal.kernel.cluster.ClusterRequest;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBFactoryUtil;
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.image.ImageBag;
@@ -219,6 +221,10 @@ import java.lang.reflect.Method;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1425,12 +1431,42 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public long getClassNameId(Class<?> clazz) {
-		return ClassNameLocalServiceUtil.getClassNameId(clazz);
+		return getClassNameId(clazz.getName());
 	}
 
 	@Override
 	public long getClassNameId(String value) {
-		return ClassNameLocalServiceUtil.getClassNameId(value);
+		if (StartupHelperUtil.isStartupFinished()) {
+			return ClassNameLocalServiceUtil.getClassNameId(value);
+		}
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			con = DataAccess.getUpgradeOptimizedConnection();
+
+			ps = con.prepareStatement(
+				"select classNameId from ClassName_ where value = ?");
+
+			ps.setString(1, value);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getLong("classNameId");
+			}
+		}
+		catch (Exception e) {
+			throw new RuntimeException(
+				"Unable to get class name ID from value " + value, e);
+		}
+		finally {
+			DataAccess.cleanUp(con, ps, rs);
+		}
+
+		return 0;
 	}
 
 	@Override

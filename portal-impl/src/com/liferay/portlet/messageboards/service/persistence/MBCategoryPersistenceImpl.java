@@ -3645,6 +3645,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				orderByComparator);
 		}
 
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -3654,35 +3661,22 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		boolean conjunctionable = false;
+		query.append(_FINDER_COLUMN_G_P_GROUPID_2);
 
-		if (conjunctionable) {
-			query.append(WHERE_AND);
-		}
-
-		query.append(_FINDER_COLUMN_G_P_GROUPID_5);
-
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
+			query.append(StringPool.CLOSE_PARENTHESIS);
 		}
+
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_2);
@@ -3728,10 +3722,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			return (List<MBCategory>)QueryUtil.list(q, getDialect(), start, end);
 		}
@@ -3801,7 +3791,14 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public List<MBCategory> findByG_P(long groupId, long[] parentCategoryIds,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		if ((parentCategoryIds != null) && (parentCategoryIds.length == 1)) {
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
+		if (parentCategoryIds.length == 1) {
 			return findByG_P(groupId, parentCategoryIds[0], start, end,
 				orderByComparator);
 		}
@@ -3844,35 +3841,22 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_SELECT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_G_P_GROUPID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_G_P_GROUPID_5);
-
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -3895,10 +3879,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				QueryPos qPos = QueryPos.getInstance(q);
 
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				if (!pagination) {
 					list = (List<MBCategory>)QueryUtil.list(q, getDialect(),
@@ -4018,6 +3998,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	@Override
 	public int countByG_P(long groupId, long[] parentCategoryIds)
 		throws SystemException {
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		Object[] finderArgs = new Object[] {
 				groupId, StringUtil.merge(parentCategoryIds)
 			};
@@ -4030,35 +4017,22 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_COUNT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_G_P_GROUPID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_G_P_GROUPID_5);
-
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -4072,10 +4046,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				QueryPos qPos = QueryPos.getInstance(q);
 
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				count = (Long)q.uniqueResult();
 
@@ -4166,39 +4136,33 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			return countByG_P(groupId, parentCategoryIds);
 		}
 
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		query.append(_FILTER_SQL_COUNT_MBCATEGORY_WHERE);
 
-		boolean conjunctionable = false;
+		query.append(_FINDER_COLUMN_G_P_GROUPID_2);
 
-		if (conjunctionable) {
-			query.append(WHERE_AND);
-		}
-
-		query.append(_FINDER_COLUMN_G_P_GROUPID_5);
-
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_G_P_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
+			query.append(StringPool.CLOSE_PARENTHESIS);
 		}
+
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				MBCategory.class.getName(),
@@ -4218,10 +4182,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			qPos.add(groupId);
 
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
-
 			Long count = (Long)q.uniqueResult();
 
 			return count.intValue();
@@ -4235,11 +4195,8 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	}
 
 	private static final String _FINDER_COLUMN_G_P_GROUPID_2 = "mbCategory.groupId = ? AND ";
-	private static final String _FINDER_COLUMN_G_P_GROUPID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_P_GROUPID_2) + ")";
 	private static final String _FINDER_COLUMN_G_P_PARENTCATEGORYID_2 = "mbCategory.parentCategoryId = ?";
-	private static final String _FINDER_COLUMN_G_P_PARENTCATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_P_PARENTCATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_G_P_PARENTCATEGORYID_7 = "mbCategory.parentCategoryId IN (";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_G_S = new FinderPath(MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
 			MBCategoryModelImpl.FINDER_CACHE_ENABLED, MBCategoryImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByG_S",
@@ -6576,6 +6533,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				orderByComparator);
 		}
 
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -6585,43 +6549,26 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		boolean conjunctionable = false;
+		query.append(_FINDER_COLUMN_G_P_S_GROUPID_2);
 
-		if (conjunctionable) {
-			query.append(WHERE_AND);
-		}
-
-		query.append(_FINDER_COLUMN_G_P_S_GROUPID_5);
-
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_G_P_S_STATUS_5);
+		query.append(_FINDER_COLUMN_G_P_S_STATUS_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_2);
@@ -6667,10 +6614,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			qPos.add(status);
 
@@ -6745,7 +6688,14 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public List<MBCategory> findByG_P_S(long groupId, long[] parentCategoryIds,
 		int status, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		if ((parentCategoryIds != null) && (parentCategoryIds.length == 1)) {
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
+		if (parentCategoryIds.length == 1) {
 			return findByG_P_S(groupId, parentCategoryIds[0], status, start,
 				end, orderByComparator);
 		}
@@ -6789,43 +6739,26 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_SELECT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_G_P_S_GROUPID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_G_P_S_GROUPID_5);
-
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_P_S_STATUS_5);
+			query.append(_FINDER_COLUMN_G_P_S_STATUS_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -6848,10 +6781,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				QueryPos qPos = QueryPos.getInstance(q);
 
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				qPos.add(status);
 
@@ -6980,6 +6909,13 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	@Override
 	public int countByG_P_S(long groupId, long[] parentCategoryIds, int status)
 		throws SystemException {
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		Object[] finderArgs = new Object[] {
 				groupId, StringUtil.merge(parentCategoryIds), status
 			};
@@ -6992,43 +6928,26 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_COUNT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
+			query.append(_FINDER_COLUMN_G_P_S_GROUPID_2);
 
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
-			query.append(_FINDER_COLUMN_G_P_S_GROUPID_5);
-
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_P_S_STATUS_5);
+			query.append(_FINDER_COLUMN_G_P_S_STATUS_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -7042,10 +6961,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				QueryPos qPos = QueryPos.getInstance(q);
 
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				qPos.add(status);
 
@@ -7144,47 +7059,37 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			return countByG_P_S(groupId, parentCategoryIds, status);
 		}
 
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		query.append(_FILTER_SQL_COUNT_MBCATEGORY_WHERE);
 
-		boolean conjunctionable = false;
+		query.append(_FINDER_COLUMN_G_P_S_GROUPID_2);
 
-		if (conjunctionable) {
-			query.append(WHERE_AND);
-		}
-
-		query.append(_FINDER_COLUMN_G_P_S_GROUPID_5);
-
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_G_P_S_STATUS_5);
+		query.append(_FINDER_COLUMN_G_P_S_STATUS_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				MBCategory.class.getName(),
@@ -7204,10 +7109,6 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			qPos.add(groupId);
 
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
-
 			qPos.add(status);
 
 			Long count = (Long)q.uniqueResult();
@@ -7223,14 +7124,9 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	}
 
 	private static final String _FINDER_COLUMN_G_P_S_GROUPID_2 = "mbCategory.groupId = ? AND ";
-	private static final String _FINDER_COLUMN_G_P_S_GROUPID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_P_S_GROUPID_2) + ")";
 	private static final String _FINDER_COLUMN_G_P_S_PARENTCATEGORYID_2 = "mbCategory.parentCategoryId = ? AND ";
-	private static final String _FINDER_COLUMN_G_P_S_PARENTCATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_P_S_PARENTCATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_G_P_S_PARENTCATEGORYID_7 = "mbCategory.parentCategoryId IN (";
 	private static final String _FINDER_COLUMN_G_P_S_STATUS_2 = "mbCategory.status = ?";
-	private static final String _FINDER_COLUMN_G_P_S_STATUS_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_P_S_STATUS_2) + ")";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NOTC_G_P = new FinderPath(MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
 			MBCategoryModelImpl.FINDER_CACHE_ENABLED, MBCategoryImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByNotC_G_P",
@@ -7750,6 +7646,20 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				start, end, orderByComparator);
 		}
 
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -7759,55 +7669,36 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		boolean conjunctionable = false;
-
-		if ((categoryIds == null) || (categoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (categoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < categoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_7);
 
-				if ((i + 1) < categoryIds.length) {
-					query.append(WHERE_AND);
-				}
-			}
+			query.append(StringUtil.merge(categoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_2);
 
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
+			query.append(StringPool.CLOSE_PARENTHESIS);
 		}
+
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_2);
@@ -7852,15 +7743,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (categoryIds != null) {
-				qPos.add(categoryIds);
-			}
-
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			return (List<MBCategory>)QueryUtil.list(q, getDialect(), start, end);
 		}
@@ -7934,8 +7817,21 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public List<MBCategory> findByNotC_G_P(long[] categoryIds, long groupId,
 		long[] parentCategoryIds, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		if ((categoryIds != null) && (categoryIds.length == 1) &&
-				(parentCategoryIds != null) && (parentCategoryIds.length == 1)) {
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
+		if ((categoryIds.length == 1) && (parentCategoryIds.length == 1)) {
 			return findByNotC_G_P(categoryIds[0], groupId,
 				parentCategoryIds[0], start, end, orderByComparator);
 		}
@@ -7981,55 +7877,36 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_SELECT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((categoryIds == null) || (categoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (categoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < categoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_7);
 
-					if ((i + 1) < categoryIds.length) {
-						query.append(WHERE_AND);
-					}
-				}
+				query.append(StringUtil.merge(categoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_2);
 
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -8051,15 +7928,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (categoryIds != null) {
-					qPos.add(categoryIds);
-				}
-
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				if (!pagination) {
 					list = (List<MBCategory>)QueryUtil.list(q, getDialect(),
@@ -8186,6 +8055,20 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	@Override
 	public int countByNotC_G_P(long[] categoryIds, long groupId,
 		long[] parentCategoryIds) throws SystemException {
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		Object[] finderArgs = new Object[] {
 				StringUtil.merge(categoryIds), groupId,
 				StringUtil.merge(parentCategoryIds)
@@ -8199,55 +8082,36 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_COUNT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((categoryIds == null) || (categoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (categoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < categoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_7);
 
-					if ((i + 1) < categoryIds.length) {
-						query.append(WHERE_AND);
-					}
-				}
+				query.append(StringUtil.merge(categoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_2);
 
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
+				query.append(StringPool.CLOSE_PARENTHESIS);
 			}
+
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -8260,15 +8124,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (categoryIds != null) {
-					qPos.add(categoryIds);
-				}
-
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				count = (Long)q.uniqueResult();
 
@@ -8365,59 +8221,54 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			return countByNotC_G_P(categoryIds, groupId, parentCategoryIds);
 		}
 
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		query.append(_FILTER_SQL_COUNT_MBCATEGORY_WHERE);
 
-		boolean conjunctionable = false;
-
-		if ((categoryIds == null) || (categoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (categoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < categoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_7);
 
-				if ((i + 1) < categoryIds.length) {
-					query.append(WHERE_AND);
-				}
-			}
+			query.append(StringUtil.merge(categoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_GROUPID_2);
 
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
+			query.append(StringPool.CLOSE_PARENTHESIS);
 		}
+
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				MBCategory.class.getName(),
@@ -8435,15 +8286,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (categoryIds != null) {
-				qPos.add(categoryIds);
-			}
-
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			Long count = (Long)q.uniqueResult();
 
@@ -8458,14 +8301,10 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	}
 
 	private static final String _FINDER_COLUMN_NOTC_G_P_CATEGORYID_2 = "mbCategory.categoryId != ? AND ";
-	private static final String _FINDER_COLUMN_NOTC_G_P_CATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_CATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_NOTC_G_P_CATEGORYID_7 = "mbCategory.categoryId NOT IN (";
 	private static final String _FINDER_COLUMN_NOTC_G_P_GROUPID_2 = "mbCategory.groupId = ? AND ";
-	private static final String _FINDER_COLUMN_NOTC_G_P_GROUPID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_GROUPID_2) + ")";
 	private static final String _FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_2 = "mbCategory.parentCategoryId = ?";
-	private static final String _FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_NOTC_G_P_PARENTCATEGORYID_7 = "mbCategory.parentCategoryId IN (";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NOTC_G_P_S =
 		new FinderPath(MBCategoryModelImpl.ENTITY_CACHE_ENABLED,
 			MBCategoryModelImpl.FINDER_CACHE_ENABLED, MBCategoryImpl.class,
@@ -9021,6 +8860,20 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				status, start, end, orderByComparator);
 		}
 
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -9030,63 +8883,40 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		boolean conjunctionable = false;
-
-		if ((categoryIds == null) || (categoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (categoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < categoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_7);
 
-				if ((i + 1) < categoryIds.length) {
-					query.append(WHERE_AND);
-				}
-			}
+			query.append(StringUtil.merge(categoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_2);
 
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_MBCATEGORY_NO_INLINE_DISTINCT_WHERE_2);
@@ -9131,15 +8961,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (categoryIds != null) {
-				qPos.add(categoryIds);
-			}
-
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			qPos.add(status);
 
@@ -9219,8 +9041,21 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	public List<MBCategory> findByNotC_G_P_S(long[] categoryIds, long groupId,
 		long[] parentCategoryIds, int status, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		if ((categoryIds != null) && (categoryIds.length == 1) &&
-				(parentCategoryIds != null) && (parentCategoryIds.length == 1)) {
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
+		if ((categoryIds.length == 1) && (parentCategoryIds.length == 1)) {
 			return findByNotC_G_P_S(categoryIds[0], groupId,
 				parentCategoryIds[0], status, start, end, orderByComparator);
 		}
@@ -9267,63 +9102,40 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_SELECT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((categoryIds == null) || (categoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (categoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < categoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_7);
 
-					if ((i + 1) < categoryIds.length) {
-						query.append(WHERE_AND);
-					}
-				}
+				query.append(StringUtil.merge(categoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_2);
 
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -9345,15 +9157,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (categoryIds != null) {
-					qPos.add(categoryIds);
-				}
-
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				qPos.add(status);
 
@@ -9492,6 +9296,20 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	@Override
 	public int countByNotC_G_P_S(long[] categoryIds, long groupId,
 		long[] parentCategoryIds, int status) throws SystemException {
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		Object[] finderArgs = new Object[] {
 				StringUtil.merge(categoryIds), groupId,
 				StringUtil.merge(parentCategoryIds), status
@@ -9505,63 +9323,40 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			query.append(_SQL_COUNT_MBCATEGORY_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((categoryIds == null) || (categoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (categoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < categoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_7);
 
-					if ((i + 1) < categoryIds.length) {
-						query.append(WHERE_AND);
-					}
-				}
+				query.append(StringUtil.merge(categoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_2);
 
-			conjunctionable = true;
-
-			if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (parentCategoryIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < parentCategoryIds.length; i++) {
-					query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_5);
+				query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_7);
 
-					if ((i + 1) < parentCategoryIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(parentCategoryIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -9574,15 +9369,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (categoryIds != null) {
-					qPos.add(categoryIds);
-				}
-
 				qPos.add(groupId);
-
-				if (parentCategoryIds != null) {
-					qPos.add(parentCategoryIds);
-				}
 
 				qPos.add(status);
 
@@ -9689,67 +9476,58 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 				status);
 		}
 
+		if (categoryIds == null) {
+			categoryIds = new long[0];
+		}
+		else {
+			categoryIds = ArrayUtil.unique(categoryIds);
+		}
+
+		if (parentCategoryIds == null) {
+			parentCategoryIds = new long[0];
+		}
+		else {
+			parentCategoryIds = ArrayUtil.unique(parentCategoryIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		query.append(_FILTER_SQL_COUNT_MBCATEGORY_WHERE);
 
-		boolean conjunctionable = false;
-
-		if ((categoryIds == null) || (categoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (categoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < categoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_7);
 
-				if ((i + 1) < categoryIds.length) {
-					query.append(WHERE_AND);
-				}
-			}
+			query.append(StringUtil.merge(categoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_2);
 
-		conjunctionable = true;
-
-		if ((parentCategoryIds == null) || (parentCategoryIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (parentCategoryIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < parentCategoryIds.length; i++) {
-				query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_5);
+			query.append(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_7);
 
-				if ((i + 1) < parentCategoryIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(parentCategoryIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_5);
+		query.append(_FINDER_COLUMN_NOTC_G_P_S_STATUS_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				MBCategory.class.getName(),
@@ -9767,15 +9545,7 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (categoryIds != null) {
-				qPos.add(categoryIds);
-			}
-
 			qPos.add(groupId);
-
-			if (parentCategoryIds != null) {
-				qPos.add(parentCategoryIds);
-			}
 
 			qPos.add(status);
 
@@ -9792,17 +9562,11 @@ public class MBCategoryPersistenceImpl extends BasePersistenceImpl<MBCategory>
 	}
 
 	private static final String _FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_2 = "mbCategory.categoryId != ? AND ";
-	private static final String _FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_NOTC_G_P_S_CATEGORYID_7 = "mbCategory.categoryId NOT IN (";
 	private static final String _FINDER_COLUMN_NOTC_G_P_S_GROUPID_2 = "mbCategory.groupId = ? AND ";
-	private static final String _FINDER_COLUMN_NOTC_G_P_S_GROUPID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_S_GROUPID_2) + ")";
 	private static final String _FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_2 = "mbCategory.parentCategoryId = ? AND ";
-	private static final String _FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_2) + ")";
+	private static final String _FINDER_COLUMN_NOTC_G_P_S_PARENTCATEGORYID_7 = "mbCategory.parentCategoryId IN (";
 	private static final String _FINDER_COLUMN_NOTC_G_P_S_STATUS_2 = "mbCategory.status = ?";
-	private static final String _FINDER_COLUMN_NOTC_G_P_S_STATUS_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_NOTC_G_P_S_STATUS_2) + ")";
 
 	public MBCategoryPersistenceImpl() {
 		setModelClass(MBCategory.class);

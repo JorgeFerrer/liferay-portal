@@ -6359,6 +6359,13 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			return findByG_CPK(groupIds, classPK, start, end, orderByComparator);
 		}
 
+		if (groupIds == null) {
+			groupIds = new long[0];
+		}
+		else {
+			groupIds = ArrayUtil.unique(groupIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -6368,35 +6375,24 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			query.append(_FILTER_SQL_SELECT_DDMTEMPLATE_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		boolean conjunctionable = false;
-
-		if ((groupIds == null) || (groupIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (groupIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < groupIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_CPK_GROUPID_5);
+			query.append(_FINDER_COLUMN_G_CPK_GROUPID_7);
 
-				if ((i + 1) < groupIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(groupIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_G_CPK_CLASSPK_5);
+		query.append(_FINDER_COLUMN_G_CPK_CLASSPK_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_DDMTEMPLATE_NO_INLINE_DISTINCT_WHERE_2);
@@ -6440,10 +6436,6 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			}
 
 			QueryPos qPos = QueryPos.getInstance(q);
-
-			if (groupIds != null) {
-				qPos.add(groupIds);
-			}
 
 			qPos.add(classPK);
 
@@ -6515,7 +6507,14 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	public List<DDMTemplate> findByG_CPK(long[] groupIds, long classPK,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-		if ((groupIds != null) && (groupIds.length == 1)) {
+		if (groupIds == null) {
+			groupIds = new long[0];
+		}
+		else {
+			groupIds = ArrayUtil.unique(groupIds);
+		}
+
+		if (groupIds.length == 1) {
 			return findByG_CPK(groupIds[0], classPK, start, end,
 				orderByComparator);
 		}
@@ -6555,35 +6554,24 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			query.append(_SQL_SELECT_DDMTEMPLATE_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((groupIds == null) || (groupIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (groupIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < groupIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_CPK_GROUPID_5);
+				query.append(_FINDER_COLUMN_G_CPK_GROUPID_7);
 
-					if ((i + 1) < groupIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(groupIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_CPK_CLASSPK_5);
+			query.append(_FINDER_COLUMN_G_CPK_CLASSPK_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -6604,10 +6592,6 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (groupIds != null) {
-					qPos.add(groupIds);
-				}
 
 				qPos.add(classPK);
 
@@ -6729,6 +6713,13 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	@Override
 	public int countByG_CPK(long[] groupIds, long classPK)
 		throws SystemException {
+		if (groupIds == null) {
+			groupIds = new long[0];
+		}
+		else {
+			groupIds = ArrayUtil.unique(groupIds);
+		}
+
 		Object[] finderArgs = new Object[] { StringUtil.merge(groupIds), classPK };
 
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_G_CPK,
@@ -6739,35 +6730,24 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			query.append(_SQL_COUNT_DDMTEMPLATE_WHERE);
 
-			boolean conjunctionable = false;
-
-			if ((groupIds == null) || (groupIds.length > 0)) {
-				if (conjunctionable) {
-					query.append(WHERE_AND);
-				}
-
+			if (groupIds.length > 0) {
 				query.append(StringPool.OPEN_PARENTHESIS);
 
-				for (int i = 0; i < groupIds.length; i++) {
-					query.append(_FINDER_COLUMN_G_CPK_GROUPID_5);
+				query.append(_FINDER_COLUMN_G_CPK_GROUPID_7);
 
-					if ((i + 1) < groupIds.length) {
-						query.append(WHERE_OR);
-					}
-				}
+				query.append(StringUtil.merge(groupIds));
 
 				query.append(StringPool.CLOSE_PARENTHESIS);
 
-				conjunctionable = true;
-			}
+				query.append(StringPool.CLOSE_PARENTHESIS);
 
-			if (conjunctionable) {
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_G_CPK_CLASSPK_5);
+			query.append(_FINDER_COLUMN_G_CPK_CLASSPK_2);
 
-			conjunctionable = true;
+			query.setStringAt(removeConjunction(query.stringAt(query.index() -
+						1)), query.index() - 1);
 
 			String sql = query.toString();
 
@@ -6779,10 +6759,6 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (groupIds != null) {
-					qPos.add(groupIds);
-				}
 
 				qPos.add(classPK);
 
@@ -6875,39 +6851,35 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 			return countByG_CPK(groupIds, classPK);
 		}
 
+		if (groupIds == null) {
+			groupIds = new long[0];
+		}
+		else {
+			groupIds = ArrayUtil.unique(groupIds);
+		}
+
 		StringBundler query = new StringBundler();
 
 		query.append(_FILTER_SQL_COUNT_DDMTEMPLATE_WHERE);
 
-		boolean conjunctionable = false;
-
-		if ((groupIds == null) || (groupIds.length > 0)) {
-			if (conjunctionable) {
-				query.append(WHERE_AND);
-			}
-
+		if (groupIds.length > 0) {
 			query.append(StringPool.OPEN_PARENTHESIS);
 
-			for (int i = 0; i < groupIds.length; i++) {
-				query.append(_FINDER_COLUMN_G_CPK_GROUPID_5);
+			query.append(_FINDER_COLUMN_G_CPK_GROUPID_7);
 
-				if ((i + 1) < groupIds.length) {
-					query.append(WHERE_OR);
-				}
-			}
+			query.append(StringUtil.merge(groupIds));
 
 			query.append(StringPool.CLOSE_PARENTHESIS);
 
-			conjunctionable = true;
-		}
+			query.append(StringPool.CLOSE_PARENTHESIS);
 
-		if (conjunctionable) {
 			query.append(WHERE_AND);
 		}
 
-		query.append(_FINDER_COLUMN_G_CPK_CLASSPK_5);
+		query.append(_FINDER_COLUMN_G_CPK_CLASSPK_2);
 
-		conjunctionable = true;
+		query.setStringAt(removeConjunction(query.stringAt(query.index() - 1)),
+			query.index() - 1);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				DDMTemplate.class.getName(),
@@ -6925,10 +6897,6 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (groupIds != null) {
-				qPos.add(groupIds);
-			}
-
 			qPos.add(classPK);
 
 			Long count = (Long)q.uniqueResult();
@@ -6944,11 +6912,8 @@ public class DDMTemplatePersistenceImpl extends BasePersistenceImpl<DDMTemplate>
 	}
 
 	private static final String _FINDER_COLUMN_G_CPK_GROUPID_2 = "ddmTemplate.groupId = ? AND ";
-	private static final String _FINDER_COLUMN_G_CPK_GROUPID_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_CPK_GROUPID_2) + ")";
+	private static final String _FINDER_COLUMN_G_CPK_GROUPID_7 = "ddmTemplate.groupId IN (";
 	private static final String _FINDER_COLUMN_G_CPK_CLASSPK_2 = "ddmTemplate.classPK = ?";
-	private static final String _FINDER_COLUMN_G_CPK_CLASSPK_5 = "(" +
-		removeConjunction(_FINDER_COLUMN_G_CPK_CLASSPK_2) + ")";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_G_C_C = new FinderPath(DDMTemplateModelImpl.ENTITY_CACHE_ENABLED,
 			DDMTemplateModelImpl.FINDER_CACHE_ENABLED, DDMTemplateImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByG_C_C",
