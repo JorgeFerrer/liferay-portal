@@ -68,7 +68,7 @@ public class PortletPreferencesLocalServiceTest {
 		_layout = LayoutTestUtil.addLayout(_group);
 
 		_portlet = PortletLocalServiceUtil.getPortletById(
-			TestPropsValues.getCompanyId(), String.valueOf(_PORTLET_ID));
+			TestPropsValues.getCompanyId(), String.valueOf(_MOCK_PORTLET_ID));
 	}
 
 	@Test
@@ -1320,14 +1320,13 @@ public class PortletPreferencesLocalServiceTest {
 		for (int i = 0; i < results.length; i++) {
 			results[i] = PortletLocalServiceUtil.getPortletById(
 				TestPropsValues.getCompanyId(),
-				String.valueOf(_PORTLET_ID + 1 + i));
+				String.valueOf(_MOCK_PORTLET_ID + 1 + i));
 		}
 
 		return results;
 	}
 
-	private static final int _PORTLET_ID = 1000
-		;
+	private static final int _MOCK_PORTLET_ID = 1000;
 
 	private static final String _PREFERENCE_NAME = "testPreferenceName";
 
