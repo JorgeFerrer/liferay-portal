@@ -117,10 +117,16 @@ public class PortletURLImpl
 					continue;
 				}
 
-				String value = request.getParameter(autopropagatedParameter);
+				String[] values = request.getParameterValues(
+					autopropagatedParameter);
 
-				if (value != null) {
-					setParameter(autopropagatedParameter, value);
+				if (values == null) {
+					values = request.getParameterValues(
+						prependNamespace(autopropagatedParameter));
+				}
+
+				if (values != null) {
+					setParameter(autopropagatedParameter, values);
 				}
 			}
 
