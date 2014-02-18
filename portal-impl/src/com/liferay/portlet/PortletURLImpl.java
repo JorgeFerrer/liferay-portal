@@ -109,27 +109,6 @@ public class PortletURLImpl
 		Portlet portlet = getPortlet();
 
 		if (portlet != null) {
-			Set<String> autopropagatedParameters =
-				portlet.getAutopropagatedParameters();
-
-			for (String autopropagatedParameter : autopropagatedParameters) {
-				if (PortalUtil.isReservedParameter(autopropagatedParameter)) {
-					continue;
-				}
-
-				String[] values = request.getParameterValues(
-					autopropagatedParameter);
-
-				if (values == null) {
-					values = request.getParameterValues(
-						prependNamespace(autopropagatedParameter));
-				}
-
-				if (values != null) {
-					setParameter(autopropagatedParameter, values);
-				}
-			}
-
 			PortletApp portletApp = portlet.getPortletApp();
 
 			_escapeXml = MapUtil.getBoolean(
@@ -1081,6 +1060,8 @@ public class PortletURLImpl
 			mergeRenderParameters(params);
 		}
 
+		mergeAutopropagatedParameters(params);
+
 		int previousSbIndex = sb.index();
 
 		for (Map.Entry<String, String[]> entry : params.entrySet()) {
@@ -1251,6 +1232,8 @@ public class PortletURLImpl
 			mergeRenderParameters(params);
 		}
 
+		mergeAutopropagatedParameters(params);
+
 		StringBundler parameterSb = new StringBundler();
 
 		int previousSbIndex = sb.index();
@@ -1338,6 +1321,46 @@ public class PortletURLImpl
 		}
 		else {
 			return false;
+		}
+	}
+
+	protected void mergeAutopropagatedParameters(Map<String, String[]> params) {
+		Set<String> autopropagatedParameters =
+			getPortlet().getAutopropagatedParameters();
+
+		for (String autopropagatedParameter : autopropagatedParameters) {
+			if (PortalUtil.isReservedParameter(autopropagatedParameter)) {
+				continue;
+			}
+
+			String[] values = _request.getParameterValues(
+				autopropagatedParameter);
+
+			if (values == null) {
+				values = _request.getParameterValues(
+					prependNamespace(autopropagatedParameter));
+			}
+
+			if (values == null) {
+				continue;
+			}
+
+			if (!PropsValues.PORTLET_URL_APPEND_PARAMETERS) {
+				params.put(autopropagatedParameter, values);
+			}
+			else {
+				String[] redefinedValues = params.get(autopropagatedParameter);
+
+				if (redefinedValues == null) {
+					params.put(autopropagatedParameter, values);
+				}
+				else {
+					String[] newValues = ArrayUtil.append(
+						values, redefinedValues);
+
+					params.put(autopropagatedParameter, newValues);
+				}
+			}
 		}
 	}
 
