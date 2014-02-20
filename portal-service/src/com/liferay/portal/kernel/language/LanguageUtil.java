@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
@@ -155,6 +156,36 @@ public class LanguageUtil {
 			portletConfig, locale, pattern, arguments, translateArguments);
 	}
 
+	public static String format(
+		ResourceBundle resourceBundle, Locale locale, String pattern,
+		Object argument) {
+
+		return getLanguage().format(resourceBundle, locale, pattern, argument);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, Locale locale, String pattern,
+		Object argument, boolean translateArguments) {
+
+		return getLanguage().format(
+			resourceBundle, locale, pattern, argument, translateArguments);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, Locale locale, String pattern,
+		Object[] arguments) {
+
+		return getLanguage().format(resourceBundle, locale, pattern, arguments);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, Locale locale, String pattern,
+		Object[] arguments, boolean translateArguments) {
+
+		return getLanguage().format(
+			resourceBundle, locale, pattern, arguments, translateArguments);
+	}
+
 	public static String get(Locale locale, String key) {
 		return getLanguage().get(locale, key);
 	}
@@ -184,6 +215,19 @@ public class LanguageUtil {
 		String defaultValue) {
 
 		return getLanguage().get(portletConfig, locale, key, defaultValue);
+	}
+
+	public static String get(
+		ResourceBundle resourceBundle, Locale locale, String key) {
+
+		return getLanguage().get(resourceBundle, locale, key);
+	}
+
+	public static String get(
+		ResourceBundle resourceBundle, Locale locale, String key,
+		String defaultValue) {
+
+		return getLanguage().get(resourceBundle, locale, key, defaultValue);
 	}
 
 	public static Locale[] getAvailableLocales() {
