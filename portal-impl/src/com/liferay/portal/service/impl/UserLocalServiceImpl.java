@@ -5198,7 +5198,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		// Email address verification
 
-		if ((serviceContext != null) && sendEmailAddressVerification) {
+		if ((serviceContext != null) && (serviceContext.getPlid() > 0) &&
+			sendEmailAddressVerification) {
+
 			sendEmailAddressVerification(user, emailAddress, serviceContext);
 		}
 
