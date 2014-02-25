@@ -188,7 +188,7 @@ List<Group> inheritedSites = (List<Group>)request.getAttribute("user.inheritedSi
 </c:if>
 
 <liferay-ui:search-container
-	headerNames="name,roles"
+	headerNames="name,inherited-site-roles"
 >
 	<liferay-ui:search-container-results
 		results="<%= inheritedSites %>"
@@ -209,7 +209,7 @@ List<Group> inheritedSites = (List<Group>)request.getAttribute("user.inheritedSi
 
 		<liferay-ui:search-container-column-text
 			buffer="buffer"
-			name="roles"
+			name="inherited-site-roles"
 		>
 
 			<%
