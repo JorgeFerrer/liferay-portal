@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.nio.intraband.cache;
 
 import com.liferay.portal.kernel.cache.PortalCache;
-import com.liferay.portal.kernel.cache.PortalCacheManager;
 import com.liferay.portal.kernel.io.Deserializer;
 import com.liferay.portal.kernel.nio.intraband.Datagram;
 import com.liferay.portal.kernel.nio.intraband.MockIntraband;
@@ -134,20 +133,6 @@ public class IntrabandPortalCacheManagerTest {
 		Assert.assertEquals(portalCacheName, portalCache2.getName());
 		Assert.assertEquals(1, portalCaches.size());
 		Assert.assertSame(portalCache, portalCache2);
-	}
-
-	@Test
-	public void testPortalCacheManagerGetterAndSetter() {
-		Assert.assertNull(IntrabandPortalCacheManager.getPortalCacheManager());
-
-		PortalCacheManager<String, String> portalCacheManager =
-			new MockPortalCacheManager();
-
-		IntrabandPortalCacheManager.setPortalCacheManager(portalCacheManager);
-
-		Assert.assertSame(
-			portalCacheManager,
-			IntrabandPortalCacheManager.getPortalCacheManager());
 	}
 
 	@Test
@@ -280,38 +265,5 @@ public class IntrabandPortalCacheManagerTest {
 	private MockIntraband _mockIntraband = new MockIntraband();
 	private MockRegistrationReference _mockRegistrationReference =
 		new MockRegistrationReference(_mockIntraband);
-
-	private static class MockPortalCacheManager
-		implements PortalCacheManager<String, String> {
-
-		@Override
-		public void clearAll() {
-		}
-
-		@Override
-		public void destroy() {
-		}
-
-		@Override
-		public PortalCache<String, String> getCache(String name) {
-			return null;
-		}
-
-		@Override
-		public PortalCache<String, String> getCache(
-			String name, boolean blocking) {
-
-			return null;
-		}
-
-		@Override
-		public void reconfigureCaches(URL configurationURL) {
-		}
-
-		@Override
-		public void removeCache(String name) {
-		}
-
-	}
 
 }

@@ -14,6 +14,8 @@
 
 package com.liferay.portal.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -29,6 +31,7 @@ import com.liferay.portal.webserver.WebServerServletTokenUtil;
 /**
  * @author Amos Fong
  */
+@ProviderType
 public class UserConstants {
 
 	public static final int FULL_NAME_MAX_LENGTH = 75;
@@ -41,6 +44,8 @@ public class UserConstants {
 	public static final String LIST_VIEW_FLAT_USERS = "flat-users";
 
 	public static final String LIST_VIEW_TREE = "tree";
+
+	public static final long USER_ID_DEFAULT = 0;
 
 	public static final String USERS_EMAIL_ADDRESS_AUTO_SUFFIX = PropsUtil.get(
 		PropsKeys.USERS_EMAIL_ADDRESS_AUTO_SUFFIX);

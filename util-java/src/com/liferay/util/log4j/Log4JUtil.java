@@ -291,22 +291,27 @@ public class Log4JUtil {
 			return urlContent;
 		}
 
-		int x = urlContent.indexOf("<appender name=\"FILE\"");
+		urlContent = _removeAppender(urlContent, "TEXT_FILE");
 
-		int y = urlContent.indexOf("</appender>", x);
+		return _removeAppender(urlContent, "XML_FILE");
+	}
+
+	private static String _removeAppender(String content, String appenderName) {
+		int x = content.indexOf("<appender name=\"" + appenderName + "\"");
+
+		int y = content.indexOf("</appender>", x);
 
 		if (y != -1) {
-			y = urlContent.indexOf("<", y + 1);
+			y = content.indexOf("<", y + 1);
 		}
 
 		if ((x != -1) && (y != -1)) {
-			urlContent = urlContent.substring(0, x) + urlContent.substring(y);
+			content = content.substring(0, x) + content.substring(y);
 		}
 
-		urlContent = StringUtil.replace(
-			urlContent, "<appender-ref ref=\"FILE\" />", StringPool.BLANK);
-
-		return urlContent;
+		return StringUtil.replace(
+			content, "<appender-ref ref=\"" + appenderName + "\" />",
+			StringPool.BLANK);
 	}
 
 	private static Map<String, String> _customLogSettings =

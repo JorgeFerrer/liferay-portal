@@ -145,6 +145,10 @@
 		}
 	}
 
+	.lfr-search .control-group {
+		margin-bottom: 0;
+	}
+
 	@include respond-to(phone) {
 		.form-search .input-append {
 			.btn {
@@ -359,10 +363,6 @@
 							ul.dropdown-menu, .site-administration-menu {
 								border-width: 0;
 								margin: 0;
-
-								@include respond-to(phone, tablet) {
-									margin-top: 3px;
-								}
 
 								> li > a {
 									color: #FFF;

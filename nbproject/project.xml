@@ -252,7 +252,6 @@
 				<classpath mode="compile">lib/development/ant-contrib.jar</classpath>
 				<classpath mode="compile">lib/development/ant-ext.jar</classpath>
 				<classpath mode="compile">lib/development/ant-installer.jar</classpath>
-				<classpath mode="compile">lib/development/ant-jshint.jar</classpath>
 				<classpath mode="compile">lib/development/antelope.jar</classpath>
 				<classpath mode="compile">lib/development/catalina.jar</classpath>
 				<classpath mode="compile">lib/development/cobertura.jar</classpath>
