@@ -53,6 +53,7 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 			String resourceID, String cacheability, long plid, long refererPlid,
 			String portletName, Boolean anchor, Boolean encrypt,
 			long doAsGroupId, long doAsUserId, Boolean portletConfiguration,
+			String settingsScope, String serviceName,
 			Map<String, String[]> parameterMap,
 			Set<String> removedParameterNames, PageContext pageContext)
 		throws Exception {
@@ -135,8 +136,10 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 			liferayPortletURL.setDoAsUserId(doAsUserId);
 		}
 
-		if ((portletConfiguration != null) &&
-			portletConfiguration.booleanValue()) {
+		if (((portletConfiguration != null) &&
+			 portletConfiguration.booleanValue()) ||
+			Validator.isNotNull(settingsScope) ||
+			Validator.isNotNull(serviceName)) {
 
 			String returnToFullPageURL = ParamUtil.getString(
 				request, "returnToFullPageURL");
@@ -150,6 +153,14 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 				"returnToFullPageURL", returnToFullPageURL);
 			liferayPortletURL.setParameter("portletResource", portletResource);
 			liferayPortletURL.setParameter("previewWidth", previewWidth);
+
+			if (Validator.isNotNull(settingsScope)) {
+				liferayPortletURL.setParameter("settingsScope", settingsScope);
+			}
+
+			if (Validator.isNotNull(serviceName)) {
+				liferayPortletURL.setParameter("serviceName", serviceName);
+			}
 		}
 
 		if (parameterMap != null) {
@@ -183,8 +194,8 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 				_secure, _copyCurrentRenderParameters, _escapeXml, _name,
 				_resourceID, _cacheability, _plid, _refererPlid, _portletName,
 				_anchor, _encrypt, _doAsGroupId, _doAsUserId,
-				_portletConfiguration, getParams(), getRemovedParameterNames(),
-				pageContext);
+				_portletConfiguration, _settingsScope, _serviceName,
+				getParams(), getRemovedParameterNames(), pageContext);
 
 			return EVAL_PAGE;
 		}
@@ -206,6 +217,14 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 
 	public String getLifecycle() {
 		return PortletRequest.ACTION_PHASE;
+	}
+
+	public String getServiceName() {
+		return _serviceName;
+	}
+
+	public String getSettingsScope() {
+		return _settingsScope;
 	}
 
 	public void setAnchor(boolean anchor) {
@@ -269,6 +288,14 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 
 	public void setSecure(boolean secure) {
 		_secure = Boolean.valueOf(secure);
+	}
+
+	public void setServiceName(String serviceName) {
+		_serviceName = serviceName;
+	}
+
+	public void setSettingsScope(String settingsScope) {
+		_settingsScope = settingsScope;
 	}
 
 	public void setVar(String var) {
@@ -336,6 +363,8 @@ public class ActionURLTag extends ParamAndPropertyAncestorTagImpl {
 	private long _refererPlid = LayoutConstants.DEFAULT_PLID;
 	private String _resourceID;
 	private Boolean _secure;
+	private String _serviceName;
+	private String _settingsScope;
 	private String _var;
 	private String _varImpl;
 	private String _windowState;

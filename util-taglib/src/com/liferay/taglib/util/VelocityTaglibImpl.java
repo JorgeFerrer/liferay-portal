@@ -160,8 +160,8 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 			PortletRequest.ACTION_PHASE, windowState, portletMode, var, varImpl,
 			secure, copyCurrentRenderParameters, escapeXml, name, resourceID,
 			cacheability, plid, refererPlid, portletName, anchor, encrypt,
-			doAsGroupId, doAsUserId, portletConfiguration, parameterMap,
-			removedParameterNames, _pageContext);
+			doAsGroupId, doAsUserId, portletConfiguration, null, null,
+			parameterMap, removedParameterNames, _pageContext);
 	}
 
 	@Override
@@ -1016,8 +1016,8 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 			PortletRequest.RENDER_PHASE, windowState, portletMode, var, varImpl,
 			secure, copyCurrentRenderParameters, escapeXml, name, resourceID,
 			cacheability, plid, refererPlid, portletName, anchor, encrypt,
-			doAsGroupId, doAsUserId, portletConfiguration, parameterMap,
-			removedParameterNames, _pageContext);
+			doAsGroupId, doAsUserId, portletConfiguration, null, null,
+			parameterMap, removedParameterNames, _pageContext);
 	}
 
 	/**
