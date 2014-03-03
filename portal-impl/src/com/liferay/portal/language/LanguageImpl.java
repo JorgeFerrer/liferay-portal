@@ -290,35 +290,32 @@ public class LanguageImpl implements Language {
 
 	@Override
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object argument) {
+		ResourceBundle resourceBundle, String pattern, Object argument) {
 
-		return format(
-			resourceBundle, locale, pattern, new Object[] {argument}, true);
+		return format(resourceBundle, pattern, new Object[]{argument}, true);
 	}
 
 	@Override
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object argument, boolean translateArguments) {
+		ResourceBundle resourceBundle, String pattern, Object argument,
+		boolean translateArguments) {
 
 		return format(
-			resourceBundle, locale, pattern, new Object[] {argument},
+			resourceBundle, pattern, new Object[] {argument},
 			translateArguments);
 	}
 
 	@Override
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object[] arguments) {
+		ResourceBundle resourceBundle, String pattern, Object[] arguments) {
 
-		return format(resourceBundle, locale, pattern, arguments, true);
+		return format(resourceBundle, pattern, arguments, true);
 	}
 
 	@Override
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object[] arguments, boolean translateArguments) {
+		ResourceBundle resourceBundle, String pattern, Object[] arguments,
+		boolean translateArguments) {
 
 		if (PropsValues.TRANSLATIONS_DISABLED) {
 			return pattern;
@@ -327,7 +324,7 @@ public class LanguageImpl implements Language {
 		String value = null;
 
 		try {
-			pattern = get(resourceBundle, locale, pattern);
+			pattern = get(resourceBundle, pattern);
 
 			if (ArrayUtil.isNotEmpty(arguments)) {
 				pattern = _escapePattern(pattern);
@@ -337,7 +334,7 @@ public class LanguageImpl implements Language {
 				for (int i = 0; i < arguments.length; i++) {
 					if (translateArguments) {
 						formattedArguments[i] = get(
-							resourceBundle, locale, arguments[i].toString());
+							resourceBundle, arguments[i].toString());
 					}
 					else {
 						formattedArguments[i] = arguments[i];
@@ -423,19 +420,18 @@ public class LanguageImpl implements Language {
 	}
 
 	@Override
-	public String get(
-		ResourceBundle resourceBundle, Locale locale, String key) {
-
-		return get(resourceBundle, locale, key, key);
+	public String get(ResourceBundle resourceBundle, String key) {
+		return get(resourceBundle, key, key);
 	}
 
 	@Override
 	public String get(
-		ResourceBundle resourceBundle, Locale locale, String key,
-		String defaultValue) {
+		ResourceBundle resourceBundle, String key, String defaultValue) {
 
 		try {
-			return _get(null, null, resourceBundle, locale, key, defaultValue);
+			return _get(
+				null, null, resourceBundle, resourceBundle.getLocale(), key,
+				defaultValue);
 		}
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
