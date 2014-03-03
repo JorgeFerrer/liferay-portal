@@ -75,20 +75,18 @@ public interface Language {
 		boolean translateArguments);
 
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object argument);
+		ResourceBundle resourceBundle, String pattern, Object argument);
 
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object argument, boolean translateArguments);
+		ResourceBundle resourceBundle, String pattern, Object argument,
+		boolean translateArguments);
 
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object[] arguments);
+		ResourceBundle resourceBundle, String pattern, Object[] arguments);
 
 	public String format(
-		ResourceBundle resourceBundle, Locale locale, String pattern,
-		Object[] arguments, boolean translateArguments);
+		ResourceBundle resourceBundle, String pattern, Object[] arguments,
+		boolean translateArguments);
 
 	public String get(Locale locale, String key);
 
@@ -98,11 +96,10 @@ public interface Language {
 
 	public String get(PageContext pageContext, String key, String defaultValue);
 
-	public String get(ResourceBundle resourceBundle, Locale locale, String key);
+	public String get(ResourceBundle resourceBundle, String key);
 
 	public String get(
-		ResourceBundle resourceBundle, Locale locale, String key,
-		String defaultValue);
+		ResourceBundle resourceBundle, String key, String defaultValue);
 
 	public Locale[] getAvailableLocales();
 
