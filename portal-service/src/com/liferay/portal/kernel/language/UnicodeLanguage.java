@@ -15,6 +15,7 @@
 package com.liferay.portal.kernel.language;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.jsp.PageContext;
 
@@ -70,6 +71,11 @@ public interface UnicodeLanguage {
 	public String get(PageContext pageContext, String key);
 
 	public String get(PageContext pageContext, String key, String defaultValue);
+
+	public String get(ResourceBundle resourceBundle, String key);
+
+	public String get(
+		ResourceBundle resourceBundle, String key, String defaultValue);
 
 	public String getTimeDescription(
 		PageContext pageContext, long milliseconds);

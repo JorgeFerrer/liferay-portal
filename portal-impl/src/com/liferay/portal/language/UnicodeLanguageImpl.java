@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.util.UnicodeFormatter;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.jsp.PageContext;
 
@@ -133,7 +134,6 @@ public class UnicodeLanguageImpl implements UnicodeLanguage {
 				pageContext, pattern, arguments, translateArguments));
 	}
 
-
 	@Override
 	public String get(Locale locale, String key) {
 		return UnicodeFormatter.toString(LanguageUtil.get(locale, key));
@@ -156,6 +156,21 @@ public class UnicodeLanguageImpl implements UnicodeLanguage {
 
 		return UnicodeFormatter.toString(
 			LanguageUtil.get(pageContext, key, defaultValue));
+	}
+
+	@Override
+	public String get(ResourceBundle resourceBundle, String key) {
+		return UnicodeFormatter.toString(
+			LanguageUtil.get(resourceBundle, resourceBundle.getLocale(), key));
+	}
+
+	@Override
+	public String get(
+		ResourceBundle resourceBundle, String key, String defaultValue) {
+
+		return UnicodeFormatter.toString(
+			LanguageUtil.get(
+				resourceBundle, resourceBundle.getLocale(), key, defaultValue));
 	}
 
 	@Override

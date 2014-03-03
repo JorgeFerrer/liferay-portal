@@ -17,6 +17,7 @@ package com.liferay.portal.kernel.language;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.jsp.PageContext;
 
@@ -125,6 +126,16 @@ public class UnicodeLanguageUtil {
 		PageContext pageContext, String key, String defaultValue) {
 
 		return getUnicodeLanguage().get(pageContext, key, defaultValue);
+	}
+
+	public static String get(ResourceBundle resourceBundle, String key) {
+		return getUnicodeLanguage().get(resourceBundle, key);
+	}
+
+	public static String get(
+		ResourceBundle resourceBundle, String key, String defaultValue) {
+
+		return getUnicodeLanguage().get(resourceBundle, key, defaultValue);
 	}
 
 	public static String getTimeDescription(
