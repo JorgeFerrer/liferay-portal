@@ -22,8 +22,6 @@ import com.liferay.portal.kernel.util.UnicodeFormatter;
 
 import java.util.Locale;
 
-import javax.portlet.PortletConfig;
-
 import javax.servlet.jsp.PageContext;
 
 /**
@@ -135,43 +133,6 @@ public class UnicodeLanguageImpl implements UnicodeLanguage {
 				pageContext, pattern, arguments, translateArguments));
 	}
 
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object argument) {
-
-		return UnicodeFormatter.toString(
-			LanguageUtil.format(portletConfig, locale, pattern, argument));
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object argument, boolean translateArguments) {
-
-		return UnicodeFormatter.toString(
-			LanguageUtil.format(
-				portletConfig, locale, pattern, argument, translateArguments));
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object[] arguments) {
-
-		return UnicodeFormatter.toString(
-			LanguageUtil.format(portletConfig, locale, pattern, arguments));
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object[] arguments, boolean translateArguments) {
-
-		return UnicodeFormatter.toString(
-			LanguageUtil.format(
-				portletConfig, locale, pattern, arguments, translateArguments));
-	}
 
 	@Override
 	public String get(Locale locale, String key) {
@@ -195,21 +156,6 @@ public class UnicodeLanguageImpl implements UnicodeLanguage {
 
 		return UnicodeFormatter.toString(
 			LanguageUtil.get(pageContext, key, defaultValue));
-	}
-
-	@Override
-	public String get(PortletConfig portletConfig, Locale locale, String key) {
-		return UnicodeFormatter.toString(
-			LanguageUtil.get(portletConfig, locale, key));
-	}
-
-	@Override
-	public String get(
-		PortletConfig portletConfig, Locale locale, String key,
-		String defaultValue) {
-
-		return UnicodeFormatter.toString(
-			LanguageUtil.get(portletConfig, locale, key, defaultValue));
 	}
 
 	@Override
