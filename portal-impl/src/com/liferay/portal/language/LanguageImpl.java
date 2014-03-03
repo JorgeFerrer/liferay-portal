@@ -290,77 +290,6 @@ public class LanguageImpl implements Language {
 
 	@Override
 	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object argument) {
-
-		return format(
-			portletConfig, locale, pattern, new Object[] {argument}, true);
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object argument, boolean translateArguments) {
-
-		return format(
-			portletConfig, locale, pattern, new Object[] {argument},
-			translateArguments);
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object[] arguments) {
-
-		return format(portletConfig, locale, pattern, arguments, true);
-	}
-
-	@Override
-	public String format(
-		PortletConfig portletConfig, Locale locale, String pattern,
-		Object[] arguments, boolean translateArguments) {
-
-		if (PropsValues.TRANSLATIONS_DISABLED) {
-			return pattern;
-		}
-
-		String value = null;
-
-		try {
-			pattern = get(portletConfig, locale, pattern);
-
-			if (ArrayUtil.isNotEmpty(arguments)) {
-				pattern = _escapePattern(pattern);
-
-				Object[] formattedArguments = new Object[arguments.length];
-
-				for (int i = 0; i < arguments.length; i++) {
-					if (translateArguments) {
-						formattedArguments[i] = get(
-							portletConfig, locale, arguments[i].toString());
-					}
-					else {
-						formattedArguments[i] = arguments[i];
-					}
-				}
-
-				value = MessageFormat.format(pattern, formattedArguments);
-			}
-			else {
-				value = pattern;
-			}
-		}
-		catch (Exception e) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(e, e);
-			}
-		}
-
-		return value;
-	}
-
-	@Override
-	public String format(
 		ResourceBundle resourceBundle, Locale locale, String pattern,
 		Object argument) {
 
@@ -483,28 +412,6 @@ public class LanguageImpl implements Language {
 
 		try {
 			return _get(pageContext, null, null, null, key, defaultValue);
-		}
-		catch (Exception e) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(e, e);
-			}
-
-			return defaultValue;
-		}
-	}
-
-	@Override
-	public String get(PortletConfig portletConfig, Locale locale, String key) {
-		return get(portletConfig, locale, key, key);
-	}
-
-	@Override
-	public String get(
-		PortletConfig portletConfig, Locale locale, String key,
-		String defaultValue) {
-
-		try {
-			return _get(null, portletConfig, null, locale, key, defaultValue);
 		}
 		catch (Exception e) {
 			if (_log.isWarnEnabled()) {
