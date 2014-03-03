@@ -560,18 +560,19 @@ public class AssetCategoryLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteCategory(
+	public com.liferay.portlet.asset.model.AssetCategory deleteCategory(
 		com.liferay.portlet.asset.model.AssetCategory category)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_assetCategoryLocalService.deleteCategory(category);
+		return _assetCategoryLocalService.deleteCategory(category);
 	}
 
 	@Override
-	public void deleteCategory(long categoryId)
+	public com.liferay.portlet.asset.model.AssetCategory deleteCategory(
+		long categoryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_assetCategoryLocalService.deleteCategory(categoryId);
+		return _assetCategoryLocalService.deleteCategory(categoryId);
 	}
 
 	@Override
@@ -725,10 +726,12 @@ public class AssetCategoryLocalServiceWrapper
 	}
 
 	@Override
-	public void mergeCategories(long fromCategoryId, long toCategoryId)
+	public com.liferay.portlet.asset.model.AssetCategory mergeCategories(
+		long fromCategoryId, long toCategoryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_assetCategoryLocalService.mergeCategories(fromCategoryId, toCategoryId);
+		return _assetCategoryLocalService.mergeCategories(fromCategoryId,
+			toCategoryId);
 	}
 
 	@Override

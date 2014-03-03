@@ -17,6 +17,8 @@ package com.liferay.portlet.asset.service.impl;
 import com.liferay.portal.kernel.cache.ThreadLocalCachable;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -60,6 +62,7 @@ import java.util.concurrent.Callable;
 public class AssetCategoryLocalServiceImpl
 	extends AssetCategoryLocalServiceBaseImpl {
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetCategory addCategory(
 			long userId, long parentCategoryId, Map<Locale, String> titleMap,
@@ -170,7 +173,7 @@ public class AssetCategoryLocalServiceImpl
 
 		descriptionMap.put(locale, StringPool.BLANK);
 
-		return addCategory(
+		return assetCategoryLocalService.addCategory(
 			userId, AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, titleMap,
 			descriptionMap, vocabularyId, null, serviceContext);
 	}
@@ -200,21 +203,23 @@ public class AssetCategoryLocalServiceImpl
 			category.getCategoryId(), groupPermissions, guestPermissions);
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public void deleteCategory(AssetCategory category)
+	public AssetCategory deleteCategory(AssetCategory category)
 		throws PortalException, SystemException {
 
-		deleteCategory(category, false);
+		return deleteCategory(category, false);
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public void deleteCategory(long categoryId)
+	public AssetCategory deleteCategory(long categoryId)
 		throws PortalException, SystemException {
 
 		AssetCategory category = assetCategoryPersistence.findByPrimaryKey(
 			categoryId);
 
-		deleteCategory(category);
+		return deleteCategory(category);
 	}
 
 	@Override
@@ -228,7 +233,8 @@ public class AssetCategoryLocalServiceImpl
 			if (category.getParentCategoryId() ==
 					AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {
 
-				deleteCategory(category.getCategoryId());
+				assetCategoryLocalService.deleteCategory(
+								category.getCategoryId());
 			}
 		}
 	}
@@ -390,8 +396,9 @@ public class AssetCategoryLocalServiceImpl
 			AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, vocabularyId);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public void mergeCategories(long fromCategoryId, long toCategoryId)
+	public AssetCategory mergeCategories(long fromCategoryId, long toCategoryId)
 		throws PortalException, SystemException {
 
 		List<AssetEntry> entries = assetCategoryPersistence.getAssetEntries(
@@ -414,9 +421,12 @@ public class AssetCategoryLocalServiceImpl
 			}
 		}
 
-		deleteCategory(fromCategoryId);
+		assetCategoryLocalService.deleteCategory(fromCategoryId);
+
+		return getCategory(toCategoryId);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetCategory moveCategory(
 			long categoryId, long parentCategoryId, long vocabularyId,
@@ -466,6 +476,7 @@ public class AssetCategoryLocalServiceImpl
 			groupId, name, categoryProperties, start, end);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetCategory updateCategory(
 			long userId, long categoryId, long parentCategoryId,
@@ -598,7 +609,8 @@ public class AssetCategoryLocalServiceImpl
 		return category;
 	}
 
-	protected void deleteCategory(AssetCategory category, boolean childCategory)
+	protected AssetCategory deleteCategory(
+					AssetCategory category, boolean childCategory)
 		throws PortalException, SystemException {
 
 		// Categories
@@ -650,6 +662,8 @@ public class AssetCategoryLocalServiceImpl
 		// Indexer
 
 		assetEntryLocalService.reindex(entries);
+
+		return category;
 	}
 
 	protected long[] getCategoryIds(List<AssetCategory> categories) {

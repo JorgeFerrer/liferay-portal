@@ -16,6 +16,8 @@ package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
@@ -68,7 +70,7 @@ public class AssetVocabularyLocalServiceImpl
 
 		serviceContext.setScopeGroupId(groupId);
 
-		return addVocabulary(
+		return assetVocabularyLocalService.addVocabulary(
 			defaultUserId, StringPool.BLANK, titleMap, null, StringPool.BLANK,
 			serviceContext);
 	}
@@ -84,11 +86,12 @@ public class AssetVocabularyLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		return addVocabulary(
+		return assetVocabularyLocalService.addVocabulary(
 			userId, StringPool.BLANK, titleMap, descriptionMap, settings,
 			serviceContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetVocabulary addVocabulary(
 			long userId, String title, Map<Locale, String> titleMap,
@@ -165,7 +168,7 @@ public class AssetVocabularyLocalServiceImpl
 
 		descriptionMap.put(locale, StringPool.BLANK);
 
-		return addVocabulary(
+		return assetVocabularyLocalService.addVocabulary(
 			userId, title, titleMap, descriptionMap, null, serviceContext);
 	}
 
@@ -202,10 +205,11 @@ public class AssetVocabularyLocalServiceImpl
 			assetVocabularyPersistence.findByGroupId(groupId);
 
 		for (AssetVocabulary vocabulary : vocabularies) {
-			deleteVocabulary(vocabulary);
+			assetVocabularyLocalService.deleteVocabulary(vocabulary);
 		}
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public void deleteVocabulary(AssetVocabulary vocabulary)
 		throws PortalException, SystemException {
@@ -233,7 +237,7 @@ public class AssetVocabularyLocalServiceImpl
 		AssetVocabulary vocabulary =
 			assetVocabularyPersistence.findByPrimaryKey(vocabularyId);
 
-		deleteVocabulary(vocabulary);
+		assetVocabularyLocalService.deleteVocabulary(vocabulary);
 	}
 
 	@Override
@@ -356,11 +360,12 @@ public class AssetVocabularyLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		return updateVocabulary(
+		return assetVocabularyLocalService.updateVocabulary(
 			vocabularyId, StringPool.BLANK, titleMap, descriptionMap, settings,
 			serviceContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetVocabulary updateVocabulary(
 			long vocabularyId, String title, Map<Locale, String> titleMap,
