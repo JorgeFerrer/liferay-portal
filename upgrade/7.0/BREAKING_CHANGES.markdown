@@ -1,48 +1,52 @@
-# Breaking Changes for Liferay 7.0
+# What are the Breaking Changes for Liferay 7.0?
 
-## Introduction
-
-This document present a chronological list of changes that break existing
-functionality, APIs or any contract with third party liferay developers or
+This document presents a chronological list of changes that break existing
+functionality, APIs, or contracts with third party liferay developers or
 users. We try our best to minimize these disruptions, but sometimes they are
 unavoidable.
 
-The following type of changes are documented here:
+Here are some of the types of changes documented in this file:
 
-* Functionality removed or replaced
-* Incompatible API changes: Any changes done to public Java or JavaScript APIs
-* Changes in context variables made available for templates
+* Functionality that is removed or replaced
+* API incompatibilities: Changes to public Java or JavaScript APIs
+* Changes to context variables available to templates
 * Changes in CSS classes available to Liferay themes and portlets
-* Configuration changes: Changes in portal.properties and other configuration
-files
-* Execution requirements: Java version, J2EE Version, Browser versions, ...
-* Warnings deprecations or end of support: For example, that a certain relevant
+* Configuration changes: Changes in configuration files, like portal.properties,
+system.properties, etc.
+* Execution requirements: Java version, J2EE Version, browser versions, etc.
+* Deprecations or end of support: For example, warning that a certain
 feature or API will be dropped in an upcoming version.
-* Recommendations: For example when a new API is introduced to replace an old
-API that is also kept for backwards compatibility.
+* Recommendations: For example, recommending using a newly introduced API that
+replaces an old API, in spite of the old API being kept in Liferay Portal for
+backwards compatibility.
 
-## Changes
+## Breaking Changes
 
-Each change is described in a section that starts with a brief title describing
-the change. Each section must contain the following information:
+Each change must have a brief descriptive title and contain the following
+information:
 
-1. Date: Format must be 2014-02-25
-2. What changed: Identify the component that was affected and the type of change
-that was made.
-3. Who is affected: Is it an end user? A developer? If the only affected people
+* *Date:* Specify the date you submitted the change. Format the date as
+*YYYY-MM-DD* (e.g., 2014-02-25).
+* *What changed?* Identify the affected component and the type of change that
+was made.
+* *Who is affected?* Is it an end user? A developer? If the only affected people
 are those using a certain feature or API, say so.
-4. How do I update my code: Explain the changes necessary to update client code
-(when appropriate).
-5. Why did this change happen: Explain the reasoning that justified a breaking
-change vs folowing a deprecation process.
+* *How should I update my code?* Explain any client code changes required.
+* *Why was this change made?* Explain the reason for the change. If applicable,
+justify why the breaking change was made instead of following a deprecation
+process.
 
-### [Title]
+Here's the template to use for each breaking change:
+
+### `[Title]`
 Date:
 
 #### What changed?
 
 #### Who is affected?
 
-#### How do I update my code?
+#### How should I update my code?
 
-#### Why did this change happen?
+#### Why was this change made?
+
+
