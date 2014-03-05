@@ -39,7 +39,7 @@ process.
 
 Here's the template to use for each breaking change:
 
-### `[Title]`
+### [Title]
 Date:
 Jira Ticket:
 
