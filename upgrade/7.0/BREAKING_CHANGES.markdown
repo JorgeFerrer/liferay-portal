@@ -27,6 +27,7 @@ information:
 
 * **Date:** Specify the date you submitted the change. Format the date as
 *YYYY-MM-DD* (e.g., 2014-02-25).
+* **Jira Ticket:** Reference the related Jira ticket (e.g., LPS-123456).
 * **What changed?** Identify the affected component and the type of change that
 was made.
 * **Who is affected?** Are end users affected? Are developers affected? If the
@@ -40,6 +41,7 @@ Here's the template to use for each breaking change:
 
 ### `[Title]`
 Date:
+Jira Ticket:
 
 #### What changed?
 
