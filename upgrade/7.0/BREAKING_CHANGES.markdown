@@ -26,8 +26,9 @@ Each change must have a brief descriptive title and contain the following
 information:
 
 * **Date:** Specify the date you submitted the change. Format the date as
-*YYYY-MM-DD* (e.g., 2014-02-25).
-* **Jira Ticket:** Reference the related Jira ticket (e.g., LPS-123456).
+*YYYY-MMM* (e.g. 2014-Mar) or *YYYY-MMM-DD* (e.g., 2014-Feb-25).
+* **Jira Ticket:** Reference the related Jira ticket (e.g., LPS-123456)
+(Optional).
 * **What changed?** Identify the affected component and the type of change that
 was made.
 * **Who is affected?** Are end users affected? Are developers affected? If the
