@@ -15,6 +15,7 @@
 package com.liferay.portlet.messageboards;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -112,12 +113,11 @@ public class MBSettings implements Settings {
 
 	public String[] getPriorities(String currentLanguageId) {
 		return LocalizationUtil.getSettingsValues(
-			_settings, "priorities", currentLanguageId);
+			this, "priorities", currentLanguageId);
 	}
 
 	public String[] getRanks(String languageId) {
-		return LocalizationUtil.getSettingsValues(
-			_settings, "ranks", languageId);
+		return LocalizationUtil.getSettingsValues(this, "ranks", languageId);
 	}
 
 	public String getRecentPostsDateOffset() {
@@ -157,7 +157,19 @@ public class MBSettings implements Settings {
 
 	@Override
 	public String[] getValues(String key, String[] defaultValue) {
-		return _settings.getValues(key, defaultValue);
+		String[] values = _settings.getValues(key, defaultValue);
+
+		if (!ArrayUtil.isEmpty(values)) {
+			return values;
+		}
+
+		String fallbackKey = getFallbackKey(key);
+
+		if (fallbackKey != null) {
+			return _settings.getValues(fallbackKey, values);
+		}
+
+		return null;
 	}
 
 	public boolean isAllowAnonymousPosting() {
@@ -248,6 +260,12 @@ public class MBSettings implements Settings {
 		}
 		else if (key.equals("emailFromName")) {
 			fallbackKey = PropsKeys.ADMIN_EMAIL_FROM_NAME;
+		}
+		else if (key.equals("priorities")) {
+			fallbackKey = PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES;
+		}
+		else if (key.equals("ranks")) {
+			fallbackKey = PropsKeys.MESSAGE_BOARDS_USER_RANKS;
 		}
 
 		return fallbackKey;
