@@ -1643,6 +1643,14 @@ public interface PropsKeys {
 
 	public static final String MESSAGE_BOARDS_THREAD_PREVIOUS_AND_NEXT_NAVIGATION_ENABLED = "message.boards.thread.previous.and.next.navigation.enabled";
 
+	public static final String MESSAGE_BOARDS_THREAD_PRIORITIES = "message.boards.thread.priorities";
+
+	public static final String MESSAGE_BOARDS_THREAD_PRIORITIES_IMAGE = "message.boards.thread.priorities.image";
+
+	public static final String MESSAGE_BOARDS_THREAD_PRIORITIES_NAME = "message.boards.thread.priorities.name";
+
+	public static final String MESSAGE_BOARDS_THREAD_PRIORITIES_VALUE = "message.boards.thread.priorities.value";
+
 	public static final String MESSAGE_BOARDS_THREAD_VIEWS = "message.boards.thread.views";
 
 	public static final String MESSAGE_BOARDS_THREAD_VIEWS_DEFAULT = "message.boards.thread.views.default";

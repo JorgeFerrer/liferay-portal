@@ -14,14 +14,18 @@
 
 package com.liferay.portlet.messageboards;
 
+import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.settings.Settings;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.messageboards.model.MBMessageConstants;
 import com.liferay.portlet.messageboards.util.MBUtil;
@@ -111,8 +115,14 @@ public class MBSettings implements Settings {
 	}
 
 	public String[] getPriorities(String currentLanguageId) {
-		return LocalizationUtil.getSettingsValues(
+		String[] priorities = LocalizationUtil.getSettingsValues(
 			_settings, "priorities", currentLanguageId);
+
+		if (ArrayUtil.isNotEmpty(priorities)) {
+			return priorities;
+		}
+
+		return getPortalPropertiesPriorities();
 	}
 
 	public String[] getRanks(String languageId) {
@@ -251,6 +261,40 @@ public class MBSettings implements Settings {
 		}
 
 		return fallbackKey;
+	}
+
+	protected String[] getPortalPropertiesPriorities() {
+		String[] threadPriorities =
+			PropsValues.MESSAGE_BOARDS_THREAD_PRIORITIES;
+
+		String[] priorities = new String[threadPriorities.length];
+
+		for (int i = 0; i < threadPriorities.length; i++) {
+			String threadPriority = threadPriorities[i];
+
+			String name = PropsUtil.get(
+				PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES_NAME,
+				new Filter(threadPriority));
+			String image = PropsUtil.get(
+				PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES_IMAGE,
+				new Filter(threadPriority));
+			String value = PropsUtil.get(
+				PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES_VALUE,
+				new Filter(threadPriority));
+
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(name);
+			sb.append(StringPool.COMMA);
+			sb.append(image);
+			sb.append(StringPool.COMMA);
+			sb.append(value);
+			sb.append(StringPool.COMMA);
+
+			priorities[i] = sb.toString();
+		}
+
+		return priorities;
 	}
 
 	private Settings _settings;
