@@ -64,6 +64,20 @@ public interface UnicodeLanguage {
 		PageContext pageContext, String pattern, Object[] arguments,
 		boolean translateArguments);
 
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object argument);
+
+	public String format(
+		ResourceBundle resourceBundlee, String pattern, Object argument,
+		boolean translateArguments);
+
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments);
+
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments,
+		boolean translateArguments);
+
 	public String get(Locale locale, String key);
 
 	public String get(Locale locale, String key, String defaultValue);

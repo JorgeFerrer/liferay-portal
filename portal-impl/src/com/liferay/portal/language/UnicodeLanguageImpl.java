@@ -135,6 +135,41 @@ public class UnicodeLanguageImpl implements UnicodeLanguage {
 	}
 
 	@Override
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object argument) {
+
+		return UnicodeFormatter.toString(
+			LanguageUtil.format(resourceBundle, pattern, argument));
+	}
+
+	@Override
+	public String format(ResourceBundle resourceBundle, String pattern,
+		Object argument, boolean translateArguments) {
+
+		return UnicodeFormatter.toString(
+			LanguageUtil.format(
+				resourceBundle, pattern, argument, translateArguments));
+	}
+
+	@Override
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments) {
+
+		return UnicodeFormatter.toString(
+			LanguageUtil.format(resourceBundle, pattern, arguments));
+	}
+
+	@Override
+	public String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments,
+		boolean translateArguments) {
+
+		return UnicodeFormatter.toString(
+			LanguageUtil.format(
+				resourceBundle, pattern, arguments, translateArguments));
+	}
+
+	@Override
 	public String get(Locale locale, String key) {
 		return UnicodeFormatter.toString(LanguageUtil.get(locale, key));
 	}
