@@ -110,6 +110,34 @@ public class UnicodeLanguageUtil {
 			pageContext, pattern, arguments, translateArguments);
 	}
 
+	public static String format(
+		ResourceBundle resourceBundle, String pattern, Object argument) {
+
+		return getUnicodeLanguage().format(resourceBundle, pattern, argument);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, String pattern, Object argument,
+		boolean translateArguments) {
+
+		return getUnicodeLanguage().format(
+			resourceBundle, pattern, argument, translateArguments);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments) {
+
+		return getUnicodeLanguage().format(resourceBundle, pattern, arguments);
+	}
+
+	public static String format(
+		ResourceBundle resourceBundle, String pattern, Object[] arguments,
+		boolean translateArguments) {
+
+		return getUnicodeLanguage().format(
+			resourceBundle, pattern, arguments, translateArguments);
+	}
+
 	public static String get(Locale locale, String key) {
 		return getUnicodeLanguage().get(locale, key);
 	}
