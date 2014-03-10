@@ -53,3 +53,44 @@ Jira Ticket:
 #### Why was this change made?
 
 
+### Stop of support for message boards and wiki e-mail signature configuration
+* Date: 28th February 2014
+* Jira Ticket: LPS-44599
+
+#### What changed?
+The configuration for e-mail signatures of notifications from message boards and 
+wiki has been removed. An automatic update process has been developed to 
+append the signatures into the bodies of the e-mail messages for wiki and 
+message boards notifications. This process only works if you have configured 
+your signatures in database. In case your signatures were declared in 
+portal.properties the automatic process will not migrate it.
+
+#### Who is affected?
+Users who have configured e-mail signatures for wiki or message boards 
+notifications. Especially those who have done it in their portal.properties 
+file.
+
+#### How should I update my code?
+You should modify your portal.properties file to remove the properties 
+message.boards.email.message.added.signature, 
+message.boards.email.message.updated.signature, wiki.email.page.added.signature,
+and wiki.email.page.updated.signature. Then, you should append the contents of 
+the signatures to the bodies you have configured in you portal.properties file.
+
+**Example**
+
+Replace:
+```
+wiki.email.page.updated.body=A wiki page was updated.
+wiki.email.page.updated.signature=For any doubts e-mail the system administrator
+```
+
+With:
+```
+wiki.email.page.updated.body=A wiki page was updated.\n--\nFor any doubts e-mail the system administrator
+```
+
+#### Why was this change made?
+The signatures have been removed because they can easily be set inside the body
+and there's no benefit in having both things separated.
+---------------------------------------
