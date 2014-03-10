@@ -34,6 +34,9 @@ import com.liferay.util.RSSUtil;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.portlet.ValidatorException;
 
 /**
@@ -126,8 +129,14 @@ public class MBSettings implements Settings {
 	}
 
 	public String[] getRanks(String languageId) {
-		return LocalizationUtil.getSettingsValues(
+		String[] ranks = LocalizationUtil.getSettingsValues(
 			_settings, "ranks", languageId);
+
+		if (ArrayUtil.isNotEmpty(ranks)) {
+			return ranks;
+		}
+
+		return getPortalPropertiesRanks();
 	}
 
 	public String getRecentPostsDateOffset() {
@@ -295,6 +304,35 @@ public class MBSettings implements Settings {
 		}
 
 		return priorities;
+	}
+
+	protected String[] getPortalPropertiesRanks() {
+		String[] userRanks = PropsValues.MESSAGE_BOARDS_USER_RANKS;
+
+		List<String> ranks = new ArrayList<String>();
+
+		for (int i = 0; i < userRanks.length; i++) {
+			String userRank = userRanks[i];
+
+			populatePortalPropertiesRanks(userRank, ranks);
+		}
+
+		return ArrayUtil.toStringArray(ranks.toArray());
+	}
+
+	protected void populatePortalPropertiesRanks(
+		String userRank, List<String> ranks) {
+
+		String name = PropsUtil.get(
+			PropsKeys.MESSAGE_BOARDS_USER_RANKS_NAME, new Filter(userRank));
+		String[] values = PropsUtil.getArray(
+			PropsKeys.MESSAGE_BOARDS_USER_RANKS_VALUE, new Filter(userRank));
+
+		for (String value : values) {
+			String rank = name.concat(StringPool.EQUAL).concat(value);
+
+			ranks.add(rank);
+		}
 	}
 
 	private Settings _settings;

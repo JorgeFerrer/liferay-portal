@@ -1655,6 +1655,12 @@ public interface PropsKeys {
 
 	public static final String MESSAGE_BOARDS_THREAD_VIEWS_DEFAULT = "message.boards.thread.views.default";
 
+	public static final String MESSAGE_BOARDS_USER_RANKS = "message.boards.user.ranks";
+
+	public static final String MESSAGE_BOARDS_USER_RANKS_NAME = "message.boards.user.ranks.name";
+
+	public static final String MESSAGE_BOARDS_USER_RANKS_VALUE = "message.boards.user.ranks.value";
+
 	public static final String MICROSOFT_TRANSLATOR_CLIENT_ID = "microsoft.translator.client.id";
 
 	public static final String MICROSOFT_TRANSLATOR_CLIENT_SECRET = "microsoft.translator.client.secret";
