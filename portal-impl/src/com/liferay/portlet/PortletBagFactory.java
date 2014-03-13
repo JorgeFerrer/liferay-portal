@@ -43,7 +43,6 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.OpenSearch;
 import com.liferay.portal.kernel.servlet.URLEncoder;
 import com.liferay.portal.kernel.template.TemplateHandler;
-import com.liferay.portal.kernel.template.TemplateHandlerRegistryUtil;
 import com.liferay.portal.kernel.trash.TrashHandler;
 import com.liferay.portal.kernel.trash.TrashHandlerRegistryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -72,7 +71,6 @@ import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.language.LiferayResourceBundle;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.notifications.UserNotificationHandlerImpl;
-import com.liferay.portal.poller.PollerProcessorUtil;
 import com.liferay.portal.pop.POPServerUtil;
 import com.liferay.portal.security.permission.PermissionPropagator;
 import com.liferay.portal.service.PortletLocalServiceUtil;
@@ -141,16 +139,14 @@ public class PortletBagFactory {
 		List<StagedModelDataHandler<?>> stagedModelDataHandlerInstances =
 			newStagedModelDataHandler(portlet);
 
-		TemplateHandler templateHandlerInstance = newTemplateHandler(portlet);
+		List<TemplateHandler> templateHandlerInstances = newTemplateHandlers(
+			portlet);
 
-		if (templateHandlerInstance != null) {
-			TemplateHandlerRegistryUtil.register(templateHandlerInstance);
-		}
+		List<PortletLayoutListener> portletLayoutListenerInstances =
+			newPortletLayoutListeners(portlet);
 
-		PortletLayoutListener portletLayoutListenerInstance =
-			newPortletLayoutListener(portlet);
-
-		PollerProcessor pollerProcessorInstance = newPollerProcessor(portlet);
+		List<PollerProcessor> pollerProcessorInstances = newPollerProcessors(
+			portlet);
 
 		MessageListener popMessageListenerInstance = newPOPMessageListener(
 			portlet);
@@ -321,8 +317,8 @@ public class PortletBagFactory {
 			configurationActionInstances, indexerInstances, openSearchInstances,
 			friendlyURLMapperInstances, urlEncoderInstances,
 			portletDataHandlerInstances, stagedModelDataHandlerInstances,
-			templateHandlerInstance, portletLayoutListenerInstance,
-			pollerProcessorInstance, popMessageListenerInstance,
+			templateHandlerInstances, portletLayoutListenerInstances,
+			pollerProcessorInstances, popMessageListenerInstance,
 			socialActivityInterpreterInstances,
 			socialRequestInterpreterInstance, userNotificationHandlerInstances,
 			webDAVStorageInstance, xmlRpcMethodInstance,
@@ -895,25 +891,26 @@ public class PortletBagFactory {
 			PermissionPropagator.class, portlet.getPermissionPropagatorClass());
 	}
 
-	protected PollerProcessor newPollerProcessor(Portlet portlet)
+	protected List<PollerProcessor> newPollerProcessors(Portlet portlet)
 		throws Exception {
 
-		if (Validator.isNull(portlet.getPollerProcessorClass())) {
-			return null;
+		ServiceTrackerList<PollerProcessor> pollerProcessorInstances =
+			getServiceTrackerList(PollerProcessor.class, portlet);
+
+		if (Validator.isNotNull(portlet.getPollerProcessorClass())) {
+			PollerProcessor pollerProcessorInstance =
+				(PollerProcessor)newInstance(
+					PollerProcessor.class, portlet.getPollerProcessorClass());
+
+			if (ShardUtil.isEnabled()) {
+				pollerProcessorInstance = new ShardPollerProcessorWrapper(
+					pollerProcessorInstance);
+			}
+
+			pollerProcessorInstances.add(pollerProcessorInstance);
 		}
 
-		PollerProcessor pollerProcessorInstance = (PollerProcessor)newInstance(
-			PollerProcessor.class, portlet.getPollerProcessorClass());
-
-		if (ShardUtil.isEnabled()) {
-			pollerProcessorInstance = new ShardPollerProcessorWrapper(
-				pollerProcessorInstance);
-		}
-
-		PollerProcessorUtil.addPollerProcessor(
-			portlet.getPortletId(), pollerProcessorInstance);
-
-		return pollerProcessorInstance;
+		return pollerProcessorInstances;
 	}
 
 	protected MessageListener newPOPMessageListener(Portlet portlet)
@@ -952,16 +949,24 @@ public class PortletBagFactory {
 		return portletDataHandlerInstances;
 	}
 
-	protected PortletLayoutListener newPortletLayoutListener(Portlet portlet)
+	protected List<PortletLayoutListener> newPortletLayoutListeners(
+			Portlet portlet)
 		throws Exception {
 
-		if (Validator.isNull(portlet.getPortletLayoutListenerClass())) {
-			return null;
+		ServiceTrackerList<PortletLayoutListener>
+			portletLayoutListenerInstances = getServiceTrackerList(
+				PortletLayoutListener.class, portlet);
+
+		if (Validator.isNotNull(portlet.getPortletLayoutListenerClass())) {
+			PortletLayoutListener portletLayoutListener =
+				(PortletLayoutListener)newInstance(
+					PortletLayoutListener.class,
+					portlet.getPortletLayoutListenerClass());
+
+			portletLayoutListenerInstances.add(portletLayoutListener);
 		}
 
-		return (PortletLayoutListener)newInstance(
-			PortletLayoutListener.class,
-			portlet.getPortletLayoutListenerClass());
+		return portletLayoutListenerInstances;
 	}
 
 	protected SocialActivityInterpreter newSocialActivityInterpreterInstance(
@@ -1029,15 +1034,20 @@ public class PortletBagFactory {
 		return stagedModelDataHandlerInstances;
 	}
 
-	protected TemplateHandler newTemplateHandler(Portlet portlet)
+	protected List<TemplateHandler> newTemplateHandlers(Portlet portlet)
 		throws Exception {
 
-		if (Validator.isNull(portlet.getTemplateHandlerClass())) {
-			return null;
+		ServiceTrackerList<TemplateHandler> templateHandlerInstances =
+			getServiceTrackerList(TemplateHandler.class, portlet);
+
+		if (Validator.isNotNull(portlet.getTemplateHandlerClass())) {
+			TemplateHandler templateHandler = (TemplateHandler)newInstance(
+				TemplateHandler.class, portlet.getTemplateHandlerClass());
+
+			templateHandlerInstances.add(templateHandler);
 		}
 
-		return (TemplateHandler)newInstance(
-			TemplateHandler.class, portlet.getTemplateHandlerClass());
+		return templateHandlerInstances;
 	}
 
 	protected List<URLEncoder> newURLEncoders(Portlet portlet)

@@ -75,7 +75,7 @@ public interface PortletBag extends Cloneable {
 
 	public PermissionPropagator getPermissionPropagatorInstance();
 
-	public PollerProcessor getPollerProcessorInstance();
+	public List<PollerProcessor> getPollerProcessorInstances();
 
 	public MessageListener getPopMessageListenerInstance();
 
@@ -83,7 +83,7 @@ public interface PortletBag extends Cloneable {
 
 	public Portlet getPortletInstance();
 
-	public PortletLayoutListener getPortletLayoutListenerInstance();
+	public List<PortletLayoutListener> getPortletLayoutListenerInstances();
 
 	public String getPortletName();
 
@@ -102,7 +102,7 @@ public interface PortletBag extends Cloneable {
 
 	public List<StagedModelDataHandler<?>> getStagedModelDataHandlerInstances();
 
-	public TemplateHandler getTemplateHandlerInstance();
+	public List<TemplateHandler> getTemplateHandlerInstances();
 
 	public List<TrashHandler> getTrashHandlerInstances();
 
