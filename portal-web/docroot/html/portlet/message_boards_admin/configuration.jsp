@@ -210,7 +210,7 @@ String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAd
 						String value = StringPool.BLANK;
 
 						if (priorities.length > i) {
-							String[] priority = StringUtil.split(priorities[i]);
+							String[] priority = StringUtil.split(priorities[i], StringPool.PIPE);
 
 							try {
 								name = priority[0];
