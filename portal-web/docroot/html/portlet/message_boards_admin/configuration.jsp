@@ -286,7 +286,7 @@ String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAd
 							continue;
 						}
 
-						String[] tempPriorities = LocalizationUtil.getSettingsValues(mbSettings, "priorities", LocaleUtil.toLanguageId(locales[i]));
+						String[] tempPriorities = mbSettings.getPriorities(LocaleUtil.toLanguageId(locales[i]));
 
 						for (int j = 0; j < 10; j++) {
 							String name = StringPool.BLANK;
