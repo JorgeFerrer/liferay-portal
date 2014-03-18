@@ -1629,6 +1629,8 @@ public interface PropsKeys {
 
 	public static final String MESSAGE_BOARDS_EXPIRE_BAN_JOB_INTERVAL = "message.boards.expire.ban.job.interval";
 
+	public static final String MESSAGE_BOARDS_FLAGS_ENABLED = "message.boards.flags.enabled";
+
 	public static final String MESSAGE_BOARDS_MESSAGE_FORMATS = "message.boards.message.formats";
 
 	public static final String MESSAGE_BOARDS_MESSAGE_FORMATS_DEFAULT = "message.boards.message.formats.default";
@@ -1637,7 +1639,13 @@ public interface PropsKeys {
 
 	public static final String MESSAGE_BOARDS_PUBLISH_TO_LIVE_BY_DEFAULT = "message.boards.publish.to.live.by.default";
 
+	public static final String MESSAGE_BOARDS_RATINGS_ENABLED = "message.boards.ratings.enabled";
+
+	public static final String MESSAGE_BOARDS_RECENT_POSTS_DATE_OFFSET = "message.boards.recent.posts.date.offset";
+
 	public static final String MESSAGE_BOARDS_RSS_ABSTRACT_LENGTH = "message.boards.rss.abstract.length";
+
+	public static final String MESSAGE_BOARDS_RSS_ENABLED = "message.boards.rss.enabled";
 
 	public static final String MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT = "message.boards.subscribe.by.default";
 
