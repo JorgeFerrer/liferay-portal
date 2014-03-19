@@ -50,7 +50,7 @@ String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAd
 		<liferay-ui:error key="visibleNodesCount" message="please-specify-at-least-one-visible-node" />
 
 		<liferay-ui:section>
-			<%@ include file="/html/portlet/wiki/display_settings.jspf" %>
+			<%@ include file="/html/portlet/wiki_admin/display_settings.jspf" %>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
