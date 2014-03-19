@@ -46,12 +46,12 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
 import com.liferay.portal.model.LayoutConstants;
+import com.liferay.portal.model.PortletPreferencesIds;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextUtil;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
@@ -73,6 +73,7 @@ import com.liferay.portlet.wiki.NoSuchPageException;
 import com.liferay.portlet.wiki.PageContentException;
 import com.liferay.portlet.wiki.PageTitleException;
 import com.liferay.portlet.wiki.PageVersionException;
+import com.liferay.portlet.wiki.WikiSettings;
 import com.liferay.portlet.wiki.model.WikiNode;
 import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.model.WikiPageConstants;
@@ -101,7 +102,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
@@ -2411,27 +2411,27 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			return;
 		}
 
-		PortletPreferences preferences = null;
+		WikiSettings wikiSettings = null;
 
 		String rootPortletId = serviceContext.getRootPortletId();
 
 		if (Validator.isNull(rootPortletId) ||
 			!rootPortletId.equals(PortletKeys.WIKI_DISPLAY)) {
 
-			preferences = ServiceContextUtil.getPortletPreferences(
-				serviceContext);
+			PortletPreferencesIds portletPreferencesIds =
+				serviceContext.getPortletPreferencesIds();
+
+			wikiSettings = WikiUtil.getWikiSettings(
+				portletPreferencesIds.getOwnerId());
 		}
 
-		if (preferences == null) {
-			preferences = portletPreferencesLocalService.getPreferences(
-				node.getCompanyId(), node.getGroupId(),
-				PortletKeys.PREFS_OWNER_TYPE_GROUP,
-				PortletKeys.PREFS_PLID_SHARED, PortletKeys.WIKI_ADMIN, null);
+		if (wikiSettings == null) {
+			wikiSettings = WikiUtil.getWikiSettings(node.getGroupId());
 		}
 
-		if (!update && WikiUtil.getEmailPageAddedEnabled(preferences)) {
+		if (!update && wikiSettings.getEmailPageAddedEnabled()) {
 		}
-		else if (update && WikiUtil.getEmailPageUpdatedEnabled(preferences)) {
+		else if (update && wikiSettings.getEmailPageUpdatedEnabled()) {
 		}
 		else {
 			return;
@@ -2470,21 +2470,19 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		String pageTitle = page.getTitle();
 		String pageURL = getPageURL(node, page, serviceContext);
 
-		String fromName = WikiUtil.getEmailFromName(
-			preferences, page.getCompanyId());
-		String fromAddress = WikiUtil.getEmailFromAddress(
-			preferences, page.getCompanyId());
+		String fromName = wikiSettings.getEmailFromName();
+		String fromAddress = wikiSettings.getEmailFromAddress();
 
 		String subject = null;
 		String body = null;
 
 		if (update) {
-			subject = WikiUtil.getEmailPageUpdatedSubject(preferences);
-			body = WikiUtil.getEmailPageUpdatedBody(preferences);
+			subject = wikiSettings.getEmailPageUpdatedSubject();
+			body = wikiSettings.getEmailPageUpdatedBody();
 		}
 		else {
-			subject = WikiUtil.getEmailPageAddedSubject(preferences);
-			body = WikiUtil.getEmailPageAddedBody(preferences);
+			subject = wikiSettings.getEmailPageAddedSubject();
+			body = wikiSettings.getEmailPageAddedBody();
 		}
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
