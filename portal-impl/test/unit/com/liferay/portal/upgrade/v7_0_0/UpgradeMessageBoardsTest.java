@@ -14,7 +14,7 @@
 
 package com.liferay.portal.upgrade.v7_0_0;
 
-import com.liferay.portal.kernel.upgrade.BaseUpgradePortletPreferencesTest;
+import com.liferay.portal.kernel.upgrade.MockPortletPreferences;
 import com.liferay.portal.kernel.util.StringPool;
 
 import javax.portlet.PortletPreferences;
@@ -25,8 +25,7 @@ import org.junit.Test;
 /**
  * @author Iván Zaera
  */
-public class UpgradeMessageBoardsTest
-	extends BaseUpgradePortletPreferencesTest {
+public class UpgradeMessageBoardsTest {
 
 	@Test
 	public void testUpgradeEmailSignatureWithHtmlFormat() throws Exception {
@@ -95,7 +94,8 @@ public class UpgradeMessageBoardsTest
 			}, values);
 	}
 
-	private PortletPreferences _portletPreferences = buildPortletPreferences();
+	private PortletPreferences _portletPreferences =
+		new MockPortletPreferences();
 	private UpgradeMessageBoards _upgradeMessageBoards =
 		new UpgradeMessageBoards();
 
