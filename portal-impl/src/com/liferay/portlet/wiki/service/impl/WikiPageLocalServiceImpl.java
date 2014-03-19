@@ -46,7 +46,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
 import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.PortletPreferencesIds;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
@@ -2413,21 +2412,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 		WikiSettings wikiSettings = null;
 
-		String rootPortletId = serviceContext.getRootPortletId();
-
-		if (Validator.isNull(rootPortletId) ||
-			!rootPortletId.equals(PortletKeys.WIKI_DISPLAY)) {
-
-			PortletPreferencesIds portletPreferencesIds =
-				serviceContext.getPortletPreferencesIds();
-
-			wikiSettings = WikiUtil.getWikiSettings(
-				portletPreferencesIds.getOwnerId());
-		}
-
-		if (wikiSettings == null) {
-			wikiSettings = WikiUtil.getWikiSettings(node.getGroupId());
-		}
+		wikiSettings = WikiUtil.getWikiSettings(node.getGroupId());
 
 		if (!update && wikiSettings.getEmailPageAddedEnabled()) {
 		}

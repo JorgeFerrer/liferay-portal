@@ -88,6 +88,22 @@ public class WikiSettings extends BaseServiceSettings {
 			typedSettings.getValue(PropsKeys.WIKI_EMAIL_PAGE_UPDATED_SUBJECT));
 	}
 
+	public String[] getHiddenNodes() {
+		return typedSettings.getValues("hiddenNodes");
+	}
+
+	public String[] getVisibleNodes() {
+		return typedSettings.getValues("visibleNodes");
+	}
+
+	public void setHiddenNodes(String[] hiddenNodes) {
+		typedSettings.setValues("hiddenNodes", hiddenNodes);
+	}
+
+	public void setVisibleNodes(String[] visibleNodes) {
+		typedSettings.setValues("visibleNodes", visibleNodes);
+	}
+
 	private static Map<String, String> _fallbackKeys = MapUtil.fromArray(
 		"emailFromAddress", PropsKeys.WIKI_EMAIL_FROM_ADDRESS,
 		PropsKeys.WIKI_EMAIL_FROM_ADDRESS, PropsKeys.ADMIN_EMAIL_FROM_ADDRESS,
