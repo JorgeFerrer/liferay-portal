@@ -82,7 +82,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -392,13 +391,12 @@ public class WikiUtil {
 
 		List<WikiNode> nodes = WikiNodeLocalServiceUtil.getNodes(groupId);
 
-		PortletPreferences preferences = portletRequest.getPreferences();
-		String[] visibleNodeNames = StringUtil.split(
-			preferences.getValue("visibleNodes", null));
+		WikiSettings wikiSettings = WikiUtil.getWikiSettings(
+			themeDisplay.getScopeGroupId());
+		String[] visibleNodeNames = wikiSettings.getVisibleNodes();
 		nodes = orderNodes(nodes, visibleNodeNames);
 
-		String[] hiddenNodes = StringUtil.split(
-			preferences.getValue("hiddenNodes", StringPool.BLANK));
+		String[] hiddenNodes = wikiSettings.getHiddenNodes();
 		Arrays.sort(hiddenNodes);
 
 		for (WikiNode node : nodes) {
