@@ -29,16 +29,17 @@ import com.liferay.portlet.wiki.DuplicateNodeNameException;
 import com.liferay.portlet.wiki.NoSuchNodeException;
 import com.liferay.portlet.wiki.NodeNameException;
 import com.liferay.portlet.wiki.RequiredNodeException;
+import com.liferay.portlet.wiki.WikiSettings;
 import com.liferay.portlet.wiki.model.WikiNode;
 import com.liferay.portlet.wiki.service.WikiNodeLocalServiceUtil;
 import com.liferay.portlet.wiki.service.WikiNodeServiceUtil;
 import com.liferay.portlet.wiki.util.WikiCacheThreadLocal;
 import com.liferay.portlet.wiki.util.WikiCacheUtil;
+import com.liferay.portlet.wiki.util.WikiUtil;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -146,14 +147,16 @@ public class EditNodeAction extends PortletAction {
 
 		long nodeId = ParamUtil.getLong(actionRequest, "nodeId");
 
-		String oldName = getNodeName(nodeId);
+		WikiNode wikiNode = WikiNodeServiceUtil.getNode(nodeId);
+
+		String oldName = wikiNode.getName();
 
 		WikiCacheThreadLocal.setClearCache(false);
 
-		WikiNode node = null;
+		WikiNode trashWikiNode = null;
 
 		if (moveToTrash) {
-			node = WikiNodeServiceUtil.moveNodeToTrash(nodeId);
+			trashWikiNode = WikiNodeServiceUtil.moveNodeToTrash(nodeId);
 		}
 		else {
 			WikiNodeServiceUtil.deleteNode(nodeId);
@@ -163,19 +166,43 @@ public class EditNodeAction extends PortletAction {
 
 		WikiCacheThreadLocal.setClearCache(true);
 
-		updatePreferences(actionRequest, oldName, StringPool.BLANK);
+		WikiSettings wikiSettings = WikiUtil.getWikiSettings(
+				wikiNode.getGroupId());
 
-		if (moveToTrash && (node != null)) {
-			TrashUtil.addTrashSessionMessages(actionRequest, node);
+		replace(wikiSettings, oldName, StringPool.BLANK);
+
+		if (moveToTrash && (trashWikiNode != null)) {
+			TrashUtil.addTrashSessionMessages(actionRequest, trashWikiNode);
 
 			hideDefaultSuccessMessage(actionRequest);
 		}
 	}
 
-	protected String getNodeName(long nodeId) throws Exception {
-		WikiNode node = WikiNodeServiceUtil.getNode(nodeId);
+	protected void replace(String[] names, String oldName, String newName) {
+		for (int i = 0; i < names.length; i++) {
+			if (names[i].equals(oldName)) {
+				names[i] = newName;
+			}
+		}
+	}
 
-		return node.getName();
+	protected void replace(
+			WikiSettings wikiSettings, String oldName, String newName)
+		throws Exception {
+
+		String[] hiddenNodes = wikiSettings.getHiddenNodes();
+
+		replace(hiddenNodes, oldName, newName);
+
+		wikiSettings.setHiddenNodes(hiddenNodes);
+
+		String[] visibleNodes = wikiSettings.getVisibleNodes();
+
+		replace(visibleNodes, oldName, newName);
+
+		wikiSettings.setVisibleNodes(visibleNodes);
+
+		wikiSettings.store();
 	}
 
 	protected void subscribeNode(ActionRequest actionRequest) throws Exception {
@@ -211,35 +238,18 @@ public class EditNodeAction extends PortletAction {
 
 			// Update node
 
-			String oldName = getNodeName(nodeId);
+			WikiNode wikiNode = WikiNodeServiceUtil.getNode(nodeId);
+
+			String oldName = wikiNode.getName();
 
 			WikiNodeServiceUtil.updateNode(
 				nodeId, name, description, serviceContext);
 
-			updatePreferences(actionRequest, oldName, name);
+			WikiSettings wikiSettings = WikiUtil.getWikiSettings(
+				wikiNode.getGroupId());
+
+			replace(wikiSettings, oldName, name);
 		}
-	}
-
-	protected void updatePreferences(
-			ActionRequest actionRequest, String oldName, String newName)
-		throws Exception {
-
-		PortletPreferences portletPreferences = actionRequest.getPreferences();
-
-		String hiddenNodes = portletPreferences.getValue(
-			"hiddenNodes", StringPool.BLANK);
-		String visibleNodes = portletPreferences.getValue(
-			"visibleNodes", StringPool.BLANK);
-
-		String regex = oldName + ",?";
-
-		portletPreferences.setValue(
-			"hiddenNodes", hiddenNodes.replaceFirst(regex, newName));
-		portletPreferences.setValue(
-			"visibleNodes",
-			visibleNodes.replaceFirst(regex, newName));
-
-		portletPreferences.store();
 	}
 
 }
