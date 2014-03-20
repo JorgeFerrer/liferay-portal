@@ -14,12 +14,16 @@
 
 package com.liferay.portlet.wiki;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.settings.BaseServiceSettings;
 import com.liferay.portal.settings.Settings;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PropsValues;
 import com.liferay.util.ContentUtil;
+import com.liferay.util.RSSUtil;
 
 import java.util.Map;
 
@@ -30,6 +34,15 @@ public class WikiSettings extends BaseServiceSettings {
 
 	public WikiSettings(Settings settings) {
 		super(settings, _fallbackKeys);
+	}
+
+	public String getDisplayStyle() {
+		return typedSettings.getValue("displayStyle");
+	}
+
+	public long getDisplayStyleGroupId(long defaultDisplayStyleGroupId) {
+		return typedSettings.getLongValue(
+			"displayStyleGroupId", defaultDisplayStyleGroupId);
 	}
 
 	public String getEmailFromAddress() {
@@ -88,8 +101,54 @@ public class WikiSettings extends BaseServiceSettings {
 			typedSettings.getValue(PropsKeys.WIKI_EMAIL_PAGE_UPDATED_SUBJECT));
 	}
 
+	public boolean getEnableCommentRatings() {
+		return typedSettings.getBooleanValue("enableCommentRatings", true);
+	}
+
+	public boolean getEnableComments() {
+		if (!PropsValues.WIKI_PAGE_COMMENTS_ENABLED) {
+			return false;
+		}
+
+		return typedSettings.getBooleanValue("enableComments", true);
+	}
+
+	public boolean getEnablePageRatings() {
+		if (!PropsValues.WIKI_PAGE_RATINGS_ENABLED) {
+			return false;
+		}
+
+		return typedSettings.getBooleanValue("enablePageRatings", true);
+	}
+
+	public boolean getEnableRelatedAssets() {
+		return typedSettings.getBooleanValue("enableRelatedAssets", true);
+	}
+
+	public boolean getEnableRSS() {
+		if (!PortalUtil.isRSSFeedsEnabled()) {
+			return false;
+		}
+
+		return typedSettings.getBooleanValue("enableRss", true);
+	}
+
 	public String[] getHiddenNodes() {
 		return typedSettings.getValues("hiddenNodes");
+	}
+
+	public int getRssDelta() {
+		return typedSettings.getIntegerValue(
+			"rssDelta", SearchContainer.DEFAULT_DELTA);
+	}
+
+	public String getRssDisplayStyle() {
+		return typedSettings.getValue(
+			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_DEFAULT);
+	}
+
+	public String getRssFeedType() {
+		return typedSettings.getValue("rssFeedType", RSSUtil.FEED_TYPE_DEFAULT);
 	}
 
 	public String[] getVisibleNodes() {
