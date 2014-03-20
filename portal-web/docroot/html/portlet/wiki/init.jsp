@@ -54,6 +54,7 @@ page import="com.liferay.portlet.wiki.service.permission.WikiPagePermission" %><
 page import="com.liferay.portlet.wiki.service.permission.WikiPermission" %><%@
 page import="com.liferay.portlet.wiki.social.WikiActivityKeys" %><%@
 page import="com.liferay.portlet.wiki.util.WikiCacheUtil" %><%@
+page import="com.liferay.portlet.wiki.util.WikiConstants" %><%@
 page import="com.liferay.portlet.wiki.util.WikiPageAttachmentsUtil" %><%@
 page import="com.liferay.portlet.wiki.util.WikiUtil" %><%@
 page import="com.liferay.portlet.wiki.util.comparator.PageVersionComparator" %><%@

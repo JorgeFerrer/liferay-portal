@@ -21,7 +21,10 @@ String emailFromName = ParamUtil.getString(request, "preferences--emailFromName-
 String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAddress--", wikiSettings.getEmailFromAddress());
 %>
 
-<liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL" />
+<liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL" >
+	<portlet:param name="serviceName" value="<%= WikiConstants.SERVICE_NAME %>" />
+	<portlet:param name="settingsScope" value="group" />
+</liferay-portlet:actionURL>
 
 <liferay-portlet:renderURL portletConfiguration="true" var="configurationRenderURL" />
 
