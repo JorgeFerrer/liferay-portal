@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.wiki;
 
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.Validator;
@@ -102,7 +101,7 @@ public class WikiSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEnableCommentRatings() {
-		return typedSettings.getBooleanValue("enableCommentRatings", true);
+		return typedSettings.getBooleanValue("enableCommentRatings");
 	}
 
 	public boolean getEnableComments() {
@@ -122,7 +121,7 @@ public class WikiSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEnableRelatedAssets() {
-		return typedSettings.getBooleanValue("enableRelatedAssets", true);
+		return typedSettings.getBooleanValue("enableRelatedAssets");
 	}
 
 	public boolean getEnableRSS() {
@@ -138,17 +137,17 @@ public class WikiSettings extends BaseServiceSettings {
 	}
 
 	public int getRssDelta() {
-		return typedSettings.getIntegerValue(
-			"rssDelta", SearchContainer.DEFAULT_DELTA);
+		return typedSettings.getIntegerValue("rssDelta");
 	}
 
 	public String getRssDisplayStyle() {
 		return typedSettings.getValue(
-			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_DEFAULT);
+			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_FULL_CONTENT);
 	}
 
 	public String getRssFeedType() {
-		return typedSettings.getValue("rssFeedType", RSSUtil.FEED_TYPE_DEFAULT);
+		return typedSettings.getValue(
+			"rssFeedType", RSSUtil.getFeedType(RSSUtil.ATOM, 1.0));
 	}
 
 	public String[] getVisibleNodes() {
@@ -174,7 +173,17 @@ public class WikiSettings extends BaseServiceSettings {
 
 		"emailPageAddedSubject", PropsKeys.WIKI_EMAIL_PAGE_ADDED_SUBJECT,
 
-		"emailPageUpdatedEnabled", PropsKeys.WIKI_EMAIL_PAGE_UPDATED_ENABLED
+		"emailPageUpdatedEnabled", PropsKeys.WIKI_EMAIL_PAGE_UPDATED_ENABLED,
+
+		"enableCommentRatings", PropsKeys.WIKI_COMMENT_RATINGS_ENABLED,
+
+		"enableRelatedAssets", PropsKeys.WIKI_RELATED_ASSETS_ENABLED,
+
+		"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA,
+
+		"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT,
+
+		"rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT
 	);
 
 }
