@@ -529,7 +529,7 @@ public class WikiUtil {
 	public static WikiSettings getWikiSettings(long groupId)
 		throws PortalException, SystemException {
 
-		Settings settings = SettingsFactoryUtil.getServiceGroupSettings(
+		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, WikiConstants.SERVICE_NAME);
 
 		return new WikiSettings(settings);
