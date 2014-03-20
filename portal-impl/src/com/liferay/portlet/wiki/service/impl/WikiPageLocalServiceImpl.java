@@ -2410,9 +2410,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 			return;
 		}
 
-		WikiSettings wikiSettings = null;
-
-		wikiSettings = WikiUtil.getWikiSettings(node.getGroupId());
+		WikiSettings wikiSettings = WikiUtil.getWikiSettings(node.getGroupId());
 
 		if (!update && wikiSettings.getEmailPageAddedEnabled()) {
 		}

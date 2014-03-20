@@ -15,6 +15,7 @@
 package com.liferay.portlet.wiki.action;
 
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -169,40 +170,13 @@ public class EditNodeAction extends PortletAction {
 		WikiSettings wikiSettings = WikiUtil.getWikiSettings(
 				wikiNode.getGroupId());
 
-		replace(wikiSettings, oldName, StringPool.BLANK);
+		updateSettings(wikiSettings, oldName, StringPool.BLANK);
 
 		if (moveToTrash && (trashWikiNode != null)) {
 			TrashUtil.addTrashSessionMessages(actionRequest, trashWikiNode);
 
 			hideDefaultSuccessMessage(actionRequest);
 		}
-	}
-
-	protected void replace(String[] names, String oldName, String newName) {
-		for (int i = 0; i < names.length; i++) {
-			if (names[i].equals(oldName)) {
-				names[i] = newName;
-			}
-		}
-	}
-
-	protected void replace(
-			WikiSettings wikiSettings, String oldName, String newName)
-		throws Exception {
-
-		String[] hiddenNodes = wikiSettings.getHiddenNodes();
-
-		replace(hiddenNodes, oldName, newName);
-
-		wikiSettings.setHiddenNodes(hiddenNodes);
-
-		String[] visibleNodes = wikiSettings.getVisibleNodes();
-
-		replace(visibleNodes, oldName, newName);
-
-		wikiSettings.setVisibleNodes(visibleNodes);
-
-		wikiSettings.store();
 	}
 
 	protected void subscribeNode(ActionRequest actionRequest) throws Exception {
@@ -248,8 +222,24 @@ public class EditNodeAction extends PortletAction {
 			WikiSettings wikiSettings = WikiUtil.getWikiSettings(
 				wikiNode.getGroupId());
 
-			replace(wikiSettings, oldName, name);
+			updateSettings(wikiSettings, oldName, name);
 		}
+	}
+
+	protected void updateSettings(
+			WikiSettings wikiSettings, String oldName, String newName)
+		throws Exception {
+
+		String[] hiddenNodes = wikiSettings.getHiddenNodes();
+		String[] visibleNodes = wikiSettings.getVisibleNodes();
+
+		ArrayUtil.replace(hiddenNodes, oldName, newName);
+		ArrayUtil.replace(visibleNodes, oldName, newName);
+
+		wikiSettings.setHiddenNodes(hiddenNodes);
+		wikiSettings.setVisibleNodes(visibleNodes);
+
+		wikiSettings.store();
 	}
 
 }
