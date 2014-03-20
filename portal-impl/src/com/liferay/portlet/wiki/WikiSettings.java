@@ -141,13 +141,11 @@ public class WikiSettings extends BaseServiceSettings {
 	}
 
 	public String getRssDisplayStyle() {
-		return typedSettings.getValue(
-			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_FULL_CONTENT);
+		return typedSettings.getValue("rssDisplayStyle");
 	}
 
 	public String getRssFeedType() {
-		return typedSettings.getValue(
-			"rssFeedType", RSSUtil.getFeedType(RSSUtil.ATOM, 1.0));
+		return typedSettings.getValue("rssFeedType");
 	}
 
 	public String[] getVisibleNodes() {
