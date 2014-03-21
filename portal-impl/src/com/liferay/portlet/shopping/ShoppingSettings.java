@@ -15,29 +15,28 @@
 package com.liferay.portlet.shopping;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.settings.BaseServiceSettings;
 import com.liferay.portal.settings.Settings;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.util.ContentUtil;
 
-import java.io.IOException;
-
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.portlet.ValidatorException;
 
 /**
  * @author Brian Wing Shun Chan
  * @author Eduardo Garcia
  */
-public class ShoppingSettings implements Settings {
+public class ShoppingSettings extends BaseServiceSettings {
 
 	public static final String CC_NONE = "none";
 
@@ -87,7 +86,7 @@ public class ShoppingSettings implements Settings {
 	};
 
 	public ShoppingSettings(Settings settings) {
-		_settings = settings;
+		super(settings, _fallbackKeys);
 	}
 
 	public String[][] getAlternativeShipping() {
@@ -260,43 +259,6 @@ public class ShoppingSettings implements Settings {
 		return getValue("taxState", "CA");
 	}
 
-	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = _settings.getValue(key, defaultValue);
-
-		if (Validator.isNotNull(value)) {
-			return value;
-		}
-
-		String fallbackKey = getFallbackKey(key);
-
-		if (fallbackKey != null) {
-			return _settings.getValue(fallbackKey, value);
-		}
-
-		return null;
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		return _settings.getValues(key, defaultValue);
-	}
-
-	@Override
-	public Settings setValue(String key, String value) {
-		return _settings.setValue(key, value);
-	}
-
-	@Override
-	public Settings setValues(String key, String[] values) {
-		return _settings.setValues(key, values);
-	}
-
-	@Override
-	public void store() throws IOException, ValidatorException {
-		_settings.store();
-	}
-
 	public boolean useAlternativeShipping() {
 		String[][] alternativeShipping = getAlternativeShipping();
 
@@ -332,6 +294,7 @@ public class ShoppingSettings implements Settings {
 		return fallbackKey;
 	}
 
-	private Settings _settings;
+	private static final Map<String, String> _fallbackKeys =
+		MapUtil.fromArray();
 
 }
