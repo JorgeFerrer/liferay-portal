@@ -40,8 +40,8 @@ public class ShoppingSettings extends BaseServiceSettings {
 
 	public static final String CC_NONE = "none";
 
-	public static final String[] CC_TYPES =
-		new String[] {"visa", "mastercard", "discover", "amex"};
+	public static final String[] CC_TYPES = {
+		"visa", "mastercard", "discover", "amex"};
 
 	public static final String[] CURRENCY_IDS;
 
@@ -281,20 +281,9 @@ public class ShoppingSettings extends BaseServiceSettings {
 		return Validator.isNotNull(getPayPalEmailAddress());
 	}
 
-	protected String getFallbackKey(String key) {
-		String fallbackKey = null;
-
-		if (key.equals("emailFromAddress")) {
-			fallbackKey = PropsKeys.ADMIN_EMAIL_FROM_ADDRESS;
-		}
-		else if (key.equals("emailFromName")) {
-			fallbackKey = PropsKeys.ADMIN_EMAIL_FROM_NAME;
-		}
-
-		return fallbackKey;
-	}
-
-	private static final Map<String, String> _fallbackKeys =
-		MapUtil.fromArray();
+	private static final Map<String, String> _fallbackKeys = MapUtil.fromArray(
+		"emailFromAddress", PropsKeys.ADMIN_EMAIL_FROM_ADDRESS, "emailFromName",
+		PropsKeys.ADMIN_EMAIL_FROM_NAME
+	);
 
 }
