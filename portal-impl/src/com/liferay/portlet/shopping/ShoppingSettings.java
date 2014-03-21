@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.shopping;
 
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
@@ -22,8 +21,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.settings.BaseServiceSettings;
 import com.liferay.portal.settings.Settings;
-import com.liferay.portal.util.PropsUtil;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.util.ContentUtil;
 
 import java.util.Currency;
@@ -90,7 +87,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[][] getAlternativeShipping() {
-		String value = getValue("alternativeShipping", null);
+		String value = typedSettings.getValue("alternativeShipping", null);
 
 		if (value == null) {
 			return new String[0][0];
@@ -120,143 +117,117 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getCcTypes() {
-		String ccTypes = getValue("ccTypes", StringUtil.merge(CC_TYPES));
+		String[] ccTypes = typedSettings.getValues("ccTypes", CC_TYPES);
 
-		if (ccTypes.equals(CC_NONE)) {
-			return new String[0];
+		if ((ccTypes.length == 1) && ccTypes[0].equals(CC_NONE)) {
+			return StringPool.EMPTY_ARRAY;
 		}
-		else {
-			return StringUtil.split(ccTypes);
-		}
+
+		return ccTypes;
 	}
 
 	public String getCurrencyId() {
-		return getValue("currencyId", "USD");
+		return typedSettings.getValue("currencyId", "USD");
 	}
 
 	public String getEmailFromAddress() {
-		return getValue(
-			"emailFromAddress", PropsValues.SHOPPING_EMAIL_FROM_ADDRESS);
+		return typedSettings.getValue("emailFromAddress");
 	}
 
 	public String getEmailFromName() {
-		return getValue("emailFromName", PropsValues.SHOPPING_EMAIL_FROM_NAME);
+		return typedSettings.getValue("emailFromName");
 	}
 
 	public String getEmailOrderConfirmationBody() {
-		String emailOrderConfirmationBody = getValue(
-			"emailOrderConfirmationBody", StringPool.BLANK);
+		String emailOrderConfirmationBody = typedSettings.getValue(
+			"emailOrderConfirmationBody");
 
 		if (Validator.isNotNull(emailOrderConfirmationBody)) {
 			return emailOrderConfirmationBody;
 		}
 
 		return ContentUtil.get(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY));
+			typedSettings.getValue(
+				PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY));
 	}
 
 	public boolean getEmailOrderConfirmationEnabled() {
-		String emailOrderConfirmationEnabled = getValue(
-			"emailOrderConfirmationEnabled", StringPool.BLANK);
-
-		if (Validator.isNotNull(emailOrderConfirmationEnabled)) {
-			return GetterUtil.getBoolean(emailOrderConfirmationEnabled);
-		}
-
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED));
+		return typedSettings.getBooleanValue("emailOrderConfirmationEnabled");
 	}
 
 	public String getEmailOrderConfirmationSubject() {
-		String emailOrderConfirmationSubject = getValue(
-			"emailOrderConfirmationSubject", StringPool.BLANK);
+		String emailOrderConfirmationSubject = typedSettings.getValue(
+			"emailOrderConfirmationSubject");
 
 		if (Validator.isNotNull(emailOrderConfirmationSubject)) {
 			return emailOrderConfirmationSubject;
 		}
 
 		return ContentUtil.get(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT));
+			typedSettings.getValue(
+				PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT));
 	}
 
 	public String getEmailOrderShippingBody() {
-		String emailOrderShippingBody = getValue(
-			"emailOrderShippingBody", StringPool.BLANK);
+		String emailOrderShippingBody = typedSettings.getValue(
+			"emailOrderShippingBody");
 
 		if (Validator.isNotNull(emailOrderShippingBody)) {
 			return emailOrderShippingBody;
 		}
 
 		return ContentUtil.get(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY));
+			typedSettings.getValue(
+				PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY));
 	}
 
 	public boolean getEmailOrderShippingEnabled() {
-		String emailOrderShippingEnabled = getValue(
-			"emailOrderShippingEnabled", StringPool.BLANK);
-
-		if (Validator.isNotNull(emailOrderShippingEnabled)) {
-			return GetterUtil.getBoolean(emailOrderShippingEnabled);
-		}
-
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED));
+		return typedSettings.getBooleanValue("emailOrderShippingEnabled");
 	}
 
 	public String getEmailOrderShippingSubject() {
-		String emailOrderShippingSubject = getValue(
-			"emailOrderShippingSubject", StringPool.BLANK);
+		String emailOrderShippingSubject = typedSettings.getValue(
+			"emailOrderShippingSubject");
 
 		if (Validator.isNotNull(emailOrderShippingSubject)) {
 			return emailOrderShippingSubject;
 		}
 
 		return ContentUtil.get(
-			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT));
+			typedSettings.getValue(
+				PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT));
 	}
 
 	public String[] getInsurance() {
-		String value = getValue("insurance", null);
-
-		if (value == null) {
-			return new String[5];
-		}
-
-		return StringUtil.split(value);
+		return typedSettings.getValues("insurance", new String[5]);
 	}
 
 	public String getInsuranceFormula() {
-		return getValue("insuranceFormula", "flat");
+		return typedSettings.getValue("insuranceFormula", "flat");
 	}
 
 	public double getMinOrder() {
-		return GetterUtil.getDouble(getValue("minOrder", StringPool.BLANK));
+		return typedSettings.getDoubleValue("minOrder");
 	}
 
 	public String getPayPalEmailAddress() {
-		return getValue("paypalEmailAddress", StringPool.BLANK);
+		return typedSettings.getValue("paypalEmailAddress");
 	}
 
 	public String[] getShipping() {
-		String value = getValue("shipping", null);
-
-		if (value == null) {
-			return new String[5];
-		}
-
-		return StringUtil.split(value);
+		return typedSettings.getValues("shipping", new String[5]);
 	}
 
 	public String getShippingFormula() {
-		return getValue("shippingFormula", "flat");
+		return typedSettings.getValue("shippingFormula", "flat");
 	}
 
 	public double getTaxRate() {
-		return GetterUtil.getDouble(getValue("taxRate", StringPool.BLANK));
+		return typedSettings.getDoubleValue("taxRate");
 	}
 
 	public String getTaxState() {
-		return getValue("taxState", "CA");
+		return typedSettings.getValue("taxState", "CA");
 	}
 
 	public boolean useAlternativeShipping() {
@@ -282,8 +253,14 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	private static final Map<String, String> _fallbackKeys = MapUtil.fromArray(
-		"emailFromAddress", PropsKeys.ADMIN_EMAIL_FROM_ADDRESS, "emailFromName",
-		PropsKeys.ADMIN_EMAIL_FROM_NAME
+		"emailFromAddress", PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
+		PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
+		PropsKeys.ADMIN_EMAIL_FROM_ADDRESS, "emailFromName",
+		PropsKeys.SHOPPING_EMAIL_FROM_NAME, PropsKeys.SHOPPING_EMAIL_FROM_NAME,
+		PropsKeys.ADMIN_EMAIL_FROM_NAME, "emailOrderConfirmationEnabled",
+		PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED,
+		"emailOrderShippingEnabled",
+		PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED
 	);
 
 }
