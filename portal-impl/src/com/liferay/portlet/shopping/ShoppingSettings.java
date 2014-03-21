@@ -117,7 +117,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getCcTypes() {
-		String[] ccTypes = typedSettings.getValues("ccTypes", CC_TYPES);
+		String[] ccTypes = typedSettings.getValues("ccTypes");
 
 		if ((ccTypes.length == 1) && ccTypes[0].equals(CC_NONE)) {
 			return StringPool.EMPTY_ARRAY;
@@ -199,11 +199,11 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getInsurance() {
-		return typedSettings.getValues("insurance", new String[5]);
+		return typedSettings.getValues("insurance");
 	}
 
 	public String getInsuranceFormula() {
-		return typedSettings.getValue("insuranceFormula", "flat");
+		return typedSettings.getValue("insuranceFormula");
 	}
 
 	public double getMinOrder() {
@@ -215,11 +215,11 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getShipping() {
-		return typedSettings.getValues("shipping", new String[5]);
+		return typedSettings.getValues("shipping");
 	}
 
 	public String getShippingFormula() {
-		return typedSettings.getValue("shippingFormula", "flat");
+		return typedSettings.getValue("shippingFormula");
 	}
 
 	public double getTaxRate() {
@@ -227,7 +227,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String getTaxState() {
-		return typedSettings.getValue("taxState", "CA");
+		return typedSettings.getValue("taxState");
 	}
 
 	public boolean useAlternativeShipping() {
@@ -253,14 +253,21 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	private static final Map<String, String> _fallbackKeys = MapUtil.fromArray(
-		"emailFromAddress", PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
+		"ccTypes", PropsKeys.SHOPPING_CREDIT_CARD_TYPES, "currencyId",
+		PropsKeys.SHOPPING_CURRENCY_ID, "emailFromAddress",
+		PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
 		PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
 		PropsKeys.ADMIN_EMAIL_FROM_ADDRESS, "emailFromName",
 		PropsKeys.SHOPPING_EMAIL_FROM_NAME, PropsKeys.SHOPPING_EMAIL_FROM_NAME,
 		PropsKeys.ADMIN_EMAIL_FROM_NAME, "emailOrderConfirmationEnabled",
 		PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED,
 		"emailOrderShippingEnabled",
-		PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED
+		PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED, "insurance",
+		PropsKeys.SHOPPING_INSURANCE, "insuranceFormula",
+		PropsKeys.SHOPPING_INSURANCE_FORMULA, "shipping",
+		PropsKeys.SHOPPING_SHIPPING, "shippingFormula",
+		PropsKeys.SHOPPING_SHIPPING_FORMULA, "taxState",
+		PropsKeys.SHOPPING_TAX_STATE
 	);
 
 }
