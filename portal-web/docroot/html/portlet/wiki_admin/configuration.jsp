@@ -20,11 +20,6 @@
 wikiSettings = WikiUtil.getWikiSettings(themeDisplay.getSiteGroupId(), request);
 %>
 
-<%
-String emailFromName = wikiSettings.getEmailFromName();
-String emailFromAddress = wikiSettings.getEmailFromAddress();
-%>
-
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL">
 	<portlet:param name="serviceName" value="<%= WikiConstants.SERVICE_NAME %>" />
 	<portlet:param name="settingsScope" value="group" />
@@ -62,9 +57,9 @@ String emailFromAddress = wikiSettings.getEmailFromAddress();
 
 		<liferay-ui:section>
 			<aui:fieldset>
-				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" value="<%= emailFromName %>" />
+				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" value="<%= wikiSettings.getEmailFromName() %>" />
 
-				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" value="<%= emailFromAddress %>" />
+				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" value="<%= wikiSettings.getEmailFromAddress() %>" />
 			</aui:fieldset>
 
 			<aui:fieldset cssClass="definition-of-terms">
@@ -75,7 +70,7 @@ String emailFromAddress = wikiSettings.getEmailFromAddress();
 				<dl>
 
 					<%
-					Map<String, String> definitionTerms = WikiUtil.getEmailFromDefinitionTerms(renderRequest, emailFromAddress, emailFromName);
+					Map<String, String> definitionTerms = WikiUtil.getEmailFromDefinitionTerms(renderRequest, wikiSettings.getEmailFromAddress(), wikiSettings.getEmailFromName());
 
 					for (Map.Entry<String, String> definitionTerm : definitionTerms.entrySet()) {
 					%>
@@ -96,7 +91,7 @@ String emailFromAddress = wikiSettings.getEmailFromAddress();
 		</liferay-ui:section>
 
 		<%
-		Map<String, String> definitionTerms = WikiUtil.getEmailNotificationDefinitionTerms(renderRequest, emailFromAddress, emailFromName);
+		Map<String, String> definitionTerms = WikiUtil.getEmailNotificationDefinitionTerms(renderRequest, wikiSettings.getEmailFromAddress(), wikiSettings.getEmailFromName());
 		%>
 
 		<liferay-ui:section>

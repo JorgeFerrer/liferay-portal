@@ -20,11 +20,6 @@
 mbSettings = MBUtil.getMBSettings(themeDisplay.getSiteGroupId(), request);
 %>
 
-<%
-String emailFromName = mbSettings.getEmailFromName();
-String emailFromAddress = mbSettings.getEmailFromAddress();
-%>
-
 <liferay-portlet:renderURL portletConfiguration="<%= true %>" var="portletURL" />
 
 <liferay-portlet:actionURL portletConfiguration="<%= true %>" var="configurationActionURL">
@@ -97,9 +92,9 @@ String emailFromAddress = mbSettings.getEmailFromAddress();
 
 		<liferay-ui:section>
 			<aui:fieldset>
-				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" value="<%= emailFromName %>" />
+				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" value="<%= mbSettings.getEmailFromName() %>" />
 
-				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" value="<%= emailFromAddress %>" />
+				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" value="<%= mbSettings.getEmailFromAddress() %>" />
 
 				<aui:input label="html-format" name="preferences--emailHtmlFormat--" type="checkbox" value="<%= mbSettings.isEmailHtmlFormat() %>" />
 			</aui:fieldset>
@@ -129,7 +124,7 @@ String emailFromAddress = mbSettings.getEmailFromAddress();
 		</liferay-ui:section>
 
 		<%
-		Map<String, String> emailDefinitionTerms = MBUtil.getEmailDefinitionTerms(renderRequest, emailFromAddress, emailFromName);
+		Map<String, String> emailDefinitionTerms = MBUtil.getEmailDefinitionTerms(renderRequest, mbSettings.getEmailFromAddress(), mbSettings.getEmailFromName());
 		%>
 
 		<liferay-ui:section>

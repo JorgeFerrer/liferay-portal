@@ -20,11 +20,6 @@
 shoppingSettings = ShoppingUtil.getShoppingSettings(themeDisplay.getSiteGroupId(), request);
 %>
 
-<%
-String emailFromName = shoppingSettings.getEmailFromName();
-String emailFromAddress = shoppingSettings.getEmailFromAddress();
-%>
-
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL">
 	<portlet:param name="serviceName" value="<%= ShoppingConstants.SERVICE_NAME %>" />
 	<portlet:param name="settingsScope" value="group" />
@@ -216,14 +211,14 @@ String emailFromAddress = shoppingSettings.getEmailFromAddress();
 
 		<liferay-ui:section>
 			<aui:fieldset>
-				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" type="text" value="<%= emailFromName %>" />
+				<aui:input cssClass="lfr-input-text-container" label="name" name="preferences--emailFromName--" type="text" value="<%= shoppingSettings.getEmailFromName() %>" />
 
-				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" type="text" value="<%= emailFromAddress %>" />
+				<aui:input cssClass="lfr-input-text-container" label="address" name="preferences--emailFromAddress--" type="text" value="<%= shoppingSettings.getEmailFromAddress() %>" />
 			</aui:fieldset>
 		</liferay-ui:section>
 
 		<%
-		Map<String, String> emailDefinitionTerms = ShoppingUtil.getEmailDefinitionTerms(renderRequest, emailFromAddress, emailFromName);
+		Map<String, String> emailDefinitionTerms = ShoppingUtil.getEmailDefinitionTerms(renderRequest, shoppingSettings.getEmailFromAddress(), shoppingSettings.getEmailFromName());
 		%>
 
 		<liferay-ui:section>
