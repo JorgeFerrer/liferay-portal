@@ -17,8 +17,12 @@
 <%@ include file="/html/portlet/wiki/init.jsp" %>
 
 <%
-String emailFromName = ParamUtil.getString(request, "preferences--emailFromName--", wikiSettings.getEmailFromName());
-String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAddress--", wikiSettings.getEmailFromAddress());
+wikiSettings = WikiUtil.getWikiSettings(themeDisplay.getSiteGroupId(), request);
+%>
+
+<%
+String emailFromName = wikiSettings.getEmailFromName();
+String emailFromAddress = wikiSettings.getEmailFromAddress();
 %>
 
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL">
@@ -97,21 +101,21 @@ String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAd
 
 		<liferay-ui:section>
 			<liferay-ui:email-notification-settings
-				emailBody='<%= SettingsParamUtil.getString(wikiSettings, request, "emailPageAddedBody", ContentUtil.get(PropsValues.WIKI_EMAIL_PAGE_ADDED_BODY)) %>'
+				emailBody="<%= wikiSettings.getEmailPageAddedBody() %>"
 				emailDefinitionTerms="<%= definitionTerms %>"
-				emailEnabled='<%= ParamUtil.getBoolean(request, "preferences--emailPageAddedEnabled--", wikiSettings.getEmailPageAddedEnabled()) %>'
+				emailEnabled="<%= wikiSettings.getEmailPageAddedEnabled() %>"
 				emailParam="emailPageAdded"
-				emailSubject='<%= SettingsParamUtil.getString(wikiSettings, request, "emailPageAddedSubject", ContentUtil.get(PropsValues.WIKI_EMAIL_PAGE_ADDED_SUBJECT)) %>'
+				emailSubject="<%= wikiSettings.getEmailPageAddedSubject() %>"
 			/>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
 			<liferay-ui:email-notification-settings
-				emailBody='<%= SettingsParamUtil.getString(wikiSettings, request, "emailPageUpdatedBody", ContentUtil.get(PropsValues.WIKI_EMAIL_PAGE_UPDATED_BODY)) %>'
+				emailBody="<%= wikiSettings.getEmailPageUpdatedBody() %>"
 				emailDefinitionTerms="<%= definitionTerms %>"
-				emailEnabled='<%= ParamUtil.getBoolean(request, "preferences--emailPageUpdatedEnabled--", wikiSettings.getEmailPageUpdatedEnabled()) %>'
+				emailEnabled="<%= wikiSettings.getEmailPageUpdatedEnabled() %>"
 				emailParam="emailPageUpdated"
-				emailSubject='<%= SettingsParamUtil.getString(wikiSettings, request, "emailPageUpdatedSubject", ContentUtil.get(PropsValues.WIKI_EMAIL_PAGE_UPDATED_SUBJECT)) %>'
+				emailSubject="<%= wikiSettings.getEmailPageAddedSubject() %>"
 			/>
 		</liferay-ui:section>
 
