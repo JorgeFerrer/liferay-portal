@@ -23,10 +23,13 @@ blogsSettings = BlogsUtil.getBlogsSettings(scopeGroupId, request);
 <%
 String emailFromName = blogsSettings.getEmailFromName();
 String emailFromAddress = blogsSettings.getEmailFromAddress();
-String socialBookmarkTypes = portletPreferences.getValue("socialBookmarksTypes", PropsUtil.get(PropsKeys.SOCIAL_BOOKMARK_TYPES));
+String socialBookmarkTypes = blogsSettings.getSocialBookmarksTypes();
 %>
 
-<liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL" />
+<liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL">
+	<portlet:param name="serviceName" value="<%= BlogsConstants.SERVICE_NAME %>" />
+	<portlet:param name="settingsScope" value="group" />
+</liferay-portlet:actionURL>
 
 <liferay-portlet:renderURL portletConfiguration="true" var="configurationRenderURL" />
 
@@ -94,21 +97,21 @@ String socialBookmarkTypes = portletPreferences.getValue("socialBookmarksTypes",
 
 		<liferay-ui:section>
 			<liferay-ui:email-notification-settings
-				emailBody='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryAddedBody", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_ADDED_BODY)) %>'
+				emailBody="<%= blogsSettings.getEmailEntryAddedBody().getLocalizationXml() %>"
 				emailDefinitionTerms="<%= emailDefinitionTerms %>"
 				emailEnabled="<%= blogsSettings.getEmailEntryAddedEnabled() %>"
 				emailParam="emailEntryAdded"
-				emailSubject='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryAddedSubject", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_ADDED_SUBJECT)) %>'
+				emailSubject="<%= blogsSettings.getEmailEntryAddedSubject().getLocalizationXml() %>"
 			/>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
 			<liferay-ui:email-notification-settings
-				emailBody='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryUpdatedBody", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_UPDATED_BODY)) %>'
+				emailBody="<%= blogsSettings.getEmailEntryUpdatedBody().getLocalizationXml() %>"
 				emailDefinitionTerms="<%= emailDefinitionTerms %>"
 					emailEnabled="<%= blogsSettings.getEmailEntryUpdatedEnabled() %>"
 				emailParam="emailEntryUpdated"
-				emailSubject='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryUpdatedSubject", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_UPDATED_SUBJECT)) %>'
+				emailSubject="<%= blogsSettings.getEmailEntryAddedSubject().getLocalizationXml() %>"
 			/>
 		</liferay-ui:section>
 
