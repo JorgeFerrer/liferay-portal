@@ -14,12 +14,15 @@
 
 package com.liferay.portlet.blogs;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.settings.BaseServiceSettings;
 import com.liferay.portal.settings.FallbackKeys;
 import com.liferay.portal.settings.LocalizedValuesMap;
 import com.liferay.portal.settings.Settings;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PropsValues;
 
 /**
  * @author Iván Zaera
@@ -71,6 +74,72 @@ public class BlogsSettings extends BaseServiceSettings {
 		return typedSettings.getValue("emailFromName");
 	}
 
+	public boolean getEnableCommentRatings() {
+		return typedSettings.getBooleanValue("enableCommentRatings", true);
+	}
+
+	public boolean getEnableComments() {
+		if (!PropsValues.BLOGS_ENTRY_COMMENTS_ENABLED) {
+			return false;
+		}
+
+		return typedSettings.getBooleanValue("enableComments", true);
+	}
+
+	public boolean getEnableFlags() {
+		return typedSettings.getBooleanValue("enableFlags", true);
+	}
+
+	public boolean getEnableRatings() {
+		return typedSettings.getBooleanValue("enableRatings", true);
+	}
+
+	public boolean getEnableRelatedAssets() {
+		return typedSettings.getBooleanValue("enableRelatedAssets", true);
+	}
+
+	public boolean getEnableRSS() {
+		if (!PortalUtil.isRSSFeedsEnabled()) {
+			return false;
+		}
+
+		return typedSettings.getBooleanValue("enableRss");
+	}
+
+	public boolean getEnableSocialBookmarks() {
+		return typedSettings.getBooleanValue("enableSocialBookmarks", true);
+	}
+
+	public int getPageDelta() {
+		return typedSettings.getIntegerValue(
+			"pageDelta", SearchContainer.DEFAULT_DELTA);
+	}
+
+	public int getRssDelta() {
+		return typedSettings.getIntegerValue("rssDelta");
+	}
+
+	public String getRssDisplayStyle() {
+		return typedSettings.getValue("rssDisplayStyle");
+	}
+
+	public String getRssFeedType() {
+		return typedSettings.getValue("rssFeedType");
+	}
+
+	public String getSocialBookmarksDisplayPosition() {
+		return typedSettings.getValue(
+			"socialBookmarksDisplayPosition", "bottom");
+	}
+
+	public String[] getSocialBookmarksDisplayStyles() {
+		return typedSettings.getValues("socialBookmarksDisplayStyle");
+	}
+
+	public String getSocialBookmarksTypes() {
+		return typedSettings.getValue("socialBookmarksTypes");
+	}
+
 	private static FallbackKeys _fallbackKeys = new FallbackKeys();
 
 	static {
@@ -96,6 +165,16 @@ public class BlogsSettings extends BaseServiceSettings {
 		_fallbackKeys.add(
 			"emailFromName", PropsKeys.BLOGS_EMAIL_FROM_NAME,
 			PropsKeys.ADMIN_EMAIL_FROM_NAME);
+		_fallbackKeys.add(
+			"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		_fallbackKeys.add(
+			"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT);
+		_fallbackKeys.add("rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT);
+		_fallbackKeys.add(
+			"socialBookmarksDisplayStyle",
+			PropsKeys.SOCIAL_BOOKMARK_DISPLAY_STYLES);
+		_fallbackKeys.add(
+			"socialBookmarksTypes", PropsKeys.SOCIAL_BOOKMARK_TYPES);
 	}
 
 }
