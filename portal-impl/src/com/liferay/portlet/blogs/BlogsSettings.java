@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.blogs;
 
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.settings.BaseServiceSettings;
@@ -22,7 +21,6 @@ import com.liferay.portal.settings.FallbackKeys;
 import com.liferay.portal.settings.LocalizedValuesMap;
 import com.liferay.portal.settings.Settings;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PropsValues;
 
 /**
  * @author Iván Zaera
@@ -75,27 +73,23 @@ public class BlogsSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEnableCommentRatings() {
-		return typedSettings.getBooleanValue("enableCommentRatings", true);
+		return typedSettings.getBooleanValue("enableCommentRatings");
 	}
 
 	public boolean getEnableComments() {
-		if (!PropsValues.BLOGS_ENTRY_COMMENTS_ENABLED) {
-			return false;
-		}
-
-		return typedSettings.getBooleanValue("enableComments", true);
+		return typedSettings.getBooleanValue("enableComments");
 	}
 
 	public boolean getEnableFlags() {
-		return typedSettings.getBooleanValue("enableFlags", true);
+		return typedSettings.getBooleanValue("enableFlags");
 	}
 
 	public boolean getEnableRatings() {
-		return typedSettings.getBooleanValue("enableRatings", true);
+		return typedSettings.getBooleanValue("enableRatings");
 	}
 
 	public boolean getEnableRelatedAssets() {
-		return typedSettings.getBooleanValue("enableRelatedAssets", true);
+		return typedSettings.getBooleanValue("enableRelatedAssets");
 	}
 
 	public boolean getEnableRSS() {
@@ -107,12 +101,11 @@ public class BlogsSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEnableSocialBookmarks() {
-		return typedSettings.getBooleanValue("enableSocialBookmarks", true);
+		return typedSettings.getBooleanValue("enableSocialBookmarks");
 	}
 
 	public int getPageDelta() {
-		return typedSettings.getIntegerValue(
-			"pageDelta", SearchContainer.DEFAULT_DELTA);
+		return typedSettings.getIntegerValue("pageDelta");
 	}
 
 	public int getRssDelta() {
@@ -128,8 +121,7 @@ public class BlogsSettings extends BaseServiceSettings {
 	}
 
 	public String getSocialBookmarksDisplayPosition() {
-		return typedSettings.getValue(
-			"socialBookmarksDisplayPosition", "bottom");
+		return typedSettings.getValue("socialBookmarksDisplayPosition");
 	}
 
 	public String[] getSocialBookmarksDisplayStyles() {
@@ -143,6 +135,17 @@ public class BlogsSettings extends BaseServiceSettings {
 	private static FallbackKeys _fallbackKeys = new FallbackKeys();
 
 	static {
+		_fallbackKeys.add(
+			"enableComments", PropsKeys.BLOGS_ENTRY_COMMENTS_ENABLED);
+		_fallbackKeys.add(
+			"enableCommentRatings", PropsKeys.BLOGS_COMMENT_RATINGS_ENABLED);
+		_fallbackKeys.add("enableFlags", PropsKeys.BLOGS_FLAGS_ENABLED);
+		_fallbackKeys.add("enableRatings", PropsKeys.BLOGS_RATINGS_ENABLED);
+		_fallbackKeys.add(
+			"enableRelatedAssets", PropsKeys.BLOGS_RELATED_ASSETS_ENABLED);
+		_fallbackKeys.add(
+			"enableSocialBookmarks", PropsKeys.BLOGS_SOCIAL_BOOKMARKS_ENABLED);
+		_fallbackKeys.add("displayStyle", PropsKeys.BLOGS_DISPLAY_STYLE);
 		_fallbackKeys.add(
 			"emailEntryAddedBody", PropsKeys.BLOGS_EMAIL_ENTRY_ADDED_BODY);
 		_fallbackKeys.add(
@@ -166,10 +169,15 @@ public class BlogsSettings extends BaseServiceSettings {
 			"emailFromName", PropsKeys.BLOGS_EMAIL_FROM_NAME,
 			PropsKeys.ADMIN_EMAIL_FROM_NAME);
 		_fallbackKeys.add(
+			"pageDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		_fallbackKeys.add(
 			"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
 		_fallbackKeys.add(
 			"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT);
 		_fallbackKeys.add("rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT);
+		_fallbackKeys.add(
+			"socialBookmarksDisplayPosition",
+			PropsKeys.BLOGS_SOCIAL_BOOKMARKS_DISPLAY_POSITION);
 		_fallbackKeys.add(
 			"socialBookmarksDisplayStyle",
 			PropsKeys.SOCIAL_BOOKMARK_DISPLAY_STYLES);
