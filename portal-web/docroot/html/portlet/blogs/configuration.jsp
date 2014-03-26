@@ -17,8 +17,12 @@
 <%@ include file="/html/portlet/blogs/init.jsp" %>
 
 <%
-String emailFromName = ParamUtil.getString(request, "preferences--emailFromName--", BlogsUtil.getEmailFromName(portletPreferences, company.getCompanyId()));
-String emailFromAddress = ParamUtil.getString(request, "preferences--emailFromAddress--", BlogsUtil.getEmailFromAddress(portletPreferences, company.getCompanyId()));
+blogsSettings = BlogsUtil.getBlogsSettings(scopeGroupId, request);
+%>
+
+<%
+String emailFromName = blogsSettings.getEmailFromName();
+String emailFromAddress = blogsSettings.getEmailFromAddress();
 String socialBookmarkTypes = portletPreferences.getValue("socialBookmarksTypes", PropsUtil.get(PropsKeys.SOCIAL_BOOKMARK_TYPES));
 %>
 
@@ -92,7 +96,7 @@ String socialBookmarkTypes = portletPreferences.getValue("socialBookmarksTypes",
 			<liferay-ui:email-notification-settings
 				emailBody='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryAddedBody", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_ADDED_BODY)) %>'
 				emailDefinitionTerms="<%= emailDefinitionTerms %>"
-				emailEnabled='<%= ParamUtil.getBoolean(request, "preferences--emailEntryAddedEnabled--", BlogsUtil.getEmailEntryAddedEnabled(portletPreferences)) %>'
+				emailEnabled="<%= blogsSettings.getEmailEntryAddedEnabled() %>"
 				emailParam="emailEntryAdded"
 				emailSubject='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryAddedSubject", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_ADDED_SUBJECT)) %>'
 			/>
@@ -102,7 +106,7 @@ String socialBookmarkTypes = portletPreferences.getValue("socialBookmarksTypes",
 			<liferay-ui:email-notification-settings
 				emailBody='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryUpdatedBody", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_UPDATED_BODY)) %>'
 				emailDefinitionTerms="<%= emailDefinitionTerms %>"
-				emailEnabled='<%= ParamUtil.getBoolean(request, "preferences--emailEntryUpdatedEnabled--", BlogsUtil.getEmailEntryUpdatedEnabled(portletPreferences)) %>'
+					emailEnabled="<%= blogsSettings.getEmailEntryUpdatedEnabled() %>"
 				emailParam="emailEntryUpdated"
 				emailSubject='<%= LocalizationUtil.getLocalizationXmlFromPreferences(portletPreferences, renderRequest, "emailEntryUpdatedSubject", "preferences", ContentUtil.get(PropsValues.BLOGS_EMAIL_ENTRY_UPDATED_SUBJECT)) %>'
 			/>

@@ -17,6 +17,7 @@
 <%@ include file="/html/portlet/init.jsp" %>
 
 <%@ page import="com.liferay.portal.service.SubscriptionLocalServiceUtil" %><%@
+page import="com.liferay.portlet.blogs.BlogsSettings" %><%@
 page import="com.liferay.portlet.blogs.EntryContentException" %><%@
 page import="com.liferay.portlet.blogs.EntrySmallImageNameException" %><%@
 page import="com.liferay.portlet.blogs.EntrySmallImageSizeException" %><%@
@@ -31,6 +32,8 @@ page import="com.liferay.portlet.blogs.util.BlogsUtil" %><%@
 page import="com.liferay.util.RSSUtil" %>
 
 <%
+BlogsSettings blogsSettings = BlogsUtil.getBlogsSettings(scopeGroupId);
+
 int pageDelta = GetterUtil.getInteger(portletPreferences.getValue("pageDelta", StringPool.BLANK), SearchContainer.DEFAULT_DELTA);
 String displayStyle = portletPreferences.getValue("displayStyle", BlogsUtil.DISPLAY_STYLE_FULL_CONTENT);
 long displayStyleGroupId = GetterUtil.getLong(portletPreferences.getValue("displayStyleGroupId", null), themeDisplay.getScopeGroupId());
