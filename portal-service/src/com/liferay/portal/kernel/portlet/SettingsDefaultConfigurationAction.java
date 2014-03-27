@@ -37,7 +37,7 @@ public class SettingsDefaultConfigurationAction
 
 	public static final String SETTINGS_PREFIX = "preferences--";
 
-	public SettingsDefaultConfigurationAction(String preferencesPrefix) {
+	public SettingsDefaultConfigurationAction() {
 		super(SETTINGS_PREFIX);
 	}
 
