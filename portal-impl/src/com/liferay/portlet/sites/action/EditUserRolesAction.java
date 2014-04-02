@@ -142,9 +142,10 @@ public class EditUserRolesAction extends PortletAction {
 
 			LiveUsers.joinGroup(
 				themeDisplay.getCompanyId(), groupId, addUserIds);
+
+			UserGroupRoleServiceUtil.addUserGroupRoles(addUserIds, groupId, roleId);
 		}
 
-		UserGroupRoleServiceUtil.addUserGroupRoles(addUserIds, groupId, roleId);
 		UserGroupRoleServiceUtil.deleteUserGroupRoles(
 			removeUserIds, groupId, roleId);
 	}
