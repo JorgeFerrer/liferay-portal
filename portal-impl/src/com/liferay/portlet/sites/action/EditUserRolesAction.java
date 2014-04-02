@@ -20,12 +20,17 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.liveusers.LiveUsers;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.membershippolicy.MembershipPolicyException;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserGroupRoleServiceUtil;
+import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portal.struts.PortletAction;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -125,6 +130,19 @@ public class EditUserRolesAction extends PortletAction {
 			ParamUtil.getString(actionRequest, "addUserIds"), 0L);
 		long[] removeUserIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "removeUserIds"), 0L);
+
+		if (addUserIds.length > 0) {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				actionRequest);
+
+			UserServiceUtil.addGroupUsers(groupId, addUserIds, serviceContext);
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			LiveUsers.joinGroup(
+				themeDisplay.getCompanyId(), groupId, addUserIds);
+		}
 
 		UserGroupRoleServiceUtil.addUserGroupRoles(addUserIds, groupId, roleId);
 		UserGroupRoleServiceUtil.deleteUserGroupRoles(
