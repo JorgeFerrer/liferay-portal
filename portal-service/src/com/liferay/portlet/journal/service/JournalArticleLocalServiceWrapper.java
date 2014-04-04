@@ -1050,6 +1050,20 @@ public class JournalArticleLocalServiceWrapper
 			urlTitle);
 	}
 
+	@Override
+	public java.lang.String getArticleContent(
+		com.liferay.portlet.journal.model.JournalArticle article,
+		java.lang.String ddmTemplateKey, java.lang.String viewMode,
+		java.lang.String languageId,
+		com.liferay.portal.kernel.portlet.PortletRequestModel portletRequestModel,
+		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleLocalService.getArticleContent(article,
+			ddmTemplateKey, viewMode, languageId, portletRequestModel,
+			themeDisplay);
+	}
+
 	/**
 	* Returns the web content associated with the web content article and DDM
 	* template.
@@ -1108,6 +1122,19 @@ public class JournalArticleLocalServiceWrapper
 		return _journalArticleLocalService.getArticleContent(groupId,
 			articleId, version, viewMode, ddmTemplateKey, languageId,
 			themeDisplay);
+	}
+
+	@Override
+	public java.lang.String getArticleContent(long groupId,
+		java.lang.String articleId, double version, java.lang.String viewMode,
+		java.lang.String ddmTemplateKey, java.lang.String languageId,
+		com.liferay.portal.kernel.portlet.PortletRequestModel portletRequestModel,
+		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _journalArticleLocalService.getArticleContent(groupId,
+			articleId, version, viewMode, ddmTemplateKey, languageId,
+			portletRequestModel, themeDisplay);
 	}
 
 	/**

@@ -313,7 +313,9 @@ public class Transformer {
 						}
 					}
 
-					if (langType.equals(TemplateConstants.LANG_TYPE_XSL)) {
+					if (langType.equals(TemplateConstants.LANG_TYPE_XSL) ||
+						langType.equals(TemplateConstants.LANG_TYPE_FTL)) {
+
 						Element requestElement = null;
 
 						if (portletRequestModel != null) {
