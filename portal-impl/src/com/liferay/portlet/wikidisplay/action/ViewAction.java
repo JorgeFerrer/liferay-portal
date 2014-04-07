@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -58,26 +59,38 @@ public class ViewAction extends PortletAction {
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			long nodeId = GetterUtil.getLong(
-				portletPreferences.getValue("nodeId", StringPool.BLANK));
+			String nodeName = ParamUtil.getString(renderRequest, "nodeName");
+
+			WikiNode node = null;
+
+			if (Validator.isNotNull(nodeName)) {
+				node = WikiNodeServiceUtil.getNode(
+					themeDisplay.getScopeGroupId(), nodeName);
+			}
+			else {
+				long nodeId = GetterUtil.getLong(
+					portletPreferences.getValue("nodeId", StringPool.BLANK));
+
+				node = WikiNodeServiceUtil.getNode(nodeId);
+			}
+
+			if (node.getGroupId() != themeDisplay.getScopeGroupId()) {
+				throw new NoSuchNodeException(
+					"{nodeId=" + node.getNodeId() + "}");
+			}
+
 			String title = ParamUtil.getString(
 				renderRequest, "title",
 				portletPreferences.getValue(
 					"title", WikiPageConstants.FRONT_PAGE));
 			double version = ParamUtil.getDouble(renderRequest, "version");
 
-			WikiNode node = WikiNodeServiceUtil.getNode(nodeId);
-
-			if (node.getGroupId() != themeDisplay.getScopeGroupId()) {
-				throw new NoSuchNodeException("{nodeId=" + nodeId + "}");
-			}
-
 			WikiPage page = WikiPageServiceUtil.fetchPage(
-				nodeId, title, version);
+				node.getNodeId(), title, version);
 
 			if ((page == null) || page.isInTrash()) {
 				page = WikiPageServiceUtil.getPage(
-					nodeId, WikiPageConstants.FRONT_PAGE);
+					node.getNodeId(), WikiPageConstants.FRONT_PAGE);
 			}
 
 			renderRequest.setAttribute(WebKeys.WIKI_NODE, node);
