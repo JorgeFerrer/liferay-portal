@@ -59,31 +59,18 @@ public class ViewAction extends PortletAction {
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			String nodeName = ParamUtil.getString(renderRequest, "nodeName");
-
-			WikiNode node = null;
-
-			if (Validator.isNotNull(nodeName)) {
-				node = WikiNodeServiceUtil.getNode(
-					themeDisplay.getScopeGroupId(), nodeName);
-			}
-			else {
-				long nodeId = GetterUtil.getLong(
-					portletPreferences.getValue("nodeId", StringPool.BLANK));
-
-				node = WikiNodeServiceUtil.getNode(nodeId);
-			}
-
-			if (node.getGroupId() != themeDisplay.getScopeGroupId()) {
-				throw new NoSuchNodeException(
-					"{nodeId=" + node.getNodeId() + "}");
-			}
-
 			String title = ParamUtil.getString(
 				renderRequest, "title",
 				portletPreferences.getValue(
 					"title", WikiPageConstants.FRONT_PAGE));
 			double version = ParamUtil.getDouble(renderRequest, "version");
+
+			WikiNode node = getNode(renderRequest);
+
+			if (node.getGroupId() != themeDisplay.getScopeGroupId()) {
+				throw new NoSuchNodeException(
+					"{nodeId=" + node.getNodeId() + "}");
+			}
 
 			WikiPage page = WikiPageServiceUtil.fetchPage(
 				node.getNodeId(), title, version);
@@ -109,6 +96,30 @@ public class ViewAction extends PortletAction {
 
 			return actionMapping.findForward("portlet.wiki_display.error");
 		}
+	}
+
+	protected WikiNode getNode(RenderRequest renderRequest) throws Exception {
+		PortletPreferences portletPreferences = renderRequest.getPreferences();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		WikiNode node = null;
+
+		String nodeName = ParamUtil.getString(renderRequest, "nodeName");
+
+		if (Validator.isNotNull(nodeName)) {
+			node = WikiNodeServiceUtil.getNode(
+				themeDisplay.getScopeGroupId(), nodeName);
+		}
+		else {
+			long nodeId = GetterUtil.getLong(
+				portletPreferences.getValue("nodeId", StringPool.BLANK));
+
+			node = WikiNodeServiceUtil.getNode(nodeId);
+		}
+
+		return node;
 	}
 
 }
