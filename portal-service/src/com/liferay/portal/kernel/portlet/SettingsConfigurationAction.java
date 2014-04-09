@@ -34,15 +34,17 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
-import com.liferay.portal.settings.LocalizedValuesMap;
 import com.liferay.portal.settings.Settings;
 import com.liferay.portal.settings.SettingsFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.PortletConfigFactoryUtil;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -122,7 +124,15 @@ public class SettingsConfigurationAction
 			String name = entry.getKey();
 			String value = entry.getValue();
 
-			settings.setValue(name, value);
+			String oldValue = settings.getValue(name, null);
+
+			if ((oldValue == null) && _isDefaultLocalizedKey(name)) {
+				oldValue = settings.getValue(_getUnlocalizedKey(name), null);
+			}
+
+			if (!StringUtil.equalsIgnoreBreakLine(value, oldValue)) {
+				settings.setValue(name, value);
+			}
 		}
 
 		Map<String, String[]> portletPreferencesMap =
@@ -136,7 +146,16 @@ public class SettingsConfigurationAction
 				String name = entry.getKey();
 				String[] values = entry.getValue();
 
-				settings.setValues(name, values);
+				String[] oldValues = settings.getValues(name, null);
+
+				if ((oldValues == null) && _isDefaultLocalizedKey(name)) {
+					oldValues = settings.getValues(
+						_getUnlocalizedKey(name), null);
+				}
+
+				if (!Validator.equals(values, oldValues)) {
+					settings.setValues(name, values);
+				}
 			}
 		}
 
@@ -279,32 +298,15 @@ public class SettingsConfigurationAction
 			"Invalid settings scope " + settingsScope);
 	}
 
-	@SuppressWarnings("unused")
 	protected void postProcess(
 			long companyId, PortletRequest portletRequest, Settings settings)
 		throws PortalException, SystemException {
 	}
 
-	protected void removeDefaultValue(
-		PortletRequest portletRequest, Settings settings, String key,
-		LocalizedValuesMap localizedValuesMap) {
+	protected void setLocalizedKeys(String... keys) {
+		_localizedKeys = new HashSet<String>();
 
-		removeDefaultValue(
-			portletRequest, settings, key,
-			localizedValuesMap.getDefaultValue());
-	}
-
-	protected void removeDefaultValue(
-		PortletRequest portletRequest, Settings settings, String key,
-		String defaultValue) {
-
-		String value = getParameter(portletRequest, key);
-
-		if (defaultValue.equals(value) ||
-			StringUtil.equalsIgnoreBreakLine(defaultValue, value)) {
-
-			settings.reset(key);
-		}
+		Collections.addAll(_localizedKeys, keys);
 	}
 
 	protected void setParameterNamePrefix(String parameterNamePrefix) {
@@ -352,6 +354,28 @@ public class SettingsConfigurationAction
 		}
 	}
 
+	private String _getUnlocalizedKey(String name) {
+		return name.substring(
+			0, name.length() - _defaultLanguageKeySuffix.length());
+	}
+
+	private boolean _isDefaultLocalizedKey(String name) {
+		if (!name.endsWith(_defaultLanguageKeySuffix)) {
+			return false;
+		}
+
+		name = _getUnlocalizedKey(name);
+
+		if (!_localizedKeys.contains(name)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private String _defaultLanguageKeySuffix = "_" + LocaleUtil.toLanguageId(
+		LocaleUtil.getSiteDefault());
+	private Set<String> _localizedKeys = Collections.emptySet();
 	private String _parameterNamePrefix;
 
 }
