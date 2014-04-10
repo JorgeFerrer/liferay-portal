@@ -465,7 +465,25 @@ public class ServicePreAction extends Action {
 			else if (isLoginRequest(request, layout, locale) &&
 					 !viewableGroup) {
 
-				layout = null;
+				if (layout.getFriendlyURL(locale).equals(
+						PropsValues.AUTH_LOGIN_SITE_URL)) {
+
+					LayoutTypePortlet layoutTypePortlet =
+						(LayoutTypePortlet)layout.getLayoutType();
+
+					String loginPortletId = PropsValues.AUTH_LOGIN_PORTLET_NAME;
+
+					if (!layoutTypePortlet.hasPortletId(loginPortletId)) {
+						if (_log.isWarnEnabled()) {
+							_log.warn(
+								"Login portlet " + loginPortletId +
+									" must be present on login page " +
+									layout.getPlid());
+						}
+
+						layout = null;
+					}
+				}
 			}
 			else if (group.isLayoutPrototype()) {
 				layouts = new ArrayList<Layout>();
