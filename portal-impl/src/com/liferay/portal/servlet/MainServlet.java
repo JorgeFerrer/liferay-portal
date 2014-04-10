@@ -1192,8 +1192,6 @@ public class MainServlet extends ActionServlet {
 
 				Group group = layout.getGroup();
 
-				plid = group.getDefaultPublicPlid();
-
 				if ((plid == LayoutConstants.DEFAULT_PLID) ||
 					group.isStagingGroup()) {
 
