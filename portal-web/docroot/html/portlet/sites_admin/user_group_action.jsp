@@ -25,7 +25,7 @@ Group group = (Group)row.getParameter("group");
 %>
 
 <liferay-ui:icon-menu>
-	<c:if test="<%= permissionChecker.isGroupOwner(group.getGroupId()) || GroupPermissionUtil.contains(permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) %>">
+	<c:if test="<%= GroupPermissionUtil.contains(permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) %>">
 		<portlet:renderURL var="assignURL">
 			<portlet:param name="struts_action" value="/sites_admin/edit_site_assignments" />
 			<portlet:param name="tabs1" value="user-groups" />
@@ -41,7 +41,7 @@ Group group = (Group)row.getParameter("group");
 		/>
 	</c:if>
 
-	<c:if test="<%= permissionChecker.isGroupOwner(group.getGroupId()) || GroupPermissionUtil.contains(permissionChecker, group, ActionKeys.ASSIGN_MEMBERS) %>">
+	<c:if test="<%= GroupPermissionUtil.contains(permissionChecker, group, ActionKeys.ASSIGN_MEMBERS) %>">
 		<portlet:actionURL var="removeURL">
 			<portlet:param name="struts_action" value="/sites_admin/edit_site_assignments" />
 			<portlet:param name="<%= Constants.CMD %>" value="group_user_groups" />
