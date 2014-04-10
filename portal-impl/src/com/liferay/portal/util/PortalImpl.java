@@ -5228,7 +5228,18 @@ public class PortalImpl implements Portal {
 		List<Layout> layouts = themeDisplay.getUnfilteredLayouts();
 
 		if (layouts == null) {
-			return null;
+			layouts = new ArrayList<Layout>();
+
+			Layout layout = themeDisplay.getLayout();
+
+			if (layout.isPrivateLayout()) {
+				layouts.addAll(
+					LayoutLocalServiceUtil.getLayouts(
+						layout.getGroupId(), true));
+			}
+
+			layouts.addAll(
+				LayoutLocalServiceUtil.getLayouts(layout.getGroupId(), false));
 		}
 
 		for (Layout layout : layouts) {
