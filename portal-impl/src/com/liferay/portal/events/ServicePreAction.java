@@ -59,6 +59,8 @@ import com.liferay.portal.model.LayoutTemplate;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.User;
@@ -73,6 +75,7 @@ import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -482,6 +485,30 @@ public class ServicePreAction extends Action {
 						}
 
 						layout = null;
+					}
+					else if (!PortletPermissionUtil.contains(
+								permissionChecker, layout, loginPortletId,
+								ActionKeys.VIEW)) {
+
+						Role guestRole = RoleLocalServiceUtil.getRole(
+							companyId, RoleConstants.GUEST);
+
+						String resourcePrimKey =
+							PortletPermissionUtil.getPrimaryKey(
+								layout.getPlid(), loginPortletId);
+
+						Map<Long, String[]> roleIdsToActionIds =
+							new HashMap<Long, String[]>();
+
+						roleIdsToActionIds.put(
+							guestRole.getRoleId(),
+							new String[]{ActionKeys.VIEW});
+
+						ResourcePermissionLocalServiceUtil.
+							setResourcePermissions(
+								layout.getCompanyId(), loginPortletId,
+								ResourceConstants.SCOPE_INDIVIDUAL,
+								resourcePrimKey, roleIdsToActionIds);
 					}
 				}
 			}
