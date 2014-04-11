@@ -131,6 +131,24 @@ public class LoginAction extends Action {
 			redirect = PropsValues.AUTH_LOGIN_URL;
 		}
 
+		if (Validator.isNull(redirect) &&
+			themeDisplay.getLayout().isPrivateLayout()) {
+
+			long plid = themeDisplay.getSiteGroup().getDefaultPublicPlid();
+
+			redirect = PortalUtil.getPathMain().concat("/portal/login");
+			redirect = HttpUtil.addParameter(redirect, "p_l_id", plid);
+
+			String originalRedirect = ParamUtil.getString(request, "redirect");
+
+			redirect = HttpUtil.addParameter(
+				redirect, "redirect", originalRedirect);
+
+			response.sendRedirect(redirect);
+
+			return null;
+		}
+
 		if (Validator.isNull(redirect)) {
 			PortletURL portletURL = PortletURLFactoryUtil.create(
 				request, PortletKeys.LOGIN, themeDisplay.getPlid(),

@@ -59,6 +59,8 @@ import com.liferay.portal.model.LayoutTemplate;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.User;
@@ -73,6 +75,7 @@ import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -360,6 +363,13 @@ public class ServicePreAction extends Action {
 			}
 		}
 
+		// Locale
+
+		String i18nLanguageId = (String)request.getAttribute(
+			WebKeys.I18N_LANGUAGE_ID);
+
+		Locale locale = PortalUtil.getLocale(request, response, true);
+
 		String ppid = ParamUtil.getString(request, "p_p_id");
 
 		Boolean redirectToDefaultLayout = (Boolean)request.getAttribute(
@@ -427,7 +437,7 @@ public class ServicePreAction extends Action {
 
 				layout = null;
 			}
-			else if (!isLoginRequest(request) &&
+			else if (!isLoginRequest(request, layout, locale) &&
 					 (!viewableGroup || !viewableSourceGroup ||
 					  (!redirectToDefaultLayout &&
 					   !hasAccessPermission(
@@ -455,8 +465,52 @@ public class ServicePreAction extends Action {
 
 				throw new NoSuchLayoutException(sb.toString());
 			}
-			else if (isLoginRequest(request) && !viewableGroup) {
-				layout = null;
+			else if (isLoginRequest(request, layout, locale) &&
+					 !viewableGroup) {
+
+				if (layout.getFriendlyURL(locale).equals(
+						PropsValues.AUTH_LOGIN_SITE_URL)) {
+
+					LayoutTypePortlet layoutTypePortlet =
+						(LayoutTypePortlet)layout.getLayoutType();
+
+					String loginPortletId = PropsValues.AUTH_LOGIN_PORTLET_NAME;
+
+					if (!layoutTypePortlet.hasPortletId(loginPortletId)) {
+						if (_log.isWarnEnabled()) {
+							_log.warn(
+								"Login portlet " + loginPortletId +
+									" must be present on login page " +
+									layout.getPlid());
+						}
+
+						layout = null;
+					}
+					else if (!PortletPermissionUtil.contains(
+								permissionChecker, layout, loginPortletId,
+								ActionKeys.VIEW)) {
+
+						Role guestRole = RoleLocalServiceUtil.getRole(
+							companyId, RoleConstants.GUEST);
+
+						String resourcePrimKey =
+							PortletPermissionUtil.getPrimaryKey(
+								layout.getPlid(), loginPortletId);
+
+						Map<Long, String[]> roleIdsToActionIds =
+							new HashMap<Long, String[]>();
+
+						roleIdsToActionIds.put(
+							guestRole.getRoleId(),
+							new String[]{ActionKeys.VIEW});
+
+						ResourcePermissionLocalServiceUtil.
+							setResourcePermissions(
+								layout.getCompanyId(), loginPortletId,
+								ResourceConstants.SCOPE_INDIVIDUAL,
+								resourcePrimKey, roleIdsToActionIds);
+					}
+				}
 			}
 			else if (group.isLayoutPrototype()) {
 				layouts = new ArrayList<Layout>();
@@ -649,13 +703,6 @@ public class ServicePreAction extends Action {
 			request.setAttribute(WebKeys.LAYOUT, layout);
 			request.setAttribute(WebKeys.LAYOUTS, layouts);
 		}
-
-		// Locale
-
-		String i18nLanguageId = (String)request.getAttribute(
-			WebKeys.I18N_LANGUAGE_ID);
-
-		Locale locale = PortalUtil.getLocale(request, response, true);
 
 		// Scope
 
@@ -1411,7 +1458,7 @@ public class ServicePreAction extends Action {
 
 		parameterMap.put(
 			PortletDataHandlerKeys.PERMISSIONS,
-			new String[] {Boolean.TRUE.toString()});
+			new String[]{Boolean.TRUE.toString()});
 		parameterMap.put(
 			PortletDataHandlerKeys.PORTLET_ARCHIVED_SETUPS_ALL,
 			new String[] {Boolean.TRUE.toString()});
@@ -1844,7 +1891,9 @@ public class ServicePreAction extends Action {
 		if (accessibleLayouts.isEmpty()) {
 			layouts = null;
 
-			if (!isLoginRequest(request) && !hasViewLayoutPermission) {
+			if (!isLoginRequest(request, layout, null) &&
+				!hasViewLayoutPermission) {
+
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
 
@@ -1960,7 +2009,17 @@ public class ServicePreAction extends Action {
 		}
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	protected boolean isLoginRequest(HttpServletRequest request) {
+		return isLoginRequest(request, null, null);
+	}
+
+	protected boolean isLoginRequest(
+		HttpServletRequest request, Layout layout, Locale locale) {
+
 		String requestURI = request.getRequestURI();
 
 		String mainPath = PortalUtil.getPathMain();
@@ -1968,9 +2027,24 @@ public class ServicePreAction extends Action {
 		if (requestURI.startsWith(mainPath.concat(_PATH_PORTAL_LOGIN))) {
 			return true;
 		}
-		else {
-			return false;
+
+		if (layout != null) {
+			String friendlyURL = layout.getFriendlyURL(locale);
+
+			boolean isLoginPage = friendlyURL.equals(
+				PropsValues.AUTH_LOGIN_SITE_URL);
+
+			String ppid = ParamUtil.getString(request, "p_p_id");
+
+			boolean isLoginPortletRequest = ppid.equals(
+				PropsValues.AUTH_LOGIN_PORTLET_NAME);
+
+			if (isLoginPage && isLoginPortletRequest) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	/**
