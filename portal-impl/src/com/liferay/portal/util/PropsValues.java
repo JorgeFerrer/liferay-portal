@@ -1194,27 +1194,7 @@ public class PropsValues {
 
 	public static final String MEMBERSHIP_POLICY_USER_GROUPS = PropsUtil.get(PropsKeys.MEMBERSHIP_POLICY_USER_GROUPS);
 
-	public static final boolean MESSAGE_BOARDS_ANONYMOUS_POSTING_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_ANONYMOUS_POSTING_ENABLED));
-
 	public static final boolean MESSAGE_BOARDS_EMAIL_BULK = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_BULK));
-
-	public static final String MESSAGE_BOARDS_EMAIL_FROM_ADDRESS = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_ADDRESS);
-
-	public static final String MESSAGE_BOARDS_EMAIL_FROM_NAME = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_NAME);
-
-	public static final boolean MESSAGE_BOARDS_EMAIL_HTML_FORMAT = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_HTML_FORMAT));
-
-	public static final String MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_BODY = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_BODY);
-
-	public static final boolean MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_ENABLED));
-
-	public static final String MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT);
-
-	public static final String MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_BODY = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_BODY);
-
-	public static final boolean MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_ENABLED));
-
-	public static final String MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SUBJECT = PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SUBJECT);
 
 	public static final int MESSAGE_BOARDS_EXPIRE_BAN_INTERVAL = GetterUtil.getInteger(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EXPIRE_BAN_INTERVAL));
 
@@ -1225,8 +1205,6 @@ public class PropsValues {
 	public static final boolean MESSAGE_BOARDS_PUBLISH_TO_LIVE_BY_DEFAULT = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_PUBLISH_TO_LIVE_BY_DEFAULT));
 
 	public static final int MESSAGE_BOARDS_RSS_ABSTRACT_LENGTH = GetterUtil.getInteger(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_RSS_ABSTRACT_LENGTH));
-
-	public static final boolean MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT));
 
 	public static final boolean MESSAGE_BOARDS_THREAD_PREVIOUS_AND_NEXT_NAVIGATION_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.MESSAGE_BOARDS_THREAD_PREVIOUS_AND_NEXT_NAVIGATION_ENABLED));
 
