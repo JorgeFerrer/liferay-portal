@@ -33,11 +33,14 @@ import javax.portlet.ReadOnlyException;
  */
 public class UpgradeMessageBoards extends BaseUpgradePortletPreferences {
 
+	public static final boolean MESSAGE_BOARDS_EMAIL_HTML_FORMAT =
+		GetterUtil.getBoolean(
+			PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_HTML_FORMAT));
+
 	protected String getEmailSignatureSeparator(
 		PortletPreferences portletPreferences) {
 
-		boolean emailHtmlFormat = GetterUtil.getBoolean(
-			PropsUtil.get(PropsKeys.MESSAGE_BOARDS_EMAIL_HTML_FORMAT));
+		boolean emailHtmlFormat = MESSAGE_BOARDS_EMAIL_HTML_FORMAT;
 
 		String emailHtmlFormatString = portletPreferences.getValue(
 			"emailHtmlFormat", StringPool.BLANK);
