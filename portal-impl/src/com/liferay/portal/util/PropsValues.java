@@ -1978,18 +1978,6 @@ public class PropsValues {
 
 	public static final String WIKI_DISPLAY_TEMPLATES_CONFIG = PropsUtil.get(PropsKeys.WIKI_DISPLAY_TEMPLATES_CONFIG);
 
-	public static final String WIKI_EMAIL_FROM_ADDRESS = PropsUtil.get(PropsKeys.WIKI_EMAIL_FROM_ADDRESS);
-
-	public static final String WIKI_EMAIL_FROM_NAME = PropsUtil.get(PropsKeys.WIKI_EMAIL_FROM_NAME);
-
-	public static final String WIKI_EMAIL_PAGE_ADDED_BODY = PropsUtil.get(PropsKeys.WIKI_EMAIL_PAGE_ADDED_BODY);
-
-	public static final String WIKI_EMAIL_PAGE_ADDED_SUBJECT = PropsUtil.get(PropsKeys.WIKI_EMAIL_PAGE_ADDED_SUBJECT);
-
-	public static final String WIKI_EMAIL_PAGE_UPDATED_BODY = PropsUtil.get(PropsKeys.WIKI_EMAIL_PAGE_UPDATED_BODY);
-
-	public static final String WIKI_EMAIL_PAGE_UPDATED_SUBJECT = PropsUtil.get(PropsKeys.WIKI_EMAIL_PAGE_UPDATED_SUBJECT);
-
 	public static final String[] WIKI_IMPORTERS = PropsUtil.getArray(PropsKeys.WIKI_IMPORTERS);
 
 	public static final String WIKI_INITIAL_NODE_NAME = PropsUtil.get(PropsKeys.WIKI_INITIAL_NODE_NAME);
@@ -1999,8 +1987,6 @@ public class PropsValues {
 	public static final boolean WIKI_PAGE_MINOR_EDIT_ADD_SOCIAL_ACTIVITY = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.WIKI_PAGE_MINOR_EDIT_ADD_SOCIAL_ACTIVITY));
 
 	public static final boolean WIKI_PAGE_MINOR_EDIT_SEND_EMAIL = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.WIKI_PAGE_MINOR_EDIT_SEND_EMAIL));
-
-	public static final boolean WIKI_PAGE_RATINGS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.WIKI_PAGE_RATINGS_ENABLED));
 
 	public static final String WIKI_PAGE_TITLES_REGEXP = PropsUtil.get(PropsKeys.WIKI_PAGE_TITLES_REGEXP);
 
