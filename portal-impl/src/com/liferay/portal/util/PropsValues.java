@@ -236,18 +236,6 @@ public class PropsValues {
 
 	public static final String BLOGS_DISPLAY_TEMPLATES_CONFIG = PropsUtil.get(PropsKeys.BLOGS_DISPLAY_TEMPLATES_CONFIG);
 
-	public static final String BLOGS_EMAIL_ENTRY_ADDED_BODY = PropsUtil.get(PropsKeys.BLOGS_EMAIL_ENTRY_ADDED_BODY);
-
-	public static final String BLOGS_EMAIL_ENTRY_ADDED_SUBJECT = PropsUtil.get(PropsKeys.BLOGS_EMAIL_ENTRY_ADDED_SUBJECT);
-
-	public static final String BLOGS_EMAIL_ENTRY_UPDATED_BODY = PropsUtil.get(PropsKeys.BLOGS_EMAIL_ENTRY_UPDATED_BODY);
-
-	public static final String BLOGS_EMAIL_ENTRY_UPDATED_SUBJECT = PropsUtil.get(PropsKeys.BLOGS_EMAIL_ENTRY_UPDATED_SUBJECT);
-
-	public static final String BLOGS_EMAIL_FROM_ADDRESS = PropsUtil.get(PropsKeys.BLOGS_EMAIL_FROM_ADDRESS);
-
-	public static final String BLOGS_EMAIL_FROM_NAME = PropsUtil.get(PropsKeys.BLOGS_EMAIL_FROM_NAME);
-
 	public static final boolean BLOGS_ENTRY_COMMENTS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.BLOGS_ENTRY_COMMENTS_ENABLED));
 
 	public static final int[] BLOGS_ENTRY_PAGE_DELTA_VALUES = GetterUtil.getIntegerValues(PropsUtil.getArray(PropsKeys.BLOGS_ENTRY_PAGE_DELTA_VALUES));
