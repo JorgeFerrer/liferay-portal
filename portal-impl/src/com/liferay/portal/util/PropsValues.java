@@ -1690,10 +1690,6 @@ public class PropsValues {
 
 	public static final String SHARD_SELECTOR = PropsUtil.get(PropsKeys.SHARD_SELECTOR);
 
-	public static final String SHOPPING_EMAIL_FROM_ADDRESS = PropsUtil.get(PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS);
-
-	public static final String SHOPPING_EMAIL_FROM_NAME = PropsUtil.get(PropsKeys.SHOPPING_EMAIL_FROM_NAME);
-
 	public static final boolean SHOPPING_ORDER_COMMENTS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SHOPPING_ORDER_COMMENTS_ENABLED));
 
 	public static final String SITEMAP_DISPLAY_TEMPLATES_CONFIG = PropsUtil.get(PropsKeys.SITEMAP_DISPLAY_TEMPLATES_CONFIG);
