@@ -2268,8 +2268,8 @@ public class PortalUtil {
 			resetPortletAddDefaultResourceCheckWhitelistActions();
 	}
 
-	public static String resetPortletParams(String portletId, String url) {
-		return getPortal().resetPortletParams(portletId, url);
+	public static String resetPortletParams(String url, String portletId) {
+		return getPortal().resetPortletParams(url, portletId);
 	}
 
 	/**
