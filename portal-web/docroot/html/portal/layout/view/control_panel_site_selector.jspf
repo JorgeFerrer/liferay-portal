@@ -37,9 +37,9 @@ Group siteGroup = themeDisplay.getSiteGroup();
 
 manageableSiteGroups.remove(siteGroup);
 
-String portletId = themeDisplay.getPpid();
+String switchGroupURL = HttpUtil.setParameter(PortalUtil.getCurrentURL(request), "switchGroup", "1");
 
-String switchGroupURL = PortalUtil.getCurrentURL(request);
+String portletId = themeDisplay.getPpid();
 
 switchGroupURL = PortalUtil.resetPortletParams(portletId, switchGroupURL);
 %>
