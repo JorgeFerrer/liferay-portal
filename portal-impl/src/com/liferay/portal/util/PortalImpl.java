@@ -6849,6 +6849,25 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
+	public String resetPortletParameters(String url, String portletId) {
+		if (Validator.isNull(url) || Validator.isNull(portletId)) {
+			return url;
+		}
+
+		String portletNamespace = getPortletNamespace(portletId);
+
+		Map<String, String[]> parameterMap = HttpUtil.getParameterMap(url);
+
+		for (String name : parameterMap.keySet()) {
+			if (name.startsWith(portletNamespace)) {
+				url = HttpUtil.removeParameter(url, name);
+			}
+		}
+
+		return url;
+	}
+
+	@Override
 	public void sendError(
 			Exception e, ActionRequest actionRequest,
 			ActionResponse actionResponse)
