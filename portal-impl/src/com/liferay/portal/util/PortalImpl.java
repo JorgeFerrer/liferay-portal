@@ -6850,7 +6850,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String resetPortletParams(String url, String portletId) {
-		if(Validator.isNull(portletId) || Validator.isNull(url)) {
+		if (Validator.isNull(url) || Validator.isNull(portletId)) {
 			return url;
 		}
 
