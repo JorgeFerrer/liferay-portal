@@ -4195,7 +4195,18 @@ public class PortalImpl implements Portal {
 		}
 
 		if (layout != null) {
-			LayoutSet layoutSet = layout.getLayoutSet();
+			LayoutSet layoutSet = null;
+
+			long referrerLayoutSetId = ParamUtil.getLong(
+				themeDisplay.getRequest(), "referrerLayoutSetId");
+
+			if (referrerLayoutSetId > 0) {
+				layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+					referrerLayoutSetId);
+			}
+			else {
+				layoutSet = layout.getLayoutSet();
+			}
 
 			String virtualHostname = layoutSet.getVirtualHostname();
 
@@ -7997,12 +8008,23 @@ public class PortalImpl implements Portal {
 		LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
 			group.getGroupId(), privateLayoutSet);
 
+		long layoutSetId = layoutSet.getLayoutSetId();
+
 		String portalURL = themeDisplay.getPortalURL();
 
-		if (canonicalURL ||
+		boolean useGroupVirtualHostName =
+			canonicalURL ||
 			!StringUtil.equalsIgnoreCase(
-				themeDisplay.getServerName(), _LOCALHOST)) {
+				themeDisplay.getServerName(), _LOCALHOST);
 
+		long referrerLayoutSetId = ParamUtil.getLong(
+			themeDisplay.getRequest(), "referrerLayoutSetId", layoutSetId);
+
+		if (referrerLayoutSetId != layoutSetId) {
+			useGroupVirtualHostName = false;
+		}
+
+		if (useGroupVirtualHostName) {
 			String virtualHostname = getVirtualHostname(layoutSet);
 
 			String portalDomain = HttpUtil.getDomain(portalURL);
