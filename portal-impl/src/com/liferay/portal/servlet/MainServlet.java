@@ -53,6 +53,7 @@ import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
+import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.model.LayoutTemplate;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletApp;
@@ -70,6 +71,7 @@ import com.liferay.portal.server.capabilities.ServerCapabilitiesUtil;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.service.LayoutTemplateLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.ResourceActionLocalServiceUtil;
@@ -1191,6 +1193,12 @@ public class MainServlet extends ActionServlet {
 				Layout layout = LayoutLocalServiceUtil.getLayout(plid);
 
 				Group group = layout.getGroup();
+
+				LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+					layout.getGroupId(), layout.isPrivateLayout());
+
+				redirect = HttpUtil.addParameter(
+					redirect, "refererLayoutSetId", layoutSet.getLayoutSetId());
 
 				plid = group.getDefaultPublicPlid();
 
