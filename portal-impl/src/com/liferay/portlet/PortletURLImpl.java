@@ -1009,6 +1009,16 @@ public class PortletURLImpl
 			sb.append(StringPool.AMPERSAND);
 		}
 
+		int loginAsLayoutSetId = ParamUtil.getInteger(
+			themeDisplay.getRequest(), "loginAsLayoutSetId");
+
+		if ((loginAsLayoutSetId > 0) && !themeDisplay.isSignedIn()) {
+			sb.append("loginAsLayoutSetId");
+			sb.append(StringPool.EQUAL);
+			sb.append(processValue(key, loginAsLayoutSetId));
+			sb.append(StringPool.AMPERSAND);
+		}
+
 		long refererGroupId = _refererGroupId;
 
 		if (refererGroupId <= 0) {
