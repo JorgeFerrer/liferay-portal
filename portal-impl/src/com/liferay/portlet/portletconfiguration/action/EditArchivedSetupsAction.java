@@ -45,6 +45,7 @@ import org.apache.struts.action.ActionMapping;
  * @author Raymond Augé
  */
 public class EditArchivedSetupsAction extends PortletAction {
+// TODO: Change this class
 
 	@Override
 	public void processAction(

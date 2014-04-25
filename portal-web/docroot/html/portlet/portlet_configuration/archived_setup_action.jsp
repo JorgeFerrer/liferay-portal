@@ -21,6 +21,7 @@ ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_
 
 Object[] objects = (Object[])row.getObject();
 
+<%-- TODO: Change this --%>
 PortletItem portletItem = (PortletItem)objects[0];
 portletResource = (String)objects[1];
 %>

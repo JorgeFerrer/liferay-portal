@@ -67,6 +67,7 @@ portletURL.setParameter("portletResource", portletResource);
 
 	SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, "there-are-no-archived-setups");
 
+	//List<ArchivedSettings> archivedSettings = SettingsFactoryUtil.getArchivedSettings(scopeGroupId, selPortlet.getRootPortletId());
 	List archivedSetups = PortletItemLocalServiceUtil.getPortletItems(scopeGroupId, selPortlet.getRootPortletId(), com.liferay.portal.model.PortletPreferences.class.getName());
 
 	int total = archivedSetups.size();
