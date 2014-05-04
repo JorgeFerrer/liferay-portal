@@ -1550,23 +1550,36 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * result set.
 	 * </p>
 	 *
-	 * @param  companyId the primary key of the company
-	 * @param  parentGroupId the primary key of the parent group
-	 * @param  site whether the group is to be associated with a main site
-	 * @param  start the lower bound of the range of groups to return
-	 * @param  end the upper bound of the range of groups to return (not
-	 *         inclusive)
-	 * @return the range of matching groups
-	 * @throws SystemException if a system exception occurred
+	 * @param      companyId the primary key of the company
+	 * @param      parentGroupId the primary key of the parent group
+	 * @param      site whether the group is to be associated with a main site
+	 * @param      start the lower bound of the range of groups to return
+	 * @param      end the upper bound of the range of groups to return (not
+	 *             inclusive)
+	 * @return     the range of matching groups
+	 * @throws     SystemException if a system exception occurred
+	 * @deprecated As of 6.2.0, replaced by {@link #getLayoutsGroups(long, long,
+	 *             boolean, int, int, OrderByComparator)}
 	 */
+	@Deprecated
 	@Override
 	public List<Group> getLayoutsGroups(
 			long companyId, long parentGroupId, boolean site, int start,
 			int end)
 		throws SystemException {
 
+		return getLayoutsGroups(
+			companyId, parentGroupId, site, start, end, null);
+	}
+
+	@Override
+	public List<Group> getLayoutsGroups(
+			long companyId, long parentGroupId, boolean site, int start,
+			int end, OrderByComparator obc)
+		throws SystemException {
+
 		return groupFinder.findByLayouts(
-			companyId, parentGroupId, site, start, end);
+			companyId, parentGroupId, site, start, end, obc);
 	}
 
 	/**

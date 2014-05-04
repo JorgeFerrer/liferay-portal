@@ -325,7 +325,7 @@ public class GroupFinderImpl
 	@Override
 	public List<Group> findByLayouts(
 			long companyId, long parentGroupId, boolean site, int start,
-			int end)
+			int end, OrderByComparator obc)
 		throws SystemException {
 
 		Session session = null;
@@ -334,6 +334,8 @@ public class GroupFinderImpl
 			session = openSession();
 
 			String sql = CustomSQLUtil.get(FIND_BY_LAYOUTS);
+
+			sql = CustomSQLUtil.replaceOrderBy(sql, obc);
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
