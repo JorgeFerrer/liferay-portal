@@ -772,6 +772,11 @@
 			<bean class="com.liferay.portal.settings.impl.SettingsFactoryImpl" />
 		</property>
 	</bean>
+	<bean id="com.liferay.portal.settings.archive.ArchivedSettingsFactoryUtil" class="com.liferay.portal.settings.archive.ArchivedSettingsFactoryUtil">
+		<property name="archivedSettingsFactory">
+			<bean class="com.liferay.portal.settings.impl.archive.ArchivedSettingsFactoryImpl" />
+		</property>
+	</bean>
 	<bean id="com.liferay.portal.util.CustomJspRegistryUtil" class="com.liferay.portal.util.CustomJspRegistryUtil">
 		<property name="customJspRegistry">
 			<bean class="com.liferay.portal.util.CustomJspRegistryImpl" />
