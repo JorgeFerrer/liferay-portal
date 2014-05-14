@@ -4195,7 +4195,17 @@ public class PortalImpl implements Portal {
 		}
 
 		if (layout != null) {
-			LayoutSet layoutSet = layout.getLayoutSet();
+			LayoutSet layoutSet = null;
+
+			int loginAsLayoutSetId = getLoginAsLayoutSetId(themeDisplay);
+
+			if (loginAsLayoutSetId > 0) {
+				layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+					loginAsLayoutSetId);
+			}
+			else {
+				layoutSet = layout.getLayoutSet();
+			}
 
 			String virtualHostname = layoutSet.getVirtualHostname();
 
@@ -7999,9 +8009,12 @@ public class PortalImpl implements Portal {
 
 		String portalURL = themeDisplay.getPortalURL();
 
-		if (canonicalURL ||
-			!StringUtil.equalsIgnoreCase(
-				themeDisplay.getServerName(), _LOCALHOST)) {
+		int loginAsLayoutSetId = getLoginAsLayoutSetId(themeDisplay);
+
+		if ((loginAsLayoutSetId == 0) &&
+			(canonicalURL ||
+			 !StringUtil.equalsIgnoreCase(
+				themeDisplay.getServerName(), _LOCALHOST))) {
 
 			String virtualHostname = getVirtualHostname(layoutSet);
 
@@ -8383,6 +8396,15 @@ public class PortalImpl implements Portal {
 		themeDisplay.setI18nLanguageId(i18nLanguageId);
 		themeDisplay.setI18nPath(i18nPath);
 		themeDisplay.setLocale(locale);
+	}
+
+	private int getLoginAsLayoutSetId(ThemeDisplay themeDisplay) {
+		if (themeDisplay.isSignedIn()) {
+			return 0;
+		}
+
+		return ParamUtil.getInteger(
+			themeDisplay.getRequest(), "loginAsLayoutSetId");
 	}
 
 	private static final String _J_SECURITY_CHECK = "j_security_check";
