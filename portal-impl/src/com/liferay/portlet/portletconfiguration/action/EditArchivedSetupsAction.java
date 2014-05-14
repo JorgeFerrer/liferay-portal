@@ -167,7 +167,7 @@ public class EditArchivedSetupsAction extends PortletAction {
 
 		ArchivedSettings archivedSettings =
 			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(),
+				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
 				name);
 
 		archivedSettings.delete();
@@ -183,7 +183,7 @@ public class EditArchivedSetupsAction extends PortletAction {
 
 		ArchivedSettings archivedSettings =
 			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(),
+				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
 				name);
 
 		Settings portletInstanceSettings =
@@ -205,7 +205,7 @@ public class EditArchivedSetupsAction extends PortletAction {
 
 		ArchivedSettings archivedSettings =
 			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(),
+				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
 				name);
 
 		Settings portletInstanceSettings =
