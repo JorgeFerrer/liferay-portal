@@ -14,6 +14,7 @@
 
 package com.liferay.portlet.portletconfiguration.action;
 
+
 import com.liferay.portal.NoSuchPortletItemException;
 import com.liferay.portal.PortletItemNameException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -23,19 +24,19 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.service.PortletPreferencesServiceUtil;
+import com.liferay.portal.settings.Settings;
+import com.liferay.portal.settings.SettingsFactoryUtil;
+import com.liferay.portal.settings.archive.ArchivedSettings;
+import com.liferay.portal.settings.archive.ArchivedSettingsFactoryUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.WebKeys;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -77,7 +78,7 @@ public class EditArchivedSetupsAction extends PortletAction {
 				restoreSetup(actionRequest, portlet);
 			}
 			else if (cmd.equals(Constants.DELETE)) {
-				deleteSetup(actionRequest);
+				deleteSetup(actionRequest, portlet);
 			}
 		}
 		catch (Exception e) {
@@ -155,10 +156,20 @@ public class EditArchivedSetupsAction extends PortletAction {
 				"portlet.portlet_configuration.edit_archived_setups"));
 	}
 
-	protected void deleteSetup(ActionRequest actionRequest) throws Exception {
-		long portletItemId = ParamUtil.getLong(actionRequest, "portletItemId");
+	protected void deleteSetup(ActionRequest actionRequest, Portlet portlet) 
+		throws Exception {
 
-		PortletPreferencesServiceUtil.deleteArchivedPreferences(portletItemId);
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String name = ParamUtil.getString(actionRequest, "name");
+
+		ArchivedSettings archivedSettings = 
+			ArchivedSettingsFactoryUtil.getArchivedSettings(
+				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(), 
+				name);
+		
+		archivedSettings.delete();
 	}
 
 	protected void restoreSetup(ActionRequest actionRequest, Portlet portlet)
@@ -169,12 +180,18 @@ public class EditArchivedSetupsAction extends PortletAction {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		PortletPreferences portletPreferences = actionRequest.getPreferences();
-
-		PortletPreferencesServiceUtil.restoreArchivedPreferences(
-			themeDisplay.getScopeGroupId(), name, themeDisplay.getLayout(),
-			portlet.getRootPortletId(), portletPreferences);
+		ArchivedSettings archivedSettings = 
+			ArchivedSettingsFactoryUtil.getArchivedSettings(
+				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(), 
+				name);
+		
+		Settings portletInstanceSettings = 
+			SettingsFactoryUtil.getPortletInstanceSettings(
+				themeDisplay.getLayout(), portlet.getPortletId());
+		
+		archivedSettings.restore(portletInstanceSettings);
 	}
+
 
 	protected void updateSetup(ActionRequest actionRequest, Portlet portlet)
 		throws Exception {
@@ -184,11 +201,16 @@ public class EditArchivedSetupsAction extends PortletAction {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		PortletPreferences portletPreferences = actionRequest.getPreferences();
+		ArchivedSettings archivedSettings = 
+			ArchivedSettingsFactoryUtil.getArchivedSettings(
+				themeDisplay.getScopeGroupId(), portlet.getRootPortletId(), 
+				name);
+		
+		Settings portletInstanceSettings = 
+				SettingsFactoryUtil.getPortletInstanceSettings(
+					themeDisplay.getLayout(), portlet.getPortletId());
 
-		PortletPreferencesServiceUtil.updateArchivePreferences(
-			themeDisplay.getUserId(), themeDisplay.getScopeGroupId(), name,
-			portlet.getRootPortletId(), portletPreferences);
+		archivedSettings.update(portletInstanceSettings);
 	}
 
 }
