@@ -38,8 +38,8 @@ public abstract class BaseServiceSettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
-		return typedSettings.getKeys();
+	public Collection<String> getKeysExcludingDefaults() {
+		return typedSettings.getKeysExcludingDefaults();
 	}
 
 	@Override

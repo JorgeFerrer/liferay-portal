@@ -44,7 +44,7 @@ public class PropertiesSettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getKeysExcludingDefaults() {
 		Set<String> keys = new HashSet<String>();
 
 		Enumeration<?> propertyNames = _properties.propertyNames();

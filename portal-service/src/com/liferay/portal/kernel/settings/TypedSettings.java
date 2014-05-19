@@ -94,8 +94,8 @@ public class TypedSettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
-		return _settings.getKeys();
+	public Collection<String> getKeysExcludingDefaults() {
+		return _settings.getKeysExcludingDefaults();
 	}
 
 	public LocalizedValuesMap getLocalizedValuesMap(String key) {

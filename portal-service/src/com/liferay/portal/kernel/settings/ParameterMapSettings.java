@@ -47,7 +47,7 @@ public class ParameterMapSettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getKeysExcludingDefaults() {
 		Set<String> keys = new HashSet<String>();
 
 		for (String key : _parameterMap.keySet()) {
@@ -71,7 +71,7 @@ public class ParameterMapSettings extends BaseSettings {
 			}
 		}
 
-		keys.addAll(_defaultSettings.getKeys());
+		keys.addAll(_defaultSettings.getKeysExcludingDefaults());
 
 		return keys;
 	}

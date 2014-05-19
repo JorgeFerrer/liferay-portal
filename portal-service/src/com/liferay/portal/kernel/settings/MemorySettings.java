@@ -30,7 +30,7 @@ public class MemorySettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getKeysExcludingDefaults() {
 		return new HashSet<String>(_map.keySet());
 	}
 

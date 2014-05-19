@@ -64,10 +64,10 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getKeysExcludingDefaults() {
 		Settings settings = _getSettings();
 
-		return settings.getKeys();
+		return settings.getKeysExcludingDefaults();
 	}
 
 	@Override

@@ -23,14 +23,14 @@ public abstract class BaseSettings implements Settings {
 
 	@Override
 	public void reset() {
-		for (String key : getKeys()) {
+		for (String key : getKeysExcludingDefaults()) {
 			reset(key);
 		}
 	}
 
 	@Override
 	public Settings setValues(Settings settings) {
-		for (String key : settings.getKeys()) {
+		for (String key : settings.getKeysExcludingDefaults()) {
 			String[] values = settings.getValues(key, StringPool.EMPTY_ARRAY);
 
 			if (values.length == 1) {

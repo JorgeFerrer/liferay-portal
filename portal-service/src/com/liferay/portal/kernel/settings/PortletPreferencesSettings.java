@@ -54,7 +54,7 @@ public class PortletPreferencesSettings extends BaseSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getKeysExcludingDefaults() {
 		Set<String> keys = new HashSet<String>();
 
 		Enumeration<String> names = _portletPreferences.getNames();
