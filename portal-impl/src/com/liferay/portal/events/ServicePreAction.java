@@ -1341,9 +1341,6 @@ public class ServicePreAction extends Action {
 						}
 					}
 				}
-
-				request.setAttribute(
-					WebKeys.CONTROL_PANEL_CATEGORIES_MAP, categoriesMap);
 			}
 
 			if (controlPanelCategory.startsWith(
