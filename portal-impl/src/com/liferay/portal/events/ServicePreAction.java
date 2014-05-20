@@ -1306,6 +1306,34 @@ public class ServicePreAction extends Action {
 
 		// Control Panel redirects
 
+		processControlPanelRedirects(request, response);
+
+		return themeDisplay;
+	}
+
+	protected void processControlPanelRedirects(
+			HttpServletRequest request, HttpServletResponse response)
+		throws Exception {
+
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		Layout layout = themeDisplay.getLayout();
+
+		if (layout == null) {
+			return;
+		}
+
+		Group group = layout.getGroup();
+
+		String controlPanelCategory = themeDisplay.getControlPanelCategory();
+		String ppid = themeDisplay.getPpid();
+		long scopeGroupId = themeDisplay.getScopeGroupId();
+		String currentURL = themeDisplay.getURLCurrent();
+
 		if (group.isControlPanel() && Validator.isNotNull(ppid)) {
 			boolean switchGroup = ParamUtil.getBoolean(request, "switchGroup");
 
@@ -1404,8 +1432,6 @@ public class ServicePreAction extends Action {
 				}
 			}
 		}
-
-		return themeDisplay;
 	}
 
 	@Override
