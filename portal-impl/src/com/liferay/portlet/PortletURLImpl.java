@@ -1022,6 +1022,16 @@ public class PortletURLImpl
 			sb.append(StringPool.AMPERSAND);
 		}
 
+		long referrerLayoutSetId = ParamUtil.getLong(
+			themeDisplay.getRequest(), "referrerLayoutSetId");
+
+		if (referrerLayoutSetId > 0) {
+			sb.append("referrerLayoutSetId");
+			sb.append(StringPool.EQUAL);
+			sb.append(processValue(key, referrerLayoutSetId));
+			sb.append(StringPool.AMPERSAND);
+		}
+
 		long refererPlid = _refererPlid;
 
 		if (refererPlid <= 0) {
