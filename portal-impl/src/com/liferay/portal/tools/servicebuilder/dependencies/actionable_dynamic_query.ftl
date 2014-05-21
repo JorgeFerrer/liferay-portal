@@ -4,7 +4,6 @@ import ${packagePath}.model.${entity.name};
 import ${packagePath}.service.${entity.name}LocalServiceUtil;
 
 import com.liferay.portal.kernel.dao.orm.BaseActionableDynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
 /**
