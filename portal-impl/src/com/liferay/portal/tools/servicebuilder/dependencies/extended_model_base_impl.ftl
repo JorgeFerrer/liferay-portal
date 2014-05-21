@@ -6,7 +6,6 @@ import ${packagePath}.model.${entity.name};
 	import ${packagePath}.service.${entity.name}LocalServiceUtil;
 
 	import com.liferay.portal.kernel.exception.PortalException;
-	import com.liferay.portal.kernel.exception.SystemException;
 	import com.liferay.portal.kernel.util.StringBundler;
 	import com.liferay.portal.kernel.util.StringPool;
 	import com.liferay.portal.model.TreeModel;
