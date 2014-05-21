@@ -370,7 +370,7 @@ public interface ${entity.name}Model extends
 		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
-		public TrashEntry getTrashEntry() throws PortalException, SystemException;
+		public TrashEntry getTrashEntry() throws PortalException;
 
 		/**
 		 * Returns the class primary key of the trash entry for this ${entity.humanName}.
