@@ -49,7 +49,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new WikiSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		WikiSettings wikiSettings = new WikiSettings(settings);
+
+		return wikiSettings.getSettings();
 	}
 
 	protected void validateDisplaySettings(ActionRequest actionRequest) {

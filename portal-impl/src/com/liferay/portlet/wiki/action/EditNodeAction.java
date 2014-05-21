@@ -15,6 +15,8 @@
 package com.liferay.portlet.wiki.action;
 
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -242,7 +244,12 @@ public class EditNodeAction extends PortletAction {
 
 		wikiSettings.setVisibleNodes(visibleNodes);
 
-		wikiSettings.store();
+		Settings decoratedSettings = wikiSettings.getSettings();
+
+		ModifiableSettings modifiableSettings =
+			decoratedSettings.getModifiableSettings();
+
+		modifiableSettings.store();
 	}
 
 }

@@ -54,7 +54,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new BlogsSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		BlogsSettings blogsSettings = new BlogsSettings(settings);
+
+		return blogsSettings.getSettings();
 	}
 
 }

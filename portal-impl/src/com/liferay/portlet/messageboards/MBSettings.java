@@ -97,12 +97,13 @@ public class MBSettings extends BaseServiceSettings {
 
 	public String[] getPriorities(String currentLanguageId) {
 		return LocalizationUtil.getSettingsValues(
-			typedSettings, "priorities", currentLanguageId);
+			typedSettings.getDecoratedSettings(), "priorities",
+			currentLanguageId);
 	}
 
 	public String[] getRanks(String languageId) {
 		return LocalizationUtil.getSettingsValues(
-			typedSettings, "ranks", languageId);
+			typedSettings.getDecoratedSettings(), "ranks", languageId);
 	}
 
 	public String getRecentPostsDateOffset() {

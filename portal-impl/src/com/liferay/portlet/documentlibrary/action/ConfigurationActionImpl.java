@@ -63,7 +63,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new DLSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		DLSettings dlSettings = new DLSettings(settings);
+
+		return dlSettings.getSettings();
 	}
 
 	protected void validate(ActionRequest actionRequest) throws Exception {

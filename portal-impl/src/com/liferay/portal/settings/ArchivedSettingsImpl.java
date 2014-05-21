@@ -17,9 +17,9 @@ package com.liferay.portal.settings;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
-import com.liferay.portal.kernel.settings.BaseSettings;
+import com.liferay.portal.kernel.settings.BaseModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
@@ -38,9 +38,11 @@ import javax.portlet.ValidatorException;
  * @author Iván Zaera
  */
 public class ArchivedSettingsImpl
-	extends BaseSettings implements ArchivedSettings {
+	extends BaseModifiableSettings implements ArchivedSettings {
 
 	public ArchivedSettingsImpl(PortletItem portletItem) {
+		super(null);
+
 		_portletItem = portletItem;
 	}
 
@@ -59,13 +61,8 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
-	public Settings getDefaultSettings() {
-		return null;
-	}
-
-	@Override
 	public Collection<String> getKeys() {
-		Settings settings = _getSettings();
+		ModifiableSettings settings = _getModifiableSettings();
 
 		return settings.getKeys();
 	}
@@ -87,51 +84,51 @@ public class ArchivedSettingsImpl
 
 	@Override
 	public String getValue(String key, String defaultValue) {
-		Settings settings = _getSettings();
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		return settings.getValue(key, defaultValue);
+		return modifiableSettings.getValue(key, defaultValue);
 	}
 
 	@Override
 	public String[] getValues(String key, String[] defaultValue) {
-		Settings settings = _getSettings();
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		return settings.getValues(key, defaultValue);
+		return modifiableSettings.getValues(key, defaultValue);
 	}
 
 	@Override
 	public void reset(String key) {
-		Settings settings = _getSettings();
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		settings.reset(key);
+		modifiableSettings.reset(key);
 	}
 
 	@Override
-	public Settings setValue(String key, String value) {
-		Settings settings = _getSettings();
+	public ModifiableSettings setValue(String key, String value) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		settings.setValue(key, value);
+		modifiableSettings.setValue(key, value);
 
 		return this;
 	}
 
 	@Override
-	public Settings setValues(String key, String[] values) {
-		Settings settings = _getSettings();
+	public ModifiableSettings setValues(String key, String[] values) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		settings.setValues(key, values);
+		modifiableSettings.setValues(key, values);
 
 		return this;
 	}
 
 	@Override
 	public void store() throws IOException, ValidatorException {
-		Settings settings = _getSettings();
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
-		settings.store();
+		modifiableSettings.store();
 	}
 
-	private Settings _getSettings() {
+	private ModifiableSettings _getModifiableSettings() {
 		if (_portletPreferencesSettings != null) {
 			return _portletPreferencesSettings;
 		}

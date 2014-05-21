@@ -60,7 +60,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new ShoppingSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		ShoppingSettings shoppingSettings = new ShoppingSettings(settings);
+
+		return shoppingSettings.getSettings();
 	}
 
 	protected void updateCcTypes(ActionRequest actionRequest) {
