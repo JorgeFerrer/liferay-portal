@@ -229,7 +229,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
-		public List dynamicQuery(DynamicQuery dynamicQuery) throws SystemException {
+		public List dynamicQuery(DynamicQuery dynamicQuery) {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery);
 		}
 
@@ -248,7 +248,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
-		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) throws SystemException {
+		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery, start, end);
 		}
 
@@ -268,7 +268,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
-		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end, OrderByComparator orderByComparator) throws SystemException {
+		public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end, OrderByComparator orderByComparator) {
 			return ${entity.varName}Persistence.findWithDynamicQuery(dynamicQuery, start, end, orderByComparator);
 		}
 
@@ -280,7 +280,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
-		public long dynamicQueryCount(DynamicQuery dynamicQuery) throws SystemException {
+		public long dynamicQueryCount(DynamicQuery dynamicQuery) {
 			return ${entity.varName}Persistence.countWithDynamicQuery(dynamicQuery);
 		}
 
@@ -293,7 +293,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
-		public long dynamicQueryCount(DynamicQuery dynamicQuery, Projection projection) throws SystemException {
+		public long dynamicQueryCount(DynamicQuery dynamicQuery, Projection projection) {
 			return ${entity.varName}Persistence.countWithDynamicQuery(dynamicQuery, projection);
 		}
 
@@ -392,7 +392,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 		<#if entity.hasActionableDynamicQuery()>
 			@Override
-			public ActionableDynamicQuery getActionableDynamicQuery() throws SystemException {
+			public ActionableDynamicQuery getActionableDynamicQuery() {
 				ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
 
 				actionableDynamicQuery.setBaseLocalService(${packagePath}.service.${entity.name}LocalServiceUtil.getService());
@@ -418,7 +418,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				return actionableDynamicQuery;
 			}
 
-			protected void initActionableDynamicQuery(ActionableDynamicQuery actionableDynamicQuery) throws SystemException {
+			protected void initActionableDynamicQuery(ActionableDynamicQuery actionableDynamicQuery) {
 				actionableDynamicQuery.setBaseLocalService(${packagePath}.service.${entity.name}LocalServiceUtil.getService());
 				actionableDynamicQuery.setClass(${entity.name}.class);
 				actionableDynamicQuery.setClassLoader(getClassLoader());
@@ -442,7 +442,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 			<#if entity.isStagedModel()>
 				@Override
-				public ExportActionableDynamicQuery getExportActionableDynamicQuery(final PortletDataContext portletDataContext) throws SystemException {
+				public ExportActionableDynamicQuery getExportActionableDynamicQuery(final PortletDataContext portletDataContext) {
 					final ExportActionableDynamicQuery exportActionableDynamicQuery = new ExportActionableDynamicQuery() {
 
 						@Override
@@ -613,7 +613,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
-		public List<${entity.name}> get${entity.names}(int start, int end) throws SystemException {
+		public List<${entity.name}> get${entity.names}(int start, int end) {
 			return ${entity.varName}Persistence.findAll(start, end);
 		}
 
@@ -624,7 +624,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
-		public int get${entity.names}Count() throws SystemException {
+		public int get${entity.names}Count() {
 			return ${entity.varName}Persistence.countAll();
 		}
 
@@ -652,7 +652,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		<#list entity.blobList as column>
 			<#if column.lazy>
 				@Override
-				public ${entity.name}${column.methodName}BlobModel get${column.methodName}BlobModel(Serializable primaryKey) throws SystemException {
+				public ${entity.name}${column.methodName}BlobModel get${column.methodName}BlobModel(Serializable primaryKey) {
 					Session session = null;
 
 					try {
@@ -826,7 +826,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				 * @throws SystemException if a system exception occurred
 				 */
 				@Override
-				public long[] get${tempEntity.name}PrimaryKeys(${entity.PKClassName} ${entity.PKVarName}) throws SystemException {
+				public long[] get${tempEntity.name}PrimaryKeys(${entity.PKClassName} ${entity.PKVarName}) {
 					return ${entity.varName}Persistence.get${tempEntity.name}PrimaryKeys(${entity.PKVarName});
 				}
 
@@ -1133,7 +1133,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 	 *
 	 * @param sql the sql query
 	 */
-	protected void runSQL(String sql) throws SystemException {
+	protected void runSQL(String sql) {
 		try {
 			<#if entity.hasColumns()>
 				DataSource dataSource = ${entity.varName}Persistence.getDataSource();

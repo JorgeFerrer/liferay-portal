@@ -336,7 +336,7 @@ public interface ${entity.name}Model extends
 				@Override
 			</#if>
 
-			public String get${column.methodUserUuidName}() throws SystemException;
+			public String get${column.methodUserUuidName}();
 
 			/**
 			 * Sets the ${column.userUuidHumanName} of this ${entity.humanName}.
@@ -406,10 +406,10 @@ public interface ${entity.name}Model extends
 		public boolean isInTrashContainer();
 
 		@Override
-		public boolean isInTrashExplicitly() throws SystemException;
+		public boolean isInTrashExplicitly();
 
 		@Override
-		public boolean isInTrashImplicitly() throws SystemException;
+		public boolean isInTrashImplicitly();
 	</#if>
 
 	<#if entity.isWorkflowEnabled()>

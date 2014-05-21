@@ -20,7 +20,7 @@ public int countBy${finder.name}(
 	</#if>
 </#list>
 
-) throws SystemException {
+) {
 	FinderPath finderPath =
 		<#if !finder.hasCustomComparator()>
 			FINDER_PATH_COUNT_BY_${finder.name?upper_case};
@@ -102,7 +102,7 @@ public int countBy${finder.name}(
 		</#if>
 	</#list>
 
-	) throws SystemException {
+	) {
 		<#list finderColsList as finderCol>
 			<#if finderCol.hasArrayableOperator()>
 				if (${finderCol.names} == null) {
@@ -194,7 +194,7 @@ public int countBy${finder.name}(
 		</#if>
 	</#list>
 
-	) throws SystemException {
+	) {
 		if (!InlineSQLHelperUtil.isEnabled(<#if finder.hasColumn("groupId")>groupId</#if>)) {
 			return countBy${finder.name}(
 
@@ -303,7 +303,7 @@ public int countBy${finder.name}(
 			</#if>
 		</#list>
 
-		) throws SystemException {
+		) {
 			if (!InlineSQLHelperUtil.isEnabled(
 				<#if finder.hasColumn("groupId")>
 					<#if finder.getColumn("groupId").hasArrayableOperator()>

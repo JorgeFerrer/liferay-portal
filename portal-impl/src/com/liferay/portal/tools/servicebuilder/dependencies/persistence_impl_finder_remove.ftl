@@ -18,7 +18,7 @@
 		${finderCol.type} ${finderCol.name}<#if finderCol_has_next>,</#if>
 	</#list>
 
-	) throws SystemException {
+	) {
 		for (${entity.name} ${entity.varName} : findBy${finder.name}(
 
 		<#list finderColsList as finderCol>

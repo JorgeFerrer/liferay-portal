@@ -343,7 +343,7 @@ public class ${entity.name}Clp extends BaseModelImpl<${entity.name}> implements 
 
 		<#if column.userUuid>
 			@Override
-			public String get${column.methodUserUuidName}() throws SystemException {
+			public String get${column.methodUserUuidName}() {
 				try {
 					User user = UserLocalServiceUtil.getUserById(get${column.methodName}());
 
@@ -584,7 +584,7 @@ public class ${entity.name}Clp extends BaseModelImpl<${entity.name}> implements 
 		}
 
 		@Override
-		public boolean isInTrashExplicitly() throws SystemException {
+		public boolean isInTrashExplicitly() {
 			if (!isInTrash()) {
 				return false;
 			}
@@ -599,7 +599,7 @@ public class ${entity.name}Clp extends BaseModelImpl<${entity.name}> implements 
 		}
 
 		@Override
-		public boolean isInTrashImplicitly() throws SystemException {
+		public boolean isInTrashImplicitly() {
 			if (!isInTrash()) {
 				return false;
 			}
@@ -752,7 +752,7 @@ public class ${entity.name}Clp extends BaseModelImpl<${entity.name}> implements 
 
 	<#if entity.hasLocalService() && entity.hasColumns()>
 		@Override
-		public void persist() throws SystemException {
+		public void persist() {
 			if (this.isNew()) {
 				${entity.name}LocalServiceUtil.add${entity.name}(this);
 			}

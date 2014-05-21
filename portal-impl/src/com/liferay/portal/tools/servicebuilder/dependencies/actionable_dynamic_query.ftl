@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 public abstract class ${entity.name}ActionableDynamicQuery
 	extends BaseActionableDynamicQuery {
 
-	public ${entity.name}ActionableDynamicQuery() throws SystemException {
+	public ${entity.name}ActionableDynamicQuery() {
 		setBaseLocalService(${entity.name}LocalServiceUtil.getService());
 		setClass(${entity.name}.class);
 
