@@ -52,7 +52,7 @@ public abstract class ${entity.name}BaseImpl extends ${entity.name}ModelImpl imp
 			<#if entity.hasColumn("parent" + pkColumn.methodName)>
 				@Override
 				@SuppressWarnings("unused")
-				public String buildTreePath() throws PortalException, SystemException {
+				public String buildTreePath() throws PortalException {
 					List<${entity.name}> ${entity.varNames} = new ArrayList<${entity.name}>();
 
 					${entity.name} ${entity.varName} = this;

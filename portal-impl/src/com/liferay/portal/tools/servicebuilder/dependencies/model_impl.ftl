@@ -782,7 +782,7 @@ public class ${entity.name}ModelImpl extends BaseModelImpl<${entity.name}> imple
 		</#if>
 
 		@Override
-		public TrashEntry getTrashEntry() throws PortalException, SystemException {
+		public TrashEntry getTrashEntry() throws PortalException {
 			if (!isInTrash()) {
 				return null;
 			}

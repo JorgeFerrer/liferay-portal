@@ -446,7 +446,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					final ExportActionableDynamicQuery exportActionableDynamicQuery = new ExportActionableDynamicQuery() {
 
 						@Override
-						public long performCount() throws PortalException, SystemException {
+						public long performCount() throws PortalException {
 							ManifestSummary manifestSummary = portletDataContext.getManifestSummary();
 
 							StagedModelType stagedModelType = getStagedModelType();
@@ -511,7 +511,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 							@Override
 							@SuppressWarnings("unused")
-							public void performAction(Object object) throws PortalException, SystemException {
+							public void performAction(Object object) throws PortalException {
 								${entity.name} stagedModel = (${entity.name})object;
 
 								StagedModelDataHandlerUtil.exportStagedModel(portletDataContext, stagedModel);
@@ -526,7 +526,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		</#if>
 
 		@Override
-		public PersistedModel getPersistedModel(Serializable primaryKeyObj) throws PortalException, SystemException {
+		public PersistedModel getPersistedModel(Serializable primaryKeyObj) throws PortalException {
 			return ${entity.varName}Persistence.findByPrimaryKey(primaryKeyObj);
 		}
 

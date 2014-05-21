@@ -495,7 +495,7 @@ public class ${entity.name}Clp extends BaseModelImpl<${entity.name}> implements 
 		</#if>
 
 		@Override
-		public TrashEntry getTrashEntry() throws PortalException, SystemException {
+		public TrashEntry getTrashEntry() throws PortalException {
 			if (!isInTrash()) {
 				return null;
 			}
