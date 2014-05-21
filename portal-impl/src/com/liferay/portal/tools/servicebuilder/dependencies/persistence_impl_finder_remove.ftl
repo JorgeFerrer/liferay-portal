@@ -54,7 +54,7 @@
 		</#if>
 	</#list>
 
-	) throws ${noSuchEntity}Exception, SystemException {
+	) throws ${noSuchEntity}Exception {
 		${entity.name} ${entity.varName} = findBy${finder.name}(
 
 		<#list finderColsList as finderCol>

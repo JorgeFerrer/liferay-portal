@@ -411,7 +411,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public ${entity.name} remove(${entity.PKClassName} ${entity.PKVarName}) throws ${noSuchEntity}Exception, SystemException {
+	public ${entity.name} remove(${entity.PKClassName} ${entity.PKVarName}) throws ${noSuchEntity}Exception {
 		return remove((Serializable)${entity.PKVarName});
 	}
 
@@ -424,7 +424,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public ${entity.name} remove(Serializable primaryKey) throws ${noSuchEntity}Exception, SystemException {
+	public ${entity.name} remove(Serializable primaryKey) throws ${noSuchEntity}Exception {
 		Session session = null;
 
 		try {
@@ -777,7 +777,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public ${entity.name} findByPrimaryKey(Serializable primaryKey) throws ${noSuchEntity}Exception, SystemException {
+	public ${entity.name} findByPrimaryKey(Serializable primaryKey) throws ${noSuchEntity}Exception {
 		${entity.name} ${entity.varName} = fetchByPrimaryKey(primaryKey);
 
 		if (${entity.varName} == null) {
@@ -800,7 +800,7 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public ${entity.name} findByPrimaryKey(${entity.PKClassName} ${entity.PKVarName}) throws ${noSuchEntity}Exception, SystemException {
+	public ${entity.name} findByPrimaryKey(${entity.PKClassName} ${entity.PKVarName}) throws ${noSuchEntity}Exception {
 		return findByPrimaryKey((Serializable)${entity.PKVarName});
 	}
 
