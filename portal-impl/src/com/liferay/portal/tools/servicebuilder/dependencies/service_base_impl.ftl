@@ -134,7 +134,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 </#if>
 
 	<#if (sessionTypeName == "Local") && entity.hasColumns()>
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + entity.name, [packagePath + ".model." + entity.name], ["SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + entity.name, [packagePath + ".model." + entity.name], [])>
 
 		/**
 		 * Adds the ${entity.humanName} to the database. Also notifies the appropriate model listeners.
@@ -164,7 +164,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			return ${entity.varName}Persistence.create(${entity.PKVarName});
 		}
 
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + entity.name, [entity.PKClassName], ["PortalException", "SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + entity.name, [entity.PKClassName], ["PortalException"])>
 
 		/**
 		 * Deletes the ${entity.humanName} with the primary key from the database. Also notifies the appropriate model listeners.
@@ -185,7 +185,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			return ${entity.varName}Persistence.remove(${entity.PKVarName});
 		}
 
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + entity.name, [packagePath + ".model." + entity.name], ["SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + entity.name, [packagePath + ".model." + entity.name], [])>
 
 		/**
 		 * Deletes the ${entity.humanName} from the database. Also notifies the appropriate model listeners.
@@ -281,7 +281,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			return ${entity.varName}Persistence.countWithDynamicQuery(dynamicQuery, projection);
 		}
 
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "fetch" + entity.name, [entity.PKClassName], ["SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "fetch" + entity.name, [entity.PKClassName], [])>
 
 		@Override
 		public ${entity.name} fetch${entity.name}(${entity.PKClassName} ${entity.PKVarName}) throws ${stringUtil.merge(serviceBaseExceptions)} {
@@ -340,7 +340,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			</#if>
 		</#if>
 
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + entity.name, [entity.PKClassName], ["PortalException", "SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + entity.name, [entity.PKClassName], ["PortalException"])>
 
 		/**
 		 * Returns the ${entity.humanName} with the primary key.
@@ -590,7 +590,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			return ${entity.varName}Persistence.countAll();
 		}
 
-		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "update" + entity.name, [packagePath + ".model." + entity.name], ["SystemException"])>
+		<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "update" + entity.name, [packagePath + ".model." + entity.name], [])>
 
 		/**
 		 * Updates the ${entity.humanName} in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -632,7 +632,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			<#if column.isCollection() && column.isMappingManyToMany()>
 				<#assign tempEntity = serviceBuilder.getEntity(column.getEJBName())>
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -644,7 +644,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.add${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.name, [tempEntity.PKClassName, packagePath + ".model." + entity.name], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.name, [tempEntity.PKClassName, packagePath + ".model." + entity.name], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -656,7 +656,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.add${entity.name}(${tempEntity.PKVarName}, ${entity.varName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -668,7 +668,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.add${entity.names}(${tempEntity.PKVarName}, ${entity.PKVarNames});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.names, [tempEntity.PKClassName, "java.util.List<" + entity.name + ">"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "add" + tempEntity.name + entity.names, [tempEntity.PKClassName, "java.util.List<" + entity.name + ">"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -680,7 +680,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.add${entity.names}(${tempEntity.PKVarName}, ${entity.names});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "clear" + tempEntity.name + entity.names, [tempEntity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "clear" + tempEntity.name + entity.names, [tempEntity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -692,7 +692,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.clear${entity.names}(${tempEntity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -704,7 +704,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.remove${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.name, [tempEntity.PKClassName, packagePath + ".model." + entity.name], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.name, [tempEntity.PKClassName, packagePath + ".model." + entity.name], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -716,7 +716,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.remove${entity.name}(${tempEntity.PKVarName}, ${entity.varName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -728,7 +728,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.remove${entity.names}(${tempEntity.PKVarName}, ${entity.PKVarNames});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.names, [tempEntity.PKClassName, "java.util.List<" + entity.name + ">"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "delete" + tempEntity.name + entity.names, [tempEntity.PKClassName, "java.util.List<" + entity.name + ">"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -740,7 +740,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					${tempEntity.varName}Persistence.remove${entity.names}(${tempEntity.PKVarName}, ${entity.names});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -752,7 +752,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName, "int", "int"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName, "int", "int"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -764,7 +764,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName}, start, end);
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName, "int", "int", "com.liferay.portal.kernel.util.OrderByComparator"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names, [tempEntity.PKClassName, "int", "int", "com.liferay.portal.kernel.util.OrderByComparator"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -776,7 +776,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.get${entity.names}(${tempEntity.PKVarName}, start, end, orderByComparator);
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names + "Count", [tempEntity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "get" + tempEntity.name + entity.names + "Count", [tempEntity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -788,7 +788,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.get${entity.names}Size(${tempEntity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "has" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "has" + tempEntity.name + entity.name, [tempEntity.PKClassName, entity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -800,7 +800,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.contains${entity.name}(${tempEntity.PKVarName}, ${entity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "has" + tempEntity.name + entity.names, [tempEntity.PKClassName], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "has" + tempEntity.name + entity.names, [tempEntity.PKClassName], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
@@ -812,7 +812,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 					return ${tempEntity.varName}Persistence.contains${entity.names}(${tempEntity.PKVarName});
 				}
 
-				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "set" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], ["SystemException"])>
+				<#assign serviceBaseExceptions = serviceBuilder.getServiceBaseExceptions(methods, "set" + tempEntity.name + entity.names, [tempEntity.PKClassName, entity.PKClassName + "[]"], [])>
 
 				/**
 				<#list serviceBaseExceptions as exception>
