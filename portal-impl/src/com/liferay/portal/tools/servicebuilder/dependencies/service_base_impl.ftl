@@ -143,11 +143,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param ${entity.varName} the ${entity.humanName}
 		 * @return the ${entity.humanName} that was added
 		<#list serviceBaseExceptions as exception>
-		<#if exception == "SystemException">
-		 * @throws SystemException if a system exception occurred
-		<#else>
 		 * @throws ${exception}
-		</#if>
 		</#list>
 		 */
 		@Indexable(type = IndexableType.REINDEX)
@@ -179,8 +175,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		<#list serviceBaseExceptions as exception>
 		<#if exception == "PortalException">
 		 * @throws PortalException if a ${entity.humanName} with the primary key could not be found
-		<#elseif exception == "SystemException">
-		 * @throws SystemException if a system exception occurred
 		<#else>
 		 * @throws ${exception}
 		</#if>
@@ -200,11 +194,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param ${entity.varName} the ${entity.humanName}
 		 * @return the ${entity.humanName} that was removed
 		<#list serviceBaseExceptions as exception>
-		<#if exception == "SystemException">
-		 * @throws SystemException if a system exception occurred
-		<#else>
 		 * @throws ${exception}
-		</#if>
 		</#list>
 		 */
 		@Indexable(type = IndexableType.DELETE)
@@ -225,7 +215,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 *
 		 * @param dynamicQuery the dynamic query
 		 * @return the matching rows
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
@@ -244,7 +233,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param start the lower bound of the range of model instances
 		 * @param end the upper bound of the range of model instances (not inclusive)
 		 * @return the range of matching rows
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
@@ -264,7 +252,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param end the upper bound of the range of model instances (not inclusive)
 		 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 		 * @return the ordered range of matching rows
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		@SuppressWarnings("rawtypes")
@@ -277,7 +264,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 *
 		 * @param dynamicQuery the dynamic query
 		 * @return the number of rows that match the dynamic query
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -290,7 +276,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param dynamicQuery the dynamic query
 		 * @param projection the projection to apply to the query
 		 * @return the number of rows that match the dynamic query
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public long dynamicQueryCount(DynamicQuery dynamicQuery, Projection projection) {
@@ -312,11 +297,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			 * @param  companyId the primary key of the company
 			 * @return the matching ${entity.humanName}, or <code>null</code> if a matching ${entity.humanName} could not be found
 			<#list serviceBaseExceptions as exception>
-			<#if exception == "SystemException">
-			 * @throws SystemException if a system exception occurred
-			<#else>
 			 * @throws ${exception}
-			</#if>
 			</#list>
 			 */
 			@Override
@@ -335,11 +316,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				 * @param privateLayout whether the ${entity.humanName} is private to the group
 				 * @return the matching ${entity.humanName}, or <code>null</code> if a matching ${entity.humanName} could not be found
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-		 		 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -354,11 +331,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				 * @param groupId the primary key of the group
 				 * @return the matching ${entity.humanName}, or <code>null</code> if a matching ${entity.humanName} could not be found
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -378,8 +351,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		<#list serviceBaseExceptions as exception>
 		<#if exception == "PortalException">
 		 * @throws PortalException if a ${entity.humanName} with the primary key could not be found
-		<#elseif exception == "SystemException">
-		 * @throws SystemException if a system exception occurred
 		<#else>
 		 * @throws ${exception}
 		</#if>
@@ -540,8 +511,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 			<#list serviceBaseExceptions as exception>
 			<#if exception == "PortalException">
 			 * @throws PortalException if a matching ${entity.humanName} could not be found
-			<#elseif exception == "SystemException">
-			 * @throws SystemException if a system exception occurred
 			<#else>
 			 * @throws ${exception}
 			</#if>
@@ -565,8 +534,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				<#list serviceBaseExceptions as exception>
 				<#if exception == "PortalException">
 				 * @throws PortalException if a matching ${entity.humanName} could not be found
-				<#elseif exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
 				<#else>
 				 * @throws ${exception}
 				</#if>
@@ -586,8 +553,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 				<#list serviceBaseExceptions as exception>
 				<#if exception == "PortalException">
 				 * @throws PortalException if a matching ${entity.humanName} could not be found
-				<#elseif exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
 				<#else>
 				 * @throws ${exception}
 				</#if>
@@ -610,7 +575,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param start the lower bound of the range of ${entity.humanNames}
 		 * @param end the upper bound of the range of ${entity.humanNames} (not inclusive)
 		 * @return the range of ${entity.humanNames}
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public List<${entity.name}> get${entity.names}(int start, int end) {
@@ -621,7 +585,6 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * Returns the number of ${entity.humanNames}.
 		 *
 		 * @return the number of ${entity.humanNames}
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public int get${entity.names}Count() {
@@ -636,11 +599,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 		 * @param ${entity.varName} the ${entity.humanName}
 		 * @return the ${entity.humanName} that was updated
 		<#list serviceBaseExceptions as exception>
-		<#if exception == "SystemException">
-		 * @throws SystemException if a system exception occurred
-		<#else>
 		 * @throws ${exception}
-		</#if>
 		</#list>
 		 */
 		@Indexable(type = IndexableType.REINDEX)
@@ -678,11 +637,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -694,11 +649,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -710,11 +661,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -726,11 +673,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -742,11 +685,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -758,11 +697,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -774,11 +709,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -790,11 +721,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -806,11 +733,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -834,11 +757,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -850,11 +769,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -866,11 +781,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -882,11 +793,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -898,11 +805,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -914,11 +817,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
@@ -930,11 +829,7 @@ import ${packagePath}.service.${entity.name}${sessionTypeName}Service;
 
 				/**
 				<#list serviceBaseExceptions as exception>
-				<#if exception == "SystemException">
-				 * @throws SystemException if a system exception occurred
-				<#else>
 				 * @throws ${exception}
-				</#if>
 				</#list>
 				 */
 				@Override
