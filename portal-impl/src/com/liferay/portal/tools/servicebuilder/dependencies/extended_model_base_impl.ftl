@@ -37,7 +37,7 @@ public abstract class ${entity.name}BaseImpl extends ${entity.name}ModelImpl imp
 
 	<#if entity.hasLocalService() && entity.hasColumns()>
 		@Override
-		public void persist() throws SystemException {
+		public void persist() {
 			if (this.isNew()) {
 				${entity.name}LocalServiceUtil.add${entity.name}(this);
 			}
@@ -79,7 +79,7 @@ public abstract class ${entity.name}BaseImpl extends ${entity.name}ModelImpl imp
 			</#if>
 
 			@Override
-			public void updateTreePath(String treePath) throws SystemException {
+			public void updateTreePath(String treePath) {
 				${entity.name} ${entity.varName} = this;
 
 				${entity.varName}.setTreePath(treePath);

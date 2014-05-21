@@ -99,7 +99,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		</#if>
 	</#list>
 
-	) throws SystemException {
+	) {
 		return findBy${finder.name}(
 
 		<#list finderColsList as finderCol>
@@ -131,7 +131,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	int start, int end) throws SystemException {
+	int start, int end) {
 		return findBy${finder.name}(
 
 		<#list finderColsList as finderCol>
@@ -164,7 +164,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	int start, int end, OrderByComparator orderByComparator) throws SystemException {
+	int start, int end, OrderByComparator orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -374,7 +374,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	OrderByComparator orderByComparator) throws SystemException {
+	OrderByComparator orderByComparator) {
 		List<${entity.name}> list = findBy${finder.name}(
 
 		<#list finderColsList as finderCol>
@@ -454,7 +454,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	OrderByComparator orderByComparator) throws SystemException {
+	OrderByComparator orderByComparator) {
 		int count = countBy${finder.name}(
 
 		<#list finderColsList as finderCol>
@@ -610,7 +610,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			</#if>
 		</#list>
 
-		) throws SystemException {
+		) {
 			return filterFindBy${finder.name}(
 
 			<#list finderColsList as finderCol>
@@ -642,7 +642,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			${finderCol.type} ${finderCol.name},
 		</#list>
 
-		int start, int end) throws SystemException {
+		int start, int end) {
 			return filterFindBy${finder.name}(
 
 			<#list finderColsList as finderCol>
@@ -675,7 +675,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			${finderCol.type} ${finderCol.name},
 		</#list>
 
-		int start, int end, OrderByComparator orderByComparator) throws SystemException {
+		int start, int end, OrderByComparator orderByComparator) {
 			if (!InlineSQLHelperUtil.isEnabled(<#if finder.hasColumn("groupId")>groupId</#if>)) {
 				return findBy${finder.name}(
 
@@ -1066,7 +1066,7 @@ that may or may not be enforced with a unique index at the database level. Case
 				</#if>
 			</#list>
 
-			) throws SystemException {
+			) {
 				return filterFindBy${finder.name}(
 
 				<#list finderColsList as finderCol>
@@ -1110,7 +1110,7 @@ that may or may not be enforced with a unique index at the database level. Case
 				</#if>
 			</#list>
 
-			int start, int end) throws SystemException {
+			int start, int end) {
 				return filterFindBy${finder.name}(
 
 				<#list finderColsList as finderCol>
@@ -1155,7 +1155,7 @@ that may or may not be enforced with a unique index at the database level. Case
 				</#if>
 			</#list>
 
-			int start, int end, OrderByComparator orderByComparator) throws SystemException {
+			int start, int end, OrderByComparator orderByComparator) {
 				if (!InlineSQLHelperUtil.isEnabled(
 					<#if finder.hasColumn("groupId")>
 						<#if finder.getColumn("groupId").hasArrayableOperator()>
@@ -1364,7 +1364,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			</#if>
 		</#list>
 
-		) throws SystemException {
+		) {
 			return findBy${finder.name}(
 
 			<#list finderColsList as finderCol>
@@ -1408,7 +1408,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			</#if>
 		</#list>
 
-		int start, int end) throws SystemException {
+		int start, int end) {
 			return findBy${finder.name}(
 
 			<#list finderColsList as finderCol>
@@ -1453,7 +1453,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			</#if>
 		</#list>
 
-		int start, int end, OrderByComparator orderByComparator) throws SystemException {
+		int start, int end, OrderByComparator orderByComparator) {
 			<#list finderColsList as finderCol>
 				<#if finderCol.hasArrayableOperator()>
 					if (${finderCol.names} == null) {
@@ -1723,7 +1723,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		</#if>
 	</#list>
 
-	) throws SystemException {
+	) {
 		return fetchBy${finder.name}(
 
 		<#list finderColsList as finderCol>
@@ -1752,7 +1752,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		,
 	</#list>
 
-	boolean retrieveFromCache) throws SystemException {
+	boolean retrieveFromCache) {
 		Object[] finderArgs = new Object[] {
 			<#list finderColsList as finderCol>
 				${finderCol.name}

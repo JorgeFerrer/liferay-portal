@@ -27,7 +27,7 @@ import com.liferay.portal.util.PortalUtil;
 @Deprecated
 public class ${entity.name}ExportActionableDynamicQuery extends ${entity.name}ActionableDynamicQuery {
 
-	public ${entity.name}ExportActionableDynamicQuery(PortletDataContext portletDataContext) throws SystemException {
+	public ${entity.name}ExportActionableDynamicQuery(PortletDataContext portletDataContext) {
 		_portletDataContext = portletDataContext;
 
 		setCompanyId(_portletDataContext.getCompanyId());
