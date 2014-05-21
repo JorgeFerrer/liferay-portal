@@ -9,7 +9,6 @@
 	<#list finderColsList as finderCol>
 	 * @param ${finderCol.name} the ${finderCol.humanName}
 	</#list>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeBy${finder.name}(
@@ -41,7 +40,6 @@
 	 * @param ${finderCol.name} the ${finderCol.humanName}
 	</#list>
 	 * @return the ${entity.humanName} that was removed
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public ${entity.name} removeBy${finder.name}(

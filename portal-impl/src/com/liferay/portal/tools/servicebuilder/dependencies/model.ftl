@@ -329,7 +329,6 @@ public interface ${entity.name}Model extends
 			 * Returns the ${column.userUuidHumanName} of this ${entity.humanName}.
 			 *
 			 * @return the ${column.userUuidHumanName} of this ${entity.humanName}
-			 * @throws SystemException if a system exception occurred
 			 */
 
 			<#if overrideColumnNames?seq_index_of(column.userUuidName) != -1>
@@ -367,7 +366,6 @@ public interface ${entity.name}Model extends
 		 * Returns the trash entry created when this ${entity.humanName} was moved to the Recycle Bin. The trash entry may belong to one of the ancestors of this ${entity.humanName}.
 		 *
 		 * @return the trash entry created when this ${entity.humanName} was moved to the Recycle Bin
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public TrashEntry getTrashEntry() throws PortalException;
@@ -400,7 +398,6 @@ public interface ${entity.name}Model extends
 		 * Returns <code>true</code> if the parent of this ${entity.humanName} is in the Recycle Bin.
 		 *
 		 * @return <code>true</code> if the parent of this ${entity.humanName} is in the Recycle Bin; <code>false</code> otherwise
-		 * @throws SystemException if a system exception occurred
 		 */
 		@Override
 		public boolean isInTrashContainer();
