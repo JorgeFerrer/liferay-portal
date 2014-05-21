@@ -328,7 +328,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	OrderByComparator orderByComparator) throws ${noSuchEntity}Exception, SystemException {
+	OrderByComparator orderByComparator) throws ${noSuchEntity}Exception {
 		${entity.name} ${entity.varName} = fetchBy${finder.name}_First(
 
 		<#list finderColsList as finderCol>
@@ -408,7 +408,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		${finderCol.type} ${finderCol.name},
 	</#list>
 
-	OrderByComparator orderByComparator) throws ${noSuchEntity}Exception, SystemException {
+	OrderByComparator orderByComparator) throws ${noSuchEntity}Exception {
 		${entity.name} ${entity.varName} = fetchBy${finder.name}_Last(
 
 		<#list finderColsList as finderCol>
@@ -506,7 +506,7 @@ that may or may not be enforced with a unique index at the database level. Case
 			${finderCol.type} ${finderCol.name},
 		</#list>
 
-		OrderByComparator orderByComparator) throws ${noSuchEntity}Exception, SystemException {
+		OrderByComparator orderByComparator) throws ${noSuchEntity}Exception {
 			${entity.name} ${entity.varName} = findByPrimaryKey(${entity.PKVarName});
 
 			Session session = null;
@@ -805,7 +805,7 @@ that may or may not be enforced with a unique index at the database level. Case
 				${finderCol.type} ${finderCol.name},
 			</#list>
 
-			OrderByComparator orderByComparator) throws ${noSuchEntity}Exception, SystemException {
+			OrderByComparator orderByComparator) throws ${noSuchEntity}Exception {
 				if (!InlineSQLHelperUtil.isEnabled(<#if finder.hasColumn("groupId")>groupId</#if>)) {
 					return findBy${finder.name}_PrevAndNext(${entity.PKVarName},
 
@@ -1666,7 +1666,7 @@ that may or may not be enforced with a unique index at the database level. Case
 		</#if>
 	</#list>
 
-	) throws ${noSuchEntity}Exception, SystemException {
+	) throws ${noSuchEntity}Exception {
 		${entity.name} ${entity.varName} = fetchBy${finder.name}(
 
 		<#list finderColsList as finderCol>
