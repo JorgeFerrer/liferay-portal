@@ -67,7 +67,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new MBSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		MBSettings mbSettings = new MBSettings(settings);
+
+		return mbSettings.getSettings();
 	}
 
 	protected boolean isValidUserRank(String rank) {

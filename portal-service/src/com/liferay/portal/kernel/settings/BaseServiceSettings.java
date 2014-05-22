@@ -14,62 +14,22 @@
 
 package com.liferay.portal.kernel.settings;
 
-import java.io.IOException;
-
-import java.util.Collection;
-
-import javax.portlet.ValidatorException;
-
 /**
  * @author Iván Zaera
  */
-public abstract class BaseServiceSettings extends BaseSettings {
+public abstract class BaseServiceSettings {
 
-	public BaseServiceSettings(Settings settings, FallbackKeys fallbackKeys) {
+	public BaseServiceSettings(
+		Settings decoratedSettings, FallbackKeys fallbackKeys) {
+
 		FallbackSettings fallbackSettings = new FallbackSettings(
-			settings, fallbackKeys);
+			decoratedSettings, fallbackKeys);
 
 		typedSettings = new TypedSettings(fallbackSettings);
 	}
 
-	@Override
-	public Settings getDefaultSettings() {
-		return typedSettings.getDefaultSettings();
-	}
-
-	@Override
-	public Collection<String> getKeys() {
-		return typedSettings.getKeys();
-	}
-
-	@Override
-	public String getValue(String key, String defaultValue) {
-		return typedSettings.getValue(key, defaultValue);
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		return typedSettings.getValues(key, defaultValue);
-	}
-
-	@Override
-	public void reset(String key) {
-		typedSettings.reset(key);
-	}
-
-	@Override
-	public Settings setValue(String key, String value) {
-		return typedSettings.setValue(key, value);
-	}
-
-	@Override
-	public Settings setValues(String key, String[] values) {
-		return typedSettings.setValues(key, values);
-	}
-
-	@Override
-	public void store() throws IOException, ValidatorException {
-		typedSettings.store();
+	public Settings getSettings() {
+		return typedSettings.getDecoratedSettings();
 	}
 
 	protected TypedSettings typedSettings;

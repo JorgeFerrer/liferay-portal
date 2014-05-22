@@ -15,18 +15,11 @@
 package com.liferay.portal.settings;
 
 import com.liferay.portal.kernel.settings.BaseSettings;
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.util.ContentUtil;
 
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.Properties;
-import java.util.Set;
 
 /**
  * @author Jorge Ferrer
@@ -35,72 +28,13 @@ import java.util.Set;
 public class PropertiesSettings extends BaseSettings {
 
 	public PropertiesSettings(Properties properties) {
+		super(null);
+
 		_properties = properties;
 	}
 
 	@Override
-	public Settings getDefaultSettings() {
-		return null;
-	}
-
-	@Override
-	public Collection<String> getKeys() {
-		Set<String> keys = new HashSet<String>();
-
-		Enumeration<?> propertyNames = _properties.propertyNames();
-
-		while (propertyNames.hasMoreElements()) {
-			String propertyName = (String)propertyNames.nextElement();
-
-			keys.add(propertyName);
-		}
-
-		return keys;
-	}
-
-	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = getProperty(key);
-
-		if (Validator.isNotNull(value)) {
-			return value;
-		}
-
-		return defaultValue;
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		String[] values = StringUtil.split(getProperty(key));
-
-		if (ArrayUtil.isNotEmpty(values)) {
-			return values;
-		}
-
-		return defaultValue;
-	}
-
-	@Override
-	public void reset(String key) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Settings setValue(String key, String value) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Settings setValues(String key, String[] values) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void store() {
-		throw new UnsupportedOperationException();
-	}
-
-	protected String getProperty(String key) {
+	protected String doGetValue(String key) {
 		String value = _properties.getProperty(key);
 
 		if (isLocationVariable("resource", value)) {
@@ -108,6 +42,11 @@ public class PropertiesSettings extends BaseSettings {
 		}
 
 		return value;
+	}
+
+	@Override
+	protected String[] doGetValues(String key) {
+		return StringUtil.split(doGetValue(key));
 	}
 
 	private String getLocation(String protocol, String value) {

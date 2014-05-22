@@ -56,7 +56,11 @@ public class ConfigurationActionImpl extends SettingsConfigurationAction {
 	protected Settings getSettings(ActionRequest actionRequest)
 		throws PortalException, SystemException {
 
-		return new BookmarksSettings(super.getSettings(actionRequest));
+		Settings settings = super.getSettings(actionRequest);
+
+		BookmarksSettings bookmarksSettings = new BookmarksSettings(settings);
+
+		return bookmarksSettings.getSettings();
 	}
 
 	protected void updateEntryColumns(ActionRequest actionRequest) {
