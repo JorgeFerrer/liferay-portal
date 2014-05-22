@@ -83,20 +83,6 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
-
-		return modifiableSettings.getValue(key, defaultValue);
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
-
-		return modifiableSettings.getValues(key, defaultValue);
-	}
-
-	@Override
 	public void reset(String key) {
 		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
@@ -126,6 +112,20 @@ public class ArchivedSettingsImpl
 		ModifiableSettings modifiableSettings = _getModifiableSettings();
 
 		modifiableSettings.store();
+	}
+
+	@Override
+	protected String doGetValue(String key) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
+
+		return modifiableSettings.getValue(key, null);
+	}
+
+	@Override
+	protected String[] doGetValues(String key) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
+
+		return modifiableSettings.getValues(key, null);
 	}
 
 	private ModifiableSettings _getModifiableSettings() {
