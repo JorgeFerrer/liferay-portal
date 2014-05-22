@@ -81,6 +81,44 @@ public class ShoppingSettings {
 		Double.POSITIVE_INFINITY
 	};
 
+	public static FallbackKeys FALLBACK_KEYS = new FallbackKeys();
+
+	static {
+		FALLBACK_KEYS.add("ccTypes", PropsKeys.SHOPPING_CREDIT_CARD_TYPES);
+		FALLBACK_KEYS.add("currencyId", PropsKeys.SHOPPING_CURRENCY_ID);
+		FALLBACK_KEYS.add(
+			"emailFromAddress", PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
+			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
+		FALLBACK_KEYS.add(
+			"emailFromName", PropsKeys.SHOPPING_EMAIL_FROM_NAME,
+			PropsKeys.ADMIN_EMAIL_FROM_NAME);
+		FALLBACK_KEYS.add(
+			"emailOrderConfirmationBody",
+			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY);
+		FALLBACK_KEYS.add(
+			"emailOrderConfirmationEnabled",
+			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED);
+		FALLBACK_KEYS.add(
+			"emailOrderConfirmationSubject",
+			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT);
+		FALLBACK_KEYS.add(
+			"emailOrderShippingBody",
+			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY);
+		FALLBACK_KEYS.add(
+			"emailOrderShippingEnabled",
+			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED);
+		FALLBACK_KEYS.add(
+			"emailOrderShippingSubject",
+			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
+		FALLBACK_KEYS.add("insurance", PropsKeys.SHOPPING_INSURANCE);
+		FALLBACK_KEYS.add(
+			"insuranceFormula", PropsKeys.SHOPPING_INSURANCE_FORMULA);
+		FALLBACK_KEYS.add("shipping", PropsKeys.SHOPPING_SHIPPING);
+		FALLBACK_KEYS.add(
+			"shippingFormula", PropsKeys.SHOPPING_SHIPPING_FORMULA);
+		FALLBACK_KEYS.add("taxState", PropsKeys.SHOPPING_TAX_STATE);
+	}
+
 	public ShoppingSettings(Settings settings) {
 		_typedSettings = new TypedSettings(settings);
 	}
@@ -249,44 +287,6 @@ public class ShoppingSettings {
 
 	public boolean usePayPal() {
 		return Validator.isNotNull(getPayPalEmailAddress());
-	}
-
-	private static FallbackKeys _fallbackKeys = new FallbackKeys();
-
-	static {
-		_fallbackKeys.add("ccTypes", PropsKeys.SHOPPING_CREDIT_CARD_TYPES);
-		_fallbackKeys.add("currencyId", PropsKeys.SHOPPING_CURRENCY_ID);
-		_fallbackKeys.add(
-			"emailFromAddress", PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS,
-			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
-		_fallbackKeys.add(
-			"emailFromName", PropsKeys.SHOPPING_EMAIL_FROM_NAME,
-			PropsKeys.ADMIN_EMAIL_FROM_NAME);
-		_fallbackKeys.add(
-			"emailOrderConfirmationBody",
-			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY);
-		_fallbackKeys.add(
-			"emailOrderConfirmationEnabled",
-			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED);
-		_fallbackKeys.add(
-			"emailOrderConfirmationSubject",
-			PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT);
-		_fallbackKeys.add(
-			"emailOrderShippingBody",
-			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY);
-		_fallbackKeys.add(
-			"emailOrderShippingEnabled",
-			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED);
-		_fallbackKeys.add(
-			"emailOrderShippingSubject",
-			PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
-		_fallbackKeys.add("insurance", PropsKeys.SHOPPING_INSURANCE);
-		_fallbackKeys.add(
-			"insuranceFormula", PropsKeys.SHOPPING_INSURANCE_FORMULA);
-		_fallbackKeys.add("shipping", PropsKeys.SHOPPING_SHIPPING);
-		_fallbackKeys.add(
-			"shippingFormula", PropsKeys.SHOPPING_SHIPPING_FORMULA);
-		_fallbackKeys.add("taxState", PropsKeys.SHOPPING_TAX_STATE);
 	}
 
 	private TypedSettings _typedSettings;
