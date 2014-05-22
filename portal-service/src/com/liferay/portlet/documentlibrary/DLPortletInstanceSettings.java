@@ -14,9 +14,9 @@
 
 package com.liferay.portlet.documentlibrary;
 
-import com.liferay.portal.kernel.settings.BaseServiceSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
@@ -25,7 +25,7 @@ import com.liferay.portlet.documentlibrary.util.DLUtil;
 /**
  * @author Sergio González
  */
-public class DLPortletInstanceSettings extends BaseServiceSettings {
+public class DLPortletInstanceSettings {
 
 	public static final String[] MULTI_VALUED_KEYS = {
 		"displayViews", "entryColumns", "fileEntryColumns", "folderColumns",
@@ -33,81 +33,81 @@ public class DLPortletInstanceSettings extends BaseServiceSettings {
 	};
 
 	public DLPortletInstanceSettings(Settings settings) {
-		super(settings, _fallbackKeys);
+		_typedSettings = new TypedSettings(settings);
 	}
 
 	public long getDefaultFolderId() {
-		return typedSettings.getLongValue(
+		return _typedSettings.getLongValue(
 			"rootFolderId", DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
 	}
 
 	public String[] getDisplayViews() {
-		return typedSettings.getValues("displayViews");
+		return _typedSettings.getValues("displayViews");
 	}
 
 	public boolean getEnableCommentRatings() {
-		return typedSettings.getBooleanValue("enableCommentRatings");
+		return _typedSettings.getBooleanValue("enableCommentRatings");
 	}
 
 	public boolean getEnableRatings() {
-		return typedSettings.getBooleanValue("enableRatings");
+		return _typedSettings.getBooleanValue("enableRatings");
 	}
 
 	public boolean getEnableRelatedAssets() {
-		return typedSettings.getBooleanValue("enableRelatedAssets");
+		return _typedSettings.getBooleanValue("enableRelatedAssets");
 	}
 
 	public int getEntriesPerPage() {
-		return typedSettings.getIntegerValue("entriesPerPage");
+		return _typedSettings.getIntegerValue("entriesPerPage");
 	}
 
 	public String[] getEntryColumns() {
-		return typedSettings.getValues("entryColumns");
+		return _typedSettings.getValues("entryColumns");
 	}
 
 	public int getFileEntriesPerPage() {
-		return typedSettings.getIntegerValue("fileEntriesPerPage");
+		return _typedSettings.getIntegerValue("fileEntriesPerPage");
 	}
 
 	public String[] getFileEntryColumns() {
-		return typedSettings.getValues("fileEntryColumns");
+		return _typedSettings.getValues("fileEntryColumns");
 	}
 
 	public String[] getFolderColumns() {
-		return typedSettings.getValues("folderColumns");
+		return _typedSettings.getValues("folderColumns");
 	}
 
 	public int getFoldersPerPage() {
-		return typedSettings.getIntegerValue("foldersPerPage");
+		return _typedSettings.getIntegerValue("foldersPerPage");
 	}
 
 	public String[] getMimeTypes() {
-		return typedSettings.getValues("mimeTypes", _MIME_TYPES_DEFAULT);
+		return _typedSettings.getValues("mimeTypes", _MIME_TYPES_DEFAULT);
 	}
 
 	public long getRootFolderId() {
-		return typedSettings.getLongValue(
+		return _typedSettings.getLongValue(
 			"rootFolderId", DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
 	}
 
 	public boolean getShowActions() {
-		return typedSettings.getBooleanValue("showActions");
+		return _typedSettings.getBooleanValue("showActions");
 	}
 
 	public boolean getShowFolderMenu() {
-		return typedSettings.getBooleanValue("showFolderMenu");
+		return _typedSettings.getBooleanValue("showFolderMenu");
 	}
 
 	public boolean getShowFoldersSearch() {
-		return typedSettings.getBooleanValue("showFoldersSearch");
+		return _typedSettings.getBooleanValue("showFoldersSearch");
 	}
 
 	public boolean getShowSubfolders() {
-		return typedSettings.getBooleanValue("showSubfolders");
+		return _typedSettings.getBooleanValue("showSubfolders");
 	}
 
 	public boolean getShowTabs() {
-		return typedSettings.getBooleanValue("showTabs");
+		return _typedSettings.getBooleanValue("showTabs");
 	}
 
 	private static final String[] _MIME_TYPES_DEFAULT = ArrayUtil.toStringArray(
@@ -137,5 +137,7 @@ public class DLPortletInstanceSettings extends BaseServiceSettings {
 		_fallbackKeys.add(
 			"showSubfolders", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
 	}
+
+	private TypedSettings _typedSettings;
 
 }
