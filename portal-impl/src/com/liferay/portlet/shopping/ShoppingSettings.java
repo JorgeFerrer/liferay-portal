@@ -14,10 +14,10 @@
 
 package com.liferay.portlet.shopping;
 
-import com.liferay.portal.kernel.settings.BaseServiceSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -32,7 +32,7 @@ import java.util.TreeSet;
  * @author Brian Wing Shun Chan
  * @author Eduardo Garcia
  */
-public class ShoppingSettings extends BaseServiceSettings {
+public class ShoppingSettings {
 
 	public static final String CC_NONE = "none";
 
@@ -82,11 +82,11 @@ public class ShoppingSettings extends BaseServiceSettings {
 	};
 
 	public ShoppingSettings(Settings settings) {
-		super(settings, _fallbackKeys);
+		_typedSettings = new TypedSettings(settings);
 	}
 
 	public String[][] getAlternativeShipping() {
-		String value = typedSettings.getValue("alternativeShipping", null);
+		String value = _typedSettings.getValue("alternativeShipping", null);
 
 		if (value == null) {
 			return new String[0][0];
@@ -116,7 +116,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getCcTypes() {
-		String[] ccTypes = typedSettings.getValues("ccTypes");
+		String[] ccTypes = _typedSettings.getValues("ccTypes");
 
 		if ((ccTypes.length == 1) && ccTypes[0].equals(CC_NONE)) {
 			return StringPool.EMPTY_ARRAY;
@@ -126,20 +126,20 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String getCurrencyId() {
-		return typedSettings.getValue("currencyId", "USD");
+		return _typedSettings.getValue("currencyId", "USD");
 	}
 
 	public String getEmailFromAddress() {
-		return typedSettings.getValue("emailFromAddress");
+		return _typedSettings.getValue("emailFromAddress");
 	}
 
 	public String getEmailFromName() {
-		return typedSettings.getValue("emailFromName");
+		return _typedSettings.getValue("emailFromName");
 	}
 
 	public LocalizedValuesMap getEmailOrderConfirmationBody() {
 		LocalizedValuesMap emailOrderConfirmationBody =
-			typedSettings.getLocalizedValuesMap("emailOrderConfirmationBody");
+			_typedSettings.getLocalizedValuesMap("emailOrderConfirmationBody");
 
 		return emailOrderConfirmationBody;
 	}
@@ -152,12 +152,12 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEmailOrderConfirmationEnabled() {
-		return typedSettings.getBooleanValue("emailOrderConfirmationEnabled");
+		return _typedSettings.getBooleanValue("emailOrderConfirmationEnabled");
 	}
 
 	public LocalizedValuesMap getEmailOrderConfirmationSubject() {
 		LocalizedValuesMap emailOrderConfirmationSubject =
-			typedSettings.getLocalizedValuesMap(
+			_typedSettings.getLocalizedValuesMap(
 				"emailOrderConfirmationSubject");
 
 		return emailOrderConfirmationSubject;
@@ -171,7 +171,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public LocalizedValuesMap getEmailOrderShippingBody() {
-		return typedSettings.getLocalizedValuesMap("emailOrderShippingBody");
+		return _typedSettings.getLocalizedValuesMap("emailOrderShippingBody");
 	}
 
 	public String getEmailOrderShippingBodyXml() {
@@ -182,11 +182,12 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public boolean getEmailOrderShippingEnabled() {
-		return typedSettings.getBooleanValue("emailOrderShippingEnabled");
+		return _typedSettings.getBooleanValue("emailOrderShippingEnabled");
 	}
 
 	public LocalizedValuesMap getEmailOrderShippingSubject() {
-		return typedSettings.getLocalizedValuesMap("emailOrderShippingSubject");
+		return _typedSettings.getLocalizedValuesMap(
+			"emailOrderShippingSubject");
 	}
 
 	public String getEmailOrderShippingSubjectXml() {
@@ -197,35 +198,35 @@ public class ShoppingSettings extends BaseServiceSettings {
 	}
 
 	public String[] getInsurance() {
-		return typedSettings.getValues("insurance");
+		return _typedSettings.getValues("insurance");
 	}
 
 	public String getInsuranceFormula() {
-		return typedSettings.getValue("insuranceFormula");
+		return _typedSettings.getValue("insuranceFormula");
 	}
 
 	public double getMinOrder() {
-		return typedSettings.getDoubleValue("minOrder");
+		return _typedSettings.getDoubleValue("minOrder");
 	}
 
 	public String getPayPalEmailAddress() {
-		return typedSettings.getValue("paypalEmailAddress");
+		return _typedSettings.getValue("paypalEmailAddress");
 	}
 
 	public String[] getShipping() {
-		return typedSettings.getValues("shipping");
+		return _typedSettings.getValues("shipping");
 	}
 
 	public String getShippingFormula() {
-		return typedSettings.getValue("shippingFormula");
+		return _typedSettings.getValue("shippingFormula");
 	}
 
 	public double getTaxRate() {
-		return typedSettings.getDoubleValue("taxRate");
+		return _typedSettings.getDoubleValue("taxRate");
 	}
 
 	public String getTaxState() {
-		return typedSettings.getValue("taxState");
+		return _typedSettings.getValue("taxState");
 	}
 
 	public boolean useAlternativeShipping() {
@@ -287,5 +288,7 @@ public class ShoppingSettings extends BaseServiceSettings {
 			"shippingFormula", PropsKeys.SHOPPING_SHIPPING_FORMULA);
 		_fallbackKeys.add("taxState", PropsKeys.SHOPPING_TAX_STATE);
 	}
+
+	private TypedSettings _typedSettings;
 
 }
