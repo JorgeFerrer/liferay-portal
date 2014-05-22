@@ -32,6 +32,31 @@ public class DLPortletInstanceSettings {
 		"mimeTypes"
 	};
 
+	public static FallbackKeys FALLBACK_KEYS = new FallbackKeys();
+
+	static {
+		FALLBACK_KEYS.add("displayViews", PropsKeys.DL_DISPLAY_VIEWS);
+		FALLBACK_KEYS.add(
+			"enableCommentRatings", PropsKeys.DL_COMMENT_RATINGS_ENABLED);
+		FALLBACK_KEYS.add("enableRatings", PropsKeys.DL_RATINGS_ENABLED);
+		FALLBACK_KEYS.add(
+			"enableRelatedAssets", PropsKeys.DL_RELATED_ASSETS_ENABLED);
+		FALLBACK_KEYS.add(
+			"entriesPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		FALLBACK_KEYS.add("entryColumns", PropsKeys.DL_ENTRY_COLUMNS);
+		FALLBACK_KEYS.add("fileEntryColumns", PropsKeys.DL_FILE_ENTRY_COLUMNS);
+		FALLBACK_KEYS.add("folderColumns", PropsKeys.DL_FOLDER_COLUMNS);
+		FALLBACK_KEYS.add(
+			"foldersPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		FALLBACK_KEYS.add(
+			"fileEntriesPerPage",
+			PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		FALLBACK_KEYS.add(
+			"showFoldersSearch", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
+		FALLBACK_KEYS.add(
+			"showSubfolders", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
+	}
+
 	public DLPortletInstanceSettings(Settings settings) {
 		_typedSettings = new TypedSettings(settings);
 	}
@@ -112,31 +137,6 @@ public class DLPortletInstanceSettings {
 
 	private static final String[] _MIME_TYPES_DEFAULT = ArrayUtil.toStringArray(
 		DLUtil.getAllMediaGalleryMimeTypes());
-
-	private static FallbackKeys _fallbackKeys = new FallbackKeys();
-
-	static {
-		_fallbackKeys.add("displayViews", PropsKeys.DL_DISPLAY_VIEWS);
-		_fallbackKeys.add(
-			"enableCommentRatings", PropsKeys.DL_COMMENT_RATINGS_ENABLED);
-		_fallbackKeys.add("enableRatings", PropsKeys.DL_RATINGS_ENABLED);
-		_fallbackKeys.add(
-			"enableRelatedAssets", PropsKeys.DL_RELATED_ASSETS_ENABLED);
-		_fallbackKeys.add(
-			"entriesPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		_fallbackKeys.add("entryColumns", PropsKeys.DL_ENTRY_COLUMNS);
-		_fallbackKeys.add("fileEntryColumns", PropsKeys.DL_FILE_ENTRY_COLUMNS);
-		_fallbackKeys.add("folderColumns", PropsKeys.DL_FOLDER_COLUMNS);
-		_fallbackKeys.add(
-			"foldersPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		_fallbackKeys.add(
-			"fileEntriesPerPage",
-			PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		_fallbackKeys.add(
-			"showFoldersSearch", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
-		_fallbackKeys.add(
-			"showSubfolders", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
-	}
 
 	private TypedSettings _typedSettings;
 

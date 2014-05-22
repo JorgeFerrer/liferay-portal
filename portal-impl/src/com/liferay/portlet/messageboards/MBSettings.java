@@ -29,6 +29,61 @@ import com.liferay.util.RSSUtil;
  */
 public class MBSettings {
 
+	public static FallbackKeys FALLBACK_KEYS = new FallbackKeys();
+
+	static {
+		FALLBACK_KEYS.add(
+			"allowAnonymousPosting",
+			PropsKeys.MESSAGE_BOARDS_ANONYMOUS_POSTING_ENABLED);
+		FALLBACK_KEYS.add(
+			"emailFromAddress", PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_ADDRESS,
+			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
+		FALLBACK_KEYS.add(
+			"emailFromName", PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_NAME,
+			PropsKeys.ADMIN_EMAIL_FROM_NAME);
+		FALLBACK_KEYS.add(
+			"emailHtmlFormat", PropsKeys.MESSAGE_BOARDS_EMAIL_HTML_FORMAT);
+		FALLBACK_KEYS.add(
+			"emailMessageAddedBody",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_BODY);
+		FALLBACK_KEYS.add(
+			"emailMessageAddedEnabled",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_ENABLED);
+		FALLBACK_KEYS.add(
+			"emailMessageAddedSubject",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT);
+		FALLBACK_KEYS.add(
+			"emailMessageUpdatedBody",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_BODY);
+		FALLBACK_KEYS.add(
+			"emailMessageUpdatedEnabled",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_ENABLED);
+		FALLBACK_KEYS.add(
+			"emailMessageUpdatedSubject",
+			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SUBJECT);
+		FALLBACK_KEYS.add(
+			"enableFlags", PropsKeys.MESSAGE_BOARDS_FLAGS_ENABLED);
+		FALLBACK_KEYS.add(
+			"enableRatings", PropsKeys.MESSAGE_BOARDS_RATINGS_ENABLED);
+		FALLBACK_KEYS.add("enableRss", PropsKeys.MESSAGE_BOARDS_RSS_ENABLED);
+		FALLBACK_KEYS.add(
+			"messageFormat", PropsKeys.MESSAGE_BOARDS_MESSAGE_FORMATS_DEFAULT);
+		FALLBACK_KEYS.add(
+			"priorities", PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES);
+		FALLBACK_KEYS.add("ranks", PropsKeys.MESSAGE_BOARDS_USER_RANKS);
+		FALLBACK_KEYS.add(
+			"recentPostsDateOffset",
+			PropsKeys.MESSAGE_BOARDS_RECENT_POSTS_DATE_OFFSET);
+		FALLBACK_KEYS.add(
+			"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		FALLBACK_KEYS.add(
+			"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT);
+		FALLBACK_KEYS.add("rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT);
+		FALLBACK_KEYS.add(
+			"subscribeByDefault",
+			PropsKeys.MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT);
+	}
+
 	public MBSettings(Settings settings) {
 		_typedSettings = new TypedSettings(settings);
 	}
@@ -161,61 +216,6 @@ public class MBSettings {
 
 	public boolean isThreadAsQuestionByDefault() {
 		return _typedSettings.getBooleanValue("threadAsQuestionByDefault");
-	}
-
-	private static FallbackKeys _fallbackKeys = new FallbackKeys();
-
-	static {
-		_fallbackKeys.add(
-			"allowAnonymousPosting",
-			PropsKeys.MESSAGE_BOARDS_ANONYMOUS_POSTING_ENABLED);
-		_fallbackKeys.add(
-			"emailFromAddress", PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_ADDRESS,
-			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
-		_fallbackKeys.add(
-			"emailFromName", PropsKeys.MESSAGE_BOARDS_EMAIL_FROM_NAME,
-			PropsKeys.ADMIN_EMAIL_FROM_NAME);
-		_fallbackKeys.add(
-			"emailHtmlFormat", PropsKeys.MESSAGE_BOARDS_EMAIL_HTML_FORMAT);
-		_fallbackKeys.add(
-			"emailMessageAddedBody",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_BODY);
-		_fallbackKeys.add(
-			"emailMessageAddedEnabled",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_ENABLED);
-		_fallbackKeys.add(
-			"emailMessageAddedSubject",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_ADDED_SUBJECT);
-		_fallbackKeys.add(
-			"emailMessageUpdatedBody",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_BODY);
-		_fallbackKeys.add(
-			"emailMessageUpdatedEnabled",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_ENABLED);
-		_fallbackKeys.add(
-			"emailMessageUpdatedSubject",
-			PropsKeys.MESSAGE_BOARDS_EMAIL_MESSAGE_UPDATED_SUBJECT);
-		_fallbackKeys.add(
-			"enableFlags", PropsKeys.MESSAGE_BOARDS_FLAGS_ENABLED);
-		_fallbackKeys.add(
-			"enableRatings", PropsKeys.MESSAGE_BOARDS_RATINGS_ENABLED);
-		_fallbackKeys.add("enableRss", PropsKeys.MESSAGE_BOARDS_RSS_ENABLED);
-		_fallbackKeys.add(
-			"messageFormat", PropsKeys.MESSAGE_BOARDS_MESSAGE_FORMATS_DEFAULT);
-		_fallbackKeys.add(
-			"priorities", PropsKeys.MESSAGE_BOARDS_THREAD_PRIORITIES);
-		_fallbackKeys.add("ranks", PropsKeys.MESSAGE_BOARDS_USER_RANKS);
-		_fallbackKeys.add(
-			"recentPostsDateOffset",
-			PropsKeys.MESSAGE_BOARDS_RECENT_POSTS_DATE_OFFSET);
-		_fallbackKeys.add(
-			"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		_fallbackKeys.add(
-			"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT);
-		_fallbackKeys.add("rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT);
-		_fallbackKeys.add(
-			"subscribeByDefault",
-			PropsKeys.MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT);
 	}
 
 	private TypedSettings _typedSettings;
