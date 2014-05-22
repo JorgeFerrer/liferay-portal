@@ -28,7 +28,7 @@ public abstract class BaseSettings implements Settings {
 	}
 
 	@Override
-	public final ModifiableSettings getModifiableSettings() {
+	public ModifiableSettings getModifiableSettings() {
 		if (this instanceof ModifiableSettings) {
 			return (ModifiableSettings)this;
 		}
@@ -41,12 +41,12 @@ public abstract class BaseSettings implements Settings {
 	}
 
 	@Override
-	public final Settings getParentSettings() {
+	public Settings getParentSettings() {
 		return parentSettings;
 	}
 
 	@Override
-	public final String getValue(String key, String defaultValue) {
+	public String getValue(String key, String defaultValue) {
 		if (key == null) {
 			throw new IllegalArgumentException("Key is null");
 		}
@@ -65,7 +65,7 @@ public abstract class BaseSettings implements Settings {
 	}
 
 	@Override
-	public final String[] getValues(String key, String[] defaultValue) {
+	public String[] getValues(String key, String[] defaultValue) {
 		if (key == null) {
 			throw new IllegalArgumentException("Key is null");
 		}
