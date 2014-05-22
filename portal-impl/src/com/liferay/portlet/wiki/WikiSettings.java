@@ -193,7 +193,7 @@ public class WikiSettings {
 	}
 
 	public void store() throws IOException, ValidatorException {
-		_typedSettings.store();
+		_typedSettings.getDecoratedSettings().store();
 	}
 
 	private TypedSettings _typedSettings;
