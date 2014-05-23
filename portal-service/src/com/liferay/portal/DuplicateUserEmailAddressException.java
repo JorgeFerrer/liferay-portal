@@ -25,16 +25,24 @@ public class DuplicateUserEmailAddressException extends PortalException {
 		super();
 	}
 
-	public DuplicateUserEmailAddressException(String msg) {
-		super(msg);
+	public DuplicateUserEmailAddressException(
+		String emailAddress, long userId) {
+
+		super("{emailAddress=" + emailAddress + ", userId=" + userId + "}");
+
+		_emailAddress= emailAddress;
+		_userId = userId;
 	}
 
-	public DuplicateUserEmailAddressException(String msg, Throwable cause) {
-		super(msg, cause);
+	public String getEmailAddress() {
+		return _emailAddress;
 	}
 
-	public DuplicateUserEmailAddressException(Throwable cause) {
-		super(cause);
+	public long getUserId() {
+		return _userId;
 	}
+
+	private String _emailAddress;
+	private long _userId;
 
 }

@@ -25,16 +25,22 @@ public class DuplicateUserScreenNameException extends PortalException {
 		super();
 	}
 
-	public DuplicateUserScreenNameException(String msg) {
-		super(msg);
+	public DuplicateUserScreenNameException(String screenName, long userId) {
+		super("{screenName=" + screenName + ", userId=" + userId + "}");
+
+		_screenName = screenName;
+		_userId = userId;
 	}
 
-	public DuplicateUserScreenNameException(String msg, Throwable cause) {
-		super(msg, cause);
+	public String getScreenName() {
+		return _screenName;
 	}
 
-	public DuplicateUserScreenNameException(Throwable cause) {
-		super(cause);
+	public long getUserId() {
+		return _userId;
 	}
+
+	private String _screenName;
+	private long _userId;
 
 }
