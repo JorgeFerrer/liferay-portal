@@ -1589,7 +1589,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 				userPersistence.update(user);
 
-				throw new PasswordExpiredException();
+				throw new PasswordExpiredException(user.getUserId());
 			}
 		}
 

@@ -25,16 +25,16 @@ public class PasswordExpiredException extends PortalException {
 		super();
 	}
 
-	public PasswordExpiredException(String msg) {
-		super(msg);
+	public PasswordExpiredException(long userId) {
+		super("{userId=" + userId + "}");
+
+		_userId = userId;
 	}
 
-	public PasswordExpiredException(String msg, Throwable cause) {
-		super(msg, cause);
+	public long getUserId() {
+		return _userId;
 	}
 
-	public PasswordExpiredException(Throwable cause) {
-		super(cause);
-	}
+	private long _userId;
 
 }
