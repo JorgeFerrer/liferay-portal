@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class ReservedUserScreenNameException extends PortalException {
 
+	@Deprecated
 	public ReservedUserScreenNameException() {
 		super();
 	}

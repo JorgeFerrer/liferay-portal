@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class DuplicateOpenIdException extends PortalException {
 
+	@Deprecated
 	public DuplicateOpenIdException() {
 		super();
 	}
