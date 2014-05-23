@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class PasswordExpiredException extends PortalException {
 
+	@Deprecated
 	public PasswordExpiredException() {
 		super();
 	}
