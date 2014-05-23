@@ -62,7 +62,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			long companyId, String serviceName)
 		throws SystemException {
 
-		return _wrap(serviceName, getCompanySettings(companyId, serviceName));
+		return applyFallbackKeys(
+			getCompanySettings(companyId, serviceName), serviceName);
 	}
 
 	@Override
@@ -70,17 +71,19 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			long companyId, String serviceName)
 		throws SystemException {
 
-		return _wrap(
-			serviceName,
+		return applyFallbackKeys(
 			new PortletPreferencesSettings(
-				getCompanyPortletPreferences(companyId, serviceName)));
+				getCompanyPortletPreferences(companyId, serviceName)),
+			serviceName
+		);
 	}
 
 	@Override
 	public Settings getGroupServiceSettings(long groupId, String serviceName)
 		throws PortalException, SystemException {
 
-		return _wrap(serviceName, getGroupSettings(groupId, serviceName));
+		return applyFallbackKeys(
+			getGroupSettings(groupId, serviceName), serviceName);
 	}
 
 	@Override
@@ -130,10 +133,11 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			long companyId, String portletId)
 		throws SystemException {
 
-		return _wrap(
-			PortletConstants.getRootPortletId(portletId),
+		return applyFallbackKeys(
 			new PortletPreferencesSettings(
-				getCompanyPortletPreferences(companyId, portletId)));
+				getCompanyPortletPreferences(companyId, portletId)),
+			PortletConstants.getRootPortletId(portletId)
+		);
 	}
 
 	@Override
@@ -143,22 +147,25 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
-		return _wrap(
-			PortletConstants.getRootPortletId(portletId),
+		return applyFallbackKeys(
 			new PortletPreferencesSettings(
 				getGroupPortletPreferences(
-					group.getCompanyId(), groupId, portletId)));
+					group.getCompanyId(), groupId, portletId)
+			),
+			PortletConstants.getRootPortletId(portletId)
+		);
 	}
 
 	@Override
 	public Settings getPortletInstanceSettings(Layout layout, String portletId)
 		throws PortalException, SystemException {
 
-		return _wrap(
-			PortletConstants.getRootPortletId(portletId),
+		return applyFallbackKeys(
 			new PortletPreferencesSettings(
 				getPortletInstancePortletPreferences(layout, portletId),
-				getGroupSettings(layout.getGroupId(), portletId)));
+				getGroupSettings(layout.getGroupId(), portletId)),
+			PortletConstants.getRootPortletId(portletId)
+		);
 	}
 
 	@Override
@@ -259,7 +266,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			portletId);
 	}
 
-	private Settings _wrap(String settingsId, Settings settings) {
+	protected Settings applyFallbackKeys(Settings settings, String settingsId) {
 		if (settings instanceof FallbackKeys) {
 			return settings;
 		}
