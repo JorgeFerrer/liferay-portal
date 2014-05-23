@@ -3685,7 +3685,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
 
 		if (Validator.isNull(emailAddress)) {
-			throw new UserEmailAddressException();
+			throw new UserEmailAddressException(
+				"emailAddress must not be null");
 		}
 
 		User user = userPersistence.findByC_EA(companyId, emailAddress);
@@ -5719,17 +5720,19 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (authType.equals(CompanyConstants.AUTH_TYPE_EA)) {
 			if (Validator.isNull(login)) {
-				throw new UserEmailAddressException();
+				throw new UserEmailAddressException(
+					"emailAddress must not be null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_SN)) {
 			if (Validator.isNull(login)) {
-				throw new UserScreenNameException();
+				throw new UserScreenNameException(
+					"screenName must not be null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_ID)) {
 			if (Validator.isNull(login)) {
-				throw new UserIdException();
+				throw new UserIdException("userId must not be null");
 			}
 		}
 
@@ -6475,14 +6478,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(firstName)) {
-			throw new ContactFirstNameException();
+			throw new ContactFirstNameException("firstName must not be null");
 		}
 		else if (Validator.isNull(lastName) &&
 				 PrefsPropsUtil.getBoolean(
 					 companyId, PropsKeys.USERS_LAST_NAME_REQUIRED,
 					 PropsValues.USERS_LAST_NAME_REQUIRED)) {
 
-			throw new ContactLastNameException();
+			throw new ContactLastNameException(
+				"lastName must not be null, but the portal property " +
+					PropsValues.USERS_LAST_NAME_REQUIRED + " is enabled");
 		}
 
 		FullNameValidator fullNameValidator =
@@ -6538,11 +6543,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (Validator.isNull(question)) {
-			throw new UserReminderQueryException("Question is null");
+			throw new UserReminderQueryException("Question must not be null");
 		}
 
 		if (Validator.isNull(answer)) {
-			throw new UserReminderQueryException("Answer is null");
+			throw new UserReminderQueryException("Answer must not be null");
 		}
 	}
 
@@ -6551,7 +6556,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException();
+			throw new UserScreenNameException("screenName must not be null");
 		}
 
 		ScreenNameValidator screenNameValidator =
