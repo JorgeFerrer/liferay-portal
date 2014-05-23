@@ -86,6 +86,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowException;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
 import com.liferay.portal.model.Account;
@@ -4411,7 +4412,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = getUserByEmailAddress(companyId, emailAddress);
 
 		if (user.getStatus() != WorkflowConstants.STATUS_INCOMPLETE) {
-			throw new PortalException("Invalid user status");
+			throw new WorkflowException(
+				"Invalid status {status=" + user.getStatus() + "}");
 		}
 
 		User defaultUser = getDefaultUser(companyId);
