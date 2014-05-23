@@ -1843,7 +1843,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	@Override
 	public User deleteUser(User user) throws PortalException, SystemException {
 		if (!PropsValues.USERS_DELETE) {
-			throw new RequiredUserException();
+			throw new RequiredUserException(user.getUserId());
 		}
 
 		// Browser tracker
