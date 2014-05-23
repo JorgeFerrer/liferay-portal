@@ -1476,7 +1476,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (user.isLockout()) {
-			throw new UserLockoutException();
+			throw new UserLockoutException(user.getUserId());
 		}
 	}
 
