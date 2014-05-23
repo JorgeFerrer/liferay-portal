@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class DuplicateUserEmailAddressException extends PortalException {
 
+	@Deprecated
 	public DuplicateUserEmailAddressException() {
 		super();
 	}
