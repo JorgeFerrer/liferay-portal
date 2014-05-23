@@ -25,16 +25,14 @@ public class ReservedUserEmailAddressException extends PortalException {
 		super();
 	}
 
-	public ReservedUserEmailAddressException(String msg) {
-		super(msg);
+	public ReservedUserEmailAddressException(String emailAddress) {
+		super("{emailAddress=" + emailAddress + "}");
 	}
 
-	public ReservedUserEmailAddressException(String msg, Throwable cause) {
-		super(msg, cause);
+	public String getEmailAddress() {
+		return _emailAddress;
 	}
 
-	public ReservedUserEmailAddressException(Throwable cause) {
-		super(cause);
-	}
+	private String _emailAddress;
 
 }
