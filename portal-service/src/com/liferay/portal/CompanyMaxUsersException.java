@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class CompanyMaxUsersException extends PortalException {
 
+	@Deprecated
 	public CompanyMaxUsersException() {
 		super();
 	}
