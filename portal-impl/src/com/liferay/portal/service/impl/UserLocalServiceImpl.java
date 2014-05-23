@@ -6489,7 +6489,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			companyId, null, WorkflowConstants.STATUS_APPROVED, null);
 
 		if (userCount >= company.getMaxUsers()) {
-			throw new CompanyMaxUsersException();
+			throw new CompanyMaxUsersException(company.getMaxUsers());
 		}
 	}
 

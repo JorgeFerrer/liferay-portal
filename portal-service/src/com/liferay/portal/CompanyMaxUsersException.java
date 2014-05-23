@@ -25,16 +25,16 @@ public class CompanyMaxUsersException extends PortalException {
 		super();
 	}
 
-	public CompanyMaxUsersException(String msg) {
-		super(msg);
+	public CompanyMaxUsersException(int maxUsers) {
+		super("{maxUsers=" + maxUsers + "}");
+
+		_maxUsers = maxUsers;
 	}
 
-	public CompanyMaxUsersException(String msg, Throwable cause) {
-		super(msg, cause);
+	public int getMaxUsers() {
+		return _maxUsers;
 	}
 
-	public CompanyMaxUsersException(Throwable cause) {
-		super(cause);
-	}
+	private int _maxUsers;
 
 }
