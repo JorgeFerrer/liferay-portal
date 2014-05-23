@@ -26,16 +26,16 @@ public class RequiredUserException extends PortalException {
 		super();
 	}
 
-	public RequiredUserException(String msg) {
-		super(msg);
+	public RequiredUserException(long userId) {
+		super("{userId=" + userId + "}");
+
+		_userId = userId;
 	}
 
-	public RequiredUserException(String msg, Throwable cause) {
-		super(msg, cause);
+	public long getUserId() {
+		return _userId;
 	}
 
-	public RequiredUserException(Throwable cause) {
-		super(cause);
-	}
+	private long _userId;
 
 }
