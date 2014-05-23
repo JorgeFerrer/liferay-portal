@@ -6094,7 +6094,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Date now = new Date();
 
 		if (birthday.after(now)) {
-			throw new ContactBirthdayException();
+			throw new ContactBirthdayException(
+				birthday + " must not be after " + now);
 		}
 
 		return birthday;
@@ -6470,7 +6471,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (Validator.isNotNull(smsSn) && !Validator.isEmailAddress(smsSn)) {
-			throw new UserSmsException();
+			throw new UserSmsException(
+				"{smsSn=" + smsSn + "} is not a valid email address");
 		}
 	}
 
@@ -6504,7 +6506,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			EmailAddressValidatorFactory.getInstance();
 
 		if (!emailAddressValidator.validate(companyId, emailAddress)) {
-			throw new UserEmailAddressException();
+			throw new UserEmailAddressException(
+				"{emailAddress=" + emailAddress + "} is not valid using " +
+					"validator " + emailAddressValidator.getClass().getName());
 		}
 
 		String pop3User = PrefsPropsUtil.getString(
@@ -6533,7 +6537,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (!emailAddress1.equals(emailAddress2)) {
-			throw new UserEmailAddressException();
+			throw new UserEmailAddressException(
+				"emailAddress1 does not match emailAddress2");
 		}
 
 		validateEmailAddress(user.getCompanyId(), emailAddress1);
@@ -6575,7 +6580,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (!fullNameValidator.validate(
 				companyId, firstName, middleName, lastName)) {
 
-			throw new ContactFullNameException();
+			throw new ContactFullNameException(
+				"{firstName=" + firstName + ", middleName=" + middleName +
+					", lastName=" + lastName + "} is not valid using " +
+						"validator " + fullNameValidator.getClass().getName());
 		}
 	}
 
@@ -6642,12 +6650,20 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			ScreenNameValidatorFactory.getInstance();
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
-			throw new UserScreenNameException();
+			throw new UserScreenNameException(
+				"{screenName=" + screenName + "} is not valid using " +
+					"validator " + screenNameValidator.getClass().getName());
 		}
+
+		String friendlyURL = StringPool.SLASH + screenName;
 
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
-				throw new UserScreenNameException();
+				throw new UserScreenNameException(
+					"{screenName=" + screenName + "} is numeric but the " +
+						"portal property " +
+							PropsKeys.USERS_SCREEN_NAME_ALLOW_NUMERIC +
+								" is enabled");
 			}
 
 			if (!screenName.equals(String.valueOf(userId))) {
@@ -6655,7 +6671,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 					GetterUtil.getLong(screenName));
 
 				if (group != null) {
-					throw new UserScreenNameException();
+					GroupFriendlyURLException gfurle =
+						new GroupFriendlyURLException(
+							GroupFriendlyURLException.DUPLICATE);
+
+					gfurle.setDuplicateClassPK(group.getGroupId());
+					gfurle.setDuplicateClassName(Group.class.getName());
+
+					throw new UserScreenNameException(
+						"{friendlyURL=" + friendlyURL + "} already exists " +
+							"{groupId=" + group.getGroupId() + "}", gfurle);
 				}
 			}
 		}
@@ -6665,7 +6690,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				(c != CharPool.DASH) && (c != CharPool.PERIOD) &&
 				(c != CharPool.UNDERLINE)) {
 
-				throw new UserScreenNameException();
+				throw new UserScreenNameException(
+					"{screenName=" + screenName + "} may not contain " + c);
 			}
 		}
 
@@ -6684,8 +6710,6 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				"{userId=" + userId + "}");
 		}
 
-		String friendlyURL = StringPool.SLASH + screenName;
-
 		Group group = groupPersistence.fetchByC_F(companyId, friendlyURL);
 
 		if ((group != null) && (group.getClassPK() != userId)) {
@@ -6695,14 +6719,19 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			gfurle.setDuplicateClassPK(group.getGroupId());
 			gfurle.setDuplicateClassName(Group.class.getName());
 
-			throw gfurle;
+			throw new UserScreenNameException(
+				"{friendlyURL=" + friendlyURL + "} already exists " +
+					"{groupId=" + group.getGroupId() + "}", gfurle);
 		}
 
 		int exceptionType = LayoutImpl.validateFriendlyURL(friendlyURL);
 
 		if (exceptionType != -1) {
+			GroupFriendlyURLException gfurle = new GroupFriendlyURLException(
+				exceptionType);
+
 			throw new UserScreenNameException(
-				new GroupFriendlyURLException(exceptionType));
+				"{friendlyURL=" + friendlyURL + "} is invalid", gfurle);
 		}
 
 		String[] reservedScreenNames = PrefsPropsUtil.getStringArray(
