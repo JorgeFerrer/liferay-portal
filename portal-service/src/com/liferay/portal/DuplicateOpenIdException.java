@@ -27,7 +27,9 @@ public class DuplicateOpenIdException extends PortalException {
 	}
 
 	public DuplicateOpenIdException(String openId, long userId) {
-		super("{openId=" + openId + ", userId=" + userId + "}");
+		super(
+			"The openId " + openId + " is already being used by user " +
+				userId);
 
 		_openId = openId;
 		_userId = userId;
