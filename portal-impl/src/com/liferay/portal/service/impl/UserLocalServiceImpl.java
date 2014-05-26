@@ -6335,7 +6335,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 			if ((user != null) && (user.getUserId() != userId)) {
 				throw new DuplicateUserEmailAddressException(
-					emailAddress, userId);
+					emailAddress, user.getUserId());
 			}
 		}
 
@@ -6376,11 +6376,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				!StringUtil.equalsIgnoreCase(
 					user.getEmailAddress(), emailAddress)) {
 
-				if (userPersistence.fetchByC_EA(
-						user.getCompanyId(), emailAddress) != null) {
+				User existingUser = userPersistence.fetchByC_EA(
+					user.getCompanyId(), emailAddress);
 
+				if (existingUser != null) {
 					throw new DuplicateUserEmailAddressException(
-						emailAddress, userId);
+						emailAddress, existingUser.getUserId());
 				}
 			}
 
@@ -6466,7 +6467,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				emailAddress1, user.getEmailAddress())) {
 
 			User existingUser = userPersistence.fetchByC_EA(
-					user.getCompanyId(), emailAddress1);
+				user.getCompanyId(), emailAddress1);
 
 			if (existingUser != null) {
 				throw new DuplicateUserEmailAddressException(
@@ -6516,7 +6517,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = userPersistence.fetchByC_O(companyId, openId);
 
 		if ((user != null) && (user.getUserId() != userId)) {
-			throw new DuplicateOpenIdException(openId, userId);
+			throw new DuplicateOpenIdException(openId, user.getUserId());
 		}
 	}
 
@@ -6625,7 +6626,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = userPersistence.fetchByC_SN(companyId, screenName);
 
 		if ((user != null) && (user.getUserId() != userId)) {
-			throw new DuplicateUserScreenNameException(screenName, userId);
+			throw new DuplicateUserScreenNameException(
+				screenName, user.getUserId());
 		}
 
 		Group group = groupPersistence.fetchByC_F(companyId, friendlyURL);
