@@ -35,22 +35,18 @@ import javax.portlet.ValidatorException;
  * @author Jorge Ferrer
  * @author Iván Zaera
  */
-public class PortletPreferencesSettings extends BaseSettings {
+public class PortletPreferencesSettings extends BaseModifiableSettings {
 
 	public PortletPreferencesSettings(PortletPreferences portletPreferences) {
 		this(portletPreferences, null);
 	}
 
 	public PortletPreferencesSettings(
-		PortletPreferences portletPreferences, Settings defaultSettings) {
+		PortletPreferences portletPreferences, Settings parentSettings) {
+
+		super(parentSettings);
 
 		_portletPreferences = portletPreferences;
-		_defaultSettings = defaultSettings;
-	}
-
-	@Override
-	public Settings getDefaultSettings() {
-		return _defaultSettings;
 	}
 
 	@Override
@@ -74,8 +70,8 @@ public class PortletPreferencesSettings extends BaseSettings {
 	public String getValue(String key, String defaultValue) {
 		String value = normalizeValue(_portletPreferences.getValue(key, null));
 
-		if (isNull(value) && (_defaultSettings != null)) {
-			value = _defaultSettings.getValue(key, defaultValue);
+		if (isNull(value) && (parentSettings != null)) {
+			value = parentSettings.getValue(key, defaultValue);
 		}
 
 		if (isNull(value)) {
@@ -90,8 +86,8 @@ public class PortletPreferencesSettings extends BaseSettings {
 		String[] values = normalizeValues(
 			_portletPreferences.getValues(key, null));
 
-		if (ArrayUtil.isEmpty(values) && (_defaultSettings != null)) {
-			values = _defaultSettings.getValues(key, defaultValue);
+		if (ArrayUtil.isEmpty(values) && (parentSettings != null)) {
+			values = parentSettings.getValues(key, defaultValue);
 		}
 
 		if (ArrayUtil.isEmpty(values)) {
@@ -115,7 +111,7 @@ public class PortletPreferencesSettings extends BaseSettings {
 	}
 
 	@Override
-	public Settings setValue(String key, String value) {
+	public ModifiableSettings setValue(String key, String value) {
 		try {
 			_portletPreferences.setValue(key, value);
 		}
@@ -130,7 +126,7 @@ public class PortletPreferencesSettings extends BaseSettings {
 	}
 
 	@Override
-	public Settings setValues(String key, String[] values) {
+	public ModifiableSettings setValues(String key, String[] values) {
 		try {
 			_portletPreferences.setValues(key, values);
 		}
@@ -194,7 +190,6 @@ public class PortletPreferencesSettings extends BaseSettings {
 	private static Log _log = LogFactoryUtil.getLog(
 		PortletPreferencesSettings.class);
 
-	private Settings _defaultSettings;
 	private PortletPreferences _portletPreferences;
 
 }
