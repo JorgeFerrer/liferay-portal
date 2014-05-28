@@ -16,7 +16,6 @@ package com.liferay.portal.kernel.settings;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -67,37 +66,6 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = normalizeValue(_portletPreferences.getValue(key, null));
-
-		if (isNull(value) && (parentSettings != null)) {
-			value = parentSettings.getValue(key, defaultValue);
-		}
-
-		if (isNull(value)) {
-			value = defaultValue;
-		}
-
-		return value;
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		String[] values = normalizeValues(
-			_portletPreferences.getValues(key, null));
-
-		if (ArrayUtil.isEmpty(values) && (parentSettings != null)) {
-			values = parentSettings.getValues(key, defaultValue);
-		}
-
-		if (ArrayUtil.isEmpty(values)) {
-			values = defaultValue;
-		}
-
-		return normalizeValues(values);
-	}
-
-	@Override
 	public void reset(String key) {
 		try {
 			_portletPreferences.reset(key);
@@ -143,6 +111,16 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	@Override
 	public void store() throws IOException, ValidatorException {
 		_portletPreferences.store();
+	}
+
+	@Override
+	protected String doGetValue(String key) {
+		return normalizeValue(_portletPreferences.getValue(key, null));
+	}
+
+	@Override
+	protected String[] doGetValues(String key) {
+		return normalizeValues(_portletPreferences.getValues(key, null));
 	}
 
 	protected boolean isNull(String value) {

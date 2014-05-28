@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.BaseModifiableSettings;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
@@ -84,20 +83,6 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		Settings settings = _getSettings();
-
-		return settings.getValue(key, defaultValue);
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		ModifiableSettings settings = getModifiableSettings();
-
-		return settings.getValues(key, defaultValue);
-	}
-
-	@Override
 	public void reset(String key) {
 		ModifiableSettings settings = getModifiableSettings();
 
@@ -129,7 +114,21 @@ public class ArchivedSettingsImpl
 		settings.store();
 	}
 
-	private Settings _getSettings() {
+	@Override
+	protected String doGetValue(String key) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
+
+		return modifiableSettings.getValue(key, null);
+	}
+
+	@Override
+	protected String[] doGetValues(String key) {
+		ModifiableSettings modifiableSettings = _getModifiableSettings();
+
+		return modifiableSettings.getValues(key, null);
+	}
+
+	private ModifiableSettings _getModifiableSettings() {
 		if (_portletPreferencesSettings != null) {
 			return _portletPreferencesSettings;
 		}

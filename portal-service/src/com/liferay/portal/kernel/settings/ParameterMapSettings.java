@@ -36,25 +36,31 @@ public class ParameterMapSettings extends BaseSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		String[] values = getParameterValue(key);
+	protected String doGetValue(String key) {
+		String[] values = doGetValues(key);
 
-		if (values != null) {
-			return values[0];
+		if (values == null) {
+			return null;
 		}
 
-		return parentSettings.getValue(key, defaultValue);
+		return values[0];
 	}
 
 	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		String[] values = getParameterValue(key);
+	protected String[] doGetValues(String key) {
+		String[] values = _parameterMap.get(key);
 
-		if (values != null) {
-			return values;
+		if (values == null) {
+			values = _parameterMap.get(
+				PREFERENCES_PREFIX + key + StringPool.DOUBLE_DASH);
 		}
 
-		return parentSettings.getValues(key, defaultValue);
+		if (values == null) {
+			values = _parameterMap.get(
+				SETTINGS_PREFIX + key + StringPool.DOUBLE_DASH);
+		}
+
+		return values;
 	}
 
 	private Map<String, String[]> _parameterMap;

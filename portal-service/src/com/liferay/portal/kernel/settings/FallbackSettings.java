@@ -28,11 +28,7 @@ public class FallbackSettings extends BaseSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		if (key == null) {
-			throw new IllegalArgumentException("Key is null");
-		}
-
+	protected String doGetValue(String key) {
 		String value = parentSettings.getValue(key, null);
 
 		if (value != null) {
@@ -49,15 +45,11 @@ public class FallbackSettings extends BaseSettings {
 			}
 		}
 
-		return defaultValue;
+		return null;
 	}
 
 	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		if (key == null) {
-			throw new IllegalArgumentException("Key is null");
-		}
-
+	protected String[] doGetValues(String key) {
 		String[] values = parentSettings.getValues(key, null);
 
 		if (values != null) {
@@ -74,7 +66,7 @@ public class FallbackSettings extends BaseSettings {
 			}
 		}
 
-		return defaultValue;
+		return null;
 	}
 
 	private FallbackKeys _fallbackKeys;

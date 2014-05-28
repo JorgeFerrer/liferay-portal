@@ -58,6 +58,45 @@ public class BaseSettingsTest extends PowerMockito {
 		Assert.assertSame(_parentSettings, _baseSettings.getParentSettings());
 	}
 
+	@Test
+	public void testGetValueReturnsDefaultWhenValueAndParentNotSet() {
+		Assert.assertEquals(
+			_DEFAULT_VALUE, _baseSettings.getValue(_KEY, _DEFAULT_VALUE));
+	}
+
+	@Test
+	public void testGetValueReturnsParentValueWhenValueNotSet() {
+		_parentSettings.setValue(_KEY, _VALUE);
+
+		Assert.assertEquals(
+			_VALUE, _baseSettings.getValue(_KEY, _DEFAULT_VALUE));
+	}
+
+	@Test
+	public void testGetValuesReturnsDefaultWhenValuesAndParentNotSet() {
+		Assert.assertArrayEquals(
+			_DEFAULT_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
+	}
+
+	@Test
+	public void testGetValuesReturnsParentValuesWhenValuesNotSet() {
+		_parentSettings.setValues(_KEY, _VALUES);
+
+		Assert.assertArrayEquals(
+			_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
+	}
+
+	private static final String _DEFAULT_VALUE = "defaultValue";
+
+	private static final String[] _DEFAULT_VALUES = {
+		"defaultValue0", "defaultValue1"};
+
+	private static final String _KEY = "key";
+
+	private static final String _VALUE = "value";
+
+	private static final String[] _VALUES = {"value0", "value1"};
+
 	private BaseSettings _baseSettings;
 	private MemorySettings _parentSettings;
 
