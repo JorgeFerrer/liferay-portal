@@ -22,11 +22,14 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-public class MemorySettings extends BaseSettings {
+public class MemorySettings extends BaseModifiableSettings {
 
-	@Override
-	public Settings getDefaultSettings() {
-		return null;
+	public MemorySettings() {
+		this(null);
+	}
+
+	public MemorySettings(Settings parentSettings) {
+		super(parentSettings);
 	}
 
 	@Override
@@ -62,14 +65,14 @@ public class MemorySettings extends BaseSettings {
 	}
 
 	@Override
-	public Settings setValue(String key, String value) {
+	public ModifiableSettings setValue(String key, String value) {
 		_map.put(key, new String[] { value });
 
 		return this;
 	}
 
 	@Override
-	public Settings setValues(String key, String[] values) {
+	public ModifiableSettings setValues(String key, String[] values) {
 		_map.put(key, values);
 
 		return this;
