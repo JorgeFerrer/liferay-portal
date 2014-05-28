@@ -14,7 +14,7 @@
 
 package com.liferay.portal.kernel.settings;
 
-import java.util.Collection;
+import java.util.Collections;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,40 +26,39 @@ import org.powermock.api.mockito.PowerMockito;
  */
 public class BaseSettingsTest extends PowerMockito {
 
-	@Test
-	public void testReset() {
-		Settings settings = new MemorySettings();
-
-		settings.setValue("key1", "value2");
-		settings.setValue("key2", "value2");
-
-		settings.reset();
-
-		Collection<String> keys = settings.getKeys();
-
-		Assert.assertEquals(0, keys.size());
+	public BaseSettingsTest() {
+		_parentSettings = new MemorySettings();
+		_baseSettings = new MemorySettings(_parentSettings);
 	}
 
 	@Test
-	public void testSetValues() {
-		Settings sourceSettings = new MemorySettings();
+	public void testGetModifiableSettingsForModifiableBaseSettings() {
+		BaseSettings modifiableBaseSettings = new MemorySettings();
 
-		sourceSettings.setValue("key1", "value1");
-		sourceSettings.setValue("key2", "value2");
-
-		Settings targetSettings = new MemorySettings();
-
-		targetSettings.setValue("otherKey", "otherValue");
-
-		sourceSettings.setValues(targetSettings);
-
-		Collection<String> keys = sourceSettings.getKeys();
-
-		Assert.assertEquals(3, keys.size());
-		Assert.assertEquals(
-			"otherValue", sourceSettings.getValue("otherKey", null));
-		Assert.assertEquals("value1", sourceSettings.getValue("key1", null));
-		Assert.assertEquals("value2", sourceSettings.getValue("key2", null));
+		Assert.assertTrue(modifiableBaseSettings instanceof ModifiableSettings);
+		Assert.assertSame(
+			modifiableBaseSettings,
+			modifiableBaseSettings.getModifiableSettings());
 	}
+
+	@Test
+	public void testGetModifiableSettingsForUnmodifiableBaseSettings() {
+		ModifiableSettings parentSettings = new MemorySettings();
+		BaseSettings unmodifiableBaseSettings = new ParameterMapSettings(
+			Collections.<String, String[]> emptyMap(), parentSettings);
+
+		Assert.assertFalse(
+			unmodifiableBaseSettings instanceof ModifiableSettings);
+		Assert.assertSame(
+			parentSettings, unmodifiableBaseSettings.getModifiableSettings());
+	}
+
+	@Test
+	public void testGetParentSettings() {
+		Assert.assertSame(_parentSettings, _baseSettings.getParentSettings());
+	}
+
+	private BaseSettings _baseSettings;
+	private MemorySettings _parentSettings;
 
 }
