@@ -14,6 +14,9 @@
 
 package com.liferay.portal.kernel.settings;
 
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.Validator;
+
 /**
  * @author Brian Wing Shun Chan
  * @author Iván Zaera
@@ -25,7 +28,7 @@ public abstract class BaseSettings implements Settings {
 	}
 
 	@Override
-	public final ModifiableSettings getModifiableSettings() {
+	public ModifiableSettings getModifiableSettings() {
 		if (this instanceof ModifiableSettings) {
 			return (ModifiableSettings)this;
 		}
@@ -38,9 +41,51 @@ public abstract class BaseSettings implements Settings {
 	}
 
 	@Override
-	public final Settings getParentSettings() {
+	public Settings getParentSettings() {
 		return parentSettings;
 	}
+
+	@Override
+	public String getValue(String key, String defaultValue) {
+		if (key == null) {
+			throw new IllegalArgumentException("Key is null");
+		}
+
+		String value = doGetValue(key);
+
+		if (Validator.isNull(value) && (parentSettings != null)) {
+			value = parentSettings.getValue(key, defaultValue);
+		}
+
+		if (Validator.isNull(value)) {
+			value = defaultValue;
+		}
+
+		return value;
+	}
+
+	@Override
+	public String[] getValues(String key, String[] defaultValue) {
+		if (key == null) {
+			throw new IllegalArgumentException("Key is null");
+		}
+
+		String[] values = doGetValues(key);
+
+		if (ArrayUtil.isEmpty(values) && (parentSettings != null)) {
+			values = parentSettings.getValues(key, defaultValue);
+		}
+
+		if (ArrayUtil.isEmpty(values)) {
+			values = defaultValue;
+		}
+
+		return values;
+	}
+
+	protected abstract String doGetValue(String key);
+
+	protected abstract String[] doGetValues(String key);
 
 	protected Settings parentSettings;
 
