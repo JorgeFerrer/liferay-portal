@@ -25,7 +25,7 @@ List<Role> roles = (List<Role>)request.getAttribute("user.roles");
 List<UserGroupRole> organizationRoles = (List<UserGroupRole>)request.getAttribute("user.organizationRoles");
 List<UserGroupRole> siteRoles = (List<UserGroupRole>)request.getAttribute("user.siteRoles");
 List<UserGroupGroupRole> inheritedSiteRoles = (List<UserGroupGroupRole>)request.getAttribute("user.inheritedSiteRoles");
-List<Group> allGroups = (List<Group>)request.getAttribute("user.allGroups");
+List<Group> roleGroups = (List<Group>)request.getAttribute("user.roleGroups");
 
 List<UserGroupRole> userGroupRoles = new ArrayList<UserGroupRole>();
 
@@ -123,16 +123,6 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 </c:if>
 
 <h3><liferay-ui:message key="inherited-regular-roles" /></h3>
-
-<%
-List<Group> roleGroups = new ArrayList<Group>();
-
-for (Group group : allGroups) {
-	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
-		roleGroups.add(group);
-	}
-}
-%>
 
 <c:if test="<%= roleGroups.isEmpty() %>">
 	<liferay-ui:message key="this-user-does-not-have-any-inherited-regular-roles" />

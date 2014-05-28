@@ -150,13 +150,33 @@ if (!organizations.isEmpty()) {
 	}
 }
 
-List<Group> allGroups = new ArrayList<Group>();
+List<Group> roleGroups = new ArrayList<Group>();
 
-allGroups.addAll(groups);
-allGroups.addAll(inheritedSites);
-allGroups.addAll(organizationsRelatedGroups);
-allGroups.addAll(GroupLocalServiceUtil.getOrganizationsGroups(organizations));
-allGroups.addAll(GroupLocalServiceUtil.getUserGroupsGroups(userGroups));
+for (Group group : groups) {
+	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
+		roleGroups.add(group);
+	}
+}
+for (Group group : inheritedSites) {
+	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
+		roleGroups.add(group);
+	}
+}
+for (Group group : organizationsRelatedGroups) {
+	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
+		roleGroups.add(group);
+	}
+}
+for (Organization organization : organizations) {
+	if (RoleLocalServiceUtil.hasGroupRoles(organization.getGroupId())) {
+		roleGroups.add(organization.getGroup());
+	}
+}
+for (UserGroup userGroup : userGroups) {
+	if (RoleLocalServiceUtil.hasGroupRoles(userGroup.getGroupId())) {
+		roleGroups.add(userGroup.getGroup());
+	}
+}
 
 String[] mainSections = PropsValues.USERS_FORM_ADD_MAIN;
 String[] identificationSections = PropsValues.USERS_FORM_ADD_IDENTIFICATION;
@@ -235,8 +255,8 @@ if (selUser != null) {
 	request.setAttribute("user.organizationRoles", organizationRoles);
 	request.setAttribute("user.siteRoles", siteRoles);
 	request.setAttribute("user.inheritedSiteRoles", inheritedSiteRoles);
+	request.setAttribute("user.roleGroups", roleGroups);
 	request.setAttribute("user.userGroups", userGroups);
-	request.setAttribute("user.allGroups", allGroups);
 
 	request.setAttribute("addresses.className", Contact.class.getName());
 	request.setAttribute("emailAddresses.className", Contact.class.getName());
