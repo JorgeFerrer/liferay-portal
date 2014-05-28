@@ -15,10 +15,8 @@
 package com.liferay.portal.settings;
 
 import com.liferay.portal.kernel.settings.BaseSettings;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.util.ContentUtil;
 
 import java.util.Properties;
@@ -36,25 +34,19 @@ public class PropertiesSettings extends BaseSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = getProperty(key);
+	protected String doGetValue(String key) {
+		String value = _properties.getProperty(key);
 
-		if (Validator.isNotNull(value)) {
-			return value;
+		if (isLocationVariable("resource", value)) {
+			return ContentUtil.get(getLocation("resource", value));
 		}
 
-		return defaultValue;
+		return value;
 	}
 
 	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		String[] values = StringUtil.split(getProperty(key));
-
-		if (ArrayUtil.isNotEmpty(values)) {
-			return values;
-		}
-
-		return defaultValue;
+	protected String[] doGetValues(String key) {
+		return StringUtil.split(doGetValue(key));
 	}
 
 	protected String getProperty(String key) {

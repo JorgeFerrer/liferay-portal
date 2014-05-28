@@ -38,28 +38,6 @@ public class MemorySettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
-		String[] values = _map.get(key);
-
-		if (values == null) {
-			return defaultValue;
-		}
-
-		return values[0];
-	}
-
-	@Override
-	public String[] getValues(String key, String[] defaultValue) {
-		String[] values = _map.get(key);
-
-		if (values == null) {
-			return defaultValue;
-		}
-
-		return values;
-	}
-
-	@Override
 	public void reset(String key) {
 		_map.remove(key);
 	}
@@ -80,6 +58,22 @@ public class MemorySettings extends BaseModifiableSettings {
 
 	@Override
 	public void store() {
+	}
+
+	@Override
+	protected String doGetValue(String key) {
+		String[] values = doGetValues(key);
+
+		if (values == null) {
+			return null;
+		}
+
+		return values[0];
+	}
+
+	@Override
+	protected String[] doGetValues(String key) {
+		return _map.get(key);
 	}
 
 	private Map<String, String[]> _map = new HashMap<String, String[]>();
