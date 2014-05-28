@@ -57,22 +57,6 @@ public class ParameterMapSettings extends BaseSettings {
 		return parentSettings.getValues(key, defaultValue);
 	}
 
-	protected String[] getParameterValue(String key) {
-		String[] values = _parameterMap.get(key);
-
-		if (values == null) {
-			values = _parameterMap.get(
-				PREFERENCES_PREFIX + key + StringPool.DOUBLE_DASH);
-		}
-
-		if (values == null) {
-			values = _parameterMap.get(
-				SETTINGS_PREFIX + key + StringPool.DOUBLE_DASH);
-		}
-
-		return values;
-	}
-
 	private Map<String, String[]> _parameterMap;
 
 }
