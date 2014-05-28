@@ -14,34 +14,29 @@
 
 package com.liferay.portal.kernel.settings;
 
+import java.io.IOException;
+
+import java.util.Collection;
+
+import javax.portlet.ValidatorException;
+
 /**
- * @author Brian Wing Shun Chan
  * @author Iván Zaera
  */
-public abstract class BaseSettings implements Settings {
+public interface ModifiableSettings extends Settings {
 
-	public BaseSettings(Settings parentSettings) {
-		this.parentSettings = parentSettings;
-	}
+	public Collection<String> getKeys();
 
-	@Override
-	public final ModifiableSettings getModifiableSettings() {
-		if (this instanceof ModifiableSettings) {
-			return (ModifiableSettings)this;
-		}
-		else if (parentSettings == null) {
-			return null;
-		}
-		else {
-			return parentSettings.getModifiableSettings();
-		}
-	}
+	public void reset();
 
-	@Override
-	public final Settings getParentSettings() {
-		return parentSettings;
-	}
+	public void reset(String key);
 
-	protected Settings parentSettings;
+	public ModifiableSettings setValue(String key, String value);
+
+	public ModifiableSettings setValues(ModifiableSettings settings);
+
+	public ModifiableSettings setValues(String key, String[] values);
+
+	public void store() throws IOException, ValidatorException;
 
 }
