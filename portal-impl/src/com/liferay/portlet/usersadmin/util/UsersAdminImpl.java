@@ -907,7 +907,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public List<UserGroupRole> getUserGroupRoles(
-			PortletRequest portletRequest, boolean add)
+			PortletRequest portletRequest, boolean isAddUserGroupRole)
 		throws PortalException, SystemException {
 
 		List<UserGroupRole> userGroupRoles = new UniqueList<UserGroupRole>();
@@ -915,10 +915,11 @@ public class UsersAdminImpl implements UsersAdmin {
 		long[] groupRolesRoleIds = null;
 		long[] groupRolesGroupIds = null;
 
-		if (add) {
+		if (isAddUserGroupRole) {
 			groupRolesGroupIds = StringUtil.split(
 				ParamUtil.getString(
 					portletRequest, "addGroupRolesGroupIds"), 0L);
+
 			groupRolesRoleIds = StringUtil.split(
 				ParamUtil.getString(
 					portletRequest, "addGroupRolesRoleIds"), 0L);
@@ -927,6 +928,7 @@ public class UsersAdminImpl implements UsersAdmin {
 			groupRolesGroupIds = StringUtil.split(
 				ParamUtil.getString(
 					portletRequest, "deleteGroupRolesGroupIds"), 0L);
+
 			groupRolesRoleIds = StringUtil.split(
 				ParamUtil.getString(
 					portletRequest, "deleteGroupRolesRoleIds"), 0L);

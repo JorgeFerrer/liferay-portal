@@ -157,24 +157,28 @@ for (Group group : groups) {
 		roleGroups.add(group);
 	}
 }
-for (Group group : inheritedSites) {
-	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
-		roleGroups.add(group);
-	}
-}
-for (Group group : organizationsRelatedGroups) {
-	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
-		roleGroups.add(group);
-	}
-}
+
 for (Organization organization : organizations) {
 	if (RoleLocalServiceUtil.hasGroupRoles(organization.getGroupId())) {
 		roleGroups.add(organization.getGroup());
 	}
 }
+
 for (UserGroup userGroup : userGroups) {
 	if (RoleLocalServiceUtil.hasGroupRoles(userGroup.getGroupId())) {
 		roleGroups.add(userGroup.getGroup());
+	}
+}
+
+for (Group group : organizationsRelatedGroups) {
+	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
+		roleGroups.add(group);
+	}
+}
+
+for (Group group : inheritedSites) {
+	if (RoleLocalServiceUtil.hasGroupRoles(group.getGroupId())) {
+		roleGroups.add(group);
 	}
 }
 
