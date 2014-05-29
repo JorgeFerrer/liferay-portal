@@ -51,6 +51,9 @@ public class WikiPortletInstanceSettings {
 		settingsFactory.registerFallbackKeys(PortletKeys.WIKI, fallbackKeys);
 
 		settingsFactory.registerFallbackKeys(
+			PortletKeys.WIKI_ADMIN, fallbackKeys);
+
+		settingsFactory.registerFallbackKeys(
 			PortletKeys.WIKI_DISPLAY, fallbackKeys);
 	}
 

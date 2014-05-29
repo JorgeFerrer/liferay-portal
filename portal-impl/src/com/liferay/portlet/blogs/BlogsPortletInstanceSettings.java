@@ -43,6 +43,9 @@ public class BlogsPortletInstanceSettings {
 			SettingsFactoryUtil.getSettingsFactory();
 
 		settingsFactory.registerFallbackKeys(PortletKeys.BLOGS, fallbackKeys);
+
+		settingsFactory.registerFallbackKeys(
+			PortletKeys.BLOGS_ADMIN, fallbackKeys);
 	}
 
 	public static BlogsPortletInstanceSettings getBlogsPortletInstanceSettings(
