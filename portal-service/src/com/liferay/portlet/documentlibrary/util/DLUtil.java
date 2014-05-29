@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermissio
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.documentlibrary.DLSettings;
 import com.liferay.portlet.documentlibrary.model.DLFileEntryType;
 import com.liferay.portlet.documentlibrary.model.DLFileShortcut;
 import com.liferay.portlet.documentlibrary.model.DLFileVersion;
@@ -159,13 +158,6 @@ public class DLUtil {
 
 		return getDL().getEmailDefinitionTerms(
 			request, emailFromAddress, emailFromName);
-	}
-
-	public static boolean getEmailFileEntryAnyEventEnabled(
-		DLSettings dlSettings) {
-
-		return dlSettings.getEmailFileEntryAddedEnabled() ||
-			dlSettings.getEmailFileEntryUpdatedEnabled();
 	}
 
 	public static Map<String, String> getEmailFromDefinitionTerms(
