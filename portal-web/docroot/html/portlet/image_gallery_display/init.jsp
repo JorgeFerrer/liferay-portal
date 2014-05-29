@@ -46,7 +46,7 @@ if (portletId.equals(PortletKeys.PORTLET_CONFIGURATION)) {
 }
 
 DLPortletInstanceSettings dlPortletInstanceSettings = DLUtil.getDLPortletInstanceSettings(layout, portletId);
-DLSettings dlSettings = DLUtil.getDLSettings(scopeGroupId);
+DLSettings dlSettings = DLSettings.getDLSettings(scopeGroupId);
 
 long rootFolderId = dlPortletInstanceSettings.getRootFolderId();
 String rootFolderName = StringPool.BLANK;
@@ -70,7 +70,7 @@ if (rootFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 String displayStyle = portletPreferences.getValue("displayStyle", StringPool.BLANK);
 long displayStyleGroupId = GetterUtil.getLong(portletPreferences.getValue("displayStyleGroupId", null), themeDisplay.getScopeGroupId());
 
-dlSettings = DLUtil.getDLSettings(scopeGroupId, request);
+dlSettings = DLSettings.getDLSettings(scopeGroupId, request);
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 %>

@@ -170,19 +170,6 @@ public class DLUtil {
 		return getDL().getDLPortletInstanceSettings(layout, portletId, request);
 	}
 
-	public static DLSettings getDLSettings(long groupId)
-		throws PortalException, SystemException {
-
-		return getDL().getDLSettings(groupId);
-	}
-
-	public static DLSettings getDLSettings(
-			long groupId, HttpServletRequest request)
-		throws PortalException, SystemException {
-
-		return getDL().getDLSettings(groupId, request);
-	}
-
 	public static Map<String, String> getEmailDefinitionTerms(
 		RenderRequest request, String emailFromAddress, String emailFromName) {
 

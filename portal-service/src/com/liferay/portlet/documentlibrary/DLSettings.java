@@ -14,11 +14,19 @@
 
 package com.liferay.portlet.documentlibrary;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
+import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portlet.documentlibrary.util.DLConstants;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Adolfo Pérez
@@ -27,53 +35,36 @@ public class DLSettings {
 
 	public static final String[] MULTI_VALUED_KEYS = {};
 
-	public static FallbackKeys getFallbackKeys() {
-		FallbackKeys fallbackKeys = new FallbackKeys();
+	static {
+		FallbackKeys fallbackKeys = _getFallbackKeys();
 
-		fallbackKeys.add(
-			"emailFileEntryAddedBody",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_BODY);
-		fallbackKeys.add(
-			"emailFileEntryAddedEnabled",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_ENABLED);
-		fallbackKeys.add(
-			"emailFileEntryAddedSubject",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_SUBJECT);
-		fallbackKeys.add(
-			"emailFileEntryUpdatedBody",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_BODY);
-		fallbackKeys.add(
-			"emailFileEntryUpdatedEnabled",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_ENABLED);
-		fallbackKeys.add(
-			"emailFileEntryUpdatedSubject",
-			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_SUBJECT);
-		fallbackKeys.add(
-			"emailFromAddress", PropsKeys.DL_EMAIL_FROM_ADDRESS,
-			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
-		fallbackKeys.add(
-			"emailFromName", PropsKeys.DL_EMAIL_FROM_NAME,
-			PropsKeys.ADMIN_EMAIL_FROM_NAME);
-		fallbackKeys.add(
-			"enableCommentRatings", PropsKeys.DL_COMMENT_RATINGS_ENABLED);
-		fallbackKeys.add("enableRatings", PropsKeys.DL_RATINGS_ENABLED);
-		fallbackKeys.add(
-			"enableRelatedAssets", PropsKeys.DL_RELATED_ASSETS_ENABLED);
-		fallbackKeys.add(
-			"entriesPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		fallbackKeys.add("entryColumns", PropsKeys.DL_ENTRY_COLUMNS);
-		fallbackKeys.add("fileEntryColumns", PropsKeys.DL_FILE_ENTRY_COLUMNS);
-		fallbackKeys.add("folderColumns", PropsKeys.DL_FOLDER_COLUMNS);
-		fallbackKeys.add(
-			"foldersPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		fallbackKeys.add(
-			"fileEntriesPerPage",
-			PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		fallbackKeys.add(
-			"showFoldersSearch", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
-		fallbackKeys.add("showSubfolders", PropsKeys.DL_SUBFOLDERS_VISIBLE);
+		SettingsFactory settingsFactory =
+			SettingsFactoryUtil.getSettingsFactory();
 
-		return fallbackKeys;
+		settingsFactory.registerFallbackKeys(
+			DLConstants.SERVICE_NAME, fallbackKeys);
+	}
+
+	public static DLSettings getDLSettings(long groupId)
+		throws PortalException, SystemException {
+
+		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
+			groupId, DLConstants.SERVICE_NAME);
+
+		return new DLSettings(settings);
+	}
+
+	public static DLSettings getDLSettings(
+			long groupId, HttpServletRequest request)
+		throws PortalException, SystemException {
+
+		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
+			groupId, DLConstants.SERVICE_NAME);
+
+		Settings parameterMapSettings = new ParameterMapSettings(
+			request.getParameterMap(), settings);
+
+		return new DLSettings(parameterMapSettings);
 	}
 
 	public DLSettings(Settings settings) {
@@ -141,6 +132,55 @@ public class DLSettings {
 
 	public String getEmailFromName() {
 		return _typedSettings.getValue("emailFromName");
+	}
+
+	private static FallbackKeys _getFallbackKeys() {
+		FallbackKeys fallbackKeys = new FallbackKeys();
+
+		fallbackKeys.add(
+			"emailFileEntryAddedBody",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_BODY);
+		fallbackKeys.add(
+			"emailFileEntryAddedEnabled",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_ENABLED);
+		fallbackKeys.add(
+			"emailFileEntryAddedSubject",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_ADDED_SUBJECT);
+		fallbackKeys.add(
+			"emailFileEntryUpdatedBody",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_BODY);
+		fallbackKeys.add(
+			"emailFileEntryUpdatedEnabled",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_ENABLED);
+		fallbackKeys.add(
+			"emailFileEntryUpdatedSubject",
+			PropsKeys.DL_EMAIL_FILE_ENTRY_UPDATED_SUBJECT);
+		fallbackKeys.add(
+			"emailFromAddress", PropsKeys.DL_EMAIL_FROM_ADDRESS,
+			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
+		fallbackKeys.add(
+			"emailFromName", PropsKeys.DL_EMAIL_FROM_NAME,
+			PropsKeys.ADMIN_EMAIL_FROM_NAME);
+		fallbackKeys.add(
+			"enableCommentRatings", PropsKeys.DL_COMMENT_RATINGS_ENABLED);
+		fallbackKeys.add("enableRatings", PropsKeys.DL_RATINGS_ENABLED);
+		fallbackKeys.add(
+			"enableRelatedAssets", PropsKeys.DL_RELATED_ASSETS_ENABLED);
+		fallbackKeys.add(
+			"entriesPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		fallbackKeys.add("entryColumns", PropsKeys.DL_ENTRY_COLUMNS);
+		fallbackKeys.add("fileEntryColumns", PropsKeys.DL_FILE_ENTRY_COLUMNS);
+		fallbackKeys.add("folderColumns", PropsKeys.DL_FOLDER_COLUMNS);
+		fallbackKeys.add(
+			"foldersPerPage", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		fallbackKeys.add(
+			"fileEntriesPerPage",
+			PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+		fallbackKeys.add(
+			"showFoldersSearch", PropsKeys.DL_FOLDERS_SEARCH_VISIBLE);
+		fallbackKeys.add("showSubfolders", PropsKeys.DL_SUBFOLDERS_VISIBLE);
+
+		return fallbackKeys;
 	}
 
 	private TypedSettings _typedSettings;

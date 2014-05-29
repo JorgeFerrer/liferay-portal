@@ -64,7 +64,6 @@ import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
-import com.liferay.portlet.documentlibrary.DLSettings;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.model.DLFileEntryConstants;
 import com.liferay.portlet.documentlibrary.model.DLFileEntryType;
@@ -501,29 +500,6 @@ public class DLImpl implements DL {
 			request.getParameterMap(), settings);
 
 		return new DLPortletInstanceSettings(parameterMapSettings);
-	}
-
-	@Override
-	public DLSettings getDLSettings(long groupId)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, DLConstants.SERVICE_NAME);
-
-		return new DLSettings(settings);
-	}
-
-	@Override
-	public DLSettings getDLSettings(long groupId, HttpServletRequest request)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, DLConstants.SERVICE_NAME);
-
-		Settings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
-
-		return new DLSettings(parameterMapSettings);
 	}
 
 	@Override
