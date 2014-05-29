@@ -62,7 +62,6 @@ import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
 import com.liferay.portlet.wiki.PageContentException;
 import com.liferay.portlet.wiki.WikiFormatException;
 import com.liferay.portlet.wiki.WikiPortletInstanceSettings;
-import com.liferay.portlet.wiki.WikiSettings;
 import com.liferay.portlet.wiki.engines.WikiEngine;
 import com.liferay.portlet.wiki.model.WikiNode;
 import com.liferay.portlet.wiki.model.WikiPage;
@@ -613,26 +612,6 @@ public class WikiUtil {
 			layout, portletId);
 
 		return new WikiPortletInstanceSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
-	}
-
-	public static WikiSettings getWikiSettings(long groupId)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, WikiConstants.SERVICE_NAME);
-
-		return new WikiSettings(settings);
-	}
-
-	public static WikiSettings getWikiSettings(
-			long groupId, HttpServletRequest request)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, WikiConstants.SERVICE_NAME);
-
-		return new WikiSettings(
 			new ParameterMapSettings(request.getParameterMap(), settings));
 	}
 

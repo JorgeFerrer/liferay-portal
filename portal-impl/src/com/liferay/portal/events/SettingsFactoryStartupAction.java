@@ -19,8 +19,6 @@ import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.wiki.WikiPortletInstanceSettings;
-import com.liferay.portlet.wiki.WikiSettings;
-import com.liferay.portlet.wiki.util.WikiConstants;
 
 /**
  * @author Iván Zaera
@@ -35,9 +33,6 @@ public class SettingsFactoryStartupAction extends SimpleAction {
 	protected void initSettingsFactory() {
 		SettingsFactory settingsFactory =
 			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			WikiConstants.SERVICE_NAME, WikiSettings.getFallbackKeys());
 
 		settingsFactory.registerFallbackKeys(
 			PortletKeys.WIKI, WikiPortletInstanceSettings.getFallbackKeys());

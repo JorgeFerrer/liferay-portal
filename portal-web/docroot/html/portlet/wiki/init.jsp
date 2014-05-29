@@ -69,7 +69,7 @@ if (portletId.equals(PortletKeys.PORTLET_CONFIGURATION)) {
 }
 
 WikiPortletInstanceSettings wikiPortletInstanceSettings = WikiUtil.getWikiPortletInstanceSettings(layout, portletId);
-WikiSettings wikiSettings = WikiUtil.getWikiSettings(scopeGroupId);
+WikiSettings wikiSettings = WikiSettings.getWikiSettings(scopeGroupId);
 
 WikiConfigurationDisplayContext wikiConfigurationDisplayContext = new WikiConfigurationDisplayContext(request, wikiPortletInstanceSettings);
 
