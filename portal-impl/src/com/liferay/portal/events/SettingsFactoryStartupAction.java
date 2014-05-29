@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.blogs.BlogsPortletInstanceSettings;
 import com.liferay.portlet.bookmarks.BookmarksSettings;
 import com.liferay.portlet.bookmarks.util.BookmarksConstants;
 import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
@@ -43,9 +42,6 @@ public class SettingsFactoryStartupAction extends SimpleAction {
 	protected void initSettingsFactory() {
 		SettingsFactory settingsFactory =
 			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.BLOGS, BlogsPortletInstanceSettings.getFallbackKeys());
 
 		settingsFactory.registerFallbackKeys(
 			BookmarksConstants.SERVICE_NAME,
