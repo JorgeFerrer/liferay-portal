@@ -26,7 +26,7 @@ import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portlet.documentlibrary.util.DLConstants;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Adolfo Pérez
@@ -54,15 +54,14 @@ public class DLSettings {
 		return new DLSettings(settings);
 	}
 
-	public static DLSettings getDLSettings(
-			long groupId, HttpServletRequest request)
+	public static DLSettings getDLSettings(long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, DLConstants.SERVICE_NAME);
 
 		Settings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
+			parameterMap, settings);
 
 		return new DLSettings(parameterMapSettings);
 	}

@@ -29,9 +29,9 @@ import com.liferay.portal.util.PortletKeys;
 
 import java.io.IOException;
 
-import javax.portlet.ValidatorException;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.portlet.ValidatorException;
 
 /**
  * @author Iván Zaera
@@ -68,14 +68,14 @@ public class WikiPortletInstanceSettings {
 	}
 
 	public static WikiPortletInstanceSettings getWikiPortletInstanceSettings(
-			Layout layout, String portletId, HttpServletRequest request)
+			Layout layout, String portletId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
 			layout, portletId);
 
 		return new WikiPortletInstanceSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
+			new ParameterMapSettings(parameterMap, settings));
 	}
 
 	public WikiPortletInstanceSettings(Settings settings) {

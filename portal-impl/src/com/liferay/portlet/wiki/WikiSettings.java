@@ -28,9 +28,9 @@ import com.liferay.portlet.wiki.util.WikiConstants;
 
 import java.io.IOException;
 
-import javax.portlet.ValidatorException;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.portlet.ValidatorException;
 
 /**
  * @author Iván Zaera
@@ -58,15 +58,14 @@ public class WikiSettings {
 		return new WikiSettings(settings);
 	}
 
-	public static WikiSettings getWikiSettings(
-			long groupId, HttpServletRequest request)
+	public static WikiSettings getWikiSettings(long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, WikiConstants.SERVICE_NAME);
 
 		return new WikiSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
+			new ParameterMapSettings(parameterMap, settings));
 	}
 
 	public WikiSettings(Settings settings) {

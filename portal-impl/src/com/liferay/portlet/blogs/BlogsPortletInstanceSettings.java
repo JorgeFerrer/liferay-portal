@@ -27,7 +27,7 @@ import com.liferay.portal.model.Layout;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Iván Zaera
@@ -59,14 +59,14 @@ public class BlogsPortletInstanceSettings {
 	}
 
 	public static BlogsPortletInstanceSettings getBlogsPortletInstanceSettings(
-			Layout layout, String portletId, HttpServletRequest request)
+			Layout layout, String portletId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
 			layout, portletId);
 
 		return new BlogsPortletInstanceSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
+			new ParameterMapSettings(parameterMap, settings));
 	}
 
 	public BlogsPortletInstanceSettings(Settings settings) {

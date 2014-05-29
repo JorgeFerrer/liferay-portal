@@ -29,7 +29,7 @@ import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.util.DLUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Sergio González
@@ -71,14 +71,14 @@ public class DLPortletInstanceSettings {
 	}
 
 	public static DLPortletInstanceSettings getDLPortletInstanceSettings(
-			Layout layout, String portletId, HttpServletRequest request)
+			Layout layout, String portletId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
 			layout, portletId);
 
 		Settings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
+			parameterMap, settings);
 
 		return new DLPortletInstanceSettings(parameterMapSettings);
 	}

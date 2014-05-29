@@ -26,7 +26,7 @@ import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portlet.blogs.util.BlogsConstants;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Iván Zaera
@@ -52,15 +52,14 @@ public class BlogsSettings {
 		return new BlogsSettings(settings);
 	}
 
-	public static BlogsSettings getBlogsSettings(
-			long groupId, HttpServletRequest request)
+	public static BlogsSettings getBlogsSettings(long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, BlogsConstants.SERVICE_NAME);
 
 		return new BlogsSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
+			new ParameterMapSettings(parameterMap, settings));
 	}
 
 	public BlogsSettings(Settings settings) {

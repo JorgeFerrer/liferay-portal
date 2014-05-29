@@ -27,7 +27,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portlet.bookmarks.model.BookmarksFolderConstants;
 import com.liferay.portlet.bookmarks.util.BookmarksConstants;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Iván Zaera
@@ -54,14 +54,14 @@ public class BookmarksSettings {
 	}
 
 	public static BookmarksSettings getBookmarksSettings(
-			long groupId, HttpServletRequest request)
+			long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, BookmarksConstants.SERVICE_NAME);
 
 		ParameterMapSettings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
+			parameterMap, settings);
 
 		return new BookmarksSettings(parameterMapSettings);
 	}

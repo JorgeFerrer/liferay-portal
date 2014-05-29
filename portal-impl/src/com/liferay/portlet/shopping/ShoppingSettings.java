@@ -31,10 +31,9 @@ import com.liferay.portlet.shopping.util.ShoppingConstants;
 
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Brian Wing Shun Chan
@@ -109,14 +108,14 @@ public class ShoppingSettings {
 	}
 
 	public static ShoppingSettings getShoppingSettings(
-			long groupId, HttpServletRequest request)
+			long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, ShoppingConstants.SERVICE_NAME);
 
 		ParameterMapSettings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
+			parameterMap, settings);
 
 		return new ShoppingSettings(parameterMapSettings);
 	}

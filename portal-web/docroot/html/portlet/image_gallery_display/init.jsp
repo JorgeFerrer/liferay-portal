@@ -70,7 +70,7 @@ if (rootFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 String displayStyle = portletPreferences.getValue("displayStyle", StringPool.BLANK);
 long displayStyleGroupId = GetterUtil.getLong(portletPreferences.getValue("displayStyleGroupId", null), themeDisplay.getScopeGroupId());
 
-dlSettings = DLSettings.getDLSettings(scopeGroupId, request);
+dlSettings = DLSettings.getDLSettings(scopeGroupId, request.getParameterMap());
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 %>

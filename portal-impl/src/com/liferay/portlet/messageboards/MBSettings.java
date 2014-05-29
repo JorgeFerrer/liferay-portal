@@ -30,7 +30,7 @@ import com.liferay.portlet.messageboards.util.MBConstants;
 import com.liferay.portlet.messageboards.util.MBUtil;
 import com.liferay.util.RSSUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author Jorge Ferrer
@@ -56,15 +56,14 @@ public class MBSettings {
 		return new MBSettings(settings);
 	}
 
-	public static MBSettings getMBSettings(
-			long groupId, HttpServletRequest request)
+	public static MBSettings getMBSettings(long groupId, Map parameterMap)
 		throws PortalException, SystemException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, MBConstants.SERVICE_NAME);
 
 		ParameterMapSettings parameterMapSettings = new ParameterMapSettings(
-			request.getParameterMap(), settings);
+			parameterMap, settings);
 
 		return new MBSettings(parameterMapSettings);
 	}
