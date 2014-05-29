@@ -23,10 +23,8 @@ import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.model.Layout;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
 import com.liferay.portlet.documentlibrary.DLSettings;
 import com.liferay.portlet.documentlibrary.model.DLFileEntryType;
 import com.liferay.portlet.documentlibrary.model.DLFileShortcut;
@@ -154,20 +152,6 @@ public class DLUtil {
 		throws PortalException, SystemException {
 
 		return getDL().getDLFolderControlPanelLink(portletRequest, folderId);
-	}
-
-	public static DLPortletInstanceSettings getDLPortletInstanceSettings(
-			Layout layout, String portletId)
-		throws PortalException, SystemException {
-
-		return getDL().getDLPortletInstanceSettings(layout, portletId);
-	}
-
-	public static DLPortletInstanceSettings getDLPortletInstanceSettings(
-			Layout layout, String portletId, HttpServletRequest request)
-		throws PortalException, SystemException {
-
-		return getDL().getDLPortletInstanceSettings(layout, portletId, request);
 	}
 
 	public static Map<String, String> getEmailDefinitionTerms(

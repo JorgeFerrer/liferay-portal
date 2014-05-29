@@ -45,7 +45,7 @@ if (portletId.equals(PortletKeys.PORTLET_CONFIGURATION)) {
 	portletId = portletResource;
 }
 
-DLPortletInstanceSettings dlPortletInstanceSettings = DLUtil.getDLPortletInstanceSettings(layout, portletId);
+DLPortletInstanceSettings dlPortletInstanceSettings = DLPortletInstanceSettings.getDLPortletInstanceSettings(layout, portletId);
 DLSettings dlSettings = DLSettings.getDLSettings(scopeGroupId);
 
 long rootFolderId = dlPortletInstanceSettings.getRootFolderId();

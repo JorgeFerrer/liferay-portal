@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
 import com.liferay.portlet.shopping.ShoppingSettings;
 import com.liferay.portlet.shopping.util.ShoppingConstants;
 import com.liferay.portlet.wiki.WikiPortletInstanceSettings;
@@ -51,22 +50,6 @@ public class SettingsFactoryStartupAction extends SimpleAction {
 		settingsFactory.registerFallbackKeys(
 			PortletKeys.WIKI_DISPLAY,
 			WikiPortletInstanceSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY,
-			DLPortletInstanceSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY_ADMIN,
-			DLPortletInstanceSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
-			DLPortletInstanceSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.MEDIA_GALLERY_DISPLAY,
-			DLPortletInstanceSettings.getFallbackKeys());
 	}
 
 }
