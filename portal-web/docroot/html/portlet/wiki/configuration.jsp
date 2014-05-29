@@ -17,7 +17,7 @@
 <%@ include file="/html/portlet/wiki/init.jsp" %>
 
 <%
-wikiPortletInstanceSettings = WikiUtil.getWikiPortletInstanceSettings(layout, portletId, request);
+wikiPortletInstanceSettings = WikiPortletInstanceSettings.getWikiPortletInstanceSettings(layout, portletId, request);
 
 wikiConfigurationDisplayContext = new WikiConfigurationDisplayContext(request, wikiPortletInstanceSettings);
 %>
