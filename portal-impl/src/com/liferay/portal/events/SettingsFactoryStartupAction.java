@@ -26,8 +26,6 @@ import com.liferay.portlet.bookmarks.util.BookmarksConstants;
 import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
 import com.liferay.portlet.documentlibrary.DLSettings;
 import com.liferay.portlet.documentlibrary.util.DLConstants;
-import com.liferay.portlet.messageboards.MBSettings;
-import com.liferay.portlet.messageboards.util.MBConstants;
 import com.liferay.portlet.shopping.ShoppingSettings;
 import com.liferay.portlet.shopping.util.ShoppingConstants;
 import com.liferay.portlet.wiki.WikiPortletInstanceSettings;
@@ -57,9 +55,6 @@ public class SettingsFactoryStartupAction extends SimpleAction {
 		settingsFactory.registerFallbackKeys(
 			BookmarksConstants.SERVICE_NAME,
 			BookmarksSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			MBConstants.SERVICE_NAME, MBSettings.getFallbackKeys());
 
 		settingsFactory.registerFallbackKeys(
 			ShoppingConstants.SERVICE_NAME, ShoppingSettings.getFallbackKeys());
