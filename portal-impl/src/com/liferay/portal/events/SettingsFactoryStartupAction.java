@@ -15,10 +15,6 @@
 package com.liferay.portal.events;
 
 import com.liferay.portal.kernel.events.SimpleAction;
-import com.liferay.portal.kernel.settings.SettingsFactory;
-import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
-import com.liferay.portal.util.PortletKeys;
-import com.liferay.portlet.wiki.WikiPortletInstanceSettings;
 
 /**
  * @author Iván Zaera
@@ -31,15 +27,6 @@ public class SettingsFactoryStartupAction extends SimpleAction {
 	}
 
 	protected void initSettingsFactory() {
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.WIKI, WikiPortletInstanceSettings.getFallbackKeys());
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.WIKI_DISPLAY,
-			WikiPortletInstanceSettings.getFallbackKeys());
 	}
 
 }
