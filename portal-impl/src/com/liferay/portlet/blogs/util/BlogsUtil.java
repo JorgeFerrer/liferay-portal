@@ -36,7 +36,6 @@ import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryServiceUtil;
 import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
 import com.liferay.portlet.blogs.BlogsPortletInstanceSettings;
-import com.liferay.portlet.blogs.BlogsSettings;
 import com.liferay.portlet.blogs.model.BlogsEntry;
 
 import java.util.LinkedHashMap;
@@ -78,26 +77,6 @@ public class BlogsUtil {
 			layout, portletId);
 
 		return new BlogsPortletInstanceSettings(
-			new ParameterMapSettings(request.getParameterMap(), settings));
-	}
-
-	public static BlogsSettings getBlogsSettings(long groupId)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, BlogsConstants.SERVICE_NAME);
-
-		return new BlogsSettings(settings);
-	}
-
-	public static BlogsSettings getBlogsSettings(
-			long groupId, HttpServletRequest request)
-		throws PortalException, SystemException {
-
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, BlogsConstants.SERVICE_NAME);
-
-		return new BlogsSettings(
 			new ParameterMapSettings(request.getParameterMap(), settings));
 	}
 

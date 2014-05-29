@@ -43,7 +43,7 @@ if (portletId.equals(PortletKeys.PORTLET_CONFIGURATION)) {
 }
 
 BlogsPortletInstanceSettings blogsPortletInstanceSettings = BlogsUtil.getBlogsPortletInstanceSettings(layout, portletId);
-BlogsSettings blogsSettings = BlogsUtil.getBlogsSettings(scopeGroupId);
+BlogsSettings blogsSettings = BlogsSettings.getBlogsSettings(scopeGroupId);
 
 int pageAbstractLength = PropsValues.BLOGS_PAGE_ABSTRACT_LENGTH;
 
