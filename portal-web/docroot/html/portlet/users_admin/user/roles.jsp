@@ -27,11 +27,6 @@ List<UserGroupRole> siteRoles = (List<UserGroupRole>)request.getAttribute("user.
 List<UserGroupGroupRole> inheritedSiteRoles = (List<UserGroupGroupRole>)request.getAttribute("user.inheritedSiteRoles");
 List<Group> roleGroups = (List<Group>)request.getAttribute("user.roleGroups");
 
-List<UserGroupRole> userGroupRoles = new ArrayList<UserGroupRole>();
-
-userGroupRoles.addAll(organizationRoles);
-userGroupRoles.addAll(siteRoles);
-
 currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles");
 %>
 
@@ -47,8 +42,11 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 	/>
 </liferay-util:buffer>
 
-<aui:input name="groupRolesRoleIds" type="hidden" value="<%= ListUtil.toString(userGroupRoles, UserGroupRole.ROLE_ID_ACCESSOR) %>" />
-<aui:input name="groupRolesGroupIds" type="hidden" value="<%= ListUtil.toString(userGroupRoles, UserGroupRole.GROUP_ID_ACCESSOR) %>" />
+<aui:input name="addGroupRolesRoleIds" type="hidden" />
+<aui:input name="addGroupRolesGroupIds" type="hidden" />
+
+<aui:input name="deleteGroupRolesRoleIds" type="hidden" />
+<aui:input name="deleteGroupRolesGroupIds" type="hidden" />
 
 <h3><liferay-ui:message key="regular-roles" /></h3>
 
@@ -503,21 +501,30 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 </c:if>
 
 <aui:script>
-	var <portlet:namespace />groupRolesGroupIds = ['<%= ListUtil.toString(userGroupRoles, UserGroupRole.GROUP_ID_ACCESSOR, "', '") %>'];
-	var <portlet:namespace />groupRolesRoleIds = ['<%= ListUtil.toString(userGroupRoles, UserGroupRole.ROLE_ID_ACCESSOR, "', '") %>'];
+	var <portlet:namespace />addGroupRolesGroupIds = [];
+	var <portlet:namespace />addGroupRolesRoleIds = [];
+
+	var <portlet:namespace />deleteGroupRolesGroupIds = [];
+	var <portlet:namespace />deleteGroupRolesRoleIds = [];
 
 	function <portlet:namespace />deleteGroupRole(roleId, groupId) {
-		for (var i = 0; i < <portlet:namespace />groupRolesRoleIds.length; i++) {
-			if ((<portlet:namespace />groupRolesRoleIds[i] == roleId) && (<portlet:namespace />groupRolesGroupIds[i] == groupId)) {
-				<portlet:namespace />groupRolesGroupIds.splice(i, 1);
-				<portlet:namespace />groupRolesRoleIds.splice(i, 1);
+		for (var i = 0; i < <portlet:namespace />addGroupRolesRoleIds.length; i++) {
+			if ((<portlet:namespace />addGroupRolesRoleIds[i] == roleId) && (<portlet:namespace />addGroupRolesGroupIds[i] == groupId)) {
+				<portlet:namespace />addGroupRolesGroupIds.splice(i, 1);
+				<portlet:namespace />addGroupRolesRoleIds.splice(i, 1);
 
 				break;
 			}
 		}
 
-		document.<portlet:namespace />fm.<portlet:namespace />groupRolesGroupIds.value = <portlet:namespace />groupRolesGroupIds.join(',');
-		document.<portlet:namespace />fm.<portlet:namespace />groupRolesRoleIds.value = <portlet:namespace />groupRolesRoleIds.join(',');
+		<portlet:namespace />deleteGroupRolesGroupIds.push(groupId);
+		<portlet:namespace />deleteGroupRolesRoleIds.push(roleId);
+
+		document.<portlet:namespace />fm.<portlet:namespace />addGroupRolesGroupIds.value = <portlet:namespace />addGroupRolesGroupIds.join(',');
+		document.<portlet:namespace />fm.<portlet:namespace />addGroupRolesRoleIds.value = <portlet:namespace />addGroupRolesRoleIds.join(',');
+
+		document.<portlet:namespace />fm.<portlet:namespace />deleteGroupRolesGroupIds.value = <portlet:namespace />deleteGroupRolesGroupIds.join(',');
+		document.<portlet:namespace />fm.<portlet:namespace />deleteGroupRolesRoleIds.value = <portlet:namespace />deleteGroupRolesRoleIds.join(',');
 	}
 
 	Liferay.provide(
@@ -541,11 +548,23 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 			if (groupId) {
 				rowColumns.push('<a class="modify-link" data-groupId="' + groupId + '" data-rowId="' + roleId + '" href="javascript:;"><%= UnicodeFormatter.toString(removeRoleIcon) %></a>');
 
-				<portlet:namespace />groupRolesRoleIds.push(roleId);
-				<portlet:namespace />groupRolesGroupIds.push(groupId);
+				<portlet:namespace />addGroupRolesRoleIds.push(roleId);
+				<portlet:namespace />addGroupRolesGroupIds.push(groupId);
 
-				document.<portlet:namespace />fm.<portlet:namespace />groupRolesRoleIds.value = <portlet:namespace />groupRolesRoleIds.join(',');
-				document.<portlet:namespace />fm.<portlet:namespace />groupRolesGroupIds.value = <portlet:namespace />groupRolesGroupIds.join(',');
+				for (var i = 0; i < <portlet:namespace />deleteGroupRolesRoleIds.length; i++) {
+					if ((<portlet:namespace />deleteGroupRolesRoleIds[i] == roleId) && (<portlet:namespace />deleteGroupRolesGroupIds[i] == groupId)) {
+						<portlet:namespace />deleteGroupRolesGroupIds.splice(i, 1);
+						<portlet:namespace />deleteGroupRolesRoleIds.splice(i, 1);
+
+						break;
+					}
+				}
+
+				document.<portlet:namespace />fm.<portlet:namespace />addGroupRolesRoleIds.value = <portlet:namespace />addGroupRolesRoleIds.join(',');
+				document.<portlet:namespace />fm.<portlet:namespace />addGroupRolesGroupIds.value = <portlet:namespace />addGroupRolesGroupIds.join(',');
+
+				document.<portlet:namespace />fm.<portlet:namespace />deleteGroupRolesRoleIds.value = <portlet:namespace />deleteGroupRolesRoleIds.join(',');
+				document.<portlet:namespace />fm.<portlet:namespace />deleteGroupRolesGroupIds.value = <portlet:namespace />deleteGroupRolesGroupIds.join(',');
 			}
 			else {
 				rowColumns.push('<a class="modify-link" data-rowId="' + roleId + '" href="javascript:;"><%= UnicodeFormatter.toString(removeRoleIcon) %></a>');

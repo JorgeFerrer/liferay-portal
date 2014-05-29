@@ -888,12 +888,49 @@ public class UsersAdminImpl implements UsersAdmin {
 	public List<UserGroupRole> getUserGroupRoles(PortletRequest portletRequest)
 		throws PortalException, SystemException {
 
+		User user = PortalUtil.getSelectedUser(portletRequest);
+
+		if (user == null) {
+			return Collections.emptyList();
+		}
+
+		Set<UserGroupRole> userGroupRoles =
+			new HashSet<UserGroupRole>(
+				UserGroupRoleLocalServiceUtil.getUserGroupRoles(
+					user.getUserId()));
+
+		userGroupRoles.addAll(getUserGroupRoles(portletRequest, true));
+		userGroupRoles.removeAll(getUserGroupRoles(portletRequest, false));
+
+		return new ArrayList<UserGroupRole>(userGroupRoles);
+	}
+
+	@Override
+	public List<UserGroupRole> getUserGroupRoles(
+			PortletRequest portletRequest, boolean add)
+		throws PortalException, SystemException {
+
 		List<UserGroupRole> userGroupRoles = new UniqueList<UserGroupRole>();
 
-		long[] groupRolesRoleIds = StringUtil.split(
-			ParamUtil.getString(portletRequest, "groupRolesRoleIds"), 0L);
-		long[] groupRolesGroupIds = StringUtil.split(
-			ParamUtil.getString(portletRequest, "groupRolesGroupIds"), 0L);
+		long[] groupRolesRoleIds = null;
+		long[] groupRolesGroupIds = null;
+
+		if (add) {
+			groupRolesGroupIds = StringUtil.split(
+				ParamUtil.getString(
+					portletRequest, "addGroupRolesGroupIds"), 0L);
+			groupRolesRoleIds = StringUtil.split(
+				ParamUtil.getString(
+					portletRequest, "addGroupRolesRoleIds"), 0L);
+		}
+		else {
+			groupRolesGroupIds = StringUtil.split(
+				ParamUtil.getString(
+					portletRequest, "deleteGroupRolesGroupIds"), 0L);
+			groupRolesRoleIds = StringUtil.split(
+				ParamUtil.getString(
+					portletRequest, "deleteGroupRolesRoleIds"), 0L);
+		}
 
 		if (groupRolesGroupIds.length != groupRolesRoleIds.length) {
 			return userGroupRoles;

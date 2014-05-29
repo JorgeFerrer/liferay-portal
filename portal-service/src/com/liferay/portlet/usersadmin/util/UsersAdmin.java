@@ -199,6 +199,10 @@ public interface UsersAdmin {
 	public List<UserGroupRole> getUserGroupRoles(PortletRequest portletRequest)
 		throws PortalException, SystemException;
 
+	public List<UserGroupRole> getUserGroupRoles(
+			PortletRequest portletRequest, boolean add)
+		throws PortalException, SystemException;
+
 	public List<UserGroup> getUserGroups(Hits hits)
 		throws PortalException, SystemException;
 
