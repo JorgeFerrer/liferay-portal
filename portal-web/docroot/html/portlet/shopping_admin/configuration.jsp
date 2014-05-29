@@ -17,7 +17,7 @@
 <%@ include file="/html/portlet/shopping/init.jsp" %>
 
 <%
-shoppingSettings = ShoppingUtil.getShoppingSettings(themeDisplay.getSiteGroupId(), request);
+shoppingSettings = ShoppingSettings.getShoppingSettings(themeDisplay.getSiteGroupId(), request);
 %>
 
 <liferay-portlet:actionURL portletConfiguration="true" var="configurationActionURL">
