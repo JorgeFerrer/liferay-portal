@@ -122,15 +122,6 @@ public class WikiSettings {
 		return emailPageUpdatedSubjectMap.getLocalizationXml();
 	}
 
-	public void store() throws IOException, ValidatorException {
-		Settings settings = _typedSettings.getWrappedSettings();
-
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
-
-		modifiableSettings.store();
-	}
-
 	private static FallbackKeys _getFallbackKeys() {
 		FallbackKeys fallbackKeys = new FallbackKeys();
 
