@@ -28,8 +28,6 @@ import java.util.Properties;
 public class PropertiesSettings extends BaseSettings {
 
 	public PropertiesSettings(Properties properties) {
-		super(null);
-
 		_properties = properties;
 	}
 

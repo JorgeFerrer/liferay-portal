@@ -22,6 +22,9 @@ import com.liferay.portal.kernel.util.StringPool;
 public abstract class BaseModifiableSettings
 	extends BaseSettings implements ModifiableSettings {
 
+	public BaseModifiableSettings() {
+	}
+
 	public BaseModifiableSettings(Settings parentSettings) {
 		super(parentSettings);
 	}
