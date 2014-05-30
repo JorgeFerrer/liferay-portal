@@ -25,7 +25,7 @@ import javax.portlet.ValidatorException;
  */
 public interface ModifiableSettings extends Settings {
 
-	public Collection<String> getKeys();
+	public Collection<String> getModifiedKeys();
 
 	public void reset();
 

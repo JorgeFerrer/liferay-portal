@@ -49,7 +49,7 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getModifiedKeys() {
 		Set<String> keys = new HashSet<String>();
 
 		Enumeration<String> names = _portletPreferences.getNames();

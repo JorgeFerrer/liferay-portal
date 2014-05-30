@@ -31,14 +31,14 @@ public abstract class BaseModifiableSettings
 
 	@Override
 	public void reset() {
-		for (String key : getKeys()) {
+		for (String key : getModifiedKeys()) {
 			reset(key);
 		}
 	}
 
 	@Override
 	public ModifiableSettings setValues(ModifiableSettings settings) {
-		for (String key : settings.getKeys()) {
+		for (String key : settings.getModifiedKeys()) {
 			String[] values = settings.getValues(key, StringPool.EMPTY_ARRAY);
 
 			if (values.length == 1) {
