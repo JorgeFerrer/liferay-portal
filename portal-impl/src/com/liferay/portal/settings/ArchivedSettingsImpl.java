@@ -59,10 +59,10 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getModifiedKeys() {
 		ModifiableSettings settings = getModifiableSettings();
 
-		return settings.getKeys();
+		return settings.getModifiedKeys();
 	}
 
 	@Override

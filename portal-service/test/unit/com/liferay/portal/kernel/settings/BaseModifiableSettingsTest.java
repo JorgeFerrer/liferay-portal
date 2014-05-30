@@ -31,11 +31,11 @@ public class BaseModifiableSettingsTest extends PowerMockito {
 		_baseModifiableSettings.setValue("key1", "value2");
 		_baseModifiableSettings.setValue("key2", "value2");
 
-		Assert.assertEquals(2, _baseModifiableSettings.getKeys().size());
+		Assert.assertEquals(2, _baseModifiableSettings.getModifiedKeys().size());
 
 		_baseModifiableSettings.reset();
 
-		Assert.assertEquals(0, _baseModifiableSettings.getKeys().size());
+		Assert.assertEquals(0, _baseModifiableSettings.getModifiedKeys().size());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class BaseModifiableSettingsTest extends PowerMockito {
 
 		_baseModifiableSettings.setValues(sourceSettings);
 
-		Collection<String> keys = _baseModifiableSettings.getKeys();
+		Collection<String> keys = _baseModifiableSettings.getModifiedKeys();
 
 		Assert.assertEquals(3, keys.size());
 		Assert.assertEquals(

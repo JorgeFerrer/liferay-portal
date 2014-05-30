@@ -32,7 +32,7 @@ public class MemorySettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public Collection<String> getKeys() {
+	public Collection<String> getModifiedKeys() {
 		return new HashSet<String>(_map.keySet());
 	}
 
