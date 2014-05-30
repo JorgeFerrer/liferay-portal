@@ -23,6 +23,9 @@ import com.liferay.portal.kernel.util.Validator;
  */
 public abstract class BaseSettings implements Settings {
 
+	public BaseSettings() {
+	}
+
 	public BaseSettings(Settings parentSettings) {
 		this.parentSettings = parentSettings;
 	}

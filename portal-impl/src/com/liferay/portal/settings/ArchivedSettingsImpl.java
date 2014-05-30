@@ -41,8 +41,6 @@ public class ArchivedSettingsImpl
 	extends BaseModifiableSettings implements ArchivedSettings {
 
 	public ArchivedSettingsImpl(PortletItem portletItem) {
-		super(null);
-
 		_portletItem = portletItem;
 	}
 

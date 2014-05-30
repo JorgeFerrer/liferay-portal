@@ -25,7 +25,6 @@ import java.util.Map;
 public class MemorySettings extends BaseModifiableSettings {
 
 	public MemorySettings() {
-		this(null);
 	}
 
 	public MemorySettings(Settings parentSettings) {
