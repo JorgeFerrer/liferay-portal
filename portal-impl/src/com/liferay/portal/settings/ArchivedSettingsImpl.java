@@ -59,15 +59,15 @@ public class ArchivedSettingsImpl
 	}
 
 	@Override
+	public Date getModifiedDate() {
+		return _portletItem.getModifiedDate();
+	}
+
+	@Override
 	public Collection<String> getModifiedKeys() {
 		ModifiableSettings settings = getModifiableSettings();
 
 		return settings.getModifiedKeys();
-	}
-
-	@Override
-	public Date getModifiedDate() {
-		return _portletItem.getModifiedDate();
 	}
 
 	@Override

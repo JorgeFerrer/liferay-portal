@@ -31,11 +31,13 @@ public class BaseModifiableSettingsTest extends PowerMockito {
 		_baseModifiableSettings.setValue("key1", "value2");
 		_baseModifiableSettings.setValue("key2", "value2");
 
-		Assert.assertEquals(2, _baseModifiableSettings.getModifiedKeys().size());
+		Assert.assertEquals(
+			2, _baseModifiableSettings.getModifiedKeys().size());
 
 		_baseModifiableSettings.reset();
 
-		Assert.assertEquals(0, _baseModifiableSettings.getModifiedKeys().size());
+		Assert.assertEquals(
+			0, _baseModifiableSettings.getModifiedKeys().size());
 	}
 
 	@Test
