@@ -15,11 +15,11 @@
 package com.liferay.portlet.messageboards;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * @author Jorge Ferrer
  */
-public class MBSettings {
+public class MBSettings extends BaseApplicationSettings {
 
 	public static MBSettings getInstance(long groupId) throws PortalException {
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
@@ -250,14 +250,14 @@ public class MBSettings {
 		return fallbackKeys;
 	}
 
+	private static final String[] _MULTI_VALUED_KEYS = {};
+
+	private static final String[] _SERVICE_NAMES = {
+		MBConstants.SERVICE_NAME};
+
 	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			MBConstants.SERVICE_NAME, fallbackKeys);
+		registerSettingsStructure(
+			_SERVICE_NAMES, _MULTI_VALUED_KEYS, _getFallbackKeys());
 	}
 
 	private TypedSettings _typedSettings;

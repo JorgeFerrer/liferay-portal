@@ -15,11 +15,11 @@
 package com.liferay.portlet.documentlibrary;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author Adolfo Pérez
  */
-public class DLSettings {
+public class DLSettings extends BaseApplicationSettings {
 
 	public static final String[] MULTI_VALUED_KEYS = {};
 
@@ -170,14 +170,15 @@ public class DLSettings {
 		return fallbackKeys;
 	}
 
+	private static final String[] _MULTI_VALUED_KEYS = {};
+
+	private static final String[] _SERVICE_NAMES = {
+		DLConstants.SERVICE_NAME
+	};
+
 	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			DLConstants.SERVICE_NAME, fallbackKeys);
+		registerSettingsStructure(
+			_SERVICE_NAMES, _MULTI_VALUED_KEYS, _getFallbackKeys());
 	}
 
 	private TypedSettings _typedSettings;

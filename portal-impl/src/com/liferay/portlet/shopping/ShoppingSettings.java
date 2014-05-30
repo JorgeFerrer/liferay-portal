@@ -15,11 +15,11 @@
 package com.liferay.portlet.shopping;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -38,7 +38,7 @@ import java.util.TreeSet;
  * @author Brian Wing Shun Chan
  * @author Eduardo Garcia
  */
-public class ShoppingSettings {
+public class ShoppingSettings extends BaseApplicationSettings {
 
 	public static final String CC_NONE = "none";
 
@@ -323,14 +323,14 @@ public class ShoppingSettings {
 		return fallbackKeys;
 	}
 
+	private static final String[] _MULTI_VALUED_KEYS = {};
+
+	private static final String[] _SERVICE_NAMES = {
+		ShoppingConstants.SERVICE_NAME};
+
 	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			ShoppingConstants.SERVICE_NAME, fallbackKeys);
+		registerSettingsStructure(
+			_SERVICE_NAMES, _MULTI_VALUED_KEYS, _getFallbackKeys());
 	}
 
 	private TypedSettings _typedSettings;

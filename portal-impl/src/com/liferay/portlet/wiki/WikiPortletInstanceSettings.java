@@ -15,11 +15,11 @@
 package com.liferay.portlet.wiki;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -36,11 +36,7 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public class WikiPortletInstanceSettings {
-
-	public static final String[] MULTI_VALUED_KEYS = {
-		"visibleNodes", "hiddenNodes"
-	};
+public class WikiPortletInstanceSettings extends BaseApplicationSettings {
 
 	public static WikiPortletInstanceSettings getInstance(
 			Layout layout, String portletId)
@@ -159,17 +155,16 @@ public class WikiPortletInstanceSettings {
 		return fallbackKeys;
 	}
 
+	private static final String[] _MULTI_VALUED_KEYS = {
+		"hiddenNodes", "visibleNodes"
+	};
+
+	private static final String[] _PORTLET_IDS = {
+		PortletKeys.WIKI, PortletKeys.WIKI_ADMIN, PortletKeys.WIKI_DISPLAY};
+
 	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(PortletKeys.WIKI, fallbackKeys);
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.WIKI_ADMIN, fallbackKeys);
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.WIKI_DISPLAY, fallbackKeys);
+		registerSettingsStructure(
+			_PORTLET_IDS, _MULTI_VALUED_KEYS, _getFallbackKeys());
 	}
 
 	private TypedSettings _typedSettings;

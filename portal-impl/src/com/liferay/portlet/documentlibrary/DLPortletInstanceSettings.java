@@ -15,10 +15,10 @@
 package com.liferay.portlet.documentlibrary;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -33,12 +33,7 @@ import java.util.Map;
 /**
  * @author Sergio González
  */
-public class DLPortletInstanceSettings {
-
-	public static final String[] MULTI_VALUED_KEYS = {
-		"displayViews", "entryColumns", "fileEntryColumns", "folderColumns",
-		"mimeTypes"
-	};
+public class DLPortletInstanceSettings extends BaseApplicationSettings {
 
 	public static DLPortletInstanceSettings getInstance(
 			Layout layout, String portletId)
@@ -170,24 +165,23 @@ public class DLPortletInstanceSettings {
 		return fallbackKeys;
 	}
 
-	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY, fallbackKeys);
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY_ADMIN, fallbackKeys);
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.DOCUMENT_LIBRARY_DISPLAY, fallbackKeys);
-		settingsFactory.registerFallbackKeys(
-			PortletKeys.MEDIA_GALLERY_DISPLAY, fallbackKeys);
-	}
-
 	private static final String[] _MIME_TYPES_DEFAULT = ArrayUtil.toStringArray(
 		DLUtil.getAllMediaGalleryMimeTypes());
+
+	private static final String[] _MULTI_VALUED_KEYS = {
+		"displayViews", "entryColumns", "fileEntryColumns", "folderColumns",
+		"mimeTypes"
+	};
+
+	private static final String[] _PORTLET_IDS = {
+		PortletKeys.DOCUMENT_LIBRARY, PortletKeys.DOCUMENT_LIBRARY_ADMIN,
+		PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
+		PortletKeys.MEDIA_GALLERY_DISPLAY};
+
+	static {
+		registerSettingsStructure(
+			_PORTLET_IDS, _MULTI_VALUED_KEYS, _getFallbackKeys());
+	}
 
 	private TypedSettings _typedSettings;
 
