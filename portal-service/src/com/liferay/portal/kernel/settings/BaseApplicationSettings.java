@@ -12,30 +12,28 @@
  * details.
  */
 
-package com.liferay.portlet.wikiadmin.action;
+package com.liferay.portal.kernel.settings;
 
 import com.liferay.portal.kernel.portlet.SettingsConfigurationAction;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
 
 /**
  * @author Iván Zaera
  */
-public class ConfigurationActionImpl extends SettingsConfigurationAction {
+public class BaseApplicationSettings {
 
-	@Override
-	public void processAction(
-			PortletConfig portletConfig, ActionRequest actionRequest,
-			ActionResponse actionResponse)
-		throws Exception {
+	protected static void registerSettingsStructure(
+		String[] settingsIds, String[] multiValuedKeys,
+		FallbackKeys fallbackKeys) {
 
-		validateEmail(actionRequest, "emailPageAdded");
-		validateEmail(actionRequest, "emailPageUpdated");
-		validateEmailFrom(actionRequest);
+		SettingsFactory settingsFactory =
+			SettingsFactoryUtil.getSettingsFactory();
 
-		super.processAction(portletConfig, actionRequest, actionResponse);
+		for (String settingsId : settingsIds) {
+			settingsFactory.registerFallbackKeys(settingsId, fallbackKeys);
+
+			SettingsConfigurationAction.registerMultiValuedKeys(
+				settingsId, multiValuedKeys);
+		}
 	}
 
 }

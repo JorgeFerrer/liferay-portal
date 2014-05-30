@@ -16,11 +16,11 @@ package com.liferay.portlet.wiki;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -35,9 +35,7 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public class WikiSettings {
-
-	public static final String[] MULTI_VALUED_KEYS = {};
+public class WikiSettings extends BaseApplicationSettings {
 
 	public static WikiSettings getInstance(long groupId)
 		throws PortalException, SystemException {
@@ -154,14 +152,14 @@ public class WikiSettings {
 		return fallbackKeys;
 	}
 
+	private static final String[] _MULTI_VALUED_KEYS = {};
+
+	private static final String[] _SERVICE_NAMES = {
+		WikiConstants.SERVICE_NAME};
+
 	static {
-		FallbackKeys fallbackKeys = _getFallbackKeys();
-
-		SettingsFactory settingsFactory =
-			SettingsFactoryUtil.getSettingsFactory();
-
-		settingsFactory.registerFallbackKeys(
-			WikiConstants.SERVICE_NAME, fallbackKeys);
+		registerSettingsStructure(
+			_SERVICE_NAMES, _MULTI_VALUED_KEYS, _getFallbackKeys());
 	}
 
 	private TypedSettings _typedSettings;
