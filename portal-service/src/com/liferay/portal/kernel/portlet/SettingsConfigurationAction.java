@@ -45,6 +45,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -64,6 +66,16 @@ import javax.servlet.ServletContext;
 public class SettingsConfigurationAction
 	extends LiferayPortlet
 	implements ConfigurationAction, ResourceServingConfigurationAction {
+
+	public static void registerMultiValuedKeys(
+		String settingsId, String[] multiValuedKeysArray) {
+
+		List<String> multiValuedKeysList = new ArrayList<String>();
+
+		Collections.addAll(multiValuedKeysList, multiValuedKeysArray);
+
+		_multiValuedKeysMap.put(settingsId, multiValuedKeysList);
+	}
 
 	public SettingsConfigurationAction() {
 		setParameterNamePrefix("preferences--");
@@ -242,10 +254,6 @@ public class SettingsConfigurationAction
 		portletPreferencesMap.put(name, values);
 	}
 
-	protected void addMultiValuedKeys(String... multiValuedKeys) {
-		Collections.addAll(_multiValuedKeys, multiValuedKeys);
-	}
-
 	protected PortletConfig getSelPortletConfig(PortletRequest portletRequest) {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
@@ -297,6 +305,19 @@ public class SettingsConfigurationAction
 			"Invalid settings scope " + settingsScope);
 	}
 
+	protected String getSettingsId(ActionRequest actionRequest) {
+		String settingsId = ParamUtil.getString(actionRequest, "serviceName");
+
+		String settingsScope = ParamUtil.getString(
+			actionRequest, "settingsScope");
+
+		if (settingsScope.equals("portletInstance")) {
+			settingsId = ParamUtil.getString(actionRequest, "portletResource");
+		}
+
+		return settingsId;
+	}
+
 	@SuppressWarnings("unused")
 	protected void postProcess(
 			long companyId, PortletRequest portletRequest, Settings settings)
@@ -308,7 +329,18 @@ public class SettingsConfigurationAction
 	}
 
 	protected void updateMultiValuedKeys(ActionRequest actionRequest) {
-		for (String multiValuedKey : _multiValuedKeys) {
+		String settingsId = getSettingsId(actionRequest);
+
+		List<String> multiValuedKeys = _multiValuedKeysMap.get(settingsId);
+
+		if (multiValuedKeys == null) {
+			throw new IllegalStateException(
+				"Multi valued keys list for settings id '"+settingsId+"' is " +
+				"null: please register a valid list of multi valued keys " +
+				"with SettingsConfigurationAction");
+		}
+
+		for (String multiValuedKey : multiValuedKeys) {
 			String multiValuedValue = getParameter(
 				actionRequest, multiValuedKey);
 
@@ -361,7 +393,9 @@ public class SettingsConfigurationAction
 		}
 	}
 
-	private List<String> _multiValuedKeys = new ArrayList<String>();
+	private static ConcurrentMap<String, List<String>> _multiValuedKeysMap =
+		new ConcurrentHashMap<String, List<String>>();
+
 	private String _parameterNamePrefix;
 
 }
