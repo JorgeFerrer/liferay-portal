@@ -3768,8 +3768,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
 
 		if (Validator.isNull(emailAddress)) {
-			throw new UserEmailAddressException(
-				"emailAddress must not be null");
+			throw new UserEmailAddressException("Email address is null");
 		}
 
 		User user = userPersistence.findByC_EA(companyId, emailAddress);
@@ -4497,7 +4496,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (user.getStatus() != WorkflowConstants.STATUS_INCOMPLETE) {
 			throw new PortalException(
-				"Cannot complete a user account which is not incomplete");
+				"Unable to an incomplete user that is not incomplete");
 		}
 
 		User defaultUser = getDefaultUser(companyId);
@@ -5804,19 +5803,17 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (authType.equals(CompanyConstants.AUTH_TYPE_EA)) {
 			if (Validator.isNull(login)) {
-				throw new UserEmailAddressException(
-					"emailAddress must not be null");
+				throw new UserEmailAddressException("Email address is null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_SN)) {
 			if (Validator.isNull(login)) {
-				throw new UserScreenNameException(
-					"screenName must not be null");
+				throw new UserScreenNameException("Screen name is null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_ID)) {
 			if (Validator.isNull(login)) {
-				throw new UserIdException("userId must not be null");
+				throw new UserIdException("User ID is null");
 			}
 		}
 
@@ -6095,8 +6092,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Date now = new Date();
 
 		if (birthday.after(now)) {
-			throw new ContactBirthdayException(
-				birthday + " must not be after " + now);
+			throw new ContactBirthdayException(birthday + " is in the future");
 		}
 
 		return birthday;
