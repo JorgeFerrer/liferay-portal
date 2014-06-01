@@ -28,8 +28,8 @@ public class DuplicateUserScreenNameException extends PortalException {
 
 	public DuplicateUserScreenNameException(String screenName, long userId) {
 		super(
-			"The screenName " + screenName + " is already being used by " +
-				"user " + userId);
+			"The screen name " + screenName + " is already used by user " +
+				userId);
 
 		_screenName = screenName;
 		_userId = userId;

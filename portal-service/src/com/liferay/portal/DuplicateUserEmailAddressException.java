@@ -30,8 +30,8 @@ public class DuplicateUserEmailAddressException extends PortalException {
 		String emailAddress, long userId) {
 
 		super(
-			"The emailAddress " + emailAddress + " is already being used by " +
-				"user " + userId);
+			"The email address " + emailAddress + " is already used by user " +
+				userId);
 
 		_emailAddress = emailAddress;
 		_userId = userId;
