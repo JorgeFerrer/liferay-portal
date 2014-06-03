@@ -262,8 +262,7 @@ public class AssetUtil {
 
 				@Override
 				public boolean filter(AssetVocabulary vocabulary) {
-					return vocabulary.isAssociatedToClassNameId(
-						classNameId);
+					return vocabulary.isAssociatedToClassNameId(classNameId);
 				}
 
 			};
