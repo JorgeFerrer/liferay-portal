@@ -3768,7 +3768,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
 
 		if (Validator.isNull(emailAddress)) {
-			throw new UserEmailAddressException("Email address is null");
+			throw new UserEmailAddressException(
+				"Email address must not be null");
 		}
 
 		User user = userPersistence.findByC_EA(companyId, emailAddress);
@@ -4496,7 +4497,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (user.getStatus() != WorkflowConstants.STATUS_INCOMPLETE) {
 			throw new PortalException(
-				"Unable to an incomplete user that is not incomplete");
+				"Unable to complete user that is not incomplete");
 		}
 
 		User defaultUser = getDefaultUser(companyId);
@@ -5803,17 +5804,20 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (authType.equals(CompanyConstants.AUTH_TYPE_EA)) {
 			if (Validator.isNull(login)) {
-				throw new UserEmailAddressException("Email address is null");
+				throw new UserEmailAddressException(
+					"Email address must not be null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_SN)) {
 			if (Validator.isNull(login)) {
-				throw new UserScreenNameException("Screen name is null");
+				throw new UserScreenNameException(
+					"Screen name must not be null");
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_ID)) {
 			if (Validator.isNull(login)) {
-				throw new UserIdException("User ID is null");
+				throw new UserIdException(
+					"User ID must not be null");
 			}
 		}
 
@@ -6560,7 +6564,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(firstName)) {
-			throw new ContactFirstNameException("First name is null");
+			throw new ContactFirstNameException("First name must not be null");
 		}
 		else if (Validator.isNull(lastName) &&
 				 PrefsPropsUtil.getBoolean(
@@ -6628,11 +6632,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (Validator.isNull(question)) {
-			throw new UserReminderQueryException("Question is null");
+			throw new UserReminderQueryException("Question must not be null");
 		}
 
 		if (Validator.isNull(answer)) {
-			throw new UserReminderQueryException("Answer is null");
+			throw new UserReminderQueryException("Answer must not be null");
 		}
 	}
 
@@ -6641,7 +6645,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException("Screen name is null");
+			throw new UserScreenNameException("Screen name must not be null");
 		}
 
 		ScreenNameValidator screenNameValidator =
@@ -6690,7 +6694,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				(c != CharPool.UNDERLINE)) {
 
 				throw new UserScreenNameException(
-					"Screen name " + screenName + " contains " + c);
+					"Screen name " + screenName + " must not contain " +
+						"character " + c);
 			}
 		}
 
