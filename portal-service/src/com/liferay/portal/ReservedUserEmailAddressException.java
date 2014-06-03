@@ -27,7 +27,7 @@ public class ReservedUserEmailAddressException extends PortalException {
 	}
 
 	public ReservedUserEmailAddressException(String emailAddress) {
-		super("{emailAddress=" + emailAddress + "}");
+		super("Email Address " + emailAddress + " is reserved");
 	}
 
 	public String getEmailAddress() {

@@ -27,7 +27,8 @@ public class CompanyMaxUsersException extends PortalException {
 	}
 
 	public CompanyMaxUsersException(int maxUsers) {
-		super("{maxUsers=" + maxUsers + "}");
+		super(
+			"The maximum number of users, " + maxUsers + ", has been reached");
 
 		_maxUsers = maxUsers;
 	}

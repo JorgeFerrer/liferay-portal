@@ -27,7 +27,7 @@ public class PasswordExpiredException extends PortalException {
 	}
 
 	public PasswordExpiredException(long userId) {
-		super("{userId=" + userId + "}");
+		super("The password for user" + userId + " has expired");
 
 		_userId = userId;
 	}

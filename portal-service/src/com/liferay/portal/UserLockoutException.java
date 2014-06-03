@@ -27,7 +27,7 @@ public class UserLockoutException extends PortalException {
 	}
 
 	public UserLockoutException(long userId) {
-		super("{userId=" + userId + "}");
+		super("User " + userId + " is locked out");
 
 		_userId = userId;
 	}

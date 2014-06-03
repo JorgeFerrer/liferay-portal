@@ -70,6 +70,7 @@ import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUt
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -2881,7 +2882,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		List<User> users = userPersistence.findByUuid(uuid);
 
 		if (users.isEmpty()) {
-			throw new NoSuchUserException("{uuid=" + uuid + "}");
+			throw new NoSuchUserException(
+				"User with UUID " + uuid + " does not exist");
 		}
 		else {
 			return users.get(0);
@@ -2906,11 +2908,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (users.isEmpty()) {
 			StringBundler sb = new StringBundler(5);
 
-			sb.append("{uuid=");
+			sb.append("User with UUID ");
 			sb.append(uuid);
-			sb.append(", companyId=");
+			sb.append(" does not exist in Company");
 			sb.append(companyId);
-			sb.append("}");
 
 			throw new NoSuchUserException(sb.toString());
 		}
@@ -5627,7 +5628,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (ticket.isExpired() ||
 			(ticket.getType() != TicketConstants.TYPE_EMAIL_ADDRESS)) {
 
-			throw new NoSuchTicketException("{ticketKey=" + ticketKey + "}");
+			throw new NoSuchTicketException(
+				"Ticket " + ticketKey + " not found");
 		}
 
 		User user = userPersistence.findByPrimaryKey(ticket.getClassPK());
@@ -6433,7 +6435,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 				if (organization == null) {
 					throw new NoSuchOrganizationException(
-						"{organizationId=" + organizationId + "}");
+						"Organization " + organizationId + " not found");
 				}
 			}
 		}
@@ -6583,8 +6585,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				companyId, firstName, middleName, lastName)) {
 
 			throw new ContactFullNameException(
-				"{firstName=" + firstName + ", middleName=" + middleName +
-					", lastName=" + lastName + "} is not valid using " +
+				"First name " + firstName + ", middle name=" + middleName +
+					" and last name=" + lastName + " are not valid using " +
 						"validator " + fullNameValidator.getClass().getName());
 		}
 	}
@@ -6653,7 +6655,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
 			throw new UserScreenNameException(
-				"{screenName=" + screenName + "} is not valid using " +
+				"Screen Name " + screenName + " is not valid using " +
 					"validator " + screenNameValidator.getClass().getName());
 		}
 
@@ -6662,7 +6664,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
 				throw new UserScreenNameException(
-					"{screenName=" + screenName + "} is numeric but the " +
+					"Screen Name " + screenName + " is numeric but the " +
 						"portal property " +
 							PropsKeys.USERS_SCREEN_NAME_ALLOW_NUMERIC +
 								" is enabled");

@@ -27,7 +27,7 @@ public class ReservedUserScreenNameException extends PortalException {
 	}
 
 	public ReservedUserScreenNameException(String screenName) {
-		super("{screenName=" + screenName + "}");
+		super("Screen Name " + screenName + " is reserved");
 
 		_screenName = screenName;
 	}

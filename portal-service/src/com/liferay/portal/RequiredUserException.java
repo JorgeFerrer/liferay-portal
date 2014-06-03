@@ -27,7 +27,7 @@ public class RequiredUserException extends PortalException {
 	}
 
 	public RequiredUserException(long userId) {
-		super("{userId=" + userId + "}");
+		super("User " + userId + " is required");
 
 		_userId = userId;
 	}
