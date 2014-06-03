@@ -262,7 +262,7 @@ public class AssetUtil {
 
 				@Override
 				public boolean filter(AssetVocabulary vocabulary) {
-					return vocabulary.isAssociatedToAssetRendererFactory(
+					return vocabulary.isAssociatedToClassNameId(
 						classNameId);
 				}
 
