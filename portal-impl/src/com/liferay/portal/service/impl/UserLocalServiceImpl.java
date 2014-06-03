@@ -6434,8 +6434,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 					organizationPersistence.fetchByPrimaryKey(organizationId);
 
 				if (organization == null) {
-					throw new NoSuchOrganizationException(
-						"Organization " + organizationId + " not found");
+					throw new NoSuchOrganizationException(organizationId);
 				}
 			}
 		}
