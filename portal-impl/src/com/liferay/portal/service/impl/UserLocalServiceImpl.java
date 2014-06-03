@@ -70,7 +70,6 @@ import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUt
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
-import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -3769,8 +3768,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
 
 		if (Validator.isNull(emailAddress)) {
-			throw new UserEmailAddressException(
-				"Email address must not be null");
+			throw new UserEmailAddressException.MustNotBeNull();
 		}
 
 		User user = userPersistence.findByC_EA(companyId, emailAddress);
@@ -5806,20 +5804,17 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (authType.equals(CompanyConstants.AUTH_TYPE_EA)) {
 			if (Validator.isNull(login)) {
-				throw new UserEmailAddressException(
-					"Email address must not be null");
+				throw new UserEmailAddressException.MustNotBeNull();
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_SN)) {
 			if (Validator.isNull(login)) {
-				throw new UserScreenNameException(
-					"Screen name must not be null");
+				throw new UserScreenNameException.MustNotBeNull();
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_ID)) {
 			if (Validator.isNull(login)) {
-				throw new UserIdException(
-					"User ID must not be null");
+				throw new UserIdException.MustNotBeNull();
 			}
 		}
 
@@ -6508,9 +6503,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			EmailAddressValidatorFactory.getInstance();
 
 		if (!emailAddressValidator.validate(companyId, emailAddress)) {
-			throw new UserEmailAddressException(
-				"Invalid email address " + emailAddress + " according to " +
-					ClassUtil.getClassName(emailAddressValidator));
+			throw new UserEmailAddressException.MustValidate(
+				emailAddress, emailAddressValidator);
 		}
 
 		String pop3User = PrefsPropsUtil.getString(
@@ -6539,8 +6533,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (!emailAddress1.equals(emailAddress2)) {
-			throw new UserEmailAddressException(
-				"Email address 1 does not equal email address 2");
+			throw new UserEmailAddressException.MustBeEqual(
+				emailAddress1, emailAddress2);
 		}
 
 		validateEmailAddress(user.getCompanyId(), emailAddress1);
@@ -6633,11 +6627,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (Validator.isNull(question)) {
-			throw new UserReminderQueryException("Question must not be null");
+			throw new UserReminderQueryException.QuestionMustNotBeNull();
 		}
 
 		if (Validator.isNull(answer)) {
-			throw new UserReminderQueryException("Answer must not be null");
+			throw new UserReminderQueryException.AnswerMustNotBeNull();
 		}
 	}
 
@@ -6646,27 +6640,22 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException("Screen name must not be null");
+			throw new UserScreenNameException.MustNotBeNull();
 		}
 
 		ScreenNameValidator screenNameValidator =
 			ScreenNameValidatorFactory.getInstance();
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
-			throw new UserScreenNameException(
-				"Screen Name " + screenName + " is not valid using " +
-					"validator " + screenNameValidator.getClass().getName());
+			throw new UserScreenNameException.MustValidate(
+				screenName, screenNameValidator);
 		}
 
 		String friendlyURL = StringPool.SLASH + screenName;
 
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
-				throw new UserScreenNameException(
-					"Screen Name " + screenName + " is numeric but the " +
-						"portal property " +
-							PropsKeys.USERS_SCREEN_NAME_ALLOW_NUMERIC +
-								" is enabled");
+				throw new UserScreenNameException.MustNotBeNumeric(screenName);
 			}
 
 			if (!screenName.equals(String.valueOf(userId))) {
