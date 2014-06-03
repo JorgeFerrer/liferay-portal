@@ -38,4 +38,20 @@ public class UserSmsException extends PortalException {
 		super(cause);
 	}
 
+	public static class InvalidEmailAddress extends UserSmsException {
+
+		public InvalidEmailAddress(String smsSn) {
+			super("Invalid email address " + smsSn);
+
+			_smsSn = smsSn;
+		}
+
+		public String getSmsSn() {
+			return _smsSn;
+		}
+
+		private final String _smsSn;
+
+	}
+
 }

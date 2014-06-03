@@ -2881,8 +2881,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		List<User> users = userPersistence.findByUuid(uuid);
 
 		if (users.isEmpty()) {
-			throw new NoSuchUserException(
-				"User with UUID " + uuid + " does not exist");
+			throw new NoSuchUserException.InvalidUUID(uuid);
 		}
 		else {
 			return users.get(0);
@@ -2905,14 +2904,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		List<User> users = userPersistence.findByUuid_C(uuid, companyId);
 
 		if (users.isEmpty()) {
-			StringBundler sb = new StringBundler(5);
-
-			sb.append("User with UUID ");
-			sb.append(uuid);
-			sb.append(" does not exist in Company");
-			sb.append(companyId);
-
-			throw new NoSuchUserException(sb.toString());
+			throw new NoSuchUserException.InvalidUUID(uuid, companyId);
 		}
 		else {
 			return users.get(0);
@@ -6093,7 +6085,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Date now = new Date();
 
 		if (birthday.after(now)) {
-			throw new ContactBirthdayException(birthday + " is in the future");
+			throw new ContactBirthdayException.MustNotBeFutureDate(birthday);
 		}
 
 		return birthday;
@@ -6469,7 +6461,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		if (Validator.isNotNull(smsSn) && !Validator.isEmailAddress(smsSn)) {
-			throw new UserSmsException("Invalid email address " + smsSn);
+			throw new UserSmsException.InvalidEmailAddress(smsSn);
 		}
 	}
 
@@ -6559,16 +6551,14 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(firstName)) {
-			throw new ContactFirstNameException("First name must not be null");
+			throw new ContactFirstNameException.MustNotBeNull();
 		}
 		else if (Validator.isNull(lastName) &&
 				 PrefsPropsUtil.getBoolean(
 					 companyId, PropsKeys.USERS_LAST_NAME_REQUIRED,
 					 PropsValues.USERS_LAST_NAME_REQUIRED)) {
 
-			throw new ContactLastNameException(
-				"The portal property " + PropsValues.USERS_LAST_NAME_REQUIRED +
-					" does not allow null last names");
+			throw new ContactLastNameException.MustNotBeNull();
 		}
 
 		FullNameValidator fullNameValidator =
@@ -6577,10 +6567,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (!fullNameValidator.validate(
 				companyId, firstName, middleName, lastName)) {
 
-			throw new ContactFullNameException(
-				"First name " + firstName + ", middle name=" + middleName +
-					" and last name=" + lastName + " are not valid using " +
-						"validator " + fullNameValidator.getClass().getName());
+			throw new ContactFullNameException.MustValidate(
+				firstName, middleName, lastName, fullNameValidator);
 		}
 	}
 
@@ -6640,22 +6628,27 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException.MustNotBeNull();
+			throw new UserScreenNameException("Screen name must not be null");
 		}
 
 		ScreenNameValidator screenNameValidator =
 			ScreenNameValidatorFactory.getInstance();
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
-			throw new UserScreenNameException.MustValidate(
-				screenName, screenNameValidator);
+			throw new UserScreenNameException(
+				"Screen Name " + screenName + " is not valid using " +
+					"validator " + screenNameValidator.getClass().getName());
 		}
 
 		String friendlyURL = StringPool.SLASH + screenName;
 
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
-				throw new UserScreenNameException.MustNotBeNumeric(screenName);
+				throw new UserScreenNameException(
+					"Screen Name " + screenName + " is numeric but the " +
+						"portal property " +
+							PropsKeys.USERS_SCREEN_NAME_ALLOW_NUMERIC +
+								" is enabled");
 			}
 
 			if (!screenName.equals(String.valueOf(userId))) {

@@ -38,4 +38,11 @@ public class UserIdException extends PortalException {
 		super(cause);
 	}
 
+	public static class MustNotBeNull extends UserIdException {
+
+		public MustNotBeNull() {
+			super("User ID must not be null");
+		}
+	}
+
 }
