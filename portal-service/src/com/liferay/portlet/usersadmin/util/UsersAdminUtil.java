@@ -221,14 +221,6 @@ public class UsersAdminUtil {
 		return getUsersAdmin().getUserGroupRoles(portletRequest);
 	}
 
-	public static List<UserGroupRole> getUserGroupRoles(
-			PortletRequest portletRequest, boolean isAddUserGroupRole)
-		throws PortalException, SystemException {
-
-		return getUsersAdmin().getUserGroupRoles(
-			portletRequest, isAddUserGroupRole);
-	}
-
 	public static List<UserGroup> getUserGroups(Hits hits)
 		throws PortalException, SystemException {
 

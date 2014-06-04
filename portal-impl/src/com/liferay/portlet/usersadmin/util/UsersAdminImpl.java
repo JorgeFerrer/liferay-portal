@@ -905,8 +905,7 @@ public class UsersAdminImpl implements UsersAdmin {
 		return new ArrayList<UserGroupRole>(userGroupRoles);
 	}
 
-	@Override
-	public List<UserGroupRole> getUserGroupRoles(
+	protected List<UserGroupRole> getUserGroupRoles(
 			PortletRequest portletRequest, boolean isAddUserGroupRole)
 		throws PortalException, SystemException {
 
