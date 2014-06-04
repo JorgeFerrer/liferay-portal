@@ -1610,6 +1610,8 @@ public class PropsValues {
 
 	public static final String[] SCRIPTING_JRUBY_LOAD_PATHS = PropsUtil.getArray(PropsKeys.SCRIPTING_JRUBY_LOAD_PATHS);
 
+	public static final int SEARCH_CONTAINER_COLUMN_LIST_MAX = GetterUtil.getInteger(PropsUtil.get(PropsKeys.SEARCH_CONTAINER_COLUMN_LIST_MAX), 40);
+
 	public static final int SEARCH_CONTAINER_PAGE_DEFAULT_DELTA = GetterUtil.getInteger(PropsUtil.get(PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA), 20);
 
 	public static final int[] SEARCH_CONTAINER_PAGE_DELTA_VALUES = GetterUtil.getIntegerValues(PropsUtil.getArray(PropsKeys.SEARCH_CONTAINER_PAGE_DELTA_VALUES));
