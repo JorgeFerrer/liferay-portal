@@ -899,9 +899,14 @@ public class UsersAdminImpl implements UsersAdmin {
 				UserGroupRoleLocalServiceUtil.getUserGroupRoles(
 					user.getUserId()));
 
-		userGroupRoles.addAll(getUserGroupRoles(portletRequest, user, true));
+		userGroupRoles.addAll(
+			getUserGroupRoles(
+				portletRequest, user, "addGroupRolesGroupIds",
+				"addGroupRolesRoleIds"));
 		userGroupRoles.removeAll(
-			getUserGroupRoles(portletRequest, user, false));
+			getUserGroupRoles(
+				portletRequest, user, "deleteGroupRolesGroupIds",
+				"deleteGroupRolesRoleIds"));
 
 		return new ArrayList<UserGroupRole>(userGroupRoles);
 	}
@@ -1414,33 +1419,16 @@ public class UsersAdminImpl implements UsersAdmin {
 	}
 
 	protected List<UserGroupRole> getUserGroupRoles(
-			PortletRequest portletRequest, User user,
-			boolean isAddUserGroupRole)
+			PortletRequest portletRequest, User user, String groupIdsParam,
+			String roleIdsParam)
 		throws PortalException, SystemException {
 
 		List<UserGroupRole> userGroupRoles = new UniqueList<UserGroupRole>();
 
-		long[] groupRolesRoleIds = null;
-		long[] groupRolesGroupIds = null;
-
-		if (isAddUserGroupRole) {
-			groupRolesGroupIds = StringUtil.split(
-				ParamUtil.getString(
-					portletRequest, "addGroupRolesGroupIds"), 0L);
-
-			groupRolesRoleIds = StringUtil.split(
-				ParamUtil.getString(
-					portletRequest, "addGroupRolesRoleIds"), 0L);
-		}
-		else {
-			groupRolesGroupIds = StringUtil.split(
-				ParamUtil.getString(
-					portletRequest, "deleteGroupRolesGroupIds"), 0L);
-
-			groupRolesRoleIds = StringUtil.split(
-				ParamUtil.getString(
-					portletRequest, "deleteGroupRolesRoleIds"), 0L);
-		}
+		long[] groupRolesGroupIds = StringUtil.split(
+			ParamUtil.getString(portletRequest, groupIdsParam), 0L);
+		long[] groupRolesRoleIds = StringUtil.split(
+			ParamUtil.getString(portletRequest, roleIdsParam), 0L);
 
 		if (groupRolesGroupIds.length != groupRolesRoleIds.length) {
 			return userGroupRoles;
