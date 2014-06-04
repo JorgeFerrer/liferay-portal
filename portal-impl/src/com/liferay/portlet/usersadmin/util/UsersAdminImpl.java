@@ -899,8 +899,9 @@ public class UsersAdminImpl implements UsersAdmin {
 				UserGroupRoleLocalServiceUtil.getUserGroupRoles(
 					user.getUserId()));
 
-		userGroupRoles.addAll(getUserGroupRoles(portletRequest, true));
-		userGroupRoles.removeAll(getUserGroupRoles(portletRequest, false));
+		userGroupRoles.addAll(getUserGroupRoles(portletRequest, user, true));
+		userGroupRoles.removeAll(
+			getUserGroupRoles(portletRequest, user, false));
 
 		return new ArrayList<UserGroupRole>(userGroupRoles);
 	}
@@ -1413,7 +1414,8 @@ public class UsersAdminImpl implements UsersAdmin {
 	}
 
 	protected List<UserGroupRole> getUserGroupRoles(
-			PortletRequest portletRequest, boolean isAddUserGroupRole)
+			PortletRequest portletRequest, User user,
+			boolean isAddUserGroupRole)
 		throws PortalException, SystemException {
 
 		List<UserGroupRole> userGroupRoles = new UniqueList<UserGroupRole>();
@@ -1443,8 +1445,6 @@ public class UsersAdminImpl implements UsersAdmin {
 		if (groupRolesGroupIds.length != groupRolesRoleIds.length) {
 			return userGroupRoles;
 		}
-
-		User user = PortalUtil.getSelectedUser(portletRequest);
 
 		long userId = 0;
 
