@@ -28,6 +28,10 @@ public class WriteTag extends IncludeTag {
 		_bean = bean;
 	}
 
+	public void setCount(int count) {
+		_count = count;
+	}
+
 	public void setProperty(String property) {
 		_property = property;
 	}
@@ -35,6 +39,7 @@ public class WriteTag extends IncludeTag {
 	@Override
 	protected void cleanUp() {
 		_bean = null;
+		_count = 0;
 		_property = null;
 	}
 
@@ -51,12 +56,14 @@ public class WriteTag extends IncludeTag {
 	@Override
 	protected void setAttributes(HttpServletRequest request) {
 		request.setAttribute("liferay-ui:write:bean", _bean);
+		request.setAttribute("liferay-ui:write:count", _count);
 		request.setAttribute("liferay-ui:write:property", _property);
 	}
 
 	private static final String _PAGE = "/html/taglib/ui/write/page.jsp";
 
 	private Object _bean;
+	private int _count = 0;
 	private String _property;
 
 }

@@ -61,12 +61,13 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites"
 		/>
 
 		<%
-		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), group.getGroupId());
+		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), group.getGroupId(), 0, SearchContainer.DEFAULT_DELTA);
+		int userGroupRolesCount = UserGroupRoleLocalServiceUtil.getUserGroupRolesCount(selUser.getUserId(), group.getGroupId());
 		%>
 
 		<liferay-ui:search-container-column-text
 			name="roles"
-			value="<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
+			value='<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) + ((userGroupRoles.size() < userGroupRolesCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userGroupRolesCount - userGroupRoles.size()), false) : StringPool.BLANK) %>'
 		/>
 
 		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !SiteMembershipPolicyUtil.isMembershipRequired(selUser.getUserId(), group.getGroupId()) && !SiteMembershipPolicyUtil.isMembershipProtected(permissionChecker, selUser.getUserId(), group.getGroupId()) %>">
@@ -202,12 +203,13 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites"
 		/>
 
 		<%
-		List<Role> inheritedRoles = RoleLocalServiceUtil.getUserGroupGroupRoles(selUser.getUserId(), inheritedSite.getGroupId());
+		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), inheritedSite.getGroupId(), 0, SearchContainer.DEFAULT_DELTA);
+		int userGroupRolesCount = UserGroupRoleLocalServiceUtil.getUserGroupRolesCount(selUser.getUserId(), inheritedSite.getGroupId());
 		%>
 
 		<liferay-ui:search-container-column-text
 			name="roles"
-			value="<%= ListUtil.toString(inheritedRoles, Role.TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
+			value='<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) + ((userGroupRoles.size() < userGroupRolesCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userGroupRolesCount - userGroupRoles.size()), false) : StringPool.BLANK) %>'
 		/>
 	</liferay-ui:search-container-row>
 

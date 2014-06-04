@@ -366,6 +366,14 @@ public class UserGroupRoleLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRoles(
+		long userId, long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _userGroupRoleLocalService.getUserGroupRoles(userId, groupId,
+			start, end);
+	}
+
+	@Override
 	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRolesByGroup(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -386,6 +394,12 @@ public class UserGroupRoleLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _userGroupRoleLocalService.getUserGroupRolesByUserUserGroupAndGroup(userId,
 			groupId);
+	}
+
+	@Override
+	public int getUserGroupRolesCount(long userId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _userGroupRoleLocalService.getUserGroupRolesCount(userId, groupId);
 	}
 
 	@Override

@@ -34,13 +34,14 @@
 	<c:when test="<%= organizationContextView && (organizationGroupId > 0) %>">
 
 		<%
-		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(user2.getUserId(), organizationGroupId);
+		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(user2.getUserId(), organizationGroupId, 0, SearchContainer.DEFAULT_DELTA);
+		int userGroupRolesCount = UserGroupRoleLocalServiceUtil.getUserGroupRolesCount(user2.getUserId(), organizationGroupId);
 		%>
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="organization-roles"
-			value="<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
+			value='<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) + ((userGroupRoles.size() < userGroupRolesCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userGroupRolesCount - userGroupRoles.size()), false) : StringPool.BLANK) %>'
 		/>
 	</c:when>
 	<c:otherwise>
@@ -48,7 +49,7 @@
 			href="<%= rowURL %>"
 			name="organizations"
 		>
-			<liferay-ui:write bean="<%= user2 %>" property="organizations" />
+			<liferay-ui:write bean="<%= user2 %>" count="<%= SearchContainer.DEFAULT_DELTA %>" property="organizations" />
 		</liferay-ui:search-container-column-text>
 	</c:otherwise>
 </c:choose>
@@ -57,5 +58,5 @@
 	href="<%= rowURL %>"
 	name="user-groups"
 >
-	<liferay-ui:write bean="<%= user2 %>" property="user-groups" />
+	<liferay-ui:write bean="<%= user2 %>" count="<%= SearchContainer.DEFAULT_DELTA %>" property="user-groups" />
 </liferay-ui:search-container-column-text>

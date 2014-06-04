@@ -66,15 +66,17 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "organi
 
 		<%
 		List<UserGroupRole> userGroupRoles = new ArrayList<UserGroupRole>();
+		int userGroupRolesCount = 0;
 
 		if (selUser != null) {
-			userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), organization.getGroup().getGroupId());
+			userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), organization.getGroupId(), 0, SearchContainer.DEFAULT_DELTA);
+			userGroupRolesCount = UserGroupRoleLocalServiceUtil.getUserGroupRolesCount(selUser.getUserId(), organization.getGroupId());
 		}
 		%>
 
 		<liferay-ui:search-container-column-text
 			name="roles"
-			value="<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
+			value='<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) + ((userGroupRoles.size() < userGroupRolesCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userGroupRolesCount - userGroupRoles.size()), false) : StringPool.BLANK) %>'
 		/>
 
 		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && ((selUser == null) || !OrganizationMembershipPolicyUtil.isMembershipProtected(permissionChecker, selUser.getUserId(), organization.getOrganizationId())) %>">

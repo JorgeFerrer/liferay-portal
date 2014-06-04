@@ -34,5 +34,5 @@
 	href="<%= rowURL %>"
 	name="organizations"
 >
-	<liferay-ui:write bean="<%= user2 %>" property="organizations" />
+	<liferay-ui:write bean="<%= user2 %>" count="<%= SearchContainer.DEFAULT_DELTA %>" property="organizations" />
 </liferay-ui:search-container-column-text>

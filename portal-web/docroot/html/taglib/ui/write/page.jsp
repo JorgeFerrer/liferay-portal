@@ -18,6 +18,7 @@
 
 <%
 Object bean = request.getAttribute("liferay-ui:write:bean");
+int count = GetterUtil.getInteger(request.getAttribute("liferay-ui:write:count"));
 String property = (String)request.getAttribute("liferay-ui:write:property");
 %>
 
@@ -85,18 +86,34 @@ String property = (String)request.getAttribute("liferay-ui:write:property");
 			<c:when test='<%= property.equals("organizations") %>'>
 
 				<%
-				List<Organization> organizations = user2.getOrganizations();
+				List<Organization> organizations = Collections.emptyList();
+				int userOrganizationsCount = OrganizationLocalServiceUtil.getUserOrganizationsCount(user2.getUserId());
+
+				if (count > 0) {
+					organizations = OrganizationLocalServiceUtil.getUserOrganizations(user2.getUserId(), 0, count);
+				}
+				else {
+					organizations = user2.getOrganizations();
+				}
 				%>
 
-				<%= HtmlUtil.escape(ListUtil.toString(organizations, Organization.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE)) %>
+				<%= HtmlUtil.escape(ListUtil.toString(organizations, Organization.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE)) + ((0 < count) && (count < userOrganizationsCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userOrganizationsCount - count), false) : StringPool.BLANK) %>
 			</c:when>
 			<c:when test='<%= property.equals("user-groups") %>'>
 
 				<%
-				List<UserGroup> userGroups = user2.getUserGroups();
+				List<UserGroup> userGroups = Collections.emptyList();
+				int userUserGroupsCount = UserGroupLocalServiceUtil.getUserUserGroupsCount(user2.getUserId());
+
+				if (count > 0) {
+					userGroups = UserGroupLocalServiceUtil.getUserUserGroups(user2.getUserId(), 0, count);
+				}
+				else {
+					userGroups = user2.getUserGroups();
+				}
 				%>
 
-				<%= HtmlUtil.escape(ListUtil.toString(userGroups, UserGroup.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE)) %>
+				<%= HtmlUtil.escape(ListUtil.toString(userGroups, UserGroup.NAME_ACCESSOR, StringPool.COMMA_AND_SPACE)) + ((0 < count) && (count < userUserGroupsCount) ? StringPool.SPACE + LanguageUtil.format(pageContext, "and-x-more", String.valueOf(userUserGroupsCount - count), false) : StringPool.BLANK) %>
 			</c:when>
 		</c:choose>
 	</c:when>
