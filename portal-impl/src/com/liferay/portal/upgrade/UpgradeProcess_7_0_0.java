@@ -22,12 +22,13 @@ import com.liferay.portal.upgrade.v7_0_0.UpgradeEmailNotificationPreferences;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeExpando;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeJournal;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeLanguagePreferences;
+import com.liferay.portal.upgrade.v7_0_0.UpgradeMasterPortletsSettings;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeMessageBoards;
-import com.liferay.portal.upgrade.v7_0_0.UpgradePortletSettings;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeRepositoryEntry;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeSchema;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeShopping;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeShoppingPreferences;
+import com.liferay.portal.upgrade.v7_0_0.UpgradeSubordinatePortletsSettings;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeSubscription;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeWiki;
 
@@ -57,12 +58,12 @@ public class UpgradeProcess_7_0_0 extends UpgradeProcess {
 		upgrade(UpgradeSubscription.class);
 		upgrade(UpgradeWiki.class);
 
-		// This must be the last upgrade process. Otherwise, upgrades based on
-		// BaseUpgradePortletPreferences will fail because the portlet ID will
-		// not be found after UpgradePortletSettings translates it to the
-		// service name.
+		// The next two upgrades must be done after any upgrade process based on
+		// BaseUpgradePortletPreferences. Otherwise they will fail because the
+		// portlet preferences will be in the new Settings format.
 
-		upgrade(UpgradePortletSettings.class);
+		upgrade(UpgradeMasterPortletsSettings.class);
+		upgrade(UpgradeSubordinatePortletsSettings.class);
 	}
 
 }
