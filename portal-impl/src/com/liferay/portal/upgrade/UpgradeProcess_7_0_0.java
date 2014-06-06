@@ -22,8 +22,8 @@ import com.liferay.portal.upgrade.v7_0_0.UpgradeEmailNotificationPreferences;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeExpando;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeJournal;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeLanguagePreferences;
+import com.liferay.portal.upgrade.v7_0_0.UpgradeMainPortletsSettings;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeMessageBoards;
-import com.liferay.portal.upgrade.v7_0_0.UpgradePortletSettings;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeRepositoryEntry;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeSchema;
 import com.liferay.portal.upgrade.v7_0_0.UpgradeShopping;
@@ -62,7 +62,7 @@ public class UpgradeProcess_7_0_0 extends UpgradeProcess {
 		// not be found after UpgradePortletSettings translates it to the
 		// service name.
 
-		upgrade(UpgradePortletSettings.class);
+		upgrade(UpgradeMainPortletsSettings.class);
 	}
 
 }
