@@ -224,3 +224,38 @@ Some content (such as web content) needs the `PortletRequest` and
 `PortletResponse` parameters in order to be rendered.
 
 ---------------------------------------
+
+### Let portlet developers provide independent portlet settings at the portal instance, site and portlet instance levels
+- **Date:** 2014-Jun-06
+- **JIRA Ticket:** LPS-43134
+
+#### What changed?
+The PortletPreferences API for dealing with configuration has been discouraged
+in favor of a new API called Settings. This new API introduces the notion of 
+service level configuration which controls how backend services operate (for
+example: when sending notification mails). 
+
+Due to this change, all portlets with configuration at layout level (for 
+example: bookmarks) will collapse multiple configuration values into one only
+service level configuration. This won't be any problem if the configuration is
+the same across all portlets, but if it differs only one of them will be used.
+
+For instance: if you have configured three bookmarks portlets where the mail 
+configuration is the same you won't have any problem. But in case the three 
+configurations are different, you will have to choose which one to use.
+
+#### Who is affected?
+Users who have configured more than one portlet of the same type which stores
+configuration at layout level with different settings.
+
+#### How should I update my code?
+The upgrade process will choose one of your configurations and will store it at
+the service level. You will have to review it then and modify it if needed.
+
+#### Why was this change made?
+To unify the configuration of portlets and service and make its management 
+easier.
+
+
+
+
