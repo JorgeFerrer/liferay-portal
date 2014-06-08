@@ -60,7 +60,9 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPrivateLayoutFromCompanyVirtualHost() throws Exception {
+	public void testPrivateLayoutFromCompanyVirtualHostRefererPlidZero()
+		throws Exception {
+
 		ThemeDisplay themeDisplay = initThemeDisplay(
 			company, group, privateLayout, LOCALHOST);
 
@@ -72,7 +74,8 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPrivateLayoutURLFromPublicLayoutSetVirtualHost()
+	public void
+			testPrivateLayoutURLFromPublicLayoutSetVirtualHostRefererPlidZero()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -86,7 +89,9 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPublicLayoutFromCompanyVirtualHost() throws Exception {
+	public void testPublicLayoutFromCompanyVirtualHostRefererPlidZero()
+		throws Exception {
+
 		ThemeDisplay themeDisplay = initThemeDisplay(
 			company, group, publicLayout, LOCALHOST);
 
