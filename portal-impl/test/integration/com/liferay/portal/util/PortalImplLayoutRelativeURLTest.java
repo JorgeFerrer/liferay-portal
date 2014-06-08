@@ -61,7 +61,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test(expected = NoSuchLayoutException.class)
-	public void testPrivateLayoutFromCompanyVirtualHostRefererPlidNotExists()
+	public void testPrivateLayoutFromCompanyVHostRefererPlidNotExists()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -75,7 +75,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPrivateLayoutFromCompanyVirtualHostRefererPlidZero()
+	public void testPrivateLayoutFromCompanyVHostRefererPlidZero()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -89,7 +89,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPrivateLayoutFromCompanyVirtualHostRefererPlidWrong()
+	public void testPrivateLayoutFromCompanyVHostRefererPlidWrong()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -104,7 +104,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 
 	@Test(expected = NoSuchLayoutException.class)
 	public void
-			testPrivateLayoutURLFromPublicLayoutSetVirtualHostRefererPlidNotExists()
+			testPrivateLayoutURLFromPublicLayoutSetVHostRefererPlidNotExists()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -118,8 +118,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void
-			testPrivateLayoutURLFromPublicLayoutSetVirtualHostRefererPlidZero()
+	public void testPrivateLayoutURLFromPublicLayoutSetVHostRefererPlidZero()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -133,8 +132,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void
-			testPrivateLayoutURLFromPublicLayoutSetVirtualHostRefererPlidWrong()
+	public void testPrivateLayoutURLFromPublicLayoutSetVHostRefererPlidWrong()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -148,7 +146,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test(expected = NoSuchLayoutException.class)
-	public void testPublicLayoutFromCompanyVirtualHostRefererPlidNotExists()
+	public void testPublicLayoutFromCompanyVHostRefererPlidNotExists()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -162,7 +160,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPublicLayoutFromCompanyVirtualHostRefererPlidZero()
+	public void testPublicLayoutFromCompanyVHostRefererPlidZero()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -176,7 +174,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPublicLayoutFromCompanyVirtualHostRefererPlidWrong()
+	public void testPublicLayoutFromCompanyVHostRefererPlidWrong()
 		throws Exception {
 
 		ThemeDisplay themeDisplay = initThemeDisplay(
@@ -190,9 +188,7 @@ public class PortalImplLayoutRelativeURLTest extends PortalImplBaseURLTestCase {
 	}
 
 	@Test
-	public void testPublicLayoutURLFromPublicLayoutSetVirtualHost()
-		throws Exception {
-
+	public void testPublicLayoutURLFromPublicLayoutSetVHost() throws Exception {
 		ThemeDisplay themeDisplay = initThemeDisplay(
 			company, group, publicLayout, LOCALHOST, VIRTUAL_HOSTNAME);
 
