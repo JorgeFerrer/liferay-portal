@@ -15,6 +15,8 @@
 package com.liferay.portal.upgrade.v7_0_0;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -23,19 +25,24 @@ import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.portlet.ReadOnlyException;
 
 /**
  * @author Iván Zaera
  */
-public class BaseUpgradePortletSettings extends UpgradeProcess {
+public abstract class BaseUpgradePortletSettings extends UpgradeProcess {
 
 	protected void createPortletPreferences(
 			PortletPreferences portletPreferences)
-		throws Exception {
+		throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -70,7 +77,7 @@ public class BaseUpgradePortletSettings extends UpgradeProcess {
 
 	protected void deletePortletPreferencesKeys(
 			String portletId, int ownerType, String[] keys)
-		throws Exception {
+		throws ReadOnlyException, SQLException {
 
 		List<PortletPreferences> portletPreferencesList = getPortletPreferences(
 			portletId, ownerType);
@@ -107,9 +114,16 @@ public class BaseUpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
+	@Override
+	protected void doUpgrade() throws PortalException, SystemException {
+		for (String portletId : ownerTypes.keySet()) {
+			upgradePortlet(portletId);
+		}
+	}
+
 	protected List<PortletPreferences> getPortletPreferences(
 			String portletId, int ownerType)
-		throws Exception {
+		throws SQLException {
 
 		List<PortletPreferences> portletPreferencesList =
 			new ArrayList<PortletPreferences>();
@@ -159,9 +173,22 @@ public class BaseUpgradePortletSettings extends UpgradeProcess {
 		return portletPreferencesList;
 	}
 
+	protected void registerUpgradeablePortlet(
+		String portletId, String serviceName, int ownerType,
+		String[] portletInstanceKeysArray, String[] serviceKeysArray) {
+
+		serviceNames.put(portletId, serviceName);
+
+		ownerTypes.put(portletId, ownerType);
+
+		portletInstanceKeys.put(portletId, portletInstanceKeysArray);
+
+		serviceKeys.put(portletId, serviceKeysArray);
+	}
+
 	protected void updatePortletPreferences(
 			PortletPreferences portletPreferences)
-		throws Exception {
+		throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -194,6 +221,16 @@ public class BaseUpgradePortletSettings extends UpgradeProcess {
 			DataAccess.cleanUp(con, ps);
 		}
 	}
+
+	protected abstract void upgradePortlet(String portletId)
+		throws PortalException, SystemException;
+
+	protected Map<String, Integer> ownerTypes = new HashMap<String, Integer>();
+	protected Map<String, String[]> portletInstanceKeys =
+		new HashMap<String, String[]>();
+	protected Map<String, String[]> serviceKeys =
+		new HashMap<String, String[]>();
+	protected Map<String, String> serviceNames = new HashMap<String, String>();
 
 	protected static class PortletPreferences {
 

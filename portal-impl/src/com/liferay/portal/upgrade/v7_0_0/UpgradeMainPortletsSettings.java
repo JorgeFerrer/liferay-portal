@@ -15,7 +15,7 @@
 package com.liferay.portal.upgrade.v7_0_0;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
-import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.blogs.BlogsPortletInstanceSettings;
@@ -37,10 +37,11 @@ import com.liferay.portlet.wiki.util.WikiConstants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.portlet.ReadOnlyException;
 
 /**
  * @author Sergio González
@@ -82,7 +83,7 @@ public class UpgradeMainPortletsSettings extends BaseUpgradePortletSettings {
 
 	protected void createServiceSettings(
 			String portletId, int ownerType, String serviceName)
-		throws Exception, SystemException {
+		throws SQLException {
 
 		List<PortletPreferences> portletPreferencesList = getPortletPreferences(
 			portletId, ownerType);
@@ -103,14 +104,7 @@ public class UpgradeMainPortletsSettings extends BaseUpgradePortletSettings {
 		}
 	}
 
-	@Override
-	protected void doUpgrade() throws Exception {
-		for (String portletId : _ownerTypes.keySet()) {
-			upgradePortlet(portletId);
-		}
-	}
-
-	protected long getGroupIdFromPlid(long plid) throws Exception {
+	protected long getGroupIdFromPlid(long plid) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -137,39 +131,30 @@ public class UpgradeMainPortletsSettings extends BaseUpgradePortletSettings {
 		return 0;
 	}
 
-	protected void registerUpgradeablePortlet(
-		String portletId, String serviceName, int ownerType,
-		String[] portletInstanceKeys, String[] serviceKeys) {
+	@Override
+	protected void upgradePortlet(String portletId) throws PortalException {
+		try {
+			String serviceName = serviceNames.get(portletId);
 
-		_serviceNames.put(portletId, serviceName);
+			int ownerType = ownerTypes.get(portletId);
 
-		_ownerTypes.put(portletId, ownerType);
+			createServiceSettings(portletId, ownerType, serviceName);
 
-		_portletInstanceKeys.put(portletId, portletInstanceKeys);
+			deletePortletPreferencesKeys(
+				serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
+				portletInstanceKeys.get(portletId));
 
-		_serviceKeys.put(portletId, serviceKeys);
+			deletePortletPreferencesKeys(
+				portletId, ownerType, serviceKeys.get(portletId));
+		}
+		catch (ReadOnlyException roe) {
+			throw new PortalException(
+				"Unable to upgrade portlet " + portletId, roe);
+		}
+		catch (SQLException sqle) {
+			throw new PortalException(
+				"Unable to upgrade portlet " + portletId, sqle);
+		}
 	}
-
-	protected void upgradePortlet(String portletId) throws Exception {
-		String serviceName = _serviceNames.get(portletId);
-
-		int ownerType = _ownerTypes.get(portletId);
-
-		createServiceSettings(portletId, ownerType, serviceName);
-
-		deletePortletPreferencesKeys(
-			serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
-			_portletInstanceKeys.get(portletId));
-
-		deletePortletPreferencesKeys(
-			portletId, ownerType, _serviceKeys.get(portletId));
-	}
-
-	private Map<String, Integer> _ownerTypes = new HashMap<String, Integer>();
-	private Map<String, String[]> _portletInstanceKeys =
-		new HashMap<String, String[]>();
-	private Map<String, String[]> _serviceKeys =
-		new HashMap<String, String[]>();
-	private Map<String, String> _serviceNames = new HashMap<String, String>();
 
 }

@@ -14,12 +14,15 @@
 
 package com.liferay.portal.upgrade.v7_0_0;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.util.PortletKeys;
+import com.liferay.portlet.documentlibrary.DLPortletInstanceSettings;
 import com.liferay.portlet.documentlibrary.DLSettings;
-import com.liferay.portlet.wiki.WikiSettings;
+import com.liferay.portlet.documentlibrary.util.DLConstants;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
+
+import javax.portlet.ReadOnlyException;
 
 /**
  * @author Sergio González
@@ -30,42 +33,36 @@ public class UpgradeSecondaryPortletsSettings
 
 	public UpgradeSecondaryPortletsSettings() {
 		registerUpgradeablePortlet(
-			PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
+			PortletKeys.DOCUMENT_LIBRARY_DISPLAY, DLConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			DLPortletInstanceSettings.ALL_KEYS, DLSettings.ALL_KEYS);
 
 		registerUpgradeablePortlet(
-			PortletKeys.MEDIA_GALLERY_DISPLAY,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
+			PortletKeys.MEDIA_GALLERY_DISPLAY, DLConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			DLPortletInstanceSettings.ALL_KEYS, DLSettings.ALL_KEYS);
 
 		registerUpgradeablePortlet(
-			PortletKeys.WIKI_DISPLAY, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-			WikiSettings.ALL_KEYS);
+			PortletKeys.WIKI_DISPLAY, DLConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			DLPortletInstanceSettings.ALL_KEYS, DLSettings.ALL_KEYS);
 	}
 
-	@Override
-	protected void doUpgrade() throws Exception {
-		for (String portletId : _ownerTypes.keySet()) {
-			upgradePortlet(portletId);
+	protected void upgradePortlet(String portletId) throws PortalException {
+		int ownerType = ownerTypes.get(portletId);
+
+		try {
+			deletePortletPreferencesKeys(
+				portletId, ownerType, serviceKeys.get(portletId));
+		}
+		catch (ReadOnlyException roe) {
+			throw new PortalException(
+				"Unable to upgrade portlet " + portletId, roe);
+		}
+		catch (SQLException sqle) {
+			throw new PortalException(
+				"Unable to upgrade portlet " + portletId, sqle);
 		}
 	}
-
-	protected void registerUpgradeablePortlet(
-		String portletId, int ownerType, String[] servicePreferencesKeys) {
-
-		_ownerTypes.put(portletId, ownerType);
-
-		_servicePreferencesKeys.put(portletId, servicePreferencesKeys);
-	}
-
-	protected void upgradePortlet(String portletId) throws Exception {
-		int ownerType = _ownerTypes.get(portletId);
-
-		deletePortletPreferencesKeys(
-			portletId, ownerType, _servicePreferencesKeys.get(portletId));
-	}
-
-	private Map<String, Integer> _ownerTypes = new HashMap<String, Integer>();
-	private Map<String, String[]> _servicePreferencesKeys =
-		new HashMap<String, String[]>();
 
 }
