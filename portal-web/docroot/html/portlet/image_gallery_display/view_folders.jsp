@@ -62,7 +62,14 @@ PortletURL portletURL = (PortletURL)request.getAttribute("view.jsp-portletURL");
 			name="folder"
 		>
 			<a href="<%= rowURL %>">
-				<img alt="<%= LanguageUtil.get(pageContext, "folder") %>" class="label-icon" src="<%= themeDisplay.getPathThemeImages() %>/common/folder.png">
+
+				<%
+				AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(DLFolder.class.getName());
+
+				AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(curFolder.getFolderId());
+				%>
+
+				<i class="<%= assetRenderer.getIconCssClass() %>"></i>
 
 				<strong><%= curFolder.getName() %></strong>
 
@@ -136,6 +143,7 @@ PortletURL portletURL = (PortletURL)request.getAttribute("view.jsp-portletURL");
 
 		<liferay-ui:search-container-column-jsp
 			align="right"
+			cssClass="entry-action"
 			path="/html/portlet/document_library/folder_action.jsp"
 		/>
 	</liferay-ui:search-container-row>

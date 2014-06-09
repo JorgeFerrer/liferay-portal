@@ -247,7 +247,6 @@ if ((category != null) && layout.isTypeControlPanel()) {
 							<%@ include file="/html/portlet/message_boards/thread_priority.jspf" %>
 
 							<liferay-ui:search-container-column-text
-								buffer="buffer"
 								href="<%= rowURL %>"
 								name="flag"
 								value='<%= MBThreadLocalServiceUtil.hasAnswerMessage(thread.getThreadId()) ? LanguageUtil.get(pageContext, "resolved") : LanguageUtil.get(pageContext, "waiting-for-an-answer") %>'
@@ -289,6 +288,7 @@ if ((category != null) && layout.isTypeControlPanel()) {
 
 							<liferay-ui:search-container-column-jsp
 								align="right"
+								cssClass="entry-action"
 								path="/html/portlet/message_boards/message_action.jsp"
 							/>
 						</liferay-ui:search-container-row>
@@ -430,6 +430,7 @@ if ((category != null) && layout.isTypeControlPanel()) {
 
 					<liferay-ui:search-container-column-jsp
 						align="right"
+						cssClass="entry-action"
 						path="/html/portlet/message_boards/message_action.jsp"
 					/>
 				</liferay-ui:search-container-row>
@@ -550,6 +551,7 @@ if ((category != null) && layout.isTypeControlPanel()) {
 
 				<liferay-ui:search-container-column-jsp
 					align="right"
+					cssClass="entry-action"
 					path="/html/portlet/message_boards/ban_user_action.jsp"
 				/>
 			</liferay-ui:search-container-row>

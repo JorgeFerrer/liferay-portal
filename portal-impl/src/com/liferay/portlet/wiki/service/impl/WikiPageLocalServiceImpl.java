@@ -1756,6 +1756,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 			// Version page
 
+			versionPage.setTitle(page.getTitle());
+
 			trashVersion = trashVersionLocalService.fetchVersion(
 				trashEntryId, WikiPage.class.getName(),
 				versionPage.getPageId());
@@ -2628,6 +2630,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		for (WikiPage versionPage : versionPages) {
 
 			// Version page
+
+			versionPage.setTitle(page.getTitle());
 
 			int versionPageOldStatus = versionPage.getStatus();
 

@@ -77,6 +77,27 @@ JournalArticle article = (JournalArticle)row.getObject();
 		/>
 	</c:if>
 
+	<portlet:renderURL var="compareVersionURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+		<portlet:param name="struts_action" value="/journal/select_version" />
+		<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
+		<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
+		<portlet:param name="sourceVersion" value="<%= String.valueOf(article.getVersion()) %>" />
+	</portlet:renderURL>
+
+	<%
+	Map<String, Object> data = new HashMap<String, Object>();
+
+	data.put("uri", compareVersionURL.toString());
+	%>
+
+	<liferay-ui:icon
+		cssClass="compare-to-link"
+		data="<%= data %>"
+		iconCssClass="icon-copy"
+		message="compare-to"
+		url="javascript:;"
+	/>
+
 	<c:if test="<%= JournalArticlePermission.contains(permissionChecker, article, ActionKeys.DELETE) %>">
 		<portlet:actionURL var="deleteURL">
 			<portlet:param name="struts_action" value="/journal/edit_article" />

@@ -1094,7 +1094,8 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			processErrorMessage(fileName, "ServiceUtil: " + fileName);
 		}
 
-		if (!className.equals("DeepNamedValueScanner") &&
+		if (!isRunsOutsidePortal(absolutePath) &&
+			!className.equals("DeepNamedValueScanner") &&
 			!className.equals("ProxyUtil") &&
 			newContent.contains("import java.lang.reflect.Proxy;")) {
 

@@ -114,7 +114,7 @@ public class JournalContentPortletDataHandler
 		if (articleId == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No article id found in preferences of portlet " +
+					"No article ID found in preferences of portlet " +
 						portletId);
 			}
 
@@ -127,7 +127,7 @@ public class JournalContentPortletDataHandler
 		if (articleGroupId <= 0) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"No group id found in preferences of portlet " + portletId);
+					"No group ID found in preferences of portlet " + portletId);
 			}
 
 			return portletPreferences;
@@ -150,6 +150,12 @@ public class JournalContentPortletDataHandler
 		}
 
 		if (article == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Portlet " + portletId +
+						" refers to an invalid article ID " + articleId);
+			}
+
 			portletDataContext.setScopeGroupId(previousScopeGroupId);
 
 			return portletPreferences;

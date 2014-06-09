@@ -16,6 +16,7 @@ package com.liferay.portal.servlet;
 
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.SingleVMPoolUtil;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ServerDetector;
@@ -33,12 +35,18 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.language.AggregateResourceBundle;
+import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.minifier.MinifierUtil;
+import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletApp;
+import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.servlet.filters.dynamiccss.DynamicCSSUtil;
 import com.liferay.portal.util.AggregateUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.portlet.PortletConfigFactoryUtil;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -50,8 +58,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
+
+import javax.portlet.PortletConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -298,6 +311,13 @@ public class ComboServlet extends HttpServlet {
 						stringFileContent);
 				}
 				else if (minifierType.equals("js")) {
+					ModulePathContainer modulePathContainer =
+						new ModulePathContainer(resourcePath);
+
+					stringFileContent = translate(
+						request, modulePathContainer.getModuleContextPath(),
+						stringFileContent);
+
 					stringFileContent = MinifierUtil.minifyJavaScript(
 						resourcePath, stringFileContent);
 				}
@@ -354,6 +374,43 @@ public class ComboServlet extends HttpServlet {
 
 		throw new ServletException(
 			"Servlet context " + contextName + " does not exist");
+	}
+
+	protected String translate(
+		HttpServletRequest request, String contextPath,
+		String stringFileContent) {
+
+		String languageId = LanguageUtil.getLanguageId(request);
+
+		Locale locale = LocaleUtil.fromLanguageId(languageId);
+
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
+
+		PortletApp portletApp = PortletLocalServiceUtil.getPortletApp(
+			contextPath);
+
+		Portlet portlet = null;
+
+		if ((portletApp != null) && portletApp.isWARFile()) {
+			List<Portlet> portlets = portletApp.getPortlets();
+
+			if (!portlets.isEmpty()) {
+				portlet = portlets.get(0);
+			}
+		}
+
+		if (portlet != null) {
+			PortletConfig portletConfig = PortletConfigFactoryUtil.create(
+				portlet, getServletContext());
+
+			if (portletConfig != null) {
+				resourceBundle = new AggregateResourceBundle(
+					portletConfig.getResourceBundle(locale), resourceBundle);
+			}
+		}
+
+		return LanguageUtil.process(resourceBundle, locale, stringFileContent);
 	}
 
 	protected boolean validateModuleExtension(String moduleName)

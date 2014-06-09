@@ -187,6 +187,10 @@ request.setAttribute("edit_article.jsp-toLanguageId", toLanguageId);
 
 		<liferay-ui:error exception="<%= ArticleContentSizeException.class %>" message="you-have-exceeded-the-maximum-web-content-size-allowed" />
 
+		<liferay-ui:error exception="<%= LiferayFileItemException.class %>">
+			<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(LiferayFileItem.THRESHOLD_SIZE, locale) %>" key="please-enter-valid-content-with-valid-content-size-no-larger-than-x" translateArguments="<%= false %>" />
+		</liferay-ui:error>
+
 		<aui:model-context bean="<%= article %>" defaultLanguageId="<%= defaultLanguageId %>" model="<%= JournalArticle.class %>" />
 
 		<div class="journal-article-wrapper" id="<portlet:namespace />journalArticleWrapper">
@@ -355,18 +359,14 @@ request.setAttribute("edit_article.jsp-toLanguageId", toLanguageId);
 
 <liferay-portlet:renderURL plid="<%= JournalUtil.getPreviewPlid(article, themeDisplay) %>" var="previewArticleContentURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 	<portlet:param name="struts_action" value="/journal/preview_article_content" />
-	<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
-	<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
-	<portlet:param name="version" value="<%= String.valueOf(article.getVersion()) %>" />
-	<portlet:param name="ddmTemplateKey" value="<%= (ddmTemplate != null) ? ddmTemplate.getTemplateKey() : article.getTemplateId() %>" />
-</liferay-portlet:renderURL>
 
-<liferay-security:permissionsURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"
-	modelResource="<%= JournalArticle.class.getName() %>"
-	modelResourceDescription="<%= article.getTitle(locale) %>"
-	resourcePrimKey="<%= String.valueOf(article.getResourcePrimKey()) %>"
-	var="permissionsURL"
-/>
+	<c:if test="<%= (article != null) %>">
+		<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
+		<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
+		<portlet:param name="version" value="<%= String.valueOf(article.getVersion()) %>" />
+		<portlet:param name="ddmTemplateKey" value="<%= (ddmTemplate != null) ? ddmTemplate.getTemplateKey() : article.getTemplateId() %>" />
+	</c:if>
+</liferay-portlet:renderURL>
 
 <portlet:renderURL var="editArticleURL">
 	<portlet:param name="redirect" value="<%= redirect %>" />
@@ -380,12 +380,23 @@ request.setAttribute("edit_article.jsp-toLanguageId", toLanguageId);
 	new Liferay.Portlet.Journal(
 		{
 			article: {
-				defaultLanguageId: '<%= defaultLanguageId %>',
+				defaultLanguageId: '<%= HtmlUtil.escapeJS(defaultLanguageId) %>',
 				editUrl: '<%= editArticleURL %>',
 				id: '<%= (article != null) ? HtmlUtil.escape(articleId) : StringPool.BLANK %>',
-				permissionsUrl: '<%= permissionsURL %>',
-				previewUrl: '<%= HtmlUtil.escapeJS(previewArticleContentURL.toString()) %>',
-				title: '<%= HtmlUtil.escapeJS(article.getTitle(locale)) %>'
+
+				<c:if test="<%= (article != null) && !article.isNew() %>">
+					<liferay-security:permissionsURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"
+						modelResource="<%= JournalArticle.class.getName() %>"
+						modelResourceDescription="<%= article.getTitle(locale) %>"
+						resourcePrimKey="<%= String.valueOf(article.getResourcePrimKey()) %>"
+						var="permissionsURL"
+					/>
+
+					permissionsUrl: '<%= permissionsURL %>',
+					previewUrl: '<%= HtmlUtil.escapeJS(previewArticleContentURL.toString()) %>',
+				</c:if>
+
+				title: '<%= (article != null) ? HtmlUtil.escapeJS(article.getTitle(locale)) : StringPool.BLANK %>'
 			},
 
 			<c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">

@@ -30,12 +30,12 @@
 </tr>
 <tr>
 	<td>INFO_MESSAGE_1</td>
-	<td>xpath=(//div[contains(@class,'alert') and contains(@class,'alert-error')])[1]</td>
+	<td>xpath=(//div[contains(@class,'alert') and (contains(@class,'alert-error') or contains(@class,'alert-danger'))])[1]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>INFO_MESSAGE_2</td>
-	<td>xpath=(//div[contains(@class,'alert') and contains(@class,'alert-error')])[2]</td>
+	<td>xpath=(//div[contains(@class,'alert') and (contains(@class,'alert-error') or contains(@class,'alert-danger'))])[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -164,6 +164,11 @@
 <tr>
 	<td>PAGE_TREE_PAGE_SPECIFIC_PAGE</td>
 	<td>//span[contains(@class,'tree-label')]/a[contains(.,'${key_sitePageName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_TREE_PAGE_PLUS_ICON</td>
+	<td>//div[contains(@class,'tree-collapsed')]/i[contains(@class,'icon-plus')]</td>
 	<td></td>
 </tr>
 <tr>

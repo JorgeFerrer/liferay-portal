@@ -117,6 +117,7 @@ userGroupSearch.setEmptyResultsMessage(emptyResultsMessage);
 
 			<liferay-ui:search-container-column-jsp
 				align="right"
+				cssClass="entry-action"
 				path="/html/portlet/sites_admin/user_group_action.jsp"
 			/>
 		</c:if>
@@ -132,7 +133,7 @@ userGroupSearch.setEmptyResultsMessage(emptyResultsMessage);
 					%>
 
 					<liferay-ui:icon
-						image="../aui/globe"
+						iconCssClass="icon-globe"
 						label="<%= true %>"
 						message="assign-user-groups"
 						url="<%= viewUserGroupsURL.toString() %>"

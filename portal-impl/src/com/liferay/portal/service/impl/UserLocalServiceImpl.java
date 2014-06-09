@@ -6366,11 +6366,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		for (long organizationId : organizationIds) {
-			long[] organizationGroupIds =
-				organizationPersistence.getGroupPrimaryKeys(organizationId);
+			Organization organization =
+				organizationPersistence.findByPrimaryKey(organizationId);
 
 			validGroupIds = ArrayUtil.append(
-				validGroupIds, organizationGroupIds);
+				validGroupIds, organization.getGroupId());
 		}
 
 		Arrays.sort(validGroupIds);

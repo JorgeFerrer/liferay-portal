@@ -312,6 +312,12 @@ public class LanguageUtil {
 		return Validator.isNotNull(value);
 	}
 
+	public static String process(
+		ResourceBundle resourceBundle, Locale locale, String content) {
+
+		return getLanguage().process(resourceBundle, locale, content);
+	}
+
 	public static void resetAvailableGroupLocales(long groupId) {
 		getLanguage().resetAvailableGroupLocales(groupId);
 	}

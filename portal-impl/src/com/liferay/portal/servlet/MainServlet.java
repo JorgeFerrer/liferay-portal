@@ -1188,6 +1188,8 @@ public class MainServlet extends ActionServlet {
 
 		if (plid > 0) {
 			try {
+				redirect = HttpUtil.addParameter(redirect, "refererPlid", plid);
+
 				Layout layout = LayoutLocalServiceUtil.getLayout(plid);
 
 				Group group = layout.getGroup();

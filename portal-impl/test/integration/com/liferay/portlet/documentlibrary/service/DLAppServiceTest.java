@@ -44,8 +44,8 @@ import com.liferay.portal.security.permission.DoAsUserThread;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceTestUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.test.EnvironmentExecutionTestListener;
 import com.liferay.portal.test.LiferayIntegrationJUnitTestRunner;
+import com.liferay.portal.test.MainServletExecutionTestListener;
 import com.liferay.portal.test.Sync;
 import com.liferay.portal.test.SynchronousDestinationExecutionTestListener;
 import com.liferay.portal.util.test.RandomTestUtil;
@@ -77,7 +77,7 @@ import org.junit.runner.RunWith;
  */
 @ExecutionTestListeners(
 	listeners = {
-		EnvironmentExecutionTestListener.class,
+		MainServletExecutionTestListener.class,
 		SynchronousDestinationExecutionTestListener.class
 	})
 @RunWith(LiferayIntegrationJUnitTestRunner.class)
@@ -244,7 +244,7 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@Test
-	public void testAddNullFileEntry() throws Exception {
+	public void testAddFileEntryWithNullBytes() throws Exception {
 		long folderId = parentFolder.getFolderId();
 		String description = StringPool.BLANK;
 		String changeLog = StringPool.BLANK;
@@ -277,6 +277,16 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 				"Unable to pass null byte[] " +
 					StackTraceUtil.getStackTrace(e));
 		}
+	}
+
+	@Test
+	public void testAddFileEntryWithNullFile() throws Exception {
+		long folderId = parentFolder.getFolderId();
+		String description = StringPool.BLANK;
+		String changeLog = StringPool.BLANK;
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(group.getGroupId());
 
 		try {
 			String name = "File-null.txt";
@@ -308,6 +318,16 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 			Assert.fail(
 				"Unable to pass null File " + StackTraceUtil.getStackTrace(e));
 		}
+	}
+
+	@Test
+	public void testAddFileEntryWithNullInputStream() throws Exception {
+		long folderId = parentFolder.getFolderId();
+		String description = StringPool.BLANK;
+		String changeLog = StringPool.BLANK;
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(group.getGroupId());
 
 		try {
 			String name = "IS-null.txt";

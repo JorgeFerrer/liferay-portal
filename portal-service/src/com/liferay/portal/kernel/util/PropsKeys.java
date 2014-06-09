@@ -657,6 +657,8 @@ public interface PropsKeys {
 
 	public static final String DISCUSSION_THREAD_VIEW = "discussion.thread.view";
 
+	public static final String DL_ACTIONS_VISIBLE = "dl.actions.visible";
+
 	public static final String DL_CHAR_BLACKLIST = "dl.char.blacklist";
 
 	public static final String DL_CHAR_LAST_BLACKLIST = "dl.char.last.blacklist";
@@ -791,6 +793,8 @@ public interface PropsKeys {
 
 	public static final String DL_FOLDER_COLUMNS = "dl.folder.columns";
 
+	public static final String DL_FOLDER_MENU_VISIBLE = "dl.folder.menu.visible";
+
 	public static final String DL_FOLDERS_SEARCH_VISIBLE = "dl.folders.search.visible";
 
 	public static final String DL_NAME_BLACKLIST = "dl.name.blacklist";
@@ -844,6 +848,8 @@ public interface PropsKeys {
 	public static final String DL_STORE_S3_TEMP_DIR_CLEAN_UP_FREQUENCY = "dl.store.s3.temp.dir.clean.up.frequency";
 
 	public static final String DL_SUBFOLDERS_VISIBLE = "dl.subfolders.visible";
+
+	public static final String DL_TABS_VISIBLE = "dl.tabs.visible";
 
 	public static final String DOCKBAR_ADD_PORTLETS = "dockbar.add.portlets";
 
@@ -1089,6 +1095,10 @@ public interface PropsKeys {
 
 	public static final String INTRABAND_MAILBOX_STORAGE_LIFE = "intraband.mailbox.storage.life";
 
+	public static final String INTRABAND_PROXY_DUMP_CLASSES_DIR = "intraband.proxy.dump.classes.dir";
+
+	public static final String INTRABAND_PROXY_DUMP_CLASSES_ENABLED = "intraband.proxy.dump.classes.enabled";
+
 	public static final String INTRABAND_TIMEOUT_DEFAULT = "intraband.timeout.default";
 
 	public static final String INTRABAND_WELDER_IMPL = "intraband.welder.impl";
@@ -1132,6 +1142,8 @@ public interface PropsKeys {
 	public static final String JAVASCRIPT_FAST_LOAD = "javascript.fast.load";
 
 	public static final String JAVASCRIPT_LOG_ENABLED = "javascript.log.enabled";
+
+	public static final String JAVASCRIPT_SINGLE_PAGE_APPLICATION_ENABLED = "javascript.single.page.application.enabled";
 
 	public static final String JCR_INITIALIZE_ON_STARTUP = "jcr.initialize.on.startup";
 
@@ -1712,6 +1724,8 @@ public interface PropsKeys {
 	public static final String MESSAGE_BOARDS_RSS_ENABLED = "message.boards.rss.enabled";
 
 	public static final String MESSAGE_BOARDS_SUBSCRIBE_BY_DEFAULT = "message.boards.subscribe.by.default";
+
+	public static final String MESSAGE_BOARDS_THREAD_AS_QUESTION_BY_DEFAULT = "message.boards.thread.as.question.by.default";
 
 	public static final String MESSAGE_BOARDS_THREAD_PREVIOUS_AND_NEXT_NAVIGATION_ENABLED = "message.boards.thread.previous.and.next.navigation.enabled";
 
@@ -2339,11 +2353,17 @@ public interface PropsKeys {
 
 	public static final String SHOPPING_ITEM_SHOW_AVAILABILITY = "shopping.item.show.availability";
 
+	public static final String SHOPPING_MIN_ORDER = "shopping.min.order";
+
 	public static final String SHOPPING_ORDER_COMMENTS_ENABLED = "shopping.order.comments.enabled";
+
+	public static final String SHOPPING_PAYPAL_EMAIL_ADDRESS = "shopping.paypal.email.address";
 
 	public static final String SHOPPING_SHIPPING = "shopping.shipping";
 
 	public static final String SHOPPING_SHIPPING_FORMULA = "shopping.shipping.formula";
+
+	public static final String SHOPPING_TAX_RATE = "shopping.tax.rate";
 
 	public static final String SHOPPING_TAX_STATE = "shopping.tax.state";
 
@@ -2724,6 +2744,8 @@ public interface PropsKeys {
 	public static final String WIDGET_SERVLET_MAPPING = "widget.servlet.mapping";
 
 	public static final String WIKI_COMMENT_RATINGS_ENABLED = "wiki.comment.ratings.enabled";
+
+	public static final String WIKI_DISPLAY_STYLE = "wiki.display.style";
 
 	public static final String WIKI_DISPLAY_TEMPLATES_CONFIG = "wiki.display.templates.config";
 
