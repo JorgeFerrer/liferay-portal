@@ -236,9 +236,10 @@ didn't make sense to provide different values per instance and that was creating
 confusion among users. To fix this, those fields have been removed from the
 portlet instance set up and have been moved to Site Administration.
 
-The upgrade process will take care of making the necessary database chances,
-however if several portlet instances had different configurations only the first
-one will be preserved.
+The upgrade process will take care of making the necessary database changes,
+however if several portlet instances had different configurations only one will 
+be preserved. Check the log generated in the console by the migration process
+to get accurate information on which configuration was chosen.
 
 For instance: if you have configured three bookmarks portlets where the mail 
 configuration is the same you won't have any problem. But in case the three 
