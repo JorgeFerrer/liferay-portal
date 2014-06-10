@@ -61,55 +61,6 @@ import javax.portlet.ReadOnlyException;
  */
 public class UpgradePortletSettings extends UpgradeProcess {
 
-	public UpgradePortletSettings() {
-
-		// Register main portlets for upgrade
-
-		registerMainPortlet(
-			PortletKeys.BLOGS, BlogsConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_GROUP,
-			BlogsPortletInstanceSettings.ALL_KEYS, BlogsSettings.ALL_KEYS);
-
-		registerMainPortlet(
-			PortletKeys.BOOKMARKS, BookmarksConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, StringPool.EMPTY_ARRAY,
-			BookmarksSettings.ALL_KEYS);
-
-		registerMainPortlet(
-			PortletKeys.DOCUMENT_LIBRARY, DLConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_GROUP,
-			DLPortletInstanceSettings.ALL_KEYS, DLSettings.ALL_KEYS);
-
-		registerMainPortlet(
-			PortletKeys.MESSAGE_BOARDS, MBConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_GROUP, StringPool.EMPTY_ARRAY,
-			MBSettings.ALL_KEYS);
-
-		registerMainPortlet(
-			PortletKeys.SHOPPING, ShoppingConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_GROUP, StringPool.EMPTY_ARRAY,
-			ShoppingSettings.ALL_KEYS);
-
-		registerMainPortlet(
-			PortletKeys.WIKI, WikiConstants.SERVICE_NAME,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-			WikiPortletInstanceSettings.ALL_KEYS, WikiSettings.ALL_KEYS);
-
-		// Register display portlets for upgrade
-
-		registerDisplayPortlet(
-			PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
-
-		registerDisplayPortlet(
-			PortletKeys.MEDIA_GALLERY_DISPLAY,
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
-
-		registerDisplayPortlet(
-			PortletKeys.WIKI_DISPLAY, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-			WikiSettings.ALL_KEYS);
-	}
-
 	protected void createPortletPreferences(
 			PortletPreferencesRow portletPreferencesRow)
 		throws SQLException {
@@ -257,17 +208,52 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws PortalException, SystemException {
-		for (String portletId : _mainPortletIds) {
-			_logPortletUpgrade(portletId);
 
-			upgradeMainPortlet(portletId);
-		}
+		// Main portlets
 
-		for (String portletId : _displayPortletIds) {
-			_logPortletUpgrade(portletId);
+		upgradeMainPortlet(
+			PortletKeys.BLOGS, BlogsConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_GROUP,
+			BlogsPortletInstanceSettings.ALL_KEYS, BlogsSettings.ALL_KEYS);
 
-			upgradeDisplayPortlet(portletId);
-		}
+		upgradeMainPortlet(
+			PortletKeys.BOOKMARKS, BookmarksConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, StringPool.EMPTY_ARRAY,
+			BookmarksSettings.ALL_KEYS);
+
+		upgradeMainPortlet(
+			PortletKeys.DOCUMENT_LIBRARY, DLConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_GROUP,
+			DLPortletInstanceSettings.ALL_KEYS, DLSettings.ALL_KEYS);
+
+		upgradeMainPortlet(
+			PortletKeys.MESSAGE_BOARDS, MBConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_GROUP, StringPool.EMPTY_ARRAY,
+			MBSettings.ALL_KEYS);
+
+		upgradeMainPortlet(
+			PortletKeys.SHOPPING, ShoppingConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_GROUP, StringPool.EMPTY_ARRAY,
+			ShoppingSettings.ALL_KEYS);
+
+		upgradeMainPortlet(
+			PortletKeys.WIKI, WikiConstants.SERVICE_NAME,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			WikiPortletInstanceSettings.ALL_KEYS, WikiSettings.ALL_KEYS);
+
+		// Display portlets
+
+		upgradeDisplayPortlet(
+			PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
+
+		upgradeDisplayPortlet(
+			PortletKeys.MEDIA_GALLERY_DISPLAY,
+			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
+
+		upgradeDisplayPortlet(
+			PortletKeys.WIKI_DISPLAY, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			WikiSettings.ALL_KEYS);
 	}
 
 	protected long getGroupIdFromPlid(long plid) throws SQLException {
@@ -351,31 +337,6 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
-	protected void registerMainPortlet(
-		String portletId, String serviceName, int ownerType,
-		String[] portletInstanceKeys, String[] serviceKeys) {
-
-		_mainPortletIds.add(portletId);
-
-		_mainPortletServiceNames.put(portletId, serviceName);
-
-		_mainPortletOwnerTypes.put(portletId, ownerType);
-
-		_mainPortletInstanceKeys.put(portletId, portletInstanceKeys);
-
-		_mainPortletServiceKeys.put(portletId, serviceKeys);
-	}
-
-	protected void registerDisplayPortlet(
-		String portletId, int ownerType, String[] servicePreferencesKeys) {
-
-		_displayPortletIds.add(portletId);
-
-		_displayPortletOwnerTypes.put(portletId, ownerType);
-
-		_displayPortletServiceKeys.put(portletId, servicePreferencesKeys);
-	}
-
 	protected void updatePortletPreferences(
 			PortletPreferencesRow portletPreferencesRow)
 		throws SQLException {
@@ -412,31 +373,23 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
-	protected void upgradeMainPortlet(String portletId)
+	protected void upgradeMainPortlet(
+			String portletId, String serviceName, int ownerType,
+			String[] portletInstanceKeys, String[] serviceKeys)
 		throws PortalException, SystemException {
 
-		String serviceName = _mainPortletServiceNames.get(portletId);
-
-		int ownerType = _mainPortletOwnerTypes.get(portletId);
-
 		createServiceSettings(portletId, ownerType, serviceName);
-
-		String[] portletInstanceKeys = _mainPortletInstanceKeys.get(portletId);
 
 		resetPortletPreferencesValues(
 			serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
 			portletInstanceKeys);
 
-		String[] serviceKeys = _mainPortletServiceKeys.get(portletId);
-
 		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
 	}
 
-	protected void upgradeDisplayPortlet(String portletId)
+	protected void upgradeDisplayPortlet(
+			String portletId, int ownerType, String[] serviceKeys)
 		throws PortalException, SystemException {
-
-		int ownerType = _displayPortletOwnerTypes.get(portletId);
-		String[] serviceKeys = _displayPortletServiceKeys.get(portletId);
 
 		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
 	}
@@ -470,20 +423,5 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	private static Log _log = LogFactoryUtil.getLog(
 		UpgradePortletSettings.class);
-
-	private List<String> _mainPortletIds = new ArrayList<String>();
-	private Map<String, String[]> _mainPortletInstanceKeys =
-		new HashMap<String, String[]>();
-	private Map<String, Integer> _mainPortletOwnerTypes =
-		new HashMap<String, Integer>();
-	private Map<String, String[]> _mainPortletServiceKeys =
-		new HashMap<String, String[]>();
-	private Map<String, String> _mainPortletServiceNames =
-		new HashMap<String, String>();
-	private List<String> _displayPortletIds = new ArrayList<String>();
-	private Map<String, Integer> _displayPortletOwnerTypes =
-		new HashMap<String, Integer>();
-	private Map<String, String[]> _displayPortletServiceKeys =
-		new HashMap<String, String[]>();
 
 }
