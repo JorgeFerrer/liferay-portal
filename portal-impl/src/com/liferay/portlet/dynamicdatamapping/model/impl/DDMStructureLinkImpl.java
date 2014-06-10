@@ -28,7 +28,7 @@ public class DDMStructureLinkImpl extends DDMStructureLinkBaseImpl {
 	}
 
 	@Override
-	public DDMStructure getStructure() throws PortalException, SystemException {
+	public DDMStructure getStructure() throws PortalException {
 		return DDMStructureLocalServiceUtil.getStructure(getStructureId());
 	}
 

@@ -43,7 +43,7 @@ public class TrashUtil {
 	public static void addBaseModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getTrash().addBaseModelBreadcrumbEntries(
 			request, className, classPK, containerModelURL);
@@ -52,7 +52,7 @@ public class TrashUtil {
 	public static void addContainerModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getTrash().addContainerModelBreadcrumbEntries(
 			request, className, classPK, containerModelURL);
@@ -86,14 +86,14 @@ public class TrashUtil {
 	public static void deleteEntriesAttachments(
 			long companyId, long repositoryId, Date date,
 			String[] attachmentFileNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getTrash().deleteEntriesAttachments(
 			companyId, repositoryId, date, attachmentFileNames);
 	}
 
 	public static List<TrashEntry> getEntries(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().getEntries(hits);
 	}
@@ -105,7 +105,7 @@ public class TrashUtil {
 	}
 
 	public static int getMaxAge(Group group)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().getMaxAge(group);
 	}
@@ -117,7 +117,7 @@ public class TrashUtil {
 	public static String getNewName(
 			ThemeDisplay themeDisplay, String className, long classPK,
 			String oldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().getNewName(themeDisplay, className, classPK, oldName);
 	}
@@ -142,19 +142,19 @@ public class TrashUtil {
 
 	public static PortletURL getViewContentURL(
 			HttpServletRequest request, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().getViewContentURL(request, className, classPK);
 	}
 
 	public static boolean isInTrash(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().isInTrash(className, classPK);
 	}
 
 	public static boolean isTrashEnabled(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getTrash().isTrashEnabled(groupId);
 	}

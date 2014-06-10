@@ -35,7 +35,7 @@ public class ExpandoColumnPermissionUtil {
 
 	public static void check(
 			PermissionChecker permissionChecker, long columnId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getExpandoColumnPermission().check(
 			permissionChecker, columnId, actionId);
@@ -45,7 +45,7 @@ public class ExpandoColumnPermissionUtil {
 			PermissionChecker permissionChecker, long companyId,
 			String className, String tableName, String columnName,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getExpandoColumnPermission().check(
 			permissionChecker, companyId, className, tableName, columnName,
@@ -62,7 +62,7 @@ public class ExpandoColumnPermissionUtil {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long columnId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getExpandoColumnPermission().contains(
 			permissionChecker, columnId, actionId);

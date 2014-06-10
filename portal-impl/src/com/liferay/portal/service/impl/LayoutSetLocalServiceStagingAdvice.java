@@ -132,7 +132,7 @@ public class LayoutSetLocalServiceStagingAdvice
 			LayoutSetLocalService layoutSetLocalService, long groupId,
 			boolean privateLayout, boolean layoutSetPrototypeLinkEnabled,
 			String layoutSetPrototypeUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			groupId, privateLayout);
@@ -173,7 +173,7 @@ public class LayoutSetLocalServiceStagingAdvice
 	public LayoutSet updateLogo(
 			LayoutSetLocalService layoutSetLocalService, long groupId,
 			boolean privateLayout, boolean logo, byte[] logoBytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			groupId, privateLayout);
@@ -201,7 +201,7 @@ public class LayoutSetLocalServiceStagingAdvice
 	public LayoutSet updateLookAndFeel(
 			LayoutSetLocalService target, long groupId, boolean privateLayout,
 			String themeId, String colorSchemeId, String css, boolean wapTheme)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			groupId, privateLayout);
@@ -246,7 +246,7 @@ public class LayoutSetLocalServiceStagingAdvice
 	public LayoutSet updateSettings(
 			LayoutSetLocalService target, long groupId, boolean privateLayout,
 			String settings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			groupId, privateLayout);

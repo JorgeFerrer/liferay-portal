@@ -41,7 +41,7 @@ public class LockProtectedAction<T> {
 		return _returnValue;
 	}
 
-	public void performAction() throws PortalException, SystemException {
+	public void performAction() throws PortalException {
 		Lock lock = null;
 
 		while (true) {
@@ -96,7 +96,7 @@ public class LockProtectedAction<T> {
 
 	@SuppressWarnings("unused")
 	protected T performProtectedAction()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return null;
 	}

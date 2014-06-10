@@ -291,7 +291,7 @@ public class WikiPageIndexer extends BaseIndexer {
 	}
 
 	protected void reindexNodes(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			WikiNodeLocalServiceUtil.getActionableDynamicQuery();
@@ -302,7 +302,7 @@ public class WikiPageIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					WikiNode node = (WikiNode)object;
 
@@ -316,7 +316,7 @@ public class WikiPageIndexer extends BaseIndexer {
 	}
 
 	protected void reindexPages(long companyId, long groupId, final long nodeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			WikiPageLocalServiceUtil.getActionableDynamicQuery();

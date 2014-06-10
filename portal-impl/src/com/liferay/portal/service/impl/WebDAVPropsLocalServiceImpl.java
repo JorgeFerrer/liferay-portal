@@ -70,7 +70,7 @@ public class WebDAVPropsLocalServiceImpl
 
 	@Override
 	public void storeWebDAVProps(WebDAVProps webDavProps)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			webDavProps.store();

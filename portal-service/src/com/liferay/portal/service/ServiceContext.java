@@ -139,7 +139,7 @@ public class ServiceContext implements Cloneable, Serializable {
 	 * update this logic updating the logic in the JSP.
 	 */
 	public void deriveDefaultPermissions(long repositoryId, String modelName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long siteGroupId = PortalUtil.getSiteGroupId(repositoryId);
 
@@ -390,7 +390,7 @@ public class ServiceContext implements Cloneable, Serializable {
 	 *         found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public long getGuestOrUserId() throws PortalException, SystemException {
+	public long getGuestOrUserId() throws PortalException {
 		long userId = getUserId();
 
 		if (userId > 0) {
@@ -649,7 +649,7 @@ public class ServiceContext implements Cloneable, Serializable {
 		return PortletConstants.getRootPortletId(portletId);
 	}
 
-	public Group getScopeGroup() throws PortalException, SystemException {
+	public Group getScopeGroup() throws PortalException {
 		return GroupLocalServiceUtil.getGroup(_scopeGroupId);
 	}
 

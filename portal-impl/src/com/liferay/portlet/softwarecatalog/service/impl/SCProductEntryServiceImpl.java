@@ -38,7 +38,7 @@ public class SCProductEntryServiceImpl extends SCProductEntryServiceBaseImpl {
 			String repoGroupId, String repoArtifactId, long[] licenseIds,
 			List<byte[]> thumbnails, List<byte[]> fullImages,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -52,7 +52,7 @@ public class SCProductEntryServiceImpl extends SCProductEntryServiceBaseImpl {
 
 	@Override
 	public void deleteProductEntry(long productEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntryPermission.check(
 			getPermissionChecker(), productEntryId, ActionKeys.DELETE);
@@ -62,7 +62,7 @@ public class SCProductEntryServiceImpl extends SCProductEntryServiceBaseImpl {
 
 	@Override
 	public SCProductEntry getProductEntry(long productEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntryPermission.check(
 			getPermissionChecker(), productEntryId, ActionKeys.VIEW);
@@ -76,7 +76,7 @@ public class SCProductEntryServiceImpl extends SCProductEntryServiceBaseImpl {
 			String shortDescription, String longDescription, String pageURL,
 			String author, String repoGroupId, String repoArtifactId,
 			long[] licenseIds, List<byte[]> thumbnails, List<byte[]> fullImages)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntryPermission.check(
 			getPermissionChecker(), productEntryId, ActionKeys.UPDATE);

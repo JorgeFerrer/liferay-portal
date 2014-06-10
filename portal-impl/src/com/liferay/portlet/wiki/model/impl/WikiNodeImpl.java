@@ -40,7 +40,7 @@ public class WikiNodeImpl extends WikiNodeBaseImpl {
 
 	@Override
 	public Folder addAttachmentsFolder()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {

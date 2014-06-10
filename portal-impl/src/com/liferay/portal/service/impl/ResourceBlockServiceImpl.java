@@ -34,7 +34,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void addCompanyScopePermission(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -47,7 +47,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void addGroupScopePermission(
 			long scopeGroupId, long companyId, long groupId, String name,
 			long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -60,7 +60,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void addIndividualScopePermission(
 			long companyId, long groupId, String name, long primKey,
 			long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(groupId, name, primKey);
 
@@ -72,7 +72,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void removeAllGroupScopePermissions(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -85,7 +85,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void removeCompanyScopePermission(
 			long scopeGroupId, long companyId, String name, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -98,7 +98,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void removeGroupScopePermission(
 			long scopeGroupId, long companyId, long groupId, String name,
 			long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -111,7 +111,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void removeIndividualScopePermission(
 			long companyId, long groupId, String name, long primKey,
 			long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(groupId, name, primKey);
 
@@ -123,7 +123,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void setCompanyScopePermissions(
 			long scopeGroupId, long companyId, String name, long roleId,
 			List<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -136,7 +136,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void setGroupScopePermissions(
 			long scopeGroupId, long companyId, long groupId, String name,
 			long roleId, List<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(
 			scopeGroupId, Role.class.getName(), roleId);
@@ -149,7 +149,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void setIndividualScopePermissions(
 			long companyId, long groupId, String name, long primKey,
 			long roleId, List<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(groupId, name, primKey);
 
@@ -161,7 +161,7 @@ public class ResourceBlockServiceImpl extends ResourceBlockServiceBaseImpl {
 	public void setIndividualScopePermissions(
 			long companyId, long groupId, String name, long primKey,
 			Map<Long, String[]> roleIdsToActionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		permissionService.checkPermission(groupId, name, primKey);
 

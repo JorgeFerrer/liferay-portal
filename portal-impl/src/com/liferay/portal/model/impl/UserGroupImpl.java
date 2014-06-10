@@ -29,13 +29,13 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 	}
 
 	@Override
-	public Group getGroup() throws PortalException, SystemException {
+	public Group getGroup() throws PortalException {
 		return GroupLocalServiceUtil.getUserGroupGroup(
 			getCompanyId(), getUserGroupId());
 	}
 
 	@Override
-	public long getGroupId() throws PortalException, SystemException {
+	public long getGroupId() throws PortalException {
 		Group group = getGroup();
 
 		return group.getGroupId();
@@ -43,7 +43,7 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 
 	@Override
 	public int getPrivateLayoutsPageCount()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = getGroup();
 
@@ -52,7 +52,7 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 
 	@Override
 	public int getPublicLayoutsPageCount()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = getGroup();
 
@@ -60,7 +60,7 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 	}
 
 	@Override
-	public boolean hasPrivateLayouts() throws PortalException, SystemException {
+	public boolean hasPrivateLayouts() throws PortalException {
 		if (getPrivateLayoutsPageCount() > 0) {
 			return true;
 		}
@@ -70,7 +70,7 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 	}
 
 	@Override
-	public boolean hasPublicLayouts() throws PortalException, SystemException {
+	public boolean hasPublicLayouts() throws PortalException {
 		if (getPublicLayoutsPageCount() > 0) {
 			return true;
 		}

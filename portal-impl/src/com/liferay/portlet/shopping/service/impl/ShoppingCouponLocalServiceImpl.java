@@ -59,7 +59,7 @@ public class ShoppingCouponLocalServiceImpl
 			int endDateMinute, boolean neverExpire, boolean active,
 			String limitCategories, String limitSkus, double minOrder,
 			double discount, String discountType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long groupId = serviceContext.getScopeGroupId();
@@ -123,7 +123,7 @@ public class ShoppingCouponLocalServiceImpl
 
 	@Override
 	public void deleteCoupon(long couponId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCoupon coupon = shoppingCouponPersistence.findByPrimaryKey(
 			couponId);
@@ -148,14 +148,14 @@ public class ShoppingCouponLocalServiceImpl
 
 	@Override
 	public ShoppingCoupon getCoupon(long couponId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return shoppingCouponPersistence.findByPrimaryKey(couponId);
 	}
 
 	@Override
 	public ShoppingCoupon getCoupon(String code)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		code = StringUtil.toUpperCase(code.trim());
 
@@ -190,7 +190,7 @@ public class ShoppingCouponLocalServiceImpl
 			boolean neverExpire, boolean active, String limitCategories,
 			String limitSkus, double minOrder, double discount,
 			String discountType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -253,7 +253,7 @@ public class ShoppingCouponLocalServiceImpl
 			long companyId, long groupId, String code, boolean autoCode,
 			String name, String description, String limitCategories,
 			String limitSkus, double minOrder, double discount)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!autoCode) {
 			if (Validator.isNull(code) || Validator.isNumber(code) ||
@@ -277,7 +277,7 @@ public class ShoppingCouponLocalServiceImpl
 			long companyId, long groupId, String name, String description,
 			String limitCategories, String limitSkus, double minOrder,
 			double discount)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name)) {
 			throw new CouponNameException();

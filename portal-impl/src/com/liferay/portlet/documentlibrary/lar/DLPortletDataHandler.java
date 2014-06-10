@@ -468,7 +468,7 @@ public class DLPortletDataHandler extends BasePortletDataHandler {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					DLFileEntry dlFileEntry = (DLFileEntry)object;
 
@@ -488,7 +488,7 @@ public class DLPortletDataHandler extends BasePortletDataHandler {
 
 				@Override
 				public long performCount()
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					ManifestSummary manifestSummary =
 						portletDataContext.getManifestSummary();
@@ -555,7 +555,7 @@ public class DLPortletDataHandler extends BasePortletDataHandler {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					DLFolder dlFolder = (DLFolder)object;
 

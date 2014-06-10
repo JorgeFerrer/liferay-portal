@@ -203,7 +203,7 @@ public class DLFolderIndexer extends BaseIndexer {
 	}
 
 	protected void reindexFolders(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			DLFolderLocalServiceUtil.getActionableDynamicQuery();

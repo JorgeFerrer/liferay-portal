@@ -58,7 +58,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 			long userId, long companyId, long groupId, long plid,
 			boolean privateLayout, String friendlyURL, String languageId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -88,7 +88,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 			long userId, long companyId, long groupId, long plid,
 			boolean privateLayout, Map<Locale, String> friendlyURLMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			new ArrayList<LayoutFriendlyURL>();
@@ -190,7 +190,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL getLayoutFriendlyURL(long plid, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLayoutFriendlyURL(plid, languageId, true);
 	}
@@ -198,7 +198,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 	@Override
 	public LayoutFriendlyURL getLayoutFriendlyURL(
 			long plid, String languageId, boolean useDefault)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutFriendlyURL layoutFriendlyURL =
 			layoutFriendlyURLPersistence.fetchByP_L(plid, languageId);
@@ -247,7 +247,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 			long userId, long companyId, long groupId, long plid,
 			boolean privateLayout, String friendlyURL, String languageId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutFriendlyURL layoutFriendlyURL =
 			layoutFriendlyURLPersistence.fetchByP_L(plid, languageId);
@@ -268,7 +268,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 			long userId, long companyId, long groupId, long plid,
 			boolean privateLayout, Map<Locale, String> friendlyURLMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			new ArrayList<LayoutFriendlyURL>();

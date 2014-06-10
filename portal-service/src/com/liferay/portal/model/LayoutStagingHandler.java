@@ -148,7 +148,7 @@ public class LayoutStagingHandler implements InvocationHandler, Serializable {
 
 	private LayoutRevision _getLayoutRevision(
 			Layout layout, LayoutRevision layoutRevision)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutRevision != null) {
 			return layoutRevision;

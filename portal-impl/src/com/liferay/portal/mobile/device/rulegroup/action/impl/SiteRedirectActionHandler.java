@@ -69,7 +69,7 @@ public class SiteRedirectActionHandler extends BaseRedirectActionHandler {
 	protected String getURL(
 			MDRAction mdrAction, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UnicodeProperties typeSettingsProperties =
 			mdrAction.getTypeSettingsProperties();

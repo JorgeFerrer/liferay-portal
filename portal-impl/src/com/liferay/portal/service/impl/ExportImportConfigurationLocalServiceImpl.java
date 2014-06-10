@@ -45,7 +45,7 @@ public class ExportImportConfigurationLocalServiceImpl
 			long userId, long groupId, String name, String description,
 			int type, Map<String, Serializable> settingsMap, int status,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -88,7 +88,7 @@ public class ExportImportConfigurationLocalServiceImpl
 			long userId, long groupId, String name, String description,
 			int type, Map<String, Serializable> settingsMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addExportImportConfiguration(
 			userId, groupId, name, description, type, settingsMap,
@@ -99,7 +99,7 @@ public class ExportImportConfigurationLocalServiceImpl
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public ExportImportConfiguration deleteExportImportConfiguration(
 			ExportImportConfiguration exportImportConfiguration)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		exportImportConfigurationPersistence.remove(exportImportConfiguration);
 
@@ -113,7 +113,7 @@ public class ExportImportConfigurationLocalServiceImpl
 	@Override
 	public ExportImportConfiguration deleteExportImportConfiguration(
 			long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationPersistence.findByPrimaryKey(
@@ -125,7 +125,7 @@ public class ExportImportConfigurationLocalServiceImpl
 
 	@Override
 	public void deleteExportImportConfigurations(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ExportImportConfiguration> exportImportConfigurations =
 			exportImportConfigurationPersistence.findByGroupId(groupId);
@@ -173,7 +173,7 @@ public class ExportImportConfigurationLocalServiceImpl
 	@Override
 	public ExportImportConfiguration moveExportImportConfigurationToTrash(
 			long userId, long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationPersistence.findByPrimaryKey(
@@ -197,7 +197,7 @@ public class ExportImportConfigurationLocalServiceImpl
 	@Override
 	public ExportImportConfiguration restoreExportImportConfigurationFromTrash(
 			long userId, long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationPersistence.findByPrimaryKey(
@@ -223,7 +223,7 @@ public class ExportImportConfigurationLocalServiceImpl
 			long userId, long exportImportConfigurationId, String name,
 			String description, Map<String, Serializable> settingsMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -251,7 +251,7 @@ public class ExportImportConfigurationLocalServiceImpl
 	@Override
 	public ExportImportConfiguration updateStatus(
 			long userId, long exportImportConfigurationId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 

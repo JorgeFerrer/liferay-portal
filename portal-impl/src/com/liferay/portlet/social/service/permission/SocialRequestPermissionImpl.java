@@ -31,7 +31,7 @@ public class SocialRequestPermissionImpl implements SocialRequestPermission {
 	public void check(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, requestId, actionId)) {
 			throw new PrincipalException();
@@ -42,7 +42,7 @@ public class SocialRequestPermissionImpl implements SocialRequestPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (permissionChecker.isOmniadmin()) {
 			return true;

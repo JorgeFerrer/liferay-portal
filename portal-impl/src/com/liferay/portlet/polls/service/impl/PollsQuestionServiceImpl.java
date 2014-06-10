@@ -41,7 +41,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 			int expirationDateYear, int expirationDateHour,
 			int expirationDateMinute, boolean neverExpire,
 			List<PollsChoice> choices, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -55,7 +55,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 
 	@Override
 	public void deleteQuestion(long questionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestionPermission.check(
 			getPermissionChecker(), questionId, ActionKeys.DELETE);
@@ -65,7 +65,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 
 	@Override
 	public PollsQuestion getQuestion(long questionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestionPermission.check(
 			getPermissionChecker(), questionId, ActionKeys.VIEW);
@@ -81,7 +81,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, List<PollsChoice> choices,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestionPermission.check(
 			getPermissionChecker(), questionId, ActionKeys.UPDATE);

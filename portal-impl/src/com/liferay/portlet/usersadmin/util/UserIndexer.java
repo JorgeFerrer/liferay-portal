@@ -441,7 +441,7 @@ public class UserIndexer extends BaseIndexer {
 	}
 
 	protected void reindexUsers(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			UserLocalServiceUtil.getActionableDynamicQuery();

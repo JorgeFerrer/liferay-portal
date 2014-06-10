@@ -38,7 +38,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	public JournalFolder addFolder(
 			long groupId, long parentFolderId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -51,7 +51,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public void deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -63,7 +63,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public void deleteFolder(long folderId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -75,7 +75,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public JournalFolder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -87,7 +87,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<Long> getFolderIds(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.VIEW);
@@ -263,7 +263,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	@Override
 	public JournalFolder moveFolder(
 			long folderId, long parentFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -277,7 +277,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	@Override
 	public JournalFolder moveFolderFromTrash(
 			long folderId, long parentFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -290,7 +290,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public JournalFolder moveFolderToTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -303,7 +303,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public void restoreFolderFromTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -315,7 +315,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public void subscribe(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -325,7 +325,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public void unsubscribe(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -337,7 +337,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	public JournalFolder updateFolder(
 			long folderId, long parentFolderId, String name, String description,
 			boolean mergeWithParentFolder, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
@@ -354,7 +354,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 			long folderId, long parentFolderId, String name, String description,
 			long[] ddmStructureIds, int restrictionType,
 			boolean mergeWithParentFolder, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(), folderId,

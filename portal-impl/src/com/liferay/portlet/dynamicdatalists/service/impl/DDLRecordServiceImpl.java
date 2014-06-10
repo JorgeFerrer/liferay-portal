@@ -41,7 +41,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	public DDLRecord addRecord(
 			long groupId, long recordSetId, int displayIndex, Fields fields,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSetPermission.check(
 			getPermissionChecker(), recordSetId, ActionKeys.ADD_RECORD);
@@ -55,7 +55,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	public DDLRecord addRecord(
 			long groupId, long recordSetId, int displayIndex,
 			Map<String, Serializable> fieldsMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSetPermission.check(
 			getPermissionChecker(), recordSetId, ActionKeys.ADD_RECORD);
@@ -67,7 +67,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 
 	@Override
 	public void deleteRecord(long recordId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
@@ -80,7 +80,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	@Override
 	public DDLRecord deleteRecordLocale(
 			long recordId, Locale locale, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
@@ -93,7 +93,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 
 	@Override
 	public DDLRecord getRecord(long recordId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
@@ -106,7 +106,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	@Override
 	public void revertRecordVersion(
 			long recordId, String version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
@@ -121,7 +121,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	public DDLRecord updateRecord(
 			long recordId, boolean majorVersion, int displayIndex,
 			Fields fields, boolean mergeFields, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
@@ -138,7 +138,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 			long recordId, int displayIndex,
 			Map<String, Serializable> fieldsMap, boolean mergeFields,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 

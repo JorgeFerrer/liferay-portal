@@ -268,7 +268,7 @@ public class SettingsConfigurationAction
 	}
 
 	protected Settings getSettings(ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -301,7 +301,7 @@ public class SettingsConfigurationAction
 	@SuppressWarnings("unused")
 	protected void postProcess(
 			long companyId, PortletRequest portletRequest, Settings settings)
-		throws PortalException, SystemException {
+		throws PortalException {
 	}
 
 	protected void setParameterNamePrefix(String parameterNamePrefix) {

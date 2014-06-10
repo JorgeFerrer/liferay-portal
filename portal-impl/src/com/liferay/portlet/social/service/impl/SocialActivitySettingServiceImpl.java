@@ -40,7 +40,7 @@ public class SocialActivitySettingServiceImpl
 	@Override
 	public SocialActivityDefinition getActivityDefinition(
 			long groupId, String className, int activityType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW);
@@ -52,7 +52,7 @@ public class SocialActivitySettingServiceImpl
 	@Override
 	public List<SocialActivityDefinition> getActivityDefinitions(
 			long groupId, String className)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW);
@@ -63,7 +63,7 @@ public class SocialActivitySettingServiceImpl
 
 	@Override
 	public List<SocialActivitySetting> getActivitySettings(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW);
@@ -73,7 +73,7 @@ public class SocialActivitySettingServiceImpl
 
 	@Override
 	public JSONArray getJSONActivityDefinitions(long groupId, String className)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW);
@@ -127,7 +127,7 @@ public class SocialActivitySettingServiceImpl
 	@Override
 	public void updateActivitySetting(
 			long groupId, String className, boolean enabled)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.CONFIGURATION);
@@ -140,7 +140,7 @@ public class SocialActivitySettingServiceImpl
 	public void updateActivitySetting(
 			long groupId, String className, int activityType,
 			SocialActivityCounterDefinition activityCounterDefinition)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.CONFIGURATION);
@@ -153,7 +153,7 @@ public class SocialActivitySettingServiceImpl
 	public void updateActivitySettings(
 			long groupId, String className, int activityType,
 			List<SocialActivityCounterDefinition> activityCounterDefinitions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.CONFIGURATION);

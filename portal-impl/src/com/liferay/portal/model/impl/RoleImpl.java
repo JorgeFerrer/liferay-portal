@@ -34,7 +34,7 @@ public class RoleImpl extends RoleBaseImpl {
 	}
 
 	@Override
-	public String getDescriptiveName() throws PortalException, SystemException {
+	public String getDescriptiveName() throws PortalException {
 		String name = getName();
 
 		if (isTeam()) {

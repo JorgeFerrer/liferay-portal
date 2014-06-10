@@ -40,7 +40,7 @@ public class MBMessagePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long messageId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, messageId, actionId)) {
 			throw new PrincipalException();
@@ -50,7 +50,7 @@ public class MBMessagePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, MBMessage message,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, message, actionId)) {
 			throw new PrincipalException();
@@ -60,7 +60,7 @@ public class MBMessagePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long messageId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage message = MBMessageLocalServiceUtil.getMessage(messageId);
 
@@ -70,7 +70,7 @@ public class MBMessagePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, MBMessage message,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (MBBanLocalServiceUtil.hasBan(
 				message.getGroupId(), permissionChecker.getUserId())) {
@@ -154,7 +154,7 @@ public class MBMessagePermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, primaryKey, actionId);
 	}

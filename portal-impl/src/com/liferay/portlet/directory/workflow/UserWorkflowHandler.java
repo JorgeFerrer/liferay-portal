@@ -53,7 +53,7 @@ public class UserWorkflowHandler extends BaseWorkflowHandler<User> {
 	@Override
 	public User updateStatus(
 			int status, Map<String, Serializable> workflowContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long userId = GetterUtil.getLong(
 			(String)workflowContext.get(

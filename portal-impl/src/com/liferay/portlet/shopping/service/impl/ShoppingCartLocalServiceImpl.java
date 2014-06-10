@@ -69,7 +69,7 @@ public class ShoppingCartLocalServiceImpl
 
 	@Override
 	public ShoppingCart getCart(long userId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return shoppingCartPersistence.findByG_U(groupId, userId);
 	}
@@ -117,7 +117,7 @@ public class ShoppingCartLocalServiceImpl
 	public ShoppingCart updateCart(
 			long userId, long groupId, String itemIds, String couponCodes,
 			int altShipping, boolean insure)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> badItemIds = new ArrayList<Long>();
 

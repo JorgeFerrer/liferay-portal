@@ -193,7 +193,7 @@ public class DDMImpl implements DDM {
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFields(
 			ddmStructureId, ddmTemplateId, StringPool.BLANK, serviceContext);
@@ -203,7 +203,7 @@ public class DDMImpl implements DDM {
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = getDDMStructure(
 			ddmStructureId, ddmTemplateId);
@@ -251,7 +251,7 @@ public class DDMImpl implements DDM {
 
 	@Override
 	public Fields getFields(long ddmStructureId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFields(ddmStructureId, 0, serviceContext);
 	}
@@ -260,7 +260,7 @@ public class DDMImpl implements DDM {
 	public Fields getFields(
 			long ddmStructureId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFields(ddmStructureId, 0, fieldNamespace, serviceContext);
 	}
@@ -388,7 +388,7 @@ public class DDMImpl implements DDM {
 	protected Field createField(
 			DDMStructure ddmStructure, String fieldName,
 			List<Serializable> fieldValues, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Field field = new Field();
 
@@ -421,7 +421,7 @@ public class DDMImpl implements DDM {
 
 	protected DDMStructure getDDMStructure(
 			long ddmStructureId, long ddmTemplateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = DDMStructureLocalServiceUtil.getStructure(
 			ddmStructureId);
@@ -477,7 +477,7 @@ public class DDMImpl implements DDM {
 	protected List<Serializable> getFieldValues(
 			DDMStructure ddmStructure, String fieldName, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String fieldDataType = ddmStructure.getFieldDataType(fieldName);
 		String fieldType = ddmStructure.getFieldType(fieldName);

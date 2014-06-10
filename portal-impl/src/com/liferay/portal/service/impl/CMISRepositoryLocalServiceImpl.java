@@ -37,7 +37,7 @@ public class CMISRepositoryLocalServiceImpl
 
 	@Override
 	public Object getSession(long repositoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CMISRepository cmisRepository = getCmisRepository(repositoryId);
 
@@ -46,7 +46,7 @@ public class CMISRepositoryLocalServiceImpl
 
 	@Override
 	public FileEntry toFileEntry(long repositoryId, Object object)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CMISRepository cmisRepository = getCmisRepository(repositoryId);
 
@@ -57,7 +57,7 @@ public class CMISRepositoryLocalServiceImpl
 
 	@Override
 	public FileVersion toFileVersion(long repositoryId, Object object)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CMISRepository cmisRepository = getCmisRepository(repositoryId);
 
@@ -68,7 +68,7 @@ public class CMISRepositoryLocalServiceImpl
 
 	@Override
 	public Folder toFolder(long repositoryId, Object object)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CMISRepository cmisRepository = getCmisRepository(repositoryId);
 
@@ -79,7 +79,7 @@ public class CMISRepositoryLocalServiceImpl
 	}
 
 	protected CMISRepository getCmisRepository(long repositoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repositoryImpl = repositoryLocalService.getRepositoryImpl(
 			repositoryId);

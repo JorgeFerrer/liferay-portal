@@ -711,7 +711,7 @@ public class EditFileEntryAction extends PortletAction {
 	protected String[] getAllowedFileExtensions(
 			PortletConfig portletConfig, PortletRequest portletRequest,
 			PortletResponse portletResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portletName = portletConfig.getPortletName();
 

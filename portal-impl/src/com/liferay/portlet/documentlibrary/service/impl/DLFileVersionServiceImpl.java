@@ -30,7 +30,7 @@ public class DLFileVersionServiceImpl extends DLFileVersionServiceBaseImpl {
 
 	@Override
 	public DLFileVersion getFileVersion(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileVersion fileVersion = dlFileVersionLocalService.getFileVersion(
 			fileVersionId);
@@ -44,7 +44,7 @@ public class DLFileVersionServiceImpl extends DLFileVersionServiceBaseImpl {
 
 	@Override
 	public List<DLFileVersion> getFileVersions(long fileEntryId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryPermission.check(
 			getPermissionChecker(), fileEntryId, ActionKeys.VIEW);
@@ -54,7 +54,7 @@ public class DLFileVersionServiceImpl extends DLFileVersionServiceBaseImpl {
 
 	@Override
 	public int getFileVersionsCount(long fileEntryId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryPermission.check(
 			getPermissionChecker(), fileEntryId, ActionKeys.VIEW);
@@ -64,7 +64,7 @@ public class DLFileVersionServiceImpl extends DLFileVersionServiceBaseImpl {
 
 	@Override
 	public DLFileVersion getLatestFileVersion(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryPermission.check(
 			getPermissionChecker(), fileEntryId, ActionKeys.VIEW);

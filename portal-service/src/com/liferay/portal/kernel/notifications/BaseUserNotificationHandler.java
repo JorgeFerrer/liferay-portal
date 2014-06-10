@@ -72,7 +72,7 @@ public abstract class BaseUserNotificationHandler
 	public boolean isDeliver(
 			long userId, long classNameId, int notificationType,
 			int deliveryType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserNotificationDefinition userNotificationDefinition =
 			UserNotificationManagerUtil.fetchUserNotificationDefinition(

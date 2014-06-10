@@ -76,7 +76,7 @@ public class DLStoreUtil {
 	 */
 	public static void addDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addDirectory(companyId, repositoryId, dirName);
 	}
@@ -97,7 +97,7 @@ public class DLStoreUtil {
 	public static void addFile(
 			long companyId, long repositoryId, String fileName,
 			boolean validateFileExtension, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(
 			companyId, repositoryId, fileName, validateFileExtension, bytes);
@@ -119,7 +119,7 @@ public class DLStoreUtil {
 	public static void addFile(
 			long companyId, long repositoryId, String fileName,
 			boolean validateFileExtension, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(
 			companyId, repositoryId, fileName, validateFileExtension, file);
@@ -141,7 +141,7 @@ public class DLStoreUtil {
 	public static void addFile(
 			long companyId, long repositoryId, String fileName,
 			boolean validateFileExtension, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(
 			companyId, repositoryId, fileName, validateFileExtension, is);
@@ -162,7 +162,7 @@ public class DLStoreUtil {
 	 */
 	public static void addFile(
 			long companyId, long repositoryId, String fileName, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(companyId, repositoryId, fileName, bytes);
 	}
@@ -182,7 +182,7 @@ public class DLStoreUtil {
 	 */
 	public static void addFile(
 			long companyId, long repositoryId, String fileName, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(companyId, repositoryId, fileName, file);
 	}
@@ -202,7 +202,7 @@ public class DLStoreUtil {
 	 */
 	public static void addFile(
 			long companyId, long repositoryId, String fileName, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().addFile(companyId, repositoryId, fileName, is);
 	}
@@ -233,7 +233,7 @@ public class DLStoreUtil {
 	public static void copyFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().copyFileVersion(
 			companyId, repositoryId, fileName, fromVersionLabel,
@@ -252,7 +252,7 @@ public class DLStoreUtil {
 	 */
 	public static void deleteDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().deleteDirectory(companyId, repositoryId, dirName);
 	}
@@ -270,7 +270,7 @@ public class DLStoreUtil {
 	 */
 	public static void deleteFile(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().deleteFile(companyId, repositoryId, fileName);
 	}
@@ -289,7 +289,7 @@ public class DLStoreUtil {
 	public static void deleteFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().deleteFile(companyId, repositoryId, fileName, versionLabel);
 	}
@@ -321,7 +321,7 @@ public class DLStoreUtil {
 	 */
 	public static File getFile(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFile(companyId, repositoryId, fileName);
 	}
@@ -355,7 +355,7 @@ public class DLStoreUtil {
 	public static File getFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFile(
 			companyId, repositoryId, fileName, versionLabel);
@@ -374,7 +374,7 @@ public class DLStoreUtil {
 	 */
 	public static byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileAsBytes(companyId, repositoryId, fileName);
 	}
@@ -394,7 +394,7 @@ public class DLStoreUtil {
 	public static byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileAsBytes(
 			companyId, repositoryId, fileName, versionLabel);
@@ -420,7 +420,7 @@ public class DLStoreUtil {
 	 */
 	public static InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileAsStream(companyId, repositoryId, fileName);
 	}
@@ -447,7 +447,7 @@ public class DLStoreUtil {
 	public static InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileAsStream(
 			companyId, repositoryId, fileName, versionLabel);
@@ -466,7 +466,7 @@ public class DLStoreUtil {
 	 */
 	public static String[] getFileNames(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileNames(companyId, repositoryId, dirName);
 	}
@@ -484,7 +484,7 @@ public class DLStoreUtil {
 	 */
 	public static long getFileSize(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().getFileSize(companyId, repositoryId, fileName);
 	}
@@ -520,7 +520,7 @@ public class DLStoreUtil {
 	 */
 	public static boolean hasDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().hasDirectory(companyId, repositoryId, dirName);
 	}
@@ -539,7 +539,7 @@ public class DLStoreUtil {
 	 */
 	public static boolean hasFile(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().hasFile(companyId, repositoryId, fileName);
 	}
@@ -560,7 +560,7 @@ public class DLStoreUtil {
 	public static boolean hasFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getStore().hasFile(
 			companyId, repositoryId, fileName, versionLabel);
@@ -596,7 +596,7 @@ public class DLStoreUtil {
 	public static void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,
 			String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().updateFile(
 			companyId, repositoryId, newRepositoryId, fileName);
@@ -616,7 +616,7 @@ public class DLStoreUtil {
 	public static void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String newFileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().updateFile(companyId, repositoryId, fileName, newFileName);
 	}
@@ -641,7 +641,7 @@ public class DLStoreUtil {
 			long companyId, long repositoryId, String fileName,
 			String fileExtension, boolean validateFileExtension,
 			String versionLabel, String sourceFileName, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().updateFile(
 			companyId, repositoryId, fileName, fileExtension,
@@ -668,7 +668,7 @@ public class DLStoreUtil {
 			long companyId, long repositoryId, String fileName,
 			String fileExtension, boolean validateFileExtension,
 			String versionLabel, String sourceFileName, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().updateFile(
 			companyId, repositoryId, fileName, fileExtension,
@@ -692,7 +692,7 @@ public class DLStoreUtil {
 	public static void updateFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().updateFileVersion(
 			companyId, repositoryId, fileName, fromVersionLabel,
@@ -708,7 +708,7 @@ public class DLStoreUtil {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public static void validate(String fileName, boolean validateFileExtension)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(fileName, validateFileExtension);
 	}
@@ -724,7 +724,7 @@ public class DLStoreUtil {
 	 */
 	public static void validate(
 			String fileName, boolean validateFileExtension, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(fileName, validateFileExtension, bytes);
 	}
@@ -740,7 +740,7 @@ public class DLStoreUtil {
 	 */
 	public static void validate(
 			String fileName, boolean validateFileExtension, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(fileName, validateFileExtension, file);
 	}
@@ -756,7 +756,7 @@ public class DLStoreUtil {
 	 */
 	public static void validate(
 			String fileName, boolean validateFileExtension, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(fileName, validateFileExtension, is);
 	}
@@ -764,7 +764,7 @@ public class DLStoreUtil {
 	public static void validate(
 			String fileName, String fileExtension, String sourceFileName,
 			boolean validateFileExtension)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(
 			fileName, fileExtension, sourceFileName, validateFileExtension);
@@ -784,7 +784,7 @@ public class DLStoreUtil {
 	public static void validate(
 			String fileName, String fileExtension, String sourceFileName,
 			boolean validateFileExtension, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(
 			fileName, fileExtension, sourceFileName, validateFileExtension,
@@ -805,7 +805,7 @@ public class DLStoreUtil {
 	public static void validate(
 			String fileName, String fileExtension, String sourceFileName,
 			boolean validateFileExtension, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getStore().validate(
 			fileName, fileExtension, sourceFileName, validateFileExtension, is);

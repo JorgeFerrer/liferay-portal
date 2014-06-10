@@ -26,7 +26,7 @@ public abstract class BaseDDMFieldReader implements DDMFieldReader {
 
 	@Override
 	public Fields getFields(String ddmType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Fields filteredFields = new Fields();
 

@@ -180,7 +180,7 @@ public class BlogsUtil {
 
 	public static SearchContainerResults<AssetEntry> getSearchContainerResults(
 			SearchContainer<?> searchContainer)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntryQuery assetEntryQuery = new AssetEntryQuery(
 			BlogsEntry.class.getName(), searchContainer);

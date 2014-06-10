@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionUtil {
 
 	public static WikiNode getFirstVisibleNode(PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -92,7 +92,7 @@ public class ActionUtil {
 
 	public static WikiPage getFirstVisiblePage(
 			long nodeId, PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

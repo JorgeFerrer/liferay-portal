@@ -349,7 +349,7 @@ public class ImageProcessorImpl
 	}
 
 	private boolean _hasPreview(FileVersion fileVersion)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (PropsValues.DL_FILE_ENTRY_PREVIEW_ENABLED &&
 			_previewGenerationRequired(fileVersion)) {

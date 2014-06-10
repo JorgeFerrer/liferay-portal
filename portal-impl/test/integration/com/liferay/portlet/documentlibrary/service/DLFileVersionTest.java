@@ -283,7 +283,7 @@ public class DLFileVersionTest extends BaseDLAppTestCase {
 
 	protected void updateServiceContext(
 			String expando, long fileEntryTypeId, String metadata)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> expandoBridgeAttributes =
 			_serviceContext.getExpandoBridgeAttributes();

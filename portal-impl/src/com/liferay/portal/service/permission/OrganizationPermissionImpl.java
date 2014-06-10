@@ -35,7 +35,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	public void check(
 			PermissionChecker permissionChecker, long organizationId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, organizationId, actionId)) {
 			throw new PrincipalException();
@@ -46,7 +46,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	public void check(
 			PermissionChecker permissionChecker, Organization organization,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, organization, actionId)) {
 			throw new PrincipalException();
@@ -57,7 +57,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long organizationId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (organizationId > 0) {
 			Organization organization =
@@ -74,7 +74,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long[] organizationIds,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ArrayUtil.isEmpty(organizationIds)) {
 			return true;
@@ -91,7 +91,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, Organization organization,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long groupId = organization.getGroupId();
 
@@ -121,7 +121,7 @@ public class OrganizationPermissionImpl implements OrganizationPermission {
 	protected boolean contains(
 			PermissionChecker permissionChecker, long groupId,
 			Organization organization, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		while ((organization != null) &&
 			   (organization.getOrganizationId() !=

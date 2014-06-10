@@ -115,7 +115,7 @@ public class RawMetadataProcessorImpl
 
 	@Override
 	public void saveMetadata(FileVersion fileVersion)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Fields> rawMetadataMap = null;
 

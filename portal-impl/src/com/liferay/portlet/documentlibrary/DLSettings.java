@@ -36,7 +36,7 @@ public class DLSettings {
 	public static final String[] MULTI_VALUED_KEYS = {};
 
 	public static DLSettings getInstance(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, DLConstants.SERVICE_NAME);
@@ -46,7 +46,7 @@ public class DLSettings {
 
 	public static DLSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, DLConstants.SERVICE_NAME);

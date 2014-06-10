@@ -172,7 +172,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	@Override
-	public void testDeleteClassName() throws PortalException, SystemException {
+	public void testDeleteClassName() throws PortalException {
 		classNamePersistence.removeByValue(PortalService.class.getName());
 	}
 

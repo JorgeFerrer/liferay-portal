@@ -278,7 +278,7 @@ public class MBUtil {
 
 	public static String getAbsolutePath(
 			PortletRequest portletRequest, long mbCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -918,7 +918,7 @@ public class MBUtil {
 	public static void propagatePermissions(
 			long companyId, long groupId, long parentMessageId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage parentMessage = MBMessageLocalServiceUtil.getMBMessage(
 			parentMessageId);

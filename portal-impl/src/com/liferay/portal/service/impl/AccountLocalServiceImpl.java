@@ -26,7 +26,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Override
 	public Account getAccount(long companyId, long accountId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return accountPersistence.findByPrimaryKey(accountId);
 	}

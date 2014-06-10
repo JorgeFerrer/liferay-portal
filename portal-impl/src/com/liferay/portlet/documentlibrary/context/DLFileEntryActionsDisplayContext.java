@@ -42,7 +42,7 @@ public class DLFileEntryActionsDisplayContext {
 			HttpServletRequest request,
 			DLPortletInstanceSettings dlPortletInstanceSettings,
 			FileEntry fileEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		this(
 			request, dlPortletInstanceSettings, fileEntry,
@@ -137,7 +137,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isCancelCheckoutDocumentButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (isCheckinButtonVisible() ||
 			(_dlFileEntryActionsDisplayContextHelper.isCheckedOut() &&
@@ -155,7 +155,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isCheckinButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			_dlFileEntryActionsDisplayContextHelper.isLockedByMe() &&
@@ -168,7 +168,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isCheckoutDocumentButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_dlFileEntryActionsDisplayContextHelper.isCheckedOut() &&
@@ -185,7 +185,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isDeleteButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_isFileEntryDeletable() && !_isFileEntryTrashable()) {
 			return true;
@@ -195,13 +195,13 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isDownloadButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
 	public boolean isEditButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
@@ -213,7 +213,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isMoveButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
@@ -225,7 +225,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isMoveToTheRecycleBinButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!isDeleteButtonVisible() && _isFileEntryDeletable()) {
 			return true;
@@ -235,7 +235,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isOpenInMsOfficeButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasViewPermission() &&
 			_dlFileEntryActionsDisplayContextHelper.isOfficeDoc() &&
@@ -248,7 +248,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isPermissionsButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return
 			_dlFileEntryActionsDisplayContextHelper.hasPermissionsPermission();
@@ -285,13 +285,13 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	public boolean isViewButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
 	public boolean isViewOriginalFileButtonVisible()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
@@ -323,7 +323,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	private boolean _isFileEntryDeletable()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.hasDeletePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
@@ -346,7 +346,7 @@ public class DLFileEntryActionsDisplayContext {
 	}
 
 	private boolean _isFileEntryTrashable()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_dlFileEntryActionsDisplayContextHelper.isDLFileEntry() &&
 			_isTrashEnabled()) {
@@ -365,7 +365,7 @@ public class DLFileEntryActionsDisplayContext {
 		return _ieOnWin32;
 	}
 
-	private boolean _isTrashEnabled() throws PortalException, SystemException {
+	private boolean _isTrashEnabled() throws PortalException {
 		if (_trashEnabled == null) {
 			_trashEnabled = TrashUtil.isTrashEnabled(_scopeGroupId);
 		}

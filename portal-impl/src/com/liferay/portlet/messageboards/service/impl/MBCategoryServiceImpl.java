@@ -39,7 +39,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 	public MBCategory addCategory(
 			long userId, long parentCategoryId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategoryPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -59,7 +59,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 			int outServerPort, boolean outUseSSL, String outUserName,
 			String outPassword, boolean mailingListActive,
 			boolean allowAnonymousEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategoryPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -75,7 +75,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public void deleteCategory(long categoryId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -88,7 +88,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public void deleteCategory(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategoryPermission.check(
 			getPermissionChecker(), groupId, categoryId, ActionKeys.DELETE);
@@ -249,7 +249,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public MBCategory getCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -333,7 +333,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 	public MBCategory moveCategory(
 			long categoryId, long parentCategoryId,
 			boolean mergeWithParentCategory)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -347,7 +347,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public MBCategory moveCategoryFromTrash(long categoryId, long newCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -361,7 +361,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public MBCategory moveCategoryToTrash(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -375,7 +375,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public void restoreCategoryFromTrash(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -389,7 +389,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public void subscribeCategory(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategoryPermission.check(
 			getPermissionChecker(), groupId, categoryId, ActionKeys.SUBSCRIBE);
@@ -400,7 +400,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public void unsubscribeCategory(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategoryPermission.check(
 			getPermissionChecker(), groupId, categoryId, ActionKeys.SUBSCRIBE);
@@ -420,7 +420,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 			String outUserName, String outPassword, boolean mailingListActive,
 			boolean allowAnonymousEmail, boolean mergeWithParentCategory,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);

@@ -36,7 +36,7 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 	@Override
 	public void addUserGroupRoles(long userId, long groupId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroupRole> organizationUserGroupRoles =
 			new ArrayList<UserGroupRole>();
@@ -87,7 +87,7 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 	@Override
 	public void addUserGroupRoles(long[] userIds, long groupId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupRolePermissionUtil.check(
 			getPermissionChecker(), groupId, roleId);
@@ -130,7 +130,7 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 	@Override
 	public void deleteUserGroupRoles(long userId, long groupId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroupRole> filteredOrganizationUserGroupRoles =
 			new ArrayList<UserGroupRole>();
@@ -199,7 +199,7 @@ public class UserGroupRoleServiceImpl extends UserGroupRoleServiceBaseImpl {
 
 	@Override
 	public void deleteUserGroupRoles(long[] userIds, long groupId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupRolePermissionUtil.check(
 			getPermissionChecker(), groupId, roleId);

@@ -46,7 +46,7 @@ public class DLFolderAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Folder folder = DLAppLocalServiceUtil.getFolder(classPK);
 

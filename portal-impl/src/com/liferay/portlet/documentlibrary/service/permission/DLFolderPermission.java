@@ -38,7 +38,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, DLFolder dlFolder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, dlFolder, actionId)) {
 			throw new PrincipalException();
@@ -47,7 +47,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 
 	public static void check(
 			PermissionChecker permissionChecker, Folder folder, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!folder.containsPermission(permissionChecker, actionId)) {
 			throw new PrincipalException();
@@ -57,7 +57,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, folderId, actionId)) {
 			throw new PrincipalException();
@@ -67,7 +67,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, DLFolder dlFolder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (actionId.equals(ActionKeys.ADD_FOLDER)) {
 			actionId = ActionKeys.ADD_SUBFOLDER;
@@ -116,7 +116,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, Folder folder, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return folder.containsPermission(permissionChecker, actionId);
 	}
@@ -124,7 +124,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
@@ -150,7 +150,7 @@ public class DLFolderPermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, groupId, primaryKey, actionId);
 	}

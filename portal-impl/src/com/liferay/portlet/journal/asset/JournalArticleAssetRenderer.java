@@ -360,7 +360,7 @@ public class JournalArticleAssetRenderer
 
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return JournalArticlePermission.contains(
 			permissionChecker, _article, ActionKeys.UPDATE);
@@ -368,7 +368,7 @@ public class JournalArticleAssetRenderer
 
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return JournalArticlePermission.contains(
 			permissionChecker, _article, ActionKeys.VIEW);

@@ -186,7 +186,7 @@ public class MBMessageAssetRenderer
 
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_message.isDiscussion()) {
 			return MBDiscussionPermission.contains(
@@ -203,7 +203,7 @@ public class MBMessageAssetRenderer
 
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_message.isDiscussion()) {
 			return MBDiscussionPermission.contains(

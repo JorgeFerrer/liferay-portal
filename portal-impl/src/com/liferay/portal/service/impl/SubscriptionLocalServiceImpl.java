@@ -70,7 +70,7 @@ public class SubscriptionLocalServiceImpl
 	@Override
 	public Subscription addSubscription(
 			long userId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addSubscription(
 			userId, groupId, className, classPK,
@@ -104,7 +104,7 @@ public class SubscriptionLocalServiceImpl
 	public Subscription addSubscription(
 			long userId, long groupId, String className, long classPK,
 			String frequency)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Subscription
 
@@ -192,7 +192,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public Subscription deleteSubscription(long subscriptionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Subscription subscription = subscriptionPersistence.findByPrimaryKey(
 			subscriptionId);
@@ -213,7 +213,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public void deleteSubscription(long userId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -237,7 +237,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public Subscription deleteSubscription(Subscription subscription)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Subscription
 
@@ -277,7 +277,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public void deleteSubscriptions(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Subscription> subscriptions = subscriptionPersistence.findByUserId(
 			userId);
@@ -299,7 +299,7 @@ public class SubscriptionLocalServiceImpl
 	@Override
 	public void deleteSubscriptions(
 			long companyId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -325,7 +325,7 @@ public class SubscriptionLocalServiceImpl
 	@Override
 	public Subscription getSubscription(
 			long companyId, long userId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

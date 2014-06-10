@@ -70,7 +70,7 @@ public class AuthVerifierPipeline {
 
 	public static AuthVerifierResult verifyRequest(
 			AccessControlContext accessControlContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._verifyRequest(accessControlContext);
 	}
@@ -81,7 +81,7 @@ public class AuthVerifierPipeline {
 
 	private AuthVerifierResult _createGuestVerificationResult(
 			AccessControlContext accessControlContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AuthVerifierResult authVerifierResult = new AuthVerifierResult();
 
@@ -301,7 +301,7 @@ public class AuthVerifierPipeline {
 
 	private AuthVerifierResult _verifyRequest(
 			AccessControlContext accessControlContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (accessControlContext == null) {
 			throw new IllegalArgumentException(

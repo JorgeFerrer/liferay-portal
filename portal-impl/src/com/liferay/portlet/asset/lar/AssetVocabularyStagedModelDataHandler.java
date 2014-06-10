@@ -202,7 +202,7 @@ public class AssetVocabularyStagedModelDataHandler
 
 	protected Map<Locale, String> getVocabularyTitleMap(
 			long groupId, AssetVocabulary vocabulary, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> titleMap = vocabulary.getTitleMap();
 

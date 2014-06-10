@@ -60,7 +60,7 @@ public class RoleStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
@@ -250,7 +250,7 @@ public class RoleStagedModelDataHandler
 	protected void importResourceBlock(
 			PortletDataContext portletDataContext, Role importedRole,
 			Permission permission)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		int scope = permission.getScope();
 
@@ -291,7 +291,7 @@ public class RoleStagedModelDataHandler
 	protected void importResourcePermissions(
 			PortletDataContext portletDataContext, Role importedRole,
 			Permission permission)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		int scope = permission.getScope();
 

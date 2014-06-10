@@ -141,7 +141,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public void checkPortlet(Portlet portlet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (portlet.isSystem()) {
 			return;
@@ -185,7 +185,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public void checkPortlets(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Portlet> portlets = getPortlets(companyId);
 
@@ -234,7 +234,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public void deletePortlet(long companyId, String portletId, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String rootPortletId = PortletConstants.getRootPortletId(portletId);
 
@@ -275,7 +275,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public void deletePortlets(long companyId, String[] portletIds, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (String portletId : portletIds) {
 			deletePortlet(companyId, portletId, plid);
@@ -284,14 +284,14 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public Portlet deployRemotePortlet(Portlet portlet, String categoryName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return deployRemotePortlet(portlet, new String[] {categoryName});
 	}
 
 	@Override
 	public Portlet deployRemotePortlet(Portlet portlet, String[] categoryNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Portlet> portletsPool = _getPortletsPool();
 

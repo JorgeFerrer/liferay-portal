@@ -47,7 +47,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public void deleteThread(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (lockLocalService.isLocked(MBThread.class.getName(), threadId)) {
 			throw new LockedThreadException();
@@ -69,7 +69,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	public List<MBThread> getGroupThreads(
 			long groupId, long userId, Date modifiedDate, int status, int start,
 			int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			QueryDefinition queryDefinition = new QueryDefinition(
@@ -104,7 +104,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	public List<MBThread> getGroupThreads(
 			long groupId, long userId, int status, boolean subscribed,
 			boolean includeAnonymous, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return doGetGroupThreads(
@@ -161,7 +161,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	public List<MBThread> getGroupThreads(
 			long groupId, long userId, int status, boolean subscribed,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupThreads(
 			groupId, userId, status, subscribed, true, start, end);
@@ -170,7 +170,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	@Override
 	public List<MBThread> getGroupThreads(
 			long groupId, long userId, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupThreads(groupId, userId, status, false, start, end);
 	}
@@ -278,7 +278,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public Lock lockThread(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -294,7 +294,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public MBThread moveThread(long categoryId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (lockLocalService.isLocked(MBThread.class.getName(), threadId)) {
 			throw new LockedThreadException();
@@ -316,7 +316,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public MBThread moveThreadFromTrash(long categoryId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadLocalService.getThread(threadId);
 
@@ -330,7 +330,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public MBThread moveThreadToTrash(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (lockLocalService.isLocked(MBThread.class.getName(), threadId)) {
 			throw new LockedThreadException();
@@ -350,7 +350,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public void restoreThreadFromTrash(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBMessage> messages = mbMessagePersistence.findByThreadId(
 			threadId);
@@ -367,7 +367,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	@Override
 	public Hits search(
 			long groupId, long creatorUserId, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbThreadLocalService.search(
 			groupId, getUserId(), creatorUserId, status, start, end);
@@ -377,7 +377,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	public Hits search(
 			long groupId, long creatorUserId, long startDate, long endDate,
 			int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbThreadLocalService.search(
 			groupId, getUserId(), creatorUserId, startDate, endDate, status,
@@ -387,7 +387,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	@Override
 	public MBThread splitThread(
 			long messageId, String subject, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage message = mbMessageLocalService.getMessage(messageId);
 
@@ -401,7 +401,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public void unlockThread(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadLocalService.getThread(threadId);
 

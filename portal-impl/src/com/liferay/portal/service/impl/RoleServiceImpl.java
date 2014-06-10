@@ -74,7 +74,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 			String className, long classPK, String name,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			int type, String subtype, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(getPermissionChecker(), ActionKeys.ADD_ROLE);
 
@@ -120,7 +120,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	public Role addRole(
 			String name, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addRole(
 			null, 0, name, titleMap, descriptionMap, type, null, null);
@@ -139,7 +139,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public void addUserRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (roleIds.length == 0) {
 			return;
@@ -167,7 +167,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public void deleteRole(long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.DELETE);
@@ -185,7 +185,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getGroupRoles(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Role> roles = roleLocalService.getGroupRoles(groupId);
 
@@ -202,7 +202,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Role getRole(long roleId) throws PortalException, SystemException {
+	public Role getRole(long roleId) throws PortalException {
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.VIEW);
 
@@ -226,7 +226,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public Role getRole(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role role = roleLocalService.getRole(companyId, name);
 
@@ -247,7 +247,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getUserGroupGroupRoles(long userId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -269,7 +269,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getUserGroupRoles(long userId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -290,7 +290,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getUserRelatedRoles(long userId, List<Group> groups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -310,7 +310,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getUserRoles(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -338,7 +338,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	@Override
 	public boolean hasUserRole(
 			long userId, long companyId, String name, boolean inherited)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -365,7 +365,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	@Override
 	public boolean hasUserRoles(
 			long userId, long companyId, String[] names, boolean inherited)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -388,7 +388,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 */
 	@Override
 	public void unsetUserRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (roleIds.length == 0) {
 			return;
@@ -428,7 +428,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 			long roleId, String name, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String subtype,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.UPDATE);

@@ -44,7 +44,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public void deleteStatsUser(long statsUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsStatsUser statsUsers = blogsStatsUserPersistence.findByPrimaryKey(
 			statsUserId);
@@ -147,7 +147,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public BlogsStatsUser getStatsUser(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsStatsUser statsUser = blogsStatsUserPersistence.fetchByG_U(
 			groupId, userId);
@@ -171,14 +171,14 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public void updateStatsUser(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateStatsUser(groupId, userId, null);
 	}
 
 	@Override
 	public void updateStatsUser(long groupId, long userId, Date displayDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 

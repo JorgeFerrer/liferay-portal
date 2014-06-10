@@ -50,7 +50,7 @@ public class ShardLocalServiceImpl extends ShardLocalServiceBaseImpl {
 
 	@Override
 	public Shard getShard(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

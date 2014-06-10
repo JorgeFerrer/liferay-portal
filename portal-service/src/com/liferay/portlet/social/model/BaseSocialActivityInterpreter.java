@@ -103,7 +103,7 @@ public abstract class BaseSocialActivityInterpreter
 
 	@Override
 	public void updateActivitySet(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivity activity = SocialActivityUtil.fetchByPrimaryKey(
 			activityId);

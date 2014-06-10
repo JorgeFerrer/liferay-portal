@@ -108,7 +108,7 @@ public class EditMessageAttachmentsAction extends PortletAction {
 	}
 
 	protected void deleteAttachment(ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long messageId = ParamUtil.getLong(actionRequest, "messageId");
 

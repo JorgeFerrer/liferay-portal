@@ -102,7 +102,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	@Override
 	public boolean hasCompanyScopePermission(
 			long companyId, String name, long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasGroupScopePermission(companyId, 0, name, roleId, actionId);
 	}
@@ -110,7 +110,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	@Override
 	public boolean hasEitherScopePermission(
 			long companyId, String name, long roleId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourceAction resourceAction =
 			resourceActionLocalService.getResourceAction(name, actionId);
@@ -137,7 +137,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	public boolean hasGroupScopePermission(
 			long companyId, long groupId, String name, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourceAction resourceAction =
 			resourceActionLocalService.getResourceAction(name, actionId);

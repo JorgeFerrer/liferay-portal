@@ -245,7 +245,7 @@ public class EditExpandoAction extends PortletAction {
 
 	protected Serializable getValue(
 			PortletRequest portletRequest, String name, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String delimiter = StringPool.COMMA;
 

@@ -104,7 +104,7 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public List<Group> getAncestors() throws PortalException, SystemException {
+	public List<Group> getAncestors() throws PortalException {
 		Group group = null;
 
 		if (isStagingGroup()) {
@@ -180,13 +180,13 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public String getDescriptiveName() throws PortalException, SystemException {
+	public String getDescriptiveName() throws PortalException {
 		return getDescriptiveName(LocaleUtil.getDefault());
 	}
 
 	@Override
 	public String getDescriptiveName(Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GroupLocalServiceUtil.getGroupDescriptiveName(this, locale);
 	}
@@ -322,7 +322,7 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public Group getParentGroup() throws PortalException, SystemException {
+	public Group getParentGroup() throws PortalException {
 		long parentGroupId = getParentGroupId();
 
 		if (parentGroupId <= 0) {
@@ -436,7 +436,7 @@ public class GroupImpl extends GroupBaseImpl {
 
 	@Override
 	public String getScopeDescriptiveName(ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getGroupId() == themeDisplay.getScopeGroupId()) {
 			StringBundler sb = new StringBundler(5);
@@ -789,7 +789,7 @@ public class GroupImpl extends GroupBaseImpl {
 	@Override
 	public boolean isShowSite(
 			PermissionChecker permissionChecker, boolean privateSite)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!isControlPanel() && !isSite() && !isUser()) {
 			return false;

@@ -37,7 +37,7 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	public Country addCountry(
 			String name, String a2, String a3, String number, String idd,
 			boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!getPermissionChecker().isOmniadmin()) {
 			throw new PrincipalException();
@@ -106,28 +106,28 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 
 	@Override
 	public Country getCountry(long countryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return countryPersistence.findByPrimaryKey(countryId);
 	}
 
 	@Override
 	public Country getCountryByA2(String a2)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return countryPersistence.findByA2(a2);
 	}
 
 	@Override
 	public Country getCountryByA3(String a3)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return countryPersistence.findByA3(a3);
 	}
 
 	@Override
 	public Country getCountryByName(String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return countryPersistence.findByName(name);
 	}

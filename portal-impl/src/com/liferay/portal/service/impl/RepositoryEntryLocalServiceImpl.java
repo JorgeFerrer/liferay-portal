@@ -36,7 +36,7 @@ public class RepositoryEntryLocalServiceImpl
 	public RepositoryEntry addRepositoryEntry(
 			long userId, long groupId, long repositoryId, String mappedId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -70,7 +70,7 @@ public class RepositoryEntryLocalServiceImpl
 	@Override
 	public RepositoryEntry updateRepositoryEntry(
 			long repositoryEntryId, String mappedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RepositoryEntry repositoryEntry =
 			repositoryEntryPersistence.findByPrimaryKey(repositoryEntryId);

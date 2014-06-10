@@ -65,20 +65,20 @@ public class FolderProxyBean
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _folder.containsPermission(permissionChecker, actionId);
 	}
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _folder.getAncestorFolderIds();
 	}
 
 	@Override
-	public List<Folder> getAncestors() throws PortalException, SystemException {
+	public List<Folder> getAncestors() throws PortalException {
 		List<Folder> folders = _folder.getAncestors();
 
 		return toFolderProxyBeans(folders);
@@ -153,7 +153,7 @@ public class FolderProxyBean
 	}
 
 	@Override
-	public Folder getParentFolder() throws PortalException, SystemException {
+	public Folder getParentFolder() throws PortalException {
 		Folder folder = _folder.getParentFolder();
 
 		return newFolderProxyBean(folder);

@@ -39,7 +39,7 @@ public class BaseAssetEntryValidator implements AssetEntryValidator {
 	public void validate(
 			long groupId, String className, long[] categoryIds,
 			String[] entryNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetVocabulary> vocabularies =
 			AssetVocabularyLocalServiceUtil.getGroupVocabularies(
@@ -88,7 +88,7 @@ public class BaseAssetEntryValidator implements AssetEntryValidator {
 	protected void validate(
 			long classNameId, final long[] categoryIds,
 			AssetVocabulary vocabulary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!vocabulary.isAssociatedToClassNameId(classNameId)) {
 			return;

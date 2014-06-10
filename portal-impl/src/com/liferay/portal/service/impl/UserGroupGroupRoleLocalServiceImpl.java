@@ -212,7 +212,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	@Override
 	public boolean hasUserGroupGroupRole(
 			long userGroupId, long groupId, String roleName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroup userGroup = userGroupPersistence.findByPrimaryKey(
 			userGroupId);

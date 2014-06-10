@@ -49,7 +49,7 @@ public class MBMessageAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage message = MBMessageLocalServiceUtil.getMessage(classPK);
 

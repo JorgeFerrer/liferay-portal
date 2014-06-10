@@ -38,7 +38,7 @@ public class ShoppingCouponServiceImpl extends ShoppingCouponServiceBaseImpl {
 			boolean neverExpire, boolean active, String limitCategories,
 			String limitSkus, double minOrder, double discount,
 			String discountType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -54,7 +54,7 @@ public class ShoppingCouponServiceImpl extends ShoppingCouponServiceBaseImpl {
 
 	@Override
 	public void deleteCoupon(long groupId, long couponId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_COUPONS);
@@ -64,7 +64,7 @@ public class ShoppingCouponServiceImpl extends ShoppingCouponServiceBaseImpl {
 
 	@Override
 	public ShoppingCoupon getCoupon(long groupId, long couponId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_COUPONS);
@@ -76,7 +76,7 @@ public class ShoppingCouponServiceImpl extends ShoppingCouponServiceBaseImpl {
 	public List<ShoppingCoupon> search(
 			long groupId, long companyId, String code, boolean active,
 			String discountType, boolean andOperator, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_COUPONS);
@@ -95,7 +95,7 @@ public class ShoppingCouponServiceImpl extends ShoppingCouponServiceBaseImpl {
 			boolean neverExpire, boolean active, String limitCategories,
 			String limitSkus, double minOrder, double discount,
 			String discountType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),

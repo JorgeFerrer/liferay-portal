@@ -42,7 +42,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			String className, long classPK, String street1, String street2,
 			String street3, String city, String zip, long regionId,
 			long countryId, int typeId, boolean mailing, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -58,7 +58,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			String street3, String city, String zip, long regionId,
 			long countryId, int typeId, boolean mailing, boolean primary,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -70,7 +70,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 
 	@Override
 	public void deleteAddress(long addressId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
@@ -83,7 +83,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 
 	@Override
 	public Address getAddress(long addressId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
@@ -96,7 +96,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 
 	@Override
 	public List<Address> getAddresses(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.VIEW);
@@ -112,7 +112,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 			long addressId, String street1, String street2, String street3,
 			String city, String zip, long regionId, long countryId, int typeId,
 			boolean mailing, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 

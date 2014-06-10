@@ -228,7 +228,7 @@ public class ExpandoStorageAdapter extends BaseStorageAdapter {
 	}
 
 	private void _checkExpandoColumns(ExpandoTable expandoTable, Fields fields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (String name : fields.getNames()) {
 			ExpandoColumn expandoColumn =
@@ -365,7 +365,7 @@ public class ExpandoStorageAdapter extends BaseStorageAdapter {
 
 	private ExpandoTable _getExpandoTable(
 			long companyId, long ddmStructureId, Fields fields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable expandoTable = null;
 
@@ -551,7 +551,7 @@ public class ExpandoStorageAdapter extends BaseStorageAdapter {
 
 	private void _updateFields(
 			ExpandoTable expandoTable, long classPK, Fields fields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Iterator<Field> itr = fields.iterator(true);
 

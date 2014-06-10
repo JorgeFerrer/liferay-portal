@@ -73,7 +73,7 @@ public class LiferayFolder extends LiferayModel implements Folder {
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFolderPermission.contains(
 			permissionChecker, _dlFolder, actionId);
@@ -100,13 +100,13 @@ public class LiferayFolder extends LiferayModel implements Folder {
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _dlFolder.getAncestorFolderIds();
 	}
 
 	@Override
-	public List<Folder> getAncestors() throws PortalException, SystemException {
+	public List<Folder> getAncestors() throws PortalException {
 		return RepositoryModelUtil.toFolders(_dlFolder.getAncestors());
 	}
 
@@ -178,7 +178,7 @@ public class LiferayFolder extends LiferayModel implements Folder {
 	}
 
 	@Override
-	public Folder getParentFolder() throws PortalException, SystemException {
+	public Folder getParentFolder() throws PortalException {
 		DLFolder dlParentFolder = _dlFolder.getParentFolder();
 
 		if (dlParentFolder == null) {

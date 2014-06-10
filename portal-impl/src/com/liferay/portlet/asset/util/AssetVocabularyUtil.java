@@ -34,7 +34,7 @@ import java.util.List;
 public class AssetVocabularyUtil {
 
 	public static List<AssetVocabulary> getVocabularies(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Document> documents = hits.toList();
 

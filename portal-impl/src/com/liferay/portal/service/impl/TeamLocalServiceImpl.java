@@ -41,7 +41,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	@Override
 	public Team addTeam(
 			long userId, long groupId, String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Team
 
@@ -82,7 +82,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public Team deleteTeam(long teamId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Team team = teamPersistence.findByPrimaryKey(teamId);
 
@@ -90,7 +90,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Team deleteTeam(Team team) throws PortalException, SystemException {
+	public Team deleteTeam(Team team) throws PortalException {
 
 		// Team
 
@@ -113,7 +113,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public void deleteTeams(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Team> teams = teamPersistence.findByGroupId(groupId);
 
@@ -129,7 +129,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public Team getTeam(long groupId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return teamPersistence.findByG_N(groupId, name);
 	}
@@ -167,7 +167,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public Team updateTeam(long teamId, String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -185,7 +185,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	protected void validate(long teamId, long groupId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name) || Validator.isNumber(name) ||
 			(name.indexOf(CharPool.COMMA) != -1) ||

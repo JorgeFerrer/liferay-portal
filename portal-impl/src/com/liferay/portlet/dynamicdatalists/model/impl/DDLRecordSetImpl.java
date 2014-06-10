@@ -38,14 +38,14 @@ public class DDLRecordSetImpl extends DDLRecordSetBaseImpl {
 
 	@Override
 	public DDMStructure getDDMStructure()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DDMStructureLocalServiceUtil.getStructure(getDDMStructureId());
 	}
 
 	@Override
 	public DDMStructure getDDMStructure(long formDDMTemplateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = getDDMStructure();
 
@@ -74,7 +74,7 @@ public class DDLRecordSetImpl extends DDLRecordSetBaseImpl {
 
 	@Override
 	public List<Fields> getRecordsFieldsList()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Fields> fieldsList = new ArrayList<Fields>();
 

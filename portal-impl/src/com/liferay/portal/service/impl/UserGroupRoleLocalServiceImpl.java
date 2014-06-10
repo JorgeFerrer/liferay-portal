@@ -256,7 +256,7 @@ public class UserGroupRoleLocalServiceImpl
 
 	@Override
 	public boolean hasUserGroupRole(long userId, long groupId, String roleName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasUserGroupRole(userId, groupId, roleName, false);
 	}
@@ -264,7 +264,7 @@ public class UserGroupRoleLocalServiceImpl
 	@Override
 	public boolean hasUserGroupRole(
 			long userId, long groupId, String roleName, boolean inherit)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 

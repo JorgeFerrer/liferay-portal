@@ -94,7 +94,7 @@ public abstract class BaseDDMTemplateHandler extends BaseTemplateHandler {
 
 	protected TemplateVariableGroup getStructureFieldsTemplateVariableGroup(
 			long ddmStructureId, Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ddmStructureId <= 0) {
 			return null;

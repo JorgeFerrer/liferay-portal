@@ -62,7 +62,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	public AssetVocabulary addVocabulary(
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String settings, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addVocabulary(
 			StringPool.BLANK, titleMap, descriptionMap, settings,
@@ -74,7 +74,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 			String title, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String settings,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -88,7 +88,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Override
 	public AssetVocabulary addVocabulary(
 			String title, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -105,7 +105,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void deleteVocabularies(long[] vocabularyIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteVocabularies(vocabularyIds, null);
 	}
@@ -113,7 +113,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Override
 	public List<AssetVocabulary> deleteVocabularies(
 			long[] vocabularyIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetVocabulary> failedVocabularies =
 			new ArrayList<AssetVocabulary>();
@@ -151,7 +151,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 
 	@Override
 	public void deleteVocabulary(long vocabularyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetVocabularyPermission.check(
 			getPermissionChecker(), vocabularyId, ActionKeys.DELETE);
@@ -165,7 +165,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<AssetVocabulary> getCompanyVocabularies(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return filterVocabularies(
 			assetVocabularyLocalService.getCompanyVocabularies(companyId));
@@ -193,7 +193,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 
 	@Override
 	public List<AssetVocabulary> getGroupVocabularies(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupVocabularies(groupId, true);
 	}
@@ -201,7 +201,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Override
 	public List<AssetVocabulary> getGroupVocabularies(
 			long groupId, boolean createDefaultVocabulary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetVocabulary> vocabularies =
 			assetVocabularyPersistence.filterFindByGroupId(groupId);
@@ -264,7 +264,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	public AssetVocabularyDisplay getGroupVocabulariesDisplay(
 			long groupId, String name, int start, int end,
 			boolean addDefaultVocabulary, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetVocabulary> vocabularies;
 		int total = 0;
@@ -298,7 +298,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	public AssetVocabularyDisplay getGroupVocabulariesDisplay(
 			long groupId, String name, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupVocabulariesDisplay(
 			groupId, name, start, end, false, obc);
@@ -312,7 +312,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	public JSONObject getJSONGroupVocabularies(
 			long groupId, String name, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -353,7 +353,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<AssetVocabulary> getVocabularies(long[] vocabularyIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return filterVocabularies(
 			assetVocabularyLocalService.getVocabularies(vocabularyIds));
@@ -361,7 +361,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 
 	@Override
 	public AssetVocabulary getVocabulary(long vocabularyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetVocabularyPermission.check(
 			getPermissionChecker(), vocabularyId, ActionKeys.VIEW);
@@ -373,7 +373,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	public AssetVocabularyDisplay searchVocabulariesDisplay(
 			long groupId, String title, int start, int end,
 			boolean addDefaultVocabulary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = getUser();
 
@@ -413,7 +413,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 			long vocabularyId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String settings,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateVocabulary(
 			vocabularyId, StringPool.BLANK, titleMap, descriptionMap, settings,
@@ -425,7 +425,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 			long vocabularyId, String title, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String settings,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetVocabularyPermission.check(
 			getPermissionChecker(), vocabularyId, ActionKeys.UPDATE);

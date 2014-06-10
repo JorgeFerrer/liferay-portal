@@ -129,7 +129,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Override
 	public UserGroup addUserGroup(
 			long userId, long companyId, String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addUserGroup(userId, companyId, name, description, null);
 	}
@@ -159,7 +159,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public UserGroup addUserGroup(
 			long userId, long companyId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// User group
 
@@ -256,7 +256,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void copyUserGroupLayouts(long userGroupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, String[]> parameterMap = getLayoutTemplatesParameters();
 
@@ -290,7 +290,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void copyUserGroupLayouts(long userGroupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, String[]> parameterMap = getLayoutTemplatesParameters();
 
@@ -327,7 +327,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void copyUserGroupLayouts(long[] userGroupIds, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (long userGroupId : userGroupIds) {
 			if (!userGroupPersistence.containsUser(userGroupId, userId)) {
@@ -347,7 +347,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public UserGroup deleteUserGroup(long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroup userGroup = userGroupPersistence.findByPrimaryKey(
 			userGroupId);
@@ -369,7 +369,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public UserGroup deleteUserGroup(UserGroup userGroup)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		int count = userLocalService.getUserGroupUsersCount(
 			userGroup.getUserGroupId(), WorkflowConstants.STATUS_APPROVED);
@@ -416,7 +416,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 
 	@Override
 	public void deleteUserGroups(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroup> userGroups = userGroupPersistence.findByCompanyId(
 			companyId);
@@ -434,7 +434,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 
 	@Override
 	public List<UserGroup> getGroupUserUserGroups(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] groupUserGroupIds = groupPersistence.getUserGroupPrimaryKeys(
 			groupId);
@@ -478,7 +478,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public UserGroup getUserGroup(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return userGroupPersistence.findByC_N(companyId, name);
 	}
@@ -506,7 +506,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<UserGroup> getUserGroups(long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>(
 			userGroupIds.length);
@@ -818,7 +818,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public BaseModelSearchResult<UserGroup> searchUserGroups(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String name = null;
 		String description = null;
@@ -846,7 +846,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
 			int end, Sort sort)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			UserGroup.class);
@@ -881,7 +881,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public void setUserUserGroups(long userId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (PropsValues.USER_GROUPS_COPY_LAYOUTS_TO_USER_PERSONAL_SITE) {
 			copyUserGroupLayouts(userGroupIds, userId);
@@ -953,7 +953,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Override
 	public UserGroup updateUserGroup(
 			long companyId, long userGroupId, String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateUserGroup(companyId, userGroupId, name, description, null);
 	}
@@ -977,7 +977,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public UserGroup updateUserGroup(
 			long companyId, long userGroupId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// User group
 
@@ -1047,7 +1047,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 
 	protected File[] exportLayouts(
 			long userGroupId, Map<String, String[]> parameterMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File[] files = new File[2];
 
@@ -1136,7 +1136,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	protected void importLayouts(
 			long userId, Map<String, String[]> parameterMap,
 			File privateLayoutsFile, File publicLayoutsFile)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -1162,7 +1162,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	}
 
 	protected void validate(long userGroupId, long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name) ||
 			(name.indexOf(CharPool.COMMA) != -1) ||

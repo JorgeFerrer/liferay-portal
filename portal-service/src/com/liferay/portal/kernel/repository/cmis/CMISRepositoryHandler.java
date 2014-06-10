@@ -52,7 +52,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 			long folderId, String sourceFileName, String mimeType, String title,
 			String description, String changeLog, InputStream is, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.addFileEntry(
 			folderId, sourceFileName, mimeType, title, description, changeLog,
@@ -63,7 +63,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public Folder addFolder(
 			long parentFolderId, String title, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.addFolder(
 			parentFolderId, title, description, serviceContext);
@@ -71,7 +71,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public FileVersion cancelCheckOut(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.cancelCheckOut(fileEntryId);
 	}
@@ -80,7 +80,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public void checkInFileEntry(
 			long fileEntryId, boolean major, String changeLog,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.checkInFileEntry(
 			fileEntryId, major, changeLog, serviceContext);
@@ -89,7 +89,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public void checkInFileEntry(
 			long fileEntryId, String lockUuid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.checkInFileEntry(
 			fileEntryId, lockUuid, serviceContext);
@@ -98,7 +98,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public FileEntry checkOutFileEntry(
 			long fileEntryId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.checkOutFileEntry(
 			fileEntryId, serviceContext);
@@ -108,7 +108,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public FileEntry checkOutFileEntry(
 			long fileEntryId, String owner, long expirationTime,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.checkOutFileEntry(
 			fileEntryId, owner, expirationTime, serviceContext);
@@ -118,7 +118,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public FileEntry copyFileEntry(
 			long groupId, long fileEntryId, long destFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.copyFileEntry(
 			groupId, fileEntryId, destFolderId, serviceContext);
@@ -126,14 +126,14 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public void deleteFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.deleteFileEntry(fileEntryId);
 	}
 
 	@Override
 	public void deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.deleteFolder(folderId);
 	}
@@ -145,7 +145,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public List<FileEntry> getFileEntries(
 			long folderId, int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntries(folderId, start, end, obc);
 	}
@@ -154,7 +154,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public List<FileEntry> getFileEntries(
 			long folderId, long fileEntryTypeId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntries(
 			folderId, fileEntryTypeId, start, end, obc);
@@ -164,7 +164,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public List<FileEntry> getFileEntries(
 			long folderId, String[] mimeTypes, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntries(
 			folderId, mimeTypes, start, end, obc);
@@ -172,14 +172,14 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getFileEntriesCount(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntriesCount(folderId);
 	}
 
 	@Override
 	public int getFileEntriesCount(long folderId, long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntriesCount(
 			folderId, fileEntryTypeId);
@@ -187,49 +187,49 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getFileEntriesCount(long folderId, String[] mimeTypes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntriesCount(folderId, mimeTypes);
 	}
 
 	@Override
 	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntry(fileEntryId);
 	}
 
 	@Override
 	public FileEntry getFileEntry(long folderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntry(folderId, title);
 	}
 
 	@Override
 	public FileEntry getFileEntryByUuid(String uuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileEntryByUuid(uuid);
 	}
 
 	@Override
 	public FileVersion getFileVersion(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFileVersion(fileVersionId);
 	}
 
 	@Override
 	public Folder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFolder(folderId);
 	}
 
 	@Override
 	public Folder getFolder(long parentFolderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFolder(parentFolderId, title);
 	}
@@ -238,7 +238,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public List<Folder> getFolders(
 			long parentFolderId, boolean includeMountfolders, int start,
 			int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFolders(
 			parentFolderId, includeMountfolders, start, end, obc);
@@ -256,7 +256,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public List<Object> getFoldersAndFileEntries(
 			long folderId, String[] mimeTypes, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFoldersAndFileEntries(
 			folderId, mimeTypes, start, end, obc);
@@ -270,7 +270,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getFoldersAndFileEntriesCount(long folderId, String[] mimeTypes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFoldersAndFileEntriesCount(
 			folderId, mimeTypes);
@@ -278,7 +278,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getFoldersCount(long parentFolderId, boolean includeMountfolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFoldersCount(
 			parentFolderId, includeMountfolders);
@@ -286,7 +286,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getFoldersFileEntriesCount(List<Long> folderIds, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getFoldersFileEntriesCount(
 			folderIds, status);
@@ -329,7 +329,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public List<Folder> getMountFolders(
 			long parentFolderId, int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getMountFolders(
 			parentFolderId, start, end, obc);
@@ -337,19 +337,19 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public int getMountFoldersCount(long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getMountFoldersCount(parentFolderId);
 	}
 
 	public String getObjectName(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getObjectName(objectId);
 	}
 
 	public List<String> getObjectPaths(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getObjectPaths(objectId);
 	}
@@ -359,37 +359,37 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public void getSubfolderIds(List<Long> folderIds, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.getSubfolderIds(folderIds, folderId);
 	}
 
 	@Override
 	public List<Long> getSubfolderIds(long folderId, boolean recurse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.getSubfolderIds(folderId, recurse);
 	}
 
 	@Override
-	public void initRepository() throws PortalException, SystemException {
+	public void initRepository() throws PortalException {
 		_baseCmisRepository.initRepository();
 	}
 
 	public boolean isCancelCheckOutAllowable(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.isCancelCheckOutAllowable(objectId);
 	}
 
 	public boolean isCheckInAllowable(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.isCheckInAllowable(objectId);
 	}
 
 	public boolean isCheckOutAllowable(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.isCheckOutAllowable(objectId);
 	}
@@ -418,7 +418,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public Lock lockFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.lockFolder(folderId);
 	}
@@ -427,7 +427,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public Lock lockFolder(
 			long folderId, String owner, boolean inheritable,
 			long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.lockFolder(
 			folderId, owner, inheritable, expirationTime);
@@ -436,7 +436,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public FileEntry moveFileEntry(
 			long fileEntryId, long newFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.moveFileEntry(
 			fileEntryId, newFolderId, serviceContext);
@@ -446,7 +446,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public Folder moveFolder(
 			long folderId, long newParentFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.moveFolder(
 			folderId, newParentFolderId, serviceContext);
@@ -455,7 +455,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public Lock refreshFileEntryLock(
 			String lockUuid, long companyId, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.refreshFileEntryLock(
 			lockUuid, companyId, expirationTime);
@@ -464,7 +464,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public Lock refreshFolderLock(
 			String lockUuid, long companyId, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.refreshFolderLock(
 			lockUuid, companyId, expirationTime);
@@ -473,7 +473,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	@Override
 	public void revertFileEntry(
 			long fileEntryId, String version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.revertFileEntry(
 			fileEntryId, version, serviceContext);
@@ -481,7 +481,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public Hits search(long creatorUserId, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.search(creatorUserId, status, start, end);
 	}
@@ -490,7 +490,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public Hits search(
 			long creatorUserId, long folderId, String[] mimeTypes, int status,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.search(
 			creatorUserId, folderId, mimeTypes, status, start, end);
@@ -513,20 +513,20 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	}
 
 	public FileEntry toFileEntry(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.toFileEntry(objectId);
 	}
 
 	public Folder toFolder(String objectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.toFolder(objectId);
 	}
 
 	@Override
 	public void unlockFolder(long folderId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_baseCmisRepository.unlockFolder(folderId, lockUuid);
 	}
@@ -537,7 +537,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 			String title, String description, String changeLog,
 			boolean majorVersion, InputStream is, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
@@ -548,7 +548,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 			String objectId, String mimeType, Map<String, Object> properties,
 			InputStream is, String sourceFileName, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.updateFileEntry(
 			objectId, mimeType, properties, is, sourceFileName, size,
@@ -559,7 +559,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	public Folder updateFolder(
 			long folderId, String title, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.updateFolder(
 			folderId, title, description, serviceContext);
@@ -567,7 +567,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public boolean verifyFileEntryCheckOut(long fileEntryId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.verifyFileEntryCheckOut(
 			fileEntryId, lockUuid);
@@ -575,7 +575,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public boolean verifyInheritableLock(long folderId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _baseCmisRepository.verifyInheritableLock(folderId, lockUuid);
 	}

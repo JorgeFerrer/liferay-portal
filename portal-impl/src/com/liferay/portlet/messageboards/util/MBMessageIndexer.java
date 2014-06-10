@@ -407,7 +407,7 @@ public class MBMessageIndexer extends BaseIndexer {
 	}
 
 	protected void reindexCategories(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			MBCategoryLocalServiceUtil.getActionableDynamicQuery();
@@ -418,7 +418,7 @@ public class MBMessageIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					MBCategory category = (MBCategory)object;
 
@@ -433,7 +433,7 @@ public class MBMessageIndexer extends BaseIndexer {
 	}
 
 	protected void reindexDiscussions(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			GroupLocalServiceUtil.getActionableDynamicQuery();
@@ -444,7 +444,7 @@ public class MBMessageIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					Group group = (Group)object;
 
@@ -460,7 +460,7 @@ public class MBMessageIndexer extends BaseIndexer {
 
 	protected void reindexMessages(
 			long companyId, long groupId, final long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			MBMessageLocalServiceUtil.getActionableDynamicQuery();
@@ -514,7 +514,7 @@ public class MBMessageIndexer extends BaseIndexer {
 	}
 
 	protected void reindexRoot(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			GroupLocalServiceUtil.getActionableDynamicQuery();
@@ -525,7 +525,7 @@ public class MBMessageIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					Group group = (Group)object;
 

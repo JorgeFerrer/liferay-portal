@@ -136,7 +136,7 @@ public class CalendarPortletDataHandler extends BasePortletDataHandler {
 	protected void exportEvent(
 			PortletDataContext portletDataContext, Element rootElement,
 			CalEvent event)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!portletDataContext.isWithinDateRange(event.getModifiedDate())) {
 			return;

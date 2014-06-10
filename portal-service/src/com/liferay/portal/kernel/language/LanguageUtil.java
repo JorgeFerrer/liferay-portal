@@ -301,7 +301,7 @@ public class LanguageUtil {
 	}
 
 	public static boolean isInheritLocales(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLanguage().isInheritLocales(groupId);
 	}

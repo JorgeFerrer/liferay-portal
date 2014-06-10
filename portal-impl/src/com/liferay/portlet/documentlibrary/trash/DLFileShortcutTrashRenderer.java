@@ -42,7 +42,7 @@ public class DLFileShortcutTrashRenderer extends BaseTrashRenderer {
 	public static final String TYPE = "shortcut";
 
 	public DLFileShortcutTrashRenderer(DLFileShortcut fileShortcut)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_fileShortcut = fileShortcut;
 

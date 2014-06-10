@@ -41,7 +41,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	public LayoutPrototype addLayoutPrototype(
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_LAYOUT_PROTOTYPE);
@@ -61,7 +61,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	@Override
 	public LayoutPrototype addLayoutPrototype(
 			Map<Locale, String> nameMap, String description, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_LAYOUT_PROTOTYPE);
@@ -82,7 +82,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	public LayoutPrototype addLayoutPrototype(
 			Map<Locale, String> nameMap, String description, boolean active,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_LAYOUT_PROTOTYPE);
@@ -96,7 +96,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 
 	@Override
 	public void deleteLayoutPrototype(long layoutPrototypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutPrototypePermissionUtil.check(
 			getPermissionChecker(), layoutPrototypeId, ActionKeys.DELETE);
@@ -106,7 +106,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 
 	@Override
 	public LayoutPrototype getLayoutPrototype(long layoutPrototypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutPrototypePermissionUtil.check(
 			getPermissionChecker(), layoutPrototypeId, ActionKeys.VIEW);
@@ -118,7 +118,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	@Override
 	public List<LayoutPrototype> search(
 			long companyId, Boolean active, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutPrototype> filteredLayoutPrototypes =
 			new ArrayList<LayoutPrototype>();
@@ -144,7 +144,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 			long layoutPrototypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutPrototypePermissionUtil.check(
 			getPermissionChecker(), layoutPrototypeId, ActionKeys.UPDATE);
@@ -162,7 +162,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	public LayoutPrototype updateLayoutPrototype(
 			long layoutPrototypeId, Map<Locale, String> nameMap,
 			String description, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutPrototypePermissionUtil.check(
 			getPermissionChecker(), layoutPrototypeId, ActionKeys.UPDATE);
@@ -180,7 +180,7 @@ public class LayoutPrototypeServiceImpl extends LayoutPrototypeServiceBaseImpl {
 	public LayoutPrototype updateLayoutPrototype(
 			long layoutPrototypeId, Map<Locale, String> nameMap,
 			String description, boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutPrototypePermissionUtil.check(
 			getPermissionChecker(), layoutPrototypeId, ActionKeys.UPDATE);

@@ -42,7 +42,7 @@ public class LayoutBranchLocalServiceImpl
 	public LayoutBranch addLayoutBranch(
 			long layoutSetBranchId, long plid, String name, String description,
 			boolean master, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(
 			serviceContext.getUserId());
@@ -79,7 +79,7 @@ public class LayoutBranchLocalServiceImpl
 	public LayoutBranch addLayoutBranch(
 			long layoutRevisionId, String name, String description,
 			boolean master, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutRevision layoutRevision =
 			layoutRevisionPersistence.findByPrimaryKey(layoutRevisionId);
@@ -107,7 +107,7 @@ public class LayoutBranchLocalServiceImpl
 
 	@Override
 	public LayoutBranch deleteLayoutBranch(long layoutBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranch layoutBranch = layoutBranchPersistence.findByPrimaryKey(
 			layoutBranchId);
@@ -121,7 +121,7 @@ public class LayoutBranchLocalServiceImpl
 
 	@Override
 	public void deleteLayoutSetBranchLayoutBranches(long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutBranch> layoutBranches =
 			layoutBranchPersistence.findByLayoutSetBranchId(layoutSetBranchId);
@@ -150,7 +150,7 @@ public class LayoutBranchLocalServiceImpl
 
 	@Override
 	public LayoutBranch getMasterLayoutBranch(long layoutSetBranchId, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutBranchPersistence.findByL_P_M_First(
 			layoutSetBranchId, plid, true, null);
@@ -159,7 +159,7 @@ public class LayoutBranchLocalServiceImpl
 	@Override
 	public LayoutBranch getMasterLayoutBranch(
 			long layoutSetBranchId, long plid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranch layoutBranch = layoutBranchPersistence.fetchByL_P_M_First(
 			layoutSetBranchId, plid, true, null);
@@ -178,7 +178,7 @@ public class LayoutBranchLocalServiceImpl
 	public LayoutBranch updateLayoutBranch(
 			long layoutBranchId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranch layoutBranch = layoutBranchPersistence.findByPrimaryKey(
 			layoutBranchId);
@@ -197,7 +197,7 @@ public class LayoutBranchLocalServiceImpl
 
 	protected void validate(
 			long layoutBranchId, long layoutSetBranchId, long plid, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name) || (name.length() < 4)) {
 			throw new LayoutBranchNameException(

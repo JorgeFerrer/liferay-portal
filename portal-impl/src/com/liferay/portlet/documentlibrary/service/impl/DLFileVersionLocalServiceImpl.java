@@ -39,14 +39,14 @@ public class DLFileVersionLocalServiceImpl
 
 	@Override
 	public DLFileVersion getFileVersion(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileVersionPersistence.findByPrimaryKey(fileVersionId);
 	}
 
 	@Override
 	public DLFileVersion getFileVersion(long fileEntryId, String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileVersionPersistence.findByF_V(fileEntryId, version);
 	}
@@ -88,7 +88,7 @@ public class DLFileVersionLocalServiceImpl
 	@Override
 	public DLFileVersion getLatestFileVersion(
 			long fileEntryId, boolean excludeWorkingCopy)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DLFileVersion> dlFileVersions =
 			dlFileVersionPersistence.findByFileEntryId(fileEntryId);
@@ -117,7 +117,7 @@ public class DLFileVersionLocalServiceImpl
 
 	@Override
 	public DLFileVersion getLatestFileVersion(long userId, long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean excludeWorkingCopy = true;
 

@@ -30,7 +30,7 @@ public class TeamPermissionImpl implements TeamPermission {
 	@Override
 	public void check(
 			PermissionChecker permissionChecker, long teamId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, teamId, actionId)) {
 			throw new PrincipalException();
@@ -40,7 +40,7 @@ public class TeamPermissionImpl implements TeamPermission {
 	@Override
 	public void check(
 			PermissionChecker permissionChecker, Team team, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, team, actionId)) {
 			throw new PrincipalException();
@@ -50,7 +50,7 @@ public class TeamPermissionImpl implements TeamPermission {
 	@Override
 	public boolean contains(
 			PermissionChecker permissionChecker, long teamId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Team team = TeamLocalServiceUtil.getTeam(teamId);
 
@@ -60,7 +60,7 @@ public class TeamPermissionImpl implements TeamPermission {
 	@Override
 	public boolean contains(
 			PermissionChecker permissionChecker, Team team, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (GroupPermissionUtil.contains(
 				permissionChecker, team.getGroupId(),

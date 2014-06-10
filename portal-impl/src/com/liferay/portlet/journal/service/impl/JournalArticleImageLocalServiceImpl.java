@@ -32,7 +32,7 @@ public class JournalArticleImageLocalServiceImpl
 	public void addArticleImageId(
 			long articleImageId, long groupId, String articleId, double version,
 			String elInstanceId, String elName, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (articleImageId <= 0) {
 			return;
@@ -111,7 +111,7 @@ public class JournalArticleImageLocalServiceImpl
 
 	@Override
 	public JournalArticleImage getArticleImage(long articleImageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return journalArticleImagePersistence.findByPrimaryKey(articleImageId);
 	}

@@ -89,7 +89,7 @@ public class ShoppingSettings {
 	};
 
 	public static ShoppingSettings getInstance(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, ShoppingConstants.SERVICE_NAME);
@@ -99,7 +99,7 @@ public class ShoppingSettings {
 
 	public static ShoppingSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, ShoppingConstants.SERVICE_NAME);

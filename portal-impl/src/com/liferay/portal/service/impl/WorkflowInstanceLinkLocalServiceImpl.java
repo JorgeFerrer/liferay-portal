@@ -49,7 +49,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	public WorkflowInstanceLink addWorkflowInstanceLink(
 			long userId, long companyId, long groupId, String className,
 			long classPK, long workflowInstanceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -78,7 +78,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public WorkflowInstanceLink deleteWorkflowInstanceLink(
 			long workflowInstanceLinkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstanceLink workflowInstanceLink = fetchWorkflowInstanceLink(
 			workflowInstanceLinkId);
@@ -89,7 +89,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public WorkflowInstanceLink deleteWorkflowInstanceLink(
 			long companyId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstanceLink workflowInstanceLink = fetchWorkflowInstanceLink(
 			companyId, groupId, className, classPK);
@@ -100,7 +100,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public WorkflowInstanceLink deleteWorkflowInstanceLink(
 			WorkflowInstanceLink workflowInstanceLink)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (workflowInstanceLink == null) {
 			return null;
@@ -123,7 +123,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public void deleteWorkflowInstanceLinks(
 			long companyId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<WorkflowInstanceLink> workflowInstanceLinks =
 			getWorkflowInstanceLinks(companyId, groupId, className, classPK);
@@ -153,7 +153,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public String getState(
 			long companyId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstanceLink workflowInstanceLink = getWorkflowInstanceLink(
 			companyId, groupId, className, classPK);
@@ -168,7 +168,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public WorkflowInstanceLink getWorkflowInstanceLink(
 			long companyId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<WorkflowInstanceLink> workflowInstanceLinks =
 			getWorkflowInstanceLinks(companyId, groupId, className, classPK);
@@ -220,7 +220,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	@Override
 	public boolean isEnded(
 			long companyId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstanceLink workflowInstanceLink = fetchWorkflowInstanceLink(
 			companyId, groupId, className, classPK);
@@ -244,7 +244,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	public void startWorkflowInstance(
 			long companyId, long groupId, long userId, String className,
 			long classPK, Map<String, Serializable> workflowContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!WorkflowThreadLocal.isEnabled()) {
 			return;
@@ -300,7 +300,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 	public void updateClassPK(
 			long companyId, long groupId, String className, long oldClassPK,
 			long newClassPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!WorkflowThreadLocal.isEnabled()) {
 			return;

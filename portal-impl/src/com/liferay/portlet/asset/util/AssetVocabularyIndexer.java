@@ -181,7 +181,7 @@ public class AssetVocabularyIndexer extends BaseIndexer {
 	}
 
 	protected void reindexVocabularies(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			AssetVocabularyLocalServiceUtil.getActionableDynamicQuery();

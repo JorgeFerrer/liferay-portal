@@ -28,7 +28,7 @@ public class EmailAddressImpl extends EmailAddressBaseImpl {
 	}
 
 	@Override
-	public ListType getType() throws PortalException, SystemException {
+	public ListType getType() throws PortalException {
 		return ListTypeServiceUtil.getListType(getTypeId());
 	}
 

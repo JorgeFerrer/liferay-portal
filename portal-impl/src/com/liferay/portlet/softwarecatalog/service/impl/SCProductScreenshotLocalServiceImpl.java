@@ -29,7 +29,7 @@ public class SCProductScreenshotLocalServiceImpl
 
 	@Override
 	public void deleteProductScreenshot(SCProductScreenshot productScreenshot)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product screenshot
 
@@ -43,7 +43,7 @@ public class SCProductScreenshotLocalServiceImpl
 
 	@Override
 	public void deleteProductScreenshots(long productEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SCProductScreenshot> productScreenshots =
 			scProductScreenshotPersistence.findByProductEntryId(productEntryId);
@@ -56,7 +56,7 @@ public class SCProductScreenshotLocalServiceImpl
 	@Override
 	public SCProductScreenshot getProductScreenshot(
 			long productEntryId, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductScreenshotPersistence.findByP_P(
 			productEntryId, priority);
@@ -65,7 +65,7 @@ public class SCProductScreenshotLocalServiceImpl
 	@Override
 	public SCProductScreenshot getProductScreenshotByFullImageId(
 			long fullImageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductScreenshotPersistence.findByFullImageId(fullImageId);
 	}
@@ -73,7 +73,7 @@ public class SCProductScreenshotLocalServiceImpl
 	@Override
 	public SCProductScreenshot getProductScreenshotByThumbnailId(
 			long thumbnailId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductScreenshotPersistence.findByThumbnailId(thumbnailId);
 	}

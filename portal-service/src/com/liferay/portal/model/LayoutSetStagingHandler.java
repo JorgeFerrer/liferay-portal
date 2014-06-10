@@ -121,7 +121,7 @@ public class LayoutSetStagingHandler
 	}
 
 	private LayoutSetBranch _getLayoutSetBranch(LayoutSet layoutSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();

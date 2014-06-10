@@ -40,7 +40,7 @@ public class WikiNodeStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode wikiNode =
 			WikiNodeLocalServiceUtil.fetchWikiNodeByUuidAndGroupId(

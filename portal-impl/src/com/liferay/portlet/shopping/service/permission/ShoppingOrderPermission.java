@@ -30,7 +30,7 @@ public class ShoppingOrderPermission {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long orderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, orderId, actionId)) {
 			throw new PrincipalException();
@@ -50,7 +50,7 @@ public class ShoppingOrderPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long orderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingOrder order = ShoppingOrderLocalServiceUtil.getOrder(orderId);
 

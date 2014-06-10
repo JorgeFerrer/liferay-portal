@@ -87,7 +87,7 @@ public class AccessControlImpl implements AccessControl {
 
 	@Override
 	public AuthVerifierResult.State verifyRequest()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AccessControlContext accessControlContext =
 			AccessControlUtil.getAccessControlContext();

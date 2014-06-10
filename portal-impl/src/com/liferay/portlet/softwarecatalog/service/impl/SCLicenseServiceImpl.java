@@ -32,7 +32,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 	public SCLicense addLicense(
 			String name, String url, boolean openSource, boolean active,
 			boolean recommended)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_LICENSE);
@@ -43,7 +43,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 
 	@Override
 	public void deleteLicense(long licenseId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCLicensePermission.check(
 			getPermissionChecker(), licenseId, ActionKeys.DELETE);
@@ -53,7 +53,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 
 	@Override
 	public SCLicense getLicense(long licenseId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scLicenseLocalService.getLicense(licenseId);
 	}
@@ -62,7 +62,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 	public SCLicense updateLicense(
 			long licenseId, String name, String url, boolean openSource,
 			boolean active, boolean recommended)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCLicensePermission.check(
 			getPermissionChecker(), licenseId, ActionKeys.UPDATE);

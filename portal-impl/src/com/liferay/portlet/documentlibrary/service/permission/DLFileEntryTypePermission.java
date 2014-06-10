@@ -41,7 +41,7 @@ public class DLFileEntryTypePermission {
 	public static void check(
 			PermissionChecker permissionChecker, long fileEntryTypeId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, fileEntryTypeId, actionId)) {
 			throw new PrincipalException();
@@ -77,7 +77,7 @@ public class DLFileEntryTypePermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long fileEntryTypeId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryType fileEntryType =
 			DLFileEntryTypeLocalServiceUtil.getFileEntryType(fileEntryTypeId);

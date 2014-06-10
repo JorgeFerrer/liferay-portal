@@ -30,12 +30,12 @@ public class DDLRecordVersionImpl extends DDLRecordVersionBaseImpl {
 	}
 
 	@Override
-	public DDLRecord getRecord() throws PortalException, SystemException {
+	public DDLRecord getRecord() throws PortalException {
 		return DDLRecordLocalServiceUtil.getRecord(getRecordId());
 	}
 
 	@Override
-	public DDLRecordSet getRecordSet() throws PortalException, SystemException {
+	public DDLRecordSet getRecordSet() throws PortalException {
 		return DDLRecordSetLocalServiceUtil.getRecordSet(getRecordSetId());
 	}
 

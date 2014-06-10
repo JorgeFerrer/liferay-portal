@@ -142,7 +142,7 @@ public class MBCategoryAssetRenderer extends BaseAssetRenderer {
 
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return MBCategoryPermission.contains(
 			permissionChecker, _category, ActionKeys.UPDATE);
@@ -150,7 +150,7 @@ public class MBCategoryAssetRenderer extends BaseAssetRenderer {
 
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return MBCategoryPermission.contains(
 			permissionChecker, _category, ActionKeys.VIEW);

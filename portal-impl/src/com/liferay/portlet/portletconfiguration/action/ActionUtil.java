@@ -171,7 +171,7 @@ public class ActionUtil {
 
 	public static ActionRequest getWrappedActionRequest(
 			ActionRequest actionRequest, PortletPreferences portletPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			actionRequest);
@@ -185,7 +185,7 @@ public class ActionUtil {
 
 	public static RenderRequest getWrappedRenderRequest(
 			RenderRequest renderRequest, PortletPreferences portletPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			renderRequest);
@@ -205,7 +205,7 @@ public class ActionUtil {
 	public static ResourceRequest getWrappedResourceRequest(
 			ResourceRequest resourceRequest,
 			PortletPreferences portletPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			resourceRequest);
@@ -246,7 +246,7 @@ public class ActionUtil {
 			HttpServletRequest request,
 			PortletPreferences portletConfigPortletPreferences,
 			PortletPreferences portletPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portletResource = ParamUtil.getString(
 			request, "portletResource");
@@ -267,7 +267,7 @@ public class ActionUtil {
 			HttpServletRequest request,
 			PortletPreferences portletConfigPortletSetup,
 			PortletPreferences portletSetup)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portletResource = ParamUtil.getString(
 			request, "portletResource");

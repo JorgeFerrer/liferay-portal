@@ -98,7 +98,7 @@ public class SocialActivityLocalServiceImpl
 	public void addActivity(
 			long userId, long groupId, Date createDate, String className,
 			long classPK, int type, String extraData, long receiverUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ExportImportThreadLocal.isImportInProcess()) {
 			return;
@@ -192,7 +192,7 @@ public class SocialActivityLocalServiceImpl
 	public void addActivity(
 			long userId, long groupId, String className, long classPK, int type,
 			String extraData, long receiverUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ExportImportThreadLocal.isImportInProcess()) {
 			return;
@@ -225,7 +225,7 @@ public class SocialActivityLocalServiceImpl
 	@Override
 	public void addActivity(
 			SocialActivity activity, SocialActivity mirrorActivity)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ExportImportThreadLocal.isImportInProcess()) {
 			return;
@@ -290,7 +290,7 @@ public class SocialActivityLocalServiceImpl
 	public void addUniqueActivity(
 			long userId, long groupId, Date createDate, String className,
 			long classPK, int type, String extraData, long receiverUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -331,7 +331,7 @@ public class SocialActivityLocalServiceImpl
 	public void addUniqueActivity(
 			long userId, long groupId, String className, long classPK, int type,
 			String extraData, long receiverUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -356,7 +356,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public void deleteActivities(AssetEntry assetEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (PropsValues.SOCIAL_ACTIVITY_SETS_ENABLED) {
 			socialActivitySetLocalService.decrementActivityCount(
@@ -396,7 +396,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public void deleteActivities(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -417,7 +417,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public void deleteActivity(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivity activity = socialActivityPersistence.findByPrimaryKey(
 			activityId);
@@ -435,7 +435,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public void deleteActivity(SocialActivity activity)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (PropsValues.SOCIAL_ACTIVITY_SETS_ENABLED) {
 			socialActivitySetLocalService.decrementActivityCount(
@@ -468,7 +468,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public void deleteUserActivities(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityPersistence.findByUserId(
@@ -708,7 +708,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public SocialActivity getActivity(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return socialActivityPersistence.findByPrimaryKey(activityId);
 	}
@@ -826,7 +826,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public SocialActivity getMirrorActivity(long mirrorActivityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return socialActivityPersistence.findByMirrorActivityId(
 			mirrorActivityId);

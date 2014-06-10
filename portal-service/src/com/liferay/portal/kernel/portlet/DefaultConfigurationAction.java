@@ -45,13 +45,13 @@ public class DefaultConfigurationAction
 	protected void postProcess(
 			long companyId, PortletRequest portletRequest,
 			PortletPreferences portletPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 	}
 
 	@Override
 	protected void postProcess(
 			long companyId, PortletRequest portletRequest, Settings settings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferencesSettings portletPreferencesSettings =
 			(PortletPreferencesSettings)settings;

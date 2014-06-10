@@ -47,7 +47,7 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.containsPermission(permissionChecker, actionId);
 	}
@@ -83,14 +83,14 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 
 	@Override
 	public InputStream getContentStream()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getContentStream();
 	}
 
 	@Override
 	public InputStream getContentStream(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getContentStream();
 	}
@@ -122,14 +122,14 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 
 	@Override
 	public FileVersion getFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getFileVersion();
 	}
 
 	@Override
 	public FileVersion getFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getFileVersion();
 	}
@@ -167,14 +167,14 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 
 	@Override
 	public FileVersion getLatestFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getLatestFileVersion();
 	}
 
 	@Override
 	public FileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getLatestFileVersion(trusted);
 	}

@@ -29,7 +29,7 @@ import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
 public class MBMessageAttachmentsUtil {
 
 	public static MBMessage getMessage(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileEntry fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(
 			fileEntryId);

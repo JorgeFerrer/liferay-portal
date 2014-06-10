@@ -72,7 +72,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long classNameId, long tableId, long columnId, long classPK,
 			String data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTablePersistence.findByPrimaryKey(tableId);
 
@@ -85,7 +85,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, boolean data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -108,7 +108,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, boolean[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -131,7 +131,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Date data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -154,7 +154,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Date[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -177,7 +177,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, double data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -200,7 +200,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, double[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -223,7 +223,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, float data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -246,7 +246,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, float[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -269,7 +269,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, int data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -292,7 +292,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, int[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -315,7 +315,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, long data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -338,7 +338,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, long[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -362,7 +362,7 @@ public class ExpandoValueLocalServiceImpl
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Map<Locale, ?> dataMap,
 			Locale defautlLocale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -394,7 +394,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Number data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -417,7 +417,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Number[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -440,7 +440,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Object data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
@@ -550,7 +550,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, short data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -573,7 +573,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, short[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -596,7 +596,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, String data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -619,7 +619,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, String[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, className, tableName);
@@ -647,7 +647,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			boolean data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -664,7 +664,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			boolean[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -681,7 +681,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			Date data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -698,7 +698,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			Date[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -715,7 +715,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			double data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -732,7 +732,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			double[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -749,7 +749,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			float data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -766,7 +766,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			float[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -783,7 +783,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			int data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -800,7 +800,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			int[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -817,7 +817,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			long data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -834,7 +834,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			long[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -851,7 +851,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			Object data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -868,7 +868,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			short data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -885,7 +885,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			short[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -902,7 +902,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			String data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -919,7 +919,7 @@ public class ExpandoValueLocalServiceImpl
 	public ExpandoValue addValue(
 			String className, String tableName, String columnName, long classPK,
 			String[] data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -931,7 +931,7 @@ public class ExpandoValueLocalServiceImpl
 	public void addValues(
 			long classNameId, long tableId, List<ExpandoColumn> columns,
 			long classPK, Map<String, String> data)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTablePersistence.findByPrimaryKey(tableId);
 
@@ -996,7 +996,7 @@ public class ExpandoValueLocalServiceImpl
 	public void addValues(
 			long companyId, long classNameId, String tableName, long classPK,
 			Map<String, Serializable> attributes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, classNameId, tableName);
@@ -1080,7 +1080,7 @@ public class ExpandoValueLocalServiceImpl
 	public void addValues(
 			long companyId, String className, String tableName, long classPK,
 			Map<String, Serializable> attributes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1123,7 +1123,7 @@ public class ExpandoValueLocalServiceImpl
 
 	@Override
 	public void deleteValue(long valueId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValuePersistence.findByPrimaryKey(valueId);
 
@@ -1132,7 +1132,7 @@ public class ExpandoValueLocalServiceImpl
 
 	@Override
 	public void deleteValue(long columnId, long rowId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValuePersistence.findByC_R(columnId, rowId);
 
@@ -1143,7 +1143,7 @@ public class ExpandoValueLocalServiceImpl
 	public void deleteValue(
 			long companyId, long classNameId, String tableName,
 			String columnName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -1171,7 +1171,7 @@ public class ExpandoValueLocalServiceImpl
 	public void deleteValue(
 			long companyId, String className, String tableName,
 			String columnName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1364,7 +1364,7 @@ public class ExpandoValueLocalServiceImpl
 	public Map<String, Serializable> getData(
 			long companyId, String className, String tableName,
 			Collection<String> columnNames, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ExpandoColumn> columns = expandoColumnLocalService.getColumns(
 			companyId, className, tableName, columnNames);
@@ -1392,7 +1392,7 @@ public class ExpandoValueLocalServiceImpl
 	public Serializable getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumn column = expandoColumnLocalService.getColumn(
 			companyId, className, tableName, columnName);
@@ -1415,7 +1415,7 @@ public class ExpandoValueLocalServiceImpl
 	public boolean getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, boolean defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1432,7 +1432,7 @@ public class ExpandoValueLocalServiceImpl
 	public boolean[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, boolean[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1449,7 +1449,7 @@ public class ExpandoValueLocalServiceImpl
 	public Date getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Date defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1466,7 +1466,7 @@ public class ExpandoValueLocalServiceImpl
 	public Date[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Date[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1483,7 +1483,7 @@ public class ExpandoValueLocalServiceImpl
 	public double getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, double defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1500,7 +1500,7 @@ public class ExpandoValueLocalServiceImpl
 	public double[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, double[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1517,7 +1517,7 @@ public class ExpandoValueLocalServiceImpl
 	public float getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, float defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1534,7 +1534,7 @@ public class ExpandoValueLocalServiceImpl
 	public float[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, float[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1551,7 +1551,7 @@ public class ExpandoValueLocalServiceImpl
 	public int getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, int defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1568,7 +1568,7 @@ public class ExpandoValueLocalServiceImpl
 	public int[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, int[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1585,7 +1585,7 @@ public class ExpandoValueLocalServiceImpl
 	public long getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, long defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1602,7 +1602,7 @@ public class ExpandoValueLocalServiceImpl
 	public long[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, long[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1619,7 +1619,7 @@ public class ExpandoValueLocalServiceImpl
 	public Map<?, ?> getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Map<?, ?> defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1644,7 +1644,7 @@ public class ExpandoValueLocalServiceImpl
 	public Number getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Number defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1661,7 +1661,7 @@ public class ExpandoValueLocalServiceImpl
 	public Number[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, Number[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1678,7 +1678,7 @@ public class ExpandoValueLocalServiceImpl
 	public short getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, short defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1695,7 +1695,7 @@ public class ExpandoValueLocalServiceImpl
 	public short[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, short[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1712,7 +1712,7 @@ public class ExpandoValueLocalServiceImpl
 	public String getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, String defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1729,7 +1729,7 @@ public class ExpandoValueLocalServiceImpl
 	public String[] getData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, String[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoValue value = expandoValueLocalService.getValue(
 			companyId, className, tableName, columnName, classPK);
@@ -1750,7 +1750,7 @@ public class ExpandoValueLocalServiceImpl
 	@Override
 	public Serializable getData(
 			String className, String tableName, String columnName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1767,7 +1767,7 @@ public class ExpandoValueLocalServiceImpl
 	public boolean getData(
 			String className, String tableName, String columnName, long classPK,
 			boolean defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1784,7 +1784,7 @@ public class ExpandoValueLocalServiceImpl
 	public boolean[] getData(
 			String className, String tableName, String columnName, long classPK,
 			boolean[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1801,7 +1801,7 @@ public class ExpandoValueLocalServiceImpl
 	public Date getData(
 			String className, String tableName, String columnName, long classPK,
 			Date defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1818,7 +1818,7 @@ public class ExpandoValueLocalServiceImpl
 	public Date[] getData(
 			String className, String tableName, String columnName, long classPK,
 			Date[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1835,7 +1835,7 @@ public class ExpandoValueLocalServiceImpl
 	public double getData(
 			String className, String tableName, String columnName, long classPK,
 			double defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1852,7 +1852,7 @@ public class ExpandoValueLocalServiceImpl
 	public double[] getData(
 			String className, String tableName, String columnName, long classPK,
 			double[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1869,7 +1869,7 @@ public class ExpandoValueLocalServiceImpl
 	public float getData(
 			String className, String tableName, String columnName, long classPK,
 			float defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1886,7 +1886,7 @@ public class ExpandoValueLocalServiceImpl
 	public float[] getData(
 			String className, String tableName, String columnName, long classPK,
 			float[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1903,7 +1903,7 @@ public class ExpandoValueLocalServiceImpl
 	public int getData(
 			String className, String tableName, String columnName, long classPK,
 			int defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1920,7 +1920,7 @@ public class ExpandoValueLocalServiceImpl
 	public int[] getData(
 			String className, String tableName, String columnName, long classPK,
 			int[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1937,7 +1937,7 @@ public class ExpandoValueLocalServiceImpl
 	public long getData(
 			String className, String tableName, String columnName, long classPK,
 			long defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1954,7 +1954,7 @@ public class ExpandoValueLocalServiceImpl
 	public long[] getData(
 			String className, String tableName, String columnName, long classPK,
 			long[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1971,7 +1971,7 @@ public class ExpandoValueLocalServiceImpl
 	public short getData(
 			String className, String tableName, String columnName, long classPK,
 			short defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -1988,7 +1988,7 @@ public class ExpandoValueLocalServiceImpl
 	public short[] getData(
 			String className, String tableName, String columnName, long classPK,
 			short[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -2005,7 +2005,7 @@ public class ExpandoValueLocalServiceImpl
 	public String getData(
 			String className, String tableName, String columnName, long classPK,
 			String defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -2022,7 +2022,7 @@ public class ExpandoValueLocalServiceImpl
 	public String[] getData(
 			String className, String tableName, String columnName, long classPK,
 			String[] defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -2140,14 +2140,14 @@ public class ExpandoValueLocalServiceImpl
 
 	@Override
 	public ExpandoValue getValue(long valueId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return expandoValuePersistence.findByPrimaryKey(valueId);
 	}
 
 	@Override
 	public ExpandoValue getValue(long columnId, long rowId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return expandoValuePersistence.findByC_R(columnId, rowId);
 	}
@@ -2335,7 +2335,7 @@ public class ExpandoValueLocalServiceImpl
 	protected Serializable doGetData(
 			long companyId, String className, String tableName,
 			String columnName, long classPK, ExpandoValue value, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (type == ExpandoColumnConstants.BOOLEAN) {
 			return expandoValueLocalService.getData(

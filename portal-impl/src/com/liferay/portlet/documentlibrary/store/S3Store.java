@@ -160,7 +160,7 @@ public class S3Store extends BaseStore {
 	public File getFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			if (Validator.isNull(versionLabel)) {
@@ -190,7 +190,7 @@ public class S3Store extends BaseStore {
 	public InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			if (Validator.isNull(versionLabel)) {
@@ -241,7 +241,7 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public long getFileSize(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			String versionLabel = getHeadVersionLabel(

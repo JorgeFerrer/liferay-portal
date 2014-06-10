@@ -52,7 +52,7 @@ public class BlogsEntryAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntry entry = BlogsEntryLocalServiceUtil.getEntry(classPK);
 
@@ -66,7 +66,7 @@ public class BlogsEntryAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntry entry = BlogsEntryServiceUtil.getEntry(groupId, urlTitle);
 

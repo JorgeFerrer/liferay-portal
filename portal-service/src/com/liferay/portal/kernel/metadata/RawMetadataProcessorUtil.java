@@ -37,7 +37,7 @@ public class RawMetadataProcessorUtil {
 
 	public static Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getRawMetadataProcessor().getRawMetadataMap(
 			extension, mimeType, file);
@@ -45,7 +45,7 @@ public class RawMetadataProcessorUtil {
 
 	public static Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getRawMetadataProcessor().getRawMetadataMap(
 			extension, mimeType, inputStream);

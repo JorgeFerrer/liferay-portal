@@ -62,7 +62,7 @@ public class RawMetadataProcessorUtil {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public static void generateMetadata(FileVersion fileVersion)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RawMetadataProcessor rawMetadataProcessor = getRawMetadataProcessor();
 
@@ -110,7 +110,7 @@ public class RawMetadataProcessorUtil {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public static void saveMetadata(FileVersion fileVersion)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RawMetadataProcessor rawMetadataProcessor = getRawMetadataProcessor();
 

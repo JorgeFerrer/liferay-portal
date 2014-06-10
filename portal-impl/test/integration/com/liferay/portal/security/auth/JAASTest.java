@@ -315,7 +315,7 @@ public class JAASTest extends MainServletExecutionTestListener {
 
 				@Override
 				protected long doGetJaasUserId(long companyId, String name)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					try {
 						return super.doGetJaasUserId(companyId, name);

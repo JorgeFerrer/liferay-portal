@@ -45,7 +45,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _folder.containsPermission(permissionChecker, actionId);
 	}
@@ -71,13 +71,13 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _folder.getAncestorFolderIds();
 	}
 
 	@Override
-	public List<Folder> getAncestors() throws PortalException, SystemException {
+	public List<Folder> getAncestors() throws PortalException {
 		return _folder.getAncestors();
 	}
 
@@ -147,7 +147,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public Folder getParentFolder() throws PortalException, SystemException {
+	public Folder getParentFolder() throws PortalException {
 		return _folder.getParentFolder();
 	}
 

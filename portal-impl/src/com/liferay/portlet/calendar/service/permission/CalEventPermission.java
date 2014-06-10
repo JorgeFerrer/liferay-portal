@@ -38,7 +38,7 @@ public class CalEventPermission {
 
 	public static void check(
 			PermissionChecker permissionChecker, long eventId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, eventId, actionId)) {
 			throw new PrincipalException();
@@ -62,7 +62,7 @@ public class CalEventPermission {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long eventId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CalEvent event = CalEventLocalServiceUtil.getEvent(eventId);
 

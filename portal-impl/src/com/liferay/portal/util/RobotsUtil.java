@@ -46,7 +46,7 @@ public class RobotsUtil {
 	}
 
 	public static String getRobots(LayoutSet layoutSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutSet == null) {
 			return getDefaultRobots(null);

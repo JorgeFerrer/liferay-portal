@@ -36,7 +36,7 @@ public class SitemapUtil {
 
 	public static String getSitemap(
 			long groupId, boolean privateLayout, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getSitemap().getSitemap(groupId, privateLayout, themeDisplay);
 	}

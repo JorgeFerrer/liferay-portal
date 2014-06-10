@@ -72,7 +72,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			boolean allowTrackbacks, String[] trackbacks, boolean smallImage,
 			String smallImageURL, String smallImageFileName,
 			InputStream smallImageInputStream, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -88,7 +88,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public void deleteEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
@@ -99,7 +99,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getCompanyEntries(
 			long companyId, Date displayDate, int status, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BlogsEntry> entries = new ArrayList<BlogsEntry>();
 
@@ -144,7 +144,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			long companyId, Date displayDate, int status, int max, String type,
 			double version, String displayStyle, String feedURL,
 			String entryURL, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
@@ -159,7 +159,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public BlogsEntry getEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.VIEW);
@@ -169,7 +169,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public BlogsEntry getEntry(long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntry entry = blogsEntryLocalService.getEntry(groupId, urlTitle);
 
@@ -251,7 +251,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			long groupId, Date displayDate, int status, int max, String type,
 			double version, String displayStyle, String feedURL,
 			String entryURL, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -267,7 +267,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupsEntries(
 			long companyId, long groupId, Date displayDate, int status, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BlogsEntry> entries = new ArrayList<BlogsEntry>();
 
@@ -310,7 +310,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getOrganizationEntries(
 			long organizationId, Date displayDate, int status, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BlogsEntry> entries = new ArrayList<BlogsEntry>();
 
@@ -354,7 +354,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			long organizationId, Date displayDate, int status, int max,
 			String type, double version, String displayStyle, String feedURL,
 			String entryURL, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
@@ -370,7 +370,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public BlogsEntry moveEntryToTrash(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
@@ -380,7 +380,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public void restoreEntryFromTrash(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
@@ -390,7 +390,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public void subscribe(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -400,7 +400,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public void unsubscribe(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -416,7 +416,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 			boolean allowTrackbacks, String[] trackbacks, boolean smallImage,
 			String smallImageURL, String smallImageFileName,
 			InputStream smallImageInputStream, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.UPDATE);

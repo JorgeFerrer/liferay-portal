@@ -45,7 +45,7 @@ public class MBThreadTrashRenderer extends BaseTrashRenderer {
 	public static final String TYPE = "message_thread";
 
 	public MBThreadTrashRenderer(MBThread thread)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_thread = thread;
 

@@ -204,7 +204,7 @@ public class EditPublishConfigurationAction
 
 	protected void relaunchPublishLayoutConfiguration(
 			long userId, ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long backgroundTaskId = ParamUtil.getLong(
 			actionRequest, "backgroundTaskId");

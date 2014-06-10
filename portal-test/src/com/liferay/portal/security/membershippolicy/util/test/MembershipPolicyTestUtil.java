@@ -218,7 +218,7 @@ public class MembershipPolicyTestUtil {
 	}
 
 	protected static Map<String, Serializable> addExpandoMap(Class<?> clazz)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(
 			TestPropsValues.getCompanyId(), clazz.getName());

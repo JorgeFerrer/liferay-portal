@@ -40,7 +40,7 @@ public class TrackbackImpl implements Trackback {
 			BlogsEntry entry, ThemeDisplay themeDisplay, String excerpt,
 			String url, String blogName, String title,
 			Function<String, ServiceContext> serviceContextFunction)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long userId = UserLocalServiceUtil.getDefaultUserId(
 			themeDisplay.getCompanyId());
@@ -86,7 +86,7 @@ public class TrackbackImpl implements Trackback {
 	}
 
 	protected String buildEntryURL(BlogsEntry entry, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		StringBundler sb = new StringBundler(4);
 

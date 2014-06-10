@@ -35,7 +35,7 @@ public class GroupPermissionImpl
 	@Override
 	public void check(
 			PermissionChecker permissionChecker, Group group, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, group, actionId)) {
 			throw new PrincipalException();
@@ -45,7 +45,7 @@ public class GroupPermissionImpl
 	@Override
 	public void check(
 			PermissionChecker permissionChecker, long groupId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, actionId)) {
 			throw new PrincipalException();
@@ -65,7 +65,7 @@ public class GroupPermissionImpl
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, primaryKey, actionId);
 	}
@@ -73,7 +73,7 @@ public class GroupPermissionImpl
 	@Override
 	public boolean contains(
 			PermissionChecker permissionChecker, Group group, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((actionId.equals(ActionKeys.ADD_LAYOUT) ||
 			 actionId.equals(ActionKeys.MANAGE_LAYOUTS)) &&
@@ -183,7 +183,7 @@ public class GroupPermissionImpl
 	@Override
 	public boolean contains(
 			PermissionChecker permissionChecker, long groupId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (groupId > 0) {
 			Group group = GroupLocalServiceUtil.getGroup(groupId);

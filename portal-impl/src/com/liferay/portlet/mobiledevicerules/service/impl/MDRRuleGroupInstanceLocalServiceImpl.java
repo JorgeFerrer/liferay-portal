@@ -41,7 +41,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	public MDRRuleGroupInstance addRuleGroupInstance(
 			long groupId, String className, long classPK, long ruleGroupId,
 			int priority, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(
 			serviceContext.getUserId());
@@ -75,7 +75,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	public MDRRuleGroupInstance addRuleGroupInstance(
 			long groupId, String className, long classPK, long ruleGroupId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MDRRuleGroupInstance> ruleGroupInstances = getRuleGroupInstances(
 			className, classPK, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -164,7 +164,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 
 	@Override
 	public MDRRuleGroupInstance getRuleGroupInstance(long ruleGroupInstanceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mdrRuleGroupInstancePersistence.findByPrimaryKey(
 			ruleGroupInstanceId);
@@ -173,7 +173,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	@Override
 	public MDRRuleGroupInstance getRuleGroupInstance(
 			String className, long classPK, long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -232,7 +232,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	@Override
 	public MDRRuleGroupInstance updateRuleGroupInstance(
 			long ruleGroupInstanceId, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroupInstance ruleGroupInstance =
 			mdrRuleGroupInstancePersistence.findByPrimaryKey(
@@ -246,7 +246,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	}
 
 	protected void validate(long classNameId, long classPK, long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroupInstance ruleGroupInstance =
 			mdrRuleGroupInstancePersistence.fetchByC_C_R(

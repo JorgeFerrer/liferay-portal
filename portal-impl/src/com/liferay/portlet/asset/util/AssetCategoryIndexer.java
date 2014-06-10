@@ -218,7 +218,7 @@ public class AssetCategoryIndexer extends BaseIndexer {
 	}
 
 	protected void reindexCategories(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			AssetCategoryLocalServiceUtil.getActionableDynamicQuery();

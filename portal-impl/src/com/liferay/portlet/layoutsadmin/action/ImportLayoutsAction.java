@@ -295,7 +295,7 @@ public class ImportLayoutsAction extends PortletAction {
 	}
 
 	protected void deleteTempFileEntry(long groupId, String folderName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(
 			groupId, folderName);

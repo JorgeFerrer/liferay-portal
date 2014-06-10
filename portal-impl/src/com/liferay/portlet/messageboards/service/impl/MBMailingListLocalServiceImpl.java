@@ -55,7 +55,7 @@ public class MBMailingListLocalServiceImpl
 			String outServerName, int outServerPort, boolean outUseSSL,
 			String outUserName, String outPassword, boolean allowAnonymous,
 			boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Mailing list
 
@@ -110,7 +110,7 @@ public class MBMailingListLocalServiceImpl
 
 	@Override
 	public void deleteCategoryMailingList(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMailingList mailingList = mbMailingListPersistence.findByG_C(
 			groupId, categoryId);
@@ -120,7 +120,7 @@ public class MBMailingListLocalServiceImpl
 
 	@Override
 	public void deleteMailingList(long mailingListId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMailingList mailingList = mbMailingListPersistence.findByPrimaryKey(
 			mailingListId);
@@ -130,7 +130,7 @@ public class MBMailingListLocalServiceImpl
 
 	@Override
 	public void deleteMailingList(MBMailingList mailingList)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		unscheduleMailingList(mailingList);
 
@@ -139,7 +139,7 @@ public class MBMailingListLocalServiceImpl
 
 	@Override
 	public MBMailingList getCategoryMailingList(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbMailingListPersistence.findByG_C(groupId, categoryId);
 	}
@@ -153,7 +153,7 @@ public class MBMailingListLocalServiceImpl
 			int outServerPort, boolean outUseSSL, String outUserName,
 			String outPassword, boolean allowAnonymous, boolean active,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Mailing list
 

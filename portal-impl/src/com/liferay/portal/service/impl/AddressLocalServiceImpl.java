@@ -53,7 +53,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 			String street2, String street3, String city, String zip,
 			long regionId, long countryId, int typeId, boolean mailing,
 			boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addAddress(
 			userId, className, classPK, street1, street2, street3, city, zip,
@@ -67,7 +67,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 			String street2, String street3, String city, String zip,
 			long regionId, long countryId, int typeId, boolean mailing,
 			boolean primary, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -117,7 +117,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 
 	@Override
 	public Address deleteAddress(long addressId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
@@ -156,7 +156,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 			long addressId, String street1, String street2, String street3,
 			String city, String zip, long regionId, long countryId, int typeId,
 			boolean mailing, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(
 			addressId, 0, 0, 0, street1, city, zip, regionId, countryId, typeId,
@@ -222,7 +222,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 			long addressId, long companyId, long classNameId, long classPK,
 			String street1, String city, String zip, long regionId,
 			long countryId, int typeId, boolean mailing, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(street1)) {
 			throw new AddressStreetException();

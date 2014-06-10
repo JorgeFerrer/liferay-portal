@@ -33,7 +33,7 @@ public class MBCategoryImpl extends MBCategoryBaseImpl {
 
 	@Override
 	public List<Long> getAncestorCategoryIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> ancestorCategoryIds = new ArrayList<Long>();
 
@@ -51,7 +51,7 @@ public class MBCategoryImpl extends MBCategoryBaseImpl {
 
 	@Override
 	public List<MBCategory> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBCategory> ancestors = new ArrayList<MBCategory>();
 
@@ -68,7 +68,7 @@ public class MBCategoryImpl extends MBCategoryBaseImpl {
 
 	@Override
 	public MBCategory getParentCategory()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long parentCategoryId = getParentCategoryId();
 

@@ -72,7 +72,7 @@ public class UserTrackerLocalServiceImpl
 
 	@Override
 	public UserTracker deleteUserTracker(long userTrackerId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserTracker userTracker = userTrackerPersistence.findByPrimaryKey(
 			userTrackerId);

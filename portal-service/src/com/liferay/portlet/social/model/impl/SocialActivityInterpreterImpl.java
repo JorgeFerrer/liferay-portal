@@ -94,7 +94,7 @@ public class SocialActivityInterpreterImpl
 
 	@Override
 	public void updateActivitySet(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_activityInterpreter.updateActivitySet(activityId);
 	}

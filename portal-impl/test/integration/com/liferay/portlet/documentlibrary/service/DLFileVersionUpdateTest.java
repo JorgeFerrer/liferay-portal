@@ -70,7 +70,7 @@ public class DLFileVersionUpdateTest extends BaseDLAppTestCase {
 	protected void testVersionUpdate(
 			String addFileName, byte[] addBytes, String addMimeType,
 			String updateFileName, byte[] updateBytes, String updateMimeType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String description = StringPool.BLANK;
 		String changeLog = StringPool.BLANK;

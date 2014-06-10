@@ -103,7 +103,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@After
-	public void tearDown() throws PortalException, SystemException {
+	public void tearDown() throws PortalException {
 		PropsValues.SPRING_HIBERNATE_SESSION_DELEGATED = true;
 
 		GroupLocalServiceUtil.deleteGroup(_group);

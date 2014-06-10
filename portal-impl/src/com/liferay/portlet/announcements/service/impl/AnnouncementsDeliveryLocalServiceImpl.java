@@ -34,7 +34,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 
 	@Override
 	public AnnouncementsDelivery addUserDelivery(long userId, String type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -89,7 +89,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 
 	@Override
 	public void deleteDelivery(long deliveryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsDelivery delivery =
 			announcementsDeliveryPersistence.findByPrimaryKey(deliveryId);
@@ -110,14 +110,14 @@ public class AnnouncementsDeliveryLocalServiceImpl
 
 	@Override
 	public AnnouncementsDelivery getDelivery(long deliveryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return announcementsDeliveryPersistence.findByPrimaryKey(deliveryId);
 	}
 
 	@Override
 	public List<AnnouncementsDelivery> getUserDeliveries(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AnnouncementsDelivery> deliveries =
 			new ArrayList<AnnouncementsDelivery>(
@@ -132,7 +132,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 
 	@Override
 	public AnnouncementsDelivery getUserDelivery(long userId, String type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsDelivery delivery =
 			announcementsDeliveryPersistence.fetchByU_T(userId, type);
@@ -149,7 +149,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 	public AnnouncementsDelivery updateDelivery(
 			long userId, String type, boolean email, boolean sms,
 			boolean website)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsDelivery delivery = getUserDelivery(userId, type);
 

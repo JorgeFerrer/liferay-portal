@@ -128,7 +128,7 @@ public abstract class RepositoryLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public Repository deleteRepository(long repositoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return repositoryPersistence.remove(repositoryId);
 	}
 

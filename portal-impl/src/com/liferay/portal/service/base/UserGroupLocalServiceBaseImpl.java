@@ -119,7 +119,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public UserGroup deleteUserGroup(long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return userGroupPersistence.remove(userGroupId);
 	}
 
@@ -134,7 +134,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public UserGroup deleteUserGroup(UserGroup userGroup)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return userGroupPersistence.remove(userGroup);
 	}
 
@@ -774,7 +774,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 */
 	@Override
 	public void setUserUserGroups(long userId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 		userPersistence.setUserGroups(userId, userGroupIds);
 	}
 

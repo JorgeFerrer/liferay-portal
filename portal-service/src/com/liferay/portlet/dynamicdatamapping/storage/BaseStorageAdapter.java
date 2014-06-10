@@ -288,7 +288,7 @@ public abstract class BaseStorageAdapter implements StorageAdapter {
 		throws Exception;
 
 	protected void validateClassFields(long classPK, Fields fields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStorageLink ddmStorageLink =
 			DDMStorageLinkLocalServiceUtil.getClassStorageLink(classPK);
@@ -298,7 +298,7 @@ public abstract class BaseStorageAdapter implements StorageAdapter {
 
 	protected void validateDDMStructureFields(
 			long ddmStructureId, Fields fields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure =
 			DDMStructureLocalServiceUtil.getDDMStructure(ddmStructureId);

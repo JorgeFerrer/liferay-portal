@@ -62,7 +62,7 @@ public class SocialRequestLocalServiceImpl
 	public SocialRequest addRequest(
 			long userId, long groupId, String className, long classPK, int type,
 			String extraData, long receiverUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -130,7 +130,7 @@ public class SocialRequestLocalServiceImpl
 	 */
 	@Override
 	public void deleteRequest(long requestId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialRequest request = socialRequestPersistence.findByPrimaryKey(
 			requestId);
@@ -431,7 +431,7 @@ public class SocialRequestLocalServiceImpl
 	@Override
 	public SocialRequest updateRequest(
 			long requestId, int status, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialRequest request = socialRequestPersistence.findByPrimaryKey(
 			requestId);

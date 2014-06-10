@@ -47,7 +47,7 @@ public class MDRRuleGroupLocalServiceImpl
 	public MDRRuleGroup addRuleGroup(
 			long groupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(
 			serviceContext.getUserId());
@@ -73,7 +73,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public MDRRuleGroup copyRuleGroup(
 			long ruleGroupId, long groupId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);
@@ -84,7 +84,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public MDRRuleGroup copyRuleGroup(
 			MDRRuleGroup ruleGroup, long groupId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -170,7 +170,7 @@ public class MDRRuleGroupLocalServiceImpl
 
 	@Override
 	public MDRRuleGroup getRuleGroup(long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mdrRuleGroupPersistence.findByPrimaryKey(ruleGroupId);
 	}
@@ -302,7 +302,7 @@ public class MDRRuleGroupLocalServiceImpl
 	public MDRRuleGroup updateRuleGroup(
 			long ruleGroupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);

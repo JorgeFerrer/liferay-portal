@@ -45,7 +45,7 @@ public class LayoutCache {
 
 	protected long getEntityGroupId(
 			long companyId, String entityName, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long entityGroupId = 0;
 
@@ -86,7 +86,7 @@ public class LayoutCache {
 	}
 
 	protected Map<String, Long> getEntityMap(long companyId, String entityName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Long> entityMap = entityMapMap.get(entityName);
 
@@ -131,7 +131,7 @@ public class LayoutCache {
 	}
 
 	protected List<Role> getGroupRoles(long groupId, String resourceName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Role> roles = groupRolesMap.get(groupId);
 
@@ -177,7 +177,7 @@ public class LayoutCache {
 	}
 
 	protected Role getRole(long companyId, String roleName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role role = rolesMap.get(roleName);
 

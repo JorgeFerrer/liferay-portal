@@ -44,7 +44,7 @@ public abstract class BaseServiceImpl implements BaseService {
 
 	public static final String WEBLOGIC_ANONYMOUS = "<anonymous>";
 
-	public User getGuestOrUser() throws PortalException, SystemException {
+	public User getGuestOrUser() throws PortalException {
 		try {
 			return getUser();
 		}
@@ -85,7 +85,7 @@ public abstract class BaseServiceImpl implements BaseService {
 		return permissionChecker;
 	}
 
-	public User getUser() throws PortalException, SystemException {
+	public User getUser() throws PortalException {
 		return UserLocalServiceUtil.getUserById(getUserId());
 	}
 

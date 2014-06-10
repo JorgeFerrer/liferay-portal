@@ -65,7 +65,7 @@ public class JournalArticleAssetRendererFactory
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = null;
 
@@ -108,7 +108,7 @@ public class JournalArticleAssetRendererFactory
 
 	@Override
 	public AssetRenderer getAssetRenderer(long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article =
 			JournalArticleServiceUtil.getDisplayArticleByUrlTitle(

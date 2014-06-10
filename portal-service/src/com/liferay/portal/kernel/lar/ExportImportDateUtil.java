@@ -91,7 +91,7 @@ public class ExportImportDateUtil {
 
 	public static DateRange getDateRange(
 			ExportImportConfiguration configuration)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> settingsMap = configuration.getSettingsMap();
 
@@ -128,7 +128,7 @@ public class ExportImportDateUtil {
 	}
 
 	public static DateRange getDateRange(long configurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
@@ -140,7 +140,7 @@ public class ExportImportDateUtil {
 	public static DateRange getDateRange(
 			PortletRequest portletRequest, long groupId, boolean privateLayout,
 			long plid, String portletId, String defaultRange)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -209,7 +209,7 @@ public class ExportImportDateUtil {
 			int endDateMonth, int endDateDay, int endDateHour,
 			int endDateMinute, String portletId, long groupId, long plid,
 			boolean privateLayout, Locale locale, TimeZone timeZone)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date startDate = null;
 		Date endDate = null;

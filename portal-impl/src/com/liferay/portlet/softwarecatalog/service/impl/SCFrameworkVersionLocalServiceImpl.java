@@ -37,7 +37,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public SCFrameworkVersion addFrameworkVersion(
 			long userId, String name, String url, boolean active, int priority,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Framework version
 
@@ -87,7 +87,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public void addFrameworkVersionResources(
 			long frameworkVersionId, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCFrameworkVersion frameworkVersion =
 			scFrameworkVersionPersistence.findByPrimaryKey(frameworkVersionId);
@@ -100,7 +100,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public void addFrameworkVersionResources(
 			long frameworkVersionId, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCFrameworkVersion frameworkVersion =
 			scFrameworkVersionPersistence.findByPrimaryKey(frameworkVersionId);
@@ -113,7 +113,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public void addFrameworkVersionResources(
 			SCFrameworkVersion frameworkVersion, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			frameworkVersion.getCompanyId(), frameworkVersion.getGroupId(),
@@ -126,7 +126,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public void addFrameworkVersionResources(
 			SCFrameworkVersion frameworkVersion, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			frameworkVersion.getCompanyId(), frameworkVersion.getGroupId(),
@@ -137,7 +137,7 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public void deleteFrameworkVersion(long frameworkVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCFrameworkVersion frameworkVersion =
 			scFrameworkVersionPersistence.findByPrimaryKey(frameworkVersionId);
@@ -163,7 +163,7 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public SCFrameworkVersion getFrameworkVersion(long frameworkVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scFrameworkVersionPersistence.findByPrimaryKey(
 			frameworkVersionId);
@@ -214,7 +214,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	public SCFrameworkVersion updateFrameworkVersion(
 			long frameworkVersionId, String name, String url, boolean active,
 			int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(name);
 

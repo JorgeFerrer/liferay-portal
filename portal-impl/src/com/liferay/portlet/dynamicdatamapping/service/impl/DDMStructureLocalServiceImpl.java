@@ -133,7 +133,7 @@ public class DDMStructureLocalServiceImpl
 			String structureKey, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String xsd, String storageType,
 			int type, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Structure
 
@@ -226,7 +226,7 @@ public class DDMStructureLocalServiceImpl
 			long userId, long groupId, long classNameId,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String xsd, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addStructure(
 			userId, groupId, DDMStructureConstants.DEFAULT_PARENT_STRUCTURE_ID,
@@ -270,7 +270,7 @@ public class DDMStructureLocalServiceImpl
 			long classNameId, String structureKey, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String xsd, String storageType,
 			int type, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure parentStructure = fetchStructure(
 			groupId, classNameId, parentStructureKey);
@@ -300,7 +300,7 @@ public class DDMStructureLocalServiceImpl
 	public void addStructureResources(
 			DDMStructure structure, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			structure.getCompanyId(), structure.getGroupId(),
@@ -322,7 +322,7 @@ public class DDMStructureLocalServiceImpl
 	public void addStructureResources(
 			DDMStructure structure, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			structure.getCompanyId(), structure.getGroupId(),
@@ -351,7 +351,7 @@ public class DDMStructureLocalServiceImpl
 	public DDMStructure copyStructure(
 			long userId, long structureId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
@@ -366,7 +366,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public DDMStructure copyStructure(
 			long userId, long structureId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
@@ -393,7 +393,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public void deleteStructure(DDMStructure structure)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!GroupThreadLocal.isDeleteInProcess()) {
 			if (ddmStructureLinkPersistence.countByStructureId(
@@ -447,7 +447,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public void deleteStructure(long structureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
@@ -473,7 +473,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public void deleteStructure(
 			long groupId, long classNameId, String structureKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -498,7 +498,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public void deleteStructures(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMStructure> structures = ddmStructurePersistence.findByGroupId(
 			groupId);
@@ -569,7 +569,7 @@ public class DDMStructureLocalServiceImpl
 	public DDMStructure fetchStructure(
 			long groupId, long classNameId, String structureKey,
 			boolean includeAncestorStructures)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -722,7 +722,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public List<DDMStructure> getJournalFolderStructures(
 			long[] groupIds, long journalFolderId, int restrictionType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (restrictionType ==
 				JournalFolderConstants.
@@ -764,7 +764,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public DDMStructure getStructure(long structureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmStructurePersistence.findByPrimaryKey(structureId);
 	}
@@ -784,7 +784,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public DDMStructure getStructure(
 			long groupId, long classNameId, String structureKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -816,7 +816,7 @@ public class DDMStructureLocalServiceImpl
 	public DDMStructure getStructure(
 			long groupId, long classNameId, String structureKey,
 			boolean includeAncestorStructures)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -1301,7 +1301,7 @@ public class DDMStructureLocalServiceImpl
 			String structureKey, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String xsd,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -1335,7 +1335,7 @@ public class DDMStructureLocalServiceImpl
 			long structureId, long parentStructureId,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String xsd, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
@@ -1361,7 +1361,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public DDMStructure updateXSD(
 			long structureId, String xsd, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
@@ -1389,7 +1389,7 @@ public class DDMStructureLocalServiceImpl
 	public void updateXSDFieldMetadata(
 			long structureId, String fieldName, String metadataEntryName,
 			String metadataEntryValue, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = fetchDDMStructure(structureId);
 
@@ -1488,7 +1488,7 @@ public class DDMStructureLocalServiceImpl
 			long parentStructureId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, String xsd,
 			ServiceContext serviceContext, DDMStructure structure)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			xsd = DDMXMLUtil.validateXML(xsd);
@@ -1534,7 +1534,7 @@ public class DDMStructureLocalServiceImpl
 
 	protected void getChildrenStructureIds(
 			List<Long> structureIds, long groupId, long parentStructureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMStructure> structures = ddmStructurePersistence.findByG_P(
 			groupId, parentStructureId);
@@ -1549,7 +1549,7 @@ public class DDMStructureLocalServiceImpl
 	}
 
 	protected List<Long> getChildrenStructureIds(long groupId, long structureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> structureIds = new ArrayList<Long>();
 
@@ -1590,7 +1590,7 @@ public class DDMStructureLocalServiceImpl
 	}
 
 	protected void syncStructureTemplatesFields(DDMStructure structure)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(
 			DDMStructure.class);
@@ -1636,7 +1636,7 @@ public class DDMStructureLocalServiceImpl
 
 	protected void syncStructureTemplatesFields(
 			DDMTemplate template, Element templateElement)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = DDMTemplateHelperUtil.fetchStructure(template);
 
@@ -1723,7 +1723,7 @@ public class DDMStructureLocalServiceImpl
 	protected void validate(
 			long groupId, long parentStructureId, long classNameId,
 			String structureKey, Map<Locale, String> nameMap, String xsd)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		structureKey = getStructureKey(structureKey);
 

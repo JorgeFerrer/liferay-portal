@@ -77,7 +77,7 @@ public class MBStatsUserLocalServiceImpl
 
 	@Override
 	public void deleteStatsUser(long statsUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBStatsUser statsUser = mbStatsUserPersistence.findByPrimaryKey(
 			statsUserId);
@@ -204,7 +204,7 @@ public class MBStatsUserLocalServiceImpl
 	@Override
 	public List<MBStatsUser> getStatsUsersByGroupId(
 			long groupId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -217,7 +217,7 @@ public class MBStatsUserLocalServiceImpl
 
 	@Override
 	public int getStatsUsersByGroupIdCount(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 

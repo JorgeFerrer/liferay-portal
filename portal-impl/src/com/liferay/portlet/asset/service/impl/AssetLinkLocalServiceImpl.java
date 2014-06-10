@@ -62,7 +62,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	@Override
 	public AssetLink addLink(
 			long userId, long entryId1, long entryId2, int type, int weight)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -131,7 +131,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 */
 	@Override
 	public void deleteLink(long linkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetLink link = assetLinkPersistence.findByPrimaryKey(linkId);
 
@@ -322,7 +322,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	@Override
 	public AssetLink updateLink(
 			long userId, long entryId1, long entryId2, int typeId, int weight)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetLink assetLink = assetLinkPersistence.fetchByE_E_T(
 			entryId1, entryId2, typeId);
@@ -367,7 +367,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	@Override
 	public void updateLinks(
 			long userId, long entryId, long[] linkEntryIds, int typeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (linkEntryIds == null) {
 			return;

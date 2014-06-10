@@ -113,7 +113,7 @@ public class EditRuleGroupInstanceAction extends PortletAction {
 	}
 
 	protected void deleteRuleGroupInstance(ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long ruleGroupInstanceId = ParamUtil.getLong(
 			actionRequest, "ruleGroupInstanceId");
@@ -124,7 +124,7 @@ public class EditRuleGroupInstanceAction extends PortletAction {
 
 	protected void updateRuleGroupInstancesPriorities(
 			ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String ruleGroupsInstancesJSON = ParamUtil.getString(
 			actionRequest, "ruleGroupsInstancesJSON");

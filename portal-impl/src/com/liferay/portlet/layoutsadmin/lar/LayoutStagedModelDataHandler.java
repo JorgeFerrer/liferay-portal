@@ -93,7 +93,7 @@ public class LayoutStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject(
 			extraData);
@@ -1223,7 +1223,7 @@ public class LayoutStagedModelDataHandler
 	}
 
 	protected void updateTypeSettings(Layout importedLayout, Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long groupId = layout.getGroupId();
 

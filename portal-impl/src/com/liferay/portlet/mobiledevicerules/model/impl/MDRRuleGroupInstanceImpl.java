@@ -37,7 +37,7 @@ public class MDRRuleGroupInstanceImpl extends MDRRuleGroupInstanceBaseImpl {
 	}
 
 	@Override
-	public MDRRuleGroup getRuleGroup() throws PortalException, SystemException {
+	public MDRRuleGroup getRuleGroup() throws PortalException {
 		return MDRRuleGroupLocalServiceUtil.getRuleGroup(getRuleGroupId());
 	}
 

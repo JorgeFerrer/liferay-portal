@@ -53,7 +53,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public MBCategory addCategory(
 			long userId, long parentCategoryId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addCategory(
 			userId, parentCategoryId, name, description,
@@ -72,7 +72,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 			int outServerPort, boolean outUseSSL, String outUserName,
 			String outPassword, boolean allowAnonymous,
 			boolean mailingListActive, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -133,7 +133,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public void addCategoryResources(
 			long categoryId, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((categoryId == MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) ||
 			(categoryId == MBCategoryConstants.DISCUSSION_CATEGORY_ID)) {
@@ -152,7 +152,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public void addCategoryResources(
 			long categoryId, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((categoryId == MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) ||
 			(categoryId == MBCategoryConstants.DISCUSSION_CATEGORY_ID)) {
@@ -170,7 +170,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public void addCategoryResources(
 			MBCategory category, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -183,7 +183,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public void addCategoryResources(
 			MBCategory category, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -193,7 +193,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void deleteCategories(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBCategory> categories = mbCategoryPersistence.findByGroupId(
 			groupId);
@@ -205,7 +205,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void deleteCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -218,7 +218,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteCategory(MBCategory category)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteCategory(category, true);
 	}
@@ -229,7 +229,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteCategory(
 			MBCategory category, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Categories
 
@@ -475,7 +475,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public MBCategory getCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = null;
 
@@ -547,7 +547,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void moveCategoriesToTrash(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBCategory> categories = mbCategoryPersistence.findByGroupId(
 			groupId);
@@ -561,7 +561,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	public MBCategory moveCategory(
 			long categoryId, long parentCategoryId,
 			boolean mergeWithParentCategory)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -587,7 +587,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	@Override
 	public MBCategory moveCategoryFromTrash(
 			long userId, long categoryId, long newCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -636,7 +636,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public MBCategory moveCategoryToTrash(long userId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -665,7 +665,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void restoreCategoryFromTrash(long userId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -692,7 +692,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void subscribeCategory(long userId, long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (categoryId == MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {
 			categoryId = groupId;
@@ -704,7 +704,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public void unsubscribeCategory(long userId, long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (categoryId == MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {
 			categoryId = groupId;
@@ -725,7 +725,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 			String outUserName, String outPassword, boolean allowAnonymous,
 			boolean mailingListActive, boolean mergeWithParentCategory,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Merge categories
 
@@ -798,7 +798,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	@Override
 	public MBCategory updateStatus(long userId, long categoryId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -873,7 +873,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	protected void mergeCategories(MBCategory fromCategory, long toCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((toCategoryId == MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) ||
 			(toCategoryId == MBCategoryConstants.DISCUSSION_CATEGORY_ID)) {
@@ -934,7 +934,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	protected void moveDependentsToTrash(
 			User user, List<Object> categoriesAndThreads, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (Object object : categoriesAndThreads) {
 			if (object instanceof MBThread) {
@@ -1010,7 +1010,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	protected void restoreDependentsFromTrash(
 			User user, List<Object> categoriesAndThreads, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (Object object : categoriesAndThreads) {
 			if (object instanceof MBThread) {
@@ -1106,7 +1106,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 
 	protected void updateChildCategoriesDisplayStyle(
 			MBCategory category, String displayStyle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBCategory> categories = getCategories(
 			category.getGroupId(), category.getCategoryId(), QueryUtil.ALL_POS,

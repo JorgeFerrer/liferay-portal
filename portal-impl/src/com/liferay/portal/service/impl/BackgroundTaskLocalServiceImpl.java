@@ -64,7 +64,7 @@ public class BackgroundTaskLocalServiceImpl
 			String[] servletContextNames, Class<?> taskExecutorClass,
 			Map<String, Serializable> taskContextMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -114,7 +114,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public void addBackgroundTaskAttachment(
 			long userId, long backgroundTaskId, String fileName, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BackgroundTask backgroundTask = getBackgroundTask(backgroundTaskId);
 
@@ -131,7 +131,7 @@ public class BackgroundTaskLocalServiceImpl
 	public void addBackgroundTaskAttachment(
 			long userId, long backgroundTaskId, String fileName,
 			InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BackgroundTask backgroundTask = getBackgroundTask(backgroundTaskId);
 
@@ -259,7 +259,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public BackgroundTask deleteBackgroundTask(BackgroundTask backgroundTask)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long folderId = backgroundTask.getAttachmentsFolderId();
 
@@ -279,7 +279,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public BackgroundTask deleteBackgroundTask(long backgroundTaskId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BackgroundTask backgroundTask =
 			backgroundTaskPersistence.findByPrimaryKey(backgroundTaskId);
@@ -289,7 +289,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public void deleteCompanyBackgroundTasks(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BackgroundTask> backgroundTasks =
 			backgroundTaskPersistence.findByCompanyId(companyId);
@@ -301,7 +301,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public void deleteGroupBackgroundTasks(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BackgroundTask> backgroundTasks =
 			backgroundTaskPersistence.findByGroupId(groupId);
@@ -344,7 +344,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public BackgroundTask getBackgroundTask(long backgroundTaskId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return backgroundTaskPersistence.findByPrimaryKey(backgroundTaskId);
 	}

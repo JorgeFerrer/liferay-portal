@@ -71,7 +71,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	public String getFriendlyURL(
 			long groupId, boolean privateLayout, long layoutId, String name,
 			String friendlyURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		friendlyURL = getFriendlyURL(friendlyURL);
 
@@ -114,7 +114,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	public Map<Locale, String> getFriendlyURLMap(
 			long groupId, boolean privateLayout, long layoutId, String name,
 			Map<Locale, String> friendlyURLMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> newFriendlyURLMap = new HashMap<Locale, String>();
 
@@ -201,7 +201,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 
 	public boolean hasLayoutSetPrototypeLayout(
 			LayoutSetPrototype layoutSetPrototype, String layoutUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.fetchByUUID_G_P(
 			layoutUuid, layoutSetPrototype.getGroupId(), true);
@@ -222,7 +222,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 			long groupId, boolean privateLayout, long layoutId,
 			long parentLayoutId, String name, String type, boolean hidden,
 			Map<Locale, String> friendlyURLMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validateName(name);
 
@@ -274,7 +274,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	}
 
 	public void validateFirstLayout(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = layout.getGroup();
 
@@ -302,7 +302,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	public void validateFriendlyURL(
 			long groupId, boolean privateLayout, long layoutId,
 			String friendlyURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(friendlyURL)) {
 			return;
@@ -412,7 +412,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	public void validateFriendlyURLs(
 			long groupId, boolean privateLayout, long layoutId,
 			Map<Locale, String> friendlyURLMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutFriendlyURLsException layoutFriendlyURLsException = null;
 
@@ -461,7 +461,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	public void validateParentLayoutId(
 			long groupId, boolean privateLayout, long layoutId,
 			long parentLayoutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByG_P_L(
 			groupId, privateLayout, layoutId);
@@ -529,7 +529,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	}
 
 	protected boolean hasGuestViewPermission(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role role = RoleLocalServiceUtil.getRole(
 			layout.getCompanyId(), RoleConstants.GUEST);

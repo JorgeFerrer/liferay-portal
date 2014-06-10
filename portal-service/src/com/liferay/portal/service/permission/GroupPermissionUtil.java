@@ -27,14 +27,14 @@ public class GroupPermissionUtil {
 
 	public static void check(
 			PermissionChecker permissionChecker, Group group, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getGroupPermission().check(permissionChecker, group, actionId);
 	}
 
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getGroupPermission().check(permissionChecker, groupId, actionId);
 	}
@@ -48,7 +48,7 @@ public class GroupPermissionUtil {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, Group group, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupPermission().contains(
 			permissionChecker, group, actionId);
@@ -56,7 +56,7 @@ public class GroupPermissionUtil {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupPermission().contains(
 			permissionChecker, groupId, actionId);

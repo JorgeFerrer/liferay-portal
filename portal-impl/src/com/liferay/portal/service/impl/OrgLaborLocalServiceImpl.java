@@ -33,7 +33,7 @@ public class OrgLaborLocalServiceImpl extends OrgLaborLocalServiceBaseImpl {
 			int monOpen, int monClose, int tueOpen, int tueClose, int wedOpen,
 			int wedClose, int thuOpen, int thuClose, int friOpen, int friClose,
 			int satOpen, int satClose)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(typeId);
 
@@ -75,7 +75,7 @@ public class OrgLaborLocalServiceImpl extends OrgLaborLocalServiceBaseImpl {
 			int monClose, int tueOpen, int tueClose, int wedOpen, int wedClose,
 			int thuOpen, int thuClose, int friOpen, int friClose, int satOpen,
 			int satClose)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(typeId);
 
@@ -103,7 +103,7 @@ public class OrgLaborLocalServiceImpl extends OrgLaborLocalServiceBaseImpl {
 	}
 
 	protected void validate(int typeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		listTypeService.validate(
 			typeId, ListTypeConstants.ORGANIZATION_SERVICE);

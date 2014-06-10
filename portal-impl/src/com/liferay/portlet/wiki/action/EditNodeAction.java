@@ -183,7 +183,7 @@ public class EditNodeAction extends PortletAction {
 
 	protected WikiPortletInstanceSettings getWikiPortletInstanceSettings(
 			ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

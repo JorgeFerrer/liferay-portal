@@ -158,7 +158,7 @@ public class PortletContainerImpl implements PortletContainer {
 
 	protected long getScopeGroupId(
 			HttpServletRequest request, Layout layout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long scopeGroupId = 0;
 

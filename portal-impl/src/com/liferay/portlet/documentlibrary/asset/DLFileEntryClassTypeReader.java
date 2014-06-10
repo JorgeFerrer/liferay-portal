@@ -59,7 +59,7 @@ public class DLFileEntryClassTypeReader implements ClassTypeReader {
 
 	@Override
 	public ClassType getClassType(long classTypeId, Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (classTypeId ==
 				DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT) {

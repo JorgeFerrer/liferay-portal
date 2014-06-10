@@ -51,7 +51,7 @@ public class WikiPageAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiPage page = WikiPageLocalServiceUtil.fetchWikiPage(classPK);
 

@@ -32,7 +32,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	@Override
 	public Contact getContact(long contactId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Contact contact = contactPersistence.findByPrimaryKey(contactId);
 
@@ -47,7 +47,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 	public List<Contact> getContacts(
 			long classNameId, long classPK, int start, int end,
 			OrderByComparator orderByComparator)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), classNameId, classPK, ActionKeys.VIEW);
@@ -58,7 +58,7 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	@Override
 	public int getContactsCount(long classNameId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), classNameId, classPK, ActionKeys.VIEW);

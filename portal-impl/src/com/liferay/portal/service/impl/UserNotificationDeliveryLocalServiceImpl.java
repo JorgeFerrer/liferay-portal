@@ -31,7 +31,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 	public UserNotificationDelivery addUserNotificationDelivery(
 			long userId, String portletId, long classNameId,
 			int notificationType, int deliveryType, boolean deliver)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -85,7 +85,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 	public UserNotificationDelivery getUserNotificationDelivery(
 			long userId, String portletId, long classNameId,
 			int notificationType, int deliveryType, boolean deliver)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserNotificationDelivery userNotificationDelivery =
 			userNotificationDeliveryPersistence.fetchByU_P_C_N_D(

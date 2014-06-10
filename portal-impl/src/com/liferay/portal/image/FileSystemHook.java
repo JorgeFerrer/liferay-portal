@@ -50,7 +50,7 @@ public class FileSystemHook extends BaseHook {
 
 	@Override
 	public byte[] getImageAsBytes(Image image)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			File file = getFile(image.getImageId(), image.getType());
@@ -68,7 +68,7 @@ public class FileSystemHook extends BaseHook {
 
 	@Override
 	public InputStream getImageAsStream(Image image)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			File file = getFile(image.getImageId(), image.getType());

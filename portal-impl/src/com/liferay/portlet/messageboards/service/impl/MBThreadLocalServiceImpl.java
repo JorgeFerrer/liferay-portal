@@ -71,7 +71,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public MBThread addThread(
 			long categoryId, MBMessage message, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Thread
 
@@ -133,7 +133,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public void deleteThread(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -145,7 +145,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteThread(MBThread thread)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage rootMessage = mbMessagePersistence.findByPrimaryKey(
 			thread.getRootMessageId());
@@ -278,7 +278,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public void deleteThreads(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteThreads(groupId, categoryId, true);
 	}
@@ -286,7 +286,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public void deleteThreads(
 			long groupId, long categoryId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBThread> threads = mbThreadPersistence.findByG_C(
 			groupId, categoryId);
@@ -564,7 +564,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public List<MBThread> getPriorityThreads(long categoryId, double priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPriorityThreads(categoryId, priority, false);
 	}
@@ -572,7 +572,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public List<MBThread> getPriorityThreads(
 			long categoryId, double priority, boolean inherit)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!inherit) {
 			return mbThreadPersistence.findByC_P(categoryId, priority);
@@ -597,7 +597,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public MBThread getThread(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbThreadPersistence.findByPrimaryKey(threadId);
 	}
@@ -644,7 +644,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 		configuration = "MBThread", incrementClass = NumberIncrement.class)
 	@Override
 	public void incrementViewCounter(long threadId, int increment)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ExportImportThreadLocal.isImportInProcess()) {
 			return;
@@ -660,7 +660,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public void moveDependentsToTrash(
 			long groupId, long threadId, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> userIds = new HashSet<Long>();
 
@@ -729,7 +729,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public MBThread moveThread(long groupId, long categoryId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -800,7 +800,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public MBThread moveThreadFromTrash(
 			long userId, long categoryId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -843,7 +843,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public void moveThreadsToTrash(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBThread> threads = mbThreadPersistence.findByGroupId(groupId);
 
@@ -854,7 +854,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public MBThread moveThreadToTrash(long userId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -863,7 +863,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public MBThread moveThreadToTrash(long userId, MBThread thread)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Thread
 
@@ -917,7 +917,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public void restoreDependentsFromTrash(
 			long groupId, long threadId, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> userIds = new HashSet<Long>();
 
@@ -978,7 +978,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public void restoreThreadFromTrash(long userId, long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Thread
 
@@ -1025,7 +1025,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	public Hits search(
 			long groupId, long userId, long creatorUserId, int status,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return search(groupId, userId, creatorUserId, 0, 0, status, start, end);
 	}
@@ -1034,7 +1034,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	public Hits search(
 			long groupId, long userId, long creatorUserId, long startDate,
 			long endDate, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(
 			MBThread.class.getName());
@@ -1074,7 +1074,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Override
 	public MBThread splitThread(
 			long messageId, String subject, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBMessage message = mbMessagePersistence.findByPrimaryKey(messageId);
 
@@ -1190,7 +1190,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public void updateQuestion(long threadId, boolean question)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -1212,7 +1212,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	@Override
 	public MBThread updateStatus(long userId, long threadId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -1263,7 +1263,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public MBThread updateThread(long threadId, int viewCount)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
@@ -1276,7 +1276,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 
 	protected void moveChildrenMessages(
 			MBMessage parentMessage, MBCategory category, long oldThreadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<MBMessage> messages = mbMessagePersistence.findByT_P(
 			oldThreadId, parentMessage.getMessageId());

@@ -135,7 +135,7 @@ public class PasswordPolicyRelLocalServiceImpl
 	@Override
 	public PasswordPolicyRel getPasswordPolicyRel(
 			long passwordPolicyId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -165,7 +165,7 @@ public class PasswordPolicyRelLocalServiceImpl
 	@Override
 	public PasswordPolicyRel getPasswordPolicyRel(
 			String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

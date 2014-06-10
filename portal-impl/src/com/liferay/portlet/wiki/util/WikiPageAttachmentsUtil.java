@@ -29,7 +29,7 @@ import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 public class WikiPageAttachmentsUtil {
 
 	public static WikiPage getPage(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileEntry fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(
 			fileEntryId);

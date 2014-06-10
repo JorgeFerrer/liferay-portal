@@ -34,7 +34,7 @@ public class JAASHelper {
 	}
 
 	public static long getJaasUserId(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance.doGetJaasUserId(companyId, name);
 	}
@@ -44,7 +44,7 @@ public class JAASHelper {
 	}
 
 	protected long doGetJaasUserId(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String jaasAuthType = PropsValues.PORTAL_JAAS_AUTH_TYPE;
 

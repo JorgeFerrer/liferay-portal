@@ -80,7 +80,7 @@ public class BookmarksEntryLocalServiceImpl
 	public BookmarksEntry addEntry(
 			long userId, long groupId, long folderId, String name, String url,
 			String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -144,7 +144,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public void deleteEntries(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteEntries(groupId, folderId, true);
 	}
@@ -152,7 +152,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	public void deleteEntries(
 			long groupId, long folderId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BookmarksEntry> entries = bookmarksEntryPersistence.findByG_F(
 			groupId, folderId);
@@ -168,7 +168,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public BookmarksEntry deleteEntry(BookmarksEntry entry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -211,7 +211,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BookmarksEntry deleteEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = bookmarksEntryPersistence.findByPrimaryKey(
 			entryId);
@@ -269,7 +269,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public BookmarksEntry getEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return bookmarksEntryPersistence.findByPrimaryKey(entryId);
 	}
@@ -336,7 +336,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksEntry moveEntry(long entryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = getBookmarksEntry(entryId);
 
@@ -351,7 +351,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	public BookmarksEntry moveEntryFromTrash(
 			long userId, long entryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = getBookmarksEntry(entryId);
 
@@ -390,7 +390,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksEntry moveEntryToTrash(long userId, BookmarksEntry entry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		int oldStatus = entry.getStatus();
 
@@ -406,7 +406,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksEntry moveEntryToTrash(long userId, long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = getEntry(entryId);
 
@@ -428,7 +428,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public BookmarksEntry openEntry(long userId, long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = bookmarksEntryPersistence.findByPrimaryKey(
 			entryId);
@@ -457,7 +457,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksEntry restoreEntryFromTrash(long userId, long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = bookmarksEntryPersistence.findByPrimaryKey(
 			entryId);
@@ -477,7 +477,7 @@ public class BookmarksEntryLocalServiceImpl
 	public Hits search(
 			long groupId, long userId, long creatorUserId, int status,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(
 			BookmarksEntry.class.getName());
@@ -513,7 +513,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public void subscribeEntry(long userId, long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksEntry entry = bookmarksEntryPersistence.findByPrimaryKey(
 			entryId);
@@ -525,7 +525,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public void unsubscribeEntry(long userId, long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		subscriptionLocalService.deleteSubscription(
 			userId, BookmarksEntry.class.getName(), entryId);
@@ -535,7 +535,7 @@ public class BookmarksEntryLocalServiceImpl
 	public void updateAsset(
 			long userId, BookmarksEntry entry, long[] assetCategoryIds,
 			String[] assetTagNames, long[] assetLinkEntryIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, entry.getGroupId(), entry.getCreateDate(),
@@ -555,7 +555,7 @@ public class BookmarksEntryLocalServiceImpl
 	public BookmarksEntry updateEntry(
 			long userId, long entryId, long groupId, long folderId, String name,
 			String url, String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -606,7 +606,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	public BookmarksEntry updateStatus(
 			long userId, BookmarksEntry entry, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -676,7 +676,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	protected void notifySubscribers(
 			BookmarksEntry entry, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String layoutFullURL = serviceContext.getLayoutFullURL();
 

@@ -33,7 +33,7 @@ public class MBDiscussionLocalServiceImpl
 	public MBDiscussion addDiscussion(
 			long userId, long groupId, long classNameId, long classPK,
 			long threadId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -67,7 +67,7 @@ public class MBDiscussionLocalServiceImpl
 	public MBDiscussion addDiscussion(
 			long userId, long classNameId, long classPK, long threadId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addDiscussion(
 			userId, serviceContext.getScopeGroupId(), classNameId, classPK,
@@ -90,14 +90,14 @@ public class MBDiscussionLocalServiceImpl
 
 	@Override
 	public MBDiscussion getDiscussion(long discussionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbDiscussionPersistence.findByPrimaryKey(discussionId);
 	}
 
 	@Override
 	public MBDiscussion getDiscussion(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -106,7 +106,7 @@ public class MBDiscussionLocalServiceImpl
 
 	@Override
 	public MBDiscussion getThreadDiscussion(long threadId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return mbDiscussionPersistence.findByThreadId(threadId);
 	}
@@ -114,7 +114,7 @@ public class MBDiscussionLocalServiceImpl
 	@Override
 	public void subscribeDiscussion(
 			long userId, long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		subscriptionLocalService.addSubscription(
 			userId, groupId, className, classPK);
@@ -123,7 +123,7 @@ public class MBDiscussionLocalServiceImpl
 	@Override
 	public void unsubscribeDiscussion(
 			long userId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		subscriptionLocalService.deleteSubscription(userId, className, classPK);
 	}

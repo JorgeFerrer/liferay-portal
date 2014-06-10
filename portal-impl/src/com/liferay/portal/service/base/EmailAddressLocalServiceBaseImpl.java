@@ -113,7 +113,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public EmailAddress deleteEmailAddress(long emailAddressId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return emailAddressPersistence.remove(emailAddressId);
 	}
 

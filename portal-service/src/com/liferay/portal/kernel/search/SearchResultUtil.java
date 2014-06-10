@@ -160,7 +160,7 @@ public class SearchResultUtil {
 			Document document, String className, long classPK, Locale locale,
 			PortletURL portletURL, PortletRequest portletRequest,
 			PortletResponse portletResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(className);
 
@@ -177,7 +177,7 @@ public class SearchResultUtil {
 	protected static Summary getSummary(
 			String className, long classPK, Locale locale,
 			PortletURL portletURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(

@@ -716,7 +716,7 @@ public class LanguageImpl implements Language, Serializable {
 
 	@Override
 	public boolean isInheritLocales(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 

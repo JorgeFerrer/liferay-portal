@@ -24,14 +24,14 @@ import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermissio
 public class RepositoryFactoryUtil {
 
 	public static Repository create(long repositoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getRepositoryFactory().create(repositoryId);
 	}
 
 	public static Repository create(
 			long folderId, long fileEntryId, long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getRepositoryFactory().create(
 			folderId, fileEntryId, fileVersionId);

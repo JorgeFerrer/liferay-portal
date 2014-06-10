@@ -40,7 +40,7 @@ public class DefaultActionHandlerManagerImpl implements ActionHandlerManager {
 	public void applyActions(
 			List<MDRAction> mdrActions, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (MDRAction mdrAction : mdrActions) {
 			applyAction(mdrAction, request, response);
@@ -89,7 +89,7 @@ public class DefaultActionHandlerManagerImpl implements ActionHandlerManager {
 	protected void applyAction(
 			MDRAction mdrAction, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionHandler actionHandler = _deviceActionHandlers.get(
 			mdrAction.getType());

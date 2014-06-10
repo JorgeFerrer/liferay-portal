@@ -168,7 +168,7 @@ public class SocialActivitySettingLocalServiceImpl
 	@Override
 	public void updateActivitySetting(
 			long groupId, String className, boolean enabled)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -201,7 +201,7 @@ public class SocialActivitySettingLocalServiceImpl
 	public void updateActivitySetting(
 			long groupId, String className, int activityType,
 			SocialActivityCounterDefinition activityCounterDefinition)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -258,7 +258,7 @@ public class SocialActivitySettingLocalServiceImpl
 	@Override
 	public void updateActivitySetting(
 			long groupId, String className, long classPK, boolean enabled)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 		String name = _PREFIX_CLASS_PK.concat(String.valueOf(classPK));
@@ -294,7 +294,7 @@ public class SocialActivitySettingLocalServiceImpl
 	public void updateActivitySettings(
 			long groupId, String className, int activityType,
 			List<SocialActivityCounterDefinition> activityCounterDefinitions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (SocialActivityCounterDefinition activityCounterDefinition :
 				activityCounterDefinitions) {

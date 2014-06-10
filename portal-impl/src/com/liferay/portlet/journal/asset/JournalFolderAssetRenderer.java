@@ -76,7 +76,7 @@ public class JournalFolderAssetRenderer
 	}
 
 	@Override
-	public String getIconCssClass() throws PortalException, SystemException {
+	public String getIconCssClass() throws PortalException {
 		if (JournalFolderServiceUtil.getFoldersAndArticlesCount(
 				_folder.getGroupId(), _folder.getFolderId()) > 0) {
 
@@ -212,7 +212,7 @@ public class JournalFolderAssetRenderer
 
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return JournalFolderPermission.contains(
 			permissionChecker, _folder, ActionKeys.UPDATE);
@@ -220,7 +220,7 @@ public class JournalFolderAssetRenderer
 
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return JournalFolderPermission.contains(
 			permissionChecker, _folder, ActionKeys.VIEW);

@@ -52,7 +52,7 @@ public class PollsQuestionLocalServiceImpl
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, List<PollsChoice> choices,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Question
 
@@ -121,7 +121,7 @@ public class PollsQuestionLocalServiceImpl
 	public void addQuestionResources(
 			long questionId, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestion question = pollsQuestionPersistence.findByPrimaryKey(
 			questionId);
@@ -134,7 +134,7 @@ public class PollsQuestionLocalServiceImpl
 	public void addQuestionResources(
 			long questionId, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestion question = pollsQuestionPersistence.findByPrimaryKey(
 			questionId);
@@ -146,7 +146,7 @@ public class PollsQuestionLocalServiceImpl
 	public void addQuestionResources(
 			PollsQuestion question, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			question.getCompanyId(), question.getGroupId(),
@@ -159,7 +159,7 @@ public class PollsQuestionLocalServiceImpl
 	public void addQuestionResources(
 			PollsQuestion question, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			question.getCompanyId(), question.getGroupId(),
@@ -169,7 +169,7 @@ public class PollsQuestionLocalServiceImpl
 
 	@Override
 	public void deleteQuestion(long questionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PollsQuestion question = pollsQuestionPersistence.findByPrimaryKey(
 			questionId);
@@ -182,7 +182,7 @@ public class PollsQuestionLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteQuestion(PollsQuestion question)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Question
 
@@ -205,7 +205,7 @@ public class PollsQuestionLocalServiceImpl
 
 	@Override
 	public void deleteQuestions(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (PollsQuestion question :
 				pollsQuestionPersistence.findByGroupId(groupId)) {
@@ -216,7 +216,7 @@ public class PollsQuestionLocalServiceImpl
 
 	@Override
 	public PollsQuestion getQuestion(long questionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return pollsQuestionPersistence.findByPrimaryKey(questionId);
 	}
@@ -246,7 +246,7 @@ public class PollsQuestionLocalServiceImpl
 			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, List<PollsChoice> choices,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Question
 

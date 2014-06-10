@@ -87,7 +87,7 @@ public class TrashImpl implements Trash {
 	public void addBaseModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addBreadcrumbEntries(
 			request, className, classPK, "classPK", containerModelURL);
@@ -97,7 +97,7 @@ public class TrashImpl implements Trash {
 	public void addContainerModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -204,7 +204,7 @@ public class TrashImpl implements Trash {
 	public void deleteEntriesAttachments(
 			long companyId, long repositoryId, Date date,
 			String[] attachmentFileNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (String attachmentFileName : attachmentFileNames) {
 			String trashTime = TrashUtil.getTrashTime(
@@ -329,7 +329,7 @@ public class TrashImpl implements Trash {
 	public String getNewName(
 			ThemeDisplay themeDisplay, String className, long classPK,
 			String oldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TrashRenderer trashRenderer = null;
 
@@ -384,7 +384,7 @@ public class TrashImpl implements Trash {
 	@Override
 	public PortletURL getViewContentURL(
 			HttpServletRequest request, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -447,7 +447,7 @@ public class TrashImpl implements Trash {
 
 	@Override
 	public boolean isInTrash(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TrashHandler trashHandler = TrashHandlerRegistryUtil.getTrashHandler(
 			className);
@@ -461,7 +461,7 @@ public class TrashImpl implements Trash {
 
 	@Override
 	public boolean isTrashEnabled(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
@@ -482,7 +482,7 @@ public class TrashImpl implements Trash {
 	protected void addBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			String paramName, PortletURL containerModelURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);

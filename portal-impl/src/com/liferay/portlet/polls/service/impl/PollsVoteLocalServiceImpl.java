@@ -40,7 +40,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 	public PollsVote addVote(
 			long userId, long questionId, long choiceId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Choice
 
@@ -137,7 +137,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 
 	@Override
 	public PollsVote getVote(long questionId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return pollsVotePersistence.findByQ_U(questionId, userId);
 	}

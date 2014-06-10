@@ -36,7 +36,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 	public MDRRuleGroup addRuleGroup(
 			long groupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ADD_RULE_GROUP);
@@ -48,7 +48,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 	@Override
 	public MDRRuleGroup copyRuleGroup(
 			long ruleGroupId, long groupId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -66,7 +66,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 
 	@Override
 	public void deleteRuleGroup(long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);
@@ -79,7 +79,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 
 	@Override
 	public MDRRuleGroup fetchRuleGroup(long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.fetchByPrimaryKey(
 			ruleGroupId);
@@ -94,7 +94,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 
 	@Override
 	public MDRRuleGroup getRuleGroup(long ruleGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);
@@ -109,7 +109,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 	public MDRRuleGroup updateRuleGroup(
 			long ruleGroupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);

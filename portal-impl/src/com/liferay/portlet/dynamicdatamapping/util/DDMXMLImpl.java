@@ -88,7 +88,7 @@ public class DDMXMLImpl implements DDMXML {
 
 	@Override
 	public Fields getFields(DDMStructure structure, String xml)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFields(structure, null, xml, null);
 	}
@@ -97,7 +97,7 @@ public class DDMXMLImpl implements DDMXML {
 	public Fields getFields(
 			DDMStructure structure, XPath xPath, String xml,
 			List<String> fieldNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Document document = null;
 

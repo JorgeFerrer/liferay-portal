@@ -238,7 +238,7 @@ public abstract class BasePortletExportImportTestCase
 	protected AssetLink addAssetLink(
 			long groupId, String sourceStagedModelUuid,
 			String targetStagedModelUuid, int weight)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntry originAssetEntry = AssetEntryLocalServiceUtil.getEntry(
 			groupId, sourceStagedModelUuid);
@@ -422,7 +422,7 @@ public abstract class BasePortletExportImportTestCase
 	}
 
 	protected void validateImportedLinks(String uuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntry originalAssetEntry = AssetEntryLocalServiceUtil.getEntry(
 			group.getGroupId(), uuid);

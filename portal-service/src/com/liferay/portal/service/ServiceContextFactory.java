@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ServiceContextFactory {
 
 	public static ServiceContext getInstance(HttpServletRequest request)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ServiceContext serviceContext = new ServiceContext();
 
@@ -279,7 +279,7 @@ public class ServiceContextFactory {
 	}
 
 	public static ServiceContext getInstance(PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Theme display
 
@@ -482,7 +482,7 @@ public class ServiceContextFactory {
 
 	public static ServiceContext getInstance(
 			String className, PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ServiceContext serviceContext = getInstance(portletRequest);
 
@@ -516,7 +516,7 @@ public class ServiceContextFactory {
 
 	public static ServiceContext getInstance(
 			String className, UploadPortletRequest uploadPortletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ServiceContext serviceContext = getInstance(uploadPortletRequest);
 

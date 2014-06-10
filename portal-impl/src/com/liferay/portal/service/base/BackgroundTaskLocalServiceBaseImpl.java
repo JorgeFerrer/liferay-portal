@@ -105,7 +105,7 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BackgroundTask deleteBackgroundTask(long backgroundTaskId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return backgroundTaskPersistence.remove(backgroundTaskId);
 	}
 
@@ -120,7 +120,7 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BackgroundTask deleteBackgroundTask(BackgroundTask backgroundTask)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return backgroundTaskPersistence.remove(backgroundTask);
 	}
 
@@ -224,7 +224,7 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 	 */
 	@Override
 	public BackgroundTask getBackgroundTask(long backgroundTaskId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return backgroundTaskPersistence.findByPrimaryKey(backgroundTaskId);
 	}
 

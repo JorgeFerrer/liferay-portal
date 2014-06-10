@@ -99,7 +99,7 @@ public class FileEntryUtil {
 	}
 
 	public static InputStream getContentStream(FileEntry fileEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long repositoryId = DLFolderConstants.getDataRepositoryId(
 			fileEntry.getRepositoryId(), fileEntry.getFolderId());

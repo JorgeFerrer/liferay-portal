@@ -60,7 +60,7 @@ public abstract class BaseLocalServiceImpl implements BaseLocalService {
 
 	protected String getLayoutURL(
 			long groupId, String portletId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long plid = serviceContext.getPlid();
 

@@ -60,7 +60,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	@Override
 	public void checkRestorableEntry(
 			long classPK, long containerModelId, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -71,7 +71,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	@Override
 	public void checkRestorableEntry(
 			TrashEntry trashEntry, long containerModelId, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkRestorableEntry(
 			trashEntry.getClassPK(), trashEntry.getEntryId(), containerModelId,
@@ -80,7 +80,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public void deleteTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = DLFolderLocalServiceUtil.getDLFolder(classPK);
 
@@ -111,7 +111,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public ContainerModel getParentContainerModel(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -127,7 +127,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	@Override
 	public String getRestoreContainedModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -138,7 +138,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	@Override
 	public String getRestoreContainerModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -148,7 +148,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public String getRestoreMessage(PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -163,7 +163,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -172,7 +172,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Folder folder = DLAppLocalServiceUtil.getFolder(classPK);
 
@@ -183,7 +183,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	public boolean hasTrashPermission(
 			PermissionChecker permissionChecker, long groupId, long classPK,
 			String trashActionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (trashActionId.equals(TrashActionKeys.MOVE)) {
 			return DLFolderPermission.contains(
@@ -201,7 +201,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public boolean isInTrash(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			DLFolder dlFolder = getDLFolder(classPK);
@@ -215,7 +215,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public boolean isInTrashContainer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			DLFolder dlFolder = getDLFolder(classPK);
@@ -229,7 +229,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public boolean isRestorable(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = fetchDLFolder(classPK);
 
@@ -248,7 +248,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	public void moveEntry(
 			long userId, long classPK, long containerModelId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLAppLocalServiceUtil.moveFolder(
 			userId, classPK, containerModelId, serviceContext);
@@ -258,7 +258,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	public void moveTrashEntry(
 			long userId, long classPK, long containerModelId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -269,7 +269,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public void restoreTrashEntry(long userId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -279,7 +279,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public void updateTitle(long classPK, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -291,7 +291,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	protected void checkRestorableEntry(
 			long classPK, long trashEntryId, long containerModelId,
 			String originalTitle, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 
@@ -320,7 +320,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	protected Repository getRepository(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = RepositoryServiceUtil.getRepositoryImpl(
 			classPK, 0, 0);
@@ -337,7 +337,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 	@Override
 	protected boolean hasPermission(
 			PermissionChecker permissionChecker, long classPK, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolder dlFolder = getDLFolder(classPK);
 

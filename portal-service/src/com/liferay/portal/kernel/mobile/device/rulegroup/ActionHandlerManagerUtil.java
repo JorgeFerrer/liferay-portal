@@ -34,7 +34,7 @@ public class ActionHandlerManagerUtil {
 	public static void applyActions(
 			List<MDRAction> mdrActions, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getActionHandlerManager().applyActions(mdrActions, request, response);
 	}

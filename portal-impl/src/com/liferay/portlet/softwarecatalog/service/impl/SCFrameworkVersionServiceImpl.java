@@ -36,7 +36,7 @@ public class SCFrameworkVersionServiceImpl
 	public SCFrameworkVersion addFrameworkVersion(
 			String name, String url, boolean active, int priority,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -48,7 +48,7 @@ public class SCFrameworkVersionServiceImpl
 
 	@Override
 	public void deleteFrameworkVersion(long frameworkVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCFrameworkVersionPermission.check(
 			getPermissionChecker(), frameworkVersionId, ActionKeys.DELETE);
@@ -59,7 +59,7 @@ public class SCFrameworkVersionServiceImpl
 
 	@Override
 	public SCFrameworkVersion getFrameworkVersion(long frameworkVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scFrameworkVersionLocalService.getFrameworkVersion(
 			frameworkVersionId);
@@ -85,7 +85,7 @@ public class SCFrameworkVersionServiceImpl
 	public SCFrameworkVersion updateFrameworkVersion(
 			long frameworkVersionId, String name, String url, boolean active,
 			int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCFrameworkVersionPermission.check(
 			getPermissionChecker(), frameworkVersionId, ActionKeys.UPDATE);

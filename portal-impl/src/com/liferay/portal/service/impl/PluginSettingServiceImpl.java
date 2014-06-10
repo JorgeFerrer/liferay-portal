@@ -30,7 +30,7 @@ public class PluginSettingServiceImpl extends PluginSettingServiceBaseImpl {
 	public PluginSetting updatePluginSetting(
 			long companyId, String pluginId, String pluginType, String roles,
 			boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {

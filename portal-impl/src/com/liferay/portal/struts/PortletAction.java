@@ -257,7 +257,7 @@ public class PortletAction extends Action {
 
 	protected PortletPreferences getStrictPortletSetup(
 			Layout layout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(portletId)) {
 			return null;
@@ -276,7 +276,7 @@ public class PortletAction extends Action {
 
 	protected PortletPreferences getStrictPortletSetup(
 			PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portletResource = ParamUtil.getString(
 			portletRequest, "portletResource");

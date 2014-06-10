@@ -429,7 +429,7 @@ public class WikiUtil {
 	}
 
 	public static WikiNode getFirstNode(PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

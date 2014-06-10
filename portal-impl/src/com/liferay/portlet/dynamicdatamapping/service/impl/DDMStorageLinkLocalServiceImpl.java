@@ -50,7 +50,7 @@ public class DDMStorageLinkLocalServiceImpl
 
 	@Override
 	public void deleteClassStorageLink(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStorageLink storageLink = ddmStorageLinkPersistence.findByClassPK(
 			classPK);
@@ -66,7 +66,7 @@ public class DDMStorageLinkLocalServiceImpl
 
 	@Override
 	public void deleteStorageLink(long storageLinkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStorageLink storageLink = ddmStorageLinkPersistence.findByPrimaryKey(
 			storageLinkId);
@@ -87,14 +87,14 @@ public class DDMStorageLinkLocalServiceImpl
 
 	@Override
 	public DDMStorageLink getClassStorageLink(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmStorageLinkPersistence.findByClassPK(classPK);
 	}
 
 	@Override
 	public DDMStorageLink getStorageLink(long storageLinkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmStorageLinkPersistence.findByPrimaryKey(storageLinkId);
 	}
@@ -114,7 +114,7 @@ public class DDMStorageLinkLocalServiceImpl
 	@Override
 	public DDMStorageLink updateStorageLink(
 			long storageLinkId, long classNameId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStorageLink storageLink = ddmStorageLinkPersistence.findByPrimaryKey(
 			storageLinkId);

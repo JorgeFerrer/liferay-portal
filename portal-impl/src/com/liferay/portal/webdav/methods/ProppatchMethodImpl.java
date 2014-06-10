@@ -73,7 +73,7 @@ public class ProppatchMethodImpl extends BasePropMethodImpl {
 	}
 
 	protected WebDAVProps getStoredProperties(WebDAVRequest webDAVRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WebDAVStorage storage = webDAVRequest.getWebDAVStorage();
 

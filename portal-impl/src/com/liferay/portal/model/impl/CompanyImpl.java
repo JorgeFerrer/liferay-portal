@@ -73,7 +73,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public Account getAccount() throws PortalException, SystemException {
+	public Account getAccount() throws PortalException {
 		return AccountLocalServiceUtil.getAccount(
 			getCompanyId(), getAccountId());
 	}
@@ -91,7 +91,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public User getDefaultUser() throws PortalException, SystemException {
+	public User getDefaultUser() throws PortalException {
 		return UserLocalServiceUtil.getDefaultUser(getCompanyId());
 	}
 
@@ -109,7 +109,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public Group getGroup() throws PortalException, SystemException {
+	public Group getGroup() throws PortalException {
 		if (getCompanyId() > CompanyConstants.SYSTEM) {
 			return GroupLocalServiceUtil.getCompanyGroup(getCompanyId());
 		}
@@ -118,7 +118,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public long getGroupId() throws PortalException, SystemException {
+	public long getGroupId() throws PortalException {
 		Group group = getGroup();
 
 		return group.getGroupId();
@@ -138,19 +138,19 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public Locale getLocale() throws PortalException, SystemException {
+	public Locale getLocale() throws PortalException {
 		return getDefaultUser().getLocale();
 	}
 
 	@AutoEscape
 	@Override
-	public String getName() throws PortalException, SystemException {
+	public String getName() throws PortalException {
 		return getAccount().getName();
 	}
 
 	@Override
 	public String getPortalURL(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portalURL = PortalUtil.getPortalURL(
 			getVirtualHostname(), Http.HTTP_PORT, false);
@@ -184,7 +184,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public String getShardName() throws PortalException, SystemException {
+	public String getShardName() throws PortalException {
 		Shard shard = ShardLocalServiceUtil.getShard(
 			Company.class.getName(), getCompanyId());
 
@@ -192,12 +192,12 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public String getShortName() throws PortalException, SystemException {
+	public String getShortName() throws PortalException {
 		return getName();
 	}
 
 	@Override
-	public TimeZone getTimeZone() throws PortalException, SystemException {
+	public TimeZone getTimeZone() throws PortalException {
 		return getDefaultUser().getTimeZone();
 	}
 

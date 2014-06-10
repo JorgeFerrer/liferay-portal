@@ -52,7 +52,7 @@ public class DDLRecordSetLocalServiceImpl
 			long userId, long groupId, long ddmStructureId, String recordSetKey,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			int minDisplayRows, int scope, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Record set
 
@@ -116,7 +116,7 @@ public class DDLRecordSetLocalServiceImpl
 	public void addRecordSetResources(
 			DDLRecordSet recordSet, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			recordSet.getCompanyId(), recordSet.getGroupId(),
@@ -129,7 +129,7 @@ public class DDLRecordSetLocalServiceImpl
 	public void addRecordSetResources(
 			DDLRecordSet recordSet, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			recordSet.getCompanyId(), recordSet.getGroupId(),
@@ -142,7 +142,7 @@ public class DDLRecordSetLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteRecordSet(DDLRecordSet recordSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Record set
 
@@ -172,7 +172,7 @@ public class DDLRecordSetLocalServiceImpl
 
 	@Override
 	public void deleteRecordSet(long recordSetId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByPrimaryKey(
 			recordSetId);
@@ -182,7 +182,7 @@ public class DDLRecordSetLocalServiceImpl
 
 	@Override
 	public void deleteRecordSet(long groupId, String recordSetKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByG_R(
 			groupId, recordSetKey);
@@ -192,7 +192,7 @@ public class DDLRecordSetLocalServiceImpl
 
 	@Override
 	public void deleteRecordSets(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDLRecordSet> recordSets = ddlRecordSetPersistence.findByGroupId(
 			groupId);
@@ -216,14 +216,14 @@ public class DDLRecordSetLocalServiceImpl
 
 	@Override
 	public DDLRecordSet getRecordSet(long recordSetId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddlRecordSetPersistence.findByPrimaryKey(recordSetId);
 	}
 
 	@Override
 	public DDLRecordSet getRecordSet(long groupId, String recordSetKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddlRecordSetPersistence.findByG_R(groupId, recordSetKey);
 	}
@@ -279,7 +279,7 @@ public class DDLRecordSetLocalServiceImpl
 	@Override
 	public DDLRecordSet updateMinDisplayRows(
 			long recordSetId, int minDisplayRows, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByPrimaryKey(
 			recordSetId);
@@ -297,7 +297,7 @@ public class DDLRecordSetLocalServiceImpl
 			long recordSetId, long ddmStructureId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, int minDisplayRows,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByPrimaryKey(
 			recordSetId);
@@ -312,7 +312,7 @@ public class DDLRecordSetLocalServiceImpl
 			long groupId, long ddmStructureId, String recordSetKey,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			int minDisplayRows, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByG_R(
 			groupId, recordSetKey);
@@ -326,7 +326,7 @@ public class DDLRecordSetLocalServiceImpl
 			long ddmStructureId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, int minDisplayRows,
 			ServiceContext serviceContext, DDLRecordSet recordSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Record set
 
@@ -369,7 +369,7 @@ public class DDLRecordSetLocalServiceImpl
 	protected void validate(
 			long groupId, long ddmStructureId, String recordSetKey,
 			Map<Locale, String> nameMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validateDDMStructureId(ddmStructureId);
 
@@ -391,7 +391,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	protected void validateDDMStructureId(long ddmStructureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = ddmStructurePersistence.fetchByPrimaryKey(
 			ddmStructureId);

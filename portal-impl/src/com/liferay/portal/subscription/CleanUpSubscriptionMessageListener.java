@@ -81,7 +81,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processAssetEntry(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String className = subscription.getClassName();
 
@@ -107,7 +107,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processLayout(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = LayoutLocalServiceUtil.fetchLayout(
 			subscription.getClassPK());
@@ -123,7 +123,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processMBCategory(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory mbCategory = MBCategoryLocalServiceUtil.fetchMBCategory(
 			subscription.getClassPK());
@@ -152,7 +152,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processMBThread(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBThread mbThread = MBThreadLocalServiceUtil.fetchThread(
 			subscription.getClassPK());
@@ -168,7 +168,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processSubscription(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String className = subscription.getClassName();
 
@@ -195,7 +195,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 	}
 
 	protected void processUser(User user, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Get the list of groups the current user is still a member of and
 		// verify that subscriptions outside those groups are automatically
@@ -234,7 +234,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processWikiNode(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode wikiNode = WikiNodeLocalServiceUtil.fetchWikiNode(
 			subscription.getClassPK());
@@ -250,7 +250,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 
 	protected void processWorkflowInstance(
 			Subscription subscription, long groupId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstance workflowInstance =
 			WorkflowInstanceManagerUtil.getWorkflowInstance(

@@ -41,7 +41,7 @@ public class StagedModelDataHandlerUtil {
 
 	public static void deleteStagedModel(
 			PortletDataContext portletDataContext, Element deletionElement)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String className = deletionElement.attributeValue("class-name");
 		String extraData = deletionElement.attributeValue("extra-data");

@@ -34,7 +34,7 @@ public class JournalFolderImpl extends JournalFolderBaseImpl {
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> ancestorFolderIds = new ArrayList<Long>();
 
@@ -60,7 +60,7 @@ public class JournalFolderImpl extends JournalFolderBaseImpl {
 
 	@Override
 	public List<JournalFolder> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<JournalFolder> ancestors = new ArrayList<JournalFolder>();
 
@@ -77,7 +77,7 @@ public class JournalFolderImpl extends JournalFolderBaseImpl {
 
 	@Override
 	public JournalFolder getParentFolder()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getParentFolderId() ==
 				JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID) {

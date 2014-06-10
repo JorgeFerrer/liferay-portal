@@ -49,7 +49,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 
 	@Override
 	public Folder addAttachmentsFolder()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
@@ -247,7 +247,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public WikiPage getParentPage() throws PortalException, SystemException {
+	public WikiPage getParentPage() throws PortalException {
 		if (Validator.isNull(getParentTitle())) {
 			return null;
 		}
@@ -270,7 +270,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public WikiPage getRedirectPage() throws PortalException, SystemException {
+	public WikiPage getRedirectPage() throws PortalException {
 		if (Validator.isNull(getRedirectTitle())) {
 			return null;
 		}

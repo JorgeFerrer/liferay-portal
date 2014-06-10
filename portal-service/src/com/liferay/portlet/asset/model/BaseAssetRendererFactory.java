@@ -51,21 +51,21 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 
 	@Override
 	public AssetEntry getAssetEntry(long assetEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return AssetEntryLocalServiceUtil.getEntry(assetEntryId);
 	}
 
 	@Override
 	public AssetEntry getAssetEntry(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return AssetEntryLocalServiceUtil.getEntry(className, classPK);
 	}
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getAssetRenderer(classPK, TYPE_LATEST_APPROVED);
 	}
@@ -73,7 +73,7 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 	@Override
 	@SuppressWarnings("unused")
 	public AssetRenderer getAssetRenderer(long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return null;
 	}
@@ -204,7 +204,7 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 	public PortletURL getURLAdd(
 			LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return null;
 	}
@@ -214,7 +214,7 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 	public PortletURL getURLView(
 			LiferayPortletResponse liferayPortletResponse,
 			WindowState windowState)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return null;
 	}
@@ -305,7 +305,7 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 	}
 
 	protected long getControlPanelPlid(ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return PortalUtil.getControlPanelPlid(themeDisplay.getCompanyId());
 	}

@@ -38,7 +38,7 @@ public class AssetCategoryImpl extends AssetCategoryBaseImpl {
 
 	@Override
 	public List<AssetCategory> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetCategory> categories = new ArrayList<AssetCategory>();
 
@@ -56,7 +56,7 @@ public class AssetCategoryImpl extends AssetCategoryBaseImpl {
 
 	@Override
 	public String getPath(Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetCategory> categories = getAncestors();
 

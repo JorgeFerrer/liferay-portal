@@ -37,7 +37,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public void deleteTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfigurationLocalServiceUtil.
 			deleteExportImportConfiguration(classPK);
@@ -60,7 +60,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
@@ -71,7 +71,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
@@ -83,7 +83,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public boolean isInTrash(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
@@ -94,7 +94,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public void restoreTrashEntry(long userId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfigurationLocalServiceUtil.
 			restoreExportImportConfigurationFromTrash(userId, classPK);
@@ -103,7 +103,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 	@Override
 	protected boolean hasPermission(
 			PermissionChecker permissionChecker, long classPK, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.

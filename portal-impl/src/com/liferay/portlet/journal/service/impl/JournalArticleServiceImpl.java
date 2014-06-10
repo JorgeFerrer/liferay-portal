@@ -150,7 +150,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			boolean neverReview, boolean indexable, boolean smallImage,
 			String smallImageURL, File smallFile, Map<String, byte[]> images,
 			String articleURL, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_ARTICLE);
@@ -259,7 +259,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			int reviewDateYear, int reviewDateHour, int reviewDateMinute,
 			boolean neverReview, boolean indexable, String articleURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_ARTICLE);
@@ -296,7 +296,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle copyArticle(
 			long groupId, String oldArticleId, String newArticleId,
 			boolean autoArticleId, double version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = journalArticleLocalService.getArticle(
 			groupId, oldArticleId);
@@ -331,7 +331,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public void deleteArticle(
 			long groupId, String articleId, double version, String articleURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -360,7 +360,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public void deleteArticle(
 			long groupId, String articleId, String articleURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.DELETE);
@@ -395,7 +395,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle expireArticle(
 			long groupId, String articleId, double version, String articleURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -432,7 +432,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public void expireArticle(
 			long groupId, String articleId, String articleURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.EXPIRE);
@@ -453,7 +453,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public JournalArticle getArticle(long id)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = journalArticleLocalService.getArticle(id);
 
@@ -478,7 +478,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public JournalArticle getArticle(long groupId, String articleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.VIEW);
@@ -502,7 +502,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle getArticle(
 			long groupId, String articleId, double version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -534,7 +534,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle getArticle(
 			long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = journalArticleLocalService.getArticle(
 			groupId, className, classPK);
@@ -560,7 +560,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public JournalArticle getArticleByUrlTitle(long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article =
 			journalArticleLocalService.getArticleByUrlTitle(groupId, urlTitle);
@@ -591,7 +591,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public String getArticleContent(
 			long groupId, String articleId, double version, String languageId,
 			PortletRequestModel portletRequestModel, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -625,7 +625,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public String getArticleContent(
 			long groupId, String articleId, double version, String languageId,
 			ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -654,7 +654,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public String getArticleContent(
 			long groupId, String articleId, String languageId,
 			PortletRequestModel portletRequestModel, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.VIEW);
@@ -686,7 +686,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public String getArticleContent(
 			long groupId, String articleId, String languageId,
 			ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.VIEW);
@@ -995,7 +995,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle getDisplayArticleByUrlTitle(
 			long groupId, String urlTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article =
 			journalArticleLocalService.getDisplayArticleByUrlTitle(
@@ -1029,7 +1029,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public List<JournalArticle> getGroupArticles(
 			long groupId, long userId, long rootFolderId, int status, int start,
 			int end, OrderByComparator orderByComparator)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -1071,7 +1071,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public List<JournalArticle> getGroupArticles(
 			long groupId, long userId, long rootFolderId, int start, int end,
 			OrderByComparator orderByComparator)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupArticles(
 			groupId, userId, rootFolderId, WorkflowConstants.STATUS_ANY, start,
@@ -1095,7 +1095,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public int getGroupArticlesCount(
 			long groupId, long userId, long rootFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupArticlesCount(
 			groupId, userId, rootFolderId, WorkflowConstants.STATUS_ANY);
@@ -1104,7 +1104,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public int getGroupArticlesCount(
 			long groupId, long userId, long rootFolderId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -1134,7 +1134,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public JournalArticle getLatestArticle(long resourcePrimKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), resourcePrimKey, ActionKeys.VIEW);
@@ -1160,7 +1160,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle getLatestArticle(
 			long groupId, String articleId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, status,
@@ -1192,7 +1192,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle getLatestArticle(
 			long groupId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = journalArticleLocalService.getLatestArticle(
 			groupId, className, classPK);
@@ -1220,7 +1220,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public void moveArticle(long groupId, String articleId, long newFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_A(
 			groupId, articleId);
@@ -1260,7 +1260,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle moveArticleFromTrash(
 			long groupId, long resourcePrimKey, long newFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = getLatestArticle(resourcePrimKey);
 
@@ -1298,7 +1298,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle moveArticleFromTrash(
 			long groupId, String articleId, long newFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = getLatestArticle(
 			groupId, articleId, WorkflowConstants.STATUS_IN_TRASH);
@@ -1324,7 +1324,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public JournalArticle moveArticleToTrash(long groupId, String articleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, ActionKeys.DELETE);
@@ -1346,7 +1346,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public void removeArticleLocale(long companyId, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (JournalArticle article :
 				journalArticlePersistence.findByCompanyId(companyId)) {
@@ -1374,7 +1374,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle removeArticleLocale(
 			long groupId, String articleId, double version, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -1396,7 +1396,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public void restoreArticleFromTrash(long resourcePrimKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = getLatestArticle(resourcePrimKey);
 
@@ -1420,7 +1420,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public void restoreArticleFromTrash(long groupId, String articleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = getLatestArticle(
 			groupId, articleId, WorkflowConstants.STATUS_IN_TRASH);
@@ -1431,7 +1431,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public Hits search(
 			long groupId, long creatorUserId, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return journalArticleLocalService.search(
 			groupId, getUserId(), creatorUserId, status, start, end);
@@ -1865,7 +1865,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public void subscribeStructure(
 			long groupId, long userId, long ddmStructureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -1877,7 +1877,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public void unsubscribeStructure(
 			long groupId, long userId, long ddmStructureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -1926,7 +1926,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			double version, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String content,
 			String layoutUuid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return journalArticleLocalService.updateArticle(
 			userId, groupId, folderId, articleId, version, titleMap,
@@ -2032,7 +2032,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			boolean neverReview, boolean indexable, boolean smallImage,
 			String smallImageURL, File smallFile, Map<String, byte[]> images,
 			String articleURL, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -2082,7 +2082,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle updateArticle(
 			long groupId, long folderId, String articleId, double version,
 			String content, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -2104,7 +2104,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			long groupId, String articleId, double version, Locale locale,
 			String title, String description, String content,
 			Map<String, byte[]> images)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateArticleTranslation(
 			groupId, articleId, version, locale, title, description, content,
@@ -2139,7 +2139,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			long groupId, String articleId, double version, Locale locale,
 			String title, String description, String content,
 			Map<String, byte[]> images, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -2169,7 +2169,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public JournalArticle updateContent(
 			long groupId, String articleId, double version, String content)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,
@@ -2203,7 +2203,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	public JournalArticle updateStatus(
 			long groupId, String articleId, double version, int status,
 			String articleURL, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticlePermission.check(
 			getPermissionChecker(), groupId, articleId, version,

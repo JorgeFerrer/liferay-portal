@@ -149,7 +149,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public long[] addRequiredRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = UserLocalServiceUtil.getUser(userId);
 
@@ -158,7 +158,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public long[] addRequiredRoles(User user, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (user.isDefaultUser()) {
 			return removeRequiredRoles(user, roleIds);
@@ -190,7 +190,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public List<Role> filterGroupRoles(
 			PermissionChecker permissionChecker, long groupId, List<Role> roles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Role> filteredGroupRoles = ListUtil.copy(roles);
 
@@ -261,7 +261,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public List<Group> filterGroups(
 			PermissionChecker permissionChecker, List<Group> groups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (permissionChecker.isCompanyAdmin()) {
 			return groups;
@@ -288,7 +288,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	public List<Organization> filterOrganizations(
 			PermissionChecker permissionChecker,
 			List<Organization> organizations)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (permissionChecker.isCompanyAdmin()) {
 			return organizations;
@@ -358,7 +358,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public long[] filterUnsetGroupUserIds(
 			PermissionChecker permissionChecker, long groupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] filteredUserIds = userIds;
 
@@ -377,7 +377,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	public long[] filterUnsetOrganizationUserIds(
 			PermissionChecker permissionChecker, long organizationId,
 			long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] filteredUserIds = userIds;
 
@@ -396,7 +396,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	public List<UserGroupRole> filterUserGroupRoles(
 			PermissionChecker permissionChecker,
 			List<UserGroupRole> userGroupRoles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroupRole> filteredUserGroupRoles = ListUtil.copy(
 			userGroupRoles);
@@ -669,7 +669,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public List<Organization> getOrganizations(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Document> documents = hits.toList();
 
@@ -886,7 +886,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public List<UserGroupRole> getUserGroupRoles(PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroupRole> userGroupRoles = new UniqueList<UserGroupRole>();
 
@@ -927,7 +927,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public List<UserGroup> getUserGroups(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Document> documents = hits.toList();
 
@@ -995,7 +995,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public List<User> getUsers(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Document> documents = hits.toList();
 
@@ -1088,7 +1088,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public boolean hasUpdateEmailAddress(
 			PermissionChecker permissionChecker, User user)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasUpdateFieldPermission(
 			permissionChecker, null, user, "emailAddress");
@@ -1098,7 +1098,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	public boolean hasUpdateFieldPermission(
 			PermissionChecker permissionChecker, User updatingUser,
 			User updatedUser, String field)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (updatedUser == null) {
 			return true;
@@ -1173,7 +1173,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Deprecated
 	@Override
 	public boolean hasUpdateFieldPermission(User user, String field)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
@@ -1190,7 +1190,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public boolean hasUpdateScreenName(
 			PermissionChecker permissionChecker, User user)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasUpdateFieldPermission(
 			permissionChecker, null, user, "screenName");
@@ -1198,7 +1198,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public long[] removeRequiredRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = UserLocalServiceUtil.getUser(userId);
 
@@ -1207,7 +1207,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public long[] removeRequiredRoles(User user, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role role = RoleLocalServiceUtil.getRole(
 			user.getCompanyId(), RoleConstants.USER);
@@ -1220,7 +1220,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public void updateAddresses(
 			String className, long classPK, List<Address> addresses)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> addressIds = new HashSet<Long>();
 
@@ -1267,7 +1267,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public void updateEmailAddresses(
 			String className, long classPK, List<EmailAddress> emailAddresses)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> emailAddressIds = new HashSet<Long>();
 
@@ -1306,7 +1306,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public void updateOrgLabors(long classPK, List<OrgLabor> orgLabors)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> orgLaborsIds = new HashSet<Long>();
 
@@ -1358,7 +1358,7 @@ public class UsersAdminImpl implements UsersAdmin {
 
 	@Override
 	public void updatePhones(String className, long classPK, List<Phone> phones)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> phoneIds = new HashSet<Long>();
 
@@ -1397,7 +1397,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	@Override
 	public void updateWebsites(
 			String className, long classPK, List<Website> websites)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Set<Long> websiteIds = new HashSet<Long>();
 

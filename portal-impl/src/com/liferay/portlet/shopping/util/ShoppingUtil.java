@@ -88,7 +88,7 @@ public class ShoppingUtil {
 	}
 
 	public static double calculateActualPrice(ShoppingItem item, int count)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return calculatePrice(item, count) -
 			calculateDiscountPrice(item, count);
@@ -112,14 +112,14 @@ public class ShoppingUtil {
 
 	public static double calculateActualSubtotal(
 			Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return calculateSubtotal(items) - calculateDiscountSubtotal(items);
 	}
 
 	public static double calculateAlternativeShipping(
 			Map<ShoppingCartItem, Integer> items, int altShipping)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double shipping = calculateShipping(items);
 		double alternativeShipping = shipping;
@@ -167,7 +167,7 @@ public class ShoppingUtil {
 
 	public static double calculateCouponDiscount(
 			Map<ShoppingCartItem, Integer> items, ShoppingCoupon coupon)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return calculateCouponDiscount(items, null, coupon);
 	}
@@ -175,7 +175,7 @@ public class ShoppingUtil {
 	public static double calculateCouponDiscount(
 			Map<ShoppingCartItem, Integer> items, String stateId,
 			ShoppingCoupon coupon)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double discount = 0.0;
 
@@ -256,7 +256,7 @@ public class ShoppingUtil {
 
 	public static double calculateDiscountPercent(
 			Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double discount = calculateDiscountSubtotal(
 			items) / calculateSubtotal(items);
@@ -273,7 +273,7 @@ public class ShoppingUtil {
 	}
 
 	public static double calculateDiscountPrice(ShoppingItem item, int count)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPrice itemPrice = _getItemPrice(item, count);
 
@@ -286,7 +286,7 @@ public class ShoppingUtil {
 
 	public static double calculateDiscountSubtotal(
 			Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double subtotal = 0.0;
 
@@ -304,7 +304,7 @@ public class ShoppingUtil {
 
 	public static double calculateInsurance(
 			Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double insurance = 0.0;
 		double subtotal = 0.0;
@@ -363,7 +363,7 @@ public class ShoppingUtil {
 	}
 
 	public static double calculatePrice(ShoppingItem item, int count)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPrice itemPrice = _getItemPrice(item, count);
 
@@ -371,7 +371,7 @@ public class ShoppingUtil {
 	}
 
 	public static double calculateShipping(Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double shipping = 0.0;
 		double subtotal = 0.0;
@@ -439,7 +439,7 @@ public class ShoppingUtil {
 	}
 
 	public static double calculateSubtotal(Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double subtotal = 0.0;
 
@@ -457,7 +457,7 @@ public class ShoppingUtil {
 
 	public static double calculateTax(
 			Map<ShoppingCartItem, Integer> items, String stateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double tax = 0.0;
 
@@ -505,7 +505,7 @@ public class ShoppingUtil {
 	public static double calculateTotal(
 			Map<ShoppingCartItem, Integer> items, String stateId,
 			ShoppingCoupon coupon, int altShipping, boolean insure)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		double actualSubtotal = calculateActualSubtotal(items);
 		double tax = calculateTax(items, stateId);
@@ -643,7 +643,7 @@ public class ShoppingUtil {
 	}
 
 	public static ShoppingCart getCart(PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletSession portletSession = portletRequest.getPortletSession();
 
@@ -883,7 +883,7 @@ public class ShoppingUtil {
 	}
 
 	public static int getMinQuantity(ShoppingItem item)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		int minQuantity = item.getMinQuantity();
 
@@ -1057,7 +1057,7 @@ public class ShoppingUtil {
 	public static boolean meetsMinOrder(
 			ShoppingSettings shoppingSettings,
 			Map<ShoppingCartItem, Integer> items)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((shoppingSettings.getMinOrder() > 0) &&
 			(calculateSubtotal(items) < shoppingSettings.getMinOrder())) {
@@ -1070,7 +1070,7 @@ public class ShoppingUtil {
 	}
 
 	private static ShoppingItemPrice _getItemPrice(ShoppingItem item, int count)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPrice itemPrice = null;
 

@@ -98,7 +98,7 @@ public class DLContentLocalServiceImpl extends DLContentLocalServiceBaseImpl {
 	@Override
 	public void deleteContent(
 			long companyId, long repositoryId, String path, String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		dlContentPersistence.removeByC_R_P_V(
 			companyId, repositoryId, path, version);

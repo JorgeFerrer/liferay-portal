@@ -60,7 +60,7 @@ public class FolderStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Folder folder = FolderUtil.fetchByUUID_R(uuid, groupId);
 

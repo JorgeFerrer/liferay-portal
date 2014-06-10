@@ -303,7 +303,7 @@ public class DLFileEntryAssetRenderer
 	}
 
 	public boolean hasDeletePermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryPermission.contains(
 			permissionChecker, _fileEntry.getFileEntryId(), ActionKeys.DELETE);
@@ -311,7 +311,7 @@ public class DLFileEntryAssetRenderer
 
 	@Override
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryPermission.contains(
 			permissionChecker, _fileEntry.getFileEntryId(), ActionKeys.UPDATE);
@@ -319,7 +319,7 @@ public class DLFileEntryAssetRenderer
 
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryPermission.contains(
 			permissionChecker, _fileEntry.getFileEntryId(), ActionKeys.VIEW);

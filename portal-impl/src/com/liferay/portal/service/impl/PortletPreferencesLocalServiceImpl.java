@@ -102,7 +102,7 @@ public class PortletPreferencesLocalServiceImpl
 	@Override
 	public void deletePortletPreferences(
 			long ownerId, int ownerType, long plid, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		portletPreferencesPersistence.removeByO_O_P_P(
 			ownerId, ownerType, plid, portletId);
@@ -184,7 +184,7 @@ public class PortletPreferencesLocalServiceImpl
 	@Override
 	public PortletPreferences getPortletPreferences(
 			long ownerId, int ownerType, long plid, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return portletPreferencesPersistence.findByO_O_P_P(
 			ownerId, ownerType, plid, portletId);

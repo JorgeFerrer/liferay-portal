@@ -33,7 +33,7 @@ public class SocialActivityLimitLocalServiceImpl
 	public SocialActivityLimit addActivityLimit(
 			long userId, long groupId, long classNameId, long classPK,
 			int activityType, String activityCounterName, int limitPeriod)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityLimit activityLimit =
 			socialActivityLimitPersistence.fetchByG_U_C_C_A_A(

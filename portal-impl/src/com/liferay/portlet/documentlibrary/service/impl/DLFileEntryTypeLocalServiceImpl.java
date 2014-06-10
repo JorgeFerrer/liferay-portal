@@ -70,7 +70,7 @@ public class DLFileEntryTypeLocalServiceImpl
 			long userId, long groupId, String fileEntryTypeKey,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			long[] ddmStructureIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -140,7 +140,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	public DLFileEntryType addFileEntryType(
 			long userId, long groupId, String name, String description,
 			long[] ddmStructureIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> nameMap = new HashMap<Locale, String>();
 
@@ -157,7 +157,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public void cascadeFileEntryTypes(long userId, DLFolder dlFolder)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] groupIds = PortalUtil.getCurrentAndAncestorSiteGroupIds(
 			dlFolder.getGroupId());
@@ -186,7 +186,7 @@ public class DLFileEntryTypeLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public void deleteFileEntryType(DLFileEntryType dlFileEntryType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (dlFileEntryPersistence.countByFileEntryTypeId(
 				dlFileEntryType.getFileEntryTypeId()) > 0) {
@@ -217,7 +217,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public void deleteFileEntryType(long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryType dlFileEntryType =
 			dlFileEntryTypePersistence.findByPrimaryKey(fileEntryTypeId);
@@ -227,7 +227,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public void deleteFileEntryTypes(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DLFileEntryType> dlFileEntryTypes =
 			dlFileEntryTypePersistence.findByGroupId(groupId);
@@ -254,7 +254,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public long getDefaultFileEntryTypeId(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		folderId = getFileEntryTypesPrimaryFolderId(folderId);
 
@@ -270,7 +270,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public DLFileEntryType getFileEntryType(long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileEntryTypePersistence.findByPrimaryKey(fileEntryTypeId);
 	}
@@ -278,7 +278,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	@Override
 	public DLFileEntryType getFileEntryType(
 			long groupId, String fileEntryTypeKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		fileEntryTypeKey = StringUtil.toUpperCase(fileEntryTypeKey.trim());
 
@@ -294,7 +294,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	@Override
 	public List<DLFileEntryType> getFolderFileEntryTypes(
 			long[] groupIds, long folderId, boolean inherited)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!inherited) {
 			return dlFolderPersistence.getDLFileEntryTypes(folderId);
@@ -357,7 +357,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	@Override
 	public DLFileEntry updateFileEntryFileEntryType(
 			DLFileEntry dlFileEntry, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long groupId = serviceContext.getScopeGroupId();
 		long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
@@ -403,7 +403,7 @@ public class DLFileEntryTypeLocalServiceImpl
 			long userId, long fileEntryTypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, long[] ddmStructureIds,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryType dlFileEntryType =
 			dlFileEntryTypePersistence.findByPrimaryKey(fileEntryTypeId);
@@ -431,7 +431,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	public void updateFileEntryType(
 			long userId, long fileEntryTypeId, String name, String description,
 			long[] ddmStructureIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> nameMap = new HashMap<Locale, String>();
 
@@ -450,7 +450,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	public void updateFolderFileEntryTypes(
 			DLFolder dlFolder, List<Long> fileEntryTypeIds,
 			long defaultFileEntryTypeId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> originalFileEntryTypeIds = getFileEntryTypeIds(
 			dlFolderPersistence.getDLFileEntryTypes(dlFolder.getFolderId()));
@@ -482,7 +482,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	protected void addFileEntryTypeResources(
 			DLFileEntryType dlFileEntryType, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			dlFileEntryType.getCompanyId(), dlFileEntryType.getGroupId(),
@@ -494,7 +494,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	protected void addFileEntryTypeResources(
 			DLFileEntryType dlFileEntryType, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			dlFileEntryType.getCompanyId(), dlFileEntryType.getGroupId(),
@@ -507,7 +507,7 @@ public class DLFileEntryTypeLocalServiceImpl
 			long userId, long groupId, long folderId,
 			long defaultFileEntryTypeId, List<Long> fileEntryTypeIds,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DLFileEntry> dlFileEntries = dlFileEntryPersistence.findByG_F(
 			groupId, folderId);
@@ -607,7 +607,7 @@ public class DLFileEntryTypeLocalServiceImpl
 			long userId, String fileEntryTypeUuid, long fileEntryTypeId,
 			long groupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		fixDDMStructureKey(fileEntryTypeUuid, fileEntryTypeId, groupId);
 
@@ -656,7 +656,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	protected void validate(
 			long fileEntryTypeId, long groupId, String fileEntryTypeKey,
 			long[] ddmStructureIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileEntryType dlFileEntryType = dlFileEntryTypePersistence.fetchByG_F(
 			groupId, fileEntryTypeKey);

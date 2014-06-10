@@ -98,7 +98,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public String buildTreePath() throws PortalException, SystemException {
+	public String buildTreePath() throws PortalException {
 		JournalFolder folder = getFolder();
 
 		return folder.buildTreePath();
@@ -131,7 +131,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 
 	@Override
 	public JournalArticleResource getArticleResource()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return JournalArticleResourceLocalServiceUtil.getArticleResource(
 			getResourcePrimKey());
@@ -139,7 +139,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 
 	@Override
 	public String getArticleResourceUuid()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticleResource articleResource = getArticleResource();
 
@@ -181,7 +181,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 
 	@Override
 	public DDMStructure getDDMStructure()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DDMStructureLocalServiceUtil.fetchStructure(
 			PortalUtil.getSiteGroupId(getGroupId()),
@@ -191,7 +191,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 
 	@Override
 	public DDMTemplate getDDMTemplate()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DDMTemplateLocalServiceUtil.fetchTemplate(
 			PortalUtil.getSiteGroupId(getGroupId()),
@@ -239,7 +239,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public JournalFolder getFolder() throws PortalException, SystemException {
+	public JournalFolder getFolder() throws PortalException {
 		if (getFolderId() <= 0) {
 			return new JournalFolderImpl();
 		}
@@ -248,7 +248,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public String getSmallImageType() throws PortalException, SystemException {
+	public String getSmallImageType() throws PortalException {
 		if ((_smallImageType == null) && isSmallImage()) {
 			Image smallImage = ImageLocalServiceUtil.getImage(
 				getSmallImageId());

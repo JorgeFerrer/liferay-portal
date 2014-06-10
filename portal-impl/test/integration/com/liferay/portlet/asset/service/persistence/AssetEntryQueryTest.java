@@ -370,7 +370,7 @@ public class AssetEntryQueryTest {
 	protected AssetEntryQuery buildAssetEntryQuery(
 			long groupId, long[] assetCategoryIds, String[] assetTagNames,
 			boolean any, boolean not)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
 

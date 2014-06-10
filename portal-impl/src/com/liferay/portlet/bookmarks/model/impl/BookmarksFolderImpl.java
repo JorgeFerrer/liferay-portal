@@ -34,7 +34,7 @@ public class BookmarksFolderImpl extends BookmarksFolderBaseImpl {
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> ancestorFolderIds = new ArrayList<Long>();
 
@@ -60,7 +60,7 @@ public class BookmarksFolderImpl extends BookmarksFolderBaseImpl {
 
 	@Override
 	public List<BookmarksFolder> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BookmarksFolder> ancestors = new ArrayList<BookmarksFolder>();
 
@@ -86,7 +86,7 @@ public class BookmarksFolderImpl extends BookmarksFolderBaseImpl {
 
 	@Override
 	public BookmarksFolder getParentFolder()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getParentFolderId() ==
 				BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {

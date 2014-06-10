@@ -70,7 +70,7 @@ public class VerifyBlogsTrackbacks extends VerifyProcess {
 	}
 
 	private void _verifyPost(BlogsEntry entry, MBMessage mbMessage)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String entryURL =
 			Portal.FRIENDLY_URL_SEPARATOR + "blogs/" + entry.getUrlTitle();

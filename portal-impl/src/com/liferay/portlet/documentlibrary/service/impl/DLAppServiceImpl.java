@@ -142,7 +142,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
 			byte[] bytes, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -201,7 +201,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
 			File file, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((file == null) || !file.exists() || (file.length() == 0)) {
 			return addFileEntry(
@@ -262,7 +262,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
 			InputStream is, long size, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (is == null) {
 			is = new UnsyncByteArrayInputStream(new byte[0]);
@@ -328,7 +328,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public DLFileShortcut addFileShortcut(
 			long repositoryId, long folderId, long toFileEntryId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileShortcutService.addFileShortcut(
 			repositoryId, folderId, toFileEntryId, serviceContext);
@@ -353,7 +353,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Folder addFolder(
 			long repositoryId, long parentFolderId, String name,
 			String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -390,7 +390,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public FileEntry addTempFileEntry(
 			long groupId, long folderId, String fileName, String tempFolderName,
 			File file, String mimeType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_DOCUMENT);
@@ -426,7 +426,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public FileEntry addTempFileEntry(
 			long groupId, long folderId, String fileName, String tempFolderName,
 			InputStream inputStream, String mimeType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_DOCUMENT);
@@ -460,7 +460,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void cancelCheckOut(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -507,7 +507,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public void checkInFileEntry(
 			long fileEntryId, boolean majorVersion, String changeLog,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -534,7 +534,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void checkInFileEntry(long fileEntryId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkInFileEntry(fileEntryId, lockUuid, new ServiceContext());
 	}
@@ -566,7 +566,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void checkInFileEntry(
 			long fileEntryId, String lockUuid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -609,7 +609,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void checkOutFileEntry(
 			long fileEntryId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -657,7 +657,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public FileEntry checkOutFileEntry(
 			long fileEntryId, String owner, long expirationTime,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -694,7 +694,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Folder copyFolder(
 			long repositoryId, long sourceFolderId, long parentFolderId,
 			String name, String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -720,7 +720,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void deleteFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -743,7 +743,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void deleteFileEntryByTitle(
 			long repositoryId, long folderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -764,7 +764,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void deleteFileShortcut(long fileShortcutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		dlFileShortcutService.deleteFileShortcut(fileShortcutId);
 	}
@@ -781,7 +781,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void deleteFileVersion(long fileEntryId, String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -803,7 +803,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFolderRepository(folderId);
 
@@ -834,7 +834,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void deleteFolder(
 			long repositoryId, long parentFolderId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -856,7 +856,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void deleteTempFileEntry(
 			long groupId, long folderId, String fileName, String tempFolderName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_DOCUMENT);
@@ -876,7 +876,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public List<FileEntry> getFileEntries(long repositoryId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileEntries(
 			repositoryId, folderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
@@ -906,7 +906,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileEntries(repositoryId, folderId, start, end, null);
 	}
@@ -939,7 +939,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -959,7 +959,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileEntries(
 			repositoryId, folderId, fileEntryTypeId, QueryUtil.ALL_POS,
@@ -983,7 +983,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, long fileEntryTypeId, int start,
 			int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileEntries(
 			repositoryId, folderId, fileEntryTypeId, start, end, null);
@@ -1009,7 +1009,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, long fileEntryTypeId, int start,
 			int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1020,7 +1020,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<FileEntry> getFileEntries(
 			long repositoryId, long folderId, String[] mimeTypes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1053,7 +1053,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<Object> getFileEntriesAndFileShortcuts(
 			long repositoryId, long folderId, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1074,7 +1074,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getFileEntriesAndFileShortcutsCount(
 			long repositoryId, long folderId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1095,7 +1095,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getFileEntriesAndFileShortcutsCount(
 			long repositoryId, long folderId, int status, String[] mimeTypes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1114,7 +1114,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public int getFileEntriesCount(long repositoryId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1135,7 +1135,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getFileEntriesCount(
 			long repositoryId, long folderId, long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1152,7 +1152,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -1171,7 +1171,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public FileEntry getFileEntry(long groupId, long folderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			Repository repository = getRepository(groupId);
@@ -1201,7 +1201,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public FileEntry getFileEntryByUuidAndGroupId(String uuid, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			Repository repository = getRepository(groupId);
@@ -1252,7 +1252,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public DLFileShortcut getFileShortcut(long fileShortcutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileShortcutService.getFileShortcut(fileShortcutId);
 	}
@@ -1267,7 +1267,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public Folder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFolderRepository(folderId);
 
@@ -1286,7 +1286,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public Folder getFolder(long repositoryId, long parentFolderId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1304,7 +1304,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public List<Folder> getFolders(long repositoryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFolders(
 			repositoryId, parentFolderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
@@ -1325,7 +1325,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<Folder> getFolders(
 			long repositoryId, long parentFolderId, boolean includeMountFolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFolders(
 			repositoryId, parentFolderId, includeMountFolders,
@@ -1360,7 +1360,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<Folder> getFolders(
 			long repositoryId, long parentFolderId, boolean includeMountFolders,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFolders(
 			repositoryId, parentFolderId, includeMountFolders, start, end,
@@ -1398,7 +1398,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<Folder> getFolders(
 			long repositoryId, long parentFolderId, boolean includeMountFolders,
 			int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1439,7 +1439,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long parentFolderId, int status,
 			boolean includeMountFolders, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1471,7 +1471,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<Folder> getFolders(
 			long repositoryId, long parentFolderId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFolders(repositoryId, parentFolderId, start, end, null);
 	}
@@ -1505,7 +1505,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<Folder> getFolders(
 			long repositoryId, long parentFolderId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1543,7 +1543,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<Object> getFoldersAndFileEntriesAndFileShortcuts(
 			long repositoryId, long folderId, int status,
 			boolean includeMountFolders, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFoldersAndFileEntriesAndFileShortcuts(
 			repositoryId, folderId, status, includeMountFolders, start, end,
@@ -1584,7 +1584,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long folderId, int status,
 			boolean includeMountFolders, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFoldersAndFileEntriesAndFileShortcuts(
 			repositoryId, folderId, status, null, includeMountFolders, start,
@@ -1596,7 +1596,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long repositoryId, long folderId, int status, String[] mimeTypes,
 			boolean includeMountFolders, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1622,7 +1622,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(
 			long repositoryId, long folderId, int status,
 			boolean includeMountFolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFoldersAndFileEntriesAndFileShortcutsCount(
 			repositoryId, folderId, status, null, includeMountFolders);
@@ -1632,7 +1632,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(
 			long repositoryId, long folderId, int status, String[] mimeTypes,
 			boolean includeMountFolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1651,7 +1651,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public int getFoldersCount(long repositoryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFoldersCount(repositoryId, parentFolderId, true);
 	}
@@ -1671,7 +1671,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getFoldersCount(
 			long repositoryId, long parentFolderId, boolean includeMountFolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1695,7 +1695,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public int getFoldersCount(
 			long repositoryId, long parentFolderId, int status,
 			boolean includeMountFolders)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1719,7 +1719,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getFoldersFileEntriesCount(
 			long repositoryId, List<Long> folderIds, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -1755,7 +1755,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<FileEntry> getGroupFileEntries(
 			long groupId, long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupFileEntries(
 			groupId, userId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, start,
@@ -1794,7 +1794,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getGroupFileEntries(
 			long groupId, long userId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupFileEntries(
 			groupId, userId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID, start,
@@ -1831,7 +1831,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<FileEntry> getGroupFileEntries(
 			long groupId, long userId, long rootFolderId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupFileEntries(
 			groupId, userId, rootFolderId, start, end,
@@ -1872,7 +1872,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getGroupFileEntries(
 			long groupId, long userId, long rootFolderId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(groupId);
 
@@ -1884,7 +1884,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<FileEntry> getGroupFileEntries(
 			long groupId, long userId, long rootFolderId, String[] mimeTypes,
 			int status, int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(groupId);
 
@@ -1907,7 +1907,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public int getGroupFileEntriesCount(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getGroupFileEntriesCount(
 			groupId, userId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID);
@@ -1931,7 +1931,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public int getGroupFileEntriesCount(
 			long groupId, long userId, long rootFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(groupId);
 
@@ -1942,7 +1942,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public int getGroupFileEntriesCount(
 			long groupId, long userId, long rootFolderId, String[] mimeTypes,
 			int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(groupId);
 
@@ -1965,7 +1965,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public List<Folder> getMountFolders(long repositoryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getMountFolders(
 			repositoryId, parentFolderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
@@ -1999,7 +1999,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<Folder> getMountFolders(
 			long repositoryId, long parentFolderId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getMountFolders(repositoryId, parentFolderId, start, end, null);
 	}
@@ -2036,7 +2036,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public List<Folder> getMountFolders(
 			long repositoryId, long parentFolderId, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2058,7 +2058,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public int getMountFoldersCount(long repositoryId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2068,7 +2068,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void getSubfolderIds(
 			long repositoryId, List<Long> folderIds, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2087,7 +2087,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public List<Long> getSubfolderIds(long repositoryId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getSubfolderIds(repositoryId, folderId, true);
 	}
@@ -2107,7 +2107,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public List<Long> getSubfolderIds(
 			long repositoryId, long folderId, boolean recurse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2130,7 +2130,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public String[] getTempFileEntryNames(
 			long groupId, long folderId, String tempFolderName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.ADD_DOCUMENT);
@@ -2146,7 +2146,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Deprecated
 	@Override
 	public Lock lockFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkOutFileEntry(fileEntryId, new ServiceContext());
 
@@ -2163,7 +2163,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public Lock lockFileEntry(
 			long fileEntryId, String owner, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileEntry fileEntry = checkOutFileEntry(
 			fileEntryId, owner, expirationTime, new ServiceContext());
@@ -2182,7 +2182,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public Lock lockFolder(long repositoryId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2208,7 +2208,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Lock lockFolder(
 			long repositoryId, long folderId, String owner, boolean inheritable,
 			long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2230,7 +2230,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public FileEntry moveFileEntry(
 			long fileEntryId, long newFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository fromRepository = getFileEntryRepository(fileEntryId);
 		Repository toRepository = getFolderRepository(
@@ -2278,7 +2278,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public FileEntry moveFileEntryFromTrash(
 			long fileEntryId, long newFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -2307,7 +2307,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public FileEntry moveFileEntryToTrash(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -2341,7 +2341,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public DLFileShortcut moveFileShortcutFromTrash(
 			long fileShortcutId, long newFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileShortcut fileShortcut = getFileShortcut(fileShortcutId);
 
@@ -2362,7 +2362,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public DLFileShortcut moveFileShortcutToTrash(long fileShortcutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileShortcut fileShortcut = getFileShortcut(fileShortcutId);
 
@@ -2386,7 +2386,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public Folder moveFolder(
 			long folderId, long parentFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository fromRepository = getFolderRepository(folderId);
 		Repository toRepository = getFolderRepository(
@@ -2438,7 +2438,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public Folder moveFolderFromTrash(
 			long folderId, long parentFolderId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFolderRepository(folderId);
 
@@ -2467,7 +2467,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public Folder moveFolderToTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFolderRepository(folderId);
 
@@ -2501,7 +2501,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public Lock refreshFileEntryLock(
 			String lockUuid, long companyId, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Lock lock = lockLocalService.getLockByUuidAndCompanyId(
 			lockUuid, companyId);
@@ -2530,7 +2530,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public Lock refreshFolderLock(
 			String lockUuid, long companyId, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Lock lock = lockLocalService.getLockByUuidAndCompanyId(
 			lockUuid, companyId);
@@ -2552,7 +2552,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void restoreFileEntryFromTrash(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -2580,7 +2580,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void restoreFileShortcutFromTrash(long fileShortcutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileShortcut fileShortcut = getFileShortcut(fileShortcutId);
 
@@ -2600,7 +2600,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void restoreFolderFromTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFolderRepository(folderId);
 
@@ -2631,7 +2631,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public void revertFileEntry(
 			long fileEntryId, String version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -2648,7 +2648,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Hits search(
 			long repositoryId, long creatorUserId, int status, int start,
 			int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2659,7 +2659,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Hits search(
 			long repositoryId, long creatorUserId, long folderId,
 			String[] mimeTypes, int status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2708,7 +2708,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void subscribeFileEntryType(long groupId, long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -2729,7 +2729,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void subscribeFolder(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -2744,7 +2744,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void unlockFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkInFileEntry(
 			fileEntryId, false, StringPool.BLANK, new ServiceContext());
@@ -2757,7 +2757,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void unlockFileEntry(long fileEntryId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkInFileEntry(fileEntryId, lockUuid);
 	}
@@ -2773,7 +2773,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void unlockFolder(long repositoryId, long folderId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2794,7 +2794,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public void unlockFolder(
 			long repositoryId, long parentFolderId, String name,
 			String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -2813,7 +2813,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void unsubscribeFileEntryType(long groupId, long fileEntryTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
@@ -2834,7 +2834,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Override
 	public void unsubscribeFolder(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -2882,7 +2882,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
 			boolean majorVersion, byte[] bytes, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -2944,7 +2944,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
 			boolean majorVersion, File file, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((file == null) || !file.exists() || (file.length() == 0)) {
 			return updateFileEntry(
@@ -3011,7 +3011,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			String title, String description, String changeLog,
 			boolean majorVersion, InputStream is, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(mimeType) ||
 			mimeType.equals(ContentTypes.APPLICATION_OCTET_STREAM)) {
@@ -3070,7 +3070,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
 			boolean majorVersion, File file, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((file == null) || !file.exists() || (file.length() == 0)) {
 			return updateFileEntryAndCheckIn(
@@ -3102,7 +3102,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 			String title, String description, String changeLog,
 			boolean majorVersion, InputStream is, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getFileEntryRepository(fileEntryId);
 
@@ -3149,7 +3149,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public DLFileShortcut updateFileShortcut(
 			long fileShortcutId, long folderId, long toFileEntryId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return dlFileShortcutService.updateFileShortcut(
 			fileShortcutId, folderId, toFileEntryId, serviceContext);
@@ -3182,7 +3182,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	public Folder updateFolder(
 			long folderId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = null;
 
@@ -3217,7 +3217,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public boolean verifyFileEntryCheckOut(
 			long repositoryId, long fileEntryId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -3227,7 +3227,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public boolean verifyFileEntryLock(
 			long repositoryId, long fileEntryId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -3249,7 +3249,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	@Override
 	public boolean verifyInheritableLock(
 			long repositoryId, long folderId, String lockUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(repositoryId);
 
@@ -3259,7 +3259,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	protected FileEntry copyFileEntry(
 			Repository toRepository, FileEntry fileEntry, long newFolderId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<FileVersion> fileVersions = fileEntry.getFileVersions(
 			WorkflowConstants.STATUS_ANY);
@@ -3319,7 +3319,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	protected void copyFolder(
 			Repository repository, Folder srcFolder, Folder destFolder,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Queue<Folder[]> folders = new LinkedList<Folder[]>();
 		final List<FileEntry> fileEntries = new ArrayList<FileEntry>();
@@ -3396,7 +3396,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	protected void deleteFileEntry(
 			long oldFileEntryId, long newFileEntryId, Repository fromRepository,
 			Repository toRepository)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			FileEntry fileEntry = fromRepository.getFileEntry(oldFileEntryId);
@@ -3417,7 +3417,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	protected Repository getFileEntryRepository(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			return repositoryService.getRepositoryImpl(0, fileEntryId, 0);
@@ -3434,7 +3434,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	protected Repository getFileVersionRepository(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			return repositoryService.getRepositoryImpl(0, 0, fileVersionId);
@@ -3451,7 +3451,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	protected Repository getFolderRepository(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			return repositoryService.getRepositoryImpl(folderId, 0, 0);
@@ -3468,7 +3468,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	protected Repository getFolderRepository(long folderId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = null;
 
@@ -3483,7 +3483,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	}
 
 	protected Repository getRepository(long repositoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			return repositoryService.getRepositoryImpl(repositoryId);
@@ -3502,7 +3502,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	protected FileEntry moveFileEntries(
 			long fileEntryId, long newFolderId, Repository fromRepository,
 			Repository toRepository, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileEntry sourceFileEntry = fromRepository.getFileEntry(fileEntryId);
 
@@ -3519,7 +3519,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	protected Folder moveFolders(
 			long folderId, long parentFolderId, Repository fromRepository,
 			Repository toRepository, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Folder folder = fromRepository.getFolder(folderId);
 

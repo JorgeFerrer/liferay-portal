@@ -37,7 +37,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 
 	@Override
 	public void addBookItems(long groupId, long categoryId, String[] isbns)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategoryPermission.check(
 			getPermissionChecker(), groupId, categoryId, ActionKeys.ADD_ITEM);
@@ -56,7 +56,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 			File mediumFile, boolean largeImage, String largeImageURL,
 			File largeFile, List<ShoppingItemField> itemFields,
 			List<ShoppingItemPrice> itemPrices, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategoryPermission.check(
 			getPermissionChecker(), groupId, categoryId, ActionKeys.ADD_ITEM);
@@ -71,7 +71,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 
 	@Override
 	public void deleteItem(long itemId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPermission.check(
 			getPermissionChecker(), itemId, ActionKeys.DELETE);
@@ -87,7 +87,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 
 	@Override
 	public ShoppingItem getItem(long itemId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPermission.check(
 			getPermissionChecker(), itemId, ActionKeys.VIEW);
@@ -119,7 +119,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	@Override
 	public ShoppingItem[] getItemsPrevAndNext(
 			long itemId, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
 
@@ -137,7 +137,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 			File mediumFile, boolean largeImage, String largeImageURL,
 			File largeFile, List<ShoppingItemField> itemFields,
 			List<ShoppingItemPrice> itemPrices, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItemPermission.check(
 			getPermissionChecker(), itemId, ActionKeys.UPDATE);

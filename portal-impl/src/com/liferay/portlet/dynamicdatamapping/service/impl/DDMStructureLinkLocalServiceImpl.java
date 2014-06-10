@@ -50,7 +50,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public void deleteClassStructureLink(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructureLink structureLink =
 			ddmStructureLinkPersistence.findByClassPK(classPK);
@@ -66,7 +66,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public void deleteStructureLink(long structureLinkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructureLink structureLink =
 			ddmStructureLinkPersistence.findByPrimaryKey(structureLinkId);
@@ -87,7 +87,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public DDMStructureLink getClassStructureLink(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmStructureLinkPersistence.findByClassPK(classPK);
 	}
@@ -100,7 +100,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public DDMStructureLink getStructureLink(long structureLinkId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmStructureLinkPersistence.findByPrimaryKey(structureLinkId);
 	}
@@ -117,7 +117,7 @@ public class DDMStructureLinkLocalServiceImpl
 	public DDMStructureLink updateStructureLink(
 			long structureLinkId, long classNameId, long classPK,
 			long structureId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructureLink structureLink =
 			ddmStructureLinkPersistence.findByPrimaryKey(structureLinkId);

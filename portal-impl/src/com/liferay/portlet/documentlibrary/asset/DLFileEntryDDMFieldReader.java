@@ -43,7 +43,7 @@ public class DLFileEntryDDMFieldReader extends BaseDDMFieldReader {
 	}
 
 	@Override
-	public Fields getFields() throws PortalException, SystemException {
+	public Fields getFields() throws PortalException {
 		Fields fields = new Fields();
 
 		long classNameId = ClassNameLocalServiceUtil.getClassNameId(

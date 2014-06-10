@@ -61,7 +61,7 @@ public class DLFileEntryTypeImpl extends DLFileEntryTypeBaseImpl {
 	public String getUnambiguousName(
 			List<DLFileEntryType> dlFileEntryTypes, long groupId,
 			final Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getGroupId() == groupId ) {
 			return getName(locale);

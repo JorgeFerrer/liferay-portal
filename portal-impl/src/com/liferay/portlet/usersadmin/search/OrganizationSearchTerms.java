@@ -61,7 +61,7 @@ public class OrganizationSearchTerms extends OrganizationDisplayTerms {
 		}
 	}
 
-	public String getCountryName() throws PortalException, SystemException {
+	public String getCountryName() throws PortalException {
 		String countryName = null;
 
 		if (countryId != 0) {
@@ -91,7 +91,7 @@ public class OrganizationSearchTerms extends OrganizationDisplayTerms {
 		}
 	}
 
-	public String getRegionName() throws PortalException, SystemException {
+	public String getRegionName() throws PortalException {
 		String regionName = null;
 
 		if (regionId != 0) {

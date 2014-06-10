@@ -78,7 +78,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String type, String mode, String language, String script,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMDisplay ddmDisplay = DDMUtil.getDDMDisplay(serviceContext);
 
@@ -134,7 +134,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			String type, String mode, String language, String script,
 			boolean cacheable, boolean smallImage, String smallImageURL,
 			File smallImageFile, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMDisplay ddmDisplay = DDMUtil.getDDMDisplay(serviceContext);
 
@@ -171,7 +171,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public DDMTemplate copyTemplate(
 			long templateId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMDisplay ddmDisplay = DDMUtil.getDDMDisplay(serviceContext);
 
@@ -192,7 +192,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public DDMTemplate copyTemplate(
 			long templateId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMDisplay ddmDisplay = DDMUtil.getDDMDisplay(serviceContext);
 
@@ -234,7 +234,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public List<DDMTemplate> copyTemplates(
 			long classNameId, long classPK, long newClassPK, String type,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMDisplay ddmDisplay = DDMUtil.getDDMDisplay(serviceContext);
 
@@ -258,7 +258,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 */
 	@Override
 	public void deleteTemplate(long templateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.DELETE);
@@ -282,7 +282,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public DDMTemplate fetchTemplate(
 			long groupId, long classNameId, String templateKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate ddmTemplate = ddmTemplateLocalService.fetchTemplate(
 			groupId, classNameId, templateKey);
@@ -306,7 +306,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 */
 	@Override
 	public DDMTemplate getTemplate(long templateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.VIEW);
@@ -328,7 +328,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public DDMTemplate getTemplate(
 			long groupId, long classNameId, String templateKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate ddmTemplate = ddmTemplateLocalService.getTemplate(
 			groupId, classNameId, templateKey);
@@ -363,7 +363,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public DDMTemplate getTemplate(
 			long groupId, long classNameId, String templateKey,
 			boolean includeAncestorTemplates)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate ddmTemplate = ddmTemplateLocalService.getTemplate(
 			groupId, classNameId, templateKey, includeAncestorTemplates);
@@ -412,7 +412,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public List<DDMTemplate> getTemplates(
 			long groupId, long classNameId, long classPK,
 			boolean includeAncestorTemplates)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMTemplate> ddmTemplates = new ArrayList<DDMTemplate>();
 
@@ -903,7 +903,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			String language, String script, boolean cacheable,
 			boolean smallImage, String smallImageURL, File smallImageFile,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.UPDATE);
@@ -944,7 +944,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			Map<Locale, String> descriptionMap, String type, String mode,
 			String language, String script, boolean cacheable,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.UPDATE);

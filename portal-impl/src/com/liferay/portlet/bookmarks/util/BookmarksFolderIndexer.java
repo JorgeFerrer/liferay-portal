@@ -201,7 +201,7 @@ public class BookmarksFolderIndexer extends BaseIndexer {
 	}
 
 	protected void reindexFolders(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			BookmarksFolderLocalServiceUtil.getActionableDynamicQuery();

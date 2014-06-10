@@ -118,7 +118,7 @@ public class DDMTemplateLocalServiceImpl
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			String type, String mode, String language, String script,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addTemplate(
 			userId, groupId, classNameId, classPK, null, nameMap,
@@ -167,7 +167,7 @@ public class DDMTemplateLocalServiceImpl
 			String language, String script, boolean cacheable,
 			boolean smallImage, String smallImageURL, File smallImageFile,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Template
 
@@ -265,7 +265,7 @@ public class DDMTemplateLocalServiceImpl
 	public void addTemplateResources(
 			DDMTemplate template, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			template.getCompanyId(), template.getGroupId(),
@@ -287,7 +287,7 @@ public class DDMTemplateLocalServiceImpl
 	public void addTemplateResources(
 			DDMTemplate template, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			template.getCompanyId(), template.getGroupId(),
@@ -316,7 +316,7 @@ public class DDMTemplateLocalServiceImpl
 	public DDMTemplate copyTemplate(
 			long userId, long templateId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate template = ddmTemplatePersistence.findByPrimaryKey(
 			templateId);
@@ -329,7 +329,7 @@ public class DDMTemplateLocalServiceImpl
 	@Override
 	public DDMTemplate copyTemplate(
 			long userId, long templateId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate template = ddmTemplatePersistence.findByPrimaryKey(
 			templateId);
@@ -362,7 +362,7 @@ public class DDMTemplateLocalServiceImpl
 	public List<DDMTemplate> copyTemplates(
 			long userId, long classNameId, long oldClassPK, long newClassPK,
 			String type, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMTemplate> newTemplates = new ArrayList<DDMTemplate>();
 
@@ -390,7 +390,7 @@ public class DDMTemplateLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public void deleteTemplate(DDMTemplate template)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Template
 
@@ -445,7 +445,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public void deleteTemplate(long templateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate template = ddmTemplatePersistence.findByPrimaryKey(
 			templateId);
@@ -462,7 +462,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public void deleteTemplates(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMTemplate> templates = ddmTemplatePersistence.findByGroupId(
 			groupId);
@@ -518,7 +518,7 @@ public class DDMTemplateLocalServiceImpl
 	public DDMTemplate fetchTemplate(
 			long groupId, long classNameId, String templateKey,
 			boolean includeAncestorTemplates)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		templateKey = StringUtil.toUpperCase(templateKey.trim());
 
@@ -557,7 +557,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public DDMTemplate getTemplate(long templateId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmTemplatePersistence.findByPrimaryKey(templateId);
 	}
@@ -576,7 +576,7 @@ public class DDMTemplateLocalServiceImpl
 	@Override
 	public DDMTemplate getTemplate(
 			long groupId, long classNameId, String templateKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		templateKey = StringUtil.toUpperCase(templateKey.trim());
 
@@ -608,7 +608,7 @@ public class DDMTemplateLocalServiceImpl
 	public DDMTemplate getTemplate(
 			long groupId, long classNameId, String templateKey,
 			boolean includeAncestorTemplates)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		templateKey = StringUtil.toUpperCase(templateKey.trim());
 
@@ -642,7 +642,7 @@ public class DDMTemplateLocalServiceImpl
 
 	@Override
 	public DDMTemplate getTemplateBySmallImageId(long smallImageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmTemplatePersistence.findBySmallImageId(smallImageId);
 	}
@@ -697,7 +697,7 @@ public class DDMTemplateLocalServiceImpl
 	public List<DDMTemplate> getTemplates(
 			long groupId, long classNameId, long classPK,
 			boolean includeAncestorTemplates)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DDMTemplate> ddmTemplates = new ArrayList<DDMTemplate>();
 
@@ -1270,7 +1270,7 @@ public class DDMTemplateLocalServiceImpl
 			String language, String script, boolean cacheable,
 			boolean smallImage, String smallImageURL, File smallImageFile,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		script = formatScript(type, language, script);
 
@@ -1351,7 +1351,7 @@ public class DDMTemplateLocalServiceImpl
 			Map<Locale, String> descriptionMap, String type, String mode,
 			String language, String script, boolean cacheable,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate template = ddmTemplateLocalService.getDDMTemplate(
 			templateId);
@@ -1368,7 +1368,7 @@ public class DDMTemplateLocalServiceImpl
 			long userId, DDMTemplate template, long classPK,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File smallImageFile = getSmallImageFile(template);
 
@@ -1426,7 +1426,7 @@ public class DDMTemplateLocalServiceImpl
 	protected void saveImages(
 			boolean smallImage, long smallImageId, File smallImageFile,
 			byte[] smallImageBytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (smallImage) {
 			if ((smallImageFile != null) && (smallImageBytes != null)) {
@@ -1442,7 +1442,7 @@ public class DDMTemplateLocalServiceImpl
 			long groupId, long classNameId, String templateKey,
 			Map<Locale, String> nameMap, String script, boolean smallImage,
 			String smallImageURL, File smallImageFile, byte[] smallImageBytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		templateKey = StringUtil.toUpperCase(templateKey.trim());
 
@@ -1471,7 +1471,7 @@ public class DDMTemplateLocalServiceImpl
 	protected void validate(
 			Map<Locale, String> nameMap, String script, boolean smallImage,
 			String smallImageURL, File smallImageFile, byte[] smallImageBytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(nameMap, script);
 

@@ -31,7 +31,7 @@ public class WikiNodePermission implements BaseModelPermissionChecker {
 
 	public static void check(
 			PermissionChecker permissionChecker, long nodeId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, nodeId, actionId)) {
 			throw new PrincipalException();
@@ -41,7 +41,7 @@ public class WikiNodePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String name,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, name, actionId)) {
 			throw new PrincipalException();
@@ -59,7 +59,7 @@ public class WikiNodePermission implements BaseModelPermissionChecker {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long nodeId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(nodeId);
 
@@ -69,7 +69,7 @@ public class WikiNodePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String name,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(groupId, name);
 
@@ -103,7 +103,7 @@ public class WikiNodePermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, primaryKey, actionId);
 	}

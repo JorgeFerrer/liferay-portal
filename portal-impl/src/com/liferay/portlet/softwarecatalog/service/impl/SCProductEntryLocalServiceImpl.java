@@ -71,7 +71,7 @@ public class SCProductEntryLocalServiceImpl
 			String author, String repoGroupId, String repoArtifactId,
 			long[] licenseIds, List<byte[]> thumbnails, List<byte[]> fullImages,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product entry
 
@@ -148,7 +148,7 @@ public class SCProductEntryLocalServiceImpl
 	public void addProductEntryResources(
 			long productEntryId, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntry productEntry =
 			scProductEntryPersistence.findByPrimaryKey(productEntryId);
@@ -161,7 +161,7 @@ public class SCProductEntryLocalServiceImpl
 	public void addProductEntryResources(
 			long productEntryId, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntry productEntry =
 			scProductEntryPersistence.findByPrimaryKey(productEntryId);
@@ -174,7 +174,7 @@ public class SCProductEntryLocalServiceImpl
 	public void addProductEntryResources(
 			SCProductEntry productEntry, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			productEntry.getCompanyId(), productEntry.getGroupId(),
@@ -187,7 +187,7 @@ public class SCProductEntryLocalServiceImpl
 	public void addProductEntryResources(
 			SCProductEntry productEntry, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			productEntry.getCompanyId(), productEntry.getGroupId(),
@@ -198,7 +198,7 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public void deleteProductEntries(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SCProductEntry> productEntries =
 			scProductEntryPersistence.findByGroupId(groupId);
@@ -211,7 +211,7 @@ public class SCProductEntryLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public SCProductEntry deleteProductEntry(long productEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductEntry productEntry =
 			scProductEntryPersistence.findByPrimaryKey(productEntryId);
@@ -222,7 +222,7 @@ public class SCProductEntryLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public SCProductEntry deleteProductEntry(SCProductEntry productEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product entry
 
@@ -321,7 +321,7 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public SCProductEntry getProductEntry(long productEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductEntryPersistence.findByPrimaryKey(productEntryId);
 	}
@@ -406,7 +406,7 @@ public class SCProductEntryLocalServiceImpl
 			String shortDescription, String longDescription, String pageURL,
 			String author, String repoGroupId, String repoArtifactId,
 			long[] licenseIds, List<byte[]> thumbnails, List<byte[]> fullImages)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product entry
 
@@ -582,7 +582,7 @@ public class SCProductEntryLocalServiceImpl
 	protected void saveProductScreenshots(
 			SCProductEntry productEntry, List<byte[]> thumbnails,
 			List<byte[]> fullImages)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long productEntryId = productEntry.getProductEntryId();
 
@@ -641,7 +641,7 @@ public class SCProductEntryLocalServiceImpl
 			String shortDescription, String pageURL, String author,
 			String repoGroupId, String repoArtifactId, long[] licenseIds,
 			List<byte[]> thumbnails, List<byte[]> fullImages)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name)) {
 			throw new ProductEntryNameException();

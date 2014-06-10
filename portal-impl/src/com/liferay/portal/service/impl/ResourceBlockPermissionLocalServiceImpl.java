@@ -74,7 +74,7 @@ public class ResourceBlockPermissionLocalServiceImpl
 	@Override
 	public Map<Long, Set<String>> getAvailableResourceBlockPermissionActionIds(
 			long[] roleIds, String name, long primKey, List<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourceBlock resourceBlock =
 			resourceBlockLocalService.getResourceBlock(name, primKey);

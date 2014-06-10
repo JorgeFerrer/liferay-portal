@@ -56,7 +56,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 			long groupId, boolean privateLayout,
 			boolean layoutSetPrototypeLinkEnabled,
 			String layoutSetPrototypeUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.UPDATE);
@@ -79,7 +79,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	@Override
 	public void updateLogo(
 			long groupId, boolean privateLayout, boolean logo, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_LAYOUTS);
@@ -90,7 +90,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	@Override
 	public void updateLogo(
 			long groupId, boolean privateLayout, boolean logo, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_LAYOUTS);
@@ -102,7 +102,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	public void updateLogo(
 			long groupId, boolean privateLayout, boolean logo,
 			InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateLogo(groupId, privateLayout, logo, inputStream, true);
 	}
@@ -111,7 +111,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	public void updateLogo(
 			long groupId, boolean privateLayout, boolean logo,
 			InputStream inputStream, boolean cleanUpStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_LAYOUTS);
@@ -124,7 +124,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	public LayoutSet updateLookAndFeel(
 			long groupId, boolean privateLayout, String themeId,
 			String colorSchemeId, String css, boolean wapTheme)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_LAYOUTS);
@@ -139,7 +139,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	@Override
 	public LayoutSet updateSettings(
 			long groupId, boolean privateLayout, String settings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.MANAGE_LAYOUTS);
@@ -151,7 +151,7 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	@Override
 	public LayoutSet updateVirtualHost(
 			long groupId, boolean privateLayout, String virtualHost)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.UPDATE);

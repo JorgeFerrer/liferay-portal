@@ -61,7 +61,7 @@ public class PortletServiceImpl extends PortletServiceBaseImpl {
 	@Override
 	public Portlet updatePortlet(
 			long companyId, String portletId, String roles, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {

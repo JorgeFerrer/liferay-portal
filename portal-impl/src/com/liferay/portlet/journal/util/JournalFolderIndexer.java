@@ -190,7 +190,7 @@ public class JournalFolderIndexer extends BaseIndexer {
 	}
 
 	protected void reindexFolders(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			JournalFolderLocalServiceUtil.getActionableDynamicQuery();

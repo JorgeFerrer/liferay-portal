@@ -90,7 +90,7 @@ public class BlogsExportImportTest extends BasePortletExportImportTestCase {
 
 	@Override
 	protected StagedModel getStagedModel(String uuid, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return BlogsEntryLocalServiceUtil.getBlogsEntryByUuidAndGroupId(
 			uuid, groupId);

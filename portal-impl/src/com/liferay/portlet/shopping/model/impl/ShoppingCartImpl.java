@@ -43,7 +43,7 @@ public class ShoppingCartImpl extends ShoppingCartBaseImpl {
 	}
 
 	@Override
-	public ShoppingCoupon getCoupon() throws PortalException, SystemException {
+	public ShoppingCoupon getCoupon() throws PortalException {
 		ShoppingCoupon coupon = null;
 
 		if (Validator.isNotNull(getCouponCodes())) {

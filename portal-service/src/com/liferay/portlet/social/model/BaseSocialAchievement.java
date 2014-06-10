@@ -181,7 +181,7 @@ public class BaseSocialAchievement implements SocialAchievement {
 	}
 
 	protected void doProcessActivity(SocialActivity activity)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_counterThreshold == 0) {
 			return;

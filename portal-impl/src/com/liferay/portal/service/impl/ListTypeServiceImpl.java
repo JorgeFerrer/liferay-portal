@@ -30,7 +30,7 @@ public class ListTypeServiceImpl extends ListTypeServiceBaseImpl {
 
 	@Override
 	public ListType getListType(int listTypeId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return listTypePersistence.findByPrimaryKey(listTypeId);
 	}
@@ -42,7 +42,7 @@ public class ListTypeServiceImpl extends ListTypeServiceBaseImpl {
 
 	@Override
 	public void validate(int listTypeId, long classNameId, String type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ClassName className = classNameLocalService.getClassName(classNameId);
 
@@ -51,7 +51,7 @@ public class ListTypeServiceImpl extends ListTypeServiceBaseImpl {
 
 	@Override
 	public void validate(int listTypeId, String type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ListType listType = listTypePersistence.fetchByPrimaryKey(listTypeId);
 

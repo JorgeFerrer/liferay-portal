@@ -36,7 +36,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	public BookmarksFolder addFolder(
 			long parentFolderId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolderPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -48,7 +48,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public void deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -61,7 +61,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public void deleteFolder(long folderId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -75,7 +75,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public BookmarksFolder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -88,7 +88,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<Long> getFolderIds(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.VIEW);
@@ -245,7 +245,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public BookmarksFolder moveFolder(long folderId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -259,7 +259,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	@Override
 	public BookmarksFolder moveFolderFromTrash(
 			long folderId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -273,7 +273,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public BookmarksFolder moveFolderToTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -287,7 +287,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public void restoreFolderFromTrash(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -301,7 +301,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public void subscribeFolder(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -312,7 +312,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public void unsubscribeFolder(long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
@@ -325,7 +325,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	public BookmarksFolder updateFolder(
 			long folderId, long parentFolderId, String name, String description,
 			boolean mergeWithParentFolder, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);

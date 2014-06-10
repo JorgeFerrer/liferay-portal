@@ -143,7 +143,7 @@ public class InputPermissionsParamsTagUtil {
 
 	public static String getDefaultViewRole(
 			String modelName, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = themeDisplay.getLayout();
 

@@ -83,7 +83,7 @@ public class AssetCategoryLocalServiceImpl
 			long userId, long parentCategoryId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, long vocabularyId,
 			String[] categoryProperties, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -176,7 +176,7 @@ public class AssetCategoryLocalServiceImpl
 	public AssetCategory addCategory(
 			long userId, String title, long vocabularyId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> titleMap = new HashMap<Locale, String>();
 
@@ -197,7 +197,7 @@ public class AssetCategoryLocalServiceImpl
 	public void addCategoryResources(
 			AssetCategory category, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -210,7 +210,7 @@ public class AssetCategoryLocalServiceImpl
 	public void addCategoryResources(
 			AssetCategory category, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -221,7 +221,7 @@ public class AssetCategoryLocalServiceImpl
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public AssetCategory deleteCategory(AssetCategory category)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetCategoryLocalService.deleteCategory(category, false);
 	}
@@ -230,7 +230,7 @@ public class AssetCategoryLocalServiceImpl
 	@Override
 	public AssetCategory deleteCategory(
 			AssetCategory category, boolean childCategory)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Categories
 
@@ -287,7 +287,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public AssetCategory deleteCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategory category = assetCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -297,7 +297,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public void deleteVocabularyCategories(long vocabularyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetCategory> categories =
 			assetCategoryPersistence.findByP_V(
@@ -344,14 +344,14 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public AssetCategory getCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetCategoryPersistence.findByPrimaryKey(categoryId);
 	}
 
 	@Override
 	public AssetCategory getCategory(String uuid, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetCategoryPersistence.findByUUID_G(uuid, groupId);
 	}
@@ -464,7 +464,7 @@ public class AssetCategoryLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public AssetCategory mergeCategories(long fromCategoryId, long toCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetEntry> entries = assetCategoryPersistence.getAssetEntries(
 			fromCategoryId);
@@ -496,7 +496,7 @@ public class AssetCategoryLocalServiceImpl
 	public AssetCategory moveCategory(
 			long categoryId, long parentCategoryId, long vocabularyId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategory category = assetCategoryPersistence.findByPrimaryKey(
 			categoryId);
@@ -543,7 +543,7 @@ public class AssetCategoryLocalServiceImpl
 	public BaseModelSearchResult<AssetCategory> searchCategories(
 			long companyId, long groupIds, String title, long vocabularyId,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return searchCategories(
 			companyId, new long[] {groupIds}, title, new long[] {vocabularyId},
@@ -554,7 +554,7 @@ public class AssetCategoryLocalServiceImpl
 	public BaseModelSearchResult<AssetCategory> searchCategories(
 			long companyId, long[] groupIds, String title, long[] vocabularyIds,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SearchContext searchContext = buildSearchContext(
 			companyId, groupIds, title, vocabularyIds, start, end);
@@ -569,7 +569,7 @@ public class AssetCategoryLocalServiceImpl
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			long vocabularyId, String[] categoryProperties,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -736,7 +736,7 @@ public class AssetCategoryLocalServiceImpl
 
 	protected BaseModelSearchResult<AssetCategory> searchCategories(
 			SearchContext searchContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			AssetCategory.class);
@@ -779,7 +779,7 @@ public class AssetCategoryLocalServiceImpl
 	protected void validate(
 			long categoryId, long parentCategoryId, String name,
 			long vocabularyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name)) {
 			throw new AssetCategoryNameException();

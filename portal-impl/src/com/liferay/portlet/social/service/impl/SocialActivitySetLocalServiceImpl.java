@@ -31,7 +31,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet addActivitySet(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Activity set
 
@@ -66,7 +66,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public void decrementActivityCount(long activitySetId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (activitySetId == 0) {
 			return;
@@ -88,7 +88,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public void decrementActivityCount(long classNameId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities = socialActivityPersistence.findByC_C(
 			classNameId, classPK);
@@ -214,7 +214,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public void incrementActivityCount(long activitySetId, long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Activity set
 

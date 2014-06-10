@@ -41,7 +41,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 
 	@Override
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> ancestorFolderIds = new ArrayList<Long>();
 
@@ -67,7 +67,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 
 	@Override
 	public List<DLFolder> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<DLFolder> ancestors = new ArrayList<DLFolder>();
 
@@ -92,7 +92,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 	}
 
 	@Override
-	public DLFolder getParentFolder() throws PortalException, SystemException {
+	public DLFolder getParentFolder() throws PortalException {
 		if (getParentFolderId() == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return null;
 		}
@@ -101,7 +101,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 	}
 
 	@Override
-	public String getPath() throws PortalException, SystemException {
+	public String getPath() throws PortalException {
 		StringBuilder sb = new StringBuilder();
 
 		DLFolder folder = this;
@@ -117,7 +117,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 	}
 
 	@Override
-	public String[] getPathArray() throws PortalException, SystemException {
+	public String[] getPathArray() throws PortalException {
 		String path = getPath();
 
 		// Remove leading /

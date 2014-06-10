@@ -36,7 +36,7 @@ public class PollsChoiceLocalServiceImpl
 	public PollsChoice addChoice(
 			long userId, long questionId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(name, description);
 
@@ -65,7 +65,7 @@ public class PollsChoiceLocalServiceImpl
 
 	@Override
 	public PollsChoice getChoice(long choiceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return pollsChoicePersistence.findByPrimaryKey(choiceId);
 	}
@@ -85,7 +85,7 @@ public class PollsChoiceLocalServiceImpl
 	public PollsChoice updateChoice(
 			long choiceId, long questionId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(name, description);
 

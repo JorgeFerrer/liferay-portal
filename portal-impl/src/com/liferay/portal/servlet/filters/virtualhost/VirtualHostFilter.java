@@ -85,7 +85,7 @@ public class VirtualHostFilter extends BasePortalFilter {
 
 	protected boolean isDocumentFriendlyURL(
 			HttpServletRequest request, long groupId, String friendlyURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (friendlyURL.startsWith(_PATH_DOCUMENTS) &&
 			WebServerServlet.hasFiles(request)) {

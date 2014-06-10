@@ -27,7 +27,7 @@ public class SocialRequestPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getSocialRequestPermission().check(
 			permissionChecker, requestId, actionId);
@@ -36,7 +36,7 @@ public class SocialRequestPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getSocialRequestPermission().contains(
 			permissionChecker, requestId, actionId);

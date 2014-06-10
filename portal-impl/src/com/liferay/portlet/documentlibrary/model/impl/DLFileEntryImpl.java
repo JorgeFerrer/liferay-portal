@@ -65,7 +65,7 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 	}
 
 	@Override
-	public String buildTreePath() throws PortalException, SystemException {
+	public String buildTreePath() throws PortalException {
 		DLFolder dlFolder = getFolder();
 
 		return dlFolder.buildTreePath();
@@ -73,14 +73,14 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 
 	@Override
 	public InputStream getContentStream()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getContentStream(getVersion());
 	}
 
 	@Override
 	public InputStream getContentStream(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryServiceUtil.getFileAsStream(
 			getFileEntryId(), version);
@@ -134,7 +134,7 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 
 	@Override
 	public Map<String, Fields> getFieldsMap(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Fields> fieldsMap = new HashMap<String, Fields>();
 
@@ -168,14 +168,14 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 
 	@Override
 	public DLFileVersion getFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileVersion(getVersion());
 	}
 
 	@Override
 	public DLFileVersion getFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileVersionLocalServiceUtil.getFileVersion(
 			getFileEntryId(), version);
@@ -195,7 +195,7 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 	}
 
 	@Override
-	public DLFolder getFolder() throws PortalException, SystemException {
+	public DLFolder getFolder() throws PortalException {
 		if (getFolderId() <= 0) {
 			return new DLFolderImpl();
 		}
@@ -215,7 +215,7 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 
 	@Override
 	public DLFileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (trusted) {
 			return DLFileVersionLocalServiceUtil.getLatestFileVersion(

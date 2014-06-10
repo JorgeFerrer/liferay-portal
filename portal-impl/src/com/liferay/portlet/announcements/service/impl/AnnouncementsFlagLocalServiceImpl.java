@@ -53,7 +53,7 @@ public class AnnouncementsFlagLocalServiceImpl
 
 	@Override
 	public void deleteFlag(long flagId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsFlag flag = announcementsFlagPersistence.findByPrimaryKey(
 			flagId);
@@ -73,7 +73,7 @@ public class AnnouncementsFlagLocalServiceImpl
 
 	@Override
 	public AnnouncementsFlag getFlag(long userId, long entryId, int value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return announcementsFlagPersistence.findByU_E_V(userId, entryId, value);
 	}

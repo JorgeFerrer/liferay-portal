@@ -37,7 +37,7 @@ public class WikiPermissionPropagatorImpl extends BasePermissionPropagator {
 	public void propagateRolePermissions(
 			ActionRequest actionRequest, String className, String primKey,
 			long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!className.equals(WikiNode.class.getName())) {
 			return;

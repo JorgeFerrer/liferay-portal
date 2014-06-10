@@ -31,7 +31,7 @@ public class ExportImportConfigurationServiceImpl
 	@Override
 	public void deleteExportImportConfiguration(
 			long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationLocalService.getExportImportConfiguration(
@@ -48,7 +48,7 @@ public class ExportImportConfigurationServiceImpl
 	@Override
 	public ExportImportConfiguration moveExportImportConfigurationToTrash(
 			long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationLocalService.getExportImportConfiguration(
@@ -66,7 +66,7 @@ public class ExportImportConfigurationServiceImpl
 	@Override
 	public ExportImportConfiguration restoreExportImportConfigurationFromTrash(
 			long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationLocalService.getExportImportConfiguration(

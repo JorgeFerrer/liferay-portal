@@ -94,7 +94,7 @@ public abstract class CMISModel {
 	protected abstract CMISRepository getCmisRepository();
 
 	@SuppressWarnings("unused")
-	protected Folder getParentFolder() throws PortalException, SystemException {
+	protected Folder getParentFolder() throws PortalException {
 		return _parentFolder;
 	}
 

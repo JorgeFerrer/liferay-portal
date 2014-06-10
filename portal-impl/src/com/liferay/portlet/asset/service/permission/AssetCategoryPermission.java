@@ -32,7 +32,7 @@ public class AssetCategoryPermission {
 	public static void check(
 			PermissionChecker permissionChecker, AssetCategory category,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, category, actionId)) {
 			throw new PrincipalException();
@@ -42,7 +42,7 @@ public class AssetCategoryPermission {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long categoryId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, categoryId, actionId)) {
 			throw new PrincipalException();
@@ -52,7 +52,7 @@ public class AssetCategoryPermission {
 	public static void check(
 			PermissionChecker permissionChecker, long categoryId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, categoryId, actionId)) {
 			throw new PrincipalException();
@@ -62,7 +62,7 @@ public class AssetCategoryPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, AssetCategory category,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (actionId.equals(ActionKeys.VIEW) &&
 			!AssetVocabularyPermission.contains(
@@ -100,7 +100,7 @@ public class AssetCategoryPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long categoryId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (categoryId == AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {
 			return AssetPermission.contains(
@@ -114,7 +114,7 @@ public class AssetCategoryPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long categoryId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategory category = AssetCategoryLocalServiceUtil.getCategory(
 			categoryId);

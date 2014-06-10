@@ -68,7 +68,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public void addFile(
 			long companyId, long repositoryId, String fileName, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -99,7 +99,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public void addFile(
 			long companyId, long repositoryId, String fileName, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream is = null;
 
@@ -171,7 +171,7 @@ public abstract class BaseStore implements Store {
 	public void copyFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream is = getFileAsStream(
 			companyId, repositoryId, fileName, fromVersionLabel);
@@ -252,7 +252,7 @@ public abstract class BaseStore implements Store {
 	 */
 	@Override
 	public File getFile(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFile(companyId, repositoryId, fileName, StringPool.BLANK);
 	}
@@ -286,7 +286,7 @@ public abstract class BaseStore implements Store {
 	public File getFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		throw new UnsupportedOperationException();
 	}
@@ -305,7 +305,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		byte[] bytes = null;
 
@@ -337,7 +337,7 @@ public abstract class BaseStore implements Store {
 	public byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		byte[] bytes = null;
 
@@ -368,7 +368,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFileAsStream(
 			companyId, repositoryId, fileName, StringPool.BLANK);
@@ -455,7 +455,7 @@ public abstract class BaseStore implements Store {
 	 */
 	@Override
 	public boolean hasFile(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasFile(companyId, repositoryId, fileName, VERSION_DEFAULT);
 	}
@@ -523,7 +523,7 @@ public abstract class BaseStore implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -556,7 +556,7 @@ public abstract class BaseStore implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream is = null;
 
@@ -616,7 +616,7 @@ public abstract class BaseStore implements Store {
 	public void updateFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream is = getFileAsStream(
 			companyId, repositoryId, fileName, fromVersionLabel);

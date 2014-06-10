@@ -81,7 +81,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 	}
 
 	protected void assertFileEntryTitle(String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileEntry fileEntry = DLAppServiceUtil.getFileEntry(
 			_fileEntry.getFileEntryId());
@@ -90,7 +90,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 	}
 
 	protected void assertLatestFileVersionTitle(String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileVersion latestDLFileVersion =
 			DLFileVersionLocalServiceUtil.getLatestFileVersion(
@@ -101,7 +101,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 
 	protected void deleteFileVersion(
 			String version, String fileName, boolean pwc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLAppServiceUtil.deleteFileVersion(
 			_fileEntry.getFileEntryId(), version);
@@ -172,7 +172,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 	}
 
 	protected void failDeleteFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			deleteFileVersion(version, null, true);
@@ -184,7 +184,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 	}
 
 	protected void failRevertFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			revertFileVersion(version, null);
@@ -203,7 +203,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 	}
 
 	protected void revertFileVersion(String version, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLAppServiceUtil.revertFileEntry(
 			_fileEntry.getFileEntryId(), version, new ServiceContext());

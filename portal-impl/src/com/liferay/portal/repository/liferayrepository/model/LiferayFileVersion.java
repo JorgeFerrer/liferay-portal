@@ -110,7 +110,7 @@ public class LiferayFileVersion extends LiferayModel implements FileVersion {
 
 	@Override
 	public InputStream getContentStream(boolean incrementCounter)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _dlFileVersion.getContentStream(incrementCounter);
 	}
@@ -141,7 +141,7 @@ public class LiferayFileVersion extends LiferayModel implements FileVersion {
 	}
 
 	public File getFile(boolean incrementCounter)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryLocalServiceUtil.getFile(
 			_dlFileVersion.getFileEntryId(), _dlFileVersion.getVersion(),
@@ -149,7 +149,7 @@ public class LiferayFileVersion extends LiferayModel implements FileVersion {
 	}
 
 	@Override
-	public FileEntry getFileEntry() throws PortalException, SystemException {
+	public FileEntry getFileEntry() throws PortalException {
 		return new LiferayFileEntry(_dlFileVersion.getFileEntry());
 	}
 

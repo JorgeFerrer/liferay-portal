@@ -36,7 +36,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static void checkMembership(
 			long[] userIds, long[] addOrganizationIds,
 			long[] removeOrganizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -49,7 +49,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static void checkRoles(
 			List<UserGroupRole> addUserGroupRoles,
 			List<UserGroupRole> removeUserGroupRoles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -60,7 +60,7 @@ public class OrganizationMembershipPolicyUtil {
 	}
 
 	public static boolean isMembershipAllowed(long userId, long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -73,7 +73,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static boolean isMembershipProtected(
 			PermissionChecker permissionChecker, long userId,
 			long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -84,7 +84,7 @@ public class OrganizationMembershipPolicyUtil {
 	}
 
 	public static boolean isMembershipRequired(long userId, long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -96,7 +96,7 @@ public class OrganizationMembershipPolicyUtil {
 
 	public static boolean isRoleAllowed(
 			long userId, long organizationId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -109,7 +109,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static boolean isRoleProtected(
 			PermissionChecker permissionChecker, long userId,
 			long organizationId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -121,7 +121,7 @@ public class OrganizationMembershipPolicyUtil {
 
 	public static boolean isRoleRequired(
 			long userId, long organizationId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -134,7 +134,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static void propagateMembership(
 			long[] userIds, long[] addOrganizationIds,
 			long[] removeOrganizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -147,7 +147,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static void propagateRoles(
 			List<UserGroupRole> addUserGroupRoles,
 			List<UserGroupRole> removeUserGroupRoles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -157,7 +157,7 @@ public class OrganizationMembershipPolicyUtil {
 			addUserGroupRoles, removeUserGroupRoles);
 	}
 
-	public static void verifyPolicy() throws PortalException, SystemException {
+	public static void verifyPolicy() throws PortalException {
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
 				getOrganizationMembershipPolicy();
@@ -166,7 +166,7 @@ public class OrganizationMembershipPolicyUtil {
 	}
 
 	public static void verifyPolicy(Organization organization)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -179,7 +179,7 @@ public class OrganizationMembershipPolicyUtil {
 			Organization organization, Organization oldOrganization,
 			List<AssetCategory> oldAssetCategories, List<AssetTag> oldAssetTags,
 			Map<String, Serializable> oldExpandoAttributes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -191,7 +191,7 @@ public class OrganizationMembershipPolicyUtil {
 	}
 
 	public static void verifyPolicy(Role role)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
@@ -203,7 +203,7 @@ public class OrganizationMembershipPolicyUtil {
 	public static void verifyPolicy(
 			Role role, Role oldRole,
 			Map<String, Serializable> oldExpandoAttributes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.

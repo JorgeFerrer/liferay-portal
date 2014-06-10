@@ -30,7 +30,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 
 	@Override
 	public ExpandoColumn addColumn(long tableId, String name, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPermissionUtil.check(
 			getPermissionChecker(), PortletKeys.EXPANDO,
@@ -42,7 +42,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 	@Override
 	public ExpandoColumn addColumn(
 			long tableId, String name, int type, Object defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPermissionUtil.check(
 			getPermissionChecker(), PortletKeys.EXPANDO,
@@ -54,7 +54,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 
 	@Override
 	public void deleteColumn(long columnId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), columnId, ActionKeys.DELETE);
@@ -64,7 +64,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 
 	@Override
 	public ExpandoColumn updateColumn(long columnId, String name, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), columnId, ActionKeys.UPDATE);
@@ -75,7 +75,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 	@Override
 	public ExpandoColumn updateColumn(
 			long columnId, String name, int type, Object defaultData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), columnId, ActionKeys.UPDATE);
@@ -86,7 +86,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 
 	@Override
 	public ExpandoColumn updateTypeSettings(long columnId, String typeSettings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), columnId, ActionKeys.UPDATE);

@@ -186,7 +186,7 @@ public class AssetUtil {
 
 	public static long[] filterCategoryIds(
 			PermissionChecker permissionChecker, long[] categoryIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> viewableCategoryIds = new ArrayList<Long>();
 
@@ -208,7 +208,7 @@ public class AssetUtil {
 
 	public static long[] filterTagIds(
 			PermissionChecker permissionChecker, long[] tagIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> viewableTagIds = new ArrayList<Long>();
 
@@ -226,7 +226,7 @@ public class AssetUtil {
 
 	public static long[][] filterTagIdsArray(
 			PermissionChecker permissionChecker, long[][] tagIdsArray)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<long[]> viewableTagIdsArray = new ArrayList<long[]>();
 
@@ -272,7 +272,7 @@ public class AssetUtil {
 
 	public static long[] filterVocabularyIds(
 			PermissionChecker permissionChecker, long[] vocabularyIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> viewableVocabularyIds = new ArrayList<Long>();
 
@@ -748,7 +748,7 @@ public class AssetUtil {
 
 	public static String substituteTagPropertyVariables(
 			long groupId, String tagName, String s)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String result = s;
 

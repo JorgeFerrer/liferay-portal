@@ -31,7 +31,7 @@ public class PollsVoteServiceImpl extends PollsVoteServiceBaseImpl {
 	@Override
 	public PollsVote addVote(
 			long questionId, long choiceId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long userId = 0;
 

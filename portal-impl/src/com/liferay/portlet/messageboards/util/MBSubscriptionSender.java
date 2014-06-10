@@ -32,7 +32,7 @@ import com.liferay.portlet.messageboards.service.MBMailingListLocalServiceUtil;
 public class MBSubscriptionSender extends SubscriptionSender {
 
 	public void addMailingListSubscriber(long groupId, long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_calledAddMailingListSubscriber) {
 			throw new IllegalArgumentException();

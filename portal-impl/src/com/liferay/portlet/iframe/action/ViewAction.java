@@ -65,7 +65,7 @@ public class ViewAction extends PortletAction {
 
 	protected String getPassword(
 			RenderRequest renderRequest, RenderResponse renderResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferences portletPreferences = renderRequest.getPreferences();
 
@@ -89,7 +89,7 @@ public class ViewAction extends PortletAction {
 
 	protected String getUserName(
 			RenderRequest renderRequest, RenderResponse renderResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferences portletPreferences = renderRequest.getPreferences();
 
@@ -101,7 +101,7 @@ public class ViewAction extends PortletAction {
 
 	protected String transformSrc(
 			RenderRequest renderRequest, RenderResponse renderResponse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferences portletPreferences = renderRequest.getPreferences();
 

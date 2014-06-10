@@ -36,7 +36,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, Layout layout,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, layout, portletId, actionId);
@@ -45,7 +45,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, Layout layout,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, layout, portletId, actionId, strict);
@@ -54,7 +54,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, groupId, layout, portletId, actionId);
@@ -63,7 +63,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, groupId, layout, portletId, actionId, strict);
@@ -72,7 +72,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long plid,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, groupId, plid, portletId, actionId);
@@ -81,7 +81,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long plid,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, groupId, plid, portletId, actionId, strict);
@@ -90,7 +90,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long plid, String portletId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, plid, portletId, actionId);
@@ -99,7 +99,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long plid, String portletId,
 			String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(
 			permissionChecker, plid, portletId, actionId, strict);
@@ -108,7 +108,7 @@ public class PortletPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, String portletId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPermission().check(permissionChecker, portletId, actionId);
 	}
@@ -116,7 +116,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, Layout layout, Portlet portlet,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, layout, portlet, actionId);
@@ -125,7 +125,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, Layout layout, Portlet portlet,
 			String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, layout, portlet, actionId, strict);
@@ -134,7 +134,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, Layout layout,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, layout, portletId, actionId);
@@ -143,7 +143,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, Layout layout,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, layout, portletId, actionId, strict);
@@ -152,7 +152,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			Portlet portlet, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, groupId, layout, portlet, actionId);
@@ -161,7 +161,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			Portlet portlet, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, groupId, layout, portlet, actionId, strict);
@@ -170,7 +170,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, groupId, layout, portletId, actionId);
@@ -179,7 +179,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, groupId, layout, portletId, actionId, strict);
@@ -209,7 +209,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long plid,
 			String portletId, String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, groupId, plid, portletId, actionId, strict);
@@ -218,7 +218,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long plid, Portlet portlet,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, plid, portlet, actionId);
@@ -227,7 +227,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long plid, Portlet portlet,
 			String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, plid, portlet, actionId, strict);
@@ -236,7 +236,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long plid, String portletId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, plid, portletId, actionId);
@@ -245,7 +245,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long plid, String portletId,
 			String actionId, boolean strict)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, plid, portletId, actionId, strict);
@@ -254,7 +254,7 @@ public class PortletPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, String portletId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().contains(
 			permissionChecker, portletId, actionId);
@@ -274,7 +274,7 @@ public class PortletPermissionUtil {
 	public static boolean hasAccessPermission(
 			PermissionChecker permissionChecker, long scopeGroupId,
 			Layout layout, Portlet portlet, PortletMode portletMode)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().hasAccessPermission(
 			permissionChecker, scopeGroupId, layout, portlet, portletMode);
@@ -283,7 +283,7 @@ public class PortletPermissionUtil {
 	public static boolean hasConfigurationPermission(
 			PermissionChecker permissionChecker, long groupId, Layout layout,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().hasConfigurationPermission(
 			permissionChecker, groupId, layout, actionId);
@@ -292,7 +292,7 @@ public class PortletPermissionUtil {
 	public static boolean hasControlPanelAccessPermission(
 			PermissionChecker permissionChecker, long scopeGroupId,
 			Collection<Portlet> portlets)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().hasControlPanelAccessPermission(
 			permissionChecker, scopeGroupId, portlets);
@@ -301,7 +301,7 @@ public class PortletPermissionUtil {
 	public static boolean hasControlPanelAccessPermission(
 			PermissionChecker permissionChecker, long scopeGroupId,
 			Portlet portlet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().hasControlPanelAccessPermission(
 			permissionChecker, scopeGroupId, portlet);
@@ -310,7 +310,7 @@ public class PortletPermissionUtil {
 	public static boolean hasControlPanelAccessPermission(
 			PermissionChecker permissionChecker, long scopeGroupId,
 			String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPermission().hasControlPanelAccessPermission(
 			permissionChecker, scopeGroupId, portletId);

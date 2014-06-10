@@ -34,7 +34,7 @@ public class ShoppingCategoryServiceImpl
 	public ShoppingCategory addCategory(
 			long parentCategoryId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategoryPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -46,7 +46,7 @@ public class ShoppingCategoryServiceImpl
 
 	@Override
 	public void deleteCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
 			categoryId);
@@ -80,7 +80,7 @@ public class ShoppingCategoryServiceImpl
 
 	@Override
 	public ShoppingCategory getCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
 			categoryId);
@@ -111,7 +111,7 @@ public class ShoppingCategoryServiceImpl
 			long categoryId, long parentCategoryId, String name,
 			String description, boolean mergeWithParentCategory,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
 			categoryId);

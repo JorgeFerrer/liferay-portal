@@ -63,7 +63,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
 	public void deleteEntries(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean throwTrashPermissionException = false;
 
@@ -112,7 +112,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
 	public void deleteEntries(long[] entryIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean throwTrashPermissionException = false;
 
@@ -148,7 +148,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 */
 	@Override
 	public void deleteEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TrashEntry entry = trashEntryPersistence.findByPrimaryKey(entryId);
 
@@ -173,7 +173,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 */
 	@Override
 	public void deleteEntry(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TrashEntry entry = trashEntryLocalService.fetchEntry(
 			className, classPK);
@@ -316,7 +316,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	public void moveEntry(
 			String className, long classPK, long destinationContainerModelId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -355,7 +355,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 
 	@Override
 	public TrashEntry restoreEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return restoreEntry(entryId, 0, null);
 	}
@@ -402,7 +402,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	@Override
 	public TrashEntry restoreEntry(
 			long entryId, long overrideClassPK, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -455,7 +455,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 
 	@Override
 	public TrashEntry restoreEntry(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return restoreEntry(className, classPK, 0, null);
 	}
@@ -463,7 +463,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	@Override
 	public TrashEntry restoreEntry(
 			String className, long classPK, long overrideClassPK, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TrashEntry trashEntry = trashEntryPersistence.fetchByC_C(
 			classNameLocalService.getClassNameId(className), classPK);
@@ -476,7 +476,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	}
 
 	protected void deleteEntry(TrashEntry entry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 

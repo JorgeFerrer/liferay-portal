@@ -68,7 +68,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	public Company addCompany(
 			String webId, String virtualHost, String mx, String shardName,
 			boolean system, int maxUsers, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -83,7 +83,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public Company deleteCompany(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -105,7 +105,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public void deleteLogo(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -127,7 +127,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyById(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyLocalService.getCompanyById(companyId);
 	}
@@ -142,7 +142,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByLogoId(long logoId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyLocalService.getCompanyByLogoId(logoId);
 	}
@@ -158,7 +158,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByMx(String mx)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyLocalService.getCompanyByMx(mx);
 	}
@@ -175,7 +175,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByVirtualHost(String virtualHost)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyLocalService.getCompanyByVirtualHost(virtualHost);
 	}
@@ -191,7 +191,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByWebId(String webId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyLocalService.getCompanyByWebId(webId);
 	}
@@ -211,7 +211,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public void removePreferences(long companyId, String[] keys)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -241,7 +241,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	public Company updateCompany(
 			long companyId, String virtualHost, String mx, int maxUsers,
 			boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -289,7 +289,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 			boolean logo, byte[] logoBytes, String name, String legalName,
 			String legalId, String legalType, String sicCode,
 			String tickerSymbol, String industry, String type, String size)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -350,7 +350,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 			String languageId, String timeZoneId, List<Address> addresses,
 			List<EmailAddress> emailAddresses, List<Phone> phones,
 			List<Website> websites, UnicodeProperties properties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = updateCompany(
 			companyId, virtualHost, mx, homeURL, logo, logoBytes, name,
@@ -417,7 +417,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 			String name, String legalName, String legalId, String legalType,
 			String sicCode, String tickerSymbol, String industry, String type,
 			String size)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateCompany(
 			companyId, virtualHost, mx, homeURL, true, null, name, legalName,
@@ -478,7 +478,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 			List<Address> addresses, List<EmailAddress> emailAddresses,
 			List<Phone> phones, List<Website> websites,
 			UnicodeProperties properties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateCompany(
 			companyId, virtualHost, mx, homeURL, name, legalName, legalId,
@@ -500,7 +500,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	@Override
 	public void updateDisplay(
 			long companyId, String languageId, String timeZoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -524,7 +524,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 */
 	@Override
 	public Company updateLogo(long companyId, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -549,7 +549,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public Company updateLogo(long companyId, InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -573,7 +573,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public void updatePreferences(long companyId, UnicodeProperties properties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
@@ -610,7 +610,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 			long companyId, String authType, boolean autoLogin,
 			boolean sendPassword, boolean strangers, boolean strangersWithMx,
 			boolean strangersVerify, boolean siteLogo)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {

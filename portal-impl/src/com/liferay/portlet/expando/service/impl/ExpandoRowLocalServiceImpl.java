@@ -33,7 +33,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public ExpandoRow addRow(long tableId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTablePersistence.findByPrimaryKey(tableId);
 
@@ -63,7 +63,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRow(long rowId) throws PortalException, SystemException {
+	public void deleteRow(long rowId) throws PortalException {
 		ExpandoRow row = expandoRowPersistence.findByPrimaryKey(rowId);
 
 		deleteRow(row);
@@ -71,7 +71,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public void deleteRow(long tableId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoRow row = expandoRowPersistence.findByT_C(tableId, classPK);
 
@@ -81,7 +81,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	@Override
 	public void deleteRow(
 			long companyId, long classNameId, String tableName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoTable table = expandoTableLocalService.getTable(
 			companyId, classNameId, tableName);
@@ -92,7 +92,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	@Override
 	public void deleteRow(
 			long companyId, String className, String tableName, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -146,14 +146,14 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public ExpandoRow getRow(long rowId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return expandoRowPersistence.findByPrimaryKey(rowId);
 	}
 
 	@Override
 	public ExpandoRow getRow(long tableId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return expandoRowPersistence.findByT_C(tableId, classPK);
 	}

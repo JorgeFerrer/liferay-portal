@@ -33,7 +33,7 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	@Override
 	public Region addRegion(
 			long countryId, String regionCode, String name, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!getPermissionChecker().isOmniadmin()) {
 			throw new PrincipalException();
@@ -76,14 +76,14 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 
 	@Override
 	public Region getRegion(long regionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return regionPersistence.findByPrimaryKey(regionId);
 	}
 
 	@Override
 	public Region getRegion(long countryId, String regionCode)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return regionPersistence.findByC_R(countryId, regionCode);
 	}

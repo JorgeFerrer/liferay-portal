@@ -34,7 +34,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	public SCLicense addLicense(
 			String name, String url, boolean openSource, boolean active,
 			boolean recommended)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(name);
 
@@ -55,7 +55,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 
 	@Override
 	public void deleteLicense(long licenseId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCLicense license = scLicensePersistence.findByPrimaryKey(licenseId);
 
@@ -73,7 +73,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 
 	@Override
 	public SCLicense getLicense(long licenseId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scLicensePersistence.findByPrimaryKey(licenseId);
 	}
@@ -123,7 +123,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	public SCLicense updateLicense(
 			long licenseId, String name, String url, boolean openSource,
 			boolean active, boolean recommended)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(name);
 

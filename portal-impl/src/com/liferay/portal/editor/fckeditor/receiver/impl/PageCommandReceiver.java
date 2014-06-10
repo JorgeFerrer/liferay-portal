@@ -265,7 +265,7 @@ public class PageCommandReceiver extends BaseCommandReceiver {
 	}
 
 	private String _getRelativeURL(Layout layout, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String layoutFullURL = PortalUtil.getLayoutFullURL(
 			layout, themeDisplay, false);

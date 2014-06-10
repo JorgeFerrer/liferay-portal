@@ -46,7 +46,7 @@ public class DDMXMLUtil {
 	}
 
 	public static Fields getFields(DDMStructure structure, String xml)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDMXML().getFields(structure, xml);
 	}
@@ -54,7 +54,7 @@ public class DDMXMLUtil {
 	public static Fields getFields(
 			DDMStructure structure, XPath xPath, String xml,
 			List<String> fieldNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDMXML().getFields(structure, xPath, xml, fieldNames);
 	}

@@ -57,7 +57,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public AssetTag addTag(
 			String name, String[] tagProperties, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetPermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
@@ -68,7 +68,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteTag(long tagId) throws PortalException, SystemException {
+	public void deleteTag(long tagId) throws PortalException {
 		AssetTagPermission.check(
 			getPermissionChecker(), tagId, ActionKeys.DELETE);
 
@@ -77,7 +77,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public void deleteTags(long[] tagIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (long tagId : tagIds) {
 			AssetTagPermission.check(
@@ -149,7 +149,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public JSONObject getJSONGroupTags(
 			long groupId, String name, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -183,7 +183,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public AssetTag getTag(long tagId) throws PortalException, SystemException {
+	public AssetTag getTag(long tagId) throws PortalException {
 		AssetTagPermission.check(
 			getPermissionChecker(), tagId, ActionKeys.VIEW);
 
@@ -226,7 +226,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getTags(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return filterTags(assetTagLocalService.getTags(className, classPK));
 	}
@@ -251,7 +251,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public void mergeTags(
 			long fromTagId, long toTagId, boolean overrideProperties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagPermission.check(
 			getPermissionChecker(), fromTagId, ActionKeys.VIEW);
@@ -265,7 +265,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public void mergeTags(
 			long[] fromTagIds, long toTagId, boolean overrideProperties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (long fromTagId : fromTagIds) {
 			mergeTags(fromTagId, toTagId, overrideProperties);
@@ -295,7 +295,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	public AssetTag updateTag(
 			long tagId, String name, String[] tagProperties,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagPermission.check(
 			getPermissionChecker(), tagId, ActionKeys.UPDATE);

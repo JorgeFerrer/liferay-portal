@@ -65,7 +65,7 @@ public class PasswordPolicyLocalServiceImpl
 			int graceLimit, boolean lockout, int maxFailure,
 			long lockoutDuration, long resetFailureCount,
 			long resetTicketMaxAge)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addPasswordPolicy(
 			userId, defaultPolicy, name, description, changeable,
@@ -87,7 +87,7 @@ public class PasswordPolicyLocalServiceImpl
 			long warningTime, int graceLimit, boolean lockout, int maxFailure,
 			long lockoutDuration, long resetFailureCount,
 			long resetTicketMaxAge, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Password policy
 
@@ -151,7 +151,7 @@ public class PasswordPolicyLocalServiceImpl
 
 	@Override
 	public void checkDefaultPasswordPolicy(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String defaultPasswordPolicyName =
 			PropsValues.PASSWORDS_DEFAULT_POLICY_NAME;
@@ -195,7 +195,7 @@ public class PasswordPolicyLocalServiceImpl
 
 	@Override
 	public void deleteNondefaultPasswordPolicies(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<PasswordPolicy> passwordPolicies =
 			passwordPolicyPersistence.findByCompanyId(companyId);
@@ -209,7 +209,7 @@ public class PasswordPolicyLocalServiceImpl
 
 	@Override
 	public PasswordPolicy deletePasswordPolicy(long passwordPolicyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PasswordPolicy passwordPolicy =
 			passwordPolicyPersistence.findByPrimaryKey(passwordPolicyId);
@@ -222,7 +222,7 @@ public class PasswordPolicyLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public PasswordPolicy deletePasswordPolicy(PasswordPolicy passwordPolicy)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (passwordPolicy.isDefaultPolicy() &&
 			!CompanyThreadLocal.isDeleteInProcess()) {
@@ -255,7 +255,7 @@ public class PasswordPolicyLocalServiceImpl
 
 	@Override
 	public PasswordPolicy getDefaultPasswordPolicy(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (LDAPSettingsUtil.isPasswordPolicyEnabled(companyId)) {
 			return null;
@@ -271,7 +271,7 @@ public class PasswordPolicyLocalServiceImpl
 	@Override
 	public PasswordPolicy getPasswordPolicy(
 			long companyId, long organizationId, long locationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPasswordPolicy(
 			companyId, new long[] {organizationId, locationId});
@@ -280,7 +280,7 @@ public class PasswordPolicyLocalServiceImpl
 	@Override
 	public PasswordPolicy getPasswordPolicy(
 			long companyId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (LDAPSettingsUtil.isPasswordPolicyEnabled(companyId)) {
 			return null;
@@ -313,7 +313,7 @@ public class PasswordPolicyLocalServiceImpl
 	@Override
 	@ThreadLocalCachable
 	public PasswordPolicy getPasswordPolicyByUserId(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -374,7 +374,7 @@ public class PasswordPolicyLocalServiceImpl
 			int graceLimit, boolean lockout, int maxFailure,
 			long lockoutDuration, long resetFailureCount,
 			long resetTicketMaxAge)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updatePasswordPolicy(
 			passwordPolicyId, name, description, changeable, changeRequired,
@@ -396,7 +396,7 @@ public class PasswordPolicyLocalServiceImpl
 			long warningTime, int graceLimit, boolean lockout, int maxFailure,
 			long lockoutDuration, long resetFailureCount,
 			long resetTicketMaxAge, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -443,7 +443,7 @@ public class PasswordPolicyLocalServiceImpl
 	}
 
 	protected void validate(long passwordPolicyId, long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name) || Validator.isNumber(name) ||
 			(name.indexOf(CharPool.COMMA) != -1) ||

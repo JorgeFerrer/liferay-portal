@@ -33,7 +33,7 @@ public class AssetCategoryPropertyServiceImpl
 	@Override
 	public AssetCategoryProperty addCategoryProperty(
 			long entryId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategoryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.UPDATE);
@@ -44,7 +44,7 @@ public class AssetCategoryPropertyServiceImpl
 
 	@Override
 	public void deleteCategoryProperty(long categoryPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategoryProperty assetCategoryProperty =
 			assetCategoryPropertyLocalService.getAssetCategoryProperty(
@@ -75,7 +75,7 @@ public class AssetCategoryPropertyServiceImpl
 	@Override
 	public AssetCategoryProperty updateCategoryProperty(
 			long userId, long categoryPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategoryProperty assetCategoryProperty =
 			assetCategoryPropertyLocalService.getAssetCategoryProperty(
@@ -92,7 +92,7 @@ public class AssetCategoryPropertyServiceImpl
 	@Override
 	public AssetCategoryProperty updateCategoryProperty(
 			long categoryPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateCategoryProperty(0, categoryPropertyId, key, value);
 	}

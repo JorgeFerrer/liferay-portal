@@ -60,7 +60,7 @@ public class LayoutSetPrototypeStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
@@ -288,7 +288,7 @@ public class LayoutSetPrototypeStagedModelDataHandler
 			LayoutSetPrototype layoutSetPrototype,
 			LayoutSetPrototype importedLayoutSetPrototype,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream inputStream = null;
 

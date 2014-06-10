@@ -43,7 +43,7 @@ public class LayoutsLocalPublisherMessageListener
 
 	@Override
 	protected void doReceive(Message message, MessageStatus messageStatus)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long exportImportConfigurationId = GetterUtil.getLong(
 			message.getPayload());

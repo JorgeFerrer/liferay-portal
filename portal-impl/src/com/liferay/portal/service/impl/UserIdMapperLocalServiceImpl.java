@@ -34,7 +34,7 @@ public class UserIdMapperLocalServiceImpl
 
 	@Override
 	public UserIdMapper getUserIdMapper(long userId, String type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return userIdMapperPersistence.findByU_T(userId, type);
 	}
@@ -42,7 +42,7 @@ public class UserIdMapperLocalServiceImpl
 	@Override
 	public UserIdMapper getUserIdMapperByExternalUserId(
 			String type, String externalUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return userIdMapperPersistence.findByT_E(type, externalUserId);
 	}

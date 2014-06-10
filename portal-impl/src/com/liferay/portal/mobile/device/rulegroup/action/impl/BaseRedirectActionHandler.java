@@ -37,7 +37,7 @@ public abstract class BaseRedirectActionHandler implements ActionHandler {
 	public void applyAction(
 			MDRAction mdrAction, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String url = getURL(mdrAction, request, response);
 

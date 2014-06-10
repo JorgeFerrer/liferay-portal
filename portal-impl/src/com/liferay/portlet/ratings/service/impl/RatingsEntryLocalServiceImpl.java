@@ -46,7 +46,7 @@ public class RatingsEntryLocalServiceImpl
 
 	@Override
 	public void deleteEntry(long userId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -129,7 +129,7 @@ public class RatingsEntryLocalServiceImpl
 
 	@Override
 	public RatingsEntry getEntry(long userId, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -141,7 +141,7 @@ public class RatingsEntryLocalServiceImpl
 	public RatingsEntry updateEntry(
 			long userId, String className, long classPK, double score,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 

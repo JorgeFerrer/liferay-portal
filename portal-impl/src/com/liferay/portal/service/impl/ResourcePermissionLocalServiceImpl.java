@@ -122,7 +122,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void addResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (scope == ResourceConstants.SCOPE_COMPANY) {
 
@@ -283,7 +283,7 @@ public class ResourcePermissionLocalServiceImpl
 	@Override
 	public void deleteResourcePermissions(
 			long companyId, String name, int scope, long primKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteResourcePermissions(
 			companyId, name, scope, String.valueOf(primKey));
@@ -315,7 +315,7 @@ public class ResourcePermissionLocalServiceImpl
 	@Override
 	public void deleteResourcePermissions(
 			long companyId, String name, int scope, String primKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ResourcePermission> resourcePermissions =
 			resourcePermissionPersistence.findByC_N_S_P(
@@ -348,7 +348,7 @@ public class ResourcePermissionLocalServiceImpl
 	public List<String> getAvailableResourcePermissionActionIds(
 			long companyId, String name, int scope, String primKey, long roleId,
 			Collection<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourcePermission resourcePermission =
 			resourcePermissionPersistence.fetchByC_N_S_P_R(
@@ -377,7 +377,7 @@ public class ResourcePermissionLocalServiceImpl
 	public Map<Long, Set<String>> getAvailableResourcePermissionActionIds(
 			long companyId, String name, int scope, String primKey,
 			long[] roleIds, Collection<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ResourcePermission> resourcePermissions =
 			resourcePermissionPersistence.findByC_N_S_P_R(
@@ -435,7 +435,7 @@ public class ResourcePermissionLocalServiceImpl
 	@Override
 	public ResourcePermission getResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return resourcePermissionPersistence.findByC_N_S_P_R(
 			companyId, name, scope, primKey, roleId);
@@ -612,7 +612,7 @@ public class ResourcePermissionLocalServiceImpl
 	@Override
 	public boolean hasResourcePermission(
 			List<Resource> resources, long[] roleIds, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Iterate the list of resources in reverse order to test permissions
 		// from company scope to individual scope because it is more likely that
@@ -662,7 +662,7 @@ public class ResourcePermissionLocalServiceImpl
 	public boolean hasResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourcePermission resourcePermission =
 			resourcePermissionPersistence.fetchByC_N_S_P_R(
@@ -710,7 +710,7 @@ public class ResourcePermissionLocalServiceImpl
 	public boolean hasResourcePermission(
 			long companyId, String name, int scope, String primKey,
 			long[] roleIds, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourceAction resourceAction =
 			resourceActionLocalService.getResourceAction(name, actionId);
@@ -757,7 +757,7 @@ public class ResourcePermissionLocalServiceImpl
 	public boolean[] hasResourcePermissions(
 			long companyId, String name, int scope, String primKey,
 			long[] roleIds, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourceAction resourceAction =
 			resourceActionLocalService.getResourceAction(name, actionId);
@@ -815,7 +815,7 @@ public class ResourcePermissionLocalServiceImpl
 	public boolean hasScopeResourcePermission(
 			long companyId, String name, int scope, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ResourcePermission> resourcePermissions =
 			resourcePermissionPersistence.findByC_N_S(companyId, name, scope);
@@ -843,7 +843,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public void mergePermissions(long fromRoleId, long toRoleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role fromRole = rolePersistence.findByPrimaryKey(fromRoleId);
 		Role toRole = rolePersistence.findByPrimaryKey(toRoleId);
@@ -887,7 +887,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public void reassignPermissions(long resourcePermissionId, long toRoleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourcePermission resourcePermission = getResourcePermission(
 			resourcePermissionId);
@@ -950,7 +950,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void removeResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateResourcePermission(
 			companyId, name, scope, primKey, roleId, 0, new String[] {actionId},
@@ -979,7 +979,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void removeResourcePermissions(
 			long companyId, String name, int scope, long roleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ResourcePermission> resourcePermissions =
 			resourcePermissionPersistence.findByC_N_S(companyId, name, scope);
@@ -1028,7 +1028,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void setOwnerResourcePermissions(
 			long companyId, String name, int scope, String primKey, long roleId,
 			long ownerId, String[] actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateResourcePermission(
 			companyId, name, scope, primKey, roleId, ownerId, actionIds,
@@ -1066,7 +1066,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void setResourcePermissions(
 			long companyId, String name, int scope, String primKey, long roleId,
 			String[] actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateResourcePermission(
 			companyId, name, scope, primKey, roleId, 0, actionIds,
@@ -1103,7 +1103,7 @@ public class ResourcePermissionLocalServiceImpl
 	public void setResourcePermissions(
 			long companyId, String name, int scope, String primKey,
 			Map<Long, String[]> roleIdsToActionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		updateResourcePermission(
 			companyId, name, scope, primKey, 0, roleIdsToActionIds);
@@ -1113,7 +1113,7 @@ public class ResourcePermissionLocalServiceImpl
 			long companyId, String name, int scope, String primKey,
 			long ownerId, long roleId, String[] actionIds, int operator,
 			boolean fetch)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ResourcePermission resourcePermission = null;
 
@@ -1207,7 +1207,7 @@ public class ResourcePermissionLocalServiceImpl
 	protected void doUpdateResourcePermission(
 			long companyId, String name, int scope, String primKey,
 			long ownerId, Map<Long, String[]> roleIdsToActionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean flushEnabled = PermissionThreadLocal.isFlushEnabled();
 
@@ -1254,7 +1254,7 @@ public class ResourcePermissionLocalServiceImpl
 	}
 
 	protected boolean isGuestRoleId(long companyId, long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role guestRole = roleLocalService.getRole(
 			companyId, RoleConstants.GUEST);
@@ -1297,7 +1297,7 @@ public class ResourcePermissionLocalServiceImpl
 	protected void updateResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId,
 			long ownerId, String[] actionIds, int operator)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DB db = DBFactoryUtil.getDB();
 
@@ -1371,7 +1371,7 @@ public class ResourcePermissionLocalServiceImpl
 	protected void updateResourcePermission(
 			long companyId, String name, int scope, String primKey,
 			long ownerId, Map<Long, String[]> roleIdsToActionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DB db = DBFactoryUtil.getDB();
 

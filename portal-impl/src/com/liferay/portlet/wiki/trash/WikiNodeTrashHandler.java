@@ -54,7 +54,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	@Override
 	public void checkRestorableEntry(
 			TrashEntry trashEntry, long containerModelId, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(
 			trashEntry.getClassPK());
@@ -82,7 +82,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public void deleteTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNodeLocalServiceUtil.deleteNode(classPK);
 	}
@@ -95,7 +95,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	@Override
 	public String getRestoreContainedModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -109,7 +109,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	@Override
 	public String getRestoreContainerModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletURL portletURL = getRestoreURL(portletRequest, classPK, true);
 
@@ -141,7 +141,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	@Override
 	public List<TrashRenderer> getTrashContainedModelTrashRenderers(
 			long classPK, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<TrashRenderer> trashRenderers = new ArrayList<TrashRenderer>();
 
@@ -164,7 +164,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -173,7 +173,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -187,7 +187,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public boolean isInTrash(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -196,7 +196,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public void restoreTrashEntry(long userId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -205,7 +205,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public void updateTitle(long classPK, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WikiNode node = WikiNodeLocalServiceUtil.getNode(classPK);
 
@@ -217,7 +217,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	protected PortletURL getRestoreURL(
 			PortletRequest portletRequest, long classPK,
 			boolean isContainerModel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String portletId = PortletKeys.WIKI;
 
@@ -252,7 +252,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	@Override
 	protected boolean hasPermission(
 			PermissionChecker permissionChecker, long classPK, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return WikiNodePermission.contains(
 			permissionChecker, classPK, actionId);

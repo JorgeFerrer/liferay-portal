@@ -30,7 +30,7 @@ public abstract class BaseUserGroupMembershipPolicy
 	@Override
 	@SuppressWarnings("unused")
 	public boolean isMembershipAllowed(long userId, long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			checkMembership(
@@ -46,7 +46,7 @@ public abstract class BaseUserGroupMembershipPolicy
 	@Override
 	@SuppressWarnings("unused")
 	public boolean isMembershipRequired(long userId, long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			checkMembership(
@@ -60,7 +60,7 @@ public abstract class BaseUserGroupMembershipPolicy
 	}
 
 	@Override
-	public void verifyPolicy() throws PortalException, SystemException {
+	public void verifyPolicy() throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
 			UserGroupLocalServiceUtil.getActionableDynamicQuery();
 
@@ -69,7 +69,7 @@ public abstract class BaseUserGroupMembershipPolicy
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					UserGroup userGroup = (UserGroup)object;
 
@@ -83,7 +83,7 @@ public abstract class BaseUserGroupMembershipPolicy
 
 	@Override
 	public void verifyPolicy(UserGroup userGroup)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		verifyPolicy(userGroup, null, null);
 	}

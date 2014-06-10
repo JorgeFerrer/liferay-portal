@@ -64,7 +64,7 @@ public class AccessControlUtil {
 	}
 
 	public static AuthVerifierResult.State verifyRequest()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getAccessControl().verifyRequest();
 	}

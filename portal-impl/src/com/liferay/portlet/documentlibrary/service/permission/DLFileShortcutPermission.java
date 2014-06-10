@@ -41,7 +41,7 @@ public class DLFileShortcutPermission {
 	public static void check(
 			PermissionChecker permissionChecker, long fileShortcutId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, fileShortcutId, actionId)) {
 			throw new PrincipalException();
@@ -77,7 +77,7 @@ public class DLFileShortcutPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long fileShortcutId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileShortcut dlFileShortcut =
 			DLFileShortcutLocalServiceUtil.getFileShortcut(fileShortcutId);

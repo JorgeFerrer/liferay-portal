@@ -115,7 +115,7 @@ public class AssetVocabularyImpl extends AssetVocabularyBaseImpl {
 	public String getUnambiguousTitle(
 			List<AssetVocabulary> vocabularies, long groupId,
 			final Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getGroupId() == groupId ) {
 			return getTitle(locale);

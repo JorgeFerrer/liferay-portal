@@ -46,7 +46,7 @@ public class WikiConfigurationDisplayContext {
 	}
 
 	public List<String> getAllNodeNames()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_allNodeNames == null) {
 			_populateNodes();
@@ -56,7 +56,7 @@ public class WikiConfigurationDisplayContext {
 	}
 
 	public List<WikiNode> getAllNodes()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_allNodes == null) {
 			_populateNodes();
@@ -66,7 +66,7 @@ public class WikiConfigurationDisplayContext {
 	}
 
 	public String[] getVisibleNodeNames()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_visibleNodeNames == null) {
 			_populateNodes();
@@ -75,7 +75,7 @@ public class WikiConfigurationDisplayContext {
 		return _visibleNodeNames;
 	}
 
-	private void _populateNodes() throws PortalException, SystemException {
+	private void _populateNodes() throws PortalException {
 		_allNodes = WikiNodeServiceUtil.getNodes(_scopeGroupId);
 
 		_allNodeNames = WikiUtil.getNodeNames(_allNodes);

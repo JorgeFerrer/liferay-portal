@@ -45,7 +45,7 @@ public class AssetTagPropertyServiceImpl
 	 */
 	@Override
 	public AssetTagProperty addTagProperty(long tagId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagPermission.check(
 			getPermissionChecker(), tagId, ActionKeys.UPDATE);
@@ -65,7 +65,7 @@ public class AssetTagPropertyServiceImpl
 	 */
 	@Override
 	public void deleteTagProperty(long tagPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagProperty assetTagProperty =
 			assetTagPropertyLocalService.getTagProperty(tagPropertyId);
@@ -121,7 +121,7 @@ public class AssetTagPropertyServiceImpl
 	@Override
 	public AssetTagProperty updateTagProperty(
 			long tagPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagProperty assetTagProperty =
 			assetTagPropertyLocalService.getTagProperty(tagPropertyId);

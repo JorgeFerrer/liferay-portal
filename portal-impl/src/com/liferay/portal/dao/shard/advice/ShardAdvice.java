@@ -179,7 +179,7 @@ public class ShardAdvice {
 	}
 
 	private String _setShardNameByCompanyId(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String shardName = PropsValues.SHARD_DEFAULT_NAME;
 

@@ -40,7 +40,7 @@ public class ExpandoColumnPermissionImpl implements ExpandoColumnPermission {
 	@Override
 	public void check(
 			PermissionChecker permissionChecker, long columnId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, columnId, actionId)) {
 			throw new PrincipalException();
@@ -52,7 +52,7 @@ public class ExpandoColumnPermissionImpl implements ExpandoColumnPermission {
 			PermissionChecker permissionChecker, long companyId,
 			String className, String tableName, String columnName,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(
 				permissionChecker, companyId, className, tableName, columnName,
@@ -74,7 +74,7 @@ public class ExpandoColumnPermissionImpl implements ExpandoColumnPermission {
 	@Override
 	public boolean contains(
 			PermissionChecker permissionChecker, long columnId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(
 			columnId);

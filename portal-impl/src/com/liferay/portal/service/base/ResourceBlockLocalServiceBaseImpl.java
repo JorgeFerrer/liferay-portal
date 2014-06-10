@@ -108,7 +108,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public ResourceBlock deleteResourceBlock(long resourceBlockId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return resourceBlockPersistence.remove(resourceBlockId);
 	}
 

@@ -202,7 +202,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	@Override
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addClassedModel(
 			element, path, classedModel, classedModel.getModelClass());
@@ -212,7 +212,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			Class<?> clazz)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		element.addAttribute("path", path);
 
@@ -265,7 +265,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			Class<?> clazz, String namespace)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addClassedModel(element, path, classedModel, clazz);
 	}
@@ -279,7 +279,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			String namespace)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addClassedModel(element, path, classedModel);
 	}
@@ -335,14 +335,14 @@ public class PortletDataContextImpl implements PortletDataContext {
 	@Override
 	public void addExpando(
 			Element element, String path, ClassedModel classedModel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addExpando(element, path, classedModel, classedModel.getModelClass());
 	}
 
 	@Override
 	public void addLocks(Class<?> clazz, String key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!_locksMap.containsKey(getPrimaryKeyString(clazz, key)) &&
 			LockLocalServiceUtil.isLocked(clazz.getName(), key)) {
@@ -360,14 +360,14 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public void addPermissions(Class<?> clazz, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		addPermissions(clazz.getName(), classPK);
 	}
 
 	@Override
 	public void addPermissions(String resourceName, long resourcePK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!MapUtil.getBoolean(
 				_parameterMap, PortletDataHandlerKeys.PERMISSIONS)) {
@@ -433,13 +433,13 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addPortalPermissions() throws PortalException, SystemException {
+	public void addPortalPermissions() throws PortalException {
 		addPermissions(PortletKeys.PORTAL, getCompanyId());
 	}
 
 	@Override
 	public void addPortletPermissions(String resourceName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long groupId = getGroupId();
 
@@ -1443,7 +1443,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	@Override
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importClassedModel(
 			classedModel, newClassedModel, classedModel.getModelClass());
@@ -1453,7 +1453,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			Class<?> clazz)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!isResourceMain(classedModel)) {
 			return;
@@ -1501,7 +1501,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			Class<?> clazz, String namespace)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importClassedModel(classedModel, newClassedModel, clazz);
 	}
@@ -1515,7 +1515,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			String namespace)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importClassedModel(
 			classedModel, newClassedModel, classedModel.getModelClass());
@@ -1534,7 +1534,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public void importLocks(Class<?> clazz, String key, String newKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Lock lock = _locksMap.get(getPrimaryKeyString(clazz, key));
 
@@ -1559,7 +1559,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public void importPermissions(Class<?> clazz, long classPK, long newClassPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importPermissions(clazz.getName(), classPK, newClassPK);
 	}
@@ -1567,7 +1567,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	@Override
 	public void importPermissions(
 			String resourceName, long resourcePK, long newResourcePK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!MapUtil.getBoolean(
 				_parameterMap, PortletDataHandlerKeys.PERMISSIONS)) {
@@ -1647,7 +1647,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public void importPortalPermissions()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importPermissions(
 			PortletKeys.PORTAL, getSourceCompanyId(), getCompanyId());
@@ -1655,7 +1655,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 
 	@Override
 	public void importPortletPermissions(String resourceName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importPermissions(resourceName, getSourceGroupId(), getScopeGroupId());
 	}
@@ -1938,7 +1938,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	protected void addExpando(
 			Element element, String path, ClassedModel classedModel,
 			Class<?> clazz)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String className = clazz.getName();
 
@@ -2173,7 +2173,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	protected Map<Long, Set<String>> getActionIds(
 			long companyId, long[] roleIds, String className, long primKey,
 			List<String> actionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ResourceBlockLocalServiceUtil.isSupported(className)) {
 			return ResourceBlockPermissionLocalServiceUtil.

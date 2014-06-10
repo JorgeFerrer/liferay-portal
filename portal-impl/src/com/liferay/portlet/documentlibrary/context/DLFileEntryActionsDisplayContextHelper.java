@@ -56,7 +56,7 @@ public class DLFileEntryActionsDisplayContextHelper {
 	}
 
 	public boolean hasDeletePermission()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_hasDeletePermission == null) {
 			_hasDeletePermission = DLFileEntryPermission.contains(
@@ -75,7 +75,7 @@ public class DLFileEntryActionsDisplayContextHelper {
 	}
 
 	public boolean hasOverrideCheckoutPermission()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_hasOverrideCheckoutPermission == null) {
 			_hasOverrideCheckoutPermission = DLFileEntryPermission.contains(
@@ -86,7 +86,7 @@ public class DLFileEntryActionsDisplayContextHelper {
 	}
 
 	public boolean hasPermissionsPermission()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_hasPermissionsPermission == null) {
 			_hasPermissionsPermission = DLFileEntryPermission.contains(
@@ -97,7 +97,7 @@ public class DLFileEntryActionsDisplayContextHelper {
 	}
 
 	public boolean hasUpdatePermission()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_hasUpdatePermission == null) {
 			_hasUpdatePermission = DLFileEntryPermission.contains(
@@ -107,7 +107,7 @@ public class DLFileEntryActionsDisplayContextHelper {
 		return _hasUpdatePermission;
 	}
 
-	public boolean hasViewPermission() throws PortalException, SystemException {
+	public boolean hasViewPermission() throws PortalException {
 		if (_hasViewPermission == null) {
 			_hasViewPermission = DLFileEntryPermission.contains(
 				_permissionChecker, _fileEntry, ActionKeys.VIEW);

@@ -37,7 +37,7 @@ public class BookmarksFolderPermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, BookmarksFolder folder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, folder, actionId)) {
 			throw new PrincipalException();
@@ -47,7 +47,7 @@ public class BookmarksFolderPermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, folderId, actionId)) {
 			throw new PrincipalException();
@@ -57,7 +57,7 @@ public class BookmarksFolderPermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, BookmarksFolder folder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (actionId.equals(ActionKeys.ADD_FOLDER)) {
 			actionId = ActionKeys.ADD_SUBFOLDER;
@@ -107,7 +107,7 @@ public class BookmarksFolderPermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (folderId == BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return BookmarksPermission.contains(
@@ -125,7 +125,7 @@ public class BookmarksFolderPermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, groupId, primaryKey, actionId);
 	}

@@ -250,7 +250,7 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 
 	@Override
 	protected StagedModel getStagedModel(String uuid, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticleResource importedArticleResource =
 			JournalArticleResourceUtil.fetchByUUID_G(uuid, groupId);
@@ -261,7 +261,7 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 
 	@Override
 	protected String getStagedModelUuid(StagedModel stagedModel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = (JournalArticle)stagedModel;
 

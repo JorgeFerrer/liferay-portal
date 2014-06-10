@@ -39,7 +39,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 			String targetLayoutFriendlyUrl, String targetPortletId,
 			String contentField, String feedType, double feedVersion,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.ADD_FEED);
@@ -53,7 +53,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 
 	@Override
 	public void deleteFeed(long feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeedPermission.check(
 			getPermissionChecker(), feedId, ActionKeys.DELETE);
@@ -68,14 +68,14 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public void deleteFeed(long groupId, long feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteFeed(groupId, String.valueOf(feedId));
 	}
 
 	@Override
 	public void deleteFeed(long groupId, String feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeedPermission.check(
 			getPermissionChecker(), groupId, feedId, ActionKeys.DELETE);
@@ -85,7 +85,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 
 	@Override
 	public JournalFeed getFeed(long feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeedPermission.check(
 			getPermissionChecker(), feedId, ActionKeys.VIEW);
@@ -100,14 +100,14 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public JournalFeed getFeed(long groupId, long feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFeed(groupId, String.valueOf(feedId));
 	}
 
 	@Override
 	public JournalFeed getFeed(long groupId, String feedId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeedPermission.check(
 			getPermissionChecker(), groupId, feedId, ActionKeys.VIEW);
@@ -123,7 +123,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 			String orderByType, String targetLayoutFriendlyUrl,
 			String targetPortletId, String contentField, String feedType,
 			double feedVersion, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeedPermission.check(
 			getPermissionChecker(), groupId, feedId, ActionKeys.UPDATE);

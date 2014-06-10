@@ -91,7 +91,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return DLFileEntryPermission.contains(
 			permissionChecker, _dlFileEntry, actionId);
@@ -138,7 +138,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 	@Override
 	public InputStream getContentStream()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream inputStream = _dlFileEntry.getContentStream();
 
@@ -155,7 +155,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 	@Override
 	public InputStream getContentStream(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream inputStream = _dlFileEntry.getContentStream(version);
 
@@ -201,7 +201,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 	@Override
 	public FileVersion getFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DLFileVersion dlFileVersion = _dlFileVersion;
 
@@ -214,7 +214,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 	@Override
 	public FileVersion getFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return new LiferayFileVersion(_dlFileEntry.getFileVersion(version));
 	}
@@ -262,14 +262,14 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 
 	@Override
 	public FileVersion getLatestFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLatestFileVersion(false);
 	}
 
 	@Override
 	public FileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return new LiferayFileVersion(
 			_dlFileEntry.getLatestFileVersion(trusted));

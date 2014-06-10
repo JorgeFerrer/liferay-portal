@@ -76,7 +76,7 @@ public class ServiceComponentLocalServiceImpl
 			ServletContext servletContext, ClassLoader classLoader,
 			String buildNamespace, long buildNumber, long buildDate,
 			boolean buildAutoUpgrade)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			ModelHintsUtil.read(

@@ -121,7 +121,7 @@ public class AssetEntryQuery {
 
 	public AssetEntryQuery(
 			long[] classNameIds, SearchContainer<?> searchContainer)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		this();
 
@@ -158,7 +158,7 @@ public class AssetEntryQuery {
 	}
 
 	public AssetEntryQuery(String className, SearchContainer<?> searchContainer)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		this(
 			new long[] {PortalUtil.getClassNameId(className)}, searchContainer);

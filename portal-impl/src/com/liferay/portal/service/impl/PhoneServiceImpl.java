@@ -39,7 +39,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 	public Phone addPhone(
 			String className, long classPK, String number, String extension,
 			int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -53,7 +53,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 	public Phone addPhone(
 			String className, long classPK, String number, String extension,
 			int typeId, boolean primary, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -65,7 +65,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 
 	@Override
 	public void deletePhone(long phoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
@@ -78,7 +78,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 
 	@Override
 	public Phone getPhone(long phoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
@@ -91,7 +91,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 
 	@Override
 	public List<Phone> getPhones(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.VIEW);
@@ -106,7 +106,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 	public Phone updatePhone(
 			long phoneId, String number, String extension, int typeId,
 			boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 

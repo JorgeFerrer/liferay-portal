@@ -78,7 +78,7 @@ public class FileVersionWrapper
 
 	@Override
 	public InputStream getContentStream(boolean incrementCounter)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileVersion.getContentStream(incrementCounter);
 	}
@@ -109,7 +109,7 @@ public class FileVersionWrapper
 	}
 
 	@Override
-	public FileEntry getFileEntry() throws PortalException, SystemException {
+	public FileEntry getFileEntry() throws PortalException {
 		return _fileVersion.getFileEntry();
 	}
 

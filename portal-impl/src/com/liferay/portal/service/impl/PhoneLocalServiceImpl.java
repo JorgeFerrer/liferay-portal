@@ -47,7 +47,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	public Phone addPhone(
 			long userId, String className, long classPK, String number,
 			String extension, int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addPhone(
 			userId, className, classPK, number, extension, typeId, primary,
@@ -59,7 +59,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 			long userId, String className, long classPK, String number,
 			String extension, int typeId, boolean primary,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -93,7 +93,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 
 	@Override
 	public Phone deletePhone(long phoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
@@ -140,7 +140,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	public Phone updatePhone(
 			long phoneId, String number, String extension, int typeId,
 			boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(phoneId, 0, 0, 0, number, extension, typeId, primary);
 
@@ -181,7 +181,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	protected void validate(
 			long phoneId, long companyId, long classNameId, long classPK,
 			String number, String extension, int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!PhoneNumberFormatUtil.validate(number)) {
 			throw new PhoneNumberException();

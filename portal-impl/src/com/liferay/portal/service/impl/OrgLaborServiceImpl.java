@@ -34,7 +34,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 			int monOpen, int monClose, int tueOpen, int tueClose, int wedOpen,
 			int wedClose, int thuOpen, int thuClose, int friOpen, int friClose,
 			int satOpen, int satClose)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.UPDATE);
@@ -47,7 +47,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 
 	@Override
 	public void deleteOrgLabor(long orgLaborId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrgLabor orgLabor = orgLaborPersistence.findByPrimaryKey(orgLaborId);
 
@@ -60,7 +60,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 
 	@Override
 	public OrgLabor getOrgLabor(long orgLaborId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrgLabor orgLabor = orgLaborPersistence.findByPrimaryKey(orgLaborId);
 
@@ -73,7 +73,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 
 	@Override
 	public List<OrgLabor> getOrgLabors(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.VIEW);
@@ -87,7 +87,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 			int monClose, int tueOpen, int tueClose, int wedOpen, int wedClose,
 			int thuOpen, int thuClose, int friOpen, int friClose, int satOpen,
 			int satClose)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrgLabor orgLabor = orgLaborPersistence.findByPrimaryKey(orgLaborId);
 

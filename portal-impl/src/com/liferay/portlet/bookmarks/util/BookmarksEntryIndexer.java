@@ -169,7 +169,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 
 	protected void reindexEntries(
 			long companyId, final long groupId, final long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			BookmarksEntryLocalServiceUtil.getActionableDynamicQuery();
@@ -219,7 +219,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 	}
 
 	protected void reindexFolders(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			BookmarksFolderLocalServiceUtil.getActionableDynamicQuery();
@@ -230,7 +230,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					BookmarksFolder folder = (BookmarksFolder)object;
 
@@ -246,7 +246,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 	}
 
 	protected void reindexRoot(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			GroupLocalServiceUtil.getActionableDynamicQuery();
@@ -257,7 +257,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					Group group = (Group)object;
 

@@ -34,7 +34,7 @@ public class SafeFileNameStoreWrapper implements Store {
 
 	@Override
 	public void addDirectory(long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeDirName = FileUtil.encodeSafeFileName(dirName);
 
@@ -52,7 +52,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public void addFile(
 			long companyId, long repositoryId, String fileName, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -64,7 +64,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public void addFile(
 			long companyId, long repositoryId, String fileName, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -76,7 +76,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public void addFile(
 			long companyId, long repositoryId, String fileName, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -94,7 +94,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void copyFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -108,7 +108,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public void deleteDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeDirName = FileUtil.encodeSafeFileName(dirName);
 
@@ -127,7 +127,7 @@ public class SafeFileNameStoreWrapper implements Store {
 
 	@Override
 	public void deleteFile(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -146,7 +146,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void deleteFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -163,7 +163,7 @@ public class SafeFileNameStoreWrapper implements Store {
 
 	@Override
 	public File getFile(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -180,7 +180,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public File getFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -198,7 +198,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -215,7 +215,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public byte[] getFileAsBytes(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -233,7 +233,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -250,7 +250,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -282,7 +282,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public String[] getFileNames(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeDirName = FileUtil.encodeSafeFileName(dirName);
 
@@ -308,7 +308,7 @@ public class SafeFileNameStoreWrapper implements Store {
 
 	@Override
 	public long getFileSize(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -324,7 +324,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	@Override
 	public boolean hasDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeDirName = FileUtil.encodeSafeFileName(dirName);
 
@@ -333,7 +333,7 @@ public class SafeFileNameStoreWrapper implements Store {
 
 	@Override
 	public boolean hasFile(long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -350,7 +350,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public boolean hasFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -373,7 +373,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,
 			String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -387,7 +387,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String newFileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 		String safeNewFileName = FileUtil.encodeSafeFileName(newFileName);
@@ -409,7 +409,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -423,7 +423,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -437,7 +437,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -451,7 +451,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	public void updateFileVersion(
 			long companyId, long repositoryId, String fileName,
 			String fromVersionLabel, String toVersionLabel)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String safeFileName = FileUtil.encodeSafeFileName(fileName);
 
@@ -465,7 +465,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	protected void renameUnsafeFile(
 			long companyId, long repositoryId, String fileName,
 			String safeFileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!safeFileName.equals(fileName)) {
 			if (_store.hasFile(

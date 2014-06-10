@@ -192,7 +192,7 @@ public class ContactIndexer extends BaseIndexer {
 	}
 
 	protected void reindexContacts(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			ContactLocalServiceUtil.getActionableDynamicQuery();

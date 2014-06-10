@@ -69,7 +69,7 @@ public class SitemapImpl implements Sitemap {
 	@Override
 	public String getSitemap(
 			long groupId, boolean privateLayout, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Document document = SAXReaderUtil.createDocument();
 
@@ -187,7 +187,7 @@ public class SitemapImpl implements Sitemap {
 
 	protected Map<Locale, String> getAlternateURLs(
 			String canonicalURL, ThemeDisplay themeDisplay, Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> alternateURLs = new HashMap<Locale, String>();
 
@@ -206,7 +206,7 @@ public class SitemapImpl implements Sitemap {
 
 	protected void visitArticles(
 			Element element, Layout layout, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<JournalArticle> journalArticles =
 			JournalArticleServiceUtil.getArticlesByLayoutUuid(
@@ -275,7 +275,7 @@ public class SitemapImpl implements Sitemap {
 
 	protected void visitLayout(
 			Element element, Layout layout, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UnicodeProperties typeSettingsProperties =
 			layout.getTypeSettingsProperties();
@@ -322,7 +322,7 @@ public class SitemapImpl implements Sitemap {
 
 	protected void visitLayouts(
 			Element element, List<Layout> layouts, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (Layout layout : layouts) {
 			visitLayout(element, layout, themeDisplay);

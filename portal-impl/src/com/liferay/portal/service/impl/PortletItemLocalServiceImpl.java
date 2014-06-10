@@ -37,7 +37,7 @@ public class PortletItemLocalServiceImpl
 	public PortletItem addPortletItem(
 			long userId, long groupId, String name, String portletId,
 			String className)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -67,7 +67,7 @@ public class PortletItemLocalServiceImpl
 	@Override
 	public PortletItem getPortletItem(
 			long groupId, String name, String portletId, String className)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -97,7 +97,7 @@ public class PortletItemLocalServiceImpl
 	public PortletItem updatePortletItem(
 			long userId, long groupId, String name, String portletId,
 			String className)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletItem portletItem = null;
 

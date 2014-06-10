@@ -41,7 +41,7 @@ public class LayoutBranchPermissionImpl implements LayoutBranchPermission {
 	public void check(
 			PermissionChecker permissionChecker, long layoutBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, layoutBranchId, actionId)) {
 			throw new PrincipalException();
@@ -62,7 +62,7 @@ public class LayoutBranchPermissionImpl implements LayoutBranchPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long layoutBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranch layoutBranch =
 			LayoutBranchLocalServiceUtil.getLayoutBranch(layoutBranchId);

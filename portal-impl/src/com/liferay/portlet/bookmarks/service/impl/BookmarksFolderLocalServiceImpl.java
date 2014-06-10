@@ -61,7 +61,7 @@ public class BookmarksFolderLocalServiceImpl
 	public BookmarksFolder addFolder(
 			long userId, long parentFolderId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Folder
 
@@ -111,7 +111,7 @@ public class BookmarksFolderLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public BookmarksFolder deleteFolder(BookmarksFolder folder)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return bookmarksFolderLocalService.deleteFolder(folder, true);
 	}
@@ -123,7 +123,7 @@ public class BookmarksFolderLocalServiceImpl
 		type = SystemEventConstants.TYPE_DELETE)
 	public BookmarksFolder deleteFolder(
 			BookmarksFolder folder, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BookmarksFolder> folders = bookmarksFolderPersistence.findByG_P(
 			folder.getGroupId(), folder.getFolderId());
@@ -180,7 +180,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BookmarksFolder deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderPersistence.findByPrimaryKey(
 			folderId);
@@ -192,7 +192,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Override
 	public BookmarksFolder deleteFolder(
 			long folderId, boolean includeTrashedEntries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
@@ -203,7 +203,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public void deleteFolders(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BookmarksFolder> folders =
 			bookmarksFolderPersistence.findByGroupId(groupId);
@@ -228,7 +228,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public BookmarksFolder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return bookmarksFolderPersistence.findByPrimaryKey(folderId);
 	}
@@ -337,7 +337,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksFolder moveFolder(long folderId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderPersistence.findByPrimaryKey(
 			folderId);
@@ -353,7 +353,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Override
 	public BookmarksFolder moveFolderFromTrash(
 			long userId, long folderId, long parentFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		BookmarksFolder folder = bookmarksFolderPersistence.findByPrimaryKey(
 			folderId);
@@ -403,7 +403,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public BookmarksFolder moveFolderToTrash(long userId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Folder
 
@@ -469,7 +469,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public void restoreFolderFromTrash(long userId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Folder
 
@@ -509,7 +509,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public void subscribeFolder(long userId, long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (folderId == BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			folderId = groupId;
@@ -521,7 +521,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public void unsubscribeFolder(long userId, long groupId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (folderId == BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			folderId = groupId;
@@ -535,7 +535,7 @@ public class BookmarksFolderLocalServiceImpl
 	public void updateAsset(
 			long userId, BookmarksFolder folder, long[] assetCategoryIds,
 			String[] assetTagNames, long[] assetLinkEntryIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 			userId, folder.getGroupId(), folder.getCreateDate(),
@@ -556,7 +556,7 @@ public class BookmarksFolderLocalServiceImpl
 			long userId, long folderId, long parentFolderId, String name,
 			String description, boolean mergeWithParentFolder,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Merge folders
 
@@ -597,7 +597,7 @@ public class BookmarksFolderLocalServiceImpl
 	@Override
 	public BookmarksFolder updateStatus(
 			long userId, BookmarksFolder folder, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Folder
 
@@ -685,7 +685,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	protected void mergeFolders(BookmarksFolder fromFolder, long toFolderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<BookmarksFolder> folders = bookmarksFolderPersistence.findByG_P(
 			fromFolder.getGroupId(), fromFolder.getFolderId());
@@ -713,7 +713,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	protected void moveDependentsToTrash(
 			List<Object> foldersAndEntries, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (Object object : foldersAndEntries) {
 			if (object instanceof BookmarksEntry) {
@@ -807,7 +807,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	protected void restoreDependentsFromTrash(
 			List<Object> foldersAndEntries, long trashEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (Object object : foldersAndEntries) {
 			if (object instanceof BookmarksEntry) {

@@ -29,14 +29,14 @@ public class AnnouncementsFlagServiceImpl
 
 	@Override
 	public void addFlag(long entryId, int value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		announcementsFlagLocalService.addFlag(getUserId(), entryId, value);
 	}
 
 	@Override
 	public void deleteFlag(long flagId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsFlag flag = announcementsFlagPersistence.findByPrimaryKey(
 			flagId);
@@ -50,7 +50,7 @@ public class AnnouncementsFlagServiceImpl
 
 	@Override
 	public AnnouncementsFlag getFlag(long entryId, int value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return announcementsFlagLocalService.getFlag(
 			getUserId(), entryId, value);

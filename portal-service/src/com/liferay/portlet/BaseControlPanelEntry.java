@@ -124,7 +124,7 @@ public abstract class BaseControlPanelEntry implements ControlPanelEntry {
 
 	protected boolean hasAccessPermissionExplicitlyGranted(
 			PermissionChecker permissionChecker, Group group, Portlet portlet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (permissionChecker.isCompanyAdmin()) {
 			return true;

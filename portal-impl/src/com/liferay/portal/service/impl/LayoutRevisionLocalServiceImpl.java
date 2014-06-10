@@ -57,7 +57,7 @@ public class LayoutRevisionLocalServiceImpl
 			String typeSettings, boolean iconImage, long iconImageId,
 			String themeId, String colorSchemeId, String wapThemeId,
 			String wapColorSchemeId, String css, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout revision
 
@@ -138,7 +138,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public void deleteLayoutLayoutRevisions(long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (LayoutRevision layoutRevision : getLayoutRevisions(plid)) {
 			layoutRevisionLocalService.deleteLayoutRevision(layoutRevision);
@@ -147,7 +147,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public LayoutRevision deleteLayoutRevision(LayoutRevision layoutRevision)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutRevision.hasChildren()) {
 			for (LayoutRevision curLayoutRevision :
@@ -192,7 +192,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public LayoutRevision deleteLayoutRevision(long layoutRevisionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutRevision layoutRevision =
 			layoutRevisionPersistence.findByPrimaryKey(layoutRevisionId);
@@ -202,7 +202,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public void deleteLayoutRevisions(long layoutSetBranchId, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (LayoutRevision layoutRevision : getLayoutRevisions(
 				layoutSetBranchId, plid)) {
@@ -214,7 +214,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public void deleteLayoutRevisions(
 			long layoutSetBranchId, long layoutBranchId, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutRevision> layoutRevisions =
 			layoutRevisionPersistence.findByL_L_P(
@@ -227,7 +227,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public void deleteLayoutSetBranchLayoutRevisions(long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutRevision> layoutRevisions =
 			layoutRevisionPersistence.findByLayoutSetBranchId(
@@ -287,7 +287,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public LayoutRevision getLayoutRevision(
 			long layoutSetBranchId, long plid, boolean head)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutRevisionPersistence.findByL_H_P(
 			layoutSetBranchId, head, plid);
@@ -296,7 +296,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public LayoutRevision getLayoutRevision(
 			long layoutSetBranchId, long layoutBranchId, long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutRevision> layoutRevisions =
 			layoutRevisionPersistence.findByL_L_P(
@@ -390,7 +390,7 @@ public class LayoutRevisionLocalServiceImpl
 			long iconImageId, String themeId, String colorSchemeId,
 			String wapThemeId, String wapColorSchemeId, String css,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout revision
 
@@ -517,7 +517,7 @@ public class LayoutRevisionLocalServiceImpl
 	public LayoutRevision updateStatus(
 			long userId, long layoutRevisionId, int status,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -623,7 +623,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	protected boolean isWorkflowEnabled(long plid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutLocalService.getLayout(plid);
 
@@ -635,7 +635,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	protected LayoutRevision updateMajor(LayoutRevision layoutRevision)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutRevision> parentLayoutRevisions =
 			new ArrayList<LayoutRevision>();

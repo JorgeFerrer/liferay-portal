@@ -32,7 +32,7 @@ public class ShoppingItemPriceLocalServiceImpl
 
 	@Override
 	public List<ShoppingItemPrice> getItemPrices(long itemId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
 

@@ -93,7 +93,7 @@ public class AssetTagStatsLocalServiceImpl
 	 */
 	@Override
 	public void deleteTagStats(long tagStatsId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagStats tagStats = assetTagStatsPersistence.findByPrimaryKey(
 			tagStatsId);
@@ -199,7 +199,7 @@ public class AssetTagStatsLocalServiceImpl
 	 */
 	@Override
 	public AssetTagStats updateTagStats(long tagId, long classNameId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTag tag = assetTagPersistence.findByPrimaryKey(tagId);
 

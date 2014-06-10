@@ -40,7 +40,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, JournalArticle article,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, article, actionId)) {
 			throw new PrincipalException();
@@ -50,7 +50,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long resourcePrimKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, resourcePrimKey, actionId)) {
 			throw new PrincipalException();
@@ -60,7 +60,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			double version, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(
 				permissionChecker, groupId, articleId, version, actionId)) {
@@ -72,7 +72,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			int status, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(
 				permissionChecker, groupId, articleId, status, actionId)) {
@@ -84,7 +84,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, articleId, actionId)) {
 			throw new PrincipalException();
@@ -94,7 +94,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, JournalArticle article,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Boolean hasPermission = StagingPermissionUtil.hasPermission(
 			permissionChecker, article.getGroupId(),
@@ -177,7 +177,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long resourcePrimKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(resourcePrimKey);
@@ -188,7 +188,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			double version, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = JournalArticleLocalServiceUtil.getArticle(
 			groupId, articleId, version);
@@ -199,7 +199,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			int status, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(
@@ -211,7 +211,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String articleId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = JournalArticleLocalServiceUtil.getArticle(
 			groupId, articleId);
@@ -223,7 +223,7 @@ public class JournalArticlePermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, primaryKey, actionId);
 	}

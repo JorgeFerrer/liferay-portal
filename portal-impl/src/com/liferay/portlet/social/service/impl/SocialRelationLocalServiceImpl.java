@@ -71,7 +71,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public SocialRelation addRelation(long userId1, long userId2, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userId1 == userId2) {
 			throw new RelationUserIdException();
@@ -134,7 +134,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public void deleteRelation(long relationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialRelation relation = socialRelationPersistence.findByPrimaryKey(
 			relationId);
@@ -155,7 +155,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public void deleteRelation(long userId1, long userId2, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialRelation relation = socialRelationPersistence.findByU1_U2_T(
 			userId1, userId2, type);
@@ -174,7 +174,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public void deleteRelation(SocialRelation relation)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		socialRelationPersistence.remove(relation);
 
@@ -209,7 +209,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public void deleteRelations(long userId1, long userId2)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialRelation> relations = socialRelationPersistence.findByU1_U2(
 			userId1, userId2);
@@ -272,7 +272,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public SocialRelation getRelation(long relationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return socialRelationPersistence.findByPrimaryKey(relationId);
 	}
@@ -289,7 +289,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public SocialRelation getRelation(long userId1, long userId2, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return socialRelationPersistence.findByU1_U2_T(userId1, userId2, type);
 	}

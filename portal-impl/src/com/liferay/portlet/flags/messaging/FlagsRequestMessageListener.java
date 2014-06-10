@@ -166,7 +166,7 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 	}
 
 	protected List<User> getRecipients(long companyId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<User> recipients = new UniqueList<User>();
 

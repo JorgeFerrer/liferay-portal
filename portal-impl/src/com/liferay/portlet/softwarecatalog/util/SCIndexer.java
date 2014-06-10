@@ -209,7 +209,7 @@ public class SCIndexer extends BaseIndexer {
 	}
 
 	protected void reindexProductEntries(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			SCProductEntryLocalServiceUtil.getActionableDynamicQuery();

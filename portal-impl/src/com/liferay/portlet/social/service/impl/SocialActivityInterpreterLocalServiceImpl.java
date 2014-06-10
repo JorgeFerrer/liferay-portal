@@ -301,7 +301,7 @@ public class SocialActivityInterpreterLocalServiceImpl
 
 	@Override
 	public void updateActivitySet(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!PropsValues.SOCIAL_ACTIVITY_SETS_BUNDLING_ENABLED) {
 			socialActivitySetLocalService.addActivitySet(activityId);

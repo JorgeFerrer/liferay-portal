@@ -33,7 +33,7 @@ public class SocialRequestServiceImpl extends SocialRequestServiceBaseImpl {
 	@Override
 	public SocialRequest updateRequest(
 			long requestId, int status, ThemeDisplay themeDisplay)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialRequestPermissionUtil.check(
 			getPermissionChecker(), requestId, ActionKeys.UPDATE);

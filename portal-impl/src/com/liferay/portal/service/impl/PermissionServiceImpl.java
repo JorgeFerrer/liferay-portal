@@ -65,7 +65,7 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
 	public void checkPermission(long groupId, String name, long primKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkPermission(
 			getPermissionChecker(), groupId, name, String.valueOf(primKey));
@@ -84,7 +84,7 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	 */
 	@Override
 	public void checkPermission(long groupId, String name, String primKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkPermission(getPermissionChecker(), groupId, name, primKey);
 	}
@@ -92,7 +92,7 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	protected boolean checkBaseModelPermission(
 			PermissionChecker permissionChecker, long groupId, String className,
 			long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String actionId = ActionKeys.PERMISSIONS;
 
@@ -122,7 +122,7 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	protected void checkPermission(
 			PermissionChecker permissionChecker, long groupId, String name,
 			String primKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (checkBaseModelPermission(
 				permissionChecker, groupId, name,

@@ -39,7 +39,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	public Website addWebsite(
 			String className, long classPK, String url, int typeId,
 			boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -52,7 +52,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	public Website addWebsite(
 			String className, long classPK, String url, int typeId,
 			boolean primary, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.UPDATE);
@@ -64,7 +64,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 
 	@Override
 	public void deleteWebsite(long websiteId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
@@ -77,7 +77,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 
 	@Override
 	public Website getWebsite(long websiteId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
@@ -90,7 +90,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 
 	@Override
 	public List<Website> getWebsites(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		CommonPermissionUtil.check(
 			getPermissionChecker(), className, classPK, ActionKeys.VIEW);
@@ -104,7 +104,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	@Override
 	public Website updateWebsite(
 			long websiteId, String url, int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 

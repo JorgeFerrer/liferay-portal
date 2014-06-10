@@ -38,7 +38,7 @@ public class LayoutBranchPermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long layoutBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getLayoutBranchPermission().check(
 			permissionChecker, layoutBranchId, actionId);
@@ -55,7 +55,7 @@ public class LayoutBranchPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long layoutBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLayoutBranchPermission().contains(
 			permissionChecker, layoutBranchId, actionId);

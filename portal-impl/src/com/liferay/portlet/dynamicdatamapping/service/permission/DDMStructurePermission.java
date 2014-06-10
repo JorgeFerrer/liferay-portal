@@ -41,7 +41,7 @@ public class DDMStructurePermission {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long classNameId,
 			String structureKey, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(
 				permissionChecker, groupId, classNameId, structureKey,
@@ -54,7 +54,7 @@ public class DDMStructurePermission {
 	public static void check(
 			PermissionChecker permissionChecker, long structureId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, structureId, actionId)) {
 			throw new PrincipalException();
@@ -98,7 +98,7 @@ public class DDMStructurePermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long classNameId,
 			String structureKey, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = DDMStructureLocalServiceUtil.getStructure(
 			groupId, classNameId, structureKey);
@@ -109,7 +109,7 @@ public class DDMStructurePermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long structureId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return contains(permissionChecker, structureId, null, actionId);
 	}
@@ -117,7 +117,7 @@ public class DDMStructurePermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long structureId,
 			String portletId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure structure = DDMStructureLocalServiceUtil.getStructure(
 			structureId);

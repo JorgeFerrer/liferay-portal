@@ -55,7 +55,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public void addGroupUserGroups(long groupId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ASSIGN_MEMBERS);
@@ -75,7 +75,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public void addTeamUserGroups(long teamId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TeamPermissionUtil.check(
 			getPermissionChecker(), teamId, ActionKeys.ASSIGN_MEMBERS);
@@ -103,7 +103,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	@Deprecated
 	@Override
 	public UserGroup addUserGroup(String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addUserGroup(name, description, null);
 	}
@@ -129,7 +129,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	@Override
 	public UserGroup addUserGroup(
 			String name, String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_USER_GROUP);
@@ -156,7 +156,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public void deleteUserGroup(long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.DELETE);
@@ -176,7 +176,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public UserGroup getUserGroup(long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.VIEW);
@@ -195,7 +195,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public UserGroup getUserGroup(String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = getUser();
 
@@ -221,7 +221,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public List<UserGroup> getUserUserGroups(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -243,7 +243,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public void unsetGroupUserGroups(long groupId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ASSIGN_MEMBERS);
@@ -262,7 +262,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 */
 	@Override
 	public void unsetTeamUserGroups(long teamId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		TeamPermissionUtil.check(
 			getPermissionChecker(), teamId, ActionKeys.ASSIGN_MEMBERS);
@@ -288,7 +288,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	@Override
 	public UserGroup updateUserGroup(
 			long userGroupId, String name, String description)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroup oldUserGroup = userGroupPersistence.findByPrimaryKey(
 			userGroupId);
@@ -326,7 +326,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	public UserGroup updateUserGroup(
 			long userGroupId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.UPDATE);

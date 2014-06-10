@@ -70,7 +70,7 @@ public class AdminUtil {
 			String comments, String smsSn, String aimSn, String facebookSn,
 			String icqSn, String jabberSn, String msnSn, String mySpaceSn,
 			String skypeSn, String twitterSn, String ymSn)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			actionRequest);
@@ -89,7 +89,7 @@ public class AdminUtil {
 			String comments, String smsSn, String aimSn, String facebookSn,
 			String icqSn, String jabberSn, String msnSn, String mySpaceSn,
 			String skypeSn, String twitterSn, String ymSn)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String password = getUpdateUserPassword(request, userId);
 

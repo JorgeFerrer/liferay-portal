@@ -32,7 +32,7 @@ public class MDRRuleGroupPermissionImpl implements MDRRuleGroupPermission {
 	public void check(
 			PermissionChecker permissionChecker, long ruleGroupId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, ruleGroupId, actionId)) {
 			throw new PrincipalException();
@@ -54,7 +54,7 @@ public class MDRRuleGroupPermissionImpl implements MDRRuleGroupPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long ruleGroupId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroup ruleGroup = MDRRuleGroupLocalServiceUtil.getMDRRuleGroup(
 			ruleGroupId);

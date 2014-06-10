@@ -34,7 +34,7 @@ import java.util.Map;
 public class BlogsSettings {
 
 	public static BlogsSettings getInstance(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, BlogsConstants.SERVICE_NAME);
@@ -44,7 +44,7 @@ public class BlogsSettings {
 
 	public static BlogsSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, BlogsConstants.SERVICE_NAME);

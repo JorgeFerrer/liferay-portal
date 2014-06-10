@@ -41,7 +41,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	public DDMContent addContent(
 			long userId, long groupId, String name, String description,
 			String xml, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -93,7 +93,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 
 	@Override
 	public DDMContent getContent(long contentId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ddmContentPersistence.findByPrimaryKey(contentId);
 	}
@@ -123,7 +123,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	public DDMContent updateContent(
 			long contentId, String name, String description, String xml,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			xml = DDMXMLUtil.formatXML(xml);

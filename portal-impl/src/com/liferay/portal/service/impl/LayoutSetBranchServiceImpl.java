@@ -36,7 +36,7 @@ public class LayoutSetBranchServiceImpl extends LayoutSetBranchServiceBaseImpl {
 			long groupId, boolean privateLayout, String name,
 			String description, boolean master, long copyLayoutSetBranchId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ADD_LAYOUT_SET_BRANCH);
@@ -48,7 +48,7 @@ public class LayoutSetBranchServiceImpl extends LayoutSetBranchServiceBaseImpl {
 
 	@Override
 	public void deleteLayoutSetBranch(long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranchPermissionUtil.check(
 			getPermissionChecker(), layoutSetBranchId, ActionKeys.DELETE);
@@ -68,7 +68,7 @@ public class LayoutSetBranchServiceImpl extends LayoutSetBranchServiceBaseImpl {
 	public LayoutSetBranch mergeLayoutSetBranch(
 			long layoutSetBranchId, long mergeLayoutSetBranchId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranchPermissionUtil.check(
 			getPermissionChecker(), layoutSetBranchId, ActionKeys.UPDATE);
@@ -81,7 +81,7 @@ public class LayoutSetBranchServiceImpl extends LayoutSetBranchServiceBaseImpl {
 	public LayoutSetBranch updateLayoutSetBranch(
 			long groupId, long layoutSetBranchId, String name,
 			String description, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranchPermissionUtil.check(
 			getPermissionChecker(), layoutSetBranchId, ActionKeys.UPDATE);

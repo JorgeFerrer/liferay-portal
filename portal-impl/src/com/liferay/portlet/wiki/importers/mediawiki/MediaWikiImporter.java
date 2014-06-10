@@ -556,7 +556,7 @@ public class MediaWikiImporter implements WikiImporter {
 
 	protected String[] readAssetTagNames(
 			long userId, WikiNode node, String content)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Matcher matcher = _categoriesPattern.matcher(content);
 

@@ -28,7 +28,7 @@ public class MDRRuleGroupInstancePermissionUtil {
 	public static void check(
 			PermissionChecker permissionChecker, long ruleGroupInstanceId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getMDRRuleGroupInstancePermission().check(
 			permissionChecker, ruleGroupInstanceId, actionId);
@@ -46,7 +46,7 @@ public class MDRRuleGroupInstancePermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long ruleGroupInstanceId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getMDRRuleGroupInstancePermission().contains(
 			permissionChecker, ruleGroupInstanceId, actionId);

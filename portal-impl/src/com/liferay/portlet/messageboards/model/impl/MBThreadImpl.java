@@ -48,7 +48,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 
 	@Override
 	public Folder addAttachmentsFolder()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
@@ -114,7 +114,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 	}
 
 	@Override
-	public MBCategory getCategory() throws PortalException, SystemException {
+	public MBCategory getCategory() throws PortalException {
 		long parentCategoryId = getCategoryId();
 
 		if ((parentCategoryId ==

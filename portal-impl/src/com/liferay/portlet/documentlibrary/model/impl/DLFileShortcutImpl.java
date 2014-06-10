@@ -36,21 +36,21 @@ public class DLFileShortcutImpl extends DLFileShortcutBaseImpl {
 	}
 
 	@Override
-	public String buildTreePath() throws PortalException, SystemException {
+	public String buildTreePath() throws PortalException {
 		DLFolder dlFolder = getDLFolder();
 
 		return dlFolder.buildTreePath();
 	}
 
 	@Override
-	public DLFolder getDLFolder() throws PortalException, SystemException {
+	public DLFolder getDLFolder() throws PortalException {
 		Folder folder = getFolder();
 
 		return (DLFolder)folder.getModel();
 	}
 
 	@Override
-	public Folder getFolder() throws PortalException, SystemException {
+	public Folder getFolder() throws PortalException {
 		if (getFolderId() <= 0) {
 			return new LiferayFolder(new DLFolderImpl());
 		}

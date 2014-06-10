@@ -53,7 +53,7 @@ public class MembershipRequestLocalServiceImpl
 	public MembershipRequest addMembershipRequest(
 			long userId, long groupId, String comments,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -151,7 +151,7 @@ public class MembershipRequestLocalServiceImpl
 	public void updateStatus(
 			long replierUserId, long membershipRequestId, String replyComments,
 			int statusId, boolean addUserToGroup, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(replyComments);
 
@@ -193,7 +193,7 @@ public class MembershipRequestLocalServiceImpl
 	}
 
 	protected List<Long> getGroupAdministratorUserIds(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> userIds = new UniqueList<Long>();
 
@@ -279,7 +279,7 @@ public class MembershipRequestLocalServiceImpl
 			long userId, MembershipRequest membershipRequest,
 			String subjectProperty, String bodyProperty,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		User requestUser = userPersistence.findByPrimaryKey(
@@ -346,7 +346,7 @@ public class MembershipRequestLocalServiceImpl
 
 	protected void notifyGroupAdministrators(
 			MembershipRequest membershipRequest, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Long> userIds = getGroupAdministratorUserIds(
 			membershipRequest.getGroupId());

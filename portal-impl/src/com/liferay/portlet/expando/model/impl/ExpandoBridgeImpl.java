@@ -648,7 +648,7 @@ public class ExpandoBridgeImpl implements ExpandoBridge {
 		return columns;
 	}
 
-	protected ExpandoTable getTable() throws PortalException, SystemException {
+	protected ExpandoTable getTable() throws PortalException {
 		ExpandoTable table = ExpandoTableLocalServiceUtil.fetchDefaultTable(
 			_companyId, _className);
 

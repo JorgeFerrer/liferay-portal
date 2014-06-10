@@ -61,7 +61,7 @@ public class JournalArticleWorkflowHandler
 	@Override
 	public WorkflowDefinitionLink getWorkflowDefinitionLink(
 			long companyId, long groupId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalArticle article = JournalArticleLocalServiceUtil.getArticle(
 			classPK);
@@ -100,7 +100,7 @@ public class JournalArticleWorkflowHandler
 	@Override
 	public JournalArticle updateStatus(
 			int status, Map<String, Serializable> workflowContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long userId = GetterUtil.getLong(
 			(String)workflowContext.get(WorkflowConstants.CONTEXT_USER_ID));

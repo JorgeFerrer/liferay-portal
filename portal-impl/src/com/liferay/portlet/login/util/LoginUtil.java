@@ -85,7 +85,7 @@ public class LoginUtil {
 	public static long getAuthenticatedUserId(
 			HttpServletRequest request, String login, String password,
 			String authType)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long userId = GetterUtil.getLong(login);
 

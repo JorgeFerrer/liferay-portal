@@ -41,7 +41,7 @@ public class PortletPreferencesFactoryUtil {
 
 	public static void checkControlPanelPortletPreferences(
 			ThemeDisplay themeDisplay, Portlet portlet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getPortletPreferencesFactory().checkControlPanelPortletPreferences(
 			themeDisplay, portlet);
@@ -137,7 +137,7 @@ public class PortletPreferencesFactoryUtil {
 
 	public static PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletPreferences(
 			request, portletId);
@@ -152,7 +152,7 @@ public class PortletPreferencesFactoryUtil {
 
 	public static PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, Layout selLayout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletPreferencesIds(
 			request, selLayout, portletId);
@@ -160,7 +160,7 @@ public class PortletPreferencesFactoryUtil {
 
 	public static PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletPreferencesIds(
 			request, portletId);
@@ -169,7 +169,7 @@ public class PortletPreferencesFactoryUtil {
 	public static PortletPreferencesIds getPortletPreferencesIds(
 			long scopeGroupId, long userId, Layout layout, String portletId,
 			boolean modeEditGuest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletPreferencesIds(
 			scopeGroupId, userId, layout, portletId, modeEditGuest);
@@ -177,7 +177,7 @@ public class PortletPreferencesFactoryUtil {
 
 	public static PortletPreferences getPortletSetup(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletSetup(
 			request, portletId);
@@ -186,7 +186,7 @@ public class PortletPreferencesFactoryUtil {
 	public static PortletPreferences getPortletSetup(
 			HttpServletRequest request, String portletId,
 			String defaultPreferences)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletSetup(
 			request, portletId, defaultPreferences);
@@ -209,14 +209,14 @@ public class PortletPreferencesFactoryUtil {
 
 	public static PortletPreferences getPortletSetup(
 			PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletSetup(portletRequest);
 	}
 
 	public static PortletPreferences getPortletSetup(
 			PortletRequest portletRequest, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getPortletPreferencesFactory().getPortletSetup(
 			portletRequest, portletId);

@@ -84,7 +84,7 @@ public class BookmarksExportImportTest extends BasePortletExportImportTestCase {
 
 	@Override
 	protected StagedModel getStagedModel(String uuid, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return BookmarksEntryLocalServiceUtil.getBookmarksEntryByUuidAndGroupId(
 			uuid, groupId);

@@ -41,7 +41,7 @@ public class DDLRecordAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecord record = null;
 		DDLRecordVersion recordVersion = null;

@@ -71,7 +71,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public void addGroupOrganizations(long groupId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ASSIGN_MEMBERS);
@@ -128,7 +128,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			List<EmailAddress> emailAddresses, List<OrgLabor> orgLabors,
 			List<Phone> phones, List<Website> websites,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addOrganization(
 			parentOrganizationId, name, type, regionId, countryId, statusId,
@@ -175,7 +175,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			long parentOrganizationId, String name, String type,
 			boolean recursable, long regionId, long countryId, int statusId,
 			String comments, boolean site, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addOrganization(
 			parentOrganizationId, name, type, regionId, countryId, statusId,
@@ -222,7 +222,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			List<Address> addresses, List<EmailAddress> emailAddresses,
 			List<OrgLabor> orgLabors, List<Phone> phones,
 			List<Website> websites, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean indexingEnabled = serviceContext.isIndexingEnabled();
 
@@ -298,7 +298,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			long parentOrganizationId, String name, String type, long regionId,
 			long countryId, int statusId, String comments, boolean site,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (parentOrganizationId ==
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
@@ -334,7 +334,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	@Override
 	public void addPasswordPolicyOrganizations(
 			long passwordPolicyId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PasswordPolicyPermissionUtil.check(
 			getPermissionChecker(), passwordPolicyId, ActionKeys.UPDATE);
@@ -354,7 +354,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public void deleteLogo(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.UPDATE);
@@ -375,7 +375,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public void deleteOrganization(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.DELETE);
@@ -398,7 +398,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	@Override
 	public List<Organization> getManageableOrganizations(
 			String actionId, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -453,7 +453,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public Organization getOrganization(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Organization organization = organizationLocalService.getOrganization(
 			organizationId);
@@ -477,7 +477,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public long getOrganizationId(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long organizationId = organizationLocalService.getOrganizationId(
 			companyId, name);
@@ -562,7 +562,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public List<Organization> getUserOrganizations(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
@@ -583,7 +583,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public void setGroupOrganizations(long groupId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ASSIGN_MEMBERS);
@@ -604,7 +604,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public void unsetGroupOrganizations(long groupId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.ASSIGN_MEMBERS);
@@ -626,7 +626,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	@Override
 	public void unsetPasswordPolicyOrganizations(
 			long passwordPolicyId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PasswordPolicyPermissionUtil.check(
 			getPermissionChecker(), passwordPolicyId, ActionKeys.UPDATE);
@@ -681,7 +681,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			List<Address> addresses, List<EmailAddress> emailAddresses,
 			List<OrgLabor> orgLabors, List<Phone> phones,
 			List<Website> websites, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateOrganization(
 			organizationId, parentOrganizationId, name, type, regionId,
@@ -726,7 +726,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			String type, boolean recursable, long regionId, long countryId,
 			int statusId, String comments, boolean site,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateOrganization(
 			organizationId, parentOrganizationId, name, type, regionId,
@@ -773,7 +773,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			List<Address> addresses, List<EmailAddress> emailAddresses,
 			List<OrgLabor> orgLabors, List<Phone> phones,
 			List<Website> websites, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
@@ -891,7 +891,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			List<EmailAddress> emailAddresses, List<OrgLabor> orgLabors,
 			List<Phone> phones, List<Website> websites,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateOrganization(
 			organizationId, parentOrganizationId, name, type, regionId,
@@ -929,7 +929,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 			long organizationId, long parentOrganizationId, String name,
 			String type, long regionId, long countryId, int statusId,
 			String comments, boolean site, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateOrganization(
 			organizationId, parentOrganizationId, name, type, regionId,

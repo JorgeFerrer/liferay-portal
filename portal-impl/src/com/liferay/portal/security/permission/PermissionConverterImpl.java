@@ -41,7 +41,7 @@ public class PermissionConverterImpl implements PermissionConverter {
 
 	@Override
 	public List<Permission> convertPermissions(long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return convertPermissions(roleId, null);
 	}
@@ -49,7 +49,7 @@ public class PermissionConverterImpl implements PermissionConverter {
 	@Override
 	public List<Permission> convertPermissions(
 			long roleId, PermissionConversionFilter permissionConversionFilter)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Role role = RoleLocalServiceUtil.getRole(roleId);
 

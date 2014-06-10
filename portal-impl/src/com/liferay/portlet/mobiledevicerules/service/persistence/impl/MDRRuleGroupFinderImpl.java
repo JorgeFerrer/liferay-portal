@@ -226,7 +226,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 
 	protected void setGroupIds(
 			QueryPos qPos, long groupId, Map<String, Object> params)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Boolean includeGlobalScope = (Boolean)params.get("includeGlobalScope");
 

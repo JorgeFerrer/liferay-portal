@@ -37,7 +37,7 @@ public class AssetTagPermission {
 
 	public static void check(
 			PermissionChecker permissionChecker, long tagId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, tagId, actionId)) {
 			throw new PrincipalException();
@@ -61,7 +61,7 @@ public class AssetTagPermission {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long tagId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTag tag = AssetTagLocalServiceUtil.getTag(tagId);
 

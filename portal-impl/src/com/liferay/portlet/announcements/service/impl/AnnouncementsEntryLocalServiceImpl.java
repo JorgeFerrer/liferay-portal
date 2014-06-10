@@ -70,7 +70,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
 			int expirationDateMinute, int priority, boolean alert)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -142,7 +142,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, int priority,
 			boolean alert)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addEntry(
 			userId, classNameId, classPK, title, content, url, type,
@@ -153,7 +153,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public void checkEntries() throws PortalException, SystemException {
+	public void checkEntries() throws PortalException {
 		Date now = new Date();
 
 		if (_previousCheckDate == null) {
@@ -177,7 +177,7 @@ public class AnnouncementsEntryLocalServiceImpl
 
 	@Override
 	public void deleteEntry(AnnouncementsEntry entry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -196,7 +196,7 @@ public class AnnouncementsEntryLocalServiceImpl
 
 	@Override
 	public void deleteEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AnnouncementsEntry entry =
 			announcementsEntryPersistence.findByPrimaryKey(entryId);
@@ -315,7 +315,7 @@ public class AnnouncementsEntryLocalServiceImpl
 
 	@Override
 	public AnnouncementsEntry getEntry(long entryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return announcementsEntryPersistence.findByPrimaryKey(entryId);
 	}
@@ -340,7 +340,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			boolean displayImmediately, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Entry
 
@@ -386,7 +386,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	protected void notifyUsers(AnnouncementsEntry entry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(
 			entry.getCompanyId());
@@ -501,7 +501,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	protected void notifyUsers(
 			List<User> users, AnnouncementsEntry entry, Locale locale,
 			String toAddress, String toName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Notifying " + users.size() + " users");

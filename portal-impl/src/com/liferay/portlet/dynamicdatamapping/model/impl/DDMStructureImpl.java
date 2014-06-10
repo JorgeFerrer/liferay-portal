@@ -82,7 +82,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public List<String> getChildrenFieldNames(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<String> fieldNames = new ArrayList<String>();
 
@@ -102,7 +102,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public String getCompleteXsd() throws PortalException, SystemException {
+	public String getCompleteXsd() throws PortalException {
 		if (getParentStructureId() == 0) {
 			return getXsd();
 		}
@@ -159,28 +159,28 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public String getFieldDataType(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldProperty(fieldName, "dataType");
 	}
 
 	@Override
 	public String getFieldLabel(String fieldName, Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldLabel(fieldName, LocaleUtil.toLanguageId(locale));
 	}
 
 	@Override
 	public String getFieldLabel(String fieldName, String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getString(
 			getFieldProperty(fieldName, "label", locale), fieldName);
 	}
 
 	@Override
-	public Set<String> getFieldNames() throws PortalException, SystemException {
+	public Set<String> getFieldNames() throws PortalException {
 		Map<String, Map<String, String>> fieldsMap = getFieldsMap();
 
 		return fieldsMap.keySet();
@@ -188,7 +188,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public String getFieldProperty(String fieldName, String property)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldProperty(fieldName, property, getDefaultLanguageId());
 	}
@@ -196,7 +196,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@Override
 	public String getFieldProperty(
 			String fieldName, String property, String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!hasField(fieldName)) {
 			throw new StructureFieldException();
@@ -211,14 +211,14 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public boolean getFieldRepeatable(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "repeatable"));
 	}
 
 	@Override
 	public boolean getFieldRequired(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "required"));
 	}
@@ -266,7 +266,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public Map<String, Map<String, String>> getFieldsMap()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldsMap(getDefaultLanguageId());
 	}
@@ -274,14 +274,14 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@Override
 	public Map<String, Map<String, String>> getFieldsMap(
 			boolean includeTransientFields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldsMap(getDefaultLanguageId(), includeTransientFields);
 	}
 
 	@Override
 	public Map<String, Map<String, String>> getFieldsMap(String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldsMap(locale, false);
 	}
@@ -289,7 +289,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@Override
 	public Map<String, Map<String, String>> getFieldsMap(
 			String locale, boolean includeTransientFields)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_indexFieldsMap(locale);
 
@@ -307,14 +307,14 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public String getFieldTip(String fieldName, Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldTip(fieldName, LocaleUtil.toLanguageId(locale));
 	}
 
 	@Override
 	public String getFieldTip(String fieldName, String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getString(
 			getFieldProperty(fieldName, "tip", locale), fieldName);
@@ -322,7 +322,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public String getFieldType(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getFieldProperty(fieldName, "type");
 	}
@@ -369,7 +369,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@Override
 	public Map<String, Map<String, String>> getPersistentFieldsMap(
 			String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_indexFieldsMap(locale);
 
@@ -384,7 +384,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public List<String> getRootFieldNames()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<String> fieldNames = new ArrayList<String>();
 
@@ -412,7 +412,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public Map<String, Map<String, String>> getTransientFieldsMap(String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_indexFieldsMap(locale);
 
@@ -428,7 +428,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	@Override
 	public String getUnambiguousName(
 			List<DDMStructure> structures, long groupId, final Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getGroupId() == groupId ) {
 			return getName(locale);
@@ -508,7 +508,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public boolean hasField(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Map<String, String>> fieldsMap = getFieldsMap(true);
 
@@ -527,21 +527,21 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 
 	@Override
 	public boolean isFieldPrivate(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "private"));
 	}
 
 	@Override
 	public boolean isFieldRepeatable(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "repeatable"));
 	}
 
 	@Override
 	public boolean isFieldTransient(String fieldName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!hasField(fieldName)) {
 			throw new StructureFieldException();
@@ -692,7 +692,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	private void _indexFieldsMap(String locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Map<String, Map<String, String>>> localizedFieldsMap =
 			getLocalizedFieldsMap();

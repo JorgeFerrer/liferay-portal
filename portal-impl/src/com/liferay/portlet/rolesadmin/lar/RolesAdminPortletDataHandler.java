@@ -172,7 +172,7 @@ public class RolesAdminPortletDataHandler extends BasePortletDataHandler {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					if (!export) {
 						return;

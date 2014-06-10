@@ -41,14 +41,14 @@ public class VirtualHostLocalServiceImpl
 
 	@Override
 	public VirtualHost getVirtualHost(long companyId, long layoutSetId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return virtualHostPersistence.findByC_L(companyId, layoutSetId);
 	}
 
 	@Override
 	public VirtualHost getVirtualHost(String hostname)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return virtualHostPersistence.findByHostname(hostname);
 	}

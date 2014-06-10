@@ -30,7 +30,7 @@ public class JournalArticleResourceLocalServiceImpl
 
 	@Override
 	public void deleteArticleResource(long groupId, String articleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		journalArticleResourcePersistence.removeByG_A(groupId, articleId);
 	}
@@ -52,7 +52,7 @@ public class JournalArticleResourceLocalServiceImpl
 	@Override
 	public JournalArticleResource getArticleResource(
 			long articleResourcePrimKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return journalArticleResourcePersistence.findByPrimaryKey(
 			articleResourcePrimKey);

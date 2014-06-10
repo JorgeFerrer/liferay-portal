@@ -56,7 +56,7 @@ public class BaseDDMStructureClassTypeReader implements ClassTypeReader {
 
 	@Override
 	public ClassType getClassType(long classTypeId, Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = DDMStructureServiceUtil.getStructure(
 			classTypeId);

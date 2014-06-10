@@ -85,7 +85,7 @@ public class PortletPreferencesFactoryImpl
 	@Override
 	public void checkControlPanelPortletPreferences(
 			ThemeDisplay themeDisplay, Portlet portlet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = themeDisplay.getLayout();
 
@@ -322,7 +322,7 @@ public class PortletPreferencesFactoryImpl
 	@Override
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferencesIds portletPreferencesIds = getPortletPreferencesIds(
 			request, portletId);
@@ -334,7 +334,7 @@ public class PortletPreferencesFactoryImpl
 	@Override
 	public PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, Layout layout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -362,7 +362,7 @@ public class PortletPreferencesFactoryImpl
 	@Override
 	public PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = (Layout)request.getAttribute(WebKeys.LAYOUT);
 
@@ -373,7 +373,7 @@ public class PortletPreferencesFactoryImpl
 	public PortletPreferencesIds getPortletPreferencesIds(
 			long siteGroupId, long userId, Layout layout, String portletId,
 			boolean modeEditGuest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();

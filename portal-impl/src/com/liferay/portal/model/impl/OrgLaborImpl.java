@@ -28,7 +28,7 @@ public class OrgLaborImpl extends OrgLaborBaseImpl {
 	}
 
 	@Override
-	public ListType getType() throws PortalException, SystemException {
+	public ListType getType() throws PortalException {
 		return ListTypeServiceUtil.getListType(getTypeId());
 	}
 

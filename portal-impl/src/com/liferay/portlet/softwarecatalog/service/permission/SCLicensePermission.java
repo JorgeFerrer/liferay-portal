@@ -31,7 +31,7 @@ public class SCLicensePermission {
 	public static void check(
 			PermissionChecker permissionChecker, long productEntryId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, productEntryId, actionId)) {
 			throw new PrincipalException();
@@ -51,7 +51,7 @@ public class SCLicensePermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long licenseId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCLicense license = SCLicenseLocalServiceUtil.getLicense(licenseId);
 

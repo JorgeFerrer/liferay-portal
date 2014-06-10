@@ -313,7 +313,7 @@ public class UserAttributes {
 	}
 
 	public String getValue(String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (name == null) {
 			return null;

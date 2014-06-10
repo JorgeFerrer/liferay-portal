@@ -38,7 +38,7 @@ public class MDRRuleGroupInstanceServiceImpl
 	public MDRRuleGroupInstance addRuleGroupInstance(
 			long groupId, String className, long classPK, long ruleGroupId,
 			int priority, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRPermissionUtil.check(
 			getPermissionChecker(), groupId,
@@ -52,7 +52,7 @@ public class MDRRuleGroupInstanceServiceImpl
 	public MDRRuleGroupInstance addRuleGroupInstance(
 			long groupId, String className, long classPK, long ruleGroupId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRPermissionUtil.check(
 			getPermissionChecker(), groupId,
@@ -64,7 +64,7 @@ public class MDRRuleGroupInstanceServiceImpl
 
 	@Override
 	public void deleteRuleGroupInstance(long ruleGroupInstanceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroupInstance ruleGroupInstance =
 			mdrRuleGroupInstancePersistence.findByPrimaryKey(
@@ -102,7 +102,7 @@ public class MDRRuleGroupInstanceServiceImpl
 	@Override
 	public MDRRuleGroupInstance updateRuleGroupInstance(
 			long ruleGroupInstanceId, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MDRRuleGroupInstance ruleGroupInstance =
 			mdrRuleGroupInstancePersistence.findByPrimaryKey(

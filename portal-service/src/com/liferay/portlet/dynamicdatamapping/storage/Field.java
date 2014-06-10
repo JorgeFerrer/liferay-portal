@@ -117,7 +117,7 @@ public class Field implements Serializable {
 		return _valuesMap.keySet();
 	}
 
-	public String getDataType() throws PortalException, SystemException {
+	public String getDataType() throws PortalException {
 		DDMStructure ddmStructure = getDDMStructure();
 
 		return ddmStructure.getFieldDataType(_name);
@@ -140,7 +140,7 @@ public class Field implements Serializable {
 	}
 
 	public String getRenderedValue(Locale locale)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FieldRenderer fieldRenderer = getFieldRenderer();
 
@@ -148,14 +148,14 @@ public class Field implements Serializable {
 	}
 
 	public String getRenderedValue(Locale locale, int valueIndex)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FieldRenderer fieldRenderer = getFieldRenderer();
 
 		return fieldRenderer.render(this, locale, valueIndex);
 	}
 
-	public String getType() throws PortalException, SystemException {
+	public String getType() throws PortalException {
 		DDMStructure ddmStructure = getDDMStructure();
 
 		return ddmStructure.getFieldType(_name);
@@ -225,7 +225,7 @@ public class Field implements Serializable {
 		}
 	}
 
-	public boolean isRepeatable() throws PortalException, SystemException {
+	public boolean isRepeatable() throws PortalException {
 		DDMStructure ddmStructure = getDDMStructure();
 
 		return ddmStructure.isFieldRepeatable(_name);
@@ -276,7 +276,7 @@ public class Field implements Serializable {
 	}
 
 	protected FieldRenderer getFieldRenderer()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMStructure ddmStructure = getDDMStructure();
 

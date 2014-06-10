@@ -33,7 +33,7 @@ public class LayoutBranchServiceImpl extends LayoutBranchServiceBaseImpl {
 	public LayoutBranch addLayoutBranch(
 			long layoutRevisionId, String name, String description,
 			boolean master, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long groupId = serviceContext.getScopeGroupId();
 
@@ -46,7 +46,7 @@ public class LayoutBranchServiceImpl extends LayoutBranchServiceBaseImpl {
 
 	@Override
 	public void deleteLayoutBranch(long layoutBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranchPermissionUtil.check(
 			getPermissionChecker(), layoutBranchId, ActionKeys.DELETE);
@@ -58,7 +58,7 @@ public class LayoutBranchServiceImpl extends LayoutBranchServiceBaseImpl {
 	public LayoutBranch updateLayoutBranch(
 			long layoutBranchId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutBranchPermissionUtil.check(
 			getPermissionChecker(), layoutBranchId, ActionKeys.UPDATE);

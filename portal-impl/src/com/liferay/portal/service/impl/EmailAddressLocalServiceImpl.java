@@ -45,7 +45,7 @@ public class EmailAddressLocalServiceImpl
 	public EmailAddress addEmailAddress(
 			long userId, String className, long classPK, String address,
 			int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addEmailAddress(
 			userId, className, classPK, address, typeId, primary,
@@ -56,7 +56,7 @@ public class EmailAddressLocalServiceImpl
 	public EmailAddress addEmailAddress(
 			long userId, String className, long classPK, String address,
 			int typeId, boolean primary, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -101,7 +101,7 @@ public class EmailAddressLocalServiceImpl
 
 	@Override
 	public EmailAddress deleteEmailAddress(long emailAddressId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		EmailAddress emailAddress = emailAddressPersistence.findByPrimaryKey(
 			emailAddressId);
@@ -141,7 +141,7 @@ public class EmailAddressLocalServiceImpl
 	@Override
 	public EmailAddress updateEmailAddress(
 			long emailAddressId, String address, int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(emailAddressId, 0, 0, 0, address, typeId, primary);
 
@@ -186,7 +186,7 @@ public class EmailAddressLocalServiceImpl
 	protected void validate(
 			long emailAddressId, long companyId, long classNameId, long classPK,
 			String address, int typeId, boolean primary)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!Validator.isEmailAddress(address)) {
 			throw new EmailAddressException();

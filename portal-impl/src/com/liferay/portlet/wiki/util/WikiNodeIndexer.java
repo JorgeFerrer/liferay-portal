@@ -155,7 +155,7 @@ public class WikiNodeIndexer extends BaseIndexer {
 	}
 
 	protected void reindexEntries(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			WikiNodeLocalServiceUtil.getActionableDynamicQuery();

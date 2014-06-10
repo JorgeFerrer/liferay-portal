@@ -100,7 +100,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public void addGroupUsers(
 			long groupId, long[] userIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -160,7 +160,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void addOrganizationUsers(long organizationId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -192,7 +192,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void addPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -218,7 +218,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void addRoleUsers(long roleId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -247,7 +247,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void addTeamUsers(long teamId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -319,7 +319,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			int birthdayYear, String jobTitle, long[] groupIds,
 			long[] organizationIds, long[] roleIds, long[] userGroupIds,
 			boolean sendEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
 
@@ -406,7 +406,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			List<Phone> phones, List<Website> websites,
 			List<AnnouncementsDelivery> announcementsDelivers,
 			boolean sendEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
 
@@ -439,7 +439,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void addUserGroupUsers(long userGroupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -517,7 +517,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			int birthdayYear, String jobTitle, long[] groupIds,
 			long[] organizationIds, long[] roleIds, long[] userGroupIds,
 			boolean sendEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long creatorUserId = 0;
 
@@ -617,7 +617,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			List<Phone> phones, List<Website> websites,
 			List<AnnouncementsDelivery> announcementsDelivers,
 			boolean sendEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		boolean indexingEnabled = serviceContext.isIndexingEnabled();
 
@@ -671,7 +671,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void deletePortrait(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -691,7 +691,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void deleteRoleUser(long roleId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.ASSIGN_MEMBERS);
@@ -709,7 +709,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void deleteUser(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getUserId() == userId) {
 			throw new RequiredUserException();
@@ -723,7 +723,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 	@Override
 	public List<User> getCompanyUsers(long companyId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -736,7 +736,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 	@Override
 	public int getCompanyUsersCount(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -758,7 +758,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public long[] getGroupUserIds(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW_MEMBERS);
@@ -777,7 +777,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public List<User> getGroupUsers(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW_MEMBERS);
@@ -796,7 +796,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public long[] getOrganizationUserIds(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.VIEW_MEMBERS);
@@ -815,7 +815,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public List<User> getOrganizationUsers(long organizationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.VIEW_MEMBERS);
@@ -834,7 +834,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public long[] getRoleUserIds(long roleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.VIEW);
@@ -855,7 +855,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User getUserByEmailAddress(long companyId, String emailAddress)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userLocalService.getUserByEmailAddress(
 			companyId, emailAddress);
@@ -877,7 +877,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User getUserById(long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -899,7 +899,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User getUserByScreenName(long companyId, String screenName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userLocalService.getUserByScreenName(companyId, screenName);
 
@@ -911,7 +911,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 	@Override
 	public List<User> getUserGroupUsers(long userGroupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.VIEW_MEMBERS);
@@ -931,7 +931,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public long getUserIdByEmailAddress(long companyId, String emailAddress)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = getUserByEmailAddress(companyId, emailAddress);
 
@@ -952,7 +952,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public long getUserIdByScreenName(long companyId, String screenName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = getUserByScreenName(companyId, screenName);
 
@@ -975,7 +975,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public boolean hasGroupUser(long groupId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			UserPermissionUtil.check(
@@ -1002,7 +1002,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public boolean hasRoleUser(long roleId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			UserPermissionUtil.check(
@@ -1034,7 +1034,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public boolean hasRoleUser(
 			long companyId, String name, long userId, boolean inherited)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			UserPermissionUtil.check(
@@ -1064,7 +1064,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void setRoleUsers(long roleId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.ASSIGN_MEMBERS);
@@ -1109,7 +1109,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void setUserGroupUsers(long userGroupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.ASSIGN_MEMBERS);
@@ -1156,7 +1156,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetGroupTeamsUsers(long groupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -1183,7 +1183,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public void unsetGroupUsers(
 			long groupId, long[] userIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		userIds = UsersAdminUtil.filterUnsetGroupUserIds(
 			getPermissionChecker(), groupId, userIds);
@@ -1246,7 +1246,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetOrganizationUsers(long organizationId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		userIds = UsersAdminUtil.filterUnsetOrganizationUserIds(
 			getPermissionChecker(), organizationId, userIds);
@@ -1278,7 +1278,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -1303,7 +1303,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetRoleUsers(long roleId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -1331,7 +1331,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetTeamUsers(long teamId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -1355,7 +1355,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public void unsetUserGroupUsers(long userGroupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userIds.length == 0) {
 			return;
@@ -1386,7 +1386,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public User updateAgreedToTermsOfUse(
 			long userId, boolean agreedToTermsOfUse)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1414,7 +1414,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	public User updateEmailAddress(
 			long userId, String password, String emailAddress1,
 			String emailAddress2, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1475,7 +1475,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			int suffixId, boolean male, int birthdayMonth, int birthdayDay,
 			int birthdayYear, String jobTitle, boolean updateUserInformation,
 			boolean sendEmail, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long creatorUserId = 0;
 
@@ -1509,7 +1509,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User updateLockoutById(long userId, boolean lockout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.DELETE);
@@ -1529,7 +1529,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User updateOpenId(long userId, String openId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1552,7 +1552,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public void updateOrganizations(
 			long userId, long[] organizationIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1580,7 +1580,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	public User updatePassword(
 			long userId, String password1, String password2,
 			boolean passwordReset)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1602,7 +1602,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User updatePortrait(long userId, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1624,7 +1624,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User updateReminderQuery(long userId, String question, String answer)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1645,7 +1645,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Override
 	public User updateScreenName(long userId, String screenName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
@@ -1672,7 +1672,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Deprecated
 	@Override
 	public User updateStatus(long userId, int status)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateStatus(userId, status, new ServiceContext());
 	}
@@ -1697,7 +1697,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	@Override
 	public User updateStatus(
 			long userId, int status, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((getUserId() == userId) &&
 			(status != WorkflowConstants.STATUS_APPROVED)) {
@@ -1796,7 +1796,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			List<Phone> phones, List<Website> websites,
 			List<AnnouncementsDelivery> announcementsDelivers,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, organizationIds, ActionKeys.UPDATE);
@@ -2169,7 +2169,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			List<Phone> phones, List<Website> websites,
 			List<AnnouncementsDelivery> announcementsDelivers,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateUser(
 			userId, oldPassword, newPassword1, newPassword2, passwordReset,
@@ -2257,7 +2257,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			long[] organizationIds, long[] roleIds,
 			List<UserGroupRole> userGroupRoles, long[] userGroupIds,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateUser(
 			userId, oldPassword, newPassword1, newPassword2, passwordReset,
@@ -2275,7 +2275,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			long creatorUserId, long companyId, String emailAddress,
 			long[] groupIds, long[] organizationIds, long[] roleIds,
 			long[] userGroupIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
@@ -2323,7 +2323,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected long[] checkGroups(long userId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] oldGroupIds = null;
 
@@ -2384,7 +2384,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	protected void checkMembership(
 			long[] userIds, long[] groupIds, long[] organizationIds,
 			long[] roleIds, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (groupIds != null) {
 			SiteMembershipPolicyUtil.checkMembership(userIds, groupIds, null);
@@ -2406,7 +2406,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected long[] checkOrganizations(long userId, long[] organizationIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] oldOrganizationIds = null;
 
@@ -2466,7 +2466,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected long[] checkRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] oldRoleIds = null;
 
@@ -2521,7 +2521,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected long[] checkUserGroupIds(long userId, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] oldUserGroupIds = null;
 
@@ -2573,7 +2573,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 	protected List<UserGroupRole> checkUserGroupRoles(
 			long userId, List<UserGroupRole> userGroupRoles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<UserGroupRole> oldUserGroupRoles = null;
 
@@ -2648,7 +2648,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	protected void propagateMembership(
 			long[] userIds, long[] groupIds, long[] organizationIds,
 			long[] roleIds, long[] userGroupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (groupIds != null) {
 			SiteMembershipPolicyUtil.propagateMembership(
@@ -2672,7 +2672,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 	protected void updateAnnouncementsDeliveries(
 			long userId, List<AnnouncementsDelivery> announcementsDeliveries)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		for (AnnouncementsDelivery announcementsDelivery :
 				announcementsDeliveries) {
@@ -2686,7 +2686,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected void validateEmailAddress(User user, String emailAddress)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!user.hasCompanyMx() && user.hasCompanyMx(emailAddress)) {
 			Company company = companyPersistence.findByPrimaryKey(
@@ -2699,7 +2699,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	protected void validateOrganizationUsers(long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -2737,7 +2737,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			String middleName, String lastName, int prefixId, int suffixId,
 			int birthdayMonth, int birthdayDay, int birthdayYear, boolean male,
 			String jobTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<String> fields = new ArrayList<String>();
 

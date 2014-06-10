@@ -128,7 +128,7 @@ public class CalIndexer extends BaseIndexer {
 	}
 
 	protected void reindexEvents(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			CalEventLocalServiceUtil.getActionableDynamicQuery();

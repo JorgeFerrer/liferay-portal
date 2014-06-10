@@ -33,7 +33,7 @@ public class AnnouncementsDeliveryServiceImpl
 	public AnnouncementsDelivery updateDelivery(
 			long userId, String type, boolean email, boolean sms,
 			boolean website)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!PortalPermissionUtil.contains(
 				getPermissionChecker(), ActionKeys.ADD_USER) &&

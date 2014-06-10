@@ -101,7 +101,7 @@ public class DLUtil {
 
 	public static String getAbsolutePath(
 			PortletRequest portletRequest, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getAbsolutePath(portletRequest, folderId);
 	}
@@ -140,7 +140,7 @@ public class DLUtil {
 
 	public static String getDLFileEntryControlPanelLink(
 			PortletRequest portletRequest, long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getDLFileEntryControlPanelLink(
 			portletRequest, fileEntryId);
@@ -148,7 +148,7 @@ public class DLUtil {
 
 	public static String getDLFolderControlPanelLink(
 			PortletRequest portletRequest, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getDLFolderControlPanelLink(portletRequest, folderId);
 	}
@@ -297,7 +297,7 @@ public class DLUtil {
 
 	public static String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getWebDavURL(themeDisplay, folder, fileEntry);
 	}
@@ -305,7 +305,7 @@ public class DLUtil {
 	public static String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry,
 			boolean manualCheckInRequired)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getWebDavURL(
 			themeDisplay, folder, fileEntry, manualCheckInRequired);
@@ -314,7 +314,7 @@ public class DLUtil {
 	public static String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry,
 			boolean manualCheckInRequired, boolean officeExtensionRequired)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().getWebDavURL(
 			themeDisplay, folder, fileEntry, manualCheckInRequired,
@@ -349,7 +349,7 @@ public class DLUtil {
 
 	public static boolean isSubscribedToFolder(
 			long companyId, long groupId, long userId, long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().isSubscribedToFolder(
 			companyId, groupId, userId, folderId);
@@ -358,7 +358,7 @@ public class DLUtil {
 	public static boolean isSubscribedToFolder(
 			long companyId, long groupId, long userId, long folderId,
 			boolean recursive)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDL().isSubscribedToFolder(
 			companyId, groupId, userId, folderId, recursive);
@@ -371,7 +371,7 @@ public class DLUtil {
 	public static void startWorkflowInstance(
 			long userId, DLFileVersion dlFileVersion, String syncEventType,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getDL().startWorkflowInstance(
 			userId, dlFileVersion, syncEventType, serviceContext);

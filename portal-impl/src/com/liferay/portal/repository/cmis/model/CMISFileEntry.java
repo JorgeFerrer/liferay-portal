@@ -172,14 +172,14 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 
 	@Override
 	public FileVersion getFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLatestFileVersion();
 	}
 
 	@Override
 	public FileVersion getFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(version)) {
 			return getFileVersion();
@@ -281,7 +281,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 
 	@Override
 	public FileVersion getLatestFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_latestFileVersion != null) {
 			return _latestFileVersion;
@@ -305,7 +305,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 
 	@Override
 	public FileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLatestFileVersion();
 	}

@@ -44,7 +44,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 
 	@Override
 	public Image deleteImage(long imageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (imageId <= 0) {
 			return null;
@@ -136,7 +136,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 
 	@Override
 	public Image updateImage(long imageId, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Image image = null;
 
@@ -156,7 +156,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 	public Image updateImage(
 			long imageId, byte[] bytes, String type, int height, int width,
 			int size)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(type);
 
@@ -185,7 +185,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 
 	@Override
 	public Image updateImage(long imageId, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Image image = null;
 
@@ -203,7 +203,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 
 	@Override
 	public Image updateImage(long imageId, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Image image = null;
 
@@ -222,7 +222,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 	@Override
 	public Image updateImage(
 			long imageId, InputStream is, boolean cleanUpStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Image image = null;
 

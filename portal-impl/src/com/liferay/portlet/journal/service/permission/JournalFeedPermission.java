@@ -41,7 +41,7 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 
 	public static void check(
 			PermissionChecker permissionChecker, long id, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, id, actionId)) {
 			throw new PrincipalException();
@@ -51,7 +51,7 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, String feedId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, feedId, actionId)) {
 			throw new PrincipalException();
@@ -84,7 +84,7 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 
 	public static boolean contains(
 			PermissionChecker permissionChecker, long feedId, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeed feed = JournalFeedLocalServiceUtil.getFeed(feedId);
 
@@ -94,7 +94,7 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, String feedId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFeed feed = JournalFeedLocalServiceUtil.getFeed(groupId, feedId);
 
@@ -105,7 +105,7 @@ public class JournalFeedPermission implements BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		check(permissionChecker, primaryKey, actionId);
 	}

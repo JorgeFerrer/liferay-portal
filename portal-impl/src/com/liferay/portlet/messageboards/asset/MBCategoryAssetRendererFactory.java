@@ -50,7 +50,7 @@ public class MBCategoryAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		MBCategory category = MBCategoryLocalServiceUtil.getMBCategory(classPK);
 

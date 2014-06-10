@@ -78,7 +78,7 @@ public class InputAssetLinksDisplayContext {
 	}
 
 	public AssetEntry getAssetLinkEntry(AssetLink assetLink)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((_assetEntryId > 0) || (assetLink.getEntryId1() == _assetEntryId)) {
 			return AssetEntryLocalServiceUtil.getEntry(assetLink.getEntryId2());
@@ -88,7 +88,7 @@ public class InputAssetLinksDisplayContext {
 	}
 
 	public List<AssetLink> getAssetLinks()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_assetLinks == null) {
 			_assetLinks = _createAssetLinks();
@@ -97,7 +97,7 @@ public class InputAssetLinksDisplayContext {
 		return _assetLinks;
 	}
 
-	public int getAssetLinksCount() throws PortalException, SystemException {
+	public int getAssetLinksCount() throws PortalException {
 		List<AssetLink> assetLinks = getAssetLinks();
 
 		return assetLinks.size();
@@ -151,7 +151,7 @@ public class InputAssetLinksDisplayContext {
 	}
 
 	public String getGroupDescriptiveName(AssetEntry assetEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(assetEntry.getGroupId());
 
@@ -205,7 +205,7 @@ public class InputAssetLinksDisplayContext {
 	}
 
 	private List<AssetLink> _createAssetLinks()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<AssetLink> assetLinks = new ArrayList<AssetLink>();
 

@@ -83,7 +83,7 @@ public class UserPermissionImpl
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Organization> organizations =
 			OrganizationLocalServiceUtil.getUserOrganizations(primaryKey);

@@ -33,7 +33,7 @@ public class DLHook extends BaseHook {
 
 	@Override
 	public void deleteImage(Image image)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String fileName = getFileName(image.getImageId(), image.getType());
 
@@ -47,7 +47,7 @@ public class DLHook extends BaseHook {
 
 	@Override
 	public byte[] getImageAsBytes(Image image)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String fileName = getFileName(image.getImageId(), image.getType());
 
@@ -68,7 +68,7 @@ public class DLHook extends BaseHook {
 
 	@Override
 	public InputStream getImageAsStream(Image image)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String fileName = getFileName(image.getImageId(), image.getType());
 
@@ -78,7 +78,7 @@ public class DLHook extends BaseHook {
 
 	@Override
 	public void updateImage(Image image, String type, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String fileName = getFileName(image.getImageId(), image.getType());
 

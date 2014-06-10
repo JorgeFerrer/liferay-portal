@@ -58,7 +58,7 @@ public class AddDefaultDDMTemplatesAction extends SimpleAction {
 			String name, String description, String language,
 			String scriptFileName, boolean cacheable,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDMTemplate ddmTemplate = DDMTemplateLocalServiceUtil.fetchTemplate(
 			groupId, classNameId, templateKey);

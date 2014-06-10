@@ -41,7 +41,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	@Override
 	public MBBan addBan(
 			long userId, long banUserId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		long groupId = serviceContext.getScopeGroupId();
@@ -73,7 +73,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public void checkBan(long groupId, long banUserId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (hasBan(groupId, banUserId)) {
 			throw new BannedUserException();
@@ -81,7 +81,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteBan(long banId) throws PortalException, SystemException {
+	public void deleteBan(long banId) throws PortalException {
 		MBBan ban = mbBanPersistence.findByPrimaryKey(banId);
 
 		mbBanLocalService.deleteBan(ban);

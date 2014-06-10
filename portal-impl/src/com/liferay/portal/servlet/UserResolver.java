@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserResolver {
 
 	public UserResolver(HttpServletRequest request)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_companyId = ParamUtil.getLong(request, "companyId");
 

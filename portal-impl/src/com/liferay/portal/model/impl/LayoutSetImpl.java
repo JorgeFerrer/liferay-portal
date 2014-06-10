@@ -53,13 +53,13 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 	}
 
 	@Override
-	public Group getGroup() throws PortalException, SystemException {
+	public Group getGroup() throws PortalException {
 		return GroupLocalServiceUtil.getGroup(getGroupId());
 	}
 
 	@Override
 	public long getLayoutSetPrototypeId()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String layoutSetPrototypeUuid = getLayoutSetPrototypeUuid();
 

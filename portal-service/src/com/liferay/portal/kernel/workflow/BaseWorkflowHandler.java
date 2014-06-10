@@ -58,7 +58,7 @@ public abstract class BaseWorkflowHandler<T> implements WorkflowHandler<T> {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetRendererFactory assetRendererFactory = getAssetRendererFactory();
 
@@ -172,7 +172,7 @@ public abstract class BaseWorkflowHandler<T> implements WorkflowHandler<T> {
 	@Override
 	public String getURLEditWorkflowTask(
 			long workflowTaskId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			LiferayPortletURL liferayPortletURL = PortletURLFactoryUtil.create(
@@ -243,7 +243,7 @@ public abstract class BaseWorkflowHandler<T> implements WorkflowHandler<T> {
 	@Override
 	public WorkflowDefinitionLink getWorkflowDefinitionLink(
 			long companyId, long groupId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return WorkflowDefinitionLinkLocalServiceUtil.
 			fetchWorkflowDefinitionLink(
@@ -291,7 +291,7 @@ public abstract class BaseWorkflowHandler<T> implements WorkflowHandler<T> {
 	public void startWorkflowInstance(
 			long companyId, long groupId, long userId, long classPK, T model,
 			Map<String, Serializable> workflowContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WorkflowInstanceLinkLocalServiceUtil.startWorkflowInstance(
 			companyId, groupId, userId, getClassName(), classPK,

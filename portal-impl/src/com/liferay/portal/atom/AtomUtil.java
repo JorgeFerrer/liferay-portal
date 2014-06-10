@@ -122,7 +122,7 @@ public class AtomUtil {
 		return StringUtil.toLowerCase(idTagPrefix);
 	}
 
-	public static Company getCompany() throws PortalException, SystemException {
+	public static Company getCompany() throws PortalException {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
 		return CompanyLocalServiceUtil.getCompanyById(companyId);

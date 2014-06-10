@@ -36,7 +36,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	@Override
 	public AssetCategoryProperty addCategoryProperty(
 			long userId, long categoryId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -80,7 +80,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 
 	@Override
 	public void deleteCategoryProperty(long categoryPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetCategoryProperty categoryProperty =
 			assetCategoryPropertyPersistence.findByPrimaryKey(
@@ -103,7 +103,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 
 	@Override
 	public AssetCategoryProperty getCategoryProperty(long categoryPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetCategoryPropertyPersistence.findByPrimaryKey(
 			categoryPropertyId);
@@ -112,7 +112,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	@Override
 	public AssetCategoryProperty getCategoryProperty(
 			long categoryId, String key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetCategoryPropertyPersistence.findByCA_K(categoryId, key);
 	}
@@ -127,7 +127,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	@Override
 	public AssetCategoryProperty updateCategoryProperty(
 			long userId, long categoryPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(key, value);
 
@@ -154,7 +154,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	@Override
 	public AssetCategoryProperty updateCategoryProperty(
 			long categoryPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateCategoryProperty(0, categoryPropertyId, key, value);
 	}

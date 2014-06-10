@@ -74,7 +74,7 @@ public class ShoppingItemImpl extends ShoppingItemBaseImpl {
 
 	@Override
 	public List<ShoppingItemPrice> getItemPrices()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ShoppingItemPriceLocalServiceUtil.getItemPrices(getItemId());
 	}

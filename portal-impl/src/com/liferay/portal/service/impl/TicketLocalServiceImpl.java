@@ -62,7 +62,7 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 
 	@Override
 	public Ticket getTicket(String key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return ticketPersistence.findByKey(key);
 	}

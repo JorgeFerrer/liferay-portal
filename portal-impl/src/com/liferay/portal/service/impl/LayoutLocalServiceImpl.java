@@ -207,7 +207,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			Map<Locale, String> keywordsMap, Map<Locale, String> robotsMap,
 			String type, boolean hidden, String friendlyURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> friendlyURLMap = new HashMap<Locale, String>();
 
@@ -279,7 +279,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			Map<Locale, String> keywordsMap, Map<Locale, String> robotsMap,
 			String type, String typeSettings, boolean hidden,
 			Map<Locale, String> friendlyURLMap, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout
 
@@ -515,7 +515,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long parentLayoutId, String name, String title, String description,
 			String type, boolean hidden, String friendlyURL,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Locale locale = LocaleUtil.getSiteDefault();
 
@@ -559,7 +559,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void deleteLayout(
 			Layout layout, boolean updateLayoutSet,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// First layout validation
 
@@ -724,7 +724,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void deleteLayout(
 			long groupId, boolean privateLayout, long layoutId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByG_P_L(
 			groupId, privateLayout, layoutId);
@@ -744,7 +744,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public void deleteLayout(long plid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByPrimaryKey(plid);
 
@@ -769,7 +769,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public void deleteLayouts(
 			long groupId, boolean privateLayout, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layouts
 
@@ -820,7 +820,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public byte[] exportLayouts(
 			long groupId, boolean privateLayout, long[] layoutIds,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = exportLayoutsAsFile(
 			groupId, privateLayout, layoutIds, parameterMap, startDate,
@@ -857,7 +857,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public byte[] exportLayouts(
 			long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return exportLayouts(
 			groupId, privateLayout, null, parameterMap, startDate, endDate);
@@ -885,7 +885,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public File exportLayoutsAsFile(
 			long groupId, boolean privateLayout, long[] layoutIds,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			LayoutExporter layoutExporter = LayoutExporter.getInstance();
@@ -908,7 +908,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public long exportLayoutsAsFileInBackground(
 			long userId, ExportImportConfiguration exportImportConfiguration)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!DLValidatorUtil.isValidName(exportImportConfiguration.getName())) {
 			throw new LARFileNameException(exportImportConfiguration.getName());
@@ -934,7 +934,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public long exportLayoutsAsFileInBackground(
 			long userId, long exportImportConfigurationId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ExportImportConfiguration exportImportConfiguration =
 			exportImportConfigurationLocalService.getExportImportConfiguration(
@@ -949,7 +949,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long userId, String taskName, long groupId, boolean privateLayout,
 			long[] layoutIds, Map<String, String[]> parameterMap,
 			Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> settingsMap =
 			ExportImportConfigurationSettingsMapFactory.buildSettingsMap(
@@ -979,7 +979,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long userId, String taskName, long groupId, boolean privateLayout,
 			long[] layoutIds, Map<String, String[]> parameterMap,
 			Date startDate, Date endDate, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return exportLayoutsAsFileInBackground(
 			userId, taskName, groupId, privateLayout, layoutIds, parameterMap,
@@ -1008,7 +1008,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public byte[] exportPortletInfo(
 			long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = exportPortletInfoAsFile(
 			plid, groupId, portletId, parameterMap, startDate, endDate);
@@ -1028,7 +1028,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public byte[] exportPortletInfo(
 			long companyId, String portletId,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = exportPortletInfoAsFile(
 			companyId, portletId, parameterMap, startDate, endDate);
@@ -1066,7 +1066,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public File exportPortletInfoAsFile(
 			long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			PortletExporter portletExporter = PortletExporter.getInstance();
@@ -1089,7 +1089,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public File exportPortletInfoAsFile(
 			long companyId, String portletId,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group companyGroup = groupLocalService.getCompanyGroup(companyId);
 		Group controlPanelGroup = groupPersistence.findByC_F(
@@ -1109,7 +1109,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long userId, String taskName, long plid, long groupId,
 			String portletId, Map<String, String[]> parameterMap,
 			Date startDate, Date endDate, String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> taskContextMap =
 			BackgroundTaskContextMapFactory.buildTaskContextMap(
@@ -1130,7 +1130,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long userId, String taskName, String portletId,
 			Map<String, String[]> parameterMap, Date startDate, Date endDate,
 			String fileName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -1239,7 +1239,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public long getDefaultPlid(
 			long groupId, boolean privateLayout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (groupId > 0) {
 			List<Layout> layouts = layoutPersistence.findByG_P(
@@ -1274,7 +1274,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public Layout getFriendlyURLLayout(
 			long groupId, boolean privateLayout, String friendlyURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(friendlyURL)) {
 			StringBundler sb = new StringBundler(5);
@@ -1343,7 +1343,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout getLayout(long groupId, boolean privateLayout, long layoutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutPersistence.findByG_P_L(groupId, privateLayout, layoutId);
 	}
@@ -1360,7 +1360,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout getLayoutByIconImageId(long iconImageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutPersistence.findByIconImageId(iconImageId);
 	}
@@ -1447,7 +1447,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public List<Layout> getLayouts(
 			long groupId, boolean privateLayout, long[] layoutIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Layout> layouts = new ArrayList<Layout>();
 
@@ -1517,7 +1517,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public int getLayoutsCount(Group group, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLayoutsCount(group, privateLayout, true);
 	}
@@ -1525,7 +1525,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public int getLayoutsCount(
 			Group group, boolean privateLayout, boolean includeUserGroups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			group.getGroupId(), privateLayout);
@@ -1567,7 +1567,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public int getLayoutsCount(User user, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLayoutsCount(user, privateLayout, true);
 	}
@@ -1575,7 +1575,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public int getLayoutsCount(
 			User user, boolean privateLayout, boolean includeUserGroups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(User.class);
 
@@ -1642,7 +1642,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public Layout getParentLayout(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout parentLayout = null;
 
@@ -1683,7 +1683,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public boolean hasLayouts(Group group, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasLayouts(group, privateLayout, true);
 	}
@@ -1691,7 +1691,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public boolean hasLayouts(
 			Group group, boolean privateLayout, boolean includeUserGroups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPersistence.findByG_P(
 			group.getGroupId(), privateLayout);
@@ -1748,7 +1748,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public boolean hasLayouts(User user, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return hasLayouts(user, privateLayout, true);
 	}
@@ -1756,7 +1756,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public boolean hasLayouts(
 			User user, boolean privateLayout, boolean includeUserGroups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(User.class);
 
@@ -1769,7 +1769,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public boolean hasLayoutSetPrototypeLayout(
 			long layoutSetPrototypeId, String layoutUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetPrototype layoutSetPrototype =
 			layoutSetPrototypeLocalService.getLayoutSetPrototype(
@@ -1782,7 +1782,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public boolean hasLayoutSetPrototypeLayout(
 			String layoutSetPrototypeUuid, long companyId, String layoutUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetPrototype layoutSetPrototype =
 			layoutSetPrototypeLocalService.
@@ -1813,7 +1813,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importLayouts(
 			long userId, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		importLayouts(
 			userId, groupId, privateLayout, parameterMap,
@@ -1840,7 +1840,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importLayouts(
 			long userId, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			LayoutImporter layoutImporter = LayoutImporter.getInstance();
@@ -1885,7 +1885,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importLayouts(
 			long userId, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -1908,7 +1908,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public long importLayoutsInBackground(
 			long userId, String taskName, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> taskContextMap =
 			BackgroundTaskContextMapFactory.buildTaskContextMap(
@@ -1931,7 +1931,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public long importLayoutsInBackground(
 			long userId, String taskName, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -1972,7 +1972,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importPortletInfo(
 			long userId, long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			PortletImporter portletImporter = PortletImporter.getInstance();
@@ -2036,7 +2036,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importPortletInfo(
 			long userId, long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -2060,7 +2060,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importPortletInfo(
 			long userId, String portletId, Map<String, String[]> parameterMap,
 			File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -2083,7 +2083,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void importPortletInfo(
 			long userId, String portletId, Map<String, String[]> parameterMap,
 			InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -2106,7 +2106,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public long importPortletInfoInBackground(
 			long userId, String taskName, long plid, long groupId,
 			String portletId, Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<String, Serializable> taskContextMap =
 			BackgroundTaskContextMapFactory.buildTaskContextMap(
@@ -2130,7 +2130,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			long userId, String taskName, long plid, long groupId,
 			String portletId, Map<String, String[]> parameterMap,
 			InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -2154,7 +2154,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public long importPortletInfoInBackground(
 			long userId, String taskName, String portletId,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
@@ -2177,7 +2177,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public long importPortletInfoInBackground(
 			long userId, String taskName, String portletId,
 			Map<String, String[]> parameterMap, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -2216,7 +2216,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void setLayouts(
 			long groupId, boolean privateLayout, long parentLayoutId,
 			long[] layoutIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutIds == null) {
 			return;
@@ -2275,7 +2275,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void updateAsset(
 			long userId, Layout layout, long[] assetCategoryIds,
 			String[] assetTagNames)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		assetEntryLocalService.updateEntry(
 			userId, layout.getGroupId(), layout.getCreateDate(),
@@ -2301,7 +2301,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public Layout updateFriendlyURL(
 			long userId, long plid, String friendlyURL, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -2351,7 +2351,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public Layout updateFriendlyURL(
 			long plid, String friendlyURL, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByPrimaryKey(plid);
 
@@ -2361,7 +2361,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public Layout updateIconImage(long plid, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.fetchByPrimaryKey(plid);
 
@@ -2426,7 +2426,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			Map<Locale, String> keywordsMap, Map<Locale, String> robotsMap,
 			String type, boolean hidden, Map<Locale, String> friendlyURLMap,
 			boolean iconImage, byte[] iconBytes, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout
 
@@ -2582,7 +2582,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			Map<Locale, String> keywordsMap, Map<Locale, String> robotsMap,
 			String type, boolean hidden, String friendlyURL, Boolean iconImage,
 			byte[] iconBytes, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Map<Locale, String> friendlyURLMap = new HashMap<Locale, String>();
 
@@ -2612,7 +2612,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout updateLayout(
 			long groupId, boolean privateLayout, long layoutId,
 			String typeSettings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -2651,7 +2651,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout updateLookAndFeel(
 			long groupId, boolean privateLayout, long layoutId, String themeId,
 			String colorSchemeId, String css, boolean wapTheme)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -2688,7 +2688,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout updateName(Layout layout, String name, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -2735,7 +2735,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout updateName(
 			long groupId, boolean privateLayout, long layoutId, String name,
 			String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByG_P_L(
 			groupId, privateLayout, layoutId);
@@ -2757,7 +2757,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout updateName(long plid, String name, String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByPrimaryKey(plid);
 
@@ -2782,7 +2782,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout updateParentLayoutId(
 			long groupId, boolean privateLayout, long layoutId,
 			long parentLayoutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		parentLayoutId = layoutLocalServiceHelper.getParentLayoutId(
 			groupId, privateLayout, parentLayoutId);
@@ -2827,7 +2827,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout updateParentLayoutId(long plid, long parentPlid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -2877,7 +2877,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public void updatePriorities(long groupId, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Layout> layouts = layoutPersistence.findByG_P(
 			groupId, privateLayout);
@@ -2905,7 +2905,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout updatePriority(Layout layout, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layout.getPriority() == priority) {
 			return layout;
@@ -2984,7 +2984,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	@Override
 	public Layout updatePriority(
 			long groupId, boolean privateLayout, long layoutId, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByG_P_L(
 			groupId, privateLayout, layoutId);
@@ -3010,7 +3010,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public Layout updatePriority(
 			long groupId, boolean privateLayout, long layoutId,
 			long nextLayoutId, long previousLayoutId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = getLayout(groupId, privateLayout, layoutId);
 
@@ -3053,7 +3053,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public Layout updatePriority(long plid, int priority)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layout = layoutPersistence.findByPrimaryKey(plid);
 
@@ -3069,7 +3069,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void updateScopedPortletNames(
 			long groupId, boolean privateLayout, long layoutId,
 			Map<Locale, String> nameMap, List<Locale> nameMapModifiedLocales)
-		throws PortalException, SystemException {
+		throws PortalException {
 	}
 
 	/**
@@ -3091,14 +3091,14 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public void updateScopedPortletNames(
 			long groupId, boolean privateLayout, long layoutId, String name,
 			String languageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 	}
 
 	@Override
 	public MissingReferences validateImportLayoutsFile(
 			long userId, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			LayoutImporter layoutImporter = LayoutImporter.getInstance();
@@ -3127,7 +3127,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public MissingReferences validateImportLayoutsFile(
 			long userId, long groupId, boolean privateLayout,
 			Map<String, String[]> parameterMap, InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 
@@ -3151,7 +3151,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public MissingReferences validateImportPortletInfo(
 			long userId, long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			PortletImporter portletImporter = PortletImporter.getInstance();
@@ -3180,7 +3180,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	public MissingReferences validateImportPortletInfo(
 			long userId, long plid, long groupId, String portletId,
 			Map<String, String[]> parameterMap, InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 

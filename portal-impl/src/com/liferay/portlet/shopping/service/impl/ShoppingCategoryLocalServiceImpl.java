@@ -41,7 +41,7 @@ public class ShoppingCategoryLocalServiceImpl
 	public ShoppingCategory addCategory(
 			long userId, long parentCategoryId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Category
 
@@ -91,7 +91,7 @@ public class ShoppingCategoryLocalServiceImpl
 	public void addCategoryResources(
 			long categoryId, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category =
 			shoppingCategoryPersistence.findByPrimaryKey(categoryId);
@@ -104,7 +104,7 @@ public class ShoppingCategoryLocalServiceImpl
 	public void addCategoryResources(
 			long categoryId, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category =
 			shoppingCategoryPersistence.findByPrimaryKey(categoryId);
@@ -116,7 +116,7 @@ public class ShoppingCategoryLocalServiceImpl
 	public void addCategoryResources(
 			ShoppingCategory category, boolean addGroupPermissions,
 			boolean addGuestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -129,7 +129,7 @@ public class ShoppingCategoryLocalServiceImpl
 	public void addCategoryResources(
 			ShoppingCategory category, String[] groupPermissions,
 			String[] guestPermissions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			category.getCompanyId(), category.getGroupId(),
@@ -139,7 +139,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public void deleteCategories(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.findByGroupId(groupId);
@@ -151,7 +151,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public void deleteCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory category =
 			shoppingCategoryPersistence.findByPrimaryKey(categoryId);
@@ -161,7 +161,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public void deleteCategory(ShoppingCategory category)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Categories
 
@@ -212,14 +212,14 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public ShoppingCategory getCategory(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return shoppingCategoryPersistence.findByPrimaryKey(categoryId);
 	}
 
 	@Override
 	public List<ShoppingCategory> getParentCategories(long categoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getParentCategories(
 			shoppingCategoryPersistence.findByPrimaryKey(categoryId));
@@ -227,7 +227,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public List<ShoppingCategory> getParentCategories(ShoppingCategory category)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ShoppingCategory> parentCategories =
 			new ArrayList<ShoppingCategory>();
@@ -254,7 +254,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public ShoppingCategory getParentCategory(ShoppingCategory category)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ShoppingCategory parentCategory =
 			shoppingCategoryPersistence.findByPrimaryKey(
@@ -283,7 +283,7 @@ public class ShoppingCategoryLocalServiceImpl
 			long categoryId, long parentCategoryId, String name,
 			String description, boolean mergeWithParentCategory,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Merge categories
 
@@ -371,7 +371,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	protected void mergeCategories(
 			ShoppingCategory fromCategory, long toCategoryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.findByG_P(

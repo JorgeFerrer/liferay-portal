@@ -36,7 +36,7 @@ public class ResourcePermissionUtil {
 			long groupId, Role role, Resource resource, List<String> actions,
 			List<String> individualActions, List<String> groupActions,
 			List<String> groupTemplateActions, List<String> companyActions)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (ResourceBlockLocalServiceUtil.isSupported(resource.getName())) {
 			ResourceBlock resourceBlock =

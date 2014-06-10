@@ -58,7 +58,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 
 	@Override
 	public ColorScheme getColorScheme()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getColorScheme();
@@ -71,7 +71,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public String getCssText() throws PortalException, SystemException {
+	public String getCssText() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getCss();
 		}
@@ -109,21 +109,21 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 
 	@Override
 	public LayoutBranch getLayoutBranch()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return LayoutBranchLocalServiceUtil.getLayoutBranch(
 			getLayoutBranchId());
 	}
 
 	@Override
-	public LayoutSet getLayoutSet() throws PortalException, SystemException {
+	public LayoutSet getLayoutSet() throws PortalException {
 		return LayoutSetLocalServiceUtil.getLayoutSet(
 			getGroupId(), isPrivateLayout());
 	}
 
 	@Override
 	public String getRegularURL(HttpServletRequest request)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -145,7 +145,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public Theme getTheme() throws PortalException, SystemException {
+	public Theme getTheme() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getTheme();
 		}
@@ -224,7 +224,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 
 	@Override
 	public ColorScheme getWapColorScheme()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getWapColorScheme();
@@ -237,7 +237,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public Theme getWapTheme() throws PortalException, SystemException {
+	public Theme getWapTheme() throws PortalException {
 		if (isInheritWapLookAndFeel()) {
 			return getLayoutSet().getWapTheme();
 		}
@@ -318,7 +318,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	protected Theme getTheme(String device)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (device.equals("regular")) {
 			return getTheme();

@@ -59,7 +59,7 @@ public abstract class BaseRawMetadataProcessor implements RawMetadataProcessor {
 	@Override
 	public Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Metadata metadata = extractMetadata(extension, mimeType, file);
 
@@ -69,7 +69,7 @@ public abstract class BaseRawMetadataProcessor implements RawMetadataProcessor {
 	@Override
 	public Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, InputStream inputStream)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Metadata metadata = extractMetadata(extension, mimeType, inputStream);
 

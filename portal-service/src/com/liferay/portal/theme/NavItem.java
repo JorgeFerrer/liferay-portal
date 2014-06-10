@@ -150,7 +150,7 @@ public class NavItem implements Serializable {
 		method.invoke(velocityTaglib, _layout);
 	}
 
-	public boolean isChildSelected() throws PortalException, SystemException {
+	public boolean isChildSelected() throws PortalException {
 		return _layout.isChildSelected(
 			_themeDisplay.isTilesSelectable(), _themeDisplay.getLayout());
 	}

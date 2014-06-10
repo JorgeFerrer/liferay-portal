@@ -322,7 +322,7 @@ public class WebServerServlet extends HttpServlet {
 	}
 
 	protected Image convertFileEntry(boolean smallImage, FileEntry fileEntry)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			Image image = new ImageImpl();
@@ -421,7 +421,7 @@ public class WebServerServlet extends HttpServlet {
 	}
 
 	protected Image getImage(HttpServletRequest request, boolean getDefault)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Image image = null;
 
@@ -630,7 +630,7 @@ public class WebServerServlet extends HttpServlet {
 	}
 
 	protected Image getUserPortraitImageResized(Image image, long imageId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (image == null) {
 			return null;

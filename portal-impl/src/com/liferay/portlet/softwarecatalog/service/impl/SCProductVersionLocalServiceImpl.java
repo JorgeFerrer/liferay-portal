@@ -52,7 +52,7 @@ public class SCProductVersionLocalServiceImpl
 			String downloadPageURL, String directDownloadURL,
 			boolean testDirectDownloadURL, boolean repoStoreArtifact,
 			long[] frameworkVersionIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product version
 
@@ -108,7 +108,7 @@ public class SCProductVersionLocalServiceImpl
 
 	@Override
 	public void deleteProductVersion(long productVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SCProductVersion productVersion =
 			scProductVersionPersistence.findByPrimaryKey(productVersionId);
@@ -135,7 +135,7 @@ public class SCProductVersionLocalServiceImpl
 
 	@Override
 	public SCProductVersion getProductVersion(long productVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductVersionPersistence.findByPrimaryKey(productVersionId);
 	}
@@ -143,7 +143,7 @@ public class SCProductVersionLocalServiceImpl
 	@Override
 	public SCProductVersion getProductVersionByDirectDownloadURL(
 			String directDownloadURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return scProductVersionPersistence.findByDirectDownloadURL(
 			directDownloadURL);
@@ -170,7 +170,7 @@ public class SCProductVersionLocalServiceImpl
 			String downloadPageURL, String directDownloadURL,
 			boolean testDirectDownloadURL, boolean repoStoreArtifact,
 			long[] frameworkVersionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Product version
 
@@ -244,7 +244,7 @@ public class SCProductVersionLocalServiceImpl
 			long productVersionId, String version, String changeLog,
 			String downloadPageURL, String directDownloadURL,
 			boolean testDirectDownloadURL, long[] frameworkVersionIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(version)) {
 			throw new ProductVersionNameException();

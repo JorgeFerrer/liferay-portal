@@ -124,7 +124,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 	@Override
 	public int getBuildNumberOrCreate()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Get release build number
 
@@ -196,7 +196,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 	@Override
 	public Release updateRelease(
 			long releaseId, int buildNumber, Date buildDate, boolean verified)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Release release = releasePersistence.findByPrimaryKey(releaseId);
 

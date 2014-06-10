@@ -77,7 +77,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 	@Override
 	public Settings getGroupServiceSettings(long groupId, String serviceName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return applyFallbackKeys(
 			serviceName, getGroupSettings(groupId, serviceName));
@@ -86,7 +86,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	@Override
 	public ArchivedSettings getPortletInstanceArchivedSettings(
 			long groupId, String portletId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletItem portletItem = null;
 
@@ -137,7 +137,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	@Override
 	public Settings getPortletInstanceGroupDefaultSettings(
 			long groupId, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
@@ -150,7 +150,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 	@Override
 	public Settings getPortletInstanceSettings(Layout layout, String portletId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return applyFallbackKeys(
 			PortletConstants.getRootPortletId(portletId),
@@ -204,7 +204,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	protected Settings getGroupSettings(long groupId, String settingsId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 

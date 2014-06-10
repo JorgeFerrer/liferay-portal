@@ -187,7 +187,7 @@ public class EditExportConfigurationAction extends PortletAction {
 
 	protected void deleteExportImportConfiguration(
 			ActionRequest actionRequest, boolean moveToTrash)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long[] deleteExportImportConfigurationIds = null;
 

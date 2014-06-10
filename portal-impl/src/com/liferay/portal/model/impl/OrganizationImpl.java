@@ -122,7 +122,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 
 	@Override
 	public List<Organization> getAncestors()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Organization> ancestors = new ArrayList<Organization>();
 
@@ -178,7 +178,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 
 	@Override
 	public Organization getParentOrganization()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (getParentOrganizationId() ==
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {

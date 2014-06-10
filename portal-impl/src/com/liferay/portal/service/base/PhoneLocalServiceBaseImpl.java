@@ -112,7 +112,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public Phone deletePhone(long phoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return phonePersistence.remove(phoneId);
 	}
 

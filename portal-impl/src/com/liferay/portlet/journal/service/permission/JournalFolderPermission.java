@@ -36,7 +36,7 @@ public class JournalFolderPermission {
 	public static void check(
 			PermissionChecker permissionChecker, JournalFolder folder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, folder, actionId)) {
 			throw new PrincipalException();
@@ -46,7 +46,7 @@ public class JournalFolderPermission {
 	public static void check(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, groupId, folderId, actionId)) {
 			throw new PrincipalException();
@@ -56,7 +56,7 @@ public class JournalFolderPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, JournalFolder folder,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (actionId.equals(ActionKeys.ADD_FOLDER)) {
 			actionId = ActionKeys.ADD_SUBFOLDER;
@@ -105,7 +105,7 @@ public class JournalFolderPermission {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long groupId, long folderId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (folderId == JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return JournalPermission.contains(

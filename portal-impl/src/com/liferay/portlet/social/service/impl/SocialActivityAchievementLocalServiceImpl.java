@@ -33,7 +33,7 @@ public class SocialActivityAchievementLocalServiceImpl
 	@Override
 	public void addActivityAchievement(
 			long userId, long groupId, SocialAchievement achievement)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivityAchievement activityAchievement =
 			socialActivityAchievementPersistence.fetchByG_U_N(

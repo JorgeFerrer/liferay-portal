@@ -127,7 +127,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	public Company addCompany(
 			String webId, String virtualHostname, String mx, String shardName,
 			boolean system, int maxUsers, boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Company
 
@@ -172,7 +172,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company checkCompany(String webId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String mx = webId;
 
@@ -196,7 +196,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company checkCompany(String webId, String mx, String shardName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Company
 
@@ -436,7 +436,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public void checkCompanyKey(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
@@ -456,7 +456,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 	@Override
 	public Company deleteCompany(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (companyId == PortalInstances.getDefaultCompanyId()) {
 			throw new RequiredCompanyException();
@@ -488,7 +488,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company deleteLogo(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
@@ -587,7 +587,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyById(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyPersistence.findByPrimaryKey(companyId);
 	}
@@ -602,7 +602,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByLogoId(long logoId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyPersistence.findByLogoId(logoId);
 	}
@@ -618,7 +618,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByMx(String mx)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyPersistence.findByMx(mx);
 	}
@@ -635,7 +635,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByVirtualHost(String virtualHostname)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			virtualHostname = StringUtil.toLowerCase(virtualHostname.trim());
@@ -668,7 +668,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company getCompanyByWebId(String webId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return companyPersistence.findByWebId(webId);
 	}
@@ -854,7 +854,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	public Company updateCompany(
 			long companyId, String virtualHostname, String mx, int maxUsers,
 			boolean active)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Company
 
@@ -923,7 +923,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			boolean logo, byte[] logoBytes, String name, String legalName,
 			String legalId, String legalType, String sicCode,
 			String tickerSymbol, String industry, String type, String size)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Company
 
@@ -1001,7 +1001,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			String name, String legalName, String legalId, String legalType,
 			String sicCode, String tickerSymbol, String industry, String type,
 			String size)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateCompany(
 			companyId, virtualHostname, mx, homeURL, true, null, name,
@@ -1021,7 +1021,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	@Override
 	public void updateDisplay(
 			long companyId, String languageId, String timeZoneId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userLocalService.getDefaultUser(companyId);
 
@@ -1043,7 +1043,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company updateLogo(long companyId, byte[] bytes)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = checkLogo(companyId);
 
@@ -1064,7 +1064,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company updateLogo(long companyId, File file)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = checkLogo(companyId);
 
@@ -1085,7 +1085,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Company updateLogo(long companyId, InputStream is)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = checkLogo(companyId);
 
@@ -1107,7 +1107,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public void updatePreferences(long companyId, UnicodeProperties properties)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PortletPreferences portletPreferences = PrefsPropsUtil.getPreferences(
 			companyId);
@@ -1240,7 +1240,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	protected Company checkLogo(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
@@ -1258,7 +1258,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	protected Company doDeleteCompany(final long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Company
 
@@ -1300,7 +1300,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					LayoutPrototype layoutPrototype = (LayoutPrototype)object;
 
@@ -1323,7 +1323,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					LayoutSetPrototype layoutSetPrototype =
 						(LayoutSetPrototype)object;
@@ -1357,7 +1357,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					Role role = (Role)object;
 
@@ -1414,7 +1414,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 				@Override
 				public void performAction(Object object)
-					throws PortalException, SystemException {
+					throws PortalException {
 
 					User user = (User)object;
 
@@ -1552,7 +1552,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	protected void validateName(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.fetchGroup(companyId, name);
 
@@ -1562,7 +1562,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	protected void validateVirtualHost(String webId, String virtualHostname)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(virtualHostname)) {
 			throw new CompanyVirtualHostException();
@@ -1623,7 +1623,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 					@Override
 					public void performAction(Object object)
-						throws PortalException, SystemException {
+						throws PortalException {
 
 						Group group = (Group)object;
 
@@ -1638,7 +1638,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		}
 
 		protected void deleteGroup(Group group)
-			throws PortalException, SystemException {
+			throws PortalException {
 
 			DeleteGroupActionableDynamicQuery
 				deleteGroupActionableDynamicQuery =
@@ -1657,7 +1657,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		}
 
 		protected void performActions()
-			throws PortalException, SystemException {
+			throws PortalException {
 
 			_actionableDynamicQuery.performActions();
 		}
@@ -1699,7 +1699,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 					@Override
 					public void performAction(Object object)
-						throws PortalException, SystemException {
+						throws PortalException {
 
 						Organization organization = (Organization)object;
 
@@ -1710,7 +1710,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		}
 
 		protected void deleteOrganization(Organization organization)
-			throws PortalException, SystemException {
+			throws PortalException {
 
 			DeleteOrganizationActionableDynamicQuery
 				deleteOrganizationActionableDynamicQuery =
@@ -1727,7 +1727,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		}
 
 		protected void performActions()
-			throws PortalException, SystemException {
+			throws PortalException {
 
 			_actionableDynamicQuery.performActions();
 		}

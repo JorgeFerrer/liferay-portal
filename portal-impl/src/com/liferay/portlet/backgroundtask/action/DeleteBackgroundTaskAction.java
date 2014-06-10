@@ -62,7 +62,7 @@ public class DeleteBackgroundTaskAction extends PortletAction {
 	}
 
 	protected void deleteBackgroundTask(ActionRequest actionRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long backgroundTaskId = ParamUtil.getLong(
 			actionRequest, "backgroundTaskId");

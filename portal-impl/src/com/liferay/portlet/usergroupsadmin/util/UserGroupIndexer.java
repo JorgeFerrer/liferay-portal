@@ -228,7 +228,7 @@ public class UserGroupIndexer extends BaseIndexer {
 	}
 
 	protected void reindexUserGroups(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			UserGroupLocalServiceUtil.getActionableDynamicQuery();

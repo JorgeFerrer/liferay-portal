@@ -41,7 +41,7 @@ public class AccountPermissionImpl implements AccountPermission {
 	public void check(
 			PermissionChecker permissionChecker, long accountId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, accountId, actionId)) {
 			throw new PrincipalException();
@@ -63,7 +63,7 @@ public class AccountPermissionImpl implements AccountPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long accountId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Account account = AccountLocalServiceUtil.getAccount(accountId);
 

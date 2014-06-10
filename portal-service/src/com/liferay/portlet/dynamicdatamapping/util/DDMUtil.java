@@ -51,7 +51,7 @@ public class DDMUtil {
 	public static Fields getFields(
 			long ddmStructureId, long ddmTemplateId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDM().getFields(
 			ddmStructureId, ddmTemplateId, serviceContext);
@@ -60,7 +60,7 @@ public class DDMUtil {
 	public static Fields getFields(
 			long ddmStructureId, long ddmTemplateId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDM().getFields(
 			ddmStructureId, ddmTemplateId, fieldNamespace, serviceContext);
@@ -68,7 +68,7 @@ public class DDMUtil {
 
 	public static Fields getFields(
 			long ddmStructureId, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDM().getFields(ddmStructureId, serviceContext);
 	}
@@ -76,7 +76,7 @@ public class DDMUtil {
 	public static Fields getFields(
 			long ddmStructureId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDM().getFields(
 			ddmStructureId, fieldNamespace, serviceContext);

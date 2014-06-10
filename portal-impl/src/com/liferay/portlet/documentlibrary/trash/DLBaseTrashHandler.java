@@ -44,7 +44,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public ContainerModel getContainerModel(long containerModelId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (containerModelId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return null;
@@ -66,7 +66,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	@Override
 	public List<ContainerModel> getContainerModels(
 			long classPK, long parentContainerModelId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -86,7 +86,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	@Override
 	public int getContainerModelsCount(
 			long classPK, long parentContainerModelId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -95,7 +95,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public List<ContainerModel> getParentContainerModels(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<ContainerModel> containerModels = new ArrayList<ContainerModel>();
 
@@ -133,7 +133,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public int getTrashContainedModelsCount(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -144,7 +144,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	@Override
 	public List<TrashRenderer> getTrashContainedModelTrashRenderers(
 			long classPK, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<TrashRenderer> trashRenderers = new ArrayList<TrashRenderer>();
 
@@ -194,7 +194,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 
 	@Override
 	public int getTrashContainerModelsCount(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = getRepository(classPK);
 
@@ -205,7 +205,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	@Override
 	public List<TrashRenderer> getTrashContainerModelTrashRenderers(
 			long classPK, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<TrashRenderer> trashRenderers = new ArrayList<TrashRenderer>();
 
@@ -235,7 +235,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	}
 
 	protected DLFolder fetchDLFolder(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = RepositoryServiceUtil.getRepositoryImpl(
 			classPK, 0, 0);
@@ -250,7 +250,7 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	}
 
 	protected DLFolder getDLFolder(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Repository repository = RepositoryServiceUtil.getRepositoryImpl(
 			classPK, 0, 0);

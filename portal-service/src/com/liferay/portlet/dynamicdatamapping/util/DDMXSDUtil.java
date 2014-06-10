@@ -123,7 +123,7 @@ public class DDMXSDUtil {
 	}
 
 	public static JSONArray getJSONArray(DDMStructure structure, String xsd)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDMXSD().getJSONArray(structure, xsd);
 	}
@@ -141,7 +141,7 @@ public class DDMXSDUtil {
 	}
 
 	public static JSONArray getJSONArray(String xml)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDMXSD().getJSONArray(xml);
 	}
@@ -169,7 +169,7 @@ public class DDMXSDUtil {
 	}
 
 	public static String getXSD(long classNameId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getDDMXSD().getXSD(classNameId, classPK);
 	}

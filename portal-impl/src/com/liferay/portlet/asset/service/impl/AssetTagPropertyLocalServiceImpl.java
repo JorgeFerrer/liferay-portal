@@ -50,7 +50,7 @@ public class AssetTagPropertyLocalServiceImpl
 	@Override
 	public AssetTagProperty addTagProperty(
 			long userId, long tagId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
@@ -114,7 +114,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 */
 	@Override
 	public void deleteTagProperty(long tagPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		AssetTagProperty tagProperty =
 			assetTagPropertyPersistence.findByPrimaryKey(tagPropertyId);
@@ -157,7 +157,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 */
 	@Override
 	public AssetTagProperty getTagProperty(long tagPropertyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetTagPropertyPersistence.findByPrimaryKey(tagPropertyId);
 	}
@@ -174,7 +174,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 */
 	@Override
 	public AssetTagProperty getTagProperty(long tagId, String key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return assetTagPropertyPersistence.findByT_K(tagId, key);
 	}
@@ -219,7 +219,7 @@ public class AssetTagPropertyLocalServiceImpl
 	@Override
 	public AssetTagProperty updateTagProperty(
 			long tagPropertyId, String key, String value)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		validate(key, value);
 

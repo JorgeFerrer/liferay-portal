@@ -124,7 +124,7 @@ public class SitesImpl implements Sites {
 
 	@Override
 	public void addMergeFailFriendlyURLLayout(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layout.getLayoutSet();
 
@@ -561,7 +561,7 @@ public class SitesImpl implements Sites {
 	public File exportLayoutSetPrototype(
 			LayoutSetPrototype layoutSetPrototype,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPrototype.getLayoutSet();
 
@@ -692,7 +692,7 @@ public class SitesImpl implements Sites {
 	 */
 	@Override
 	public int getMergeFailCount(LayoutPrototype layoutPrototype)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((layoutPrototype == null) ||
 			(layoutPrototype.getLayoutPrototypeId() == 0)) {
@@ -722,7 +722,7 @@ public class SitesImpl implements Sites {
 	 */
 	@Override
 	public int getMergeFailCount(LayoutSetPrototype layoutSetPrototype)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((layoutSetPrototype == null) ||
 			(layoutSetPrototype.getLayoutSetPrototypeId() == 0)) {
@@ -742,7 +742,7 @@ public class SitesImpl implements Sites {
 
 	@Override
 	public List<Layout> getMergeFailFriendlyURLLayouts(LayoutSet layoutSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutSet == null) {
 			return Collections.emptyList();
@@ -798,7 +798,7 @@ public class SitesImpl implements Sites {
 	public void importLayoutSetPrototype(
 			LayoutSetPrototype layoutSetPrototype, InputStream inputStream,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSet = layoutSetPrototype.getLayoutSet();
 
@@ -941,7 +941,7 @@ public class SitesImpl implements Sites {
 	 */
 	@Override
 	public boolean isLayoutSetMergeable(Group group, LayoutSet layoutSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!layoutSet.isLayoutSetPrototypeLinkActive() ||
 			group.isLayoutPrototype() || group.isLayoutSetPrototype()) {
@@ -1081,7 +1081,7 @@ public class SitesImpl implements Sites {
 	@Override
 	public boolean isUserGroupLayoutSetViewable(
 			PermissionChecker permissionChecker, Group userGroupGroup)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!userGroupGroup.isUserGroup()) {
 			return false;
@@ -1295,7 +1295,7 @@ public class SitesImpl implements Sites {
 	 */
 	@Override
 	public void resetPrototype(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkResetPrototypePermissions(layout.getGroup(), layout);
 
@@ -1314,7 +1314,7 @@ public class SitesImpl implements Sites {
 	 */
 	@Override
 	public void resetPrototype(LayoutSet layoutSet)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkResetPrototypePermissions(layoutSet.getGroup(), null);
 
@@ -1335,7 +1335,7 @@ public class SitesImpl implements Sites {
 	@Override
 	public void setMergeFailCount(
 			LayoutPrototype layoutPrototype, int newMergeFailCount)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Layout layoutPrototypeLayout = layoutPrototype.getLayout();
 
@@ -1371,7 +1371,7 @@ public class SitesImpl implements Sites {
 	@Override
 	public void setMergeFailCount(
 			LayoutSetPrototype layoutSetPrototype, int newMergeFailCount)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSet layoutSetPrototypeLayoutSet =
 			layoutSetPrototype.getLayoutSet();
@@ -1472,7 +1472,7 @@ public class SitesImpl implements Sites {
 	 * @throws SystemException if a system exception occurred
 	 */
 	protected void checkResetPrototypePermissions(Group group, Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
@@ -1619,7 +1619,7 @@ public class SitesImpl implements Sites {
 	 * @throws SystemException if a system exception occurred
 	 */
 	protected void doResetPrototype(Layout layout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		layout.setModifiedDate(null);
 
@@ -1740,7 +1740,7 @@ public class SitesImpl implements Sites {
 			LayoutSetPrototype layoutSetPrototype, long groupId,
 			boolean privateLayout, Map<String, String[]> parameterMap,
 			boolean importData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		File file = null;
 

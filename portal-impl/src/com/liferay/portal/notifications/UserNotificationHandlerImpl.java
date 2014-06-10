@@ -56,7 +56,7 @@ public class UserNotificationHandlerImpl implements UserNotificationHandler {
 	public boolean isDeliver(
 			long userId, long classNameId, int notificationType,
 			int deliveryType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _userNotificationHandler.isDeliver(
 			userId, classNameId, notificationType, deliveryType,

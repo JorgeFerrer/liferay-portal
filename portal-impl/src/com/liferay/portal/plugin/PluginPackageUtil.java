@@ -92,7 +92,7 @@ public class PluginPackageUtil {
 	}
 
 	public static List<PluginPackage> getAllAvailablePluginPackages()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._getAllAvailablePluginPackages();
 	}
@@ -115,7 +115,7 @@ public class PluginPackageUtil {
 
 	public static PluginPackage getLatestAvailablePluginPackage(
 			String groupId, String artifactId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._getLatestAvailablePluginPackage(groupId, artifactId);
 	}
@@ -128,20 +128,20 @@ public class PluginPackageUtil {
 
 	public static PluginPackage getPluginPackageByModuleId(
 			String moduleId, String repositoryURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._getPluginPackageByModuleId(moduleId, repositoryURL);
 	}
 
 	public static PluginPackage getPluginPackageByURL(String url)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._getPluginPackageByURL(url);
 	}
 
 	public static RemotePluginPackageRepository getRepository(
 			String repositoryURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._getRepository(repositoryURL);
 	}
@@ -229,7 +229,7 @@ public class PluginPackageUtil {
 	}
 
 	public static RepositoryReport reloadRepositories()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._reloadRepositories();
 	}
@@ -237,7 +237,7 @@ public class PluginPackageUtil {
 	public static Hits search(
 			String keywords, String type, String tag, String license,
 			String repositoryURL, String status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _instance._search(
 			keywords, type, tag, license, repositoryURL, status, start, end);
@@ -245,7 +245,7 @@ public class PluginPackageUtil {
 
 	public static void unregisterInstalledPluginPackage(
 			PluginPackage pluginPackage)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_instance._unregisterInstalledPluginPackage(pluginPackage);
 	}
@@ -264,7 +264,7 @@ public class PluginPackageUtil {
 	}
 
 	private void _checkRepositories(String repositoryURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String[] repositoryURLs = null;
 
@@ -302,7 +302,7 @@ public class PluginPackageUtil {
 	}
 
 	private List<PluginPackage> _getAllAvailablePluginPackages()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<PluginPackage> pluginPackages = new ArrayList<PluginPackage>();
 
@@ -334,7 +334,7 @@ public class PluginPackageUtil {
 
 	private List<PluginPackage> _getAvailablePluginPackages(
 			String groupId, String artifactId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<PluginPackage> pluginPackages = new ArrayList<PluginPackage>();
 
@@ -374,7 +374,7 @@ public class PluginPackageUtil {
 
 	private PluginPackage _getLatestAvailablePluginPackage(
 			String groupId, String artifactId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<PluginPackage> pluginPackages = _getAvailablePluginPackages(
 			groupId, artifactId);
@@ -391,7 +391,7 @@ public class PluginPackageUtil {
 
 	private PluginPackage _getPluginPackageByModuleId(
 			String moduleId, String repositoryURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RemotePluginPackageRepository repository = _getRepository(
 			repositoryURL);
@@ -400,7 +400,7 @@ public class PluginPackageUtil {
 	}
 
 	private PluginPackage _getPluginPackageByURL(String url)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		String[] repositoryURLs = _getRepositoryURLs();
 
@@ -422,7 +422,7 @@ public class PluginPackageUtil {
 	}
 
 	private RemotePluginPackageRepository _getRepository(String repositoryURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RemotePluginPackageRepository repository = _repositoryCache.get(
 			repositoryURL);
@@ -1269,7 +1269,7 @@ public class PluginPackageUtil {
 	}
 
 	private RepositoryReport _reloadRepositories()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Reloading repositories");
@@ -1306,7 +1306,7 @@ public class PluginPackageUtil {
 	private Hits _search(
 			String keywords, String type, String tag, String license,
 			String repositoryURL, String status, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_checkRepositories(repositoryURL);
 
@@ -1342,7 +1342,7 @@ public class PluginPackageUtil {
 	}
 
 	private void _unregisterInstalledPluginPackage(PluginPackage pluginPackage)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_installedPluginPackages.removePluginPackage(pluginPackage);
 

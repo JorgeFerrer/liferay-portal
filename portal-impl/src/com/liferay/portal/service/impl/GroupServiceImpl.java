@@ -103,7 +103,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			String description, int type, boolean manualMembership,
 			int membershipRestriction, String friendlyURL, boolean site,
 			boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (parentGroupId == GroupConstants.DEFAULT_PARENT_GROUP_ID) {
 			PortalPermissionUtil.check(
@@ -159,7 +159,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			long parentGroupId, String name, String description, int type,
 			String friendlyURL, boolean site, boolean active,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addGroup(
 			parentGroupId, GroupConstants.DEFAULT_LIVE_GROUP_ID, name,
@@ -177,7 +177,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public Group addGroup(
 			String name, String description, int type, String friendlyURL,
 			boolean site, boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addGroup(
 			GroupConstants.DEFAULT_PARENT_GROUP_ID, name, description, type,
@@ -195,7 +195,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public void addRoleGroups(long roleId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.UPDATE);
@@ -216,7 +216,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public void checkRemoteStagingGroup(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = getGroup(groupId);
 
@@ -247,7 +247,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public void deleteGroup(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.DELETE);
@@ -257,7 +257,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 	@Override
 	public void disableStaging(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(groupId);
 
@@ -269,7 +269,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 
 	@Override
 	public void enableStaging(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(groupId);
 
@@ -289,7 +289,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group getCompanyGroup(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getCompanyGroup(companyId);
 
@@ -311,7 +311,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group getGroup(long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(groupId);
 
@@ -333,7 +333,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group getGroup(long companyId, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(companyId, name);
 
@@ -358,7 +358,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Override
 	public List<Group> getGroups(
 			long companyId, long parentGroupId, boolean site)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return filterGroups(
 			groupLocalService.getGroups(companyId, parentGroupId, site));
@@ -379,7 +379,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Override
 	public List<Group> getManageableSiteGroups(
 			Collection<Portlet> portlets, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -431,7 +431,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<Group> getManageableSites(Collection<Portlet> portlets, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getManageableSiteGroups(portlets, max);
 	}
@@ -446,7 +446,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getOrganizationsGroups(List<Organization> organizations)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> groups = groupLocalService.getOrganizationsGroups(
 			organizations);
@@ -466,7 +466,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group getUserGroup(long companyId, long userId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getUserGroup(companyId, userId);
 
@@ -487,7 +487,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getUserGroupsGroups(List<UserGroup> userGroups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> groups = groupLocalService.getUserGroupsGroups(userGroups);
 
@@ -522,7 +522,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Override
 	public List<Group> getUserOrganizationsGroups(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> groups = groupLocalService.getUserOrganizationsGroups(
 			userId, start, end);
@@ -539,7 +539,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public List<Group> getUserPlaces(
 			long userId, String[] classNames, boolean includeControlPanel,
 			int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(userId, classNames, includeControlPanel, max);
 	}
@@ -583,7 +583,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<Group> getUserPlaces(long userId, String[] classNames, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(userId, classNames, max);
 	}
@@ -626,7 +626,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<Group> getUserPlaces(String[] classNames, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(classNames, max);
 	}
@@ -644,7 +644,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public int getUserPlacesCount() throws PortalException, SystemException {
+	public int getUserPlacesCount() throws PortalException {
 		return getUserSitesGroupsCount();
 	}
 
@@ -660,13 +660,13 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public List<Group> getUserSites() throws PortalException, SystemException {
+	public List<Group> getUserSites() throws PortalException {
 		return getUserSitesGroups();
 	}
 
 	@Override
 	public List<Group> getUserSitesGroups()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(null, QueryUtil.ALL_POS);
 	}
@@ -675,7 +675,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public List<Group> getUserSitesGroups(
 			long userId, String[] classNames, boolean includeControlPanel,
 			int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.fetchByPrimaryKey(userId);
 
@@ -814,7 +814,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Override
 	public List<Group> getUserSitesGroups(
 			long userId, String[] classNames, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(userId, classNames, false, max);
 	}
@@ -854,7 +854,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getUserSitesGroups(String[] classNames, int max)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserSitesGroups(getGuestOrUserId(), classNames, false, max);
 	}
@@ -871,7 +871,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public int getUserSitesGroupsCount()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> userSitesGroups = getUserSitesGroups(
 			getGuestOrUserId(), null, true, QueryUtil.ALL_POS);
@@ -894,7 +894,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public boolean hasUserGroup(long userId, long groupId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			UserPermissionUtil.check(
@@ -913,7 +913,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			long companyId, long[] classNameIds, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> groups = groupLocalService.search(
 			companyId, classNameIds, keywords, params, start, end, obc);
@@ -926,7 +926,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			long companyId, long[] classNameIds, String name,
 			String description, LinkedHashMap<String, Object> params,
 			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> groups = groupLocalService.search(
 			companyId, classNameIds, name, description, params, andOperator,
@@ -972,7 +972,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	public List<Group> search(
 			long companyId, String name, String description, String[] params,
 			int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (params == null) {
 			params = new String[0];
@@ -1032,7 +1032,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public void setRoleGroups(long roleId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.ASSIGN_MEMBERS);
@@ -1051,7 +1051,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public void unsetRoleGroups(long roleId, long[] groupIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.ASSIGN_MEMBERS);
@@ -1073,7 +1073,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group updateFriendlyURL(long groupId, String friendlyURL)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.UPDATE);
@@ -1112,7 +1112,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 			long groupId, long parentGroupId, String name, String description,
 			int type, boolean manualMembership, int membershipRestriction,
 			String friendlyURL, boolean active, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -1178,7 +1178,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public Group updateGroup(long groupId, String typeSettings)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -1206,7 +1206,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	@Override
 	public void updateStagedPortlets(
 			long groupId, Map<String, String> stagedPortletIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
@@ -1226,7 +1226,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	}
 
 	protected List<Group> filterGroups(List<Group> groups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Group> filteredGroups = new ArrayList<Group>();
 

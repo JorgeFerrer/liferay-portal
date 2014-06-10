@@ -63,7 +63,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getActivities(
 			long classNameId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getActivities(
@@ -101,7 +101,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	public List<SocialActivity> getActivities(
 			long mirrorActivityId, long classNameId, long classPK, int start,
 			int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getActivities(
@@ -139,7 +139,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	public List<SocialActivity> getActivities(
 			long mirrorActivityId, String className, long classPK, int start,
 			int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -175,7 +175,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getActivities(
 			String className, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -263,7 +263,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 */
 	@Override
 	public SocialActivity getActivity(long activityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivity activity = socialActivityLocalService.getActivity(
 			activityId);
@@ -282,7 +282,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getActivitySetActivities(
 			long activitySetId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getActivitySetActivities(
@@ -318,7 +318,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getGroupActivities(
 			long groupId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getGroupActivities(
@@ -372,7 +372,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getGroupUsersActivities(
 			long groupId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getGroupUsersActivities(
@@ -410,7 +410,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 */
 	@Override
 	public SocialActivity getMirrorActivity(long mirrorActivityId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SocialActivity activity = socialActivityLocalService.getMirrorActivity(
 			mirrorActivityId);
@@ -450,7 +450,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getOrganizationActivities(
 			long organizationId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getOrganizationActivities(
@@ -499,7 +499,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getOrganizationUsersActivities(
 			long organizationId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getOrganizationUsersActivities(
@@ -548,7 +548,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getRelationActivities(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getRelationActivities(
@@ -584,7 +584,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getRelationActivities(
 			long userId, int type, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getRelationActivities(
@@ -647,7 +647,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getUserActivities(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getUserActivities(
@@ -693,7 +693,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getUserGroupsActivities(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getUserGroupsActivities(
@@ -741,7 +741,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getUserGroupsAndOrganizationsActivities(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getUserGroupsAndOrganizationsActivities(
@@ -790,7 +790,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	@Override
 	public List<SocialActivity> getUserOrganizationsActivities(
 			long userId, int start, int end)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<SocialActivity> activities =
 			socialActivityLocalService.getUserOrganizationsActivities(

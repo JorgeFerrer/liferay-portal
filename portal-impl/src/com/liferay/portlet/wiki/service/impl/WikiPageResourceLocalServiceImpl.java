@@ -44,7 +44,7 @@ public class WikiPageResourceLocalServiceImpl
 
 	@Override
 	public void deletePageResource(long nodeId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		wikiPageResourcePersistence.removeByN_T(nodeId, title);
 	}
@@ -63,7 +63,7 @@ public class WikiPageResourceLocalServiceImpl
 
 	@Override
 	public WikiPageResource getPageResource(long pageResourcePrimKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return wikiPageResourcePersistence.findByPrimaryKey(
 			pageResourcePrimKey);
@@ -71,7 +71,7 @@ public class WikiPageResourceLocalServiceImpl
 
 	@Override
 	public WikiPageResource getPageResource(long nodeId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return wikiPageResourcePersistence.findByN_T(nodeId, title);
 	}

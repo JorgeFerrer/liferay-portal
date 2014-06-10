@@ -42,7 +42,7 @@ public class DDLRecordSetStagedModelDataHandler
 	@Override
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		DDLRecordSet ddlRecordSet =
 			DDLRecordSetLocalServiceUtil.fetchDDLRecordSetByUuidAndGroupId(

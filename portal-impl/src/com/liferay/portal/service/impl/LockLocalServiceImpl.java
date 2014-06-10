@@ -47,14 +47,14 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 
 	@Override
 	public Lock getLock(String className, long key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getLock(className, String.valueOf(key));
 	}
 
 	@Override
 	public Lock getLock(String className, String key)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Lock lock = lockPersistence.findByC_K(className, key);
 
@@ -69,7 +69,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 
 	@Override
 	public Lock getLockByUuidAndCompanyId(String uuid, long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Lock> locks = lockPersistence.findByUuid_C(uuid, companyId);
 
@@ -129,7 +129,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	public Lock lock(
 			long userId, String className, long key, String owner,
 			boolean inheritable, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return lock(
 			userId, className, String.valueOf(key), owner, inheritable,
@@ -140,7 +140,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	public Lock lock(
 			long userId, String className, String key, String owner,
 			boolean inheritable, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 
@@ -268,7 +268,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 
 	@Override
 	public Lock refresh(String uuid, long companyId, long expirationTime)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Date now = new Date();
 

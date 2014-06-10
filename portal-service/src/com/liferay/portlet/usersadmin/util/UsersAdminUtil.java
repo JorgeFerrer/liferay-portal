@@ -66,20 +66,20 @@ public class UsersAdminUtil {
 	}
 
 	public static long[] addRequiredRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().addRequiredRoles(userId, roleIds);
 	}
 
 	public static long[] addRequiredRoles(User user, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().addRequiredRoles(user, roleIds);
 	}
 
 	public static List<Role> filterGroupRoles(
 			PermissionChecker permissionChecker, long groupId, List<Role> roles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterGroupRoles(
 			permissionChecker, groupId, roles);
@@ -87,7 +87,7 @@ public class UsersAdminUtil {
 
 	public static List<Group> filterGroups(
 			PermissionChecker permissionChecker, List<Group> groups)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterGroups(permissionChecker, groups);
 	}
@@ -95,7 +95,7 @@ public class UsersAdminUtil {
 	public static List<Organization> filterOrganizations(
 			PermissionChecker permissionChecker,
 			List<Organization> organizations)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterOrganizations(
 			permissionChecker, organizations);
@@ -109,7 +109,7 @@ public class UsersAdminUtil {
 
 	public static long[] filterUnsetGroupUserIds(
 			PermissionChecker permissionChecker, long groupId, long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterUnsetGroupUserIds(
 			permissionChecker, groupId, userIds);
@@ -118,7 +118,7 @@ public class UsersAdminUtil {
 	public static long[] filterUnsetOrganizationUserIds(
 			PermissionChecker permissionChecker, long organizationId,
 			long[] userIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterUnsetOrganizationUserIds(
 			permissionChecker, organizationId, userIds);
@@ -127,7 +127,7 @@ public class UsersAdminUtil {
 	public static List<UserGroupRole> filterUserGroupRoles(
 			PermissionChecker permissionChecker,
 			List<UserGroupRole> userGroupRoles)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().filterUserGroupRoles(
 			permissionChecker, userGroupRoles);
@@ -181,7 +181,7 @@ public class UsersAdminUtil {
 	}
 
 	public static List<Organization> getOrganizations(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().getOrganizations(hits);
 	}
@@ -216,13 +216,13 @@ public class UsersAdminUtil {
 
 	public static List<UserGroupRole> getUserGroupRoles(
 			PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().getUserGroupRoles(portletRequest);
 	}
 
 	public static List<UserGroup> getUserGroups(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().getUserGroups(hits);
 	}
@@ -235,7 +235,7 @@ public class UsersAdminUtil {
 	}
 
 	public static List<User> getUsers(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().getUsers(hits);
 	}
@@ -264,7 +264,7 @@ public class UsersAdminUtil {
 	@Deprecated
 	public static boolean hasUpdateEmailAddress(
 			PermissionChecker permissionChecker, User user)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().hasUpdateEmailAddress(permissionChecker, user);
 	}
@@ -272,7 +272,7 @@ public class UsersAdminUtil {
 	public static boolean hasUpdateFieldPermission(
 			PermissionChecker permissionChecker, User updatingUser,
 			User updatedUser, String field)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().hasUpdateFieldPermission(
 			permissionChecker, updatingUser, updatedUser, field);
@@ -285,7 +285,7 @@ public class UsersAdminUtil {
 	 */
 	@Deprecated
 	public static boolean hasUpdateFieldPermission(User user, String field)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().hasUpdateFieldPermission(
 			null, null, user, field);
@@ -299,54 +299,54 @@ public class UsersAdminUtil {
 	@Deprecated
 	public static boolean hasUpdateScreenName(
 			PermissionChecker permissionChecker, User user)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().hasUpdateScreenName(permissionChecker, user);
 	}
 
 	public static long[] removeRequiredRoles(long userId, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().removeRequiredRoles(userId, roleIds);
 	}
 
 	public static long[] removeRequiredRoles(User user, long[] roleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUsersAdmin().removeRequiredRoles(user, roleIds);
 	}
 
 	public static void updateAddresses(
 			String className, long classPK, List<Address> addresses)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getUsersAdmin().updateAddresses(className, classPK, addresses);
 	}
 
 	public static void updateEmailAddresses(
 			String className, long classPK, List<EmailAddress> emailAddresses)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getUsersAdmin().updateEmailAddresses(
 			className, classPK, emailAddresses);
 	}
 
 	public static void updateOrgLabors(long classPK, List<OrgLabor> orgLabors)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getUsersAdmin().updateOrgLabors(classPK, orgLabors);
 	}
 
 	public static void updatePhones(
 			String className, long classPK, List<Phone> phones)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getUsersAdmin().updatePhones(className, classPK, phones);
 	}
 
 	public static void updateWebsites(
 			String className, long classPK, List<Website> websites)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getUsersAdmin().updateWebsites(className, classPK, websites);
 	}

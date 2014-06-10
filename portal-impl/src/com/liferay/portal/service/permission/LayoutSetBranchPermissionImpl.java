@@ -42,7 +42,7 @@ public class LayoutSetBranchPermissionImpl
 	public void check(
 			PermissionChecker permissionChecker, long layoutSetBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, layoutSetBranchId, actionId)) {
 			throw new PrincipalException();
@@ -63,7 +63,7 @@ public class LayoutSetBranchPermissionImpl
 	public boolean contains(
 			PermissionChecker permissionChecker, long layoutSetBranchId,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranch layoutSetBranch =
 			LayoutSetBranchLocalServiceUtil.getLayoutSetBranch(

@@ -46,14 +46,14 @@ public class LayoutRevisionAssetRendererFactory
 
 	@Override
 	public AssetEntry getAssetEntry(long assetEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getAssetEntry(getClassName(), assetEntryId);
 	}
 
 	@Override
 	public AssetEntry getAssetEntry(String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutRevision layoutRevision =
 			LayoutRevisionLocalServiceUtil.getLayoutRevision(classPK);
@@ -91,7 +91,7 @@ public class LayoutRevisionAssetRendererFactory
 
 	@Override
 	public AssetRenderer getAssetRenderer(long layoutRevisionId, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutRevision layoutRevision =
 			LayoutRevisionLocalServiceUtil.getLayoutRevision(layoutRevisionId);

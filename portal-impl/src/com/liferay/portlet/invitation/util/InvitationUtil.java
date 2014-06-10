@@ -40,7 +40,7 @@ public class InvitationUtil {
 
 	public static Map<String, String> getEmailDefinitionTerms(
 			PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

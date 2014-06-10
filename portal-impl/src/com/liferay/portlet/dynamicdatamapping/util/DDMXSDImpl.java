@@ -342,7 +342,7 @@ public class DDMXSDImpl implements DDMXSD {
 
 	@Override
 	public JSONArray getJSONArray(DDMStructure structure, String xsd)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JSONArray jsonArray = null;
 
@@ -451,7 +451,7 @@ public class DDMXSDImpl implements DDMXSD {
 
 	@Override
 	public JSONArray getJSONArray(String xml)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			return getJSONArray(SAXReaderUtil.read(xml));
@@ -545,7 +545,7 @@ public class DDMXSDImpl implements DDMXSD {
 
 	@Override
 	public String getXSD(long classNameId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if ((classNameId <= 0) || (classPK <= 0)) {
 			return null;

@@ -76,7 +76,7 @@ public class FileEntryProxyBean
 	@Override
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.containsPermission(permissionChecker, actionId);
 	}
@@ -93,14 +93,14 @@ public class FileEntryProxyBean
 
 	@Override
 	public InputStream getContentStream()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getContentStream();
 	}
 
 	@Override
 	public InputStream getContentStream(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _fileEntry.getContentStream(version);
 	}
@@ -135,7 +135,7 @@ public class FileEntryProxyBean
 
 	@Override
 	public FileVersion getFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileVersion fileVersion = _fileEntry.getFileVersion();
 
@@ -144,7 +144,7 @@ public class FileEntryProxyBean
 
 	@Override
 	public FileVersion getFileVersion(String version)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileVersion fileVersion = _fileEntry.getFileVersion(version);
 
@@ -188,7 +188,7 @@ public class FileEntryProxyBean
 
 	@Override
 	public FileVersion getLatestFileVersion()
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileVersion fileVersion = _fileEntry.getLatestFileVersion();
 
@@ -197,7 +197,7 @@ public class FileEntryProxyBean
 
 	@Override
 	public FileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		FileVersion fileVersion = _fileEntry.getLatestFileVersion(trusted);
 

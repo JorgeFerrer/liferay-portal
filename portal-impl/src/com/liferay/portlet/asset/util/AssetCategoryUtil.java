@@ -34,7 +34,7 @@ import java.util.List;
 public class AssetCategoryUtil {
 
 	public static List<AssetCategory> getCategories(Hits hits)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<Document> documents = hits.toList();
 

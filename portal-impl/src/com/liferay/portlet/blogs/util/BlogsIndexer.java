@@ -169,7 +169,7 @@ public class BlogsIndexer extends BaseIndexer {
 	}
 
 	protected void reindexEntries(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		final ActionableDynamicQuery actionableDynamicQuery =
 			BlogsEntryLocalServiceUtil.getActionableDynamicQuery();

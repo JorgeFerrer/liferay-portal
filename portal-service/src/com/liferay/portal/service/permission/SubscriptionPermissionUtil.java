@@ -38,7 +38,7 @@ public class SubscriptionPermissionUtil {
 	@Deprecated
 	public static void check(
 			PermissionChecker permissionChecker, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getSubscriptionPermission().check(
 			permissionChecker, className, classPK);
@@ -52,7 +52,7 @@ public class SubscriptionPermissionUtil {
 			PermissionChecker permissionChecker, String subscriptionClassName,
 			long subscriptionClassPK, String inferredClassName,
 			long inferredClassPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getSubscriptionPermission().check(
 			permissionChecker, subscriptionClassName, subscriptionClassPK,
@@ -66,7 +66,7 @@ public class SubscriptionPermissionUtil {
 	@Deprecated
 	public static boolean contains(
 			PermissionChecker permissionChecker, String className, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getSubscriptionPermission().contains(
 			permissionChecker, className, classPK);
@@ -80,7 +80,7 @@ public class SubscriptionPermissionUtil {
 			PermissionChecker permissionChecker, String subscriptionClassName,
 			long subscriptionClassPK, String inferredClassName,
 			long inferredClassPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getSubscriptionPermission().contains(
 			permissionChecker, subscriptionClassName, subscriptionClassPK,

@@ -43,7 +43,7 @@ public class SystemEventLocalServiceImpl
 			long userId, long groupId, String className, long classPK,
 			String classUuid, String referrerClassName, int type,
 			String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (userId == 0) {
 			userId = PrincipalThreadLocal.getUserId();
@@ -73,7 +73,7 @@ public class SystemEventLocalServiceImpl
 	public SystemEvent addSystemEvent(
 			long companyId, String className, long classPK, String classUuid,
 			String referrerClassName, int type, String extraData)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addSystemEvent(
 			0, companyId, 0, className, classPK, classUuid, referrerClassName,
@@ -119,7 +119,7 @@ public class SystemEventLocalServiceImpl
 			long userId, long companyId, long groupId, String className,
 			long classPK, String classUuid, String referrerClassName, int type,
 			String extraData, String userName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		SystemEventHierarchyEntry systemEventHierarchyEntry =
 			SystemEventHierarchyEntryThreadLocal.peek();

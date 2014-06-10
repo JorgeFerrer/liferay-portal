@@ -44,7 +44,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	@Override
 	public void checkRestorableEntry(
 			long classPK, long containerModelId, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -55,7 +55,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	@Override
 	public void checkRestorableEntry(
 			TrashEntry trashEntry, long containerModelId, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkRestorableEntry(
 			trashEntry.getClassPK(), trashEntry.getEntryId(), containerModelId,
@@ -64,7 +64,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public void deleteTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderLocalServiceUtil.deleteFolder(classPK, false);
 	}
@@ -81,7 +81,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public ContainerModel getParentContainerModel(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = getJournalFolder(classPK);
 
@@ -97,7 +97,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	@Override
 	public String getRestoreContainedModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -108,7 +108,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	@Override
 	public String getRestoreContainerModelLink(
 			PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -118,7 +118,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public String getRestoreMessage(PortletRequest portletRequest, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -128,7 +128,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -137,7 +137,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -148,7 +148,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	public boolean hasTrashPermission(
 			PermissionChecker permissionChecker, long groupId, long classPK,
 			String trashActionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (trashActionId.equals(TrashActionKeys.MOVE)) {
 			return JournalFolderPermission.contains(
@@ -166,7 +166,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public boolean isInTrash(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -175,7 +175,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public boolean isInTrashContainer(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = getJournalFolder(classPK);
 
@@ -184,7 +184,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public boolean isRestorable(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = getJournalFolder(classPK);
 
@@ -202,7 +202,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	public void moveEntry(
 			long userId, long classPK, long containerModelId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderLocalServiceUtil.moveFolder(
 			classPK, containerModelId, serviceContext);
@@ -212,7 +212,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	public void moveTrashEntry(
 			long userId, long classPK, long containerModelId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderLocalServiceUtil.moveFolderFromTrash(
 			userId, classPK, containerModelId, serviceContext);
@@ -220,14 +220,14 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	public void restoreTrashEntry(long userId, long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolderLocalServiceUtil.restoreFolderFromTrash(userId, classPK);
 	}
 
 	@Override
 	public void updateTitle(long classPK, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -239,7 +239,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	protected void checkDuplicateEntry(
 			long classPK, long trashEntryId, long containerModelId,
 			String originalTitle, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -266,7 +266,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	protected void checkRestorableEntry(
 			long classPK, long trashEntryId, long containerModelId,
 			String originalTitle, String newName)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		checkValidContainer(classPK, containerModelId);
 
@@ -275,7 +275,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	protected void checkValidContainer(long classPK, long containerModelId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			JournalFolderLocalServiceUtil.validateFolderDDMStructures(
@@ -289,7 +289,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 
 	@Override
 	protected long getGroupId(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -297,7 +297,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	protected JournalFolder getJournalFolder(long classPK)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
@@ -307,7 +307,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	@Override
 	protected boolean hasPermission(
 			PermissionChecker permissionChecker, long classPK, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 

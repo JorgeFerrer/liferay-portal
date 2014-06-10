@@ -81,56 +81,56 @@ public class DefaultLocalRepositoryImpl implements LocalRepository {
 
 	@Override
 	public void deleteFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_repository.deleteFileEntry(fileEntryId);
 	}
 
 	@Override
 	public void deleteFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		_repository.deleteFolder(folderId);
 	}
 
 	@Override
 	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFileEntry(fileEntryId);
 	}
 
 	@Override
 	public FileEntry getFileEntry(long folderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFileEntry(folderId, title);
 	}
 
 	@Override
 	public FileEntry getFileEntryByUuid(String uuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFileEntryByUuid(uuid);
 	}
 
 	@Override
 	public FileVersion getFileVersion(long fileVersionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFileVersion(fileVersionId);
 	}
 
 	@Override
 	public Folder getFolder(long folderId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFolder(folderId);
 	}
 
 	@Override
 	public Folder getFolder(long parentFolderId, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getFolder(parentFolderId, title);
 	}
@@ -138,7 +138,7 @@ public class DefaultLocalRepositoryImpl implements LocalRepository {
 	@Override
 	public List<FileEntry> getRepositoryFileEntries(
 			long rootFolderId, int start, int end, OrderByComparator obc)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return _repository.getRepositoryFileEntries(
 			0, rootFolderId, start, end, obc);

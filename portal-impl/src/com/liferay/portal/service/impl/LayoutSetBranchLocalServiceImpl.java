@@ -62,7 +62,7 @@ public class LayoutSetBranchLocalServiceImpl
 			long userId, long groupId, boolean privateLayout, String name,
 			String description, boolean master, long copyLayoutSetBranchId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout branch
 
@@ -259,7 +259,7 @@ public class LayoutSetBranchLocalServiceImpl
 	@Override
 	public LayoutSetBranch deleteLayoutSetBranch(
 			LayoutSetBranch layoutSetBranch)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return deleteLayoutSetBranch(layoutSetBranch, false);
 	}
@@ -267,7 +267,7 @@ public class LayoutSetBranchLocalServiceImpl
 	@Override
 	public LayoutSetBranch deleteLayoutSetBranch(
 			LayoutSetBranch layoutSetBranch, boolean includeMaster)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// Layout branch
 
@@ -299,7 +299,7 @@ public class LayoutSetBranchLocalServiceImpl
 
 	@Override
 	public LayoutSetBranch deleteLayoutSetBranch(long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranch layoutSetBranch =
 			layoutSetBranchPersistence.findByPrimaryKey(layoutSetBranchId);
@@ -309,7 +309,7 @@ public class LayoutSetBranchLocalServiceImpl
 
 	@Override
 	public void deleteLayoutSetBranches(long groupId, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		deleteLayoutSetBranches(groupId, privateLayout, false);
 	}
@@ -317,7 +317,7 @@ public class LayoutSetBranchLocalServiceImpl
 	@Override
 	public void deleteLayoutSetBranches(
 			long groupId, boolean privateLayout, boolean includeMaster)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<LayoutSetBranch> layoutSetBranches =
 			layoutSetBranchPersistence.findByG_P(groupId, privateLayout);
@@ -338,7 +338,7 @@ public class LayoutSetBranchLocalServiceImpl
 	@Override
 	public LayoutSetBranch getLayoutSetBranch(
 			long groupId, boolean privateLayout, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutSetBranchPersistence.findByG_P_N(
 			groupId, privateLayout, name);
@@ -356,7 +356,7 @@ public class LayoutSetBranchLocalServiceImpl
 	@Override
 	public LayoutSetBranch getMasterLayoutSetBranch(
 			long groupId, boolean privateLayout)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return layoutSetBranchPersistence.findByG_P_M_First(
 			groupId, privateLayout, true, null);
@@ -371,7 +371,7 @@ public class LayoutSetBranchLocalServiceImpl
 	public LayoutSetBranch getUserLayoutSetBranch(
 			long userId, long groupId, boolean privateLayout,
 			long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return getUserLayoutSetBranch(
 			userId, groupId, privateLayout, 0, layoutSetBranchId);
@@ -381,7 +381,7 @@ public class LayoutSetBranchLocalServiceImpl
 	public LayoutSetBranch getUserLayoutSetBranch(
 			long userId, long groupId, boolean privateLayout, long layoutSetId,
 			long layoutSetBranchId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (layoutSetBranchId <= 0) {
 			User user = userPersistence.findByPrimaryKey(userId);
@@ -413,7 +413,7 @@ public class LayoutSetBranchLocalServiceImpl
 	public LayoutSetBranch mergeLayoutSetBranch(
 			long layoutSetBranchId, long mergeLayoutSetBranchId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranch layoutSetBranch =
 			layoutSetBranchPersistence.findByPrimaryKey(layoutSetBranchId);
@@ -480,7 +480,7 @@ public class LayoutSetBranchLocalServiceImpl
 	public LayoutSetBranch updateLayoutSetBranch(
 			long layoutSetBranchId, String name, String description,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		LayoutSetBranch layoutSetBranch =
 			layoutSetBranchPersistence.findByPrimaryKey(layoutSetBranchId);
@@ -536,7 +536,7 @@ public class LayoutSetBranchLocalServiceImpl
 	protected void validate(
 			long layoutSetBranchId, long groupId, boolean privateLayout,
 			String name, boolean master)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (Validator.isNull(name) || (name.length() < 4)) {
 			throw new LayoutSetBranchNameException(

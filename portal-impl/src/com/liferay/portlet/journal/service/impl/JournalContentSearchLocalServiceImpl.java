@@ -43,7 +43,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public void checkContentSearches(long companyId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Checking journal content search for " + companyId);
@@ -212,7 +212,7 @@ public class JournalContentSearchLocalServiceImpl
 	public JournalContentSearch updateContentSearch(
 			long groupId, boolean privateLayout, long layoutId,
 			String portletId, String articleId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateContentSearch(
 			groupId, privateLayout, layoutId, portletId, articleId, false);
@@ -222,7 +222,7 @@ public class JournalContentSearchLocalServiceImpl
 	public JournalContentSearch updateContentSearch(
 			long groupId, boolean privateLayout, long layoutId,
 			String portletId, String articleId, boolean purge)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (purge) {
 			journalContentSearchPersistence.removeByG_P_L_P(
@@ -258,7 +258,7 @@ public class JournalContentSearchLocalServiceImpl
 	public List<JournalContentSearch> updateContentSearch(
 			long groupId, boolean privateLayout, long layoutId,
 			String portletId, String[] articleIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		journalContentSearchPersistence.removeByG_P_L_P(
 			groupId, privateLayout, layoutId, portletId);

@@ -40,7 +40,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			addExportLayoutExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addExportImportConfiguration(
 			portletRequest,
@@ -50,7 +50,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			addPublishLayoutLocalExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addExportImportConfiguration(
 			portletRequest,
@@ -60,7 +60,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			addPublishLayoutRemoteExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return addExportImportConfiguration(
 			portletRequest,
@@ -70,7 +70,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			updateExportLayoutExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateExportImportConfiguration(
 			portletRequest,
@@ -80,7 +80,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			updatePublishLayoutLocalExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateExportImportConfiguration(
 			portletRequest,
@@ -90,7 +90,7 @@ public class ExportImportConfigurationHelper {
 	public static ExportImportConfiguration
 			updatePublishLayoutRemoteExportImportConfiguration(
 				PortletRequest portletRequest)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		return updateExportImportConfiguration(
 			portletRequest,
@@ -99,7 +99,7 @@ public class ExportImportConfigurationHelper {
 
 	protected static ExportImportConfiguration addExportImportConfiguration(
 			PortletRequest portletRequest, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -120,7 +120,7 @@ public class ExportImportConfigurationHelper {
 
 	protected static ExportImportConfiguration updateExportImportConfiguration(
 			PortletRequest portletRequest, int type)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
