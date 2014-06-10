@@ -82,8 +82,14 @@ boolean filterManageableGroups = true;
 
 boolean filterManageableOrganizations = true;
 
+boolean filterManageableUsers = true;
+
 if (permissionChecker.hasPermission(0, Organization.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
 	filterManageableOrganizations = false;
+}
+
+if (permissionChecker.hasPermission(0, User.class.getName(), company.getCompanyId(), ActionKeys.VIEW)) {
+	filterManageableUsers = false;
 }
 
 boolean filterManageableRoles = true;
