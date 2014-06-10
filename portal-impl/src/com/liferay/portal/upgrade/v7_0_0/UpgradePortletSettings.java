@@ -151,7 +151,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		throws PortalException, SystemException {
 
 		try {
-			getPortletPreferences(
+			visitPortletPreferences(
 				portletId, ownerType,
 				new Visitor<PortletPreferences>() {
 					@Override
@@ -176,7 +176,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 						}
 
 						createPortletPreferences(portletPreferences);
-					}});
+					}
+				});
 		}
 		catch (SQLException sqle) {
 			throw new PortalException(
@@ -194,7 +195,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		throws PortalException, SystemException {
 
 		try {
-			getPortletPreferences(
+			visitPortletPreferences(
 				portletId, ownerType,
 				new Visitor<PortletPreferences>() {
 					@Override
@@ -232,7 +233,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 								javaxPortletPreferences);
 
 						updatePortletPreferences(portletPreferences);
-					}});
+					}
+				});
 		}
 		catch (SQLException sqle) {
 			throw new PortalException(
@@ -288,7 +290,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		return 0;
 	}
 
-	protected void getPortletPreferences(
+	protected void visitPortletPreferences(
 			String portletId, int ownerType,
 			Visitor<PortletPreferences> visitor)
 		throws RuntimeException, SQLException {
