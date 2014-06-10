@@ -194,7 +194,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
-	protected void deletePortletPreferencesKeys(
+	protected void resetPortletPreferencesValues(
 			String portletId, int ownerType, final String[] keys)
 		throws PortalException, SystemException {
 
@@ -421,21 +421,24 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 		createServiceSettings(portletId, ownerType, serviceName);
 
-		deletePortletPreferencesKeys(
-			serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
-			_mainPortletInstanceKeys.get(portletId));
+		String[] portletInstanceKeys = _mainPortletInstanceKeys.get(portletId);
 
-		deletePortletPreferencesKeys(
-			portletId, ownerType, _mainPortletServiceKeys.get(portletId));
+		resetPortletPreferencesValues(
+			serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
+			portletInstanceKeys);
+
+		String[] serviceKeys = _mainPortletServiceKeys.get(portletId);
+
+		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
 	}
 
 	protected void upgradeDisplayPortlet(String portletId)
 		throws PortalException, SystemException {
 
 		int ownerType = _displayPortletOwnerTypes.get(portletId);
+		String[] serviceKeys = _displayPortletServiceKeys.get(portletId);
 
-		deletePortletPreferencesKeys(
-			portletId, ownerType, _displayPortletServiceKeys.get(portletId));
+		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
 	}
 
 	protected static class PortletPreferencesRow {
