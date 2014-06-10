@@ -95,17 +95,17 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
 			WikiPortletInstanceSettings.ALL_KEYS, WikiSettings.ALL_KEYS);
 
-		// Register secondary portlets for upgrade
+		// Register display portlets for upgrade
 
-		registerSecondaryPortlet(
+		registerDisplayPortlet(
 			PortletKeys.DOCUMENT_LIBRARY_DISPLAY,
 			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
 
-		registerSecondaryPortlet(
+		registerDisplayPortlet(
 			PortletKeys.MEDIA_GALLERY_DISPLAY,
 			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, DLSettings.ALL_KEYS);
 
-		registerSecondaryPortlet(
+		registerDisplayPortlet(
 			PortletKeys.WIKI_DISPLAY, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
 			WikiSettings.ALL_KEYS);
 	}
@@ -359,7 +359,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		_mainPortletServiceKeys.put(portletId, serviceKeys);
 	}
 
-	protected void registerSecondaryPortlet(
+	protected void registerDisplayPortlet(
 		String portletId, int ownerType, String[] servicePreferencesKeys) {
 
 		_secondaryPortletIds.add(portletId);
