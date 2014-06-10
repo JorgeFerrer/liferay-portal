@@ -225,24 +225,28 @@ Some content (such as web content) needs the `PortletRequest` and
 
 ---------------------------------------
 
-### Let portlet developers provide independent portlet settings at the portal instance, site and portlet instance levels
+### Some portlet instances setup may be ignored because they were never meant to be per instance
 - **Date:** 2014-Jun-06
 - **JIRA Ticket:** LPS-43134
 
 #### What changed?
-The PortletPreferences API for dealing with configuration has been discouraged
-in favor of a new API called Settings. This new API introduces the notion of 
-service level configuration which controls how backend services operate (for
-example: when sending notification mails). 
+A few portlets allowed providing a separate setup per portlet instance (in the
+same page or in different pages). However for some of the setup fields, it
+didn't make sense to provide different values per instance and that was creating
+confusion among users. To fix this, those fields have been removed from the
+portlet instance set up and have been moved to Site Administration.
 
-Due to this change, all portlets with configuration at layout level (for 
-example: bookmarks) will collapse multiple configuration values into one only
-service level configuration. This won't be any problem if the configuration is
-the same across all portlets, but if it differs only one of them will be used.
+The upgrade process will take care of making the necessary database chances,
+however if several portlet instances had different configurations only the first
+one will be preserved.
 
 For instance: if you have configured three bookmarks portlets where the mail 
 configuration is the same you won't have any problem. But in case the three 
 configurations are different, you will have to choose which one to use.
+
+We think this case is rare and a problematic configuration (i.e. highly
+unrecommended) so we don't expect this change to have a relevant negative
+impact.
 
 #### Who is affected?
 Users who have configured more than one portlet of the same type which stores
@@ -253,7 +257,7 @@ The upgrade process will choose one of your configurations and will store it at
 the service level. You will have to review it then and modify it if needed.
 
 #### Why was this change made?
-To unify the configuration of portlets and service and make its management 
+To unify the configuration of portlets and services and make its management
 easier.
 
 
