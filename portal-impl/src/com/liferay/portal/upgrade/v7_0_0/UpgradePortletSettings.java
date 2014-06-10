@@ -157,7 +157,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 					@Override
 					public void visit(
-							PortletPreferencesRow portletPreferencesRow)
+						PortletPreferencesRow portletPreferencesRow)
 						throws SQLException {
 
 						portletPreferencesRow.portletPreferencesId =
@@ -205,13 +205,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 					@Override
 					public void visit(
-							PortletPreferencesRow portletPreferencesRow)
+						PortletPreferencesRow portletPreferencesRow)
 						throws ReadOnlyException, SQLException {
 
 						javax.portlet.PortletPreferences
 							javaxPortletPreferences =
-								PortletPreferencesFactoryUtil.fromDefaultXML(
-									portletPreferencesRow.preferences);
+							PortletPreferencesFactoryUtil.fromDefaultXML(
+								portletPreferencesRow.preferences);
 
 						Enumeration<String> names =
 							javaxPortletPreferences.getNames();
@@ -263,10 +263,10 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			upgradeMainPortlet(portletId);
 		}
 
-		for (String portletId : _secondaryPortletIds) {
+		for (String portletId : _displayPortletIds) {
 			_logPortletUpgrade(portletId);
 
-			upgradeSecondaryPortlet(portletId);
+			upgradeDisplayPortlet(portletId);
 		}
 	}
 
@@ -369,11 +369,11 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	protected void registerDisplayPortlet(
 		String portletId, int ownerType, String[] servicePreferencesKeys) {
 
-		_secondaryPortletIds.add(portletId);
+		_displayPortletIds.add(portletId);
 
-		_secondaryPortletOwnerTypes.put(portletId, ownerType);
+		_displayPortletOwnerTypes.put(portletId, ownerType);
 
-		_secondaryPortletServiceKeys.put(portletId, servicePreferencesKeys);
+		_displayPortletServiceKeys.put(portletId, servicePreferencesKeys);
 	}
 
 	protected void updatePortletPreferences(
@@ -429,13 +429,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			portletId, ownerType, _mainPortletServiceKeys.get(portletId));
 	}
 
-	protected void upgradeSecondaryPortlet(String portletId)
+	protected void upgradeDisplayPortlet(String portletId)
 		throws PortalException, SystemException {
 
-		int ownerType = _secondaryPortletOwnerTypes.get(portletId);
+		int ownerType = _displayPortletOwnerTypes.get(portletId);
 
 		deletePortletPreferencesKeys(
-			portletId, ownerType, _secondaryPortletServiceKeys.get(portletId));
+			portletId, ownerType, _displayPortletServiceKeys.get(portletId));
 	}
 
 	protected static class PortletPreferencesRow {
@@ -477,10 +477,10 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		new HashMap<String, String[]>();
 	private Map<String, String> _mainPortletServiceNames =
 		new HashMap<String, String>();
-	private List<String> _secondaryPortletIds = new ArrayList<String>();
-	private Map<String, Integer> _secondaryPortletOwnerTypes =
+	private List<String> _displayPortletIds = new ArrayList<String>();
+	private Map<String, Integer> _displayPortletOwnerTypes =
 		new HashMap<String, Integer>();
-	private Map<String, String[]> _secondaryPortletServiceKeys =
+	private Map<String, String[]> _displayPortletServiceKeys =
 		new HashMap<String, String[]>();
 
 }
