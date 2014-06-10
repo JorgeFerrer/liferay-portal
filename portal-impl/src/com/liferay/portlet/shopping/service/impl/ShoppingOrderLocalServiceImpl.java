@@ -594,7 +594,7 @@ public class ShoppingOrderLocalServiceImpl
 		return order;
 	}
 
-	protected String getNumber() throws SystemException {
+	protected String getNumber() {
 		String number = PwdGenerator.getPassword(
 			12, PwdGenerator.KEY1, PwdGenerator.KEY2);
 

@@ -367,7 +367,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
+	public String getUserUuid() {
 		return _dlFileEntry.getUserUuid();
 	}
 

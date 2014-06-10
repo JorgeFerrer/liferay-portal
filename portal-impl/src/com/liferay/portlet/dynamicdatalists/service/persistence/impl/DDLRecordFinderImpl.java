@@ -53,7 +53,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 		DDLRecordFinder.class.getName() + ".findByC_S_S";
 
 	@Override
-	public int countByR_S(long recordSetId, int status) throws SystemException {
+	public int countByR_S(long recordSetId, int status) {
 		Session session = null;
 
 		try {

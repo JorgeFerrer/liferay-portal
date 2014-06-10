@@ -296,7 +296,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyNodesCount(long companyId) throws SystemException {
+	public int getCompanyNodesCount(long companyId) {
 		return wikiNodePersistence.countByC_S(
 			companyId, WorkflowConstants.STATUS_APPROVED);
 	}
@@ -364,13 +364,13 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getNodesCount(long groupId) throws SystemException {
+	public int getNodesCount(long groupId) {
 		return wikiNodePersistence.countByG_S(
 			groupId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getNodesCount(long groupId, int status) throws SystemException {
+	public int getNodesCount(long groupId, int status) {
 		return wikiNodePersistence.countByG_S(groupId, status);
 	}
 

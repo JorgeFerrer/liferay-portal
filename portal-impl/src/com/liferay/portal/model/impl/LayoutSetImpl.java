@@ -47,7 +47,7 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getColorScheme() throws SystemException {
+	public ColorScheme getColorScheme() {
 		return ThemeLocalServiceUtil.getColorScheme(
 			getCompanyId(), getTheme().getThemeId(), getColorSchemeId(), false);
 	}
@@ -149,7 +149,7 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 	}
 
 	@Override
-	public Theme getTheme() throws SystemException {
+	public Theme getTheme() {
 		return ThemeLocalServiceUtil.getTheme(
 			getCompanyId(), getThemeId(), false);
 	}
@@ -200,14 +200,14 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getWapColorScheme() throws SystemException {
+	public ColorScheme getWapColorScheme() {
 		return ThemeLocalServiceUtil.getColorScheme(
 			getCompanyId(), getWapTheme().getThemeId(), getWapColorSchemeId(),
 			true);
 	}
 
 	@Override
-	public Theme getWapTheme() throws SystemException {
+	public Theme getWapTheme() {
 		return ThemeLocalServiceUtil.getTheme(
 			getCompanyId(), getWapThemeId(), true);
 	}
@@ -247,7 +247,7 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 		_virtualHostname = virtualHostname;
 	}
 
-	protected Theme getTheme(String device) throws SystemException {
+	protected Theme getTheme(String device) {
 		boolean controlPanel = false;
 
 		try {

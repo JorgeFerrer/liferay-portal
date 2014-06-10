@@ -99,7 +99,7 @@ public class BookmarksFolderFinderImpl
 	}
 
 	@Override
-	public List<BookmarksFolder> findByNoAssets() throws SystemException {
+	public List<BookmarksFolder> findByNoAssets() {
 		Session session = null;
 
 		try {

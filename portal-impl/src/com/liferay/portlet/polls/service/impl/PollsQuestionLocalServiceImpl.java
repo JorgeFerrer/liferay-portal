@@ -236,7 +236,7 @@ public class PollsQuestionLocalServiceImpl
 	}
 
 	@Override
-	public int getQuestionsCount(long groupId) throws SystemException {
+	public int getQuestionsCount(long groupId) {
 		return pollsQuestionPersistence.countByGroupId(groupId);
 	}
 

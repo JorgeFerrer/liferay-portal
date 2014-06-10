@@ -33,7 +33,7 @@ public class PasswordTrackerLocalServiceImpl
 	extends PasswordTrackerLocalServiceBaseImpl {
 
 	@Override
-	public void deletePasswordTrackers(long userId) throws SystemException {
+	public void deletePasswordTrackers(long userId) {
 		passwordTrackerPersistence.removeByUserId(userId);
 	}
 

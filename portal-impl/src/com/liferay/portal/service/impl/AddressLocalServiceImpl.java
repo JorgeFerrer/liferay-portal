@@ -109,7 +109,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public Address deleteAddress(Address address) throws SystemException {
+	public Address deleteAddress(Address address) {
 		addressPersistence.remove(address);
 
 		return address;
@@ -139,7 +139,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Address> getAddresses() throws SystemException {
+	public List<Address> getAddresses() {
 		return addressPersistence.findAll();
 	}
 

@@ -36,7 +36,7 @@ public class CyrusServiceUtil {
 		getService().deleteEmailAddress(companyId, userId);
 	}
 
-	public static void deleteUser(long userId) throws SystemException {
+	public static void deleteUser(long userId) {
 		getService().deleteUser(userId);
 	}
 

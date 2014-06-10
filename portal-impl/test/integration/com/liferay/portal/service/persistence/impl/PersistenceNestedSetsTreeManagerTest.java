@@ -112,7 +112,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testCountAncestors() throws SystemException {
+	public void testCountAncestors() {
 		testInsert();
 
 		assertCountAncestors(1, _assetCategories[0]);
@@ -127,7 +127,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testCountChildren() throws SystemException {
+	public void testCountChildren() {
 		testInsert();
 
 		assertCountChildren(5, _assetCategories[0]);
@@ -142,7 +142,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testDelete() throws SystemException {
+	public void testDelete() {
 		testInsert();
 
 		_nestedSetsTreeManager.delete(_assetCategories[7]);
@@ -336,7 +336,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testGetAncestors() throws SystemException {
+	public void testGetAncestors() {
 		testInsert();
 
 		assertGetAncestors(_assetCategories[0]);
@@ -354,7 +354,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testGetDescendants() throws SystemException {
+	public void testGetDescendants() {
 		testInsert();
 
 		assertGetDescendants(
@@ -372,7 +372,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testInsert() throws SystemException {
+	public void testInsert() {
 
 		// (0)
 
@@ -484,7 +484,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	@Test
-	public void testMove() throws SystemException {
+	public void testMove() {
 		testInsert();
 
 		_nestedSetsTreeManager.move(_assetCategories[4], null, null);

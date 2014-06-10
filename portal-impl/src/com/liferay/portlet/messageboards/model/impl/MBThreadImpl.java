@@ -79,7 +79,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 	}
 
 	@Override
-	public long getAttachmentsFolderId() throws SystemException {
+	public long getAttachmentsFolderId() {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
@@ -140,7 +140,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 	}
 
 	@Override
-	public long[] getParticipantUserIds() throws SystemException {
+	public long[] getParticipantUserIds() {
 		Set<Long> participantUserIds = new HashSet<Long>();
 
 		List<MBMessage> messages = MBMessageLocalServiceUtil.getThreadMessages(

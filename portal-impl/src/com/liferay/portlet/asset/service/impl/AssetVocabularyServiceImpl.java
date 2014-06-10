@@ -249,7 +249,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupVocabulariesCount(long groupId) throws SystemException {
+	public int getGroupVocabulariesCount(long groupId) {
 		return assetVocabularyPersistence.filterCountByGroupId(groupId);
 	}
 

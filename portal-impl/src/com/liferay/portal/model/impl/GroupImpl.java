@@ -126,7 +126,7 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public List<Group> getChildren(boolean site) throws SystemException {
+	public List<Group> getChildren(boolean site) {
 		return GroupLocalServiceUtil.getGroups(
 			getCompanyId(), getGroupId(), site);
 	}
@@ -171,7 +171,7 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public List<Group> getDescendants(boolean site) throws SystemException {
+	public List<Group> getDescendants(boolean site) {
 		List<Group> descendants = new UniqueList<Group>();
 
 		for (Group group : getChildren(site)) {

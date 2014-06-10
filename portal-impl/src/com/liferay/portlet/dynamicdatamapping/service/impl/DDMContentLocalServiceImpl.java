@@ -77,12 +77,12 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteContent(DDMContent content) throws SystemException {
+	public void deleteContent(DDMContent content) {
 		ddmContentPersistence.remove(content);
 	}
 
 	@Override
-	public void deleteContents(long groupId) throws SystemException {
+	public void deleteContents(long groupId) {
 		List<DDMContent> contents = ddmContentPersistence.findByGroupId(
 			groupId);
 
@@ -99,12 +99,12 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<DDMContent> getContents() throws SystemException {
+	public List<DDMContent> getContents() {
 		return ddmContentPersistence.findAll();
 	}
 
 	@Override
-	public List<DDMContent> getContents(long groupId) throws SystemException {
+	public List<DDMContent> getContents(long groupId) {
 		return ddmContentPersistence.findByGroupId(groupId);
 	}
 
@@ -116,7 +116,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getContentsCount(long groupId) throws SystemException {
+	public int getContentsCount(long groupId) {
 		return ddmContentPersistence.countByGroupId(groupId);
 	}
 

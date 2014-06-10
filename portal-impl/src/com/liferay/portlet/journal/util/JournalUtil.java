@@ -1030,7 +1030,7 @@ public class JournalUtil {
 		return recentDDMTemplates;
 	}
 
-	public static int getRestrictionType(long folderId) throws SystemException {
+	public static int getRestrictionType(long folderId) {
 		int restrictionType = JournalFolderConstants.RESTRICTION_TYPE_INHERIT;
 
 		JournalFolder folder = JournalFolderLocalServiceUtil.fetchFolder(

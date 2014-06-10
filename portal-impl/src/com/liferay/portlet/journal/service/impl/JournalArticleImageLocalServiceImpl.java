@@ -76,7 +76,7 @@ public class JournalArticleImageLocalServiceImpl
 	}
 
 	@Override
-	public void deleteArticleImage(long articleImageId) throws SystemException {
+	public void deleteArticleImage(long articleImageId) {
 		JournalArticleImage articleImage =
 			journalArticleImagePersistence.fetchByPrimaryKey(articleImageId);
 
@@ -177,7 +177,7 @@ public class JournalArticleImageLocalServiceImpl
 	}
 
 	@Override
-	public int getArticleImagesCount(long groupId) throws SystemException {
+	public int getArticleImagesCount(long groupId) {
 		return journalArticleImagePersistence.countByGroupId(groupId);
 	}
 

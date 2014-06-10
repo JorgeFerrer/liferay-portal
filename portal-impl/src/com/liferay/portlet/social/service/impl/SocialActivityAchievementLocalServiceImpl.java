@@ -95,7 +95,7 @@ public class SocialActivityAchievementLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupAchievementsCount(long groupId) throws SystemException {
+	public int getGroupAchievementsCount(long groupId) {
 		return socialActivityAchievementPersistence.countByGroupId(groupId);
 	}
 

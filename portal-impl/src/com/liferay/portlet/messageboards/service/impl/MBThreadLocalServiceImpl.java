@@ -304,7 +304,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MBThread fetchThread(long threadId) throws SystemException {
+	public MBThread fetchThread(long threadId) {
 		return mbThreadPersistence.fetchByPrimaryKey(threadId);
 	}
 
@@ -575,7 +575,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBThread> getNoAssetThreads() throws SystemException {
+	public List<MBThread> getNoAssetThreads() {
 		return mbThreadFinder.findByNoAssets();
 	}
 
@@ -648,7 +648,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasAnswerMessage(long threadId) throws SystemException {
+	public boolean hasAnswerMessage(long threadId) {
 		int count = mbMessagePersistence.countByT_A(threadId, true);
 
 		if (count > 0) {

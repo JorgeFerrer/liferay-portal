@@ -368,7 +368,7 @@ public class GroupFinderImpl
 	}
 
 	@Override
-	public List<Group> findByLiveGroups() throws SystemException {
+	public List<Group> findByLiveGroups() {
 		Session session = null;
 
 		try {
@@ -422,7 +422,7 @@ public class GroupFinderImpl
 	}
 
 	@Override
-	public List<Group> findByNullFriendlyURL() throws SystemException {
+	public List<Group> findByNullFriendlyURL() {
 		Session session = null;
 
 		try {
@@ -445,7 +445,7 @@ public class GroupFinderImpl
 	}
 
 	@Override
-	public List<Group> findBySystem(long companyId) throws SystemException {
+	public List<Group> findBySystem(long companyId) {
 		Session session = null;
 
 		try {

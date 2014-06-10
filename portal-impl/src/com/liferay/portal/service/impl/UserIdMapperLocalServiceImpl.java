@@ -28,7 +28,7 @@ public class UserIdMapperLocalServiceImpl
 	extends UserIdMapperLocalServiceBaseImpl {
 
 	@Override
-	public void deleteUserIdMappers(long userId) throws SystemException {
+	public void deleteUserIdMappers(long userId) {
 		userIdMapperPersistence.removeByUserId(userId);
 	}
 

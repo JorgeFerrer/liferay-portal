@@ -115,7 +115,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public List<Address> getAddresses() throws SystemException {
+	public List<Address> getAddresses() {
 		return AddressLocalServiceUtil.getAddresses(
 			getCompanyId(), Organization.class.getName(), getOrganizationId());
 	}
@@ -143,7 +143,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public List<Organization> getDescendants() throws SystemException {
+	public List<Organization> getDescendants() {
 		List<Organization> descendants = new UniqueList<Organization>();
 
 		for (Organization suborganization : getSuborganizations()) {
@@ -191,7 +191,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public String getParentOrganizationName() throws SystemException {
+	public String getParentOrganizationName() {
 		if (getParentOrganizationId() ==
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
 
@@ -210,7 +210,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public PortletPreferences getPreferences() throws SystemException {
+	public PortletPreferences getPreferences() {
 		long ownerId = getOrganizationId();
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_ORGANIZATION;
 
@@ -277,13 +277,13 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public List<Organization> getSuborganizations() throws SystemException {
+	public List<Organization> getSuborganizations() {
 		return OrganizationLocalServiceUtil.getSuborganizations(
 			getCompanyId(), getOrganizationId());
 	}
 
 	@Override
-	public int getSuborganizationsSize() throws SystemException {
+	public int getSuborganizationsSize() {
 		return OrganizationLocalServiceUtil.getSuborganizationsCount(
 			getCompanyId(), getOrganizationId());
 	}
@@ -324,7 +324,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public boolean hasSuborganizations() throws SystemException {
+	public boolean hasSuborganizations() {
 		if (getSuborganizationsSize() > 0) {
 			return true;
 		}

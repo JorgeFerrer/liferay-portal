@@ -91,7 +91,7 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteAction(long actionId) throws SystemException {
+	public void deleteAction(long actionId) {
 		MDRAction action = mdrActionPersistence.fetchByPrimaryKey(actionId);
 
 		if (action != null) {
@@ -101,7 +101,7 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteAction(MDRAction action) throws SystemException {
+	public void deleteAction(MDRAction action) {
 		mdrActionPersistence.remove(action);
 
 		MDRRuleGroupInstance ruleGroupInstance =
@@ -116,7 +116,7 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteActions(long ruleGroupInstanceId) throws SystemException {
+	public void deleteActions(long ruleGroupInstanceId) {
 		List<MDRAction> actions =
 			mdrActionPersistence.findByRuleGroupInstanceId(ruleGroupInstanceId);
 
@@ -126,7 +126,7 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MDRAction fetchAction(long actionId) throws SystemException {
+	public MDRAction fetchAction(long actionId) {
 		return mdrActionPersistence.fetchByPrimaryKey(actionId);
 	}
 

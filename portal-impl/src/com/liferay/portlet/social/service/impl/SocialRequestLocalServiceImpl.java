@@ -146,7 +146,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRequest(SocialRequest request) throws SystemException {
+	public void deleteRequest(SocialRequest request) {
 		socialRequestPersistence.remove(request);
 	}
 
@@ -169,7 +169,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteUserRequests(long userId) throws SystemException {
+	public void deleteUserRequests(long userId) {
 		List<SocialRequest> requests = socialRequestPersistence.findByUserId(
 			userId);
 
@@ -329,7 +329,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserRequestsCount(long userId) throws SystemException {
+	public int getUserRequestsCount(long userId) {
 		return socialRequestPersistence.countByUserId(userId);
 	}
 

@@ -294,11 +294,11 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 			folderIds, status);
 	}
 
-	public String getLatestVersionId(String objectId) throws SystemException {
+	public String getLatestVersionId(String objectId) {
 		return _baseCmisRepository.getLatestVersionId(objectId);
 	}
 
-	public String getLogin() throws SystemException {
+	public String getLogin() {
 		String login = PrincipalThreadLocal.getName();
 
 		if (Validator.isNull(login)) {

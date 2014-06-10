@@ -68,7 +68,7 @@ public class DDLRecordSetImpl extends DDLRecordSetBaseImpl {
 	}
 
 	@Override
-	public List<DDLRecord> getRecords() throws SystemException {
+	public List<DDLRecord> getRecords() {
 		return DDLRecordLocalServiceUtil.getRecords(getRecordSetId());
 	}
 

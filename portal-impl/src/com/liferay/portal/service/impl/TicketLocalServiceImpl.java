@@ -57,7 +57,7 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Ticket fetchTicket(String key) throws SystemException {
+	public Ticket fetchTicket(String key) {
 		return ticketPersistence.fetchByKey(key);
 	}
 

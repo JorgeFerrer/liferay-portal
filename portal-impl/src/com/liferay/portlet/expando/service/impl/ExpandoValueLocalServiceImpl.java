@@ -1088,7 +1088,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public void deleteColumnValues(long columnId) throws SystemException {
+	public void deleteColumnValues(long columnId) {
 		List<ExpandoValue> values = expandoValuePersistence.findByColumnId(
 			columnId);
 
@@ -1098,7 +1098,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRowValues(long rowId) throws SystemException {
+	public void deleteRowValues(long rowId) {
 		List<ExpandoValue> values = expandoValuePersistence.findByRowId(rowId);
 
 		for (ExpandoValue value : values) {
@@ -1107,7 +1107,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public void deleteTableValues(long tableId) throws SystemException {
+	public void deleteTableValues(long tableId) {
 		List<ExpandoValue> values = expandoValuePersistence.findByTableId(
 			tableId);
 
@@ -1117,7 +1117,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public void deleteValue(ExpandoValue value) throws SystemException {
+	public void deleteValue(ExpandoValue value) {
 		expandoValuePersistence.remove(value);
 	}
 
@@ -1289,7 +1289,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public int getColumnValuesCount(long columnId) throws SystemException {
+	public int getColumnValuesCount(long columnId) {
 		return expandoValuePersistence.countByColumnId(columnId);
 	}
 
@@ -2088,7 +2088,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public List<ExpandoValue> getRowValues(long rowId) throws SystemException {
+	public List<ExpandoValue> getRowValues(long rowId) {
 		return expandoValuePersistence.findByRowId(rowId);
 	}
 
@@ -2129,7 +2129,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public int getRowValuesCount(long rowId) throws SystemException {
+	public int getRowValuesCount(long rowId) {
 		return expandoValuePersistence.countByRowId(rowId);
 	}
 

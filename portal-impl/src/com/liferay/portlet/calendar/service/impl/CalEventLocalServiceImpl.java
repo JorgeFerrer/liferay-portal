@@ -324,7 +324,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void checkEvents() throws SystemException {
+	public void checkEvents() {
 		List<CalEvent> events = calEventFinder.findByFutureReminders();
 
 		for (CalEvent event : events) {
@@ -485,7 +485,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyEventsCount(long companyId) throws SystemException {
+	public int getCompanyEventsCount(long companyId) {
 		return calEventPersistence.countByCompanyId(companyId);
 	}
 
@@ -615,7 +615,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CalEvent> getNoAssetEvents() throws SystemException {
+	public List<CalEvent> getNoAssetEvents() {
 		return calEventFinder.findByNoAssets();
 	}
 

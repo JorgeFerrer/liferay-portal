@@ -174,7 +174,7 @@ public class JCRStore extends BaseStore {
 	}
 
 	@Override
-	public void checkRoot(long companyId) throws SystemException {
+	public void checkRoot(long companyId) {
 		Session session = null;
 
 		try {
@@ -619,7 +619,7 @@ public class JCRStore extends BaseStore {
 	}
 
 	@Override
-	public void move(String srcDir, String destDir) throws SystemException {
+	public void move(String srcDir, String destDir) {
 		Session session = null;
 
 		try {

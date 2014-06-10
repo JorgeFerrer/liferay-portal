@@ -41,7 +41,7 @@ public class AssetTagPropertyKeyFinderImpl
 		AssetTagPropertyKeyFinder.class.getName() + ".findByGroupId";
 
 	@Override
-	public int countByGroupId(long groupId) throws SystemException {
+	public int countByGroupId(long groupId) {
 		Session session = null;
 
 		try {
@@ -78,7 +78,7 @@ public class AssetTagPropertyKeyFinderImpl
 	}
 
 	@Override
-	public String[] findByGroupId(long groupId) throws SystemException {
+	public String[] findByGroupId(long groupId) {
 		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 

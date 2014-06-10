@@ -48,7 +48,7 @@ public class ShoppingCartLocalServiceImpl
 	extends ShoppingCartLocalServiceBaseImpl {
 
 	@Override
-	public void deleteGroupCarts(long groupId) throws SystemException {
+	public void deleteGroupCarts(long groupId) {
 		List<ShoppingCart> carts = shoppingCartPersistence.findByGroupId(
 			groupId);
 
@@ -58,7 +58,7 @@ public class ShoppingCartLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserCarts(long userId) throws SystemException {
+	public void deleteUserCarts(long userId) {
 		List<ShoppingCart> shoppingCarts = shoppingCartPersistence.findByUserId(
 			userId);
 

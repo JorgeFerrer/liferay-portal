@@ -48,7 +48,7 @@ public class AnnouncementsFlagLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFlag(AnnouncementsFlag flag) throws SystemException {
+	public void deleteFlag(AnnouncementsFlag flag) {
 		announcementsFlagPersistence.remove(flag);
 	}
 
@@ -63,7 +63,7 @@ public class AnnouncementsFlagLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFlags(long entryId) throws SystemException {
+	public void deleteFlags(long entryId) {
 		List<AnnouncementsFlag> flags =
 			announcementsFlagPersistence.findByEntryId(entryId);
 

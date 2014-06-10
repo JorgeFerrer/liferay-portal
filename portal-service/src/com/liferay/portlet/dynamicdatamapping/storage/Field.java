@@ -123,7 +123,7 @@ public class Field implements Serializable {
 		return ddmStructure.getFieldDataType(_name);
 	}
 
-	public DDMStructure getDDMStructure() throws SystemException {
+	public DDMStructure getDDMStructure() {
 		return DDMStructureLocalServiceUtil.fetchStructure(_ddmStructureId);
 	}
 

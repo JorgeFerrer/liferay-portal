@@ -2189,7 +2189,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles() throws SystemException {
+	public List<JournalArticle> getArticles() {
 		return journalArticlePersistence.findAll();
 	}
 
@@ -2412,7 +2412,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getArticlesCount(long groupId) throws SystemException {
+	public int getArticlesCount(long groupId) {
 		return journalArticlePersistence.countByGroupId(groupId);
 	}
 
@@ -3518,7 +3518,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		journalFolderLocalService.rebuildTree(companyId);
 
 		Session session = journalArticlePersistence.openSession();

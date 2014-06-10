@@ -645,7 +645,7 @@ public class LuceneHelperImpl implements LuceneHelper {
 	}
 
 	@Override
-	public void loadIndexesFromCluster(long companyId) throws SystemException {
+	public void loadIndexesFromCluster(long companyId) {
 		if (!isLoadIndexFromClusterEnabled()) {
 			return;
 		}

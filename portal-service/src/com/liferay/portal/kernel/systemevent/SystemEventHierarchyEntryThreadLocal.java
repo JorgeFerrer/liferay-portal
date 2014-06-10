@@ -89,7 +89,7 @@ public class SystemEventHierarchyEntryThreadLocal {
 		return pop(PortalUtil.getClassNameId(className), classPK);
 	}
 
-	public static SystemEventHierarchyEntry push() throws SystemException {
+	public static SystemEventHierarchyEntry push() {
 		return push(SystemEventConstants.ACTION_SKIP);
 	}
 

@@ -132,12 +132,12 @@ public class ShoppingCouponLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCoupon(ShoppingCoupon coupon) throws SystemException {
+	public void deleteCoupon(ShoppingCoupon coupon) {
 		shoppingCouponPersistence.remove(coupon);
 	}
 
 	@Override
-	public void deleteCoupons(long groupId) throws SystemException {
+	public void deleteCoupons(long groupId) {
 		List<ShoppingCoupon> coupons = shoppingCouponPersistence.findByGroupId(
 			groupId);
 
@@ -238,7 +238,7 @@ public class ShoppingCouponLocalServiceImpl
 		return coupon;
 	}
 
-	protected String getCode() throws SystemException {
+	protected String getCode() {
 		String code = PwdGenerator.getPassword(
 			8, PwdGenerator.KEY1, PwdGenerator.KEY2);
 

@@ -164,7 +164,7 @@ public class LayoutCache {
 		return roles;
 	}
 
-	protected List<User> getGroupUsers(long groupId) throws SystemException {
+	protected List<User> getGroupUsers(long groupId) {
 		List<User> users = groupUsersMap.get(groupId);
 
 		if (users == null) {
@@ -194,7 +194,7 @@ public class LayoutCache {
 		return role;
 	}
 
-	protected List<Role> getUserRoles(long userId) throws SystemException {
+	protected List<Role> getUserRoles(long userId) {
 		List<Role> userRoles = userRolesMap.get(userId);
 
 		if (userRoles == null) {

@@ -437,7 +437,7 @@ public class DLFolderServiceImpl extends DLFolderServiceBaseImpl {
 	}
 
 	@Override
-	public boolean isFolderLocked(long folderId) throws SystemException {
+	public boolean isFolderLocked(long folderId) {
 		return lockLocalService.isLocked(DLFolder.class.getName(), folderId);
 	}
 

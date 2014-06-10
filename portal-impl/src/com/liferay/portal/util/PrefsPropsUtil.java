@@ -66,7 +66,7 @@ public class PrefsPropsUtil {
 			getString(preferences, companyId, name, defaultValue));
 	}
 
-	public static boolean getBoolean(String name) throws SystemException {
+	public static boolean getBoolean(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getBoolean(preferences, 0, name);
@@ -101,7 +101,7 @@ public class PrefsPropsUtil {
 		}
 	}
 
-	public static String getContent(String name) throws SystemException {
+	public static String getContent(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getContent(preferences, 0, name);
@@ -138,7 +138,7 @@ public class PrefsPropsUtil {
 			getString(preferences, companyId, name, defaultValue));
 	}
 
-	public static double getDouble(String name) throws SystemException {
+	public static double getDouble(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getDouble(preferences, 0, name);
@@ -182,7 +182,7 @@ public class PrefsPropsUtil {
 			getString(preferences, companyId, name, defaultValue));
 	}
 
-	public static int getInteger(String name) throws SystemException {
+	public static int getInteger(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getInteger(preferences, 0, name);
@@ -226,7 +226,7 @@ public class PrefsPropsUtil {
 			getString(preferences, companyId, name, defaultValue));
 	}
 
-	public static long getLong(String name) throws SystemException {
+	public static long getLong(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getLong(preferences, 0, name);
@@ -240,7 +240,7 @@ public class PrefsPropsUtil {
 		return getLong(preferences, 0, name, defaultValue);
 	}
 
-	public static PortletPreferences getPreferences() throws SystemException {
+	public static PortletPreferences getPreferences() {
 		return getPreferences(false);
 	}
 
@@ -357,7 +357,7 @@ public class PrefsPropsUtil {
 			getString(preferences, companyId, name, defaultValue));
 	}
 
-	public static short getShort(String name) throws SystemException {
+	public static short getShort(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getShort(preferences, 0, name);
@@ -478,7 +478,7 @@ public class PrefsPropsUtil {
 		}
 	}
 
-	public static String getString(String name) throws SystemException {
+	public static String getString(String name) {
 		PortletPreferences preferences = getPreferences(true);
 
 		return getString(preferences, 0, name);

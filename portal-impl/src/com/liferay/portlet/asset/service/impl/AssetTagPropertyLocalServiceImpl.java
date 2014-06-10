@@ -83,7 +83,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagProperties(long tagId) throws SystemException {
+	public void deleteTagProperties(long tagId) {
 		List<AssetTagProperty> tagProperties =
 			assetTagPropertyPersistence.findByTagId(tagId);
 
@@ -130,7 +130,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetTagProperty> getTagProperties() throws SystemException {
+	public List<AssetTagProperty> getTagProperties() {
 		return assetTagPropertyPersistence.findAll();
 	}
 
@@ -189,7 +189,7 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public String[] getTagPropertyKeys(long groupId) throws SystemException {
+	public String[] getTagPropertyKeys(long groupId) {
 		return assetTagPropertyKeyFinder.findByGroupId(groupId);
 	}
 

@@ -133,7 +133,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 	}
 
 	@Override
-	public void deleteLayoutFriendlyURLs(long plid) throws SystemException {
+	public void deleteLayoutFriendlyURLs(long plid) {
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
 			layoutFriendlyURLPersistence.findByPlid(plid);
 

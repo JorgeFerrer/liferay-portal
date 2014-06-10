@@ -125,12 +125,12 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Image> getImages() throws SystemException {
+	public List<Image> getImages() {
 		return imagePersistence.findAll();
 	}
 
 	@Override
-	public List<Image> getImagesBySize(int size) throws SystemException {
+	public List<Image> getImagesBySize(int size) {
 		return imagePersistence.findByLtSize(size);
 	}
 

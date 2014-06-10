@@ -78,7 +78,7 @@ public class PollsChoiceLocalServiceImpl
 	}
 
 	@Override
-	public int getChoicesCount(long questionId) throws SystemException {
+	public int getChoicesCount(long questionId) {
 		return pollsChoicePersistence.countByQuestionId(questionId);
 	}
 

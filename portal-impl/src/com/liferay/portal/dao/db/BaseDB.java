@@ -203,12 +203,12 @@ public abstract class BaseDB implements DB {
 	}
 
 	@Override
-	public long increment() throws SystemException {
+	public long increment() {
 		return CounterLocalServiceUtil.increment();
 	}
 
 	@Override
-	public long increment(String name) throws SystemException {
+	public long increment(String name) {
 		return CounterLocalServiceUtil.increment(name);
 	}
 

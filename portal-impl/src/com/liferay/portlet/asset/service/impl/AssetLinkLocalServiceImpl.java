@@ -109,7 +109,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLink(AssetLink link) throws SystemException {
+	public void deleteLink(AssetLink link) {
 		if (AssetLinkConstants.isTypeBi(link.getType())) {
 			try {
 				assetLinkPersistence.removeByE_E_T(
@@ -145,7 +145,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLinks(long entryId) throws SystemException {
+	public void deleteLinks(long entryId) {
 		for (AssetLink link : assetLinkPersistence.findByE1(entryId)) {
 			deleteLink(link);
 		}
@@ -182,7 +182,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetLink> getDirectLinks(long entryId) throws SystemException {
+	public List<AssetLink> getDirectLinks(long entryId) {
 		List<AssetLink> assetLinks = assetLinkPersistence.findByE1(entryId);
 
 		if (!assetLinks.isEmpty()) {
@@ -255,7 +255,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetLink> getLinks(long entryId) throws SystemException {
+	public List<AssetLink> getLinks(long entryId) {
 		List<AssetLink> e1Links = assetLinkPersistence.findByE1(entryId);
 		List<AssetLink> e2Links = assetLinkPersistence.findByE2(entryId);
 

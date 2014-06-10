@@ -925,7 +925,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getExtraSettingsFileEntriesCount() throws SystemException {
+	public int getExtraSettingsFileEntriesCount() {
 		return dlFileEntryFinder.countByExtraSettings();
 	}
 
@@ -1130,7 +1130,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getFileEntriesCount() throws SystemException {
+	public int getFileEntriesCount() {
 		return dlFileEntryPersistence.countAll();
 	}
 
@@ -1315,7 +1315,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupFileEntriesCount(long groupId) throws SystemException {
+	public int getGroupFileEntriesCount(long groupId) {
 		return dlFileEntryPersistence.countByGroupId(groupId);
 	}
 
@@ -1339,17 +1339,17 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<DLFileEntry> getNoAssetFileEntries() throws SystemException {
+	public List<DLFileEntry> getNoAssetFileEntries() {
 		return dlFileEntryFinder.findByNoAssets();
 	}
 
 	@Override
-	public List<DLFileEntry> getOrphanedFileEntries() throws SystemException {
+	public List<DLFileEntry> getOrphanedFileEntries() {
 		return dlFileEntryFinder.findByOrphanedFileEntries();
 	}
 
 	@Override
-	public boolean hasExtraSettings() throws SystemException {
+	public boolean hasExtraSettings() {
 		if (dlFileEntryFinder.countByExtraSettings() > 0) {
 			return true;
 		}
@@ -1458,7 +1458,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		dlFolderLocalService.rebuildTree(companyId);
 
 		Session session = dlFileEntryPersistence.openSession();
@@ -1589,7 +1589,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public void unlockFileEntry(long fileEntryId) throws SystemException {
+	public void unlockFileEntry(long fileEntryId) {
 		lockLocalService.unlock(DLFileEntry.class.getName(), fileEntryId);
 	}
 

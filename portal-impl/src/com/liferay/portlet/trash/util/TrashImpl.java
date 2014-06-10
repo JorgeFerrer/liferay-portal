@@ -301,7 +301,7 @@ public class TrashImpl implements Trash {
 	}
 
 	@Override
-	public int getMaxAge(Group group) throws SystemException {
+	public int getMaxAge(Group group) {
 		int trashEntriesMaxAge = PrefsPropsUtil.getInteger(
 			group.getCompanyId(), PropsKeys.TRASH_ENTRIES_MAX_AGE,
 			PropsValues.TRASH_ENTRIES_MAX_AGE);

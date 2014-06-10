@@ -84,7 +84,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public void deleteColumn(ExpandoColumn column) throws SystemException {
+	public void deleteColumn(ExpandoColumn column) {
 
 		// Column
 
@@ -117,7 +117,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public void deleteColumn(long tableId, String name) throws SystemException {
+	public void deleteColumn(long tableId, String name) {
 		ExpandoColumn column = expandoColumnPersistence.fetchByT_N(
 			tableId, name);
 
@@ -137,7 +137,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public void deleteColumns(long tableId) throws SystemException {
+	public void deleteColumns(long tableId) {
 		List<ExpandoColumn> columns = expandoColumnPersistence.findByTableId(
 			tableId);
 
@@ -207,7 +207,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public List<ExpandoColumn> getColumns(long tableId) throws SystemException {
+	public List<ExpandoColumn> getColumns(long tableId) {
 		return expandoColumnPersistence.findByTableId(tableId);
 	}
 
@@ -274,7 +274,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public int getColumnsCount(long tableId) throws SystemException {
+	public int getColumnsCount(long tableId) {
 		return expandoColumnPersistence.countByTableId(tableId);
 	}
 

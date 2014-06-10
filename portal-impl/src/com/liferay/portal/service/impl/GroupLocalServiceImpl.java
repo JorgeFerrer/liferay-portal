@@ -1053,7 +1053,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group fetchCompanyGroup(long companyId) throws SystemException {
+	public Group fetchCompanyGroup(long companyId) {
 		long classNameId = classNameLocalService.getClassNameId(Company.class);
 
 		return groupPersistence.fetchByC_C_C(companyId, classNameId, companyId);
@@ -1180,7 +1180,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getCompanyGroupsCount(long companyId) throws SystemException {
+	public int getCompanyGroupsCount(long companyId) {
 		return groupPersistence.countByCompanyId(companyId);
 	}
 
@@ -1633,7 +1633,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getLiveGroups() throws SystemException {
+	public List<Group> getLiveGroups() {
 		return groupFinder.findByLiveGroups();
 	}
 
@@ -1680,7 +1680,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getNullFriendlyURLGroups() throws SystemException {
+	public List<Group> getNullFriendlyURLGroups() {
 		return groupFinder.findByNullFriendlyURL();
 	}
 
@@ -2082,7 +2082,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasStagingGroup(long liveGroupId) throws SystemException {
+	public boolean hasStagingGroup(long liveGroupId) {
 		if (groupPersistence.fetchByLiveGroupId(liveGroupId) != null) {
 			return true;
 		}

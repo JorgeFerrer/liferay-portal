@@ -81,7 +81,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public String[] getAssetTagNames() throws SystemException {
+	public String[] getAssetTagNames() {
 		return AssetTagLocalServiceUtil.getTagNames(
 			MBMessage.class.getName(), getMessageId());
 	}

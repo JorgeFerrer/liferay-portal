@@ -60,13 +60,13 @@ public abstract class UpgradeProcess extends BaseDBProcess {
 		return false;
 	}
 
-	public long increment() throws SystemException {
+	public long increment() {
 		DB db = DBFactoryUtil.getDB();
 
 		return db.increment();
 	}
 
-	public long increment(String name) throws SystemException {
+	public long increment(String name) {
 		DB db = DBFactoryUtil.getDB();
 
 		return db.increment(name);

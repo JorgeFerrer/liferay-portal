@@ -86,7 +86,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	}
 
 	@Override
-	public void checkRoot(long companyId) throws SystemException {
+	public void checkRoot(long companyId) {
 		_store.checkRoot(companyId);
 	}
 
@@ -366,7 +366,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	}
 
 	@Override
-	public void move(String srcDir, String destDir) throws SystemException {
+	public void move(String srcDir, String destDir) {
 		_store.move(srcDir, destDir);
 	}
 

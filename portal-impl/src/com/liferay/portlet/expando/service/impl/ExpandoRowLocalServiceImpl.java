@@ -51,7 +51,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRow(ExpandoRow row) throws SystemException {
+	public void deleteRow(ExpandoRow row) {
 
 		// Row
 
@@ -101,7 +101,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRows(long classPK) throws SystemException {
+	public void deleteRows(long classPK) {
 		List<ExpandoRow> rows = expandoRowPersistence.findByClassPK(classPK);
 
 		for (ExpandoRow row : rows) {
@@ -241,7 +241,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRowsCount(long tableId) throws SystemException {
+	public int getRowsCount(long tableId) {
 		return expandoRowPersistence.countByTableId(tableId);
 	}
 

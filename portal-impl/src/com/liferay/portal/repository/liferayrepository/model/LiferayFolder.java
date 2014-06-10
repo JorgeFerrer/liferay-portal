@@ -225,7 +225,7 @@ public class LiferayFolder extends LiferayModel implements Folder {
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
+	public String getUserUuid() {
 		return _dlFolder.getUserUuid();
 	}
 

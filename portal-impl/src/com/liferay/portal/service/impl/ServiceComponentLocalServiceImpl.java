@@ -200,7 +200,7 @@ public class ServiceComponentLocalServiceImpl
 	}
 
 	@Override
-	public void verifyDB() throws SystemException {
+	public void verifyDB() {
 		List<ServiceComponent> serviceComponents =
 			serviceComponentPersistence.findAll();
 

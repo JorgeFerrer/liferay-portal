@@ -80,7 +80,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public WikiPage fetchParentPage() throws SystemException {
+	public WikiPage fetchParentPage() {
 		if (Validator.isNull(getParentTitle())) {
 			return null;
 		}
@@ -90,7 +90,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public WikiPage fetchRedirectPage() throws SystemException {
+	public WikiPage fetchRedirectPage() {
 		if (Validator.isNull(getRedirectTitle())) {
 			return null;
 		}
@@ -100,7 +100,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getAttachmentsFileEntries() throws SystemException {
+	public List<FileEntry> getAttachmentsFileEntries() {
 		return getAttachmentsFileEntries(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
@@ -122,7 +122,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public int getAttachmentsFileEntriesCount() throws SystemException {
+	public int getAttachmentsFileEntriesCount() {
 		int attachmentsFileEntriesCount = 0;
 
 		long attachmentsFolderId = getAttachmentsFolderId();
@@ -138,7 +138,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public long getAttachmentsFolderId() throws SystemException {
+	public long getAttachmentsFolderId() {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
@@ -216,7 +216,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public int getDeletedAttachmentsFileEntriesCount() throws SystemException {
+	public int getDeletedAttachmentsFileEntriesCount() {
 		int deletedAttachmentsFileEntriesCount = 0;
 
 		long attachmentsFolderId = getAttachmentsFolderId();
@@ -243,7 +243,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public long getNodeAttachmentsFolderId() throws SystemException {
+	public long getNodeAttachmentsFolderId() {
 		WikiNode node = getNode();
 
 		return node.getAttachmentsFolderId();
@@ -259,7 +259,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public List<WikiPage> getParentPages() throws SystemException {
+	public List<WikiPage> getParentPages() {
 		List<WikiPage> parentPages = new ArrayList<WikiPage>();
 
 		WikiPage parentPage = fetchParentPage();

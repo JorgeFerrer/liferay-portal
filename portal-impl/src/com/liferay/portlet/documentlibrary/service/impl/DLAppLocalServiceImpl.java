@@ -450,7 +450,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileRanksByUserId(long userId) throws SystemException {
+	public void deleteFileRanksByUserId(long userId) {
 		dlFileRankLocalService.deleteFileRanksByUserId(userId);
 	}
 

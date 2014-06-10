@@ -51,7 +51,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public List<LayoutRevision> getChildren() throws SystemException {
+	public List<LayoutRevision> getChildren() {
 		return LayoutRevisionLocalServiceUtil.getChildLayoutRevisions(
 			getLayoutSetBranchId(), getLayoutRevisionId(), getPlid());
 	}
@@ -248,7 +248,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public boolean hasChildren() throws SystemException {
+	public boolean hasChildren() {
 		if (!getChildren().isEmpty()) {
 			return true;
 		}

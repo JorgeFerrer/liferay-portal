@@ -1183,7 +1183,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBMessage> getNoAssetMessages() throws SystemException {
+	public List<MBMessage> getNoAssetMessages() {
 		return mbMessageFinder.findByNoAssets();
 	}
 

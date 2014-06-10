@@ -61,7 +61,7 @@ public class AssetEntryFinderImpl
 		AssetEntryFinder.class.getName() + ".findByAndTagIds";
 
 	@Override
-	public int countEntries(AssetEntryQuery entryQuery) throws SystemException {
+	public int countEntries(AssetEntryQuery entryQuery) {
 		Session session = null;
 
 		try {

@@ -78,7 +78,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void createTablesAndPopulate() throws SystemException {
+	public void createTablesAndPopulate() {
 		try {
 			if (_log.isInfoEnabled()) {
 				_log.info("Create tables and populate with default data");

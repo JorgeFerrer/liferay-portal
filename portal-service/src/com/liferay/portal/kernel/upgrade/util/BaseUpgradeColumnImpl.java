@@ -63,7 +63,7 @@ public abstract class BaseUpgradeColumnImpl implements UpgradeColumn {
 	}
 
 	@Override
-	public long increment() throws SystemException {
+	public long increment() {
 		DB db = DBFactoryUtil.getDB();
 
 		return db.increment();

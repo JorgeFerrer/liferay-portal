@@ -43,7 +43,7 @@ public class PasswordPolicyFinderImpl
 		PasswordPolicyFinder.class.getName() + ".findByC_N";
 
 	@Override
-	public int countByC_N(long companyId, String name) throws SystemException {
+	public int countByC_N(long companyId, String name) {
 		name = CustomSQLUtil.keywords(name)[0];
 
 		Session session = null;

@@ -121,7 +121,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getChoiceVotesCount(long choiceId) throws SystemException {
+	public int getChoiceVotesCount(long choiceId) {
 		return pollsVotePersistence.countByChoiceId(choiceId);
 	}
 
@@ -133,7 +133,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getQuestionVotesCount(long questionId) throws SystemException {
+	public int getQuestionVotesCount(long questionId) {
 		return pollsVotePersistence.countByQuestionId(questionId);
 	}
 

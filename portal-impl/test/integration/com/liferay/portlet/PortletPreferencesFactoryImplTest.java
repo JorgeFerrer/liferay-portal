@@ -158,7 +158,7 @@ public class PortletPreferencesFactoryImplTest {
 	}
 
 	@Test
-	public void testEmptyPortletPreferences() throws SystemException {
+	public void testEmptyPortletPreferences() {
 		String expectedXML =
 			PortletPreferencesTestUtil.getPortletPreferencesXML();
 

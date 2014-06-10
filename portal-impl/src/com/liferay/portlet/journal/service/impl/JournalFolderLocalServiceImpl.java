@@ -250,7 +250,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public JournalFolder fetchFolder(long folderId) throws SystemException {
+	public JournalFolder fetchFolder(long folderId) {
 		return journalFolderPersistence.fetchByPrimaryKey(folderId);
 	}
 
@@ -279,7 +279,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public int getCompanyFoldersCount(long companyId) throws SystemException {
+	public int getCompanyFoldersCount(long companyId) {
 		return journalFolderPersistence.countByCompanyId(companyId);
 	}
 
@@ -291,7 +291,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalFolder> getFolders(long groupId) throws SystemException {
+	public List<JournalFolder> getFolders(long groupId) {
 		return journalFolderPersistence.findByGroupId(groupId);
 	}
 
@@ -448,7 +448,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalFolder> getNoAssetFolders() throws SystemException {
+	public List<JournalFolder> getNoAssetFolders() {
 		return journalFolderFinder.findF_ByNoAssets();
 	}
 
@@ -620,7 +620,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		TreePathUtil.rebuildTree(
 			companyId, JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID,
 			new TreeModelFinder<JournalFolder>() {

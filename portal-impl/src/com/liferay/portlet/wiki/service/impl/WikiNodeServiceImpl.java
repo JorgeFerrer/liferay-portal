@@ -130,12 +130,12 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public int getNodesCount(long groupId) throws SystemException {
+	public int getNodesCount(long groupId) {
 		return getNodesCount(groupId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getNodesCount(long groupId, int status) throws SystemException {
+	public int getNodesCount(long groupId, int status) {
 		return wikiNodePersistence.filterCountByG_S(groupId, status);
 	}
 

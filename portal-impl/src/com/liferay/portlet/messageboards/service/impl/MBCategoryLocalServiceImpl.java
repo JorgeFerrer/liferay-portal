@@ -297,7 +297,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBCategory> getCategories(long groupId) throws SystemException {
+	public List<MBCategory> getCategories(long groupId) {
 		return mbCategoryPersistence.findByGroupId(groupId);
 	}
 
@@ -407,7 +407,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCategoriesCount(long groupId) throws SystemException {
+	public int getCategoriesCount(long groupId) {
 		return mbCategoryPersistence.countByGroupId(groupId);
 	}
 

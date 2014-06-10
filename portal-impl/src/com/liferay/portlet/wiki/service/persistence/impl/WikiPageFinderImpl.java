@@ -174,7 +174,7 @@ public class WikiPageFinderImpl
 	}
 
 	@Override
-	public List<WikiPage> findByNoAssets() throws SystemException {
+	public List<WikiPage> findByNoAssets() {
 		Session session = null;
 
 		try {

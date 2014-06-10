@@ -30,7 +30,7 @@ public class MDRRuleGroupImpl extends MDRRuleGroupBaseImpl {
 	}
 
 	@Override
-	public List<MDRRule> getRules() throws SystemException {
+	public List<MDRRule> getRules() {
 		if (getRuleGroupId() > 0) {
 			return MDRRuleLocalServiceUtil.getRules(getRuleGroupId());
 		}

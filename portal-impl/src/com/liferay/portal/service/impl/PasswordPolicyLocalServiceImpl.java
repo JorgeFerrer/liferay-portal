@@ -353,7 +353,7 @@ public class PasswordPolicyLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long companyId, String name) throws SystemException {
+	public int searchCount(long companyId, String name) {
 		return passwordPolicyFinder.countByC_N(companyId, name);
 	}
 

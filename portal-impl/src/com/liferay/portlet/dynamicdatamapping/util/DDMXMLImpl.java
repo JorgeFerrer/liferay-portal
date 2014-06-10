@@ -55,7 +55,7 @@ import java.util.Locale;
 public class DDMXMLImpl implements DDMXML {
 
 	@Override
-	public String formatXML(Document document) throws SystemException {
+	public String formatXML(Document document) {
 		try {
 			return document.formattedString(_XML_INDENT);
 		}
@@ -65,7 +65,7 @@ public class DDMXMLImpl implements DDMXML {
 	}
 
 	@Override
-	public String formatXML(String xml) throws SystemException {
+	public String formatXML(String xml) {
 
 		// This is only supposed to format your xml, however, it will also
 		// unwantingly change &#169; and other characters like it into their
@@ -211,7 +211,7 @@ public class DDMXMLImpl implements DDMXML {
 	}
 
 	@Override
-	public String getXML(Fields fields) throws SystemException {
+	public String getXML(Fields fields) {
 		return getXML(null, fields);
 	}
 

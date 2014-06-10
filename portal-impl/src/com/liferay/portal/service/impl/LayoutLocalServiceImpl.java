@@ -1185,7 +1185,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long getDefaultPlid(long groupId) throws SystemException {
+	public long getDefaultPlid(long groupId) {
 		if (groupId > 0) {
 			List<Layout> layouts = layoutPersistence.findByGroupId(
 				groupId, 0, 1);
@@ -1650,7 +1650,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Layout> getNullFriendlyURLLayouts() throws SystemException {
+	public List<Layout> getNullFriendlyURLLayouts() {
 		return layoutFinder.findByNullFriendlyURL();
 	}
 

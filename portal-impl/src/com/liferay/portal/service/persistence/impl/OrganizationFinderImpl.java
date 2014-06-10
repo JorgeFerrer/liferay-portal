@@ -331,7 +331,7 @@ public class OrganizationFinderImpl
 	}
 
 	@Override
-	public List<Organization> findByNoAssets() throws SystemException {
+	public List<Organization> findByNoAssets() {
 		Session session = null;
 
 		try {

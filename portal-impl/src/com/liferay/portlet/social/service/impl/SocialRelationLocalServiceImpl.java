@@ -194,7 +194,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRelations(long userId) throws SystemException {
+	public void deleteRelations(long userId) {
 		socialRelationPersistence.removeByUserId1(userId);
 		socialRelationPersistence.removeByUserId2(userId);
 	}
@@ -364,7 +364,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getRelationsCount(long userId, int type) throws SystemException {
+	public int getRelationsCount(long userId, int type) {
 		return socialRelationPersistence.countByU1_T(userId, type);
 	}
 

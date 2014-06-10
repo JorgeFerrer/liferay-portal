@@ -43,7 +43,7 @@ public class ResourceActionLocalServiceImpl
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkResourceActions() throws SystemException {
+	public void checkResourceActions() {
 		List<ResourceAction> resourceActions =
 			resourceActionPersistence.findAll();
 
@@ -207,7 +207,7 @@ public class ResourceActionLocalServiceImpl
 	}
 
 	@Override
-	public int getResourceActionsCount(String name) throws SystemException {
+	public int getResourceActionsCount(String name) {
 		return resourceActionPersistence.countByName(name);
 	}
 

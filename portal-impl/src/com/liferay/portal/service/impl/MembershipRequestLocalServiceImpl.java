@@ -81,7 +81,7 @@ public class MembershipRequestLocalServiceImpl
 	}
 
 	@Override
-	public void deleteMembershipRequests(long groupId) throws SystemException {
+	public void deleteMembershipRequests(long groupId) {
 		List<MembershipRequest> membershipRequests =
 			membershipRequestPersistence.findByGroupId(groupId);
 
@@ -148,7 +148,7 @@ public class MembershipRequestLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long groupId, int status) throws SystemException {
+	public int searchCount(long groupId, int status) {
 		return membershipRequestPersistence.countByG_S(groupId, status);
 	}
 

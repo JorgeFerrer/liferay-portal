@@ -34,24 +34,24 @@ public class PollsQuestionImpl extends PollsQuestionBaseImpl {
 	}
 
 	@Override
-	public List<PollsChoice> getChoices() throws SystemException {
+	public List<PollsChoice> getChoices() {
 		return PollsChoiceLocalServiceUtil.getChoices(getQuestionId());
 	}
 
 	@Override
-	public List<PollsVote> getVotes() throws SystemException {
+	public List<PollsVote> getVotes() {
 		return PollsVoteLocalServiceUtil.getQuestionVotes(
 			getQuestionId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	@Override
-	public List<PollsVote> getVotes(int start, int end) throws SystemException {
+	public List<PollsVote> getVotes(int start, int end) {
 		return PollsVoteLocalServiceUtil.getQuestionVotes(
 			getQuestionId(), start, end);
 	}
 
 	@Override
-	public int getVotesCount() throws SystemException {
+	public int getVotesCount() {
 		return PollsVoteLocalServiceUtil.getQuestionVotesCount(getQuestionId());
 	}
 

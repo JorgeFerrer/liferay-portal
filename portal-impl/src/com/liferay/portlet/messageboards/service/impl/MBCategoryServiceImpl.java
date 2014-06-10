@@ -97,7 +97,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBCategory> getCategories(long groupId) throws SystemException {
+	public List<MBCategory> getCategories(long groupId) {
 		return mbCategoryPersistence.filterFindByGroupId(groupId);
 	}
 

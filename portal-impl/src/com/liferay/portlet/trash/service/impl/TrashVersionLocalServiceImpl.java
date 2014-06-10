@@ -79,7 +79,7 @@ public class TrashVersionLocalServiceImpl
 	}
 
 	@Override
-	public List<TrashVersion> getVersions(long entryId) throws SystemException {
+	public List<TrashVersion> getVersions(long entryId) {
 		return trashVersionPersistence.findByEntryId(entryId);
 	}
 

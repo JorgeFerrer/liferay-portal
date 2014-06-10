@@ -102,12 +102,12 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteBan(MBBan ban) throws SystemException {
+	public void deleteBan(MBBan ban) {
 		mbBanPersistence.remove(ban);
 	}
 
 	@Override
-	public void deleteBansByBanUserId(long banUserId) throws SystemException {
+	public void deleteBansByBanUserId(long banUserId) {
 		List<MBBan> bans = mbBanPersistence.findByBanUserId(banUserId);
 
 		for (MBBan ban : bans) {
@@ -116,7 +116,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteBansByGroupId(long groupId) throws SystemException {
+	public void deleteBansByGroupId(long groupId) {
 		List<MBBan> bans = mbBanPersistence.findByGroupId(groupId);
 
 		for (MBBan ban : bans) {
@@ -125,7 +125,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void expireBans() throws SystemException {
+	public void expireBans() {
 		if (PropsValues.MESSAGE_BOARDS_EXPIRE_BAN_INTERVAL <= 0) {
 			return;
 		}
@@ -160,12 +160,12 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getBansCount(long groupId) throws SystemException {
+	public int getBansCount(long groupId) {
 		return mbBanPersistence.countByGroupId(groupId);
 	}
 
 	@Override
-	public boolean hasBan(long groupId, long banUserId) throws SystemException {
+	public boolean hasBan(long groupId, long banUserId) {
 		if (mbBanPersistence.fetchByG_B(groupId, banUserId) == null) {
 			return false;
 		}

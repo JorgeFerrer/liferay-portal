@@ -61,7 +61,7 @@ public class SocialActivitySetFinderImpl
 		SocialActivitySetFinder.class.getName() + ".findByUserGroups";
 
 	@Override
-	public int countByRelation(long userId) throws SystemException {
+	public int countByRelation(long userId) {
 		Session session = null;
 
 		try {
@@ -138,7 +138,7 @@ public class SocialActivitySetFinderImpl
 	}
 
 	@Override
-	public int countByUser(long userId) throws SystemException {
+	public int countByUser(long userId) {
 		Session session = null;
 
 		try {
@@ -179,7 +179,7 @@ public class SocialActivitySetFinderImpl
 	}
 
 	@Override
-	public int countByUserGroups(long userId) throws SystemException {
+	public int countByUserGroups(long userId) {
 		Session session = null;
 
 		try {

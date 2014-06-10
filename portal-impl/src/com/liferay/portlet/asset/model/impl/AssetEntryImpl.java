@@ -64,25 +64,25 @@ public class AssetEntryImpl extends AssetEntryBaseImpl {
 	}
 
 	@Override
-	public List<AssetCategory> getCategories() throws SystemException {
+	public List<AssetCategory> getCategories() {
 		return AssetCategoryLocalServiceUtil.getEntryCategories(getEntryId());
 	}
 
 	@Override
-	public long[] getCategoryIds() throws SystemException {
+	public long[] getCategoryIds() {
 		return StringUtil.split(
 			ListUtil.toString(
 				getCategories(), AssetCategory.CATEGORY_ID_ACCESSOR), 0L);
 	}
 
 	@Override
-	public String[] getTagNames() throws SystemException {
+	public String[] getTagNames() {
 		return StringUtil.split(
 			ListUtil.toString(getTags(), AssetTag.NAME_ACCESSOR));
 	}
 
 	@Override
-	public List<AssetTag> getTags() throws SystemException {
+	public List<AssetTag> getTags() {
 		return AssetTagLocalServiceUtil.getEntryTags(getEntryId());
 	}
 

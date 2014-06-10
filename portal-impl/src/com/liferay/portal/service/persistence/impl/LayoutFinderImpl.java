@@ -81,7 +81,7 @@ public class LayoutFinderImpl
 	}
 
 	@Override
-	public List<Layout> findByNullFriendlyURL() throws SystemException {
+	public List<Layout> findByNullFriendlyURL() {
 		Session session = null;
 
 		try {

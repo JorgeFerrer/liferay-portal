@@ -126,7 +126,7 @@ public class EmailAddressLocalServiceImpl
 	}
 
 	@Override
-	public List<EmailAddress> getEmailAddresses() throws SystemException {
+	public List<EmailAddress> getEmailAddresses() {
 		return emailAddressPersistence.findAll();
 	}
 

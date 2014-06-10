@@ -268,7 +268,7 @@ public class BlogsEntryFinderImpl
 	}
 
 	@Override
-	public List<BlogsEntry> findByNoAssets() throws SystemException {
+	public List<BlogsEntry> findByNoAssets() {
 		Session session = null;
 
 		try {

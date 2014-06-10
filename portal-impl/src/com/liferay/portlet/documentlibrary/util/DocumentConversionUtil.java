@@ -269,7 +269,7 @@ public class DocumentConversionUtil {
 		return conversions;
 	}
 
-	private DocumentConverter _getDocumentConverter() throws SystemException {
+	private DocumentConverter _getDocumentConverter() {
 		if ((_openOfficeConnection != null) && (_documentConverter != null)) {
 			return _documentConverter;
 		}

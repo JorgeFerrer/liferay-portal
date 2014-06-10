@@ -67,7 +67,7 @@ public class ResourcePermissionFinderImpl
 			});
 
 	@Override
-	public int countByR_S(long roleId, int[] scopes) throws SystemException {
+	public int countByR_S(long roleId, int[] scopes) {
 		Session session = null;
 
 		try {

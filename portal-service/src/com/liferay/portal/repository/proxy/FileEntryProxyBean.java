@@ -288,7 +288,7 @@ public class FileEntryProxyBean
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
+	public String getUserUuid() {
 		return _fileEntry.getUserUuid();
 	}
 

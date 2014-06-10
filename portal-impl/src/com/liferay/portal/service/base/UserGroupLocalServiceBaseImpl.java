@@ -685,7 +685,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void clearUserUserGroups(long userId) throws SystemException {
+	public void clearUserUserGroups(long userId) {
 		userPersistence.clearUserGroups(userId);
 	}
 

@@ -234,7 +234,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TrashEntry fetchEntry(long entryId) throws SystemException {
+	public TrashEntry fetchEntry(long entryId) {
 		return trashEntryPersistence.fetchByPrimaryKey(entryId);
 	}
 
@@ -263,7 +263,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<TrashEntry> getEntries(long groupId) throws SystemException {
+	public List<TrashEntry> getEntries(long groupId) {
 		return trashEntryPersistence.findByGroupId(groupId);
 	}
 
@@ -322,7 +322,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getEntriesCount(long groupId) throws SystemException {
+	public int getEntriesCount(long groupId) {
 		return trashEntryPersistence.countByGroupId(groupId);
 	}
 

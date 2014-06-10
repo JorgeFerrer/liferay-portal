@@ -1604,7 +1604,7 @@ public class StagingImpl implements Staging {
 	}
 
 	@Override
-	public void unlockGroup(long groupId) throws SystemException {
+	public void unlockGroup(long groupId) {
 		if (!PropsValues.STAGING_LOCK_ENABLED) {
 			return;
 		}

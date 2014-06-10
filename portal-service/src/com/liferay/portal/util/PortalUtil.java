@@ -1677,7 +1677,7 @@ public class PortalUtil {
 		return getPortal().getPortletTitle(portletId, user);
 	}
 
-	public static String getPortletXmlFileName() throws SystemException {
+	public static String getPortletXmlFileName() {
 		return getPortal().getPortletXmlFileName();
 	}
 
@@ -2252,7 +2252,7 @@ public class PortalUtil {
 		return getPortal().isSystemRole(roleName);
 	}
 
-	public static boolean isUpdateAvailable() throws SystemException {
+	public static boolean isUpdateAvailable() {
 		return getPortal().isUpdateAvailable();
 	}
 

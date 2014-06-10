@@ -104,7 +104,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getGroupTags(long groupId) throws SystemException {
+	public List<AssetTag> getGroupTags(long groupId) {
 		return assetTagPersistence.filterFindByGroupId(groupId);
 	}
 
@@ -118,7 +118,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupTagsCount(long groupId) throws SystemException {
+	public int getGroupTagsCount(long groupId) {
 		return assetTagPersistence.filterCountByGroupId(groupId);
 	}
 
@@ -246,7 +246,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public int getTagsCount(long groupId, String name) throws SystemException {
+	public int getTagsCount(long groupId, String name) {
 		return assetTagFinder.filterCountByG_N(groupId, name);
 	}
 

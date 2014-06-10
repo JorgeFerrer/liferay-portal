@@ -128,7 +128,7 @@ public class SocialActivitySetLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupActivitySetsCount(long groupId) throws SystemException {
+	public int getGroupActivitySetsCount(long groupId) {
 		return socialActivitySetPersistence.countByGroupId(groupId);
 	}
 
@@ -192,7 +192,7 @@ public class SocialActivitySetLocalServiceImpl
 	}
 
 	@Override
-	public int getUserActivitySetsCount(long userId) throws SystemException {
+	public int getUserActivitySetsCount(long userId) {
 		return socialActivitySetPersistence.countByUserId(userId);
 	}
 

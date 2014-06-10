@@ -1488,7 +1488,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void checkLoginFailure(User user) throws SystemException {
+	public void checkLoginFailure(User user) {
 		Date now = new Date();
 
 		int failedLoginAttempts = user.getFailedLoginAttempts();
@@ -1628,7 +1628,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearUserGroupUsers(long userGroupId) throws SystemException {
+	public void clearUserGroupUsers(long userGroupId) {
 		userGroupPersistence.clearUsers(userGroupId);
 
 		PermissionCacheUtil.clearCache();
@@ -2064,7 +2064,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserById(long userId) throws SystemException {
+	public User fetchUserById(long userId) {
 		return userPersistence.fetchByPrimaryKey(userId);
 	}
 
@@ -2093,7 +2093,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserByPortraitId(long portraitId) throws SystemException {
+	public User fetchUserByPortraitId(long portraitId) {
 		return userPersistence.fetchByPortraitId(portraitId);
 	}
 
@@ -2149,7 +2149,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getCompanyUsersCount(long companyId) throws SystemException {
+	public int getCompanyUsersCount(long companyId) {
 		return userPersistence.countByCompanyId(companyId);
 	}
 
@@ -2205,7 +2205,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long[] getGroupUserIds(long groupId) throws SystemException {
+	public long[] getGroupUserIds(long groupId) {
 		return groupPersistence.getUserPrimaryKeys(groupId);
 	}
 
@@ -2273,7 +2273,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<User> getNoContacts() throws SystemException {
+	public List<User> getNoContacts() {
 		return userFinder.findByNoContacts();
 	}
 
@@ -2285,7 +2285,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<User> getNoGroups() throws SystemException {
+	public List<User> getNoGroups() {
 		return userFinder.findByNoGroups();
 	}
 
@@ -2337,7 +2337,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long[] getRoleUserIds(long roleId) throws SystemException {
+	public long[] getRoleUserIds(long roleId) {
 		return rolePersistence.getUserPrimaryKeys(roleId);
 	}
 

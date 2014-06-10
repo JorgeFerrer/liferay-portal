@@ -98,7 +98,7 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public Website deleteWebsite(Website website) throws SystemException {
+	public Website deleteWebsite(Website website) {
 		websitePersistence.remove(website);
 
 		return website;
@@ -119,7 +119,7 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Website> getWebsites() throws SystemException {
+	public List<Website> getWebsites() {
 		return websitePersistence.findAll();
 	}
 

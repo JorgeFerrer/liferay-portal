@@ -74,7 +74,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void checkFileRanks() throws SystemException {
+	public void checkFileRanks() {
 		List<Object[]> staleFileRanks = dlFileRankFinder.findByStaleRanks(
 			PropsValues.DL_FILE_RANK_MAX_SIZE);
 
@@ -103,7 +103,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteFileRank(DLFileRank dlFileRank) throws SystemException {
+	public void deleteFileRank(DLFileRank dlFileRank) {
 		dlFileRankPersistence.remove(dlFileRank);
 	}
 
@@ -130,7 +130,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFileRanksByUserId(long userId) throws SystemException {
+	public void deleteFileRanksByUserId(long userId) {
 		List<DLFileRank> dlFileRanks = dlFileRankPersistence.findByUserId(
 			userId);
 
@@ -140,7 +140,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void disableFileRanks(long fileEntryId) throws SystemException {
+	public void disableFileRanks(long fileEntryId) {
 		List<DLFileRank> dlFileRanks = dlFileRankPersistence.findByFileEntryId(
 			fileEntryId);
 
@@ -161,7 +161,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void enableFileRanks(long fileEntryId) throws SystemException {
+	public void enableFileRanks(long fileEntryId) {
 		List<DLFileRank> dlFileRanks = dlFileRankPersistence.findByFileEntryId(
 			fileEntryId);
 

@@ -46,7 +46,7 @@ public class AssetVocabularyFinderImpl
 		AssetVocabularyFinder.class.getName() + ".findByG_N";
 
 	@Override
-	public int countByG_N(long groupId, String name) throws SystemException {
+	public int countByG_N(long groupId, String name) {
 		return doCountByG_N(groupId, name, false);
 	}
 

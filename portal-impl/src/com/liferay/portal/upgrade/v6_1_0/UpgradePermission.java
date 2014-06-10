@@ -236,7 +236,7 @@ public class UpgradePermission extends UpgradeProcess {
 		}
 
 		@Override
-		public void persist() throws SystemException {
+		public void persist() {
 			try {
 				StringBundler sb = new StringBundler(8);
 

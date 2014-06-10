@@ -678,7 +678,7 @@ public class AssetPublisherDisplayContext {
 		return _mergeURLTags;
 	}
 
-	public boolean isOpenOfficeServerEnabled() throws SystemException {
+	public boolean isOpenOfficeServerEnabled() {
 		if (_openOfficeServerEnabled == null) {
 			_openOfficeServerEnabled = PrefsPropsUtil.getBoolean(
 				PropsKeys.OPENOFFICE_SERVER_ENABLED,

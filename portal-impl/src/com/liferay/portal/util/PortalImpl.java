@@ -4736,7 +4736,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public String getPortletXmlFileName() throws SystemException {
+	public String getPortletXmlFileName() {
 		if (PrefsPropsUtil.getBoolean(
 				PropsKeys.AUTO_DEPLOY_CUSTOM_PORTLET_XML,
 				PropsValues.AUTO_DEPLOY_CUSTOM_PORTLET_XML)) {
@@ -5735,7 +5735,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public String getUserEmailAddress(long userId) throws SystemException {
+	public String getUserEmailAddress(long userId) {
 		try {
 			User user = UserLocalServiceUtil.getUserById(userId);
 
@@ -6828,7 +6828,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public boolean isUpdateAvailable() throws SystemException {
+	public boolean isUpdateAvailable() {
 		return PluginPackageUtil.isUpdateAvailable();
 	}
 

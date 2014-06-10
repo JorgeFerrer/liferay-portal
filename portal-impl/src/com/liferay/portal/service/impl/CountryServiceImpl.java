@@ -80,27 +80,27 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	}
 
 	@Override
-	public Country fetchCountry(long countryId) throws SystemException {
+	public Country fetchCountry(long countryId) {
 		return countryPersistence.fetchByPrimaryKey(countryId);
 	}
 
 	@Override
-	public Country fetchCountryByA2(String a2) throws SystemException {
+	public Country fetchCountryByA2(String a2) {
 		return countryPersistence.fetchByA2(a2);
 	}
 
 	@Override
-	public Country fetchCountryByA3(String a3) throws SystemException {
+	public Country fetchCountryByA3(String a3) {
 		return countryPersistence.fetchByA3(a3);
 	}
 
 	@Override
-	public List<Country> getCountries() throws SystemException {
+	public List<Country> getCountries() {
 		return countryPersistence.findAll();
 	}
 
 	@Override
-	public List<Country> getCountries(boolean active) throws SystemException {
+	public List<Country> getCountries(boolean active) {
 		return countryPersistence.findByActive(active);
 	}
 

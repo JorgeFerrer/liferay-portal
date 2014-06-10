@@ -238,7 +238,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public int getRecordSetsCount(long groupId) throws SystemException {
+	public int getRecordSetsCount(long groupId) {
 		return ddlRecordSetPersistence.countByGroupId(groupId);
 	}
 

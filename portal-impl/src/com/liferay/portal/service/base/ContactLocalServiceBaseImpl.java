@@ -121,7 +121,7 @@ public abstract class ContactLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Contact deleteContact(Contact contact) throws SystemException {
+	public Contact deleteContact(Contact contact) {
 		return contactPersistence.remove(contact);
 	}
 

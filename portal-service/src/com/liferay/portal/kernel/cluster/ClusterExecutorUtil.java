@@ -127,7 +127,7 @@ public class ClusterExecutorUtil {
 		return clusterExecutor.getClusterNodes();
 	}
 
-	public static ClusterNode getLocalClusterNode() throws SystemException {
+	public static ClusterNode getLocalClusterNode() {
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 
 		if (clusterExecutor == null) {

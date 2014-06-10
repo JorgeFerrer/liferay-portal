@@ -78,7 +78,7 @@ public class MailServiceUtil {
 		return _service;
 	}
 
-	public static Session getSession() throws SystemException {
+	public static Session getSession() {
 		return getService().getSession();
 	}
 

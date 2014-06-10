@@ -980,7 +980,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiPage> getNoAssetPages() throws SystemException {
+	public List<WikiPage> getNoAssetPages() {
 		return wikiPageFinder.findByNoAssets();
 	}
 
@@ -1265,17 +1265,17 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiPage> getPages(String format) throws SystemException {
+	public List<WikiPage> getPages(String format) {
 		return wikiPagePersistence.findByFormat(format);
 	}
 
 	@Override
-	public int getPagesCount(long nodeId) throws SystemException {
+	public int getPagesCount(long nodeId) {
 		return wikiPagePersistence.countByNodeId(nodeId);
 	}
 
 	@Override
-	public int getPagesCount(long nodeId, boolean head) throws SystemException {
+	public int getPagesCount(long nodeId, boolean head) {
 		return wikiPagePersistence.countByN_H_S(
 			nodeId, head, WorkflowConstants.STATUS_APPROVED);
 	}
@@ -1294,7 +1294,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(long nodeId, int status) throws SystemException {
+	public int getPagesCount(long nodeId, int status) {
 		return wikiPagePersistence.countByN_S(nodeId, status);
 	}
 
@@ -1311,7 +1311,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(long nodeId, String title) throws SystemException {
+	public int getPagesCount(long nodeId, String title) {
 		return wikiPagePersistence.countByN_T(nodeId, title);
 	}
 
@@ -1323,7 +1323,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(String format) throws SystemException {
+	public int getPagesCount(String format) {
 		return wikiPagePersistence.countByFormat(format);
 	}
 

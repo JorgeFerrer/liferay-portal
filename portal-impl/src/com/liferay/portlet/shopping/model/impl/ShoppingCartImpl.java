@@ -60,7 +60,7 @@ public class ShoppingCartImpl extends ShoppingCartBaseImpl {
 	}
 
 	@Override
-	public Map<ShoppingCartItem, Integer> getItems() throws SystemException {
+	public Map<ShoppingCartItem, Integer> getItems() {
 		return ShoppingCartLocalServiceUtil.getItems(
 			getGroupId(), getItemIds());
 	}

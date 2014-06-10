@@ -59,7 +59,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public boolean getBoolean(String name) throws SystemException {
+	public boolean getBoolean(String name) {
 		return PrefsPropsUtil.getBoolean(name);
 	}
 
@@ -85,7 +85,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public String getContent(String name) throws SystemException {
+	public String getContent(String name) {
 		return PrefsPropsUtil.getContent(name);
 	}
 
@@ -120,7 +120,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public double getDouble(String name) throws SystemException {
+	public double getDouble(String name) {
 		return PrefsPropsUtil.getDouble(name);
 	}
 
@@ -132,7 +132,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public int getInteger(long companyId, String name) throws SystemException {
+	public int getInteger(long companyId, String name) {
 		return PrefsPropsUtil.getInteger(companyId, name);
 	}
 
@@ -160,7 +160,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public int getInteger(String name) throws SystemException {
+	public int getInteger(String name) {
 		return PrefsPropsUtil.getInteger(name);
 	}
 
@@ -172,7 +172,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public long getLong(long companyId, String name) throws SystemException {
+	public long getLong(long companyId, String name) {
 		return PrefsPropsUtil.getLong(companyId, name);
 	}
 
@@ -200,17 +200,17 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public long getLong(String name) throws SystemException {
+	public long getLong(String name) {
 		return PrefsPropsUtil.getLong(name);
 	}
 
 	@Override
-	public long getLong(String name, long defaultValue) throws SystemException {
+	public long getLong(String name, long defaultValue) {
 		return PrefsPropsUtil.getLong(name, defaultValue);
 	}
 
 	@Override
-	public PortletPreferences getPreferences() throws SystemException {
+	public PortletPreferences getPreferences() {
 		return PrefsPropsUtil.getPreferences();
 	}
 
@@ -252,7 +252,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public short getShort(long companyId, String name) throws SystemException {
+	public short getShort(long companyId, String name) {
 		return PrefsPropsUtil.getShort(companyId, name);
 	}
 
@@ -280,7 +280,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public short getShort(String name) throws SystemException {
+	public short getShort(String name) {
 		return PrefsPropsUtil.getShort(name);
 	}
 
@@ -367,7 +367,7 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public String getString(String name) throws SystemException {
+	public String getString(String name) {
 		return PrefsPropsUtil.getString(name);
 	}
 

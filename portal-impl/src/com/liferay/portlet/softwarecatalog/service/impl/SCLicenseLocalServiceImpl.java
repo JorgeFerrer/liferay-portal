@@ -67,7 +67,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteLicense(SCLicense license) throws SystemException {
+	public void deleteLicense(SCLicense license) {
 		scLicensePersistence.remove(license);
 	}
 
@@ -79,7 +79,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<SCLicense> getLicenses() throws SystemException {
+	public List<SCLicense> getLicenses() {
 		return scLicensePersistence.findAll();
 	}
 
@@ -106,7 +106,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getLicensesCount() throws SystemException {
+	public int getLicensesCount() {
 		return scLicensePersistence.countAll();
 	}
 

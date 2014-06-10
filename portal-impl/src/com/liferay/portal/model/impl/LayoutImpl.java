@@ -150,7 +150,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public List<Layout> getAllChildren() throws SystemException {
+	public List<Layout> getAllChildren() {
 		List<Layout> layouts = new ArrayList<Layout>();
 
 		for (Layout layout : getChildren()) {
@@ -223,7 +223,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public List<Layout> getChildren() throws SystemException {
+	public List<Layout> getChildren() {
 		return LayoutLocalServiceUtil.getLayouts(
 			getGroupId(), isPrivateLayout(), getLayoutId());
 	}
@@ -319,7 +319,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public Map<Locale, String> getFriendlyURLMap() throws SystemException {
+	public Map<Locale, String> getFriendlyURLMap() {
 		Map<Locale, String> friendlyURLMap = new HashMap<Locale, String>();
 
 		List<LayoutFriendlyURL> layoutFriendlyURLs =
@@ -335,7 +335,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public String getFriendlyURLsXML() throws SystemException {
+	public String getFriendlyURLsXML() {
 		Map<Locale, String> friendlyURLMap = getFriendlyURLMap();
 
 		return LocalizationUtil.updateLocalization(
@@ -395,7 +395,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public Layout getLinkedToLayout() throws SystemException {
+	public Layout getLinkedToLayout() {
 		long linkToLayoutId = GetterUtil.getLong(
 			getTypeSettingsProperty("linkToLayoutId"));
 
@@ -572,7 +572,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public boolean hasChildren() throws SystemException {
+	public boolean hasChildren() {
 		return LayoutLocalServiceUtil.hasLayouts(
 			getGroupId(), isPrivateLayout(), getLayoutId());
 	}

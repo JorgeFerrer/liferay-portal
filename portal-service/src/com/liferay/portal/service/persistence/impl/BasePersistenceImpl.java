@@ -115,7 +115,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public T fetchByPrimaryKey(Serializable primaryKey) throws SystemException {
+	public T fetchByPrimaryKey(Serializable primaryKey) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -187,7 +187,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public void flush() throws SystemException {
+	public void flush() {
 		try {
 			Session session = _sessionFactory.getCurrentSession();
 
@@ -271,7 +271,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public T remove(T model) throws SystemException {
+	public T remove(T model) {
 		if (model instanceof ModelWrapper) {
 			ModelWrapper<T> modelWrapper = (ModelWrapper<T>)model;
 
@@ -313,7 +313,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public T update(T model) throws SystemException {
+	public T update(T model) {
 		if (model instanceof ModelWrapper) {
 			ModelWrapper<T> modelWrapper = (ModelWrapper<T>)model;
 
@@ -350,7 +350,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	 */
 	@Deprecated
 	@Override
-	public T update(T model, boolean merge) throws SystemException {
+	public T update(T model, boolean merge) {
 		if (model instanceof ModelWrapper) {
 			ModelWrapper<T> modelWrapper = (ModelWrapper<T>)model;
 
@@ -485,7 +485,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	 * @return the model instance that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	protected T removeImpl(T model) throws SystemException {
+	protected T removeImpl(T model) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -502,7 +502,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	 * @return the model instance that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
-	protected T updateImpl(T model) throws SystemException {
+	protected T updateImpl(T model) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -510,7 +510,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	 * @deprecated As of 6.2.0, replaced by {@link #updateImpl(BaseModel)}
 	 */
 	@Deprecated
-	protected T updateImpl(T model, boolean merge) throws SystemException {
+	protected T updateImpl(T model, boolean merge) {
 		return updateImpl(model);
 	}
 

@@ -421,7 +421,7 @@ public class SubscriptionLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserSubscriptionsCount(long userId) throws SystemException {
+	public int getUserSubscriptionsCount(long userId) {
 		return subscriptionPersistence.countByUserId(userId);
 	}
 

@@ -60,7 +60,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadServletRequestImpl
 	extends HttpServletRequestWrapper implements UploadServletRequest {
 
-	public static File getTempDir() throws SystemException {
+	public static File getTempDir() {
 		if (_tempDir == null) {
 			_tempDir = new File(
 				PrefsPropsUtil.getString(

@@ -146,7 +146,7 @@ public class PluginPackageUtil {
 		return _instance._getRepository(repositoryURL);
 	}
 
-	public static String[] getRepositoryURLs() throws SystemException {
+	public static String[] getRepositoryURLs() {
 		return _instance._getRepositoryURLs();
 	}
 
@@ -184,7 +184,7 @@ public class PluginPackageUtil {
 		return _instance._isTrusted(repositoryURL);
 	}
 
-	public static boolean isUpdateAvailable() throws SystemException {
+	public static boolean isUpdateAvailable() {
 		return _instance._isUpdateAvailable();
 	}
 
@@ -586,7 +586,7 @@ public class PluginPackageUtil {
 		}
 	}
 
-	private boolean _isUpdateAvailable() throws SystemException {
+	private boolean _isUpdateAvailable() {
 		if (!PrefsPropsUtil.getBoolean(
 				PropsKeys.PLUGIN_NOTIFICATIONS_ENABLED,
 				PropsValues.PLUGIN_NOTIFICATIONS_ENABLED)) {

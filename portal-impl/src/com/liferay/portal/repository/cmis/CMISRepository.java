@@ -498,7 +498,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public int getFileEntriesCount(long folderId) throws SystemException {
+	public int getFileEntriesCount(long folderId) {
 		List<FileEntry> fileEntries = getFileEntries(folderId);
 
 		return fileEntries.size();
@@ -806,7 +806,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public String getLatestVersionId(String objectId) throws SystemException {
+	public String getLatestVersionId(String objectId) {
 		try {
 			Session session = getSession();
 

@@ -545,7 +545,7 @@ public class UserFinderImpl
 	}
 
 	@Override
-	public List<User> findByNoContacts() throws SystemException {
+	public List<User> findByNoContacts() {
 		Session session = null;
 
 		try {
@@ -568,7 +568,7 @@ public class UserFinderImpl
 	}
 
 	@Override
-	public List<User> findByNoGroups() throws SystemException {
+	public List<User> findByNoGroups() {
 		Session session = null;
 
 		try {

@@ -240,12 +240,12 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalFeed> getFeeds() throws SystemException {
+	public List<JournalFeed> getFeeds() {
 		return journalFeedPersistence.findAll();
 	}
 
 	@Override
-	public List<JournalFeed> getFeeds(long groupId) throws SystemException {
+	public List<JournalFeed> getFeeds(long groupId) {
 		return journalFeedPersistence.findByGroupId(groupId);
 	}
 
@@ -257,7 +257,7 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public int getFeedsCount(long groupId) throws SystemException {
+	public int getFeedsCount(long groupId) {
 		return journalFeedPersistence.countByGroupId(groupId);
 	}
 

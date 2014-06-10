@@ -196,7 +196,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getActivitiesCount(long classNameId) throws SystemException {
+	public int getActivitiesCount(long classNameId) {
 		return socialActivityLocalService.getActivitiesCount(classNameId);
 	}
 
@@ -249,7 +249,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getActivitiesCount(String className) throws SystemException {
+	public int getActivitiesCount(String className) {
 		long classNameId = classNameLocalService.getClassNameId(className);
 
 		return getActivitiesCount(classNameId);
@@ -342,7 +342,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getGroupActivitiesCount(long groupId) throws SystemException {
+	public int getGroupActivitiesCount(long groupId) {
 		return socialActivityLocalService.getGroupActivitiesCount(groupId);
 	}
 
@@ -608,7 +608,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getRelationActivitiesCount(long userId) throws SystemException {
+	public int getRelationActivitiesCount(long userId) {
 		return socialActivityLocalService.getRelationActivitiesCount(userId);
 	}
 
@@ -671,7 +671,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserActivitiesCount(long userId) throws SystemException {
+	public int getUserActivitiesCount(long userId) {
 		return socialActivityLocalService.getUserActivitiesCount(userId);
 	}
 

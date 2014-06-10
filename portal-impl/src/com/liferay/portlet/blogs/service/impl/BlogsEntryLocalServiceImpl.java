@@ -778,7 +778,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<BlogsEntry> getNoAssetEntries() throws SystemException {
+	public List<BlogsEntry> getNoAssetEntries() {
 		return blogsEntryFinder.findByNoAssets();
 	}
 

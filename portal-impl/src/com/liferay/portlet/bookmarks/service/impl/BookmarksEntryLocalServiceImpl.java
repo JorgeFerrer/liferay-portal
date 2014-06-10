@@ -320,7 +320,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupEntriesCount(long groupId) throws SystemException {
+	public int getGroupEntriesCount(long groupId) {
 		return bookmarksEntryPersistence.countByG_S(
 			groupId, WorkflowConstants.STATUS_APPROVED);
 	}
@@ -339,7 +339,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<BookmarksEntry> getNoAssetEntries() throws SystemException {
+	public List<BookmarksEntry> getNoAssetEntries() {
 		return bookmarksEntryFinder.findByNoAssets();
 	}
 
@@ -448,7 +448,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		bookmarksFolderLocalService.rebuildTree(companyId);
 
 		Session session = bookmarksEntryPersistence.openSession();

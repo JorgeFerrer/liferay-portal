@@ -92,7 +92,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Contact deleteContact(Contact contact) throws SystemException {
+	public Contact deleteContact(Contact contact) {
 
 		// Contact
 
@@ -127,7 +127,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Contact deleteContact(long contactId) throws SystemException {
+	public Contact deleteContact(long contactId) {
 		Contact contact = contactPersistence.fetchByPrimaryKey(contactId);
 
 		if (contact != null) {

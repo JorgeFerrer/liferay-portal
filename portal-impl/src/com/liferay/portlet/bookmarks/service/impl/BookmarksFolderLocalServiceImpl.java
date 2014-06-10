@@ -223,7 +223,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public int getCompanyFoldersCount(long companyId) throws SystemException {
+	public int getCompanyFoldersCount(long companyId) {
 		return bookmarksFolderPersistence.countByCompanyId(companyId);
 	}
 
@@ -326,7 +326,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public List<BookmarksFolder> getNoAssetFolders() throws SystemException {
+	public List<BookmarksFolder> getNoAssetFolders() {
 		return bookmarksFolderFinder.findByNoAssets();
 	}
 
@@ -457,7 +457,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		TreePathUtil.rebuildTree(
 			companyId, BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID,
 			new TreeModelFinder<BookmarksFolder>() {

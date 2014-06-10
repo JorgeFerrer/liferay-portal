@@ -367,7 +367,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DLFolder fetchFolder(long folderId) throws SystemException {
+	public DLFolder fetchFolder(long folderId) {
 		return dlFolderPersistence.fetchByPrimaryKey(folderId);
 	}
 
@@ -386,7 +386,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyFoldersCount(long companyId) throws SystemException {
+	public int getCompanyFoldersCount(long companyId) {
 		return dlFolderPersistence.countByCompanyId(companyId);
 	}
 
@@ -692,7 +692,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<DLFolder> getNoAssetFolders() throws SystemException {
+	public List<DLFolder> getNoAssetFolders() {
 		return dlFolderFinder.findF_ByNoAssets();
 	}
 
@@ -792,7 +792,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		TreePathUtil.rebuildTree(
 			companyId, DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
 			new TreeModelFinder<DLFolder>() {

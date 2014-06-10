@@ -37,7 +37,7 @@ public class ClassNameLocalServiceImpl
 	extends ClassNameLocalServiceBaseImpl implements CacheRegistryItem {
 
 	@Override
-	public ClassName addClassName(String value) throws SystemException {
+	public ClassName addClassName(String value) {
 		ClassName className = classNamePersistence.fetchByValue(value);
 
 		if (className == null) {
@@ -62,7 +62,7 @@ public class ClassNameLocalServiceImpl
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkClassNames() throws SystemException {
+	public void checkClassNames() {
 		List<ClassName> classNames = classNamePersistence.findAll();
 
 		for (ClassName className : classNames) {
@@ -78,7 +78,7 @@ public class ClassNameLocalServiceImpl
 
 	@Override
 	@Skip
-	public ClassName fetchClassName(String value) throws SystemException {
+	public ClassName fetchClassName(String value) {
 		if (Validator.isNull(value)) {
 			return _nullClassName;
 		}
@@ -120,7 +120,7 @@ public class ClassNameLocalServiceImpl
 
 	@Override
 	@Skip
-	public ClassName getClassName(String value) throws SystemException {
+	public ClassName getClassName(String value) {
 		if (Validator.isNull(value)) {
 			return _nullClassName;
 		}

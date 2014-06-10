@@ -100,7 +100,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	}
 
 	@Override
-	public List<JournalFolder> getFolders(long groupId) throws SystemException {
+	public List<JournalFolder> getFolders(long groupId) {
 		return journalFolderPersistence.filterFindByGroupId(groupId);
 	}
 

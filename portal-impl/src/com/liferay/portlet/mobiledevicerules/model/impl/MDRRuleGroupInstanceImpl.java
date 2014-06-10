@@ -32,7 +32,7 @@ public class MDRRuleGroupInstanceImpl extends MDRRuleGroupInstanceBaseImpl {
 	}
 
 	@Override
-	public List<MDRAction> getActions() throws SystemException {
+	public List<MDRAction> getActions() {
 		return MDRActionLocalServiceUtil.getActions(getRuleGroupInstanceId());
 	}
 

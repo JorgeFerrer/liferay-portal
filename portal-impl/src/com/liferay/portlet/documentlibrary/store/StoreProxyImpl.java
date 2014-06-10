@@ -66,7 +66,7 @@ public class StoreProxyImpl implements Store {
 	}
 
 	@Override
-	public void checkRoot(long companyId) throws SystemException {
+	public void checkRoot(long companyId) {
 		Store store = StoreFactory.getInstance();
 
 		store.checkRoot(companyId);
@@ -238,7 +238,7 @@ public class StoreProxyImpl implements Store {
 	}
 
 	@Override
-	public void move(String srcDir, String destDir) throws SystemException {
+	public void move(String srcDir, String destDir) {
 		Store store = StoreFactory.getInstance();
 
 		store.move(srcDir, destDir);

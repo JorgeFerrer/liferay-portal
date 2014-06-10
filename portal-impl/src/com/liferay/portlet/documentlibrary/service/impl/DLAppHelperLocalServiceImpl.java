@@ -774,7 +774,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	@Override
-	public void moveFolder(Folder folder) throws SystemException {
+	public void moveFolder(Folder folder) {
 		registerDLSyncEventCallback(DLSyncConstants.EVENT_MOVE, folder);
 	}
 

@@ -51,7 +51,7 @@ public class CyrusServiceImpl implements CyrusService, IdentifiableBean {
 	}
 
 	@Override
-	public void deleteUser(long userId) throws SystemException {
+	public void deleteUser(long userId) {
 		try {
 			CyrusUserUtil.remove(userId);
 		}

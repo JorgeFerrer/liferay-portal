@@ -64,7 +64,7 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
-	public Region fetchRegion(long regionId) throws SystemException {
+	public Region fetchRegion(long regionId) {
 		return regionPersistence.fetchByPrimaryKey(regionId);
 	}
 
@@ -90,17 +90,17 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
-	public List<Region> getRegions() throws SystemException {
+	public List<Region> getRegions() {
 		return regionPersistence.findAll();
 	}
 
 	@Override
-	public List<Region> getRegions(boolean active) throws SystemException {
+	public List<Region> getRegions(boolean active) {
 		return regionPersistence.findByActive(active);
 	}
 
 	@Override
-	public List<Region> getRegions(long countryId) throws SystemException {
+	public List<Region> getRegions(long countryId) {
 		return regionPersistence.findByCountryId(countryId);
 	}
 

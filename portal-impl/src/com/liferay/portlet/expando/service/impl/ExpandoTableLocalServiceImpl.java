@@ -106,7 +106,7 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public void deleteTable(ExpandoTable table) throws SystemException {
+	public void deleteTable(ExpandoTable table) {
 
 		// Table
 

@@ -112,7 +112,7 @@ public class DLFileEntryTypeServiceImpl extends DLFileEntryTypeServiceBaseImpl {
 	}
 
 	@Override
-	public int getFileEntryTypesCount(long[] groupIds) throws SystemException {
+	public int getFileEntryTypesCount(long[] groupIds) {
 		return dlFileEntryTypePersistence.filterCountByGroupId(groupIds);
 	}
 

@@ -61,7 +61,7 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	@Override
-	public void deleteActivitySettings(long groupId) throws SystemException {
+	public void deleteActivitySettings(long groupId) {
 		socialActivitySettingPersistence.removeByGroupId(groupId);
 	}
 

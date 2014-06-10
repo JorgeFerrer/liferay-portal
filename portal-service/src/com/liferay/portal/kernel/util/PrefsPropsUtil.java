@@ -53,7 +53,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static boolean getBoolean(String name) throws SystemException {
+	public static boolean getBoolean(String name) {
 		return getPrefsProps().getBoolean(name);
 	}
 
@@ -75,7 +75,7 @@ public class PrefsPropsUtil {
 		return getPrefsProps().getContent(preferences, companyId, name);
 	}
 
-	public static String getContent(String name) throws SystemException {
+	public static String getContent(String name) {
 		return getPrefsProps().getContent(name);
 	}
 
@@ -106,7 +106,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static double getDouble(String name) throws SystemException {
+	public static double getDouble(String name) {
 		return getPrefsProps().getDouble(name);
 	}
 
@@ -142,7 +142,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static int getInteger(String name) throws SystemException {
+	public static int getInteger(String name) {
 		return getPrefsProps().getInteger(name);
 	}
 
@@ -178,7 +178,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static long getLong(String name) throws SystemException {
+	public static long getLong(String name) {
 		return getPrefsProps().getLong(name);
 	}
 
@@ -188,7 +188,7 @@ public class PrefsPropsUtil {
 		return getPrefsProps().getLong(name, defaultValue);
 	}
 
-	public static PortletPreferences getPreferences() throws SystemException {
+	public static PortletPreferences getPreferences() {
 		return getPrefsProps().getPreferences();
 	}
 
@@ -258,7 +258,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static short getShort(String name) throws SystemException {
+	public static short getShort(String name) {
 		return getPrefsProps().getShort(name);
 	}
 
@@ -335,7 +335,7 @@ public class PrefsPropsUtil {
 			preferences, companyId, name, defaultValue);
 	}
 
-	public static String getString(String name) throws SystemException {
+	public static String getString(String name) {
 		return getPrefsProps().getString(name);
 	}
 

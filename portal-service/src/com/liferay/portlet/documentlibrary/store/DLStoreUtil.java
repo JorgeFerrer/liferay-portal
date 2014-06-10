@@ -214,7 +214,7 @@ public class DLStoreUtil {
 	 * @param  companyId the primary key of the company
 	 * @throws SystemException if a system exception occurred
 	 */
-	public static void checkRoot(long companyId) throws SystemException {
+	public static void checkRoot(long companyId) {
 		getStore().checkRoot(companyId);
 	}
 

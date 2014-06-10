@@ -125,7 +125,7 @@ public abstract class PhoneLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Phone deletePhone(Phone phone) throws SystemException {
+	public Phone deletePhone(Phone phone) {
 		return phonePersistence.remove(phone);
 	}
 

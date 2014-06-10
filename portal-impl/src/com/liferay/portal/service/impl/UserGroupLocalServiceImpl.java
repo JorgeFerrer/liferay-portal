@@ -239,7 +239,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearUserUserGroups(long userId) throws SystemException {
+	public void clearUserUserGroups(long userId) {
 		userPersistence.clearUserGroups(userId);
 
 		PermissionCacheUtil.clearCache();

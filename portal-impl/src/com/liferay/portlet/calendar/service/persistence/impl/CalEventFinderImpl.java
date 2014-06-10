@@ -116,7 +116,7 @@ public class CalEventFinderImpl
 	}
 
 	@Override
-	public List<CalEvent> findByFutureReminders() throws SystemException {
+	public List<CalEvent> findByFutureReminders() {
 		Calendar calendar = Calendar.getInstance();
 
 		calendar.add(Calendar.HOUR, -24);
@@ -151,7 +151,7 @@ public class CalEventFinderImpl
 	}
 
 	@Override
-	public List<CalEvent> findByNoAssets() throws SystemException {
+	public List<CalEvent> findByNoAssets() {
 		Session session = null;
 
 		try {

@@ -54,11 +54,11 @@ public class CyrusVirtualUtil {
 		getPersistence().remove(emailAddress);
 	}
 
-	public static void removeByUserId(long userId) throws SystemException {
+	public static void removeByUserId(long userId) {
 		getPersistence().removeByUserId(userId);
 	}
 
-	public static void update(CyrusVirtual user) throws SystemException {
+	public static void update(CyrusVirtual user) {
 		getPersistence().update(user);
 	}
 

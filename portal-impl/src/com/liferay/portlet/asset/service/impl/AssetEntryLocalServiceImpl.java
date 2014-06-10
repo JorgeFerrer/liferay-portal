@@ -123,7 +123,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetEntry fetchEntry(long entryId) throws SystemException {
+	public AssetEntry fetchEntry(long entryId) {
 		return assetEntryPersistence.fetchByPrimaryKey(entryId);
 	}
 
@@ -187,7 +187,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyEntriesCount(long companyId) throws SystemException {
+	public int getCompanyEntriesCount(long companyId) {
 		return assetEntryPersistence.countByCompanyId(companyId);
 	}
 

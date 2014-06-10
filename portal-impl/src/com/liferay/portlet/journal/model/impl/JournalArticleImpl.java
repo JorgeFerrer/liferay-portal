@@ -288,7 +288,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public boolean hasApprovedVersion() throws SystemException {
+	public boolean hasApprovedVersion() {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.fetchLatestArticle(
 				getGroupId(), getArticleId(),

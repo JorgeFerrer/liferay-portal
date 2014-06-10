@@ -311,12 +311,12 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public AssetCategory fetchCategory(long categoryId) throws SystemException {
+	public AssetCategory fetchCategory(long categoryId) {
 		return assetCategoryPersistence.fetchByPrimaryKey(categoryId);
 	}
 
 	@Override
-	public List<AssetCategory> getCategories() throws SystemException {
+	public List<AssetCategory> getCategories() {
 		return assetCategoryPersistence.findAll();
 	}
 
@@ -366,7 +366,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public String[] getCategoryNames() throws SystemException {
+	public String[] getCategoryNames() {
 		return getCategoryNames(getCategories());
 	}
 

@@ -104,7 +104,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public Phone deletePhone(Phone phone) throws SystemException {
+	public Phone deletePhone(Phone phone) {
 		phonePersistence.remove(phone);
 
 		return phone;
@@ -125,7 +125,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Phone> getPhones() throws SystemException {
+	public List<Phone> getPhones() {
 		return phonePersistence.findAll();
 	}
 

@@ -398,7 +398,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public PortletCategory getEARDisplay(String xml) throws SystemException {
+	public PortletCategory getEARDisplay(String xml) {
 		try {
 			return _readLiferayDisplayXML(xml);
 		}
@@ -577,7 +577,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public List<Portlet> getPortlets(long companyId) throws SystemException {
+	public List<Portlet> getPortlets(long companyId) {
 		return getPortlets(companyId, true, true);
 	}
 

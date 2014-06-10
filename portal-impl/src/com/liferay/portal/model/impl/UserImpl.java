@@ -113,7 +113,7 @@ public class UserImpl extends UserBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Address> getAddresses() throws SystemException {
+	public List<Address> getAddresses() {
 		return AddressLocalServiceUtil.getAddresses(
 			getCompanyId(), Contact.class.getName(), getContactId());
 	}
@@ -470,7 +470,7 @@ public class UserImpl extends UserBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<EmailAddress> getEmailAddresses() throws SystemException {
+	public List<EmailAddress> getEmailAddresses() {
 		return EmailAddressLocalServiceUtil.getEmailAddresses(
 			getCompanyId(), Contact.class.getName(), getContactId());
 	}
@@ -516,12 +516,12 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public long[] getGroupIds() throws SystemException {
+	public long[] getGroupIds() {
 		return UserLocalServiceUtil.getGroupPrimaryKeys(getUserId());
 	}
 
 	@Override
-	public List<Group> getGroups() throws SystemException {
+	public List<Group> getGroups() {
 		return GroupLocalServiceUtil.getUserGroups(getUserId());
 	}
 
@@ -709,7 +709,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public List<Phone> getPhones() throws SystemException {
+	public List<Phone> getPhones() {
 		return PhoneLocalServiceUtil.getPhones(
 			getCompanyId(), Contact.class.getName(), getContactId());
 	}
@@ -792,12 +792,12 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public long[] getRoleIds() throws SystemException {
+	public long[] getRoleIds() {
 		return UserLocalServiceUtil.getRolePrimaryKeys(getUserId());
 	}
 
 	@Override
-	public List<Role> getRoles() throws SystemException {
+	public List<Role> getRoles() {
 		return RoleLocalServiceUtil.getUserRoles(getUserId());
 	}
 
@@ -815,12 +815,12 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public long[] getTeamIds() throws SystemException {
+	public long[] getTeamIds() {
 		return UserLocalServiceUtil.getTeamPrimaryKeys(getUserId());
 	}
 
 	@Override
-	public List<Team> getTeams() throws SystemException {
+	public List<Team> getTeams() {
 		return TeamLocalServiceUtil.getUserTeams(getUserId());
 	}
 
@@ -830,17 +830,17 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public long[] getUserGroupIds() throws SystemException {
+	public long[] getUserGroupIds() {
 		return UserLocalServiceUtil.getUserGroupPrimaryKeys(getUserId());
 	}
 
 	@Override
-	public List<UserGroup> getUserGroups() throws SystemException {
+	public List<UserGroup> getUserGroups() {
 		return UserGroupLocalServiceUtil.getUserUserGroups(getUserId());
 	}
 
 	@Override
-	public List<Website> getWebsites() throws SystemException {
+	public List<Website> getWebsites() {
 		return WebsiteLocalServiceUtil.getWebsites(
 			getCompanyId(), Contact.class.getName(), getContactId());
 	}
@@ -886,7 +886,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public boolean hasOrganization() throws SystemException {
+	public boolean hasOrganization() {
 		return OrganizationLocalServiceUtil.hasUserOrganizations(getUserId());
 	}
 

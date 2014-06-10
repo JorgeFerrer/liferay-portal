@@ -86,7 +86,7 @@ public class JournalFolderFinderImpl extends BasePersistenceImpl<JournalFolder>
 	}
 
 	@Override
-	public List<JournalFolder> findF_ByNoAssets() throws SystemException {
+	public List<JournalFolder> findF_ByNoAssets() {
 		Session session = null;
 
 		try {

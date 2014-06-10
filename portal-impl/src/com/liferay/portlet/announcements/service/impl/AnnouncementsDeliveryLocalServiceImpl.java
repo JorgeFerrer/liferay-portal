@@ -72,7 +72,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteDeliveries(long userId) throws SystemException {
+	public void deleteDeliveries(long userId) {
 		List<AnnouncementsDelivery> deliveries =
 			announcementsDeliveryPersistence.findByUserId(userId);
 

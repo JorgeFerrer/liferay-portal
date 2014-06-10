@@ -233,7 +233,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DDLRecord fetchRecord(long recordId) throws SystemException {
+	public DDLRecord fetchRecord(long recordId) {
 		return ddlRecordPersistence.fetchByPrimaryKey(recordId);
 	}
 
@@ -329,7 +329,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<DDLRecord> getRecords(long recordSetId) throws SystemException {
+	public List<DDLRecord> getRecords(long recordSetId) {
 		return ddlRecordPersistence.findByRecordSetId(recordSetId);
 	}
 
@@ -382,7 +382,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRecordVersionsCount(long recordId) throws SystemException {
+	public int getRecordVersionsCount(long recordId) {
 		return ddlRecordVersionPersistence.countByRecordId(recordId);
 	}
 
@@ -407,7 +407,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Hits search(SearchContext searchContext) throws SystemException {
+	public Hits search(SearchContext searchContext) {
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 				DDLRecord.class);

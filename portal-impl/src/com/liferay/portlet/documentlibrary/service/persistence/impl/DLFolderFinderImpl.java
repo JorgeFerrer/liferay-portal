@@ -165,7 +165,7 @@ public class DLFolderFinderImpl
 	}
 
 	@Override
-	public List<DLFolder> findF_ByNoAssets() throws SystemException {
+	public List<DLFolder> findF_ByNoAssets() {
 		Session session = null;
 
 		try {

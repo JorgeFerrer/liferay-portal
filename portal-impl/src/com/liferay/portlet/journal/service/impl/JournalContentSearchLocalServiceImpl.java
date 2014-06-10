@@ -206,7 +206,7 @@ public class JournalContentSearchLocalServiceImpl
 	}
 
 	@Override
-	public int getLayoutIdsCount(String articleId) throws SystemException {
+	public int getLayoutIdsCount(String articleId) {
 		return journalContentSearchPersistence.countByArticleId(articleId);
 	}
 

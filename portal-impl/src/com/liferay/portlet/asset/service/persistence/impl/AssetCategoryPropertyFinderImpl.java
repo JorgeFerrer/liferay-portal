@@ -45,7 +45,7 @@ public class AssetCategoryPropertyFinderImpl
 		AssetCategoryPropertyFinder.class.getName() + ".findByG_K";
 
 	@Override
-	public int countByG_K(long groupId, String key) throws SystemException {
+	public int countByG_K(long groupId, String key) {
 		Session session = null;
 
 		try {

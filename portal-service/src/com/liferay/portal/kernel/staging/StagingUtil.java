@@ -527,7 +527,7 @@ public class StagingUtil {
 		return getStaging().stripProtocolFromRemoteAddress(remoteAddress);
 	}
 
-	public static void unlockGroup(long groupId) throws SystemException {
+	public static void unlockGroup(long groupId) {
 		getStaging().unlockGroup(groupId);
 	}
 

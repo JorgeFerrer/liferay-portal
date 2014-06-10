@@ -72,7 +72,7 @@ public class BackgroundTaskImpl extends BackgroundTaskBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getAttachmentsFileEntries() throws SystemException {
+	public List<FileEntry> getAttachmentsFileEntries() {
 		return getAttachmentsFileEntries(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
@@ -94,7 +94,7 @@ public class BackgroundTaskImpl extends BackgroundTaskBaseImpl {
 	}
 
 	@Override
-	public int getAttachmentsFileEntriesCount() throws SystemException {
+	public int getAttachmentsFileEntriesCount() {
 		int attachmentsFileEntriesCount = 0;
 
 		long attachmentsFolderId = getAttachmentsFolderId();
@@ -110,7 +110,7 @@ public class BackgroundTaskImpl extends BackgroundTaskBaseImpl {
 	}
 
 	@Override
-	public long getAttachmentsFolderId() throws SystemException {
+	public long getAttachmentsFolderId() {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 

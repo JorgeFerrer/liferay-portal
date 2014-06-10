@@ -36,7 +36,7 @@ public class ListTypeServiceImpl extends ListTypeServiceBaseImpl {
 	}
 
 	@Override
-	public List<ListType> getListTypes(String type) throws SystemException {
+	public List<ListType> getListTypes(String type) {
 		return listTypePersistence.findByType(type);
 	}
 

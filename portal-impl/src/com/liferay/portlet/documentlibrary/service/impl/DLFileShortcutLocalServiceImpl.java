@@ -260,7 +260,7 @@ public class DLFileShortcutLocalServiceImpl
 	}
 
 	@Override
-	public void enableFileShortcuts(long toFileEntryId) throws SystemException {
+	public void enableFileShortcuts(long toFileEntryId) {
 		List<DLFileShortcut> fileShortcuts =
 			dlFileShortcutPersistence.findByToFileEntryId(toFileEntryId);
 
@@ -298,7 +298,7 @@ public class DLFileShortcutLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		dlFolderLocalService.rebuildTree(companyId);
 
 		Session session = dlFileShortcutPersistence.openSession();

@@ -522,7 +522,7 @@ public class MBThreadFinderImpl
 	}
 
 	@Override
-	public List<MBThread> findByNoAssets() throws SystemException {
+	public List<MBThread> findByNoAssets() {
 		Session session = null;
 
 		try {

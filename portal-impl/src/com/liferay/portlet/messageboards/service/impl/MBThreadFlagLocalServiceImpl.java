@@ -121,7 +121,7 @@ public class MBThreadFlagLocalServiceImpl
 	}
 
 	@Override
-	public void deleteThreadFlagsByUserId(long userId) throws SystemException {
+	public void deleteThreadFlagsByUserId(long userId) {
 		mbThreadFlagPersistence.removeByUserId(userId);
 	}
 

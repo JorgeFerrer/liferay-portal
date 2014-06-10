@@ -114,7 +114,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRule(long ruleId) throws SystemException {
+	public void deleteRule(long ruleId) {
 		MDRRule rule = mdrRulePersistence.fetchByPrimaryKey(ruleId);
 
 		if (rule != null) {
@@ -124,7 +124,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteRule(MDRRule rule) throws SystemException {
+	public void deleteRule(MDRRule rule) {
 		mdrRulePersistence.remove(rule);
 
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.fetchByPrimaryKey(
@@ -138,7 +138,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRules(long ruleGroupId) throws SystemException {
+	public void deleteRules(long ruleGroupId) {
 		List<MDRRule> rules = mdrRulePersistence.findByRuleGroupId(ruleGroupId);
 
 		for (MDRRule rule : rules) {
@@ -147,7 +147,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MDRRule fetchRule(long ruleId) throws SystemException {
+	public MDRRule fetchRule(long ruleId) {
 		return mdrRulePersistence.fetchByPrimaryKey(ruleId);
 	}
 
@@ -159,7 +159,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MDRRule> getRules(long ruleGroupId) throws SystemException {
+	public List<MDRRule> getRules(long ruleGroupId) {
 		return mdrRulePersistence.findByRuleGroupId(ruleGroupId);
 	}
 
@@ -171,7 +171,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRulesCount(long ruleGroupId) throws SystemException {
+	public int getRulesCount(long ruleGroupId) {
 		return mdrRulePersistence.countByRuleGroupId(ruleGroupId);
 	}
 

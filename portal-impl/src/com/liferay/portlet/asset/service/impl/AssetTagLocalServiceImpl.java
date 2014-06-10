@@ -314,7 +314,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getEntryTags(long entryId) throws SystemException {
+	public List<AssetTag> getEntryTags(long entryId) {
 		return assetEntryPersistence.getAssetTags(entryId);
 	}
 
@@ -334,7 +334,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getGroupTags(long groupId) throws SystemException {
+	public List<AssetTag> getGroupTags(long groupId) {
 		return assetTagPersistence.findByGroupId(groupId);
 	}
 
@@ -346,7 +346,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupTagsCount(long groupId) throws SystemException {
+	public int getGroupTagsCount(long groupId) {
 		return assetTagPersistence.countByGroupId(groupId);
 	}
 
@@ -442,7 +442,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public String[] getTagNames() throws SystemException {
+	public String[] getTagNames() {
 		return getTagNames(getTags());
 	}
 
@@ -461,7 +461,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getTags() throws SystemException {
+	public List<AssetTag> getTags() {
 		return assetTagPersistence.findAll();
 	}
 

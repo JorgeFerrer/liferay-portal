@@ -80,7 +80,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagStats(AssetTagStats tagStats) throws SystemException {
+	public void deleteTagStats(AssetTagStats tagStats) {
 		assetTagStatsPersistence.remove(tagStats);
 	}
 
@@ -128,7 +128,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagStatsByTagId(long tagId) throws SystemException {
+	public void deleteTagStatsByTagId(long tagId) {
 		List<AssetTagStats> tagStatsList = assetTagStatsPersistence.findByTagId(
 			tagId);
 

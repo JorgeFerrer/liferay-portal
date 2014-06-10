@@ -87,12 +87,12 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUser(MBStatsUser statsUser) throws SystemException {
+	public void deleteStatsUser(MBStatsUser statsUser) {
 		mbStatsUserPersistence.remove(statsUser);
 	}
 
 	@Override
-	public void deleteStatsUsersByGroupId(long groupId) throws SystemException {
+	public void deleteStatsUsersByGroupId(long groupId) {
 		List<MBStatsUser> statsUsers = mbStatsUserPersistence.findByGroupId(
 			groupId);
 
@@ -102,7 +102,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUsersByUserId(long userId) throws SystemException {
+	public void deleteStatsUsersByUserId(long userId) {
 		List<MBStatsUser> statsUsers = mbStatsUserPersistence.findByUserId(
 			userId);
 
@@ -145,7 +145,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public long getMessageCountByGroupId(long groupId) throws SystemException {
+	public long getMessageCountByGroupId(long groupId) {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			MBStatsUser.class, MBStatsUserImpl.TABLE_NAME,
 			ClassLoaderUtil.getPortalClassLoader());
@@ -168,7 +168,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public long getMessageCountByUserId(long userId) throws SystemException {
+	public long getMessageCountByUserId(long userId) {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			MBStatsUser.class, MBStatsUserImpl.TABLE_NAME,
 			ClassLoaderUtil.getPortalClassLoader());

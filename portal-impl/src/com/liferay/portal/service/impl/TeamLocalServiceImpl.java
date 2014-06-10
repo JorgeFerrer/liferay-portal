@@ -123,7 +123,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Team> getGroupTeams(long groupId) throws SystemException {
+	public List<Team> getGroupTeams(long groupId) {
 		return teamPersistence.findByGroupId(groupId);
 	}
 

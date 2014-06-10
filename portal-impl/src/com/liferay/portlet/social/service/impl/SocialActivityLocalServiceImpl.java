@@ -370,7 +370,7 @@ public class SocialActivityLocalServiceImpl
 	}
 
 	@Override
-	public void deleteActivities(long groupId) throws SystemException {
+	public void deleteActivities(long groupId) {
 		if (PropsValues.SOCIAL_ACTIVITY_SETS_ENABLED) {
 			socialActivitySetPersistence.removeByGroupId(groupId);
 		}
@@ -646,7 +646,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getActivitiesCount(long classNameId) throws SystemException {
+	public int getActivitiesCount(long classNameId) {
 		return socialActivityPersistence.countByClassNameId(classNameId);
 	}
 
@@ -699,7 +699,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getActivitiesCount(String className) throws SystemException {
+	public int getActivitiesCount(String className) {
 		long classNameId = classNameLocalService.getClassNameId(className);
 
 		return getActivitiesCount(classNameId);
@@ -772,7 +772,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getGroupActivitiesCount(long groupId) throws SystemException {
+	public int getGroupActivitiesCount(long groupId) {
 		return socialActivityFinder.countByGroupId(groupId);
 	}
 
@@ -999,7 +999,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getRelationActivitiesCount(long userId) throws SystemException {
+	public int getRelationActivitiesCount(long userId) {
 		return socialActivityFinder.countByRelation(userId);
 	}
 
@@ -1055,7 +1055,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserActivitiesCount(long userId) throws SystemException {
+	public int getUserActivitiesCount(long userId) {
 		return socialActivityPersistence.countByUserId(userId);
 	}
 

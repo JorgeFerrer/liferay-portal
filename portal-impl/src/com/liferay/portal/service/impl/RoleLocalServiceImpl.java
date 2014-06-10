@@ -545,7 +545,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	@Skip
-	public Role fetchRole(long companyId, String name) throws SystemException {
+	public Role fetchRole(long companyId, String name) {
 		String companyIdHexString = StringUtil.toHexString(companyId);
 
 		Role role = _systemRolesMap.get(companyIdHexString.concat(name));
@@ -754,7 +754,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getRoles(long companyId) throws SystemException {
+	public List<Role> getRoles(long companyId) {
 		return rolePersistence.findByCompanyId(companyId);
 	}
 
@@ -805,7 +805,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getSubtypeRoles(String subtype) throws SystemException {
+	public List<Role> getSubtypeRoles(String subtype) {
 		return rolePersistence.findBySubtype(subtype);
 	}
 
@@ -817,7 +817,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getSubtypeRolesCount(String subtype) throws SystemException {
+	public int getSubtypeRolesCount(String subtype) {
 		return rolePersistence.countBySubtype(subtype);
 	}
 
@@ -905,7 +905,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getTypeRoles(int type) throws SystemException {
+	public List<Role> getTypeRoles(int type) {
 		return rolePersistence.findByType(type);
 	}
 
@@ -934,7 +934,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getTypeRolesCount(int type) throws SystemException {
+	public int getTypeRolesCount(int type) {
 		return rolePersistence.countByType(type);
 	}
 

@@ -195,7 +195,7 @@ public class DLFileVersionHistoryTest extends BaseDLAppTestCase {
 		}
 	}
 
-	protected int getFileVersionsCount() throws SystemException {
+	protected int getFileVersionsCount() {
 		List<FileVersion> fileVersions = _fileEntry.getFileVersions(
 			WorkflowConstants.STATUS_ANY);
 

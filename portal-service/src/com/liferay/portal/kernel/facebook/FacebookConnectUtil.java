@@ -40,15 +40,15 @@ public class FacebookConnectUtil {
 		return getFacebookConnect().getAccessTokenURL(companyId);
 	}
 
-	public static String getAppId(long companyId) throws SystemException {
+	public static String getAppId(long companyId) {
 		return getFacebookConnect().getAppId(companyId);
 	}
 
-	public static String getAppSecret(long companyId) throws SystemException {
+	public static String getAppSecret(long companyId) {
 		return getFacebookConnect().getAppSecret(companyId);
 	}
 
-	public static String getAuthURL(long companyId) throws SystemException {
+	public static String getAuthURL(long companyId) {
 		return getFacebookConnect().getAuthURL(companyId);
 	}
 
@@ -65,7 +65,7 @@ public class FacebookConnectUtil {
 			companyId, path, accessToken, fields);
 	}
 
-	public static String getGraphURL(long companyId) throws SystemException {
+	public static String getGraphURL(long companyId) {
 		return getFacebookConnect().getGraphURL(companyId);
 	}
 
@@ -73,11 +73,11 @@ public class FacebookConnectUtil {
 		return getFacebookConnect().getProfileImageURL(portletRequest);
 	}
 
-	public static String getRedirectURL(long companyId) throws SystemException {
+	public static String getRedirectURL(long companyId) {
 		return getFacebookConnect().getRedirectURL(companyId);
 	}
 
-	public static boolean isEnabled(long companyId) throws SystemException {
+	public static boolean isEnabled(long companyId) {
 		return getFacebookConnect().isEnabled(companyId);
 	}
 

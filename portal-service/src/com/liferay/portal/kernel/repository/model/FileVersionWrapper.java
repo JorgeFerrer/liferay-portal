@@ -199,7 +199,7 @@ public class FileVersionWrapper
 	}
 
 	@Override
-	public String getStatusByUserUuid() throws SystemException {
+	public String getStatusByUserUuid() {
 		return _fileVersion.getStatusByUserUuid();
 	}
 
@@ -224,7 +224,7 @@ public class FileVersionWrapper
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
+	public String getUserUuid() {
 		return _fileVersion.getUserUuid();
 	}
 

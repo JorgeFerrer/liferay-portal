@@ -246,7 +246,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Clusterable(onMaster = true)
 	@Override
-	public void cleanUpBackgroundTasks() throws SystemException {
+	public void cleanUpBackgroundTasks() {
 		List<BackgroundTask> backgroundTasks =
 			backgroundTaskPersistence.findByStatus(
 				BackgroundTaskConstants.STATUS_IN_PROGRESS);

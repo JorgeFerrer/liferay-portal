@@ -78,7 +78,7 @@ public class AssetEntryServiceImpl extends AssetEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyEntriesCount(long companyId) throws SystemException {
+	public int getCompanyEntriesCount(long companyId) {
 		return assetEntryLocalService.getCompanyEntriesCount(companyId);
 	}
 

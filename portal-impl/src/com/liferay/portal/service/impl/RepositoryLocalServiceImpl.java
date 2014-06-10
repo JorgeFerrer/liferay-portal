@@ -126,7 +126,7 @@ public class RepositoryLocalServiceImpl
 	}
 
 	@Override
-	public void checkRepository(long repositoryId) throws SystemException {
+	public void checkRepository(long repositoryId) {
 		Group group = groupPersistence.fetchByPrimaryKey(repositoryId);
 
 		if (group != null) {

@@ -338,7 +338,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getUserEntriesCount(long userId) throws SystemException {
+	public int getUserEntriesCount(long userId) {
 		return announcementsEntryPersistence.countByUserId(userId);
 	}
 

@@ -48,7 +48,7 @@ import org.springframework.transaction.TransactionStatus;
 public class TransactionInterceptorTest {
 
 	@Test
-	public void testFailOnCommit() throws SystemException {
+	public void testFailOnCommit() {
 		CaptureAppender captureAppender =
 			Log4JLoggerTestUtil.configureLog4JLogger(
 				DefaultTransactionExecutor.class.getName(), Level.ERROR);

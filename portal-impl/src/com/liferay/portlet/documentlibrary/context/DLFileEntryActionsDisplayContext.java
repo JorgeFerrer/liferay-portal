@@ -85,7 +85,7 @@ public class DLFileEntryActionsDisplayContext {
 		return _dlActionsDisplayContext;
 	}
 
-	public String getPublishButtonLabel() throws SystemException {
+	public String getPublishButtonLabel() {
 		String publishButtonLabel = "publish";
 
 		if (_hasWorkflowDefinitionLink()) {
@@ -296,7 +296,7 @@ public class DLFileEntryActionsDisplayContext {
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
-	private boolean _hasWorkflowDefinitionLink() throws SystemException {
+	private boolean _hasWorkflowDefinitionLink() {
 		try {
 			return DLUtil.hasWorkflowDefinitionLink(
 				_companyId, _scopeGroupId, _folderId, _fileEntryTypeId);

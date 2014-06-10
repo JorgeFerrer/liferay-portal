@@ -160,7 +160,7 @@ public abstract class BaseWebDAVStorageImpl implements WebDAVStorage {
 		return false;
 	}
 
-	protected long getPlid(long groupId) throws SystemException {
+	protected long getPlid(long groupId) {
 		return LayoutLocalServiceUtil.getDefaultPlid(groupId);
 	}
 

@@ -63,7 +63,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCategoryProperties(long entryId) throws SystemException {
+	public void deleteCategoryProperties(long entryId) {
 		List<AssetCategoryProperty> categoryProperties =
 			assetCategoryPropertyPersistence.findByCategoryId(entryId);
 

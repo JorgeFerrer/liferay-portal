@@ -123,7 +123,7 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRuleGroup(long ruleGroupId) throws SystemException {
+	public void deleteRuleGroup(long ruleGroupId) {
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.fetchByPrimaryKey(
 			ruleGroupId);
 
@@ -136,7 +136,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteRuleGroup(MDRRuleGroup ruleGroup) throws SystemException {
+	public void deleteRuleGroup(MDRRuleGroup ruleGroup) {
 
 		// Rule group
 
@@ -153,7 +153,7 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRuleGroups(long groupId) throws SystemException {
+	public void deleteRuleGroups(long groupId) {
 		List<MDRRuleGroup> ruleGroups = mdrRuleGroupPersistence.findByGroupId(
 			groupId);
 
@@ -191,7 +191,7 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public int getRuleGroupsCount(long groupId) throws SystemException {
+	public int getRuleGroupsCount(long groupId) {
 		return mdrRuleGroupPersistence.countByGroupId(groupId);
 	}
 

@@ -54,7 +54,7 @@ public class DLSyncEventLocalServiceImpl
 	}
 
 	@Override
-	public void deleteDLSyncEvents() throws SystemException {
+	public void deleteDLSyncEvents() {
 		dlSyncEventPersistence.removeAll();
 	}
 
@@ -66,7 +66,7 @@ public class DLSyncEventLocalServiceImpl
 	}
 
 	@Override
-	public List<DLSyncEvent> getLatestDLSyncEvents() throws SystemException {
+	public List<DLSyncEvent> getLatestDLSyncEvents() {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			DLSyncEvent.class);
 

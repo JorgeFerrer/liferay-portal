@@ -878,7 +878,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public List<DDMStructure> getStructureEntries() throws SystemException {
+	public List<DDMStructure> getStructureEntries() {
 		return getStructures();
 	}
 
@@ -913,7 +913,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures() throws SystemException {
+	public List<DDMStructure> getStructures() {
 		return ddmStructurePersistence.findAll();
 	}
 
@@ -1120,7 +1120,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getStructuresCount(long groupId) throws SystemException {
+	public int getStructuresCount(long groupId) {
 		return ddmStructurePersistence.countByGroupId(groupId);
 	}
 

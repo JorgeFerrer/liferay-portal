@@ -25,19 +25,19 @@ import java.util.List;
  */
 public abstract class NestedSetsTreeManager<T extends NestedSetsTreeNodeModel> {
 
-	public long countAncestors(T t) throws SystemException {
+	public long countAncestors(T t) {
 		return doCountAncestors(
 			t.getNestedSetsTreeNodeScopeId(), t.getNestedSetsTreeNodeLeft(),
 			t.getNestedSetsTreeNodeRight());
 	}
 
-	public long countDescendants(T t) throws SystemException {
+	public long countDescendants(T t) {
 		return doCountDescendants(
 			t.getNestedSetsTreeNodeScopeId(), t.getNestedSetsTreeNodeLeft(),
 			t.getNestedSetsTreeNodeRight());
 	}
 
-	public void delete(T t) throws SystemException {
+	public void delete(T t) {
 		doUpdate(
 			t.getNestedSetsTreeNodeScopeId(), -1, t.getNestedSetsTreeNodeLeft(),
 			false, t.getNestedSetsTreeNodeRight(), false, null);
@@ -49,19 +49,19 @@ public abstract class NestedSetsTreeManager<T extends NestedSetsTreeNodeModel> {
 			t.getNestedSetsTreeNodeRight(), false);
 	}
 
-	public List<T> getAncestors(T t) throws SystemException {
+	public List<T> getAncestors(T t) {
 		return doGetAncestors(
 			t.getNestedSetsTreeNodeScopeId(), t.getNestedSetsTreeNodeLeft(),
 			t.getNestedSetsTreeNodeRight());
 	}
 
-	public List<T> getDescendants(T t) throws SystemException {
+	public List<T> getDescendants(T t) {
 		return doGetDescendants(
 			t.getNestedSetsTreeNodeScopeId(), t.getNestedSetsTreeNodeLeft(),
 			t.getNestedSetsTreeNodeRight());
 	}
 
-	public void insert(T t, T parentT) throws SystemException {
+	public void insert(T t, T parentT) {
 		if (parentT == null) {
 			long maxNestedSetsTreeNodeRight = getMaxNestedSetsTreeNodeRight(
 				t.getNestedSetsTreeNodeScopeId());
@@ -83,7 +83,7 @@ public abstract class NestedSetsTreeManager<T extends NestedSetsTreeNodeModel> {
 		}
 	}
 
-	public void move(T t, T oldParentT, T newParentT) throws SystemException {
+	public void move(T t, T oldParentT, T newParentT) {
 		if (Validator.equals(oldParentT, newParentT)) {
 			return;
 		}

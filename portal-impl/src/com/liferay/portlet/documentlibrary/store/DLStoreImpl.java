@@ -184,7 +184,7 @@ public class DLStoreImpl implements DLStore {
 	}
 
 	@Override
-	public void checkRoot(long companyId) throws SystemException {
+	public void checkRoot(long companyId) {
 		store.checkRoot(companyId);
 	}
 
@@ -355,7 +355,7 @@ public class DLStoreImpl implements DLStore {
 	}
 
 	@Override
-	public void move(String srcDir, String destDir) throws SystemException {
+	public void move(String srcDir, String destDir) {
 		store.move(srcDir, destDir);
 	}
 

@@ -41,7 +41,7 @@ import java.util.List;
 public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 
 	@Override
-	public void clear() throws SystemException {
+	public void clear() {
 		lockPersistence.removeByLtExpirationDate(new Date());
 	}
 
@@ -110,7 +110,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean isLocked(String className, long key) throws SystemException {
+	public boolean isLocked(String className, long key) {
 		return isLocked(className, String.valueOf(key));
 	}
 
@@ -327,12 +327,12 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void unlock(String className, long key) throws SystemException {
+	public void unlock(String className, long key) {
 		unlock(className, String.valueOf(key));
 	}
 
 	@Override
-	public void unlock(String className, String key) throws SystemException {
+	public void unlock(String className, String key) {
 		try {
 			lockPersistence.removeByC_K(className, key);
 		}
@@ -374,7 +374,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 		unlock(className, key, owner);
 	}
 
-	protected void expireLock(Lock lock) throws SystemException {
+	protected void expireLock(Lock lock) {
 		LockListener lockListener = LockListenerRegistryUtil.getLockListener(
 			lock.getClassName());
 

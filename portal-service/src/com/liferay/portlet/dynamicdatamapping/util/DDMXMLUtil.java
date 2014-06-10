@@ -31,11 +31,11 @@ import java.util.Locale;
  */
 public class DDMXMLUtil {
 
-	public static String formatXML(Document document) throws SystemException {
+	public static String formatXML(Document document) {
 		return getDDMXML().formatXML(document);
 	}
 
-	public static String formatXML(String xml) throws SystemException {
+	public static String formatXML(String xml) {
 		return getDDMXML().formatXML(xml);
 	}
 
@@ -65,7 +65,7 @@ public class DDMXMLUtil {
 		return getDDMXML().getXML(document, fields);
 	}
 
-	public static String getXML(Fields fields) throws SystemException {
+	public static String getXML(Fields fields) {
 		return getDDMXML().getXML(fields);
 	}
 

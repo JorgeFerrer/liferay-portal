@@ -54,7 +54,7 @@ public class BlogsStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUserByGroupId(long groupId) throws SystemException {
+	public void deleteStatsUserByGroupId(long groupId) {
 		List<BlogsStatsUser> statsUsers =
 			blogsStatsUserPersistence.findByGroupId(groupId);
 
@@ -64,7 +64,7 @@ public class BlogsStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUserByUserId(long userId) throws SystemException {
+	public void deleteStatsUserByUserId(long userId) {
 		List<BlogsStatsUser> statsUsers =
 			blogsStatsUserPersistence.findByUserId(userId);
 
@@ -126,7 +126,7 @@ public class BlogsStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupStatsUsersCount(long groupId) throws SystemException {
+	public int getGroupStatsUsersCount(long groupId) {
 		return blogsStatsUserPersistence.countByG_NotE(groupId, 0);
 	}
 

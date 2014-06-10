@@ -447,7 +447,7 @@ public class LayoutTypePortletImpl
 	}
 
 	@Override
-	public List<Portlet> getPortlets() throws SystemException {
+	public List<Portlet> getPortlets() {
 		List<String> portletIds = getPortletIds();
 
 		List<Portlet> portlets = new ArrayList<Portlet>(portletIds.size());

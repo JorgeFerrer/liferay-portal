@@ -153,7 +153,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFrameworkVersions(long groupId) throws SystemException {
+	public void deleteFrameworkVersions(long groupId) {
 		List<SCFrameworkVersion> frameworkVersions =
 			scFrameworkVersionPersistence.findByGroupId(groupId);
 
@@ -196,7 +196,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	}
 
 	@Override
-	public int getFrameworkVersionsCount(long groupId) throws SystemException {
+	public int getFrameworkVersionsCount(long groupId) {
 		return scFrameworkVersionPersistence.countByGroupId(groupId);
 	}
 

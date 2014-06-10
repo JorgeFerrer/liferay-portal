@@ -506,7 +506,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company fetchCompanyById(long companyId) throws SystemException {
+	public Company fetchCompanyById(long companyId) {
 		return companyPersistence.fetchByPrimaryKey(companyId);
 	}
 
@@ -541,7 +541,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Company> getCompanies() throws SystemException {
+	public List<Company> getCompanies() {
 		return companyPersistence.findAll();
 	}
 
@@ -554,7 +554,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Company> getCompanies(boolean system) throws SystemException {
+	public List<Company> getCompanies(boolean system) {
 		return companyPersistence.findBySystem(system);
 	}
 
@@ -574,7 +574,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getCompaniesCount(boolean system) throws SystemException {
+	public int getCompaniesCount(boolean system) {
 		return companyPersistence.countBySystem(system);
 	}
 
@@ -1603,7 +1603,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 	protected class DeleteGroupActionableDynamicQuery {
 
-		protected DeleteGroupActionableDynamicQuery() throws SystemException {
+		protected DeleteGroupActionableDynamicQuery() {
 			_actionableDynamicQuery =
 				groupLocalService.getActionableDynamicQuery();
 

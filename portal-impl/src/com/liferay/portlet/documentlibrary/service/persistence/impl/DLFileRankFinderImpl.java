@@ -40,7 +40,7 @@ public class DLFileRankFinderImpl
 		DLFileRankFinder.class.getName() + ".findByFolderId";
 
 	@Override
-	public List<Object[]> findByStaleRanks(int count) throws SystemException {
+	public List<Object[]> findByStaleRanks(int count) {
 		Session session = null;
 
 		try {

@@ -656,7 +656,7 @@ public class DDMTemplateLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMTemplate> getTemplates(long classPK) throws SystemException {
+	public List<DDMTemplate> getTemplates(long classPK) {
 		return ddmTemplatePersistence.findByClassPK(classPK);
 	}
 
@@ -874,7 +874,7 @@ public class DDMTemplateLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getTemplatesCount(long groupId) throws SystemException {
+	public int getTemplatesCount(long groupId) {
 		return ddmTemplatePersistence.countByGroupId(groupId);
 	}
 

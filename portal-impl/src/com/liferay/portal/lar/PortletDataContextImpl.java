@@ -579,7 +579,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addZipEntry(String path, byte[] bytes) throws SystemException {
+	public void addZipEntry(String path, byte[] bytes) {
 		if (_portletDataContextListener != null) {
 			_portletDataContextListener.onAddZipEntry(path);
 		}
@@ -613,12 +613,12 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addZipEntry(String path, Object object) throws SystemException {
+	public void addZipEntry(String path, Object object) {
 		addZipEntry(path, toXML(object));
 	}
 
 	@Override
-	public void addZipEntry(String path, String s) throws SystemException {
+	public void addZipEntry(String path, String s) {
 		if (_portletDataContextListener != null) {
 			_portletDataContextListener.onAddZipEntry(path);
 		}

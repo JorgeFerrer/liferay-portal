@@ -195,7 +195,7 @@ public class FolderProxyBean
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
+	public String getUserUuid() {
 		return _folder.getUserUuid();
 	}
 

@@ -133,7 +133,7 @@ public class DLFileVersionLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long companyId) throws SystemException {
+	public void rebuildTree(long companyId) {
 		dlFolderLocalService.rebuildTree(companyId);
 
 		Session session = dlFileVersionPersistence.openSession();

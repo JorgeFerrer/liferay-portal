@@ -104,7 +104,7 @@ public class RoleFinderImpl
 		RoleFinder.class.getName() + ".joinByUsersRoles";
 
 	@Override
-	public int countByR_U(long roleId, long userId) throws SystemException {
+	public int countByR_U(long roleId, long userId) {
 		Session session = null;
 
 		try {
@@ -279,7 +279,7 @@ public class RoleFinderImpl
 	}
 
 	@Override
-	public List<Role> findBySystem(long companyId) throws SystemException {
+	public List<Role> findBySystem(long companyId) {
 		Session session = null;
 
 		try {

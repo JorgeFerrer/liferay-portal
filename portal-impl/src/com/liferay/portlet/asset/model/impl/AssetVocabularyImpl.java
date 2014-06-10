@@ -42,7 +42,7 @@ public class AssetVocabularyImpl extends AssetVocabularyBaseImpl {
 	}
 
 	@Override
-	public List<AssetCategory> getCategories() throws SystemException {
+	public List<AssetCategory> getCategories() {
 		return AssetCategoryLocalServiceUtil.getVocabularyCategories(
 			getVocabularyId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}

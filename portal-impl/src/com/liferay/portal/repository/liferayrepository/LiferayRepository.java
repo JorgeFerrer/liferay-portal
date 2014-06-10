@@ -342,7 +342,7 @@ public class LiferayRepository
 	}
 
 	@Override
-	public int getFileEntriesCount(long folderId) throws SystemException {
+	public int getFileEntriesCount(long folderId) {
 		return dlFileEntryService.getFileEntriesCount(
 			getGroupId(), toFolderId(folderId));
 	}

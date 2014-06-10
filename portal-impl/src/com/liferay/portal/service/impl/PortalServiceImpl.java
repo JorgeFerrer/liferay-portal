@@ -45,7 +45,7 @@ import com.liferay.portal.util.PropsValues;
 public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
-	public String getAutoDeployDirectory() throws SystemException {
+	public String getAutoDeployDirectory() {
 		return PrefsPropsUtil.getString(
 			PropsKeys.AUTO_DEPLOY_DEPLOY_DIR,
 			PropsValues.AUTO_DEPLOY_DEPLOY_DIR);
@@ -204,7 +204,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean testHasClassName() throws SystemException {
+	public boolean testHasClassName() {
 		int count = classNamePersistence.countByValue(
 			PortalService.class.getName());
 
@@ -216,7 +216,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 		}
 	}
 
-	protected void addClassName(String classNameValue) throws SystemException {
+	protected void addClassName(String classNameValue) {
 		long classNameId = counterLocalService.increment();
 
 		ClassName className = classNamePersistence.create(classNameId);

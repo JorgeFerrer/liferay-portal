@@ -188,7 +188,7 @@ public class MBMessageFinderImpl
 	}
 
 	@Override
-	public List<MBMessage> findByNoAssets() throws SystemException {
+	public List<MBMessage> findByNoAssets() {
 		Session session = null;
 
 		try {

@@ -27,7 +27,7 @@ public class BrowserTrackerLocalServiceImpl
 	extends BrowserTrackerLocalServiceBaseImpl {
 
 	@Override
-	public void deleteUserBrowserTracker(long userId) throws SystemException {
+	public void deleteUserBrowserTracker(long userId) {
 		BrowserTracker browserTracker = browserTrackerPersistence.fetchByUserId(
 			userId);
 

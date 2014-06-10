@@ -88,7 +88,7 @@ public class DLFileEntryFinderImpl
 		DLFileEntryFinder.class.getName() + ".findByG_U_F";
 
 	@Override
-	public int countByExtraSettings() throws SystemException {
+	public int countByExtraSettings() {
 		Session session = null;
 
 		try {
@@ -258,7 +258,7 @@ public class DLFileEntryFinderImpl
 	}
 
 	@Override
-	public DLFileEntry fetchByAnyImageId(long imageId) throws SystemException {
+	public DLFileEntry fetchByAnyImageId(long imageId) {
 		Session session = null;
 
 		try {
@@ -478,7 +478,7 @@ public class DLFileEntryFinderImpl
 	}
 
 	@Override
-	public List<DLFileEntry> findByMisversioned() throws SystemException {
+	public List<DLFileEntry> findByMisversioned() {
 		Session session = null;
 
 		try {
@@ -501,7 +501,7 @@ public class DLFileEntryFinderImpl
 	}
 
 	@Override
-	public List<DLFileEntry> findByNoAssets() throws SystemException {
+	public List<DLFileEntry> findByNoAssets() {
 		Session session = null;
 
 		try {

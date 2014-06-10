@@ -315,7 +315,7 @@ public class SCProductEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getProductEntriesCount(long groupId) throws SystemException {
+	public int getProductEntriesCount(long groupId) {
 		return scProductEntryPersistence.countByGroupId(groupId);
 	}
 

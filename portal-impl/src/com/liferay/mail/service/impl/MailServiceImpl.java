@@ -132,7 +132,7 @@ public class MailServiceImpl implements MailService, IdentifiableBean {
 	}
 
 	@Override
-	public Session getSession() throws SystemException {
+	public Session getSession() {
 		if (_session != null) {
 			return _session;
 		}

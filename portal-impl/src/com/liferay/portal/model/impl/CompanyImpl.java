@@ -84,7 +84,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public String getAuthType() throws SystemException {
+	public String getAuthType() {
 		return PrefsPropsUtil.getString(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_AUTH_TYPE,
 			PropsValues.COMPANY_SECURITY_AUTH_TYPE);
@@ -226,7 +226,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public boolean hasCompanyMx(String emailAddress) throws SystemException {
+	public boolean hasCompanyMx(String emailAddress) {
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
 
 		int pos = emailAddress.indexOf(CharPool.AT);
@@ -255,49 +255,49 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public boolean isAutoLogin() throws SystemException {
+	public boolean isAutoLogin() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_AUTO_LOGIN,
 			PropsValues.COMPANY_SECURITY_AUTO_LOGIN);
 	}
 
 	@Override
-	public boolean isSendPassword() throws SystemException {
+	public boolean isSendPassword() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_SEND_PASSWORD,
 			PropsValues.COMPANY_SECURITY_SEND_PASSWORD);
 	}
 
 	@Override
-	public boolean isSendPasswordResetLink() throws SystemException {
+	public boolean isSendPasswordResetLink() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_SEND_PASSWORD_RESET_LINK,
 			PropsValues.COMPANY_SECURITY_SEND_PASSWORD_RESET_LINK);
 	}
 
 	@Override
-	public boolean isSiteLogo() throws SystemException {
+	public boolean isSiteLogo() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_SITE_LOGO,
 			PropsValues.COMPANY_SECURITY_SITE_LOGO);
 	}
 
 	@Override
-	public boolean isStrangers() throws SystemException {
+	public boolean isStrangers() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_STRANGERS,
 			PropsValues.COMPANY_SECURITY_STRANGERS);
 	}
 
 	@Override
-	public boolean isStrangersVerify() throws SystemException {
+	public boolean isStrangersVerify() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_STRANGERS_VERIFY,
 			PropsValues.COMPANY_SECURITY_STRANGERS_VERIFY);
 	}
 
 	@Override
-	public boolean isStrangersWithMx() throws SystemException {
+	public boolean isStrangersWithMx() {
 		return PrefsPropsUtil.getBoolean(
 			getCompanyId(), PropsKeys.COMPANY_SECURITY_STRANGERS_WITH_MX,
 			PropsValues.COMPANY_SECURITY_STRANGERS_WITH_MX);

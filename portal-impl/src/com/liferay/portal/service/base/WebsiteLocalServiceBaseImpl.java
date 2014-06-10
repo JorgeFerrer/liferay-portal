@@ -125,7 +125,7 @@ public abstract class WebsiteLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Website deleteWebsite(Website website) throws SystemException {
+	public Website deleteWebsite(Website website) {
 		return websitePersistence.remove(website);
 	}
 

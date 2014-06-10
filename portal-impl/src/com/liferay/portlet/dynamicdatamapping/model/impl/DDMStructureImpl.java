@@ -406,7 +406,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public List<DDMTemplate> getTemplates() throws SystemException {
+	public List<DDMTemplate> getTemplates() {
 		return DDMTemplateLocalServiceUtil.getTemplates(getStructureId());
 	}
 
@@ -759,7 +759,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		localizedTransientFieldsMap.put(locale, transientFieldsMap);
 	}
 
-	private String _mergeXsds(String xsd1, String xsd2) throws SystemException {
+	private String _mergeXsds(String xsd1, String xsd2) {
 		try {
 			Document document1 = SAXReaderUtil.read(xsd1);
 			Document document2 = SAXReaderUtil.read(xsd2);
