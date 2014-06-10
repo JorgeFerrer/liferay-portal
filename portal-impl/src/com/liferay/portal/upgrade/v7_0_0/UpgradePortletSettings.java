@@ -15,11 +15,15 @@
 package com.liferay.portal.upgrade.v7_0_0;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.tools.Visitor;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.blogs.BlogsPortletInstanceSettings;
@@ -41,12 +45,15 @@ import com.liferay.portlet.wiki.util.WikiConstants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.portlet.ReadOnlyException;
 
 /**
  * @author Sergio González
@@ -105,7 +112,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	protected void createPortletPreferences(
 			PortletPreferences portletPreferences)
-		throws Exception {
+		throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -139,79 +146,122 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	}
 
 	protected void createServiceSettings(
-			String portletId, int ownerType, String serviceName)
-		throws Exception, SystemException {
+			final String portletId, final int ownerType,
+			final String serviceName)
+		throws PortalException, SystemException {
 
-		List<PortletPreferences> portletPreferencesList = getPortletPreferences(
-			portletId, ownerType);
+		try {
+			getPortletPreferences(
+				portletId, ownerType,
+				new Visitor<PortletPreferences>() {
+					@Override
+					public void visit(PortletPreferences portletPreferences)
+						throws SQLException {
 
-		for (PortletPreferences portletPreferences : portletPreferencesList) {
-			portletPreferences.portletPreferencesId = increment();
-			portletPreferences.ownerType = PortletKeys.PREFS_OWNER_TYPE_GROUP;
-			portletPreferences.portletId = serviceName;
+						portletPreferences.portletPreferencesId = increment();
+						portletPreferences.ownerType =
+							PortletKeys.PREFS_OWNER_TYPE_GROUP;
+						portletPreferences.portletId = serviceName;
 
-			if (ownerType == PortletKeys.PREFS_OWNER_TYPE_LAYOUT) {
-				long groupId = getGroupIdFromPlid(portletPreferences.plid);
+						if (ownerType == PortletKeys.PREFS_OWNER_TYPE_LAYOUT) {
+							long plid = portletPreferences.plid;
 
-				portletPreferences.ownerId = groupId;
-				portletPreferences.plid = 0;
-			}
+							long groupId = getGroupIdFromPlid(plid);
 
-			createPortletPreferences(portletPreferences);
+							portletPreferences.ownerId = groupId;
+							portletPreferences.plid = 0;
+
+							_logCopyOfServiceSettings(
+								portletId, plid, serviceName, groupId);
+						}
+
+						createPortletPreferences(portletPreferences);
+					}});
+		}
+		catch (SQLException sqle) {
+			throw new PortalException(
+				"Unable to create service settings for portlet "+portletId,
+				sqle);
+		}
+		catch (RuntimeException re) {
+			throw new SystemException(
+				"Unable to create service settings for portlet "+portletId, re);
 		}
 	}
 
 	protected void deletePortletPreferencesKeys(
-			String portletId, int ownerType, String[] keys)
-		throws Exception {
+			String portletId, int ownerType, final String[] keys)
+		throws PortalException, SystemException {
 
-		List<PortletPreferences> portletPreferencesList = getPortletPreferences(
-			portletId, ownerType);
+		try {
+			getPortletPreferences(
+				portletId, ownerType,
+				new Visitor<PortletPreferences>() {
+					@Override
+					public void visit(PortletPreferences portletPreferences)
+						throws ReadOnlyException, SQLException {
 
-		for (PortletPreferences portletPreferences : portletPreferencesList) {
-			javax.portlet.PortletPreferences javaxPortletPreferences =
-				PortletPreferencesFactoryUtil.fromDefaultXML(
-					portletPreferences.preferences);
+						javax.portlet.PortletPreferences
+							javaxPortletPreferences =
+								PortletPreferencesFactoryUtil.fromDefaultXML(
+									portletPreferences.preferences);
 
-			Enumeration<String> names = javaxPortletPreferences.getNames();
+						Enumeration<String> names =
+							javaxPortletPreferences.getNames();
 
-			List<String> keysToReset = new ArrayList<String>();
+						List<String> keysToReset = new ArrayList<String>();
 
-			while (names.hasMoreElements()) {
-				String name = names.nextElement();
+						while (names.hasMoreElements()) {
+							String name = names.nextElement();
 
-				for (String key : keys) {
-					if (name.startsWith(key)) {
-						keysToReset.add(name);
+							for (String key : keys) {
+								if (name.startsWith(key)) {
+									keysToReset.add(name);
 
-						break;
-					}
-				}
-			}
+									break;
+								}
+							}
+						}
 
-			for (String keyToReset : keysToReset) {
-				javaxPortletPreferences.reset(keyToReset);
-			}
+						for (String keyToReset : keysToReset) {
+							javaxPortletPreferences.reset(keyToReset);
+						}
 
-			portletPreferences.preferences =
-				PortletPreferencesFactoryUtil.toXML(javaxPortletPreferences);
+						portletPreferences.preferences =
+							PortletPreferencesFactoryUtil.toXML(
+								javaxPortletPreferences);
 
-			updatePortletPreferences(portletPreferences);
+						updatePortletPreferences(portletPreferences);
+					}});
+		}
+		catch (SQLException sqle) {
+			throw new PortalException(
+				"Unable to clean keys with ownerType "+ ownerType +" for " +
+				"portlet "+portletId, sqle);
+		}
+		catch (RuntimeException re) {
+			throw new SystemException(
+				"Unable to clean keys with ownerType "+ ownerType +" for " +
+				"portlet "+portletId, re);
 		}
 	}
 
 	@Override
-	protected void doUpgrade() throws Exception {
+	protected void doUpgrade() throws PortalException, SystemException {
 		for (String portletId : _mainPortletOwnerTypes.keySet()) {
+			_logPortletUpgrade(portletId);
+
 			upgradeMainPortlet(portletId);
 		}
 
 		for (String portletId : _secondaryPortletOwnerTypes.keySet()) {
+			_logPortletUpgrade(portletId);
+
 			upgradeSecondaryPortlet(portletId);
 		}
 	}
 
-	protected long getGroupIdFromPlid(long plid) throws Exception {
+	protected long getGroupIdFromPlid(long plid) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -238,12 +288,10 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		return 0;
 	}
 
-	protected List<PortletPreferences> getPortletPreferences(
-			String portletId, int ownerType)
-		throws Exception {
-
-		List<PortletPreferences> portletPreferencesList =
-			new ArrayList<PortletPreferences>();
+	protected void getPortletPreferences(
+			String portletId, int ownerType,
+			Visitor<PortletPreferences> visitor)
+		throws RuntimeException, SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -280,14 +328,18 @@ public class UpgradePortletSettings extends UpgradeProcess {
 				portletPreferences.preferences = GetterUtil.getString(
 					rs.getString("preferences"));
 
-				portletPreferencesList.add(portletPreferences);
+				visitor.visit(portletPreferences);
 			}
+		}
+		catch (SQLException sqle) {
+			throw sqle;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 		finally {
 			DataAccess.cleanUp(con, ps, rs);
 		}
-
-		return portletPreferencesList;
 	}
 
 	protected void registerMainPortlet(
@@ -313,7 +365,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	protected void updatePortletPreferences(
 			PortletPreferences portletPreferences)
-		throws Exception {
+		throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -347,7 +399,9 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
-	protected void upgradeMainPortlet(String portletId) throws Exception {
+	protected void upgradeMainPortlet(String portletId)
+		throws PortalException, SystemException {
+
 		String serviceName = _mainPortletServiceNames.get(portletId);
 
 		int ownerType = _mainPortletOwnerTypes.get(portletId);
@@ -362,7 +416,9 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			portletId, ownerType, _mainPortletServiceKeys.get(portletId));
 	}
 
-	protected void upgradeSecondaryPortlet(String portletId) throws Exception {
+	protected void upgradeSecondaryPortlet(String portletId)
+		throws PortalException, SystemException {
+
 		int ownerType = _secondaryPortletOwnerTypes.get(portletId);
 
 		deletePortletPreferencesKeys(
@@ -379,6 +435,26 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		public String preferences;
 		public long mvccVersion;
 	}
+
+	private void _logCopyOfServiceSettings(
+		String portletId, long plid, final String serviceName, long groupId) {
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Copying settings of portlet " + portletId + " placed in " +
+					"layout " + plid + " to service " + serviceName + " in "+
+					"group " + groupId);
+		}
+	}
+
+	private void _logPortletUpgrade(String portletId) {
+		if (_log.isDebugEnabled()) {
+			_log.debug("Upgrading portlet " + portletId + " settings");
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		UpgradePortletSettings.class);
 
 	private Map<String, String[]> _mainPortletInstanceKeys =
 		new HashMap<String, String[]>();
