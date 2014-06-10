@@ -529,8 +529,7 @@ public class ShoppingUtil {
 		return total;
 	}
 
-	public static double calculateTotal(ShoppingOrder order)
-		throws SystemException {
+	public static double calculateTotal(ShoppingOrder order) {
 
 		List<ShoppingOrderItem> orderItems =
 			ShoppingOrderItemLocalServiceUtil.getOrderItems(order.getOrderId());

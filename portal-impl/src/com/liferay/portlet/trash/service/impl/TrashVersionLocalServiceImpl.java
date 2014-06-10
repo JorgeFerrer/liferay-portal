@@ -31,8 +31,7 @@ public class TrashVersionLocalServiceImpl
 	@Override
 	public TrashVersion addTrashVersion(
 			long trashEntryId, String className, long classPK, int status,
-			UnicodeProperties typeSettingsProperties)
-		throws SystemException {
+			UnicodeProperties typeSettingsProperties) {
 
 		long versionId = counterLocalService.increment();
 
@@ -52,8 +51,7 @@ public class TrashVersionLocalServiceImpl
 	}
 
 	@Override
-	public TrashVersion deleteTrashVersion(String className, long classPK)
-		throws SystemException {
+	public TrashVersion deleteTrashVersion(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -69,8 +67,7 @@ public class TrashVersionLocalServiceImpl
 
 	@Override
 	public TrashVersion fetchVersion(
-			long entryId, String className, long classPK)
-		throws SystemException {
+			long entryId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -84,8 +81,7 @@ public class TrashVersionLocalServiceImpl
 	}
 
 	@Override
-	public List<TrashVersion> getVersions(long entryId, String className)
-		throws SystemException {
+	public List<TrashVersion> getVersions(long entryId, String className) {
 
 		if (Validator.isNull(className)) {
 			return trashVersionPersistence.findByEntryId(entryId);

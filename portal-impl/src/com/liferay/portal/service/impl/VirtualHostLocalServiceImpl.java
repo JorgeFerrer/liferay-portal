@@ -28,15 +28,13 @@ public class VirtualHostLocalServiceImpl
 	extends VirtualHostLocalServiceBaseImpl {
 
 	@Override
-	public VirtualHost fetchVirtualHost(long companyId, long layoutSetId)
-		throws SystemException {
+	public VirtualHost fetchVirtualHost(long companyId, long layoutSetId) {
 
 		return virtualHostPersistence.fetchByC_L(companyId, layoutSetId);
 	}
 
 	@Override
-	public VirtualHost fetchVirtualHost(String hostname)
-		throws SystemException {
+	public VirtualHost fetchVirtualHost(String hostname) {
 
 		return virtualHostPersistence.fetchByHostname(hostname);
 	}
@@ -57,8 +55,7 @@ public class VirtualHostLocalServiceImpl
 
 	@Override
 	public VirtualHost updateVirtualHost(
-			long companyId, long layoutSetId, String hostname)
-		throws SystemException {
+			long companyId, long layoutSetId, String hostname) {
 
 		VirtualHost virtualHost = virtualHostPersistence.fetchByC_L(
 			companyId, layoutSetId);

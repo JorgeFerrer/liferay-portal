@@ -45,8 +45,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public void deleteActivitySetting(
-			long groupId, String className, long classPK)
-		throws SystemException {
+			long groupId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 		String name = _PREFIX_CLASS_PK.concat(String.valueOf(classPK));
@@ -67,8 +66,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public SocialActivityDefinition getActivityDefinition(
-			long groupId, String className, int activityType)
-		throws SystemException {
+			long groupId, String className, int activityType) {
 
 		String key = encodeKey(groupId, className, activityType);
 
@@ -97,8 +95,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public List<SocialActivityDefinition> getActivityDefinitions(
-			long groupId, String className)
-		throws SystemException {
+			long groupId, String className) {
 
 		List<SocialActivityDefinition> activityDefinitions =
 			new ArrayList<SocialActivityDefinition>();
@@ -120,15 +117,13 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	@Override
-	public List<SocialActivitySetting> getActivitySettings(long groupId)
-		throws SystemException {
+	public List<SocialActivitySetting> getActivitySettings(long groupId) {
 
 		return socialActivitySettingPersistence.findByG_A(groupId, 0);
 	}
 
 	@Override
-	public boolean isEnabled(long groupId, long classNameId)
-		throws SystemException {
+	public boolean isEnabled(long groupId, long classNameId) {
 
 		SocialActivitySetting activitySetting =
 			socialActivitySettingPersistence.fetchByG_C_A_N(
@@ -143,8 +138,7 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	@Override
-	public boolean isEnabled(long groupId, long classNameId, long classPK)
-		throws SystemException {
+	public boolean isEnabled(long groupId, long classNameId, long classPK) {
 
 		String name = _PREFIX_CLASS_PK.concat(String.valueOf(classPK));
 
@@ -326,8 +320,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	protected SocialActivityDefinition getActivityDefinition(
 			long groupId, String className, int activityType,
-			SocialActivityDefinition defaultActivityDefinition)
-		throws SystemException {
+			SocialActivityDefinition defaultActivityDefinition) {
 
 		SocialActivityDefinition activityDefinition =
 			defaultActivityDefinition.clone();
@@ -394,8 +387,7 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	protected List<SocialActivitySetting> getActivitySettings(
-			long groupId, String className, int activityType)
-		throws SystemException {
+			long groupId, String className, int activityType) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

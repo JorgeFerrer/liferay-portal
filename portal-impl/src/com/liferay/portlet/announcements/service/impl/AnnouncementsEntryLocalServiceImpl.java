@@ -207,8 +207,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	@Override
 	public List<AnnouncementsEntry> getEntries(
 			long userId, LinkedHashMap<Long, long[]> scopes, boolean alert,
-			int flagValue, int start, int end)
-		throws SystemException {
+			int flagValue, int start, int end) {
 
 		return getEntries(
 			userId, scopes, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, alert, flagValue,
@@ -222,8 +221,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end)
-		throws SystemException {
+			int flagValue, int start, int end) {
 
 		return announcementsEntryFinder.findByScopes(
 			userId, scopes, displayDateMonth, displayDateDay, displayDateYear,
@@ -234,8 +232,7 @@ public class AnnouncementsEntryLocalServiceImpl
 
 	@Override
 	public List<AnnouncementsEntry> getEntries(
-			long classNameId, long classPK, boolean alert, int start, int end)
-		throws SystemException {
+			long classNameId, long classPK, boolean alert, int start, int end) {
 
 		return announcementsEntryPersistence.findByC_C_A(
 			classNameId, classPK, alert, start, end);
@@ -248,8 +245,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end)
-		throws SystemException {
+			int flagValue, int start, int end) {
 
 		return announcementsEntryFinder.findByScope(
 			userId, classNameId, classPKs, displayDateMonth, displayDateDay,
@@ -262,8 +258,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	@Override
 	public int getEntriesCount(
 			long userId, LinkedHashMap<Long, long[]> scopes, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		return getEntriesCount(
 			userId, scopes, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, alert, flagValue);
@@ -276,8 +271,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		return announcementsEntryFinder.countByScopes(
 			userId, scopes, displayDateMonth, displayDateDay, displayDateYear,
@@ -287,8 +281,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getEntriesCount(long classNameId, long classPK, boolean alert)
-		throws SystemException {
+	public int getEntriesCount(long classNameId, long classPK, boolean alert) {
 
 		return announcementsEntryPersistence.countByC_C_A(
 			classNameId, classPK, alert);
@@ -297,8 +290,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	@Override
 	public int getEntriesCount(
 			long userId, long classNameId, long[] classPKs, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		return getEntriesCount(
 			userId, classNameId, classPKs, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, alert,
@@ -312,8 +304,7 @@ public class AnnouncementsEntryLocalServiceImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		return announcementsEntryFinder.countByScope(
 			userId, classNameId, classPKs, displayDateMonth, displayDateDay,
@@ -331,8 +322,7 @@ public class AnnouncementsEntryLocalServiceImpl
 
 	@Override
 	public List<AnnouncementsEntry> getUserEntries(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return announcementsEntryPersistence.findByUserId(userId, start, end);
 	}

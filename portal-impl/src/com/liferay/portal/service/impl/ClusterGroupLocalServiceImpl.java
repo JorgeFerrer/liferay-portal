@@ -30,8 +30,7 @@ public class ClusterGroupLocalServiceImpl
 
 	@Override
 	public ClusterGroup addClusterGroup(
-			String name, List<String> clusterNodeIds)
-		throws SystemException {
+			String name, List<String> clusterNodeIds) {
 
 		long clusterGroupId = counterLocalService.increment();
 
@@ -45,8 +44,7 @@ public class ClusterGroupLocalServiceImpl
 	}
 
 	@Override
-	public ClusterGroup addWholeClusterGroup(String name)
-		throws SystemException {
+	public ClusterGroup addWholeClusterGroup(String name) {
 
 		long clusterGroupId = counterLocalService.increment();
 

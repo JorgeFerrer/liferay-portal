@@ -164,8 +164,7 @@ public class PluginPackageUtil {
 		return _instance._isCurrentVersionSupported(versions);
 	}
 
-	public static boolean isIgnored(PluginPackage pluginPackage)
-		throws SystemException {
+	public static boolean isIgnored(PluginPackage pluginPackage) {
 
 		return _instance._isIgnored(pluginPackage);
 	}
@@ -178,8 +177,7 @@ public class PluginPackageUtil {
 		return _instance._isInstalled(context);
 	}
 
-	public static boolean isTrusted(String repositoryURL)
-		throws SystemException {
+	public static boolean isTrusted(String repositoryURL) {
 
 		return _instance._isTrusted(repositoryURL);
 	}
@@ -511,8 +509,7 @@ public class PluginPackageUtil {
 		return false;
 	}
 
-	private boolean _isIgnored(PluginPackage pluginPackage)
-		throws SystemException {
+	private boolean _isIgnored(PluginPackage pluginPackage) {
 
 		String packageId = pluginPackage.getPackageId();
 

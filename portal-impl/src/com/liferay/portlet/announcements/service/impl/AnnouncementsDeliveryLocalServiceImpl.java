@@ -82,8 +82,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteDelivery(AnnouncementsDelivery delivery)
-		throws SystemException {
+	public void deleteDelivery(AnnouncementsDelivery delivery) {
 
 		announcementsDeliveryPersistence.remove(delivery);
 	}
@@ -99,8 +98,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteDelivery(long userId, String type)
-		throws SystemException {
+	public void deleteDelivery(long userId, String type) {
 
 		AnnouncementsDelivery delivery =
 			announcementsDeliveryPersistence.fetchByU_T(userId, type);

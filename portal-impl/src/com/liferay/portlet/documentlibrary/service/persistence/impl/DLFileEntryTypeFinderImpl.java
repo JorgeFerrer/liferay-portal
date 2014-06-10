@@ -56,8 +56,7 @@ public class DLFileEntryTypeFinderImpl
 	@Override
 	public int countByKeywords(
 			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType)
-		throws SystemException {
+			boolean includeBasicFileEntryType) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -79,8 +78,7 @@ public class DLFileEntryTypeFinderImpl
 	@Override
 	public int filterCountByKeywords(
 			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType)
-		throws SystemException {
+			boolean includeBasicFileEntryType) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -103,8 +101,7 @@ public class DLFileEntryTypeFinderImpl
 	public List<DLFileEntryType> filterFindByKeywords(
 			long companyId, long[] groupIds, String keywords,
 			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -127,8 +124,7 @@ public class DLFileEntryTypeFinderImpl
 	public List<DLFileEntryType> findByKeywords(
 			long companyId, long[] groupIds, String keywords,
 			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -150,8 +146,7 @@ public class DLFileEntryTypeFinderImpl
 	protected int doCountByC_G_N_D_S(
 			long companyId, long[] groupIds, String[] names,
 			String[] descriptions, boolean andOperator,
-			boolean includeBasicFileEntryType, boolean inlineSQLHelper)
-		throws SystemException {
+			boolean includeBasicFileEntryType, boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);
@@ -218,8 +213,7 @@ public class DLFileEntryTypeFinderImpl
 			long companyId, long[] groupIds, String[] names,
 			String[] descriptions, boolean andOperator,
 			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator, boolean inlineSQLHelper)
-		throws SystemException {
+			OrderByComparator orderByComparator, boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);

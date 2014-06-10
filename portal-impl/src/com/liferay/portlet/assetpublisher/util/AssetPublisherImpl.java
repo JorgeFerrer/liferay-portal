@@ -973,8 +973,7 @@ public class AssetPublisherImpl implements AssetPublisher {
 
 	@Override
 	public String getEmailFromAddress(
-			PortletPreferences portletPreferences, long companyId)
-		throws SystemException {
+			PortletPreferences portletPreferences, long companyId) {
 
 		return PortalUtil.getEmailFromAddress(
 			portletPreferences, companyId,
@@ -983,8 +982,7 @@ public class AssetPublisherImpl implements AssetPublisher {
 
 	@Override
 	public String getEmailFromName(
-			PortletPreferences portletPreferences, long companyId)
-		throws SystemException {
+			PortletPreferences portletPreferences, long companyId) {
 
 		return PortalUtil.getEmailFromName(
 			portletPreferences, companyId,

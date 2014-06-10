@@ -69,8 +69,7 @@ public class UserGroupFinderImpl
 	@Override
 	public int countByKeywords(
 			long companyId, String keywords,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -91,8 +90,7 @@ public class UserGroupFinderImpl
 	@Override
 	public int countByC_N_D(
 			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -104,8 +102,7 @@ public class UserGroupFinderImpl
 	@Override
 	public int countByC_N_D(
 			long companyId, String[] names, String[] descriptions,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions);
@@ -162,8 +159,7 @@ public class UserGroupFinderImpl
 	public List<UserGroup> findByKeywords(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -232,8 +228,7 @@ public class UserGroupFinderImpl
 	public List<UserGroup> findByC_N_D(
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -247,8 +242,7 @@ public class UserGroupFinderImpl
 	public List<UserGroup> findByC_N_D(
 			long companyId, String[] names, String[] descriptions,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions);

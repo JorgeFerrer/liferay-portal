@@ -39,8 +39,7 @@ public class MDRRuleStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		MDRRule rule = MDRRuleLocalServiceUtil.fetchMDRRuleByUuidAndGroupId(
 			uuid, groupId);

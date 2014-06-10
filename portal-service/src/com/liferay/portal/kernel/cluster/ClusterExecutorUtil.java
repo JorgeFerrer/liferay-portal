@@ -51,8 +51,7 @@ public class ClusterExecutorUtil {
 		clusterExecutor.destroy();
 	}
 
-	public static FutureClusterResponses execute(ClusterRequest clusterRequest)
-		throws SystemException {
+	public static FutureClusterResponses execute(ClusterRequest clusterRequest) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 
@@ -65,8 +64,7 @@ public class ClusterExecutorUtil {
 
 	public static void execute(
 			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback)
-		throws SystemException {
+			ClusterResponseCallback clusterResponseCallback) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 
@@ -80,8 +78,7 @@ public class ClusterExecutorUtil {
 	public static void execute(
 			ClusterRequest clusterRequest,
 			ClusterResponseCallback clusterResponseCallback, long timeout,
-			TimeUnit timeUnit)
-		throws SystemException {
+			TimeUnit timeUnit) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 

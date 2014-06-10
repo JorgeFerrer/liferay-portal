@@ -576,8 +576,7 @@ public class AssetUtil {
 		return assetEntries;
 	}
 
-	public static String getAssetKeywords(String className, long classPK)
-		throws SystemException {
+	public static String getAssetKeywords(String className, long classPK) {
 
 		List<AssetTag> tags = AssetTagLocalServiceUtil.getTags(
 			className, classPK);
@@ -722,8 +721,7 @@ public class AssetUtil {
 	}
 
 	public static String substituteCategoryPropertyVariables(
-			long groupId, long categoryId, String s)
-		throws SystemException {
+			long groupId, long categoryId, String s) {
 
 		String result = s;
 

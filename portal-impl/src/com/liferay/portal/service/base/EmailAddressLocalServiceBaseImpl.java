@@ -126,8 +126,7 @@ public abstract class EmailAddressLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public EmailAddress deleteEmailAddress(EmailAddress emailAddress)
-		throws SystemException {
+	public EmailAddress deleteEmailAddress(EmailAddress emailAddress) {
 		return emailAddressPersistence.remove(emailAddress);
 	}
 

@@ -87,16 +87,14 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public void deleteDirectory(
-			long companyId, long repositoryId, String dirName)
-		throws SystemException {
+			long companyId, long repositoryId, String dirName) {
 
 		DLContentLocalServiceUtil.deleteContentsByDirectory(
 			companyId, repositoryId, dirName);
 	}
 
 	@Override
-	public void deleteFile(long companyId, long repositoryId, String fileName)
-		throws SystemException {
+	public void deleteFile(long companyId, long repositoryId, String fileName) {
 
 		DLContentLocalServiceUtil.deleteContents(
 			companyId, repositoryId, fileName);
@@ -214,8 +212,7 @@ public class DBStore extends BaseStore {
 	}
 
 	@Override
-	public String[] getFileNames(long companyId, long repositoryId)
-		throws SystemException {
+	public String[] getFileNames(long companyId, long repositoryId) {
 
 		List<DLContent> dlContents = DLContentLocalServiceUtil.getContents(
 			companyId, repositoryId);
@@ -233,8 +230,7 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public String[] getFileNames(
-			long companyId, long repositoryId, String dirName)
-		throws SystemException {
+			long companyId, long repositoryId, String dirName) {
 
 		List<DLContent> dlContents =
 			DLContentLocalServiceUtil.getContentsByDirectory(
@@ -271,8 +267,7 @@ public class DBStore extends BaseStore {
 	@Override
 	public boolean hasFile(
 			long companyId, long repositoryId, String fileName,
-			String versionLabel)
-		throws SystemException {
+			String versionLabel) {
 
 		return DLContentLocalServiceUtil.hasContent(
 			companyId, repositoryId, fileName, versionLabel);
@@ -285,8 +280,7 @@ public class DBStore extends BaseStore {
 	@Override
 	public void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,
-			String fileName)
-		throws SystemException {
+			String fileName) {
 
 		DLContentLocalServiceUtil.updateDLContent(
 			companyId, repositoryId, newRepositoryId, fileName, fileName);
@@ -295,8 +289,7 @@ public class DBStore extends BaseStore {
 	@Override
 	public void updateFile(
 			long companyId, long repositoryId, String fileName,
-			String newFileName)
-		throws SystemException {
+			String newFileName) {
 
 		DLContentLocalServiceUtil.updateDLContent(
 			companyId, repositoryId, repositoryId, fileName, newFileName);

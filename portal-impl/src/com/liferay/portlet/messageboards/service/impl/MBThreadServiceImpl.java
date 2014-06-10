@@ -177,8 +177,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public int getGroupThreadsCount(
-			long groupId, long userId, Date modifiedDate, int status)
-		throws SystemException {
+			long groupId, long userId, Date modifiedDate, int status) {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			QueryDefinition queryDefinition = new QueryDefinition(status);
@@ -199,16 +198,14 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupThreadsCount(long groupId, long userId, int status)
-		throws SystemException {
+	public int getGroupThreadsCount(long groupId, long userId, int status) {
 
 		return getGroupThreadsCount(groupId, userId, status, false);
 	}
 
 	@Override
 	public int getGroupThreadsCount(
-			long groupId, long userId, int status, boolean subscribed)
-		throws SystemException {
+			long groupId, long userId, int status, boolean subscribed) {
 
 		return getGroupThreadsCount(groupId, userId, status, subscribed, true);
 	}
@@ -216,8 +213,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	@Override
 	public int getGroupThreadsCount(
 			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous)
-		throws SystemException {
+			boolean includeAnonymous) {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return doGetGroupThreadsCount(
@@ -257,8 +253,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public List<MBThread> getThreads(
-			long groupId, long categoryId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long categoryId, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -268,8 +263,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public int getThreadsCount(long groupId, long categoryId, int status)
-		throws SystemException {
+	public int getThreadsCount(long groupId, long categoryId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbThreadFinder.filterCountByG_C(groupId, categoryId);
@@ -420,8 +414,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	protected List<MBThread> doGetGroupThreads(
 			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous, int start, int end)
-		throws SystemException {
+			boolean includeAnonymous, int start, int end) {
 
 		if (userId <= 0) {
 			if (status == WorkflowConstants.STATUS_ANY) {
@@ -450,8 +443,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	protected int doGetGroupThreadsCount(
 			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous)
-		throws SystemException {
+			boolean includeAnonymous) {
 
 		if (userId <= 0) {
 			if (status == WorkflowConstants.STATUS_ANY) {

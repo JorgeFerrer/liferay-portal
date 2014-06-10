@@ -51,8 +51,7 @@ public class AssetEntryServiceImpl extends AssetEntryServiceBaseImpl {
 
 	@Override
 	public List<AssetEntry> getCompanyEntries(
-			long companyId, int start, int end)
-		throws SystemException {
+			long companyId, int start, int end) {
 
 		List<AssetEntry> entries = new ArrayList<AssetEntry>();
 

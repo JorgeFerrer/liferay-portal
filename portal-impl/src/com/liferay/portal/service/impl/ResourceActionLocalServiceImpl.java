@@ -56,16 +56,14 @@ public class ResourceActionLocalServiceImpl
 	}
 
 	@Override
-	public void checkResourceActions(String name, List<String> actionIds)
-		throws SystemException {
+	public void checkResourceActions(String name, List<String> actionIds) {
 
 		checkResourceActions(name, actionIds, false);
 	}
 
 	@Override
 	public void checkResourceActions(
-			String name, List<String> actionIds, boolean addDefaultActions)
-		throws SystemException {
+			String name, List<String> actionIds, boolean addDefaultActions) {
 
 		long lastBitwiseValue = -1;
 		List<ResourceAction> newResourceActions = null;
@@ -200,8 +198,7 @@ public class ResourceActionLocalServiceImpl
 	}
 
 	@Override
-	public List<ResourceAction> getResourceActions(String name)
-		throws SystemException {
+	public List<ResourceAction> getResourceActions(String name) {
 
 		return resourceActionPersistence.findByName(name);
 	}

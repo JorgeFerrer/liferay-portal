@@ -33,8 +33,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public PasswordPolicyRel addPasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK)
-		throws SystemException {
+			long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -65,8 +64,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void addPasswordPolicyRels(
-			long passwordPolicyId, String className, long[] classPKs)
-		throws SystemException {
+			long passwordPolicyId, String className, long[] classPKs) {
 
 		for (int i = 0; i < classPKs.length; i++) {
 			addPasswordPolicyRel(passwordPolicyId, className, classPKs[i]);
@@ -75,8 +73,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void deletePasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK)
-		throws SystemException {
+			long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -91,8 +88,7 @@ public class PasswordPolicyRelLocalServiceImpl
 	}
 
 	@Override
-	public void deletePasswordPolicyRel(String className, long classPK)
-		throws SystemException {
+	public void deletePasswordPolicyRel(String className, long classPK) {
 
 		try {
 			long classNameId = classNameLocalService.getClassNameId(className);
@@ -107,8 +103,7 @@ public class PasswordPolicyRelLocalServiceImpl
 	}
 
 	@Override
-	public void deletePasswordPolicyRels(long passwordPolicyId)
-		throws SystemException {
+	public void deletePasswordPolicyRels(long passwordPolicyId) {
 
 		List<PasswordPolicyRel> passwordPolicyRels =
 			passwordPolicyRelPersistence.findByPasswordPolicyId(
@@ -121,8 +116,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void deletePasswordPolicyRels(
-			long passwordPolicyId, String className, long[] classPKs)
-		throws SystemException {
+			long passwordPolicyId, String className, long[] classPKs) {
 
 		for (int i = 0; i < classPKs.length; i++) {
 			deletePasswordPolicyRel(passwordPolicyId, className, classPKs[i]);
@@ -131,8 +125,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public PasswordPolicyRel fetchPasswordPolicyRel(
-			String className, long classPK)
-		throws SystemException {
+			String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -181,8 +174,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public boolean hasPasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK)
-		throws SystemException {
+			long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

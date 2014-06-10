@@ -54,8 +54,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserNotificationDeliveries(long userId)
-		throws SystemException {
+	public void deleteUserNotificationDeliveries(long userId) {
 
 		userNotificationDeliveryPersistence.removeByUserId(userId);
 	}
@@ -63,8 +62,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 	@Override
 	public void deleteUserNotificationDelivery(
 			long userId, String portletId, long classNameId,
-			int notificationType, int deliveryType)
-		throws SystemException {
+			int notificationType, int deliveryType) {
 
 		try {
 			userNotificationDeliveryPersistence.removeByU_P_C_N_D(
@@ -77,8 +75,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 	@Override
 	public UserNotificationDelivery fetchUserNotificationDelivery(
 			long userId, String portletId, long classNameId,
-			int notificationType, int deliveryType)
-		throws SystemException {
+			int notificationType, int deliveryType) {
 
 		return userNotificationDeliveryPersistence.fetchByU_P_C_N_D(
 			userId, portletId, classNameId, notificationType, deliveryType);
@@ -105,8 +102,7 @@ public class UserNotificationDeliveryLocalServiceImpl
 
 	@Override
 	public UserNotificationDelivery updateUserNotificationDelivery(
-			long userNotificationDeliveryId, boolean deliver)
-		throws SystemException {
+			long userNotificationDeliveryId, boolean deliver) {
 
 		UserNotificationDelivery userNotificationDelivery =
 			fetchUserNotificationDelivery(userNotificationDeliveryId);

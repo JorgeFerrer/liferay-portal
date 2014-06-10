@@ -79,8 +79,7 @@ public class UpgradeCustomizablePortlets extends UpgradeProcess {
 	}
 
 	protected PortalPreferencesWrapper getPortalPreferencesInstance(
-			long ownerId, int ownerType, String xml)
-		throws SystemException {
+			long ownerId, int ownerType, String xml) {
 
 		PortalPreferencesImpl portalPreferencesImpl =
 			(PortalPreferencesImpl)PortletPreferencesFactoryUtil.fromXML(

@@ -163,8 +163,7 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public MDRRuleGroup fetchRuleGroup(long ruleGroupId)
-		throws SystemException {
+	public MDRRuleGroup fetchRuleGroup(long ruleGroupId) {
 
 		return mdrRuleGroupPersistence.fetchByPrimaryKey(ruleGroupId);
 	}
@@ -177,15 +176,13 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public List<MDRRuleGroup> getRuleGroups(long groupId)
-		throws SystemException {
+	public List<MDRRuleGroup> getRuleGroups(long groupId) {
 
 		return mdrRuleGroupPersistence.findByGroupId(groupId);
 	}
 
 	@Override
-	public List<MDRRuleGroup> getRuleGroups(long groupId, int start, int end)
-		throws SystemException {
+	public List<MDRRuleGroup> getRuleGroups(long groupId, int start, int end) {
 
 		return mdrRuleGroupPersistence.findByGroupId(groupId, start, end);
 	}
@@ -202,8 +199,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<MDRRuleGroup> search(
-			long groupId, String name, boolean andOperator, int start, int end)
-		throws SystemException {
+			long groupId, String name, boolean andOperator, int start, int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -217,8 +213,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public List<MDRRuleGroup> search(
 			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end)
-		throws SystemException {
+			boolean andOperator, int start, int end) {
 
 		return mdrRuleGroupFinder.findByG_N(
 			groupId, name, params, andOperator, start, end);
@@ -232,8 +227,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public List<MDRRuleGroup> searchByKeywords(
 			long groupId, String keywords, boolean andOperator, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -247,8 +241,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public List<MDRRuleGroup> searchByKeywords(
 			long groupId, String keywords, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end)
-		throws SystemException {
+			boolean andOperator, int start, int end) {
 
 		return mdrRuleGroupFinder.findByKeywords(
 			groupId, keywords, params, start, end);
@@ -261,8 +254,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Deprecated
 	@Override
 	public int searchByKeywordsCount(
-			long groupId, String keywords, boolean andOperator)
-		throws SystemException {
+			long groupId, String keywords, boolean andOperator) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -275,8 +267,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public int searchByKeywordsCount(
 			long groupId, String keywords, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return mdrRuleGroupFinder.countByKeywords(groupId, keywords, params);
 	}
@@ -287,8 +278,7 @@ public class MDRRuleGroupLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public int searchCount(long groupId, String name, boolean andOperator)
-		throws SystemException {
+	public int searchCount(long groupId, String name, boolean andOperator) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -302,8 +292,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Override
 	public int searchCount(
 			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return mdrRuleGroupFinder.countByG_N(
 			groupId, name, params, andOperator);

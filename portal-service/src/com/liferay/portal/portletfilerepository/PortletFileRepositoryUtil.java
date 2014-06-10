@@ -140,24 +140,21 @@ public class PortletFileRepositoryUtil {
 	}
 
 	public static Repository fetchPortletRepository(
-			long groupId, String portletId)
-		throws SystemException {
+			long groupId, String portletId) {
 
 		return getPortletFileRepository().fetchPortletRepository(
 			groupId, portletId);
 	}
 
 	public static List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId)
-		throws SystemException {
+			long groupId, long folderId) {
 
 		return getPortletFileRepository().getPortletFileEntries(
 			groupId, folderId);
 	}
 
 	public static List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		return getPortletFileRepository().getPortletFileEntries(
 			groupId, folderId, status);
@@ -165,23 +162,20 @@ public class PortletFileRepositoryUtil {
 
 	public static List<FileEntry> getPortletFileEntries(
 			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return getPortletFileRepository().getPortletFileEntries(
 			groupId, folderId, status, start, end, obc);
 	}
 
-	public static int getPortletFileEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public static int getPortletFileEntriesCount(long groupId, long folderId) {
 
 		return getPortletFileRepository().getPortletFileEntriesCount(
 			groupId, folderId);
 	}
 
 	public static int getPortletFileEntriesCount(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		return getPortletFileRepository().getPortletFileEntriesCount(
 			groupId, folderId, status);

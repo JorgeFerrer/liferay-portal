@@ -43,8 +43,7 @@ import java.util.Date;
 public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 
 	@Override
-	public Release addRelease(String servletContextName, int buildNumber)
-		throws SystemException {
+	public Release addRelease(String servletContextName, int buildNumber) {
 
 		Release release = null;
 
@@ -101,8 +100,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Release fetchRelease(String servletContextName)
-		throws SystemException {
+	public Release fetchRelease(String servletContextName) {
 
 		if (Validator.isNull(servletContextName)) {
 			throw new IllegalArgumentException("Servlet context name is null");
@@ -212,8 +210,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 		return release;
 	}
 
-	protected void testSupportsStringCaseSensitiveQuery()
-		throws SystemException {
+	protected void testSupportsStringCaseSensitiveQuery() {
 
 		DB db = DBFactoryUtil.getDB();
 

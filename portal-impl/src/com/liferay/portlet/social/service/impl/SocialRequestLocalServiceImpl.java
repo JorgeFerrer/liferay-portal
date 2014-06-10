@@ -110,8 +110,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteReceiverUserRequests(long receiverUserId)
-		throws SystemException {
+	public void deleteReceiverUserRequests(long receiverUserId) {
 
 		List<SocialRequest> requests =
 			socialRequestPersistence.findByReceiverUserId(receiverUserId);
@@ -151,8 +150,7 @@ public class SocialRequestLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRequests(long className, long classPK)
-		throws SystemException {
+	public void deleteRequests(long className, long classPK) {
 
 		List<SocialRequest> requests = socialRequestPersistence.findByC_C(
 			className, classPK);
@@ -199,8 +197,7 @@ public class SocialRequestLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRequest> getReceiverUserRequests(
-			long receiverUserId, int start, int end)
-		throws SystemException {
+			long receiverUserId, int start, int end) {
 
 		return socialRequestPersistence.findByReceiverUserId(
 			receiverUserId, start, end);
@@ -229,8 +226,7 @@ public class SocialRequestLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRequest> getReceiverUserRequests(
-			long receiverUserId, int status, int start, int end)
-		throws SystemException {
+			long receiverUserId, int status, int start, int end) {
 
 		return socialRequestPersistence.findByR_S(
 			receiverUserId, status, start, end);
@@ -244,8 +240,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getReceiverUserRequestsCount(long receiverUserId)
-		throws SystemException {
+	public int getReceiverUserRequestsCount(long receiverUserId) {
 
 		return socialRequestPersistence.countByReceiverUserId(receiverUserId);
 	}
@@ -260,8 +255,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getReceiverUserRequestsCount(long receiverUserId, int status)
-		throws SystemException {
+	public int getReceiverUserRequestsCount(long receiverUserId, int status) {
 
 		return socialRequestPersistence.countByR_S(receiverUserId, status);
 	}
@@ -286,8 +280,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<SocialRequest> getUserRequests(long userId, int start, int end)
-		throws SystemException {
+	public List<SocialRequest> getUserRequests(long userId, int start, int end) {
 
 		return socialRequestPersistence.findByUserId(userId, start, end);
 	}
@@ -315,8 +308,7 @@ public class SocialRequestLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRequest> getUserRequests(
-			long userId, int status, int start, int end)
-		throws SystemException {
+			long userId, int status, int start, int end) {
 
 		return socialRequestPersistence.findByU_S(userId, status, start, end);
 	}
@@ -343,8 +335,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserRequestsCount(long userId, int status)
-		throws SystemException {
+	public int getUserRequestsCount(long userId, int status) {
 
 		return socialRequestPersistence.countByU_S(userId, status);
 	}
@@ -366,8 +357,7 @@ public class SocialRequestLocalServiceImpl
 	 */
 	@Override
 	public boolean hasRequest(
-			long userId, String className, long classPK, int type, int status)
-		throws SystemException {
+			long userId, String className, long classPK, int type, int status) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -400,8 +390,7 @@ public class SocialRequestLocalServiceImpl
 	@Override
 	public boolean hasRequest(
 			long userId, String className, long classPK, int type,
-			long receiverUserId, int status)
-		throws SystemException {
+			long receiverUserId, int status) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

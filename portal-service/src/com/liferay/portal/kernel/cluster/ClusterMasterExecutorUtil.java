@@ -28,8 +28,7 @@ import java.util.concurrent.Future;
 @ProviderType
 public class ClusterMasterExecutorUtil {
 
-	public static <T> Future<T> executeOnMaster(MethodHandler methodHandler)
-		throws SystemException {
+	public static <T> Future<T> executeOnMaster(MethodHandler methodHandler) {
 
 		ClusterMasterExecutor clusterMasterExecutor =
 			getClusterMasterExecutor();

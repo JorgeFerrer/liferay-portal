@@ -83,8 +83,7 @@ public class AssetTagPropertyKeyFinderImpl
 	}
 
 	@Override
-	public String[] findByGroupId(long groupId, int start, int end)
-		throws SystemException {
+	public String[] findByGroupId(long groupId, int start, int end) {
 
 		Session session = null;
 

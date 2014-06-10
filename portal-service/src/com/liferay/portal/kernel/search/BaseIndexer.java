@@ -583,8 +583,7 @@ public abstract class BaseIndexer implements Indexer {
 	}
 
 	protected void addAssetFields(
-			Document document, String className, long classPK)
-		throws SystemException {
+			Document document, String className, long classPK) {
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
@@ -1229,8 +1228,7 @@ public abstract class BaseIndexer implements Indexer {
 		}
 	}
 
-	protected void addTrashFields(Document document, TrashedModel trashedModel)
-		throws SystemException {
+	protected void addTrashFields(Document document, TrashedModel trashedModel) {
 
 		TrashEntry trashEntry = null;
 
@@ -1468,16 +1466,14 @@ public abstract class BaseIndexer implements Indexer {
 	}
 
 	protected Document getBaseModelDocument(
-			String portletId, BaseModel<?> baseModel)
-		throws SystemException {
+			String portletId, BaseModel<?> baseModel) {
 
 		return getBaseModelDocument(portletId, baseModel, baseModel);
 	}
 
 	protected Document getBaseModelDocument(
 			String portletId, BaseModel<?> baseModel,
-			BaseModel<?> workflowedBaseModel)
-		throws SystemException {
+			BaseModel<?> workflowedBaseModel) {
 
 		Document document = newDocument();
 

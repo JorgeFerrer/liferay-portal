@@ -594,8 +594,7 @@ public abstract class UserLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void clearOrganizationUsers(long organizationId)
-		throws SystemException {
+	public void clearOrganizationUsers(long organizationId) {
 		organizationPersistence.clearUsers(organizationId);
 	}
 

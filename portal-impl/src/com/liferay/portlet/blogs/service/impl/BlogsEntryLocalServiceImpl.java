@@ -399,8 +399,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<BlogsEntry> getCompanyEntries(
-			long companyId, Date displayDate, int status, int start, int end)
-		throws SystemException {
+			long companyId, Date displayDate, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -416,8 +415,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getCompanyEntries(
 			long companyId, Date displayDate, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -427,8 +425,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public List<BlogsEntry> getCompanyEntries(
-			long companyId, Date displayDate, QueryDefinition queryDefinition)
-		throws SystemException {
+			long companyId, Date displayDate, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.findByC_LtD_NotS(
@@ -451,8 +448,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public int getCompanyEntriesCount(
-			long companyId, Date displayDate, int status)
-		throws SystemException {
+			long companyId, Date displayDate, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -461,8 +457,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public int getCompanyEntriesCount(
-			long companyId, Date displayDate, QueryDefinition queryDefinition)
-		throws SystemException {
+			long companyId, Date displayDate, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.countByC_LtD_NotS(
@@ -507,8 +502,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, Date displayDate, int status, int start, int end)
-		throws SystemException {
+			long groupId, Date displayDate, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -524,8 +518,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupEntries(
 			long groupId, Date displayDate, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -535,8 +528,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, Date displayDate, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, Date displayDate, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.findByG_LtD_NotS(
@@ -559,8 +551,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, int status, int start, int end)
-		throws SystemException {
+			long groupId, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -575,8 +566,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, int status, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int status, int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -586,8 +576,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.findByG_NotS(
@@ -609,8 +598,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public int getGroupEntriesCount(long groupId, Date displayDate, int status)
-		throws SystemException {
+	public int getGroupEntriesCount(long groupId, Date displayDate, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -619,8 +607,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public int getGroupEntriesCount(
-			long groupId, Date displayDate, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, Date displayDate, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.countByG_LtD_NotS(
@@ -638,8 +625,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public int getGroupEntriesCount(long groupId, int status)
-		throws SystemException {
+	public int getGroupEntriesCount(long groupId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -648,8 +634,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Override
 	public int getGroupEntriesCount(
-			long groupId, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.countByG_NotS(
@@ -669,8 +654,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupsEntries(
 			long companyId, long groupId, Date displayDate, int status,
-			int start, int end)
-		throws SystemException {
+			int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -682,8 +666,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupsEntries(
 			long companyId, long groupId, Date displayDate,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return blogsEntryFinder.findByGroupIds(
 			companyId, groupId, displayDate, queryDefinition);
@@ -697,8 +680,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupUserEntries(
 			long groupId, long userId, Date displayDate, int status, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -715,8 +697,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupUserEntries(
 			long groupId, long userId, Date displayDate, int status, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -728,8 +709,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getGroupUserEntries(
 			long groupId, long userId, Date displayDate,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.findByG_U_NotS(
@@ -752,8 +732,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public int getGroupUserEntriesCount(
-			long groupId, long userId, Date displayDate, int status)
-		throws SystemException {
+			long groupId, long userId, Date displayDate, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -764,8 +743,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public int getGroupUserEntriesCount(
 			long groupId, long userId, Date displayDate,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		if (queryDefinition.isExcludeStatus()) {
 			return blogsEntryPersistence.countByG_U_LtD_NotS(
@@ -790,8 +768,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getOrganizationEntries(
 			long organizationId, Date displayDate, int status, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -808,8 +785,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getOrganizationEntries(
 			long organizationId, Date displayDate, int status, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -821,8 +797,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public List<BlogsEntry> getOrganizationEntries(
 			long organizationId, Date displayDate,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return blogsEntryFinder.findByOrganizationId(
 			organizationId, displayDate, queryDefinition);
@@ -835,8 +810,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public int getOrganizationEntriesCount(
-			long organizationId, Date displayDate, int status)
-		throws SystemException {
+			long organizationId, Date displayDate, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -847,8 +821,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Override
 	public int getOrganizationEntriesCount(
 			long organizationId, Date displayDate,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return blogsEntryFinder.countByOrganizationId(
 			organizationId, displayDate, queryDefinition);
@@ -1339,8 +1312,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		return portletURL.toString();
 	}
 
-	protected String getUniqueUrlTitle(long entryId, long groupId, String title)
-		throws SystemException {
+	protected String getUniqueUrlTitle(long entryId, long groupId, String title) {
 
 		String urlTitle = BlogsUtil.getUrlTitle(entryId, title);
 
@@ -1370,8 +1342,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	protected String getUniqueUrlTitle(
 			long entryId, String title, String oldUrlTitle,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		String serviceContextUrlTitle = ParamUtil.getString(
 			serviceContext, "urlTitle");

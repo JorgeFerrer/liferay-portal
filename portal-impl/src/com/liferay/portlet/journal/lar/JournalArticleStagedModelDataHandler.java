@@ -748,8 +748,7 @@ public class JournalArticleStagedModelDataHandler
 	protected void exportArticleImage(
 			PortletDataContext portletDataContext,
 			JournalArticleImage articleImage, JournalArticle article,
-			Element articleElement)
-		throws SystemException {
+			Element articleElement) {
 
 		Image image = ImageLocalServiceUtil.fetchImage(
 			articleImage.getArticleImageId());
@@ -791,8 +790,7 @@ public class JournalArticleStagedModelDataHandler
 
 	protected JournalArticle fetchExistingArticle(
 			String articleResourceUuid, long groupId, String articleId,
-			String newArticleId, double version, boolean preloaded)
-		throws SystemException {
+			String newArticleId, double version, boolean preloaded) {
 
 		JournalArticleResource existingArticleResource = null;
 

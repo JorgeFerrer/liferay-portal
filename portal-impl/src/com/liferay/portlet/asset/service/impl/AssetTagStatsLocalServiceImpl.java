@@ -42,8 +42,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public AssetTagStats addTagStats(long tagId, long classNameId)
-		throws SystemException {
+	public AssetTagStats addTagStats(long tagId, long classNameId) {
 
 		long tagStatsId = counterLocalService.increment();
 
@@ -110,8 +109,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagStatsByClassNameId(long classNameId)
-		throws SystemException {
+	public void deleteTagStatsByClassNameId(long classNameId) {
 
 		List<AssetTagStats> tagStatsList =
 			assetTagStatsPersistence.findByClassNameId(classNameId);
@@ -159,8 +157,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetTagStats> getTagStats(long classNameId, int start, int end)
-		throws SystemException {
+	public List<AssetTagStats> getTagStats(long classNameId, int start, int end) {
 
 		return assetTagStatsPersistence.findByClassNameId(
 			classNameId, start, end);
@@ -177,8 +174,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public AssetTagStats getTagStats(long tagId, long classNameId)
-		throws SystemException {
+	public AssetTagStats getTagStats(long tagId, long classNameId) {
 
 		AssetTagStats tagStats = assetTagStatsPersistence.fetchByT_C(
 			tagId, classNameId);

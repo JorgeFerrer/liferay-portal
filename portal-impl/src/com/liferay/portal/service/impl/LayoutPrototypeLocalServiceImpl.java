@@ -242,8 +242,7 @@ public class LayoutPrototypeLocalServiceImpl
 	@Override
 	public List<LayoutPrototype> search(
 			long companyId, Boolean active, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (active != null) {
 			return layoutPrototypePersistence.findByC_A(
@@ -256,8 +255,7 @@ public class LayoutPrototypeLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long companyId, Boolean active)
-		throws SystemException {
+	public int searchCount(long companyId, Boolean active) {
 
 		if (active != null) {
 			return layoutPrototypePersistence.countByC_A(companyId, active);

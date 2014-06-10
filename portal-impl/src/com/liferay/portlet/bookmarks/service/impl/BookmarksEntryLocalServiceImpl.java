@@ -221,8 +221,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int start, int end) {
 
 		return getEntries(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end);
@@ -230,8 +229,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int status, int start, int end) {
 
 		return getEntries(groupId, folderId, status, start, end, null);
 	}
@@ -239,8 +237,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	public List<BookmarksEntry> getEntries(
 			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return bookmarksEntryPersistence.findByG_F_S(
 			groupId, folderId, status, start, end, orderByComparator);
@@ -249,8 +246,7 @@ public class BookmarksEntryLocalServiceImpl
 	@Override
 	public List<BookmarksEntry> getEntries(
 			long groupId, long folderId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return getEntries(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end,
@@ -258,16 +254,14 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getEntriesCount(long groupId, long folderId) {
 
 		return getEntriesCount(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getEntriesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getEntriesCount(long groupId, long folderId, int status) {
 
 		return bookmarksEntryPersistence.countByG_F_S(
 			groupId, folderId, status);
@@ -281,8 +275,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getFoldersEntriesCount(long groupId, List<Long> folderIds)
-		throws SystemException {
+	public int getFoldersEntriesCount(long groupId, List<Long> folderIds) {
 
 		return bookmarksEntryPersistence.countByG_F_S(
 			groupId,
@@ -292,8 +285,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getGroupEntries(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return bookmarksEntryPersistence.findByG_S(
 			groupId, WorkflowConstants.STATUS_APPROVED, start, end,
@@ -302,8 +294,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getGroupEntries(
-			long groupId, long userId, int start, int end)
-		throws SystemException {
+			long groupId, long userId, int start, int end) {
 
 		OrderByComparator orderByComparator = new EntryModifiedDateComparator();
 
@@ -326,8 +317,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupEntriesCount(long groupId, long userId)
-		throws SystemException {
+	public int getGroupEntriesCount(long groupId, long userId) {
 
 		if (userId <= 0) {
 			return getGroupEntriesCount(groupId);
@@ -424,8 +414,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public BookmarksEntry openEntry(long userId, BookmarksEntry entry)
-		throws SystemException {
+	public BookmarksEntry openEntry(long userId, BookmarksEntry entry) {
 
 		entry.setVisits(entry.getVisits() + 1);
 
@@ -667,8 +656,7 @@ public class BookmarksEntryLocalServiceImpl
 		return entry;
 	}
 
-	protected long getFolder(BookmarksEntry entry, long folderId)
-		throws SystemException {
+	protected long getFolder(BookmarksEntry entry, long folderId) {
 
 		if ((entry.getFolderId() != folderId) &&
 			(folderId != BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID)) {

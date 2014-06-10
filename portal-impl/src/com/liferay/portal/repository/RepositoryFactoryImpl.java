@@ -105,8 +105,7 @@ public class RepositoryFactoryImpl extends BaseRepositoryFactory<Repository>
 
 	@Override
 	protected com.liferay.portal.model.Repository getRepository(
-			long repositoryId)
-		throws SystemException {
+			long repositoryId) {
 
 		RepositoryLocalService repositoryLocalService =
 			getRepositoryLocalService();

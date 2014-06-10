@@ -48,16 +48,14 @@ public class UserIdMapperLocalServiceImpl
 	}
 
 	@Override
-	public List<UserIdMapper> getUserIdMappers(long userId)
-		throws SystemException {
+	public List<UserIdMapper> getUserIdMappers(long userId) {
 
 		return userIdMapperPersistence.findByUserId(userId);
 	}
 
 	@Override
 	public UserIdMapper updateUserIdMapper(
-			long userId, String type, String description, String externalUserId)
-		throws SystemException {
+			long userId, String type, String description, String externalUserId) {
 
 		UserIdMapper userIdMapper = userIdMapperPersistence.fetchByU_T(
 			userId, type);

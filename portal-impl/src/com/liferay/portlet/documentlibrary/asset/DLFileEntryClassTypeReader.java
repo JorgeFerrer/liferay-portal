@@ -36,8 +36,7 @@ public class DLFileEntryClassTypeReader implements ClassTypeReader {
 
 	@Override
 	public List<ClassType> getAvailableClassTypes(
-			long[] groupIds, Locale locale)
-		throws SystemException {
+			long[] groupIds, Locale locale) {
 
 		List<ClassType> classTypes = new ArrayList<ClassType>();
 
@@ -76,8 +75,7 @@ public class DLFileEntryClassTypeReader implements ClassTypeReader {
 			dlFileEntryType.getName(locale), LocaleUtil.toLanguageId(locale));
 	}
 
-	protected ClassType getBasicDocumentClassType(Locale locale)
-		throws SystemException {
+	protected ClassType getBasicDocumentClassType(Locale locale) {
 
 		DLFileEntryType basicDocumentDLFileEntryType =
 			DLFileEntryTypeLocalServiceUtil.fetchDLFileEntryType(

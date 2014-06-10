@@ -88,8 +88,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getGroupsTags(long[] groupIds)
-		throws SystemException {
+	public List<AssetTag> getGroupsTags(long[] groupIds) {
 
 		Set<AssetTag> groupsTags = new TreeSet<AssetTag>(
 			new AssetTagNameComparator());
@@ -110,8 +109,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getGroupTags(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return assetTagPersistence.filterFindByGroupId(
 			groupId, start, end, obc);
@@ -124,8 +122,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public AssetTagDisplay getGroupTagsDisplay(
-			long groupId, String name, int start, int end)
-		throws SystemException {
+			long groupId, String name, int start, int end) {
 
 		List<AssetTag> tags = null;
 		int total = 0;
@@ -194,8 +191,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getTags(long groupId, long classNameId, String name)
-		throws SystemException {
+	public List<AssetTag> getTags(long groupId, long classNameId, String name) {
 
 		return assetTagFinder.filterFindByG_C_N(
 			groupId, classNameId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -205,8 +201,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public List<AssetTag> getTags(
 			long groupId, long classNameId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return assetTagFinder.filterFindByG_C_N(
 			groupId, classNameId, name, start, end, obc);
@@ -215,8 +210,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public List<AssetTag> getTags(
 			long groupId, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return getTags(new long[] {groupId}, name, tagProperties, start, end);
 	}
@@ -224,8 +218,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public List<AssetTag> getTags(
 			long[] groupIds, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return assetTagFinder.filterFindByG_N_P(
 			groupIds, name, tagProperties, start, end, null);
@@ -239,8 +232,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public int getTagsCount(long groupId, long classNameId, String name)
-		throws SystemException {
+	public int getTagsCount(long groupId, long classNameId, String name) {
 
 		return assetTagFinder.filterCountByG_C_N(groupId, classNameId, name);
 	}
@@ -251,8 +243,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public int getTagsCount(long groupId, String name, String[] tagProperties)
-		throws SystemException {
+	public int getTagsCount(long groupId, String name, String[] tagProperties) {
 
 		return assetTagFinder.filterCountByG_N_P(groupId, name, tagProperties);
 	}
@@ -284,8 +275,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public JSONArray search(
 			long groupId, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return search(new long[] {groupId}, name, tagProperties, start, end);
 	}
@@ -293,8 +283,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	@Override
 	public JSONArray search(
 			long[] groupIds, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		List<AssetTag> tags = getTags(
 			groupIds, name, tagProperties, start, end);

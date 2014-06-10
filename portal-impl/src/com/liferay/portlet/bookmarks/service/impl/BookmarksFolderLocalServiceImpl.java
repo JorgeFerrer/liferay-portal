@@ -215,8 +215,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public List<BookmarksFolder> getCompanyFolders(
-			long companyId, int start, int end)
-		throws SystemException {
+			long companyId, int start, int end) {
 
 		return bookmarksFolderPersistence.findByCompanyId(
 			companyId, start, end);
@@ -235,23 +234,20 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public List<BookmarksFolder> getFolders(long groupId)
-		throws SystemException {
+	public List<BookmarksFolder> getFolders(long groupId) {
 
 		return bookmarksFolderPersistence.findByGroupId(groupId);
 	}
 
 	@Override
-	public List<BookmarksFolder> getFolders(long groupId, long parentFolderId)
-		throws SystemException {
+	public List<BookmarksFolder> getFolders(long groupId, long parentFolderId) {
 
 		return bookmarksFolderPersistence.findByG_P(groupId, parentFolderId);
 	}
 
 	@Override
 	public List<BookmarksFolder> getFolders(
-			long groupId, long parentFolderId, int start, int end)
-		throws SystemException {
+			long groupId, long parentFolderId, int start, int end) {
 
 		return getFolders(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED, start,
@@ -260,16 +256,14 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public List<BookmarksFolder> getFolders(
-			long groupId, long parentFolderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long parentFolderId, int status, int start, int end) {
 
 		return bookmarksFolderPersistence.findByG_P_S(
 			groupId, parentFolderId, status, start, end);
 	}
 
 	@Override
-	public List<Object> getFoldersAndEntries(long groupId, long folderId)
-		throws SystemException {
+	public List<Object> getFoldersAndEntries(long groupId, long folderId) {
 
 		return getFoldersAndEntries(
 			groupId, folderId, WorkflowConstants.STATUS_ANY);
@@ -277,8 +271,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public List<Object> getFoldersAndEntries(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -288,8 +281,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public List<Object> getFoldersAndEntries(
-			long groupId, long folderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -300,8 +292,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public int getFoldersAndEntriesCount(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -310,16 +301,14 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public int getFoldersCount(long groupId, long parentFolderId)
-		throws SystemException {
+	public int getFoldersCount(long groupId, long parentFolderId) {
 
 		return getFoldersCount(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getFoldersCount(long groupId, long parentFolderId, int status)
-		throws SystemException {
+	public int getFoldersCount(long groupId, long parentFolderId, int status) {
 
 		return bookmarksFolderPersistence.countByG_P_S(
 			groupId, parentFolderId, status);
@@ -332,8 +321,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId)
-		throws SystemException {
+			List<Long> folderIds, long groupId, long folderId) {
 
 		List<BookmarksFolder> folders = bookmarksFolderPersistence.findByG_P(
 			groupId, folderId);
@@ -644,8 +632,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	protected long getParentFolderId(
-			BookmarksFolder folder, long parentFolderId)
-		throws SystemException {
+			BookmarksFolder folder, long parentFolderId) {
 
 		if (parentFolderId ==
 				BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
@@ -678,8 +665,7 @@ public class BookmarksFolderLocalServiceImpl
 		return parentFolderId;
 	}
 
-	protected long getParentFolderId(long groupId, long parentFolderId)
-		throws SystemException {
+	protected long getParentFolderId(long groupId, long parentFolderId) {
 
 		if (parentFolderId !=
 				BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID) {

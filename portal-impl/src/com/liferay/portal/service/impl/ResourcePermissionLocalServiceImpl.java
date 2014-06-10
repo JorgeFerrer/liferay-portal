@@ -172,8 +172,7 @@ public class ResourcePermissionLocalServiceImpl
 	@Override
 	public void addResourcePermissions(
 			String resourceName, String roleName, int scope,
-			long resourceActionBitwiseValue)
-		throws SystemException {
+			long resourceActionBitwiseValue) {
 
 		List<Role> roles = rolePersistence.findByName(roleName);
 
@@ -455,8 +454,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getResourcePermissions(
-			long companyId, String name, int scope, String primKey)
-		throws SystemException {
+			long companyId, String name, int scope, String primKey) {
 
 		return resourcePermissionPersistence.findByC_N_S_P(
 			companyId, name, scope, primKey);
@@ -475,8 +473,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public int getResourcePermissionsCount(
-			long companyId, String name, int scope, String primKey)
-		throws SystemException {
+			long companyId, String name, int scope, String primKey) {
 
 		return resourcePermissionPersistence.countByC_N_S_P(
 			companyId, name, scope, primKey);
@@ -495,8 +492,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getResourceResourcePermissions(
-			long companyId, long groupId, String name, String primKey)
-		throws SystemException {
+			long companyId, long groupId, String name, String primKey) {
 
 		return resourcePermissionFinder.findByResource(
 			companyId, groupId, name, primKey);
@@ -510,8 +506,7 @@ public class ResourcePermissionLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<ResourcePermission> getRoleResourcePermissions(long roleId)
-		throws SystemException {
+	public List<ResourcePermission> getRoleResourcePermissions(long roleId) {
 
 		return resourcePermissionPersistence.findByRoleId(roleId);
 	}
@@ -539,8 +534,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getRoleResourcePermissions(
-			long roleId, int[] scopes, int start, int end)
-		throws SystemException {
+			long roleId, int[] scopes, int start, int end) {
 
 		return resourcePermissionFinder.findByR_S(roleId, scopes, start, end);
 	}
@@ -563,8 +557,7 @@ public class ResourcePermissionLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<ResourcePermission> getScopeResourcePermissions(int[] scopes)
-		throws SystemException {
+	public List<ResourcePermission> getScopeResourcePermissions(int[] scopes) {
 
 		return resourcePermissionPersistence.findByScope(scopes);
 	}

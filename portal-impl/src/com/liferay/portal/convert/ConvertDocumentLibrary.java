@@ -117,8 +117,7 @@ public class ConvertDocumentLibrary extends ConvertProcess {
 		PropsValues.DL_STORE_IMPL = targetStoreClassName;
 	}
 
-	protected List<DLFileVersion> getDLFileVersions(DLFileEntry dlFileEntry)
-		throws SystemException {
+	protected List<DLFileVersion> getDLFileVersions(DLFileEntry dlFileEntry) {
 
 		List<DLFileVersion> dlFileVersions = dlFileEntry.getFileVersions(
 			WorkflowConstants.STATUS_ANY);
@@ -168,8 +167,7 @@ public class ConvertDocumentLibrary extends ConvertProcess {
 	}
 
 	protected void migrateDLFileEntry(
-			long companyId, long repositoryId, DLFileEntry dlFileEntry)
-		throws SystemException {
+			long companyId, long repositoryId, DLFileEntry dlFileEntry) {
 
 		String fileName = dlFileEntry.getName();
 

@@ -1266,8 +1266,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLayoutArticleReferences(long groupId, String layoutUuid)
-		throws SystemException {
+	public void deleteLayoutArticleReferences(long groupId, String layoutUuid) {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_L(
 			groupId, layoutUuid);
@@ -1367,8 +1366,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchArticle(
-			long groupId, String articleId, double version)
-		throws SystemException {
+			long groupId, String articleId, double version) {
 
 		return journalArticlePersistence.fetchByG_A_V(
 			groupId, articleId, version);
@@ -1376,8 +1374,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchLatestArticle(
-			long resourcePrimKey, int status, boolean preferApproved)
-		throws SystemException {
+			long resourcePrimKey, int status, boolean preferApproved) {
 
 		JournalArticle article = null;
 
@@ -1406,8 +1403,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchLatestArticle(
-			long groupId, String articleId, int status)
-		throws SystemException {
+			long groupId, String articleId, int status) {
 
 		OrderByComparator orderByComparator = new ArticleVersionComparator();
 
@@ -1422,8 +1418,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	@Override
-	public JournalArticle fetchLatestIndexableArticle(long resourcePrimKey)
-		throws SystemException {
+	public JournalArticle fetchLatestIndexableArticle(long resourcePrimKey) {
 
 		OrderByComparator orderByComparator = new ArticleVersionComparator();
 
@@ -2201,8 +2196,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles(long groupId)
-		throws SystemException {
+	public List<JournalArticle> getArticles(long groupId) {
 
 		return journalArticlePersistence.findByGroupId(groupId);
 	}
@@ -2228,8 +2222,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles(long groupId, int start, int end)
-		throws SystemException {
+	public List<JournalArticle> getArticles(long groupId, int start, int end) {
 
 		return journalArticlePersistence.findByGroupId(groupId, start, end);
 	}
@@ -2259,8 +2252,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return journalArticlePersistence.findByGroupId(
 			groupId, start, end, obc);
@@ -2275,8 +2267,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles(long groupId, long folderId)
-		throws SystemException {
+	public List<JournalArticle> getArticles(long groupId, long folderId) {
 
 		return journalArticlePersistence.findByG_F(groupId, folderId);
 	}
@@ -2305,8 +2296,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, long folderId, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int start, int end) {
 
 		return journalArticlePersistence.findByG_F(
 			groupId, folderId, start, end);
@@ -2314,8 +2304,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, long folderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int status, int start, int end) {
 
 		return journalArticlePersistence.findByG_F_ST(
 			groupId, folderId, status, start, end);
@@ -2349,8 +2338,7 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public List<JournalArticle> getArticles(
 			long groupId, long folderId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return journalArticlePersistence.findByG_F(
 			groupId, folderId, start, end, orderByComparator);
@@ -2365,8 +2353,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles(long groupId, String articleId)
-		throws SystemException {
+	public List<JournalArticle> getArticles(long groupId, String articleId) {
 
 		return journalArticlePersistence.findByG_A(groupId, articleId);
 	}
@@ -2374,8 +2361,7 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public List<JournalArticle> getArticles(
 			long groupId, String articleId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return journalArticlePersistence.findByG_A(
 			groupId, articleId, start, end, orderByComparator);
@@ -2383,8 +2369,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getArticlesByResourcePrimKey(
-			long resourcePrimKey)
-		throws SystemException {
+			long resourcePrimKey) {
 
 		return journalArticlePersistence.findByResourcePrimKey(resourcePrimKey);
 	}
@@ -2398,8 +2383,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticlesBySmallImageId(long smallImageId)
-		throws SystemException {
+	public List<JournalArticle> getArticlesBySmallImageId(long smallImageId) {
 
 		return journalArticlePersistence.findBySmallImageId(smallImageId);
 	}
@@ -2425,23 +2409,20 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getArticlesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getArticlesCount(long groupId, long folderId) {
 
 		return journalArticlePersistence.countByG_F(groupId, folderId);
 	}
 
 	@Override
-	public int getArticlesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getArticlesCount(long groupId, long folderId, int status) {
 
 		return journalArticlePersistence.countByG_F_ST(
 			groupId, folderId, status);
 	}
 
 	@Override
-	public int getArticlesCount(long groupId, String articleId)
-		throws SystemException {
+	public int getArticlesCount(long groupId, String articleId) {
 
 		return journalArticlePersistence.countByG_A(groupId, articleId);
 	}
@@ -2473,8 +2454,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
-			long companyId, double version, int status, int start, int end)
-		throws SystemException {
+			long companyId, double version, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.findByC_V(
@@ -2513,8 +2493,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
-			long companyId, int status, int start, int end)
-		throws SystemException {
+			long companyId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.findByCompanyId(
@@ -2553,8 +2532,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int getCompanyArticlesCount(
-			long companyId, double version, int status, int start, int end)
-		throws SystemException {
+			long companyId, double version, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.countByC_V(companyId, version);
@@ -2577,8 +2555,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getCompanyArticlesCount(long companyId, int status)
-		throws SystemException {
+	public int getCompanyArticlesCount(long companyId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.countByCompanyId(companyId);
@@ -2682,8 +2659,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getIndexableArticlesByResourcePrimKey(
-			long resourcePrimKey)
-		throws SystemException {
+			long resourcePrimKey) {
 
 		return journalArticlePersistence.findByR_I(resourcePrimKey, true);
 	}
@@ -2955,8 +2931,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getNotInTrashArticlesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getNotInTrashArticlesCount(long groupId, long folderId) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			WorkflowConstants.STATUS_ANY);
@@ -2987,8 +2962,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	@Override
-	public JournalArticle getPreviousApprovedArticle(JournalArticle article)
-		throws SystemException {
+	public JournalArticle getPreviousApprovedArticle(JournalArticle article) {
 
 		List<JournalArticle> approvedArticles =
 			journalArticlePersistence.findByG_A_ST(
@@ -3023,8 +2997,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getStructureArticles(
-			long groupId, String ddmStructureKey)
-		throws SystemException {
+			long groupId, String ddmStructureKey) {
 
 		return journalArticlePersistence.findByG_S(groupId, ddmStructureKey);
 	}
@@ -3057,16 +3030,14 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public List<JournalArticle> getStructureArticles(
 			long groupId, String ddmStructureKey, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalArticlePersistence.findByG_S(
 			groupId, ddmStructureKey, start, end, obc);
 	}
 
 	@Override
-	public List<JournalArticle> getStructureArticles(String[] ddmStructureKeys)
-		throws SystemException {
+	public List<JournalArticle> getStructureArticles(String[] ddmStructureKeys) {
 
 		return journalArticlePersistence.findByStructureId(ddmStructureKeys);
 	}
@@ -3082,8 +3053,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getStructureArticlesCount(long groupId, String ddmStructureKey)
-		throws SystemException {
+	public int getStructureArticlesCount(long groupId, String ddmStructureKey) {
 
 		return journalArticlePersistence.countByG_S(groupId, ddmStructureKey);
 	}
@@ -3099,8 +3069,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getTemplateArticles(
-			long groupId, String ddmTemplateKey)
-		throws SystemException {
+			long groupId, String ddmTemplateKey) {
 
 		return journalArticlePersistence.findByG_T(groupId, ddmTemplateKey);
 	}
@@ -3133,8 +3102,7 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public List<JournalArticle> getTemplateArticles(
 			long groupId, String ddmTemplateKey, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalArticlePersistence.findByG_T(
 			groupId, ddmTemplateKey, start, end, obc);
@@ -3151,8 +3119,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getTemplateArticlesCount(long groupId, String ddmTemplateKey)
-		throws SystemException {
+	public int getTemplateArticlesCount(long groupId, String ddmTemplateKey) {
 
 		return journalArticlePersistence.countByG_T(groupId, ddmTemplateKey);
 	}
@@ -3201,8 +3168,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasArticle(long groupId, String articleId)
-		throws SystemException {
+	public boolean hasArticle(long groupId, String articleId) {
 
 		try {
 			getArticle(groupId, articleId);
@@ -3688,8 +3654,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> search(
-			long groupId, List<Long> folderIds, int status, int start, int end)
-		throws SystemException {
+			long groupId, List<Long> folderIds, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -3700,8 +3665,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> search(
-			long groupId, long folderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int status, int start, int end) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -3776,8 +3740,7 @@ public class JournalArticleLocalServiceImpl
 			long classNameId, String keywords, Double version, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalArticleFinder.findByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -3859,8 +3822,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -3945,8 +3907,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type,
 			String[] ddmStructureKeys, String[] ddmTemplateKeys,
 			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -4008,8 +3969,7 @@ public class JournalArticleLocalServiceImpl
 			long companyId, long groupId, List<Long> folderIds,
 			long classNameId, String ddmStructureKey, String ddmTemplateKey,
 			String keywords, LinkedHashMap<String, Object> params, int start,
-			int end, Sort sort)
-		throws SystemException {
+			int end, Sort sort) {
 
 		String articleId = null;
 		String title = null;
@@ -4104,8 +4064,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type, int status,
 			String ddmStructureKey, String ddmTemplateKey,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort)
-		throws SystemException {
+			int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -4136,8 +4095,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type,
 			String statusString, String ddmStructureKey, String ddmTemplateKey,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort)
-		throws SystemException {
+			int end, Sort sort) {
 
 		int status = GetterUtil.getInteger(statusString);
 
@@ -4163,8 +4121,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long groupId, List<Long> folderIds, int status)
-		throws SystemException {
+	public int searchCount(long groupId, List<Long> folderIds, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -4173,8 +4130,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int searchCount(long groupId, long folderId, int status) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -4230,8 +4186,7 @@ public class JournalArticleLocalServiceImpl
 			long companyId, long groupId, List<Long> folderIds,
 			long classNameId, String keywords, Double version, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate)
-		throws SystemException {
+			Date displayDateLT, int status, Date reviewDate) {
 
 		return journalArticleFinder.countByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -4294,8 +4249,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return journalArticleFinder.countByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -4361,8 +4315,7 @@ public class JournalArticleLocalServiceImpl
 			String description, String content, String type,
 			String[] ddmStructureKeys, String[] ddmTemplateKeys,
 			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return journalArticleFinder.countByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -5543,8 +5496,7 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public void updateTemplateId(
 			long groupId, long classNameId, String oldDDMTemplateKey,
-			String newDDMTemplateKey)
-		throws SystemException {
+			String newDDMTemplateKey) {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_C_T(
 			groupId, classNameId, oldDDMTemplateKey);
@@ -6220,8 +6172,7 @@ public class JournalArticleLocalServiceImpl
 
 	protected Date[] getDateInterval(
 			long groupId, String articleId, Date earliestDisplayDate,
-			Date latestExpirationDate)
-		throws SystemException {
+			Date latestExpirationDate) {
 
 		Date[] dateInterval = new Date[2];
 
@@ -6737,8 +6688,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	protected void updateUrlTitles(
-			long groupId, String articleId, String urlTitle)
-		throws SystemException {
+			long groupId, String articleId, String urlTitle) {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_A(
 			groupId, articleId);

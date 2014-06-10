@@ -84,23 +84,20 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<SCLicense> getLicenses(boolean active, boolean recommended)
-		throws SystemException {
+	public List<SCLicense> getLicenses(boolean active, boolean recommended) {
 
 		return scLicensePersistence.findByA_R(active, recommended);
 	}
 
 	@Override
 	public List<SCLicense> getLicenses(
-			boolean active, boolean recommended, int start, int end)
-		throws SystemException {
+			boolean active, boolean recommended, int start, int end) {
 
 		return scLicensePersistence.findByA_R(active, recommended, start, end);
 	}
 
 	@Override
-	public List<SCLicense> getLicenses(int start, int end)
-		throws SystemException {
+	public List<SCLicense> getLicenses(int start, int end) {
 
 		return scLicensePersistence.findAll(start, end);
 	}
@@ -111,15 +108,13 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getLicensesCount(boolean active, boolean recommended)
-		throws SystemException {
+	public int getLicensesCount(boolean active, boolean recommended) {
 
 		return scLicensePersistence.countByA_R(active, recommended);
 	}
 
 	@Override
-	public List<SCLicense> getProductEntryLicenses(long productEntryId)
-		throws SystemException {
+	public List<SCLicense> getProductEntryLicenses(long productEntryId) {
 
 		return scProductEntryPersistence.getSCLicenses(productEntryId);
 	}

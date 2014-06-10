@@ -478,8 +478,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CalEvent> getCompanyEvents(long companyId, int start, int end)
-		throws SystemException {
+	public List<CalEvent> getCompanyEvents(long companyId, int start, int end) {
 
 		return calEventPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -497,22 +496,19 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CalEvent> getEvents(long groupId, Calendar cal)
-		throws SystemException {
+	public List<CalEvent> getEvents(long groupId, Calendar cal) {
 
 		return getEvents(groupId, cal, new String[0]);
 	}
 
 	@Override
-	public List<CalEvent> getEvents(long groupId, Calendar cal, String type)
-		throws SystemException {
+	public List<CalEvent> getEvents(long groupId, Calendar cal, String type) {
 
 		return getEvents(groupId, cal, new String[] {type});
 	}
 
 	@Override
-	public List<CalEvent> getEvents(long groupId, Calendar cal, String[] types)
-		throws SystemException {
+	public List<CalEvent> getEvents(long groupId, Calendar cal, String[] types) {
 
 		if (types != null) {
 			types = ArrayUtil.distinct(types);
@@ -572,16 +568,14 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 	@Override
 	public List<CalEvent> getEvents(
-			long groupId, String type, int start, int end)
-		throws SystemException {
+			long groupId, String type, int start, int end) {
 
 		return getEvents(groupId, new String[] {type}, start, end);
 	}
 
 	@Override
 	public List<CalEvent> getEvents(
-			long groupId, String[] types, int start, int end)
-		throws SystemException {
+			long groupId, String[] types, int start, int end) {
 
 		if ((types != null) && (types.length > 0) &&
 			((types.length > 1) || Validator.isNotNull(types[0]))) {
@@ -594,15 +588,13 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getEventsCount(long groupId, String type)
-		throws SystemException {
+	public int getEventsCount(long groupId, String type) {
 
 		return getEventsCount(groupId, new String[] {type});
 	}
 
 	@Override
-	public int getEventsCount(long groupId, String[] types)
-		throws SystemException {
+	public int getEventsCount(long groupId, String[] types) {
 
 		if ((types != null) && (types.length > 0) &&
 			((types.length > 1) || Validator.isNotNull(types[0]))) {
@@ -620,16 +612,14 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CalEvent> getRepeatingEvents(long groupId)
-		throws SystemException {
+	public List<CalEvent> getRepeatingEvents(long groupId) {
 
 		return getRepeatingEvents(groupId, null, null);
 	}
 
 	@Override
 	public List<CalEvent> getRepeatingEvents(
-			long groupId, Calendar cal, String[] types)
-		throws SystemException {
+			long groupId, Calendar cal, String[] types) {
 
 		Map<String, List<CalEvent>> eventsPool =
 			CalEventLocalUtil.getEventsPool(groupId);
@@ -704,22 +694,19 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasEvents(long groupId, Calendar cal)
-		throws SystemException {
+	public boolean hasEvents(long groupId, Calendar cal) {
 
 		return hasEvents(groupId, cal, new String[0]);
 	}
 
 	@Override
-	public boolean hasEvents(long groupId, Calendar cal, String type)
-		throws SystemException {
+	public boolean hasEvents(long groupId, Calendar cal, String type) {
 
 		return hasEvents(groupId, cal, new String[] {type});
 	}
 
 	@Override
-	public boolean hasEvents(long groupId, Calendar cal, String[] types)
-		throws SystemException {
+	public boolean hasEvents(long groupId, Calendar cal, String[] types) {
 
 		List<CalEvent> events = getEvents(groupId, cal, types);
 
@@ -889,8 +876,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	protected File exportICal4j(
-			net.fortuna.ical4j.model.Calendar cal, String fileName)
-		throws SystemException {
+			net.fortuna.ical4j.model.Calendar cal, String fileName) {
 
 		OutputStream os = null;
 

@@ -35,8 +35,7 @@ public class ThemeFactoryImpl implements ThemeFactory {
 	}
 
 	@Override
-	public String getDefaultRegularThemeId(long companyId)
-		throws SystemException {
+	public String getDefaultRegularThemeId(long companyId) {
 
 		String defaultRegularThemeId = PrefsPropsUtil.getString(
 			companyId, PropsKeys.DEFAULT_REGULAR_THEME_ID);

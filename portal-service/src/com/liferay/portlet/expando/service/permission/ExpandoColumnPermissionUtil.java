@@ -71,8 +71,7 @@ public class ExpandoColumnPermissionUtil {
 	public static boolean contains(
 			PermissionChecker permissionChecker, long companyId,
 			String className, String tableName, String columnName,
-			String actionId)
-		throws SystemException {
+			String actionId) {
 
 		return getExpandoColumnPermission().contains(
 			permissionChecker, companyId, className, tableName, columnName,

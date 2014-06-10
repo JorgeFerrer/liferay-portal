@@ -315,8 +315,7 @@ public class PortletAction extends Action {
 		return _CHECK_METHOD_ON_PROCESS_ACTION;
 	}
 
-	protected boolean isDisplaySuccessMessage(PortletRequest portletRequest)
-		throws SystemException {
+	protected boolean isDisplaySuccessMessage(PortletRequest portletRequest) {
 
 		if (!SessionErrors.isEmpty(portletRequest)) {
 			return false;

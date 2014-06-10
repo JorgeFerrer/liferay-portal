@@ -61,8 +61,7 @@ public class ServiceComponentLocalServiceImpl
 
 	@Override
 	public void destroyServiceComponent(
-			ServletContext servletContext, ClassLoader classLoader)
-		throws SystemException {
+			ServletContext servletContext, ClassLoader classLoader) {
 
 		try {
 			clearCacheRegistry(servletContext);
@@ -437,8 +436,7 @@ public class ServiceComponentLocalServiceImpl
 		}
 	}
 
-	protected void removeOldServiceComponents(String buildNamespace)
-		throws SystemException {
+	protected void removeOldServiceComponents(String buildNamespace) {
 
 		int serviceComponentsCount =
 			serviceComponentPersistence.countByBuildNamespace(buildNamespace);

@@ -146,8 +146,7 @@ public class SCFrameworkVersionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFrameworkVersion(SCFrameworkVersion frameworkVersion)
-		throws SystemException {
+	public void deleteFrameworkVersion(SCFrameworkVersion frameworkVersion) {
 
 		scFrameworkVersionPersistence.remove(frameworkVersion);
 	}
@@ -172,16 +171,14 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active)
-		throws SystemException {
+			long groupId, boolean active) {
 
 		return scFrameworkVersionPersistence.findByG_A(groupId, active);
 	}
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active, int start, int end)
-		throws SystemException {
+			long groupId, boolean active, int start, int end) {
 
 		return scFrameworkVersionPersistence.findByG_A(
 			groupId, active, start, end);
@@ -189,8 +186,7 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return scFrameworkVersionPersistence.findByGroupId(groupId, start, end);
 	}
@@ -201,16 +197,14 @@ public class SCFrameworkVersionLocalServiceImpl
 	}
 
 	@Override
-	public int getFrameworkVersionsCount(long groupId, boolean active)
-		throws SystemException {
+	public int getFrameworkVersionsCount(long groupId, boolean active) {
 
 		return scFrameworkVersionPersistence.countByG_A(groupId, active);
 	}
 
 	@Override
 	public List<SCFrameworkVersion> getProductVersionFrameworkVersions(
-			long productVersionId)
-		throws SystemException {
+			long productVersionId) {
 
 		return scProductVersionPersistence.getSCFrameworkVersions(
 			productVersionId);

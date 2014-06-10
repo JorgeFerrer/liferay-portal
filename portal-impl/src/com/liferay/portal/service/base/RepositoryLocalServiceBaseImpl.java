@@ -141,8 +141,7 @@ public abstract class RepositoryLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Repository deleteRepository(Repository repository)
-		throws SystemException {
+	public Repository deleteRepository(Repository repository) {
 		return repositoryPersistence.remove(repository);
 	}
 

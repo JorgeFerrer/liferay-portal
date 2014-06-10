@@ -162,8 +162,7 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public void deleteTables(long companyId, long classNameId)
-		throws SystemException {
+	public void deleteTables(long companyId, long classNameId) {
 
 		List<ExpandoTable> tables = expandoTablePersistence.findByC_C(
 			companyId, classNameId);
@@ -174,8 +173,7 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public void deleteTables(long companyId, String className)
-		throws SystemException {
+	public void deleteTables(long companyId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -183,16 +181,14 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public ExpandoTable fetchDefaultTable(long companyId, long classNameId)
-		throws SystemException {
+	public ExpandoTable fetchDefaultTable(long companyId, long classNameId) {
 
 		return fetchTable(
 			companyId, classNameId, ExpandoTableConstants.DEFAULT_TABLE_NAME);
 	}
 
 	@Override
-	public ExpandoTable fetchDefaultTable(long companyId, String className)
-		throws SystemException {
+	public ExpandoTable fetchDefaultTable(long companyId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -202,8 +198,7 @@ public class ExpandoTableLocalServiceImpl
 
 	@Override
 	public ExpandoTable fetchTable(
-			long companyId, long classNameId, String name)
-		throws SystemException {
+			long companyId, long classNameId, String name) {
 
 		return expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, name);
@@ -280,15 +275,13 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public List<ExpandoTable> getTables(long companyId, long classNameId)
-		throws SystemException {
+	public List<ExpandoTable> getTables(long companyId, long classNameId) {
 
 		return expandoTablePersistence.findByC_C(companyId, classNameId);
 	}
 
 	@Override
-	public List<ExpandoTable> getTables(long companyId, String className)
-		throws SystemException {
+	public List<ExpandoTable> getTables(long companyId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

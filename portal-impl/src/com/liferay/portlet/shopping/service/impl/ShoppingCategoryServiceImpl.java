@@ -58,24 +58,21 @@ public class ShoppingCategoryServiceImpl
 	}
 
 	@Override
-	public List<ShoppingCategory> getCategories(long groupId)
-		throws SystemException {
+	public List<ShoppingCategory> getCategories(long groupId) {
 
 		return shoppingCategoryPersistence.filterFindByGroupId(groupId);
 	}
 
 	@Override
 	public List<ShoppingCategory> getCategories(
-			long groupId, long parentCategoryId, int start, int end)
-		throws SystemException {
+			long groupId, long parentCategoryId, int start, int end) {
 
 		return shoppingCategoryPersistence.filterFindByG_P(
 			groupId, parentCategoryId, start, end);
 	}
 
 	@Override
-	public int getCategoriesCount(long groupId, long parentCategoryId)
-		throws SystemException {
+	public int getCategoriesCount(long groupId, long parentCategoryId) {
 
 		return shoppingCategoryPersistence.filterCountByG_P(
 			groupId, parentCategoryId);
@@ -96,8 +93,7 @@ public class ShoppingCategoryServiceImpl
 
 	@Override
 	public void getSubcategoryIds(
-			List<Long> categoryIds, long groupId, long categoryId)
-		throws SystemException {
+			List<Long> categoryIds, long groupId, long categoryId) {
 
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.filterFindByG_P(groupId, categoryId);

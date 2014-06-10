@@ -33,8 +33,7 @@ public class SCProductVersionImpl extends SCProductVersionBaseImpl {
 	}
 
 	@Override
-	public List<SCFrameworkVersion> getFrameworkVersions()
-		throws SystemException {
+	public List<SCFrameworkVersion> getFrameworkVersions() {
 
 		return SCFrameworkVersionLocalServiceUtil.
 			getProductVersionFrameworkVersions(getProductVersionId());

@@ -682,8 +682,7 @@ public class DLImpl implements DL {
 	}
 
 	@Override
-	public Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId)
-		throws SystemException {
+	public Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId) {
 
 		List<Subscription> subscriptions =
 			SubscriptionLocalServiceUtil.getUserSubscriptions(
@@ -1156,8 +1155,7 @@ public class DLImpl implements DL {
 
 	@Override
 	public boolean isSubscribedToFileEntryType(
-			long companyId, long groupId, long userId, long fileEntryTypeId)
-		throws SystemException {
+			long companyId, long groupId, long userId, long fileEntryTypeId) {
 
 		if (fileEntryTypeId ==
 				DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT) {

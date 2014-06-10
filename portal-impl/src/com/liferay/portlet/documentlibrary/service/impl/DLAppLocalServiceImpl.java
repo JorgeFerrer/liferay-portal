@@ -312,8 +312,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	@Override
 	public DLFileRank addFileRank(
 			long repositoryId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		return dlFileRankLocalService.addFileRank(
 			repositoryId, companyId, userId, fileEntryId, serviceContext);
@@ -436,8 +435,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileRanksByFileEntryId(long fileEntryId)
-		throws SystemException {
+	public void deleteFileRanksByFileEntryId(long fileEntryId) {
 
 		dlFileRankLocalService.deleteFileRanksByFileEntryId(fileEntryId);
 	}
@@ -630,8 +628,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DLFileRank> getFileRanks(long repositoryId, long userId)
-		throws SystemException {
+	public List<DLFileRank> getFileRanks(long repositoryId, long userId) {
 
 		return dlFileRankLocalService.getFileRanks(repositoryId, userId);
 	}
@@ -1257,8 +1254,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	@Override
 	public DLFileRank updateFileRank(
 			long repositoryId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		return dlFileRankLocalService.updateFileRank(
 			repositoryId, companyId, userId, fileEntryId, serviceContext);
@@ -1302,8 +1298,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 */
 	@Override
 	public void updateFileShortcuts(
-			long toRepositoryId, long oldToFileEntryId, long newToFileEntryId)
-		throws SystemException {
+			long toRepositoryId, long oldToFileEntryId, long newToFileEntryId) {
 
 		dlFileShortcutLocalService.updateFileShortcuts(
 			oldToFileEntryId, newToFileEntryId);

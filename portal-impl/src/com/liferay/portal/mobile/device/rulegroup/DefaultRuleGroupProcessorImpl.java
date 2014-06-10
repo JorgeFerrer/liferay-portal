@@ -43,8 +43,7 @@ import java.util.Map;
 public class DefaultRuleGroupProcessorImpl implements RuleGroupProcessor {
 
 	@Override
-	public MDRRuleGroupInstance evaluateRuleGroups(ThemeDisplay themeDisplay)
-		throws SystemException {
+	public MDRRuleGroupInstance evaluateRuleGroups(ThemeDisplay themeDisplay) {
 
 		Layout layout = themeDisplay.getLayout();
 
@@ -128,8 +127,7 @@ public class DefaultRuleGroupProcessorImpl implements RuleGroupProcessor {
 	}
 
 	protected MDRRuleGroupInstance evaluateRuleGroupInstances(
-			String className, long classPK, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String className, long classPK, ThemeDisplay themeDisplay) {
 
 		List<MDRRuleGroupInstance> mdrRuleGroupInstances =
 			_mdrRuleGroupInstanceLocalService.getRuleGroupInstances(

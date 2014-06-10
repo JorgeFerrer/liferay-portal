@@ -123,8 +123,7 @@ public class PasswordPolicyPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getPasswordPolicyActionableDynamicQuery(
-			final PortletDataContext portletDataContext, final boolean export)
-		throws SystemException {
+			final PortletDataContext portletDataContext, final boolean export) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			PasswordPolicyLocalServiceUtil.getExportActionableDynamicQuery(

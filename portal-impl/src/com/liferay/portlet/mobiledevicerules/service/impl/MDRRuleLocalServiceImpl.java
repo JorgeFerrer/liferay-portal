@@ -164,8 +164,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MDRRule> getRules(long ruleGroupId, int start, int end)
-		throws SystemException {
+	public List<MDRRule> getRules(long ruleGroupId, int start, int end) {
 
 		return mdrRulePersistence.findByRuleGroupId(ruleGroupId, start, end);
 	}

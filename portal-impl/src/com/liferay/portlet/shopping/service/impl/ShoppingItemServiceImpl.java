@@ -80,8 +80,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	}
 
 	@Override
-	public int getCategoriesItemsCount(long groupId, List<Long> categoryIds)
-		throws SystemException {
+	public int getCategoriesItemsCount(long groupId, List<Long> categoryIds) {
 
 		return shoppingItemFinder.filterCountByG_C(groupId, categoryIds);
 	}
@@ -97,8 +96,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	}
 
 	@Override
-	public List<ShoppingItem> getItems(long groupId, long categoryId)
-		throws SystemException {
+	public List<ShoppingItem> getItems(long groupId, long categoryId) {
 
 		return shoppingItemPersistence.filterFindByG_C(groupId, categoryId);
 	}
@@ -106,16 +104,14 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	@Override
 	public List<ShoppingItem> getItems(
 			long groupId, long categoryId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return shoppingItemPersistence.filterFindByG_C(
 			groupId, categoryId, start, end, obc);
 	}
 
 	@Override
-	public int getItemsCount(long groupId, long categoryId)
-		throws SystemException {
+	public int getItemsCount(long groupId, long categoryId) {
 
 		return shoppingItemPersistence.filterCountByG_C(groupId, categoryId);
 	}

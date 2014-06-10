@@ -52,8 +52,7 @@ public class AssetCategoryStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		AssetCategory category =
 			AssetCategoryLocalServiceUtil.fetchAssetCategoryByUuidAndGroupId(

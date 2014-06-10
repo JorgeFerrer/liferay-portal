@@ -322,8 +322,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	@ThreadLocalCachable
-	public List<AssetCategory> getCategories(long classNameId, long classPK)
-		throws SystemException {
+	public List<AssetCategory> getCategories(long classNameId, long classPK) {
 
 		AssetEntry entry = assetEntryPersistence.fetchByC_C(
 			classNameId, classPK);
@@ -336,8 +335,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public List<AssetCategory> getCategories(String className, long classPK)
-		throws SystemException {
+	public List<AssetCategory> getCategories(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -359,8 +357,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public long[] getCategoryIds(String className, long classPK)
-		throws SystemException {
+	public long[] getCategoryIds(String className, long classPK) {
 
 		return getCategoryIds(getCategories(className, classPK));
 	}
@@ -371,22 +368,19 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public String[] getCategoryNames(long classNameId, long classPK)
-		throws SystemException {
+	public String[] getCategoryNames(long classNameId, long classPK) {
 
 		return getCategoryNames(getCategories(classNameId, classPK));
 	}
 
 	@Override
-	public String[] getCategoryNames(String className, long classPK)
-		throws SystemException {
+	public String[] getCategoryNames(String className, long classPK) {
 
 		return getCategoryNames(getCategories(className, classPK));
 	}
 
 	@Override
-	public List<AssetCategory> getChildCategories(long parentCategoryId)
-		throws SystemException {
+	public List<AssetCategory> getChildCategories(long parentCategoryId) {
 
 		return assetCategoryPersistence.findByParentCategoryId(
 			parentCategoryId);
@@ -394,31 +388,27 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getChildCategories(
-			long parentCategoryId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long parentCategoryId, int start, int end, OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByParentCategoryId(
 			parentCategoryId, start, end, obc);
 	}
 
 	@Override
-	public int getChildCategoriesCount(long parentCategoryId)
-		throws SystemException {
+	public int getChildCategoriesCount(long parentCategoryId) {
 
 		return assetCategoryPersistence.countByParentCategoryId(
 			parentCategoryId);
 	}
 
 	@Override
-	public List<AssetCategory> getEntryCategories(long entryId)
-		throws SystemException {
+	public List<AssetCategory> getEntryCategories(long entryId) {
 
 		return assetEntryPersistence.getAssetCategories(entryId);
 	}
 
 	@Override
-	public List<Long> getSubcategoryIds(long parentCategoryId)
-		throws SystemException {
+	public List<Long> getSubcategoryIds(long parentCategoryId) {
 
 		AssetCategory parentAssetCategory =
 			assetCategoryPersistence.fetchByPrimaryKey(parentCategoryId);
@@ -434,8 +424,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getVocabularyCategories(
-			long vocabularyId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long vocabularyId, int start, int end, OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByVocabularyId(
 			vocabularyId, start, end, obc);
@@ -444,24 +433,21 @@ public class AssetCategoryLocalServiceImpl
 	@Override
 	public List<AssetCategory> getVocabularyCategories(
 			long parentCategoryId, long vocabularyId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByP_V(
 			parentCategoryId, vocabularyId, start, end, obc);
 	}
 
 	@Override
-	public int getVocabularyCategoriesCount(long vocabularyId)
-		throws SystemException {
+	public int getVocabularyCategoriesCount(long vocabularyId) {
 
 		return assetCategoryPersistence.countByVocabularyId(vocabularyId);
 	}
 
 	@Override
 	public List<AssetCategory> getVocabularyRootCategories(
-			long vocabularyId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long vocabularyId, int start, int end, OrderByComparator obc) {
 
 		return getVocabularyCategories(
 			AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, vocabularyId,
@@ -469,8 +455,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public int getVocabularyRootCategoriesCount(long vocabularyId)
-		throws SystemException {
+	public int getVocabularyRootCategoriesCount(long vocabularyId) {
 
 		return assetCategoryPersistence.countByP_V(
 			AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, vocabularyId);
@@ -540,8 +525,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public void rebuildTree(long groupId, boolean force)
-		throws SystemException {
+	public void rebuildTree(long groupId, boolean force) {
 
 		assetCategoryPersistence.rebuildTree(groupId, force);
 	}
@@ -549,8 +533,7 @@ public class AssetCategoryLocalServiceImpl
 	@Override
 	public List<AssetCategory> search(
 			long groupId, String name, String[] categoryProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return assetCategoryFinder.findByG_N_P(
 			groupId, name, categoryProperties, start, end);
@@ -775,8 +758,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	protected void updateChildrenVocabularyId(
-			AssetCategory category, long vocabularyId)
-		throws SystemException {
+			AssetCategory category, long vocabularyId) {
 
 		List<AssetCategory> childrenCategories =
 			assetCategoryPersistence.findByParentCategoryId(

@@ -34,8 +34,7 @@ public class UserTrackerLocalServiceImpl
 	public UserTracker addUserTracker(
 			long companyId, long userId, Date modifiedDate, String sessionId,
 			String remoteAddr, String remoteHost, String userAgent,
-			List<UserTrackerPath> userTrackerPaths)
-		throws SystemException {
+			List<UserTrackerPath> userTrackerPaths) {
 
 		if (PropsValues.SESSION_TRACKER_PERSISTENCE_ENABLED) {
 			long userTrackerId = counterLocalService.increment(
@@ -82,8 +81,7 @@ public class UserTrackerLocalServiceImpl
 	}
 
 	@Override
-	public UserTracker deleteUserTracker(UserTracker userTracker)
-		throws SystemException {
+	public UserTracker deleteUserTracker(UserTracker userTracker) {
 
 		// Paths
 
@@ -96,8 +94,7 @@ public class UserTrackerLocalServiceImpl
 	}
 
 	@Override
-	public List<UserTracker> getUserTrackers(long companyId, int start, int end)
-		throws SystemException {
+	public List<UserTracker> getUserTrackers(long companyId, int start, int end) {
 
 		return userTrackerPersistence.findByCompanyId(companyId, start, end);
 	}

@@ -539,8 +539,7 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	@Override
 	public void updateResources(
 			long companyId, String name, int scope, String primKey,
-			String newPrimKey)
-		throws SystemException {
+			String newPrimKey) {
 
 		if (resourceBlockLocalService.isSupported(name)) {
 
@@ -1034,8 +1033,7 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 
 	protected void updateResourcePermissions(
 			long companyId, String name, int scope, String primKey,
-			String newPrimKey)
-		throws SystemException {
+			String newPrimKey) {
 
 		List<ResourcePermission> resourcePermissions =
 			resourcePermissionLocalService.getResourcePermissions(

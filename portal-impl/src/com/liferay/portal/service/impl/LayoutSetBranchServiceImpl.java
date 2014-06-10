@@ -58,8 +58,7 @@ public class LayoutSetBranchServiceImpl extends LayoutSetBranchServiceBaseImpl {
 
 	@Override
 	public List<LayoutSetBranch> getLayoutSetBranches(
-			long groupId, boolean privateLayout)
-		throws SystemException {
+			long groupId, boolean privateLayout) {
 
 		return layoutSetBranchLocalService.getLayoutSetBranches(
 			groupId, privateLayout);

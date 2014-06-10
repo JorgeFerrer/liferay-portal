@@ -500,8 +500,7 @@ public abstract class DLPreviewableProcessor implements DLProcessor {
 	protected void exportBinary(
 			PortletDataContext portletDataContext, Element fileEntryElement,
 			FileVersion fileVersion, InputStream is, String binPath,
-			String binPathName)
-		throws SystemException {
+			String binPathName) {
 
 		fileEntryElement.addAttribute(binPathName, binPath);
 

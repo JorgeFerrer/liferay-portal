@@ -384,8 +384,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMTemplate> getTemplates(long groupId, long classNameId)
-		throws SystemException {
+	public List<DDMTemplate> getTemplates(long groupId, long classNameId) {
 
 		return ddmTemplatePersistence.filterFindByG_C(groupId, classNameId);
 	}
@@ -403,8 +402,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long groupId, long classNameId, long classPK)
-		throws SystemException {
+			long groupId, long classNameId, long classPK) {
 
 		return ddmTemplatePersistence.filterFindByG_C_C(
 			groupId, classNameId, classPK);
@@ -449,8 +447,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long groupId, long classNameId, long classPK, String type)
-		throws SystemException {
+			long groupId, long classNameId, long classPK, String type) {
 
 		return ddmTemplatePersistence.filterFindByG_C_C_T(
 			groupId, classNameId, classPK, type);
@@ -459,8 +456,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public List<DDMTemplate> getTemplates(
 			long groupId, long classNameId, long classPK, String type,
-			String mode)
-		throws SystemException {
+			String mode) {
 
 		return ddmTemplatePersistence.filterFindByG_C_C_T_M(
 			groupId, classNameId, classPK, type, mode);
@@ -475,8 +471,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMTemplate> getTemplatesByClassPK(long groupId, long classPK)
-		throws SystemException {
+	public List<DDMTemplate> getTemplatesByClassPK(long groupId, long classPK) {
 
 		return ddmTemplatePersistence.filterFindByG_CPK(groupId, classPK);
 	}
@@ -510,8 +505,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public List<DDMTemplate> getTemplatesByStructureClassNameId(
 			long groupId, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.filterFindByG_SC(
 			groupId, structureClassNameId, start, end, orderByComparator);
@@ -531,8 +525,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 */
 	@Override
 	public int getTemplatesByStructureClassNameIdCount(
-			long groupId, long structureClassNameId)
-		throws SystemException {
+			long groupId, long structureClassNameId) {
 
 		return ddmTemplateFinder.filterCountByG_SC(
 			groupId, structureClassNameId);
@@ -578,8 +571,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public List<DDMTemplate> search(
 			long companyId, long groupId, long classNameId, long classPK,
 			String keywords, String type, String mode, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.filterFindByKeywords(
 			companyId, groupId, classNameId, classPK, keywords, type, mode,
@@ -633,8 +625,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			long companyId, long groupId, long classNameId, long classPK,
 			String name, String description, String type, String mode,
 			String language, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.filterFindByC_G_C_C_N_D_T_M_L(
 			companyId, groupId, classNameId, classPK, name, description, type,
@@ -681,8 +672,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public List<DDMTemplate> search(
 			long companyId, long[] groupIds, long[] classNameIds,
 			long[] classPKs, String keywords, String type, String mode,
-			int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int start, int end, OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.filterFindByKeywords(
 			companyId, groupIds, classNameIds, classPKs, keywords, type, mode,
@@ -736,8 +726,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 			long companyId, long[] groupIds, long[] classNameIds,
 			long[] classPKs, String name, String description, String type,
 			String mode, String language, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int end, OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.filterFindByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, name, description,
@@ -768,8 +757,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode)
-		throws SystemException {
+			String keywords, String type, String mode) {
 
 		return ddmTemplateFinder.filterCountByKeywords(
 			companyId, groupId, classNameId, classPK, keywords, type, mode);
@@ -805,8 +793,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public int searchCount(
 			long companyId, long groupId, long classNameId, long classPK,
 			String name, String description, String type, String mode,
-			String language, boolean andOperator)
-		throws SystemException {
+			String language, boolean andOperator) {
 
 		return ddmTemplateFinder.filterCountByC_G_C_C_N_D_T_M_L(
 			companyId, groupId, classNameId, classPK, name, description, type,
@@ -837,8 +824,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode)
-		throws SystemException {
+			long[] classPKs, String keywords, String type, String mode) {
 
 		return ddmTemplateFinder.filterCountByKeywords(
 			companyId, groupIds, classNameIds, classPKs, keywords, type, mode);
@@ -874,8 +860,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds,
 			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator)
-		throws SystemException {
+			String mode, String language, boolean andOperator) {
 
 		return ddmTemplateFinder.filterCountByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, name, description,

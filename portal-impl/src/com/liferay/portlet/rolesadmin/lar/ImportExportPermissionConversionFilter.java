@@ -31,8 +31,7 @@ public class ImportExportPermissionConversionFilter
 	implements PermissionConversionFilter {
 
 	@Override
-	public boolean accept(Role role, ResourcePermission resourcePermission)
-		throws SystemException {
+	public boolean accept(Role role, ResourcePermission resourcePermission) {
 
 		int scope = resourcePermission.getScope();
 
@@ -57,8 +56,7 @@ public class ImportExportPermissionConversionFilter
 
 	@Override
 	public boolean accept(
-			Role role, ResourceTypePermission resourceTypePermission)
-		throws SystemException {
+			Role role, ResourceTypePermission resourceTypePermission) {
 
 		if (role.getType() != RoleConstants.TYPE_REGULAR) {
 			return true;

@@ -152,8 +152,7 @@ public class FileEntryProxyBean
 	}
 
 	@Override
-	public List<FileVersion> getFileVersions(int status)
-		throws SystemException {
+	public List<FileVersion> getFileVersions(int status) {
 
 		List<FileVersion> fileVersions = _fileEntry.getFileVersions(status);
 

@@ -45,8 +45,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class PollsUtil {
 
-	public static CategoryDataset getVotesDataset(long questionId)
-		throws SystemException {
+	public static CategoryDataset getVotesDataset(long questionId) {
 
 		DefaultCategoryDataset defaultCategoryDataset =
 			new DefaultCategoryDataset();

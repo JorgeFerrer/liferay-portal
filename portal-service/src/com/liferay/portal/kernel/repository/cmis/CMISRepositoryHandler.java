@@ -246,8 +246,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 
 	@Override
 	public List<Object> getFoldersAndFileEntries(
-			long folderId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long folderId, int start, int end, OrderByComparator obc) {
 
 		return _baseCmisRepository.getFoldersAndFileEntries(
 			folderId, start, end, obc);
@@ -264,8 +263,7 @@ public abstract class CMISRepositoryHandler extends BaseRepositoryImpl {
 	}
 
 	@Override
-	public int getFoldersAndFileEntriesCount(long folderId)
-		throws SystemException {
+	public int getFoldersAndFileEntriesCount(long folderId) {
 
 		return _baseCmisRepository.getFoldersAndFileEntriesCount(folderId);
 	}

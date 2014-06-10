@@ -238,16 +238,14 @@ public class DLFileEntryTypeLocalServiceImpl
 	}
 
 	@Override
-	public DLFileEntryType fetchFileEntryType(long fileEntryTypeId)
-		throws SystemException {
+	public DLFileEntryType fetchFileEntryType(long fileEntryTypeId) {
 
 		return dlFileEntryTypePersistence.fetchByPrimaryKey(fileEntryTypeId);
 	}
 
 	@Override
 	public DLFileEntryType fetchFileEntryType(
-			long groupId, String fileEntryTypeKey)
-		throws SystemException {
+			long groupId, String fileEntryTypeKey) {
 
 		fileEntryTypeKey = StringUtil.toUpperCase(fileEntryTypeKey.trim());
 
@@ -288,8 +286,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	}
 
 	@Override
-	public List<DLFileEntryType> getFileEntryTypes(long[] groupIds)
-		throws SystemException {
+	public List<DLFileEntryType> getFileEntryTypes(long[] groupIds) {
 
 		return dlFileEntryTypePersistence.findByGroupId(groupIds);
 	}
@@ -329,8 +326,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	public List<DLFileEntryType> search(
 			long companyId, long[] groupIds, String keywords,
 			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return dlFileEntryTypeFinder.findByKeywords(
 			companyId, groupIds, keywords, includeBasicFileEntryType, start,
@@ -340,16 +336,14 @@ public class DLFileEntryTypeLocalServiceImpl
 	@Override
 	public int searchCount(
 			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType)
-		throws SystemException {
+			boolean includeBasicFileEntryType) {
 
 		return dlFileEntryTypeFinder.countByKeywords(
 			companyId, groupIds, keywords, includeBasicFileEntryType);
 	}
 
 	@Override
-	public void unsetFolderFileEntryTypes(long folderId)
-		throws SystemException {
+	public void unsetFolderFileEntryTypes(long folderId) {
 
 		List<DLFileEntryType> dlFileEntryTypes =
 			dlFolderPersistence.getDLFileEntryTypes(folderId);
@@ -566,8 +560,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	}
 
 	protected void fixDDMStructureKey(
-			String fileEntryTypeUuid, long fileEntryTypeId, long groupId)
-		throws SystemException {
+			String fileEntryTypeUuid, long fileEntryTypeId, long groupId) {
 
 		DDMStructure ddmStructure = ddmStructureLocalService.fetchStructure(
 			groupId,

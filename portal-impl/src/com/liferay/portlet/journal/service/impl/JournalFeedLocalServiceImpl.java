@@ -219,8 +219,7 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public JournalFeed fetchFeed(long groupId, String feedId)
-		throws SystemException {
+	public JournalFeed fetchFeed(long groupId, String feedId) {
 
 		return journalFeedPersistence.fetchByG_F(groupId, feedId);
 	}
@@ -250,8 +249,7 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalFeed> getFeeds(long groupId, int start, int end)
-		throws SystemException {
+	public List<JournalFeed> getFeeds(long groupId, int start, int end) {
 
 		return journalFeedPersistence.findByGroupId(groupId, start, end);
 	}
@@ -264,8 +262,7 @@ public class JournalFeedLocalServiceImpl
 	@Override
 	public List<JournalFeed> search(
 			long companyId, long groupId, String keywords, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalFeedFinder.findByKeywords(
 			companyId, groupId, keywords, start, end, obc);
@@ -275,8 +272,7 @@ public class JournalFeedLocalServiceImpl
 	public List<JournalFeed> search(
 			long companyId, long groupId, String feedId, String name,
 			String description, boolean andOperator, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalFeedFinder.findByC_G_F_N_D(
 			companyId, groupId, feedId, name, description, andOperator, start,
@@ -284,8 +280,7 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long companyId, long groupId, String keywords)
-		throws SystemException {
+	public int searchCount(long companyId, long groupId, String keywords) {
 
 		return journalFeedFinder.countByKeywords(companyId, groupId, keywords);
 	}
@@ -293,8 +288,7 @@ public class JournalFeedLocalServiceImpl
 	@Override
 	public int searchCount(
 			long companyId, long groupId, String feedId, String name,
-			String description, boolean andOperator)
-		throws SystemException {
+			String description, boolean andOperator) {
 
 		return journalFeedFinder.countByC_G_F_N_D(
 			companyId, groupId, feedId, name, description, andOperator);

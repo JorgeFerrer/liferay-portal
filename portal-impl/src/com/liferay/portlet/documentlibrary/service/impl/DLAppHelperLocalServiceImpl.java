@@ -373,8 +373,7 @@ public class DLAppHelperLocalServiceImpl
 
 	@Override
 	public void getFileAsStream(
-			long userId, FileEntry fileEntry, boolean incrementCounter)
-		throws SystemException {
+			long userId, FileEntry fileEntry, boolean incrementCounter) {
 
 		if (!incrementCounter) {
 			return;
@@ -407,8 +406,7 @@ public class DLAppHelperLocalServiceImpl
 
 	@Override
 	public List<DLFileShortcut> getFileShortcuts(
-			long groupId, long folderId, boolean active, int status)
-		throws SystemException {
+			long groupId, long folderId, boolean active, int status) {
 
 		return dlFileShortcutPersistence.findByG_F_A_S(
 			groupId, folderId, active, status);
@@ -421,16 +419,14 @@ public class DLAppHelperLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DLFileShortcut> getFileShortcuts(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		return getFileShortcuts(groupId, folderId, true, status);
 	}
 
 	@Override
 	public int getFileShortcutsCount(
-			long groupId, long folderId, boolean active, int status)
-		throws SystemException {
+			long groupId, long folderId, boolean active, int status) {
 
 		return dlFileShortcutPersistence.countByG_F_A_S(
 			groupId, folderId, active, status);
@@ -442,8 +438,7 @@ public class DLAppHelperLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public int getFileShortcutsCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getFileShortcutsCount(long groupId, long folderId, int status) {
 
 		return getFileShortcutsCount(groupId, folderId, true, status);
 	}
@@ -865,8 +860,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	@Override
-	public void registerDLSyncEventCallback(String event, Folder folder)
-		throws SystemException {
+	public void registerDLSyncEventCallback(String event, Folder folder) {
 
 		if (isStagingGroup(folder.getGroupId()) ||
 			!(folder instanceof LiferayFolder)) {
@@ -2162,8 +2156,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	protected void registerDLSyncEventCallback(
-			final String event, final String type, final long typePK)
-		throws SystemException {
+			final String event, final String type, final long typePK) {
 
 		DLSyncEvent dlSyncEvent = dlSyncEventLocalService.addDLSyncEvent(
 			event, type, typePK);

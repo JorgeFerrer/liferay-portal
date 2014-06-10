@@ -76,8 +76,7 @@ public class PortletItemLocalServiceImpl
 	}
 
 	@Override
-	public List<PortletItem> getPortletItems(long groupId, String className)
-		throws SystemException {
+	public List<PortletItem> getPortletItems(long groupId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -86,8 +85,7 @@ public class PortletItemLocalServiceImpl
 
 	@Override
 	public List<PortletItem> getPortletItems(
-			long groupId, String portletId, String className)
-		throws SystemException {
+			long groupId, String portletId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

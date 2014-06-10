@@ -82,8 +82,7 @@ public class RawMetadataProcessorImpl
 	}
 
 	@Override
-	public void generateMetadata(FileVersion fileVersion)
-		throws SystemException {
+	public void generateMetadata(FileVersion fileVersion) {
 
 		long fileEntryMetadataCount =
 			DLFileEntryMetadataLocalServiceUtil.

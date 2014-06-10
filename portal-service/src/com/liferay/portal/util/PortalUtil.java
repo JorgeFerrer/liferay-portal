@@ -664,15 +664,13 @@ public class PortalUtil {
 	}
 
 	public static Map<String, List<Portlet>> getControlPanelCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException {
+			HttpServletRequest request) {
 
 		return getPortal().getControlPanelCategoriesMap(request);
 	}
 
 	public static String getControlPanelCategory(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, ThemeDisplay themeDisplay) {
 
 		return getPortal().getControlPanelCategory(portletId, themeDisplay);
 	}
@@ -697,15 +695,13 @@ public class PortalUtil {
 	}
 
 	public static Set<Portlet> getControlPanelPortlets(
-			long companyId, String category)
-		throws SystemException {
+			long companyId, String category) {
 
 		return getPortal().getControlPanelPortlets(companyId, category);
 	}
 
 	public static List<Portlet> getControlPanelPortlets(
-			String category, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String category, ThemeDisplay themeDisplay) {
 
 		return getPortal().getControlPanelPortlets(category, themeDisplay);
 	}
@@ -896,16 +892,14 @@ public class PortalUtil {
 	}
 
 	public static String getEmailFromAddress(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException {
+			PortletPreferences preferences, long companyId, String defaultValue) {
 
 		return getPortal().getEmailFromAddress(
 			preferences, companyId, defaultValue);
 	}
 
 	public static String getEmailFromName(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException {
+			PortletPreferences preferences, long companyId, String defaultValue) {
 
 		return getPortal().getEmailFromName(
 			preferences, companyId, defaultValue);
@@ -955,8 +949,7 @@ public class PortalUtil {
 			portlet, facebookCanvasPageURL, themeDisplay);
 	}
 
-	public static Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay)
-		throws SystemException {
+	public static Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay) {
 
 		return getPortal().getFirstMyAccountPortlet(themeDisplay);
 	}
@@ -966,8 +959,7 @@ public class PortalUtil {
 	}
 
 	public static Portlet getFirstSiteAdministrationPortlet(
-			ThemeDisplay themeDisplay)
-		throws SystemException {
+			ThemeDisplay themeDisplay) {
 
 		return getPortal().getFirstSiteAdministrationPortlet(themeDisplay);
 	}
@@ -1782,15 +1774,13 @@ public class PortalUtil {
 	}
 
 	public static Map<String, List<Portlet>> getSiteAdministrationCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException {
+			HttpServletRequest request) {
 
 		return getPortal().getSiteAdministrationCategoriesMap(request);
 	}
 
 	public static PortletURL getSiteAdministrationURL(
-			HttpServletRequest request, ThemeDisplay themeDisplay)
-		throws SystemException {
+			HttpServletRequest request, ThemeDisplay themeDisplay) {
 
 		return getPortal().getSiteAdministrationURL(request, themeDisplay);
 	}
@@ -1804,8 +1794,7 @@ public class PortalUtil {
 	}
 
 	public static PortletURL getSiteAdministrationURL(
-			PortletResponse portletResponse, ThemeDisplay themeDisplay)
-		throws SystemException {
+			PortletResponse portletResponse, ThemeDisplay themeDisplay) {
 
 		return getPortal().getSiteAdministrationURL(
 			portletResponse, themeDisplay);
@@ -1949,8 +1938,7 @@ public class PortalUtil {
 		return getPortal().getUser(portletRequest);
 	}
 
-	public static String getUserEmailAddress(long userId)
-		throws SystemException {
+	public static String getUserEmailAddress(long userId) {
 
 		return getPortal().getUserEmailAddress(userId);
 	}
@@ -2008,8 +1996,7 @@ public class PortalUtil {
 	 */
 	@Deprecated
 	public static String getUserValue(
-			long userId, String param, String defaultValue)
-		throws SystemException {
+			long userId, String param, String defaultValue) {
 
 		return getPortal().getUserValue(userId, param, defaultValue);
 	}
@@ -2139,16 +2126,14 @@ public class PortalUtil {
 	}
 
 	public static boolean isControlPanelPortlet(
-			String portletId, String category, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, String category, ThemeDisplay themeDisplay) {
 
 		return getPortal().isControlPanelPortlet(
 			portletId, category, themeDisplay);
 	}
 
 	public static boolean isControlPanelPortlet(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, ThemeDisplay themeDisplay) {
 
 		return getPortal().isControlPanelPortlet(portletId, themeDisplay);
 	}
@@ -2206,8 +2191,7 @@ public class PortalUtil {
 		return getPortal().isLayoutSitemapable(layout);
 	}
 
-	public static boolean isLoginRedirectRequired(HttpServletRequest request)
-		throws SystemException {
+	public static boolean isLoginRedirectRequired(HttpServletRequest request) {
 
 		return getPortal().isLoginRedirectRequired(request);
 	}

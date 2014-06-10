@@ -730,8 +730,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public WikiPage fetchLatestPage(
-			long resourcePrimKey, int status, boolean preferApproved)
-		throws SystemException {
+			long resourcePrimKey, int status, boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -760,8 +759,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	@Override
 	public WikiPage fetchLatestPage(
 			long resourcePrimKey, long nodeId, int status,
-			boolean preferApproved)
-		throws SystemException {
+			boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -789,8 +787,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public WikiPage fetchLatestPage(
-			long nodeId, String title, int status, boolean preferApproved)
-		throws SystemException {
+			long nodeId, String title, int status, boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -817,16 +814,14 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiPage fetchPage(long nodeId, String title)
-		throws SystemException {
+	public WikiPage fetchPage(long nodeId, String title) {
 
 		return wikiPagePersistence.fetchByN_T_H_First(
 			nodeId, title, true, null);
 	}
 
 	@Override
-	public WikiPage fetchPage(long nodeId, String title, double version)
-		throws SystemException {
+	public WikiPage fetchPage(long nodeId, String title, double version) {
 
 		WikiPage page = null;
 
@@ -842,8 +837,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getChildren(
-			long nodeId, boolean head, String parentTitle)
-		throws SystemException {
+			long nodeId, boolean head, String parentTitle) {
 
 		return wikiPagePersistence.findByN_H_P_S(
 			nodeId, head, parentTitle, WorkflowConstants.STATUS_APPROVED);
@@ -1153,8 +1147,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int start, int end)
-		throws SystemException {
+			long nodeId, boolean head, int start, int end) {
 
 		return getPages(
 			nodeId, head, start, end, new PageCreateDateComparator(false));
@@ -1162,8 +1155,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int status, int start, int end)
-		throws SystemException {
+			long nodeId, boolean head, int status, int start, int end) {
 
 		return getPages(
 			nodeId, head, status, start, end,
@@ -1173,8 +1165,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	@Override
 	public List<WikiPage> getPages(
 			long nodeId, boolean head, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return wikiPagePersistence.findByN_H(nodeId, head, start, end, obc);
@@ -1188,16 +1179,14 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	@Override
 	public List<WikiPage> getPages(
 			long nodeId, boolean head, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return getPages(
 			nodeId, head, WorkflowConstants.STATUS_APPROVED, start, end, obc);
 	}
 
 	@Override
-	public List<WikiPage> getPages(long nodeId, int start, int end)
-		throws SystemException {
+	public List<WikiPage> getPages(long nodeId, int start, int end) {
 
 		return getPages(
 			nodeId, start, end, new PageCreateDateComparator(false));
@@ -1205,24 +1194,21 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long nodeId, int start, int end, OrderByComparator obc) {
 
 		return wikiPagePersistence.findByNodeId(nodeId, start, end, obc);
 	}
 
 	@Override
 	public List<WikiPage> getPages(
-			long resourcePrimKey, long nodeId, int status)
-		throws SystemException {
+			long resourcePrimKey, long nodeId, int status) {
 
 		return wikiPagePersistence.findByR_N_S(resourcePrimKey, nodeId, status);
 	}
 
 	@Override
 	public List<WikiPage> getPages(
-			long userId, long nodeId, int status, int start, int end)
-		throws SystemException {
+			long userId, long nodeId, int status, int start, int end) {
 
 		if (userId > 0) {
 			return wikiPagePersistence.findByU_N_S(
@@ -1238,8 +1224,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, String title, boolean head, int start, int end)
-		throws SystemException {
+			long nodeId, String title, boolean head, int start, int end) {
 
 		return wikiPagePersistence.findByN_T_H(
 			nodeId, title, head, start, end,
@@ -1248,8 +1233,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, String title, int start, int end)
-		throws SystemException {
+			long nodeId, String title, int start, int end) {
 
 		return wikiPagePersistence.findByN_T(
 			nodeId, title, start, end, new PageCreateDateComparator(false));
@@ -1258,8 +1242,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	@Override
 	public List<WikiPage> getPages(
 			long nodeId, String title, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return wikiPagePersistence.findByN_T(nodeId, title, start, end, obc);
 	}
@@ -1281,8 +1264,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(long nodeId, boolean head, int status)
-		throws SystemException {
+	public int getPagesCount(long nodeId, boolean head, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return wikiPagePersistence.countByN_H_NotS(
@@ -1299,8 +1281,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(long userId, long nodeId, int status)
-		throws SystemException {
+	public int getPagesCount(long userId, long nodeId, int status) {
 
 		if (userId > 0) {
 			return wikiPagePersistence.countByU_N_S(userId, nodeId, status);
@@ -1316,8 +1297,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPagesCount(long nodeId, String title, boolean head)
-		throws SystemException {
+	public int getPagesCount(long nodeId, String title, boolean head) {
 
 		return wikiPagePersistence.countByN_T_H(nodeId, title, head);
 	}
@@ -1356,8 +1336,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getRecentChanges(
-			long groupId, long nodeId, int start, int end)
-		throws SystemException {
+			long groupId, long nodeId, int start, int end) {
 
 		Calendar cal = CalendarFactoryUtil.getCalendar();
 
@@ -1382,8 +1361,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRecentChangesCount(long groupId, long nodeId)
-		throws SystemException {
+	public int getRecentChangesCount(long groupId, long nodeId) {
 
 		Calendar cal = CalendarFactoryUtil.getCalendar();
 
@@ -1403,8 +1381,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasDraftPage(long nodeId, String title)
-		throws SystemException {
+	public boolean hasDraftPage(long nodeId, String title) {
 
 		int count = wikiPagePersistence.countByN_T_S(
 			nodeId, title, WorkflowConstants.STATUS_DRAFT);
@@ -2532,8 +2509,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 		}
 	}
 
-	protected boolean isUsedTitle(long nodeId, String title)
-		throws SystemException {
+	protected boolean isUsedTitle(long nodeId, String title) {
 
 		if (getPagesCount(nodeId, title, true) > 0) {
 			return true;

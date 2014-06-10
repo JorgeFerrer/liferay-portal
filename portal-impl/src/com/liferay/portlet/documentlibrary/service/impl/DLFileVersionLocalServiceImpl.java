@@ -53,15 +53,13 @@ public class DLFileVersionLocalServiceImpl
 
 	@Override
 	public DLFileVersion getFileVersionByUuidAndGroupId(
-			String uuid, long groupId)
-		throws SystemException {
+			String uuid, long groupId) {
 
 		return dlFileVersionPersistence.fetchByUUID_G(uuid, groupId);
 	}
 
 	@Override
-	public List<DLFileVersion> getFileVersions(long fileEntryId, int status)
-		throws SystemException {
+	public List<DLFileVersion> getFileVersions(long fileEntryId, int status) {
 
 		List<DLFileVersion> dlFileVersions = null;
 
@@ -82,8 +80,7 @@ public class DLFileVersionLocalServiceImpl
 	}
 
 	@Override
-	public int getFileVersionsCount(long fileEntryId, int status)
-		throws SystemException {
+	public int getFileVersionsCount(long fileEntryId, int status) {
 
 		return dlFileVersionPersistence.countByF_S(fileEntryId, status);
 	}

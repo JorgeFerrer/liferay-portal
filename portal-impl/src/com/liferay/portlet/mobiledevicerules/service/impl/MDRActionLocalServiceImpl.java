@@ -138,8 +138,7 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MDRAction> getActions(long ruleGroupInstanceId)
-		throws SystemException {
+	public List<MDRAction> getActions(long ruleGroupInstanceId) {
 
 		return mdrActionPersistence.findByRuleGroupInstanceId(
 			ruleGroupInstanceId);
@@ -147,16 +146,14 @@ public class MDRActionLocalServiceImpl extends MDRActionLocalServiceBaseImpl {
 
 	@Override
 	public List<MDRAction> getActions(
-			long ruleGroupInstanceId, int start, int end)
-		throws SystemException {
+			long ruleGroupInstanceId, int start, int end) {
 
 		return mdrActionPersistence.findByRuleGroupInstanceId(
 			ruleGroupInstanceId, start, end);
 	}
 
 	@Override
-	public int getActionsCount(long ruleGroupInstanceId)
-		throws SystemException {
+	public int getActionsCount(long ruleGroupInstanceId) {
 
 		return mdrActionPersistence.countByRuleGroupInstanceId(
 			ruleGroupInstanceId);

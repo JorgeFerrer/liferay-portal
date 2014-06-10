@@ -86,8 +86,7 @@ public class ExpandoColumnPermissionImpl implements ExpandoColumnPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long companyId,
 			String className, String tableName, String columnName,
-			String actionId)
-		throws SystemException {
+			String actionId) {
 
 		ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(
 			companyId, className, tableName, columnName);

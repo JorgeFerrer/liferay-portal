@@ -27,8 +27,7 @@ public class WikiPageResourceLocalServiceImpl
 	extends WikiPageResourceLocalServiceBaseImpl {
 
 	@Override
-	public WikiPageResource addPageResource(long nodeId, String title)
-		throws SystemException {
+	public WikiPageResource addPageResource(long nodeId, String title) {
 
 		long pageResourcePrimKey = counterLocalService.increment();
 
@@ -51,15 +50,13 @@ public class WikiPageResourceLocalServiceImpl
 	}
 
 	@Override
-	public WikiPageResource fetchPageResource(long nodeId, String title)
-		throws SystemException {
+	public WikiPageResource fetchPageResource(long nodeId, String title) {
 
 		return wikiPageResourcePersistence.fetchByN_T(nodeId, title);
 	}
 
 	@Override
-	public WikiPageResource fetchPageResource(String uuid)
-		throws SystemException {
+	public WikiPageResource fetchPageResource(String uuid) {
 
 		return wikiPageResourcePersistence.fetchByUuid_First(uuid, null);
 	}
@@ -80,8 +77,7 @@ public class WikiPageResourceLocalServiceImpl
 	}
 
 	@Override
-	public long getPageResourcePrimKey(long nodeId, String title)
-		throws SystemException {
+	public long getPageResourcePrimKey(long nodeId, String title) {
 
 		WikiPageResource pageResource = wikiPageResourcePersistence.fetchByN_T(
 			nodeId, title);

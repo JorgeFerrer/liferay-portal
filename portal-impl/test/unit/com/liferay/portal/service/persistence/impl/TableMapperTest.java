@@ -474,8 +474,7 @@ public class TableMapperTest {
 	}
 
 	@Test
-	public void testDeleteRightPrimaryKeyTableMappings()
-		throws SystemException {
+	public void testDeleteRightPrimaryKeyTableMappings() {
 
 		// Delete 0 entry
 

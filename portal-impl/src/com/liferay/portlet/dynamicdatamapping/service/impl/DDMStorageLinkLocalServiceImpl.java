@@ -32,8 +32,7 @@ public class DDMStorageLinkLocalServiceImpl
 	@Override
 	public DDMStorageLink addStorageLink(
 			long classNameId, long classPK, long structureId,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		long storageLinkId = counterLocalService.increment();
 
@@ -60,8 +59,7 @@ public class DDMStorageLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStorageLink(DDMStorageLink storageLink)
-		throws SystemException {
+	public void deleteStorageLink(DDMStorageLink storageLink) {
 
 		ddmStorageLinkPersistence.remove(storageLink);
 	}
@@ -77,8 +75,7 @@ public class DDMStorageLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStructureStorageLinks(long structureId)
-		throws SystemException {
+	public void deleteStructureStorageLinks(long structureId) {
 
 		List<DDMStorageLink> storageLinks =
 			ddmStorageLinkPersistence.findByStructureId(structureId);
@@ -103,15 +100,13 @@ public class DDMStorageLinkLocalServiceImpl
 	}
 
 	@Override
-	public List<DDMStorageLink> getStructureStorageLinks(long structureId)
-		throws SystemException {
+	public List<DDMStorageLink> getStructureStorageLinks(long structureId) {
 
 		return ddmStorageLinkPersistence.findByStructureId(structureId);
 	}
 
 	@Override
-	public int getStructureStorageLinksCount(long structureId)
-		throws SystemException {
+	public int getStructureStorageLinksCount(long structureId) {
 
 		return ddmStorageLinkPersistence.countByStructureId(structureId);
 	}

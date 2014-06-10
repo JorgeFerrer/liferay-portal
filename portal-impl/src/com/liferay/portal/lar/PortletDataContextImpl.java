@@ -142,8 +142,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 			getPrimaryKeyString(className, classPK), assetCategoryIds);
 	}
 
-	public void addAssetLinks(Class<?> clazz, long classPK)
-		throws SystemException {
+	public void addAssetLinks(Class<?> clazz, long classPK) {
 
 		AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
 			clazz.getName(), classPK);
@@ -184,8 +183,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addAssetTags(Class<?> clazz, long classPK)
-		throws SystemException {
+	public void addAssetTags(Class<?> clazz, long classPK) {
 
 		String[] tagNames = AssetTagLocalServiceUtil.getTagNames(
 			clazz.getName(), classPK);
@@ -595,8 +593,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addZipEntry(String path, InputStream is)
-		throws SystemException {
+	public void addZipEntry(String path, InputStream is) {
 
 		if (_portletDataContextListener != null) {
 			_portletDataContextListener.onAddZipEntry(path);
@@ -634,8 +631,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addZipEntry(String path, StringBuilder sb)
-		throws SystemException {
+	public void addZipEntry(String path, StringBuilder sb) {
 
 		if (_portletDataContextListener != null) {
 			_portletDataContextListener.onAddZipEntry(path);

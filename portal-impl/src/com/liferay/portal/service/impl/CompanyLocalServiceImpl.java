@@ -519,8 +519,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company fetchCompanyByVirtualHost(String virtualHostname)
-		throws SystemException {
+	public Company fetchCompanyByVirtualHost(String virtualHostname) {
 
 		virtualHostname = StringUtil.toLowerCase(virtualHostname.trim());
 
@@ -559,8 +558,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Company> getCompanies(boolean system, int start, int end)
-		throws SystemException {
+	public List<Company> getCompanies(boolean system, int start, int end) {
 
 		return companyPersistence.findBySystem(system, start, end);
 	}
@@ -722,8 +720,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removePreferences(long companyId, String[] keys)
-		throws SystemException {
+	public void removePreferences(long companyId, String[] keys) {
 
 		PortletPreferences preferences = PrefsPropsUtil.getPreferences(
 			companyId);
@@ -760,8 +757,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, long userId, String keywords, int start, int end)
-		throws SystemException {
+			long companyId, long userId, String keywords, int start, int end) {
 
 		return search(companyId, userId, null, 0, null, keywords, start, end);
 	}
@@ -788,8 +784,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	@Override
 	public Hits search(
 			long companyId, long userId, String portletId, long groupId,
-			String type, String keywords, int start, int end)
-		throws SystemException {
+			String type, String keywords, int start, int end) {
 
 		try {
 
@@ -1208,8 +1203,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	public void updateSecurity(
 			long companyId, String authType, boolean autoLogin,
 			boolean sendPassword, boolean strangers, boolean strangersWithMx,
-			boolean strangersVerify, boolean siteLogo)
-		throws SystemException {
+			boolean strangersVerify, boolean siteLogo) {
 
 		PortletPreferences preferences = PrefsPropsUtil.getPreferences(
 			companyId);
@@ -1465,8 +1459,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	protected void updateAccount(
 			Company company, String name, String legalName, String legalId,
 			String legalType, String sicCode, String tickerSymbol,
-			String industry, String type, String size)
-		throws SystemException {
+			String industry, String type, String size) {
 
 		Date now = new Date();
 

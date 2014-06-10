@@ -211,8 +211,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public TrashEntry deleteEntry(TrashEntry trashEntry)
-		throws SystemException {
+	public TrashEntry deleteEntry(TrashEntry trashEntry) {
 
 		if (trashEntry != null) {
 			trashVersionPersistence.removeByEntryId(trashEntry.getEntryId());
@@ -247,8 +246,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TrashEntry fetchEntry(String className, long classPK)
-		throws SystemException {
+	public TrashEntry fetchEntry(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -278,8 +276,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<TrashEntry> getEntries(long groupId, int start, int end)
-		throws SystemException {
+	public List<TrashEntry> getEntries(long groupId, int start, int end) {
 
 		return trashEntryPersistence.findByGroupId(groupId, start, end);
 	}
@@ -299,15 +296,13 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<TrashEntry> getEntries(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return trashEntryPersistence.findByGroupId(groupId, start, end, obc);
 	}
 
 	@Override
-	public List<TrashEntry> getEntries(long groupId, String className)
-		throws SystemException {
+	public List<TrashEntry> getEntries(long groupId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -364,8 +359,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	@Override
 	public Hits search(
 			long companyId, long groupId, long userId, String keywords,
-			int start, int end, Sort sort)
-		throws SystemException {
+			int start, int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -384,8 +378,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	@Override
 	public BaseModelSearchResult<TrashEntry> searchTrashEntries(
 			long companyId, long groupId, long userId, String keywords,
-			int start, int end, Sort sort)
-		throws SystemException {
+			int start, int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(

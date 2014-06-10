@@ -104,8 +104,7 @@ public class NtlmFilter extends BasePortalFilter {
 		return _log;
 	}
 
-	protected NtlmManager getNtlmManager(long companyId)
-		throws SystemException {
+	protected NtlmManager getNtlmManager(long companyId) {
 
 		String domain = PrefsPropsUtil.getString(
 			companyId, PropsKeys.NTLM_DOMAIN, PropsValues.NTLM_DOMAIN);

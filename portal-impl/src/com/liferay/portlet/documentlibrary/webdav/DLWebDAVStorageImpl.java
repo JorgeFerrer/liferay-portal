@@ -1004,8 +1004,7 @@ public class DLWebDAVStorageImpl extends BaseWebDAVStorageImpl {
 	}
 
 	protected void populateServiceContext(
-			ServiceContext serviceContext, FileEntry fileEntry)
-		throws SystemException {
+			ServiceContext serviceContext, FileEntry fileEntry) {
 
 		String className = DLFileEntryConstants.getClassName();
 

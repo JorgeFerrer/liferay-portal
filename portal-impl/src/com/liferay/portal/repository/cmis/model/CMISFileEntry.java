@@ -98,8 +98,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 
 	@Override
 	public boolean containsPermission(
-			PermissionChecker permissionChecker, String actionId)
-		throws SystemException {
+			PermissionChecker permissionChecker, String actionId) {
 
 		return containsPermission(_document, actionId);
 	}
@@ -199,8 +198,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 	}
 
 	@Override
-	public List<FileVersion> getFileVersions(int status)
-		throws SystemException {
+	public List<FileVersion> getFileVersions(int status) {
 
 		try {
 			List<Document> documents = getAllVersions();

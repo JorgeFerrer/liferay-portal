@@ -30,8 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SocialInteractionsConfigurationUtil {
 
 	public static SocialInteractionsConfiguration
-			getSocialInteractionsConfiguration(long companyId)
-		throws SystemException {
+			getSocialInteractionsConfiguration(long companyId) {
 
 		boolean socialInteractionsAnyUserEnabled = PrefsPropsUtil.getBoolean(
 			companyId, "socialInteractionsAnyUserEnabled", true);
@@ -54,8 +53,7 @@ public class SocialInteractionsConfigurationUtil {
 
 	public static SocialInteractionsConfiguration
 			getSocialInteractionsConfiguration(
-				long companyId, HttpServletRequest request)
-		throws SystemException {
+				long companyId, HttpServletRequest request) {
 
 		PortletPreferences portletPreferences = PrefsPropsUtil.getPreferences(
 			companyId, true);

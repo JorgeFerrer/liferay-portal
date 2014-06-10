@@ -462,8 +462,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public Portlet getPortletById(long companyId, String portletId)
-		throws SystemException {
+	public Portlet getPortletById(long companyId, String portletId) {
 
 		portletId = PortalUtil.getJsSafePortletId(portletId);
 
@@ -561,8 +560,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public Portlet getPortletByStrutsPath(long companyId, String strutsPath)
-		throws SystemException {
+	public Portlet getPortletByStrutsPath(long companyId, String strutsPath) {
 
 		return getPortletById(companyId, _getPortletId(strutsPath));
 	}
@@ -584,8 +582,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 	@Override
 	@Skip
 	public List<Portlet> getPortlets(
-			long companyId, boolean showSystem, boolean showPortal)
-		throws SystemException {
+			long companyId, boolean showSystem, boolean showPortal) {
 
 		Map<String, Portlet> portletsPool = _getPortletsPool(companyId);
 
@@ -638,8 +635,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public PortletCategory getWARDisplay(String servletContextName, String xml)
-		throws SystemException {
+	public PortletCategory getWARDisplay(String servletContextName, String xml) {
 
 		try {
 			return _readLiferayDisplayXML(servletContextName, xml);
@@ -651,8 +647,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public boolean hasPortlet(long companyId, String portletId)
-		throws SystemException {
+	public boolean hasPortlet(long companyId, String portletId) {
 
 		portletId = PortalUtil.getJsSafePortletId(portletId);
 
@@ -843,8 +838,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Map<String, Portlet> loadGetPortletsPool(long companyId)
-		throws SystemException {
+	public Map<String, Portlet> loadGetPortletsPool(long companyId) {
 
 		Map<String, Portlet> portletsPool =
 			new ConcurrentHashMap<String, Portlet>();
@@ -896,8 +890,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public Portlet updatePortlet(
-			long companyId, String portletId, String roles, boolean active)
-		throws SystemException {
+			long companyId, String portletId, String roles, boolean active) {
 
 		portletId = PortalUtil.getJsSafePortletId(portletId);
 
@@ -1062,8 +1055,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 		return _portletsPool;
 	}
 
-	private Map<String, Portlet> _getPortletsPool(long companyId)
-		throws SystemException {
+	private Map<String, Portlet> _getPortletsPool(long companyId) {
 
 		Map<String, Portlet> portletsPool = _companyPortletsPool.get(companyId);
 

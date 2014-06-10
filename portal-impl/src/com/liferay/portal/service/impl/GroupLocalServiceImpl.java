@@ -555,8 +555,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addRoleGroups(long roleId, long[] groupIds)
-		throws SystemException {
+	public void addRoleGroups(long roleId, long[] groupIds) {
 
 		rolePersistence.addGroups(roleId, groupIds);
 
@@ -571,8 +570,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addUserGroups(long userId, long[] groupIds)
-		throws SystemException {
+	public void addUserGroups(long userId, long[] groupIds) {
 
 		userPersistence.addGroups(userId, groupIds);
 
@@ -1069,8 +1067,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group fetchFriendlyURLGroup(long companyId, String friendlyURL)
-		throws SystemException {
+	public Group fetchFriendlyURLGroup(long companyId, String friendlyURL) {
 
 		if (Validator.isNull(friendlyURL)) {
 			return null;
@@ -1093,8 +1090,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	@Skip
-	public Group fetchGroup(long companyId, String name)
-		throws SystemException {
+	public Group fetchGroup(long companyId, String name) {
 
 		Group group = _systemGroupsMap.get(
 			StringUtil.toHexString(companyId).concat(name));
@@ -1166,8 +1162,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getCompanyGroups(long companyId, int start, int end)
-		throws SystemException {
+	public List<Group> getCompanyGroups(long companyId, int start, int end) {
 
 		return groupPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -1356,8 +1351,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getGroups(
-			long companyId, long parentGroupId, boolean site)
-		throws SystemException {
+			long companyId, long parentGroupId, boolean site) {
 
 		if (parentGroupId == GroupConstants.ANY_PARENT_GROUP_ID) {
 			return groupPersistence.findByC_S(companyId, site);
@@ -1379,8 +1373,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getGroups(
-			long companyId, String className, long parentGroupId)
-		throws SystemException {
+			long companyId, String className, long parentGroupId) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1403,8 +1396,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> getGroups(
 			long companyId, String className, long parentGroupId, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1446,8 +1438,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getGroupsCount(long companyId, long parentGroupId, boolean site)
-		throws SystemException {
+	public int getGroupsCount(long companyId, long parentGroupId, boolean site) {
 
 		if (parentGroupId == GroupConstants.ANY_PARENT_GROUP_ID) {
 			return groupPersistence.countByC_S(companyId, site);
@@ -1468,8 +1459,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public int getGroupsCount(
-			long companyId, String className, long parentGroupId)
-		throws SystemException {
+			long companyId, String className, long parentGroupId) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1565,8 +1555,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> getLayoutsGroups(
 			long companyId, long parentGroupId, boolean site, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return getLayoutsGroups(
 			companyId, parentGroupId, site, start, end, null);
@@ -1601,8 +1590,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> getLayoutsGroups(
 			long companyId, long parentGroupId, boolean site, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		return groupFinder.findByLayouts(
 			companyId, parentGroupId, site, start, end, obc);
@@ -1620,8 +1608,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public int getLayoutsGroupsCount(
-			long companyId, long parentGroupId, boolean site)
-		throws SystemException {
+			long companyId, long parentGroupId, boolean site) {
 
 		return groupFinder.countByLayouts(companyId, parentGroupId, site);
 	}
@@ -1662,8 +1649,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getNoLayoutsGroups(
-			String className, boolean privateLayout, int start, int end)
-		throws SystemException {
+			String className, boolean privateLayout, int start, int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1736,8 +1722,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Group> getOrganizationsRelatedGroups(
-			List<Organization> organizations)
-		throws SystemException {
+			List<Organization> organizations) {
 
 		List<Group> organizationGroups = new ArrayList<Group>();
 
@@ -1933,8 +1918,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getUserGroupsRelatedGroups(List<UserGroup> userGroups)
-		throws SystemException {
+	public List<Group> getUserGroupsRelatedGroups(List<UserGroup> userGroups) {
 
 		List<Group> userGroupGroups = new ArrayList<Group>();
 
@@ -2103,8 +2087,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasUserGroup(long userId, long groupId)
-		throws SystemException {
+	public boolean hasUserGroup(long userId, long groupId) {
 
 		return hasUserGroup(userId, groupId, true);
 	}
@@ -2123,8 +2106,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasUserGroup(long userId, long groupId, boolean inherit)
-		throws SystemException {
+	public boolean hasUserGroup(long userId, long groupId, boolean inherit) {
 
 		if (groupFinder.countByG_U(groupId, userId, inherit) > 0) {
 			return true;
@@ -2145,8 +2127,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group loadFetchGroup(long companyId, String name)
-		throws SystemException {
+	public Group loadFetchGroup(long companyId, String name) {
 
 		return groupPersistence.fetchByC_N(companyId, name);
 	}
@@ -2236,8 +2217,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> search(
 			long companyId, LinkedHashMap<String, Object> params, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return groupFinder.findByCompanyId(
 			companyId, params, start, end, new GroupNameComparator(true));
@@ -2278,8 +2258,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> search(
 			long companyId, long parentGroupId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, int start, int end) {
 
 		return search(
 			companyId, getClassNameIds(), parentGroupId, keywords, params,
@@ -2324,8 +2303,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long parentGroupId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return search(
 			companyId, getClassNameIds(), parentGroupId, keywords, params,
@@ -2371,8 +2349,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long parentGroupId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end)
-		throws SystemException {
+			int start, int end) {
 
 		return search(
 			companyId, getClassNameIds(), parentGroupId, name, description,
@@ -2420,8 +2397,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long parentGroupId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		return search(
 			companyId, getClassNameIds(), parentGroupId, name, description,
@@ -2467,8 +2443,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long[] classNameIds, long parentGroupId,
 			String keywords, LinkedHashMap<String, Object> params, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return search(
 			companyId, classNameIds, parentGroupId, keywords, params, start,
@@ -2516,8 +2491,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long[] classNameIds, long parentGroupId,
 			String keywords, LinkedHashMap<String, Object> params, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		String[] keywordsArray = getSearchNames(companyId, keywords);
 
@@ -2583,8 +2557,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			long companyId, long[] classNameIds, long parentGroupId,
 			String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end)
-		throws SystemException {
+			int start, int end) {
 
 		return search(
 			companyId, classNameIds, parentGroupId, name, description, params,
@@ -2636,8 +2609,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			long companyId, long[] classNameIds, long parentGroupId,
 			String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		String[] names = getSearchNames(companyId, name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -2691,8 +2663,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@Override
 	public List<Group> search(
 			long companyId, long[] classNameIds, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, int start, int end) {
 
 		return search(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID,
@@ -2738,8 +2709,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long[] classNameIds, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return search(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID,
@@ -2787,8 +2757,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long[] classNameIds, String name,
 			String description, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end)
-		throws SystemException {
+			boolean andOperator, int start, int end) {
 
 		return search(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID, name,
@@ -2838,8 +2807,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, long[] classNameIds, String name,
 			String description, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		return search(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID, name,
@@ -2880,8 +2848,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public List<Group> search(
 			long companyId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, int start, int end) {
 
 		return search(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -2924,8 +2891,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return search(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -2970,8 +2936,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end)
-		throws SystemException {
+			int start, int end) {
 
 		return search(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -3018,8 +2983,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public List<Group> search(
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		return search(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -3048,8 +3012,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, long parentGroupId, String keywords,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return searchCount(
 			companyId, getClassNameIds(), parentGroupId, keywords, params);
@@ -3081,8 +3044,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, long parentGroupId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		return searchCount(
 			companyId, getClassNameIds(), parentGroupId, name, description,
@@ -3114,8 +3076,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, long[] classNameIds, long parentGroupId,
-			String keywords, LinkedHashMap<String, Object> params)
-		throws SystemException {
+			String keywords, LinkedHashMap<String, Object> params) {
 
 		String[] keywordsArray = getSearchNames(companyId, keywords);
 
@@ -3167,8 +3128,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public int searchCount(
 			long companyId, long[] classNameIds, long parentGroupId,
 			String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String[] names = getSearchNames(companyId, name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -3209,8 +3169,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, long[] classNameIds, String keywords,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return searchCount(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID,
@@ -3244,8 +3203,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	public int searchCount(
 			long companyId, long[] classNameIds, String name,
 			String description, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return searchCount(
 			companyId, classNameIds, GroupConstants.ANY_PARENT_GROUP_ID, name,
@@ -3273,8 +3231,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, String keywords,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return searchCount(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -3306,8 +3263,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	@ThreadLocalCachable
 	public int searchCount(
 			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		return searchCount(
 			companyId, getClassNameIds(), GroupConstants.ANY_PARENT_GROUP_ID,
@@ -3323,8 +3279,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void setRoleGroups(long roleId, long[] groupIds)
-		throws SystemException {
+	public void setRoleGroups(long roleId, long[] groupIds) {
 
 		rolePersistence.setGroups(roleId, groupIds);
 
@@ -3339,8 +3294,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetRoleGroups(long roleId, long[] groupIds)
-		throws SystemException {
+	public void unsetRoleGroups(long roleId, long[] groupIds) {
 
 		rolePersistence.removeGroups(roleId, groupIds);
 
@@ -3355,8 +3309,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetUserGroups(long userId, long[] groupIds)
-		throws SystemException {
+	public void unsetUserGroups(long userId, long[] groupIds) {
 
 		userGroupRoleLocalService.deleteUserGroupRoles(userId, groupIds);
 
@@ -3842,8 +3795,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	protected Collection<Group> doSearch(
 			long companyId, long[] classNameIds, long parentGroupId,
 			String[] names, String[] descriptions,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		boolean parentGroupIdEquals = true;
 
@@ -4207,8 +4159,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return name + ORGANIZATION_NAME_SUFFIX;
 	}
 
-	protected List<PortletDataHandler> getPortletDataHandlers(Group group)
-		throws SystemException {
+	protected List<PortletDataHandler> getPortletDataHandlers(Group group) {
 
 		List<Portlet> portlets = portletLocalService.getPortlets(
 			group.getCompanyId());
@@ -4234,8 +4185,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return portletDataHandlers;
 	}
 
-	protected String[] getSearchNames(long companyId, String name)
-		throws SystemException {
+	protected String[] getSearchNames(long companyId, String name) {
 
 		if (Validator.isNull(name)) {
 			return new String[] {null};

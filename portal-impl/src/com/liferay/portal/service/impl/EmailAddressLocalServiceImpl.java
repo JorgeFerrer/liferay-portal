@@ -92,8 +92,7 @@ public class EmailAddressLocalServiceImpl
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public EmailAddress deleteEmailAddress(EmailAddress emailAddress)
-		throws SystemException {
+	public EmailAddress deleteEmailAddress(EmailAddress emailAddress) {
 
 		emailAddressPersistence.remove(emailAddress);
 
@@ -112,8 +111,7 @@ public class EmailAddressLocalServiceImpl
 
 	@Override
 	public void deleteEmailAddresses(
-			long companyId, String className, long classPK)
-		throws SystemException {
+			long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -132,8 +130,7 @@ public class EmailAddressLocalServiceImpl
 
 	@Override
 	public List<EmailAddress> getEmailAddresses(
-			long companyId, String className, long classPK)
-		throws SystemException {
+			long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -163,8 +160,7 @@ public class EmailAddressLocalServiceImpl
 
 	protected void validate(
 			long emailAddressId, long companyId, long classNameId, long classPK,
-			boolean primary)
-		throws SystemException {
+			boolean primary) {
 
 		// Check to make sure there isn't another emailAddress with the same
 		// company id, class name, and class pk that also has primary set to

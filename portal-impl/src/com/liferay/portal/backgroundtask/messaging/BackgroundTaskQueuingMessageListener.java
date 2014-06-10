@@ -57,8 +57,7 @@ public class BackgroundTaskQueuingMessageListener extends BaseMessageListener {
 		}
 	}
 
-	private void executeQueuedBackgroundTasks(String taskExecutorClassName)
-		throws SystemException {
+	private void executeQueuedBackgroundTasks(String taskExecutorClassName) {
 
 		BackgroundTask backgroundTask =
 			_backgroundTaskLocalService.fetchFirstBackgroundTask(

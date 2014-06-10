@@ -347,8 +347,7 @@ public class ExpandoStorageAdapter extends BaseStorageAdapter {
 		return fieldsList;
 	}
 
-	private long[] _getExpandoRowIds(long ddmStructureId)
-		throws SystemException {
+	private long[] _getExpandoRowIds(long ddmStructureId) {
 
 		List<Long> expandoRowIds = new ArrayList<Long>();
 

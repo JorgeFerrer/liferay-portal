@@ -501,8 +501,7 @@ public class SocialActivityLocalServiceImpl
 
 	@Override
 	public SocialActivity fetchFirstActivity(
-			String className, long classPK, int type)
-		throws SystemException {
+			String className, long classPK, int type) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -532,8 +531,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
-			long classNameId, int start, int end)
-		throws SystemException {
+			long classNameId, int start, int end) {
 
 		return socialActivityPersistence.findByClassNameId(
 			classNameId, start, end);
@@ -565,8 +563,7 @@ public class SocialActivityLocalServiceImpl
 	@Override
 	public List<SocialActivity> getActivities(
 			long mirrorActivityId, long classNameId, long classPK, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return socialActivityPersistence.findByM_C_C(
 			mirrorActivityId, classNameId, classPK, start, end);
@@ -598,8 +595,7 @@ public class SocialActivityLocalServiceImpl
 	@Override
 	public List<SocialActivity> getActivities(
 			long mirrorActivityId, String className, long classPK, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -629,8 +625,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
-			String className, int start, int end)
-		throws SystemException {
+			String className, int start, int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -663,8 +658,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public int getActivitiesCount(
-			long mirrorActivityId, long classNameId, long classPK)
-		throws SystemException {
+			long mirrorActivityId, long classNameId, long classPK) {
 
 		return socialActivityPersistence.countByM_C_C(
 			mirrorActivityId, classNameId, classPK);
@@ -683,8 +677,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public int getActivitiesCount(
-			long mirrorActivityId, String className, long classPK)
-		throws SystemException {
+			long mirrorActivityId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -722,8 +715,7 @@ public class SocialActivityLocalServiceImpl
 
 	@Override
 	public List<SocialActivity> getActivitySetActivities(
-			long activitySetId, int start, int end)
-		throws SystemException {
+			long activitySetId, int start, int end) {
 
 		return socialActivityPersistence.findByActivitySetId(
 			activitySetId, start, end);
@@ -754,8 +746,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getGroupActivities(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return socialActivityFinder.findByGroupId(groupId, start, end);
 	}
@@ -802,8 +793,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getGroupUsersActivities(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return socialActivityFinder.findByGroupUsers(groupId, start, end);
 	}
@@ -821,8 +811,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getGroupUsersActivitiesCount(long groupId)
-		throws SystemException {
+	public int getGroupUsersActivitiesCount(long groupId) {
 
 		return socialActivityFinder.countByGroupUsers(groupId);
 	}
@@ -865,8 +854,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationActivities(
-			long organizationId, int start, int end)
-		throws SystemException {
+			long organizationId, int start, int end) {
 
 		return socialActivityFinder.findByOrganizationId(
 			organizationId, start, end);
@@ -881,8 +869,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getOrganizationActivitiesCount(long organizationId)
-		throws SystemException {
+	public int getOrganizationActivitiesCount(long organizationId) {
 
 		return socialActivityFinder.countByOrganizationId(organizationId);
 	}
@@ -909,8 +896,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationUsersActivities(
-			long organizationId, int start, int end)
-		throws SystemException {
+			long organizationId, int start, int end) {
 
 		return socialActivityFinder.findByOrganizationUsers(
 			organizationId, start, end);
@@ -925,8 +911,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getOrganizationUsersActivitiesCount(long organizationId)
-		throws SystemException {
+	public int getOrganizationUsersActivitiesCount(long organizationId) {
 
 		return socialActivityFinder.countByOrganizationUsers(organizationId);
 	}
@@ -953,8 +938,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivityFinder.findByRelation(userId, start, end);
 	}
@@ -983,8 +967,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
-			long userId, int type, int start, int end)
-		throws SystemException {
+			long userId, int type, int start, int end) {
 
 		return socialActivityFinder.findByRelationType(
 			userId, type, start, end);
@@ -1014,8 +997,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getRelationActivitiesCount(long userId, int type)
-		throws SystemException {
+	public int getRelationActivitiesCount(long userId, int type) {
 
 		return socialActivityFinder.countByRelationType(userId, type);
 	}
@@ -1041,8 +1023,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getUserActivities(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivityPersistence.findByUserId(userId, start, end);
 	}
@@ -1081,8 +1062,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsActivities(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivityFinder.findByUserGroups(userId, start, end);
 	}
@@ -1096,8 +1076,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserGroupsActivitiesCount(long userId)
-		throws SystemException {
+	public int getUserGroupsActivitiesCount(long userId) {
 
 		return socialActivityFinder.countByUserGroups(userId);
 	}
@@ -1124,8 +1103,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsAndOrganizationsActivities(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivityFinder.findByUserGroupsAndOrganizations(
 			userId, start, end);
@@ -1140,8 +1118,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserGroupsAndOrganizationsActivitiesCount(long userId)
-		throws SystemException {
+	public int getUserGroupsAndOrganizationsActivitiesCount(long userId) {
 
 		return socialActivityFinder.countByUserGroupsAndOrganizations(userId);
 	}
@@ -1168,8 +1145,7 @@ public class SocialActivityLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivity> getUserOrganizationsActivities(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivityFinder.findByUserOrganizations(userId, start, end);
 	}
@@ -1183,14 +1159,12 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserOrganizationsActivitiesCount(long userId)
-		throws SystemException {
+	public int getUserOrganizationsActivitiesCount(long userId) {
 
 		return socialActivityFinder.countByUserOrganizations(userId);
 	}
 
-	protected boolean isLogActivity(SocialActivity activity)
-		throws SystemException {
+	protected boolean isLogActivity(SocialActivity activity) {
 
 		if (activity.getType() == SocialActivityConstants.TYPE_DELETE) {
 			if (activity.getParentClassPK() == 0) {

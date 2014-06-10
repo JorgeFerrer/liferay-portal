@@ -247,8 +247,7 @@ public class SettingsConfigurationAction
 		Collections.addAll(_multiValuedKeys, multiValuedKeys);
 	}
 
-	protected PortletConfig getSelPortletConfig(PortletRequest portletRequest)
-		throws SystemException {
+	protected PortletConfig getSelPortletConfig(PortletRequest portletRequest) {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

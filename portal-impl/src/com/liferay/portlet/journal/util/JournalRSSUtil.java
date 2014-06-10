@@ -55,8 +55,7 @@ import java.util.Set;
  */
 public class JournalRSSUtil {
 
-	public static List<JournalArticle> getArticles(JournalFeed feed)
-		throws SystemException {
+	public static List<JournalArticle> getArticles(JournalFeed feed) {
 
 		long companyId = feed.getCompanyId();
 		long groupId = feed.getGroupId();

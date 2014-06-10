@@ -142,8 +142,7 @@ public class PortletDisplayTemplatePortletDataHandler
 
 	protected ActionableDynamicQuery getDDMTemplateActionableDynamicQuery(
 			final PortletDataContext portletDataContext,
-			final Long[] classNameIds, final StagedModelType stagedModelType)
-		throws SystemException {
+			final Long[] classNameIds, final StagedModelType stagedModelType) {
 
 		ExportActionableDynamicQuery exportActionableDynamicQuery =
 			DDMTemplateLocalServiceUtil.getExportActionableDynamicQuery(

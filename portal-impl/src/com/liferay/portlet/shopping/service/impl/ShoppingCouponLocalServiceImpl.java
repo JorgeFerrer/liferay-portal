@@ -165,8 +165,7 @@ public class ShoppingCouponLocalServiceImpl
 	@Override
 	public List<ShoppingCoupon> search(
 			long groupId, long companyId, String code, boolean active,
-			String discountType, boolean andOperator, int start, int end)
-		throws SystemException {
+			String discountType, boolean andOperator, int start, int end) {
 
 		return shoppingCouponFinder.findByG_C_C_A_DT(
 			groupId, companyId, code, active, discountType, andOperator, start,
@@ -176,8 +175,7 @@ public class ShoppingCouponLocalServiceImpl
 	@Override
 	public int searchCount(
 			long groupId, long companyId, String code, boolean active,
-			String discountType, boolean andOperator)
-		throws SystemException {
+			String discountType, boolean andOperator) {
 
 		return shoppingCouponFinder.countByG_C_C_A_DT(
 			groupId, companyId, code, active, discountType, andOperator);

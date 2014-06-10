@@ -150,8 +150,7 @@ public class AssetVocabularyImpl extends AssetVocabularyBaseImpl {
 	}
 
 	@Override
-	public boolean hasMoreThanOneCategorySelected(final long[] categoryIds)
-		throws SystemException {
+	public boolean hasMoreThanOneCategorySelected(final long[] categoryIds) {
 
 		PredicateFilter<AssetCategory> predicateFilter =
 			new PredicateFilter<AssetCategory>() {
@@ -181,8 +180,7 @@ public class AssetVocabularyImpl extends AssetVocabularyBaseImpl {
 
 	@Override
 	public boolean isMissingRequiredCategory(
-			long classNameId, final long[] categoryIds)
-		throws SystemException {
+			long classNameId, final long[] categoryIds) {
 
 		if (!isRequired(classNameId)) {
 			return false;

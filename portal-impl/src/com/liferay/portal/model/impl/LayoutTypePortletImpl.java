@@ -1446,8 +1446,7 @@ public class LayoutTypePortletImpl
 	}
 
 	protected List<Portlet> getEmbeddedPortlets(
-			List<Portlet> columnPortlets, List<Portlet> staticPortlets)
-		throws SystemException {
+			List<Portlet> columnPortlets, List<Portlet> staticPortlets) {
 
 		if (_embeddedPortlets != null) {
 			return _embeddedPortlets;
@@ -1802,8 +1801,7 @@ public class LayoutTypePortletImpl
 		return false;
 	}
 
-	protected void onRemoveFromLayout(String[] portletIds)
-		throws SystemException {
+	protected void onRemoveFromLayout(String[] portletIds) {
 
 		List<String> portletIdList = new UniqueList<String>();
 

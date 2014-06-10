@@ -143,8 +143,7 @@ public class GroupFinderImpl
 		GroupFinder.class.getName() + ".joinByUsersGroups";
 
 	@Override
-	public int countByLayouts(long companyId, long parentGroupId, boolean site)
-		throws SystemException {
+	public int countByLayouts(long companyId, long parentGroupId, boolean site) {
 
 		Session session = null;
 
@@ -184,8 +183,7 @@ public class GroupFinderImpl
 	}
 
 	@Override
-	public int countByG_U(long groupId, long userId, boolean inherit)
-		throws SystemException {
+	public int countByG_U(long groupId, long userId, boolean inherit) {
 
 		LinkedHashMap<String, Object> params1 =
 			new LinkedHashMap<String, Object>();
@@ -234,8 +232,7 @@ public class GroupFinderImpl
 	public int countByC_C_PG_N_D(
 			long companyId, long[] classNameIds, long parentGroupId,
 			String[] names, String[] descriptions,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String parentGroupIdComparator = StringPool.EQUAL;
 
@@ -326,8 +323,7 @@ public class GroupFinderImpl
 	@Override
 	public List<Group> findByLayouts(
 			long companyId, long parentGroupId, boolean site, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return findByLayouts(companyId, parentGroupId, site, start, end, null);
 	}
@@ -335,8 +331,7 @@ public class GroupFinderImpl
 	@Override
 	public List<Group> findByLayouts(
 			long companyId, long parentGroupId, boolean site, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		Session session = null;
 
@@ -392,8 +387,7 @@ public class GroupFinderImpl
 
 	@Override
 	public List<Group> findByNoLayouts(
-			long classNameId, boolean privateLayout, int start, int end)
-		throws SystemException {
+			long classNameId, boolean privateLayout, int start, int end) {
 
 		Session session = null;
 
@@ -474,8 +468,7 @@ public class GroupFinderImpl
 	@Override
 	public List<Group> findByCompanyId(
 			long companyId, LinkedHashMap<String, Object> params, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		if (params == null) {
 			params = _emptyLinkedHashMap;
@@ -613,8 +606,7 @@ public class GroupFinderImpl
 
 	@Override
 	public List<Long> findByC_P(
-			long companyId, long parentGroupId, long previousGroupId, int size)
-		throws SystemException {
+			long companyId, long parentGroupId, long previousGroupId, int size) {
 
 		Session session = null;
 
@@ -702,8 +694,7 @@ public class GroupFinderImpl
 			long companyId, long[] classNameIds, long parentGroupId,
 			String[] names, String[] descriptions,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		String parentGroupIdComparator = StringPool.EQUAL;
 

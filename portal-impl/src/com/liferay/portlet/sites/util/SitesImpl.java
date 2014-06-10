@@ -814,8 +814,7 @@ public class SitesImpl implements Sites {
 	}
 
 	@Override
-	public boolean isContentSharingWithChildrenEnabled(Group group)
-		throws SystemException {
+	public boolean isContentSharingWithChildrenEnabled(Group group) {
 
 		UnicodeProperties typeSettingsProperties =
 			group.getParentLiveGroupTypeSettingsProperties();
@@ -850,8 +849,7 @@ public class SitesImpl implements Sites {
 
 	@Override
 	public boolean isFirstLayout(
-			long groupId, boolean privateLayout, long layoutId)
-		throws SystemException {
+			long groupId, boolean privateLayout, long layoutId) {
 
 		Layout firstLayout = LayoutLocalServiceUtil.fetchFirstLayout(
 			groupId, privateLayout, LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
@@ -1275,8 +1273,7 @@ public class SitesImpl implements Sites {
 	}
 
 	@Override
-	public void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet)
-		throws SystemException {
+	public void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet) {
 
 		UnicodeProperties settingsProperties =
 			layoutSet.getSettingsProperties();
@@ -1644,8 +1641,7 @@ public class SitesImpl implements Sites {
 	 * @param  layoutSet the site having its timestamp reset
 	 * @throws SystemException if a system exception occurred
 	 */
-	protected void doResetPrototype(LayoutSet layoutSet)
-		throws SystemException {
+	protected void doResetPrototype(LayoutSet layoutSet) {
 
 		UnicodeProperties settingsProperties =
 			layoutSet.getSettingsProperties();

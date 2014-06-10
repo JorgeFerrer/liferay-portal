@@ -126,8 +126,7 @@ public class ClusterExecutorImpl
 	}
 
 	@Override
-	public FutureClusterResponses execute(ClusterRequest clusterRequest)
-		throws SystemException {
+	public FutureClusterResponses execute(ClusterRequest clusterRequest) {
 
 		if (!isEnabled()) {
 			return null;
@@ -180,8 +179,7 @@ public class ClusterExecutorImpl
 	@Override
 	public void execute(
 			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback)
-		throws SystemException {
+			ClusterResponseCallback clusterResponseCallback) {
 
 		FutureClusterResponses futureClusterResponses = execute(clusterRequest);
 
@@ -196,8 +194,7 @@ public class ClusterExecutorImpl
 	public void execute(
 			ClusterRequest clusterRequest,
 			ClusterResponseCallback clusterResponseCallback, long timeout,
-			TimeUnit timeUnit)
-		throws SystemException {
+			TimeUnit timeUnit) {
 
 		FutureClusterResponses futureClusterResponses = execute(clusterRequest);
 

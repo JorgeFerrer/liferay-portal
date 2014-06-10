@@ -819,8 +819,7 @@ public class StagingLocalServiceImpl extends StagingLocalServiceBaseImpl {
 	}
 
 	protected Layout updateLayoutWithLayoutRevision(
-			LayoutRevision layoutRevision)
-		throws SystemException {
+			LayoutRevision layoutRevision) {
 
 		Layout layout = layoutLocalService.fetchLayout(
 			layoutRevision.getPlid());

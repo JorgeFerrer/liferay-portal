@@ -379,8 +379,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long groupId)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long groupId) {
 
 		return ddmStructurePersistence.filterFindByGroupId(groupId);
 	}
@@ -394,8 +393,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long[] groupIds)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long[] groupIds) {
 
 		return ddmStructurePersistence.filterFindByGroupId(groupIds);
 	}
@@ -412,16 +410,14 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long[] groupIds, long classNameId)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long[] groupIds, long classNameId) {
 
 		return ddmStructurePersistence.filterFindByG_C(groupIds, classNameId);
 	}
 
 	@Override
 	public List<DDMStructure> getStructures(
-			long[] groupIds, long classNameId, int start, int end)
-		throws SystemException {
+			long[] groupIds, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.filterFindByG_C(
 			groupIds, classNameId, start, end);
@@ -460,8 +456,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	public List<DDMStructure> search(
 			long companyId, long[] groupIds, long[] classNameIds,
 			String keywords, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.filterFindByKeywords(
 			companyId, groupIds, classNameIds, keywords, start, end,
@@ -508,8 +503,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 			long companyId, long[] groupIds, long[] classNameIds, String name,
 			String description, String storageType, int type,
 			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.filterFindByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,
@@ -532,8 +526,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords)
-		throws SystemException {
+			String keywords) {
 
 		return ddmStructureFinder.filterCountByKeywords(
 			companyId, groupIds, classNameIds, keywords);
@@ -563,8 +556,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds, String name,
 			String description, String storageType, int type,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return ddmStructureFinder.filterCountByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,

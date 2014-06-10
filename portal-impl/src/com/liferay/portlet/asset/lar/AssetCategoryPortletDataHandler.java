@@ -152,8 +152,7 @@ public class AssetCategoryPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getCategoryActionableDynamicQuery(
-			final PortletDataContext portletDataContext)
-		throws SystemException {
+			final PortletDataContext portletDataContext) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			AssetCategoryLocalServiceUtil.getExportActionableDynamicQuery(
@@ -167,8 +166,7 @@ public class AssetCategoryPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getVocabularyActionableDynamicQuery(
-			final PortletDataContext portletDataContext)
-		throws SystemException {
+			final PortletDataContext portletDataContext) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			AssetVocabularyLocalServiceUtil.getExportActionableDynamicQuery(

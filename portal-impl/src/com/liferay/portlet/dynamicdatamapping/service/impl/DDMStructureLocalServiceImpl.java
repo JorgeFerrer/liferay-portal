@@ -517,8 +517,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public DDMStructure fetchStructure(long structureId)
-		throws SystemException {
+	public DDMStructure fetchStructure(long structureId) {
 
 		return ddmStructurePersistence.fetchByPrimaryKey(structureId);
 	}
@@ -537,8 +536,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public DDMStructure fetchStructure(
-			long groupId, long classNameId, String structureKey)
-		throws SystemException {
+			long groupId, long classNameId, String structureKey) {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -606,8 +604,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public List<DDMStructure> getClassStructures(long classNameId)
-		throws SystemException {
+	public List<DDMStructure> getClassStructures(long classNameId) {
 
 		return ddmStructurePersistence.findByClassNameId(classNameId);
 	}
@@ -619,8 +616,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long classNameId, int start, int end)
-		throws SystemException {
+			long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByClassNameId(
 			classNameId, start, end);
@@ -637,8 +633,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long companyId, long classNameId)
-		throws SystemException {
+			long companyId, long classNameId) {
 
 		return ddmStructurePersistence.findByC_C(companyId, classNameId);
 	}
@@ -667,8 +662,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long companyId, long classNameId, int start, int end)
-		throws SystemException {
+			long companyId, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByC_C(
 			companyId, classNameId, start, end);
@@ -689,8 +683,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public List<DDMStructure> getClassStructures(
 			long companyId, long classNameId,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByC_C(
 			companyId, classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -704,8 +697,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long classNameId, OrderByComparator orderByComparator)
-		throws SystemException {
+			long classNameId, OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByClassNameId(
 			classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -722,8 +714,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getDLFileEntryTypeStructures(
-			long dlFileEntryTypeId)
-		throws SystemException {
+			long dlFileEntryTypeId) {
 
 		return dlFileEntryTypePersistence.getDDMStructures(dlFileEntryTypeId);
 	}
@@ -867,8 +858,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructure(
-			long groupId, String name, String description)
-		throws SystemException {
+			long groupId, String name, String description) {
 
 		return ddmStructurePersistence.findByG_N_D(groupId, name, description);
 	}
@@ -887,8 +877,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public List<DDMStructure> getStructureEntries(long groupId)
-		throws SystemException {
+	public List<DDMStructure> getStructureEntries(long groupId) {
 
 		return getStructures(groupId);
 	}
@@ -900,8 +889,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getStructureEntries(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return getStructures(groupId, start, end);
 	}
@@ -925,8 +913,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long groupId)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long groupId) {
 
 		return ddmStructurePersistence.findByGroupId(groupId);
 	}
@@ -952,8 +939,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long groupId, int start, int end)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long groupId, int start, int end) {
 
 		return ddmStructurePersistence.findByGroupId(groupId, start, end);
 	}
@@ -968,8 +954,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long groupId, long classNameId)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long groupId, long classNameId) {
 
 		return ddmStructurePersistence.findByG_C(groupId, classNameId);
 	}
@@ -999,8 +984,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
-			long groupId, long classNameId, int start, int end)
-		throws SystemException {
+			long groupId, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupId, classNameId, start, end);
@@ -1034,8 +1018,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public List<DDMStructure> getStructures(
 			long groupId, long classNameId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupId, classNameId, start, end, orderByComparator);
@@ -1043,8 +1026,7 @@ public class DDMStructureLocalServiceImpl
 
 	@Override
 	public List<DDMStructure> getStructures(
-			long groupId, String name, String description)
-		throws SystemException {
+			long groupId, String name, String description) {
 
 		return ddmStructurePersistence.findByG_N_D(groupId, name, description);
 	}
@@ -1057,8 +1039,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long[] groupIds)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long[] groupIds) {
 
 		return ddmStructurePersistence.findByGroupId(groupIds);
 	}
@@ -1074,8 +1055,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<DDMStructure> getStructures(long[] groupIds, long classNameId)
-		throws SystemException {
+	public List<DDMStructure> getStructures(long[] groupIds, long classNameId) {
 
 		return ddmStructurePersistence.findByG_C(groupIds, classNameId);
 	}
@@ -1105,8 +1085,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
-			long[] groupIds, long classNameId, int start, int end)
-		throws SystemException {
+			long[] groupIds, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupIds, classNameId, start, end);
@@ -1134,8 +1113,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getStructuresCount(long groupId, long classNameId)
-		throws SystemException {
+	public int getStructuresCount(long groupId, long classNameId) {
 
 		return ddmStructurePersistence.countByG_C(groupId, classNameId);
 	}
@@ -1151,8 +1129,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getStructuresCount(long[] groupIds, long classNameId)
-		throws SystemException {
+	public int getStructuresCount(long[] groupIds, long classNameId) {
 
 		return ddmStructurePersistence.countByG_C(groupIds, classNameId);
 	}
@@ -1190,8 +1167,7 @@ public class DDMStructureLocalServiceImpl
 	public List<DDMStructure> search(
 			long companyId, long[] groupIds, long[] classNameIds,
 			String keywords, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.findByKeywords(
 			companyId, groupIds, classNameIds, keywords, start, end,
@@ -1238,8 +1214,7 @@ public class DDMStructureLocalServiceImpl
 			long companyId, long[] groupIds, long[] classNameIds, String name,
 			String description, String storageType, int type,
 			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.findByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,
@@ -1262,8 +1237,7 @@ public class DDMStructureLocalServiceImpl
 	@Override
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords)
-		throws SystemException {
+			String keywords) {
 
 		return ddmStructureFinder.countByKeywords(
 			companyId, groupIds, classNameIds, keywords);
@@ -1293,8 +1267,7 @@ public class DDMStructureLocalServiceImpl
 	public int searchCount(
 			long companyId, long[] groupIds, long[] classNameIds, String name,
 			String description, String storageType, int type,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return ddmStructureFinder.countByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,

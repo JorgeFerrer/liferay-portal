@@ -30,8 +30,7 @@ public class AnnouncementsFlagLocalServiceImpl
 	extends AnnouncementsFlagLocalServiceBaseImpl {
 
 	@Override
-	public AnnouncementsFlag addFlag(long userId, long entryId, int value)
-		throws SystemException {
+	public AnnouncementsFlag addFlag(long userId, long entryId, int value) {
 
 		long flagId = counterLocalService.increment();
 

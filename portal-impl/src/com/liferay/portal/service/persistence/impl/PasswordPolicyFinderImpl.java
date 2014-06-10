@@ -86,8 +86,7 @@ public class PasswordPolicyFinderImpl
 	@Override
 	public List<PasswordPolicy> findByC_N(
 			long companyId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		name = CustomSQLUtil.keywords(name)[0];
 

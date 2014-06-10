@@ -331,8 +331,7 @@ public class LuceneHelperUtil {
 	}
 
 	public static InputStream getLoadIndexesInputStreamFromCluster(
-			long companyId, Address bootupAddress)
-		throws SystemException {
+			long companyId, Address bootupAddress) {
 
 		return getLuceneHelper().getLoadIndexesInputStreamFromCluster(
 			companyId, bootupAddress);
@@ -396,8 +395,7 @@ public class LuceneHelperUtil {
 		getLuceneHelper().loadIndex(companyId, inputStream);
 	}
 
-	public static void loadIndexesFromCluster(long companyId)
-		throws SystemException {
+	public static void loadIndexesFromCluster(long companyId) {
 
 		getLuceneHelper().loadIndexesFromCluster(companyId);
 	}

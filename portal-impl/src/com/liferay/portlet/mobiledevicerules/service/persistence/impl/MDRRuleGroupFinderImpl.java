@@ -53,8 +53,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 
 	@Override
 	public int countByKeywords(
-			long groupId, String keywords, LinkedHashMap<String, Object> params)
-		throws SystemException {
+			long groupId, String keywords, LinkedHashMap<String, Object> params) {
 
 		String[] names = null;
 		boolean andOperator = false;
@@ -72,8 +71,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public int countByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 
@@ -83,8 +81,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public int countByG_N(
 			long groupId, String[] names, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		names = CustomSQLUtil.keywords(names);
 
@@ -137,8 +134,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public List<MDRRuleGroup> findByKeywords(
 			long groupId, String keywords, LinkedHashMap<String, Object> params,
-			int start, int end)
-		throws SystemException {
+			int start, int end) {
 
 		String[] names = null;
 		boolean andOperator = false;
@@ -156,8 +152,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return findByG_N(
 			groupId, name, params, andOperator, QueryUtil.ALL_POS,
@@ -167,8 +162,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end)
-		throws SystemException {
+			boolean andOperator, int start, int end) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 
@@ -178,8 +172,7 @@ public class MDRRuleGroupFinderImpl extends BasePersistenceImpl<MDRRuleGroup>
 	@Override
 	public List<MDRRuleGroup> findByG_N(
 			long groupId, String[] names, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end)
-		throws SystemException {
+			boolean andOperator, int start, int end) {
 
 		names = CustomSQLUtil.keywords(names);
 

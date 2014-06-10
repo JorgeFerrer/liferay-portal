@@ -73,8 +73,7 @@ public class PortletPreferencesFinderImpl
 	@Override
 	public long countByO_O_P(
 			long ownerId, int ownerType, String portletId,
-			boolean excludeDefaultPreferences)
-		throws SystemException {
+			boolean excludeDefaultPreferences) {
 
 		Session session = null;
 
@@ -136,8 +135,7 @@ public class PortletPreferencesFinderImpl
 	@Override
 	public long countByO_O_P_P_P(
 			long ownerId, int ownerType, long plid, String portletId,
-			boolean excludeDefaultPreferences)
-		throws SystemException {
+			boolean excludeDefaultPreferences) {
 
 		Session session = null;
 
@@ -211,8 +209,7 @@ public class PortletPreferencesFinderImpl
 	}
 
 	@Override
-	public List<PortletPreferences> findByPortletId(String portletId)
-		throws SystemException {
+	public List<PortletPreferences> findByPortletId(String portletId) {
 
 		Session session = null;
 
@@ -242,8 +239,7 @@ public class PortletPreferencesFinderImpl
 	@Override
 	public List<PortletPreferences> findByC_G_O_O_P_P(
 			long companyId, long groupId, long ownerId, int ownerType,
-			String portletId, boolean privateLayout)
-		throws SystemException {
+			String portletId, boolean privateLayout) {
 
 		Object[] finderArgs = {
 			companyId, groupId, ownerId, ownerType, portletId, privateLayout

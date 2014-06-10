@@ -36,8 +36,7 @@ public class BaseDDMStructureClassTypeReader implements ClassTypeReader {
 
 	@Override
 	public List<ClassType> getAvailableClassTypes(
-			long[] groupIds, Locale locale)
-		throws SystemException {
+			long[] groupIds, Locale locale) {
 
 		List<ClassType> classTypes = new ArrayList<ClassType>();
 

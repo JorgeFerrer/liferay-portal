@@ -295,8 +295,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	@Override
 	public List<AssetCategory> getVocabularyCategories(
 			long groupId, String name, long vocabularyId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (Validator.isNull(name)) {
 			return assetCategoryPersistence.filterFindByG_V(
@@ -309,16 +308,14 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public int getVocabularyCategoriesCount(long groupId, long vocabularyId)
-		throws SystemException {
+	public int getVocabularyCategoriesCount(long groupId, long vocabularyId) {
 
 		return assetCategoryPersistence.filterCountByG_V(groupId, vocabularyId);
 	}
 
 	@Override
 	public int getVocabularyCategoriesCount(
-			long groupId, String name, long vocabularyId)
-		throws SystemException {
+			long groupId, String name, long vocabularyId) {
 
 		if (Validator.isNull(name)) {
 			return assetCategoryPersistence.filterCountByG_V(
@@ -388,8 +385,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	@Override
 	public List<AssetCategory> getVocabularyRootCategories(
 			long groupId, long vocabularyId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return assetCategoryPersistence.filterFindByG_P_V(
 			groupId, AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID,
@@ -397,8 +393,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public int getVocabularyRootCategoriesCount(long groupId, long vocabularyId)
-		throws SystemException {
+	public int getVocabularyRootCategoriesCount(long groupId, long vocabularyId) {
 
 		return assetCategoryPersistence.filterCountByG_P_V(
 			groupId, AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID,
@@ -421,8 +416,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	@Override
 	public List<AssetCategory> search(
 			long groupId, String keywords, long vocabularyId, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		String name = CustomSQLUtil.keywords(keywords)[0];
 

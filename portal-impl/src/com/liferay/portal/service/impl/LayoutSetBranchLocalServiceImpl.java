@@ -329,8 +329,7 @@ public class LayoutSetBranchLocalServiceImpl
 
 	@Override
 	public LayoutSetBranch fetchLayoutSetBranch(
-			long groupId, boolean privateLayout, String name)
-		throws SystemException {
+			long groupId, boolean privateLayout, String name) {
 
 		return layoutSetBranchPersistence.fetchByG_P_N(
 			groupId, privateLayout, name);
@@ -347,8 +346,7 @@ public class LayoutSetBranchLocalServiceImpl
 
 	@Override
 	public List<LayoutSetBranch> getLayoutSetBranches(
-			long groupId, boolean privateLayout)
-		throws SystemException {
+			long groupId, boolean privateLayout) {
 
 		return layoutSetBranchPersistence.findByG_P(
 			groupId, privateLayout, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -502,8 +500,7 @@ public class LayoutSetBranchLocalServiceImpl
 
 	protected String getLayoutBranchName(
 			long layoutSetBranchId, Locale locale, String mergeBranchName,
-			String mergeLayoutSetBranchName, long plid)
-		throws SystemException {
+			String mergeLayoutSetBranchName, long plid) {
 
 		LayoutBranch layoutBranch = layoutBranchPersistence.fetchByL_P_N(
 			layoutSetBranchId, plid, mergeBranchName);

@@ -71,8 +71,7 @@ public class AnnouncementsEntryFinderImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		Session session = null;
 
@@ -134,8 +133,7 @@ public class AnnouncementsEntryFinderImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue)
-		throws SystemException {
+			int flagValue) {
 
 		Session session = null;
 
@@ -191,8 +189,7 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public List<AnnouncementsEntry> findByDisplayDate(
-			Date displayDateLT, Date displayDateGT)
-		throws SystemException {
+			Date displayDateLT, Date displayDateGT) {
 
 		Timestamp displayDateLT_TS = CalendarUtil.getTimestamp(displayDateLT);
 		Timestamp displayDateGT_TS = CalendarUtil.getTimestamp(displayDateGT);
@@ -230,8 +227,7 @@ public class AnnouncementsEntryFinderImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end)
-		throws SystemException {
+			int flagValue, int start, int end) {
 
 		Session session = null;
 
@@ -284,8 +280,7 @@ public class AnnouncementsEntryFinderImpl
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end)
-		throws SystemException {
+			int flagValue, int start, int end) {
 
 		Session session = null;
 

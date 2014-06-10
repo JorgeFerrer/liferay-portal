@@ -242,8 +242,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getInverseRelations(
-			long userId, int type, int start, int end)
-		throws SystemException {
+			long userId, int type, int start, int end) {
 
 		return socialRelationPersistence.findByU2_T(userId, type, start, end);
 	}
@@ -258,8 +257,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getInverseRelationsCount(long userId, int type)
-		throws SystemException {
+	public int getInverseRelationsCount(long userId, int type) {
 
 		return socialRelationPersistence.countByU2_T(userId, type);
 	}
@@ -319,8 +317,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
-			long userId, int type, int start, int end)
-		throws SystemException {
+			long userId, int type, int start, int end) {
 
 		return socialRelationPersistence.findByU1_T(userId, type, start, end);
 	}
@@ -347,8 +344,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
-			long userId1, long userId2, int start, int end)
-		throws SystemException {
+			long userId1, long userId2, int start, int end) {
 
 		return socialRelationPersistence.findByU1_U2(
 			userId1, userId2, start, end);
@@ -377,8 +373,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getRelationsCount(long userId1, long userId2)
-		throws SystemException {
+	public int getRelationsCount(long userId1, long userId2) {
 
 		return socialRelationPersistence.countByU1_U2(userId1, userId2);
 	}
@@ -397,8 +392,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasRelation(long userId1, long userId2, int type)
-		throws SystemException {
+	public boolean hasRelation(long userId1, long userId2, int type) {
 
 		SocialRelation relation = socialRelationPersistence.fetchByU1_U2_T(
 			userId1, userId2, type);
@@ -431,8 +425,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean isRelatable(long userId1, long userId2, int type)
-		throws SystemException {
+	public boolean isRelatable(long userId1, long userId2, int type) {
 
 		if (userId1 == userId2) {
 			return false;

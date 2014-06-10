@@ -550,8 +550,7 @@ public class ExportImportHelperUtilTest extends PowerMockito {
 	}
 
 	protected void assertLinksToLayouts(
-			String content, Layout layout, long groupId)
-		throws SystemException {
+			String content, Layout layout, long groupId) {
 
 		StringBundler sb = new StringBundler();
 

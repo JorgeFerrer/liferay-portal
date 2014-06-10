@@ -58,8 +58,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	@Override
-	public void testAddClassName_Rollback(String classNameValue)
-		throws SystemException {
+	public void testAddClassName_Rollback(String classNameValue) {
 
 		addClassName(classNameValue);
 
@@ -67,16 +66,14 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	@Override
-	public void testAddClassName_Success(String classNameValue)
-		throws SystemException {
+	public void testAddClassName_Success(String classNameValue) {
 
 		addClassName(classNameValue);
 	}
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_PortalRollback(
-			String transactionPortletBarText)
-		throws SystemException {
+			String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -87,8 +84,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_PortletRollback(
-			String transactionPortletBarText)
-		throws SystemException {
+			String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -97,8 +93,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_Success(
-			String transactionPortletBarText)
-		throws SystemException {
+			String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -107,8 +102,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void testAutoSyncHibernateSessionStateOnTxCreation()
-		throws SystemException {
+	public void testAutoSyncHibernateSessionStateOnTxCreation() {
 
 		// Add in new transaction
 
@@ -227,8 +221,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	protected void addTransactionPortletBar(
-			String transactionPortletBarText, boolean rollback)
-		throws SystemException {
+			String transactionPortletBarText, boolean rollback) {
 
 		try {
 			Message message = new Message();

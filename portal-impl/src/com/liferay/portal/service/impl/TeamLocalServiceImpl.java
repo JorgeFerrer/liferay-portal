@@ -135,8 +135,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Team> getUserTeams(long userId, long groupId)
-		throws SystemException {
+	public List<Team> getUserTeams(long userId, long groupId) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -152,8 +151,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	public List<Team> search(
 			long groupId, String name, String description,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return teamFinder.findByG_N_D(
 			groupId, name, description, params, start, end, obc);
@@ -162,8 +160,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long groupId, String name, String description,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return teamFinder.countByG_N_D(groupId, name, description, params);
 	}

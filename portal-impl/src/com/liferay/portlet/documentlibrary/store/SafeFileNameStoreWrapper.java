@@ -266,8 +266,7 @@ public class SafeFileNameStoreWrapper implements Store {
 	}
 
 	@Override
-	public String[] getFileNames(long companyId, long repositoryId)
-		throws SystemException {
+	public String[] getFileNames(long companyId, long repositoryId) {
 
 		String[] fileNames = _store.getFileNames(companyId, repositoryId);
 

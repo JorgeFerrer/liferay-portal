@@ -172,16 +172,14 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetVocabulary> getGroupsVocabularies(long[] groupIds)
-		throws SystemException {
+	public List<AssetVocabulary> getGroupsVocabularies(long[] groupIds) {
 
 		return getGroupsVocabularies(groupIds, null);
 	}
 
 	@Override
 	public List<AssetVocabulary> getGroupsVocabularies(
-			long[] groupIds, String className)
-		throws SystemException {
+			long[] groupIds, String className) {
 
 		List<AssetVocabulary> vocabularies =
 			assetVocabularyPersistence.filterFindByGroupId(groupIds);
@@ -224,8 +222,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 
 	@Override
 	public List<AssetVocabulary> getGroupVocabularies(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return assetVocabularyPersistence.filterFindByGroupId(
 			groupId, start, end, obc);
@@ -234,16 +231,14 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	@Override
 	public List<AssetVocabulary> getGroupVocabularies(
 			long groupId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return assetVocabularyPersistence.filterFindByG_LikeN(
 			groupId, name, start, end, obc);
 	}
 
 	@Override
-	public List<AssetVocabulary> getGroupVocabularies(long[] groupIds)
-		throws SystemException {
+	public List<AssetVocabulary> getGroupVocabularies(long[] groupIds) {
 
 		return assetVocabularyPersistence.filterFindByGroupId(groupIds);
 	}
@@ -254,15 +249,13 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupVocabulariesCount(long groupId, String name)
-		throws SystemException {
+	public int getGroupVocabulariesCount(long groupId, String name) {
 
 		return assetVocabularyPersistence.filterCountByG_LikeN(groupId, name);
 	}
 
 	@Override
-	public int getGroupVocabulariesCount(long[] groupIds)
-		throws SystemException {
+	public int getGroupVocabulariesCount(long[] groupIds) {
 
 		return assetVocabularyPersistence.filterCountByGroupId(groupIds);
 	}

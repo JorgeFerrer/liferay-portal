@@ -105,8 +105,7 @@ public class JournalContentSearchLocalServiceImpl
 	@Override
 	public void deleteArticleContentSearch(
 			long groupId, boolean privateLayout, long layoutId,
-			String portletId, String articleId)
-		throws SystemException {
+			String portletId, String articleId) {
 
 		JournalContentSearch contentSearch =
 			journalContentSearchPersistence.fetchByG_P_L_P_A(
@@ -118,8 +117,7 @@ public class JournalContentSearchLocalServiceImpl
 	}
 
 	@Override
-	public void deleteArticleContentSearches(long groupId, String articleId)
-		throws SystemException {
+	public void deleteArticleContentSearches(long groupId, String articleId) {
 
 		List<JournalContentSearch> contentSearches =
 			journalContentSearchPersistence.findByG_A(groupId, articleId);
@@ -131,8 +129,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public void deleteLayoutContentSearches(
-			long groupId, boolean privateLayout, long layoutId)
-		throws SystemException {
+			long groupId, boolean privateLayout, long layoutId) {
 
 		List<JournalContentSearch> contentSearches =
 			journalContentSearchPersistence.findByG_P_L(
@@ -144,8 +141,7 @@ public class JournalContentSearchLocalServiceImpl
 	}
 
 	@Override
-	public void deleteOwnerContentSearches(long groupId, boolean privateLayout)
-		throws SystemException {
+	public void deleteOwnerContentSearches(long groupId, boolean privateLayout) {
 
 		List<JournalContentSearch> contentSearches =
 			journalContentSearchPersistence.findByG_P(groupId, privateLayout);
@@ -156,32 +152,28 @@ public class JournalContentSearchLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalContentSearch> getArticleContentSearches()
-		throws SystemException {
+	public List<JournalContentSearch> getArticleContentSearches() {
 
 		return journalContentSearchPersistence.findAll();
 	}
 
 	@Override
 	public List<JournalContentSearch> getArticleContentSearches(
-			long groupId, String articleId)
-		throws SystemException {
+			long groupId, String articleId) {
 
 		return journalContentSearchPersistence.findByG_A(groupId, articleId);
 	}
 
 	@Override
 	public List<JournalContentSearch> getArticleContentSearches(
-			String articleId)
-		throws SystemException {
+			String articleId) {
 
 		return journalContentSearchPersistence.findByArticleId(articleId);
 	}
 
 	@Override
 	public List<Long> getLayoutIds(
-			long groupId, boolean privateLayout, String articleId)
-		throws SystemException {
+			long groupId, boolean privateLayout, String articleId) {
 
 		List<Long> layoutIds = new ArrayList<Long>();
 
@@ -198,8 +190,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public int getLayoutIdsCount(
-			long groupId, boolean privateLayout, String articleId)
-		throws SystemException {
+			long groupId, boolean privateLayout, String articleId) {
 
 		return journalContentSearchPersistence.countByG_P_A(
 			groupId, privateLayout, articleId);
@@ -212,8 +203,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public List<JournalContentSearch> getPortletContentSearches(
-			String portletId)
-		throws SystemException {
+			String portletId) {
 
 		return journalContentSearchPersistence.findByPortletId(portletId);
 	}

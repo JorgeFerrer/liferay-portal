@@ -147,8 +147,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public BackgroundTask amendBackgroundTask(
 			long backgroundTaskId, Map<String, Serializable> taskContextMap,
-			int status, ServiceContext serviceContext)
-		throws SystemException {
+			int status, ServiceContext serviceContext) {
 
 		return amendBackgroundTask(
 			backgroundTaskId, taskContextMap, status, null, serviceContext);
@@ -157,8 +156,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public BackgroundTask amendBackgroundTask(
 			long backgroundTaskId, Map<String, Serializable> taskContextMap,
-			int status, String statusMessage, ServiceContext serviceContext)
-		throws SystemException {
+			int status, String statusMessage, ServiceContext serviceContext) {
 
 		Date now = new Date();
 
@@ -314,8 +312,7 @@ public class BackgroundTaskLocalServiceImpl
 	}
 
 	@Override
-	public BackgroundTask fetchBackgroundTask(long backgroundTaskId)
-		throws SystemException {
+	public BackgroundTask fetchBackgroundTask(long backgroundTaskId) {
 
 		return backgroundTaskPersistence.fetchByPrimaryKey(backgroundTaskId);
 	}
@@ -323,8 +320,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public BackgroundTask fetchFirstBackgroundTask(
 			long groupId, String taskExecutorClassName, boolean completed,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.fetchByG_T_C_First(
 			groupId, taskExecutorClassName, completed, orderByComparator);
@@ -332,8 +328,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public BackgroundTask fetchFirstBackgroundTask(
-			String taskExecutorClassName, int status)
-		throws SystemException {
+			String taskExecutorClassName, int status) {
 
 		return fetchFirstBackgroundTask(taskExecutorClassName, status, null);
 	}
@@ -341,8 +336,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public BackgroundTask fetchFirstBackgroundTask(
 			String taskExecutorClassName, int status,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.fetchByT_S_First(
 			taskExecutorClassName, status, orderByComparator);
@@ -356,16 +350,14 @@ public class BackgroundTaskLocalServiceImpl
 	}
 
 	@Override
-	public List<BackgroundTask> getBackgroundTasks(long groupId, int status)
-		throws SystemException {
+	public List<BackgroundTask> getBackgroundTasks(long groupId, int status) {
 
 		return backgroundTaskPersistence.findByG_S(groupId, status);
 	}
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			long groupId, String taskExecutorClassName)
-		throws SystemException {
+			long groupId, String taskExecutorClassName) {
 
 		return backgroundTaskPersistence.findByG_T(
 			groupId, taskExecutorClassName);
@@ -373,8 +365,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			long groupId, String taskExecutorClassName, int status)
-		throws SystemException {
+			long groupId, String taskExecutorClassName, int status) {
 
 		return backgroundTaskPersistence.findByG_T_S(
 			groupId, taskExecutorClassName, status);
@@ -383,8 +374,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
 			long groupId, String taskExecutorClassName, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.findByG_T(
 			groupId, taskExecutorClassName, start, end, orderByComparator);
@@ -393,8 +383,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
 			long groupId, String name, String taskExecutorClassName, int start,
-			int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int end, OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.findByG_N_T(
 			groupId, name, taskExecutorClassName, start, end,
@@ -403,8 +392,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			long groupId, String[] taskExecutorClassNames)
-		throws SystemException {
+			long groupId, String[] taskExecutorClassNames) {
 
 		return backgroundTaskPersistence.findByG_T(
 			groupId, taskExecutorClassNames);
@@ -412,8 +400,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			long groupId, String[] taskExecutorClassNames, int status)
-		throws SystemException {
+			long groupId, String[] taskExecutorClassNames, int status) {
 
 		return backgroundTaskPersistence.findByG_T_S(
 			groupId, taskExecutorClassNames, status);
@@ -422,8 +409,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
 			long groupId, String[] taskExecutorClassNames, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.findByG_T(
 			groupId, taskExecutorClassNames, start, end, orderByComparator);
@@ -431,8 +417,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			String taskExecutorClassName, int status)
-		throws SystemException {
+			String taskExecutorClassName, int status) {
 
 		return backgroundTaskPersistence.findByT_S(
 			taskExecutorClassName, status);
@@ -441,8 +426,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
 			String taskExecutorClassName, int status, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.findByT_S(
 			taskExecutorClassName, status, start, end, orderByComparator);
@@ -450,8 +434,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
-			String[] taskExecutorClassNames, int status)
-		throws SystemException {
+			String[] taskExecutorClassNames, int status) {
 
 		return backgroundTaskPersistence.findByT_S(
 			taskExecutorClassNames, status);
@@ -460,8 +443,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public List<BackgroundTask> getBackgroundTasks(
 			String[] taskExecutorClassNames, int status, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return backgroundTaskPersistence.findByT_S(
 			taskExecutorClassNames, status, start, end, orderByComparator);
@@ -469,8 +451,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public int getBackgroundTasksCount(
-			long groupId, String taskExecutorClassName)
-		throws SystemException {
+			long groupId, String taskExecutorClassName) {
 
 		return backgroundTaskPersistence.countByG_T(
 			groupId, taskExecutorClassName);
@@ -478,8 +459,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public int getBackgroundTasksCount(
-			long groupId, String taskExecutorClassName, boolean completed)
-		throws SystemException {
+			long groupId, String taskExecutorClassName, boolean completed) {
 
 		return backgroundTaskPersistence.countByG_T_C(
 			groupId, taskExecutorClassName, completed);
@@ -487,8 +467,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public int getBackgroundTasksCount(
-			long groupId, String name, String taskExecutorClassName)
-		throws SystemException {
+			long groupId, String name, String taskExecutorClassName) {
 
 		return backgroundTaskPersistence.countByG_N_T(
 			groupId, name, taskExecutorClassName);
@@ -497,8 +476,7 @@ public class BackgroundTaskLocalServiceImpl
 	@Override
 	public int getBackgroundTasksCount(
 			long groupId, String name, String taskExecutorClassName,
-			boolean completed)
-		throws SystemException {
+			boolean completed) {
 
 		return backgroundTaskPersistence.countByG_N_T_C(
 			groupId, name, taskExecutorClassName, completed);
@@ -506,8 +484,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public int getBackgroundTasksCount(
-			long groupId, String[] taskExecutorClassNames)
-		throws SystemException {
+			long groupId, String[] taskExecutorClassNames) {
 
 		return backgroundTaskPersistence.countByG_T(
 			groupId, taskExecutorClassNames);
@@ -515,8 +492,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Override
 	public int getBackgroundTasksCount(
-			long groupId, String[] taskExecutorClassNames, boolean completed)
-		throws SystemException {
+			long groupId, String[] taskExecutorClassNames, boolean completed) {
 
 		return backgroundTaskPersistence.countByG_T_C(
 			groupId, taskExecutorClassNames, completed);
@@ -538,8 +514,7 @@ public class BackgroundTaskLocalServiceImpl
 
 	@Clusterable(onMaster = true)
 	@Override
-	public void resumeBackgroundTask(long backgroundTaskId)
-		throws SystemException {
+	public void resumeBackgroundTask(long backgroundTaskId) {
 
 		BackgroundTask backgroundTask =
 			backgroundTaskPersistence.fetchByPrimaryKey(backgroundTaskId);

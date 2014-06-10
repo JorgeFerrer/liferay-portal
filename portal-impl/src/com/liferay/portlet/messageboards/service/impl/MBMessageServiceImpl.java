@@ -278,8 +278,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getCategoryMessagesCount(
-			long groupId, long categoryId, int status)
-		throws SystemException {
+			long groupId, long categoryId, int status) {
 
 		return mbMessageLocalService.getCategoryMessagesCount(
 			groupId, categoryId, status);
@@ -393,8 +392,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupMessagesCount(long groupId, int status)
-		throws SystemException {
+	public int getGroupMessagesCount(long groupId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.filterCountByGroupId(groupId);
@@ -532,8 +530,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getThreadAnswersCount(
-			long groupId, long categoryId, long threadId)
-		throws SystemException {
+			long groupId, long categoryId, long threadId) {
 
 		return mbMessagePersistence.filterCountByG_C_T_A(
 			groupId, categoryId, threadId, true);
@@ -542,8 +539,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	@Override
 	public List<MBMessage> getThreadMessages(
 			long groupId, long categoryId, long threadId, int status, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.filterFindByG_C_T(
@@ -557,8 +553,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getThreadMessagesCount(
-			long groupId, long categoryId, long threadId, int status)
-		throws SystemException {
+			long groupId, long categoryId, long threadId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.filterCountByG_C_T(
@@ -764,8 +759,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	protected String exportToRSS(
 			String name, String description, String type, double version,
 			String displayStyle, String feedURL, String entryURL,
-			List<MBMessage> messages, ThemeDisplay themeDisplay)
-		throws SystemException {
+			List<MBMessage> messages, ThemeDisplay themeDisplay) {
 
 		SyndFeed syndFeed = new SyndFeedImpl();
 

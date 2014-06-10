@@ -153,8 +153,7 @@ public abstract class BaseRepositoryFactory<T> {
 		return baseRepository;
 	}
 
-	protected T createLiferayRepository(long repositoryId)
-		throws SystemException {
+	protected T createLiferayRepository(long repositoryId) {
 
 		long dlFolderId = 0;
 		long groupId = 0;
@@ -276,8 +275,7 @@ public abstract class BaseRepositoryFactory<T> {
 	protected abstract Repository getRepository(long repositoryId)
 		throws SystemException;
 
-	protected long getRepositoryClassNameId(long repositoryId)
-		throws SystemException {
+	protected long getRepositoryClassNameId(long repositoryId) {
 
 		Repository repository = _repositoryLocalService.fetchRepository(
 			repositoryId);

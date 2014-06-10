@@ -340,15 +340,13 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	}
 
 	@Override
-	public Repository fetchPortletRepository(long groupId, String portletId)
-		throws SystemException {
+	public Repository fetchPortletRepository(long groupId, String portletId) {
 
 		return RepositoryLocalServiceUtil.fetchRepository(groupId, portletId);
 	}
 
 	@Override
-	public List<FileEntry> getPortletFileEntries(long groupId, long folderId)
-		throws SystemException {
+	public List<FileEntry> getPortletFileEntries(long groupId, long folderId) {
 
 		return toFileEntries(
 			DLFileEntryLocalServiceUtil.getFileEntries(groupId, folderId));
@@ -356,8 +354,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 
 	@Override
 	public List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		return getPortletFileEntries(
 			groupId, folderId, status, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -367,8 +364,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	@Override
 	public List<FileEntry> getPortletFileEntries(
 			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return toFileEntries(
 			DLFileEntryLocalServiceUtil.getFileEntries(
@@ -376,8 +372,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	}
 
 	@Override
-	public int getPortletFileEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getPortletFileEntriesCount(long groupId, long folderId) {
 
 		return DLFileEntryLocalServiceUtil.getFileEntriesCount(
 			groupId, folderId);
@@ -385,8 +380,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 
 	@Override
 	public int getPortletFileEntriesCount(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		return DLFileEntryLocalServiceUtil.getFileEntriesCount(
 			groupId, folderId, status);

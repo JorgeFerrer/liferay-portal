@@ -64,8 +64,7 @@ public class OrgLaborLocalServiceImpl extends OrgLaborLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<OrgLabor> getOrgLabors(long organizationId)
-		throws SystemException {
+	public List<OrgLabor> getOrgLabors(long organizationId) {
 
 		return orgLaborPersistence.findByOrganizationId(organizationId);
 	}

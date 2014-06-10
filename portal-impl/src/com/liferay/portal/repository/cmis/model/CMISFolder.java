@@ -82,8 +82,7 @@ public class CMISFolder extends CMISModel implements Folder {
 
 	@Override
 	public boolean containsPermission(
-			PermissionChecker permissionChecker, String actionId)
-		throws SystemException {
+			PermissionChecker permissionChecker, String actionId) {
 
 		if (_cmisFolder.isRootFolder() &&
 			(actionId.equals(ActionKeys.DELETE) ||

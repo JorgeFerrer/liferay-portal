@@ -123,8 +123,7 @@ public abstract class BaseActionableDynamicQuery
 	}
 
 	@Override
-	public void setBaseLocalService(BaseLocalService baseLocalService)
-		throws SystemException {
+	public void setBaseLocalService(BaseLocalService baseLocalService) {
 
 		_baseLocalService = baseLocalService;
 

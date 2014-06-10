@@ -46,8 +46,7 @@ public class MBThreadFlagStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		MBThreadFlag threadFlag =
 			MBThreadFlagLocalServiceUtil.fetchMBThreadFlagByUuidAndGroupId(

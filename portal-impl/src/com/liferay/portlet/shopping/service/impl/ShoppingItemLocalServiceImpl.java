@@ -320,16 +320,14 @@ public class ShoppingItemLocalServiceImpl
 	}
 
 	@Override
-	public int getCategoriesItemsCount(long groupId, List<Long> categoryIds)
-		throws SystemException {
+	public int getCategoriesItemsCount(long groupId, List<Long> categoryIds) {
 
 		return shoppingItemFinder.countByG_C(groupId, categoryIds);
 	}
 
 	@Override
 	public List<ShoppingItem> getFeaturedItems(
-			long groupId, long categoryId, int numOfItems)
-		throws SystemException {
+			long groupId, long categoryId, int numOfItems) {
 
 		List<ShoppingItem> featuredItems = shoppingItemFinder.findByFeatured(
 			groupId, new long[] {categoryId}, numOfItems);
@@ -391,8 +389,7 @@ public class ShoppingItemLocalServiceImpl
 	}
 
 	@Override
-	public List<ShoppingItem> getItems(long groupId, long categoryId)
-		throws SystemException {
+	public List<ShoppingItem> getItems(long groupId, long categoryId) {
 
 		return shoppingItemPersistence.findByG_C(groupId, categoryId);
 	}
@@ -400,16 +397,14 @@ public class ShoppingItemLocalServiceImpl
 	@Override
 	public List<ShoppingItem> getItems(
 			long groupId, long categoryId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return shoppingItemPersistence.findByG_C(
 			groupId, categoryId, start, end, obc);
 	}
 
 	@Override
-	public int getItemsCount(long groupId, long categoryId)
-		throws SystemException {
+	public int getItemsCount(long groupId, long categoryId) {
 
 		return shoppingItemPersistence.countByG_C(groupId, categoryId);
 	}
@@ -427,8 +422,7 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public List<ShoppingItem> getSaleItems(
-			long groupId, long categoryId, int numOfItems)
-		throws SystemException {
+			long groupId, long categoryId, int numOfItems) {
 
 		List<ShoppingItem> saleItems = shoppingItemFinder.findBySale(
 			groupId, new long[] {categoryId}, numOfItems);
@@ -457,16 +451,14 @@ public class ShoppingItemLocalServiceImpl
 	@Override
 	public List<ShoppingItem> search(
 			long groupId, long[] categoryIds, String keywords, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return shoppingItemFinder.findByKeywords(
 			groupId, categoryIds, keywords, start, end);
 	}
 
 	@Override
-	public int searchCount(long groupId, long[] categoryIds, String keywords)
-		throws SystemException {
+	public int searchCount(long groupId, long[] categoryIds, String keywords) {
 
 		return shoppingItemFinder.countByKeywords(
 			groupId, categoryIds, keywords);
@@ -768,8 +760,7 @@ public class ShoppingItemLocalServiceImpl
 		return properties;
 	}
 
-	protected long getCategory(ShoppingItem item, long categoryId)
-		throws SystemException {
+	protected long getCategory(ShoppingItem item, long categoryId) {
 
 		if ((item.getCategoryId() != categoryId) &&
 			(categoryId !=

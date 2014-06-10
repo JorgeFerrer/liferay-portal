@@ -68,8 +68,7 @@ public class DLFileRankFinderImpl
 	}
 
 	@Override
-	public List<DLFileRank> findByFolderId(long folderId)
-		throws SystemException {
+	public List<DLFileRank> findByFolderId(long folderId) {
 
 		Session session = null;
 

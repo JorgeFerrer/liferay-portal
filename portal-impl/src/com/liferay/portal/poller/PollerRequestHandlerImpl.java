@@ -241,8 +241,7 @@ public class PollerRequestHandlerImpl
 		return pollerRequests;
 	}
 
-	protected JSONObject createPollerResponseHeader(PollerHeader pollerHeader)
-		throws SystemException {
+	protected JSONObject createPollerResponseHeader(PollerHeader pollerHeader) {
 
 		if (pollerHeader == null) {
 			return null;

@@ -32,8 +32,7 @@ public class DDMStructureLinkLocalServiceImpl
 	@Override
 	public DDMStructureLink addStructureLink(
 			long classNameId, long classPK, long structureId,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		long structureLinkId = counterLocalService.increment();
 
@@ -60,8 +59,7 @@ public class DDMStructureLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStructureLink(DDMStructureLink structureLink)
-		throws SystemException {
+	public void deleteStructureLink(DDMStructureLink structureLink) {
 
 		ddmStructureLinkPersistence.remove(structureLink);
 	}
@@ -77,8 +75,7 @@ public class DDMStructureLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStructureStructureLinks(long structureId)
-		throws SystemException {
+	public void deleteStructureStructureLinks(long structureId) {
 
 		List<DDMStructureLink> structureLinks =
 			ddmStructureLinkPersistence.findByStructureId(structureId);
@@ -96,8 +93,7 @@ public class DDMStructureLinkLocalServiceImpl
 	}
 
 	@Override
-	public List<DDMStructureLink> getClassStructureLinks(long classNameId)
-		throws SystemException {
+	public List<DDMStructureLink> getClassStructureLinks(long classNameId) {
 
 		return ddmStructureLinkPersistence.findByStructureId(classNameId);
 	}
@@ -111,8 +107,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public List<DDMStructureLink> getStructureLinks(
-			long structureId, int start, int end)
-		throws SystemException {
+			long structureId, int start, int end) {
 
 		return ddmStructureLinkPersistence.findByStructureId(
 			structureId, start, end);

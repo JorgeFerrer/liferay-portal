@@ -59,8 +59,7 @@ public class DLFileEntryMetadataLocalServiceImpl
 	}
 
 	@Override
-	public DLFileEntryMetadata fetchFileEntryMetadata(long fileEntryMetadataId)
-		throws SystemException {
+	public DLFileEntryMetadata fetchFileEntryMetadata(long fileEntryMetadataId) {
 
 		return dlFileEntryMetadataPersistence.fetchByPrimaryKey(
 			fileEntryMetadataId);
@@ -68,8 +67,7 @@ public class DLFileEntryMetadataLocalServiceImpl
 
 	@Override
 	public DLFileEntryMetadata fetchFileEntryMetadata(
-			long ddmStructureId, long fileVersionId)
-		throws SystemException {
+			long ddmStructureId, long fileVersionId) {
 
 		return dlFileEntryMetadataPersistence.fetchByD_F(
 			ddmStructureId, fileVersionId);
@@ -98,24 +96,21 @@ public class DLFileEntryMetadataLocalServiceImpl
 	 */
 	@Deprecated
 	@Override
-	public long getFileEntryMetadataCount(long fileEntryId, long fileVersionId)
-		throws SystemException {
+	public long getFileEntryMetadataCount(long fileEntryId, long fileVersionId) {
 
 		return getFileVersionFileEntryMetadatasCount(fileVersionId);
 	}
 
 	@Override
 	public List<DLFileEntryMetadata> getFileVersionFileEntryMetadatas(
-			long fileVersionId)
-		throws SystemException {
+			long fileVersionId) {
 
 		return dlFileEntryMetadataPersistence.findByFileVersionId(
 			fileVersionId);
 	}
 
 	@Override
-	public long getFileVersionFileEntryMetadatasCount(long fileVersionId)
-		throws SystemException {
+	public long getFileVersionFileEntryMetadatasCount(long fileVersionId) {
 
 		return dlFileEntryMetadataPersistence.countByFileVersionId(
 			fileVersionId);

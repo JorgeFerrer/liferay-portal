@@ -76,8 +76,7 @@ public class ServiceContextUtil {
 	}
 
 	public static PortletPreferences getPortletPreferences(
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		if (serviceContext == null) {
 			return null;

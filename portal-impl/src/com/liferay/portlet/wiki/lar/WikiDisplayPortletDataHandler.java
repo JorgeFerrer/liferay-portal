@@ -153,8 +153,7 @@ public class WikiDisplayPortletDataHandler extends WikiPortletDataHandler {
 
 	protected ActionableDynamicQuery getPageActionableDynamicQuery(
 			final PortletDataContext portletDataContext, final long nodeId,
-			final String portletId)
-		throws SystemException {
+			final String portletId) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			WikiPageLocalServiceUtil.getExportActionableDynamicQuery(

@@ -117,15 +117,13 @@ public class SCProductVersionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteProductVersion(SCProductVersion productVersion)
-		throws SystemException {
+	public void deleteProductVersion(SCProductVersion productVersion) {
 
 		scProductVersionPersistence.remove(productVersion);
 	}
 
 	@Override
-	public void deleteProductVersions(long productEntryId)
-		throws SystemException {
+	public void deleteProductVersions(long productEntryId) {
 
 		List<SCProductVersion> productVersions =
 			scProductVersionPersistence.findByProductEntryId(productEntryId);
@@ -153,16 +151,14 @@ public class SCProductVersionLocalServiceImpl
 
 	@Override
 	public List<SCProductVersion> getProductVersions(
-			long productEntryId, int start, int end)
-		throws SystemException {
+			long productEntryId, int start, int end) {
 
 		return scProductVersionPersistence.findByProductEntryId(
 			productEntryId, start, end);
 	}
 
 	@Override
-	public int getProductVersionsCount(long productEntryId)
-		throws SystemException {
+	public int getProductVersionsCount(long productEntryId) {
 
 		return scProductVersionPersistence.countByProductEntryId(
 			productEntryId);

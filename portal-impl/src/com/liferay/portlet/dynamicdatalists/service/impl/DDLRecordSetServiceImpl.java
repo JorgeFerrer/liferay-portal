@@ -75,8 +75,7 @@ public class DDLRecordSetServiceImpl extends DDLRecordSetServiceBaseImpl {
 	@Override
 	public List<DDLRecordSet> search(
 			long companyId, long groupId, String keywords, int scope, int start,
-			int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int end, OrderByComparator orderByComparator) {
 
 		return ddlRecordSetFinder.filterFindByKeywords(
 			companyId, groupId, keywords, scope, start, end, orderByComparator);
@@ -86,8 +85,7 @@ public class DDLRecordSetServiceImpl extends DDLRecordSetServiceBaseImpl {
 	public List<DDLRecordSet> search(
 			long companyId, long groupId, String name, String description,
 			int scope, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddlRecordSetFinder.filterFindByC_G_N_D_S(
 			companyId, groupId, name, description, scope, andOperator, start,
@@ -96,8 +94,7 @@ public class DDLRecordSetServiceImpl extends DDLRecordSetServiceBaseImpl {
 
 	@Override
 	public int searchCount(
-			long companyId, long groupId, String keywords, int scope)
-		throws SystemException {
+			long companyId, long groupId, String keywords, int scope) {
 
 		return ddlRecordSetFinder.filterCountByKeywords(
 			companyId, groupId, keywords, scope);
@@ -106,8 +103,7 @@ public class DDLRecordSetServiceImpl extends DDLRecordSetServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, long groupId, String name, String description,
-			int scope, boolean andOperator)
-		throws SystemException {
+			int scope, boolean andOperator) {
 
 		return ddlRecordSetFinder.filterCountByC_G_N_D_S(
 			companyId, groupId, name, description, scope, andOperator);

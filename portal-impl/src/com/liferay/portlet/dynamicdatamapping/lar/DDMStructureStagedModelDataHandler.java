@@ -303,8 +303,7 @@ public class DDMStructureStagedModelDataHandler
 
 	protected DDMStructure fetchExistingStructure(
 			String uuid, long groupId, long classNameId, String structureKey,
-			boolean preloaded)
-		throws SystemException {
+			boolean preloaded) {
 
 		DDMStructure existingStructure = null;
 

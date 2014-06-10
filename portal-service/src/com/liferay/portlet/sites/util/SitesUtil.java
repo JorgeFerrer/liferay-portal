@@ -206,15 +206,13 @@ public class SitesUtil {
 			layoutSetPrototype, inputStream, serviceContext);
 	}
 
-	public static boolean isContentSharingWithChildrenEnabled(Group group)
-		throws SystemException {
+	public static boolean isContentSharingWithChildrenEnabled(Group group) {
 
 		return getSites().isContentSharingWithChildrenEnabled(group);
 	}
 
 	public static boolean isFirstLayout(
-			long groupId, boolean privateLayout, long layoutId)
-		throws SystemException {
+			long groupId, boolean privateLayout, long layoutId) {
 
 		return getSites().isFirstLayout(groupId, privateLayout, layoutId);
 	}
@@ -291,8 +289,7 @@ public class SitesUtil {
 		getSites().mergeLayoutSetProtypeLayouts(group, layoutSet);
 	}
 
-	public static void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet)
-		throws SystemException {
+	public static void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet) {
 
 		getSites().removeMergeFailFriendlyURLLayouts(layoutSet);
 	}

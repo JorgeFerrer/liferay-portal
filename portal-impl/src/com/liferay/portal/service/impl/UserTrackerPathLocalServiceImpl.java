@@ -28,8 +28,7 @@ public class UserTrackerPathLocalServiceImpl
 
 	@Override
 	public List<UserTrackerPath> getUserTrackerPaths(
-			long userTrackerId, int start, int end)
-		throws SystemException {
+			long userTrackerId, int start, int end) {
 
 		return userTrackerPathPersistence.findByUserTrackerId(
 			userTrackerId, start, end);

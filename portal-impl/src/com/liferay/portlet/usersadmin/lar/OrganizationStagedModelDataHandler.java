@@ -231,8 +231,7 @@ public class OrganizationStagedModelDataHandler
 	}
 
 	protected void exportOrgLabors(
-			PortletDataContext portletDataContext, Organization organization)
-		throws SystemException {
+			PortletDataContext portletDataContext, Organization organization) {
 
 		List<OrgLabor> orgLabors = OrgLaborLocalServiceUtil.getOrgLabors(
 			organization.getOrganizationId());

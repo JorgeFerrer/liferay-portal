@@ -73,8 +73,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCategoryProperty(AssetCategoryProperty categoryProperty)
-		throws SystemException {
+	public void deleteCategoryProperty(AssetCategoryProperty categoryProperty) {
 
 		assetCategoryPropertyPersistence.remove(categoryProperty);
 	}
@@ -91,15 +90,13 @@ public class AssetCategoryPropertyLocalServiceImpl
 	}
 
 	@Override
-	public List<AssetCategoryProperty> getCategoryProperties()
-		throws SystemException {
+	public List<AssetCategoryProperty> getCategoryProperties() {
 
 		return assetCategoryPropertyPersistence.findAll();
 	}
 
 	@Override
-	public List<AssetCategoryProperty> getCategoryProperties(long entryId)
-		throws SystemException {
+	public List<AssetCategoryProperty> getCategoryProperties(long entryId) {
 
 		return assetCategoryPropertyPersistence.findByCategoryId(entryId);
 	}
@@ -122,8 +119,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 
 	@Override
 	public List<AssetCategoryProperty> getCategoryPropertyValues(
-			long groupId, String key)
-		throws SystemException {
+			long groupId, String key) {
 
 		return assetCategoryPropertyFinder.findByG_K(groupId, key);
 	}

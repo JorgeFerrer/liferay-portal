@@ -876,24 +876,21 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	@Override
 	public LayoutReference[] getLayoutReferences(
 			long companyId, String portletId, String preferencesKey,
-			String preferencesValue)
-		throws SystemException {
+			String preferencesValue) {
 
 		return layoutLocalService.getLayouts(
 			companyId, portletId, preferencesKey, preferencesValue);
 	}
 
 	@Override
-	public List<Layout> getLayouts(long groupId, boolean privateLayout)
-		throws SystemException {
+	public List<Layout> getLayouts(long groupId, boolean privateLayout) {
 
 		return layoutPersistence.filterFindByG_P(groupId, privateLayout);
 	}
 
 	@Override
 	public List<Layout> getLayouts(
-			long groupId, boolean privateLayout, long parentLayoutId)
-		throws SystemException {
+			long groupId, boolean privateLayout, long parentLayoutId) {
 
 		return layoutPersistence.filterFindByG_P_P(
 			groupId, privateLayout, parentLayoutId);

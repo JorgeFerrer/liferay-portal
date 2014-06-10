@@ -85,8 +85,7 @@ public class AssetTagPropertyServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetTagProperty> getTagProperties(long tagId)
-		throws SystemException {
+	public List<AssetTagProperty> getTagProperties(long tagId) {
 
 		return assetTagPropertyLocalService.getTagProperties(tagId);
 	}
@@ -101,8 +100,7 @@ public class AssetTagPropertyServiceImpl
 	 */
 	@Override
 	public List<AssetTagProperty> getTagPropertyValues(
-			long companyId, String key)
-		throws SystemException {
+			long companyId, String key) {
 
 		return assetTagPropertyLocalService.getTagPropertyValues(
 			companyId, key);

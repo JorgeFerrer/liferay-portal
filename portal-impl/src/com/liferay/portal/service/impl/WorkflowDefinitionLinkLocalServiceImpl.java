@@ -96,8 +96,7 @@ public class WorkflowDefinitionLinkLocalServiceImpl
 
 	@Override
 	public WorkflowDefinitionLink fetchDefaultWorkflowDefinitionLink(
-			long companyId, String className, long classPK, long typePK)
-		throws SystemException {
+			long companyId, String className, long classPK, long typePK) {
 
 		if (!WorkflowEngineManagerUtil.isDeployed()) {
 			return null;
@@ -201,8 +200,7 @@ public class WorkflowDefinitionLinkLocalServiceImpl
 	@Override
 	public int getWorkflowDefinitionLinksCount(
 			long companyId, String workflowDefinitionName,
-			int workflowDefinitionVersion)
-		throws SystemException {
+			int workflowDefinitionVersion) {
 
 		if (!WorkflowEngineManagerUtil.isDeployed()) {
 			return 0;

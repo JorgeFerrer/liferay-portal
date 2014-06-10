@@ -486,8 +486,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
-		throws SystemException {
+	public void addPasswordPolicyUsers(long passwordPolicyId, long[] userIds) {
 
 		passwordPolicyRelLocalService.addPasswordPolicyRels(
 			passwordPolicyId, User.class.getName(), userIds);
@@ -1613,8 +1612,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void clearOrganizationUsers(long organizationId)
-		throws SystemException {
+	public void clearOrganizationUsers(long organizationId) {
 
 		organizationPersistence.clearUsers(organizationId);
 
@@ -2031,8 +2029,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserByEmailAddress(long companyId, String emailAddress)
-		throws SystemException {
+	public User fetchUserByEmailAddress(long companyId, String emailAddress) {
 
 		emailAddress = getLogin(emailAddress);
 
@@ -2049,8 +2046,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserByFacebookId(long companyId, long facebookId)
-		throws SystemException {
+	public User fetchUserByFacebookId(long companyId, long facebookId) {
 
 		return userPersistence.fetchByC_FID(companyId, facebookId);
 	}
@@ -2078,8 +2074,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserByOpenId(long companyId, String openId)
-		throws SystemException {
+	public User fetchUserByOpenId(long companyId, String openId) {
 
 		return userPersistence.fetchByC_O(companyId, openId);
 	}
@@ -2107,8 +2102,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User fetchUserByScreenName(long companyId, String screenName)
-		throws SystemException {
+	public User fetchUserByScreenName(long companyId, String screenName) {
 
 		screenName = getLogin(screenName);
 
@@ -2135,8 +2129,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<User> getCompanyUsers(long companyId, int start, int end)
-		throws SystemException {
+	public List<User> getCompanyUsers(long companyId, int start, int end) {
 
 		return userPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -2260,8 +2253,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<User> getNoAnnouncementsDeliveries(String type)
-		throws SystemException {
+	public List<User> getNoAnnouncementsDeliveries(String type) {
 
 		return userFinder.findByNoAnnouncementsDeliveries(type);
 	}
@@ -2297,8 +2289,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long[] getOrganizationUserIds(long organizationId)
-		throws SystemException {
+	public long[] getOrganizationUserIds(long organizationId) {
 
 		return organizationPersistence.getUserPrimaryKeys(organizationId);
 	}
@@ -2996,8 +2987,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public boolean hasPasswordPolicyUser(long passwordPolicyId, long userId)
-		throws SystemException {
+	public boolean hasPasswordPolicyUser(long passwordPolicyId, long userId) {
 
 		return passwordPolicyRelLocalService.hasPasswordPolicyRel(
 			passwordPolicyId, User.class.getName(), userId);
@@ -3163,8 +3153,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public List<User> search(
 			long companyId, String keywords, int status,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return userFinder.findByKeywords(
 			companyId, keywords, status, params, start, end, obc);
@@ -3204,8 +3193,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	@Override
 	public Hits search(
 			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
 		String firstName = null;
 		String middleName = null;
@@ -3302,8 +3290,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			long companyId, String firstName, String middleName,
 			String lastName, String screenName, String emailAddress, int status,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		return userFinder.findByC_FN_MN_LN_SN_EA_S(
 			companyId, firstName, middleName, lastName, screenName,
@@ -3354,8 +3341,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			long companyId, String firstName, String middleName,
 			String lastName, String screenName, String emailAddress, int status,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort)
-		throws SystemException {
+			int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -3390,8 +3376,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		if (!PropsValues.USERS_INDEXER_ENABLED ||
 			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
@@ -3479,8 +3464,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public int searchCount(
 			long companyId, String firstName, String middleName,
 			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andSearch)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andSearch) {
 
 		if (!PropsValues.USERS_INDEXER_ENABLED ||
 			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
@@ -3540,8 +3524,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	@Override
 	public List<User> searchSocial(
 			long companyId, long[] groupIds, String keywords, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -4096,8 +4079,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
-		throws SystemException {
+	public void unsetPasswordPolicyUsers(long passwordPolicyId, long[] userIds) {
 
 		passwordPolicyRelLocalService.deletePasswordPolicyRels(
 			passwordPolicyId, User.class.getName(), userIds);
@@ -6128,8 +6110,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	protected void notifyUser(
-			User user, String password, ServiceContext serviceContext)
-		throws SystemException {
+			User user, String password, ServiceContext serviceContext) {
 
 		if (!PrefsPropsUtil.getBoolean(
 				user.getCompanyId(),

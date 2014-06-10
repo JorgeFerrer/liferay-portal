@@ -394,8 +394,7 @@ public class ShoppingOrderLocalServiceImpl
 			String billingFirstName, String billingLastName,
 			String billingEmailAddress, String shippingFirstName,
 			String shippingLastName, String shippingEmailAddress,
-			String ppPaymentStatus, boolean andOperator, int start, int end)
-		throws SystemException {
+			String ppPaymentStatus, boolean andOperator, int start, int end) {
 
 		OrderDateComparator obc = new OrderDateComparator(false);
 
@@ -412,8 +411,7 @@ public class ShoppingOrderLocalServiceImpl
 			String billingFirstName, String billingLastName,
 			String billingEmailAddress, String shippingFirstName,
 			String shippingLastName, String shippingEmailAddress,
-			String ppPaymentStatus, boolean andOperator)
-		throws SystemException {
+			String ppPaymentStatus, boolean andOperator) {
 
 		return shoppingOrderFinder.countByG_C_U_N_PPPS(
 			groupId, companyId, userId, number, billingFirstName,

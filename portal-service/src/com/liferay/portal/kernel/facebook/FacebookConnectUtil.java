@@ -28,14 +28,12 @@ import javax.portlet.PortletRequest;
 public class FacebookConnectUtil {
 
 	public static String getAccessToken(
-			long companyId, String redirect, String code)
-		throws SystemException {
+			long companyId, String redirect, String code) {
 
 		return getFacebookConnect().getAccessToken(companyId, redirect, code);
 	}
 
-	public static String getAccessTokenURL(long companyId)
-		throws SystemException {
+	public static String getAccessTokenURL(long companyId) {
 
 		return getFacebookConnect().getAccessTokenURL(companyId);
 	}
@@ -81,8 +79,7 @@ public class FacebookConnectUtil {
 		return getFacebookConnect().isEnabled(companyId);
 	}
 
-	public static boolean isVerifiedAccountRequired(long companyId)
-		throws SystemException {
+	public static boolean isVerifiedAccountRequired(long companyId) {
 
 		return getFacebookConnect().isVerifiedAccountRequired(companyId);
 	}

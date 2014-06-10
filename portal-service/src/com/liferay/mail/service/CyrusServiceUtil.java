@@ -24,14 +24,12 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
 public class CyrusServiceUtil {
 
 	public static void addUser(
-			long userId, String emailAddress, String password)
-		throws SystemException {
+			long userId, String emailAddress, String password) {
 
 		getService().addUser(userId, emailAddress, password);
 	}
 
-	public static void deleteEmailAddress(long companyId, long userId)
-		throws SystemException {
+	public static void deleteEmailAddress(long companyId, long userId) {
 
 		getService().deleteEmailAddress(companyId, userId);
 	}
@@ -53,15 +51,13 @@ public class CyrusServiceUtil {
 	}
 
 	public static void updateEmailAddress(
-			long companyId, long userId, String emailAddress)
-		throws SystemException {
+			long companyId, long userId, String emailAddress) {
 
 		getService().updateEmailAddress(companyId, userId, emailAddress);
 	}
 
 	public static void updatePassword(
-			long companyId, long userId, String password)
-		throws SystemException {
+			long companyId, long userId, String password) {
 
 		getService().updatePassword(companyId, userId, password);
 	}

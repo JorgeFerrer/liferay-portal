@@ -783,8 +783,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getCategoryMessages(
-			long groupId, long categoryId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long categoryId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByG_C(
@@ -799,8 +798,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getCategoryMessages(
 			long groupId, long categoryId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByG_C(
@@ -814,8 +812,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getCategoryMessagesCount(
-			long groupId, long categoryId, int status)
-		throws SystemException {
+			long groupId, long categoryId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByG_C(groupId, categoryId);
@@ -828,8 +825,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getCompanyMessages(
-			long companyId, int status, int start, int end)
-		throws SystemException {
+			long companyId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByCompanyId(companyId, start, end);
@@ -843,8 +839,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getCompanyMessages(
 			long companyId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByCompanyId(
@@ -857,8 +852,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyMessagesCount(long companyId, int status)
-		throws SystemException {
+	public int getCompanyMessagesCount(long companyId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByCompanyId(companyId);
@@ -939,8 +933,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getDiscussionMessagesCount(
-			long classNameId, long classPK, int status)
-		throws SystemException {
+			long classNameId, long classPK, int status) {
 
 		MBDiscussion discussion = mbDiscussionPersistence.fetchByC_C(
 			classNameId, classPK);
@@ -970,8 +963,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getDiscussionMessagesCount(
-			String className, long classPK, int status)
-		throws SystemException {
+			String className, long classPK, int status) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -979,8 +971,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBDiscussion> getDiscussions(String className)
-		throws SystemException {
+	public List<MBDiscussion> getDiscussions(String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -989,8 +980,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getGroupMessages(
-			long groupId, int status, int start, int end)
-		throws SystemException {
+			long groupId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByGroupId(groupId, start, end);
@@ -1002,8 +992,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getGroupMessages(
-			long groupId, int status, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int status, int start, int end, OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByGroupId(groupId, start, end, obc);
@@ -1016,8 +1005,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getGroupMessages(
-			long groupId, long userId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long userId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByG_U(groupId, userId, start, end);
@@ -1031,8 +1019,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getGroupMessages(
 			long groupId, long userId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByG_U(
@@ -1045,8 +1032,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupMessagesCount(long groupId, int status)
-		throws SystemException {
+	public int getGroupMessagesCount(long groupId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByGroupId(groupId);
@@ -1057,8 +1043,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupMessagesCount(long groupId, long userId, int status)
-		throws SystemException {
+	public int getGroupMessagesCount(long groupId, long userId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByG_U(groupId, userId);
@@ -1168,8 +1153,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getMessages(
-			String className, long classPK, int status)
-		throws SystemException {
+			String className, long classPK, int status) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1198,8 +1182,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<MBMessage> getThreadMessages(long threadId, int status)
-		throws SystemException {
+	public List<MBMessage> getThreadMessages(long threadId, int status) {
 
 		return getThreadMessages(
 			threadId, status, new MessageThreadComparator());
@@ -1207,8 +1190,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getThreadMessages(
-			long threadId, int status, Comparator<MBMessage> comparator)
-		throws SystemException {
+			long threadId, int status, Comparator<MBMessage> comparator) {
 
 		List<MBMessage> messages = null;
 
@@ -1224,8 +1206,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getThreadMessages(
-			long threadId, int status, int start, int end)
-		throws SystemException {
+			long threadId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByThreadId(threadId, start, end);
@@ -1236,8 +1217,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getThreadMessagesCount(long threadId, int status)
-		throws SystemException {
+	public int getThreadMessagesCount(long threadId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByThreadId(threadId);
@@ -1249,8 +1229,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getThreadRepliesMessages(
-			long threadId, int status, int start, int end)
-		throws SystemException {
+			long threadId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByThreadReplies(
@@ -1265,8 +1244,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getUserDiscussionMessages(
 			long userId, long classNameId, long classPK, int status, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByU_C_C(
@@ -1281,8 +1259,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getUserDiscussionMessages(
 			long userId, long[] classNameIds, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.findByU_C(
@@ -1297,8 +1274,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Override
 	public List<MBMessage> getUserDiscussionMessages(
 			long userId, String className, long classPK, int status, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1308,8 +1284,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getUserDiscussionMessagesCount(
-			long userId, long classNameId, long classPK, int status)
-		throws SystemException {
+			long userId, long classNameId, long classPK, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByU_C_C(
@@ -1323,8 +1298,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getUserDiscussionMessagesCount(
-			long userId, long[] classNameIds, int status)
-		throws SystemException {
+			long userId, long[] classNameIds, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.countByU_C(userId, classNameIds);
@@ -1337,8 +1311,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Override
 	public int getUserDiscussionMessagesCount(
-			long userId, String className, long classPK, int status)
-		throws SystemException {
+			long userId, String className, long classPK, int status) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -1823,8 +1796,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void updateUserName(long userId, String userName)
-		throws SystemException {
+	public void updateUserName(long userId, String userName) {
 
 		List<MBMessage> messages = mbMessagePersistence.findByUserId(userId);
 
@@ -1927,8 +1899,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	protected void notifyDiscussionSubscribers(
-			MBMessage message, ServiceContext serviceContext)
-		throws SystemException {
+			MBMessage message, ServiceContext serviceContext) {
 
 		if (!PrefsPropsUtil.getBoolean(
 				message.getCompanyId(),
@@ -2292,8 +2263,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 			AssetLinkConstants.TYPE_RELATED);
 	}
 
-	protected void updatePriorities(long threadId, double priority)
-		throws SystemException {
+	protected void updatePriorities(long threadId, double priority) {
 
 		List<MBMessage> messages = mbMessagePersistence.findByThreadId(
 			threadId);

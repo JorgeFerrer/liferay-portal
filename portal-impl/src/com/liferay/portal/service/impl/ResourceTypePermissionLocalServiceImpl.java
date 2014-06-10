@@ -40,16 +40,14 @@ public class ResourceTypePermissionLocalServiceImpl
 
 	@Override
 	public long getCompanyScopeActionIds(
-			long companyId, String name, long roleId)
-		throws SystemException {
+			long companyId, String name, long roleId) {
 
 		return getGroupScopeActionIds(companyId, 0, name, roleId);
 	}
 
 	@Override
 	public long getGroupScopeActionIds(
-			long companyId, long groupId, String name, long roleId)
-		throws SystemException {
+			long companyId, long groupId, String name, long roleId) {
 
 		ResourceTypePermission resourceTypePermission =
 			resourceTypePermissionPersistence.fetchByC_G_N_R(
@@ -65,8 +63,7 @@ public class ResourceTypePermissionLocalServiceImpl
 
 	@Override
 	public List<ResourceTypePermission> getGroupScopeResourceTypePermissions(
-			long companyId, String name, long roleId)
-		throws SystemException {
+			long companyId, String name, long roleId) {
 
 		return resourceTypePermissionFinder.findByGroupScopeC_N_R(
 			companyId, name, roleId);
@@ -75,8 +72,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	@Override
 	public ResourceBlockPermissionsContainer
 			getResourceBlockPermissionsContainer(
-				long companyId, long groupId, String name)
-		throws SystemException {
+				long companyId, long groupId, String name) {
 
 		List<ResourceTypePermission> resourceTypePermissions =
 			resourceTypePermissionFinder.findByEitherScopeC_G_N(
@@ -98,8 +94,7 @@ public class ResourceTypePermissionLocalServiceImpl
 
 	@Override
 	public List<ResourceTypePermission> getRoleResourceTypePermissions(
-			long roleId)
-		throws SystemException {
+			long roleId) {
 
 		return resourceTypePermissionPersistence.findByRoleId(roleId);
 	}
@@ -165,8 +160,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	@Override
 	public void updateCompanyScopeResourceTypePermissions(
 			long companyId, String name, long roleId, long actionIdsLong,
-			long operator)
-		throws SystemException {
+			long operator) {
 
 		updateGroupScopeResourceTypePermissions(
 			companyId, 0, name, roleId, actionIdsLong, operator);
@@ -175,8 +169,7 @@ public class ResourceTypePermissionLocalServiceImpl
 	@Override
 	public void updateGroupScopeResourceTypePermissions(
 			long companyId, long groupId, String name, long roleId,
-			long actionIdsLong, long operator)
-		throws SystemException {
+			long actionIdsLong, long operator) {
 
 		ResourceTypePermission resourceTypePermission =
 			resourceTypePermissionPersistence.fetchByC_G_N_R(

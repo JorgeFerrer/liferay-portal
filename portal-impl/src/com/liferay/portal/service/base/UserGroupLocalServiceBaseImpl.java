@@ -413,8 +413,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addGroupUserGroups(long groupId, long[] userGroupIds)
-		throws SystemException {
+	public void addGroupUserGroups(long groupId, long[] userGroupIds) {
 		groupPersistence.addUserGroups(groupId, userGroupIds);
 	}
 
@@ -422,8 +421,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addGroupUserGroups(long groupId, List<UserGroup> UserGroups)
-		throws SystemException {
+	public void addGroupUserGroups(long groupId, List<UserGroup> UserGroups) {
 		groupPersistence.addUserGroups(groupId, UserGroups);
 	}
 
@@ -542,8 +540,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addTeamUserGroups(long teamId, long[] userGroupIds)
-		throws SystemException {
+	public void addTeamUserGroups(long teamId, long[] userGroupIds) {
 		teamPersistence.addUserGroups(teamId, userGroupIds);
 	}
 
@@ -551,8 +548,7 @@ public abstract class UserGroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addTeamUserGroups(long teamId, List<UserGroup> UserGroups)
-		throws SystemException {
+	public void addTeamUserGroups(long teamId, List<UserGroup> UserGroups) {
 		teamPersistence.addUserGroups(teamId, UserGroups);
 	}
 

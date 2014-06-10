@@ -91,8 +91,7 @@ public class MembershipRequestLocalServiceImpl
 	}
 
 	@Override
-	public void deleteMembershipRequests(long groupId, int statusId)
-		throws SystemException {
+	public void deleteMembershipRequests(long groupId, int statusId) {
 
 		List<MembershipRequest> membershipRequests =
 			membershipRequestPersistence.findByG_S(groupId, statusId);
@@ -103,8 +102,7 @@ public class MembershipRequestLocalServiceImpl
 	}
 
 	@Override
-	public void deleteMembershipRequestsByUserId(long userId)
-		throws SystemException {
+	public void deleteMembershipRequestsByUserId(long userId) {
 
 		List<MembershipRequest> membershipRequests =
 			membershipRequestPersistence.findByUserId(userId);
@@ -116,16 +114,14 @@ public class MembershipRequestLocalServiceImpl
 
 	@Override
 	public List<MembershipRequest> getMembershipRequests(
-			long userId, long groupId, int statusId)
-		throws SystemException {
+			long userId, long groupId, int statusId) {
 
 		return membershipRequestPersistence.findByG_U_S(
 			groupId, userId, statusId);
 	}
 
 	@Override
-	public boolean hasMembershipRequest(long userId, long groupId, int statusId)
-		throws SystemException {
+	public boolean hasMembershipRequest(long userId, long groupId, int statusId) {
 
 		List<MembershipRequest> membershipRequests = getMembershipRequests(
 			userId, groupId, statusId);
@@ -140,8 +136,7 @@ public class MembershipRequestLocalServiceImpl
 
 	@Override
 	public List<MembershipRequest> search(
-			long groupId, int status, int start, int end)
-		throws SystemException {
+			long groupId, int status, int start, int end) {
 
 		return membershipRequestPersistence.findByG_S(
 			groupId, status, start, end);

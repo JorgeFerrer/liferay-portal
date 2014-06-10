@@ -181,8 +181,7 @@ public class DLUtil {
 		return getDL().getFileEntryImage(fileEntry, themeDisplay);
 	}
 
-	public static Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId)
-		throws SystemException {
+	public static Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId) {
 
 		return getDL().getFileEntryTypeSubscriptionClassPKs(userId);
 	}
@@ -342,8 +341,7 @@ public class DLUtil {
 	}
 
 	public static boolean isSubscribedToFileEntryType(
-			long companyId, long groupId, long userId, long fileEntryTypeId)
-		throws SystemException {
+			long companyId, long groupId, long userId, long fileEntryTypeId) {
 
 		return getDL().isSubscribedToFileEntryType(
 			companyId, groupId, userId, fileEntryTypeId);

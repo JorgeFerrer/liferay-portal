@@ -51,8 +51,7 @@ public class TemplateProcessor implements ColumnProcessor {
 
 	public TemplateProcessor(
 			HttpServletRequest request, HttpServletResponse response,
-			String portletId)
-		throws SystemException {
+			String portletId) {
 
 		_request = request;
 		_response = response;

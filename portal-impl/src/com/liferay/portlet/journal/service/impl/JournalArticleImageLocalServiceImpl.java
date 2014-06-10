@@ -63,8 +63,7 @@ public class JournalArticleImageLocalServiceImpl
 	}
 
 	@Override
-	public void deleteArticleImage(JournalArticleImage articleImage)
-		throws SystemException {
+	public void deleteArticleImage(JournalArticleImage articleImage) {
 
 		try {
 			imageLocalService.deleteImage(articleImage.getArticleImageId());
@@ -88,8 +87,7 @@ public class JournalArticleImageLocalServiceImpl
 	@Override
 	public void deleteArticleImage(
 			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId)
-		throws SystemException {
+			String elName, String languageId) {
 
 		JournalArticleImage articleImage =
 			journalArticleImagePersistence.fetchByG_A_V_E_E_L(
@@ -101,8 +99,7 @@ public class JournalArticleImageLocalServiceImpl
 	}
 
 	@Override
-	public void deleteImages(long groupId, String articleId, double version)
-		throws SystemException {
+	public void deleteImages(long groupId, String articleId, double version) {
 
 		for (JournalArticleImage articleImage :
 				journalArticleImagePersistence.findByG_A_V(
@@ -122,8 +119,7 @@ public class JournalArticleImageLocalServiceImpl
 	@Override
 	public long getArticleImageId(
 			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId)
-		throws SystemException {
+			String elName, String languageId) {
 
 		return getArticleImageId(
 			groupId, articleId, version, elInstanceId, elName, languageId,
@@ -133,8 +129,7 @@ public class JournalArticleImageLocalServiceImpl
 	@Override
 	public long getArticleImageId(
 			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId, boolean tempImage)
-		throws SystemException {
+			String elName, String languageId, boolean tempImage) {
 
 		JournalArticleImage articleImage =
 			journalArticleImagePersistence.fetchByG_A_V_E_E_L(
@@ -161,16 +156,14 @@ public class JournalArticleImageLocalServiceImpl
 	}
 
 	@Override
-	public List<JournalArticleImage> getArticleImages(long groupId)
-		throws SystemException {
+	public List<JournalArticleImage> getArticleImages(long groupId) {
 
 		return journalArticleImagePersistence.findByGroupId(groupId);
 	}
 
 	@Override
 	public List<JournalArticleImage> getArticleImages(
-			long groupId, String articleId, double version)
-		throws SystemException {
+			long groupId, String articleId, double version) {
 
 		return journalArticleImagePersistence.findByG_A_V(
 			groupId, articleId, version);

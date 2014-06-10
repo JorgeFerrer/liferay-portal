@@ -107,15 +107,13 @@ public class MBThreadFlagLocalServiceImpl
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteThreadFlag(MBThreadFlag threadFlag)
-		throws SystemException {
+	public void deleteThreadFlag(MBThreadFlag threadFlag) {
 
 		mbThreadFlagPersistence.remove(threadFlag);
 	}
 
 	@Override
-	public void deleteThreadFlagsByThreadId(long threadId)
-		throws SystemException {
+	public void deleteThreadFlagsByThreadId(long threadId) {
 
 		mbThreadFlagPersistence.removeByThreadId(threadId);
 	}

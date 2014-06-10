@@ -101,15 +101,13 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public List<BookmarksFolder> getFolders(long groupId)
-		throws SystemException {
+	public List<BookmarksFolder> getFolders(long groupId) {
 
 		return bookmarksFolderPersistence.filterFindByGroupId(groupId);
 	}
 
 	@Override
-	public List<BookmarksFolder> getFolders(long groupId, long parentFolderId)
-		throws SystemException {
+	public List<BookmarksFolder> getFolders(long groupId, long parentFolderId) {
 
 		return bookmarksFolderPersistence.filterFindByG_P_S(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED);
@@ -117,8 +115,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<BookmarksFolder> getFolders(
-			long groupId, long parentFolderId, int start, int end)
-		throws SystemException {
+			long groupId, long parentFolderId, int start, int end) {
 
 		return getFolders(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED, start,
@@ -127,8 +124,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<BookmarksFolder> getFolders(
-			long groupId, long parentFolderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long parentFolderId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return bookmarksFolderPersistence.filterFindByG_P(
@@ -141,8 +137,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public List<Object> getFoldersAndEntries(long groupId, long folderId)
-		throws SystemException {
+	public List<Object> getFoldersAndEntries(long groupId, long folderId) {
 
 		return getFoldersAndEntries(
 			groupId, folderId, WorkflowConstants.STATUS_ANY);
@@ -150,8 +145,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<Object> getFoldersAndEntries(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -161,8 +155,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<Object> getFoldersAndEntries(
-			long groupId, long folderId, int status, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -172,8 +165,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public int getFoldersAndEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getFoldersAndEntriesCount(long groupId, long folderId) {
 
 		return getFoldersAndEntriesCount(
 			groupId, folderId, WorkflowConstants.STATUS_ANY);
@@ -181,8 +173,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public int getFoldersAndEntriesCount(
-			long groupId, long folderId, int status)
-		throws SystemException {
+			long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -191,16 +182,14 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public int getFoldersCount(long groupId, long parentFolderId)
-		throws SystemException {
+	public int getFoldersCount(long groupId, long parentFolderId) {
 
 		return getFoldersCount(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getFoldersCount(long groupId, long parentFolderId, int status)
-		throws SystemException {
+	public int getFoldersCount(long groupId, long parentFolderId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return bookmarksFolderPersistence.filterCountByG_P_NotS(
@@ -219,16 +208,14 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId)
-		throws SystemException {
+			List<Long> folderIds, long groupId, long folderId) {
 
 		getSubfolderIds(folderIds, groupId, folderId, true);
 	}
 
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId, boolean recurse)
-		throws SystemException {
+			List<Long> folderIds, long groupId, long folderId, boolean recurse) {
 
 		List<BookmarksFolder> folders =
 			bookmarksFolderPersistence.filterFindByG_P_S(
@@ -247,8 +234,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 
 	@Override
 	public List<Long> getSubfolderIds(
-			long groupId, long folderId, boolean recurse)
-		throws SystemException {
+			long groupId, long folderId, boolean recurse) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 

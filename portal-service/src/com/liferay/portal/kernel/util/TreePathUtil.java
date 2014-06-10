@@ -32,8 +32,7 @@ public class TreePathUtil {
 
 	public static void rebuildTree(
 			long companyId, long defaultParentPrimaryKey,
-			TreeModelFinder<?> treeModelFinder)
-		throws SystemException {
+			TreeModelFinder<?> treeModelFinder) {
 
 		int size = GetterUtil.getInteger(
 			PropsUtil.get(

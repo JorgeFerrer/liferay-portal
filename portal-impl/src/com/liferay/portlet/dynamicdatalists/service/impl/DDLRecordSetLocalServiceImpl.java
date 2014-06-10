@@ -203,15 +203,13 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public DDLRecordSet fetchRecordSet(long recordSetId)
-		throws SystemException {
+	public DDLRecordSet fetchRecordSet(long recordSetId) {
 
 		return ddlRecordSetPersistence.fetchByPrimaryKey(recordSetId);
 	}
 
 	@Override
-	public DDLRecordSet fetchRecordSet(long groupId, String recordSetKey)
-		throws SystemException {
+	public DDLRecordSet fetchRecordSet(long groupId, String recordSetKey) {
 
 		return ddlRecordSetPersistence.fetchByG_R(groupId, recordSetKey);
 	}
@@ -231,8 +229,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public List<DDLRecordSet> getRecordSets(long groupId)
-		throws SystemException {
+	public List<DDLRecordSet> getRecordSets(long groupId) {
 
 		return ddlRecordSetPersistence.findByGroupId(groupId);
 	}
@@ -245,8 +242,7 @@ public class DDLRecordSetLocalServiceImpl
 	@Override
 	public List<DDLRecordSet> search(
 			long companyId, long groupId, String keywords, int scope, int start,
-			int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int end, OrderByComparator orderByComparator) {
 
 		return ddlRecordSetFinder.findByKeywords(
 			companyId, groupId, keywords, scope, start, end, orderByComparator);
@@ -256,8 +252,7 @@ public class DDLRecordSetLocalServiceImpl
 	public List<DDLRecordSet> search(
 			long companyId, long groupId, String name, String description,
 			int scope, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return ddlRecordSetFinder.findByC_G_N_D_S(
 			companyId, groupId, name, description, scope, andOperator, start,
@@ -266,8 +261,7 @@ public class DDLRecordSetLocalServiceImpl
 
 	@Override
 	public int searchCount(
-			long companyId, long groupId, String keywords, int scope)
-		throws SystemException {
+			long companyId, long groupId, String keywords, int scope) {
 
 		return ddlRecordSetFinder.countByKeywords(
 			companyId, groupId, keywords, scope);
@@ -276,8 +270,7 @@ public class DDLRecordSetLocalServiceImpl
 	@Override
 	public int searchCount(
 			long companyId, long groupId, String name, String description,
-			int scope, boolean andOperator)
-		throws SystemException {
+			int scope, boolean andOperator) {
 
 		return ddlRecordSetFinder.countByC_G_N_D_S(
 			companyId, groupId, name, description, scope, andOperator);

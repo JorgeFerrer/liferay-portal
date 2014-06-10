@@ -30,8 +30,7 @@ public class WebDAVPropsLocalServiceImpl
 	extends WebDAVPropsLocalServiceBaseImpl {
 
 	@Override
-	public void deleteWebDAVProps(String className, long classPK)
-		throws SystemException {
+	public void deleteWebDAVProps(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -44,8 +43,7 @@ public class WebDAVPropsLocalServiceImpl
 
 	@Override
 	public WebDAVProps getWebDAVProps(
-			long companyId, String className, long classPK)
-		throws SystemException {
+			long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

@@ -340,8 +340,7 @@ public class DLFileEntryTypeStagedModelDataHandler
 
 	protected DLFileEntryType fetchExistingFileEntryType(
 			String uuid, long groupId, String fileEntryTypeKey,
-			boolean preloaded)
-		throws SystemException {
+			boolean preloaded) {
 
 		DLFileEntryType existingDLFileEntryType = null;
 

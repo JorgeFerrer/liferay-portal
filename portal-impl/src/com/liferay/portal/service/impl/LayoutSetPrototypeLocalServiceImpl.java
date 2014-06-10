@@ -241,8 +241,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
-	public List<LayoutSetPrototype> getLayoutSetPrototypes(long companyId)
-		throws SystemException {
+	public List<LayoutSetPrototype> getLayoutSetPrototypes(long companyId) {
 
 		return layoutSetPrototypePersistence.findByCompanyId(companyId);
 	}
@@ -250,8 +249,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 	@Override
 	public List<LayoutSetPrototype> search(
 			long companyId, Boolean active, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (active != null) {
 			return layoutSetPrototypePersistence.findByC_A(
@@ -264,8 +262,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
-	public int searchCount(long companyId, Boolean active)
-		throws SystemException {
+	public int searchCount(long companyId, Boolean active) {
 
 		if (active != null) {
 			return layoutSetPrototypePersistence.countByC_A(companyId, active);

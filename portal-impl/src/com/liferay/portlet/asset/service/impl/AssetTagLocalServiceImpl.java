@@ -319,8 +319,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getGroupsTags(long[] groupIds)
-		throws SystemException {
+	public List<AssetTag> getGroupsTags(long[] groupIds) {
 
 		List<AssetTag> groupsTags = new ArrayList<AssetTag>();
 
@@ -339,8 +338,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getGroupTags(long groupId, int start, int end)
-		throws SystemException {
+	public List<AssetTag> getGroupTags(long groupId, int start, int end) {
 
 		return assetTagPersistence.findByGroupId(groupId, start, end);
 	}
@@ -353,8 +351,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	@Override
 	public List<AssetTag> getSocialActivityCounterOffsetTags(
 			long groupId, String socialActivityCounterName, int startOffset,
-			int endOffset)
-		throws SystemException {
+			int endOffset) {
 
 		int startPeriod = SocialCounterPeriodUtil.getStartPeriod(startOffset);
 		int endPeriod = SocialCounterPeriodUtil.getEndPeriod(endOffset);
@@ -366,8 +363,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	@Override
 	public List<AssetTag> getSocialActivityCounterPeriodTags(
 			long groupId, String socialActivityCounterName, int startPeriod,
-			int endPeriod)
-		throws SystemException {
+			int endPeriod) {
 
 		int offset = SocialCounterPeriodUtil.getOffset(endPeriod);
 
@@ -447,15 +443,13 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public String[] getTagNames(long classNameId, long classPK)
-		throws SystemException {
+	public String[] getTagNames(long classNameId, long classPK) {
 
 		return getTagNames(getTags(classNameId, classPK));
 	}
 
 	@Override
-	public String[] getTagNames(String className, long classPK)
-		throws SystemException {
+	public String[] getTagNames(String className, long classPK) {
 
 		return getTagNames(getTags(className, classPK));
 	}
@@ -466,8 +460,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getTags(long classNameId, long classPK)
-		throws SystemException {
+	public List<AssetTag> getTags(long classNameId, long classPK) {
 
 		AssetEntry entry = assetEntryPersistence.fetchByC_C(
 			classNameId, classPK);
@@ -480,8 +473,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<AssetTag> getTags(long groupId, long classNameId, String name)
-		throws SystemException {
+	public List<AssetTag> getTags(long groupId, long classNameId, String name) {
 
 		return assetTagFinder.findByG_C_N(
 			groupId, classNameId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -490,8 +482,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getTags(
-			long groupId, long classNameId, String name, int start, int end)
-		throws SystemException {
+			long groupId, long classNameId, String name, int start, int end) {
 
 		return assetTagFinder.findByG_C_N(
 			groupId, classNameId, name, start, end, null);
@@ -499,8 +490,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	@ThreadLocalCachable
-	public List<AssetTag> getTags(String className, long classPK)
-		throws SystemException {
+	public List<AssetTag> getTags(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -508,8 +498,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getTagsSize(long groupId, long classNameId, String name)
-		throws SystemException {
+	public int getTagsSize(long groupId, long classNameId, String name) {
 
 		return assetTagFinder.countByG_C_N(groupId, classNameId, name);
 	}
@@ -579,8 +568,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	@Override
 	public List<AssetTag> search(
 			long groupId, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return search(new long[] {groupId}, name, tagProperties, start, end);
 	}
@@ -588,8 +576,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	@Override
 	public List<AssetTag> search(
 			long[] groupIds, String name, String[] tagProperties, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return assetTagFinder.findByG_N_P(
 			groupIds, name, tagProperties, start, end, null);

@@ -51,8 +51,7 @@ public class LayoutFinderImpl
 		LayoutFinder.class.getName() + ".findByC_P_P";
 
 	@Override
-	public List<Layout> findByNoPermissions(long roleId)
-		throws SystemException {
+	public List<Layout> findByNoPermissions(long roleId) {
 
 		Session session = null;
 
@@ -104,8 +103,7 @@ public class LayoutFinderImpl
 	}
 
 	@Override
-	public List<Layout> findByScopeGroup(long groupId, boolean privateLayout)
-		throws SystemException {
+	public List<Layout> findByScopeGroup(long groupId, boolean privateLayout) {
 
 		Session session = null;
 
@@ -136,8 +134,7 @@ public class LayoutFinderImpl
 	@Override
 	public List<LayoutReference> findByC_P_P(
 			long companyId, String portletId, String preferencesKey,
-			String preferencesValue)
-		throws SystemException {
+			String preferencesValue) {
 
 		String preferences =
 			"%<preference><name>" + preferencesKey + "</name><value>" +

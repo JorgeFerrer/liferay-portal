@@ -29,8 +29,7 @@ import java.util.List;
 public class PluginUtil {
 
 	public static <P extends Plugin> List<P> restrictPlugins(
-			List<P> plugins, long companyId, long userId)
-		throws SystemException {
+			List<P> plugins, long companyId, long userId) {
 
 		List<P> visiblePlugins = new ArrayList<P>(plugins.size());
 
@@ -50,8 +49,7 @@ public class PluginUtil {
 	}
 
 	public static <P extends Plugin> List<P> restrictPlugins(
-			List<P> plugins, User user)
-		throws SystemException {
+			List<P> plugins, User user) {
 
 		return restrictPlugins(plugins, user.getCompanyId(), user.getUserId());
 	}

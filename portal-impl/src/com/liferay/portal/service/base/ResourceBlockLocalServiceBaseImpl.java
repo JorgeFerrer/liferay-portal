@@ -121,8 +121,7 @@ public abstract class ResourceBlockLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public ResourceBlock deleteResourceBlock(ResourceBlock resourceBlock)
-		throws SystemException {
+	public ResourceBlock deleteResourceBlock(ResourceBlock resourceBlock) {
 		return resourceBlockPersistence.remove(resourceBlock);
 	}
 

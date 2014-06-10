@@ -649,8 +649,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 
 	@Override
 	public List<Role> getResourceBlockRoles(
-			long resourceBlockId, String className, String actionId)
-		throws SystemException {
+			long resourceBlockId, String className, String actionId) {
 
 		return roleFinder.findByR_N_A(resourceBlockId, className, actionId);
 	}
@@ -670,8 +669,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public Map<String, List<String>> getResourceRoles(
-			long companyId, String name, int scope, String primKey)
-		throws SystemException {
+			long companyId, String name, int scope, String primKey) {
 
 		return roleFinder.findByC_N_S_P(companyId, name, scope, primKey);
 	}
@@ -693,8 +691,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	@Override
 	public List<Role> getResourceRoles(
 			long companyId, String name, int scope, String primKey,
-			String actionId)
-		throws SystemException {
+			String actionId) {
 
 		return roleFinder.findByC_N_S_P_A(
 			companyId, name, scope, primKey, actionId);
@@ -740,8 +737,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getRoles(int type, String subtype)
-		throws SystemException {
+	public List<Role> getRoles(int type, String subtype) {
 
 		return rolePersistence.findByT_S(type, subtype);
 	}
@@ -767,8 +763,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getRoles(long companyId, int[] types)
-		throws SystemException {
+	public List<Role> getRoles(long companyId, int[] types) {
 
 		return rolePersistence.findByC_T(companyId, types);
 	}
@@ -920,8 +915,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getTypeRoles(int type, int start, int end)
-		throws SystemException {
+	public List<Role> getTypeRoles(int type, int start, int end) {
 
 		return rolePersistence.findByType(type, start, end);
 	}
@@ -949,8 +943,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 *         long, long)
 	 */
 	@Override
-	public List<Role> getUserGroupGroupRoles(long userId, long groupId)
-		throws SystemException {
+	public List<Role> getUserGroupGroupRoles(long userId, long groupId) {
 
 		return roleFinder.findByUserGroupGroupRole(userId, groupId);
 	}
@@ -966,8 +959,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 *         long, long)
 	 */
 	@Override
-	public List<Role> getUserGroupRoles(long userId, long groupId)
-		throws SystemException {
+	public List<Role> getUserGroupRoles(long userId, long groupId) {
 
 		return roleFinder.findByUserGroupRole(userId, groupId);
 	}
@@ -983,8 +975,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 *         List)
 	 */
 	@Override
-	public List<Role> getUserRelatedRoles(long userId, List<Group> groups)
-		throws SystemException {
+	public List<Role> getUserRelatedRoles(long userId, List<Group> groups) {
 
 		if ((groups == null) || groups.isEmpty()) {
 			return Collections.emptyList();
@@ -1004,8 +995,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 *         long)
 	 */
 	@Override
-	public List<Role> getUserRelatedRoles(long userId, long groupId)
-		throws SystemException {
+	public List<Role> getUserRelatedRoles(long userId, long groupId) {
 
 		return roleFinder.findByU_G(userId, groupId);
 	}
@@ -1021,8 +1011,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 *         long[])
 	 */
 	@Override
-	public List<Role> getUserRelatedRoles(long userId, long[] groupIds)
-		throws SystemException {
+	public List<Role> getUserRelatedRoles(long userId, long[] groupIds) {
 
 		return roleFinder.findByU_G(userId, groupIds);
 	}
@@ -1141,8 +1130,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Role loadFetchRole(long companyId, String name)
-		throws SystemException {
+	public Role loadFetchRole(long companyId, String name) {
 
 		return rolePersistence.fetchByC_N(companyId, name);
 	}
@@ -1195,8 +1183,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	@Override
 	public List<Role> search(
 			long companyId, String keywords, Integer[] types, int start,
-			int end, OrderByComparator obc)
-		throws SystemException {
+			int end, OrderByComparator obc) {
 
 		return search(
 			companyId, keywords, types, new LinkedHashMap<String, Object>(),
@@ -1238,8 +1225,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	public List<Role> search(
 			long companyId, String keywords, Integer[] types,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return roleFinder.findByKeywords(
 			companyId, keywords, types, params, start, end, obc);
@@ -1276,8 +1262,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	@Override
 	public List<Role> search(
 			long companyId, String name, String description, Integer[] types,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		return search(
 			companyId, name, description, types,
@@ -1319,8 +1304,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	public List<Role> search(
 			long companyId, String name, String description, Integer[] types,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return roleFinder.findByC_N_D_T(
 			companyId, name, description, types, params, true, start, end, obc);
@@ -1337,8 +1321,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int searchCount(long companyId, String keywords, Integer[] types)
-		throws SystemException {
+	public int searchCount(long companyId, String keywords, Integer[] types) {
 
 		return searchCount(
 			companyId, keywords, types, new LinkedHashMap<String, Object>());
@@ -1359,8 +1342,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, String keywords, Integer[] types,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return roleFinder.countByKeywords(companyId, keywords, types, params);
 	}
@@ -1377,8 +1359,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String name, String description, Integer[] types)
-		throws SystemException {
+			long companyId, String name, String description, Integer[] types) {
 
 		return searchCount(
 			companyId, name, description, types,
@@ -1402,8 +1383,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, String name, String description, Integer[] types,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		return roleFinder.countByC_N_D_T(
 			companyId, name, description, types, params, true);

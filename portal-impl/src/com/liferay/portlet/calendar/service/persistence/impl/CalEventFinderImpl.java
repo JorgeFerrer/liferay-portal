@@ -60,8 +60,7 @@ public class CalEventFinderImpl
 	@Override
 	public int countByG_SD_T(
 			long groupId, Date startDateGT, Date startDateLT,
-			boolean timeZoneSensitive, String[] types)
-		throws SystemException {
+			boolean timeZoneSensitive, String[] types) {
 
 		Timestamp startDateGT_TS = CalendarUtil.getTimestamp(startDateGT);
 		Timestamp startDateLT_TS = CalendarUtil.getTimestamp(startDateLT);
@@ -176,8 +175,7 @@ public class CalEventFinderImpl
 	@Override
 	public List<CalEvent> findByG_SD_T(
 			long groupId, Date startDateGT, Date startDateLT,
-			boolean timeZoneSensitive, String[] types)
-		throws SystemException {
+			boolean timeZoneSensitive, String[] types) {
 
 		return findByG_SD_T(
 			groupId, startDateGT, startDateLT, timeZoneSensitive, types,
@@ -187,8 +185,7 @@ public class CalEventFinderImpl
 	@Override
 	public List<CalEvent> findByG_SD_T(
 			long groupId, Date startDateGT, Date startDateLT,
-			boolean timeZoneSensitive, String[] types, int start, int end)
-		throws SystemException {
+			boolean timeZoneSensitive, String[] types, int start, int end) {
 
 		Timestamp startDateGT_TS = CalendarUtil.getTimestamp(startDateGT);
 		Timestamp startDateLT_TS = CalendarUtil.getTimestamp(startDateLT);

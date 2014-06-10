@@ -45,8 +45,7 @@ public class MBStatsUserLocalServiceImpl
 	extends MBStatsUserLocalServiceBaseImpl {
 
 	@Override
-	public MBStatsUser addStatsUser(long groupId, long userId)
-		throws SystemException {
+	public MBStatsUser addStatsUser(long groupId, long userId) {
 
 		long statsUserId = counterLocalService.increment();
 
@@ -112,8 +111,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public Date getLastPostDateByUserId(long groupId, long userId)
-		throws SystemException {
+	public Date getLastPostDateByUserId(long groupId, long userId) {
 
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			MBThread.class, MBStatsUserImpl.TABLE_NAME,
@@ -191,8 +189,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public MBStatsUser getStatsUser(long groupId, long userId)
-		throws SystemException {
+	public MBStatsUser getStatsUser(long groupId, long userId) {
 
 		MBStatsUser statsUser = mbStatsUserPersistence.fetchByG_U(
 			groupId, userId);
@@ -232,15 +229,13 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public List<MBStatsUser> getStatsUsersByUserId(long userId)
-		throws SystemException {
+	public List<MBStatsUser> getStatsUsersByUserId(long userId) {
 
 		return mbStatsUserPersistence.findByUserId(userId);
 	}
 
 	@Override
-	public MBStatsUser updateStatsUser(long groupId, long userId)
-		throws SystemException {
+	public MBStatsUser updateStatsUser(long groupId, long userId) {
 
 		return updateStatsUser(
 			groupId, userId, getLastPostDateByUserId(groupId, userId));
@@ -248,8 +243,7 @@ public class MBStatsUserLocalServiceImpl
 
 	@Override
 	public MBStatsUser updateStatsUser(
-			long groupId, long userId, Date lastPostDate)
-		throws SystemException {
+			long groupId, long userId, Date lastPostDate) {
 
 		int messageCount = mbMessagePersistence.countByG_U_S(
 			groupId, userId, WorkflowConstants.STATUS_APPROVED);
@@ -259,8 +253,7 @@ public class MBStatsUserLocalServiceImpl
 
 	@Override
 	public MBStatsUser updateStatsUser(
-			long groupId, long userId, int messageCount, Date lastPostDate)
-		throws SystemException {
+			long groupId, long userId, int messageCount, Date lastPostDate) {
 
 		MBStatsUser statsUser = getStatsUser(groupId, userId);
 

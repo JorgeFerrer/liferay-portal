@@ -52,8 +52,7 @@ public class ShoppingOrderFinderImpl
 			String billingFirstName, String billingLastName,
 			String billingEmailAddress, String shippingFirstName,
 			String shippingLastName, String shippingEmailAddress,
-			String ppPaymentStatus, boolean andOperator)
-		throws SystemException {
+			String ppPaymentStatus, boolean andOperator) {
 
 		number = StringUtil.upperCase(number);
 
@@ -133,8 +132,7 @@ public class ShoppingOrderFinderImpl
 			String billingEmailAddress, String shippingFirstName,
 			String shippingLastName, String shippingEmailAddress,
 			String ppPaymentStatus, boolean andOperator, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		number = StringUtil.upperCase(number);
 

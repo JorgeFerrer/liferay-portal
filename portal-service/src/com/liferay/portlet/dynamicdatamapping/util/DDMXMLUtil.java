@@ -59,8 +59,7 @@ public class DDMXMLUtil {
 		return getDDMXML().getFields(structure, xPath, xml, fieldNames);
 	}
 
-	public static String getXML(Document document, Fields fields)
-		throws SystemException {
+	public static String getXML(Document document, Fields fields) {
 
 		return getDDMXML().getXML(document, fields);
 	}
@@ -71,8 +70,7 @@ public class DDMXMLUtil {
 
 	public static String updateXMLDefaultLocale(
 			String xml, Locale contentDefaultLocale,
-			Locale contentNewDefaultLocale)
-		throws SystemException {
+			Locale contentNewDefaultLocale) {
 
 		return getDDMXML().updateXMLDefaultLocale(
 			xml, contentDefaultLocale, contentNewDefaultLocale);

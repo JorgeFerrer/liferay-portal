@@ -146,8 +146,7 @@ public class RepositoryServiceImpl extends RepositoryServiceBaseImpl {
 	}
 
 	@Override
-	public String[] getSupportedConfigurations(long classNameId)
-		throws SystemException {
+	public String[] getSupportedConfigurations(long classNameId) {
 
 		try {
 			ClassName className = classNameLocalService.getClassName(
@@ -168,8 +167,7 @@ public class RepositoryServiceImpl extends RepositoryServiceBaseImpl {
 
 	@Override
 	public String[] getSupportedParameters(
-			long classNameId, String configuration)
-		throws SystemException {
+			long classNameId, String configuration) {
 
 		try {
 			ClassName className = classNameLocalService.getClassName(

@@ -115,8 +115,7 @@ public abstract class UserTrackerLocalServiceBaseImpl
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public UserTracker deleteUserTracker(UserTracker userTracker)
-		throws SystemException {
+	public UserTracker deleteUserTracker(UserTracker userTracker) {
 		return userTrackerPersistence.remove(userTracker);
 	}
 

@@ -136,8 +136,7 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 	}
 
 	@Override
-	public LayoutSet fetchLayoutSet(String virtualHostname)
-		throws SystemException {
+	public LayoutSet fetchLayoutSet(String virtualHostname) {
 
 		virtualHostname = StringUtil.toLowerCase(virtualHostname.trim());
 
@@ -180,8 +179,7 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 	@Override
 	public List<LayoutSet> getLayoutSetsByLayoutSetPrototypeUuid(
-			String layoutSetPrototypeUuid)
-		throws SystemException {
+			String layoutSetPrototypeUuid) {
 
 		return layoutSetPersistence.findByLayoutSetPrototypeUuid(
 			layoutSetPrototypeUuid);

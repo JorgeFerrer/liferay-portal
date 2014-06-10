@@ -122,8 +122,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public int countByG_F(
-			long groupId, List<Long> folderIds, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, List<Long> folderIds, QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -134,8 +133,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public int countByG_M_R(
 			long groupId, DateRange dateRange, long repositoryId,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		Session session = null;
 
@@ -200,8 +198,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public int countByG_R_F(
 			long groupId, List<Long> repositoryIds, List<Long> folderIds,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doCountByG_U_R_F_M(
 			groupId, 0, repositoryIds, folderIds, null, queryDefinition, false);
@@ -210,8 +207,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public int countByG_U_F_M(
 			long groupId, long userId, List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -224,8 +220,7 @@ public class DLFileEntryFinderImpl
 	public int countByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doCountByG_U_R_F_M(
 			groupId, userId, repositoryIds, folderIds, mimeTypes,
@@ -235,8 +230,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public int filterCountByG_U_F_M(
 			long groupId, long userId, List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -249,8 +243,7 @@ public class DLFileEntryFinderImpl
 	public int filterCountByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doCountByG_U_R_F_M(
 			groupId, userId, repositoryIds, folderIds, mimeTypes,
@@ -295,8 +288,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public int filterCountByG_F(
-			long groupId, List<Long> folderIds, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, List<Long> folderIds, QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -307,8 +299,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public int filterCountByG_R_F(
 			long groupId, List<Long> repositoryIds, List<Long> folderIds,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doCountByG_U_R_F_M(
 			groupId, 0, repositoryIds, folderIds, null, queryDefinition, true);
@@ -316,8 +307,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public List<DLFileEntry> filterFindByG_F(
-			long groupId, List<Long> folderIds, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, List<Long> folderIds, QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -328,8 +318,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public List<DLFileEntry> filterFindByG_R_F(
 			long groupId, List<Long> repositoryIds, List<Long> folderIds,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doFindByG_U_R_F_M(
 			groupId, 0, repositoryIds, folderIds, null, queryDefinition, true);
@@ -338,8 +327,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public List<DLFileEntry> filterFindByG_U_F_M(
 			long groupId, long userId, List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -352,8 +340,7 @@ public class DLFileEntryFinderImpl
 	public List<DLFileEntry> filterFindByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doFindByG_U_R_F_M(
 			groupId, userId, repositoryIds, folderIds, mimeTypes,
@@ -376,8 +363,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public List<DLFileEntry> findByCompanyId(
-			long companyId, QueryDefinition queryDefinition)
-		throws SystemException {
+			long companyId, QueryDefinition queryDefinition) {
 
 		Session session = null;
 
@@ -414,8 +400,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public List<DLFileEntry> findByDDMStructureIds(
-			long[] ddmStructureIds, int start, int end)
-		throws SystemException {
+			long[] ddmStructureIds, int start, int end) {
 
 		Session session = null;
 
@@ -452,8 +437,7 @@ public class DLFileEntryFinderImpl
 	}
 
 	@Override
-	public List<DLFileEntry> findByExtraSettings(int start, int end)
-		throws SystemException {
+	public List<DLFileEntry> findByExtraSettings(int start, int end) {
 
 		Session session = null;
 
@@ -524,8 +508,7 @@ public class DLFileEntryFinderImpl
 	}
 
 	@Override
-	public List<DLFileEntry> findByOrphanedFileEntries()
-		throws SystemException {
+	public List<DLFileEntry> findByOrphanedFileEntries() {
 
 		Session session = null;
 
@@ -550,8 +533,7 @@ public class DLFileEntryFinderImpl
 
 	@Override
 	public List<DLFileEntry> findByG_F(
-			long groupId, List<Long> folderIds, QueryDefinition queryDefinition)
-		throws SystemException {
+			long groupId, List<Long> folderIds, QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -562,8 +544,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public List<DLFileEntry> findByG_R_F(
 			long groupId, List<Long> repositoryIds, List<Long> folderIds,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doFindByG_U_R_F_M(
 			groupId, 0, repositoryIds, folderIds, null, queryDefinition, false);
@@ -572,8 +553,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public List<DLFileEntry> findByG_U_F(
 			long groupId, long userId, List<Long> folderIds,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -585,8 +565,7 @@ public class DLFileEntryFinderImpl
 	@Override
 	public List<DLFileEntry> findByG_U_F_M(
 			long groupId, long userId, List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		List<Long> repositoryIds = Collections.emptyList();
 
@@ -599,8 +578,7 @@ public class DLFileEntryFinderImpl
 	public List<DLFileEntry> findByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return doFindByG_U_R_F_M(
 			groupId, userId, repositoryIds, folderIds, mimeTypes,
@@ -610,8 +588,7 @@ public class DLFileEntryFinderImpl
 	protected int doCountByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition, boolean inlineSQLHelper)
-		throws SystemException {
+			QueryDefinition queryDefinition, boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -680,8 +657,7 @@ public class DLFileEntryFinderImpl
 	protected List<DLFileEntry> doFindByG_U_R_F_M(
 			long groupId, long userId, List<Long> repositoryIds,
 			List<Long> folderIds, String[] mimeTypes,
-			QueryDefinition queryDefinition, boolean inlineSQLHelper)
-		throws SystemException {
+			QueryDefinition queryDefinition, boolean inlineSQLHelper) {
 
 		Session session = null;
 

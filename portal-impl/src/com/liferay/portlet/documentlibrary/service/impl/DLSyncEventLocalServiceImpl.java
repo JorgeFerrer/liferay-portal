@@ -33,8 +33,7 @@ public class DLSyncEventLocalServiceImpl
 	extends DLSyncEventLocalServiceBaseImpl {
 
 	@Override
-	public DLSyncEvent addDLSyncEvent(String event, String type, long typePK)
-		throws SystemException {
+	public DLSyncEvent addDLSyncEvent(String event, String type, long typePK) {
 
 		DLSyncEvent dlSyncEvent = dlSyncEventPersistence.fetchByTypePK(typePK);
 
@@ -59,8 +58,7 @@ public class DLSyncEventLocalServiceImpl
 	}
 
 	@Override
-	public List<DLSyncEvent> getDLSyncEvents(long modifiedTime)
-		throws SystemException {
+	public List<DLSyncEvent> getDLSyncEvents(long modifiedTime) {
 
 		return dlSyncEventPersistence.findByModifiedTime(modifiedTime);
 	}

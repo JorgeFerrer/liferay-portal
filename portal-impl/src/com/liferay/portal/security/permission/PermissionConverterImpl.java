@@ -57,16 +57,14 @@ public class PermissionConverterImpl implements PermissionConverter {
 	}
 
 	@Override
-	public List<Permission> convertPermissions(Role role)
-		throws SystemException {
+	public List<Permission> convertPermissions(Role role) {
 
 		return convertPermissions(role, null);
 	}
 
 	@Override
 	public List<Permission> convertPermissions(
-			Role role, PermissionConversionFilter permissionConversionFilter)
-		throws SystemException {
+			Role role, PermissionConversionFilter permissionConversionFilter) {
 
 		int[] scopes = new int[0];
 

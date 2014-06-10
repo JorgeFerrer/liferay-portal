@@ -114,15 +114,13 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL deleteLayoutFriendlyURL(
-			LayoutFriendlyURL layoutFriendlyURL)
-		throws SystemException {
+			LayoutFriendlyURL layoutFriendlyURL) {
 
 		return layoutFriendlyURLPersistence.remove(layoutFriendlyURL);
 	}
 
 	@Override
-	public void deleteLayoutFriendlyURL(long plid, String languageId)
-		throws SystemException {
+	public void deleteLayoutFriendlyURL(long plid, String languageId) {
 
 		LayoutFriendlyURL layoutFriendlyURL =
 			layoutFriendlyURLPersistence.fetchByP_L(plid, languageId);
@@ -144,8 +142,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL fetchFirstLayoutFriendlyURL(
-			long groupId, boolean privateLayout, String friendlyURL)
-		throws SystemException {
+			long groupId, boolean privateLayout, String friendlyURL) {
 
 		return layoutFriendlyURLPersistence.fetchByG_P_F_First(
 			groupId, privateLayout, friendlyURL, null);
@@ -154,8 +151,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
 			long groupId, boolean privateLayout, String friendlyURL,
-			String languageId)
-		throws SystemException {
+			String languageId) {
 
 		return layoutFriendlyURLPersistence.fetchByG_P_F_L(
 			groupId, privateLayout, friendlyURL, languageId);
@@ -163,16 +159,14 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
-			long plid, String languageId)
-		throws SystemException {
+			long plid, String languageId) {
 
 		return fetchLayoutFriendlyURL(plid, languageId, true);
 	}
 
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
-			long plid, String languageId, boolean useDefault)
-		throws SystemException {
+			long plid, String languageId, boolean useDefault) {
 
 		LayoutFriendlyURL layoutFriendlyURL =
 			layoutFriendlyURLPersistence.fetchByP_L(plid, languageId);
@@ -235,16 +229,14 @@ public class LayoutFriendlyURLLocalServiceImpl
 	}
 
 	@Override
-	public List<LayoutFriendlyURL> getLayoutFriendlyURLs(long plid)
-		throws SystemException {
+	public List<LayoutFriendlyURL> getLayoutFriendlyURLs(long plid) {
 
 		return layoutFriendlyURLPersistence.findByPlid(plid);
 	}
 
 	@Override
 	public List<LayoutFriendlyURL> getLayoutFriendlyURLs(
-			long plid, String friendlyURL, int start, int end)
-		throws SystemException {
+			long plid, String friendlyURL, int start, int end) {
 
 		return layoutFriendlyURLPersistence.findByP_F(
 			plid, friendlyURL, start, end);

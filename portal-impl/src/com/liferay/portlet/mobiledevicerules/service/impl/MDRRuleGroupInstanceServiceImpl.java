@@ -80,8 +80,7 @@ public class MDRRuleGroupInstanceServiceImpl
 	@Override
 	public List<MDRRuleGroupInstance> getRuleGroupInstances(
 			String className, long classPK, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		long groupId = getGroupId(className, classPK);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -91,8 +90,7 @@ public class MDRRuleGroupInstanceServiceImpl
 	}
 
 	@Override
-	public int getRuleGroupInstancesCount(String className, long classPK)
-		throws SystemException {
+	public int getRuleGroupInstancesCount(String className, long classPK) {
 
 		long groupId = getGroupId(className, classPK);
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -118,8 +116,7 @@ public class MDRRuleGroupInstanceServiceImpl
 			ruleGroupInstanceId, priority);
 	}
 
-	protected long getGroupId(String className, long classPK)
-		throws SystemException {
+	protected long getGroupId(String className, long classPK) {
 
 		long groupId = 0;
 

@@ -64,8 +64,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int start, int end)
-		throws SystemException {
+			long groupId, long folderId, int start, int end) {
 
 		return bookmarksEntryPersistence.filterFindByG_F_S(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end);
@@ -74,8 +73,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	@Override
 	public List<BookmarksEntry> getEntries(
 			long groupId, long folderId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return bookmarksEntryPersistence.filterFindByG_F_S(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end,
@@ -83,16 +81,14 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getEntriesCount(long groupId, long folderId) {
 
 		return getEntriesCount(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getEntriesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getEntriesCount(long groupId, long folderId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return bookmarksEntryPersistence.filterCountByG_F_NotS(
@@ -115,8 +111,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getFoldersEntriesCount(long groupId, List<Long> folderIds)
-		throws SystemException {
+	public int getFoldersEntriesCount(long groupId, List<Long> folderIds) {
 
 		return bookmarksEntryPersistence.filterCountByG_F_S(
 			groupId,

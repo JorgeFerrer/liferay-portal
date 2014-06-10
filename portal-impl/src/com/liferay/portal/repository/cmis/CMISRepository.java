@@ -451,8 +451,7 @@ public class CMISRepository extends BaseCmisRepository {
 
 	@Override
 	public List<FileEntry> getFileEntries(
-			long folderId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long folderId, int start, int end, OrderByComparator obc) {
 
 		List<FileEntry> fileEntries = getFileEntries(folderId);
 
@@ -715,8 +714,7 @@ public class CMISRepository extends BaseCmisRepository {
 
 	@Override
 	public List<Object> getFoldersAndFileEntries(
-			long folderId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long folderId, int start, int end, OrderByComparator obc) {
 
 		List<Object> foldersAndFileEntries = getFoldersAndFileEntries(folderId);
 
@@ -753,8 +751,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public int getFoldersAndFileEntriesCount(long folderId)
-		throws SystemException {
+	public int getFoldersAndFileEntriesCount(long folderId) {
 
 		List<Object> foldersAndFileEntries = getFoldersAndFileEntries(folderId);
 
@@ -791,8 +788,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public int getFoldersFileEntriesCount(List<Long> folderIds, int status)
-		throws SystemException {
+	public int getFoldersFileEntriesCount(List<Long> folderIds, int status) {
 
 		int count = 0;
 
@@ -888,8 +884,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public void getSubfolderIds(List<Long> folderIds, long folderId)
-		throws SystemException {
+	public void getSubfolderIds(List<Long> folderIds, long folderId) {
 
 		try {
 			List<Folder> subfolders = getFolders(
@@ -906,8 +901,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	@Override
-	public List<Long> getSubfolderIds(long folderId, boolean recurse)
-		throws SystemException {
+	public List<Long> getSubfolderIds(long folderId, boolean recurse) {
 
 		try {
 			List<Long> subfolderIds = new ArrayList<Long>();
@@ -1525,8 +1519,7 @@ public class CMISRepository extends BaseCmisRepository {
 		throw new UnsupportedOperationException();
 	}
 
-	protected void cacheFoldersAndFileEntries(long folderId)
-		throws SystemException {
+	protected void cacheFoldersAndFileEntries(long folderId) {
 
 		try {
 			Map<Long, List<Object>> foldersAndFileEntriesCache =
@@ -1611,8 +1604,7 @@ public class CMISRepository extends BaseCmisRepository {
 		}
 	}
 
-	protected void deleteMappedFileEntry(Document document)
-		throws SystemException {
+	protected void deleteMappedFileEntry(Document document) {
 
 		if (PropsValues.DL_REPOSITORY_CMIS_DELETE_DEPTH == _DELETE_NONE) {
 			return;
@@ -1638,8 +1630,7 @@ public class CMISRepository extends BaseCmisRepository {
 	}
 
 	protected void deleteMappedFolder(
-			org.apache.chemistry.opencmis.client.api.Folder cmisFolder)
-		throws SystemException {
+			org.apache.chemistry.opencmis.client.api.Folder cmisFolder) {
 
 		if (PropsValues.DL_REPOSITORY_CMIS_DELETE_DEPTH == _DELETE_NONE) {
 			return;
@@ -1977,8 +1968,7 @@ public class CMISRepository extends BaseCmisRepository {
 		return cmisDocumentIds;
 	}
 
-	protected List<FileEntry> getFileEntries(long folderId)
-		throws SystemException {
+	protected List<FileEntry> getFileEntries(long folderId) {
 
 		cacheFoldersAndFileEntries(folderId);
 
@@ -2046,8 +2036,7 @@ public class CMISRepository extends BaseCmisRepository {
 		return folders;
 	}
 
-	protected List<Object> getFoldersAndFileEntries(long folderId)
-		throws SystemException {
+	protected List<Object> getFoldersAndFileEntries(long folderId) {
 
 		cacheFoldersAndFileEntries(folderId);
 

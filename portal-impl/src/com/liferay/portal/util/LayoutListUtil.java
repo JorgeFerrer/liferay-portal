@@ -43,8 +43,7 @@ public class LayoutListUtil {
 
 	public static List<LayoutDescription> getLayoutDescriptions(
 			long groupId, boolean privateLayout, String rootNodeName,
-			Locale locale)
-		throws SystemException {
+			Locale locale) {
 
 		ThreadLocalCache<List<LayoutDescription>> threadLocalCache =
 			ThreadLocalCacheManager.getThreadLocalCache(
@@ -85,8 +84,7 @@ public class LayoutListUtil {
 
 	protected static List<LayoutDescription> doGetLayoutDescriptions(
 			long groupId, boolean privateLayout, String rootNodeName,
-			Locale locale)
-		throws SystemException {
+			Locale locale) {
 
 		List<LayoutDescription> layoutDescriptions =
 			new ArrayList<LayoutDescription>();

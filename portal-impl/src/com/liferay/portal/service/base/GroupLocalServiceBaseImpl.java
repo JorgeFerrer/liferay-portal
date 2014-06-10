@@ -527,8 +527,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addRoleGroups(long roleId, long[] groupIds)
-		throws SystemException {
+	public void addRoleGroups(long roleId, long[] groupIds) {
 		rolePersistence.addGroups(roleId, groupIds);
 	}
 
@@ -536,8 +535,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addRoleGroups(long roleId, List<Group> Groups)
-		throws SystemException {
+	public void addRoleGroups(long roleId, List<Group> Groups) {
 		rolePersistence.addGroups(roleId, Groups);
 	}
 
@@ -634,8 +632,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void setRoleGroups(long roleId, long[] groupIds)
-		throws SystemException {
+	public void setRoleGroups(long roleId, long[] groupIds) {
 		rolePersistence.setGroups(roleId, groupIds);
 	}
 
@@ -782,8 +779,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addUserGroups(long userId, long[] groupIds)
-		throws SystemException {
+	public void addUserGroups(long userId, long[] groupIds) {
 		userPersistence.addGroups(userId, groupIds);
 	}
 
@@ -791,8 +787,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public void addUserGroups(long userId, List<Group> Groups)
-		throws SystemException {
+	public void addUserGroups(long userId, List<Group> Groups) {
 		userPersistence.addGroups(userId, Groups);
 	}
 
@@ -878,8 +873,7 @@ public abstract class GroupLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException
 	 */
 	@Override
-	public boolean hasUserGroup(long userId, long groupId)
-		throws SystemException {
+	public boolean hasUserGroup(long userId, long groupId) {
 		return userPersistence.containsGroup(userId, groupId);
 	}
 

@@ -248,8 +248,7 @@ public class PasswordPolicyLocalServiceImpl
 	}
 
 	@Override
-	public PasswordPolicy fetchPasswordPolicy(long companyId, String name)
-		throws SystemException {
+	public PasswordPolicy fetchPasswordPolicy(long companyId, String name) {
 
 		return passwordPolicyPersistence.fetchByC_N(companyId, name);
 	}
@@ -346,8 +345,7 @@ public class PasswordPolicyLocalServiceImpl
 	@Override
 	public List<PasswordPolicy> search(
 			long companyId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return passwordPolicyFinder.findByC_N(companyId, name, start, end, obc);
 	}

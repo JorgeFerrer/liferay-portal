@@ -99,8 +99,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	}
 
 	@Override
-	public int countByC_S_S(long companyId, int status, int scope)
-		throws SystemException {
+	public int countByC_S_S(long companyId, int status, int scope) {
 
 		Session session = null;
 
@@ -150,8 +149,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	@Override
 	public List<DDLRecord> findByR_S(
 			long recordSetId, int status, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		Session session = null;
 
@@ -192,8 +190,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	@Override
 	public List<DDLRecord> findByC_S_S(
 			long companyId, int status, int scope, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		Session session = null;
 
@@ -233,8 +230,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	}
 
 	@Override
-	public Long[] findByC_S_S_MinAndMax(long companyId, int status, int scope)
-		throws SystemException {
+	public Long[] findByC_S_S_MinAndMax(long companyId, int status, int scope) {
 
 		Session session = null;
 
@@ -286,8 +282,7 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 	@Override
 	public List<DDLRecord> findByC_S_S_MinAndMax(
 			long companyId, int status, int scope, long minRecordId,
-			long maxRecordId)
-		throws SystemException {
+			long maxRecordId) {
 
 		Session session = null;
 

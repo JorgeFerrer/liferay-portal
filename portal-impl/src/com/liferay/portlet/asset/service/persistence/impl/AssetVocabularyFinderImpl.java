@@ -51,8 +51,7 @@ public class AssetVocabularyFinderImpl
 	}
 
 	@Override
-	public int filterCountByG_N(long groupId, String name)
-		throws SystemException {
+	public int filterCountByG_N(long groupId, String name) {
 
 		return doCountByG_N(groupId, name, true);
 	}
@@ -60,8 +59,7 @@ public class AssetVocabularyFinderImpl
 	@Override
 	public List<AssetVocabulary> filterFindByG_N(
 			long groupId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return doFindByG_N(groupId, name, start, end, obc, true);
 	}
@@ -69,15 +67,13 @@ public class AssetVocabularyFinderImpl
 	@Override
 	public List<AssetVocabulary> findByG_N(
 			long groupId, String name, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return doFindByG_N(groupId, name, start, end, obc, false);
 	}
 
 	protected int doCountByG_N(
-			long groupId, String name, boolean inlineSQLHelper)
-		throws SystemException {
+			long groupId, String name, boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -124,8 +120,7 @@ public class AssetVocabularyFinderImpl
 
 	protected List<AssetVocabulary> doFindByG_N(
 			long groupId, String name, int start, int end,
-			OrderByComparator obc, boolean inlineSQLHelper)
-		throws SystemException {
+			OrderByComparator obc, boolean inlineSQLHelper) {
 
 		name = StringUtil.toLowerCase(name.trim());
 

@@ -62,8 +62,7 @@ public class RepositoryEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<RepositoryEntry> getRepositoryEntries(long repositoryId)
-		throws SystemException {
+	public List<RepositoryEntry> getRepositoryEntries(long repositoryId) {
 
 		return repositoryEntryPersistence.findByRepositoryId(repositoryId);
 	}

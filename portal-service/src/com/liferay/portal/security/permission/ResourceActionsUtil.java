@@ -241,15 +241,13 @@ public class ResourceActionsUtil {
 	 */
 	@Deprecated
 	public static List<Role> getRoles(
-			long companyId, Group group, String modelResource)
-		throws SystemException {
+			long companyId, Group group, String modelResource) {
 
 		return getResourceActions().getRoles(companyId, group, modelResource);
 	}
 
 	public static List<Role> getRoles(
-			long companyId, Group group, String modelResource, int[] roleTypes)
-		throws SystemException {
+			long companyId, Group group, String modelResource, int[] roleTypes) {
 
 		return getResourceActions().getRoles(
 			companyId, group, modelResource, roleTypes);

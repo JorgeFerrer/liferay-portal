@@ -393,8 +393,7 @@ public class DDMTemplateStagedModelDataHandler
 
 	protected DDMTemplate fetchExistingTemplate(
 			String uuid, long groupId, long classNameId, String templateKey,
-			boolean preloaded)
-		throws SystemException {
+			boolean preloaded) {
 
 		DDMTemplate existingTemplate = null;
 

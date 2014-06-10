@@ -27,8 +27,7 @@ public class ShoppingOrderItemLocalServiceImpl
 	extends ShoppingOrderItemLocalServiceBaseImpl {
 
 	@Override
-	public List<ShoppingOrderItem> getOrderItems(long orderId)
-		throws SystemException {
+	public List<ShoppingOrderItem> getOrderItems(long orderId) {
 
 		return shoppingOrderItemPersistence.findByOrderId(orderId);
 	}

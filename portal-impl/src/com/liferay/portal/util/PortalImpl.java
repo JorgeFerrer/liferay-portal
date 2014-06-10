@@ -1650,8 +1650,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public Map<String, List<Portlet>> getControlPanelCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException {
+			HttpServletRequest request) {
 
 		return getCategoriesMap(
 			request, WebKeys.CONTROL_PANEL_CATEGORIES_MAP,
@@ -1660,8 +1659,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String getControlPanelCategory(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, ThemeDisplay themeDisplay) {
 
 		for (String category : PortletCategoryKeys.ALL) {
 			List<Portlet> portlets = getControlPanelPortlets(
@@ -1741,8 +1739,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public Set<Portlet> getControlPanelPortlets(long companyId, String category)
-		throws SystemException {
+	public Set<Portlet> getControlPanelPortlets(long companyId, String category) {
 
 		Set<Portlet> portletsSet = new TreeSet<Portlet>(
 			new PortletControlPanelWeightComparator());
@@ -1770,8 +1767,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public List<Portlet> getControlPanelPortlets(
-			String category, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String category, ThemeDisplay themeDisplay) {
 
 		Set<Portlet> portlets = getControlPanelPortlets(
 			themeDisplay.getCompanyId(), category);
@@ -2136,8 +2132,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String getEmailFromAddress(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException {
+			PortletPreferences preferences, long companyId, String defaultValue) {
 
 		if (Validator.isNull(defaultValue)) {
 			defaultValue = PrefsPropsUtil.getString(
@@ -2149,8 +2144,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String getEmailFromName(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException {
+			PortletPreferences preferences, long companyId, String defaultValue) {
 
 		if (Validator.isNull(defaultValue)) {
 			defaultValue = PrefsPropsUtil.getString(
@@ -2552,8 +2546,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay)
-		throws SystemException {
+	public Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay) {
 
 		List<Portlet> portlets = getControlPanelPortlets(
 			PortletCategoryKeys.MY, themeDisplay);
@@ -2586,8 +2579,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public Portlet getFirstSiteAdministrationPortlet(ThemeDisplay themeDisplay)
-		throws SystemException {
+	public Portlet getFirstSiteAdministrationPortlet(ThemeDisplay themeDisplay) {
 
 		Portlet siteAdministrationPortlet = null;
 
@@ -5108,8 +5100,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public Map<String, List<Portlet>> getSiteAdministrationCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException {
+			HttpServletRequest request) {
 
 		return getCategoriesMap(
 			request, WebKeys.SITE_ADMINISTRATION_CATEGORIES_MAP,
@@ -5118,8 +5109,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public PortletURL getSiteAdministrationURL(
-			HttpServletRequest request, ThemeDisplay themeDisplay)
-		throws SystemException {
+			HttpServletRequest request, ThemeDisplay themeDisplay) {
 
 		Portlet portlet = getFirstSiteAdministrationPortlet(themeDisplay);
 
@@ -5151,8 +5141,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public PortletURL getSiteAdministrationURL(
-			PortletResponse portletResponse, ThemeDisplay themeDisplay)
-		throws SystemException {
+			PortletResponse portletResponse, ThemeDisplay themeDisplay) {
 
 		Portlet portlet = getFirstSiteAdministrationPortlet(themeDisplay);
 
@@ -5940,8 +5929,7 @@ public class PortalImpl implements Portal {
 	 */
 	@Deprecated
 	@Override
-	public String getUserValue(long userId, String param, String defaultValue)
-		throws SystemException {
+	public String getUserValue(long userId, String param, String defaultValue) {
 
 		if (Validator.isNotNull(defaultValue)) {
 			return defaultValue;
@@ -6515,8 +6503,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public boolean isControlPanelPortlet(
-			String portletId, String category, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, String category, ThemeDisplay themeDisplay) {
 
 		Portlet portlet = PortletLocalServiceUtil.getPortletById(
 			themeDisplay.getCompanyId(), portletId);
@@ -6536,8 +6523,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public boolean isControlPanelPortlet(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException {
+			String portletId, ThemeDisplay themeDisplay) {
 
 		try {
 			return PortletPermissionUtil.hasControlPanelAccessPermission(
@@ -6652,8 +6638,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public boolean isLoginRedirectRequired(HttpServletRequest request)
-		throws SystemException {
+	public boolean isLoginRedirectRequired(HttpServletRequest request) {
 
 		if (PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS &&
 			!request.isSecure()) {
@@ -7842,8 +7827,7 @@ public class PortalImpl implements Portal {
 
 	protected Map<String, List<Portlet>> getCategoriesMap(
 			HttpServletRequest request, String attributeName,
-			String[] categories)
-		throws SystemException {
+			String[] categories) {
 
 		Map<String, List<Portlet>> categoriesMap =
 			(Map<String, List<Portlet>>)request.getAttribute(attributeName);

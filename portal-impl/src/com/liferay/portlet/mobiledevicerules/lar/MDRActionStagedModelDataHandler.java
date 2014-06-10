@@ -48,8 +48,7 @@ public class MDRActionStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		MDRAction action =
 			MDRActionLocalServiceUtil.fetchMDRActionByUuidAndGroupId(

@@ -83,8 +83,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addGroupUserGroups(long groupId, long[] userGroupIds)
-		throws SystemException {
+	public void addGroupUserGroups(long groupId, long[] userGroupIds) {
 
 		groupPersistence.addUserGroups(groupId, userGroupIds);
 
@@ -99,8 +98,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void addTeamUserGroups(long teamId, long[] userGroupIds)
-		throws SystemException {
+	public void addTeamUserGroups(long teamId, long[] userGroupIds) {
 
 		teamPersistence.addUserGroups(teamId, userGroupIds);
 
@@ -429,8 +427,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	}
 
 	@Override
-	public UserGroup fetchUserGroup(long companyId, String name)
-		throws SystemException {
+	public UserGroup fetchUserGroup(long companyId, String name) {
 
 		return userGroupPersistence.fetchByC_N(companyId, name);
 	}
@@ -494,8 +491,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<UserGroup> getUserGroups(long companyId)
-		throws SystemException {
+	public List<UserGroup> getUserGroups(long companyId) {
 
 		return userGroupPersistence.findByCompanyId(companyId);
 	}
@@ -556,8 +552,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public List<UserGroup> search(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return userGroupFinder.findByKeywords(
 			companyId, keywords, params, start, end, obc);
@@ -596,8 +591,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Override
 	public Hits search(
 			long companyId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
 		String name = null;
 		String description = null;
@@ -656,8 +650,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public List<UserGroup> search(
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		return userGroupFinder.findByC_N_D(
 			companyId, name, description, params, andOperator, start, end, obc);
@@ -700,8 +693,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	public Hits search(
 			long companyId, String name, String description,
 			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort)
-		throws SystemException {
+			int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -734,8 +726,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, String keywords,
-			LinkedHashMap<String, Object> params)
-		throws SystemException {
+			LinkedHashMap<String, Object> params) {
 
 		if (!PropsValues.USER_GROUPS_INDEXER_ENABLED ||
 			!PropsValues.USER_GROUPS_SEARCH_WITH_INDEX ||
@@ -796,8 +787,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	@Override
 	public int searchCount(
 			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator)
-		throws SystemException {
+			LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		if (!PropsValues.USER_GROUPS_INDEXER_ENABLED ||
 			!PropsValues.USER_GROUPS_SEARCH_WITH_INDEX ||
@@ -914,8 +904,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetGroupUserGroups(long groupId, long[] userGroupIds)
-		throws SystemException {
+	public void unsetGroupUserGroups(long groupId, long[] userGroupIds) {
 
 		List<Team> teams = teamPersistence.findByGroupId(groupId);
 
@@ -939,8 +928,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetTeamUserGroups(long teamId, long[] userGroupIds)
-		throws SystemException {
+	public void unsetTeamUserGroups(long teamId, long[] userGroupIds) {
 
 		teamPersistence.removeUserGroups(teamId, userGroupIds);
 

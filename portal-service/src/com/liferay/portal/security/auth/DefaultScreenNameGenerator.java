@@ -94,8 +94,7 @@ public class DefaultScreenNameGenerator implements ScreenNameGenerator {
 		return getUnusedScreenName(companyId, screenName);
 	}
 
-	protected String getUnusedScreenName(long companyId, String screenName)
-		throws SystemException {
+	protected String getUnusedScreenName(long companyId, String screenName) {
 
 		for (int i = 1;; i++) {
 			String tempScreenName = screenName + StringPool.PERIOD + i;

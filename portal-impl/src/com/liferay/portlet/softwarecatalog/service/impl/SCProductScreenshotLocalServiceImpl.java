@@ -79,8 +79,7 @@ public class SCProductScreenshotLocalServiceImpl
 	}
 
 	@Override
-	public List<SCProductScreenshot> getProductScreenshots(long productEntryId)
-		throws SystemException {
+	public List<SCProductScreenshot> getProductScreenshots(long productEntryId) {
 
 		return scProductScreenshotPersistence.findByProductEntryId(
 			productEntryId);

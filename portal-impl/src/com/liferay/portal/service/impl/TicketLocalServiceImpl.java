@@ -32,8 +32,7 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 	public Ticket addTicket(
 			long companyId, String className, long classPK, int type,
 			String extraInfo, Date expirationDate,
-			ServiceContext serviceContext)
-		throws SystemException {
+			ServiceContext serviceContext) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 		Date now = new Date();

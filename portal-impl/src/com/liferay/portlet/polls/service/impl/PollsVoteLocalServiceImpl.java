@@ -114,8 +114,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<PollsVote> getChoiceVotes(long choiceId, int start, int end)
-		throws SystemException {
+	public List<PollsVote> getChoiceVotes(long choiceId, int start, int end) {
 
 		return pollsVotePersistence.findByChoiceId(choiceId, start, end);
 	}
@@ -126,8 +125,7 @@ public class PollsVoteLocalServiceImpl extends PollsVoteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<PollsVote> getQuestionVotes(long questionId, int start, int end)
-		throws SystemException {
+	public List<PollsVote> getQuestionVotes(long questionId, int start, int end) {
 
 		return pollsVotePersistence.findByQuestionId(questionId, start, end);
 	}

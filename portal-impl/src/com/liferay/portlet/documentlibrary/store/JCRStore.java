@@ -464,8 +464,7 @@ public class JCRStore extends BaseStore {
 	}
 
 	@Override
-	public String[] getFileNames(long companyId, long repositoryId)
-		throws SystemException {
+	public String[] getFileNames(long companyId, long repositoryId) {
 
 		List<String> fileNames = new ArrayList<String>();
 
@@ -575,8 +574,7 @@ public class JCRStore extends BaseStore {
 
 	@Override
 	public boolean hasDirectory(
-			long companyId, long repositoryId, String dirName)
-		throws SystemException {
+			long companyId, long repositoryId, String dirName) {
 
 		Session session = null;
 

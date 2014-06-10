@@ -54,8 +54,7 @@ public class PluginSettingLocalServiceImpl
 
 	@Override
 	public PluginSetting getPluginSetting(
-			long companyId, String pluginId, String pluginType)
-		throws SystemException {
+			long companyId, String pluginId, String pluginType) {
 
 		PluginSetting pluginSetting = pluginSettingPersistence.fetchByC_I_T(
 			companyId, pluginId, pluginType);
@@ -117,8 +116,7 @@ public class PluginSettingLocalServiceImpl
 	@Override
 	public PluginSetting updatePluginSetting(
 			long companyId, String pluginId, String pluginType, String roles,
-			boolean active)
-		throws SystemException {
+			boolean active) {
 
 		pluginId = PortalUtil.getJsSafePortletId(pluginId);
 

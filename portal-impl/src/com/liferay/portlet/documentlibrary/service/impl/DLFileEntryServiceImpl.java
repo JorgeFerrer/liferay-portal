@@ -354,16 +354,14 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getFileEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getFileEntriesCount(long groupId, long folderId) {
 
 		return getFileEntriesCount(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Override
-	public int getFileEntriesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getFileEntriesCount(long groupId, long folderId, int status) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -375,8 +373,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFileEntriesCount(
-			long groupId, long folderId, long fileEntryTypeId)
-		throws SystemException {
+			long groupId, long folderId, long fileEntryTypeId) {
 
 		return dlFileEntryPersistence.filterCountByG_F_F(
 			groupId, folderId, fileEntryTypeId);
@@ -384,8 +381,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFileEntriesCount(
-			long groupId, long folderId, String[] mimeTypes)
-		throws SystemException {
+			long groupId, long folderId, String[] mimeTypes) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -445,8 +441,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFoldersFileEntriesCount(
-			long groupId, List<Long> folderIds, int status)
-		throws SystemException {
+			long groupId, List<Long> folderIds, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 

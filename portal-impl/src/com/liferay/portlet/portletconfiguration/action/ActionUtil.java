@@ -70,8 +70,7 @@ public class ActionUtil {
 	public static final String PRESELECTED = "_PRESELECTED_";
 
 	public static PortletPreferences getLayoutPortletSetup(
-			PortletRequest portletRequest, Portlet portlet)
-		throws SystemException {
+			PortletRequest portletRequest, Portlet portlet) {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

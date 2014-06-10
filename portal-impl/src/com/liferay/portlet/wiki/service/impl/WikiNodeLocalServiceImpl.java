@@ -266,22 +266,19 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiNode fetchNode(long groupId, String name)
-		throws SystemException {
+	public WikiNode fetchNode(long groupId, String name) {
 
 		return wikiNodePersistence.fetchByG_N(groupId, name);
 	}
 
 	@Override
-	public WikiNode fetchNodeByUuidAndGroupId(String uuid, long groupId)
-		throws SystemException {
+	public WikiNode fetchNodeByUuidAndGroupId(String uuid, long groupId) {
 
 		return wikiNodePersistence.fetchByUUID_G(uuid, groupId);
 	}
 
 	@Override
-	public List<WikiNode> getCompanyNodes(long companyId, int start, int end)
-		throws SystemException {
+	public List<WikiNode> getCompanyNodes(long companyId, int start, int end) {
 
 		return wikiNodePersistence.findByC_S(
 			companyId, WorkflowConstants.STATUS_APPROVED, start, end);
@@ -289,8 +286,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiNode> getCompanyNodes(
-			long companyId, int status, int start, int end)
-		throws SystemException {
+			long companyId, int status, int start, int end) {
 
 		return wikiNodePersistence.findByC_S(companyId, status, start, end);
 	}
@@ -302,8 +298,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyNodesCount(long companyId, int status)
-		throws SystemException {
+	public int getCompanyNodesCount(long companyId, int status) {
 
 		return wikiNodePersistence.countByC_S(companyId, status);
 	}
@@ -545,8 +540,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 		return nodes;
 	}
 
-	protected WikiImporter getWikiImporter(String importer)
-		throws SystemException {
+	protected WikiImporter getWikiImporter(String importer) {
 
 		WikiImporter wikiImporter = _wikiImporters.get(importer);
 

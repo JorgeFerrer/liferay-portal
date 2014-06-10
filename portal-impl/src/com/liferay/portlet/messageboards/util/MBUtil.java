@@ -347,8 +347,7 @@ public class MBUtil {
 		return categoryId;
 	}
 
-	public static Set<Long> getCategorySubscriptionClassPKs(long userId)
-		throws SystemException {
+	public static Set<Long> getCategorySubscriptionClassPKs(long userId) {
 
 		List<Subscription> subscriptions =
 			SubscriptionLocalServiceUtil.getUserSubscriptions(
@@ -738,8 +737,7 @@ public class MBUtil {
 		return priorityPair;
 	}
 
-	public static Set<Long> getThreadSubscriptionClassPKs(long userId)
-		throws SystemException {
+	public static Set<Long> getThreadSubscriptionClassPKs(long userId) {
 
 		List<Subscription> subscriptions =
 			SubscriptionLocalServiceUtil.getUserSubscriptions(
@@ -1134,8 +1132,7 @@ public class MBUtil {
 		return null;
 	}
 
-	private static int _getMessageCount(MBCategory category)
-		throws SystemException {
+	private static int _getMessageCount(MBCategory category) {
 
 		return MBMessageLocalServiceUtil.getCategoryMessagesCount(
 			category.getGroupId(), category.getCategoryId(),

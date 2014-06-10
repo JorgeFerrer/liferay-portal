@@ -34,8 +34,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 
 	@Override
 	public void addUserGroupGroupRoles(
-			long userGroupId, long groupId, long[] roleIds)
-		throws SystemException {
+			long userGroupId, long groupId, long[] roleIds) {
 
 		for (long roleId : roleIds) {
 			UserGroupGroupRolePK pk = new UserGroupGroupRolePK(
@@ -56,8 +55,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 
 	@Override
 	public void addUserGroupGroupRoles(
-			long[] userGroupIds, long groupId, long roleId)
-		throws SystemException {
+			long[] userGroupIds, long groupId, long roleId) {
 
 		for (long userGroupId : userGroupIds) {
 			UserGroupGroupRolePK pk = new UserGroupGroupRolePK(
@@ -78,8 +76,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 
 	@Override
 	public UserGroupGroupRole deleteUserGroupGroupRole(
-			UserGroupGroupRole userGroupGroupRole)
-		throws SystemException {
+			UserGroupGroupRole userGroupGroupRole) {
 
 		userGroupGroupRolePersistence.remove(userGroupGroupRole);
 
@@ -90,8 +87,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 
 	@Override
 	public void deleteUserGroupGroupRoles(
-			long userGroupId, long groupId, long[] roleIds)
-		throws SystemException {
+			long userGroupId, long groupId, long[] roleIds) {
 
 		for (long roleId : roleIds) {
 			UserGroupGroupRolePK pk = new UserGroupGroupRolePK(
@@ -108,8 +104,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupGroupRoles(long userGroupId, long[] groupIds)
-		throws SystemException {
+	public void deleteUserGroupGroupRoles(long userGroupId, long[] groupIds) {
 
 		for (long groupId : groupIds) {
 			userGroupGroupRolePersistence.removeByU_G(userGroupId, groupId);
@@ -119,8 +114,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupGroupRoles(long[] userGroupIds, long groupId)
-		throws SystemException {
+	public void deleteUserGroupGroupRoles(long[] userGroupIds, long groupId) {
 
 		for (long userGroupId : userGroupIds) {
 			userGroupGroupRolePersistence.removeByU_G(userGroupId, groupId);
@@ -131,8 +125,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 
 	@Override
 	public void deleteUserGroupGroupRoles(
-			long[] userGroupIds, long groupId, long roleId)
-		throws SystemException {
+			long[] userGroupIds, long groupId, long roleId) {
 
 		for (long userGroupId : userGroupIds) {
 			UserGroupGroupRolePK pk = new UserGroupGroupRolePK(
@@ -149,8 +142,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupGroupRolesByGroupId(long groupId)
-		throws SystemException {
+	public void deleteUserGroupGroupRolesByGroupId(long groupId) {
 
 		userGroupGroupRolePersistence.removeByGroupId(groupId);
 
@@ -158,8 +150,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupGroupRolesByRoleId(long roleId)
-		throws SystemException {
+	public void deleteUserGroupGroupRolesByRoleId(long roleId) {
 
 		userGroupGroupRolePersistence.removeByRoleId(roleId);
 
@@ -167,8 +158,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupGroupRolesByUserGroupId(long userGroupId)
-		throws SystemException {
+	public void deleteUserGroupGroupRolesByUserGroupId(long userGroupId) {
 
 		userGroupGroupRolePersistence.removeByUserGroupId(userGroupId);
 
@@ -176,39 +166,34 @@ public class UserGroupGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public List<UserGroupGroupRole> getUserGroupGroupRoles(long userGroupId)
-		throws SystemException {
+	public List<UserGroupGroupRole> getUserGroupGroupRoles(long userGroupId) {
 
 		return userGroupGroupRolePersistence.findByUserGroupId(userGroupId);
 	}
 
 	@Override
 	public List<UserGroupGroupRole> getUserGroupGroupRoles(
-			long userGroupId, long groupId)
-		throws SystemException {
+			long userGroupId, long groupId) {
 
 		return userGroupGroupRolePersistence.findByU_G(userGroupId, groupId);
 	}
 
 	@Override
 	public List<UserGroupGroupRole> getUserGroupGroupRolesByGroupAndRole(
-			long groupId, long roleId)
-		throws SystemException {
+			long groupId, long roleId) {
 
 		return userGroupGroupRolePersistence.findByG_R(groupId, roleId);
 	}
 
 	@Override
-	public List<UserGroupGroupRole> getUserGroupGroupRolesByUser(long userId)
-		throws SystemException {
+	public List<UserGroupGroupRole> getUserGroupGroupRolesByUser(long userId) {
 
 		return userGroupGroupRoleFinder.findByUserGroupsUsers(userId);
 	}
 
 	@Override
 	public boolean hasUserGroupGroupRole(
-			long userGroupId, long groupId, long roleId)
-		throws SystemException {
+			long userGroupId, long groupId, long roleId) {
 
 		UserGroupGroupRolePK pk = new UserGroupGroupRolePK(
 			userGroupId, groupId, roleId);

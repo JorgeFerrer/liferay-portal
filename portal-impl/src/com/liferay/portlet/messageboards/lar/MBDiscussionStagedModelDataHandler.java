@@ -43,8 +43,7 @@ public class MBDiscussionStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		MBDiscussion discussion =
 			MBDiscussionLocalServiceUtil.fetchMBDiscussionByUuidAndGroupId(

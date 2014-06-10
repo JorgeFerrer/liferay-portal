@@ -48,8 +48,7 @@ public class MDRRuleGroupInstanceStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData)
-		throws SystemException {
+			String uuid, long groupId, String className, String extraData) {
 
 		MDRRuleGroupInstance ruleGroupInstance =
 			MDRRuleGroupInstanceLocalServiceUtil.

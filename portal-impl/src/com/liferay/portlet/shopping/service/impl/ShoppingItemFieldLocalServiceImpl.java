@@ -27,8 +27,7 @@ public class ShoppingItemFieldLocalServiceImpl
 	extends ShoppingItemFieldLocalServiceBaseImpl {
 
 	@Override
-	public List<ShoppingItemField> getItemFields(long itemId)
-		throws SystemException {
+	public List<ShoppingItemField> getItemFields(long itemId) {
 
 		return shoppingItemFieldPersistence.findByItemId(itemId);
 	}

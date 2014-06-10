@@ -266,31 +266,27 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public List<SCProductEntry> getCompanyProductEntries(
-			long companyId, int start, int end)
-		throws SystemException {
+			long companyId, int start, int end) {
 
 		return scProductEntryPersistence.findByCompanyId(companyId, start, end);
 	}
 
 	@Override
-	public int getCompanyProductEntriesCount(long companyId)
-		throws SystemException {
+	public int getCompanyProductEntriesCount(long companyId) {
 
 		return scProductEntryPersistence.countByCompanyId(companyId);
 	}
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return scProductEntryPersistence.findByGroupId(groupId, start, end);
 	}
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return scProductEntryPersistence.findByGroupId(
 			groupId, start, end, obc);
@@ -298,8 +294,7 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, long userId, int start, int end)
-		throws SystemException {
+			long groupId, long userId, int start, int end) {
 
 		return scProductEntryPersistence.findByG_U(groupId, userId, start, end);
 	}
@@ -307,8 +302,7 @@ public class SCProductEntryLocalServiceImpl
 	@Override
 	public List<SCProductEntry> getProductEntries(
 			long groupId, long userId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return scProductEntryPersistence.findByG_U(
 			groupId, userId, start, end, obc);
@@ -320,8 +314,7 @@ public class SCProductEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getProductEntriesCount(long groupId, long userId)
-		throws SystemException {
+	public int getProductEntriesCount(long groupId, long userId) {
 
 		return scProductEntryPersistence.countByG_U(groupId, userId);
 	}
@@ -336,8 +329,7 @@ public class SCProductEntryLocalServiceImpl
 	@Override
 	public String getRepositoryXML(
 			long groupId, String baseImageURL, Date oldestDate,
-			int maxNumOfVersions, Properties repoSettings)
-		throws SystemException {
+			int maxNumOfVersions, Properties repoSettings) {
 
 		return getRepositoryXML(
 			groupId, null, baseImageURL, oldestDate, maxNumOfVersions,
@@ -347,8 +339,7 @@ public class SCProductEntryLocalServiceImpl
 	@Override
 	public String getRepositoryXML(
 			long groupId, String version, String baseImageURL, Date oldestDate,
-			int maxNumOfVersions, Properties repoSettings)
-		throws SystemException {
+			int maxNumOfVersions, Properties repoSettings) {
 
 		Document doc = SAXReaderUtil.createDocument();
 
@@ -486,8 +477,7 @@ public class SCProductEntryLocalServiceImpl
 
 	protected void populatePluginPackageElement(
 			Element el, SCProductEntry productEntry,
-			SCProductVersion productVersion, String baseImageURL)
-		throws SystemException {
+			SCProductVersion productVersion, String baseImageURL) {
 
 		DocUtil.add(el, "name", productEntry.getName());
 

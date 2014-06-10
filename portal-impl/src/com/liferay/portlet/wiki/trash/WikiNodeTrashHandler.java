@@ -132,8 +132,7 @@ public class WikiNodeTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public int getTrashContainedModelsCount(long classPK)
-		throws SystemException {
+	public int getTrashContainedModelsCount(long classPK) {
 
 		return WikiPageLocalServiceUtil.getPagesCount(
 			classPK, true, WorkflowConstants.STATUS_IN_TRASH);

@@ -345,8 +345,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public List<Subscription> getSubscriptions(
-			long companyId, long userId, String className, long[] classPKs)
-		throws SystemException {
+			long companyId, long userId, String className, long[] classPKs) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -365,8 +364,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public List<Subscription> getSubscriptions(
-			long companyId, String className, long classPK)
-		throws SystemException {
+			long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -387,8 +385,7 @@ public class SubscriptionLocalServiceImpl
 	@Override
 	public List<Subscription> getUserSubscriptions(
 			long userId, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return subscriptionPersistence.findByUserId(
 			userId, start, end, orderByComparator);
@@ -405,8 +402,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public List<Subscription> getUserSubscriptions(
-			long userId, String className)
-		throws SystemException {
+			long userId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -438,8 +434,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public boolean isSubscribed(
-			long companyId, long userId, String className, long classPK)
-		throws SystemException {
+			long companyId, long userId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -468,8 +463,7 @@ public class SubscriptionLocalServiceImpl
 	 */
 	@Override
 	public boolean isSubscribed(
-			long companyId, long userId, String className, long[] classPKs)
-		throws SystemException {
+			long companyId, long userId, String className, long[] classPKs) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

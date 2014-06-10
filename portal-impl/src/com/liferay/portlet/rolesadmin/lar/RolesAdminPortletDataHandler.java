@@ -140,8 +140,7 @@ public class RolesAdminPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getRoleActionableDynamicQuery(
-			final PortletDataContext portletDataContext, final boolean export)
-		throws SystemException {
+			final PortletDataContext portletDataContext, final boolean export) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			RoleLocalServiceUtil.getExportActionableDynamicQuery(

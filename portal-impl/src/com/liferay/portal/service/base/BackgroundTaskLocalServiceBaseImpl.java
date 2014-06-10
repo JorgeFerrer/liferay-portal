@@ -210,8 +210,7 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 	}
 
 	@Override
-	public BackgroundTask fetchBackgroundTask(long backgroundTaskId)
-		throws SystemException {
+	public BackgroundTask fetchBackgroundTask(long backgroundTaskId) {
 		return backgroundTaskPersistence.fetchByPrimaryKey(backgroundTaskId);
 	}
 

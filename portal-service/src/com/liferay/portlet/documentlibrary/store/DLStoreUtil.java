@@ -578,8 +578,7 @@ public class DLStoreUtil {
 	 * @param  destDir the new directory's name
 	 * @throws SystemException if a system exception occurred
 	 */
-	public static void move(String srcDir, String destDir)
-		throws SystemException {
+	public static void move(String srcDir, String destDir) {
 
 		getStore().move(srcDir, destDir);
 	}

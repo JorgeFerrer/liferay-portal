@@ -28,8 +28,7 @@ import java.util.Collection;
 public class RuleGroupProcessorUtil {
 
 	public static MDRRuleGroupInstance evaluateRuleGroups(
-			ThemeDisplay themeDisplay)
-		throws SystemException {
+			ThemeDisplay themeDisplay) {
 
 		return getRuleGroupProcessor().evaluateRuleGroups(themeDisplay);
 	}

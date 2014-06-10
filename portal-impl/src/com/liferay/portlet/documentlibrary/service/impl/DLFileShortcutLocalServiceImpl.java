@@ -246,8 +246,7 @@ public class DLFileShortcutLocalServiceImpl
 	}
 
 	@Override
-	public void disableFileShortcuts(long toFileEntryId)
-		throws SystemException {
+	public void disableFileShortcuts(long toFileEntryId) {
 
 		List<DLFileShortcut> fileShortcuts =
 			dlFileShortcutPersistence.findByToFileEntryId(toFileEntryId);
@@ -281,8 +280,7 @@ public class DLFileShortcutLocalServiceImpl
 	@Override
 	public List<DLFileShortcut> getFileShortcuts(
 			long groupId, long folderId, boolean active, int status, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		return dlFileShortcutPersistence.findByG_F_A_S(
 			groupId, folderId, active, status, start, end);
@@ -290,8 +288,7 @@ public class DLFileShortcutLocalServiceImpl
 
 	@Override
 	public int getFileShortcutsCount(
-			long groupId, long folderId, boolean active, int status)
-		throws SystemException {
+			long groupId, long folderId, boolean active, int status) {
 
 		return dlFileShortcutPersistence.countByG_F_A_S(
 			groupId, folderId, active, status);
@@ -378,8 +375,7 @@ public class DLFileShortcutLocalServiceImpl
 
 	@Override
 	public void updateFileShortcuts(
-			long oldToFileEntryId, long newToFileEntryId)
-		throws SystemException {
+			long oldToFileEntryId, long newToFileEntryId) {
 
 		List<DLFileShortcut> fileShortcuts =
 			dlFileShortcutPersistence.findByToFileEntryId(oldToFileEntryId);
@@ -424,8 +420,7 @@ public class DLFileShortcutLocalServiceImpl
 		serviceContext.setAssetTagNames(assetTagNames);
 	}
 
-	protected long getFolderId(long companyId, long folderId)
-		throws SystemException {
+	protected long getFolderId(long companyId, long folderId) {
 
 		if (folderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 

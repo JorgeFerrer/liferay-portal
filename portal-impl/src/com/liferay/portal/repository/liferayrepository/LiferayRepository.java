@@ -348,16 +348,14 @@ public class LiferayRepository
 	}
 
 	@Override
-	public int getFileEntriesCount(long folderId, long fileEntryTypeId)
-		throws SystemException {
+	public int getFileEntriesCount(long folderId, long fileEntryTypeId) {
 
 		return dlFileEntryService.getFileEntriesCount(
 			getGroupId(), toFolderId(folderId), fileEntryTypeId);
 	}
 
 	@Override
-	public int getFileEntriesCount(long folderId, String[] mimeTypes)
-		throws SystemException {
+	public int getFileEntriesCount(long folderId, String[] mimeTypes) {
 
 		return dlFileEntryService.getFileEntriesCount(
 			getGroupId(), folderId, mimeTypes);
@@ -520,8 +518,7 @@ public class LiferayRepository
 	}
 
 	@Override
-	public int getFoldersFileEntriesCount(List<Long> folderIds, int status)
-		throws SystemException {
+	public int getFoldersFileEntriesCount(List<Long> folderIds, int status) {
 
 		return dlFileEntryService.getFoldersFileEntriesCount(
 			getGroupId(), toFolderIds(folderIds), status);

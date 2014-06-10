@@ -32,16 +32,14 @@ public class SettingsFactoryUtil {
 	}
 
 	public static Settings getCompanyServiceSettings(
-			long companyId, String serviceName)
-		throws SystemException {
+			long companyId, String serviceName) {
 
 		return getSettingsFactory().getCompanyServiceSettings(
 			companyId, serviceName);
 	}
 
 	public static Settings getGroupServiceCompanyDefaultSettings(
-			long companyId, String serviceName)
-		throws SystemException {
+			long companyId, String serviceName) {
 
 		return getSettingsFactory().getGroupServiceCompanyDefaultSettings(
 			companyId, serviceName);
@@ -64,16 +62,14 @@ public class SettingsFactoryUtil {
 	}
 
 	public static List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-			long groupId, String portletId)
-		throws SystemException {
+			long groupId, String portletId) {
 
 		return getSettingsFactory().getPortletInstanceArchivedSettingsList(
 			groupId, portletId);
 	}
 
 	public static Settings getPortletInstanceCompanyDefaultSettings(
-			long companyId, String portletId)
-		throws SystemException {
+			long companyId, String portletId) {
 
 		return getSettingsFactory().getPortletInstanceCompanyDefaultSettings(
 			companyId, portletId);

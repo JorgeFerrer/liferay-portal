@@ -608,8 +608,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertCountAncestors(
-			long ancestorsCount, AssetCategory assetCategory)
-		throws SystemException {
+			long ancestorsCount, AssetCategory assetCategory) {
 
 		Assert.assertEquals(
 			ancestorsCount,
@@ -617,8 +616,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertCountChildren(
-			long childrenCount, AssetCategory assetCategory)
-		throws SystemException {
+			long childrenCount, AssetCategory assetCategory) {
 
 		Assert.assertEquals(
 			childrenCount,
@@ -627,8 +625,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 
 	protected void assertGetAncestors(
 			AssetCategory assetCategory,
-			AssetCategory... ancestorAssetCategories)
-		throws SystemException {
+			AssetCategory... ancestorAssetCategories) {
 
 		List<AssetCategory> expectedAssetCategories =
 			new ArrayList<AssetCategory>(
@@ -648,8 +645,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertGetDescendants(
-			AssetCategory assetCategory, AssetCategory... childAssetCategories)
-		throws SystemException {
+			AssetCategory assetCategory, AssetCategory... childAssetCategories) {
 
 		List<AssetCategory> expectedAssetCategories =
 			new ArrayList<AssetCategory>(Arrays.asList(childAssetCategories));
@@ -669,8 +665,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 
 	protected void assertLeftAndRight(
 			AssetCategory assetCategory, long leftCategoryId,
-			long rightCategoryId)
-		throws SystemException {
+			long rightCategoryId) {
 
 		Assert.assertEquals(leftCategoryId, assetCategory.getLeftCategoryId());
 		Assert.assertEquals(
@@ -679,15 +674,13 @@ public class PersistenceNestedSetsTreeManagerTest {
 		_assetCategoryPersistence.update(assetCategory);
 	}
 
-	protected void synchronizeAssetCategories(AssetCategory assetCategory)
-		throws SystemException {
+	protected void synchronizeAssetCategories(AssetCategory assetCategory) {
 
 		synchronizeAssetCategories(assetCategory, false);
 	}
 
 	protected void synchronizeAssetCategories(
-			AssetCategory assetCategory, boolean delete)
-		throws SystemException {
+			AssetCategory assetCategory, boolean delete) {
 
 		if (assetCategory != null) {
 			if (delete) {

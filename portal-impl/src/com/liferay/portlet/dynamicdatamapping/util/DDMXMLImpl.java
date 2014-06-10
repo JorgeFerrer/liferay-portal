@@ -174,8 +174,7 @@ public class DDMXMLImpl implements DDMXML {
 	}
 
 	@Override
-	public String getXML(Document document, Fields fields)
-		throws SystemException {
+	public String getXML(Document document, Fields fields) {
 
 		Element rootElement = null;
 
@@ -222,8 +221,7 @@ public class DDMXMLImpl implements DDMXML {
 	@Override
 	public String updateXMLDefaultLocale(
 			String xml, Locale contentDefaultLocale,
-			Locale contentNewDefaultLocale)
-		throws SystemException {
+			Locale contentNewDefaultLocale) {
 
 		try {
 			if (LocaleUtil.equals(

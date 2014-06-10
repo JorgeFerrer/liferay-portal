@@ -100,8 +100,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getClassActivitySet(
-			long classNameId, long classPK, int type)
-		throws SystemException {
+			long classNameId, long classPK, int type) {
 
 		return socialActivitySetPersistence.fetchByC_C_T_First(
 			classNameId, classPK, type,
@@ -110,8 +109,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getClassActivitySet(
-			long userId, long classNameId, long classPK, int type)
-		throws SystemException {
+			long userId, long classNameId, long classPK, int type) {
 
 		return socialActivitySetPersistence.fetchByU_C_C_T_First(
 			userId, classNameId, classPK, type,
@@ -120,8 +118,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getGroupActivitySets(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return socialActivitySetPersistence.findByGroupId(
 			groupId, start, end, new SocialActivitySetModifiedDateComparator());
@@ -134,39 +131,34 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getRelationActivitySets(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByRelation(userId, start, end);
 	}
 
 	@Override
 	public List<SocialActivitySet> getRelationActivitySets(
-			long userId, int type, int start, int end)
-		throws SystemException {
+			long userId, int type, int start, int end) {
 
 		return socialActivitySetFinder.findByRelationType(
 			userId, type, start, end);
 	}
 
 	@Override
-	public int getRelationActivitySetsCount(long userId)
-		throws SystemException {
+	public int getRelationActivitySetsCount(long userId) {
 
 		return socialActivitySetFinder.countByRelation(userId);
 	}
 
 	@Override
-	public int getRelationActivitySetsCount(long userId, int type)
-		throws SystemException {
+	public int getRelationActivitySetsCount(long userId, int type) {
 
 		return socialActivitySetFinder.countByRelationType(userId, type);
 	}
 
 	@Override
 	public SocialActivitySet getUserActivitySet(
-			long groupId, long userId, int type)
-		throws SystemException {
+			long groupId, long userId, int type) {
 
 		return socialActivitySetPersistence.fetchByG_U_T_First(
 			groupId, userId, type,
@@ -175,8 +167,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getUserActivitySet(
-			long groupId, long userId, long classNameId, int type)
-		throws SystemException {
+			long groupId, long userId, long classNameId, int type) {
 
 		return socialActivitySetPersistence.fetchByG_U_C_T_First(
 			groupId, userId, classNameId, type,
@@ -185,8 +176,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getUserActivitySets(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivitySetPersistence.findByUserId(userId, start, end);
 	}
@@ -198,30 +188,26 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getUserGroupsActivitySets(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByUserGroups(userId, start, end);
 	}
 
 	@Override
-	public int getUserGroupsActivitySetsCount(long userId)
-		throws SystemException {
+	public int getUserGroupsActivitySetsCount(long userId) {
 
 		return socialActivitySetFinder.countByUserGroups(userId);
 	}
 
 	@Override
 	public List<SocialActivitySet> getUserViewableActivitySets(
-			long userId, int start, int end)
-		throws SystemException {
+			long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByUser(userId, start, end);
 	}
 
 	@Override
-	public int getUserViewableActivitySetsCount(long userId)
-		throws SystemException {
+	public int getUserViewableActivitySetsCount(long userId) {
 
 		return socialActivitySetFinder.countByUser(userId);
 	}

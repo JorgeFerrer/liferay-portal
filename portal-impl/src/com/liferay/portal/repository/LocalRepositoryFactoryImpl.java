@@ -113,8 +113,7 @@ public class LocalRepositoryFactoryImpl
 	}
 
 	@Override
-	protected Repository getRepository(long repositoryId)
-		throws SystemException {
+	protected Repository getRepository(long repositoryId) {
 
 		RepositoryLocalService repositoryLocalService =
 			getRepositoryLocalService();

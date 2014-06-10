@@ -846,8 +846,7 @@ public class LayoutStagedModelDataHandler
 
 	protected String getUniqueFriendlyURL(
 			PortletDataContext portletDataContext, Layout existingLayout,
-			String friendlyURL)
-		throws SystemException {
+			String friendlyURL) {
 
 		for (int i = 1;; i++) {
 			Layout duplicateFriendlyURLLayout =

@@ -704,8 +704,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JournalArticle> getArticles(long groupId, long folderId)
-		throws SystemException {
+	public List<JournalArticle> getArticles(long groupId, long folderId) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			WorkflowConstants.STATUS_ANY);
@@ -745,8 +744,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public List<JournalArticle> getArticles(
 			long groupId, long folderId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			WorkflowConstants.STATUS_ANY, start, end, obc);
@@ -787,8 +785,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public List<JournalArticle> getArticlesByArticleId(
 			long groupId, String articleId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalArticlePersistence.filterFindByG_A(
 			groupId, articleId, start, end, obc);
@@ -805,8 +802,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public List<JournalArticle> getArticlesByLayoutUuid(
-			long groupId, String layoutUuid)
-		throws SystemException {
+			long groupId, String layoutUuid) {
 
 		return journalArticlePersistence.filterFindByG_L(groupId, layoutUuid);
 	}
@@ -847,8 +843,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public List<JournalArticle> getArticlesByStructureId(
 			long groupId, long classNameId, String ddmStructureKey, int status,
-			int start, int end, OrderByComparator obc)
-		throws SystemException {
+			int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -886,8 +881,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	@Override
 	public List<JournalArticle> getArticlesByStructureId(
 			long groupId, String ddmStructureKey, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			WorkflowConstants.STATUS_ANY, start, end, obc);
@@ -906,16 +900,14 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getArticlesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getArticlesCount(long groupId, long folderId) {
 
 		return getArticlesCount(
 			groupId, folderId, WorkflowConstants.STATUS_ANY);
 	}
 
 	@Override
-	public int getArticlesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getArticlesCount(long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -937,8 +929,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getArticlesCountByArticleId(long groupId, String articleId)
-		throws SystemException {
+	public int getArticlesCountByArticleId(long groupId, String articleId) {
 
 		return journalArticlePersistence.filterCountByG_A(groupId, articleId);
 	}
@@ -962,8 +953,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public int getArticlesCountByStructureId(
-			long groupId, long classNameId, String ddmStructureKey, int status)
-		throws SystemException {
+			long groupId, long classNameId, String ddmStructureKey, int status) {
 
 		return journalArticleFinder.filterCountByG_C_S(
 			groupId, classNameId, ddmStructureKey, new QueryDefinition(status));
@@ -981,8 +971,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 */
 	@Override
 	public int getArticlesCountByStructureId(
-			long groupId, String ddmStructureKey)
-		throws SystemException {
+			long groupId, String ddmStructureKey) {
 
 		return getArticlesCountByStructureId(
 			groupId, JournalArticleConstants.CLASSNAME_ID_DEFAULT,
@@ -1029,8 +1018,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getFoldersAndArticlesCount(long groupId, List<Long> folderIds)
-		throws SystemException {
+	public int getFoldersAndArticlesCount(long groupId, List<Long> folderIds) {
 
 		return journalArticlePersistence.filterCountByG_F(
 			groupId,
@@ -1513,8 +1501,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			long classNameId, String keywords, Double version, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return journalArticleFinder.filterFindByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -1593,8 +1580,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			String description, String content, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -1679,8 +1665,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			String description, String content, String type,
 			String[] ddmStructureKeys, String[] ddmTemplateKeys,
 			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -1739,8 +1724,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			long companyId, long groupId, List<Long> folderIds,
 			long classNameId, String keywords, Double version, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate)
-		throws SystemException {
+			Date displayDateLT, int status, Date reviewDate) {
 
 		return journalArticleFinder.filterCountByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -1803,8 +1787,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			String description, String content, String type,
 			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
 			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return journalArticleFinder.filterCountByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -1870,8 +1853,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 			String description, String content, String type,
 			String[] ddmStructureKeys, String[] ddmTemplateKeys,
 			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator)
-		throws SystemException {
+			boolean andOperator) {
 
 		return journalArticleFinder.filterCountByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,

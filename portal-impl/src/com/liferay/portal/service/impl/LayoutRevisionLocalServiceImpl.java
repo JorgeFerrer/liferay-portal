@@ -239,8 +239,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	@Override
-	public LayoutRevision fetchLastLayoutRevision(long plid, boolean head)
-		throws SystemException {
+	public LayoutRevision fetchLastLayoutRevision(long plid, boolean head) {
 
 		try {
 			return layoutRevisionPersistence.findByH_P_Last(
@@ -253,8 +252,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public LayoutRevision fetchLayoutRevision(
-			long layoutSetBranchId, boolean head, long plid)
-		throws SystemException {
+			long layoutSetBranchId, boolean head, long plid) {
 
 		return layoutRevisionPersistence.fetchByL_H_P(
 			layoutSetBranchId, head, plid);
@@ -262,8 +260,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public List<LayoutRevision> getChildLayoutRevisions(
-			long layoutSetBranchId, long parentLayoutRevisionId, long plid)
-		throws SystemException {
+			long layoutSetBranchId, long parentLayoutRevisionId, long plid) {
 
 		return layoutRevisionPersistence.findByL_P_P(
 			layoutSetBranchId, parentLayoutRevisionId, plid);
@@ -272,8 +269,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public List<LayoutRevision> getChildLayoutRevisions(
 			long layoutSetBranchId, long parentLayoutRevision, long plid,
-			int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int start, int end, OrderByComparator orderByComparator) {
 
 		return layoutRevisionPersistence.findByL_P_P(
 			layoutSetBranchId, parentLayoutRevision, plid, start, end,
@@ -282,8 +278,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public int getChildLayoutRevisionsCount(
-			long layoutSetBranchId, long parentLayoutRevision, long plid)
-		throws SystemException {
+			long layoutSetBranchId, long parentLayoutRevision, long plid) {
 
 		return layoutRevisionPersistence.countByL_P_P(
 			layoutSetBranchId, parentLayoutRevision, plid);
@@ -326,40 +321,35 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	@Override
-	public List<LayoutRevision> getLayoutRevisions(long plid)
-		throws SystemException {
+	public List<LayoutRevision> getLayoutRevisions(long plid) {
 
 		return layoutRevisionPersistence.findByPlid(plid);
 	}
 
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
-			long layoutSetBranchId, boolean head)
-		throws SystemException {
+			long layoutSetBranchId, boolean head) {
 
 		return layoutRevisionPersistence.findByL_H(layoutSetBranchId, head);
 	}
 
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
-			long layoutSetBranchId, int status)
-		throws SystemException {
+			long layoutSetBranchId, int status) {
 
 		return layoutRevisionPersistence.findByL_S(layoutSetBranchId, status);
 	}
 
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
-			long layoutSetBranchId, long plid)
-		throws SystemException {
+			long layoutSetBranchId, long plid) {
 
 		return layoutRevisionPersistence.findByL_P(layoutSetBranchId, plid);
 	}
 
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
-			long layoutSetBranchId, long plid, int status)
-		throws SystemException {
+			long layoutSetBranchId, long plid, int status) {
 
 		return layoutRevisionPersistence.findByL_P_S(
 			layoutSetBranchId, plid, status);
@@ -368,8 +358,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
 			long layoutSetBranchId, long plid, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return layoutRevisionPersistence.findByL_P(
 			layoutSetBranchId, plid, start, end, orderByComparator);
@@ -378,8 +367,7 @@ public class LayoutRevisionLocalServiceImpl
 	@Override
 	public List<LayoutRevision> getLayoutRevisions(
 			long layoutSetBranchId, long layoutBranchId, long plid, int start,
-			int end, OrderByComparator orderByComparator)
-		throws SystemException {
+			int end, OrderByComparator orderByComparator) {
 
 		return layoutRevisionPersistence.findByL_L_P(
 			layoutSetBranchId, layoutBranchId, plid, start, end,
@@ -388,8 +376,7 @@ public class LayoutRevisionLocalServiceImpl
 
 	@Override
 	public int getLayoutRevisionsCount(
-			long layoutSetBranchId, long layoutBranchId, long plid)
-		throws SystemException {
+			long layoutSetBranchId, long layoutBranchId, long plid) {
 
 		return layoutRevisionPersistence.countByL_L_P(
 			layoutSetBranchId, layoutBranchId, plid);
@@ -592,8 +579,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	protected void copyPortletPreferences(
-			LayoutRevision layoutRevision, long parentLayoutRevisionId)
-		throws SystemException {
+			LayoutRevision layoutRevision, long parentLayoutRevisionId) {
 
 		List<PortletPreferences> portletPreferencesList =
 			portletPreferencesLocalService.getPortletPreferencesByPlid(
@@ -610,8 +596,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	protected long getParentLayoutRevisionId(
-			long layoutSetBranchId, long parentLayoutRevisionId, long plid)
-		throws SystemException {
+			long layoutSetBranchId, long parentLayoutRevisionId, long plid) {
 
 		LayoutRevision parentLayoutRevision = null;
 

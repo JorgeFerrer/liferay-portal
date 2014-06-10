@@ -105,8 +105,7 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getAttachmentsFileEntries(int start, int end)
-		throws SystemException {
+	public List<FileEntry> getAttachmentsFileEntries(int start, int end) {
 
 		List<FileEntry> fileEntries = new ArrayList<FileEntry>();
 
@@ -191,16 +190,14 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getDeletedAttachmentsFileEntries()
-		throws SystemException {
+	public List<FileEntry> getDeletedAttachmentsFileEntries() {
 
 		return getDeletedAttachmentsFileEntries(
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	@Override
-	public List<FileEntry> getDeletedAttachmentsFileEntries(int start, int end)
-		throws SystemException {
+	public List<FileEntry> getDeletedAttachmentsFileEntries(int start, int end) {
 
 		List<FileEntry> fileEntries = new ArrayList<FileEntry>();
 

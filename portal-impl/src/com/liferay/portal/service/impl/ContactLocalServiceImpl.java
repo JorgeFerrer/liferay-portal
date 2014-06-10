@@ -140,16 +140,14 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	@Override
 	public List<Contact> getContacts(
 			long classNameId, long classPK, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
+			OrderByComparator orderByComparator) {
 
 		return contactPersistence.findByC_C(
 			classNameId, classPK, start, end, orderByComparator);
 	}
 
 	@Override
-	public int getContactsCount(long classNameId, long classPK)
-		throws SystemException {
+	public int getContactsCount(long classNameId, long classPK) {
 
 		return contactPersistence.countByC_C(classNameId, classPK);
 	}

@@ -113,8 +113,7 @@ public abstract class BaseSocialRequestInterpreter
 	}
 
 	public void processDuplicateRequestsFromUser(
-			SocialRequest request, int oldStatus)
-		throws SystemException {
+			SocialRequest request, int oldStatus) {
 
 		List<SocialRequest> requests = SocialRequestUtil.findByU_C_C_T_S(
 			request.getUserId(), request.getClassNameId(), request.getClassPK(),
@@ -130,8 +129,7 @@ public abstract class BaseSocialRequestInterpreter
 	}
 
 	public void processDuplicateRequestsToUser(
-			SocialRequest request, int oldStatus)
-		throws SystemException {
+			SocialRequest request, int oldStatus) {
 
 		List<SocialRequest> requests = SocialRequestUtil.findByC_C_T_R_S(
 			request.getClassNameId(), request.getClassPK(), request.getType(),

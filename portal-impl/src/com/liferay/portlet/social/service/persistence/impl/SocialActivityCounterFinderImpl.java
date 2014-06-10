@@ -65,8 +65,7 @@ public class SocialActivityCounterFinderImpl
 		SocialActivityCounterFinder.class.getName() + ".findU_ByG_C_N_S_E";
 
 	@Override
-	public int countU_ByG_N(long groupId, String[] names)
-		throws SystemException {
+	public int countU_ByG_N(long groupId, String[] names) {
 
 		Session session = null;
 
@@ -114,8 +113,7 @@ public class SocialActivityCounterFinderImpl
 	@Override
 	public List<SocialActivityCounter> findAC_ByG_N_S_E_1(
 			long groupId, String name, int startPeriod, int endPeriod,
-			int periodLength)
-		throws SystemException {
+			int periodLength) {
 
 		StringBundler sb = new StringBundler(9);
 
@@ -201,8 +199,7 @@ public class SocialActivityCounterFinderImpl
 	@Override
 	public List<SocialActivityCounter> findAC_ByG_N_S_E_2(
 			long groupId, String counterName, int startPeriod, int endPeriod,
-			int periodLength)
-		throws SystemException {
+			int periodLength) {
 
 		Session session = null;
 
@@ -254,8 +251,7 @@ public class SocialActivityCounterFinderImpl
 	@Override
 	public List<SocialActivityCounter> findAC_By_G_C_C_N_S_E(
 			long groupId, List<Long> userIds, String[] names, int start,
-			int end)
-		throws SystemException {
+			int end) {
 
 		if (names.length == 0) {
 			return null;
@@ -297,8 +293,7 @@ public class SocialActivityCounterFinderImpl
 
 	@Override
 	public List<Long> findU_ByG_N(
-			long groupId, String[] names, int start, int end)
-		throws SystemException {
+			long groupId, String[] names, int start, int end) {
 
 		if (names.length == 0) {
 			return null;

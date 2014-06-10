@@ -888,38 +888,33 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public DLFileEntry fetchFileEntry(long groupId, long folderId, String title)
-		throws SystemException {
+	public DLFileEntry fetchFileEntry(long groupId, long folderId, String title) {
 
 		return dlFileEntryPersistence.fetchByG_F_T(groupId, folderId, title);
 	}
 
 	@Override
-	public DLFileEntry fetchFileEntryByAnyImageId(long imageId)
-		throws SystemException {
+	public DLFileEntry fetchFileEntryByAnyImageId(long imageId) {
 
 		return dlFileEntryFinder.fetchByAnyImageId(imageId);
 	}
 
 	@Override
 	public DLFileEntry fetchFileEntryByName(
-			long groupId, long folderId, String name)
-		throws SystemException {
+			long groupId, long folderId, String name) {
 
 		return dlFileEntryPersistence.fetchByG_F_N(groupId, folderId, name);
 	}
 
 	@Override
-	public List<DLFileEntry> getDDMStructureFileEntries(long[] ddmStructureIds)
-		throws SystemException {
+	public List<DLFileEntry> getDDMStructureFileEntries(long[] ddmStructureIds) {
 
 		return dlFileEntryFinder.findByDDMStructureIds(
 			ddmStructureIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
 	@Override
-	public List<DLFileEntry> getExtraSettingsFileEntries(int start, int end)
-		throws SystemException {
+	public List<DLFileEntry> getExtraSettingsFileEntries(int start, int end) {
 
 		return dlFileEntryFinder.findByExtraSettings(start, end);
 	}
@@ -1061,15 +1056,13 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<DLFileEntry> getFileEntries(int start, int end)
-		throws SystemException {
+	public List<DLFileEntry> getFileEntries(int start, int end) {
 
 		return dlFileEntryPersistence.findAll(start, end);
 	}
 
 	@Override
-	public List<DLFileEntry> getFileEntries(long groupId, long folderId)
-		throws SystemException {
+	public List<DLFileEntry> getFileEntries(long groupId, long folderId) {
 
 		return dlFileEntryPersistence.findByG_F(groupId, folderId);
 	}
@@ -1077,8 +1070,7 @@ public class DLFileEntryLocalServiceImpl
 	@Override
 	public List<DLFileEntry> getFileEntries(
 			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -1093,8 +1085,7 @@ public class DLFileEntryLocalServiceImpl
 	@Override
 	public List<DLFileEntry> getFileEntries(
 			long groupId, long folderId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		return dlFileEntryPersistence.findByG_F(
 			groupId, folderId, start, end, obc);
@@ -1123,8 +1114,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<DLFileEntry> getFileEntries(long folderId, String name)
-		throws SystemException {
+	public List<DLFileEntry> getFileEntries(long folderId, String name) {
 
 		return dlFileEntryPersistence.findByF_N(folderId, name);
 	}
@@ -1137,23 +1127,20 @@ public class DLFileEntryLocalServiceImpl
 	@Override
 	public int getFileEntriesCount(
 			long groupId, DateRange dateRange, long repositoryId,
-			QueryDefinition queryDefinition)
-		throws SystemException {
+			QueryDefinition queryDefinition) {
 
 		return dlFileEntryFinder.countByG_M_R(
 			groupId, dateRange, repositoryId, queryDefinition);
 	}
 
 	@Override
-	public int getFileEntriesCount(long groupId, long folderId)
-		throws SystemException {
+	public int getFileEntriesCount(long groupId, long folderId) {
 
 		return dlFileEntryPersistence.countByG_F(groupId, folderId);
 	}
 
 	@Override
-	public int getFileEntriesCount(long groupId, long folderId, int status)
-		throws SystemException {
+	public int getFileEntriesCount(long groupId, long folderId, int status) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -1247,8 +1234,7 @@ public class DLFileEntryLocalServiceImpl
 
 	@Override
 	public List<DLFileEntry> getGroupFileEntries(
-			long groupId, int start, int end)
-		throws SystemException {
+			long groupId, int start, int end) {
 
 		return getGroupFileEntries(
 			groupId, start, end, new RepositoryModelModifiedDateComparator());
@@ -1256,16 +1242,14 @@ public class DLFileEntryLocalServiceImpl
 
 	@Override
 	public List<DLFileEntry> getGroupFileEntries(
-			long groupId, int start, int end, OrderByComparator obc)
-		throws SystemException {
+			long groupId, int start, int end, OrderByComparator obc) {
 
 		return dlFileEntryPersistence.findByGroupId(groupId, start, end, obc);
 	}
 
 	@Override
 	public List<DLFileEntry> getGroupFileEntries(
-			long groupId, long userId, int start, int end)
-		throws SystemException {
+			long groupId, long userId, int start, int end) {
 
 		return getGroupFileEntries(
 			groupId, userId, start, end,
@@ -1275,8 +1259,7 @@ public class DLFileEntryLocalServiceImpl
 	@Override
 	public List<DLFileEntry> getGroupFileEntries(
 			long groupId, long userId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		if (userId <= 0) {
 			return dlFileEntryPersistence.findByGroupId(
@@ -1291,8 +1274,7 @@ public class DLFileEntryLocalServiceImpl
 	@Override
 	public List<DLFileEntry> getGroupFileEntries(
 			long groupId, long userId, long rootFolderId, int start, int end,
-			OrderByComparator obc)
-		throws SystemException {
+			OrderByComparator obc) {
 
 		List<Long> folderIds = dlFolderLocalService.getFolderIds(
 			groupId, rootFolderId);
@@ -1320,8 +1302,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getGroupFileEntriesCount(long groupId, long userId)
-		throws SystemException {
+	public int getGroupFileEntriesCount(long groupId, long userId) {
 
 		if (userId <= 0) {
 			return dlFileEntryPersistence.countByGroupId(groupId);
@@ -1332,8 +1313,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<DLFileEntry> getMisversionedFileEntries()
-		throws SystemException {
+	public List<DLFileEntry> getMisversionedFileEntries() {
 
 		return dlFileEntryFinder.findByMisversioned();
 	}
@@ -1389,8 +1369,7 @@ public class DLFileEntryLocalServiceImpl
 	@BufferedIncrement(
 		configuration = "DLFileEntry", incrementClass = NumberIncrement.class)
 	@Override
-	public void incrementViewCounter(DLFileEntry dlFileEntry, int increment)
-		throws SystemException {
+	public void incrementViewCounter(DLFileEntry dlFileEntry, int increment) {
 
 		if (ExportImportThreadLocal.isImportInProcess()) {
 			return;

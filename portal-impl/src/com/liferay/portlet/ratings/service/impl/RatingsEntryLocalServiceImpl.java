@@ -84,8 +84,7 @@ public class RatingsEntryLocalServiceImpl
 	}
 
 	@Override
-	public RatingsEntry fetchEntry(long userId, String className, long classPK)
-		throws SystemException {
+	public RatingsEntry fetchEntry(long userId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -95,8 +94,7 @@ public class RatingsEntryLocalServiceImpl
 
 	@Override
 	public List<RatingsEntry> getEntries(
-			long userId, String className, List<Long> classPKs)
-		throws SystemException {
+			long userId, String className, List<Long> classPKs) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -104,8 +102,7 @@ public class RatingsEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<RatingsEntry> getEntries(String className, long classPK)
-		throws SystemException {
+	public List<RatingsEntry> getEntries(String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -114,8 +111,7 @@ public class RatingsEntryLocalServiceImpl
 
 	@Override
 	public List<RatingsEntry> getEntries(
-			String className, long classPK, double score)
-		throws SystemException {
+			String className, long classPK, double score) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -123,8 +119,7 @@ public class RatingsEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getEntriesCount(String className, long classPK, double score)
-		throws SystemException {
+	public int getEntriesCount(String className, long classPK, double score) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

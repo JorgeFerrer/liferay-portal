@@ -109,8 +109,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<DDMContent> getContents(long groupId, int start, int end)
-		throws SystemException {
+	public List<DDMContent> getContents(long groupId, int start, int end) {
 
 		return ddmContentPersistence.findByGroupId(groupId, start, end);
 	}

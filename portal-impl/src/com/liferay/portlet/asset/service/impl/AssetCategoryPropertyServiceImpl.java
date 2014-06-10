@@ -59,16 +59,14 @@ public class AssetCategoryPropertyServiceImpl
 	}
 
 	@Override
-	public List<AssetCategoryProperty> getCategoryProperties(long entryId)
-		throws SystemException {
+	public List<AssetCategoryProperty> getCategoryProperties(long entryId) {
 
 		return assetCategoryPropertyLocalService.getCategoryProperties(entryId);
 	}
 
 	@Override
 	public List<AssetCategoryProperty> getCategoryPropertyValues(
-			long companyId, String key)
-		throws SystemException {
+			long companyId, String key) {
 
 		return assetCategoryPropertyLocalService.getCategoryPropertyValues(
 			companyId, key);
