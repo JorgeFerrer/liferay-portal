@@ -111,7 +111,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	}
 
 	protected void createPortletPreferences(
-			PortletPreferences portletPreferences)
+			PortletPreferencesRow portletPreferencesRow)
 		throws SQLException {
 
 		Connection con = null;
@@ -130,13 +130,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 			ps = con.prepareStatement(sql);
 
-			ps.setLong(1, portletPreferences.portletPreferencesId);
-			ps.setLong(2, portletPreferences.ownerId);
-			ps.setInt(3, portletPreferences.ownerType);
-			ps.setLong(4, portletPreferences.plid);
-			ps.setString(5, portletPreferences.portletId);
-			ps.setString(6, portletPreferences.preferences);
-			ps.setLong(7, portletPreferences.mvccVersion);
+			ps.setLong(1, portletPreferencesRow.portletPreferencesId);
+			ps.setLong(2, portletPreferencesRow.ownerId);
+			ps.setInt(3, portletPreferencesRow.ownerType);
+			ps.setLong(4, portletPreferencesRow.plid);
+			ps.setString(5, portletPreferencesRow.portletId);
+			ps.setString(6, portletPreferencesRow.preferences);
+			ps.setLong(7, portletPreferencesRow.mvccVersion);
 
 			ps.executeUpdate();
 		}
@@ -153,29 +153,31 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		try {
 			visitPortletPreferences(
 				portletId, ownerType,
-				new Visitor<PortletPreferences>() {
+				new Visitor<PortletPreferencesRow>() {
 					@Override
-					public void visit(PortletPreferences portletPreferences)
+					public void visit(
+							PortletPreferencesRow portletPreferencesRow)
 						throws SQLException {
 
-						portletPreferences.portletPreferencesId = increment();
-						portletPreferences.ownerType =
+						portletPreferencesRow.portletPreferencesId =
+							increment();
+						portletPreferencesRow.ownerType =
 							PortletKeys.PREFS_OWNER_TYPE_GROUP;
-						portletPreferences.portletId = serviceName;
+						portletPreferencesRow.portletId = serviceName;
 
 						if (ownerType == PortletKeys.PREFS_OWNER_TYPE_LAYOUT) {
-							long plid = portletPreferences.plid;
+							long plid = portletPreferencesRow.plid;
 
 							long groupId = getGroupIdFromPlid(plid);
 
-							portletPreferences.ownerId = groupId;
-							portletPreferences.plid = 0;
+							portletPreferencesRow.ownerId = groupId;
+							portletPreferencesRow.plid = 0;
 
 							_logCopyOfServiceSettings(
 								portletId, plid, serviceName, groupId);
 						}
 
-						createPortletPreferences(portletPreferences);
+						createPortletPreferences(portletPreferencesRow);
 					}
 				});
 		}
@@ -197,15 +199,16 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		try {
 			visitPortletPreferences(
 				portletId, ownerType,
-				new Visitor<PortletPreferences>() {
+				new Visitor<PortletPreferencesRow>() {
 					@Override
-					public void visit(PortletPreferences portletPreferences)
+					public void visit(
+							PortletPreferencesRow portletPreferencesRow)
 						throws ReadOnlyException, SQLException {
 
 						javax.portlet.PortletPreferences
 							javaxPortletPreferences =
 								PortletPreferencesFactoryUtil.fromDefaultXML(
-									portletPreferences.preferences);
+									portletPreferencesRow.preferences);
 
 						Enumeration<String> names =
 							javaxPortletPreferences.getNames();
@@ -228,11 +231,11 @@ public class UpgradePortletSettings extends UpgradeProcess {
 							javaxPortletPreferences.reset(keyToReset);
 						}
 
-						portletPreferences.preferences =
+						portletPreferencesRow.preferences =
 							PortletPreferencesFactoryUtil.toXML(
 								javaxPortletPreferences);
 
-						updatePortletPreferences(portletPreferences);
+						updatePortletPreferences(portletPreferencesRow);
 					}
 				});
 		}
@@ -292,7 +295,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	protected void visitPortletPreferences(
 			String portletId, int ownerType,
-			Visitor<PortletPreferences> visitor)
+			Visitor<PortletPreferencesRow> visitor)
 		throws RuntimeException, SQLException {
 
 		Connection con = null;
@@ -318,19 +321,19 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				PortletPreferences portletPreferences =
-					new PortletPreferences();
+				PortletPreferencesRow portletPreferencesRow =
+					new PortletPreferencesRow();
 
-				portletPreferences.portletPreferencesId = rs.getLong(
+				portletPreferencesRow.portletPreferencesId = rs.getLong(
 					"portletPreferencesId");
-				portletPreferences.ownerId = rs.getLong("ownerId");
-				portletPreferences.ownerType = rs.getInt("ownerType");
-				portletPreferences.plid = rs.getLong("plid");
-				portletPreferences.portletId = rs.getString("portletId");
-				portletPreferences.preferences = GetterUtil.getString(
+				portletPreferencesRow.ownerId = rs.getLong("ownerId");
+				portletPreferencesRow.ownerType = rs.getInt("ownerType");
+				portletPreferencesRow.plid = rs.getLong("plid");
+				portletPreferencesRow.portletId = rs.getString("portletId");
+				portletPreferencesRow.preferences = GetterUtil.getString(
 					rs.getString("preferences"));
 
-				visitor.visit(portletPreferences);
+				visitor.visit(portletPreferencesRow);
 			}
 		}
 		catch (SQLException sqle) {
@@ -370,7 +373,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	}
 
 	protected void updatePortletPreferences(
-			PortletPreferences portletPreferences)
+			PortletPreferencesRow portletPreferencesRow)
 		throws SQLException {
 
 		Connection con = null;
@@ -390,13 +393,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 			ps = con.prepareStatement(sql);
 
-			ps.setLong(1, portletPreferences.ownerId);
-			ps.setInt(2, portletPreferences.ownerType);
-			ps.setLong(3, portletPreferences.plid);
-			ps.setString(4, portletPreferences.portletId);
-			ps.setString(5, portletPreferences.preferences);
-			ps.setLong(6, portletPreferences.mvccVersion);
-			ps.setLong(7, portletPreferences.portletPreferencesId);
+			ps.setLong(1, portletPreferencesRow.ownerId);
+			ps.setInt(2, portletPreferencesRow.ownerType);
+			ps.setLong(3, portletPreferencesRow.plid);
+			ps.setString(4, portletPreferencesRow.portletId);
+			ps.setString(5, portletPreferencesRow.preferences);
+			ps.setLong(6, portletPreferencesRow.mvccVersion);
+			ps.setLong(7, portletPreferencesRow.portletPreferencesId);
 
 			ps.executeUpdate();
 		}
@@ -431,8 +434,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			portletId, ownerType, _secondaryPortletServiceKeys.get(portletId));
 	}
 
-	protected static class PortletPreferences {
-
+	protected static class PortletPreferencesRow {
 		public long portletPreferencesId;
 		public long ownerId;
 		public int ownerType;
