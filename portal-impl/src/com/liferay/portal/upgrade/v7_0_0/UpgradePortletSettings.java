@@ -154,6 +154,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			visitPortletPreferences(
 				portletId, ownerType,
 				new Visitor<PortletPreferencesRow>() {
+
 					@Override
 					public void visit(
 							PortletPreferencesRow portletPreferencesRow)
@@ -179,6 +180,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 						createPortletPreferences(portletPreferencesRow);
 					}
+
 				});
 		}
 		catch (SQLException sqle) {
@@ -200,6 +202,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			visitPortletPreferences(
 				portletId, ownerType,
 				new Visitor<PortletPreferencesRow>() {
+
 					@Override
 					public void visit(
 							PortletPreferencesRow portletPreferencesRow)
@@ -237,6 +240,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 						updatePortletPreferences(portletPreferencesRow);
 					}
+
 				});
 		}
 		catch (SQLException sqle) {
