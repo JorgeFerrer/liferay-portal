@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.kernel.cache.ThreadLocalCachable;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.ExportImportHelperUtil;
 import com.liferay.portal.kernel.lar.MissingReferences;
 import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationConstants;
@@ -679,9 +678,7 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Layout> getAncestorLayouts(long plid)
-		throws PortalException {
-
+	public List<Layout> getAncestorLayouts(long plid) throws PortalException {
 		Layout layout = layoutLocalService.getLayout(plid);
 
 		List<Layout> ancestors = layout.getAncestors();

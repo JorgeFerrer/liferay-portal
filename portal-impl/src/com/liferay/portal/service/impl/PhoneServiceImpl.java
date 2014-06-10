@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Phone;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -64,9 +63,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 	}
 
 	@Override
-	public void deletePhone(long phoneId)
-		throws PortalException {
-
+	public void deletePhone(long phoneId) throws PortalException {
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
 		CommonPermissionUtil.check(
@@ -77,9 +74,7 @@ public class PhoneServiceImpl extends PhoneServiceBaseImpl {
 	}
 
 	@Override
-	public Phone getPhone(long phoneId)
-		throws PortalException {
-
+	public Phone getPhone(long phoneId) throws PortalException {
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
 		CommonPermissionUtil.check(

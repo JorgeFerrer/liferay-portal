@@ -19,7 +19,6 @@ import com.liferay.portal.NoSuchLayoutSetBranchException;
 import com.liferay.portal.RequiredLayoutSetBranchException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;

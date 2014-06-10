@@ -123,8 +123,7 @@ public class ReleaseLocalServiceImpl extends ReleaseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getBuildNumberOrCreate()
-		throws PortalException {
+	public int getBuildNumberOrCreate() throws PortalException {
 
 		// Get release build number
 

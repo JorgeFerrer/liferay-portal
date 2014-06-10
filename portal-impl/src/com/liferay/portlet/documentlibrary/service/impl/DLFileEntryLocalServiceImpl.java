@@ -611,9 +611,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public void convertExtraSettings(String[] keys)
-		throws PortalException {
-
+	public void convertExtraSettings(String[] keys) throws PortalException {
 		int count = dlFileEntryFinder.countByExtraSettings();
 
 		int pages = count / Indexer.DEFAULT_INTERVAL;
@@ -1173,9 +1171,7 @@ public class DLFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public DLFileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public DLFileEntry getFileEntry(long fileEntryId) throws PortalException {
 		return dlFileEntryPersistence.findByPrimaryKey(fileEntryId);
 	}
 

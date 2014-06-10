@@ -14,7 +14,6 @@
 
 package com.liferay.portal.layoutconfiguration.util.velocity;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.PortletContainerUtil;
 import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
 import com.liferay.portal.kernel.settings.ModifiableSettings;

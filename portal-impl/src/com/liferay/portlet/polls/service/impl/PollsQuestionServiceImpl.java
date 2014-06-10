@@ -15,7 +15,6 @@
 package com.liferay.portlet.polls.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.polls.model.PollsChoice;
@@ -54,9 +53,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteQuestion(long questionId)
-		throws PortalException {
-
+	public void deleteQuestion(long questionId) throws PortalException {
 		PollsQuestionPermission.check(
 			getPermissionChecker(), questionId, ActionKeys.DELETE);
 
@@ -64,9 +61,7 @@ public class PollsQuestionServiceImpl extends PollsQuestionServiceBaseImpl {
 	}
 
 	@Override
-	public PollsQuestion getQuestion(long questionId)
-		throws PortalException {
-
+	public PollsQuestion getQuestion(long questionId) throws PortalException {
 		PollsQuestionPermission.check(
 			getPermissionChecker(), questionId, ActionKeys.VIEW);
 

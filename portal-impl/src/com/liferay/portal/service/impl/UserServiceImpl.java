@@ -18,7 +18,6 @@ import com.liferay.portal.RequiredUserException;
 import com.liferay.portal.ReservedUserEmailAddressException;
 import com.liferay.portal.UserFieldException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -670,9 +669,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deletePortrait(long userId)
-		throws PortalException {
-
+	public void deletePortrait(long userId) throws PortalException {
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.UPDATE);
 
@@ -708,9 +705,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteUser(long userId)
-		throws PortalException {
-
+	public void deleteUser(long userId) throws PortalException {
 		if (getUserId() == userId) {
 			throw new RequiredUserException();
 		}
@@ -735,9 +730,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	@Override
-	public int getCompanyUsersCount(long companyId)
-		throws PortalException {
-
+	public int getCompanyUsersCount(long companyId) throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
 		if (!permissionChecker.isCompanyAdmin(companyId)) {
@@ -757,9 +750,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long[] getGroupUserIds(long groupId)
-		throws PortalException {
-
+	public long[] getGroupUserIds(long groupId) throws PortalException {
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW_MEMBERS);
 
@@ -776,9 +767,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<User> getGroupUsers(long groupId)
-		throws PortalException {
-
+	public List<User> getGroupUsers(long groupId) throws PortalException {
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.VIEW_MEMBERS);
 
@@ -833,9 +822,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long[] getRoleUserIds(long roleId)
-		throws PortalException {
-
+	public long[] getRoleUserIds(long roleId) throws PortalException {
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.VIEW);
 
@@ -876,9 +863,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public User getUserById(long userId)
-		throws PortalException {
-
+	public User getUserById(long userId) throws PortalException {
 		User user = userPersistence.findByPrimaryKey(userId);
 
 		UserPermissionUtil.check(
@@ -1671,9 +1656,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public User updateStatus(long userId, int status)
-		throws PortalException {
-
+	public User updateStatus(long userId, int status) throws PortalException {
 		return updateStatus(userId, status, new ServiceContext());
 	}
 

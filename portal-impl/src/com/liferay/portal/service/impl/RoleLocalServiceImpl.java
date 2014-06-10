@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.cache.ThreadLocalCache;
 import com.liferay.portal.kernel.cache.ThreadLocalCacheManager;
 import com.liferay.portal.kernel.dao.shard.ShardUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.ExportImportThreadLocal;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -322,9 +321,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkSystemRoles(long companyId)
-		throws PortalException {
-
+	public void checkSystemRoles(long companyId) throws PortalException {
 		String companyIdHexString = StringUtil.toHexString(companyId);
 
 		List<Role> roles = null;
@@ -437,9 +434,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Role deleteRole(long roleId)
-		throws PortalException {
-
+	public Role deleteRole(long roleId) throws PortalException {
 		Role role = rolePersistence.findByPrimaryKey(roleId);
 
 		return roleLocalService.deleteRole(role);
@@ -578,9 +573,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Role getDefaultGroupRole(long groupId)
-		throws PortalException {
-
+	public Role getDefaultGroupRole(long groupId) throws PortalException {
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
 		if (group.isLayout()) {
@@ -714,9 +707,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	@Skip
-	public Role getRole(long companyId, String name)
-		throws PortalException {
-
+	public Role getRole(long companyId, String name) throws PortalException {
 		String companyIdHexString = StringUtil.toHexString(companyId);
 
 		Role role = _systemRolesMap.get(companyIdHexString.concat(name));
@@ -778,9 +769,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getRoles(long[] roleIds)
-		throws PortalException {
-
+	public List<Role> getRoles(long[] roleIds) throws PortalException {
 		List<Role> roles = new ArrayList<Role>(roleIds.length);
 
 		for (long roleId : roleIds) {
@@ -846,9 +835,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Map<Team, Role> getTeamRoleMap(long groupId)
-		throws PortalException {
-
+	public Map<Team, Role> getTeamRoleMap(long groupId) throws PortalException {
 		return getTeamRoleMap(groupId, null);
 	}
 
@@ -863,9 +850,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getTeamRoles(long groupId)
-		throws PortalException {
-
+	public List<Role> getTeamRoles(long groupId) throws PortalException {
 		return getTeamRoles(groupId, null);
 	}
 

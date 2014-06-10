@@ -15,7 +15,6 @@
 package com.liferay.portlet.portletconfiguration.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.PortletConfigurationLayoutUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.GetterUtil;

@@ -19,7 +19,6 @@ import com.liferay.portal.PasswordPolicyNameException;
 import com.liferay.portal.RequiredPasswordPolicyException;
 import com.liferay.portal.kernel.cache.ThreadLocalCachable;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;

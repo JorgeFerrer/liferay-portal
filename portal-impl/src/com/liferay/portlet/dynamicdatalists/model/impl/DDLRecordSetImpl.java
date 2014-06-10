@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatalists.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalServiceUtil;
 import com.liferay.portlet.dynamicdatamapping.NoSuchTemplateException;
@@ -37,9 +36,7 @@ public class DDLRecordSetImpl extends DDLRecordSetBaseImpl {
 	}
 
 	@Override
-	public DDMStructure getDDMStructure()
-		throws PortalException {
-
+	public DDMStructure getDDMStructure() throws PortalException {
 		return DDMStructureLocalServiceUtil.getStructure(getDDMStructureId());
 	}
 
@@ -73,9 +70,7 @@ public class DDLRecordSetImpl extends DDLRecordSetBaseImpl {
 	}
 
 	@Override
-	public List<Fields> getRecordsFieldsList()
-		throws PortalException {
-
+	public List<Fields> getRecordsFieldsList() throws PortalException {
 		List<Fields> fieldsList = new ArrayList<Fields>();
 
 		for (DDLRecord record : getRecords()) {

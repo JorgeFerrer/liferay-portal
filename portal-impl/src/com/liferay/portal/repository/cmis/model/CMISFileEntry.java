@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.cmis.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -171,16 +170,12 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 	}
 
 	@Override
-	public FileVersion getFileVersion()
-		throws PortalException {
-
+	public FileVersion getFileVersion() throws PortalException {
 		return getLatestFileVersion();
 	}
 
 	@Override
-	public FileVersion getFileVersion(String version)
-		throws PortalException {
-
+	public FileVersion getFileVersion(String version) throws PortalException {
 		if (Validator.isNull(version)) {
 			return getFileVersion();
 		}
@@ -280,9 +275,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 	}
 
 	@Override
-	public FileVersion getLatestFileVersion()
-		throws PortalException {
-
+	public FileVersion getLatestFileVersion() throws PortalException {
 		if (_latestFileVersion != null) {
 			return _latestFileVersion;
 		}

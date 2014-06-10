@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -91,9 +90,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public void deleteCategories(long[] categoryIds)
-		throws PortalException {
-
+	public void deleteCategories(long[] categoryIds) throws PortalException {
 		deleteCategories(categoryIds, null);
 	}
 
@@ -135,9 +132,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteCategory(long categoryId)
-		throws PortalException {
-
+	public void deleteCategory(long categoryId) throws PortalException {
 		AssetCategoryPermission.check(
 			getPermissionChecker(), categoryId, ActionKeys.DELETE);
 
@@ -153,9 +148,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public AssetCategory getCategory(long categoryId)
-		throws PortalException {
-
+	public AssetCategory getCategory(long categoryId) throws PortalException {
 		AssetCategoryPermission.check(
 			getPermissionChecker(), categoryId, ActionKeys.VIEW);
 
@@ -163,9 +156,7 @@ public class AssetCategoryServiceImpl extends AssetCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public String getCategoryPath(long categoryId)
-		throws PortalException {
-
+	public String getCategoryPath(long categoryId) throws PortalException {
 		AssetCategoryPermission.check(
 			getPermissionChecker(), categoryId, ActionKeys.VIEW);
 

@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.softwarecatalog.model.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.softwarecatalog.model.SCLicense;
 import com.liferay.portlet.softwarecatalog.model.SCProductScreenshot;
 import com.liferay.portlet.softwarecatalog.model.SCProductVersion;

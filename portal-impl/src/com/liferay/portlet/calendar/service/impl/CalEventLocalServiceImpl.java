@@ -389,8 +389,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CalEvent deleteEvent(CalEvent event)
-		throws PortalException {
+	public CalEvent deleteEvent(CalEvent event) throws PortalException {
 
 		// Event
 
@@ -426,9 +425,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CalEvent deleteEvent(long eventId)
-		throws PortalException {
-
+	public CalEvent deleteEvent(long eventId) throws PortalException {
 		CalEvent event = calEventPersistence.findByPrimaryKey(eventId);
 
 		deleteEvent(event);
@@ -437,9 +434,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEvents(long groupId)
-		throws PortalException {
-
+	public void deleteEvents(long groupId) throws PortalException {
 		List<CalEvent> events = calEventPersistence.findByGroupId(groupId);
 
 		for (CalEvent event : events) {
@@ -448,9 +443,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public File exportEvent(long userId, long eventId)
-		throws PortalException {
-
+	public File exportEvent(long userId, long eventId) throws PortalException {
 		List<CalEvent> events = new ArrayList<CalEvent>();
 
 		CalEvent event = calEventPersistence.findByPrimaryKey(eventId);
@@ -489,9 +482,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public CalEvent getEvent(long eventId)
-		throws PortalException {
-
+	public CalEvent getEvent(long eventId) throws PortalException {
 		return calEventPersistence.findByPrimaryKey(eventId);
 	}
 

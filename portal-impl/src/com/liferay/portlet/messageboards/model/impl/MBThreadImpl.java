@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -47,9 +46,7 @@ public class MBThreadImpl extends MBThreadBaseImpl {
 	}
 
 	@Override
-	public Folder addAttachmentsFolder()
-		throws PortalException {
-
+	public Folder addAttachmentsFolder() throws PortalException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 

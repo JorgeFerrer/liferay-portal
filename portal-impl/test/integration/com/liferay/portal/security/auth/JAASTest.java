@@ -17,7 +17,6 @@ package com.liferay.portal.security.auth;
 import com.liferay.portal.events.EventsProcessorUtil;
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.jaas.PortalPrincipal;
 import com.liferay.portal.kernel.security.jaas.PortalRole;
 import com.liferay.portal.kernel.servlet.HttpMethods;

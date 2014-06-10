@@ -14,7 +14,6 @@
 
 package com.liferay.portlet;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.service.util.PortletPreferencesImplTestUtil;
 import com.liferay.portal.service.util.test.PortletPreferencesTestUtil;

@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.BaseTrashHandler;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
 import com.liferay.portal.kernel.trash.TrashRenderer;
@@ -51,9 +50,7 @@ import javax.portlet.PortletURL;
 public class MBThreadTrashHandler extends BaseTrashHandler {
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		MBThreadLocalServiceUtil.deleteThread(classPK);
 	}
 
@@ -153,18 +150,14 @@ public class MBThreadTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		MBThread thread = MBThreadLocalServiceUtil.getThread(classPK);
 
 		return thread.getTrashEntry();
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		MBThread thread = MBThreadLocalServiceUtil.getThread(classPK);
 
 		return new MBThreadTrashRenderer(thread);
@@ -186,18 +179,14 @@ public class MBThreadTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		MBThread thread = MBThreadLocalServiceUtil.getThread(classPK);
 
 		return thread.isInTrash();
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		MBThread thread = MBThreadLocalServiceUtil.getThread(classPK);
 
 		return thread.isInTrashContainer();
@@ -209,9 +198,7 @@ public class MBThreadTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isRestorable(long classPK)
-		throws PortalException {
-
+	public boolean isRestorable(long classPK) throws PortalException {
 		MBThread thread = MBThreadLocalServiceUtil.getThread(classPK);
 
 		if ((thread.getCategoryId() > 0) &&

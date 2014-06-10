@@ -15,7 +15,6 @@
 package com.liferay.portal.lar;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.util.FileUtil;

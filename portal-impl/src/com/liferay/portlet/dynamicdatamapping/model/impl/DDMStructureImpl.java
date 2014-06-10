@@ -158,9 +158,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public String getFieldDataType(String fieldName)
-		throws PortalException {
-
+	public String getFieldDataType(String fieldName) throws PortalException {
 		return getFieldProperty(fieldName, "dataType");
 	}
 
@@ -210,16 +208,12 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public boolean getFieldRepeatable(String fieldName)
-		throws PortalException {
-
+	public boolean getFieldRepeatable(String fieldName) throws PortalException {
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "repeatable"));
 	}
 
 	@Override
-	public boolean getFieldRequired(String fieldName)
-		throws PortalException {
-
+	public boolean getFieldRequired(String fieldName) throws PortalException {
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "required"));
 	}
 
@@ -321,9 +315,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public String getFieldType(String fieldName)
-		throws PortalException {
-
+	public String getFieldType(String fieldName) throws PortalException {
 		return getFieldProperty(fieldName, "type");
 	}
 
@@ -383,9 +375,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public List<String> getRootFieldNames()
-		throws PortalException {
-
+	public List<String> getRootFieldNames() throws PortalException {
 		List<String> fieldNames = new ArrayList<String>();
 
 		Map<String, Map<String, String>> fieldsMap = getFieldsMap(true);
@@ -507,9 +497,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public boolean hasField(String fieldName)
-		throws PortalException {
-
+	public boolean hasField(String fieldName) throws PortalException {
 		Map<String, Map<String, String>> fieldsMap = getFieldsMap(true);
 
 		boolean hasField = fieldsMap.containsKey(fieldName);
@@ -526,23 +514,17 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 	}
 
 	@Override
-	public boolean isFieldPrivate(String fieldName)
-		throws PortalException {
-
+	public boolean isFieldPrivate(String fieldName) throws PortalException {
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "private"));
 	}
 
 	@Override
-	public boolean isFieldRepeatable(String fieldName)
-		throws PortalException {
-
+	public boolean isFieldRepeatable(String fieldName) throws PortalException {
 		return GetterUtil.getBoolean(getFieldProperty(fieldName, "repeatable"));
 	}
 
 	@Override
-	public boolean isFieldTransient(String fieldName)
-		throws PortalException {
-
+	public boolean isFieldTransient(String fieldName) throws PortalException {
 		if (!hasField(fieldName)) {
 			throw new StructureFieldException();
 		}
@@ -691,9 +673,7 @@ public class DDMStructureImpl extends DDMStructureBaseImpl {
 		return privateField;
 	}
 
-	private void _indexFieldsMap(String locale)
-		throws PortalException {
-
+	private void _indexFieldsMap(String locale) throws PortalException {
 		Map<String, Map<String, Map<String, String>>> localizedFieldsMap =
 			getLocalizedFieldsMap();
 

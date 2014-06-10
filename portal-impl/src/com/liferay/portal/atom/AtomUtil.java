@@ -16,7 +16,6 @@ package com.liferay.portal.atom;
 
 import com.liferay.portal.kernel.atom.AtomRequestContext;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;

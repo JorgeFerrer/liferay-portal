@@ -14,7 +14,6 @@
 
 package com.liferay.portal.util;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.util.PrefsProps;
 

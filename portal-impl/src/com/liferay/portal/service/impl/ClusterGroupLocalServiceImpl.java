@@ -14,7 +14,6 @@
 
 package com.liferay.portal.service.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.ClusterGroup;
 import com.liferay.portal.service.base.ClusterGroupLocalServiceBaseImpl;

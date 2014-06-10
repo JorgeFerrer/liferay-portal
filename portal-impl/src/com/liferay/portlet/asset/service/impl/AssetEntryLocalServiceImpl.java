@@ -71,8 +71,7 @@ import java.util.List;
 public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
-	public void deleteEntry(AssetEntry entry)
-		throws PortalException {
+	public void deleteEntry(AssetEntry entry) throws PortalException {
 
 		// Entry
 
@@ -100,9 +99,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		AssetEntry entry = assetEntryPersistence.findByPrimaryKey(entryId);
 
 		deleteEntry(entry);
@@ -201,9 +198,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetEntry getEntry(long entryId)
-		throws PortalException {
-
+	public AssetEntry getEntry(long entryId) throws PortalException {
 		return assetEntryPersistence.findByPrimaryKey(entryId);
 	}
 
@@ -224,9 +219,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetEntry getNextEntry(long entryId)
-		throws PortalException {
-
+	public AssetEntry getNextEntry(long entryId) throws PortalException {
 		try {
 			getParentEntry(entryId);
 		}
@@ -262,9 +255,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetEntry getParentEntry(long entryId)
-		throws PortalException {
-
+	public AssetEntry getParentEntry(long entryId) throws PortalException {
 		List<AssetLink> links = assetLinkLocalService.getReverseLinks(
 			entryId, AssetLinkConstants.TYPE_CHILD);
 
@@ -278,9 +269,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetEntry getPreviousEntry(long entryId)
-		throws PortalException {
-
+	public AssetEntry getPreviousEntry(long entryId) throws PortalException {
 		getParentEntry(entryId);
 
 		List<AssetLink> links = assetLinkLocalService.getDirectLinks(
@@ -889,9 +878,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		return classNameIds;
 	}
 
-	protected AssetEntry getEntry(Document document)
-		throws PortalException {
-
+	protected AssetEntry getEntry(Document document) throws PortalException {
 		String portletId = GetterUtil.getString(document.get(Field.PORTLET_ID));
 
 		if (portletId.equals(PortletKeys.BLOGS)) {

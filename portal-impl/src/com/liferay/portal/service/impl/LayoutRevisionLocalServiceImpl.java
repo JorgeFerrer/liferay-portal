@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.NoSuchLayoutRevisionException;
 import com.liferay.portal.NoSuchPortletPreferencesException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.staging.MergeLayoutPrototypesThreadLocal;
 import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
@@ -137,9 +136,7 @@ public class LayoutRevisionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteLayoutLayoutRevisions(long plid)
-		throws PortalException {
-
+	public void deleteLayoutLayoutRevisions(long plid) throws PortalException {
 		for (LayoutRevision layoutRevision : getLayoutRevisions(plid)) {
 			layoutRevisionLocalService.deleteLayoutRevision(layoutRevision);
 		}
@@ -622,9 +619,7 @@ public class LayoutRevisionLocalServiceImpl
 		return LayoutRevisionConstants.DEFAULT_PARENT_LAYOUT_REVISION_ID;
 	}
 
-	protected boolean isWorkflowEnabled(long plid)
-		throws PortalException {
-
+	protected boolean isWorkflowEnabled(long plid) throws PortalException {
 		Layout layout = layoutLocalService.getLayout(plid);
 
 		if (layout.isTypeLinkToLayout() || layout.isTypeURL()) {

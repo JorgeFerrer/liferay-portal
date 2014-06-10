@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
@@ -181,8 +180,7 @@ public class JournalFeedLocalServiceImpl
 
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteFeed(JournalFeed feed)
-		throws PortalException {
+	public void deleteFeed(JournalFeed feed) throws PortalException {
 
 		// Feed
 
@@ -201,18 +199,14 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFeed(long feedId)
-		throws PortalException {
-
+	public void deleteFeed(long feedId) throws PortalException {
 		JournalFeed feed = journalFeedPersistence.findByPrimaryKey(feedId);
 
 		journalFeedLocalService.deleteFeed(feed);
 	}
 
 	@Override
-	public void deleteFeed(long groupId, String feedId)
-		throws PortalException {
-
+	public void deleteFeed(long groupId, String feedId) throws PortalException {
 		JournalFeed feed = journalFeedPersistence.findByG_F(groupId, feedId);
 
 		journalFeedLocalService.deleteFeed(feed);
@@ -225,9 +219,7 @@ public class JournalFeedLocalServiceImpl
 	}
 
 	@Override
-	public JournalFeed getFeed(long feedId)
-		throws PortalException {
-
+	public JournalFeed getFeed(long feedId) throws PortalException {
 		return journalFeedPersistence.findByPrimaryKey(feedId);
 	}
 

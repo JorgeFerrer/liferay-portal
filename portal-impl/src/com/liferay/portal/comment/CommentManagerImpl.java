@@ -16,7 +16,6 @@ package com.liferay.portal.comment;
 
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Function;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.service.ServiceContext;
@@ -57,9 +56,7 @@ public class CommentManagerImpl implements CommentManager {
 	}
 
 	@Override
-	public void deleteComment(long commentId)
-		throws PortalException {
-
+	public void deleteComment(long commentId) throws PortalException {
 		MBMessageLocalServiceUtil.deleteDiscussionMessage(commentId);
 	}
 

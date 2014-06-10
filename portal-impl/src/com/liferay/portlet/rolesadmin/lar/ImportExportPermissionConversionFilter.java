@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.rolesadmin.lar;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.ResourcePermission;

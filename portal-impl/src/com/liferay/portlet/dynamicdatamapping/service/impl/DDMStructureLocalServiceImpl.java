@@ -392,9 +392,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteStructure(DDMStructure structure)
-		throws PortalException {
-
+	public void deleteStructure(DDMStructure structure) throws PortalException {
 		if (!GroupThreadLocal.isDeleteInProcess()) {
 			if (ddmStructureLinkPersistence.countByStructureId(
 					structure.getStructureId()) > 0) {
@@ -446,9 +444,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteStructure(long structureId)
-		throws PortalException {
-
+	public void deleteStructure(long structureId) throws PortalException {
 		DDMStructure structure = ddmStructurePersistence.findByPrimaryKey(
 			structureId);
 
@@ -497,9 +493,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteStructures(long groupId)
-		throws PortalException {
-
+	public void deleteStructures(long groupId) throws PortalException {
 		List<DDMStructure> structures = ddmStructurePersistence.findByGroupId(
 			groupId);
 
@@ -763,9 +757,7 @@ public class DDMStructureLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public DDMStructure getStructure(long structureId)
-		throws PortalException {
-
+	public DDMStructure getStructure(long structureId) throws PortalException {
 		return ddmStructurePersistence.findByPrimaryKey(structureId);
 	}
 

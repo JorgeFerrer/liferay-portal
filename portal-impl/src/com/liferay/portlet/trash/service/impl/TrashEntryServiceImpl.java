@@ -62,9 +62,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 */
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
-	public void deleteEntries(long groupId)
-		throws PortalException {
-
+	public void deleteEntries(long groupId) throws PortalException {
 		boolean throwTrashPermissionException = false;
 
 		List<TrashEntry> entries = trashEntryPersistence.findByGroupId(groupId);
@@ -111,9 +109,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 */
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
-	public void deleteEntries(long[] entryIds)
-		throws PortalException {
-
+	public void deleteEntries(long[] entryIds) throws PortalException {
 		boolean throwTrashPermissionException = false;
 
 		for (long entryId : entryIds) {
@@ -147,9 +143,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		TrashEntry entry = trashEntryPersistence.findByPrimaryKey(entryId);
 
 		deleteEntry(entry);
@@ -354,9 +348,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	}
 
 	@Override
-	public TrashEntry restoreEntry(long entryId)
-		throws PortalException {
-
+	public TrashEntry restoreEntry(long entryId) throws PortalException {
 		return restoreEntry(entryId, 0, null);
 	}
 
@@ -475,9 +467,7 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 		return null;
 	}
 
-	protected void deleteEntry(TrashEntry entry)
-		throws PortalException {
-
+	protected void deleteEntry(TrashEntry entry) throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
 		TrashHandler trashHandler = TrashHandlerRegistryUtil.getTrashHandler(

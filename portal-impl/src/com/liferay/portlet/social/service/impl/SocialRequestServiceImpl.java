@@ -15,7 +15,6 @@
 package com.liferay.portlet.social.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.model.SocialRequest;

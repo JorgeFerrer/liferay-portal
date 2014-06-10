@@ -15,7 +15,6 @@
 package com.liferay.portlet.announcements.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.announcements.model.AnnouncementsFlag;
 import com.liferay.portlet.announcements.service.base.AnnouncementsFlagLocalServiceBaseImpl;
 
@@ -52,9 +51,7 @@ public class AnnouncementsFlagLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFlag(long flagId)
-		throws PortalException {
-
+	public void deleteFlag(long flagId) throws PortalException {
 		AnnouncementsFlag flag = announcementsFlagPersistence.findByPrimaryKey(
 			flagId);
 

@@ -16,7 +16,6 @@ package com.liferay.portlet.social.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.ExportImportThreadLocal;
 import com.liferay.portal.kernel.messaging.async.Async;
 import com.liferay.portal.model.Group;
@@ -355,9 +354,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteActivities(AssetEntry assetEntry)
-		throws PortalException {
-
+	public void deleteActivities(AssetEntry assetEntry) throws PortalException {
 		if (PropsValues.SOCIAL_ACTIVITY_SETS_ENABLED) {
 			socialActivitySetLocalService.decrementActivityCount(
 				assetEntry.getClassNameId(), assetEntry.getClassPK());
@@ -416,9 +413,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteActivity(long activityId)
-		throws PortalException {
-
+	public void deleteActivity(long activityId) throws PortalException {
 		SocialActivity activity = socialActivityPersistence.findByPrimaryKey(
 			activityId);
 
@@ -434,9 +429,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteActivity(SocialActivity activity)
-		throws PortalException {
-
+	public void deleteActivity(SocialActivity activity) throws PortalException {
 		if (PropsValues.SOCIAL_ACTIVITY_SETS_ENABLED) {
 			socialActivitySetLocalService.decrementActivityCount(
 				activity.getActivitySetId());
@@ -467,9 +460,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteUserActivities(long userId)
-		throws PortalException {
-
+	public void deleteUserActivities(long userId) throws PortalException {
 		List<SocialActivity> activities =
 			socialActivityPersistence.findByUserId(
 				userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
@@ -707,9 +698,7 @@ public class SocialActivityLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public SocialActivity getActivity(long activityId)
-		throws PortalException {
-
+	public SocialActivity getActivity(long activityId) throws PortalException {
 		return socialActivityPersistence.findByPrimaryKey(activityId);
 	}
 

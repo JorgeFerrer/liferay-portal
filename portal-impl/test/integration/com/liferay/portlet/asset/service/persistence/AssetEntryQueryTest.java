@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.cache.Lifecycle;
 import com.liferay.portal.kernel.cache.ThreadLocalCache;
 import com.liferay.portal.kernel.cache.ThreadLocalCacheManager;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringPool;

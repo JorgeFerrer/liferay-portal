@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.NestedSetsTreeNodeModel;
 

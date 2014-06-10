@@ -15,7 +15,6 @@
 package com.liferay.portlet.documentlibrary;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
@@ -35,9 +34,7 @@ public class DLSettings {
 
 	public static final String[] MULTI_VALUED_KEYS = {};
 
-	public static DLSettings getInstance(long groupId)
-		throws PortalException {
-
+	public static DLSettings getInstance(long groupId) throws PortalException {
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
 			groupId, DLConstants.SERVICE_NAME);
 

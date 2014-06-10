@@ -15,7 +15,6 @@
 package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.UserGroupRole;
@@ -190,9 +189,7 @@ public class OrganizationMembershipPolicyUtil {
 			oldExpandoAttributes);
 	}
 
-	public static void verifyPolicy(Role role)
-		throws PortalException {
-
+	public static void verifyPolicy(Role role) throws PortalException {
 		OrganizationMembershipPolicy organizationMembershipPolicy =
 			OrganizationMembershipPolicyFactoryUtil.
 				getOrganizationMembershipPolicy();

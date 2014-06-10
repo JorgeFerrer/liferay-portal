@@ -15,7 +15,6 @@
 package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Role;
@@ -147,9 +146,7 @@ public class SiteMembershipPolicyUtil {
 		siteMembershipPolicy.verifyPolicy();
 	}
 
-	public static void verifyPolicy(Group group)
-		throws PortalException {
-
+	public static void verifyPolicy(Group group) throws PortalException {
 		SiteMembershipPolicy siteMembershipPolicy =
 			SiteMembershipPolicyFactoryUtil.getSiteMembershipPolicy();
 
@@ -171,9 +168,7 @@ public class SiteMembershipPolicyUtil {
 			oldExpandoAttributes, oldTypeSettingsProperties);
 	}
 
-	public static void verifyPolicy(Role role)
-		throws PortalException {
-
+	public static void verifyPolicy(Role role) throws PortalException {
 		SiteMembershipPolicy siteMembershipPolicy =
 			SiteMembershipPolicyFactoryUtil.getSiteMembershipPolicy();
 

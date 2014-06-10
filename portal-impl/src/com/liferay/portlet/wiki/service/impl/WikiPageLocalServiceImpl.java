@@ -463,9 +463,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deletePage(long nodeId, String title)
-		throws PortalException {
-
+	public void deletePage(long nodeId, String title) throws PortalException {
 		List<WikiPage> pages = wikiPagePersistence.findByN_T_H(
 			nodeId, title, true, 0, 1);
 
@@ -490,8 +488,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP, send = false,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deletePage(WikiPage page)
-		throws PortalException {
+	public void deletePage(WikiPage page) throws PortalException {
 
 		// Child pages
 
@@ -679,9 +676,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deletePages(long nodeId)
-		throws PortalException {
-
+	public void deletePages(long nodeId) throws PortalException {
 		List<WikiPage> pages = wikiPagePersistence.findByN_H_P(
 			nodeId, true, StringPool.BLANK);
 
@@ -979,9 +974,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiPage> getOrphans(long nodeId)
-		throws PortalException {
-
+	public List<WikiPage> getOrphans(long nodeId) throws PortalException {
 		List<WikiPage> pages = wikiPagePersistence.findByN_H_S(
 			nodeId, true, WorkflowConstants.STATUS_APPROVED);
 
@@ -1026,9 +1019,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiPage getPage(long resourcePrimKey)
-		throws PortalException {
-
+	public WikiPage getPage(long resourcePrimKey) throws PortalException {
 		return getPage(resourcePrimKey, Boolean.TRUE);
 	}
 
@@ -1043,9 +1034,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiPage getPage(long nodeId, String title)
-		throws PortalException {
-
+	public WikiPage getPage(long nodeId, String title) throws PortalException {
 		WikiPage page = fetchPage(nodeId, title);
 
 		if (page != null) {
@@ -1112,9 +1101,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiPage getPageByPageId(long pageId)
-		throws PortalException {
-
+	public WikiPage getPageByPageId(long pageId) throws PortalException {
 		return wikiPagePersistence.findByPrimaryKey(pageId);
 	}
 
@@ -1352,9 +1339,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public int getRecentChangesCount(long nodeId)
-		throws PortalException {
-
+	public int getRecentChangesCount(long nodeId) throws PortalException {
 		WikiNode node = wikiNodePersistence.findByPrimaryKey(nodeId);
 
 		return getRecentChangesCount(node.getGroupId(), nodeId);

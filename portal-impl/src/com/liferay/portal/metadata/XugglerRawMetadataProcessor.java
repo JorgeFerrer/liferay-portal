@@ -14,7 +14,6 @@
 
 package com.liferay.portal.metadata;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

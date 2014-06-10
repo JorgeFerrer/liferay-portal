@@ -16,7 +16,6 @@ package com.liferay.portlet.wiki.model.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.model.Repository;
@@ -39,9 +38,7 @@ public class WikiNodeImpl extends WikiNodeBaseImpl {
 	}
 
 	@Override
-	public Folder addAttachmentsFolder()
-		throws PortalException {
-
+	public Folder addAttachmentsFolder() throws PortalException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 

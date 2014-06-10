@@ -15,7 +15,6 @@
 package com.liferay.portlet.announcements.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
@@ -158,9 +157,7 @@ public class AnnouncementsEntryServiceImpl
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		AnnouncementsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
 
@@ -168,9 +165,7 @@ public class AnnouncementsEntryServiceImpl
 	}
 
 	@Override
-	public AnnouncementsEntry getEntry(long entryId)
-		throws PortalException {
-
+	public AnnouncementsEntry getEntry(long entryId) throws PortalException {
 		AnnouncementsEntry entry = announcementsEntryLocalService.getEntry(
 			entryId);
 

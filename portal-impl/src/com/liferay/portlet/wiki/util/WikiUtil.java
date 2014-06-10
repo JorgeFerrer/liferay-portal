@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.diff.DiffHtmlUtil;
 import com.liferay.portal.kernel.diff.DiffVersion;
 import com.liferay.portal.kernel.diff.DiffVersionsInfo;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;

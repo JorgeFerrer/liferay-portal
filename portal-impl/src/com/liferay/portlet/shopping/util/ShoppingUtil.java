@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.CharPool;
@@ -882,9 +881,7 @@ public class ShoppingUtil {
 		return orderByComparator;
 	}
 
-	public static int getMinQuantity(ShoppingItem item)
-		throws PortalException {
-
+	public static int getMinQuantity(ShoppingItem item) throws PortalException {
 		int minQuantity = item.getMinQuantity();
 
 		List<ShoppingItemPrice> itemPrices = item.getItemPrices();

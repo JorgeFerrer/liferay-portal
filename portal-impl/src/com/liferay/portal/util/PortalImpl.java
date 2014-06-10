@@ -1113,9 +1113,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public long[] getAncestorSiteGroupIds(long groupId)
-		throws PortalException {
-
+	public long[] getAncestorSiteGroupIds(long groupId) throws PortalException {
 		List<Group> groups = doGetAncestorSiteGroups(groupId, false);
 
 		long[] groupIds = new long[groups.size()];
@@ -1718,9 +1716,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public long getControlPanelPlid(long companyId)
-		throws PortalException {
-
+	public long getControlPanelPlid(long companyId) throws PortalException {
 		Group controlPanelGroup = GroupLocalServiceUtil.getGroup(
 			companyId, GroupConstants.CONTROL_PANEL);
 
@@ -3822,9 +3818,7 @@ public class PortalImpl implements Portal {
 	 */
 	@Deprecated
 	@Override
-	public long getParentGroupId(long groupId)
-		throws PortalException {
-
+	public long getParentGroupId(long groupId) throws PortalException {
 		return getSiteGroupId(groupId);
 	}
 
@@ -5217,9 +5211,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public Locale getSiteDefaultLocale(long groupId)
-		throws PortalException {
-
+	public Locale getSiteDefaultLocale(long groupId) throws PortalException {
 		if (groupId <= 0) {
 			return LocaleUtil.getDefault();
 		}
@@ -5250,9 +5242,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public long getSiteGroupId(long groupId)
-		throws PortalException {
-
+	public long getSiteGroupId(long groupId) throws PortalException {
 		if (groupId <= 0) {
 			return 0;
 		}
@@ -5665,9 +5655,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public User getUser(HttpServletRequest request)
-		throws PortalException {
-
+	public User getUser(HttpServletRequest request) throws PortalException {
 		User user = (User)request.getAttribute(WebKeys.USER);
 
 		if (user != null) {
@@ -5717,9 +5705,7 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public User getUser(PortletRequest portletRequest)
-		throws PortalException {
-
+	public User getUser(PortletRequest portletRequest) throws PortalException {
 		return getUser(getHttpServletRequest(portletRequest));
 	}
 
@@ -7708,9 +7694,7 @@ public class PortalImpl implements Portal {
 		return groups;
 	}
 
-	protected Group doGetCurrentSiteGroup(long groupId)
-		throws PortalException {
-
+	protected Group doGetCurrentSiteGroup(long groupId) throws PortalException {
 		long siteGroupId = getSiteGroupId(groupId);
 
 		Group siteGroup = GroupLocalServiceUtil.getGroup(siteGroupId);

@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.NoSuchResourceActionException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.spring.aop.Skip;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;

@@ -107,9 +107,7 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFileRank(long fileRankId)
-		throws PortalException {
-
+	public void deleteFileRank(long fileRankId) throws PortalException {
 		DLFileRank dlFileRank = dlFileRankPersistence.findByPrimaryKey(
 			fileRankId);
 

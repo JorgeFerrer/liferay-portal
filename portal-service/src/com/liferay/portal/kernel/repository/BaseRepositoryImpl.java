@@ -300,9 +300,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 	 */
 	@Deprecated
 	@Override
-	public Lock lockFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public Lock lockFileEntry(long fileEntryId) throws PortalException {
 		checkOutFileEntry(fileEntryId, new ServiceContext());
 
 		FileEntry fileEntry = getFileEntry(fileEntryId);

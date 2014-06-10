@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
@@ -96,9 +95,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public void deleteColumn(long columnId)
-		throws PortalException {
-
+	public void deleteColumn(long columnId) throws PortalException {
 		ExpandoColumn column = expandoColumnPersistence.findByPrimaryKey(
 			columnId);
 
@@ -168,9 +165,7 @@ public class ExpandoColumnLocalServiceImpl
 	}
 
 	@Override
-	public ExpandoColumn getColumn(long columnId)
-		throws PortalException {
-
+	public ExpandoColumn getColumn(long columnId) throws PortalException {
 		return expandoColumnPersistence.findByPrimaryKey(columnId);
 	}
 

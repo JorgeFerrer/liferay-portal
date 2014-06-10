@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.documentlibrary.model.DLSyncEvent;
 import com.liferay.portlet.documentlibrary.service.base.DLSyncEventLocalServiceBaseImpl;
 

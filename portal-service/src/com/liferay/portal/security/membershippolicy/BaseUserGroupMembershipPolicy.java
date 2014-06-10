@@ -16,7 +16,6 @@ package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 
@@ -82,9 +81,7 @@ public abstract class BaseUserGroupMembershipPolicy
 	}
 
 	@Override
-	public void verifyPolicy(UserGroup userGroup)
-		throws PortalException {
-
+	public void verifyPolicy(UserGroup userGroup) throws PortalException {
 		verifyPolicy(userGroup, null, null);
 	}
 

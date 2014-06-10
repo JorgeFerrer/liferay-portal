@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -276,9 +275,7 @@ public class SubscriptionLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteSubscriptions(long userId)
-		throws PortalException {
-
+	public void deleteSubscriptions(long userId) throws PortalException {
 		List<Subscription> subscriptions = subscriptionPersistence.findByUserId(
 			userId);
 

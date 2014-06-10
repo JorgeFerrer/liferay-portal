@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.RequiredLayoutSetPrototypeException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -191,9 +190,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
-	public void deleteLayoutSetPrototypes()
-		throws PortalException {
-
+	public void deleteLayoutSetPrototypes() throws PortalException {
 		List<LayoutSetPrototype> layoutSetPrototypes =
 			layoutSetPrototypePersistence.findAll();
 

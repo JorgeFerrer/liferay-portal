@@ -215,9 +215,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public JournalFolder deleteFolder(long folderId)
-		throws PortalException {
-
+	public JournalFolder deleteFolder(long folderId) throws PortalException {
 		JournalFolder folder = journalFolderPersistence.findByPrimaryKey(
 			folderId);
 
@@ -238,9 +236,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFolders(long groupId)
-		throws PortalException {
-
+	public void deleteFolders(long groupId) throws PortalException {
 		List<JournalFolder> folders = journalFolderPersistence.findByGroupId(
 			groupId);
 
@@ -281,9 +277,7 @@ public class JournalFolderLocalServiceImpl
 	}
 
 	@Override
-	public JournalFolder getFolder(long folderId)
-		throws PortalException {
-
+	public JournalFolder getFolder(long folderId) throws PortalException {
 		return journalFolderPersistence.findByPrimaryKey(folderId);
 	}
 

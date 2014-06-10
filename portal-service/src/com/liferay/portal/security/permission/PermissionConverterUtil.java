@@ -15,7 +15,6 @@
 package com.liferay.portal.security.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.Role;

@@ -15,7 +15,6 @@
 package com.liferay.portlet.bookmarks.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -53,9 +52,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
 
@@ -101,9 +98,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public BookmarksEntry getEntry(long entryId)
-		throws PortalException {
-
+	public BookmarksEntry getEntry(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.VIEW);
 
@@ -177,9 +172,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupEntriesCount(long groupId)
-		throws PortalException {
-
+	public int getGroupEntriesCount(long groupId) throws PortalException {
 		return getGroupEntriesCount(groupId, 0);
 	}
 
@@ -268,9 +261,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public BookmarksEntry openEntry(long entryId)
-		throws PortalException {
-
+	public BookmarksEntry openEntry(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.VIEW);
 
@@ -279,9 +270,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreEntryFromTrash(long entryId)
-		throws PortalException {
-
+	public void restoreEntryFromTrash(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.UPDATE);
 
@@ -298,9 +287,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribeEntry(long entryId)
-		throws PortalException {
-
+	public void subscribeEntry(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.SUBSCRIBE);
 
@@ -308,9 +295,7 @@ public class BookmarksEntryServiceImpl extends BookmarksEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void unsubscribeEntry(long entryId)
-		throws PortalException {
-
+	public void unsubscribeEntry(long entryId) throws PortalException {
 		BookmarksEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.SUBSCRIBE);
 

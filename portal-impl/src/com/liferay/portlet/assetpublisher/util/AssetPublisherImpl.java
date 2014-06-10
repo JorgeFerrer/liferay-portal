@@ -1395,9 +1395,7 @@ public class AssetPublisherImpl implements AssetPublisher {
 			getSubscriptionClassPK(plid, portletId));
 	}
 
-	protected long[] getSiteGroupIds(long[] groupIds)
-		throws PortalException {
-
+	protected long[] getSiteGroupIds(long[] groupIds) throws PortalException {
 		Set<Long> siteGroupIds = new HashSet<Long>();
 
 		for (long groupId : groupIds) {

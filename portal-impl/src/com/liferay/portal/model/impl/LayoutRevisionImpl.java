@@ -15,7 +15,6 @@
 package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -57,9 +56,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getColorScheme()
-		throws PortalException {
-
+	public ColorScheme getColorScheme() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getColorScheme();
 		}
@@ -108,9 +105,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public LayoutBranch getLayoutBranch()
-		throws PortalException {
-
+	public LayoutBranch getLayoutBranch() throws PortalException {
 		return LayoutBranchLocalServiceUtil.getLayoutBranch(
 			getLayoutBranchId());
 	}
@@ -223,9 +218,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getWapColorScheme()
-		throws PortalException {
-
+	public ColorScheme getWapColorScheme() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getWapColorScheme();
 		}
@@ -317,9 +310,7 @@ public class LayoutRevisionImpl extends LayoutRevisionBaseImpl {
 		super.setTypeSettings(_typeSettingsProperties.toString());
 	}
 
-	protected Theme getTheme(String device)
-		throws PortalException {
-
+	protected Theme getTheme(String device) throws PortalException {
 		if (device.equals("regular")) {
 			return getTheme();
 		}

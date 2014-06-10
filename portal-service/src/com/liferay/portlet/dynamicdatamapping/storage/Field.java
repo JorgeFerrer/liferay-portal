@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.storage;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -139,9 +138,7 @@ public class Field implements Serializable {
 		return _name;
 	}
 
-	public String getRenderedValue(Locale locale)
-		throws PortalException {
-
+	public String getRenderedValue(Locale locale) throws PortalException {
 		FieldRenderer fieldRenderer = getFieldRenderer();
 
 		return fieldRenderer.render(this, locale);
@@ -275,9 +272,7 @@ public class Field implements Serializable {
 		_valuesMap = valuesMap;
 	}
 
-	protected FieldRenderer getFieldRenderer()
-		throws PortalException {
-
+	protected FieldRenderer getFieldRenderer() throws PortalException {
 		DDMStructure ddmStructure = getDDMStructure();
 
 		String dataType = null;

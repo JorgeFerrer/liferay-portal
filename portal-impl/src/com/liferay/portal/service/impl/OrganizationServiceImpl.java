@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -353,9 +352,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLogo(long organizationId)
-		throws PortalException {
-
+	public void deleteLogo(long organizationId) throws PortalException {
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.UPDATE);
 
@@ -374,9 +371,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteOrganization(long organizationId)
-		throws PortalException {
-
+	public void deleteOrganization(long organizationId) throws PortalException {
 		OrganizationPermissionUtil.check(
 			getPermissionChecker(), organizationId, ActionKeys.DELETE);
 

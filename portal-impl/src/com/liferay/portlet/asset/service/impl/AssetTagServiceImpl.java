@@ -16,7 +16,6 @@ package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -76,9 +75,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteTags(long[] tagIds)
-		throws PortalException {
-
+	public void deleteTags(long[] tagIds) throws PortalException {
 		for (long tagId : tagIds) {
 			AssetTagPermission.check(
 				getPermissionChecker(), tagId, ActionKeys.DELETE);

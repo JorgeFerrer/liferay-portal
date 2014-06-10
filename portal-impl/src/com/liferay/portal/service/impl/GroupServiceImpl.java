@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -215,9 +214,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void checkRemoteStagingGroup(long groupId)
-		throws PortalException {
-
+	public void checkRemoteStagingGroup(long groupId) throws PortalException {
 		Group group = getGroup(groupId);
 
 		PermissionChecker permissionChecker = getPermissionChecker();
@@ -246,9 +243,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteGroup(long groupId)
-		throws PortalException {
-
+	public void deleteGroup(long groupId) throws PortalException {
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.DELETE);
 
@@ -256,9 +251,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	}
 
 	@Override
-	public void disableStaging(long groupId)
-		throws PortalException {
-
+	public void disableStaging(long groupId) throws PortalException {
 		Group group = groupLocalService.getGroup(groupId);
 
 		GroupPermissionUtil.check(
@@ -268,9 +261,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	}
 
 	@Override
-	public void enableStaging(long groupId)
-		throws PortalException {
-
+	public void enableStaging(long groupId) throws PortalException {
 		Group group = groupLocalService.getGroup(groupId);
 
 		GroupPermissionUtil.check(
@@ -288,9 +279,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group getCompanyGroup(long companyId)
-		throws PortalException {
-
+	public Group getCompanyGroup(long companyId) throws PortalException {
 		Group group = groupLocalService.getCompanyGroup(companyId);
 
 		GroupPermissionUtil.check(
@@ -310,9 +299,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group getGroup(long groupId)
-		throws PortalException {
-
+	public Group getGroup(long groupId) throws PortalException {
 		Group group = groupLocalService.getGroup(groupId);
 
 		GroupPermissionUtil.check(
@@ -332,9 +319,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group getGroup(long companyId, String name)
-		throws PortalException {
-
+	public Group getGroup(long companyId, String name) throws PortalException {
 		Group group = groupLocalService.getGroup(companyId, name);
 
 		GroupPermissionUtil.check(
@@ -665,9 +650,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	}
 
 	@Override
-	public List<Group> getUserSitesGroups()
-		throws PortalException {
-
+	public List<Group> getUserSitesGroups() throws PortalException {
 		return getUserSitesGroups(null, QueryUtil.ALL_POS);
 	}
 
@@ -870,9 +853,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserSitesGroupsCount()
-		throws PortalException {
-
+	public int getUserSitesGroupsCount() throws PortalException {
 		List<Group> userSitesGroups = getUserSitesGroups(
 			getGuestOrUserId(), null, true, QueryUtil.ALL_POS);
 

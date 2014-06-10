@@ -16,7 +16,6 @@ package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Base64;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.Http;
@@ -149,9 +148,7 @@ public class CompanyImpl extends CompanyBaseImpl {
 	}
 
 	@Override
-	public String getPortalURL(long groupId)
-		throws PortalException {
-
+	public String getPortalURL(long groupId) throws PortalException {
 		String portalURL = PortalUtil.getPortalURL(
 			getVirtualHostname(), Http.HTTP_PORT, false);
 

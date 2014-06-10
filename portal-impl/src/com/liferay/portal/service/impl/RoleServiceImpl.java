@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
@@ -166,9 +165,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRole(long roleId)
-		throws PortalException {
-
+	public void deleteRole(long roleId) throws PortalException {
 		RolePermissionUtil.check(
 			getPermissionChecker(), roleId, ActionKeys.DELETE);
 
@@ -184,9 +181,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getGroupRoles(long groupId)
-		throws PortalException {
-
+	public List<Role> getGroupRoles(long groupId) throws PortalException {
 		List<Role> roles = roleLocalService.getGroupRoles(groupId);
 
 		return filterRoles(roles);
@@ -225,9 +220,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Role getRole(long companyId, String name)
-		throws PortalException {
-
+	public Role getRole(long companyId, String name) throws PortalException {
 		Role role = roleLocalService.getRole(companyId, name);
 
 		RolePermissionUtil.check(
@@ -309,9 +302,7 @@ public class RoleServiceImpl extends RoleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Role> getUserRoles(long userId)
-		throws PortalException {
-
+	public List<Role> getUserRoles(long userId) throws PortalException {
 		UserPermissionUtil.check(
 			getPermissionChecker(), userId, ActionKeys.VIEW);
 

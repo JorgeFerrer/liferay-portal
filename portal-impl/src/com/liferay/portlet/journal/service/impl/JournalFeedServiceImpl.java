@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceMode;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -52,9 +51,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFeed(long feedId)
-		throws PortalException {
-
+	public void deleteFeed(long feedId) throws PortalException {
 		JournalFeedPermission.check(
 			getPermissionChecker(), feedId, ActionKeys.DELETE);
 
@@ -67,16 +64,12 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 	@Deprecated
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
-	public void deleteFeed(long groupId, long feedId)
-		throws PortalException {
-
+	public void deleteFeed(long groupId, long feedId) throws PortalException {
 		deleteFeed(groupId, String.valueOf(feedId));
 	}
 
 	@Override
-	public void deleteFeed(long groupId, String feedId)
-		throws PortalException {
-
+	public void deleteFeed(long groupId, String feedId) throws PortalException {
 		JournalFeedPermission.check(
 			getPermissionChecker(), groupId, feedId, ActionKeys.DELETE);
 
@@ -84,9 +77,7 @@ public class JournalFeedServiceImpl extends JournalFeedServiceBaseImpl {
 	}
 
 	@Override
-	public JournalFeed getFeed(long feedId)
-		throws PortalException {
-
+	public JournalFeed getFeed(long feedId) throws PortalException {
 		JournalFeedPermission.check(
 			getPermissionChecker(), feedId, ActionKeys.VIEW);
 

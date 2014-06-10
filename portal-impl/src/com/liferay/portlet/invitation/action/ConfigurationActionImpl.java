@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.invitation.action;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.util.PropsValues;

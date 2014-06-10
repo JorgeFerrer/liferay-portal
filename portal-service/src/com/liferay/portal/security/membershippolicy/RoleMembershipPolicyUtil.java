@@ -15,7 +15,6 @@
 package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Role;
 
 import java.io.Serializable;
@@ -73,9 +72,7 @@ public class RoleMembershipPolicyUtil {
 		roleMembershipPolicy.verifyPolicy();
 	}
 
-	public static void verifyPolicy(Role role)
-		throws PortalException {
-
+	public static void verifyPolicy(Role role) throws PortalException {
 		RoleMembershipPolicy roleMembershipPolicy =
 			RoleMembershipPolicyFactoryUtil.getRoleMembershipPolicy();
 

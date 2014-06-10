@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.facebook;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 

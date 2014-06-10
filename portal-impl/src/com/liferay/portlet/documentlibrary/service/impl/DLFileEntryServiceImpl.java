@@ -16,7 +16,6 @@ package com.liferay.portlet.documentlibrary.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -224,9 +223,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void deleteFileEntry(long fileEntryId) throws PortalException {
 		DLFileEntryPermission.check(
 			getPermissionChecker(), fileEntryId, ActionKeys.DELETE);
 
@@ -393,9 +390,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 	}
 
 	@Override
-	public DLFileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public DLFileEntry getFileEntry(long fileEntryId) throws PortalException {
 		DLFileEntryPermission.check(
 			getPermissionChecker(), fileEntryId, ActionKeys.VIEW);
 
@@ -595,9 +590,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasFileEntryLock(long fileEntryId)
-		throws PortalException {
-
+	public boolean hasFileEntryLock(long fileEntryId) throws PortalException {
 		DLFileEntry dlFileEntry = dlFileEntryLocalService.getFileEntry(
 			fileEntryId);
 

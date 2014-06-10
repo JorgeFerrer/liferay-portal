@@ -156,8 +156,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public DDLRecord deleteRecord(DDLRecord record)
-		throws PortalException {
+	public DDLRecord deleteRecord(DDLRecord record) throws PortalException {
 
 		// Record
 
@@ -191,9 +190,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRecord(long recordId)
-		throws PortalException {
-
+	public void deleteRecord(long recordId) throws PortalException {
 		DDLRecord record = ddlRecordPersistence.findByPrimaryKey(recordId);
 
 		ddlRecordLocalService.deleteRecord(record);
@@ -221,9 +218,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRecords(long recordSetId)
-		throws PortalException {
-
+	public void deleteRecords(long recordSetId) throws PortalException {
 		List<DDLRecord> records = ddlRecordPersistence.findByRecordSetId(
 			recordSetId);
 
@@ -316,9 +311,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DDLRecord getRecord(long recordId)
-		throws PortalException {
-
+	public DDLRecord getRecord(long recordId) throws PortalException {
 		return ddlRecordPersistence.findByPrimaryKey(recordId);
 	}
 

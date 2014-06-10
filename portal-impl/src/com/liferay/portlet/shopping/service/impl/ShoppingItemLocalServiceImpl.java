@@ -270,17 +270,14 @@ public class ShoppingItemLocalServiceImpl
 	}
 
 	@Override
-	public void deleteItem(long itemId)
-		throws PortalException {
-
+	public void deleteItem(long itemId) throws PortalException {
 		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
 
 		deleteItem(item);
 	}
 
 	@Override
-	public void deleteItem(ShoppingItem item)
-		throws PortalException {
+	public void deleteItem(ShoppingItem item) throws PortalException {
 
 		// Item
 
@@ -354,9 +351,7 @@ public class ShoppingItemLocalServiceImpl
 	}
 
 	@Override
-	public ShoppingItem getItem(long itemId)
-		throws PortalException {
-
+	public ShoppingItem getItem(long itemId) throws PortalException {
 		return shoppingItemPersistence.findByPrimaryKey(itemId);
 	}
 

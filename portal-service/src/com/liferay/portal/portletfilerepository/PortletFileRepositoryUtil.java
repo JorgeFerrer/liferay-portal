@@ -17,7 +17,6 @@ package com.liferay.portal.portletfilerepository;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
@@ -93,9 +92,7 @@ public class PortletFileRepositoryUtil {
 	 * @deprecated As of 7.0.0, replaced by {@link #deletePortletFolder}
 	 */
 	@Deprecated
-	public static void deleteFolder(long folderId)
-		throws PortalException {
-
+	public static void deleteFolder(long folderId) throws PortalException {
 		getPortletFileRepository().deleteFolder(folderId);
 	}
 

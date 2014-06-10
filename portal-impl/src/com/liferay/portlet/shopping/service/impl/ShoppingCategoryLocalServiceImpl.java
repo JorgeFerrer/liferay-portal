@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -138,9 +137,7 @@ public class ShoppingCategoryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCategories(long groupId)
-		throws PortalException {
-
+	public void deleteCategories(long groupId) throws PortalException {
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.findByGroupId(groupId);
 
@@ -150,9 +147,7 @@ public class ShoppingCategoryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCategory(long categoryId)
-		throws PortalException {
-
+	public void deleteCategory(long categoryId) throws PortalException {
 		ShoppingCategory category =
 			shoppingCategoryPersistence.findByPrimaryKey(categoryId);
 

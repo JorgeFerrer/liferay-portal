@@ -15,7 +15,6 @@
 package com.liferay.portlet.social.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.RequestUserIdException;
@@ -129,9 +128,7 @@ public class SocialRequestLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRequest(long requestId)
-		throws PortalException {
-
+	public void deleteRequest(long requestId) throws PortalException {
 		SocialRequest request = socialRequestPersistence.findByPrimaryKey(
 			requestId);
 

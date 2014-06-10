@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portlet.expando.DuplicateTableNameException;
@@ -134,9 +133,7 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public void deleteTable(long tableId)
-		throws PortalException {
-
+	public void deleteTable(long tableId) throws PortalException {
 		ExpandoTable table = expandoTablePersistence.findByPrimaryKey(tableId);
 
 		deleteTable(table);
@@ -223,9 +220,7 @@ public class ExpandoTableLocalServiceImpl
 	}
 
 	@Override
-	public ExpandoTable getTable(long tableId)
-		throws PortalException {
-
+	public ExpandoTable getTable(long tableId) throws PortalException {
 		return expandoTablePersistence.findByPrimaryKey(tableId);
 	}
 

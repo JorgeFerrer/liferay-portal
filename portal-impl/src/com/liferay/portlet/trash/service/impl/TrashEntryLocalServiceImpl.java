@@ -179,9 +179,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TrashEntry deleteEntry(long entryId)
-		throws PortalException {
-
+	public TrashEntry deleteEntry(long entryId) throws PortalException {
 		TrashEntry entry = trashEntryPersistence.fetchByPrimaryKey(entryId);
 
 		return deleteEntry(entry);
@@ -331,9 +329,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TrashEntry getEntry(long entryId)
-		throws PortalException {
-
+	public TrashEntry getEntry(long entryId) throws PortalException {
 		return trashEntryPersistence.findByPrimaryKey(entryId);
 	}
 
@@ -425,9 +421,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 		return searchContext;
 	}
 
-	protected Date getMaxAge(Group group)
-		throws PortalException {
-
+	protected Date getMaxAge(Group group) throws PortalException {
 		Calendar calendar = Calendar.getInstance();
 
 		calendar.setTime(new Date());

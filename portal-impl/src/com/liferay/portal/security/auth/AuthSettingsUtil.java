@@ -14,7 +14,6 @@
 
 package com.liferay.portal.security.auth;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;

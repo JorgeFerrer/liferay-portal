@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portlet.expando.model.ExpandoRow;
 import com.liferay.portlet.expando.model.ExpandoTable;
@@ -70,9 +69,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRow(long tableId, long classPK)
-		throws PortalException {
-
+	public void deleteRow(long tableId, long classPK) throws PortalException {
 		ExpandoRow row = expandoRowPersistence.findByT_C(tableId, classPK);
 
 		deleteRow(row);
@@ -145,9 +142,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public ExpandoRow getRow(long rowId)
-		throws PortalException {
-
+	public ExpandoRow getRow(long rowId) throws PortalException {
 		return expandoRowPersistence.findByPrimaryKey(rowId);
 	}
 

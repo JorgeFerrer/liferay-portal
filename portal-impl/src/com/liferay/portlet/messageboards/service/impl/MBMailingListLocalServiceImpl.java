@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.scheduler.CronText;
 import com.liferay.portal.kernel.scheduler.CronTrigger;
@@ -119,9 +118,7 @@ public class MBMailingListLocalServiceImpl
 	}
 
 	@Override
-	public void deleteMailingList(long mailingListId)
-		throws PortalException {
-
+	public void deleteMailingList(long mailingListId) throws PortalException {
 		MBMailingList mailingList = mbMailingListPersistence.findByPrimaryKey(
 			mailingListId);
 

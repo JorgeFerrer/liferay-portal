@@ -265,16 +265,12 @@ public abstract class BaseTrashHandler implements TrashHandler {
 
 	@Override
 	@SuppressWarnings("unused")
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		return null;
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		AssetRendererFactory assetRendererFactory = getAssetRendererFactory();
 
 		if (assetRendererFactory != null) {
@@ -328,9 +324,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 
 	@Override
 	@SuppressWarnings("unused")
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		return false;
 	}
 
@@ -341,9 +335,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 
 	@Override
 	@SuppressWarnings("unused")
-	public boolean isRestorable(long classPK)
-		throws PortalException {
-
+	public boolean isRestorable(long classPK) throws PortalException {
 		return true;
 	}
 
@@ -379,8 +371,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 
 	@Override
 	@SuppressWarnings("unused")
-	public void updateTitle(long classPK, String title)
-		throws PortalException {
+	public void updateTitle(long classPK, String title) throws PortalException {
 	}
 
 	protected AssetRendererFactory getAssetRendererFactory() {

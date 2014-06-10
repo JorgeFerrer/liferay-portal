@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
@@ -72,9 +71,7 @@ public class MBBanLocalServiceImpl extends MBBanLocalServiceBaseImpl {
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkBan(long groupId, long banUserId)
-		throws PortalException {
-
+	public void checkBan(long groupId, long banUserId) throws PortalException {
 		if (hasBan(groupId, banUserId)) {
 			throw new BannedUserException();
 		}

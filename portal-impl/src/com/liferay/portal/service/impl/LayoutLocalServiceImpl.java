@@ -1641,9 +1641,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Layout getParentLayout(Layout layout)
-		throws PortalException {
-
+	public Layout getParentLayout(Layout layout) throws PortalException {
 		Layout parentLayout = null;
 
 		if (layout instanceof VirtualLayout) {

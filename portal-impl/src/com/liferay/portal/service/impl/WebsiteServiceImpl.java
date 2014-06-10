@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.Website;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -63,9 +62,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteWebsite(long websiteId)
-		throws PortalException {
-
+	public void deleteWebsite(long websiteId) throws PortalException {
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
 		CommonPermissionUtil.check(
@@ -76,9 +73,7 @@ public class WebsiteServiceImpl extends WebsiteServiceBaseImpl {
 	}
 
 	@Override
-	public Website getWebsite(long websiteId)
-		throws PortalException {
-
+	public Website getWebsite(long websiteId) throws PortalException {
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
 		CommonPermissionUtil.check(

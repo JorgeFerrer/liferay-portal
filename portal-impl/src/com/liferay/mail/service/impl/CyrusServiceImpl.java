@@ -21,7 +21,6 @@ import com.liferay.mail.service.CyrusService;
 import com.liferay.mail.service.persistence.CyrusUserUtil;
 import com.liferay.mail.service.persistence.CyrusVirtualUtil;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 
 /**

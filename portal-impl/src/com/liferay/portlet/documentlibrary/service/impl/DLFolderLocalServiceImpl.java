@@ -164,9 +164,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteAll(long groupId)
-		throws PortalException {
-
+	public void deleteAll(long groupId) throws PortalException {
 		Group group = groupLocalService.getGroup(groupId);
 
 		List<DLFolder> dlFolders = dlFolderPersistence.findByGroupId(groupId);
@@ -199,9 +197,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public DLFolder deleteFolder(DLFolder dlFolder)
-		throws PortalException {
-
+	public DLFolder deleteFolder(DLFolder dlFolder) throws PortalException {
 		return deleteFolder(dlFolder, true);
 	}
 
@@ -317,9 +313,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public DLFolder deleteFolder(long folderId)
-		throws PortalException {
-
+	public DLFolder deleteFolder(long folderId) throws PortalException {
 		return dlFolderLocalService.deleteFolder(folderId, true);
 	}
 
@@ -437,9 +431,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DLFolder getFolder(long folderId)
-		throws PortalException {
-
+	public DLFolder getFolder(long folderId) throws PortalException {
 		return dlFolderPersistence.findByPrimaryKey(folderId);
 	}
 
@@ -646,9 +638,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DLFolder getMountFolder(long repositoryId)
-		throws PortalException {
-
+	public DLFolder getMountFolder(long repositoryId) throws PortalException {
 		return dlFolderPersistence.findByRepositoryId(repositoryId);
 	}
 
@@ -696,9 +686,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Lock lockFolder(long userId, long folderId)
-		throws PortalException {
-
+	public Lock lockFolder(long userId, long folderId) throws PortalException {
 		return lockFolder(
 			userId, folderId, null, false, DLFolderImpl.LOCK_EXPIRATION_TIME);
 	}

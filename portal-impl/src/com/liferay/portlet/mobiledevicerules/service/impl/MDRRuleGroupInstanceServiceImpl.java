@@ -15,7 +15,6 @@
 package com.liferay.portlet.mobiledevicerules.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutSet;

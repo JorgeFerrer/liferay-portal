@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.journal.model.JournalArticleResource;
 import com.liferay.portlet.journal.service.base.JournalArticleResourceLocalServiceBaseImpl;

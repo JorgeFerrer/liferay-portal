@@ -43,9 +43,7 @@ import java.util.List;
 public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 
 	@Override
-	public Image deleteImage(long imageId)
-		throws PortalException {
-
+	public Image deleteImage(long imageId) throws PortalException {
 		if (imageId <= 0) {
 			return null;
 		}
@@ -184,9 +182,7 @@ public class ImageLocalServiceImpl extends ImageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Image updateImage(long imageId, File file)
-		throws PortalException {
-
+	public Image updateImage(long imageId, File file) throws PortalException {
 		Image image = null;
 
 		try {

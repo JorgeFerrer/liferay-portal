@@ -50,9 +50,7 @@ import javax.portlet.WindowState;
 public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 
 	@Override
-	public AssetEntry getAssetEntry(long assetEntryId)
-		throws PortalException {
-
+	public AssetEntry getAssetEntry(long assetEntryId) throws PortalException {
 		return AssetEntryLocalServiceUtil.getEntry(assetEntryId);
 	}
 
@@ -64,9 +62,7 @@ public abstract class BaseAssetRendererFactory implements AssetRendererFactory {
 	}
 
 	@Override
-	public AssetRenderer getAssetRenderer(long classPK)
-		throws PortalException {
-
+	public AssetRenderer getAssetRenderer(long classPK) throws PortalException {
 		return getAssetRenderer(classPK, TYPE_LATEST_APPROVED);
 	}
 

@@ -76,9 +76,7 @@ public class MBStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUser(long statsUserId)
-		throws PortalException {
-
+	public void deleteStatsUser(long statsUserId) throws PortalException {
 		MBStatsUser statsUser = mbStatsUserPersistence.findByPrimaryKey(
 			statsUserId);
 

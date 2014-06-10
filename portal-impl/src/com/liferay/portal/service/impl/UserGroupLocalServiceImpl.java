@@ -346,9 +346,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public UserGroup deleteUserGroup(long userGroupId)
-		throws PortalException {
-
+	public UserGroup deleteUserGroup(long userGroupId) throws PortalException {
 		UserGroup userGroup = userGroupPersistence.findByPrimaryKey(
 			userGroupId);
 
@@ -415,9 +413,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteUserGroups(long companyId)
-		throws PortalException {
-
+	public void deleteUserGroups(long companyId) throws PortalException {
 		List<UserGroup> userGroups = userGroupPersistence.findByCompanyId(
 			companyId);
 

@@ -17,7 +17,6 @@ package com.liferay.portal.events;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateHandlerRegistryUtil;

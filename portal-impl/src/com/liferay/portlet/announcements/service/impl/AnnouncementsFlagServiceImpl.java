@@ -15,7 +15,6 @@
 package com.liferay.portlet.announcements.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portlet.announcements.model.AnnouncementsFlag;
 import com.liferay.portlet.announcements.service.base.AnnouncementsFlagServiceBaseImpl;
@@ -28,16 +27,12 @@ public class AnnouncementsFlagServiceImpl
 	extends AnnouncementsFlagServiceBaseImpl {
 
 	@Override
-	public void addFlag(long entryId, int value)
-		throws PortalException {
-
+	public void addFlag(long entryId, int value) throws PortalException {
 		announcementsFlagLocalService.addFlag(getUserId(), entryId, value);
 	}
 
 	@Override
-	public void deleteFlag(long flagId)
-		throws PortalException {
-
+	public void deleteFlag(long flagId) throws PortalException {
 		AnnouncementsFlag flag = announcementsFlagPersistence.findByPrimaryKey(
 			flagId);
 

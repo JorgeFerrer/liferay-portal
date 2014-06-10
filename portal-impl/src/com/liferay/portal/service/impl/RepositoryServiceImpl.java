@@ -55,9 +55,7 @@ public class RepositoryServiceImpl extends RepositoryServiceBaseImpl {
 	}
 
 	@Override
-	public void checkRepository(long repositoryId)
-		throws PortalException {
-
+	public void checkRepository(long repositoryId) throws PortalException {
 		Group group = groupPersistence.fetchByPrimaryKey(repositoryId);
 
 		if (group != null) {
@@ -78,9 +76,7 @@ public class RepositoryServiceImpl extends RepositoryServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRepository(long repositoryId)
-		throws PortalException {
-
+	public void deleteRepository(long repositoryId) throws PortalException {
 		Repository repository = repositoryPersistence.findByPrimaryKey(
 			repositoryId);
 
@@ -115,9 +111,7 @@ public class RepositoryServiceImpl extends RepositoryServiceBaseImpl {
 	}
 
 	@Override
-	public Repository getRepository(long repositoryId)
-		throws PortalException {
-
+	public Repository getRepository(long repositoryId) throws PortalException {
 		return repositoryPersistence.findByPrimaryKey(repositoryId);
 	}
 

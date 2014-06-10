@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.cmis.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.RepositoryException;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.GetterUtil;

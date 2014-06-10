@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.shopping.service.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.shopping.model.ShoppingOrderItem;
 import com.liferay.portlet.shopping.service.base.ShoppingOrderItemLocalServiceBaseImpl;
 

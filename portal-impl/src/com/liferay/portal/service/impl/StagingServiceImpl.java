@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.MissingReferences;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;

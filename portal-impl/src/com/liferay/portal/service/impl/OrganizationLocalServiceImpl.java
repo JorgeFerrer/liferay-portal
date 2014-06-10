@@ -386,9 +386,7 @@ public class OrganizationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLogo(long organizationId)
-		throws PortalException {
-
+	public void deleteLogo(long organizationId) throws PortalException {
 		Organization organization = getOrganization(organizationId);
 
 		PortalUtil.updateImageId(organization, false, null, "logoId", 0, 0, 0);
@@ -1044,9 +1042,7 @@ public class OrganizationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void rebuildTree(long companyId)
-		throws PortalException {
-
+	public void rebuildTree(long companyId) throws PortalException {
 		TreePathUtil.rebuildTree(
 			companyId, OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
 			new TreeModelFinder<Organization>() {

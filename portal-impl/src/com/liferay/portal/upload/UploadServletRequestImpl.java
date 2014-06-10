@@ -14,7 +14,6 @@
 
 package com.liferay.portal.upload;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.ByteArrayFileInputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

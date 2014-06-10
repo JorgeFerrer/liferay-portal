@@ -17,7 +17,6 @@ package com.liferay.portal.theme;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -762,9 +761,7 @@ public class ThemeDisplay
 	 * @deprecated As of 6.2.0 renamed to {@link #getSiteGroupIdOrLiveGroupId}
 	 */
 	@Deprecated
-	public long getScopeGroupIdOrLiveGroupId()
-		throws PortalException {
-
+	public long getScopeGroupIdOrLiveGroupId() throws PortalException {
 		return getSiteGroupIdOrLiveGroupId();
 	}
 
@@ -845,9 +842,7 @@ public class ThemeDisplay
 		return _siteGroupId;
 	}
 
-	public long getSiteGroupIdOrLiveGroupId()
-		throws PortalException {
-
+	public long getSiteGroupIdOrLiveGroupId() throws PortalException {
 		return StagingUtil.getLiveGroupId(_siteGroupId);
 	}
 
@@ -1296,9 +1291,7 @@ public class ThemeDisplay
 		_cdnHost = cdnHost;
 	}
 
-	public void setCompany(Company company)
-		throws PortalException {
-
+	public void setCompany(Company company) throws PortalException {
 		_company = company;
 		_companyGroupId = company.getGroupId();
 

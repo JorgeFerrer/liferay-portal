@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
@@ -290,9 +289,7 @@ public class WikiPageIndexer extends BaseIndexer {
 		return PORTLET_ID;
 	}
 
-	protected void reindexNodes(final long companyId)
-		throws PortalException {
-
+	protected void reindexNodes(final long companyId) throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
 			WikiNodeLocalServiceUtil.getActionableDynamicQuery();
 

@@ -226,9 +226,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFileEntryTypes(long groupId)
-		throws PortalException {
-
+	public void deleteFileEntryTypes(long groupId) throws PortalException {
 		List<DLFileEntryType> dlFileEntryTypes =
 			dlFileEntryTypePersistence.findByGroupId(groupId);
 

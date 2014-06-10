@@ -15,7 +15,6 @@
 package com.liferay.portal.plugin;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.plugin.License;
@@ -228,9 +227,7 @@ public class PluginPackageUtil {
 		_instance._registerPluginPackageInstallation(preliminaryContext);
 	}
 
-	public static RepositoryReport reloadRepositories()
-		throws PortalException {
-
+	public static RepositoryReport reloadRepositories() throws PortalException {
 		return _instance._reloadRepositories();
 	}
 
@@ -1268,9 +1265,7 @@ public class PluginPackageUtil {
 			preliminaryContext);
 	}
 
-	private RepositoryReport _reloadRepositories()
-		throws PortalException {
-
+	private RepositoryReport _reloadRepositories() throws PortalException {
 		if (_log.isInfoEnabled()) {
 			_log.info("Reloading repositories");
 		}

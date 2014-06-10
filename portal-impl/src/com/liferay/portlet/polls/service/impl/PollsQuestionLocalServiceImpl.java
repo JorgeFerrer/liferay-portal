@@ -15,7 +15,6 @@
 package com.liferay.portlet.polls.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -168,9 +167,7 @@ public class PollsQuestionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteQuestion(long questionId)
-		throws PortalException {
-
+	public void deleteQuestion(long questionId) throws PortalException {
 		PollsQuestion question = pollsQuestionPersistence.findByPrimaryKey(
 			questionId);
 
@@ -181,8 +178,7 @@ public class PollsQuestionLocalServiceImpl
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteQuestion(PollsQuestion question)
-		throws PortalException {
+	public void deleteQuestion(PollsQuestion question) throws PortalException {
 
 		// Question
 
@@ -204,9 +200,7 @@ public class PollsQuestionLocalServiceImpl
 	}
 
 	@Override
-	public void deleteQuestions(long groupId)
-		throws PortalException {
-
+	public void deleteQuestions(long groupId) throws PortalException {
 		for (PollsQuestion question :
 				pollsQuestionPersistence.findByGroupId(groupId)) {
 
@@ -215,9 +209,7 @@ public class PollsQuestionLocalServiceImpl
 	}
 
 	@Override
-	public PollsQuestion getQuestion(long questionId)
-		throws PortalException {
-
+	public PollsQuestion getQuestion(long questionId) throws PortalException {
 		return pollsQuestionPersistence.findByPrimaryKey(questionId);
 	}
 

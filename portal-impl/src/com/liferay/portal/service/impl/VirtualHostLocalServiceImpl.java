@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.LayoutSet;
 import com.liferay.portal.model.VirtualHost;
@@ -47,9 +46,7 @@ public class VirtualHostLocalServiceImpl
 	}
 
 	@Override
-	public VirtualHost getVirtualHost(String hostname)
-		throws PortalException {
-
+	public VirtualHost getVirtualHost(String hostname) throws PortalException {
 		return virtualHostPersistence.findByHostname(hostname);
 	}
 

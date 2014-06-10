@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -257,9 +256,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTemplate(long templateId)
-		throws PortalException {
-
+	public void deleteTemplate(long templateId) throws PortalException {
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.DELETE);
 
@@ -305,9 +302,7 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public DDMTemplate getTemplate(long templateId)
-		throws PortalException {
-
+	public DDMTemplate getTemplate(long templateId) throws PortalException {
 		DDMTemplatePermission.check(
 			getPermissionChecker(), templateId, ActionKeys.VIEW);
 

@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
@@ -218,9 +217,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 		actionableDynamicQuery.performActions();
 	}
 
-	protected void reindexFolders(final long companyId)
-		throws PortalException {
-
+	protected void reindexFolders(final long companyId) throws PortalException {
 		final ActionableDynamicQuery actionableDynamicQuery =
 			BookmarksFolderLocalServiceUtil.getActionableDynamicQuery();
 
@@ -245,9 +242,7 @@ public class BookmarksEntryIndexer extends BaseIndexer {
 		actionableDynamicQuery.performActions();
 	}
 
-	protected void reindexRoot(final long companyId)
-		throws PortalException {
-
+	protected void reindexRoot(final long companyId) throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
 			GroupLocalServiceUtil.getActionableDynamicQuery();
 

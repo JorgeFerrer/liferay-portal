@@ -17,7 +17,6 @@ package com.liferay.portal.model.impl;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
@@ -43,9 +42,7 @@ public class BackgroundTaskImpl extends BackgroundTaskBaseImpl {
 	}
 
 	@Override
-	public Folder addAttachmentsFolder()
-		throws PortalException {
-
+	public Folder addAttachmentsFolder() throws PortalException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 

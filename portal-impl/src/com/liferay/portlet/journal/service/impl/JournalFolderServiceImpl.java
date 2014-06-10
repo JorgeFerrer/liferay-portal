@@ -16,7 +16,6 @@ package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -50,9 +49,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
 		JournalFolderPermission.check(
@@ -74,9 +71,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	}
 
 	@Override
-	public JournalFolder getFolder(long folderId)
-		throws PortalException {
-
+	public JournalFolder getFolder(long folderId) throws PortalException {
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
 		JournalFolderPermission.check(
@@ -302,9 +297,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreFolderFromTrash(long folderId)
-		throws PortalException {
-
+	public void restoreFolderFromTrash(long folderId) throws PortalException {
 		JournalFolder folder = journalFolderLocalService.getFolder(folderId);
 
 		JournalFolderPermission.check(
@@ -314,9 +307,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribe(long groupId, long folderId)
-		throws PortalException {
-
+	public void subscribe(long groupId, long folderId) throws PortalException {
 		JournalFolderPermission.check(
 			getPermissionChecker(), groupId, folderId, ActionKeys.SUBSCRIBE);
 

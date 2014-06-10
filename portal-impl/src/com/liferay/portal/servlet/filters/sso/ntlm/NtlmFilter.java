@@ -16,7 +16,6 @@ package com.liferay.portal.servlet.filters.sso.ntlm;
 
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.SingleVMPoolUtil;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.BigEndianCodec;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

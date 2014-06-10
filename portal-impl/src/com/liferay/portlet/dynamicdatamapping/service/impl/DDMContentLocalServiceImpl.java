@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
@@ -92,9 +91,7 @@ public class DDMContentLocalServiceImpl extends DDMContentLocalServiceBaseImpl {
 	}
 
 	@Override
-	public DDMContent getContent(long contentId)
-		throws PortalException {
-
+	public DDMContent getContent(long contentId) throws PortalException {
 		return ddmContentPersistence.findByPrimaryKey(contentId);
 	}
 

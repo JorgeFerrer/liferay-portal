@@ -15,7 +15,6 @@
 package com.liferay.taglib.ui.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -87,9 +86,7 @@ public class InputAssetLinksDisplayContext {
 		return AssetEntryLocalServiceUtil.getEntry(assetLink.getEntryId1());
 	}
 
-	public List<AssetLink> getAssetLinks()
-		throws PortalException {
-
+	public List<AssetLink> getAssetLinks() throws PortalException {
 		if (_assetLinks == null) {
 			_assetLinks = _createAssetLinks();
 		}
@@ -204,9 +201,7 @@ public class InputAssetLinksDisplayContext {
 		return selectorEntries;
 	}
 
-	private List<AssetLink> _createAssetLinks()
-		throws PortalException {
-
+	private List<AssetLink> _createAssetLinks() throws PortalException {
 		List<AssetLink> assetLinks = new ArrayList<AssetLink>();
 
 		String assetLinksSearchContainerPrimaryKeys = ParamUtil.getString(

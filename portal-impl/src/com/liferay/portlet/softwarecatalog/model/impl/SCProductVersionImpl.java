@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.softwarecatalog.model.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion;

@@ -16,7 +16,6 @@ package com.liferay.portlet.ratings.service.impl;
 
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.GetterUtil;

@@ -16,7 +16,6 @@ package com.liferay.portlet.messageboards.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Lock;
@@ -46,9 +45,7 @@ import java.util.List;
 public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
-	public void deleteThread(long threadId)
-		throws PortalException {
-
+	public void deleteThread(long threadId) throws PortalException {
 		if (lockLocalService.isLocked(MBThread.class.getName(), threadId)) {
 			throw new LockedThreadException();
 		}
@@ -277,9 +274,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public Lock lockThread(long threadId)
-		throws PortalException {
-
+	public Lock lockThread(long threadId) throws PortalException {
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
 		MBCategoryPermission.check(
@@ -329,9 +324,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public MBThread moveThreadToTrash(long threadId)
-		throws PortalException {
-
+	public MBThread moveThreadToTrash(long threadId) throws PortalException {
 		if (lockLocalService.isLocked(MBThread.class.getName(), threadId)) {
 			throw new LockedThreadException();
 		}
@@ -349,9 +342,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreThreadFromTrash(long threadId)
-		throws PortalException {
-
+	public void restoreThreadFromTrash(long threadId) throws PortalException {
 		List<MBMessage> messages = mbMessagePersistence.findByThreadId(
 			threadId);
 
@@ -400,9 +391,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	@Override
-	public void unlockThread(long threadId)
-		throws PortalException {
-
+	public void unlockThread(long threadId) throws PortalException {
 		MBThread thread = mbThreadLocalService.getThread(threadId);
 
 		MBCategoryPermission.check(

@@ -15,7 +15,6 @@
 package com.liferay.portlet.layoutsadmin.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.BaseTrashHandler;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.model.ExportImportConfiguration;
@@ -36,9 +35,7 @@ import javax.portlet.PortletRequest;
 public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		ExportImportConfigurationLocalServiceUtil.
 			deleteExportImportConfiguration(classPK);
 	}
@@ -59,9 +56,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
 				getExportImportConfiguration(classPK);
@@ -70,9 +65,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
 				getExportImportConfiguration(classPK);
@@ -82,9 +75,7 @@ public class ExportImportConfigurationTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		ExportImportConfiguration exportImportConfiguration =
 			ExportImportConfigurationLocalServiceUtil.
 				getExportImportConfiguration(classPK);

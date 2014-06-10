@@ -17,7 +17,6 @@ package com.liferay.portlet.asset.service.impl;
 import com.liferay.portal.kernel.cache.ThreadLocalCachable;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -268,9 +267,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteGroupTags(long groupId)
-		throws PortalException {
-
+	public void deleteGroupTags(long groupId) throws PortalException {
 		List<AssetTag> tags = getGroupTags(groupId);
 
 		for (AssetTag tag : tags) {
@@ -279,8 +276,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteTag(AssetTag tag)
-		throws PortalException {
+	public void deleteTag(AssetTag tag) throws PortalException {
 
 		// Entries
 
@@ -380,9 +376,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public AssetTag getTag(long groupId, String name)
-		throws PortalException {
-
+	public AssetTag getTag(long groupId, String name) throws PortalException {
 		return assetTagFinder.findByG_N(groupId, name);
 	}
 
@@ -504,9 +498,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasTag(long groupId, String name)
-		throws PortalException {
-
+	public boolean hasTag(long groupId, String name) throws PortalException {
 		try {
 			getTag(groupId, name);
 

@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.trash.service.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.trash.model.TrashVersion;

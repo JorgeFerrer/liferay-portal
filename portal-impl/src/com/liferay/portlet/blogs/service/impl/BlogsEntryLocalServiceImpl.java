@@ -16,7 +16,6 @@ package com.liferay.portlet.blogs.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -304,9 +303,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEntries(long groupId)
-		throws PortalException {
-
+	public void deleteEntries(long groupId) throws PortalException {
 		for (BlogsEntry entry : blogsEntryPersistence.findByGroupId(groupId)) {
 			blogsEntryLocalService.deleteEntry(entry);
 		}
@@ -315,8 +312,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public BlogsEntry deleteEntry(BlogsEntry entry)
-		throws PortalException {
+	public BlogsEntry deleteEntry(BlogsEntry entry) throws PortalException {
 
 		// Entry
 
@@ -384,9 +380,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		BlogsEntry entry = blogsEntryPersistence.findByPrimaryKey(entryId);
 
 		blogsEntryLocalService.deleteEntry(entry);
@@ -482,9 +476,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public BlogsEntry getEntry(long entryId)
-		throws PortalException {
-
+	public BlogsEntry getEntry(long entryId) throws PortalException {
 		return blogsEntryPersistence.findByPrimaryKey(entryId);
 	}
 
@@ -951,17 +943,13 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribe(long userId, long groupId)
-		throws PortalException {
-
+	public void subscribe(long userId, long groupId) throws PortalException {
 		subscriptionLocalService.addSubscription(
 			userId, groupId, BlogsEntry.class.getName(), groupId);
 	}
 
 	@Override
-	public void unsubscribe(long userId, long groupId)
-		throws PortalException {
-
+	public void unsubscribe(long userId, long groupId) throws PortalException {
 		subscriptionLocalService.deleteSubscription(
 			userId, BlogsEntry.class.getName(), groupId);
 	}

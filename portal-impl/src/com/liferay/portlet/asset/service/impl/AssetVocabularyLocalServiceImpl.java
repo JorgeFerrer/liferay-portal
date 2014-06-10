@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -209,9 +208,7 @@ public class AssetVocabularyLocalServiceImpl
 	}
 
 	@Override
-	public void deleteVocabularies(long groupId)
-		throws PortalException {
-
+	public void deleteVocabularies(long groupId) throws PortalException {
 		List<AssetVocabulary> vocabularies =
 			assetVocabularyPersistence.findByGroupId(groupId);
 
@@ -245,9 +242,7 @@ public class AssetVocabularyLocalServiceImpl
 	}
 
 	@Override
-	public void deleteVocabulary(long vocabularyId)
-		throws PortalException {
-
+	public void deleteVocabulary(long vocabularyId) throws PortalException {
 		AssetVocabulary vocabulary =
 			assetVocabularyPersistence.findByPrimaryKey(vocabularyId);
 
@@ -471,9 +466,7 @@ public class AssetVocabularyLocalServiceImpl
 			"Unable to fix the search index after 10 attempts");
 	}
 
-	protected void validate(long groupId, String name)
-		throws PortalException {
-
+	protected void validate(long groupId, String name) throws PortalException {
 		if (Validator.isNull(name)) {
 			throw new VocabularyNameException();
 		}

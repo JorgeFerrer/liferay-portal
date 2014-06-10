@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.polls.model.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.polls.service.PollsVoteLocalServiceUtil;
 
 /**

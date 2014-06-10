@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.repository.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
@@ -70,9 +69,7 @@ public class FolderWrapper implements Folder, ModelWrapper<Folder> {
 	}
 
 	@Override
-	public List<Long> getAncestorFolderIds()
-		throws PortalException {
-
+	public List<Long> getAncestorFolderIds() throws PortalException {
 		return _folder.getAncestorFolderIds();
 	}
 

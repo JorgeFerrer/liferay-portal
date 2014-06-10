@@ -15,7 +15,6 @@
 package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -185,9 +184,7 @@ public class GroupImpl extends GroupBaseImpl {
 	}
 
 	@Override
-	public String getDescriptiveName(Locale locale)
-		throws PortalException {
-
+	public String getDescriptiveName(Locale locale) throws PortalException {
 		return GroupLocalServiceUtil.getGroupDescriptiveName(this, locale);
 	}
 

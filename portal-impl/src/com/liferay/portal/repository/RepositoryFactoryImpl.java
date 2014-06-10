@@ -15,7 +15,6 @@
 package com.liferay.portal.repository;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.BaseRepository;
 import com.liferay.portal.kernel.repository.Repository;
 import com.liferay.portal.kernel.repository.RepositoryFactory;
@@ -93,9 +92,7 @@ public class RepositoryFactoryImpl extends BaseRepositoryFactory<Repository>
 	}
 
 	@Override
-	protected long getFolderRepositoryId(long folderId)
-		throws PortalException {
-
+	protected long getFolderRepositoryId(long folderId) throws PortalException {
 		DLFolderLocalService dlFolderLocalService = getDlFolderLocalService();
 
 		DLFolder dlFolder = dlFolderLocalService.getFolder(folderId);

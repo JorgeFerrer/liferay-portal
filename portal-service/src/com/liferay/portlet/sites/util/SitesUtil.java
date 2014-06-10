@@ -15,7 +15,6 @@
 package com.liferay.portlet.sites.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
@@ -294,9 +293,7 @@ public class SitesUtil {
 		getSites().removeMergeFailFriendlyURLLayouts(layoutSet);
 	}
 
-	public static void resetPrototype(Layout layout)
-		throws PortalException {
-
+	public static void resetPrototype(Layout layout) throws PortalException {
 		getSites().resetPrototype(layout);
 	}
 

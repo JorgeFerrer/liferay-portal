@@ -16,7 +16,6 @@ package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Indexer;
@@ -86,9 +85,7 @@ public class DefaultSiteMembershipPolicy extends BaseSiteMembershipPolicy {
 	}
 
 	@Override
-	public void verifyPolicy(Group group)
-		throws PortalException {
-
+	public void verifyPolicy(Group group) throws PortalException {
 		if (group.isLimitedToParentSiteMembers()) {
 			verifyLimitedParentMembership(group);
 		}

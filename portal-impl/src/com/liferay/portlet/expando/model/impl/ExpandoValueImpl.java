@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -48,9 +47,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public List<Locale> getAvailableLocales()
-		throws PortalException {
-
+	public List<Locale> getAvailableLocales() throws PortalException {
 		if (!isColumnLocalized()) {
 			return null;
 		}
@@ -200,9 +197,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public Serializable getSerializable()
-		throws PortalException {
-
+	public Serializable getSerializable() throws PortalException {
 		ExpandoColumn column = getColumn();
 
 		int type = column.getType();
@@ -291,9 +286,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public String getString(Locale locale)
-		throws PortalException {
-
+	public String getString(Locale locale) throws PortalException {
 		validate(ExpandoColumnConstants.STRING_LOCALIZED);
 
 		String languageId = LocaleUtil.toLanguageId(locale);
@@ -309,9 +302,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public String[] getStringArray(Locale locale)
-		throws PortalException {
-
+	public String[] getStringArray(Locale locale) throws PortalException {
 		validate(ExpandoColumnConstants.STRING_ARRAY_LOCALIZED);
 
 		String languageId = LocaleUtil.toLanguageId(locale);
@@ -320,9 +311,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public Map<Locale, String[]> getStringArrayMap()
-		throws PortalException {
-
+	public Map<Locale, String[]> getStringArrayMap() throws PortalException {
 		validate(ExpandoColumnConstants.STRING_ARRAY_LOCALIZED);
 
 		Map<Locale, String> stringMap = LocalizationUtil.getLocalizationMap(
@@ -339,27 +328,21 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public Map<Locale, String> getStringMap()
-		throws PortalException {
-
+	public Map<Locale, String> getStringMap() throws PortalException {
 		validate(ExpandoColumnConstants.STRING_LOCALIZED);
 
 		return LocalizationUtil.getLocalizationMap(getData());
 	}
 
 	@Override
-	public void setBoolean(boolean data)
-		throws PortalException {
-
+	public void setBoolean(boolean data) throws PortalException {
 		validate(ExpandoColumnConstants.BOOLEAN);
 
 		setData(String.valueOf(data));
 	}
 
 	@Override
-	public void setBooleanArray(boolean[] data)
-		throws PortalException {
-
+	public void setBooleanArray(boolean[] data) throws PortalException {
 		validate(ExpandoColumnConstants.BOOLEAN_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -380,9 +363,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setDateArray(Date[] data)
-		throws PortalException {
-
+	public void setDateArray(Date[] data) throws PortalException {
 		validate(ExpandoColumnConstants.DATE_ARRAY);
 
 		if (data.length > 0) {
@@ -410,9 +391,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setDoubleArray(double[] data)
-		throws PortalException {
-
+	public void setDoubleArray(double[] data) throws PortalException {
 		validate(ExpandoColumnConstants.DOUBLE_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -426,9 +405,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setFloatArray(float[] data)
-		throws PortalException {
-
+	public void setFloatArray(float[] data) throws PortalException {
 		validate(ExpandoColumnConstants.FLOAT_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -442,9 +419,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setIntegerArray(int[] data)
-		throws PortalException {
-
+	public void setIntegerArray(int[] data) throws PortalException {
 		validate(ExpandoColumnConstants.INTEGER_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -458,9 +433,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setLongArray(long[] data)
-		throws PortalException {
-
+	public void setLongArray(long[] data) throws PortalException {
 		validate(ExpandoColumnConstants.LONG_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -474,9 +447,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setNumberArray(Number[] data)
-		throws PortalException {
-
+	public void setNumberArray(Number[] data) throws PortalException {
 		validate(ExpandoColumnConstants.NUMBER_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -490,9 +461,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setShortArray(short[] data)
-		throws PortalException {
-
+	public void setShortArray(short[] data) throws PortalException {
 		validate(ExpandoColumnConstants.SHORT_ARRAY);
 
 		setData(StringUtil.merge(data));
@@ -515,9 +484,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 	}
 
 	@Override
-	public void setStringArray(String[] data)
-		throws PortalException {
-
+	public void setStringArray(String[] data) throws PortalException {
 		validate(ExpandoColumnConstants.STRING_ARRAY);
 
 		setData(merge(data));
@@ -593,9 +560,7 @@ public class ExpandoValueImpl extends ExpandoValueBaseImpl {
 		return LocalizationUtil.getLocalization(getData(), languageId);
 	}
 
-	protected boolean isColumnLocalized()
-		throws PortalException {
-
+	protected boolean isColumnLocalized() throws PortalException {
 		ExpandoColumn column = getColumn();
 
 		if (column == null) {

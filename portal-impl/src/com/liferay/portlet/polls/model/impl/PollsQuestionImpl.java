@@ -15,7 +15,6 @@
 package com.liferay.portlet.polls.model.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.polls.model.PollsChoice;
 import com.liferay.portlet.polls.model.PollsVote;

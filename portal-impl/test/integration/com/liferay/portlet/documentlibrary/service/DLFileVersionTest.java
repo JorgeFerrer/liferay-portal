@@ -17,7 +17,6 @@ package com.liferay.portlet.documentlibrary.service;
 import com.liferay.portal.events.AddDefaultDocumentLibraryStructuresAction;
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
 import com.liferay.portal.kernel.util.ContentTypes;

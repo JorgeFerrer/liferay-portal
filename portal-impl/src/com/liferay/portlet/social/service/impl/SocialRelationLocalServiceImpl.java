@@ -15,7 +15,6 @@
 package com.liferay.portlet.social.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portlet.social.RelationUserIdException;
 import com.liferay.portlet.social.model.SocialRelation;
@@ -133,9 +132,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRelation(long relationId)
-		throws PortalException {
-
+	public void deleteRelation(long relationId) throws PortalException {
 		SocialRelation relation = socialRelationPersistence.findByPrimaryKey(
 			relationId);
 
@@ -173,9 +170,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteRelation(SocialRelation relation)
-		throws PortalException {
-
+	public void deleteRelation(SocialRelation relation) throws PortalException {
 		socialRelationPersistence.remove(relation);
 
 		if (SocialRelationTypesUtil.isTypeBi(relation.getType())) {
@@ -271,9 +266,7 @@ public class SocialRelationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public SocialRelation getRelation(long relationId)
-		throws PortalException {
-
+	public SocialRelation getRelation(long relationId) throws PortalException {
 		return socialRelationPersistence.findByPrimaryKey(relationId);
 	}
 

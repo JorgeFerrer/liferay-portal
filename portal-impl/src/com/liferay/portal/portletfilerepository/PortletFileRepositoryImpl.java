@@ -232,9 +232,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	 */
 	@Deprecated
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		deletePortletFolder(folderId);
 	}
 
@@ -302,9 +300,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	}
 
 	@Override
-	public void deletePortletFolder(long folderId)
-		throws PortalException {
-
+	public void deletePortletFolder(long folderId) throws PortalException {
 		boolean dlAppHelperEnabled = DLAppHelperThreadLocal.isEnabled();
 
 		try {
@@ -483,9 +479,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 	}
 
 	@Override
-	public Folder getPortletFolder(long folderId)
-		throws PortalException {
-
+	public Folder getPortletFolder(long folderId) throws PortalException {
 		return DLAppLocalServiceUtil.getFolder(folderId);
 	}
 

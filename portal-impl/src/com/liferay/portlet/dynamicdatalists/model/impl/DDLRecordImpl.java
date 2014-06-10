@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatalists.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordSet;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalServiceUtil;
@@ -109,9 +108,7 @@ public class DDLRecordImpl extends DDLRecordBaseImpl {
 	}
 
 	@Override
-	public DDLRecordVersion getLatestRecordVersion()
-		throws PortalException {
-
+	public DDLRecordVersion getLatestRecordVersion() throws PortalException {
 		return DDLRecordLocalServiceUtil.getLatestRecordVersion(getRecordId());
 	}
 
@@ -121,9 +118,7 @@ public class DDLRecordImpl extends DDLRecordBaseImpl {
 	}
 
 	@Override
-	public DDLRecordVersion getRecordVersion()
-		throws PortalException {
-
+	public DDLRecordVersion getRecordVersion() throws PortalException {
 		return getRecordVersion(getVersion());
 	}
 

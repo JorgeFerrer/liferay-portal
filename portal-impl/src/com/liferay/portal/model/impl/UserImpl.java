@@ -564,9 +564,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public List<Group> getMySiteGroups()
-		throws PortalException {
-
+	public List<Group> getMySiteGroups() throws PortalException {
 		return getMySiteGroups(null, false, QueryUtil.ALL_POS);
 	}
 
@@ -578,9 +576,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public List<Group> getMySiteGroups(int max)
-		throws PortalException {
-
+	public List<Group> getMySiteGroups(int max) throws PortalException {
 		return getMySiteGroups(null, false, max);
 	}
 
@@ -626,9 +622,7 @@ public class UserImpl extends UserBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public List<Group> getMySites(int max)
-		throws PortalException {
-
+	public List<Group> getMySites(int max) throws PortalException {
 		return getMySiteGroups(max);
 	}
 
@@ -671,9 +665,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public List<Organization> getOrganizations()
-		throws PortalException {
-
+	public List<Organization> getOrganizations() throws PortalException {
 		return getOrganizations(false);
 	}
 
@@ -691,9 +683,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public PasswordPolicy getPasswordPolicy()
-		throws PortalException {
-
+	public PasswordPolicy getPasswordPolicy() throws PortalException {
 		if (_passwordPolicy == null) {
 			_passwordPolicy =
 				PasswordPolicyLocalServiceUtil.getPasswordPolicyByUserId(
@@ -724,23 +714,17 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public int getPrivateLayoutsPageCount()
-		throws PortalException {
-
+	public int getPrivateLayoutsPageCount() throws PortalException {
 		return LayoutLocalServiceUtil.getLayoutsCount(this, true);
 	}
 
 	@Override
-	public int getPublicLayoutsPageCount()
-		throws PortalException {
-
+	public int getPublicLayoutsPageCount() throws PortalException {
 		return LayoutLocalServiceUtil.getLayoutsCount(this, false);
 	}
 
 	@Override
-	public Set<String> getReminderQueryQuestions()
-		throws PortalException {
-
+	public Set<String> getReminderQueryQuestions() throws PortalException {
 		Set<String> questions = new TreeSet<String>();
 
 		List<Organization> organizations =
@@ -851,9 +835,7 @@ public class UserImpl extends UserBaseImpl {
 	}
 
 	@Override
-	public boolean hasCompanyMx(String emailAddress)
-		throws PortalException {
-
+	public boolean hasCompanyMx(String emailAddress) throws PortalException {
 		if (Validator.isNull(emailAddress)) {
 			return false;
 		}

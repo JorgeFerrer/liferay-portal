@@ -17,7 +17,6 @@ package com.liferay.portlet.imageuploader.action;
 import com.liferay.portal.ImageTypeException;
 import com.liferay.portal.NoSuchRepositoryException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.image.ImageBag;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;

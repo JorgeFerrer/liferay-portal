@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.Ticket;
 import com.liferay.portal.service.ServiceContext;
@@ -61,9 +60,7 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Ticket getTicket(String key)
-		throws PortalException {
-
+	public Ticket getTicket(String key) throws PortalException {
 		return ticketPersistence.findByKey(key);
 	}
 

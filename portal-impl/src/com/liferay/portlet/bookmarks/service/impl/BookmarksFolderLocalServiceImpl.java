@@ -179,9 +179,7 @@ public class BookmarksFolderLocalServiceImpl
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public BookmarksFolder deleteFolder(long folderId)
-		throws PortalException {
-
+	public BookmarksFolder deleteFolder(long folderId) throws PortalException {
 		BookmarksFolder folder = bookmarksFolderPersistence.findByPrimaryKey(
 			folderId);
 
@@ -202,9 +200,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFolders(long groupId)
-		throws PortalException {
-
+	public void deleteFolders(long groupId) throws PortalException {
 		List<BookmarksFolder> folders =
 			bookmarksFolderPersistence.findByGroupId(groupId);
 
@@ -227,9 +223,7 @@ public class BookmarksFolderLocalServiceImpl
 	}
 
 	@Override
-	public BookmarksFolder getFolder(long folderId)
-		throws PortalException {
-
+	public BookmarksFolder getFolder(long folderId) throws PortalException {
 		return bookmarksFolderPersistence.findByPrimaryKey(folderId);
 	}
 

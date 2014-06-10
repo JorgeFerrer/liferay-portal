@@ -96,9 +96,7 @@ public class MBThreadFlagLocalServiceImpl
 	}
 
 	@Override
-	public void deleteThreadFlag(long threadFlagId)
-		throws PortalException {
-
+	public void deleteThreadFlag(long threadFlagId) throws PortalException {
 		MBThreadFlag threadFlag = mbThreadFlagPersistence.findByPrimaryKey(
 			threadFlagId);
 

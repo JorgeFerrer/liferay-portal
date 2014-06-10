@@ -22,7 +22,6 @@ import com.liferay.portal.LayoutPrototypeException;
 import com.liferay.portal.LocaleException;
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.lar.ExportImportHelper;

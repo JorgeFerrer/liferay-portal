@@ -185,9 +185,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteNode(long nodeId)
-		throws PortalException {
-
+	public void deleteNode(long nodeId) throws PortalException {
 		WikiNode node = wikiNodePersistence.findByPrimaryKey(nodeId);
 
 		wikiNodeLocalService.deleteNode(node);
@@ -197,8 +195,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteNode(WikiNode node)
-		throws PortalException {
+	public void deleteNode(WikiNode node) throws PortalException {
 
 		// Pages
 
@@ -252,9 +249,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteNodes(long groupId)
-		throws PortalException {
-
+	public void deleteNodes(long groupId) throws PortalException {
 		List<WikiNode> nodes = wikiNodePersistence.findByGroupId(groupId);
 
 		for (WikiNode node : nodes) {
@@ -304,9 +299,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public WikiNode getNode(long nodeId)
-		throws PortalException {
-
+	public WikiNode getNode(long nodeId) throws PortalException {
 		return wikiNodePersistence.findByPrimaryKey(nodeId);
 	}
 
@@ -318,9 +311,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiNode> getNodes(long groupId)
-		throws PortalException {
-
+	public List<WikiNode> getNodes(long groupId) throws PortalException {
 		return getNodes(groupId, WorkflowConstants.STATUS_APPROVED);
 	}
 
@@ -451,9 +442,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribeNode(long userId, long nodeId)
-		throws PortalException {
-
+	public void subscribeNode(long userId, long nodeId) throws PortalException {
 		WikiNode node = getNode(nodeId);
 
 		subscriptionLocalService.addSubscription(
@@ -602,9 +591,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 		}
 	}
 
-	protected void validate(long groupId, String name)
-		throws PortalException {
-
+	protected void validate(long groupId, String name) throws PortalException {
 		validate(0, groupId, name);
 	}
 

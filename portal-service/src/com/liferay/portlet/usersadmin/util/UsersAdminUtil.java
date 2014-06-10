@@ -17,7 +17,6 @@ package com.liferay.portlet.usersadmin.util;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -234,9 +233,7 @@ public class UsersAdminUtil {
 			orderByCol, orderByType);
 	}
 
-	public static List<User> getUsers(Hits hits)
-		throws PortalException {
-
+	public static List<User> getUsers(Hits hits) throws PortalException {
 		return getUsersAdmin().getUsers(hits);
 	}
 

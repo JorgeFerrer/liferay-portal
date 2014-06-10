@@ -16,7 +16,6 @@ package com.liferay.portlet.documentlibrary.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.TreePathUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;

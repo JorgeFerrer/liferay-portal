@@ -15,7 +15,6 @@
 package com.liferay.portlet.wiki.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.trash.BaseTrashHandler;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
@@ -113,9 +112,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 
@@ -213,9 +210,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 
@@ -223,9 +218,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 
@@ -248,9 +241,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 
@@ -258,9 +249,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 
@@ -295,9 +284,7 @@ public class WikiPageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public void updateTitle(long classPK, String name)
-		throws PortalException {
-
+	public void updateTitle(long classPK, String name) throws PortalException {
 		WikiPage page = WikiPageLocalServiceUtil.getLatestPage(
 			classPK, WorkflowConstants.STATUS_ANY, false);
 

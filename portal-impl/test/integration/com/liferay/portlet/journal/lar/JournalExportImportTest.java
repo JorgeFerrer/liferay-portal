@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.lar;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.lar.UserIdStrategy;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;

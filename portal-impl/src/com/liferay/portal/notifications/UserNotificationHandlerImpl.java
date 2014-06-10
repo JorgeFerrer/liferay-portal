@@ -15,7 +15,6 @@
 package com.liferay.portal.notifications;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.notifications.UserNotificationFeedEntry;
 import com.liferay.portal.kernel.notifications.UserNotificationHandler;
 import com.liferay.portal.model.UserNotificationEvent;

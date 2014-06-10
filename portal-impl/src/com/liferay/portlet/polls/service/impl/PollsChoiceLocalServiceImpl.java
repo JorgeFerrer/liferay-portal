@@ -15,7 +15,6 @@
 package com.liferay.portlet.polls.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
@@ -64,9 +63,7 @@ public class PollsChoiceLocalServiceImpl
 	}
 
 	@Override
-	public PollsChoice getChoice(long choiceId)
-		throws PortalException {
-
+	public PollsChoice getChoice(long choiceId) throws PortalException {
 		return pollsChoicePersistence.findByPrimaryKey(choiceId);
 	}
 

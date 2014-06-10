@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.repository.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Lock;
@@ -82,16 +81,12 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 	}
 
 	@Override
-	public InputStream getContentStream()
-		throws PortalException {
-
+	public InputStream getContentStream() throws PortalException {
 		return _fileEntry.getContentStream();
 	}
 
 	@Override
-	public InputStream getContentStream(String version)
-		throws PortalException {
-
+	public InputStream getContentStream(String version) throws PortalException {
 		return _fileEntry.getContentStream();
 	}
 
@@ -121,16 +116,12 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 	}
 
 	@Override
-	public FileVersion getFileVersion()
-		throws PortalException {
-
+	public FileVersion getFileVersion() throws PortalException {
 		return _fileEntry.getFileVersion();
 	}
 
 	@Override
-	public FileVersion getFileVersion(String version)
-		throws PortalException {
-
+	public FileVersion getFileVersion(String version) throws PortalException {
 		return _fileEntry.getFileVersion();
 	}
 
@@ -166,9 +157,7 @@ public class FileEntryWrapper implements FileEntry, ModelWrapper<FileEntry> {
 	}
 
 	@Override
-	public FileVersion getLatestFileVersion()
-		throws PortalException {
-
+	public FileVersion getLatestFileVersion() throws PortalException {
 		return _fileEntry.getLatestFileVersion();
 	}
 

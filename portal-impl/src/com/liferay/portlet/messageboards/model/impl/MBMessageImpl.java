@@ -16,7 +16,6 @@ package com.liferay.portlet.messageboards.model.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
@@ -48,9 +47,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public Folder addAttachmentsFolder()
-		throws PortalException {
-
+	public Folder addAttachmentsFolder() throws PortalException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
@@ -87,9 +84,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getAttachmentsFileEntries()
-		throws PortalException {
-
+	public List<FileEntry> getAttachmentsFileEntries() throws PortalException {
 		return getAttachmentsFileEntries(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 	}
 
@@ -111,9 +106,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public int getAttachmentsFileEntriesCount()
-		throws PortalException {
-
+	public int getAttachmentsFileEntriesCount() throws PortalException {
 		int attachmentsFileEntriesCount = 0;
 
 		long attachmentsFolderId = getAttachmentsFolderId();
@@ -129,9 +122,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public long getAttachmentsFolderId()
-		throws PortalException {
-
+	public long getAttachmentsFolderId() throws PortalException {
 		if (_attachmentsFolderId !=
 				DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 
@@ -215,9 +206,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public int getDeletedAttachmentsFileEntriesCount()
-		throws PortalException {
-
+	public int getDeletedAttachmentsFileEntriesCount() throws PortalException {
 		int deletedAttachmentsFileEntriesCount = 0;
 
 		long attachmentsFolderId = getAttachmentsFolderId();
@@ -238,9 +227,7 @@ public class MBMessageImpl extends MBMessageBaseImpl {
 	}
 
 	@Override
-	public long getThreadAttachmentsFolderId()
-		throws PortalException {
-
+	public long getThreadAttachmentsFolderId() throws PortalException {
 		return getThread().getAttachmentsFolderId();
 	}
 

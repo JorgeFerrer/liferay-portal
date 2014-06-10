@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.template;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mobile.device.Device;
 import com.liferay.portal.kernel.template.BaseTemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableCodeHandler;

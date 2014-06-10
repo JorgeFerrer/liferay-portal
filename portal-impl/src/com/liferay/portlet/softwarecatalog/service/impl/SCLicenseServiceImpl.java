@@ -15,7 +15,6 @@
 package com.liferay.portlet.softwarecatalog.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.permission.PortalPermissionUtil;
 import com.liferay.portlet.softwarecatalog.model.SCLicense;
@@ -42,9 +41,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteLicense(long licenseId)
-		throws PortalException {
-
+	public void deleteLicense(long licenseId) throws PortalException {
 		SCLicensePermission.check(
 			getPermissionChecker(), licenseId, ActionKeys.DELETE);
 
@@ -52,9 +49,7 @@ public class SCLicenseServiceImpl extends SCLicenseServiceBaseImpl {
 	}
 
 	@Override
-	public SCLicense getLicense(long licenseId)
-		throws PortalException {
-
+	public SCLicense getLicense(long licenseId) throws PortalException {
 		return scLicenseLocalService.getLicense(licenseId);
 	}
 

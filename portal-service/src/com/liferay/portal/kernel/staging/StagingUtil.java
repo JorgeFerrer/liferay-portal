@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.staging;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.lar.MissingReference;
@@ -265,15 +264,11 @@ public class StagingUtil {
 			locale, e, contextMap);
 	}
 
-	public static Group getLiveGroup(long groupId)
-		throws PortalException {
-
+	public static Group getLiveGroup(long groupId) throws PortalException {
 		return getStaging().getLiveGroup(groupId);
 	}
 
-	public static long getLiveGroupId(long groupId)
-		throws PortalException {
-
+	public static long getLiveGroupId(long groupId) throws PortalException {
 		return getStaging().getLiveGroupId(groupId);
 	}
 

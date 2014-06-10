@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -150,9 +149,7 @@ public class AssetVocabularyServiceImpl extends AssetVocabularyServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteVocabulary(long vocabularyId)
-		throws PortalException {
-
+	public void deleteVocabulary(long vocabularyId) throws PortalException {
 		AssetVocabularyPermission.check(
 			getPermissionChecker(), vocabularyId, ActionKeys.DELETE);
 

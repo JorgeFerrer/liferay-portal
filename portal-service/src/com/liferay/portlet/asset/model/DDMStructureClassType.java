@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -55,9 +54,7 @@ public class DDMStructureClassType implements ClassType {
 	}
 
 	@Override
-	public List<ClassTypeField> getClassTypeFields()
-		throws PortalException {
-
+	public List<ClassTypeField> getClassTypeFields() throws PortalException {
 		DDMStructure ddmStructure =
 			DDMStructureLocalServiceUtil.getDDMStructure(getClassTypeId());
 
@@ -74,9 +71,7 @@ public class DDMStructureClassType implements ClassType {
 	}
 
 	@Override
-	public int getClassTypeFieldsCount()
-		throws PortalException {
-
+	public int getClassTypeFieldsCount() throws PortalException {
 		return getClassTypeFields().size();
 	}
 

@@ -16,7 +16,6 @@ package com.liferay.portlet.bookmarks.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -210,9 +209,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public BookmarksEntry deleteEntry(long entryId)
-		throws PortalException {
-
+	public BookmarksEntry deleteEntry(long entryId) throws PortalException {
 		BookmarksEntry entry = bookmarksEntryPersistence.findByPrimaryKey(
 			entryId);
 
@@ -268,9 +265,7 @@ public class BookmarksEntryLocalServiceImpl
 	}
 
 	@Override
-	public BookmarksEntry getEntry(long entryId)
-		throws PortalException {
-
+	public BookmarksEntry getEntry(long entryId) throws PortalException {
 		return bookmarksEntryPersistence.findByPrimaryKey(entryId);
 	}
 

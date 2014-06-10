@@ -525,9 +525,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public MBMessage deleteMessage(long messageId)
-		throws PortalException {
-
+	public MBMessage deleteMessage(long messageId) throws PortalException {
 		MBMessage message = mbMessagePersistence.findByPrimaryKey(messageId);
 
 		return mbMessageLocalService.deleteMessage(message);
@@ -536,8 +534,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public MBMessage deleteMessage(MBMessage message)
-		throws PortalException {
+	public MBMessage deleteMessage(MBMessage message) throws PortalException {
 
 		// Attachments
 
@@ -1054,9 +1051,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MBMessage getMessage(long messageId)
-		throws PortalException {
-
+	public MBMessage getMessage(long messageId) throws PortalException {
 		return mbMessagePersistence.findByPrimaryKey(messageId);
 	}
 
@@ -1172,9 +1167,7 @@ public class MBMessageLocalServiceImpl extends MBMessageLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getPositionInThread(long messageId)
-		throws PortalException {
-
+	public int getPositionInThread(long messageId) throws PortalException {
 		MBMessage message = mbMessagePersistence.findByPrimaryKey(messageId);
 
 		return mbMessageFinder.countByC_T(

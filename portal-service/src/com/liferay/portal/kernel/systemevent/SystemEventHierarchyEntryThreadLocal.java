@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.systemevent;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.util.PortalUtil;

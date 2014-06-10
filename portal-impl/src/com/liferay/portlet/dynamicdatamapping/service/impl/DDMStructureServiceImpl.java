@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -241,9 +240,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteStructure(long structureId)
-		throws PortalException {
-
+	public void deleteStructure(long structureId) throws PortalException {
 		DDMStructurePermission.check(
 			getPermissionChecker(), structureId, ActionKeys.DELETE);
 
@@ -300,9 +297,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public DDMStructure getStructure(long structureId)
-		throws PortalException {
-
+	public DDMStructure getStructure(long structureId) throws PortalException {
 		DDMStructurePermission.check(
 			getPermissionChecker(), structureId, ActionKeys.VIEW);
 

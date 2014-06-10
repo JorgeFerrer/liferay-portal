@@ -88,9 +88,7 @@ public class AnnouncementsDeliveryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteDelivery(long deliveryId)
-		throws PortalException {
-
+	public void deleteDelivery(long deliveryId) throws PortalException {
 		AnnouncementsDelivery delivery =
 			announcementsDeliveryPersistence.findByPrimaryKey(deliveryId);
 

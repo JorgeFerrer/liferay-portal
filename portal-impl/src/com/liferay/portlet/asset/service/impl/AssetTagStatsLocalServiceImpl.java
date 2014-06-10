@@ -92,9 +92,7 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagStats(long tagStatsId)
-		throws PortalException {
-
+	public void deleteTagStats(long tagStatsId) throws PortalException {
 		AssetTagStats tagStats = assetTagStatsPersistence.findByPrimaryKey(
 			tagStatsId);
 

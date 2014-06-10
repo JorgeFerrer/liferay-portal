@@ -15,7 +15,6 @@
 package com.liferay.portlet.bookmarks.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.model.ContainerModel;
@@ -39,9 +38,7 @@ import javax.portlet.PortletRequest;
 public class BookmarksFolderTrashHandler extends BookmarksBaseTrashHandler {
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		BookmarksFolderLocalServiceUtil.deleteFolder(classPK, false);
 	}
 
@@ -103,18 +100,14 @@ public class BookmarksFolderTrashHandler extends BookmarksBaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		return folder.getTrashEntry();
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		return new BookmarksFolderAssetRenderer(folder);
@@ -141,27 +134,21 @@ public class BookmarksFolderTrashHandler extends BookmarksBaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		return folder.isInTrash();
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		return folder.isInTrashContainer();
 	}
 
 	@Override
-	public boolean isRestorable(long classPK)
-		throws PortalException {
-
+	public boolean isRestorable(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		if ((folder.getParentFolderId() > 0) &&
@@ -207,9 +194,7 @@ public class BookmarksFolderTrashHandler extends BookmarksBaseTrashHandler {
 	}
 
 	@Override
-	protected long getGroupId(long classPK)
-		throws PortalException {
-
+	protected long getGroupId(long classPK) throws PortalException {
 		BookmarksFolder folder = getBookmarksFolder(classPK);
 
 		return folder.getGroupId();

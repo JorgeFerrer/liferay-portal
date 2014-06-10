@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
@@ -251,9 +250,7 @@ public abstract class BaseSiteMembershipPolicy implements SiteMembershipPolicy {
 	}
 
 	@Override
-	public void verifyPolicy(Group group)
-		throws PortalException {
-
+	public void verifyPolicy(Group group) throws PortalException {
 		verifyPolicy(group, null, null, null, null, null);
 	}
 

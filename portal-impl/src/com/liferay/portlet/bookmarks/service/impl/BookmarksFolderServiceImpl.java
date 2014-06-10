@@ -16,7 +16,6 @@ package com.liferay.portlet.bookmarks.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -47,9 +46,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
 
@@ -74,9 +71,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public BookmarksFolder getFolder(long folderId)
-		throws PortalException {
-
+	public BookmarksFolder getFolder(long folderId) throws PortalException {
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
 
@@ -286,9 +281,7 @@ public class BookmarksFolderServiceImpl extends BookmarksFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreFolderFromTrash(long folderId)
-		throws PortalException {
-
+	public void restoreFolderFromTrash(long folderId) throws PortalException {
 		BookmarksFolder folder = bookmarksFolderLocalService.getFolder(
 			folderId);
 

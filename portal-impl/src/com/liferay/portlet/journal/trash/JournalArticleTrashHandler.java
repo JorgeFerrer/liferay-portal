@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.kernel.util.Validator;
@@ -76,9 +75,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -140,9 +137,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -150,9 +145,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -175,9 +168,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -185,9 +176,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -195,9 +184,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public boolean isRestorable(long classPK)
-		throws PortalException {
-
+	public boolean isRestorable(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -248,9 +235,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public void updateTitle(long classPK, String name)
-		throws PortalException {
-
+	public void updateTitle(long classPK, String name) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 
@@ -352,9 +337,7 @@ public class JournalArticleTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	protected long getGroupId(long classPK)
-		throws PortalException {
-
+	protected long getGroupId(long classPK) throws PortalException {
 		JournalArticle article =
 			JournalArticleLocalServiceUtil.getLatestArticle(classPK);
 

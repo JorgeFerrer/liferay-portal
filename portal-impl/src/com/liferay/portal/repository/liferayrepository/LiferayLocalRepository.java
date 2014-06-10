@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.liferayrepository;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.LocalRepository;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
@@ -160,16 +159,12 @@ public class LiferayLocalRepository
 	}
 
 	@Override
-	public void deleteFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void deleteFileEntry(long fileEntryId) throws PortalException {
 		dlFileEntryLocalService.deleteFileEntry(fileEntryId);
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		DLFolder dlFolder = dlFolderLocalService.fetchFolder(folderId);
 
 		if (dlFolder != null) {
@@ -178,9 +173,7 @@ public class LiferayLocalRepository
 	}
 
 	@Override
-	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public FileEntry getFileEntry(long fileEntryId) throws PortalException {
 		DLFileEntry dlFileEntry = dlFileEntryLocalService.getFileEntry(
 			fileEntryId);
 
@@ -198,9 +191,7 @@ public class LiferayLocalRepository
 	}
 
 	@Override
-	public FileEntry getFileEntryByUuid(String uuid)
-		throws PortalException {
-
+	public FileEntry getFileEntryByUuid(String uuid) throws PortalException {
 		DLFileEntry dlFileEntry =
 			dlFileEntryLocalService.getFileEntryByUuidAndGroupId(
 				uuid, getGroupId());
@@ -219,9 +210,7 @@ public class LiferayLocalRepository
 	}
 
 	@Override
-	public Folder getFolder(long folderId)
-		throws PortalException {
-
+	public Folder getFolder(long folderId) throws PortalException {
 		DLFolder dlFolder = dlFolderLocalService.getFolder(folderId);
 
 		return new LiferayFolder(dlFolder);

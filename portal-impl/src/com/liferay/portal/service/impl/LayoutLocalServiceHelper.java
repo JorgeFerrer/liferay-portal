@@ -23,7 +23,6 @@ import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.FriendlyURLMapper;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
@@ -273,9 +272,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 		validateFriendlyURLs(groupId, privateLayout, layoutId, friendlyURLMap);
 	}
 
-	public void validateFirstLayout(Layout layout)
-		throws PortalException {
-
+	public void validateFirstLayout(Layout layout) throws PortalException {
 		Group group = layout.getGroup();
 
 		if (group.isGuest() && !hasGuestViewPermission(layout)) {

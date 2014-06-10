@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.LayoutBranch;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -45,9 +44,7 @@ public class LayoutBranchServiceImpl extends LayoutBranchServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteLayoutBranch(long layoutBranchId)
-		throws PortalException {
-
+	public void deleteLayoutBranch(long layoutBranchId) throws PortalException {
 		LayoutBranchPermissionUtil.check(
 			getPermissionChecker(), layoutBranchId, ActionKeys.DELETE);
 

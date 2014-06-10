@@ -108,9 +108,7 @@ public class CMISFolder extends CMISModel implements Folder {
 	}
 
 	@Override
-	public List<Long> getAncestorFolderIds()
-		throws PortalException {
-
+	public List<Long> getAncestorFolderIds() throws PortalException {
 		List<Long> folderIds = new ArrayList<Long>();
 
 		Folder folder = this;

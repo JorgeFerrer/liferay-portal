@@ -16,7 +16,6 @@ package com.liferay.portal.kernel.cluster;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.MethodHandler;
 

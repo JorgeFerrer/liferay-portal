@@ -15,7 +15,6 @@
 package com.liferay.portlet.blogs.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.kernel.workflow.permission.WorkflowPermissionUtil;
 import com.liferay.portal.security.auth.PrincipalException;

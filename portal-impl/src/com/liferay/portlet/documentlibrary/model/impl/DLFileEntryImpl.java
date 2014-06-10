@@ -15,7 +15,6 @@
 package com.liferay.portlet.documentlibrary.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -72,16 +71,12 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 	}
 
 	@Override
-	public InputStream getContentStream()
-		throws PortalException {
-
+	public InputStream getContentStream() throws PortalException {
 		return getContentStream(getVersion());
 	}
 
 	@Override
-	public InputStream getContentStream(String version)
-		throws PortalException {
-
+	public InputStream getContentStream(String version) throws PortalException {
 		return DLFileEntryServiceUtil.getFileAsStream(
 			getFileEntryId(), version);
 	}
@@ -167,16 +162,12 @@ public class DLFileEntryImpl extends DLFileEntryBaseImpl {
 	}
 
 	@Override
-	public DLFileVersion getFileVersion()
-		throws PortalException {
-
+	public DLFileVersion getFileVersion() throws PortalException {
 		return getFileVersion(getVersion());
 	}
 
 	@Override
-	public DLFileVersion getFileVersion(String version)
-		throws PortalException {
-
+	public DLFileVersion getFileVersion(String version) throws PortalException {
 		return DLFileVersionLocalServiceUtil.getFileVersion(
 			getFileEntryId(), version);
 	}

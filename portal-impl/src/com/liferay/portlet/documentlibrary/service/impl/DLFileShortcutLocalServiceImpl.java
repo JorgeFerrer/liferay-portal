@@ -16,7 +16,6 @@ package com.liferay.portlet.documentlibrary.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.TreePathUtil;
@@ -202,9 +201,7 @@ public class DLFileShortcutLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFileShortcut(long fileShortcutId)
-		throws PortalException {
-
+	public void deleteFileShortcut(long fileShortcutId) throws PortalException {
 		DLFileShortcut fileShortcut =
 			dlFileShortcutLocalService.getDLFileShortcut(fileShortcutId);
 
@@ -212,9 +209,7 @@ public class DLFileShortcutLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFileShortcuts(long toFileEntryId)
-		throws PortalException {
-
+	public void deleteFileShortcuts(long toFileEntryId) throws PortalException {
 		List<DLFileShortcut> fileShortcuts =
 			dlFileShortcutPersistence.findByToFileEntryId(toFileEntryId);
 

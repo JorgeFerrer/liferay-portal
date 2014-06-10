@@ -15,7 +15,6 @@
 package com.liferay.portlet.trash.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -460,9 +459,7 @@ public class TrashImpl implements Trash {
 	}
 
 	@Override
-	public boolean isTrashEnabled(long groupId)
-		throws PortalException {
-
+	public boolean isTrashEnabled(long groupId) throws PortalException {
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
 		boolean companyTrashEnabled = PrefsPropsUtil.getBoolean(

@@ -15,7 +15,6 @@
 package com.liferay.portlet.usersadmin.lar;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.model.Group;

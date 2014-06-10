@@ -16,7 +16,6 @@ package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -121,9 +120,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public List<Organization> getAncestors()
-		throws PortalException {
-
+	public List<Organization> getAncestors() throws PortalException {
 		List<Organization> ancestors = new ArrayList<Organization>();
 
 		Organization organization = this;
@@ -177,9 +174,7 @@ public class OrganizationImpl extends OrganizationBaseImpl {
 	}
 
 	@Override
-	public Organization getParentOrganization()
-		throws PortalException {
-
+	public Organization getParentOrganization() throws PortalException {
 		if (getParentOrganizationId() ==
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
 

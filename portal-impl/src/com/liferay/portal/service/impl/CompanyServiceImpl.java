@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceMode;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -82,9 +81,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
-	public Company deleteCompany(long companyId)
-		throws PortalException {
-
+	public Company deleteCompany(long companyId) throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
 		if (!permissionChecker.isOmniadmin()) {
@@ -104,9 +101,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLogo(long companyId)
-		throws PortalException {
-
+	public void deleteLogo(long companyId) throws PortalException {
 		if (!roleLocalService.hasUserRole(
 				getUserId(), companyId, RoleConstants.ADMINISTRATOR, true)) {
 
@@ -126,9 +121,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyById(long companyId)
-		throws PortalException {
-
+	public Company getCompanyById(long companyId) throws PortalException {
 		return companyLocalService.getCompanyById(companyId);
 	}
 
@@ -141,9 +134,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByLogoId(long logoId)
-		throws PortalException {
-
+	public Company getCompanyByLogoId(long logoId) throws PortalException {
 		return companyLocalService.getCompanyByLogoId(logoId);
 	}
 
@@ -157,9 +148,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByMx(String mx)
-		throws PortalException {
-
+	public Company getCompanyByMx(String mx) throws PortalException {
 		return companyLocalService.getCompanyByMx(mx);
 	}
 
@@ -190,9 +179,7 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByWebId(String webId)
-		throws PortalException {
-
+	public Company getCompanyByWebId(String webId) throws PortalException {
 		return companyLocalService.getCompanyByWebId(webId);
 	}
 

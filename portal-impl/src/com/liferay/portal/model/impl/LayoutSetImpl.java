@@ -15,7 +15,6 @@
 package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -58,9 +57,7 @@ public class LayoutSetImpl extends LayoutSetBaseImpl {
 	}
 
 	@Override
-	public long getLayoutSetPrototypeId()
-		throws PortalException {
-
+	public long getLayoutSetPrototypeId() throws PortalException {
 		String layoutSetPrototypeUuid = getLayoutSetPrototypeUuid();
 
 		if (Validator.isNull(layoutSetPrototypeUuid)) {

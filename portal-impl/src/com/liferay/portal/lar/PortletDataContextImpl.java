@@ -341,9 +341,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void addLocks(Class<?> clazz, String key)
-		throws PortalException {
-
+	public void addLocks(Class<?> clazz, String key) throws PortalException {
 		if (!_locksMap.containsKey(getPrimaryKeyString(clazz, key)) &&
 			LockLocalServiceUtil.isLocked(clazz.getName(), key)) {
 
@@ -1646,9 +1644,7 @@ public class PortletDataContextImpl implements PortletDataContext {
 	}
 
 	@Override
-	public void importPortalPermissions()
-		throws PortalException {
-
+	public void importPortalPermissions() throws PortalException {
 		importPermissions(
 			PortletKeys.PORTAL, getSourceCompanyId(), getCompanyId());
 	}

@@ -17,7 +17,6 @@ package com.liferay.portal.backgroundtask.messaging;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskExecutor;
 import com.liferay.portal.kernel.bean.BeanReference;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.util.Validator;

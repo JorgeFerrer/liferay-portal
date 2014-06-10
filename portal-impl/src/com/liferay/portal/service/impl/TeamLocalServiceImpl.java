@@ -18,7 +18,6 @@ import com.liferay.portal.DuplicateTeamException;
 import com.liferay.portal.TeamNameException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
@@ -81,9 +80,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Team deleteTeam(long teamId)
-		throws PortalException {
-
+	public Team deleteTeam(long teamId) throws PortalException {
 		Team team = teamPersistence.findByPrimaryKey(teamId);
 
 		return deleteTeam(team);
@@ -112,9 +109,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteTeams(long groupId)
-		throws PortalException {
-
+	public void deleteTeams(long groupId) throws PortalException {
 		List<Team> teams = teamPersistence.findByGroupId(groupId);
 
 		for (Team team : teams) {
@@ -128,9 +123,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Team getTeam(long groupId, String name)
-		throws PortalException {
-
+	public Team getTeam(long groupId, String name) throws PortalException {
 		return teamPersistence.findByG_N(groupId, name);
 	}
 

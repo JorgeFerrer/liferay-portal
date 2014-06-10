@@ -15,7 +15,6 @@
 package com.liferay.portlet.announcements.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -176,8 +175,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteEntry(AnnouncementsEntry entry)
-		throws PortalException {
+	public void deleteEntry(AnnouncementsEntry entry) throws PortalException {
 
 		// Entry
 
@@ -195,9 +193,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		AnnouncementsEntry entry =
 			announcementsEntryPersistence.findByPrimaryKey(entryId);
 
@@ -314,9 +310,7 @@ public class AnnouncementsEntryLocalServiceImpl
 	}
 
 	@Override
-	public AnnouncementsEntry getEntry(long entryId)
-		throws PortalException {
-
+	public AnnouncementsEntry getEntry(long entryId) throws PortalException {
 		return announcementsEntryPersistence.findByPrimaryKey(entryId);
 	}
 

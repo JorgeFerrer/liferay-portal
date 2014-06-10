@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.ContactBirthdayException;
 import com.liferay.portal.ContactClassNameException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.OrderByComparator;

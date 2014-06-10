@@ -15,7 +15,6 @@
 package com.liferay.portlet.mobiledevicerules.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.SystemEventConstants;
@@ -152,9 +151,7 @@ public class MDRRuleLocalServiceImpl extends MDRRuleLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MDRRule getRule(long ruleId)
-		throws PortalException {
-
+	public MDRRule getRule(long ruleId) throws PortalException {
 		return mdrRulePersistence.findByPrimaryKey(ruleId);
 	}
 

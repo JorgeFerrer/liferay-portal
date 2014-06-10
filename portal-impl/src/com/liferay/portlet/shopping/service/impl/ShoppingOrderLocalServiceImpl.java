@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -227,9 +226,7 @@ public class ShoppingOrderLocalServiceImpl
 	}
 
 	@Override
-	public void deleteOrder(long orderId)
-		throws PortalException {
-
+	public void deleteOrder(long orderId) throws PortalException {
 		ShoppingOrder order = shoppingOrderPersistence.findByPrimaryKey(
 			orderId);
 
@@ -237,8 +234,7 @@ public class ShoppingOrderLocalServiceImpl
 	}
 
 	@Override
-	public void deleteOrder(ShoppingOrder order)
-		throws PortalException {
+	public void deleteOrder(ShoppingOrder order) throws PortalException {
 
 		// Order
 
@@ -261,9 +257,7 @@ public class ShoppingOrderLocalServiceImpl
 	}
 
 	@Override
-	public void deleteOrders(long groupId)
-		throws PortalException {
-
+	public void deleteOrders(long groupId) throws PortalException {
 		List<ShoppingOrder> orders = shoppingOrderPersistence.findByGroupId(
 			groupId);
 
@@ -292,16 +286,12 @@ public class ShoppingOrderLocalServiceImpl
 	}
 
 	@Override
-	public ShoppingOrder getOrder(long orderId)
-		throws PortalException {
-
+	public ShoppingOrder getOrder(long orderId) throws PortalException {
 		return shoppingOrderPersistence.findByPrimaryKey(orderId);
 	}
 
 	@Override
-	public ShoppingOrder getOrder(String number)
-		throws PortalException {
-
+	public ShoppingOrder getOrder(String number) throws PortalException {
 		return shoppingOrderPersistence.findByNumber(number);
 	}
 

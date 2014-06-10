@@ -15,7 +15,6 @@
 package com.liferay.portlet.softwarecatalog.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.plugin.Version;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -197,9 +196,7 @@ public class SCProductEntryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteProductEntries(long groupId)
-		throws PortalException {
-
+	public void deleteProductEntries(long groupId) throws PortalException {
 		List<SCProductEntry> productEntries =
 			scProductEntryPersistence.findByGroupId(groupId);
 

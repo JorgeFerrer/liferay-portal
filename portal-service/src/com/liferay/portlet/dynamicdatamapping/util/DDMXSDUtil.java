@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.xml.Document;
@@ -140,9 +139,7 @@ public class DDMXSDUtil {
 		return getDDMXSD().getJSONArray(element);
 	}
 
-	public static JSONArray getJSONArray(String xml)
-		throws PortalException {
-
+	public static JSONArray getJSONArray(String xml) throws PortalException {
 		return getDDMXSD().getJSONArray(xml);
 	}
 

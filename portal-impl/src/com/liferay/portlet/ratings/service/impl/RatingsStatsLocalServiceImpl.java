@@ -82,9 +82,7 @@ public class RatingsStatsLocalServiceImpl
 	}
 
 	@Override
-	public RatingsStats getStats(long statsId)
-		throws PortalException {
-
+	public RatingsStats getStats(long statsId) throws PortalException {
 		return ratingsStatsPersistence.findByPrimaryKey(statsId);
 	}
 

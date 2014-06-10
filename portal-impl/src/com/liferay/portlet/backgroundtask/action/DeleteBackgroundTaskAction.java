@@ -16,7 +16,6 @@ package com.liferay.portlet.backgroundtask.action;
 
 import com.liferay.portal.NoSuchBackgroundTaskException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.security.auth.PrincipalException;

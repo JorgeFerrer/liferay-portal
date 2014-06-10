@@ -15,7 +15,6 @@
 package com.liferay.portlet.mobiledevicerules.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
@@ -65,9 +64,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRuleGroup(long ruleGroupId)
-		throws PortalException {
-
+	public void deleteRuleGroup(long ruleGroupId) throws PortalException {
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);
 
@@ -93,9 +90,7 @@ public class MDRRuleGroupServiceImpl extends MDRRuleGroupServiceBaseImpl {
 	}
 
 	@Override
-	public MDRRuleGroup getRuleGroup(long ruleGroupId)
-		throws PortalException {
-
+	public MDRRuleGroup getRuleGroup(long ruleGroupId) throws PortalException {
 		MDRRuleGroup ruleGroup = mdrRuleGroupPersistence.findByPrimaryKey(
 			ruleGroupId);
 

@@ -15,7 +15,6 @@
 package com.liferay.portal.workflow;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.BaseWorkflowHandler;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;

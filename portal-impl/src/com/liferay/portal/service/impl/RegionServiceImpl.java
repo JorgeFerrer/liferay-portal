@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.RegionCodeException;
 import com.liferay.portal.RegionNameException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Region;
 import com.liferay.portal.security.auth.PrincipalException;
@@ -75,9 +74,7 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
-	public Region getRegion(long regionId)
-		throws PortalException {
-
+	public Region getRegion(long regionId) throws PortalException {
 		return regionPersistence.findByPrimaryKey(regionId);
 	}
 

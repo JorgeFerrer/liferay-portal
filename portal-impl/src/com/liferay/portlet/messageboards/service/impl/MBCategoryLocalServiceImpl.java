@@ -17,7 +17,6 @@ package com.liferay.portlet.messageboards.service.impl;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
@@ -192,9 +191,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteCategories(long groupId)
-		throws PortalException {
-
+	public void deleteCategories(long groupId) throws PortalException {
 		List<MBCategory> categories = mbCategoryPersistence.findByGroupId(
 			groupId);
 
@@ -204,9 +201,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteCategory(long categoryId)
-		throws PortalException {
-
+	public void deleteCategory(long categoryId) throws PortalException {
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
 
@@ -217,9 +212,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteCategory(MBCategory category)
-		throws PortalException {
-
+	public void deleteCategory(MBCategory category) throws PortalException {
 		deleteCategory(category, true);
 	}
 
@@ -474,9 +467,7 @@ public class MBCategoryLocalServiceImpl extends MBCategoryLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MBCategory getCategory(long categoryId)
-		throws PortalException {
-
+	public MBCategory getCategory(long categoryId) throws PortalException {
 		MBCategory category = null;
 
 		if ((categoryId != MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) &&

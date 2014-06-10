@@ -259,9 +259,7 @@ public class LayoutTypePortletImpl
 	}
 
 	@Override
-	public List<Portlet> getAllPortlets()
-		throws PortalException {
-
+	public List<Portlet> getAllPortlets() throws PortalException {
 		List<Portlet> portlets = new ArrayList<Portlet>();
 
 		List<String> columns = getColumns();
@@ -563,9 +561,7 @@ public class LayoutTypePortletImpl
 	}
 
 	@Override
-	public boolean hasPortletId(String portletId)
-		throws PortalException {
-
+	public boolean hasPortletId(String portletId) throws PortalException {
 		return hasPortletId(portletId, false);
 	}
 

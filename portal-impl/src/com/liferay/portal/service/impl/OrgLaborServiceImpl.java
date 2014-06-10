@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.OrgLabor;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.base.OrgLaborServiceBaseImpl;
@@ -46,9 +45,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteOrgLabor(long orgLaborId)
-		throws PortalException {
-
+	public void deleteOrgLabor(long orgLaborId) throws PortalException {
 		OrgLabor orgLabor = orgLaborPersistence.findByPrimaryKey(orgLaborId);
 
 		OrganizationPermissionUtil.check(
@@ -59,9 +56,7 @@ public class OrgLaborServiceImpl extends OrgLaborServiceBaseImpl {
 	}
 
 	@Override
-	public OrgLabor getOrgLabor(long orgLaborId)
-		throws PortalException {
-
+	public OrgLabor getOrgLabor(long orgLaborId) throws PortalException {
 		OrgLabor orgLabor = orgLaborPersistence.findByPrimaryKey(orgLaborId);
 
 		OrganizationPermissionUtil.check(

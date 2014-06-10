@@ -71,9 +71,7 @@ public class FolderProxyBean
 	}
 
 	@Override
-	public List<Long> getAncestorFolderIds()
-		throws PortalException {
-
+	public List<Long> getAncestorFolderIds() throws PortalException {
 		return _folder.getAncestorFolderIds();
 	}
 

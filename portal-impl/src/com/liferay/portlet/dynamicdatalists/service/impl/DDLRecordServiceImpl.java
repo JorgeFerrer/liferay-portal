@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatalists.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
@@ -66,9 +65,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteRecord(long recordId)
-		throws PortalException {
-
+	public void deleteRecord(long recordId) throws PortalException {
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
 		DDLRecordSetPermission.check(
@@ -92,9 +89,7 @@ public class DDLRecordServiceImpl extends DDLRecordServiceBaseImpl {
 	}
 
 	@Override
-	public DDLRecord getRecord(long recordId)
-		throws PortalException {
-
+	public DDLRecord getRecord(long recordId) throws PortalException {
 		DDLRecord record = ddlRecordLocalService.getDDLRecord(recordId);
 
 		DDLRecordSetPermission.check(

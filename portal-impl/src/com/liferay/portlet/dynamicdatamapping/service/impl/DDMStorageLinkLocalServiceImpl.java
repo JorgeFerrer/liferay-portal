@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStorageLink;
 import com.liferay.portlet.dynamicdatamapping.service.base.DDMStorageLinkLocalServiceBaseImpl;
@@ -49,9 +48,7 @@ public class DDMStorageLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteClassStorageLink(long classPK)
-		throws PortalException {
-
+	public void deleteClassStorageLink(long classPK) throws PortalException {
 		DDMStorageLink storageLink = ddmStorageLinkPersistence.findByClassPK(
 			classPK);
 
@@ -65,9 +62,7 @@ public class DDMStorageLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStorageLink(long storageLinkId)
-		throws PortalException {
-
+	public void deleteStorageLink(long storageLinkId) throws PortalException {
 		DDMStorageLink storageLink = ddmStorageLinkPersistence.findByPrimaryKey(
 			storageLinkId);
 

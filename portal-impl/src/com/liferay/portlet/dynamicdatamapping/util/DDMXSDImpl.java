@@ -450,9 +450,7 @@ public class DDMXSDImpl implements DDMXSD {
 	}
 
 	@Override
-	public JSONArray getJSONArray(String xml)
-		throws PortalException {
-
+	public JSONArray getJSONArray(String xml) throws PortalException {
 		try {
 			return getJSONArray(SAXReaderUtil.read(xml));
 		}

@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
@@ -389,8 +388,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
-	public void deleteTemplate(DDMTemplate template)
-		throws PortalException {
+	public void deleteTemplate(DDMTemplate template) throws PortalException {
 
 		// Template
 
@@ -444,9 +442,7 @@ public class DDMTemplateLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTemplate(long templateId)
-		throws PortalException {
-
+	public void deleteTemplate(long templateId) throws PortalException {
 		DDMTemplate template = ddmTemplatePersistence.findByPrimaryKey(
 			templateId);
 
@@ -461,9 +457,7 @@ public class DDMTemplateLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTemplates(long groupId)
-		throws PortalException {
-
+	public void deleteTemplates(long groupId) throws PortalException {
 		List<DDMTemplate> templates = ddmTemplatePersistence.findByGroupId(
 			groupId);
 
@@ -556,9 +550,7 @@ public class DDMTemplateLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public DDMTemplate getTemplate(long templateId)
-		throws PortalException {
-
+	public DDMTemplate getTemplate(long templateId) throws PortalException {
 		return ddmTemplatePersistence.findByPrimaryKey(templateId);
 	}
 

@@ -163,9 +163,7 @@ public class LayoutStagingBackgroundTaskExecutor
 		}
 
 		@Override
-		public MissingReferences call()
-			throws PortalException {
-
+		public MissingReferences call() throws PortalException {
 			File file = null;
 			MissingReferences missingReferences = null;
 

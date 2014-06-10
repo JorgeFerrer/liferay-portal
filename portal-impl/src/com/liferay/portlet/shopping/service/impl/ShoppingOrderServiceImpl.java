@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.shopping.model.ShoppingOrder;
@@ -47,9 +46,7 @@ public class ShoppingOrderServiceImpl extends ShoppingOrderServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteOrder(long groupId, long orderId)
-		throws PortalException {
-
+	public void deleteOrder(long groupId, long orderId) throws PortalException {
 		ShoppingOrderPermission.check(
 			getPermissionChecker(), groupId, orderId, ActionKeys.DELETE);
 

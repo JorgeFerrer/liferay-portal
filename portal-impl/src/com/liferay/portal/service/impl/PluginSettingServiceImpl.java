@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.PluginSetting;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.auth.PrincipalException;

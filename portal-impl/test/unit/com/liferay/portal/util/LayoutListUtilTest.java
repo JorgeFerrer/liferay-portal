@@ -17,7 +17,6 @@ package com.liferay.portal.util;
 import com.germinus.easyconf.ConfigurationSerializer;
 
 import com.liferay.portal.json.JSONArrayImpl;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;

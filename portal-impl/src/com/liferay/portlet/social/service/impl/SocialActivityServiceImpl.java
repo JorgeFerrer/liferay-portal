@@ -16,7 +16,6 @@ package com.liferay.portlet.social.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -262,9 +261,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public SocialActivity getActivity(long activityId)
-		throws PortalException {
-
+	public SocialActivity getActivity(long activityId) throws PortalException {
 		SocialActivity activity = socialActivityLocalService.getActivity(
 			activityId);
 

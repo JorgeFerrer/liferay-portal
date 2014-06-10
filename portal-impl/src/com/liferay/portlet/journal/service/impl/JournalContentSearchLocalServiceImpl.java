@@ -16,7 +16,6 @@ package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -42,9 +41,7 @@ public class JournalContentSearchLocalServiceImpl
 	extends JournalContentSearchLocalServiceBaseImpl {
 
 	@Override
-	public void checkContentSearches(long companyId)
-		throws PortalException {
-
+	public void checkContentSearches(long companyId) throws PortalException {
 		if (_log.isInfoEnabled()) {
 			_log.info("Checking journal content search for " + companyId);
 		}

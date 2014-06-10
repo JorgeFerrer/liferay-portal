@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.liferayrepository;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.SortedArrayList;
 import com.liferay.portal.kernel.util.StringUtil;

@@ -17,7 +17,6 @@ package com.liferay.portlet.documentlibrary.action;
 import com.liferay.portal.DuplicateLockException;
 import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;

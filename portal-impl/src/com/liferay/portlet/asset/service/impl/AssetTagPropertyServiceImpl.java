@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portlet.asset.model.AssetTagProperty;
 import com.liferay.portlet.asset.service.base.AssetTagPropertyServiceBaseImpl;
@@ -64,9 +63,7 @@ public class AssetTagPropertyServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteTagProperty(long tagPropertyId)
-		throws PortalException {
-
+	public void deleteTagProperty(long tagPropertyId) throws PortalException {
 		AssetTagProperty assetTagProperty =
 			assetTagPropertyLocalService.getTagProperty(tagPropertyId);
 

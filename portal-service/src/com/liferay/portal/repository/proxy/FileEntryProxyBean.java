@@ -92,16 +92,12 @@ public class FileEntryProxyBean
 	}
 
 	@Override
-	public InputStream getContentStream()
-		throws PortalException {
-
+	public InputStream getContentStream() throws PortalException {
 		return _fileEntry.getContentStream();
 	}
 
 	@Override
-	public InputStream getContentStream(String version)
-		throws PortalException {
-
+	public InputStream getContentStream(String version) throws PortalException {
 		return _fileEntry.getContentStream(version);
 	}
 
@@ -134,18 +130,14 @@ public class FileEntryProxyBean
 	}
 
 	@Override
-	public FileVersion getFileVersion()
-		throws PortalException {
-
+	public FileVersion getFileVersion() throws PortalException {
 		FileVersion fileVersion = _fileEntry.getFileVersion();
 
 		return newFileVersionProxyBean(fileVersion);
 	}
 
 	@Override
-	public FileVersion getFileVersion(String version)
-		throws PortalException {
-
+	public FileVersion getFileVersion(String version) throws PortalException {
 		FileVersion fileVersion = _fileEntry.getFileVersion(version);
 
 		return newFileVersionProxyBean(fileVersion);
@@ -187,9 +179,7 @@ public class FileEntryProxyBean
 	}
 
 	@Override
-	public FileVersion getLatestFileVersion()
-		throws PortalException {
-
+	public FileVersion getLatestFileVersion() throws PortalException {
 		FileVersion fileVersion = _fileEntry.getLatestFileVersion();
 
 		return newFileVersionProxyBean(fileVersion);

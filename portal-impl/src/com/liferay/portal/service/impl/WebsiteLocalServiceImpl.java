@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.WebsiteURLException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ListTypeConstants;
@@ -86,9 +85,7 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Website deleteWebsite(long websiteId)
-		throws PortalException {
-
+	public Website deleteWebsite(long websiteId) throws PortalException {
 		Website website = websitePersistence.findByPrimaryKey(websiteId);
 
 		return websiteLocalService.deleteWebsite(website);

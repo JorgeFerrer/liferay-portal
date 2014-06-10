@@ -18,7 +18,6 @@ import com.liferay.portal.AddressCityException;
 import com.liferay.portal.AddressStreetException;
 import com.liferay.portal.AddressZipException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Account;
@@ -116,9 +115,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Address deleteAddress(long addressId)
-		throws PortalException {
-
+	public Address deleteAddress(long addressId) throws PortalException {
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
 		return addressLocalService.deleteAddress(address);

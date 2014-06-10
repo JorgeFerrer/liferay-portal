@@ -17,7 +17,6 @@ package com.liferay.portlet.documentlibrary.service.impl;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -250,9 +249,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFileEntry(FileEntry fileEntry)
-		throws PortalException {
-
+	public void deleteFileEntry(FileEntry fileEntry) throws PortalException {
 		if (DLAppHelperThreadLocal.isEnabled()) {
 
 			// Subscriptions
@@ -323,9 +320,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	@Override
-	public void deleteFolder(Folder folder)
-		throws PortalException {
-
+	public void deleteFolder(Folder folder) throws PortalException {
 		if (!DLAppHelperThreadLocal.isEnabled()) {
 			return;
 		}
@@ -604,9 +599,7 @@ public class DLAppHelperLocalServiceImpl
 	}
 
 	@Override
-	public void moveFileEntry(FileEntry fileEntry)
-		throws PortalException {
-
+	public void moveFileEntry(FileEntry fileEntry) throws PortalException {
 		registerDLSyncEventCallback(DLSyncConstants.EVENT_MOVE, fileEntry);
 	}
 

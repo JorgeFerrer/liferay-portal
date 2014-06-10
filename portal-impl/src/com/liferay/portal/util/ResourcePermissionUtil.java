@@ -15,7 +15,6 @@
 package com.liferay.portal.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceBlock;
 import com.liferay.portal.model.ResourceConstants;

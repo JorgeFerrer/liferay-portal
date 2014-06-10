@@ -15,7 +15,6 @@
 package com.liferay.portlet.calendar.util;
 
 import com.liferay.portal.kernel.cal.TZSRecurrence;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;

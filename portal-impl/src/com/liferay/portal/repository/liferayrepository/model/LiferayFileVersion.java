@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.liferayrepository.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
@@ -140,9 +139,7 @@ public class LiferayFileVersion extends LiferayModel implements FileVersion {
 		return _dlFileVersion.getExtraSettings();
 	}
 
-	public File getFile(boolean incrementCounter)
-		throws PortalException {
-
+	public File getFile(boolean incrementCounter) throws PortalException {
 		return DLFileEntryLocalServiceUtil.getFile(
 			_dlFileVersion.getFileEntryId(), _dlFileVersion.getVersion(),
 			incrementCounter);

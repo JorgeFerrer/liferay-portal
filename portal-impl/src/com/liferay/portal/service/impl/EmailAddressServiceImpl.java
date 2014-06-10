@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.EmailAddress;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -64,9 +63,7 @@ public class EmailAddressServiceImpl extends EmailAddressServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEmailAddress(long emailAddressId)
-		throws PortalException {
-
+	public void deleteEmailAddress(long emailAddressId) throws PortalException {
 		EmailAddress emailAddress = emailAddressPersistence.findByPrimaryKey(
 			emailAddressId);
 

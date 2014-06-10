@@ -154,9 +154,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isCheckinButtonVisible()
-		throws PortalException {
-
+	public boolean isCheckinButtonVisible() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			_dlFileEntryActionsDisplayContextHelper.isLockedByMe() &&
 			_dlFileEntryActionsDisplayContextHelper.isSupportsLocking()) {
@@ -167,9 +165,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isCheckoutDocumentButtonVisible()
-		throws PortalException {
-
+	public boolean isCheckoutDocumentButtonVisible() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_dlFileEntryActionsDisplayContextHelper.isCheckedOut() &&
 			_dlFileEntryActionsDisplayContextHelper.isSupportsLocking()) {
@@ -184,9 +180,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isDeleteButtonVisible()
-		throws PortalException {
-
+	public boolean isDeleteButtonVisible() throws PortalException {
 		if (_isFileEntryDeletable() && !_isFileEntryTrashable()) {
 			return true;
 		}
@@ -194,15 +188,11 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isDownloadButtonVisible()
-		throws PortalException {
-
+	public boolean isDownloadButtonVisible() throws PortalException {
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
-	public boolean isEditButtonVisible()
-		throws PortalException {
-
+	public boolean isEditButtonVisible() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
 
@@ -212,9 +202,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isMoveButtonVisible()
-		throws PortalException {
-
+	public boolean isMoveButtonVisible() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasUpdatePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
 
@@ -224,9 +212,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isMoveToTheRecycleBinButtonVisible()
-		throws PortalException {
-
+	public boolean isMoveToTheRecycleBinButtonVisible() throws PortalException {
 		if (!isDeleteButtonVisible() && _isFileEntryDeletable()) {
 			return true;
 		}
@@ -234,9 +220,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isOpenInMsOfficeButtonVisible()
-		throws PortalException {
-
+	public boolean isOpenInMsOfficeButtonVisible() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasViewPermission() &&
 			_dlFileEntryActionsDisplayContextHelper.isOfficeDoc() &&
 			_isWebDAVEnabled() && _isIEOnWin32()) {
@@ -247,9 +231,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	public boolean isPermissionsButtonVisible()
-		throws PortalException {
-
+	public boolean isPermissionsButtonVisible() throws PortalException {
 		return
 			_dlFileEntryActionsDisplayContextHelper.hasPermissionsPermission();
 	}
@@ -284,15 +266,11 @@ public class DLFileEntryActionsDisplayContext {
 		return _isDLFileEntryDraftsEnabled();
 	}
 
-	public boolean isViewButtonVisible()
-		throws PortalException {
-
+	public boolean isViewButtonVisible() throws PortalException {
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
-	public boolean isViewOriginalFileButtonVisible()
-		throws PortalException {
-
+	public boolean isViewOriginalFileButtonVisible() throws PortalException {
 		return _dlFileEntryActionsDisplayContextHelper.hasViewPermission();
 	}
 
@@ -322,9 +300,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	private boolean _isFileEntryDeletable()
-		throws PortalException {
-
+	private boolean _isFileEntryDeletable() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.hasDeletePermission() &&
 			!_isFileEntryCheckedOutByOther()) {
 
@@ -345,9 +321,7 @@ public class DLFileEntryActionsDisplayContext {
 		return false;
 	}
 
-	private boolean _isFileEntryTrashable()
-		throws PortalException {
-
+	private boolean _isFileEntryTrashable() throws PortalException {
 		if (_dlFileEntryActionsDisplayContextHelper.isDLFileEntry() &&
 			_isTrashEnabled()) {
 

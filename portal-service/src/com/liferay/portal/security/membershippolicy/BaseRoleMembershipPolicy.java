@@ -16,7 +16,6 @@ package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 
@@ -79,9 +78,7 @@ public abstract class BaseRoleMembershipPolicy implements RoleMembershipPolicy {
 	}
 
 	@Override
-	public void verifyPolicy(Role role)
-		throws PortalException {
-
+	public void verifyPolicy(Role role) throws PortalException {
 		verifyPolicy(role, null, null);
 	}
 

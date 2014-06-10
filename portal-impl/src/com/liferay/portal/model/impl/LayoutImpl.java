@@ -251,9 +251,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getColorScheme()
-		throws PortalException {
-
+	public ColorScheme getColorScheme() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getColorScheme();
 		}
@@ -527,9 +525,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public ColorScheme getWapColorScheme()
-		throws PortalException {
-
+	public ColorScheme getWapColorScheme() throws PortalException {
 		if (isInheritLookAndFeel()) {
 			return getLayoutSet().getWapColorScheme();
 		}
@@ -552,9 +548,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public boolean hasAncestor(long layoutId)
-		throws PortalException {
-
+	public boolean hasAncestor(long layoutId) throws PortalException {
 		long parentLayoutId = getParentLayoutId();
 
 		while (parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) {
@@ -817,9 +811,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 		super.setTypeSettings(_typeSettingsProperties.toString());
 	}
 
-	protected Theme getTheme(String device)
-		throws PortalException {
-
+	protected Theme getTheme(String device) throws PortalException {
 		if (device.equals("regular")) {
 			return getTheme();
 		}

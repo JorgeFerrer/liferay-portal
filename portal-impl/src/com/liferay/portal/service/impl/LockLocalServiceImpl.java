@@ -20,7 +20,6 @@ import com.liferay.portal.NoSuchLockException;
 import com.liferay.portal.kernel.dao.jdbc.aop.MasterDataSource;
 import com.liferay.portal.kernel.dao.orm.LockMode;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lock.LockListener;
 import com.liferay.portal.kernel.lock.LockListenerRegistryUtil;
 import com.liferay.portal.kernel.transaction.Propagation;
@@ -46,16 +45,12 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Lock getLock(String className, long key)
-		throws PortalException {
-
+	public Lock getLock(String className, long key) throws PortalException {
 		return getLock(className, String.valueOf(key));
 	}
 
 	@Override
-	public Lock getLock(String className, String key)
-		throws PortalException {
-
+	public Lock getLock(String className, String key) throws PortalException {
 		Lock lock = lockPersistence.findByC_K(className, key);
 
 		if (lock.isExpired()) {

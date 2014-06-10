@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -70,9 +69,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteItem(long itemId)
-		throws PortalException {
-
+	public void deleteItem(long itemId) throws PortalException {
 		ShoppingItemPermission.check(
 			getPermissionChecker(), itemId, ActionKeys.DELETE);
 
@@ -86,9 +83,7 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 	}
 
 	@Override
-	public ShoppingItem getItem(long itemId)
-		throws PortalException {
-
+	public ShoppingItem getItem(long itemId) throws PortalException {
 		ShoppingItemPermission.check(
 			getPermissionChecker(), itemId, ActionKeys.VIEW);
 

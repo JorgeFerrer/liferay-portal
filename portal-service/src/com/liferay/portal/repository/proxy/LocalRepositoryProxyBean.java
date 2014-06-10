@@ -15,7 +15,6 @@
 package com.liferay.portal.repository.proxy;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.LocalRepository;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.FileVersion;
@@ -88,23 +87,17 @@ public class LocalRepositoryProxyBean
 	}
 
 	@Override
-	public void deleteFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void deleteFileEntry(long fileEntryId) throws PortalException {
 		_localRepository.deleteFileEntry(fileEntryId);
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		_localRepository.deleteFolder(folderId);
 	}
 
 	@Override
-	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public FileEntry getFileEntry(long fileEntryId) throws PortalException {
 		FileEntry fileEntry = _localRepository.getFileEntry(fileEntryId);
 
 		return newFileEntryProxyBean(fileEntry);
@@ -120,9 +113,7 @@ public class LocalRepositoryProxyBean
 	}
 
 	@Override
-	public FileEntry getFileEntryByUuid(String uuid)
-		throws PortalException {
-
+	public FileEntry getFileEntryByUuid(String uuid) throws PortalException {
 		FileEntry fileEntry = _localRepository.getFileEntryByUuid(uuid);
 
 		return newFileEntryProxyBean(fileEntry);
@@ -139,9 +130,7 @@ public class LocalRepositoryProxyBean
 	}
 
 	@Override
-	public Folder getFolder(long folderId)
-		throws PortalException {
-
+	public Folder getFolder(long folderId) throws PortalException {
 		Folder folder = _localRepository.getFolder(folderId);
 
 		return newFolderProxyBean(folder);

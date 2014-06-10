@@ -15,7 +15,6 @@
 package com.liferay.portal.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 
@@ -42,18 +41,14 @@ public class UserGroupImpl extends UserGroupBaseImpl {
 	}
 
 	@Override
-	public int getPrivateLayoutsPageCount()
-		throws PortalException {
-
+	public int getPrivateLayoutsPageCount() throws PortalException {
 		Group group = getGroup();
 
 		return group.getPrivateLayoutsPageCount();
 	}
 
 	@Override
-	public int getPublicLayoutsPageCount()
-		throws PortalException {
-
+	public int getPublicLayoutsPageCount() throws PortalException {
 		Group group = getGroup();
 
 		return group.getPublicLayoutsPageCount();

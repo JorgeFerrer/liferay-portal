@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.Contact;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -31,9 +30,7 @@ import java.util.List;
 public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	@Override
-	public Contact getContact(long contactId)
-		throws PortalException {
-
+	public Contact getContact(long contactId) throws PortalException {
 		Contact contact = contactPersistence.findByPrimaryKey(contactId);
 
 		CommonPermissionUtil.check(

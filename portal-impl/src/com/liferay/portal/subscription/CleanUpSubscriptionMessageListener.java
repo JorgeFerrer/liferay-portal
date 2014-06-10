@@ -16,7 +16,6 @@ package com.liferay.portal.subscription;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
@@ -194,8 +193,7 @@ public class CleanUpSubscriptionMessageListener extends BaseMessageListener {
 		throw new PortalException();
 	}
 
-	protected void processUser(User user, long groupId)
-		throws PortalException {
+	protected void processUser(User user, long groupId) throws PortalException {
 
 		// Get the list of groups the current user is still a member of and
 		// verify that subscriptions outside those groups are automatically

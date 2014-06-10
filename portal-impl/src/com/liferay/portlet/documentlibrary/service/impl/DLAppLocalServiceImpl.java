@@ -386,18 +386,14 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteAll(long repositoryId)
-		throws PortalException {
-
+	public void deleteAll(long repositoryId) throws PortalException {
 		LocalRepository localRepository = getLocalRepository(repositoryId);
 
 		deleteRepository(localRepository);
 	}
 
 	@Override
-	public void deleteAllRepositories(long groupId)
-		throws PortalException {
-
+	public void deleteAllRepositories(long groupId) throws PortalException {
 		List<LocalRepository> localRepositories =
 			repositoryLocalService.getGroupLocalRepositoryImpl(groupId);
 
@@ -414,9 +410,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void deleteFileEntry(long fileEntryId) throws PortalException {
 		LocalRepository localRepository = getFileEntryLocalRepository(
 			fileEntryId);
 
@@ -476,9 +470,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileShortcut(long fileShortcutId)
-		throws PortalException {
-
+	public void deleteFileShortcut(long fileShortcutId) throws PortalException {
 		dlFileShortcutLocalService.deleteFileShortcut(fileShortcutId);
 	}
 
@@ -492,9 +484,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileShortcuts(long toFileEntryId)
-		throws PortalException {
-
+	public void deleteFileShortcuts(long toFileEntryId) throws PortalException {
 		dlFileShortcutLocalService.deleteFileShortcuts(toFileEntryId);
 	}
 
@@ -506,9 +496,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		LocalRepository localRepository = getFolderLocalRepository(folderId);
 
 		List<FileEntry> fileEntries =
@@ -535,9 +523,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public FileEntry getFileEntry(long fileEntryId) throws PortalException {
 		LocalRepository localRepository = getFileEntryLocalRepository(
 			fileEntryId);
 
@@ -676,9 +662,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Folder getFolder(long folderId)
-		throws PortalException {
-
+	public Folder getFolder(long folderId) throws PortalException {
 		LocalRepository localRepository = getFolderLocalRepository(folderId);
 
 		return localRepository.getFolder(folderId);
@@ -714,9 +698,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Folder getMountFolder(long repositoryId)
-		throws PortalException {
-
+	public Folder getMountFolder(long repositoryId) throws PortalException {
 		DLFolder dlFolder = dlFolderLocalService.getMountFolder(repositoryId);
 
 		return new LiferayFolder(dlFolder);

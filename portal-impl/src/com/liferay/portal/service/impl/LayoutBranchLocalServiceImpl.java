@@ -17,7 +17,6 @@ package com.liferay.portal.service.impl;
 import com.liferay.portal.LayoutBranchNameException;
 import com.liferay.portal.NoSuchLayoutBranchException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;

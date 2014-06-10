@@ -16,7 +16,6 @@ package com.liferay.portlet.messageboards.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.increment.BufferedIncrement;
 import com.liferay.portal.kernel.increment.NumberIncrement;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -132,9 +131,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteThread(long threadId)
-		throws PortalException {
-
+	public void deleteThread(long threadId) throws PortalException {
 		MBThread thread = mbThreadPersistence.findByPrimaryKey(threadId);
 
 		mbThreadLocalService.deleteThread(thread);
@@ -144,9 +141,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteThread(MBThread thread)
-		throws PortalException {
-
+	public void deleteThread(MBThread thread) throws PortalException {
 		MBMessage rootMessage = mbMessagePersistence.findByPrimaryKey(
 			thread.getRootMessageId());
 
@@ -596,9 +591,7 @@ public class MBThreadLocalServiceImpl extends MBThreadLocalServiceBaseImpl {
 	}
 
 	@Override
-	public MBThread getThread(long threadId)
-		throws PortalException {
-
+	public MBThread getThread(long threadId) throws PortalException {
 		return mbThreadPersistence.findByPrimaryKey(threadId);
 	}
 

@@ -16,7 +16,6 @@ package com.liferay.portal.security.permission;
 
 import com.liferay.portal.NoSuchResourceActionException;
 import com.liferay.portal.kernel.bean.BeanReference;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;

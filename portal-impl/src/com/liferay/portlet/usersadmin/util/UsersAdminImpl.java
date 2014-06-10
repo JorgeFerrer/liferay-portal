@@ -16,7 +16,6 @@ package com.liferay.portlet.usersadmin.util;
 
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -926,9 +925,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	}
 
 	@Override
-	public List<UserGroup> getUserGroups(Hits hits)
-		throws PortalException {
-
+	public List<UserGroup> getUserGroups(Hits hits) throws PortalException {
 		List<Document> documents = hits.toList();
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>(documents.size());
@@ -994,9 +991,7 @@ public class UsersAdminImpl implements UsersAdmin {
 	}
 
 	@Override
-	public List<User> getUsers(Hits hits)
-		throws PortalException {
-
+	public List<User> getUsers(Hits hits) throws PortalException {
 		List<Document> documents = hits.toList();
 
 		List<User> users = new ArrayList<User>(documents.size());

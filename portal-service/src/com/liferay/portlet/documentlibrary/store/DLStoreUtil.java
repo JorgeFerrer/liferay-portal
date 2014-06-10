@@ -16,7 +16,6 @@ package com.liferay.portlet.documentlibrary.store;
 
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 import java.io.File;

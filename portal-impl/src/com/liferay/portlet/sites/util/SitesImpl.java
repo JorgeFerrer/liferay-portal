@@ -17,7 +17,6 @@ package com.liferay.portlet.sites.util;
 import com.liferay.portal.RequiredLayoutException;
 import com.liferay.portal.events.EventsProcessorUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.lar.UserIdStrategy;
@@ -1294,9 +1293,7 @@ public class SitesImpl implements Sites {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void resetPrototype(Layout layout)
-		throws PortalException {
-
+	public void resetPrototype(Layout layout) throws PortalException {
 		checkResetPrototypePermissions(layout.getGroup(), layout);
 
 		doResetPrototype(layout);
@@ -1313,9 +1310,7 @@ public class SitesImpl implements Sites {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void resetPrototype(LayoutSet layoutSet)
-		throws PortalException {
-
+	public void resetPrototype(LayoutSet layoutSet) throws PortalException {
 		checkResetPrototypePermissions(layoutSet.getGroup(), null);
 
 		doResetPrototype(layoutSet);
@@ -1618,9 +1613,7 @@ public class SitesImpl implements Sites {
 	 *         portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	protected void doResetPrototype(Layout layout)
-		throws PortalException {
-
+	protected void doResetPrototype(Layout layout) throws PortalException {
 		layout.setModifiedDate(null);
 
 		LayoutLocalServiceUtil.updateLayout(layout);

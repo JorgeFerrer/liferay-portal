@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructureLink;
 import com.liferay.portlet.dynamicdatamapping.service.base.DDMStructureLinkLocalServiceBaseImpl;
@@ -49,9 +48,7 @@ public class DDMStructureLinkLocalServiceImpl
 	}
 
 	@Override
-	public void deleteClassStructureLink(long classPK)
-		throws PortalException {
-
+	public void deleteClassStructureLink(long classPK) throws PortalException {
 		DDMStructureLink structureLink =
 			ddmStructureLinkPersistence.findByClassPK(classPK);
 

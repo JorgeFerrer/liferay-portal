@@ -16,7 +16,6 @@ package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.PortletRequestModel;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -452,9 +451,7 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JournalArticle getArticle(long id)
-		throws PortalException {
-
+	public JournalArticle getArticle(long id) throws PortalException {
 		JournalArticle article = journalArticleLocalService.getArticle(id);
 
 		JournalArticlePermission.check(

@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.mobiledevicerules.model.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.mobiledevicerules.model.MDRRule;
 import com.liferay.portlet.mobiledevicerules.service.MDRRuleLocalServiceUtil;
 

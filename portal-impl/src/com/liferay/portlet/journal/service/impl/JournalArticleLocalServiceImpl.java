@@ -1141,9 +1141,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteArticles(long groupId)
-		throws PortalException {
-
+	public void deleteArticles(long groupId) throws PortalException {
 		SystemEventHierarchyEntryThreadLocal.push(JournalArticle.class);
 
 		List<JournalArticleResource> articleResources =
@@ -1447,9 +1445,7 @@ public class JournalArticleLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JournalArticle getArticle(long id)
-		throws PortalException {
-
+	public JournalArticle getArticle(long id) throws PortalException {
 		return journalArticlePersistence.findByPrimaryKey(id);
 	}
 

@@ -16,7 +16,6 @@ package com.liferay.portal.security.membershippolicy;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
@@ -260,9 +259,7 @@ public abstract class BaseOrganizationMembershipPolicy
 	}
 
 	@Override
-	public void verifyPolicy(Organization organization)
-		throws PortalException {
-
+	public void verifyPolicy(Organization organization) throws PortalException {
 		verifyPolicy(organization, null, null, null, null);
 	}
 

@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatalists.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -141,8 +140,7 @@ public class DDLRecordSetLocalServiceImpl
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteRecordSet(DDLRecordSet recordSet)
-		throws PortalException {
+	public void deleteRecordSet(DDLRecordSet recordSet) throws PortalException {
 
 		// Record set
 
@@ -171,9 +169,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRecordSet(long recordSetId)
-		throws PortalException {
-
+	public void deleteRecordSet(long recordSetId) throws PortalException {
 		DDLRecordSet recordSet = ddlRecordSetPersistence.findByPrimaryKey(
 			recordSetId);
 
@@ -191,9 +187,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRecordSets(long groupId)
-		throws PortalException {
-
+	public void deleteRecordSets(long groupId) throws PortalException {
 		List<DDLRecordSet> recordSets = ddlRecordSetPersistence.findByGroupId(
 			groupId);
 
@@ -215,9 +209,7 @@ public class DDLRecordSetLocalServiceImpl
 	}
 
 	@Override
-	public DDLRecordSet getRecordSet(long recordSetId)
-		throws PortalException {
-
+	public DDLRecordSet getRecordSet(long recordSetId) throws PortalException {
 		return ddlRecordSetPersistence.findByPrimaryKey(recordSetId);
 	}
 

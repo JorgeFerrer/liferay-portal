@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskResult;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatus;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusRegistryUtil;
 import com.liferay.portal.kernel.backgroundtask.BaseBackgroundTaskExecutor;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;

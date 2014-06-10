@@ -16,7 +16,6 @@ package com.liferay.portlet.messageboards.service.impl;
 
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -248,9 +247,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public MBCategory getCategory(long categoryId)
-		throws PortalException {
-
+	public MBCategory getCategory(long categoryId) throws PortalException {
 		MBCategory category = mbCategoryPersistence.findByPrimaryKey(
 			categoryId);
 

@@ -590,9 +590,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkCompanyGroup(long companyId)
-		throws PortalException {
-
+	public void checkCompanyGroup(long companyId) throws PortalException {
 		long classNameId = classNameLocalService.getClassNameId(Company.class);
 
 		int count = groupPersistence.countByC_C_C(
@@ -621,9 +619,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public void checkSystemGroups(long companyId)
-		throws PortalException {
-
+	public void checkSystemGroups(long companyId) throws PortalException {
 		String companyIdHexString = StringUtil.toHexString(companyId);
 
 		for (Group group : groupFinder.findBySystem(companyId)) {
@@ -720,9 +716,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group deleteGroup(Group group)
-		throws PortalException {
-
+	public Group deleteGroup(Group group) throws PortalException {
 		boolean deleteInProcess = GroupThreadLocal.isDeleteInProcess();
 
 		try {
@@ -985,9 +979,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group deleteGroup(long groupId)
-		throws PortalException {
-
+	public Group deleteGroup(long groupId) throws PortalException {
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
 		return deleteGroup(group);
@@ -1133,9 +1125,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group getCompanyGroup(long companyId)
-		throws PortalException {
-
+	public Group getCompanyGroup(long companyId) throws PortalException {
 		long classNameId = classNameLocalService.getClassNameId(Company.class);
 
 		return groupPersistence.findByC_C_C(companyId, classNameId, companyId);
@@ -1221,9 +1211,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	@ThreadLocalCachable
-	public Group getGroup(long groupId)
-		throws PortalException {
-
+	public Group getGroup(long groupId) throws PortalException {
 		return groupPersistence.findByPrimaryKey(groupId);
 	}
 
@@ -1238,9 +1226,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 */
 	@Override
 	@Skip
-	public Group getGroup(long companyId, String name)
-		throws PortalException {
-
+	public Group getGroup(long companyId, String name) throws PortalException {
 		Group group = _systemGroupsMap.get(
 			StringUtil.toHexString(companyId).concat(name));
 
@@ -1413,9 +1399,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getGroups(long[] groupIds)
-		throws PortalException {
-
+	public List<Group> getGroups(long[] groupIds) throws PortalException {
 		List<Group> groups = new ArrayList<Group>(groupIds.length);
 
 		for (long groupId : groupIds) {
@@ -1750,9 +1734,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<Group> getParentGroups(long groupId)
-		throws PortalException {
-
+	public List<Group> getParentGroups(long groupId) throws PortalException {
 		if (groupId == GroupConstants.DEFAULT_PARENT_GROUP_ID) {
 			return new ArrayList<Group>();
 		}
@@ -1771,9 +1753,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group getStagingGroup(long liveGroupId)
-		throws PortalException {
-
+	public Group getStagingGroup(long liveGroupId) throws PortalException {
 		return groupPersistence.findByLiveGroupId(liveGroupId);
 	}
 
@@ -2007,9 +1987,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Group> getUserSitesGroups(long userId)
-		throws PortalException {
-
+	public List<Group> getUserSitesGroups(long userId) throws PortalException {
 		User user = userPersistence.findByPrimaryKey(userId);
 
 		LinkedHashMap<String, Object> groupParams =
@@ -2163,9 +2141,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void rebuildTree(long companyId)
-		throws PortalException {
-
+	public void rebuildTree(long companyId) throws PortalException {
 		TreePathUtil.rebuildTree(
 			companyId, GroupConstants.DEFAULT_PARENT_GROUP_ID,
 			new TreeModelFinder<Group>() {
@@ -3564,9 +3540,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Group updateSite(long groupId, boolean site)
-		throws PortalException {
-
+	public Group updateSite(long groupId, boolean site) throws PortalException {
 		Group group = groupPersistence.findByPrimaryKey(groupId);
 
 		if (!group.isOrganization()) {
@@ -3580,9 +3554,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return group;
 	}
 
-	protected void addControlPanelLayouts(Group group)
-		throws PortalException {
-
+	protected void addControlPanelLayouts(Group group) throws PortalException {
 		long defaultUserId = userLocalService.getDefaultUserId(
 			group.getCompanyId());
 
@@ -3734,9 +3706,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			defaultUserId, group.getGroupId(), false, parameterMap, larFile);
 	}
 
-	protected void addPortletDefaultData(Group group)
-		throws PortalException {
-
+	protected void addPortletDefaultData(Group group) throws PortalException {
 		PortletDataContext portletDataContext =
 			PortletDataContextFactoryUtil.createPreparePortletDataContext(
 				group.getCompanyId(), group.getGroupId(), null, null);
@@ -3763,9 +3733,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 	}
 
-	protected void deletePortletData(Group group)
-		throws PortalException {
-
+	protected void deletePortletData(Group group) throws PortalException {
 		PortletDataContext portletDataContext =
 			PortletDataContextFactoryUtil.createPreparePortletDataContext(
 				group.getCompanyId(), group.getGroupId(), null, null);

@@ -15,7 +15,6 @@
 package com.liferay.portlet.documentlibrary.model.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringPool;
@@ -40,9 +39,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 	}
 
 	@Override
-	public List<Long> getAncestorFolderIds()
-		throws PortalException {
-
+	public List<Long> getAncestorFolderIds() throws PortalException {
 		List<Long> ancestorFolderIds = new ArrayList<Long>();
 
 		DLFolder folder = this;
@@ -66,9 +63,7 @@ public class DLFolderImpl extends DLFolderBaseImpl {
 	}
 
 	@Override
-	public List<DLFolder> getAncestors()
-		throws PortalException {
-
+	public List<DLFolder> getAncestors() throws PortalException {
 		List<DLFolder> ancestors = new ArrayList<DLFolder>();
 
 		DLFolder folder = this;

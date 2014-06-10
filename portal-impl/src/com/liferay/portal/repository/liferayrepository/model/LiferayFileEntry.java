@@ -137,9 +137,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public InputStream getContentStream()
-		throws PortalException {
-
+	public InputStream getContentStream() throws PortalException {
 		InputStream inputStream = _dlFileEntry.getContentStream();
 
 		try {
@@ -154,9 +152,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public InputStream getContentStream(String version)
-		throws PortalException {
-
+	public InputStream getContentStream(String version) throws PortalException {
 		InputStream inputStream = _dlFileEntry.getContentStream(version);
 
 		try {
@@ -200,9 +196,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public FileVersion getFileVersion()
-		throws PortalException {
-
+	public FileVersion getFileVersion() throws PortalException {
 		DLFileVersion dlFileVersion = _dlFileVersion;
 
 		if (dlFileVersion == null) {
@@ -213,9 +207,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public FileVersion getFileVersion(String version)
-		throws PortalException {
-
+	public FileVersion getFileVersion(String version) throws PortalException {
 		return new LiferayFileVersion(_dlFileEntry.getFileVersion(version));
 	}
 
@@ -261,9 +253,7 @@ public class LiferayFileEntry extends LiferayModel implements FileEntry {
 	}
 
 	@Override
-	public FileVersion getLatestFileVersion()
-		throws PortalException {
-
+	public FileVersion getLatestFileVersion() throws PortalException {
 		return getLatestFileVersion(false);
 	}
 

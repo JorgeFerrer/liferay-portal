@@ -15,7 +15,6 @@
 package com.liferay.portlet.blogs.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Group;
@@ -43,9 +42,7 @@ public class BlogsStatsUserLocalServiceImpl
 	}
 
 	@Override
-	public void deleteStatsUser(long statsUserId)
-		throws PortalException {
-
+	public void deleteStatsUser(long statsUserId) throws PortalException {
 		BlogsStatsUser statsUsers = blogsStatsUserPersistence.findByPrimaryKey(
 			statsUserId);
 

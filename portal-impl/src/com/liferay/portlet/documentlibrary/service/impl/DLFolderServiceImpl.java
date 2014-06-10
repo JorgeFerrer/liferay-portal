@@ -18,7 +18,6 @@ import com.liferay.portal.ExpiredLockException;
 import com.liferay.portal.NoSuchLockException;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Lock;
@@ -58,9 +57,7 @@ public class DLFolderServiceImpl extends DLFolderServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		deleteFolder(folderId, true);
 	}
 
@@ -139,9 +136,7 @@ public class DLFolderServiceImpl extends DLFolderServiceBaseImpl {
 	}
 
 	@Override
-	public DLFolder getFolder(long folderId)
-		throws PortalException {
-
+	public DLFolder getFolder(long folderId) throws PortalException {
 		DLFolder dlFolder = dlFolderLocalService.getFolder(folderId);
 
 		DLFolderPermission.check(
@@ -409,17 +404,13 @@ public class DLFolderServiceImpl extends DLFolderServiceBaseImpl {
 	}
 
 	@Override
-	public boolean hasFolderLock(long folderId)
-		throws PortalException {
-
+	public boolean hasFolderLock(long folderId) throws PortalException {
 		return lockLocalService.hasLock(
 			getUserId(), DLFolder.class.getName(), folderId);
 	}
 
 	@Override
-	public boolean hasInheritableLock(long folderId)
-		throws PortalException {
-
+	public boolean hasInheritableLock(long folderId) throws PortalException {
 		boolean inheritable = false;
 
 		try {
@@ -442,9 +433,7 @@ public class DLFolderServiceImpl extends DLFolderServiceBaseImpl {
 	}
 
 	@Override
-	public Lock lockFolder(long folderId)
-		throws PortalException {
-
+	public Lock lockFolder(long folderId) throws PortalException {
 		return lockFolder(
 			folderId, null, false, DLFolderImpl.LOCK_EXPIRATION_TIME);
 	}

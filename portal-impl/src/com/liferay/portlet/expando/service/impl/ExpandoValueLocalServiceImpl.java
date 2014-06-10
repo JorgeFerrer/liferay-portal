@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
@@ -1122,18 +1121,14 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public void deleteValue(long valueId)
-		throws PortalException {
-
+	public void deleteValue(long valueId) throws PortalException {
 		ExpandoValue value = expandoValuePersistence.findByPrimaryKey(valueId);
 
 		deleteValue(value);
 	}
 
 	@Override
-	public void deleteValue(long columnId, long rowId)
-		throws PortalException {
-
+	public void deleteValue(long columnId, long rowId) throws PortalException {
 		ExpandoValue value = expandoValuePersistence.findByC_R(columnId, rowId);
 
 		deleteValue(value);
@@ -2139,9 +2134,7 @@ public class ExpandoValueLocalServiceImpl
 	}
 
 	@Override
-	public ExpandoValue getValue(long valueId)
-		throws PortalException {
-
+	public ExpandoValue getValue(long valueId) throws PortalException {
 		return expandoValuePersistence.findByPrimaryKey(valueId);
 	}
 

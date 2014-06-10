@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebServiceMode;
 import com.liferay.portal.kernel.util.GetterUtil;

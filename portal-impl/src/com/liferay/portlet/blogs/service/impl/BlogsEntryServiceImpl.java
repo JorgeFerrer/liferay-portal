@@ -87,9 +87,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteEntry(long entryId)
-		throws PortalException {
-
+	public void deleteEntry(long entryId) throws PortalException {
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
 
@@ -158,9 +156,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public BlogsEntry getEntry(long entryId)
-		throws PortalException {
-
+	public BlogsEntry getEntry(long entryId) throws PortalException {
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.VIEW);
 
@@ -369,9 +365,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public BlogsEntry moveEntryToTrash(long entryId)
-		throws PortalException {
-
+	public BlogsEntry moveEntryToTrash(long entryId) throws PortalException {
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
 
@@ -379,9 +373,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreEntryFromTrash(long entryId)
-		throws PortalException {
-
+	public void restoreEntryFromTrash(long entryId) throws PortalException {
 		BlogsEntryPermission.check(
 			getPermissionChecker(), entryId, ActionKeys.DELETE);
 
@@ -389,9 +381,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribe(long groupId)
-		throws PortalException {
-
+	public void subscribe(long groupId) throws PortalException {
 		BlogsPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
 
@@ -399,9 +389,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public void unsubscribe(long groupId)
-		throws PortalException {
-
+	public void unsubscribe(long groupId) throws PortalException {
 		BlogsPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.SUBSCRIBE);
 

@@ -15,7 +15,6 @@
 package com.liferay.portlet.softwarecatalog.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.softwarecatalog.LicenseNameException;
 import com.liferay.portlet.softwarecatalog.RequiredLicenseException;
@@ -54,9 +53,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteLicense(long licenseId)
-		throws PortalException {
-
+	public void deleteLicense(long licenseId) throws PortalException {
 		SCLicense license = scLicensePersistence.findByPrimaryKey(licenseId);
 
 		if (scLicensePersistence.getSCProductEntriesSize(licenseId) > 0) {
@@ -72,9 +69,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 	}
 
 	@Override
-	public SCLicense getLicense(long licenseId)
-		throws PortalException {
-
+	public SCLicense getLicense(long licenseId) throws PortalException {
 		return scLicensePersistence.findByPrimaryKey(licenseId);
 	}
 

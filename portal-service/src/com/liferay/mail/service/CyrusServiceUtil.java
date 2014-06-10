@@ -15,7 +15,6 @@
 package com.liferay.mail.service;
 
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**

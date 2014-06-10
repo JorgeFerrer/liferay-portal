@@ -15,7 +15,6 @@
 package com.liferay.portlet.blogs.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.BaseTrashHandler;
 import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.security.permission.PermissionChecker;
@@ -39,9 +38,7 @@ import javax.portlet.PortletURL;
 public class BlogsEntryTrashHandler extends BaseTrashHandler {
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		BlogsEntryLocalServiceUtil.deleteEntry(classPK);
 	}
 
@@ -86,9 +83,7 @@ public class BlogsEntryTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		BlogsEntry entry = BlogsEntryLocalServiceUtil.getEntry(classPK);
 
 		return entry.isInTrash();

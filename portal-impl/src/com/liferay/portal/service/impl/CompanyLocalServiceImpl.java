@@ -171,9 +171,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company checkCompany(String webId)
-		throws PortalException {
-
+	public Company checkCompany(String webId) throws PortalException {
 		String mx = webId;
 
 		return companyLocalService.checkCompany(
@@ -435,9 +433,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void checkCompanyKey(long companyId)
-		throws PortalException {
-
+	public void checkCompanyKey(long companyId) throws PortalException {
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
 		if (company.getKeyObj() != null) {
@@ -455,9 +451,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Company deleteCompany(long companyId)
-		throws PortalException {
-
+	public Company deleteCompany(long companyId) throws PortalException {
 		if (companyId == PortalInstances.getDefaultCompanyId()) {
 			throw new RequiredCompanyException();
 		}
@@ -487,9 +481,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company deleteLogo(long companyId)
-		throws PortalException {
-
+	public Company deleteLogo(long companyId) throws PortalException {
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
 		PortalUtil.updateImageId(company, false, null, "logoId", 0, 0, 0);
@@ -586,9 +578,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyById(long companyId)
-		throws PortalException {
-
+	public Company getCompanyById(long companyId) throws PortalException {
 		return companyPersistence.findByPrimaryKey(companyId);
 	}
 
@@ -601,9 +591,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByLogoId(long logoId)
-		throws PortalException {
-
+	public Company getCompanyByLogoId(long logoId) throws PortalException {
 		return companyPersistence.findByLogoId(logoId);
 	}
 
@@ -617,9 +605,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByMx(String mx)
-		throws PortalException {
-
+	public Company getCompanyByMx(String mx) throws PortalException {
 		return companyPersistence.findByMx(mx);
 	}
 
@@ -667,9 +653,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Company getCompanyByWebId(String webId)
-		throws PortalException {
-
+	public Company getCompanyByWebId(String webId) throws PortalException {
 		return companyPersistence.findByWebId(webId);
 	}
 
@@ -1239,9 +1223,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		}
 	}
 
-	protected Company checkLogo(long companyId)
-		throws PortalException {
-
+	protected Company checkLogo(long companyId) throws PortalException {
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
 		long logoId = company.getLogoId();
@@ -1637,9 +1619,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 				});
 		}
 
-		protected void deleteGroup(Group group)
-			throws PortalException {
-
+		protected void deleteGroup(Group group) throws PortalException {
 			DeleteGroupActionableDynamicQuery
 				deleteGroupActionableDynamicQuery =
 					new DeleteGroupActionableDynamicQuery();
@@ -1656,9 +1636,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			LiveUsers.deleteGroup(group.getCompanyId(), group.getGroupId());
 		}
 
-		protected void performActions()
-			throws PortalException {
-
+		protected void performActions() throws PortalException {
 			_actionableDynamicQuery.performActions();
 		}
 
@@ -1726,9 +1704,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			organizationLocalService.deleteOrganization(organization);
 		}
 
-		protected void performActions()
-			throws PortalException {
-
+		protected void performActions() throws PortalException {
 			_actionableDynamicQuery.performActions();
 		}
 

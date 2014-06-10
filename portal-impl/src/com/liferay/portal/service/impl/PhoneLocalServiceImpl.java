@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.PhoneNumberException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.format.PhoneNumberFormatUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.Validator;
@@ -92,9 +91,7 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Phone deletePhone(long phoneId)
-		throws PortalException {
-
+	public Phone deletePhone(long phoneId) throws PortalException {
 		Phone phone = phonePersistence.findByPrimaryKey(phoneId);
 
 		return phoneLocalService.deletePhone(phone);

@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mail.Account;
 import com.liferay.portal.kernel.mail.SMTPAccount;
 import com.liferay.portal.kernel.util.GetterUtil;

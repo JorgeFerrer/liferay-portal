@@ -16,7 +16,6 @@ package com.liferay.portlet.asset.util;
 
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ClassNameLocalServiceUtil;

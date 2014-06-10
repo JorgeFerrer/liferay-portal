@@ -15,7 +15,6 @@
 package com.liferay.portlet.documentlibrary.store;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 
 import java.io.File;
 import java.io.InputStream;

@@ -15,7 +15,6 @@
 package com.liferay.portlet.shopping.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -122,9 +121,7 @@ public class ShoppingCouponLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCoupon(long couponId)
-		throws PortalException {
-
+	public void deleteCoupon(long couponId) throws PortalException {
 		ShoppingCoupon coupon = shoppingCouponPersistence.findByPrimaryKey(
 			couponId);
 
@@ -147,16 +144,12 @@ public class ShoppingCouponLocalServiceImpl
 	}
 
 	@Override
-	public ShoppingCoupon getCoupon(long couponId)
-		throws PortalException {
-
+	public ShoppingCoupon getCoupon(long couponId) throws PortalException {
 		return shoppingCouponPersistence.findByPrimaryKey(couponId);
 	}
 
 	@Override
-	public ShoppingCoupon getCoupon(String code)
-		throws PortalException {
-
+	public ShoppingCoupon getCoupon(String code) throws PortalException {
 		code = StringUtil.toUpperCase(code.trim());
 
 		return shoppingCouponPersistence.findByCode(code);

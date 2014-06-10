@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.kernel.util.Validator;
@@ -63,9 +62,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public void deleteTrashEntry(long classPK)
-		throws PortalException {
-
+	public void deleteTrashEntry(long classPK) throws PortalException {
 		JournalFolderLocalServiceUtil.deleteFolder(classPK, false);
 	}
 
@@ -127,18 +124,14 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
 		return folder.getTrashEntry();
 	}
 
 	@Override
-	public TrashRenderer getTrashRenderer(long classPK)
-		throws PortalException {
-
+	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
 		return new JournalFolderAssetRenderer(folder);
@@ -165,27 +158,21 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
 		return folder.isInTrash();
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		JournalFolder folder = getJournalFolder(classPK);
 
 		return folder.isInTrashContainer();
 	}
 
 	@Override
-	public boolean isRestorable(long classPK)
-		throws PortalException {
-
+	public boolean isRestorable(long classPK) throws PortalException {
 		JournalFolder folder = getJournalFolder(classPK);
 
 		if ((folder.getParentFolderId() > 0) &&
@@ -226,9 +213,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	public void updateTitle(long classPK, String name)
-		throws PortalException {
-
+	public void updateTitle(long classPK, String name) throws PortalException {
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
 		folder.setName(name);
@@ -288,9 +273,7 @@ public class JournalFolderTrashHandler extends JournalBaseTrashHandler {
 	}
 
 	@Override
-	protected long getGroupId(long classPK)
-		throws PortalException {
-
+	protected long getGroupId(long classPK) throws PortalException {
 		JournalFolder folder = JournalFolderLocalServiceUtil.getFolder(classPK);
 
 		return folder.getGroupId();

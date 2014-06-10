@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.util.PortletKeys;
@@ -53,9 +52,7 @@ public class ExpandoColumnServiceImpl extends ExpandoColumnServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteColumn(long columnId)
-		throws PortalException {
-
+	public void deleteColumn(long columnId) throws PortalException {
 		ExpandoColumnPermissionUtil.check(
 			getPermissionChecker(), columnId, ActionKeys.DELETE);
 

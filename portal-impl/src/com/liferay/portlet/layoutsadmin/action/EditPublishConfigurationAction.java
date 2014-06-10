@@ -16,7 +16,6 @@ package com.liferay.portlet.layoutsadmin.action;
 
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationConstants;
 import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationHelper;
 import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationSettingsMapFactory;

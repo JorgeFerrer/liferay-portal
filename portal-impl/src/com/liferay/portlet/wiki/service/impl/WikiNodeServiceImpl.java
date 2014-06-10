@@ -15,7 +15,6 @@
 package com.liferay.portlet.wiki.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -54,9 +53,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteNode(long nodeId)
-		throws PortalException {
-
+	public void deleteNode(long nodeId) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.DELETE);
 
@@ -64,9 +61,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public WikiNode getNode(long nodeId)
-		throws PortalException {
-
+	public WikiNode getNode(long nodeId) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.VIEW);
 
@@ -74,9 +69,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public WikiNode getNode(long groupId, String name)
-		throws PortalException {
-
+	public WikiNode getNode(long groupId, String name) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), groupId, name, ActionKeys.VIEW);
 
@@ -84,9 +77,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiNode> getNodes(long groupId)
-		throws PortalException {
-
+	public List<WikiNode> getNodes(long groupId) throws PortalException {
 		return getNodes(groupId, WorkflowConstants.STATUS_APPROVED);
 	}
 
@@ -151,9 +142,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public WikiNode moveNodeToTrash(long nodeId)
-		throws PortalException {
-
+	public WikiNode moveNodeToTrash(long nodeId) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.DELETE);
 
@@ -161,9 +150,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreNodeFromTrash(long nodeId)
-		throws PortalException {
-
+	public void restoreNodeFromTrash(long nodeId) throws PortalException {
 		WikiNode node = wikiNodeLocalService.getNode(nodeId);
 
 		WikiNodePermission.check(
@@ -173,9 +160,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribeNode(long nodeId)
-		throws PortalException {
-
+	public void subscribeNode(long nodeId) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.SUBSCRIBE);
 
@@ -183,9 +168,7 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public void unsubscribeNode(long nodeId)
-		throws PortalException {
-
+	public void unsubscribeNode(long nodeId) throws PortalException {
 		WikiNodePermission.check(
 			getPermissionChecker(), nodeId, ActionKeys.SUBSCRIBE);
 

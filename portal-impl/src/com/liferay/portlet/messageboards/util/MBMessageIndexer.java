@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
@@ -513,9 +512,7 @@ public class MBMessageIndexer extends BaseIndexer {
 		actionableDynamicQuery.performActions();
 	}
 
-	protected void reindexRoot(final long companyId)
-		throws PortalException {
-
+	protected void reindexRoot(final long companyId) throws PortalException {
 		ActionableDynamicQuery actionableDynamicQuery =
 			GroupLocalServiceUtil.getActionableDynamicQuery();
 

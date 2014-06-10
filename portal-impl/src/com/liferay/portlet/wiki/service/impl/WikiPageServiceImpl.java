@@ -188,9 +188,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public void deletePage(long nodeId, String title)
-		throws PortalException {
-
+	public void deletePage(long nodeId, String title) throws PortalException {
 		WikiPagePermission.check(
 			getPermissionChecker(), nodeId, title, ActionKeys.DELETE);
 
@@ -400,9 +398,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public WikiPage getPage(long nodeId, String title)
-		throws PortalException {
-
+	public WikiPage getPage(long nodeId, String title) throws PortalException {
 		WikiPagePermission.check(
 			getPermissionChecker(), nodeId, title, ActionKeys.VIEW);
 

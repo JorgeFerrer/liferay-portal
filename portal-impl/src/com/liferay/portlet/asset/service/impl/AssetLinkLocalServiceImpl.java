@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portlet.asset.NoSuchLinkException;
@@ -130,9 +129,7 @@ public class AssetLinkLocalServiceImpl extends AssetLinkLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteLink(long linkId)
-		throws PortalException {
-
+	public void deleteLink(long linkId) throws PortalException {
 		AssetLink link = assetLinkPersistence.findByPrimaryKey(linkId);
 
 		deleteLink(link);

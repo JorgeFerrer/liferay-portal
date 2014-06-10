@@ -17,7 +17,6 @@ package com.liferay.portlet.trash.util;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -104,9 +103,7 @@ public class TrashUtil {
 		return getTrash().getEntryOrderByComparator(orderByCol, orderByType);
 	}
 
-	public static int getMaxAge(Group group)
-		throws PortalException {
-
+	public static int getMaxAge(Group group) throws PortalException {
 		return getTrash().getMaxAge(group);
 	}
 
@@ -153,9 +150,7 @@ public class TrashUtil {
 		return getTrash().isInTrash(className, classPK);
 	}
 
-	public static boolean isTrashEnabled(long groupId)
-		throws PortalException {
-
+	public static boolean isTrashEnabled(long groupId) throws PortalException {
 		return getTrash().isTrashEnabled(groupId);
 	}
 

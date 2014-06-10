@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Address;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -69,9 +68,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteAddress(long addressId)
-		throws PortalException {
-
+	public void deleteAddress(long addressId) throws PortalException {
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
 		CommonPermissionUtil.check(
@@ -82,9 +79,7 @@ public class AddressServiceImpl extends AddressServiceBaseImpl {
 	}
 
 	@Override
-	public Address getAddress(long addressId)
-		throws PortalException {
-
+	public Address getAddress(long addressId) throws PortalException {
 		Address address = addressPersistence.findByPrimaryKey(addressId);
 
 		CommonPermissionUtil.check(

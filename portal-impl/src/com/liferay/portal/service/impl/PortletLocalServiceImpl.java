@@ -140,9 +140,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void checkPortlet(Portlet portlet)
-		throws PortalException {
-
+	public void checkPortlet(Portlet portlet) throws PortalException {
 		if (portlet.isSystem()) {
 			return;
 		}
@@ -184,9 +182,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void checkPortlets(long companyId)
-		throws PortalException {
-
+	public void checkPortlets(long companyId) throws PortalException {
 		List<Portlet> portlets = getPortlets(companyId);
 
 		for (Portlet portlet : portlets) {

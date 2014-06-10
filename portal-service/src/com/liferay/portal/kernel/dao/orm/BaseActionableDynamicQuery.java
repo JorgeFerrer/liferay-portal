@@ -363,9 +363,7 @@ public abstract class BaseActionableDynamicQuery
 		throws PortalException {
 	}
 
-	protected void performAction(Object object)
-		throws PortalException {
-
+	protected void performAction(Object object) throws PortalException {
 		if (_performActionMethod != null) {
 			_performActionMethod.performAction(object);
 		}

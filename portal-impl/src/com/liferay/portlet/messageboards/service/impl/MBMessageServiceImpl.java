@@ -235,9 +235,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteMessage(long messageId)
-		throws PortalException {
-
+	public void deleteMessage(long messageId) throws PortalException {
 		MBMessagePermission.check(
 			getPermissionChecker(), messageId, ActionKeys.DELETE);
 
@@ -505,9 +503,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	@Override
-	public MBMessage getMessage(long messageId)
-		throws PortalException {
-
+	public MBMessage getMessage(long messageId) throws PortalException {
 		MBMessagePermission.check(
 			getPermissionChecker(), messageId, ActionKeys.VIEW);
 
@@ -631,9 +627,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	@Override
-	public void subscribeMessage(long messageId)
-		throws PortalException {
-
+	public void subscribeMessage(long messageId) throws PortalException {
 		MBMessagePermission.check(
 			getPermissionChecker(), messageId, ActionKeys.SUBSCRIBE);
 
@@ -641,9 +635,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	@Override
-	public void unsubscribeMessage(long messageId)
-		throws PortalException {
-
+	public void unsubscribeMessage(long messageId) throws PortalException {
 		MBMessagePermission.check(
 			getPermissionChecker(), messageId, ActionKeys.SUBSCRIBE);
 

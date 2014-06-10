@@ -16,7 +16,6 @@ package com.liferay.portlet.journal.model.impl;
 
 import com.liferay.portal.LocaleException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -130,17 +129,13 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public JournalArticleResource getArticleResource()
-		throws PortalException {
-
+	public JournalArticleResource getArticleResource() throws PortalException {
 		return JournalArticleResourceLocalServiceUtil.getArticleResource(
 			getResourcePrimKey());
 	}
 
 	@Override
-	public String getArticleResourceUuid()
-		throws PortalException {
-
+	public String getArticleResourceUuid() throws PortalException {
 		JournalArticleResource articleResource = getArticleResource();
 
 		return articleResource.getUuid();
@@ -180,9 +175,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public DDMStructure getDDMStructure()
-		throws PortalException {
-
+	public DDMStructure getDDMStructure() throws PortalException {
 		return DDMStructureLocalServiceUtil.fetchStructure(
 			PortalUtil.getSiteGroupId(getGroupId()),
 			ClassNameLocalServiceUtil.getClassNameId(JournalArticle.class),
@@ -190,9 +183,7 @@ public class JournalArticleImpl extends JournalArticleBaseImpl {
 	}
 
 	@Override
-	public DDMTemplate getDDMTemplate()
-		throws PortalException {
-
+	public DDMTemplate getDDMTemplate() throws PortalException {
 		return DDMTemplateLocalServiceUtil.fetchTemplate(
 			PortalUtil.getSiteGroupId(getGroupId()),
 			ClassNameLocalServiceUtil.getClassNameId(JournalArticle.class),

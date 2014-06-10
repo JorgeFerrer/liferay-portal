@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusRegistry;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cluster.Clusterable;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;

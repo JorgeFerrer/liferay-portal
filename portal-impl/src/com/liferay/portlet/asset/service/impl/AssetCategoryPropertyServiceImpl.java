@@ -15,7 +15,6 @@
 package com.liferay.portlet.asset.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portlet.asset.model.AssetCategoryProperty;
 import com.liferay.portlet.asset.service.base.AssetCategoryPropertyServiceBaseImpl;

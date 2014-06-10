@@ -15,7 +15,6 @@
 package com.liferay.portlet.messageboards.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.trash.BaseTrashHandler;
 import com.liferay.portal.model.ContainerModel;
@@ -70,9 +69,7 @@ public class MBMessageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry(long classPK)
-		throws PortalException {
-
+	public TrashEntry getTrashEntry(long classPK) throws PortalException {
 		MBMessage message = MBMessageLocalServiceUtil.getMessage(classPK);
 
 		return message.getTrashEntry();
@@ -84,18 +81,14 @@ public class MBMessageTrashHandler extends BaseTrashHandler {
 	}
 
 	@Override
-	public boolean isInTrash(long classPK)
-		throws PortalException {
-
+	public boolean isInTrash(long classPK) throws PortalException {
 		MBMessage message = MBMessageLocalServiceUtil.getMessage(classPK);
 
 		return message.isInTrash();
 	}
 
 	@Override
-	public boolean isInTrashContainer(long classPK)
-		throws PortalException {
-
+	public boolean isInTrashContainer(long classPK) throws PortalException {
 		MBMessage message = MBMessageLocalServiceUtil.getMessage(classPK);
 
 		return message.isInTrashContainer();

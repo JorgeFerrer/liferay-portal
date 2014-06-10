@@ -14,7 +14,6 @@
 
 package com.liferay.portal.plugin;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Plugin;
 import com.liferay.portal.model.PluginSetting;
 import com.liferay.portal.model.User;

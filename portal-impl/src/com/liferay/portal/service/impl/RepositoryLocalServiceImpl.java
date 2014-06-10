@@ -19,7 +19,6 @@ import com.liferay.portal.NoSuchRepositoryException;
 import com.liferay.portal.kernel.cache.CacheRegistryItem;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.LocalRepository;
@@ -142,9 +141,7 @@ public class RepositoryLocalServiceImpl
 	}
 
 	@Override
-	public void deleteRepositories(long groupId)
-		throws PortalException {
-
+	public void deleteRepositories(long groupId) throws PortalException {
 		List<Repository> repositories = repositoryPersistence.findByGroupId(
 			groupId);
 

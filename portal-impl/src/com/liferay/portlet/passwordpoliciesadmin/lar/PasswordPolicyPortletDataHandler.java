@@ -16,7 +16,6 @@ package com.liferay.portlet.passwordpoliciesadmin.lar;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;

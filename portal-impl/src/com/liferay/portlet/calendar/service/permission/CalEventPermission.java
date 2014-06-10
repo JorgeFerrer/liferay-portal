@@ -15,7 +15,6 @@
 package com.liferay.portlet.calendar.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portlet.calendar.model.CalEvent;

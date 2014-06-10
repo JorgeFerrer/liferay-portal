@@ -16,7 +16,6 @@ package com.liferay.portal.settings;
 
 import com.liferay.portal.NoSuchPortletItemException;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;

@@ -15,7 +15,6 @@
 package com.liferay.portal.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUtil;
@@ -155,9 +154,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteUserGroup(long userGroupId)
-		throws PortalException {
-
+	public void deleteUserGroup(long userGroupId) throws PortalException {
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.DELETE);
 
@@ -175,9 +172,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public UserGroup getUserGroup(long userGroupId)
-		throws PortalException {
-
+	public UserGroup getUserGroup(long userGroupId) throws PortalException {
 		UserGroupPermissionUtil.check(
 			getPermissionChecker(), userGroupId, ActionKeys.VIEW);
 
@@ -194,9 +189,7 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public UserGroup getUserGroup(String name)
-		throws PortalException {
-
+	public UserGroup getUserGroup(String name) throws PortalException {
 		User user = getUser();
 
 		UserGroup userGroup = userGroupLocalService.getUserGroup(

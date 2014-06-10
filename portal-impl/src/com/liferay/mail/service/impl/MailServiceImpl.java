@@ -18,7 +18,6 @@ import com.liferay.mail.model.Filter;
 import com.liferay.mail.service.MailService;
 import com.liferay.mail.util.Hook;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mail.Account;

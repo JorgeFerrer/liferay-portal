@@ -15,7 +15,6 @@
 package com.liferay.portlet.mobiledevicerules.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.StringPool;
@@ -169,9 +168,7 @@ public class MDRRuleGroupLocalServiceImpl
 	}
 
 	@Override
-	public MDRRuleGroup getRuleGroup(long ruleGroupId)
-		throws PortalException {
-
+	public MDRRuleGroup getRuleGroup(long ruleGroupId) throws PortalException {
 		return mdrRuleGroupPersistence.findByPrimaryKey(ruleGroupId);
 	}
 

@@ -459,9 +459,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @see    #checkOutFileEntry(long, ServiceContext)
 	 */
 	@Override
-	public void cancelCheckOut(long fileEntryId)
-		throws PortalException {
-
+	public void cancelCheckOut(long fileEntryId) throws PortalException {
 		Repository repository = getFileEntryRepository(fileEntryId);
 
 		FileEntry fileEntry = repository.getFileEntry(fileEntryId);
@@ -719,9 +717,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void deleteFileEntry(long fileEntryId) throws PortalException {
 		Repository repository = getFileEntryRepository(fileEntryId);
 
 		FileEntry fileEntry = repository.getFileEntry(fileEntryId);
@@ -763,9 +759,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFileShortcut(long fileShortcutId)
-		throws PortalException {
-
+	public void deleteFileShortcut(long fileShortcutId) throws PortalException {
 		dlFileShortcutService.deleteFileShortcut(fileShortcutId);
 	}
 
@@ -802,9 +796,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void deleteFolder(long folderId)
-		throws PortalException {
-
+	public void deleteFolder(long folderId) throws PortalException {
 		Repository repository = getFolderRepository(folderId);
 
 		List<FileEntry> fileEntries = repository.getRepositoryFileEntries(
@@ -1151,9 +1143,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public FileEntry getFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public FileEntry getFileEntry(long fileEntryId) throws PortalException {
 		Repository repository = getFileEntryRepository(fileEntryId);
 
 		return repository.getFileEntry(fileEntryId);
@@ -1266,9 +1256,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Folder getFolder(long folderId)
-		throws PortalException {
-
+	public Folder getFolder(long folderId) throws PortalException {
 		Repository repository = getFolderRepository(folderId);
 
 		return repository.getFolder(folderId);
@@ -2145,9 +2133,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public Lock lockFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public Lock lockFileEntry(long fileEntryId) throws PortalException {
 		checkOutFileEntry(fileEntryId, new ServiceContext());
 
 		FileEntry fileEntry = getFileEntry(fileEntryId);
@@ -2466,9 +2452,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Folder moveFolderToTrash(long folderId)
-		throws PortalException {
-
+	public Folder moveFolderToTrash(long folderId) throws PortalException {
 		Repository repository = getFolderRepository(folderId);
 
 		if (!(repository instanceof LiferayRepository)) {
@@ -2599,9 +2583,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void restoreFolderFromTrash(long folderId)
-		throws PortalException {
-
+	public void restoreFolderFromTrash(long folderId) throws PortalException {
 		Repository repository = getFolderRepository(folderId);
 
 		if (!(repository instanceof LiferayRepository)) {
@@ -2743,9 +2725,7 @@ public class DLAppServiceImpl extends DLAppServiceBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public void unlockFileEntry(long fileEntryId)
-		throws PortalException {
-
+	public void unlockFileEntry(long fileEntryId) throws PortalException {
 		checkInFileEntry(
 			fileEntryId, false, StringPool.BLANK, new ServiceContext());
 	}

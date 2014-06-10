@@ -15,7 +15,6 @@
 package com.liferay.portlet.wiki;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;

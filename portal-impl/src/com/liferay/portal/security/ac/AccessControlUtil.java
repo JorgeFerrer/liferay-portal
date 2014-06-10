@@ -15,7 +15,6 @@
 package com.liferay.portal.security.ac;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.security.auth.AccessControlContext;
 import com.liferay.portal.security.auth.AuthException;

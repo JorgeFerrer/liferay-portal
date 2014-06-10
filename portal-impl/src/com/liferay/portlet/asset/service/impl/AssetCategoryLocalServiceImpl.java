@@ -17,7 +17,6 @@ package com.liferay.portlet.asset.service.impl;
 import com.liferay.portal.kernel.cache.ThreadLocalCachable;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -343,9 +342,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	@Override
-	public AssetCategory getCategory(long categoryId)
-		throws PortalException {
-
+	public AssetCategory getCategory(long categoryId) throws PortalException {
 		return assetCategoryPersistence.findByPrimaryKey(categoryId);
 	}
 
