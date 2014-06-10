@@ -250,13 +250,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws PortalException, SystemException {
-		for (String portletId : _mainPortletOwnerTypes.keySet()) {
+		for (String portletId : _mainPortletIds) {
 			_logPortletUpgrade(portletId);
 
 			upgradeMainPortlet(portletId);
 		}
 
-		for (String portletId : _secondaryPortletOwnerTypes.keySet()) {
+		for (String portletId : _secondaryPortletIds) {
 			_logPortletUpgrade(portletId);
 
 			upgradeSecondaryPortlet(portletId);
@@ -348,6 +348,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		String portletId, String serviceName, int ownerType,
 		String[] portletInstanceKeys, String[] serviceKeys) {
 
+		_mainPortletIds.add(portletId);
+
 		_mainPortletServiceNames.put(portletId, serviceName);
 
 		_mainPortletOwnerTypes.put(portletId, ownerType);
@@ -359,6 +361,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 	protected void registerSecondaryPortlet(
 		String portletId, int ownerType, String[] servicePreferencesKeys) {
+
+		_secondaryPortletIds.add(portletId);
 
 		_secondaryPortletOwnerTypes.put(portletId, ownerType);
 
@@ -458,6 +462,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	private static Log _log = LogFactoryUtil.getLog(
 		UpgradePortletSettings.class);
 
+	private List<String> _mainPortletIds = new ArrayList<String>();
 	private Map<String, String[]> _mainPortletInstanceKeys =
 		new HashMap<String, String[]>();
 	private Map<String, Integer> _mainPortletOwnerTypes =
@@ -466,6 +471,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		new HashMap<String, String[]>();
 	private Map<String, String> _mainPortletServiceNames =
 		new HashMap<String, String>();
+	private List<String> _secondaryPortletIds = new ArrayList<String>();
 	private Map<String, Integer> _secondaryPortletOwnerTypes =
 		new HashMap<String, Integer>();
 	private Map<String, String[]> _secondaryPortletServiceKeys =
