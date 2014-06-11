@@ -1052,6 +1052,57 @@ public class ThemeDisplay
 		return _user.getUserId();
 	}
 
+	public void initializeLookAndFeel() {
+		if ((_theme == null) || (_colorScheme == null)) {
+			return;
+		}
+
+		String themeStaticResourcePath = _theme.getStaticResourcePath();
+
+		String cdnBaseURL = getCDNBaseURL();
+
+		setPathColorSchemeImages(
+			cdnBaseURL + themeStaticResourcePath +
+				_colorScheme.getColorSchemeImagesPath());
+
+		String dynamicResourcesHost = getCDNDynamicResourcesHost();
+
+		if (Validator.isNull(dynamicResourcesHost)) {
+			String portalURL = getPortalURL();
+
+			try {
+				portalURL = PortalUtil.getPortalURL(getLayout(), this);
+			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
+
+			dynamicResourcesHost = portalURL;
+		}
+
+		setPathThemeCss(
+			dynamicResourcesHost + themeStaticResourcePath +
+				_theme.getCssPath());
+
+		setPathThemeImages(
+			cdnBaseURL + themeStaticResourcePath + _theme.getImagesPath());
+		setPathThemeJavaScript(
+			cdnBaseURL + themeStaticResourcePath +
+				_theme.getJavaScriptPath());
+
+		String rootPath = _theme.getRootPath();
+
+		if (rootPath.equals(StringPool.SLASH)) {
+			setPathThemeRoot(themeStaticResourcePath);
+		}
+		else {
+			setPathThemeRoot(themeStaticResourcePath + rootPath);
+		}
+
+		setPathThemeTemplates(
+			cdnBaseURL + themeStaticResourcePath + _theme.getTemplatesPath());
+	}
+
 	public boolean isAddSessionIdToURL() {
 		return _addSessionIdToURL;
 	}
@@ -1449,57 +1500,6 @@ public class ThemeDisplay
 		setColorScheme(colorScheme);
 
 		initializeLookAndFeel();
-	}
-
-	public void initializeLookAndFeel() {
-		if ((_theme == null) || (_colorScheme == null)) {
-			return;
-		}
-
-		String themeStaticResourcePath = _theme.getStaticResourcePath();
-
-		String cdnBaseURL = getCDNBaseURL();
-
-		setPathColorSchemeImages(
-			cdnBaseURL + themeStaticResourcePath +
-				_colorScheme.getColorSchemeImagesPath());
-
-		String dynamicResourcesHost = getCDNDynamicResourcesHost();
-
-		if (Validator.isNull(dynamicResourcesHost)) {
-			String portalURL = getPortalURL();
-
-			try {
-				portalURL = PortalUtil.getPortalURL(getLayout(), this);
-			}
-			catch (Exception e) {
-				_log.error(e, e);
-			}
-
-			dynamicResourcesHost = portalURL;
-		}
-
-		setPathThemeCss(
-			dynamicResourcesHost + themeStaticResourcePath +
-				_theme.getCssPath());
-
-		setPathThemeImages(
-			cdnBaseURL + themeStaticResourcePath + _theme.getImagesPath());
-		setPathThemeJavaScript(
-			cdnBaseURL + themeStaticResourcePath +
-				_theme.getJavaScriptPath());
-
-		String rootPath = _theme.getRootPath();
-
-		if (rootPath.equals(StringPool.SLASH)) {
-			setPathThemeRoot(themeStaticResourcePath);
-		}
-		else {
-			setPathThemeRoot(themeStaticResourcePath + rootPath);
-		}
-
-		setPathThemeTemplates(
-			cdnBaseURL + themeStaticResourcePath + _theme.getTemplatesPath());
 	}
 
 	public void setMDRRuleGroupInstance(
