@@ -272,8 +272,7 @@ public abstract class BaseRepositoryFactory<T> {
 	protected abstract long getFolderRepositoryId(long folderId)
 		throws PortalException;
 
-	protected abstract Repository getRepository(long repositoryId)
-		throws SystemException;
+	protected abstract Repository getRepository(long repositoryId);
 
 	protected long getRepositoryClassNameId(long repositoryId) {
 

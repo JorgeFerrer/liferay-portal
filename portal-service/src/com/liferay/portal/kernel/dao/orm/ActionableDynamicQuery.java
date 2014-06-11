@@ -39,8 +39,7 @@ public interface ActionableDynamicQuery {
 
 	public void setAddCriteriaMethod(AddCriteriaMethod addCriteriaMethod);
 
-	public void setBaseLocalService(BaseLocalService baseLocalService)
-		throws SystemException;
+	public void setBaseLocalService(BaseLocalService baseLocalService);
 
 	public void setClass(Class<?> clazz);
 

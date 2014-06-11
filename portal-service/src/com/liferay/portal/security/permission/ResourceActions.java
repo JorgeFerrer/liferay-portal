@@ -147,12 +147,10 @@ public interface ResourceActions {
 	 */
 	@Deprecated
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource)
-		throws SystemException;
+			long companyId, Group group, String modelResource);
 
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource, int[] roleTypes)
-		throws SystemException;
+			long companyId, Group group, String modelResource, int[] roleTypes);
 
 	public boolean hasModelResourceActions(String name);
 

@@ -42,34 +42,28 @@ public interface PortletPreferencesFactory {
 			ThemeDisplay themeDisplay, Portlet portlet)
 		throws PortalException;
 
-	public PortletPreferences fromDefaultXML(String xml) throws SystemException;
+	public PortletPreferences fromDefaultXML(String xml);
 
-	public PortalPreferences fromXML(long ownerId, int ownerType, String xml)
-		throws SystemException;
+	public PortalPreferences fromXML(long ownerId, int ownerType, String xml);
 
 	public PortletPreferences fromXML(
 			long companyId, long ownerId, int ownerType, long plid,
-			String portletId, String xml)
-		throws SystemException;
+			String portletId, String xml);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #fromXML(long, int, String)}
 	 */
 	@Deprecated
 	public PortalPreferences fromXML(
-			long companyId, long ownerId, int ownerType, String xml)
-		throws SystemException;
+			long companyId, long ownerId, int ownerType, String xml);
 
 	public PortletPreferences getLayoutPortletSetup(
-			Layout layout, String portletId)
-		throws SystemException;
+			Layout layout, String portletId);
 
-	public PortalPreferences getPortalPreferences(HttpServletRequest request)
-		throws SystemException;
+	public PortalPreferences getPortalPreferences(HttpServletRequest request);
 
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long userId, boolean signedIn)
-		throws SystemException;
+			HttpSession session, long userId, boolean signedIn);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -77,11 +71,9 @@ public interface PortletPreferencesFactory {
 	 */
 	@Deprecated
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long companyId, long userId, boolean signedIn)
-		throws SystemException;
+			HttpSession session, long companyId, long userId, boolean signedIn);
 
-	public PortalPreferences getPortalPreferences(long userId, boolean signedIn)
-		throws SystemException;
+	public PortalPreferences getPortalPreferences(long userId, boolean signedIn);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #getPortalPreferences(long,
@@ -89,11 +81,9 @@ public interface PortletPreferencesFactory {
 	 */
 	@Deprecated
 	public PortalPreferences getPortalPreferences(
-			long companyId, long userId, boolean signedIn)
-		throws SystemException;
+			long companyId, long userId, boolean signedIn);
 
-	public PortalPreferences getPortalPreferences(PortletRequest portletRequest)
-		throws SystemException;
+	public PortalPreferences getPortalPreferences(PortletRequest portletRequest);
 
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
@@ -122,13 +112,11 @@ public interface PortletPreferencesFactory {
 		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
-			Layout layout, String portletId, String defaultPreferences)
-		throws SystemException;
+			Layout layout, String portletId, String defaultPreferences);
 
 	public PortletPreferences getPortletSetup(
 			long scopeGroupId, Layout layout, String portletId,
-			String defaultPreferences)
-		throws SystemException;
+			String defaultPreferences);
 
 	public PortletPreferences getPortletSetup(PortletRequest portletRequest)
 		throws PortalException;
@@ -139,20 +127,17 @@ public interface PortletPreferencesFactory {
 
 	public Map<Long, PortletPreferences> getPortletSetupMap(
 			long companyId, long groupId, long ownerId, int ownerType,
-			String portletId, boolean privateLayout)
-		throws SystemException;
+			String portletId, boolean privateLayout);
 
 	public PortletPreferences getPreferences(HttpServletRequest request);
 
 	public PreferencesValidator getPreferencesValidator(Portlet portlet);
 
 	public PortletPreferences getStrictLayoutPortletSetup(
-			Layout layout, String portletId)
-		throws SystemException;
+			Layout layout, String portletId);
 
 	public PortletPreferences getStrictPortletSetup(
-			Layout layout, String portletId)
-		throws SystemException;
+			Layout layout, String portletId);
 
 	public String toXML(PortalPreferences portalPreferences);
 

@@ -150,12 +150,10 @@ public interface Sites {
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public boolean isContentSharingWithChildrenEnabled(Group group)
-		throws SystemException;
+	public boolean isContentSharingWithChildrenEnabled(Group group);
 
 	public boolean isFirstLayout(
-			long groupId, boolean privateLayout, long layoutId)
-		throws SystemException;
+			long groupId, boolean privateLayout, long layoutId);
 
 	public boolean isLayoutDeleteable(Layout layout);
 
@@ -197,8 +195,7 @@ public interface Sites {
 	public void mergeLayoutSetProtypeLayouts(Group group, LayoutSet layoutSet)
 		throws Exception;
 
-	public void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet)
-		throws SystemException;
+	public void removeMergeFailFriendlyURLLayouts(LayoutSet layoutSet);
 
 	public void resetPrototype(Layout layout)
 		throws PortalException;

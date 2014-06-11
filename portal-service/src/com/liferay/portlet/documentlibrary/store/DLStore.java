@@ -59,7 +59,7 @@ public interface DLStore {
 			long companyId, long repositoryId, String fileName, InputStream is)
 		throws PortalException;
 
-	public void checkRoot(long companyId) throws SystemException;
+	public void checkRoot(long companyId);
 
 	public void copyFileVersion(
 			long companyId, long repositoryId, String fileName,
@@ -125,7 +125,7 @@ public interface DLStore {
 
 	public boolean isValidName(String name);
 
-	public void move(String srcDir, String destDir) throws SystemException;
+	public void move(String srcDir, String destDir);
 
 	public void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,

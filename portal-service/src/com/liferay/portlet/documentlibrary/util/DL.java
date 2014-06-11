@@ -129,8 +129,7 @@ public interface DL {
 	public String getFileEntryImage(
 		FileEntry fileEntry, ThemeDisplay themeDisplay);
 
-	public Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId)
-		throws SystemException;
+	public Set<Long> getFileEntryTypeSubscriptionClassPKs(long userId);
 
 	public String getFileIcon(String extension);
 
@@ -214,8 +213,7 @@ public interface DL {
 	public abstract boolean isOfficeExtension(String extension);
 
 	public boolean isSubscribedToFileEntryType(
-			long companyId, long groupId, long userId, long fileEntryTypeId)
-		throws SystemException;
+		long companyId, long groupId, long userId, long fileEntryTypeId);
 
 	public boolean isSubscribedToFolder(
 			long companyId, long groupId, long userId, long folderId)

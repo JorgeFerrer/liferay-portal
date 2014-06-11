@@ -31,8 +31,7 @@ import java.util.Map;
  */
 public abstract class BaseCmisRepository extends BaseRepositoryImpl {
 
-	public abstract String getLatestVersionId(String objectId)
-		throws SystemException;
+	public abstract String getLatestVersionId(String objectId);
 
 	public abstract String getObjectName(String objectId)
 		throws PortalException;

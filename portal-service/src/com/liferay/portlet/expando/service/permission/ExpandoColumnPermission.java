@@ -48,9 +48,8 @@ public interface ExpandoColumnPermission {
 		throws PortalException;
 
 	public boolean contains(
-			PermissionChecker permissionChecker, long companyId,
-			String className, String tableName, String columnName,
-			String actionId)
-		throws SystemException;
+		PermissionChecker permissionChecker, long companyId,
+		String className, String tableName, String columnName,
+		String actionId);
 
 }

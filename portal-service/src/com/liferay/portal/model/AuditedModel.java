@@ -33,7 +33,7 @@ public interface AuditedModel extends ClassedModel {
 
 	public String getUserName();
 
-	public String getUserUuid() throws SystemException;
+	public String getUserUuid();
 
 	public void setCompanyId(long companyId);
 

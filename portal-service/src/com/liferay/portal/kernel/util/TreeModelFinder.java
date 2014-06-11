@@ -25,7 +25,6 @@ import java.util.List;
 public interface TreeModelFinder<T extends TreeModel> {
 
 	public List<T> findTreeModels(
-			long previousId, long companyId, long parentPrimaryKey, int size)
-		throws SystemException;
+			long previousId, long companyId, long parentPrimaryKey, int size);
 
 }

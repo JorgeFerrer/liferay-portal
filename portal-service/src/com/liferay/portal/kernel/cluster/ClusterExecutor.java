@@ -29,19 +29,16 @@ public interface ClusterExecutor {
 
 	public void destroy();
 
-	public FutureClusterResponses execute(ClusterRequest clusterRequest)
-		throws SystemException;
+	public FutureClusterResponses execute(ClusterRequest clusterRequest);
 
 	public void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback)
-		throws SystemException;
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback);
 
 	public void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback, long timeout,
-			TimeUnit timeUnit)
-		throws SystemException;
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback, long timeout,
+		TimeUnit timeUnit);
 
 	public List<ClusterEventListener> getClusterEventListeners();
 
@@ -49,7 +46,7 @@ public interface ClusterExecutor {
 
 	public List<ClusterNode> getClusterNodes();
 
-	public ClusterNode getLocalClusterNode() throws SystemException;
+	public ClusterNode getLocalClusterNode();
 
 	public Address getLocalClusterNodeAddress();
 

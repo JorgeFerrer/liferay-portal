@@ -145,38 +145,31 @@ public abstract class NestedSetsTreeManager<T extends NestedSetsTreeNodeModel> {
 	}
 
 	protected abstract long doCountAncestors(
-			long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
-			long nestedSetsTreeNodeRight)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
+		long nestedSetsTreeNodeRight);
 
 	protected abstract long doCountDescendants(
-			long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
-			long nestedSetsTreeNodeRight)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
+		long nestedSetsTreeNodeRight);
 
 	protected abstract List<T> doGetAncestors(
-			long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
-			long nestedSetsTreeNodeRight)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
+		long nestedSetsTreeNodeRight);
 
 	protected abstract List<T> doGetDescendants(
-			long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
-			long nestedSetsTreeNodeRight)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, long nestedSetsTreeNodeLeft,
+		long nestedSetsTreeNodeRight);
 
 	protected abstract void doUpdate(
-			long nestedSetsTreeNodeScopeId, boolean leftOrRight, long delta,
-			long limit, boolean inclusive)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, boolean leftOrRight, long delta,
+		long limit, boolean inclusive);
 
 	protected abstract void doUpdate(
-			long nestedSetsTreeNodeScopeId, long delta, long start,
-			boolean startInclusive, long end, boolean endInclusive,
-			List<T> includeList)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId, long delta, long start,
+		boolean startInclusive, long end, boolean endInclusive,
+		List<T> includeList);
 
 	protected abstract long getMaxNestedSetsTreeNodeRight(
-			long nestedSetsTreeNodeScopeId)
-		throws SystemException;
+		long nestedSetsTreeNodeScopeId);
 
 }

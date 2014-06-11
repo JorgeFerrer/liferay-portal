@@ -92,27 +92,21 @@ public interface PortletFileRepository {
 	public void deletePortletRepository(long groupId, String portletId)
 		throws PortalException;
 
-	public Repository fetchPortletRepository(long groupId, String portletId)
-		throws SystemException;
+	public Repository fetchPortletRepository(long groupId, String portletId);
 
-	public List<FileEntry> getPortletFileEntries(long groupId, long folderId)
-		throws SystemException;
+	public List<FileEntry> getPortletFileEntries(long groupId, long folderId);
 
 	public List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status)
-		throws SystemException;
+			long groupId, long folderId, int status);
 
 	public List<FileEntry> getPortletFileEntries(
 			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc)
-		throws SystemException;
+			OrderByComparator obc);
 
-	public int getPortletFileEntriesCount(long groupId, long folderId)
-		throws SystemException;
+	public int getPortletFileEntriesCount(long groupId, long folderId);
 
 	public int getPortletFileEntriesCount(
-			long groupId, long folderId, int status)
-		throws SystemException;
+			long groupId, long folderId, int status);
 
 	public FileEntry getPortletFileEntry(long fileEntryId)
 		throws PortalException;

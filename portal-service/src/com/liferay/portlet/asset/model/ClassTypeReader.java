@@ -26,8 +26,7 @@ import java.util.Locale;
 public interface ClassTypeReader {
 
 	public List<ClassType> getAvailableClassTypes(
-			long[] groupIds, Locale locale)
-		throws SystemException;
+		long[] groupIds, Locale locale);
 
 	public ClassType getClassType(long classTypeId, Locale locale)
 		throws PortalException;

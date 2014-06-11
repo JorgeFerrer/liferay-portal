@@ -108,8 +108,7 @@ public interface LuceneHelper {
 	public long getLastGeneration(long companyId);
 
 	public InputStream getLoadIndexesInputStreamFromCluster(
-			long companyId, Address bootupAddress)
-		throws SystemException;
+		long companyId, Address bootupAddress);
 
 	public Set<String> getQueryTerms(Query query);
 
@@ -132,7 +131,7 @@ public interface LuceneHelper {
 	public void loadIndex(long companyId, InputStream inputStream)
 		throws IOException;
 
-	public void loadIndexesFromCluster(long companyId) throws SystemException;
+	public void loadIndexesFromCluster(long companyId);
 
 	public void releaseIndexSearcher(
 			long companyId, IndexSearcher indexSearcher)

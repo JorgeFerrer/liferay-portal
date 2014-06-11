@@ -72,9 +72,8 @@ public interface LayoutTypePortlet extends LayoutType {
 	public void addStateMinPortletId(String portletId);
 
 	public List<Portlet> addStaticPortlets(
-			List<Portlet> portlets, List<Portlet> startPortlets,
-			List<Portlet> endPortlets)
-		throws SystemException;
+		List<Portlet> portlets, List<Portlet> startPortlets,
+		List<Portlet> endPortlets);
 
 	public List<Portlet> getAllPortlets()
 		throws PortalException;
@@ -115,7 +114,7 @@ public interface LayoutTypePortlet extends LayoutType {
 
 	public List<String> getPortletIds();
 
-	public List<Portlet> getPortlets() throws SystemException;
+	public List<Portlet> getPortlets();
 
 	public String getStateMax();
 

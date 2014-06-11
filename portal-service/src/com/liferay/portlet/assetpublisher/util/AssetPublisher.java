@@ -186,12 +186,10 @@ public interface AssetPublisher {
 		String emailFromName);
 
 	public String getEmailFromAddress(
-			PortletPreferences portletPreferences, long companyId)
-		throws SystemException;
+		PortletPreferences portletPreferences, long companyId);
 
 	public String getEmailFromName(
-			PortletPreferences portletPreferences, long companyId)
-		throws SystemException;
+		PortletPreferences portletPreferences, long companyId);
 
 	public long getGroupIdFromScopeId(
 			String scopeId, long siteGroupId, boolean privateLayout)

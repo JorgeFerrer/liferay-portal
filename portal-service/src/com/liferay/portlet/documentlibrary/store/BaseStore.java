@@ -147,7 +147,7 @@ public abstract class BaseStore implements Store {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public abstract void checkRoot(long companyId) throws SystemException;
+	public abstract void checkRoot(long companyId);
 
 	/**
 	 * Creates a new copy of the file version.
@@ -488,8 +488,7 @@ public abstract class BaseStore implements Store {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public abstract void move(String srcDir, String destDir)
-		throws SystemException;
+	public abstract void move(String srcDir, String destDir);
 
 	/**
 	 * Moves a file to a new data repository.

@@ -91,8 +91,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
-	public long countWithDynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException;
+	public long countWithDynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	 * Returns the number of rows that match the dynamic query.
@@ -103,8 +102,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public long countWithDynamicQuery(
-			DynamicQuery dynamicQuery, Projection projection)
-		throws SystemException;
+		DynamicQuery dynamicQuery, Projection projection);
 
 	/**
 	 * Returns the model instance with the primary key or returns
@@ -116,7 +114,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @throws SystemException if the primary key is <code>null</code>, or if a
 	 *         system exception occurred
 	 */
-	public T fetchByPrimaryKey(Serializable primaryKey) throws SystemException;
+	public T fetchByPrimaryKey(Serializable primaryKey);
 
 	/**
 	 * Returns the model instance with the primary key or throws a {@link
@@ -140,8 +138,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@SuppressWarnings("rawtypes")
-	public List findWithDynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException;
+	public List findWithDynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	 * Performs a dynamic query on the database and returns a range of the
@@ -168,8 +165,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(
-			DynamicQuery dynamicQuery, int start, int end)
-		throws SystemException;
+		DynamicQuery dynamicQuery, int start, int end);
 
 	/**
 	 * Performs a dynamic query on the database and returns an ordered range of
@@ -195,11 +191,10 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(
-			DynamicQuery dynamicQuery, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException;
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator orderByComparator);
 
-	public void flush() throws SystemException;
+	public void flush();
 
 	public Session getCurrentSession() throws ORMException;
 
@@ -258,7 +253,7 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @return the model instance that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public T remove(T model) throws SystemException;
+	public T remove(T model);
 
 	/**
 	 * Sets the data source for this model.
@@ -290,21 +285,20 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @return the model instance that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
-	public T update(T model) throws SystemException;
+	public T update(T model);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #update(BaseModel)}}
 	 */
 	@Deprecated
-	public T update(T model, boolean merge) throws SystemException;
+	public T update(T model, boolean merge);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #update(BaseModel,
 	 *             ServiceContext)}}
 	 */
 	@Deprecated
-	public T update(T model, boolean merge, ServiceContext serviceContext)
-		throws SystemException;
+	public T update(T model, boolean merge, ServiceContext serviceContext);
 
 	/**
 	 * Updates the model instance in the database or adds it if it does not yet
@@ -316,7 +310,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @return the model instance that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
-	public T update(T model, ServiceContext serviceContext)
-		throws SystemException;
+	public T update(T model, ServiceContext serviceContext);
 
 }

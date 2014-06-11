@@ -47,7 +47,7 @@ public interface Store {
 			long companyId, long repositoryId, String fileName, InputStream is)
 		throws PortalException;
 
-	public void checkRoot(long companyId) throws SystemException;
+	public void checkRoot(long companyId);
 
 	public void copyFileVersion(
 			long companyId, long repositoryId, String fileName,
@@ -92,8 +92,7 @@ public interface Store {
 			String versionLabel)
 		throws PortalException;
 
-	public String[] getFileNames(long companyId, long repositoryId)
-		throws SystemException;
+	public String[] getFileNames(long companyId, long repositoryId);
 
 	public String[] getFileNames(
 			long companyId, long repositoryId, String dirName)
@@ -114,7 +113,7 @@ public interface Store {
 			String versionLabel)
 		throws PortalException;
 
-	public void move(String srcDir, String destDir) throws SystemException;
+	public void move(String srcDir, String destDir);
 
 	public void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,

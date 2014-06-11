@@ -99,9 +99,9 @@ public interface DB {
 
 	public String getType();
 
-	public long increment() throws SystemException;
+	public long increment();
 
-	public long increment(String name) throws SystemException;
+	public long increment(String name);
 
 	public boolean isSupportsAlterColumnName();
 

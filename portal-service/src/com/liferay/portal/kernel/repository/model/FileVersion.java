@@ -70,7 +70,7 @@ public interface FileVersion extends RepositoryModel<FileVersion> {
 
 	public String getStatusByUserName();
 
-	public String getStatusByUserUuid() throws SystemException;
+	public String getStatusByUserUuid();
 
 	public Date getStatusDate();
 
@@ -83,7 +83,7 @@ public interface FileVersion extends RepositoryModel<FileVersion> {
 	public String getUserName();
 
 	@Override
-	public String getUserUuid() throws SystemException;
+	public String getUserUuid();
 
 	@Override
 	public String getUuid();

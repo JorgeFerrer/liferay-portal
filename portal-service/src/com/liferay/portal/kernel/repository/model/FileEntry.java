@@ -107,8 +107,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	public FileVersion getFileVersion(String version)
 		throws PortalException;
 
-	public List<FileVersion> getFileVersions(int status)
-		throws SystemException;
+	public List<FileVersion> getFileVersions(int status);
 
 	public Folder getFolder();
 
@@ -173,7 +172,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	public String getUserName();
 
 	@Override
-	public String getUserUuid() throws SystemException;
+	public String getUserUuid();
 
 	@Override
 	public String getUuid();
@@ -184,7 +183,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 
 	public String getVersionUserName();
 
-	public String getVersionUserUuid() throws SystemException;
+	public String getVersionUserUuid();
 
 	public boolean hasLock();
 

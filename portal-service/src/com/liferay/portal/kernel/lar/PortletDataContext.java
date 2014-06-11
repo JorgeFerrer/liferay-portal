@@ -98,14 +98,12 @@ public interface PortletDataContext extends Serializable {
 	 *             PortletDataContext, StagedModel)}
 	 */
 	@Deprecated
-	public void addAssetCategories(Class<?> clazz, long classPK)
-		throws SystemException;
+	public void addAssetCategories(Class<?> clazz, long classPK);
 
 	public void addAssetCategories(
 		String className, long classPK, long[] assetCategoryIds);
 
-	public void addAssetTags(Class<?> clazz, long classPK)
-		throws SystemException;
+	public void addAssetTags(Class<?> clazz, long classPK);
 
 	public void addAssetTags(
 		String className, long classPK, String[] assetTagNames);
@@ -145,8 +143,7 @@ public interface PortletDataContext extends Serializable {
 	 *             StagedModel)}
 	 */
 	@Deprecated
-	public void addComments(Class<?> clazz, long classPK)
-		throws SystemException;
+	public void addComments(Class<?> clazz, long classPK);
 
 	/**
 	 * @deprecated As of 7.0.0, replaced by {@link
@@ -195,8 +192,7 @@ public interface PortletDataContext extends Serializable {
 	 *             StagedModel)}
 	 */
 	@Deprecated
-	public void addRatingsEntries(Class<?> clazz, long classPK)
-		throws SystemException;
+	public void addRatingsEntries(Class<?> clazz, long classPK);
 
 	/**
 	 * @deprecated As of 7.0.0, replaced by {@link
@@ -232,16 +228,15 @@ public interface PortletDataContext extends Serializable {
 
 	public boolean addScopedPrimaryKey(Class<?> clazz, String primaryKey);
 
-	public void addZipEntry(String path, byte[] bytes) throws SystemException;
+	public void addZipEntry(String path, byte[] bytes);
 
-	public void addZipEntry(String path, InputStream is) throws SystemException;
+	public void addZipEntry(String path, InputStream is);
 
-	public void addZipEntry(String path, Object object) throws SystemException;
+	public void addZipEntry(String path, Object object);
 
-	public void addZipEntry(String path, String s) throws SystemException;
+	public void addZipEntry(String path, String s);
 
-	public void addZipEntry(String name, StringBuilder sb)
-		throws SystemException;
+	public void addZipEntry(String name, StringBuilder sb);
 
 	public void cleanUpMissingReferences(ClassedModel classedModel);
 
@@ -502,7 +497,7 @@ public interface PortletDataContext extends Serializable {
 
 	public Date getStartDate();
 
-	public long getUserId(String userUuid) throws SystemException;
+	public long getUserId(String userUuid);
 
 	public UserIdStrategy getUserIdStrategy();
 

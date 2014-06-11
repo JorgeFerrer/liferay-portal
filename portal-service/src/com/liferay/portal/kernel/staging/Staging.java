@@ -101,12 +101,10 @@ public interface Staging {
 		throws PortalException;
 
 	public void deleteRecentLayoutRevisionId(
-			HttpServletRequest request, long layoutSetBranchId, long plid)
-		throws SystemException;
+			HttpServletRequest request, long layoutSetBranchId, long plid);
 
 	public void deleteRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid)
-		throws SystemException;
+			User user, long layoutSetBranchId, long plid);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -209,8 +207,7 @@ public interface Staging {
 	public long getRecentLayoutSetBranchId(
 		HttpServletRequest request, long layoutSetId);
 
-	public long getRecentLayoutSetBranchId(User user, long layoutSetId)
-		throws SystemException;
+	public long getRecentLayoutSetBranchId(User user, long layoutSetId);
 
 	public String getSchedulerGroupName(String destinationName, long groupId);
 
@@ -291,32 +288,27 @@ public interface Staging {
 
 	public void setRecentLayoutBranchId(
 			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutBranchId)
-		throws SystemException;
+			long layoutBranchId);
 
 	public void setRecentLayoutBranchId(
-			User user, long layoutSetBranchId, long plid, long layoutBranchId)
-		throws SystemException;
+			User user, long layoutSetBranchId, long plid, long layoutBranchId);
 
 	public void setRecentLayoutRevisionId(
 			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutRevisionId)
-		throws SystemException;
+			long layoutRevisionId);
 
 	public void setRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid, long layoutRevisionId)
-		throws SystemException;
+			User user, long layoutSetBranchId, long plid, long layoutRevisionId);
 
 	public void setRecentLayoutSetBranchId(
 		HttpServletRequest request, long layoutSetId, long layoutSetBranchId);
 
 	public void setRecentLayoutSetBranchId(
-			User user, long layoutSetId, long layoutSetBranchId)
-		throws SystemException;
+			User user, long layoutSetId, long layoutSetBranchId);
 
 	public String stripProtocolFromRemoteAddress(String remoteAddress);
 
-	public void unlockGroup(long groupId) throws SystemException;
+	public void unlockGroup(long groupId);
 
 	public void unscheduleCopyFromLive(PortletRequest PortletRequest)
 		throws PortalException;

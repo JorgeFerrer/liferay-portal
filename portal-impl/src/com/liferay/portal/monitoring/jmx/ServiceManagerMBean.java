@@ -26,28 +26,23 @@ public interface ServiceManagerMBean {
 	public void addMonitoredClass(String className);
 
 	public void addMonitoredMethod(
-			String className, String methodName, String[] parameterTypes)
-		throws SystemException;
+			String className, String methodName, String[] parameterTypes);
 
 	public long getErrorCount(
-			String className, String methodName, String[] parameterTypes)
-		throws SystemException;
+			String className, String methodName, String[] parameterTypes);
 
 	public long getMaxTime(
-			String className, String methodName, String[] parameterTypes)
-		throws SystemException;
+			String className, String methodName, String[] parameterTypes);
 
 	public long getMinTime(
-			String className, String methodName, String[] parameterTypes)
-		throws SystemException;
+			String className, String methodName, String[] parameterTypes);
 
 	public Set<String> getMonitoredClasses();
 
 	public Set<MethodSignature> getMonitoredMethods();
 
 	public long getRequestCount(
-			String className, String methodName, String[] parameterTypes)
-		throws SystemException;
+			String className, String methodName, String[] parameterTypes);
 
 	public boolean isActive();
 

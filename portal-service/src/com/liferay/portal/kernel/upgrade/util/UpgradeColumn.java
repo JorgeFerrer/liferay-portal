@@ -34,7 +34,7 @@ public interface UpgradeColumn {
 
 	public Object getOldValue();
 
-	public long increment() throws SystemException;
+	public long increment();
 
 	public boolean isApplicable(String name);
 

@@ -525,12 +525,10 @@ public interface Portal {
 	public String getComputerName();
 
 	public Map<String, List<Portlet>> getControlPanelCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException;
+		HttpServletRequest request);
 
 	public String getControlPanelCategory(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException;
+		String portletId, ThemeDisplay themeDisplay);
 
 	public String getControlPanelFullURL(
 			long scopeGroupId, String ppid, Map<String, String[]> params)
@@ -542,12 +540,10 @@ public interface Portal {
 	public long getControlPanelPlid(PortletRequest portletRequest)
 		throws PortalException;
 
-	public Set<Portlet> getControlPanelPortlets(long companyId, String category)
-		throws SystemException;
+	public Set<Portlet> getControlPanelPortlets(long companyId, String category);
 
 	public List<Portlet> getControlPanelPortlets(
-			String category, ThemeDisplay themeDisplay)
-		throws SystemException;
+		String category, ThemeDisplay themeDisplay);
 
 	public PortletURL getControlPanelPortletURL(
 		HttpServletRequest request, String portletId, long referrerPlid,
@@ -680,12 +676,10 @@ public interface Portal {
 		throws PortalException;
 
 	public String getEmailFromAddress(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException;
+		PortletPreferences preferences, long companyId, String defaultValue);
 
 	public String getEmailFromName(
-			PortletPreferences preferences, long companyId, String defaultValue)
-		throws SystemException;
+		PortletPreferences preferences, long companyId, String defaultValue);
 
 	public Map<String, Serializable> getExpandoBridgeAttributes(
 			ExpandoBridge expandoBridge, PortletRequest portletRequest)
@@ -711,13 +705,11 @@ public interface Portal {
 			ThemeDisplay themeDisplay)
 		throws PortalException;
 
-	public Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay)
-		throws SystemException;
+	public Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay);
 
 	public String getFirstPageLayoutTypes(PageContext pageContext);
 
-	public Portlet getFirstSiteAdministrationPortlet(ThemeDisplay themeDisplay)
-		throws SystemException;
+	public Portlet getFirstSiteAdministrationPortlet(ThemeDisplay themeDisplay);
 
 	public String getFullName(
 		String firstName, String middleName, String lastName);
@@ -1067,7 +1059,7 @@ public interface Portal {
 
 	public String getPortletTitle(String portletId, User user);
 
-	public String getPortletXmlFileName() throws SystemException;
+	public String getPortletXmlFileName();
 
 	public PortletPreferences getPreferences(HttpServletRequest request);
 
@@ -1119,20 +1111,17 @@ public interface Portal {
 		throws PortalException;
 
 	public Map<String, List<Portlet>> getSiteAdministrationCategoriesMap(
-			HttpServletRequest request)
-		throws SystemException;
+		HttpServletRequest request);
 
 	public PortletURL getSiteAdministrationURL(
-			HttpServletRequest request, ThemeDisplay themeDisplay)
-		throws SystemException;
+		HttpServletRequest request, ThemeDisplay themeDisplay);
 
 	public PortletURL getSiteAdministrationURL(
 		HttpServletRequest request, ThemeDisplay themeDisplay,
 		String portletName);
 
 	public PortletURL getSiteAdministrationURL(
-			PortletResponse portletResponse, ThemeDisplay themeDisplay)
-		throws SystemException;
+		PortletResponse portletResponse, ThemeDisplay themeDisplay);
 
 	public PortletURL getSiteAdministrationURL(
 		PortletResponse portletResponse, ThemeDisplay themeDisplay,
@@ -1217,7 +1206,7 @@ public interface Portal {
 	public User getUser(PortletRequest portletRequest)
 		throws PortalException;
 
-	public String getUserEmailAddress(long userId) throws SystemException;
+	public String getUserEmailAddress(long userId);
 
 	public long getUserId(HttpServletRequest request);
 
@@ -1247,8 +1236,7 @@ public interface Portal {
 	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
 	@Deprecated
-	public String getUserValue(long userId, String param, String defaultValue)
-		throws SystemException;
+	public String getUserValue(long userId, String param, String defaultValue);
 
 	public long getValidUserId(long companyId, long userId)
 		throws PortalException;
@@ -1317,12 +1305,10 @@ public interface Portal {
 		throws PortalException;
 
 	public boolean isControlPanelPortlet(
-			String portletId, String category, ThemeDisplay themeDisplay)
-		throws SystemException;
+		String portletId, String category, ThemeDisplay themeDisplay);
 
 	public boolean isControlPanelPortlet(
-			String portletId, ThemeDisplay themeDisplay)
-		throws SystemException;
+		String portletId, ThemeDisplay themeDisplay);
 
 	public boolean isGroupAdmin(User user, long groupId) throws Exception;
 
@@ -1348,8 +1334,7 @@ public interface Portal {
 
 	public boolean isLayoutSitemapable(Layout layout);
 
-	public boolean isLoginRedirectRequired(HttpServletRequest request)
-		throws SystemException;
+	public boolean isLoginRedirectRequired(HttpServletRequest request);
 
 	public boolean isMethodGet(PortletRequest portletRequest);
 
@@ -1371,7 +1356,7 @@ public interface Portal {
 
 	public boolean isSystemRole(String roleName);
 
-	public boolean isUpdateAvailable() throws SystemException;
+	public boolean isUpdateAvailable();
 
 	public boolean isValidResourceId(String resourceId);
 

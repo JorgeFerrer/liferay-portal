@@ -35,7 +35,7 @@ public interface WorkflowedModel {
 
 	public String getStatusByUserName();
 
-	public String getStatusByUserUuid() throws SystemException;
+	public String getStatusByUserUuid();
 
 	public Date getStatusDate();
 

@@ -160,8 +160,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 	}
 
 	public abstract List<Object> getFoldersAndFileEntries(
-			long folderId, int start, int end, OrderByComparator obc)
-		throws SystemException;
+		long folderId, int start, int end, OrderByComparator obc);
 
 	public abstract List<Object> getFoldersAndFileEntries(
 			long folderId, String[] mimeTypes, int start, int end,
@@ -202,8 +201,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 		return getFoldersAndFileEntriesCount(folderId, mimeTypes);
 	}
 
-	public abstract int getFoldersAndFileEntriesCount(long folderId)
-		throws SystemException;
+	public abstract int getFoldersAndFileEntriesCount(long folderId);
 
 	public abstract int getFoldersAndFileEntriesCount(
 			long folderId, String[] mimeTypes)

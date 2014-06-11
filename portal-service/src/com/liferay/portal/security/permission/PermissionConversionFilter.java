@@ -24,10 +24,8 @@ import com.liferay.portal.model.Role;
  */
 public interface PermissionConversionFilter {
 
-	public boolean accept(Role role, ResourcePermission resourcePermission)
-		throws SystemException;
+	public boolean accept(Role role, ResourcePermission resourcePermission);
 
-	public boolean accept(Role role, ResourceTypePermission resourcePermission)
-		throws SystemException;
+	public boolean accept(Role role, ResourceTypePermission resourcePermission);
 
 }

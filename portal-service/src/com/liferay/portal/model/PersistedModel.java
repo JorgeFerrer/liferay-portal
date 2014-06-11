@@ -27,6 +27,6 @@ public interface PersistedModel {
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void persist() throws SystemException;
+	public void persist();
 
 }

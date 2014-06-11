@@ -30,9 +30,9 @@ import java.util.Locale;
  */
 public interface DDMXML {
 
-	public String formatXML(Document document) throws SystemException;
+	public String formatXML(Document document);
 
-	public String formatXML(String xml) throws SystemException;
+	public String formatXML(String xml);
 
 	public Fields getFields(DDMStructure structure, String xml)
 		throws PortalException;
@@ -42,15 +42,13 @@ public interface DDMXML {
 			List<String> fieldNames)
 		throws PortalException;
 
-	public String getXML(Document document, Fields fields)
-		throws SystemException;
+	public String getXML(Document document, Fields fields);
 
-	public String getXML(Fields fields) throws SystemException;
+	public String getXML(Fields fields);
 
 	public String updateXMLDefaultLocale(
-			String xml, Locale contentDefaultLocale,
-			Locale contentNewDefaultLocale)
-		throws SystemException;
+		String xml, Locale contentDefaultLocale,
+		Locale contentNewDefaultLocale);
 
 	public String validateXML(String xml) throws PortalException;
 

@@ -30,6 +30,6 @@ public interface TreeModel {
 
 	public String getTreePath();
 
-	public void updateTreePath(String treePath) throws SystemException;
+	public void updateTreePath(String treePath);
 
 }

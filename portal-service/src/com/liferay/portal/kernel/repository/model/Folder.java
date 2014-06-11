@@ -91,7 +91,7 @@ public interface Folder extends RepositoryModel<Folder> {
 	public String getUserName();
 
 	@Override
-	public String getUserUuid() throws SystemException;
+	public String getUserUuid();
 
 	@Override
 	public String getUuid();
