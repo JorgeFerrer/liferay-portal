@@ -94,7 +94,6 @@ public interface UserGroupMembershipPolicy {
 	 * @throws PortalException if any one user could not be added to a user
 	 *         group, if any one user could not be removed from a user group, or
 	 *         if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void checkMembership(
 			long[] userIds, long[] addUserGroupIds, long[] removeUserGroupIds)
@@ -109,7 +108,6 @@ public interface UserGroupMembershipPolicy {
 	 * @return <code>true</code> if the user can be added to the user group;
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipAllowed(long userId, long userGroupId)
 		throws PortalException;
@@ -124,7 +122,6 @@ public interface UserGroupMembershipPolicy {
 	 * @return <code>true</code> if user group membership for the user is
 	 *         mandatory; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipRequired(long userId, long userGroupId)
 		throws PortalException;
@@ -158,7 +155,6 @@ public interface UserGroupMembershipPolicy {
 	 * @param  removeUserGroupIds the primary keys of the user groups from which
 	 *         the users were removed (optionally <code>null</code>)
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void propagateMembership(
 			long[] userIds, long[] addUserGroupIds, long[] removeUserGroupIds)
@@ -173,7 +169,6 @@ public interface UserGroupMembershipPolicy {
 	 * every time a membership policy hook is deployed.
 	 *
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy() throws PortalException;
 
@@ -183,7 +178,6 @@ public interface UserGroupMembershipPolicy {
 	 *
 	 * @param  userGroup the user group to verify
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(UserGroup userGroup)
 		throws PortalException;
@@ -229,7 +223,6 @@ public interface UserGroupMembershipPolicy {
 	 * @param  oldUserGroup the old user group
 	 * @param  oldExpandoAttributes the old expando attributes
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(
 			UserGroup userGroup, UserGroup oldUserGroup,

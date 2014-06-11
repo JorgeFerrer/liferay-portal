@@ -50,7 +50,6 @@ public class ResourceTypePermissionFinderImpl
 	 * @param  name the fully qualified class name of the resource type
 	 * @return all the resource type permissions that apply to resources of the
 	 *         type within the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourceTypePermission> findByEitherScopeC_G_N(
@@ -96,7 +95,6 @@ public class ResourceTypePermissionFinderImpl
 	 * @param  roleId the primary key of the role
 	 * @return all of the role's group scope resource type permissions that
 	 *         apply to resources of the type
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourceTypePermission> findByGroupScopeC_N_R(

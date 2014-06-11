@@ -95,7 +95,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @return     the added activity counter
 	 * @throws     PortalException if the group or the previous activity counter
 	 *             could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addActivityCounter(long,
 	 *             long, long, String, int, int, long, int)}
 	 */
@@ -148,7 +147,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @return     the added activity counter
 	 * @throws     PortalException if the group or the previous activity counter
 	 *             could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addActivityCounter(long,
 	 *             long, long, String, int, int, long, int)}
 	 */
@@ -197,7 +195,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @return the added activity counter
 	 * @throws PortalException if the group or the previous activity counter
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -291,7 +288,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  activity the social activity
 	 * @throws PortalException if an expected group or expected previous
 	 *         activity counters could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addActivityCounters(SocialActivity activity)
@@ -441,7 +437,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @return     the created activity counter
 	 * @throws     PortalException if the group or a previous activity counter
 	 *             could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addActivityCounter(long,
 	 *             long, long, String, int, int, long, int)}
 	 */
@@ -494,7 +489,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @return     the created activity counter
 	 * @throws     PortalException if the group or the previous activity counter
 	 *             could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addActivityCounter(long,
 	 *             long, long, String, int, int, long, int)}
 	 */
@@ -524,7 +518,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  assetEntry the asset entry
 	 * @throws PortalException if the new contribution counter could not be
 	 *         created
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivityCounters(AssetEntry assetEntry)
@@ -557,7 +550,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the entity
 	 * @throws PortalException if the entity is an asset and its owner's
 	 *         contribution counter could not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivityCounters(long classNameId, long classPK)
@@ -588,7 +580,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the entity
 	 * @throws PortalException if the entity is an asset and its owner's
 	 *         contribution counter could not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivityCounters(String className, long classPK)
@@ -624,7 +615,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the asset
 	 * @throws PortalException if the asset owner's contribution counter could
 	 *         not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void disableActivityCounters(long classNameId, long classPK)
@@ -648,7 +638,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the asset
 	 * @throws PortalException if the asset owner's contribution counter could
 	 *         not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void disableActivityCounters(String className, long classPK)
@@ -691,7 +680,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the asset
 	 * @throws PortalException if the asset owner's contribution counter could
 	 *         not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void enableActivityCounters(long classNameId, long classPK)
@@ -715,7 +703,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  classPK the primary key of the asset
 	 * @throws PortalException if the asset owner's contribution counter could
 	 *         not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void enableActivityCounters(String className, long classPK)
@@ -756,7 +743,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  ownerType the owner type
 	 * @param  endPeriod the end period, <code>-1</code> for the latest one
 	 * @return the matching activity counter
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivityCounter fetchActivityCounterByEndPeriod(
@@ -778,7 +764,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  ownerType the owner type
 	 * @param  startPeriod the start period
 	 * @return the matching activity counter
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivityCounter fetchActivityCounterByStartPeriod(
@@ -799,7 +784,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  name the counter name
 	 * @param  ownerType the owner type
 	 * @return the matching activity counter
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivityCounter fetchLatestActivityCounter(
@@ -824,7 +808,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  startOffset the offset for the start period
 	 * @param  endOffset the offset for the end period
 	 * @return the matching activity counters
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivityCounter> getOffsetActivityCounters(
@@ -852,7 +835,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  startOffset the offset for the start period
 	 * @param  endOffset the offset for the end period
 	 * @return the distribution of matching activity counters
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivityCounter> getOffsetDistributionActivityCounters(
@@ -879,7 +861,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  startPeriod the start period
 	 * @param  endPeriod the end period
 	 * @return the matching activity counters
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivityCounter> getPeriodActivityCounters(
@@ -913,7 +894,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  startPeriod the start period
 	 * @param  endPeriod the end period
 	 * @return the distribution of matching activity counters
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivityCounter> getPeriodDistributionActivityCounters(
@@ -954,7 +934,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching tuples
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Tuple> getUserActivityCounters(
@@ -1010,7 +989,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @param  rankingNames the ranking counter names
 	 * @return the number of matching users
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserActivityCountersCount(
@@ -1031,7 +1009,6 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @throws PortalException if the group or an expected previous activity
 	 *         counter could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void incrementUserAchievementCounter(long userId, long groupId)

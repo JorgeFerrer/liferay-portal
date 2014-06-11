@@ -840,7 +840,6 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the blogs entry owner's social activity counter could not
 	 *         be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -892,7 +891,6 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	 * @throws PortalException if a user or blogs entry with the primary key
 	 *         could not be found or if the blogs entry owner's social activity
 	 *         counter could not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public BlogsEntry moveEntryToTrash(long userId, long entryId)
@@ -913,7 +911,6 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 	 * @throws PortalException if a user or blogs entry with the primary key
 	 *         could not be found or if the blogs entry owner's social activity
 	 *         counter could not be updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override

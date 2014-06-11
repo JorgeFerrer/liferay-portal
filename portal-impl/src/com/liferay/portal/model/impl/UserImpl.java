@@ -110,7 +110,6 @@ public class UserImpl extends UserBaseImpl {
 	 * Returns the user's addresses.
 	 *
 	 * @return the user's addresses
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Address> getAddresses() {
@@ -123,7 +122,6 @@ public class UserImpl extends UserBaseImpl {
 	 *
 	 * @return the user's birth date
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Date getBirthday() throws PortalException {
@@ -135,7 +133,6 @@ public class UserImpl extends UserBaseImpl {
 	 *
 	 * @return the user's company's mail domain
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getCompanyMx() throws PortalException {
@@ -150,7 +147,6 @@ public class UserImpl extends UserBaseImpl {
 	 *
 	 * @return the user's associated contact
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    Contact
 	 */
 	@Override
@@ -265,7 +261,6 @@ public class UserImpl extends UserBaseImpl {
 	 * @param      mainPath the main path
 	 * @return     the user's display URL
 	 * @throws     PortalException if a portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getDisplayURL(ThemeDisplay)}
 	 */
 	@Deprecated
@@ -307,7 +302,6 @@ public class UserImpl extends UserBaseImpl {
 	 *             is available for the user's profile
 	 * @return     the user's display URL
 	 * @throws     PortalException if a portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getDisplayURL(ThemeDisplay)}
 	 */
 	@Deprecated
@@ -376,7 +370,6 @@ public class UserImpl extends UserBaseImpl {
 	 * @param  themeDisplay the theme display
 	 * @return the user's display URL
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getDisplayURL(ThemeDisplay themeDisplay)
@@ -415,7 +408,6 @@ public class UserImpl extends UserBaseImpl {
 	 *         available for the user's profile
 	 * @return the user's display URL
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getDisplayURL(
@@ -467,7 +459,6 @@ public class UserImpl extends UserBaseImpl {
 	 * Returns the user's email addresses.
 	 *
 	 * @return the user's email addresses
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<EmailAddress> getEmailAddresses() {
@@ -481,7 +472,6 @@ public class UserImpl extends UserBaseImpl {
 	 * @return <code>true</code> if the user is female; <code>false</code>
 	 *         otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean getFemale() throws PortalException {
@@ -556,7 +546,6 @@ public class UserImpl extends UserBaseImpl {
 	 * @return <code>true</code> if the user is male; <code>false</code>
 	 *         otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean getMale() throws PortalException {

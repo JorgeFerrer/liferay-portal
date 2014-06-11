@@ -109,7 +109,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         group permissions for the template.
 	 * @return the template
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate addTemplate(
@@ -156,7 +155,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         group permissions for the template.
 	 * @return the template
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate addTemplate(
@@ -258,7 +256,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  addGroupPermissions whether to add group permissions
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addTemplateResources(
@@ -280,7 +277,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  groupPermissions the group permissions to be added
 	 * @param  guestPermissions the guest permissions to be added
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addTemplateResources(
@@ -309,7 +305,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         group permissions for the template.
 	 * @return the new template
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate copyTemplate(
@@ -355,7 +350,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         permissions for the new templates.
 	 * @return the new templates
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> copyTemplates(
@@ -384,7 +378,6 @@ public class DDMTemplateLocalServiceImpl
 	 *
 	 * @param  template the template to be deleted
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -439,7 +432,6 @@ public class DDMTemplateLocalServiceImpl
 	 *
 	 * @param  templateId the primary key of the template to be deleted
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTemplate(long templateId) throws PortalException {
@@ -454,7 +446,6 @@ public class DDMTemplateLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTemplates(long groupId) throws PortalException {
@@ -475,7 +466,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  templateKey the unique string identifying the template
 	 * @return the matching template, or <code>null</code> if a matching
 	 *         template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate fetchTemplate(
@@ -506,7 +496,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @return the matching template, or <code>null</code> if a matching
 	 *         template could not be found
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate fetchTemplate(
@@ -547,7 +536,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  templateId the primary key of the template
 	 * @return the template with the ID
 	 * @throws PortalException if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(long templateId) throws PortalException {
@@ -563,7 +551,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  templateKey the unique string identifying the template
 	 * @return the matching template
 	 * @throws PortalException if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(
@@ -594,7 +581,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         the search
 	 * @return the matching template
 	 * @throws PortalException if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(
@@ -644,7 +630,6 @@ public class DDMTemplateLocalServiceImpl
 	 *
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the templates with the class PK
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(long classPK) {
@@ -658,7 +643,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the template's
 	 *         related model
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(long groupId, long classNameId) {
@@ -675,7 +659,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         related model
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
@@ -719,7 +702,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  type the template's type. For more information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
@@ -742,7 +724,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  mode the template's mode. For more information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
@@ -787,7 +768,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the number of templates belonging to the group and class PK
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesByClassPKCount(long groupId, long classPK) {
@@ -818,7 +798,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplatesByStructureClassNameId(
@@ -837,7 +816,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  structureClassNameId the primary key of the class name for the
 	 *         template's related structure
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesByStructureClassNameIdCount(
@@ -851,7 +829,6 @@ public class DDMTemplateLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of templates belonging to the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesCount(long groupId) {
@@ -865,7 +842,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the template's
 	 *         related model
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesCount(long groupId, long classNameId) {
@@ -882,7 +858,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         related model
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesCount(long groupId, long classNameId, long classPK) {
@@ -925,7 +900,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -978,7 +952,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -1026,7 +999,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -1079,7 +1051,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -1112,7 +1083,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1147,7 +1117,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1179,7 +1148,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1214,7 +1182,6 @@ public class DDMTemplateLocalServiceImpl
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1253,7 +1220,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         modification date.
 	 * @return the updated template
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate updateTemplate(
@@ -1335,7 +1301,6 @@ public class DDMTemplateLocalServiceImpl
 	 *         modification date.
 	 * @return the updated template
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate updateTemplate(

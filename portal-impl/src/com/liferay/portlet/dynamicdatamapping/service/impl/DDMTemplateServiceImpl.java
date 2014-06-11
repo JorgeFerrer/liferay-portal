@@ -69,7 +69,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the template
 	 * @throws PortalException if the user did not have permission to add the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate addTemplate(
@@ -124,7 +123,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the template
 	 * @throws PortalException if the user did not have permission to add the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate addTemplate(
@@ -164,7 +162,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the new template
 	 * @throws PortalException if the user did not have permission to add the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate copyTemplate(
@@ -227,7 +224,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the new template
 	 * @throws PortalException if the user did not have permission to add the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> copyTemplates(
@@ -253,7 +249,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  templateId the primary key of the template to be deleted
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTemplate(long templateId) throws PortalException {
@@ -274,7 +269,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         template could not be found
 	 * @throws PortalException if the user did not have permission to view the
 	 *         template
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate fetchTemplate(
@@ -299,7 +293,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the template with the ID
 	 * @throws PortalException if the user did not have permission to view the
 	 *         template or if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(long templateId) throws PortalException {
@@ -318,7 +311,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  templateKey the unique string identifying the template
 	 * @return the matching template
 	 * @throws PortalException if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(
@@ -352,7 +344,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         search
 	 * @return the matching template
 	 * @throws PortalException if a matching template could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate getTemplate(
@@ -376,7 +367,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  classNameId the primary key of the class name for template's
 	 *         related model
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(long groupId, long classNameId) {
@@ -393,7 +383,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         related model
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
@@ -438,7 +427,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  type the template's type. For more information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
@@ -463,7 +451,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @param  classPK the primary key of the template's related entity
 	 * @return the matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplatesByClassPK(long groupId, long classPK) {
@@ -495,7 +482,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> getTemplatesByStructureClassNameId(
@@ -516,7 +502,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         <code>0</code> to count generic templates only.
 	 * @return the number of matching templates plus the number of matching
 	 *         generic templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplatesByStructureClassNameIdCount(
@@ -560,7 +545,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -613,7 +597,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -661,7 +644,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -714,7 +696,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the templates
 	 *         (optionally <code>null</code>)
 	 * @return the matching templates ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMTemplate> search(
@@ -747,7 +728,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -782,7 +762,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -814,7 +793,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 *         information, see {@link
 	 *         com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants}.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -849,7 +827,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching templates
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -889,7 +866,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the updated template
 	 * @throws PortalException if the user did not have permission to update the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate updateTemplate(
@@ -931,7 +907,6 @@ public class DDMTemplateServiceImpl extends DDMTemplateServiceBaseImpl {
 	 * @return the updated template
 	 * @throws PortalException if the user did not have permission to update the
 	 *         template or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMTemplate updateTemplate(

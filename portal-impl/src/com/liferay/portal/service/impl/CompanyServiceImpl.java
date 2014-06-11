@@ -60,7 +60,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if the web domain, virtual host name, or mail
 	 *         domain was invalid or if the user was not a universal
 	 *         administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -98,7 +97,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if the company with the primary key could not be
 	 *         found or if the company's logo could not be found or if the user
 	 *         was not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLogo(long companyId) throws PortalException {
@@ -118,7 +116,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @return Returns the company with the primary key
 	 * @throws PortalException if a company with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company getCompanyById(long companyId) throws PortalException {
@@ -131,7 +128,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @param  logoId the ID of the company's logo
 	 * @return Returns the company with the logo
 	 * @throws PortalException if the company with the logo could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company getCompanyByLogoId(long logoId) throws PortalException {
@@ -145,7 +141,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @return Returns the company with the mail domain
 	 * @throws PortalException if the company with the mail domain could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company getCompanyByMx(String mx) throws PortalException {
@@ -160,7 +155,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if the company with the virtual host name could
 	 *         not be found or if the virtual host was not associated with a
 	 *         company
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company getCompanyByVirtualHost(String virtualHost)
@@ -176,7 +170,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @return Returns the company with the web domain
 	 * @throws PortalException if the company with the web domain could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company getCompanyByWebId(String webId) throws PortalException {
@@ -193,7 +186,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @param  companyId the primary key of the company
 	 * @param  keys the company's preferences keys to be remove
 	 * @throws PortalException if the user was not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -222,7 +214,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if a company with the primary key could not be
 	 *         found or if the new information was invalid or if the user was
 	 *         not a universal administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company updateCompany(
@@ -268,7 +259,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if a company with the primary key could not be
 	 *         found or if the new information was invalid or if the user was
 	 *         not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company updateCompany(
@@ -325,7 +315,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException the company with the primary key could not be
 	 *         found or if the new information was invalid or if the user was
 	 *         not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -392,7 +381,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws     PortalException if a company with the primary key could not
 	 *             be found or if the new information was invalid or if the user
 	 *             was not an administrator
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateCompany(long, String,
 	 *             String, String, boolean, byte[], String, String, String,
 	 *             String, String, String, String, String, String)}
@@ -447,7 +435,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws     PortalException the company with the primary key could not be
 	 *             found or if the new information was invalid or if the user
 	 *             was not an administrator
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateCompany(long, String,
 	 *             String, String, boolean, byte[], String, String, String,
 	 *             String, String, String, String, String, String, String,
@@ -482,7 +469,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @param  timeZoneId the ID of the company's default user's time zone
 	 * @throws PortalException if the company's default user could not be found
 	 *         or if the user was not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateDisplay(
@@ -507,7 +493,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if the company's logo ID could not be found or if
 	 *         the logo's image was corrupted or if the user was an
 	 *         administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Company updateLogo(long companyId, byte[] bytes)
@@ -531,7 +516,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @throws PortalException if the company's logo ID could not be found or if
 	 *         the logo's image was corrupted or if the user was an
 	 *         administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -555,7 +539,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @param  properties the company's properties. See {@link
 	 *         com.liferay.portal.kernel.util.UnicodeProperties}
 	 * @throws PortalException if the user was not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -589,7 +572,6 @@ public class CompanyServiceImpl extends CompanyServiceBaseImpl {
 	 * @param  siteLogo whether to to allow site administrators to use their own
 	 *         logo instead of the enterprise logo
 	 * @throws PortalException if the user was not an administrator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override

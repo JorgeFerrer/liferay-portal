@@ -175,7 +175,6 @@ public class ResourceBlockLocalServiceImpl
 	 * @param  resourceBlockPermissionsContainer the resource block's
 	 *         permissions container
 	 * @return the new resource block
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public ResourceBlock addResourceBlock(
@@ -413,7 +412,6 @@ public class ResourceBlockLocalServiceImpl
 	 * zero.
 	 *
 	 * @param  resourceBlockId the primary key of the resource block
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(
@@ -470,7 +468,6 @@ public class ResourceBlockLocalServiceImpl
 	 * zero.
 	 *
 	 * @param  resourceBlock the resource block
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(

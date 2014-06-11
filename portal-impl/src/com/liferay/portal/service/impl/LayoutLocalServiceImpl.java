@@ -193,7 +193,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @throws     PortalException if a group or user with the primary key could
 	 *             not be found, if layout values were invalid, or if a portal
 	 *             exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addLayout(long, long,
 	 *             boolean, long, Map, Map, Map, Map, Map, String, String,
 	 *             boolean, Map, ServiceContext)}
@@ -269,7 +268,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @throws PortalException if a group or user with the primary key could not
 	 *         be found, if layout values were invalid, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout addLayout(
@@ -507,7 +505,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layout
 	 * @throws PortalException if a group or user with the primary key could not
 	 *         be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout addLayout(
@@ -550,7 +547,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         updated
 	 * @param  serviceContext the service context to be applied
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SystemEvent(
@@ -718,7 +714,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  serviceContext the service context to be applied
 	 * @throws PortalException if a matching layout could not be found , or if
 	 *         some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayout(
@@ -740,7 +735,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  serviceContext the service context to be applied
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found , or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayout(long plid, ServiceContext serviceContext)
@@ -764,7 +758,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found or if a layout set for the group and privacy could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayouts(
@@ -814,7 +807,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layouts as a byte array
 	 * @throws PortalException if a group or any layout with the primary key
 	 *         could not be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportLayouts(
@@ -851,7 +843,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layout as a byte array
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportLayouts(
@@ -879,7 +870,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layouts as a File
 	 * @throws PortalException if a group or any layout with the primary key
 	 *         could not be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public File exportLayoutsAsFile(
@@ -1002,7 +992,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the portlet information as a byte array
 	 * @throws PortalException if a group or portlet with the primary key could
 	 *         not be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportPortletInfo(
@@ -1060,7 +1049,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the portlet information as a file
 	 * @throws PortalException if a group or portlet with the primary key could
 	 *         not be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public File exportPortletInfoAsFile(
@@ -1179,7 +1167,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @return the primary key of the default layout for the group (optionally
 	 *         {@link com.liferay.portal.model.LayoutConstants#DEFAULT_PLID})
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getDefaultPlid(long groupId) {
@@ -1204,7 +1191,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  privateLayout whether the layout is private to the group
 	 * @return the primary key of the default layout for the group; {@link
 	 *         com.liferay.portal.model.LayoutConstants#DEFAULT_PLID}) otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getDefaultPlid(long groupId, boolean privateLayout) {
@@ -1234,7 +1220,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         otherwise
 	 * @throws PortalException if a portlet with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getDefaultPlid(
@@ -1269,7 +1254,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layout for the friendly URL
 	 * @throws PortalException if the friendly URL is <code>null</code> or a
 	 *         matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout getFriendlyURLLayout(
@@ -1339,7 +1323,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  layoutId the primary key of the layout
 	 * @return the matching layout
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout getLayout(long groupId, boolean privateLayout, long layoutId)
@@ -1356,7 +1339,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return Returns the layout for the icon image
 	 * @throws PortalException if an icon image with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout getLayoutByIconImageId(long iconImageId)
@@ -1372,7 +1354,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  privateLayout whether the layout is private to the group
 	 * @return the matching layouts, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getLayouts(long groupId, boolean privateLayout) {
@@ -1389,7 +1370,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  parentLayoutId the primary key of the parent layout
 	 * @return the matching layouts, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getLayouts(
@@ -1421,7 +1401,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of layouts (not inclusive)
 	 * @return the matching layouts, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getLayouts(
@@ -1442,7 +1421,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the matching layouts, or an empty list if no matches were found
 	 * @throws PortalException if a group or layout with the primary key could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getLayouts(
@@ -1469,7 +1447,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         com.liferay.portal.model.LayoutConstants#TYPE_PORTLET})
 	 * @return the matching layouts, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getLayouts(
@@ -1487,7 +1464,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  preferencesKey the portlet's preference key
 	 * @param  preferencesValue the portlet's preference value
 	 * @return the layout references of the matching layouts
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public LayoutReference[] getLayouts(
@@ -1592,7 +1568,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @param  privateLayout whether the layout is private to the group
 	 * @return the primary key to use for the next layout
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getNextLayoutId(long groupId, boolean privateLayout) {
@@ -1622,7 +1597,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *
 	 * @param  roleId the primary key of the role
 	 * @return all the layouts without resource permissions
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getNoPermissionLayouts(long roleId) {
@@ -1634,7 +1608,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * Returns all the layouts whose friendly URLs are <code>null</code>
 	 *
 	 * @return all the layouts whose friendly URLs are <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getNullFriendlyURLLayouts() {
@@ -1671,7 +1644,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @param  privateLayout whether the layout is private to the group
 	 * @return the layouts within scope of the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getScopeGroupLayouts(
@@ -1735,7 +1707,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  parentLayoutId the primary key of the parent layout
 	 * @return <code>true</code> if the group has any layouts;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasLayouts(
@@ -1805,7 +1776,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  bytes the byte array with the data
 	 * @throws PortalException if a group or user with the primary key could not
 	 *         be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -1832,7 +1802,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  file the LAR file with the data
 	 * @throws PortalException if a group or user with the primary key could not
 	 *         be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -1877,7 +1846,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  is the input stream
 	 * @throws PortalException if a group or user with the primary key could not
 	 *         be found, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -1965,7 +1933,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  file the LAR file with the data
 	 * @throws PortalException if a group, layout, portlet or user with the
 	 *         primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void importPortletInfo(
@@ -2029,7 +1996,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  is the input stream
 	 * @throws PortalException if a group, portlet, layout or user with the
 	 *         primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void importPortletInfo(
@@ -2209,7 +2175,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         not be found, if no layouts were specified, if the first layout
 	 *         was not page-able, if the first layout was hidden, or if some
 	 *         other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setLayouts(
@@ -2295,7 +2260,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a group or layout with the primary key could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateFriendlyURL(
@@ -2342,7 +2306,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return     the updated layout
 	 * @throws     PortalException if a group or layout with the primary key
 	 *             could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateFriendlyURL(long,
 	 *             long, String, String)}
 	 */
@@ -2415,7 +2378,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         not be found, if a unique friendly URL could not be generated, if
 	 *         a valid parent layout ID to use could not be found, if the layout
 	 *         parameters were invalid, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLayout(
@@ -2567,7 +2529,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *             generated, if a valid parent layout ID to use could not be
 	 *             found, if the layout parameters were invalid, or if a portal
 	 *             exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #updateLayout(long, boolean,
 	 *             long, long, Map, Map, Map, Map, Map, String, boolean, Map,
 	 *             Boolean, byte[], ServiceContext)}
@@ -2605,7 +2566,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLayout(
@@ -2644,7 +2604,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  wapTheme whether the theme is for WAP browsers
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLookAndFeel(
@@ -2683,7 +2642,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 *         see {@link java.util.Locale}.
 	 * @return the updated layout
 	 * @throws PortalException if the new name was <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateName(Layout layout, String name, String languageId)
@@ -2728,7 +2686,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found or if the
 	 *         new name was <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateName(
@@ -2752,7 +2709,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found or if the name was <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateName(long plid, String name, String languageId)
@@ -2775,7 +2731,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the matching layout
 	 * @throws PortalException if a valid parent layout ID to use could not be
 	 *         found or if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateParentLayoutId(
@@ -2822,7 +2777,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the layout matching the primary key
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found or if a valid parent layout ID to use could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateParentLayoutId(long plid, long parentPlid)
@@ -2872,7 +2826,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @param  privateLayout whether the layout is private to the group
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updatePriorities(long groupId, boolean privateLayout)
@@ -2900,7 +2853,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  priority the layout's new priority
 	 * @return the updated layout
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(Layout layout, int priority)
@@ -2978,7 +2930,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  priority the layout's new priority
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(
@@ -3003,7 +2954,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param  previousLayoutId the primary key of the previous layout
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(
@@ -3048,7 +2998,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(long plid, int priority)
@@ -3081,7 +3030,6 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 * @param      name the new name for the portlets
 	 * @param      languageId the primary key of the language
 	 * @throws     PortalException if a matching layout could not be found
-	 * @throws     SystemException if a system exception occurred
 	 * @see        com.liferay.portlet.portletconfiguration.action.EditScopeAction
 	 * @deprecated As of 6.2.0, with no direct replacement
 	 */

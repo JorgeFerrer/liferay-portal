@@ -64,7 +64,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  classPK the primary key of the entity's instance
 	 * @return the subscription
 	 * @throws PortalException if a matching user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Subscription addSubscription(
@@ -97,7 +96,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  frequency the frequency for notifications
 	 * @return the subscription
 	 * @throws PortalException if a matching user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Subscription addSubscription(
@@ -187,7 +185,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  subscriptionId the primary key of the subscription
 	 * @return the subscription that was removed
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Subscription deleteSubscription(long subscriptionId)
@@ -208,7 +205,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  classPK the primary key of the entity's instance
 	 * @throws PortalException if a matching user or subscription could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteSubscription(long userId, String className, long classPK)
@@ -232,7 +228,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  subscription the subscription
 	 * @return the subscription that was removed
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Subscription deleteSubscription(Subscription subscription)
@@ -272,7 +267,6 @@ public class SubscriptionLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteSubscriptions(long userId) throws PortalException {
@@ -291,7 +285,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  className the entity's class name
 	 * @param  classPK the primary key of the entity's instance
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteSubscriptions(
@@ -317,7 +310,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  classPK the primary key of the entity's instance
 	 * @return the subscription of the user to the entity
 	 * @throws PortalException if a matching subscription could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Subscription getSubscription(
@@ -338,7 +330,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  className the entity's class name
 	 * @param  classPKs the primary key of the entities
 	 * @return the subscriptions of the user to the entities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Subscription> getSubscriptions(
@@ -357,7 +348,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  className the entity's class name
 	 * @param  classPK the primary key of the entity's instance
 	 * @return the subscriptions to the entity
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Subscription> getSubscriptions(
@@ -377,7 +367,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @param  orderByComparator the comparator to order the subscriptions
 	 * @return the range of subscriptions of the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Subscription> getUserSubscriptions(
@@ -394,7 +383,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  userId the primary key of the user
 	 * @param  className the entity's class name
 	 * @return the subscriptions of the user to the entities with the class name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Subscription> getUserSubscriptions(
@@ -410,7 +398,6 @@ public class SubscriptionLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of subscriptions of the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserSubscriptionsCount(long userId) {
@@ -426,7 +413,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  classPK the primary key of the entity's instance
 	 * @return <code>true</code> if the user is subscribed to the entity;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean isSubscribed(
@@ -455,7 +441,6 @@ public class SubscriptionLocalServiceImpl
 	 * @param  classPKs the primary key of the entities
 	 * @return <code>true</code> if the user is subscribed to any of the
 	 *         entities; <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean isSubscribed(

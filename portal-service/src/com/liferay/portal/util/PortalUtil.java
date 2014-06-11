@@ -196,7 +196,6 @@ public class PortalUtil {
 	 * @param  request the servlet request for the page
 	 * @param  portlet the portlet
 	 * @throws PortalException if adding the default resource permissions failed
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static void addPortletDefaultResource(
 			HttpServletRequest request, Portlet portlet)
@@ -359,7 +358,6 @@ public class PortalUtil {
 	 * @return the alternate URL for the requested canonical URL in the given
 	 *         locale
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static String getAlternateURL(
 			String canonicalURL, ThemeDisplay themeDisplay, Locale locale,
@@ -403,7 +401,6 @@ public class PortalUtil {
 	 *         portlet)
 	 * @throws PortalException if a base model instance for the resource
 	 *         permission could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static BaseModel<?> getBaseModel(
 			ResourcePermission resourcePermission)
@@ -421,7 +418,6 @@ public class PortalUtil {
 	 *         not have a base model instance (such as if it's a portlet)
 	 * @throws PortalException if a base model instance with the primary key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static BaseModel<?> getBaseModel(String modelName, String primKey)
 		throws PortalException {
@@ -438,7 +434,6 @@ public class PortalUtil {
 	 * @return the user's ID if HTTP authentication headers are present and his
 	 *         credentials are valid; <code>0</code> otherwise
 	 * @throws PortalException if an authentication exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static long getBasicAuthUserId(HttpServletRequest request)
 		throws PortalException {
@@ -456,7 +451,6 @@ public class PortalUtil {
 	 * @return the user's ID if HTTP authentication headers are present and his
 	 *         credentials are valid; <code>0</code> otherwise
 	 * @throws PortalException if an authentication exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static long getBasicAuthUserId(
 			HttpServletRequest request, long companyId)
@@ -495,7 +489,6 @@ public class PortalUtil {
 	 * @throws PortalException if a group for the page could not be found, if a
 	 *         group friendly URL could not be retrieved for the page, or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static String getCanonicalURL(
 			String completeURL, ThemeDisplay themeDisplay, Layout layout)
@@ -529,7 +522,6 @@ public class PortalUtil {
 	 * @throws PortalException if a group for the page could not be found, if a
 	 *         group friendly URL could not be retrieved for the page, or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public static String getCanonicalURL(
 			String completeURL, ThemeDisplay themeDisplay, Layout layout,

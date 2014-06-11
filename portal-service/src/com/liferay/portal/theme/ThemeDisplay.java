@@ -264,7 +264,6 @@ public class ThemeDisplay
 	 *
 	 * @return the portal instance's default user
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public User getDefaultUser() throws PortalException {
 		if (_defaultUser == null) {
@@ -279,7 +278,6 @@ public class ThemeDisplay
 	 *
 	 * @return the ID of the portal instance's default user
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long getDefaultUserId() throws PortalException {
 		return getDefaultUser().getUserId();
@@ -770,7 +768,6 @@ public class ThemeDisplay
 	 *
 	 * @return the name of the scoped or sub-scoped active group
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getScopeGroupName() throws PortalException {
 		if (_scopeGroup == null) {

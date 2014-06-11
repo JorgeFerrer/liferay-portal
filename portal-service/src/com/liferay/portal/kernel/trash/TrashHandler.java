@@ -120,7 +120,6 @@ public interface TrashHandler {
 	 *             entry)
 	 * @throws     PortalException if a duplicate trash entry already existed in
 	 *             the destination container
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link
 	 *             #checkRestorableEntry(TrashEntry, long, String)}
 	 */
@@ -148,7 +147,6 @@ public interface TrashHandler {
 	 *         (optionally <code>null</code> to forego renaming the trash entry)
 	 * @throws PortalException if a duplicate trash entry already existed in the
 	 *         destination container
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void checkRestorableEntry(
 			TrashEntry trashEntry, long containerModelId, String newName)
@@ -160,7 +158,6 @@ public interface TrashHandler {
 	 * @param  classPK the primary key of the model entity to delete
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void deleteTrashEntry(long classPK)
 		throws PortalException;
@@ -179,7 +176,6 @@ public interface TrashHandler {
 	 * @return the container model with the primary key
 	 * @throws PortalException if a container model with the primary key could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public ContainerModel getContainerModel(long containerModelId)
 		throws PortalException;
@@ -225,7 +221,6 @@ public interface TrashHandler {
 	 * @return the range of matching container models
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ContainerModel> getContainerModels(
 			long classPK, long containerModelId, int start, int end)
@@ -248,7 +243,6 @@ public interface TrashHandler {
 	 * @return the number of matching container models
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public int getContainerModelsCount(long classPK, long containerModelId)
 		throws PortalException;
@@ -279,7 +273,6 @@ public interface TrashHandler {
 	 * @return the parent container model of the model entity with the primary
 	 *         key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public ContainerModel getParentContainerModel(long classPK)
 		throws PortalException;
@@ -301,7 +294,6 @@ public interface TrashHandler {
 	 *         must be able to contain
 	 * @return all the matching parent container models of the model entity
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ContainerModel> getParentContainerModels(long classPK)
 		throws PortalException;
@@ -318,7 +310,6 @@ public interface TrashHandler {
 	 * @return the restore link
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getRestoreContainerModelLink(
 			PortletRequest portletRequest, long classPK)
@@ -333,7 +324,6 @@ public interface TrashHandler {
 	 * @return the restore message
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getRestoreMessage(PortletRequest portletRequest, long classPK)
 		throws PortalException;
@@ -382,7 +372,6 @@ public interface TrashHandler {
 	 * @return the number of model entities that are children of the parent
 	 *         container model identified by the primary key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public int getTrashContainedModelsCount(long classPK)
 		throws PortalException;
@@ -415,7 +404,6 @@ public interface TrashHandler {
 	 *         container models) that are children of the parent container model
 	 *         identified by the primary key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public List<TrashRenderer> getTrashContainedModelTrashRenderers(
 			long classPK, int start, int end)
@@ -446,7 +434,6 @@ public interface TrashHandler {
 	 * @return the number of container models that are children of the parent
 	 *         container model identified by the primary key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public int getTrashContainerModelsCount(long classPK)
 		throws PortalException;
@@ -476,7 +463,6 @@ public interface TrashHandler {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching trash renderers of model entities
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public List<TrashRenderer> getTrashContainerModelTrashRenderers(
 			long classPK, int start, int end)
@@ -493,7 +479,6 @@ public interface TrashHandler {
 	 * @return the trash renderer associated to the model entity
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public TrashRenderer getTrashRenderer(long classPK)
 		throws PortalException;
@@ -516,7 +501,6 @@ public interface TrashHandler {
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean hasTrashPermission(
 			PermissionChecker permissionChecker, long groupId, long classPK,
@@ -549,7 +533,6 @@ public interface TrashHandler {
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found in the portal
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isInTrash(long classPK)
 		throws PortalException;
@@ -564,7 +547,6 @@ public interface TrashHandler {
 	 *         otherwise
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found in the portal
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isInTrashContainer(long classPK)
 		throws PortalException;
@@ -593,7 +575,6 @@ public interface TrashHandler {
 	 *         original location; <code>false</code> otherwise
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRestorable(long classPK)
 		throws PortalException;
@@ -610,7 +591,6 @@ public interface TrashHandler {
 	 * @throws PortalException if a model entity with the primary key or the
 	 *         destination container model with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void moveEntry(
 			long userId, long classPK, long containerModelId,
@@ -629,7 +609,6 @@ public interface TrashHandler {
 	 * @throws PortalException if a model entity with the primary key or the
 	 *         destination container model with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void moveTrashEntry(
 			long userId, long classPK, long containerModelId,
@@ -649,7 +628,6 @@ public interface TrashHandler {
 	 *         entity to restore
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void restoreRelatedTrashEntry(String className, long classPK)
 		throws PortalException;
@@ -661,7 +639,6 @@ public interface TrashHandler {
 	 * @param  classPK the primary key of the model entity to restore
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void restoreTrashEntry(long userId, long classPK)
 		throws PortalException;
@@ -675,7 +652,6 @@ public interface TrashHandler {
 	 * @param  title the title to be assigned
 	 * @throws PortalException if a model entity with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void updateTitle(long classPK, String title)
 		throws PortalException;

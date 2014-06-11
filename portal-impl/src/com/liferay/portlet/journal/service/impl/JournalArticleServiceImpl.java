@@ -131,7 +131,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @return the web content article
 	 * @throws PortalException if the user did not have permission to add the
 	 *         web content article or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle addArticle(
@@ -241,7 +240,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @return the web content article
 	 * @throws PortalException if the user did not have permission to add the
 	 *         web content article or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle addArticle(
@@ -289,7 +287,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to add the
 	 *         copy the web content article, if a matching web content article
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle copyArticle(
@@ -324,7 +321,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         web content article, if a matching web content article could not
 	 *         be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticle(
@@ -353,7 +349,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         recipients of the unapproved web content article's denial.
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         web content article or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticle(
@@ -388,7 +383,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to expire the
 	 *         web content article, if a matching web content article could not
 	 *         be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle expireArticle(
@@ -425,7 +419,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to expire the
 	 *         web content article, if a matching web content article could not
 	 *         be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void expireArticle(
@@ -448,7 +441,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if the user did not have permission to view the web
 	 *         content article
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(long id) throws PortalException {
@@ -471,7 +463,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(long groupId, String articleId)
@@ -494,7 +485,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(
@@ -526,7 +516,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if the user did not have permission to view the web
 	 *         content article
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(
@@ -553,7 +542,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @return the matching web content article
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticleByUrlTitle(long groupId, String urlTitle)
@@ -582,7 +570,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article, if a matching web content article or DDM
 	 *         template could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getArticleContent(
@@ -613,7 +600,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *             the web content article, if a matching web content article or
 	 *             DDM template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, double, String, PortletRequestModel, ThemeDisplay)}
 	 */
@@ -645,7 +631,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article, if a matching web content article or DDM
 	 *         template could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getArticleContent(
@@ -674,7 +659,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *             the web content article, if a matching web content article or
 	 *             DDM template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, String, PortletRequestModel, ThemeDisplay)}
 	 */
@@ -698,7 +682,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article folder
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(long groupId, long folderId) {
@@ -736,7 +719,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         return (not inclusive)
 	 * @param  obc the comparator to order the web content articles
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
@@ -777,7 +759,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticlesByArticleId(
@@ -795,7 +776,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  layoutUuid the unique string identifying the web content
 	 *         article's display page
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticlesByLayoutUuid(
@@ -835,7 +815,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticlesByStructureId(
@@ -873,7 +852,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticlesByStructureId(
@@ -894,7 +872,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article folder
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCount(long groupId, long folderId) {
@@ -923,7 +900,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  articleId the primary key of the web content article
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCountByArticleId(long groupId, String articleId) {
@@ -946,7 +922,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         information see {@link WorkflowConstants} for constants starting
 	 *         with the "STATUS_" prefix.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCountByStructureId(
@@ -964,7 +939,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  ddmStructureKey the primary key of the web content article's DDM
 	 *         structure
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCountByStructureId(
@@ -987,7 +961,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if no approved matching web content
 	 *         articles could be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getDisplayArticleByUrlTitle(
@@ -1012,7 +985,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  folderIds the primary keys of the web content article folders
 	 *         (optionally {@link java.util.Collections#EMPTY_LIST})
 	 * @return the number of matching folders containing web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getFoldersAndArticlesCount(long groupId, List<Long> folderIds) {
@@ -1062,7 +1034,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the root folder could not be found, if the
 	 *         current user did not have permission to view the root folder, or
 	 *         if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getGroupArticles(
@@ -1087,7 +1058,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the root folder could not be found, if the
 	 *         current user did not have permission to view the root folder, or
 	 *         if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupArticlesCount(
@@ -1127,7 +1097,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(long resourcePrimKey)
@@ -1152,7 +1121,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(
@@ -1184,7 +1152,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if the user did not have permission to view the web
 	 *         content article
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(
@@ -1213,7 +1180,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         one of the versions of the web content article or if any one of
 	 *         the versions of the web content article could not be moved to the
 	 *         folder
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void moveArticle(long groupId, String articleId, long newFolderId)
@@ -1251,7 +1217,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to view or
 	 *         update the web content article, if a matching trashed web content
 	 *         article could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle moveArticleFromTrash(
@@ -1289,7 +1254,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         update the web content article, if a trashed web content article
 	 *         with the primary key could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle moveArticleFromTrash(
@@ -1317,7 +1281,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         article was found
 	 * @throws PortalException if the user did not have permission to move the
 	 *         article to the Recycle Bin or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle moveArticleToTrash(long groupId, String articleId)
@@ -1339,7 +1302,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to update any
 	 *         one of the the web content articles or if web content matching
 	 *         the language could not be found for any one of the articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeArticleLocale(long companyId, String languageId)
@@ -1366,7 +1328,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to update the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle removeArticleLocale(
@@ -1389,7 +1350,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if a matching web content article could not be
 	 *         found in the Recycle Bin, if the user did not have permission to
 	 *         view or restore the article, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void restoreArticleFromTrash(long resourcePrimKey)
@@ -1413,7 +1373,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         could not be found in the Recycle Bin, if the user did not have
 	 *         permission to restore the article, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void restoreArticleFromTrash(long groupId, String articleId)
@@ -1490,7 +1449,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -1568,7 +1526,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -1653,7 +1610,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -1714,7 +1670,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @param  reviewDate the web content article's scheduled review date
 	 *         (optionally <code>null</code>)
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1775,7 +1730,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         or just one field must match. Group, folder IDs, class name ID,
 	 *         and status must all match their values.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1840,7 +1794,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         or just one field must match.  Group, folder IDs, class name ID,
 	 *         and status must all match their values.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1913,7 +1866,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key or a matching web
 	 *         content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticle(
@@ -2010,7 +1962,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         web content article, if a user with the primary key or a matching
 	 *         web content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticle(
@@ -2071,7 +2022,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         web content article, if a user with the primary key or a matching
 	 *         web content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticle(
@@ -2127,7 +2077,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 *         web content article, if a user with the primary key or a matching
 	 *         web content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticleTranslation(
@@ -2159,7 +2108,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to update the
 	 *         web content article or if a matching web content article could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateContent(
@@ -2192,7 +2140,6 @@ public class JournalArticleServiceImpl extends JournalArticleServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to update the
 	 *         web content article, if a matching web content article could not
 	 *         be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateStatus(

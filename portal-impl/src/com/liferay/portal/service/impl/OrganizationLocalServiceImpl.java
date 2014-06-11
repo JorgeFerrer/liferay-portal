@@ -105,7 +105,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  organizationIds the primary keys of the organizations
 	 * @throws PortalException if a group or organization with the primary key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addGroupOrganizations(long groupId, long[] organizationIds)
@@ -136,7 +135,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws PortalException if a creator or parent organization with the
 	 *         primary key could not be found or if the organization's
 	 *         information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Organization addOrganization(
@@ -181,7 +179,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws     PortalException if a creator or parent organization with the
 	 *             primary key could not be found or if the organization's
 	 *             information was invalid
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addOrganization(long, long,
 	 *             String, String, long, long, int, String, boolean,
 	 *             ServiceContext)}
@@ -227,7 +224,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws PortalException if a creator or parent organization with the
 	 *         primary key could not be found or if the organization's
 	 *         information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Organization addOrganization(
@@ -347,7 +343,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  userId the primary key of the creator/owner of the organization
 	 * @param  organization the organization
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addOrganizationResources(long userId, Organization organization)
@@ -366,7 +361,6 @@ public class OrganizationLocalServiceImpl
 	 *
 	 * @param  passwordPolicyId the primary key of the password policy
 	 * @param  organizationIds the primary keys of the organizations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addPasswordPolicyOrganizations(
@@ -383,7 +377,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws PortalException if an organization or parent organization with
 	 *         the primary key could not be found or if the organization's logo
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLogo(long organizationId) throws PortalException {
@@ -401,7 +394,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws PortalException if an organization with the primary key could not
 	 *         be found, if the organization had a workflow in approved status,
 	 *         or if the organization was a parent organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Organization deleteOrganization(long organizationId)
@@ -421,7 +413,6 @@ public class OrganizationLocalServiceImpl
 	 * @return the deleted organization
 	 * @throws PortalException if the organization had a workflow in approved
 	 *         status or if the organization was a parent organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -564,7 +555,6 @@ public class OrganizationLocalServiceImpl
 	 * @return the organization with the name
 	 * @throws PortalException if the organization with the name could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Organization getOrganization(long companyId, String name)
@@ -580,7 +570,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  name the organization's name
 	 * @return the primary key of the organization with the name, or
 	 *         <code>0</code> if the organization could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getOrganizationId(long companyId, String name) {
@@ -636,7 +625,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  parentOrganizationId the primary key of the organization's parent
 	 *         organization
 	 * @return the organizations belonging to the parent organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getOrganizations(
@@ -668,7 +656,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  end the upper bound of the range of organizations to return (not
 	 *         inclusive)
 	 * @return the range of organizations belonging to the parent organization
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationPersistence#findByC_P(
 	 *         long, long, int, int)
 	 */
@@ -695,7 +682,6 @@ public class OrganizationLocalServiceImpl
 	 * @return the organizations with the primary keys
 	 * @throws PortalException if any one of the organizations could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getOrganizations(long[] organizationIds)
@@ -720,7 +706,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  parentOrganizationId the primary key of the organization's parent
 	 *         organization
 	 * @return the number of organizations belonging to the parent organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getOrganizationsCount(
@@ -745,7 +730,6 @@ public class OrganizationLocalServiceImpl
 	 * @return the parent organizations in order by closest ancestor
 	 * @throws PortalException if an organization with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getParentOrganizations(long organizationId)
@@ -769,7 +753,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  organizations the organizations from which to get
 	 *         suborganizations
 	 * @return the suborganizations of the organizations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getSuborganizations(
@@ -797,7 +780,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  companyId the primary key of the organization's company
 	 * @param  organizationId the primary key of the organization
 	 * @return the suborganizations of the organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getSuborganizations(
@@ -812,7 +794,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  companyId the primary key of the organization's company
 	 * @param  organizationId the primary key of the organization
 	 * @return the count of suborganizations of the organization
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getSuborganizationsCount(long companyId, long organizationId) {
@@ -889,7 +870,6 @@ public class OrganizationLocalServiceImpl
 	 *         or an owner of the organization
 	 * @return the organizations associated with the user
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Organization> getUserOrganizations(
@@ -935,7 +915,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  organizationId the primary key of the organization
 	 * @return <code>true</code> if the password policy has been assigned to the
 	 *         organization; <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasPasswordPolicyOrganization(
@@ -991,7 +970,6 @@ public class OrganizationLocalServiceImpl
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if an organization with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1040,7 +1018,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  companyId the primary key of the organization's company
 	 * @throws PortalException if an organization with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void rebuildTree(long companyId) throws PortalException {
@@ -1094,7 +1071,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  sort the field and direction by which to sort (optionally
 	 *         <code>null</code>)
 	 * @return the matching organizations ordered by name
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portlet.usersadmin.util.OrganizationIndexer
 	 */
 	@Override
@@ -1167,7 +1143,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  end the upper bound of the range of organizations to return (not
 	 *         inclusive)
 	 * @return the matching organizations ordered by name
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1219,7 +1194,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  obc the comparator to order the organizations (optionally
 	 *         <code>null</code>)
 	 * @return the matching organizations ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1282,7 +1256,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  end the upper bound of the range of organizations to return (not
 	 *         inclusive)
 	 * @return the matching organizations ordered by name
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1342,7 +1315,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  obc the comparator to order the organizations (optionally
 	 *         <code>null</code>)
 	 * @return the matching organizations ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1404,7 +1376,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  sort the field and direction by which to sort (optionally
 	 *         <code>null</code>)
 	 * @return the matching organizations ordered by <code>sort</code>
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portlet.usersadmin.util.OrganizationIndexer
 	 */
 	@Override
@@ -1448,7 +1419,6 @@ public class OrganizationLocalServiceImpl
 	 *         more information see {@link
 	 *         com.liferay.portal.service.persistence.OrganizationFinder}
 	 * @return the number of matching organizations
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1537,7 +1507,6 @@ public class OrganizationLocalServiceImpl
 	 *         'Employees' and city 'Chicago'&quot; vs &quot;organizations with
 	 *         the name 'Employees' or the city 'Chicago'&quot;.
 	 * @return the number of matching organizations
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.service.persistence.OrganizationFinder
 	 */
 	@Override
@@ -1657,7 +1626,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @param  organizationIds the primary keys of the organizations
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setGroupOrganizations(long groupId, long[] organizationIds)
@@ -1674,7 +1642,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @param  organizationIds the primary keys of the organizations
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetGroupOrganizations(long groupId, long[] organizationIds)
@@ -1690,7 +1657,6 @@ public class OrganizationLocalServiceImpl
 	 *
 	 * @param  passwordPolicyId the primary key of the password policy
 	 * @param  organizationIds the primary keys of the organizations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetPasswordPolicyOrganizations(
@@ -1709,7 +1675,6 @@ public class OrganizationLocalServiceImpl
 	 * @param  assetCategoryIds the primary keys of the asset categories
 	 * @param  assetTagNames the asset tag names
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateAsset(
@@ -1757,7 +1722,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws     PortalException if an organization or parent organization
 	 *             with the primary key could not be found or if the new
 	 *             information was invalid
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #updateOrganization(long,
 	 *             long, long, String, String, long, long, int, String, boolean,
 	 *             byte[], boolean, ServiceContext)}
@@ -1802,7 +1766,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws PortalException if an organization or parent organization with
 	 *         the primary key could not be found or if the new information was
 	 *         invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Organization updateOrganization(
@@ -1940,7 +1903,6 @@ public class OrganizationLocalServiceImpl
 	 * @throws     PortalException if an organization or parent organization
 	 *             with the primary key could not be found or if the new
 	 *             information was invalid
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateOrganization(long,
 	 *             long, long, String, String, long, long, int, String, boolean,
 	 *             boolean, byte[], ServiceContext)}

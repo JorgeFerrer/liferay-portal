@@ -59,7 +59,6 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	 * @throws PortalException if the group did not have permission to the
 	 *         service, if a group with the primary key could not be found or if
 	 *         the permission information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@JSONWebService(mode = JSONWebServiceMode.IGNORE)
 	@Override
@@ -79,7 +78,6 @@ public class PermissionServiceImpl extends PermissionServiceBaseImpl {
 	 * @throws PortalException if the group did not have permission to the
 	 *         service, if a group with the primary key could not be found or if
 	 *         the permission information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void checkPermission(long groupId, String name, String primKey)

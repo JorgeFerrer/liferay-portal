@@ -203,7 +203,6 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 	 * @param      layoutSetPrototypeLinkEnabled whether the layout set
 	 *             prototype is link enabled
 	 * @throws     PortalException if a portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.1.0, replaced by {@link
 	 *             #updateLayoutSetPrototypeLinkEnabled(long, boolean, boolean,
 	 *             String)}
@@ -229,7 +228,6 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 	 * @param  layoutSetPrototypeUuid the uuid of the layout set prototype to
 	 *         link with
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateLayoutSetPrototypeLinkEnabled(

@@ -66,7 +66,6 @@ public class SocialRelationLocalServiceImpl
 	 * @throws PortalException if the users could not be found, if the users
 	 *         were not from the same company, or if either of the users was the
 	 *         default user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialRelation addRelation(long userId1, long userId2, int type)
@@ -129,7 +128,6 @@ public class SocialRelationLocalServiceImpl
 	 *
 	 * @param  relationId the primary key of the relation
 	 * @throws PortalException if the relation could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRelation(long relationId) throws PortalException {
@@ -148,7 +146,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  type the relation's type
 	 * @throws PortalException if the relation or its inverse relation (if
 	 *         applicable) could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRelation(long userId1, long userId2, int type)
@@ -167,7 +164,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  relation the relation to be removed
 	 * @throws PortalException if the relation is bidirectional and its inverse
 	 *         relation could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRelation(SocialRelation relation) throws PortalException {
@@ -186,7 +182,6 @@ public class SocialRelationLocalServiceImpl
 	 * Removes all relations involving the user from the database.
 	 *
 	 * @param  userId the primary key of the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRelations(long userId) {
@@ -200,7 +195,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  userId1 the user that is the subject of the relation
 	 * @param  userId2 the user at the other end of the relation
 	 * @throws PortalException if the inverse relation could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRelations(long userId1, long userId2)
@@ -233,7 +227,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRelation> getInverseRelations(
@@ -249,7 +242,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  userId the primary key of the user
 	 * @param  type the relation's type
 	 * @return the number of matching relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getInverseRelationsCount(long userId, int type) {
@@ -263,7 +255,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  relationId the primary key of the relation
 	 * @return Returns the relation
 	 * @throws PortalException if the relation could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialRelation getRelation(long relationId) throws PortalException {
@@ -278,7 +269,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  type the relation's type
 	 * @return Returns the relation
 	 * @throws PortalException if the relation could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialRelation getRelation(long userId1, long userId2, int type)
@@ -306,7 +296,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
@@ -333,7 +322,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
@@ -350,7 +338,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  userId the primary key of the user
 	 * @param  type the relation's type
 	 * @return the number of relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationsCount(long userId, int type) {
@@ -363,7 +350,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  userId1 the user that is the subject of the relation
 	 * @param  userId2 the user at the other end of the relation
 	 * @return the number of relations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationsCount(long userId1, long userId2) {
@@ -382,7 +368,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  type the relation's type
 	 * @return <code>true</code> if the relation exists; <code>false</code>
 	 *         otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasRelation(long userId1, long userId2, int type) {
@@ -415,7 +400,6 @@ public class SocialRelationLocalServiceImpl
 	 * @param  type the relation's type
 	 * @return <code>true</code> if the two users can be in a new relation of
 	 *         the given type; <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean isRelatable(long userId1, long userId2, int type) {

@@ -89,7 +89,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 *
 	 * @param  dynamicQuery the dynamic query
 	 * @return the number of rows that match the dynamic query
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long countWithDynamicQuery(DynamicQuery dynamicQuery);
 
@@ -99,7 +98,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @param  dynamicQuery the dynamic query
 	 * @param  projection the projection to apply to the query
 	 * @return the number of rows that match the dynamic query
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long countWithDynamicQuery(
 		DynamicQuery dynamicQuery, Projection projection);
@@ -135,7 +133,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 *
 	 * @param  dynamicQuery the dynamic query
 	 * @return the matching rows
-	 * @throws SystemException if a system exception occurred
 	 */
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(DynamicQuery dynamicQuery);
@@ -158,7 +155,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @param  start the lower bound of the range of matching rows
 	 * @param  end the upper bound of the range of matching rows (not inclusive)
 	 * @return the range of matching rows
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.kernel.dao.orm.QueryUtil#list(
 	 *         com.liferay.portal.kernel.dao.orm.Query,
 	 *         com.liferay.portal.kernel.dao.orm.Dialect, int, int)
@@ -187,7 +183,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @param  orderByComparator the comparator to order the results by
 	 *         (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
-	 * @throws SystemException if a system exception occurred
 	 */
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(
@@ -240,7 +235,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @return the model instance that was removed
 	 * @throws NoSuchModelException if an instance of this model with the
 	 *         primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public T remove(Serializable primaryKey)
 		throws NoSuchModelException, SystemException;
@@ -251,7 +245,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 *
 	 * @param  model the model instance to remove
 	 * @return the model instance that was removed
-	 * @throws SystemException if a system exception occurred
 	 */
 	public T remove(T model);
 
@@ -283,7 +276,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 *
 	 * @param  model the model instance to update
 	 * @return the model instance that was updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	public T update(T model);
 
@@ -308,7 +300,6 @@ public interface BasePersistence<T extends BaseModel<T>> {
 	 * @param  model the model instance to update
 	 * @param  serviceContext the service context to be applied
 	 * @return the model instance that was updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	public T update(T model, ServiceContext serviceContext);
 

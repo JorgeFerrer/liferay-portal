@@ -239,7 +239,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws PortalException if a creator could not be found, if the group's
 	 *         information was invalid, if a layout could not be found, or if a
 	 *         valid friendly URL could not be created for the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group addGroup(
@@ -441,7 +440,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *             group's information was invalid, if a layout could not be
 	 *             found, or if a valid friendly URL could not be created for
 	 *             the group
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, boolean, int, String,
 	 *             boolean, boolean, ServiceContext)}
@@ -485,7 +483,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *             group's information was invalid, if a layout could not be
 	 *             found, or if a valid friendly URL could not be created for
 	 *             the group
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, boolean, int, String,
 	 *             boolean, boolean, ServiceContext)}
@@ -527,7 +524,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *             group's information was invalid, if a layout could not be
 	 *             found, or if a valid friendly URL could not be created for
 	 *             the group
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addGroup(long, long, String,
 	 *             long, long, String, String, int, boolean, int, String,
 	 *             boolean, boolean, ServiceContext)}
@@ -552,7 +548,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  roleId the primary key of the role
 	 * @param  groupIds the primary keys of the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addRoleGroups(long roleId, long[] groupIds) {
@@ -567,7 +562,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @param  groupIds the primary keys of the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addUserGroups(long userId, long[] groupIds) {
@@ -586,7 +580,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         found, if the group's information was invalid, if a layout could
 	 *         not be found, or if a valid friendly URL could not be created for
 	 *         the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -615,7 +608,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  companyId the primary key of the company
 	 * @throws PortalException if a new system group could not be created
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -713,7 +705,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws PortalException if the group was a system group, or if the user
 	 *         did not have permission to delete the group or its assets or its
 	 *         resources
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group deleteGroup(Group group) throws PortalException {
@@ -976,7 +967,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found, if the group was a system group, or if the user did not
 	 *         have permission to delete the group, its assets, or its resources
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group deleteGroup(long groupId) throws PortalException {
@@ -1040,7 +1030,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  companyId the primary key of the company
 	 * @return the company's group, or <code>null</code> if a matching group
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group fetchCompanyGroup(long companyId) {
@@ -1056,7 +1045,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  friendlyURL the friendly URL
 	 * @return the group with the friendly URL, or <code>null</code> if a
 	 *         matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group fetchFriendlyURLGroup(long companyId, String friendlyURL) {
@@ -1078,7 +1066,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  name the group's name
 	 * @return the group with the name and associated company, or
 	 *         <code>null</code> if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Skip
@@ -1102,7 +1089,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         matching group could not be found
 	 * @throws PortalException if a default user for the company could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group fetchUserPersonalSiteGroup(long companyId)
@@ -1122,7 +1108,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  companyId the primary key of the company
 	 * @return the group associated with the company
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getCompanyGroup(long companyId) throws PortalException {
@@ -1149,7 +1134,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the range of groups associated with the company
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getCompanyGroups(long companyId, int start, int end) {
@@ -1162,7 +1146,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  companyId the primary key of the company
 	 * @return the number of groups associated with the company
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getCompanyGroupsCount(long companyId) {
@@ -1177,7 +1160,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the group with the friendly URL
 	 * @throws PortalException if a matching group could not be found, or if the
 	 *         friendly URL was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getFriendlyURLGroup(long companyId, String friendlyURL)
@@ -1207,7 +1189,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the group with the primary key
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -1222,7 +1203,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  name the group's name
 	 * @return the group with the name
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Skip
@@ -1333,7 +1313,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  site whether the group is to be associated with a main site
 	 * @return the matching groups, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getGroups(
@@ -1355,7 +1334,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  parentGroupId the primary key of the parent group
 	 * @return the matching groups, or <code>null</code> if no matches were
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getGroups(
@@ -1377,7 +1355,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getGroups(
@@ -1396,7 +1373,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  groupIds the primary keys of the groups
 	 * @return the groups with the primary keys
 	 * @throws PortalException if any one of the groups could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getGroups(long[] groupIds) throws PortalException {
@@ -1419,7 +1395,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  parentGroupId the primary key of the parent group
 	 * @param  site whether the group is to be associated with a main site
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupsCount(
@@ -1440,7 +1415,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  className the class name of the group
 	 * @param  parentGroupId the primary key of the parent group
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupsCount(
@@ -1459,7 +1433,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  plid the primary key of the layout
 	 * @return the group associated with the layout
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getLayoutGroup(long companyId, long plid)
@@ -1477,7 +1450,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  layoutPrototypeId the primary key of the layout prototype
 	 * @return the group associated with the layout prototype
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getLayoutPrototypeGroup(long companyId, long layoutPrototypeId)
@@ -1497,7 +1469,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  layoutSetPrototypeId the primary key of the layout set prototype
 	 * @return the group associated with the layout set prototype
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getLayoutSetPrototypeGroup(
@@ -1532,7 +1503,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param      end the upper bound of the range of groups to return (not
 	 *             inclusive)
 	 * @return     the range of matching groups
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #getLayoutsGroups(long, long,
 	 *             boolean, int, int, OrderByComparator)}
 	 */
@@ -1569,7 +1539,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @return the range of matching groups ordered by comparator
 	 *         <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getLayoutsGroups(
@@ -1588,7 +1557,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  parentGroupId the primary key of the parent group
 	 * @param  site whether the group is to be associated with a main site
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getLayoutsGroupsCount(
@@ -1601,7 +1569,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * Returns all live groups.
 	 *
 	 * @return all live groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getLiveGroups() {
@@ -1629,7 +1596,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the range of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getNoLayoutsGroups(
@@ -1647,7 +1613,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @return the non-system groups having <code>null</code> or empty friendly
 	 *         URLs
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getNullFriendlyURLGroups() {
@@ -1661,7 +1626,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  organizationId the primary key of the organization
 	 * @return the group associated with the organization
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getOrganizationGroup(long companyId, long organizationId)
@@ -1702,7 +1666,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  organizations the organizations
 	 * @return the groups related to the organizations
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getOrganizationsRelatedGroups(
@@ -1731,7 +1694,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         ancestor
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getParentGroups(long groupId) throws PortalException {
@@ -1750,7 +1712,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  liveGroupId the primary key of the live group
 	 * @return the staging group
 	 * @throws PortalException if a matching staging group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getStagingGroup(long liveGroupId) throws PortalException {
@@ -1764,7 +1725,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  userId the primary key of the user
 	 * @return the group associated with the user
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getUserGroup(long companyId, long userId)
@@ -1783,7 +1743,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  userGroupId the primary key of the user group
 	 * @return the group associated with the user group
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getUserGroupGroup(long companyId, long userGroupId)
@@ -1806,7 +1765,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         groups and user groups
 	 * @return the user's groups and immediate organization groups
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getUserGroups(long userId, boolean inherit)
@@ -1841,7 +1799,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the range of the user's groups and immediate organization groups
 	 *         ordered by name
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getUserGroups(
@@ -1871,7 +1828,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the groups associated with the user groups
 	 * @throws PortalException if any one of the user group's group could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getUserGroupsGroups(List<UserGroup> userGroups)
@@ -1895,7 +1851,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  userGroups the user groups
 	 * @return the groups related to the user groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getUserGroupsRelatedGroups(List<UserGroup> userGroups) {
@@ -1938,7 +1893,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         groups
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if another portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> getUserOrganizationsGroups(
@@ -1972,7 +1926,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the default user's personal site group
 	 * @throws PortalException if a matching group or default user for the
 	 *         company could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group getUserPersonalSiteGroup(long companyId)
@@ -2041,7 +1994,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  liveGroupId the primary key of the live group
 	 * @return <code>true</code> if the live group has a staging group;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasStagingGroup(long liveGroupId) {
@@ -2062,7 +2014,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @return <code>true</code> if the user is associated with the group;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasUserGroup(long userId, long groupId) {
@@ -2081,7 +2032,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         which the user belongs in the determination
 	 * @return <code>true</code> if the user is associated with the group;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasUserGroup(long userId, long groupId, boolean inherit) {
@@ -2102,7 +2052,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  name the group's name
 	 * @return the group with the name and associated company, or
 	 *         <code>null</code> if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group loadFetchGroup(long companyId, String name) {
@@ -2117,7 +2066,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  name the group's name
 	 * @return the group with the name and associated company
 	 * @throws PortalException if a matching group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group loadGetGroup(long companyId, String name)
@@ -2138,7 +2086,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  companyId the primary key of the group's company
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void rebuildTree(long companyId) throws PortalException {
@@ -2188,7 +2135,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2229,7 +2175,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2273,7 +2218,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2319,7 +2263,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2367,7 +2310,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2413,7 +2355,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2461,7 +2402,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2526,7 +2466,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2577,7 +2516,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2632,7 +2570,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2677,7 +2614,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2725,7 +2661,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2775,7 +2710,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2816,7 +2750,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -2859,7 +2792,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2903,7 +2835,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of groups to return (not
 	 *         inclusive)
 	 * @return the matching groups ordered by name
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2950,7 +2881,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  obc the comparator to order the groups (optionally
 	 *         <code>null</code>)
 	 * @return the matching groups ordered by comparator <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Group> search(
@@ -2979,7 +2909,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         information see {@link
 	 *         com.liferay.portal.service.persistence.GroupFinder}.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3011,7 +2940,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3043,7 +2971,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         information see {@link
 	 *         com.liferay.portal.service.persistence.GroupFinder}.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3094,7 +3021,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3136,7 +3062,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         information see {@link
 	 *         com.liferay.portal.service.persistence.GroupFinder}.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3169,7 +3094,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3197,7 +3121,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         information see {@link
 	 *         com.liferay.portal.service.persistence.GroupFinder}.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3228,7 +3151,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field.
 	 * @return the number of matching groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@ThreadLocalCachable
@@ -3247,7 +3169,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  roleId the primary key of the role
 	 * @param  groupIds the primary keys of the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setRoleGroups(long roleId, long[] groupIds) {
@@ -3262,7 +3183,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  roleId the primary key of the role
 	 * @param  groupIds the primary keys of the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetRoleGroups(long roleId, long[] groupIds) {
@@ -3277,7 +3197,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @param  groupIds the primary keys of the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetUserGroups(long userId, long[] groupIds) {
@@ -3298,7 +3217,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 *         (optionally <code>null</code>)
 	 * @param  assetTagNames the asset tag names (optionally <code>null</code>)
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateAsset(
@@ -3331,7 +3249,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found or if a valid friendly URL could not be created for the
 	 *         group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group updateFriendlyURL(long groupId, String friendlyURL)
@@ -3388,7 +3305,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found or if the friendly URL was invalid or could one not be
 	 *         created
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group updateGroup(
@@ -3485,7 +3401,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the group
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group updateGroup(long groupId, String typeSettings)
@@ -3532,7 +3447,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 	 * @return the group
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Group updateSite(long groupId, boolean site) throws PortalException {

@@ -267,7 +267,6 @@ public class JournalArticleLocalServiceImpl
 	 *         also set whether to add the default guest and group permissions.
 	 * @return the web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -499,7 +498,6 @@ public class JournalArticleLocalServiceImpl
 	 *         also set whether to add the default guest and group permissions.
 	 * @return the web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle addArticle(
@@ -537,7 +535,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the web content article or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addArticleResources(
@@ -558,7 +555,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupPermissions the group permissions to be added
 	 * @param  guestPermissions the guest permissions to be added
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addArticleResources(
@@ -580,7 +576,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  addGroupPermissions whether to add group permissions
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addArticleResources(
@@ -602,7 +597,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupPermissions the group permissions to be added
 	 * @param  guestPermissions the guest permissions to be added
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addArticleResources(
@@ -626,7 +620,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle checkArticleResourcePrimKey(
@@ -656,7 +649,6 @@ public class JournalArticleLocalServiceImpl
 	 * review notifications based on their current workflow.
 	 *
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void checkArticles() throws PortalException {
@@ -681,7 +673,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  version the web content article's version
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void checkNewLine(long groupId, String articleId, double version)
@@ -714,7 +705,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws PortalException if a matching web content article could not be
 	 *         found, if the article's structure does not match it, or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void checkStructure(long groupId, String articleId, double version)
@@ -740,7 +730,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the new web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -883,7 +872,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  article the web content article
 	 * @return the deleted web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SystemEvent(
@@ -909,7 +897,6 @@ public class JournalArticleLocalServiceImpl
 	 *         content's denial.
 	 * @return the deleted web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
@@ -1072,7 +1059,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the deleted web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle deleteArticle(
@@ -1098,7 +1084,6 @@ public class JournalArticleLocalServiceImpl
 	 *         portlet preferences that include email information to notify
 	 *         recipients of the unapproved web content article's denial.
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticle(
@@ -1138,7 +1123,6 @@ public class JournalArticleLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the web content article's group
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticles(long groupId) throws PortalException {
@@ -1186,7 +1170,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article folder
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticles(long groupId, long folderId)
@@ -1204,7 +1187,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  includeTrashedEntries whether to include recycled web content
 	 *         articles
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteArticles(
@@ -1261,7 +1243,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  layoutUuid the unique string identifying the web content
 	 *         article's display page
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayoutArticleReferences(long groupId, String layoutUuid) {
@@ -1297,7 +1278,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -1333,7 +1313,6 @@ public class JournalArticleLocalServiceImpl
 	 *         considered a web content add activity.
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void expireArticle(
@@ -1442,7 +1421,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the web content article with the ID
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(long id) throws PortalException {
@@ -1459,7 +1437,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(long groupId, String articleId)
@@ -1488,7 +1465,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(
@@ -1515,7 +1491,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticle(
@@ -1546,7 +1521,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  urlTitle the web content article's accessible URL title
 	 * @return the matching web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getArticleByUrlTitle(long groupId, String urlTitle)
@@ -1580,7 +1554,6 @@ public class JournalArticleLocalServiceImpl
 	 *         portlet request model and the DDM template
 	 * @throws PortalException if a matching DDM template could not be found, or
 	 *         if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getArticleContent(
@@ -1614,7 +1587,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return     the web content from the matching web content article
 	 * @throws     PortalException if a matching DDM template could not be
 	 *             found, or if a portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link
 	 *             #getArticleContent(JournalArticle, String, String, String,
 	 *             PortletRequestModel,ThemeDisplay)}
@@ -1647,7 +1619,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the web content from the matching web content article
 	 * @throws PortalException if a matching web content article or DDM template
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getArticleContent(
@@ -1686,7 +1657,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws     PortalException if a matching web content article or DDM
 	 *             template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, double, String, String, String, PortletRequestModel,
 	 *             ThemeDisplay)}
@@ -1717,7 +1687,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws     PortalException if a matching web content article or DDM
 	 *             template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, double, String, String, String, PortletRequestModel,
 	 *             ThemeDisplay)}
@@ -1750,7 +1719,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest web content from the matching web content article
 	 * @throws PortalException if a matching web content article or DDM template
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getArticleContent(
@@ -1781,7 +1749,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws     PortalException if a matching web content article or DDM
 	 *             template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, String, String, String, PortletRequestModel,
 	 *             ThemeDisplay)}
@@ -1811,7 +1778,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws     PortalException if a matching web content article or DDM
 	 *             template could not be found, or if a portal exception
 	 *             occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #getArticleContent(long,
 	 *             String, String, String, String, PortletRequestModel,
 	 *             ThemeDisplay)}
@@ -2071,7 +2037,6 @@ public class JournalArticleLocalServiceImpl
 	 *         the current date/time
 	 * @throws PortalException if a matching web content article or DDM template
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticleDisplay getArticleDisplay(
@@ -2130,7 +2095,6 @@ public class JournalArticleLocalServiceImpl
 	 *         the current date/time
 	 * @throws PortalException if a matching web content article or DDM template
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticleDisplay getArticleDisplay(
@@ -2161,7 +2125,6 @@ public class JournalArticleLocalServiceImpl
 	 *         the current date/time
 	 * @throws PortalException if a matching web content article or DDM template
 	 *         could not be found, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticleDisplay getArticleDisplay(
@@ -2177,7 +2140,6 @@ public class JournalArticleLocalServiceImpl
 	 * Returns all the web content articles present in the system.
 	 *
 	 * @return the web content articles present in the system
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles() {
@@ -2189,7 +2151,6 @@ public class JournalArticleLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the web content article's group
 	 * @return the web content articles belonging to the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(long groupId) {
@@ -2215,7 +2176,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  end the upper bound of the range of web content articles to
 	 *         return (not inclusive)
 	 * @return the range of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(long groupId, int start, int end) {
@@ -2244,7 +2204,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
@@ -2260,7 +2219,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article folder
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(long groupId, long folderId) {
@@ -2288,7 +2246,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  end the upper bound of the range of web content articles to
 	 *         return (not inclusive)
 	 * @return the range of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
@@ -2329,7 +2286,6 @@ public class JournalArticleLocalServiceImpl
 	 *         articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
@@ -2346,7 +2302,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  articleId the primary key of the web content article
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticles(long groupId, String articleId) {
@@ -2376,7 +2331,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  smallImageId the primary key of the web content article's small
 	 *         image
 	 * @return the web content articles matching the small image ID
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getArticlesBySmallImageId(long smallImageId) {
@@ -2389,7 +2343,6 @@ public class JournalArticleLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the web content article's group
 	 * @return the number of web content articles belonging to the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCount(long groupId) {
@@ -2402,7 +2355,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article's folder
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getArticlesCount(long groupId, long folderId) {
@@ -2446,7 +2398,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  end the upper bound of the range of web content articles to
 	 *         return (not inclusive)
 	 * @return the range of matching web content articles ordered by article ID
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
@@ -2485,7 +2436,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  end the upper bound of the range of web content articles to
 	 *         return (not inclusive)
 	 * @return the range of matching web content articles ordered by article ID
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
@@ -2524,7 +2474,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  end the upper bound of the range of web content articles to
 	 *         return (not inclusive)
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getCompanyArticlesCount(
@@ -2548,7 +2497,6 @@ public class JournalArticleLocalServiceImpl
 	 *         information see {@link WorkflowConstants} for constants starting
 	 *         with the "STATUS_" prefix.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getCompanyArticlesCount(long companyId, int status) {
@@ -2572,7 +2520,6 @@ public class JournalArticleLocalServiceImpl
 	 *         displayed
 	 * @throws PortalException if no approved matching web content articles
 	 *         could be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getDisplayArticle(long groupId, String articleId)
@@ -2616,7 +2563,6 @@ public class JournalArticleLocalServiceImpl
 	 *         article is currently displayed
 	 * @throws PortalException if no approved matching web content articles
 	 *         could be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getDisplayArticleByUrlTitle(
@@ -2669,7 +2615,6 @@ public class JournalArticleLocalServiceImpl
 	 *         preferring articles with approved workflow status
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(long resourcePrimKey)
@@ -2691,7 +2636,6 @@ public class JournalArticleLocalServiceImpl
 	 *         status
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(long resourcePrimKey, int status)
@@ -2718,7 +2662,6 @@ public class JournalArticleLocalServiceImpl
 	 *         workflow status
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(
@@ -2763,7 +2706,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(long groupId, String articleId)
@@ -2785,7 +2727,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(
@@ -2812,7 +2753,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticle(
@@ -2846,7 +2786,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest matching web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle getLatestArticleByUrlTitle(
@@ -2884,7 +2823,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest version number of the matching web content
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public double getLatestVersion(long groupId, String articleId)
@@ -2907,7 +2845,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the latest version number of the matching web content
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public double getLatestVersion(long groupId, String articleId, int status)
@@ -2924,7 +2861,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  groupId the primary key of the web content article's group
 	 * @param  folderId the primary key of the web content article folder
 	 * @return the number of web content articles that are not recycled
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getNotInTrashArticlesCount(long groupId, long folderId) {
@@ -2989,7 +2925,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  ddmStructureKey the primary key of the web content article's DDM
 	 *         structure
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getStructureArticles(
@@ -3021,7 +2956,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getStructureArticles(
@@ -3047,7 +2981,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  ddmStructureKey the primary key of the web content article's DDM
 	 *         structure
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getStructureArticlesCount(long groupId, String ddmStructureKey) {
@@ -3062,7 +2995,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  ddmTemplateKey the primary key of the web content article's DDM
 	 *         template
 	 * @return the matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getTemplateArticles(
@@ -3094,7 +3026,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> getTemplateArticles(
@@ -3113,7 +3044,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  ddmTemplateKey the primary key of the web content article's DDM
 	 *         template
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getTemplateArticlesCount(long groupId, String ddmTemplateKey) {
@@ -3162,7 +3092,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  articleId the primary key of the web content article
 	 * @return <code>true</code> if the specified web content article exists;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasArticle(long groupId, String articleId) {
@@ -3188,7 +3117,6 @@ public class JournalArticleLocalServiceImpl
 	 *         latest version; <code>false</code> otherwise
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean isLatestVersion(
@@ -3217,7 +3145,6 @@ public class JournalArticleLocalServiceImpl
 	 *         latest version; <code>false</code> otherwise
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean isLatestVersion(
@@ -3243,7 +3170,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the updated web content article, which was moved to a new folder
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -3290,7 +3216,6 @@ public class JournalArticleLocalServiceImpl
 	 *         Bin to a new folder
 	 * @throws PortalException if a trashed web content article with the primary
 	 *         key could not be found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -3344,7 +3269,6 @@ public class JournalArticleLocalServiceImpl
 	 *         Bin
 	 * @throws PortalException if the user did not have permission to move the
 	 *         article to the Recycle Bin or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -3462,7 +3386,6 @@ public class JournalArticleLocalServiceImpl
 	 *         article was found
 	 * @throws PortalException if the user did not have permission to move the
 	 *         article to the Recycle Bin or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle moveArticleToTrash(
@@ -3509,7 +3432,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the updated web content article with the locale removed
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -3561,7 +3483,6 @@ public class JournalArticleLocalServiceImpl
 	 *         could not be found in the Recycle Bin, if the user did not have
 	 *         permission to restore the article, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -3729,7 +3650,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -3810,7 +3730,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -3895,7 +3814,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  obc the comparator to order the web content articles
 	 * @return the range of matching web content articles ordered by the
 	 *         comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<JournalArticle> search(
@@ -3959,7 +3877,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  sort the field, type, and direction by which to sort (optionally
 	 *         <code>null</code>)
 	 * @return the matching web content articles ordered by <code>sort</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Hits search(
@@ -4051,7 +3968,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  sort the field, type, and direction by which to sort (optionally
 	 *         <code>null</code>)
 	 * @return the matching web content articles ordered by <code>sort</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Hits search(
@@ -4173,7 +4089,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  reviewDate the web content article's scheduled review date
 	 *         (optionally <code>null</code>)
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -4234,7 +4149,6 @@ public class JournalArticleLocalServiceImpl
 	 *         or just one field must match. Group, folder IDs, class name ID,
 	 *         and status must all match their values.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -4299,7 +4213,6 @@ public class JournalArticleLocalServiceImpl
 	 *         or just one field must match.  Group, folder IDs, class name ID,
 	 *         and status must all match their values.
 	 * @return the number of matching web content articles
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -4431,7 +4344,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws PortalException if a user with the primary key or a matching web
 	 *         content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticle(
@@ -4621,7 +4533,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws PortalException if a user with the primary key or a matching web
 	 *         content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -4891,7 +4802,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws PortalException if a user with the primary key or a matching web
 	 *         content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateArticle(
@@ -4946,7 +4856,6 @@ public class JournalArticleLocalServiceImpl
 	 * @throws PortalException if a user with the primary key or a matching web
 	 *         content article could not be found, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -5067,7 +4976,6 @@ public class JournalArticleLocalServiceImpl
 	 * @param  assetTagNames the new asset tag names
 	 * @param  assetLinkEntryIds the primary keys of the new asset link entries
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateAsset(
@@ -5143,7 +5051,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the updated web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -5182,7 +5089,6 @@ public class JournalArticleLocalServiceImpl
 	 *         context
 	 * @return the updated web content article
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
@@ -5417,7 +5323,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the updated web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateStatus(
@@ -5452,7 +5357,6 @@ public class JournalArticleLocalServiceImpl
 	 * @return the updated web content article
 	 * @throws PortalException if a matching web content article could not be
 	 *         found or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JournalArticle updateStatus(
@@ -5483,7 +5387,6 @@ public class JournalArticleLocalServiceImpl
 	 *         old DDM template
 	 * @param  newDDMTemplateKey the primary key of the web content article's
 	 *         new DDM template
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateTemplateId(

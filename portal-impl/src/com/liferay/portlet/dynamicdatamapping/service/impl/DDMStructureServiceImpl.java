@@ -62,7 +62,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the user did not have permission to add the structure,
 	 *         if the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -108,7 +107,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to add the
 	 *         structure, if the XSD is not well formed, or if a portal
 	 *         exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -157,7 +155,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the user did not have permission to add the structure,
 	 *         if the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -193,7 +190,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the new structure
 	 * @throws PortalException if the user did not have permission to add the
 	 *         structure or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure copyStructure(
@@ -237,7 +233,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @param  structureId the primary key of the structure to be deleted
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         structure or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteStructure(long structureId) throws PortalException {
@@ -259,7 +254,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 *         structure could not be found
 	 * @throws PortalException if the user did not have permission to view the
 	 *         structure or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure fetchStructure(
@@ -294,7 +288,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the structure with the ID
 	 * @throws PortalException if the user did not have permission to view the
 	 *         structure or if a structure with the ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(long structureId) throws PortalException {
@@ -315,7 +308,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the matching structure
 	 * @throws PortalException if the user did not have permission to view the
 	 *         structure or if a matching structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(
@@ -349,7 +341,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the matching structure
 	 * @throws PortalException if the user did not have permission to view the
 	 *         structure or if a matching structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(
@@ -371,7 +362,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the structures in the group that the user has permission to view
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long groupId) {
@@ -385,7 +375,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 *
 	 * @param  groupIds the primary key of the groups
 	 * @return the structures in the groups that the user has permission to view
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long[] groupIds) {
@@ -402,7 +391,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 *         related model
 	 * @return the structures matching the groups and class name ID that the
 	 *         user has permission to view
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long[] groupIds, long classNameId) {
@@ -445,7 +433,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> search(
@@ -490,7 +477,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> search(
@@ -514,7 +500,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @param  keywords the keywords (space separated), which may occur in the
 	 *         structure's name or description (optionally <code>null</code>)
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -542,7 +527,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -573,7 +557,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the updated structure
 	 * @throws PortalException if the user did not have permission to update the
 	 *         structure or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure updateStructure(
@@ -607,7 +590,6 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 * @return the updated structure
 	 * @throws PortalException if the user did not have permission to update the
 	 *         structure or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure updateStructure(

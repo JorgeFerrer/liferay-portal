@@ -140,7 +140,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 *         group permissions to apply, and set guest permissions to apply.
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the model or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addModelResources(
@@ -190,7 +189,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  guestPermissions the guest permissions to be applied
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the model or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addModelResources(
@@ -219,7 +217,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  guestPermissions the guest permissions to be applied
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the model or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addModelResources(
@@ -252,7 +249,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the resource or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResources(
@@ -285,7 +281,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the resource or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResources(
@@ -311,7 +306,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 *         resource
 	 * @throws PortalException if no portal actions could be found associated
 	 *         with the resource or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResources(
@@ -329,7 +323,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  scope the scope of the resource. For more information see {@link
 	 *         com.liferay.portal.model.ResourceConstants}.
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteResource(AuditedModel auditedModel, int scope)
@@ -351,7 +344,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 *         com.liferay.portal.model.ResourceConstants}.
 	 * @param  primKey the primary key of the resource instance
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteResource(
@@ -371,7 +363,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 *         com.liferay.portal.model.ResourceConstants}.
 	 * @param  primKey the primary key string of the resource instance
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteResource(
@@ -424,7 +415,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @throws PortalException if any one of the roles with the primary keys
 	 *         could not be found or if a resource action with the action ID
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasUserPermissions(
@@ -455,7 +445,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  serviceContext the service context to be applied. Can set group
 	 *         and guest permissions.
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateModelResources(
@@ -483,7 +472,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  groupPermissions the group permissions to be applied
 	 * @param  guestPermissions the guest permissions to be applied
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateResources(
@@ -508,7 +496,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 * @param  groupPermissions the group permissions to be applied
 	 * @param  guestPermissions the guest permissions to be applied
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateResources(
@@ -533,7 +520,6 @@ public class ResourceLocalServiceImpl extends ResourceLocalServiceBaseImpl {
 	 *         com.liferay.portal.model.ResourceConstants}.
 	 * @param  primKey the primary key string of the resource instance
 	 * @param  newPrimKey the new primary key string of the resource
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateResources(

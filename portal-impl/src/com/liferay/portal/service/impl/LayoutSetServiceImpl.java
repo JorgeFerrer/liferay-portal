@@ -48,7 +48,6 @@ public class LayoutSetServiceImpl extends LayoutSetServiceBaseImpl {
 	 * @param  layoutSetPrototypeUuid the uuid of the layout set prototype to
 	 *         link with
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateLayoutSetPrototypeLinkEnabled(

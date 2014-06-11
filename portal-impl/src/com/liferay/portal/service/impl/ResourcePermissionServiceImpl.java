@@ -75,7 +75,6 @@ public class ResourcePermissionServiceImpl
 	 *         resource permissions, or if scope was set to individual scope or
 	 *         if a role with the primary key or a resource action with the name
 	 *         and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResourcePermission(
@@ -112,7 +111,6 @@ public class ResourcePermissionServiceImpl
 	 * @throws PortalException if the user did not have permission to remove
 	 *         resource permissions, or if a role with the primary key or a
 	 *         resource action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeResourcePermission(
@@ -143,7 +141,6 @@ public class ResourcePermissionServiceImpl
 	 * @throws PortalException if the user did not have permission to remove
 	 *         resource permissions, or if a role with the primary key or a
 	 *         resource action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeResourcePermissions(
@@ -184,7 +181,6 @@ public class ResourcePermissionServiceImpl
 	 * @throws PortalException if the user did not have permission to set
 	 *         resource permissions, or if a role with the primary key or a
 	 *         resource action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setIndividualResourcePermissions(
@@ -224,7 +220,6 @@ public class ResourcePermissionServiceImpl
 	 * @throws PortalException if the user did not have permission to set
 	 *         resource permissions, or if a role with the primary key or a
 	 *         resource action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setIndividualResourcePermissions(

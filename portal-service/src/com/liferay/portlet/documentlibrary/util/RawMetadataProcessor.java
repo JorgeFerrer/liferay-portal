@@ -45,7 +45,6 @@ public interface RawMetadataProcessor {
 	 * @param  fileVersion the file version from which the raw metatada is to be
 	 *         generated
 	 * @throws PortalException if an error occurred in the metadata extraction
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void generateMetadata(FileVersion fileVersion)
 		throws PortalException;
@@ -65,7 +64,6 @@ public interface RawMetadataProcessor {
 	 * @param  fileVersion the file version from which the raw metatada is to be
 	 *         extracted and persisted
 	 * @throws PortalException if an error occurred in the metadata extraction
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void saveMetadata(FileVersion fileVersion)
 		throws PortalException;

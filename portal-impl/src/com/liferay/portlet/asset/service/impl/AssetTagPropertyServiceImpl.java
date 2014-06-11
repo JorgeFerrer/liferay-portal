@@ -40,7 +40,6 @@ public class AssetTagPropertyServiceImpl
 	 * @return the created asset tag property
 	 * @throws PortalException if the user did not have permission to update the
 	 *         asset tag, or if the key or value were invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty addTagProperty(long tagId, String key, String value)
@@ -60,7 +59,6 @@ public class AssetTagPropertyServiceImpl
 	 * @throws PortalException if an asset tag property with the primary key
 	 *         could not be found or if the user did not have permission to
 	 *         update the asset tag property
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTagProperty(long tagPropertyId) throws PortalException {
@@ -79,7 +77,6 @@ public class AssetTagPropertyServiceImpl
 	 *
 	 * @param  tagId the primary key of the tag
 	 * @return the matching asset tag properties
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTagProperty> getTagProperties(long tagId) {
@@ -93,7 +90,6 @@ public class AssetTagPropertyServiceImpl
 	 * @param  companyId the primary key of the company
 	 * @param  key the key that refers to some value
 	 * @return the matching asset tag properties
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTagProperty> getTagPropertyValues(
@@ -113,7 +109,6 @@ public class AssetTagPropertyServiceImpl
 	 * @throws PortalException if an asset tag property with the primary key
 	 *         could not be found, if the user did not have permission to update
 	 *         the asset tag, or if the key or value were invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty updateTagProperty(

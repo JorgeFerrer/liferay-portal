@@ -116,7 +116,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @throws PortalException if scope was set to individual scope or if a role
 	 *         with the primary key or a resource action with the name and
 	 *         action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResourcePermission(
@@ -167,7 +166,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  roleName the role's name
 	 * @param  scope the scope
 	 * @param  resourceActionBitwiseValue the bitwise IDs of the actions
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addResourcePermissions(
@@ -278,7 +276,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  scope the scope
 	 * @param  primKey the primary key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteResourcePermissions(
@@ -310,7 +307,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  scope the scope
 	 * @param  primKey the primary key
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteResourcePermissions(
@@ -342,7 +338,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *         scope to perform on resources of the type
 	 * @throws PortalException if a resouce action could not be found for any
 	 *         one of the actions on the resource
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<String> getAvailableResourcePermissionActionIds(
@@ -430,7 +425,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @return the resource permission for the role at the scope to perform the
 	 *         actions on resources of the type
 	 * @throws PortalException if no matching resources could be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public ResourcePermission getResourcePermission(
@@ -450,7 +444,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  scope the scope
 	 * @param  primKey the primary key
 	 * @return the resource permissions at the scope of the type
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourcePermission> getResourcePermissions(
@@ -469,7 +462,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  scope the scope
 	 * @param  primKey the primary key
 	 * @return the number of resource permissions at the scope of the type
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getResourcePermissionsCount(
@@ -488,7 +480,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *         portlet ID
 	 * @param  primKey the primary key of the resource
 	 * @return the resource permissions associated with the resource
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourcePermission> getResourceResourcePermissions(
@@ -503,7 +494,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *
 	 * @param  roleId the primary key of the role
 	 * @return the resource permissions for the role
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourcePermission> getRoleResourcePermissions(long roleId) {
@@ -530,7 +520,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of resource permissions for the role at the scopes
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourcePermission> getRoleResourcePermissions(
@@ -554,7 +543,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *
 	 * @param  scopes the scopes
 	 * @return the resource permissions where scope = any &#63;
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<ResourcePermission> getScopeResourcePermissions(int[] scopes) {
@@ -607,7 +595,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @throws PortalException if any one of the roles with the primary keys
 	 *         could not be found or if a resource action with the name and
 	 *         action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasResourcePermission(
@@ -656,7 +643,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *         action on the resource; <code>false</code> otherwise
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasResourcePermission(
@@ -704,7 +690,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @throws PortalException if any one of the roles with the primary keys
 	 *         could not be found or if a resource action with the name and
 	 *         action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasResourcePermission(
@@ -809,7 +794,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *         action on the resource; <code>false</code> otherwise
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasScopeResourcePermission(
@@ -839,7 +823,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  fromRoleId the primary key of the source role
 	 * @param  toRoleId the primary key of the destination role
 	 * @throws PortalException if a role with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void mergePermissions(long fromRoleId, long toRoleId)
@@ -883,7 +866,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  toRoleId the primary key of the role
 	 * @throws PortalException if a resource permission or role with the primary
 	 *         key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void reassignPermissions(long resourcePermissionId, long toRoleId)
@@ -944,7 +926,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  actionId the action ID
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeResourcePermission(
@@ -973,7 +954,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  actionId the action ID
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void removeResourcePermissions(
@@ -1022,7 +1002,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  actionIds the action IDs of the actions
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setOwnerResourcePermissions(
@@ -1060,7 +1039,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  actionIds the action IDs of the actions
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setResourcePermissions(
@@ -1097,7 +1075,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  roleIdsToActionIds a map of role IDs to action IDs of the actions
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setResourcePermissions(
@@ -1292,7 +1269,6 @@ public class ResourcePermissionLocalServiceImpl
 	 *         ResourcePermissionConstants}.
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	protected void updateResourcePermission(
 			long companyId, String name, int scope, String primKey, long roleId,
@@ -1366,7 +1342,6 @@ public class ResourcePermissionLocalServiceImpl
 	 * @param  ownerId the primary key of the owner
 	 * @throws PortalException if a role with the primary key or a resource
 	 *         action with the name and action ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	protected void updateResourcePermission(
 			long companyId, String name, int scope, String primKey,

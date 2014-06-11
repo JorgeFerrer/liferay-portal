@@ -92,7 +92,6 @@ public interface RoleMembershipPolicy {
 	 *         (optionally <code>null</code>)
 	 * @throws PortalException if any one role violated the policy or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void checkRoles(
 			long[] userIds, long[] addRoleIds, long[] removeRoleIds)
@@ -107,7 +106,6 @@ public interface RoleMembershipPolicy {
 	 * @return <code>true</code> if the role can be added to the user;
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleAllowed(long userId, long roleId)
 		throws PortalException;
@@ -122,7 +120,6 @@ public interface RoleMembershipPolicy {
 	 * @return <code>true</code> if the role is mandatory for the user;
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleRequired(long userId, long roleId)
 		throws PortalException;
@@ -150,7 +147,6 @@ public interface RoleMembershipPolicy {
 	 * @param  addRoleIds the primary keys of the added roles
 	 * @param  removeRoleIds the primary keys of the removed roles
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void propagateRoles(
 			long[] userIds, long[] addRoleIds, long[] removeRoleIds)
@@ -165,7 +161,6 @@ public interface RoleMembershipPolicy {
 	 * every time a membership policy hook is deployed.
 	 *
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy() throws PortalException;
 
@@ -175,7 +170,6 @@ public interface RoleMembershipPolicy {
 	 *
 	 * @param  role the role to verify
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(Role role) throws PortalException;
 
@@ -189,7 +183,6 @@ public interface RoleMembershipPolicy {
 	 * @param  oldRole the old role
 	 * @param  oldExpandoAttributes the old expando attributes
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(
 			Role role, Role oldRole,

@@ -125,7 +125,6 @@ public class DDMStructureLocalServiceImpl
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the XSD was not well-formed, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -219,7 +218,6 @@ public class DDMStructureLocalServiceImpl
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the XSD was not well-formed, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -262,7 +260,6 @@ public class DDMStructureLocalServiceImpl
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the XSD was not well-formed, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure addStructure(
@@ -294,7 +291,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  addGroupPermissions whether to add group permissions
 	 * @param  addGuestPermissions whether to add guest permissions
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addStructureResources(
@@ -316,7 +312,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  groupPermissions the group permissions to be added
 	 * @param  guestPermissions the guest permissions to be added
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addStructureResources(
@@ -345,7 +340,6 @@ public class DDMStructureLocalServiceImpl
 	 *         group permissions for the structure.
 	 * @return the new structure
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure copyStructure(
@@ -388,7 +382,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  structure the structure to be deleted
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -441,7 +434,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  structureId the primary key of the structure to be deleted
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteStructure(long structureId) throws PortalException {
@@ -464,7 +456,6 @@ public class DDMStructureLocalServiceImpl
 	 *         related model
 	 * @param  structureKey the unique string identifying the structure
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteStructure(
@@ -490,7 +481,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteStructures(long groupId) throws PortalException {
@@ -508,7 +498,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  structureId the primary key of the structure
 	 * @return the structure with the structure ID, or <code>null</code> if a
 	 *         matching structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure fetchStructure(long structureId) {
@@ -526,7 +515,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  structureKey the unique string identifying the structure
 	 * @return the matching structure, or <code>null</code> if a matching
 	 *         structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure fetchStructure(
@@ -557,7 +545,6 @@ public class DDMStructureLocalServiceImpl
 	 * @return the matching structure, or <code>null</code> if a matching
 	 *         structure could not be found
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure fetchStructure(
@@ -623,7 +610,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the structure's
 	 *         related model
 	 * @return the structures matching the class name ID
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
@@ -652,7 +638,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  end the upper bound of the range of structures to return (not
 	 *         inclusive)
 	 * @return the range of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
@@ -672,7 +657,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
@@ -703,7 +687,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  dlFileEntryTypeId the primary key of the document library file
 	 *         entry type
 	 * @return the structures for the document library file entry type
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getDLFileEntryTypeStructures(
@@ -753,7 +736,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  structureId the primary key of the structure
 	 * @return the structure with the ID
 	 * @throws PortalException if a structure with the ID could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(long structureId) throws PortalException {
@@ -770,7 +752,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  structureKey the unique string identifying the structure
 	 * @return the matching structure
 	 * @throws PortalException if a matching structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(
@@ -801,7 +782,6 @@ public class DDMStructureLocalServiceImpl
 	 *         the search
 	 * @return the matching structure
 	 * @throws PortalException if a matching structure could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure getStructure(
@@ -845,7 +825,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  name the structure's name
 	 * @param  description the structure's description
 	 * @return the matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructure(
@@ -889,7 +868,6 @@ public class DDMStructureLocalServiceImpl
 	 * Returns all the structures present in the system.
 	 *
 	 * @return the structures present in the system
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures() {
@@ -901,7 +879,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the structures present in the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long groupId) {
@@ -927,7 +904,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  end the upper bound of the range of structures to return (not
 	 *         inclusive)
 	 * @return the range of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long groupId, int start, int end) {
@@ -942,7 +918,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the structure's
 	 *         related model
 	 * @return the matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long groupId, long classNameId) {
@@ -971,7 +946,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  end the upper bound of the range of structures to return (not
 	 *         inclusive)
 	 * @return the range of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
@@ -1004,7 +978,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
@@ -1027,7 +1000,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  groupIds the primary keys of the groups
 	 * @return the structures belonging to the groups
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long[] groupIds) {
@@ -1043,7 +1015,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the structure's
 	 *         related model
 	 * @return the matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(long[] groupIds, long classNameId) {
@@ -1072,7 +1043,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  end the upper bound of the range of structures to return (not
 	 *         inclusive)
 	 * @return the range of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
@@ -1087,7 +1057,6 @@ public class DDMStructureLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of structures belonging to the group
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getStructuresCount(long groupId) {
@@ -1101,7 +1070,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the structure's
 	 *         related model
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getStructuresCount(long groupId, long classNameId) {
@@ -1117,7 +1085,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  classNameId the primary key of the class name for the structure's
 	 *         related model
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getStructuresCount(long[] groupIds, long classNameId) {
@@ -1152,7 +1119,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> search(
@@ -1197,7 +1163,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  orderByComparator the comparator to order the structures
 	 *         (optionally <code>null</code>)
 	 * @return the range of matching structures ordered by the comparator
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DDMStructure> search(
@@ -1221,7 +1186,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  keywords the keywords (space separated), which may occur in the
 	 *         structure's name or description (optionally <code>null</code>)
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1249,7 +1213,6 @@ public class DDMStructureLocalServiceImpl
 	 * @param  andOperator whether every field must match its keywords, or just
 	 *         one field
 	 * @return the number of matching structures
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int searchCount(
@@ -1280,7 +1243,6 @@ public class DDMStructureLocalServiceImpl
 	 * @return the updated structure
 	 * @throws PortalException if a matching structure could not be found, if
 	 *         the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure updateStructure(
@@ -1315,7 +1277,6 @@ public class DDMStructureLocalServiceImpl
 	 * @return the updated structure
 	 * @throws PortalException if a matching structure could not be found, if
 	 *         the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure updateStructure(
@@ -1343,7 +1304,6 @@ public class DDMStructureLocalServiceImpl
 	 * @return the updated structure
 	 * @throws PortalException if a matching structure could not be found, if
 	 *         the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DDMStructure updateXSD(
@@ -1370,7 +1330,6 @@ public class DDMStructureLocalServiceImpl
 	 *         structure's modification date.
 	 * @throws PortalException if a matching structure could not be found, if
 	 *         the XSD was not well-formed, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateXSDFieldMetadata(

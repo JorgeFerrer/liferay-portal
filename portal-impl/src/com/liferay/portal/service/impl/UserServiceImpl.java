@@ -94,7 +94,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         be found, if the user did not have permission to assign group
 	 *         members, or if the operation was not allowed by the membership
 	 *         policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addGroupUsers(
@@ -155,7 +154,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         organization members, if current user did not have an
 	 *         organization in common with a given user, or if the operation was
 	 *         not allowed by the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addOrganizationUsers(long organizationId, long[] userIds)
@@ -187,7 +185,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userIds the primary keys of the users
 	 * @throws PortalException if the user did not have permission to assign
 	 *         policy members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
@@ -213,7 +210,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         be found, if the user did not have permission to assign role
 	 *         members, or if the operation was not allowed by the membership
 	 *         policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addRoleUsers(long roleId, long[] userIds)
@@ -242,7 +238,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a team or user with the primary key could not
 	 *         be found or if the user did not have permission to assign team
 	 *         members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addTeamUsers(long teamId, long[] userIds)
@@ -306,7 +301,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         operation was not allowed by the membership policy, if the
 	 *         creator did not have permission to add users, or if the email
 	 *         address was reserved
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User addUser(
@@ -390,7 +384,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         creator did not have permission to add users, if the email
 	 *         address was reserved, if the operation was not allowed by the
 	 *         membership policy, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User addUser(
@@ -434,7 +427,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         could not be found, if the current user did not have permission
 	 *         to assign group members, or if the operation was not allowed by
 	 *         the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addUserGroupUsers(long userGroupId, long[] userIds)
@@ -504,7 +496,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         operation was not allowed by the membership policy, if the
 	 *         creator did not have permission to add users, or if the email
 	 *         address was reserved
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User addUserWithWorkflow(
@@ -601,7 +592,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         operation was not allowed by the membership policy, if the
 	 *         creator did not have permission to add users, if the email
 	 *         address was reserved, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User addUserWithWorkflow(
@@ -666,7 +656,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the user's portrait could not be found, or if the
 	 *         current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deletePortrait(long userId) throws PortalException {
@@ -684,7 +673,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a role or user with the primary key could not
 	 *         be found, or if the current user did not have permission to
 	 *         assign role members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRoleUser(long roleId, long userId)
@@ -702,7 +690,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userId the primary key of the user
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to delete the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteUser(long userId) throws PortalException {
@@ -747,7 +734,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the primary keys of the users belonging to the group
 	 * @throws PortalException if the current user did not have permission to
 	 *         view group assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long[] getGroupUserIds(long groupId) throws PortalException {
@@ -764,7 +750,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the users belonging to the group
 	 * @throws PortalException if the current user did not have permission to
 	 *         view group assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<User> getGroupUsers(long groupId) throws PortalException {
@@ -781,7 +766,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the primary keys of the users belonging to the organization
 	 * @throws PortalException if the current user did not have permission to
 	 *         view organization assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long[] getOrganizationUserIds(long organizationId)
@@ -800,7 +784,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return users belonging to the organization
 	 * @throws PortalException if the current user did not have permission to
 	 *         view organization assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<User> getOrganizationUsers(long organizationId)
@@ -819,7 +802,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the primary keys of the users belonging to the role
 	 * @throws PortalException if the current user did not have permission to
 	 *         view role members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long[] getRoleUserIds(long roleId) throws PortalException {
@@ -838,7 +820,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a user with the email address could not be
 	 *         found or if the current user did not have permission to view the
 	 *         user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User getUserByEmailAddress(long companyId, String emailAddress)
@@ -860,7 +841,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user with the primary key
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to view the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User getUserById(long userId) throws PortalException {
@@ -880,7 +860,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user with the screen name
 	 * @throws PortalException if a user with the screen name could not be found
 	 *         or if the current user did not have permission to view the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User getUserByScreenName(long companyId, String screenName)
@@ -912,7 +891,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the primary key of the user with the email address
 	 * @throws PortalException if a user with the email address could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getUserIdByEmailAddress(long companyId, String emailAddress)
@@ -933,7 +911,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  screenName the user's screen name
 	 * @return the primary key of the user with the screen name
 	 * @throws PortalException if a user with the screen name could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getUserIdByScreenName(long companyId, String screenName)
@@ -956,7 +933,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if the current user did not have permission to
 	 *         view the user or group members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasGroupUser(long groupId, long userId)
@@ -983,7 +959,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if the current user did not have permission to
 	 *         view the user or role members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasRoleUser(long roleId, long userId)
@@ -1014,7 +989,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return <code>true</code> if the user has the role; <code>false</code>
 	 *         otherwise
 	 * @throws PortalException if a role with the name could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasRoleUser(
@@ -1045,7 +1019,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if the current user did not have permission to
 	 *         assign role members or if the operation was not allowed by the
 	 *         membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setRoleUsers(long roleId, long[] userIds)
@@ -1090,7 +1063,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userIds the primary keys of the users
 	 * @throws PortalException if the current user did not have permission to
 	 *         assign group members
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setUserGroupUsers(long userGroupId, long[] userIds)
@@ -1137,7 +1109,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userIds the primary keys of the users
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify user group assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetGroupTeamsUsers(long groupId, long[] userIds)
@@ -1163,7 +1134,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify group assignments or if the operation was not allowed by
 	 *         the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetGroupUsers(
@@ -1227,7 +1197,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify organization assignments or if the operation was not
 	 *         allowed by the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetOrganizationUsers(long organizationId, long[] userIds)
@@ -1259,7 +1228,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userIds the primary keys of the users
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify policy assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetPasswordPolicyUsers(long passwordPolicyId, long[] userIds)
@@ -1284,7 +1252,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify role assignments or if the operation was not allowed by
 	 *         the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetRoleUsers(long roleId, long[] userIds)
@@ -1312,7 +1279,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @param  userIds the primary keys of the users
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify team assignments
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetTeamUsers(long teamId, long[] userIds)
@@ -1336,7 +1302,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if the current user did not have permission to
 	 *         modify user group assignments or if the operation was not allowed
 	 *         by the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsetUserGroupUsers(long userGroupId, long[] userIds)
@@ -1366,7 +1331,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if the current user did not have permission to
 	 *         update the user's agreement to terms-of-use
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateAgreedToTermsOfUse(
@@ -1393,7 +1357,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateEmailAddress(
@@ -1449,7 +1412,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if the user's information was invalid or if the
 	 *         email address was reserved
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateIncompleteUser(
@@ -1490,7 +1452,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if the user did not have permission to lock out
 	 *         the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateLockoutById(long userId, boolean lockout)
@@ -1510,7 +1471,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateOpenId(long userId, String openId)
@@ -1532,7 +1492,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         whether user indexing is enabled.
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateOrganizations(
@@ -1559,7 +1518,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @return the user
 	 * @throws PortalException if a user with the primary key could not be found
 	 *         or if the current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updatePassword(
@@ -1583,7 +1541,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the new portrait was invalid, or if the current user
 	 *         did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updatePortrait(long userId, byte[] bytes)
@@ -1605,7 +1562,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the new question or answer were invalid, or if the
 	 *         current user did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateReminderQuery(long userId, String question, String answer)
@@ -1626,7 +1582,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, if the new screen name was invalid, or if the current user
 	 *         did not have permission to update the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateScreenName(long userId, String screenName)
@@ -1650,7 +1605,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *             com.liferay.portal.kernel.workflow.WorkflowConstants#STATUS_APPROVED},
 	 *             or if the current user did not have permission to update the
 	 *             user's workflow status.
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateStatus(long, int,
 	 *             ServiceContext)}
 	 */
@@ -1675,7 +1629,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         com.liferay.portal.kernel.workflow.WorkflowConstants#STATUS_APPROVED},
 	 *         or if the current user did not have permission to update the
 	 *         user's workflow status.
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateStatus(
@@ -1757,7 +1710,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         found, if the new information was invalid, if the current user
 	 *         did not have permission to update the user, or if the operation
 	 *         was not allowed by the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateUser(
@@ -2121,7 +2073,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *             found, if the new information was invalid, if the current
 	 *             user did not have permission to update the user, or if the
 	 *             operation was not allowed by the membership policy
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #updateUser(long, String,
 	 *             String, String, boolean, String, String, String, String,
 	 *             long, String, String, String, String, String, String, String,
@@ -2222,7 +2173,6 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         found, if the new information was invalid, if the current user
 	 *         did not have permission to update the user, or if the operation
 	 *         was not allowed by the membership policy
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public User updateUser(

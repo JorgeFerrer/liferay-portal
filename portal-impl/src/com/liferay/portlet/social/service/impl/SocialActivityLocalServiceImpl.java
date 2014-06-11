@@ -91,7 +91,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  extraData any extra data regarding the activity
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addActivity(
@@ -185,7 +184,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  extraData any extra data regarding the activity
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addActivity(
@@ -283,7 +281,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  extraData any extra data regarding the activity
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addUniqueActivity(
@@ -324,7 +321,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  extraData any extra data regarding the activity
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void addUniqueActivity(
@@ -351,7 +347,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  assetEntry the asset from which to remove stored activities
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivities(AssetEntry assetEntry) throws PortalException {
@@ -389,7 +384,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  classPK the primary key of the target asset
 	 * @throws PortalException if the user's activity counters could not be
 	 *         deleted
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivities(String className, long classPK)
@@ -410,7 +404,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  activityId the primary key of the stored activity
 	 * @throws PortalException if the activity could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivity(long activityId) throws PortalException {
@@ -426,7 +419,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  activity the activity to be removed
 	 * @throws PortalException if the user's activity counters could not be
 	 *         deleted or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteActivity(SocialActivity activity) throws PortalException {
@@ -457,7 +449,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  userId the primary key of the user
 	 * @throws PortalException if the user's activity counters could not be
 	 *         deleted
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteUserActivities(long userId) throws PortalException {
@@ -518,7 +509,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -549,7 +539,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -581,7 +570,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -612,7 +600,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -629,7 +616,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  classNameId the target asset's class name ID
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(long classNameId) {
@@ -645,7 +631,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  classNameId the target asset's class name ID
 	 * @param  classPK the primary key of the target asset
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(
@@ -664,7 +649,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  className the target asset's class name
 	 * @param  classPK the primary key of the target asset
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(
@@ -680,7 +664,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  className the target asset's class name
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(String className) {
@@ -695,7 +678,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  activityId the primary key of the activity
 	 * @return Returns the activity
 	 * @throws PortalException if the activity could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivity getActivity(long activityId) throws PortalException {
@@ -731,7 +713,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getGroupActivities(
@@ -749,7 +730,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupActivitiesCount(long groupId) {
@@ -778,7 +758,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getGroupUsersActivities(
@@ -797,7 +776,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupUsersActivitiesCount(long groupId) {
@@ -811,7 +789,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  mirrorActivityId the primary key of the mirror activity
 	 * @return Returns the mirror activity
 	 * @throws PortalException if the mirror activity could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivity getMirrorActivity(long mirrorActivityId)
@@ -839,7 +816,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationActivities(
@@ -855,7 +831,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  organizationId the primary key of the organization
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getOrganizationActivitiesCount(long organizationId) {
@@ -881,7 +856,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationUsersActivities(
@@ -897,7 +871,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  organizationId the primary key of the organization
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getOrganizationUsersActivitiesCount(long organizationId) {
@@ -923,7 +896,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
@@ -952,7 +924,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
@@ -968,7 +939,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationActivitiesCount(long userId) {
@@ -983,7 +953,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  userId the primary key of the user
 	 * @param  type the relationship type
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationActivitiesCount(long userId, int type) {
@@ -1008,7 +977,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserActivities(
@@ -1022,7 +990,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserActivitiesCount(long userId) {
@@ -1047,7 +1014,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsActivities(
@@ -1062,7 +1028,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserGroupsActivitiesCount(long userId) {
@@ -1088,7 +1053,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsAndOrganizationsActivities(
@@ -1104,7 +1068,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserGroupsAndOrganizationsActivitiesCount(long userId) {
@@ -1130,7 +1093,6 @@ public class SocialActivityLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserOrganizationsActivities(
@@ -1145,7 +1107,6 @@ public class SocialActivityLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserOrganizationsActivitiesCount(long userId) {

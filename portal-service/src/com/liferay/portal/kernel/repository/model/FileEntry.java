@@ -70,7 +70,6 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 *
 	 * @return the content stream of the current file version
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    #getFileVersion()
 	 */
 	@JSON(include = false)
@@ -99,7 +98,6 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 *
 	 * @return the current file version
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public FileVersion getFileVersion() throws PortalException;
 
@@ -127,7 +125,6 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 *
 	 * @return the latest file version
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public FileVersion getLatestFileVersion()
 		throws PortalException;
@@ -142,7 +139,6 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 *         repositories, this parameter may be ignored.
 	 * @return the latest file version
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public FileVersion getLatestFileVersion(boolean trusted)
 		throws PortalException;

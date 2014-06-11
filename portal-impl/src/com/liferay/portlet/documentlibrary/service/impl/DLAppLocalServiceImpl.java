@@ -117,7 +117,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry addFileEntry(
@@ -178,7 +177,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry addFileEntry(
@@ -241,7 +239,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file entry
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         file entry's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry addFileEntry(
@@ -307,7 +304,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileEntryId the primary key of the file entry
 	 * @param  serviceContext the service context to be applied
 	 * @return the file rank
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DLFileRank addFileRank(
@@ -332,7 +328,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file shortcut
 	 * @throws PortalException if the parent folder or file entry could not be
 	 *         found, or if the file shortcut's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DLFileShortcut addFileShortcut(
@@ -359,7 +354,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the folder
 	 * @throws PortalException if the parent folder could not be found or if the
 	 *         new folder's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Folder addFolder(
@@ -383,7 +377,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *
 	 * @param  repositoryId the primary key of the data's repository
 	 * @throws PortalException if the repository could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteAll(long repositoryId) throws PortalException {
@@ -407,7 +400,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *
 	 * @param  fileEntryId the primary key of the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileEntry(long fileEntryId) throws PortalException {
@@ -426,7 +418,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * only supported by the Liferay repository.
 	 *
 	 * @param  fileEntryId the primary key of the file entry
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileRanksByFileEntryId(long fileEntryId) {
@@ -439,7 +430,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * supported by the Liferay repository.
 	 *
 	 * @param  userId the primary key of the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileRanksByUserId(long userId) {
@@ -452,7 +442,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *
 	 * @param  dlFileShortcut the file shortcut
 	 * @throws PortalException if the file shortcut could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileShortcut(DLFileShortcut dlFileShortcut)
@@ -467,7 +456,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *
 	 * @param  fileShortcutId the primary key of the file shortcut
 	 * @throws PortalException if the file shortcut could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileShortcut(long fileShortcutId) throws PortalException {
@@ -481,7 +469,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  toFileEntryId the primary key of the associated file entry
 	 * @throws PortalException if the file shortcut for the file entry could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFileShortcuts(long toFileEntryId) throws PortalException {
@@ -493,7 +480,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *
 	 * @param  folderId the primary key of the folder
 	 * @throws PortalException if the folder could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteFolder(long folderId) throws PortalException {
@@ -520,7 +506,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileEntryId the primary key of the file entry
 	 * @return the file entry with the primary key
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry getFileEntry(long fileEntryId) throws PortalException {
@@ -538,7 +523,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  title the file entry's title
 	 * @return the file entry with the title in the folder
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry getFileEntry(long groupId, long folderId, String title)
@@ -564,7 +548,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the file entry's group
 	 * @return the file entry with the UUID and group
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry getFileEntryByUuidAndGroupId(String uuid, long groupId)
@@ -611,7 +594,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  repositoryId the primary key of the repository
 	 * @param  userId the primary key of the user
 	 * @return the file ranks from the user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<DLFileRank> getFileRanks(long repositoryId, long userId) {
@@ -626,7 +608,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileShortcutId the primary key of the file shortcut
 	 * @return the file shortcut with the primary key
 	 * @throws PortalException if the file shortcut could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DLFileShortcut getFileShortcut(long fileShortcutId)
@@ -641,7 +622,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileVersionId the primary key of the file version
 	 * @return the file version with the primary key
 	 * @throws PortalException if the file version could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileVersion getFileVersion(long fileVersionId)
@@ -659,7 +639,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  folderId the primary key of the folder
 	 * @return the folder with the primary key
 	 * @throws PortalException if the folder could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Folder getFolder(long folderId) throws PortalException {
@@ -676,7 +655,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  name the folder's name
 	 * @return the folder with the name in the parent folder
 	 * @throws PortalException if the folder could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Folder getFolder(long repositoryId, long parentFolderId, String name)
@@ -695,7 +673,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the folder used for mounting third-party repositories
 	 * @throws PortalException if the repository or mount folder could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Folder getMountFolder(long repositoryId) throws PortalException {
@@ -714,7 +691,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file entry
 	 * @throws PortalException if the file entry or the new folder could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry moveFileEntry(
@@ -782,7 +758,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileEntryId the primary key of the file entry
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry moveFileEntryToTrash(long userId, long fileEntryId)
@@ -856,7 +831,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  userId the primary key of the user
 	 * @param  fileEntryId the primary key of the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void restoreFileEntryFromTrash(long userId, long fileEntryId)
@@ -878,7 +852,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the file entry type's group
 	 * @param  fileEntryTypeId the primary key of the file entry type
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void subscribeFileEntryType(
@@ -903,7 +876,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the folder's group
 	 * @param  folderId the primary key of the folder
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void subscribeFolder(long userId, long groupId, long folderId)
@@ -925,7 +897,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the file entry type's group
 	 * @param  fileEntryTypeId the primary key of the file entry type
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsubscribeFileEntryType(
@@ -950,7 +921,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  groupId the primary key of the folder's group
 	 * @param  folderId the primary key of the folder
 	 * @throws PortalException if the user or group could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unsubscribeFolder(long userId, long groupId, long folderId)
@@ -975,7 +945,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  assetTagNames the new asset tag names
 	 * @param  assetLinkEntryIds the primary keys of the new asset link entries
 	 * @throws PortalException if the file entry or version could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateAsset(
@@ -1026,7 +995,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *         custom file entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry updateFileEntry(
@@ -1089,7 +1057,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *         custom file entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry updateFileEntry(
@@ -1157,7 +1124,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 *         custom file entry type </li> </ul>
 	 * @return the file entry
 	 * @throws PortalException if the file entry could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public FileEntry updateFileEntry(
@@ -1231,7 +1197,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  fileEntryId the primary key of the file rank's file entry
 	 * @param  serviceContext the service context to be applied
 	 * @return the file rank
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DLFileRank updateFileRank(
@@ -1256,7 +1221,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the file shortcut
 	 * @throws PortalException if the file shortcut, folder, or file entry could
 	 *         not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public DLFileShortcut updateFileShortcut(
@@ -1276,7 +1240,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @param  oldToFileEntryId the primary key of the old file entry pointed to
 	 * @param  newToFileEntryId the primary key of the new file entry to point
 	 *         to
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void updateFileShortcuts(
@@ -1308,7 +1271,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 * @return the folder
 	 * @throws PortalException if the current or new parent folder could not be
 	 *         found, or if the new parent folder's information was invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Folder updateFolder(

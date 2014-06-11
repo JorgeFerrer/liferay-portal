@@ -178,7 +178,6 @@ public interface Portal {
 	 * @param  request the servlet request for the page
 	 * @param  portlet the portlet
 	 * @throws PortalException if adding the default resource permissions failed
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void addPortletDefaultResource(
 			HttpServletRequest request, Portlet portlet)
@@ -277,7 +276,6 @@ public interface Portal {
 	 * @param      request the servlet request for the page
 	 * @return     the array of alternate locales
 	 * @throws     PortalException if a portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link
 	 *             com.liferay.portal.kernel.language.LanguageUtil#getAvailableLocales}
 	 */
@@ -303,7 +301,6 @@ public interface Portal {
 	 * @return the alternate URL for the requested canonical URL in the given
 	 *         locale
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getAlternateURL(
 			String canonicalURL, ThemeDisplay themeDisplay, Locale locale,
@@ -346,7 +343,6 @@ public interface Portal {
 	 *         portlet)
 	 * @throws PortalException if a base model instance for the resource
 	 *         permission could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public BaseModel<?> getBaseModel(ResourcePermission resourcePermission)
 		throws PortalException;
@@ -360,7 +356,6 @@ public interface Portal {
 	 *         not have a base model instance (such as if its a portlet)
 	 * @throws PortalException if a base model instance with the primary key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public BaseModel<?> getBaseModel(String modelName, String primKey)
 		throws PortalException;
@@ -374,7 +369,6 @@ public interface Portal {
 	 * @return the user's ID if HTTP authentication headers are present and
 	 *         their credentials are valid; 0 otherwise
 	 * @throws PortalException if an authentication exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long getBasicAuthUserId(HttpServletRequest request)
 		throws PortalException;
@@ -389,7 +383,6 @@ public interface Portal {
 	 * @return the user's ID if HTTP authentication headers are present and
 	 *         their credentials are valid; 0 otherwise
 	 * @throws PortalException if an authentication exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long getBasicAuthUserId(HttpServletRequest request, long companyId)
 		throws PortalException;
@@ -409,7 +402,6 @@ public interface Portal {
 	 * @return the canonical URL
 	 * @throws PortalException if a friendly URL or the group could not be
 	 *         retrieved
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getCanonicalURL(
 			String completeURL, ThemeDisplay themeDisplay, Layout layout)
@@ -428,7 +420,6 @@ public interface Portal {
 	 * @return the canonical URL
 	 * @throws PortalException if a friendly URL or the group could not be
 	 *         retrieved
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getCanonicalURL(
 			String completeURL, ThemeDisplay themeDisplay, Layout layout,
@@ -1158,7 +1149,6 @@ public interface Portal {
 	 * @return the URL of the login page for the current site, or
 	 *         <code>null</code> if one is not available
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public String getSiteLoginURL(ThemeDisplay themeDisplay)
 		throws PortalException;

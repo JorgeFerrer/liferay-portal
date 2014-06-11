@@ -55,7 +55,6 @@ public class SocialRequestLocalServiceImpl
 	 * @throws PortalException if the users could not be found, if the users
 	 *         were not from the same company, or if either of the users was the
 	 *         default user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialRequest addRequest(
@@ -106,7 +105,6 @@ public class SocialRequestLocalServiceImpl
 	 * Removes all the social requests for the receiving user.
 	 *
 	 * @param  receiverUserId the primary key of the receiving user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteReceiverUserRequests(long receiverUserId) {
@@ -125,7 +123,6 @@ public class SocialRequestLocalServiceImpl
 	 *
 	 * @param  requestId the primary key of the social request
 	 * @throws PortalException if the social request could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRequest(long requestId) throws PortalException {
@@ -139,7 +136,6 @@ public class SocialRequestLocalServiceImpl
 	 * Removes the social request from the database.
 	 *
 	 * @param  request the social request to be removed
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteRequest(SocialRequest request) {
@@ -161,7 +157,6 @@ public class SocialRequestLocalServiceImpl
 	 * Removes all the social requests for the requesting user.
 	 *
 	 * @param  userId the primary key of the requesting user
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteUserRequests(long userId) {
@@ -190,7 +185,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRequest> getReceiverUserRequests(
@@ -219,7 +213,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRequest> getReceiverUserRequests(
@@ -234,7 +227,6 @@ public class SocialRequestLocalServiceImpl
 	 *
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @return the number of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getReceiverUserRequestsCount(long receiverUserId) {
@@ -249,7 +241,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  receiverUserId the primary key of the receiving user
 	 * @param  status the social request's status
 	 * @return the number of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getReceiverUserRequestsCount(long receiverUserId, int status) {
@@ -274,7 +265,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRequest> getUserRequests(
@@ -302,7 +292,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  start the lower bound of the range of results
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialRequest> getUserRequests(
@@ -316,7 +305,6 @@ public class SocialRequestLocalServiceImpl
 	 *
 	 * @param  userId the primary key of the requesting user
 	 * @return the number of matching social requests
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserRequestsCount(long userId) {
@@ -330,7 +318,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  userId the primary key of the requesting user
 	 * @param  status the social request's status
 	 * @return the number of matching social request
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserRequestsCount(long userId, int status) {
@@ -351,7 +338,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  status the social request's status
 	 * @return <code>true</code> if the request exists; <code>false</code>
 	 *         otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasRequest(
@@ -383,7 +369,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  status the social request's status
 	 * @return <code>true</code> if the social request exists;
 	 *         <code>false</code> otherwise
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public boolean hasRequest(
@@ -424,7 +409,6 @@ public class SocialRequestLocalServiceImpl
 	 * @param  themeDisplay the theme display
 	 * @return the updated social request
 	 * @throws PortalException if the social request could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialRequest updateRequest(

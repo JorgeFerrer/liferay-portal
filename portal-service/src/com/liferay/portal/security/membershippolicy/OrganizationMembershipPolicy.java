@@ -126,7 +126,6 @@ public interface OrganizationMembershipPolicy {
 	 * @throws PortalException if any one user could not be added to a
 	 *         organization, if any one user could not be removed from a
 	 *         organization, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void checkMembership(
 			long[] userIds, long[] addOrganizationIds,
@@ -147,7 +146,6 @@ public interface OrganizationMembershipPolicy {
 	 * @param  removeUserGroupRoles the user group roles to be removed
 	 * @throws PortalException if any one user group role violated the policy or
 	 *         if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void checkRoles(
 			List<UserGroupRole> addUserGroupRoles,
@@ -163,7 +161,6 @@ public interface OrganizationMembershipPolicy {
 	 * @return <code>true</code> if the user can be added to the organization;
 	 *         <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipAllowed(long userId, long organizationId)
 		throws PortalException;
@@ -180,7 +177,6 @@ public interface OrganizationMembershipPolicy {
 	 *         removed from the organization by the user associated with the
 	 *         permission checker; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipProtected(
 			PermissionChecker permissionChecker, long userId,
@@ -198,7 +194,6 @@ public interface OrganizationMembershipPolicy {
 	 * @return <code>true</code> if organization membership for the user is
 	 *         mandatory; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipRequired(long userId, long organizationId)
 		throws PortalException;
@@ -213,7 +208,6 @@ public interface OrganizationMembershipPolicy {
 	 * @return <code>true</code> if the role can be added to the user on the
 	 *         organization; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleAllowed(long userId, long organizationId, long roleId)
 		throws PortalException;
@@ -230,7 +224,6 @@ public interface OrganizationMembershipPolicy {
 	 *         removed from the role by the user associated with the permission
 	 *         checker; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleProtected(
 			PermissionChecker permissionChecker, long userId,
@@ -247,7 +240,6 @@ public interface OrganizationMembershipPolicy {
 	 * @return <code>true</code> if the role is mandatory for the user on the
 	 *         organization; <code>false</code> otherwise
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleRequired(long userId, long organizationId, long roleId)
 		throws PortalException;
@@ -283,7 +275,6 @@ public interface OrganizationMembershipPolicy {
 	 * @param  removeOrganizationIds the primary keys of the organizations from
 	 *         which the users were removed (optionally <code>null</code>)
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void propagateMembership(
 			long[] userIds, long[] addOrganizationIds,
@@ -313,7 +304,6 @@ public interface OrganizationMembershipPolicy {
 	 * @param  addUserGroupRoles the user group roles added
 	 * @param  removeUserGroupRoles the user group roles removed
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void propagateRoles(
 			List<UserGroupRole> addUserGroupRoles,
@@ -330,7 +320,6 @@ public interface OrganizationMembershipPolicy {
 	 * every time a membership policy hook is deployed.
 	 *
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy() throws PortalException;
 
@@ -340,7 +329,6 @@ public interface OrganizationMembershipPolicy {
 	 *
 	 * @param  organization the organization to verify
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(Organization organization)
 		throws PortalException;
@@ -390,7 +378,6 @@ public interface OrganizationMembershipPolicy {
 	 * @param  oldAssetTags the old tags
 	 * @param  oldExpandoAttributes the old expando attributes
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(
 			Organization organization, Organization oldOrganization,
@@ -404,7 +391,6 @@ public interface OrganizationMembershipPolicy {
 	 *
 	 * @param  role the role to verify
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(Role role) throws PortalException;
 
@@ -418,7 +404,6 @@ public interface OrganizationMembershipPolicy {
 	 * @param  oldRole the old role
 	 * @param  oldExpandoAttributes the old expando attributes
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(
 			Role role, Role oldRole,

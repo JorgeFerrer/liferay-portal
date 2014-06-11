@@ -57,7 +57,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -94,7 +93,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -132,7 +130,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -169,7 +166,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getActivities(
@@ -192,7 +188,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  classNameId the target asset's class name ID
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(long classNameId) {
@@ -208,7 +203,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  classNameId the target asset's class name ID
 	 * @param  classPK the primary key of the target asset
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(
@@ -227,7 +221,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  className the target asset's class name
 	 * @param  classPK the primary key of the target asset
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(
@@ -243,7 +236,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  className the target asset's class name
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getActivitiesCount(String className) {
@@ -258,7 +250,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  activityId the primary key of the activity
 	 * @return Returns the activity
 	 * @throws PortalException if the activity could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivity getActivity(long activityId) throws PortalException {
@@ -310,7 +301,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getGroupActivities(
@@ -334,7 +324,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupActivitiesCount(long groupId) {
@@ -364,7 +353,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getGroupUsersActivities(
@@ -389,7 +377,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getGroupUsersActivitiesCount(long groupId) {
@@ -403,7 +390,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  mirrorActivityId the primary key of the mirror activity
 	 * @return Returns the mirror activity
 	 * @throws PortalException if the mirror activity could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SocialActivity getMirrorActivity(long mirrorActivityId)
@@ -442,7 +428,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationActivities(
@@ -463,7 +448,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  organizationId the primary key of the organization
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getOrganizationActivitiesCount(long organizationId) {
@@ -491,7 +475,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getOrganizationUsersActivities(
@@ -512,7 +495,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  organizationId the primary key of the organization
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getOrganizationUsersActivitiesCount(long organizationId) {
@@ -540,7 +522,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
@@ -576,7 +557,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getRelationActivities(
@@ -597,7 +577,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationActivitiesCount(long userId) {
@@ -612,7 +591,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  userId the primary key of the user
 	 * @param  type the relationship type
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getRelationActivitiesCount(long userId, int type) {
@@ -639,7 +617,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserActivities(
@@ -659,7 +636,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserActivitiesCount(long userId) {
@@ -685,7 +661,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsActivities(
@@ -706,7 +681,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserGroupsActivitiesCount(long userId) {
@@ -733,7 +707,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserGroupsAndOrganizationsActivities(
@@ -754,7 +727,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserGroupsAndOrganizationsActivitiesCount(long userId) {
@@ -782,7 +754,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 * @param  end the upper bound of the range of results (not inclusive)
 	 * @return the range of matching activities
 	 * @throws PortalException if a permission checker was not initialized
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<SocialActivity> getUserOrganizationsActivities(
@@ -803,7 +774,6 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 *
 	 * @param  userId the primary key of the user
 	 * @return the number of matching activities
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getUserOrganizationsActivitiesCount(long userId) {

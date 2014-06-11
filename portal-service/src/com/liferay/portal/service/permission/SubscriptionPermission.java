@@ -48,7 +48,6 @@ public interface SubscriptionPermission {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         inferred entity or receive notifications about the subscribed
 	 *         entity, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    #contains(PermissionChecker, String, long, String, long)
 	 */
 	public void check(
@@ -101,7 +100,6 @@ public interface SubscriptionPermission {
 	 * @throws PortalException if the user did not have permission to view the
 	 *         inferred entity or receive notifications about it via the
 	 *         subscribed entity, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean contains(
 			PermissionChecker permissionChecker, String subscriptionClassName,

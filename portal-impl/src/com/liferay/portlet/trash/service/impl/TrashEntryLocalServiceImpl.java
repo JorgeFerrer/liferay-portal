@@ -69,7 +69,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @param  typeSettingsProperties the type settings properties
 	 * @return the trashEntry
 	 * @throws PortalException if a user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry addTrashEntry(
@@ -176,7 +175,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @return the trash entry with the primary key
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry deleteEntry(long entryId) throws PortalException {
@@ -193,7 +191,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @return the trash entry with the entity class name and primary key
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry deleteEntry(String className, long classPK)
@@ -228,7 +225,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 *
 	 * @param  entryId the primary key of the entry
 	 * @return the trash entry with the primary key
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry fetchEntry(long entryId) {
@@ -241,7 +237,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @param  className the class name of the entity
 	 * @param  classPK the primary key of the entity
 	 * @return the trash entry with the entity class name and primary key
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry fetchEntry(String className, long classPK) {
@@ -256,7 +251,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the trash entries with the group ID
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<TrashEntry> getEntries(long groupId) {
@@ -271,7 +265,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @param  end the upper bound of the range of trash entries to return (not
 	 *         inclusive)
 	 * @return the range of matching trash entries
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<TrashEntry> getEntries(long groupId, int start, int end) {
@@ -290,7 +283,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 *         <code>null</code>)
 	 * @return the range of matching trash entries ordered by comparator
 	 *         <code>obc</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<TrashEntry> getEntries(
@@ -312,7 +304,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the number of matching trash entries
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public int getEntriesCount(long groupId) {
@@ -326,7 +317,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @return the trash entry with the primary key
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry getEntry(long entryId) throws PortalException {
@@ -341,7 +331,6 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 * @return the trash entry with the entity class name and primary key
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry getEntry(String className, long classPK)

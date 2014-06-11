@@ -188,7 +188,6 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	 * @throws PortalException if a matching group could not be found, if the
 	 *         tag's key or value were invalid, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTag> checkTags(long userId, Group group, String[] names)

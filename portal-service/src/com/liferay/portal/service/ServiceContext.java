@@ -387,7 +387,6 @@ public class ServiceContext implements Cloneable, Serializable {
 	 *         context
 	 * @throws PortalException if a default user for the company could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	public long getGuestOrUserId() throws PortalException {
 		long userId = getUserId();

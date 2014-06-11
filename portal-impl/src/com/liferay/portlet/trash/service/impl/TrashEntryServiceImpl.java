@@ -58,7 +58,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 *
 	 * @param  groupId the primary key of the group
 	 * @throws PortalException if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
@@ -105,7 +104,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found or if the user did not have permission to delete any one
 	 *         of the trash entries
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@Transactional(noRollbackFor = {TrashPermissionException.class})
@@ -140,7 +138,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @throws PortalException if a trash entry with the primary key could not
 	 *         be found or if the user did not have permission to delete the
 	 *         trash entry
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteEntry(long entryId) throws PortalException {
@@ -163,7 +160,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @throws PortalException if a trash entry with the entity class name and
 	 *         primary key could not be found or if the user did not have
 	 *         permission to delete the entry
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteEntry(String className, long classPK)
@@ -188,7 +184,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @param  groupId the primary key of the group
 	 * @return the matching trash entries
 	 * @throws PrincipalException if a principal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntryList getEntries(long groupId)
@@ -209,7 +204,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 * @return the range of matching trash entries ordered by comparator
 	 *         <code>obc</code>
 	 * @throws PrincipalException if a system exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntryList getEntries(
@@ -304,7 +298,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 *         new location, if the user did not have permission to restore the
 	 *         trash entry, if a duplicate trash entry exists at the new
 	 *         location, or if a portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void moveEntry(
@@ -389,7 +382,6 @@ public class TrashEntryServiceImpl extends TrashEntryServiceBaseImpl {
 	 *         the user did not have permission to overwrite an existing trash
 	 *         entry, to rename the trash entry being restored, or to restore
 	 *         the trash entry in general
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public TrashEntry restoreEntry(

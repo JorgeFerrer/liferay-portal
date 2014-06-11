@@ -44,7 +44,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @return the created asset tag property
 	 * @throws PortalException if a user with the primary key could not be
 	 *         found, or if the key or value were invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty addTagProperty(
@@ -79,7 +78,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * Deletes the asset tag property with the specified tag ID.
 	 *
 	 * @param  tagId the primary key of the tag
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTagProperties(long tagId) {
@@ -95,7 +93,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * Deletes the asset tag property instance.
 	 *
 	 * @param  tagProperty the asset tag property instance
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTagProperty(AssetTagProperty tagProperty) {
@@ -109,7 +106,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @param  tagPropertyId the primary key of the asset tag property instance
 	 * @throws PortalException if an asset tag property with the primary key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteTagProperty(long tagPropertyId) throws PortalException {
@@ -123,7 +119,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * Returns all the asset tag property instances.
 	 *
 	 * @return the asset tag property instances
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTagProperty> getTagProperties() {
@@ -135,7 +130,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 *
 	 * @param  tagId the primary key of the tag
 	 * @return the matching asset tag properties
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTagProperty> getTagProperties(long tagId) {
@@ -150,7 +144,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @return the matching asset tag property
 	 * @throws PortalException if an asset tag property with the primary key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty getTagProperty(long tagPropertyId)
@@ -167,7 +160,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @return the matching asset tag property
 	 * @throws PortalException if an asset tag property with the tag ID and key
 	 *         could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty getTagProperty(long tagId, String key)
@@ -181,7 +173,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 *
 	 * @param  groupId the primary key of the group
 	 * @return the matching asset tag property keys
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String[] getTagPropertyKeys(long groupId) {
@@ -194,7 +185,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @param  groupId the primary key of the group
 	 * @param  key the key that refers to some value
 	 * @return the matching asset tag properties
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<AssetTagProperty> getTagPropertyValues(
@@ -212,7 +202,6 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @return the updated asset tag property
 	 * @throws PortalException if an asset tag property with the primary key
 	 *         could not be found, or if the key or value were invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AssetTagProperty updateTagProperty(

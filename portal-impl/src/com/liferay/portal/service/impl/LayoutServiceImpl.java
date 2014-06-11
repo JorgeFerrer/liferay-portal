@@ -113,7 +113,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *             found, if the group did not have permission to manage the
 	 *             layouts involved, if layout values were invalid, or if a
 	 *             portal exception occurred
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #addLayout(long, boolean,
 	 *             long, Map, Map, Map, Map, Map, String, String, boolean, Map,
 	 *             ServiceContext)}
@@ -190,7 +189,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         found, if the group did not have permission to manage the layouts
 	 *         involved, if layout values were invalid, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout addLayout(
@@ -260,7 +258,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         found, if the group did not have permission to manage the layouts
 	 *         involved, if layout values were invalid, or if a portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout addLayout(
@@ -311,7 +308,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         layout, if a matching layout could not be found , or if some
 	 *         other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayout(
@@ -336,7 +332,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if the user did not have permission to delete the
 	 *         layout, if a layout with the primary key could not be found , or
 	 *         if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void deleteLayout(long plid, ServiceContext serviceContext)
@@ -377,7 +372,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group or any layout with the primary key
 	 *         could not be found, if the group did not have permission to
 	 *         manage the layouts, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportLayouts(
@@ -408,7 +402,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found, if the group did not have permission to manage the
 	 *         layouts, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportLayouts(
@@ -440,7 +433,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group or any layout with the primary key
 	 *         could not be found, it the group did not have permission to
 	 *         manage the layouts, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public File exportLayoutsAsFile(
@@ -540,7 +532,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         key could not be found, if the group did not have permission to
 	 *         manage the layouts involved, or if some other portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public byte[] exportPortletInfo(
@@ -592,7 +583,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         key could not be found, it the group did not have permission to
 	 *         manage the layouts involved, or if some other portal exception
 	 *         occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public File exportPortletInfoAsFile(
@@ -675,7 +665,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @return the ancestor layouts of the layout
 	 * @throws PortalException if a matching layout could not be found or if a
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public List<Layout> getAncestorLayouts(long plid) throws PortalException {
@@ -698,7 +687,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         com.liferay.portal.model.LayoutConstants#DEFAULT_PLID} otherwise
 	 * @throws PortalException if a group, layout, or portlet with the primary
 	 *         key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long getDefaultPlid(
@@ -819,7 +807,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a matching layout could not be found, if the
 	 *         user did not have permission to view the layout, or if some other
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout getLayoutByUuidAndGroupId(
@@ -845,7 +832,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         See {@link java.util.Locale}.
 	 * @return the layout's name
 	 * @throws PortalException if a matching layout could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public String getLayoutName(
@@ -868,7 +854,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @param  preferencesKey the portlet's preference key
 	 * @param  preferencesValue the portlet's preference value
 	 * @return the layout references of the matching layouts
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public LayoutReference[] getLayoutReferences(
@@ -929,7 +914,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found, if the group did not have permission to manage the
 	 *         layouts, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -958,7 +942,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found, if the group did not have permission to manage the layouts
 	 *         and publish, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -987,7 +970,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found, if the group did not have permission to manage the
 	 *         layouts, or if some other portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 * @see    com.liferay.portal.lar.LayoutImporter
 	 */
 	@Override
@@ -1045,7 +1027,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group, layout, or portlet with the primary
 	 *         key could not be found, or if the group did not have permission
 	 *         to manage the layouts
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void importPortletInfo(
@@ -1076,7 +1057,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a group, portlet, or layout with the primary
 	 *         key could not be found or if the group did not have permission to
 	 *         manage the layouts
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void importPortletInfo(
@@ -1221,7 +1201,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @param  description the scheduler description
 	 * @throws PortalException if the group did not have permission to manage
 	 *         and publish
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void schedulePublishToLive(
@@ -1285,7 +1264,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @param      description the scheduler description
 	 * @throws     PortalException if the group did not have permission to
 	 *             manage and publish
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 7.0.0, replaced by {@link #schedulePublishToLive(long,
 	 *             long, boolean, long[], Map, String, Date, Date, String,
 	 *             String, Date, Date, String)}
@@ -1335,7 +1313,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @param  description the scheduler description
 	 * @throws PortalException if a group with the source group primary key was
 	 *         not found or if the group did not have permission to publish
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void schedulePublishToRemote(
@@ -1390,7 +1367,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         layouts, if no layouts were specified, if the first layout was
 	 *         not page-able, if the first layout was hidden, or if some other
 	 *         portal exception occurred
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void setLayouts(
@@ -1415,7 +1391,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         See {@link com.liferay.portal.kernel.messaging.DestinationNames}.
 	 * @throws PortalException if the group did not permission to manage staging
 	 *         and publish
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unschedulePublishToLive(
@@ -1439,7 +1414,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         See {@link com.liferay.portal.kernel.messaging.DestinationNames}.
 	 * @throws PortalException if a group with the primary key could not be
 	 *         found or if the group did not have permission to publish
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public void unschedulePublishToRemote(
@@ -1495,7 +1469,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *         layout, if a unique friendly URL could not be generated, if a
 	 *         valid parent layout ID to use could not be found, or if the
 	 *         layout parameters were invalid
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLayout(
@@ -1552,7 +1525,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 *             update the layout, if a unique friendly URL could not be
 	 *             generated, if a valid parent layout ID to use could not be
 	 *             found, or if the layout parameters were invalid
-	 * @throws     SystemException if a system exception occurred
 	 * @deprecated As of 6.2.0, replaced by {@link #updateLayout(long, boolean,
 	 *             long, long, Map, Map, Map, Map, Map, String, boolean, Map,
 	 *             Boolean, byte[], ServiceContext)}
@@ -1591,7 +1563,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found or if the
 	 *         user did not have permission to update the layout
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLayout(
@@ -1621,7 +1592,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a matching layout could not be found, or if
 	 *         the user did not have permission to update the layout and
 	 *         permission to apply the theme
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateLookAndFeel(
@@ -1657,7 +1627,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a matching layout could not be found, if the
 	 *         user did not have permission to update the layout, or if the new
 	 *         name was <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateName(
@@ -1684,7 +1653,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found, or if the user did not have permission to update the
 	 *         layout, or if the name was <code>null</code>
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateName(long plid, String name, String languageId)
@@ -1709,7 +1677,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a valid parent layout ID to use could not be
 	 *         found, if a matching layout could not be found, or if the user
 	 *         did not have permission to update the layout
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateParentLayoutId(
@@ -1738,7 +1705,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found, if the user did not have permission to update the layout,
 	 *         or if a valid parent layout ID to use could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updateParentLayoutId(long plid, long parentPlid)
@@ -1761,7 +1727,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found or if the
 	 *         user did not have permission to update the layout
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(
@@ -1789,7 +1754,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a matching layout could not be found or if the
 	 *         user did not have permission to update the layout
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(
@@ -1813,7 +1777,6 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	 * @return the updated layout
 	 * @throws PortalException if a layout with the primary key could not be
 	 *         found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Layout updatePriority(long plid, int priority)
