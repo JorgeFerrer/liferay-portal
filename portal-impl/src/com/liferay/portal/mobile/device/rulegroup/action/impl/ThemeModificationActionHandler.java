@@ -62,7 +62,11 @@ public class ThemeModificationActionHandler implements ActionHandler {
 			return;
 		}
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		request.setAttribute(WebKeys.THEME, theme);
+		themeDisplay.setTheme(theme);
 
 		String colorSchemeId = GetterUtil.getString(
 			typeSettingsProperties.getProperty("colorSchemeId"));
@@ -75,11 +79,9 @@ public class ThemeModificationActionHandler implements ActionHandler {
 		}
 
 		request.setAttribute(WebKeys.COLOR_SCHEME, colorScheme);
+		themeDisplay.setColorScheme(colorScheme);
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		themeDisplay.setLookAndFeel(theme, colorScheme);
+		themeDisplay.initializeLookAndFeel();
 	}
 
 	@Override
