@@ -148,7 +148,7 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public boolean containsTableMapping(
-			long leftPrimaryKey, long rightPrimaryKey) {
+		long leftPrimaryKey, long rightPrimaryKey) {
 
 		return containsTableMapping(leftPrimaryKey, rightPrimaryKey, true);
 	}
@@ -237,7 +237,7 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public List<L> getLeftBaseModels(
-			long rightPrimaryKey, int start, int end, OrderByComparator obc) {
+		long rightPrimaryKey, int start, int end, OrderByComparator obc) {
 
 		return getBaseModels(
 			rightToLeftPortalCache, getLeftPrimaryKeysSqlQuery, rightPrimaryKey,
@@ -259,7 +259,7 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public List<R> getRightBaseModels(
-			long leftPrimaryKey, int start, int end, OrderByComparator obc) {
+		long leftPrimaryKey, int start, int end, OrderByComparator obc) {
 
 		return getBaseModels(
 			leftToRightPortalCache, getRightPrimaryKeysSqlQuery, leftPrimaryKey,

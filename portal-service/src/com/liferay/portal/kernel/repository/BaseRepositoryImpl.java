@@ -170,8 +170,8 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 
 	@Override
 	public List<Object> getFoldersAndFileEntriesAndFileShortcuts(
-			long folderId, int status, boolean includeMountFolders, int start,
-			int end, OrderByComparator obc) {
+		long folderId, int status, boolean includeMountFolders, int start,
+		int end, OrderByComparator obc) {
 
 		return getFoldersAndFileEntries(folderId, start, end, obc);
 	}
@@ -188,7 +188,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 
 	@Override
 	public int getFoldersAndFileEntriesAndFileShortcutsCount(
-			long folderId, int status, boolean includeMountFolders) {
+		long folderId, int status, boolean includeMountFolders) {
 
 		return getFoldersAndFileEntriesCount(folderId);
 	}

@@ -63,8 +63,8 @@ public class ClusterExecutorUtil {
 	}
 
 	public static void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback) {
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 
@@ -76,9 +76,9 @@ public class ClusterExecutorUtil {
 	}
 
 	public static void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback, long timeout,
-			TimeUnit timeUnit) {
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback, long timeout,
+		TimeUnit timeUnit) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 

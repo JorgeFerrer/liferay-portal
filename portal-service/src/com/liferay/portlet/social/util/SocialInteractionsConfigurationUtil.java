@@ -51,8 +51,8 @@ public class SocialInteractionsConfigurationUtil {
 	}
 
 	public static SocialInteractionsConfiguration
-			getSocialInteractionsConfiguration(
-				long companyId, HttpServletRequest request) {
+		getSocialInteractionsConfiguration(
+			long companyId, HttpServletRequest request) {
 
 		PortletPreferences portletPreferences = PrefsPropsUtil.getPreferences(
 			companyId, true);

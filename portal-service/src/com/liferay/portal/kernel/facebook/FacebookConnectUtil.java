@@ -27,7 +27,7 @@ import javax.portlet.PortletRequest;
 public class FacebookConnectUtil {
 
 	public static String getAccessToken(
-			long companyId, String redirect, String code) {
+		long companyId, String redirect, String code) {
 
 		return getFacebookConnect().getAccessToken(companyId, redirect, code);
 	}

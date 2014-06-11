@@ -143,14 +143,14 @@ public class StagingUtil {
 	}
 
 	public static void deleteRecentLayoutRevisionId(
-			HttpServletRequest request, long layoutSetBranchId, long plid) {
+		HttpServletRequest request, long layoutSetBranchId, long plid) {
 
 		getStaging().deleteRecentLayoutRevisionId(
 			request, layoutSetBranchId, plid);
 	}
 
 	public static void deleteRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid) {
+		User user, long layoutSetBranchId, long plid) {
 
 		getStaging().deleteRecentLayoutRevisionId(
 			user, layoutSetBranchId, plid);
@@ -467,31 +467,30 @@ public class StagingUtil {
 	}
 
 	public static void setRecentLayoutBranchId(
-			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutBranchId) {
+		HttpServletRequest request, long layoutSetBranchId, long plid,
+		long layoutBranchId) {
 
 		getStaging().setRecentLayoutBranchId(
 			request, layoutSetBranchId, plid, layoutBranchId);
 	}
 
 	public static void setRecentLayoutBranchId(
-			User user, long layoutSetBranchId, long plid, long layoutBranchId) {
+		User user, long layoutSetBranchId, long plid, long layoutBranchId) {
 
 		getStaging().setRecentLayoutBranchId(
 			user, layoutSetBranchId, plid, layoutBranchId);
 	}
 
 	public static void setRecentLayoutRevisionId(
-			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutRevisionId) {
+		HttpServletRequest request, long layoutSetBranchId, long plid,
+		long layoutRevisionId) {
 
 		getStaging().setRecentLayoutRevisionId(
 			request, layoutSetBranchId, plid, layoutRevisionId);
 	}
 
 	public static void setRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid,
-			long layoutRevisionId) {
+		User user, long layoutSetBranchId, long plid, long layoutRevisionId) {
 
 		getStaging().setRecentLayoutRevisionId(
 			user, layoutSetBranchId, plid, layoutRevisionId);
@@ -505,7 +504,7 @@ public class StagingUtil {
 	}
 
 	public static void setRecentLayoutSetBranchId(
-			User user, long layoutSetId, long layoutSetBranchId) {
+		User user, long layoutSetId, long layoutSetBranchId) {
 
 		getStaging().setRecentLayoutSetBranchId(
 			user, layoutSetId, layoutSetBranchId);

@@ -68,8 +68,8 @@ public class DDMXMLUtil {
 	}
 
 	public static String updateXMLDefaultLocale(
-			String xml, Locale contentDefaultLocale,
-			Locale contentNewDefaultLocale) {
+		String xml, Locale contentDefaultLocale,
+		Locale contentNewDefaultLocale) {
 
 		return getDDMXML().updateXMLDefaultLocale(
 			xml, contentDefaultLocale, contentNewDefaultLocale);

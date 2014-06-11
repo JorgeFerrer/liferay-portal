@@ -94,7 +94,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 
 	@Override
 	public long countWithDynamicQuery(
-			DynamicQuery dynamicQuery, Projection projection) {
+		DynamicQuery dynamicQuery, Projection projection) {
 
 		if (projection == null) {
 			projection = ProjectionFactoryUtil.rowCount();
@@ -149,7 +149,7 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	@Override
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(
-			DynamicQuery dynamicQuery, int start, int end) {
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		Session session = null;
 
@@ -173,8 +173,8 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 	@Override
 	@SuppressWarnings("rawtypes")
 	public List findWithDynamicQuery(
-			DynamicQuery dynamicQuery, int start, int end,
-			OrderByComparator orderByComparator) {
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		OrderFactoryUtil.addOrderByComparator(dynamicQuery, orderByComparator);
 

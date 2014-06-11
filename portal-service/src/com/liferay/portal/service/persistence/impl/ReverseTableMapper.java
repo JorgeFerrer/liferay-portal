@@ -37,7 +37,7 @@ public class ReverseTableMapper<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public boolean containsTableMapping(
-			long leftPrimaryKey, long rightPrimaryKey) {
+		long leftPrimaryKey, long rightPrimaryKey) {
 
 		return _tableMapper.containsTableMapping(
 			rightPrimaryKey, leftPrimaryKey);
@@ -69,7 +69,7 @@ public class ReverseTableMapper<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public List<L> getLeftBaseModels(
-			long rightPrimaryKey, int start, int end, OrderByComparator obc) {
+		long rightPrimaryKey, int start, int end, OrderByComparator obc) {
 
 		return _tableMapper.getRightBaseModels(
 			rightPrimaryKey, start, end, obc);
@@ -88,7 +88,7 @@ public class ReverseTableMapper<L extends BaseModel<L>, R extends BaseModel<R>>
 
 	@Override
 	public List<R> getRightBaseModels(
-			long leftPrimaryKey, int start, int end, OrderByComparator obc) {
+		long leftPrimaryKey, int start, int end, OrderByComparator obc) {
 
 		return _tableMapper.getLeftBaseModels(leftPrimaryKey, start, end, obc);
 	}

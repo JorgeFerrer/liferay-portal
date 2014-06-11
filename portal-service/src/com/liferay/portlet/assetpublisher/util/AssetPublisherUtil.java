@@ -284,14 +284,14 @@ public class AssetPublisherUtil {
 	}
 
 	public static String getEmailFromAddress(
-			PortletPreferences portletPreferences, long companyId) {
+		PortletPreferences portletPreferences, long companyId) {
 
 		return getAssetPublisher().getEmailFromAddress(
 			portletPreferences, companyId);
 	}
 
 	public static String getEmailFromName(
-			PortletPreferences portletPreferences, long companyId) {
+		PortletPreferences portletPreferences, long companyId) {
 
 		return getAssetPublisher().getEmailFromName(
 			portletPreferences, companyId);

@@ -31,14 +31,14 @@ public class SettingsFactoryUtil {
 	}
 
 	public static Settings getCompanyServiceSettings(
-			long companyId, String serviceName) {
+		long companyId, String serviceName) {
 
 		return getSettingsFactory().getCompanyServiceSettings(
 			companyId, serviceName);
 	}
 
 	public static Settings getGroupServiceCompanyDefaultSettings(
-			long companyId, String serviceName) {
+		long companyId, String serviceName) {
 
 		return getSettingsFactory().getGroupServiceCompanyDefaultSettings(
 			companyId, serviceName);
@@ -61,14 +61,14 @@ public class SettingsFactoryUtil {
 	}
 
 	public static List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-			long groupId, String portletId) {
+		long groupId, String portletId) {
 
 		return getSettingsFactory().getPortletInstanceArchivedSettingsList(
 			groupId, portletId);
 	}
 
 	public static Settings getPortletInstanceCompanyDefaultSettings(
-			long companyId, String portletId) {
+		long companyId, String portletId) {
 
 		return getSettingsFactory().getPortletInstanceCompanyDefaultSettings(
 			companyId, portletId);

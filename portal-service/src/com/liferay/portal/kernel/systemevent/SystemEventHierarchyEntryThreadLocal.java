@@ -118,7 +118,7 @@ public class SystemEventHierarchyEntryThreadLocal {
 	}
 
 	public static SystemEventHierarchyEntry push(
-			long classNameId, long classPK, int action) {
+		long classNameId, long classPK, int action) {
 
 		long parentSystemEventId = 0;
 		long systemEventSetKey = 0;
@@ -162,7 +162,7 @@ public class SystemEventHierarchyEntryThreadLocal {
 	}
 
 	public static SystemEventHierarchyEntry push(
-			String className, long classPK, int action) {
+		String className, long classPK, int action) {
 
 		return push(PortalUtil.getClassNameId(className), classPK, action);
 	}

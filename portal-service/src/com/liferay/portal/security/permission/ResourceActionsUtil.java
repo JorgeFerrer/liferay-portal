@@ -240,7 +240,7 @@ public class ResourceActionsUtil {
 	 */
 	@Deprecated
 	public static List<Role> getRoles(
-			long companyId, Group group, String modelResource) {
+		long companyId, Group group, String modelResource) {
 
 		return getResourceActions().getRoles(companyId, group, modelResource);
 	}

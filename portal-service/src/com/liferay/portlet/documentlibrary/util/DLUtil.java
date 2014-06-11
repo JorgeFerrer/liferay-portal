@@ -340,7 +340,7 @@ public class DLUtil {
 	}
 
 	public static boolean isSubscribedToFileEntryType(
-			long companyId, long groupId, long userId, long fileEntryTypeId) {
+		long companyId, long groupId, long userId, long fileEntryTypeId) {
 
 		return getDL().isSubscribedToFileEntryType(
 			companyId, groupId, userId, fileEntryTypeId);

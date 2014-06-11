@@ -211,7 +211,7 @@ public class SitesUtil {
 	}
 
 	public static boolean isFirstLayout(
-			long groupId, boolean privateLayout, long layoutId) {
+		long groupId, boolean privateLayout, long layoutId) {
 
 		return getSites().isFirstLayout(groupId, privateLayout, layoutId);
 	}

@@ -664,13 +664,13 @@ public class PortalUtil {
 	}
 
 	public static Map<String, List<Portlet>> getControlPanelCategoriesMap(
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 
 		return getPortal().getControlPanelCategoriesMap(request);
 	}
 
 	public static String getControlPanelCategory(
-			String portletId, ThemeDisplay themeDisplay) {
+		String portletId, ThemeDisplay themeDisplay) {
 
 		return getPortal().getControlPanelCategory(portletId, themeDisplay);
 	}
@@ -695,13 +695,13 @@ public class PortalUtil {
 	}
 
 	public static Set<Portlet> getControlPanelPortlets(
-			long companyId, String category) {
+		long companyId, String category) {
 
 		return getPortal().getControlPanelPortlets(companyId, category);
 	}
 
 	public static List<Portlet> getControlPanelPortlets(
-			String category, ThemeDisplay themeDisplay) {
+		String category, ThemeDisplay themeDisplay) {
 
 		return getPortal().getControlPanelPortlets(category, themeDisplay);
 	}
@@ -959,7 +959,7 @@ public class PortalUtil {
 	}
 
 	public static Portlet getFirstSiteAdministrationPortlet(
-			ThemeDisplay themeDisplay) {
+		ThemeDisplay themeDisplay) {
 
 		return getPortal().getFirstSiteAdministrationPortlet(themeDisplay);
 	}
@@ -1774,13 +1774,13 @@ public class PortalUtil {
 	}
 
 	public static Map<String, List<Portlet>> getSiteAdministrationCategoriesMap(
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 
 		return getPortal().getSiteAdministrationCategoriesMap(request);
 	}
 
 	public static PortletURL getSiteAdministrationURL(
-			HttpServletRequest request, ThemeDisplay themeDisplay) {
+		HttpServletRequest request, ThemeDisplay themeDisplay) {
 
 		return getPortal().getSiteAdministrationURL(request, themeDisplay);
 	}
@@ -1794,7 +1794,7 @@ public class PortalUtil {
 	}
 
 	public static PortletURL getSiteAdministrationURL(
-			PortletResponse portletResponse, ThemeDisplay themeDisplay) {
+		PortletResponse portletResponse, ThemeDisplay themeDisplay) {
 
 		return getPortal().getSiteAdministrationURL(
 			portletResponse, themeDisplay);
@@ -1996,7 +1996,7 @@ public class PortalUtil {
 	 */
 	@Deprecated
 	public static String getUserValue(
-			long userId, String param, String defaultValue) {
+		long userId, String param, String defaultValue) {
 
 		return getPortal().getUserValue(userId, param, defaultValue);
 	}
@@ -2126,14 +2126,14 @@ public class PortalUtil {
 	}
 
 	public static boolean isControlPanelPortlet(
-			String portletId, String category, ThemeDisplay themeDisplay) {
+		String portletId, String category, ThemeDisplay themeDisplay) {
 
 		return getPortal().isControlPanelPortlet(
 			portletId, category, themeDisplay);
 	}
 
 	public static boolean isControlPanelPortlet(
-			String portletId, ThemeDisplay themeDisplay) {
+		String portletId, ThemeDisplay themeDisplay) {
 
 		return getPortal().isControlPanelPortlet(portletId, themeDisplay);
 	}

@@ -31,7 +31,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static boolean getBoolean(
-			long companyId, String name, boolean defaultValue) {
+		long companyId, String name, boolean defaultValue) {
 
 		return getPrefsProps().getBoolean(companyId, name, defaultValue);
 	}
@@ -80,7 +80,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static double getDouble(
-			long companyId, String name, double defaultValue) {
+		long companyId, String name, double defaultValue) {
 
 		return getPrefsProps().getDouble(companyId, name, defaultValue);
 	}
@@ -183,7 +183,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static PortletPreferences getPreferences(
-			long companyId, boolean readOnly) {
+		long companyId, boolean readOnly) {
 
 		return getPrefsProps().getPreferences(companyId, readOnly);
 	}
