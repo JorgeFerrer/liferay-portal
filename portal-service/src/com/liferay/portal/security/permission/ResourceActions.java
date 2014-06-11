@@ -15,7 +15,6 @@
 package com.liferay.portal.security.permission;
 
 import com.liferay.portal.NoSuchResourceActionException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.PasswordPolicy;
@@ -147,10 +146,10 @@ public interface ResourceActions {
 	 */
 	@Deprecated
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource);
+		long companyId, Group group, String modelResource);
 
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource, int[] roleTypes);
+		long companyId, Group group, String modelResource, int[] roleTypes);
 
 	public boolean hasModelResourceActions(String name);
 

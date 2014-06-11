@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.trash;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 
 import java.util.Locale;
 

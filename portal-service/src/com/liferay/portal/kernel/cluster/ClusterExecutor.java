@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.cluster;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

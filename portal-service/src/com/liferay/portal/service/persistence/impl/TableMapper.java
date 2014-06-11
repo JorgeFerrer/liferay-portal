@@ -14,7 +14,6 @@
 
 package com.liferay.portal.service.persistence.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.BaseModel;
 
@@ -28,25 +27,26 @@ public interface TableMapper<L extends BaseModel<L>, R extends BaseModel<R>> {
 	public boolean addTableMapping(long leftPrimaryKey, long rightPrimaryKey);
 
 	public boolean containsTableMapping(
-			long leftPrimaryKey, long rightPrimaryKey);
+		long leftPrimaryKey, long rightPrimaryKey);
 
 	public int deleteLeftPrimaryKeyTableMappings(long leftPrimaryKey);
 
 	public int deleteRightPrimaryKeyTableMappings(long rightPrimaryKey);
 
-	public boolean deleteTableMapping(long leftPrimaryKey, long rightPrimaryKey);
+	public boolean deleteTableMapping(
+		long leftPrimaryKey, long rightPrimaryKey);
 
 	public void destroy();
 
 	public List<L> getLeftBaseModels(
-			long rightPrimaryKey, int start, int end, OrderByComparator obc);
+		long rightPrimaryKey, int start, int end, OrderByComparator obc);
 
 	public long[] getLeftPrimaryKeys(long rightPrimaryKey);
 
 	public TableMapper<R, L> getReverseTableMapper();
 
 	public List<R> getRightBaseModels(
-			long leftPrimaryKey, int start, int end, OrderByComparator obc);
+		long leftPrimaryKey, int start, int end, OrderByComparator obc);
 
 	public long[] getRightPrimaryKeys(long leftPrimaryKey);
 

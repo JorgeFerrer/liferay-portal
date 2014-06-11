@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.util;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 import java.util.Properties;
 
 import javax.portlet.PortletPreferences;
@@ -27,7 +25,8 @@ public interface PrefsProps {
 
 	public boolean getBoolean(long companyId, String name);
 
-	public boolean getBoolean(long companyId, String name, boolean defaultValue);
+	public boolean getBoolean(
+		long companyId, String name, boolean defaultValue);
 
 	public boolean getBoolean(
 		PortletPreferences preferences, long companyId, String name);
@@ -157,7 +156,7 @@ public interface PrefsProps {
 	public String getString(String name, String defaultValue);
 
 	public String[] getStringArray(
-			long companyId, String name, String delimiter);
+		long companyId, String name, String delimiter);
 
 	public String[] getStringArray(
 			long companyId, String name, String delimiter,
@@ -174,7 +173,7 @@ public interface PrefsProps {
 	public String[] getStringArray(String name, String delimiter);
 
 	public String[] getStringArray(
-			String name, String delimiter, String[] defaultValue);
+		String name, String delimiter, String[] defaultValue);
 
 	public String getStringFromNames(long companyId, String... names);
 

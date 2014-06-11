@@ -15,7 +15,6 @@
 package com.liferay.portlet.expando.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portlet.expando.model.ExpandoColumn;
 
@@ -48,8 +47,7 @@ public interface ExpandoColumnPermission {
 		throws PortalException;
 
 	public boolean contains(
-		PermissionChecker permissionChecker, long companyId,
-		String className, String tableName, String columnName,
-		String actionId);
+		PermissionChecker permissionChecker, long companyId, String className,
+		String tableName, String columnName, String actionId);
 
 }

@@ -15,7 +15,6 @@
 package com.liferay.portal.search.lucene;
 
 import com.liferay.portal.kernel.cluster.Address;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 
 import java.io.IOException;

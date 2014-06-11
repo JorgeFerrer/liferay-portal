@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.dao.orm;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.transaction.TransactionAttribute;
 import com.liferay.portal.service.BaseLocalService;

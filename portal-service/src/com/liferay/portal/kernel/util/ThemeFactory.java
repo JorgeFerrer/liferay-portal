@@ -14,7 +14,6 @@
 
 package com.liferay.portal.kernel.util;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Theme;
 
 /**

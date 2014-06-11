@@ -15,7 +15,6 @@
 package com.liferay.portlet.dynamicdatamapping.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.XPath;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;

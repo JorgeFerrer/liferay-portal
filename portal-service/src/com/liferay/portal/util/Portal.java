@@ -540,7 +540,8 @@ public interface Portal {
 	public long getControlPanelPlid(PortletRequest portletRequest)
 		throws PortalException;
 
-	public Set<Portlet> getControlPanelPortlets(long companyId, String category);
+	public Set<Portlet> getControlPanelPortlets(
+		long companyId, String category);
 
 	public List<Portlet> getControlPanelPortlets(
 		String category, ThemeDisplay themeDisplay);

@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.staging;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.lar.MissingReference;
@@ -101,10 +100,10 @@ public interface Staging {
 		throws PortalException;
 
 	public void deleteRecentLayoutRevisionId(
-			HttpServletRequest request, long layoutSetBranchId, long plid);
+		HttpServletRequest request, long layoutSetBranchId, long plid);
 
 	public void deleteRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid);
+		User user, long layoutSetBranchId, long plid);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -287,24 +286,24 @@ public interface Staging {
 		throws PortalException;
 
 	public void setRecentLayoutBranchId(
-			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutBranchId);
+		HttpServletRequest request, long layoutSetBranchId, long plid,
+		long layoutBranchId);
 
 	public void setRecentLayoutBranchId(
-			User user, long layoutSetBranchId, long plid, long layoutBranchId);
+		User user, long layoutSetBranchId, long plid, long layoutBranchId);
 
 	public void setRecentLayoutRevisionId(
-			HttpServletRequest request, long layoutSetBranchId, long plid,
-			long layoutRevisionId);
+		HttpServletRequest request, long layoutSetBranchId, long plid,
+		long layoutRevisionId);
 
 	public void setRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid, long layoutRevisionId);
+		User user, long layoutSetBranchId, long plid, long layoutRevisionId);
 
 	public void setRecentLayoutSetBranchId(
 		HttpServletRequest request, long layoutSetId, long layoutSetBranchId);
 
 	public void setRecentLayoutSetBranchId(
-			User user, long layoutSetId, long layoutSetBranchId);
+		User user, long layoutSetId, long layoutSetBranchId);
 
 	public String stripProtocolFromRemoteAddress(String remoteAddress);
 

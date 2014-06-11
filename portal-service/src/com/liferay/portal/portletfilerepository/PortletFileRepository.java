@@ -17,7 +17,6 @@ package com.liferay.portal.portletfilerepository;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.ObjectValuePair;
@@ -97,7 +96,7 @@ public interface PortletFileRepository {
 	public List<FileEntry> getPortletFileEntries(long groupId, long folderId);
 
 	public List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status);
+		long groupId, long folderId, int status);
 
 	public List<FileEntry> getPortletFileEntries(
 			long groupId, long folderId, int status, int start, int end,
@@ -106,7 +105,7 @@ public interface PortletFileRepository {
 	public int getPortletFileEntriesCount(long groupId, long folderId);
 
 	public int getPortletFileEntriesCount(
-			long groupId, long folderId, int status);
+		long groupId, long folderId, int status);
 
 	public FileEntry getPortletFileEntry(long fileEntryId)
 		throws PortalException;

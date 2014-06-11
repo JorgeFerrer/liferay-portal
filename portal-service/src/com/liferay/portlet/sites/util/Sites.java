@@ -15,7 +15,6 @@
 package com.liferay.portlet.sites.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutPrototype;
@@ -153,7 +152,7 @@ public interface Sites {
 	public boolean isContentSharingWithChildrenEnabled(Group group);
 
 	public boolean isFirstLayout(
-			long groupId, boolean privateLayout, long layoutId);
+		long groupId, boolean privateLayout, long layoutId);
 
 	public boolean isLayoutDeleteable(Layout layout);
 

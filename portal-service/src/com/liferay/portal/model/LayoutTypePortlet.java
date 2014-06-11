@@ -15,7 +15,6 @@
 package com.liferay.portal.model;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portlet.PortalPreferences;
 
 import java.util.List;

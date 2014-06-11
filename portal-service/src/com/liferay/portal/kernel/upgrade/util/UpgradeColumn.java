@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.upgrade.util;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * @author Brian Wing Shun Chan
  * @author Alexander Chow

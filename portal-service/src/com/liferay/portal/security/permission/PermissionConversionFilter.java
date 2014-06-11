@@ -14,7 +14,6 @@
 
 package com.liferay.portal.security.permission;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.ResourcePermission;
 import com.liferay.portal.model.ResourceTypePermission;
 import com.liferay.portal.model.Role;

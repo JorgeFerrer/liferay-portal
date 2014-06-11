@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.repository.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.Accessor;
 import com.liferay.portal.model.Lock;

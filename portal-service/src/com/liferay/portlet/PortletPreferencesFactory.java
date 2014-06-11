@@ -17,7 +17,6 @@ package com.liferay.portlet;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletPreferencesIds;
@@ -55,15 +54,15 @@ public interface PortletPreferencesFactory {
 	 */
 	@Deprecated
 	public PortalPreferences fromXML(
-			long companyId, long ownerId, int ownerType, String xml);
+		long companyId, long ownerId, int ownerType, String xml);
 
 	public PortletPreferences getLayoutPortletSetup(
-			Layout layout, String portletId);
+		Layout layout, String portletId);
 
 	public PortalPreferences getPortalPreferences(HttpServletRequest request);
 
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long userId, boolean signedIn);
+		HttpSession session, long userId, boolean signedIn);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -71,9 +70,10 @@ public interface PortletPreferencesFactory {
 	 */
 	@Deprecated
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long companyId, long userId, boolean signedIn);
+		HttpSession session, long companyId, long userId, boolean signedIn);
 
-	public PortalPreferences getPortalPreferences(long userId, boolean signedIn);
+	public PortalPreferences getPortalPreferences(
+		long userId, boolean signedIn);
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #getPortalPreferences(long,
@@ -81,9 +81,10 @@ public interface PortletPreferencesFactory {
 	 */
 	@Deprecated
 	public PortalPreferences getPortalPreferences(
-			long companyId, long userId, boolean signedIn);
+		long companyId, long userId, boolean signedIn);
 
-	public PortalPreferences getPortalPreferences(PortletRequest portletRequest);
+	public PortalPreferences getPortalPreferences(
+		PortletRequest portletRequest);
 
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
@@ -112,7 +113,7 @@ public interface PortletPreferencesFactory {
 		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
-			Layout layout, String portletId, String defaultPreferences);
+		Layout layout, String portletId, String defaultPreferences);
 
 	public PortletPreferences getPortletSetup(
 			long scopeGroupId, Layout layout, String portletId,
@@ -134,10 +135,10 @@ public interface PortletPreferencesFactory {
 	public PreferencesValidator getPreferencesValidator(Portlet portlet);
 
 	public PortletPreferences getStrictLayoutPortletSetup(
-			Layout layout, String portletId);
+		Layout layout, String portletId);
 
 	public PortletPreferences getStrictPortletSetup(
-			Layout layout, String portletId);
+		Layout layout, String portletId);
 
 	public String toXML(PortalPreferences portalPreferences);
 

@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.language;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 
 import java.util.List;
 import java.util.Locale;

@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.image;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.Image;
 
 import java.io.InputStream;
