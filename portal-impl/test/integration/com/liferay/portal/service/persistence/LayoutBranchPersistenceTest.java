@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -289,6 +290,88 @@ public class LayoutBranchPersistenceTest {
 		LayoutBranch missingLayoutBranch = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingLayoutBranch);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		LayoutBranch newLayoutBranch1 = addLayoutBranch();
+		LayoutBranch newLayoutBranch2 = addLayoutBranch();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutBranch1.getPrimaryKey());
+		primaryKeys.add(newLayoutBranch2.getPrimaryKey());
+
+		Map<Serializable, LayoutBranch> layoutBranchs = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, layoutBranchs.size());
+		Assert.assertEquals(newLayoutBranch1,
+			layoutBranchs.get(newLayoutBranch1.getPrimaryKey()));
+		Assert.assertEquals(newLayoutBranch2,
+			layoutBranchs.get(newLayoutBranch2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, LayoutBranch> layoutBranchs = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(layoutBranchs.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		LayoutBranch newLayoutBranch = addLayoutBranch();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutBranch.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, LayoutBranch> layoutBranchs = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, layoutBranchs.size());
+		Assert.assertEquals(newLayoutBranch,
+			layoutBranchs.get(newLayoutBranch.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, LayoutBranch> layoutBranchs = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(layoutBranchs.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		LayoutBranch newLayoutBranch = addLayoutBranch();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutBranch.getPrimaryKey());
+
+		Map<Serializable, LayoutBranch> layoutBranchs = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, layoutBranchs.size());
+		Assert.assertEquals(newLayoutBranch,
+			layoutBranchs.get(newLayoutBranch.getPrimaryKey()));
 	}
 
 	@Test

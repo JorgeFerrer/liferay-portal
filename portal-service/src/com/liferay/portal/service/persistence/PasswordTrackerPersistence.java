@@ -215,6 +215,10 @@ public interface PasswordTrackerPersistence extends BasePersistence<PasswordTrac
 	public com.liferay.portal.model.PasswordTracker fetchByPrimaryKey(
 		long passwordTrackerId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.PasswordTracker> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the password trackers.
 	*

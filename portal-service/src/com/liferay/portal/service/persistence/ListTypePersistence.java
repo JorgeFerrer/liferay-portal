@@ -210,6 +210,10 @@ public interface ListTypePersistence extends BasePersistence<ListType> {
 	*/
 	public com.liferay.portal.model.ListType fetchByPrimaryKey(int listTypeId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ListType> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the list types.
 	*

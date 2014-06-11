@@ -666,6 +666,10 @@ public interface RatingsEntryPersistence extends BasePersistence<RatingsEntry> {
 	public com.liferay.portlet.ratings.model.RatingsEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.ratings.model.RatingsEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the ratings entries.
 	*

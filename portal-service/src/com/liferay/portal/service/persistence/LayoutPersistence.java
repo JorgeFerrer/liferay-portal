@@ -1787,6 +1787,10 @@ public interface LayoutPersistence extends BasePersistence<Layout> {
 	*/
 	public com.liferay.portal.model.Layout fetchByPrimaryKey(long plid);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Layout> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the layouts.
 	*

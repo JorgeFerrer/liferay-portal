@@ -542,6 +542,11 @@ public class DDLRecordVersionUtil {
 		return getPersistence().fetchByPrimaryKey(recordVersionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d d l record versions.
 	*

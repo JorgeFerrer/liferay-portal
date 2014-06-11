@@ -436,6 +436,10 @@ public interface WorkflowDefinitionLinkPersistence extends BasePersistence<Workf
 	public com.liferay.portal.model.WorkflowDefinitionLink fetchByPrimaryKey(
 		long workflowDefinitionLinkId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.WorkflowDefinitionLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the workflow definition links.
 	*

@@ -391,6 +391,11 @@ public class AnnouncementsFlagUtil {
 		return getPersistence().fetchByPrimaryKey(flagId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.announcements.model.AnnouncementsFlag> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the announcements flags.
 	*

@@ -1034,6 +1034,11 @@ public class SocialActivityAchievementUtil {
 		return getPersistence().fetchByPrimaryKey(activityAchievementId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivityAchievement> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social activity achievements.
 	*

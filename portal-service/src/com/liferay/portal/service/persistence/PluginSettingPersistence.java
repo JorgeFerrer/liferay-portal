@@ -273,6 +273,10 @@ public interface PluginSettingPersistence extends BasePersistence<PluginSetting>
 	public com.liferay.portal.model.PluginSetting fetchByPrimaryKey(
 		long pluginSettingId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.PluginSetting> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the plugin settings.
 	*

@@ -548,6 +548,11 @@ public class ExpandoColumnUtil {
 		return getPersistence().fetchByPrimaryKey(columnId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.expando.model.ExpandoColumn> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the expando columns.
 	*

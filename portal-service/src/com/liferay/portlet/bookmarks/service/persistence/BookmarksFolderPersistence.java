@@ -1697,6 +1697,10 @@ public interface BookmarksFolderPersistence extends BasePersistence<BookmarksFol
 	public com.liferay.portlet.bookmarks.model.BookmarksFolder fetchByPrimaryKey(
 		long folderId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.bookmarks.model.BookmarksFolder> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the bookmarks folders.
 	*

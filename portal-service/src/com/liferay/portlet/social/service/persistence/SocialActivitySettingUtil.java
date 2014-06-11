@@ -892,6 +892,11 @@ public class SocialActivitySettingUtil {
 		return getPersistence().fetchByPrimaryKey(activitySettingId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivitySetting> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social activity settings.
 	*

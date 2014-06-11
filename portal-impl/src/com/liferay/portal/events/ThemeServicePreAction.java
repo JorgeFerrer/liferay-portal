@@ -107,7 +107,9 @@ public class ThemeServicePreAction extends Action {
 		request.setAttribute(WebKeys.THEME, theme);
 		request.setAttribute(WebKeys.COLOR_SCHEME, colorScheme);
 
-		themeDisplay.setLookAndFeel(theme, colorScheme);
+		themeDisplay.setTheme(theme);
+		themeDisplay.setColorScheme(colorScheme);
+		themeDisplay.initializeLookAndFeel();
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(

@@ -52,6 +52,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -321,6 +322,88 @@ public class MBDiscussionPersistenceTest {
 		MBDiscussion missingMBDiscussion = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingMBDiscussion);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		MBDiscussion newMBDiscussion1 = addMBDiscussion();
+		MBDiscussion newMBDiscussion2 = addMBDiscussion();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBDiscussion1.getPrimaryKey());
+		primaryKeys.add(newMBDiscussion2.getPrimaryKey());
+
+		Map<Serializable, MBDiscussion> mbDiscussions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, mbDiscussions.size());
+		Assert.assertEquals(newMBDiscussion1,
+			mbDiscussions.get(newMBDiscussion1.getPrimaryKey()));
+		Assert.assertEquals(newMBDiscussion2,
+			mbDiscussions.get(newMBDiscussion2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, MBDiscussion> mbDiscussions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbDiscussions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		MBDiscussion newMBDiscussion = addMBDiscussion();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBDiscussion.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, MBDiscussion> mbDiscussions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbDiscussions.size());
+		Assert.assertEquals(newMBDiscussion,
+			mbDiscussions.get(newMBDiscussion.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, MBDiscussion> mbDiscussions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbDiscussions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		MBDiscussion newMBDiscussion = addMBDiscussion();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBDiscussion.getPrimaryKey());
+
+		Map<Serializable, MBDiscussion> mbDiscussions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbDiscussions.size());
+		Assert.assertEquals(newMBDiscussion,
+			mbDiscussions.get(newMBDiscussion.getPrimaryKey()));
 	}
 
 	@Test

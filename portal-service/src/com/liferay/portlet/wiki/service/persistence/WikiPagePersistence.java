@@ -4995,6 +4995,10 @@ public interface WikiPagePersistence extends BasePersistence<WikiPage> {
 	public com.liferay.portlet.wiki.model.WikiPage fetchByPrimaryKey(
 		long pageId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.wiki.model.WikiPage> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the wiki pages.
 	*

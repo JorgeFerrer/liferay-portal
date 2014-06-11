@@ -419,6 +419,10 @@ public interface ResourceTypePermissionPersistence extends BasePersistence<Resou
 	public com.liferay.portal.model.ResourceTypePermission fetchByPrimaryKey(
 		long resourceTypePermissionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceTypePermission> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the resource type permissions.
 	*

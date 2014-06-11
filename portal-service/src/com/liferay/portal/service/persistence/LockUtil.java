@@ -683,6 +683,11 @@ public class LockUtil {
 		return getPersistence().fetchByPrimaryKey(lockId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Lock> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the locks.
 	*

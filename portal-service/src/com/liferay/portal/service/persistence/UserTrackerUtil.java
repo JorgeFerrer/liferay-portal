@@ -612,6 +612,11 @@ public class UserTrackerUtil {
 		return getPersistence().fetchByPrimaryKey(userTrackerId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserTracker> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user trackers.
 	*

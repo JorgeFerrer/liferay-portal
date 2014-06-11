@@ -748,7 +748,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setRequest(request);
 
 		// Set attributes first that other methods (getCDNBaseURL and
-		// setLookAndFeel) depend on
+		// initializeLookAndFeel) depend on
 
 		themeDisplay.setCDNHost(cdnHost);
 		themeDisplay.setCDNDynamicResourcesHost(dynamicResourcesCDNHost);
@@ -759,6 +759,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setServerPort(request.getServerPort());
 		themeDisplay.setWidget(widget);
 
+		themeDisplay.setColorScheme(colorScheme);
 		themeDisplay.setCompany(company);
 		themeDisplay.setCompanyLogo(companyLogo);
 		themeDisplay.setCompanyLogoHeight(companyLogoHeight);
@@ -782,7 +783,6 @@ public class ServicePreAction extends Action {
 		themeDisplay.setLifecycleRender(lifecycle.equals("0"));
 		themeDisplay.setLifecycleResource(lifecycle.equals("2"));
 		themeDisplay.setLocale(locale);
-		themeDisplay.setLookAndFeel(theme, colorScheme);
 		themeDisplay.setPathApplet(contextPath.concat("/applets"));
 		themeDisplay.setPathCms(contextPath.concat("/cms"));
 		themeDisplay.setPathContext(contextPath);
@@ -812,6 +812,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setStateExclusive(LiferayWindowState.isExclusive(request));
 		themeDisplay.setStateMaximized(LiferayWindowState.isMaximized(request));
 		themeDisplay.setStatePopUp(LiferayWindowState.isPopUp(request));
+		themeDisplay.setTheme(theme);
 		themeDisplay.setThemeCssFastLoad(themeCssFastLoad);
 		themeDisplay.setThemeImagesFastLoad(themeImagesFastLoad);
 		themeDisplay.setThemeJsBarebone(themeJsBarebone);
@@ -862,6 +863,10 @@ public class ServicePreAction extends Action {
 		}
 
 		themeDisplay.setShowSiteAdministrationIcon(showSiteAdministrationIcon);
+
+		// Look and Feel
+
+		themeDisplay.initializeLookAndFeel();
 
 		// Session
 

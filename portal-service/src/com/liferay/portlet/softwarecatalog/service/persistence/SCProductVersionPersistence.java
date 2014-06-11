@@ -265,6 +265,10 @@ public interface SCProductVersionPersistence extends BasePersistence<SCProductVe
 	public com.liferay.portlet.softwarecatalog.model.SCProductVersion fetchByPrimaryKey(
 		long productVersionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCProductVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the s c product versions.
 	*

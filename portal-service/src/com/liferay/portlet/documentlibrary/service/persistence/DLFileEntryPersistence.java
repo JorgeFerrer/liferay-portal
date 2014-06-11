@@ -2343,6 +2343,10 @@ public interface DLFileEntryPersistence extends BasePersistence<DLFileEntry> {
 	public com.liferay.portlet.documentlibrary.model.DLFileEntry fetchByPrimaryKey(
 		long fileEntryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file entries.
 	*

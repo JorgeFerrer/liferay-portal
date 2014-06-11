@@ -476,6 +476,10 @@ public interface SCLicensePersistence extends BasePersistence<SCLicense> {
 	public com.liferay.portlet.softwarecatalog.model.SCLicense fetchByPrimaryKey(
 		long licenseId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCLicense> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the s c licenses.
 	*

@@ -631,6 +631,10 @@ public interface SystemEventPersistence extends BasePersistence<SystemEvent> {
 	public com.liferay.portal.model.SystemEvent fetchByPrimaryKey(
 		long systemEventId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.SystemEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the system events.
 	*

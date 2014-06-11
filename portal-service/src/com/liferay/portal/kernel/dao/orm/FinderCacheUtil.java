@@ -17,6 +17,8 @@ package com.liferay.portal.kernel.dao.orm;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
+import com.liferay.portal.model.BaseModel;
+import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 /**
  * @author Brian Wing Shun Chan
@@ -42,9 +44,11 @@ public class FinderCacheUtil {
 	}
 
 	public static Object getResult(
-		FinderPath finderPath, Object[] args, SessionFactory sessionFactory) {
+		FinderPath finderPath, Object[] args,
+		BasePersistenceImpl<? extends BaseModel<?>> basePersistenceImpl) {
 
-		return getFinderCache().getResult(finderPath, args, sessionFactory);
+		return getFinderCache().getResult(
+			finderPath, args, basePersistenceImpl);
 	}
 
 	/**

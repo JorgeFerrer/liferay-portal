@@ -268,6 +268,10 @@ public interface PasswordPolicyRelPersistence extends BasePersistence<PasswordPo
 	public com.liferay.portal.model.PasswordPolicyRel fetchByPrimaryKey(
 		long passwordPolicyRelId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.PasswordPolicyRel> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the password policy rels.
 	*

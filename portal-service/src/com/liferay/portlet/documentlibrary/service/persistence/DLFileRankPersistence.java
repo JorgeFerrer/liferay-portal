@@ -659,6 +659,10 @@ public interface DLFileRankPersistence extends BasePersistence<DLFileRank> {
 	public com.liferay.portlet.documentlibrary.model.DLFileRank fetchByPrimaryKey(
 		long fileRankId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileRank> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file ranks.
 	*

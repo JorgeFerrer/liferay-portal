@@ -267,6 +267,10 @@ public interface ResourceActionPersistence extends BasePersistence<ResourceActio
 	public com.liferay.portal.model.ResourceAction fetchByPrimaryKey(
 		long resourceActionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceAction> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the resource actions.
 	*

@@ -343,6 +343,10 @@ public interface CompanyPersistence extends BasePersistence<Company> {
 	*/
 	public com.liferay.portal.model.Company fetchByPrimaryKey(long companyId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Company> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the companies.
 	*

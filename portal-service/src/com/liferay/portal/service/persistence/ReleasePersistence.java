@@ -140,6 +140,10 @@ public interface ReleasePersistence extends BasePersistence<Release> {
 	*/
 	public com.liferay.portal.model.Release fetchByPrimaryKey(long releaseId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Release> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the releases.
 	*

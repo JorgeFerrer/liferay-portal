@@ -806,6 +806,11 @@ public class MBDiscussionUtil {
 		return getPersistence().fetchByPrimaryKey(discussionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBDiscussion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the message boards discussions.
 	*

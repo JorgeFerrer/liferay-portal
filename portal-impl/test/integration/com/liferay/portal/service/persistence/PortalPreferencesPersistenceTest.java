@@ -48,6 +48,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -221,6 +222,88 @@ public class PortalPreferencesPersistenceTest {
 		PortalPreferences missingPortalPreferences = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingPortalPreferences);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		PortalPreferences newPortalPreferences1 = addPortalPreferences();
+		PortalPreferences newPortalPreferences2 = addPortalPreferences();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newPortalPreferences1.getPrimaryKey());
+		primaryKeys.add(newPortalPreferences2.getPrimaryKey());
+
+		Map<Serializable, PortalPreferences> portalPreferenceses = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, portalPreferenceses.size());
+		Assert.assertEquals(newPortalPreferences1,
+			portalPreferenceses.get(newPortalPreferences1.getPrimaryKey()));
+		Assert.assertEquals(newPortalPreferences2,
+			portalPreferenceses.get(newPortalPreferences2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, PortalPreferences> portalPreferenceses = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(portalPreferenceses.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		PortalPreferences newPortalPreferences = addPortalPreferences();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newPortalPreferences.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, PortalPreferences> portalPreferenceses = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, portalPreferenceses.size());
+		Assert.assertEquals(newPortalPreferences,
+			portalPreferenceses.get(newPortalPreferences.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, PortalPreferences> portalPreferenceses = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(portalPreferenceses.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		PortalPreferences newPortalPreferences = addPortalPreferences();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newPortalPreferences.getPrimaryKey());
+
+		Map<Serializable, PortalPreferences> portalPreferenceses = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, portalPreferenceses.size());
+		Assert.assertEquals(newPortalPreferences,
+			portalPreferenceses.get(newPortalPreferences.getPrimaryKey()));
 	}
 
 	@Test

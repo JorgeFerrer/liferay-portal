@@ -342,6 +342,10 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	*/
 	public com.liferay.portal.model.Country fetchByPrimaryKey(long countryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Country> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the countries.
 	*

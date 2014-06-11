@@ -523,6 +523,11 @@ public class ExpandoRowUtil {
 		return getPersistence().fetchByPrimaryKey(rowId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.expando.model.ExpandoRow> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the expando rows.
 	*

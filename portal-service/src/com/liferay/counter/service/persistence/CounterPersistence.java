@@ -96,6 +96,10 @@ public interface CounterPersistence extends BasePersistence<Counter> {
 	public com.liferay.counter.model.Counter fetchByPrimaryKey(
 		java.lang.String name);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.counter.model.Counter> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the counters.
 	*

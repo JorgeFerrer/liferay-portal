@@ -1105,6 +1105,10 @@ public interface JournalContentSearchPersistence extends BasePersistence<Journal
 	public com.liferay.portlet.journal.model.JournalContentSearch fetchByPrimaryKey(
 		long contentSearchId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalContentSearch> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the journal content searchs.
 	*

@@ -275,6 +275,10 @@ public interface AnnouncementsFlagPersistence extends BasePersistence<Announceme
 	public com.liferay.portlet.announcements.model.AnnouncementsFlag fetchByPrimaryKey(
 		long flagId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.announcements.model.AnnouncementsFlag> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the announcements flags.
 	*

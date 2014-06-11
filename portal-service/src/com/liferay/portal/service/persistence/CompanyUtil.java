@@ -485,6 +485,11 @@ public class CompanyUtil {
 		return getPersistence().fetchByPrimaryKey(companyId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Company> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the companies.
 	*

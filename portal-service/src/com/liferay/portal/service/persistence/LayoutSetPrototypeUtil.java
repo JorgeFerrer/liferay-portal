@@ -1094,6 +1094,11 @@ public class LayoutSetPrototypeUtil {
 		return getPersistence().fetchByPrimaryKey(layoutSetPrototypeId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutSetPrototype> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the layout set prototypes.
 	*

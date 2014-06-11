@@ -611,6 +611,11 @@ public class TrashVersionUtil {
 		return getPersistence().fetchByPrimaryKey(versionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.trash.model.TrashVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the trash versions.
 	*

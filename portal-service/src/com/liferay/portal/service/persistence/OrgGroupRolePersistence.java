@@ -334,6 +334,10 @@ public interface OrgGroupRolePersistence extends BasePersistence<OrgGroupRole> {
 	public com.liferay.portal.model.OrgGroupRole fetchByPrimaryKey(
 		com.liferay.portal.service.persistence.OrgGroupRolePK orgGroupRolePK);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.OrgGroupRole> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the org group roles.
 	*

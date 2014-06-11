@@ -654,6 +654,10 @@ public interface SocialActivityCounterPersistence extends BasePersistence<Social
 	public com.liferay.portlet.social.model.SocialActivityCounter fetchByPrimaryKey(
 		long activityCounterId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivityCounter> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social activity counters.
 	*

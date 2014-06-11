@@ -1523,6 +1523,11 @@ public class ExpandoValueUtil {
 		return getPersistence().fetchByPrimaryKey(valueId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.expando.model.ExpandoValue> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the expando values.
 	*

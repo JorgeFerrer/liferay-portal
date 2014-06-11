@@ -47,6 +47,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -306,6 +307,90 @@ public class UserNotificationEventPersistenceTest {
 		UserNotificationEvent missingUserNotificationEvent = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingUserNotificationEvent);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		UserNotificationEvent newUserNotificationEvent1 = addUserNotificationEvent();
+		UserNotificationEvent newUserNotificationEvent2 = addUserNotificationEvent();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newUserNotificationEvent1.getPrimaryKey());
+		primaryKeys.add(newUserNotificationEvent2.getPrimaryKey());
+
+		Map<Serializable, UserNotificationEvent> userNotificationEvents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, userNotificationEvents.size());
+		Assert.assertEquals(newUserNotificationEvent1,
+			userNotificationEvents.get(
+				newUserNotificationEvent1.getPrimaryKey()));
+		Assert.assertEquals(newUserNotificationEvent2,
+			userNotificationEvents.get(
+				newUserNotificationEvent2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, UserNotificationEvent> userNotificationEvents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(userNotificationEvents.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		UserNotificationEvent newUserNotificationEvent = addUserNotificationEvent();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newUserNotificationEvent.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, UserNotificationEvent> userNotificationEvents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, userNotificationEvents.size());
+		Assert.assertEquals(newUserNotificationEvent,
+			userNotificationEvents.get(newUserNotificationEvent.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, UserNotificationEvent> userNotificationEvents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(userNotificationEvents.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		UserNotificationEvent newUserNotificationEvent = addUserNotificationEvent();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newUserNotificationEvent.getPrimaryKey());
+
+		Map<Serializable, UserNotificationEvent> userNotificationEvents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, userNotificationEvents.size());
+		Assert.assertEquals(newUserNotificationEvent,
+			userNotificationEvents.get(newUserNotificationEvent.getPrimaryKey()));
 	}
 
 	@Test

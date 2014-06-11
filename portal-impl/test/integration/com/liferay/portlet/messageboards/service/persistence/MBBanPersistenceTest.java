@@ -52,6 +52,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -318,6 +319,84 @@ public class MBBanPersistenceTest {
 		MBBan missingMBBan = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingMBBan);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		MBBan newMBBan1 = addMBBan();
+		MBBan newMBBan2 = addMBBan();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBBan1.getPrimaryKey());
+		primaryKeys.add(newMBBan2.getPrimaryKey());
+
+		Map<Serializable, MBBan> mbBans = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, mbBans.size());
+		Assert.assertEquals(newMBBan1, mbBans.get(newMBBan1.getPrimaryKey()));
+		Assert.assertEquals(newMBBan2, mbBans.get(newMBBan2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, MBBan> mbBans = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbBans.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		MBBan newMBBan = addMBBan();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBBan.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, MBBan> mbBans = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbBans.size());
+		Assert.assertEquals(newMBBan, mbBans.get(newMBBan.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, MBBan> mbBans = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbBans.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		MBBan newMBBan = addMBBan();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBBan.getPrimaryKey());
+
+		Map<Serializable, MBBan> mbBans = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbBans.size());
+		Assert.assertEquals(newMBBan, mbBans.get(newMBBan.getPrimaryKey()));
 	}
 
 	@Test

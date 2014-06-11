@@ -957,6 +957,10 @@ public interface ResourcePermissionPersistence extends BasePersistence<ResourceP
 	public com.liferay.portal.model.ResourcePermission fetchByPrimaryKey(
 		long resourcePermissionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourcePermission> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the resource permissions.
 	*

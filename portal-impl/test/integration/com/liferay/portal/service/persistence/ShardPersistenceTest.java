@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -233,6 +234,84 @@ public class ShardPersistenceTest {
 		Shard missingShard = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingShard);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Shard newShard1 = addShard();
+		Shard newShard2 = addShard();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newShard1.getPrimaryKey());
+		primaryKeys.add(newShard2.getPrimaryKey());
+
+		Map<Serializable, Shard> shards = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, shards.size());
+		Assert.assertEquals(newShard1, shards.get(newShard1.getPrimaryKey()));
+		Assert.assertEquals(newShard2, shards.get(newShard2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Shard> shards = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(shards.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Shard newShard = addShard();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newShard.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Shard> shards = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, shards.size());
+		Assert.assertEquals(newShard, shards.get(newShard.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Shard> shards = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(shards.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Shard newShard = addShard();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newShard.getPrimaryKey());
+
+		Map<Serializable, Shard> shards = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, shards.size());
+		Assert.assertEquals(newShard, shards.get(newShard.getPrimaryKey()));
 	}
 
 	@Test

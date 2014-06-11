@@ -263,6 +263,10 @@ public interface PortletPersistence extends BasePersistence<Portlet> {
 	*/
 	public com.liferay.portal.model.Portlet fetchByPrimaryKey(long id);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Portlet> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the portlets.
 	*

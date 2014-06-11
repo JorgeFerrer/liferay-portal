@@ -432,6 +432,10 @@ public interface ResourceBlockPersistence extends BasePersistence<ResourceBlock>
 	public com.liferay.portal.model.ResourceBlock fetchByPrimaryKey(
 		long resourceBlockId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceBlock> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the resource blocks.
 	*

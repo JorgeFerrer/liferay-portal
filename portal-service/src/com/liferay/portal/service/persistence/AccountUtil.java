@@ -175,6 +175,11 @@ public class AccountUtil {
 		return getPersistence().fetchByPrimaryKey(accountId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Account> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the accounts.
 	*

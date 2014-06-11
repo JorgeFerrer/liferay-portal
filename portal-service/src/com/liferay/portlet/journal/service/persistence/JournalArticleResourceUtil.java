@@ -591,6 +591,11 @@ public class JournalArticleResourceUtil {
 		return getPersistence().fetchByPrimaryKey(resourcePrimKey);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalArticleResource> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the journal article resources.
 	*

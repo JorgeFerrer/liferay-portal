@@ -323,6 +323,11 @@ public class ShoppingOrderItemUtil {
 		return getPersistence().fetchByPrimaryKey(orderItemId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingOrderItem> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the shopping order items.
 	*

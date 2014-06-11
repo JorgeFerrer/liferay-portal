@@ -682,6 +682,11 @@ public class MDRRuleUtil {
 		return getPersistence().fetchByPrimaryKey(ruleId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRRule> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the m d r rules.
 	*

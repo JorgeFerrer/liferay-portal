@@ -2901,6 +2901,10 @@ public interface BookmarksEntryPersistence extends BasePersistence<BookmarksEntr
 	public com.liferay.portlet.bookmarks.model.BookmarksEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.bookmarks.model.BookmarksEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the bookmarks entries.
 	*

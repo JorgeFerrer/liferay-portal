@@ -47,6 +47,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -255,6 +256,86 @@ public class AccountPersistenceTest {
 		Account missingAccount = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingAccount);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Account newAccount1 = addAccount();
+		Account newAccount2 = addAccount();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newAccount1.getPrimaryKey());
+		primaryKeys.add(newAccount2.getPrimaryKey());
+
+		Map<Serializable, Account> accounts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, accounts.size());
+		Assert.assertEquals(newAccount1,
+			accounts.get(newAccount1.getPrimaryKey()));
+		Assert.assertEquals(newAccount2,
+			accounts.get(newAccount2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Account> accounts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(accounts.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Account newAccount = addAccount();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newAccount.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Account> accounts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, accounts.size());
+		Assert.assertEquals(newAccount, accounts.get(newAccount.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Account> accounts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(accounts.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Account newAccount = addAccount();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newAccount.getPrimaryKey());
+
+		Map<Serializable, Account> accounts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, accounts.size());
+		Assert.assertEquals(newAccount, accounts.get(newAccount.getPrimaryKey()));
 	}
 
 	@Test

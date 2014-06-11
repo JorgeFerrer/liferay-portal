@@ -1689,6 +1689,10 @@ public interface JournalFolderPersistence extends BasePersistence<JournalFolder>
 	public com.liferay.portlet.journal.model.JournalFolder fetchByPrimaryKey(
 		long folderId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalFolder> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the journal folders.
 	*

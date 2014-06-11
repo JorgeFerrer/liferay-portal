@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -497,6 +498,84 @@ public class GroupPersistenceTest {
 		Group missingGroup = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingGroup);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Group newGroup1 = addGroup();
+		Group newGroup2 = addGroup();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newGroup1.getPrimaryKey());
+		primaryKeys.add(newGroup2.getPrimaryKey());
+
+		Map<Serializable, Group> groups = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, groups.size());
+		Assert.assertEquals(newGroup1, groups.get(newGroup1.getPrimaryKey()));
+		Assert.assertEquals(newGroup2, groups.get(newGroup2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Group> groups = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(groups.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Group newGroup = addGroup();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newGroup.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Group> groups = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, groups.size());
+		Assert.assertEquals(newGroup, groups.get(newGroup.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Group> groups = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(groups.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Group newGroup = addGroup();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newGroup.getPrimaryKey());
+
+		Map<Serializable, Group> groups = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, groups.size());
+		Assert.assertEquals(newGroup, groups.get(newGroup.getPrimaryKey()));
 	}
 
 	@Test

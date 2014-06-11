@@ -217,6 +217,10 @@ public interface ShoppingItemPricePersistence extends BasePersistence<ShoppingIt
 	public com.liferay.portlet.shopping.model.ShoppingItemPrice fetchByPrimaryKey(
 		long itemPriceId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingItemPrice> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shopping item prices.
 	*

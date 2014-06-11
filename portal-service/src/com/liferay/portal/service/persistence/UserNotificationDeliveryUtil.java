@@ -418,6 +418,11 @@ public class UserNotificationDeliveryUtil {
 		return getPersistence().fetchByPrimaryKey(userNotificationDeliveryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserNotificationDelivery> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user notification deliveries.
 	*

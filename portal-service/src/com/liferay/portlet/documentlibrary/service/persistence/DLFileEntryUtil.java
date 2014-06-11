@@ -2906,6 +2906,11 @@ public class DLFileEntryUtil {
 		return getPersistence().fetchByPrimaryKey(fileEntryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the document library file entries.
 	*

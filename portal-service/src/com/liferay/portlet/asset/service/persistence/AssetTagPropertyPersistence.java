@@ -516,6 +516,10 @@ public interface AssetTagPropertyPersistence extends BasePersistence<AssetTagPro
 	public com.liferay.portlet.asset.model.AssetTagProperty fetchByPrimaryKey(
 		long tagPropertyId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetTagProperty> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the asset tag properties.
 	*

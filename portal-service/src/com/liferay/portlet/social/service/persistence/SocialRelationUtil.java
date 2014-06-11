@@ -1729,6 +1729,11 @@ public class SocialRelationUtil {
 		return getPersistence().fetchByPrimaryKey(relationId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialRelation> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social relations.
 	*

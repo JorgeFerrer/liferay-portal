@@ -217,6 +217,10 @@ public interface ShoppingItemFieldPersistence extends BasePersistence<ShoppingIt
 	public com.liferay.portlet.shopping.model.ShoppingItemField fetchByPrimaryKey(
 		long itemFieldId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingItemField> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shopping item fields.
 	*

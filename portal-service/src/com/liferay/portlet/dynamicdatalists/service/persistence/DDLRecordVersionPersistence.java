@@ -398,6 +398,10 @@ public interface DDLRecordVersionPersistence extends BasePersistence<DDLRecordVe
 	public com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion fetchByPrimaryKey(
 		long recordVersionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the d d l record versions.
 	*

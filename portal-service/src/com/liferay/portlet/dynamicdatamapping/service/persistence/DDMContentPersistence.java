@@ -634,6 +634,10 @@ public interface DDMContentPersistence extends BasePersistence<DDMContent> {
 	public com.liferay.portlet.dynamicdatamapping.model.DDMContent fetchByPrimaryKey(
 		long contentId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatamapping.model.DDMContent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the d d m contents.
 	*

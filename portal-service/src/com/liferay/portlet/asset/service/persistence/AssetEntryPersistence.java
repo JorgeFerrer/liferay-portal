@@ -792,6 +792,10 @@ public interface AssetEntryPersistence extends BasePersistence<AssetEntry> {
 	public com.liferay.portlet.asset.model.AssetEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the asset entries.
 	*

@@ -372,6 +372,11 @@ public class WorkflowInstanceLinkUtil {
 		return getPersistence().fetchByPrimaryKey(workflowInstanceLinkId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.WorkflowInstanceLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the workflow instance links.
 	*

@@ -847,6 +847,11 @@ public class SCProductEntryUtil {
 		return getPersistence().fetchByPrimaryKey(productEntryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCProductEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the s c product entries.
 	*

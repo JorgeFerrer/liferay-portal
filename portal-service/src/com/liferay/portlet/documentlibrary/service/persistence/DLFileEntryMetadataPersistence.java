@@ -624,6 +624,10 @@ public interface DLFileEntryMetadataPersistence extends BasePersistence<DLFileEn
 	public com.liferay.portlet.documentlibrary.model.DLFileEntryMetadata fetchByPrimaryKey(
 		long fileEntryMetadataId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileEntryMetadata> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file entry metadatas.
 	*

@@ -579,6 +579,10 @@ public interface MDRRuleGroupPersistence extends BasePersistence<MDRRuleGroup> {
 	public com.liferay.portlet.mobiledevicerules.model.MDRRuleGroup fetchByPrimaryKey(
 		long ruleGroupId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRRuleGroup> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the m d r rule groups.
 	*

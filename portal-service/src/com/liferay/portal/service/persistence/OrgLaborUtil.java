@@ -323,6 +323,11 @@ public class OrgLaborUtil {
 		return getPersistence().fetchByPrimaryKey(orgLaborId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.OrgLabor> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the org labors.
 	*

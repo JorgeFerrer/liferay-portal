@@ -570,6 +570,10 @@ public interface RepositoryPersistence extends BasePersistence<Repository> {
 	public com.liferay.portal.model.Repository fetchByPrimaryKey(
 		long repositoryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Repository> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the repositories.
 	*

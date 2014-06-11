@@ -2871,6 +2871,11 @@ public class MBCategoryUtil {
 		return getPersistence().fetchByPrimaryKey(categoryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBCategory> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the message boards categories.
 	*

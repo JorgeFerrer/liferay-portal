@@ -4077,6 +4077,10 @@ public interface BlogsEntryPersistence extends BasePersistence<BlogsEntry> {
 	public com.liferay.portlet.blogs.model.BlogsEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.blogs.model.BlogsEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the blogs entries.
 	*

@@ -149,6 +149,10 @@ public interface RatingsStatsPersistence extends BasePersistence<RatingsStats> {
 	public com.liferay.portlet.ratings.model.RatingsStats fetchByPrimaryKey(
 		long statsId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.ratings.model.RatingsStats> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the ratings statses.
 	*

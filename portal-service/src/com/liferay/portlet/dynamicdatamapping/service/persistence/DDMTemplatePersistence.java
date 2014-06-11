@@ -2624,6 +2624,10 @@ public interface DDMTemplatePersistence extends BasePersistence<DDMTemplate> {
 	public com.liferay.portlet.dynamicdatamapping.model.DDMTemplate fetchByPrimaryKey(
 		long templateId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the d d m templates.
 	*

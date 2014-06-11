@@ -1158,6 +1158,11 @@ public class UserGroupUtil {
 		return getPersistence().fetchByPrimaryKey(userGroupId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserGroup> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user groups.
 	*

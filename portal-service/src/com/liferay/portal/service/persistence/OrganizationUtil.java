@@ -1857,6 +1857,11 @@ public class OrganizationUtil {
 		return getPersistence().fetchByPrimaryKey(organizationId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Organization> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the organizations.
 	*

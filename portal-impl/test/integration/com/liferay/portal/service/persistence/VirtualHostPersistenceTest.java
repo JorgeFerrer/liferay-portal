@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -237,6 +238,88 @@ public class VirtualHostPersistenceTest {
 		VirtualHost missingVirtualHost = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingVirtualHost);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		VirtualHost newVirtualHost1 = addVirtualHost();
+		VirtualHost newVirtualHost2 = addVirtualHost();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newVirtualHost1.getPrimaryKey());
+		primaryKeys.add(newVirtualHost2.getPrimaryKey());
+
+		Map<Serializable, VirtualHost> virtualHosts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, virtualHosts.size());
+		Assert.assertEquals(newVirtualHost1,
+			virtualHosts.get(newVirtualHost1.getPrimaryKey()));
+		Assert.assertEquals(newVirtualHost2,
+			virtualHosts.get(newVirtualHost2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, VirtualHost> virtualHosts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(virtualHosts.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		VirtualHost newVirtualHost = addVirtualHost();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newVirtualHost.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, VirtualHost> virtualHosts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, virtualHosts.size());
+		Assert.assertEquals(newVirtualHost,
+			virtualHosts.get(newVirtualHost.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, VirtualHost> virtualHosts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(virtualHosts.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		VirtualHost newVirtualHost = addVirtualHost();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newVirtualHost.getPrimaryKey());
+
+		Map<Serializable, VirtualHost> virtualHosts = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, virtualHosts.size());
+		Assert.assertEquals(newVirtualHost,
+			virtualHosts.get(newVirtualHost.getPrimaryKey()));
 	}
 
 	@Test

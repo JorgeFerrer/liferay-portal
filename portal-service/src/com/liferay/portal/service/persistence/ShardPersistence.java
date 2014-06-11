@@ -188,6 +188,10 @@ public interface ShardPersistence extends BasePersistence<Shard> {
 	*/
 	public com.liferay.portal.model.Shard fetchByPrimaryKey(long shardId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Shard> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shards.
 	*

@@ -1052,6 +1052,57 @@ public class ThemeDisplay
 		return _user.getUserId();
 	}
 
+	public void initializeLookAndFeel() {
+		if ((_theme == null) || (_colorScheme == null)) {
+			return;
+		}
+
+		String themeStaticResourcePath = _theme.getStaticResourcePath();
+
+		String cdnBaseURL = getCDNBaseURL();
+
+		setPathColorSchemeImages(
+			cdnBaseURL + themeStaticResourcePath +
+				_colorScheme.getColorSchemeImagesPath());
+
+		String dynamicResourcesHost = getCDNDynamicResourcesHost();
+
+		if (Validator.isNull(dynamicResourcesHost)) {
+			String portalURL = getPortalURL();
+
+			try {
+				portalURL = PortalUtil.getPortalURL(getLayout(), this);
+			}
+			catch (Exception e) {
+				_log.error(e, e);
+			}
+
+			dynamicResourcesHost = portalURL;
+		}
+
+		setPathThemeCss(
+			dynamicResourcesHost + themeStaticResourcePath +
+				_theme.getCssPath());
+
+		setPathThemeImages(
+			cdnBaseURL + themeStaticResourcePath + _theme.getImagesPath());
+		setPathThemeJavaScript(
+			cdnBaseURL + themeStaticResourcePath +
+				_theme.getJavaScriptPath());
+
+		String rootPath = _theme.getRootPath();
+
+		if (rootPath.equals(StringPool.SLASH)) {
+			setPathThemeRoot(themeStaticResourcePath);
+		}
+		else {
+			setPathThemeRoot(themeStaticResourcePath + rootPath);
+		}
+
+		setPathThemeTemplates(
+			cdnBaseURL + themeStaticResourcePath + _theme.getTemplatesPath());
+	}
+
 	public boolean isAddSessionIdToURL() {
 		return _addSessionIdToURL;
 	}
@@ -1296,6 +1347,10 @@ public class ThemeDisplay
 		_cdnHost = cdnHost;
 	}
 
+	public void setColorScheme(ColorScheme colorScheme) {
+		this._colorScheme = colorScheme;
+	}
+
 	public void setCompany(Company company)
 		throws PortalException, SystemException {
 
@@ -1433,58 +1488,18 @@ public class ThemeDisplay
 		LocaleThreadLocal.setThemeDisplayLocale(locale);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, please see {@link
+	 *             #setColorScheme(com.liferay.portal.model.ColorScheme)},
+	 *             {@link #setTheme(com.liferay.portal.model.Theme)} and
+	 *             {@link #initializeLookAndFeel()}
+	 */
+	@Deprecated
 	public void setLookAndFeel(Theme theme, ColorScheme colorScheme) {
-		_theme = theme;
-		_colorScheme = colorScheme;
+		setTheme(theme);
+		setColorScheme(colorScheme);
 
-		if ((theme == null) || (colorScheme == null)) {
-			return;
-		}
-
-		String themeStaticResourcePath = theme.getStaticResourcePath();
-
-		String cdnBaseURL = getCDNBaseURL();
-
-		setPathColorSchemeImages(
-			cdnBaseURL + themeStaticResourcePath +
-				colorScheme.getColorSchemeImagesPath());
-
-		String dynamicResourcesHost = getCDNDynamicResourcesHost();
-
-		if (Validator.isNull(dynamicResourcesHost)) {
-			String portalURL = getPortalURL();
-
-			try {
-				portalURL = PortalUtil.getPortalURL(getLayout(), this);
-			}
-			catch (Exception e) {
-				_log.error(e, e);
-			}
-
-			dynamicResourcesHost = portalURL;
-		}
-
-		setPathThemeCss(
-			dynamicResourcesHost + themeStaticResourcePath +
-				theme.getCssPath());
-
-		setPathThemeImages(
-			cdnBaseURL + themeStaticResourcePath + theme.getImagesPath());
-		setPathThemeJavaScript(
-			cdnBaseURL + themeStaticResourcePath +
-				theme.getJavaScriptPath());
-
-		String rootPath = theme.getRootPath();
-
-		if (rootPath.equals(StringPool.SLASH)) {
-			setPathThemeRoot(themeStaticResourcePath);
-		}
-		else {
-			setPathThemeRoot(themeStaticResourcePath + rootPath);
-		}
-
-		setPathThemeTemplates(
-			cdnBaseURL + themeStaticResourcePath + theme.getTemplatesPath());
+		initializeLookAndFeel();
 	}
 
 	public void setMDRRuleGroupInstance(
@@ -1767,6 +1782,10 @@ public class ThemeDisplay
 
 	public void setStatePopUp(boolean statePopUp) {
 		_statePopUp = statePopUp;
+	}
+
+	public void setTheme(Theme theme) {
+		this._theme = theme;
 	}
 
 	public void setThemeCssFastLoad(boolean themeCssFastLoad) {

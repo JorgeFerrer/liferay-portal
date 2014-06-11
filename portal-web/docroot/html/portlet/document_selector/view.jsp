@@ -17,11 +17,7 @@
 <%@ include file="/html/portlet/document_selector/init.jsp" %>
 
 <%
-long groupId = ParamUtil.getLong(request, FileEntryDisplayTerms.SELECTED_GROUP_ID);
-
-if (groupId == 0) {
-	groupId = ParamUtil.getLong(request, "groupId");
-}
+long groupId = ParamUtil.getLong(request, "groupId");
 
 Folder folder = (Folder)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FOLDER);
 
@@ -33,23 +29,8 @@ if ((folder != null) && (folder.getGroupId() != groupId)) {
 	folderId = 0;
 }
 
-long searchFolderIds = ParamUtil.getLong(request, "searchFolderIds");
-
-long[] folderIdsArray = null;
-
 if (folderId > 0) {
-	folderIdsArray = new long[] {folderId};
-
 	folder = DLAppServiceUtil.getFolder(folderId);
-}
-else {
-	long defaultFolderId = DLFolderConstants.getFolderId(groupId, DLFolderConstants.getDataRepositoryId(groupId, searchFolderIds));
-
-	List<Long> folderIds = DLAppServiceUtil.getSubfolderIds(groupId, searchFolderIds);
-
-	folderIds.add(0, defaultFolderId);
-
-	folderIdsArray = StringUtil.split(StringUtil.merge(folderIds), 0L);
 }
 
 long repositoryId = groupId;
@@ -60,21 +41,17 @@ if (folder != null) {
 	DLUtil.addPortletBreadcrumbEntries(folder, request, renderResponse);
 }
 
-int entryStart = ParamUtil.getInteger(request, "entryStart");
-int entryEnd = ParamUtil.getInteger(request, "entryEnd", PropsValues.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-
-String keywords = ParamUtil.getString(request, "keywords");
-
 String eventName = ParamUtil.getString(request, "eventName");
+
+boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector");
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("struts_action", "/document_selector/view");
-portletURL.setParameter("eventName", eventName);
 portletURL.setParameter("groupId", String.valueOf(groupId));
 portletURL.setParameter("folderId", String.valueOf(folderId));
-
-boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector");
+portletURL.setParameter("eventName", eventName);
+portletURL.setParameter("showGroupsSelector", String.valueOf(showGroupsSelector));
 %>
 
 <c:if test="<%= showGroupsSelector %>">
@@ -92,6 +69,7 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 
 		selectGroupURL.setParameter("struts_action", "/document_selector/view");
 		selectGroupURL.setParameter("eventName", eventName);
+		selectGroupURL.setParameter("showGroupsSelector", String.valueOf(showGroupsSelector));
 
 		for (Group group : PortalUtil.getBrowsableScopeGroups(themeDisplay.getUserId(), themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(), refererPortletName)) {
 			selectGroupURL.setParameter("groupId", String.valueOf(group.getGroupId()));
@@ -237,9 +215,10 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 			>
 				<portlet:renderURL var="rowURL">
 					<portlet:param name="struts_action" value="/document_selector/view" />
-					<portlet:param name="eventName" value="<%= eventName %>" />
 					<portlet:param name="groupId" value="<%= String.valueOf(groupId) %>" />
 					<portlet:param name="folderId" value="<%= String.valueOf(curFolder.getFolderId()) %>" />
+					<portlet:param name="eventName" value="<%= eventName %>" />
+					<portlet:param name="showGroupsSelector" value="<%= String.valueOf(showGroupsSelector) %>" />
 				</portlet:renderURL>
 
 				<liferay-ui:search-container-column-text
@@ -272,13 +251,11 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 				%>
 
 				<liferay-ui:search-container-column-text
-					href="<%= rowURL %>"
 					name="num-of-folders"
 					value="<%= String.valueOf(foldersCount) %>"
 				/>
 
 				<liferay-ui:search-container-column-text
-					href="<%= rowURL %>"
 					name="num-of-documents"
 					value="<%= String.valueOf(fileEntriesCount) %>"
 				/>
@@ -292,8 +269,9 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 	PortletURL backURL = renderResponse.createRenderURL();
 
 	backURL.setParameter("struts_action", "/document_selector/view");
-	backURL.setParameter("eventName", eventName);
 	backURL.setParameter("groupId", String.valueOf(groupId));
+	backURL.setParameter("eventName", eventName);
+	backURL.setParameter("showGroupsSelector", String.valueOf(showGroupsSelector));
 	%>
 
 	<liferay-ui:header
@@ -306,9 +284,10 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 
 	iteratorURL.setParameter("struts_action", "/document_selector/view");
-	iteratorURL.setParameter("eventName", eventName);
 	iteratorURL.setParameter("groupId", String.valueOf(groupId));
 	iteratorURL.setParameter("folderId", String.valueOf(folderId));
+	iteratorURL.setParameter("eventName", eventName);
+	iteratorURL.setParameter("showGroupsSelector", String.valueOf(showGroupsSelector));
 	%>
 
 	<liferay-ui:search-container
@@ -321,12 +300,23 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 
 		searchContext.setAttribute("groupId", groupId);
 		searchContext.setAttribute("paginationType", "regular");
+
+		int entryEnd = ParamUtil.getInteger(request, "entryEnd", PropsValues.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
+
 		searchContext.setEnd(entryEnd);
-		searchContext.setFolderIds(folderIdsArray);
+
+		searchContext.setFolderIds(new long[]{folderId});
 		searchContext.setGroupIds(new long[] {groupId});
 		searchContext.setIncludeFolders(false);
+
+		String keywords = ParamUtil.getString(request, "keywords");
+
 		searchContext.setKeywords(keywords);
+
 		searchContext.setScopeStrict(false);
+
+		int entryStart = ParamUtil.getInteger(request, "entryStart");
+
 		searchContext.setStart(entryStart);
 
 		Hits hits = DLAppServiceUtil.search(repositoryId, searchContext);
@@ -341,13 +331,7 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 			keyProperty="fileEntryId"
 			modelVar="fileEntry"
 		>
-
-			<%
-			String rowHREF = DLUtil.getPreviewURL(fileEntry, fileEntry.getFileVersion(), themeDisplay, StringPool.BLANK, false, true);
-			%>
-
 			<liferay-ui:search-container-column-text
-				href="<%= rowHREF %>"
 				name="document"
 			>
 				<img align="left" alt="" src="<%= DLUtil.getThumbnailSrc(fileEntry, null, themeDisplay) %>" style="<%= DLUtil.getThumbnailStyle() %>" />
@@ -355,21 +339,18 @@ boolean showGroupsSelector = ParamUtil.getBoolean(request, "showGroupsSelector")
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
-				href="<%= rowHREF %>"
 				name="size"
 				value="<%= TextFormatter.formatStorageSize(fileEntry.getSize(), locale) %>"
 			/>
 
 			<c:if test="<%= PropsValues.DL_FILE_ENTRY_BUFFERED_INCREMENT_ENABLED %>">
 				<liferay-ui:search-container-column-text
-					href="<%= rowHREF %>"
 					name="downloads"
 					value="<%= String.valueOf(fileEntry.getReadCount()) %>"
 				/>
 			</c:if>
 
 			<liferay-ui:search-container-column-text
-				href="<%= rowHREF %>"
 				name="locked"
 				value='<%= fileEntry.isCheckedOut() ? "yes" : "no" %>'
 			/>

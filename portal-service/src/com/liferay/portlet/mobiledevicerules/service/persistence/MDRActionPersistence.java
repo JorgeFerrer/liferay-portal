@@ -516,6 +516,10 @@ public interface MDRActionPersistence extends BasePersistence<MDRAction> {
 	public com.liferay.portlet.mobiledevicerules.model.MDRAction fetchByPrimaryKey(
 		long actionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRAction> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the m d r actions.
 	*

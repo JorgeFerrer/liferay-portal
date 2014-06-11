@@ -530,6 +530,11 @@ public class DDMStructureLinkUtil {
 		return getPersistence().fetchByPrimaryKey(structureLinkId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatamapping.model.DDMStructureLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d d m structure links.
 	*

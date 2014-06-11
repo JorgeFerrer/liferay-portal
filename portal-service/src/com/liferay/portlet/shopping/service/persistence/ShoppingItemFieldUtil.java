@@ -323,6 +323,11 @@ public class ShoppingItemFieldUtil {
 		return getPersistence().fetchByPrimaryKey(itemFieldId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingItemField> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the shopping item fields.
 	*

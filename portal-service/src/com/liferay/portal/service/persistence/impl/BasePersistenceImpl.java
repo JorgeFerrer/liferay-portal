@@ -47,6 +47,7 @@ import java.sql.Connection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -116,6 +117,14 @@ public class BasePersistenceImpl<T extends BaseModel<T>>
 
 	@Override
 	public T fetchByPrimaryKey(Serializable primaryKey) throws SystemException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Map<Serializable, T> fetchByPrimaryKeys(
+			Set<Serializable> primaryKeys)
+		throws SystemException {
+
 		throw new UnsupportedOperationException();
 	}
 

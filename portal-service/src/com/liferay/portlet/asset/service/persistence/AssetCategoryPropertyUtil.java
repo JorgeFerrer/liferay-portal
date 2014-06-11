@@ -691,6 +691,11 @@ public class AssetCategoryPropertyUtil {
 		return getPersistence().fetchByPrimaryKey(categoryPropertyId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetCategoryProperty> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the asset category properties.
 	*

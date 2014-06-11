@@ -995,6 +995,11 @@ public class BlogsStatsUserUtil {
 		return getPersistence().fetchByPrimaryKey(statsUserId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.blogs.model.BlogsStatsUser> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the blogs stats users.
 	*

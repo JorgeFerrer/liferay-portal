@@ -282,6 +282,14 @@ public class DLFileEntryIndexer extends BaseIndexer {
 		}
 	}
 
+	@Override
+	public void updateFullQuery(SearchContext searchContext) {
+		if (searchContext.isIncludeAttachments()) {
+			searchContext.addFullQueryEntryClassName(
+				DLFileEntry.class.getName());
+		}
+	}
+
 	protected void addFileEntryTypeAttributes(
 			Document document, DLFileVersion dlFileVersion)
 		throws PortalException, SystemException {

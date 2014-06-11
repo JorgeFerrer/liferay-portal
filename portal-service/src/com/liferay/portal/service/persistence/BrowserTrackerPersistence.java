@@ -140,6 +140,10 @@ public interface BrowserTrackerPersistence extends BasePersistence<BrowserTracke
 	public com.liferay.portal.model.BrowserTracker fetchByPrimaryKey(
 		long browserTrackerId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.BrowserTracker> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the browser trackers.
 	*

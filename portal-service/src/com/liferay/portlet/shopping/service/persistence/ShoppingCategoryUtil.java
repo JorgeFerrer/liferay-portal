@@ -639,6 +639,11 @@ public class ShoppingCategoryUtil {
 		return getPersistence().fetchByPrimaryKey(categoryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingCategory> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the shopping categories.
 	*

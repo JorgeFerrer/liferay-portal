@@ -81,9 +81,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 <#list referenceList as tempEntity>
@@ -853,6 +855,116 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 		return fetchByPrimaryKey((Serializable)${entity.PKVarName});
 	}
 
+	@Override
+	public Map<Serializable, ${entity.name}> fetchByPrimaryKeys(Set<Serializable> primaryKeys) {
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, ${entity.name}> map = new HashMap<Serializable, ${entity.name}>();
+
+		<#if entity.hasCompoundPK()>
+			for (Serializable primaryKey : primaryKeys) {
+				${entity.name} ${entity.varName} = fetchByPrimaryKey(primaryKey);
+
+				if (${entity.varName} != null) {
+					map.put(primaryKey, ${entity.varName});
+				}
+			}
+
+			return map;
+		<#else>
+			if (primaryKeys.size() == 1) {
+				Iterator<Serializable> iterator = primaryKeys.iterator();
+
+				Serializable primaryKey = iterator.next();
+
+				${entity.name} ${entity.varName} = fetchByPrimaryKey(primaryKey);
+
+				if (${entity.varName} != null) {
+					map.put(primaryKey, ${entity.varName});
+				}
+
+				return map;
+			}
+
+			Set<Serializable> uncachedPrimaryKeys = null;
+
+			for (Serializable primaryKey : primaryKeys) {
+				${entity.name} ${entity.varName} = (${entity.name})EntityCacheUtil.getResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, primaryKey);
+
+				if (${entity.varName} == null) {
+					if (uncachedPrimaryKeys == null) {
+						uncachedPrimaryKeys = new HashSet<Serializable>();
+					}
+
+					uncachedPrimaryKeys.add(primaryKey);
+				}
+				else {
+					map.put(primaryKey, ${entity.varName});
+				}
+			}
+
+			if (uncachedPrimaryKeys == null) {
+				return map;
+			}
+
+			<#if entity.PKClassName == "String">
+				StringBundler query = new StringBundler(uncachedPrimaryKeys.size() * 4 + 1);
+			<#else>
+				StringBundler query = new StringBundler(uncachedPrimaryKeys.size() * 2 + 1);
+			</#if>
+
+			query.append(_SQL_SELECT_${entity.alias?upper_case}_WHERE_PKS_IN);
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				<#if entity.PKClassName == "String">
+					query.append(StringPool.QUOTE);
+					query.append((String)primaryKey);
+					query.append(StringPool.QUOTE);
+				<#else>
+					query.append(String.valueOf(primaryKey));
+				</#if>
+
+				query.append(StringPool.COMMA);
+			}
+
+			query.setIndex(query.index() - 1);
+
+			query.append(StringPool.CLOSE_PARENTHESIS);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				for (${entity.name} ${entity.varName} : (List<${entity.name}>)q.list()) {
+					map.put(${entity.varName}.getPrimaryKeyObj(), ${entity.varName});
+
+					cacheResult(${entity.varName});
+
+					uncachedPrimaryKeys.remove(${entity.varName}.getPrimaryKeyObj());
+				}
+
+				for (Serializable primaryKey : uncachedPrimaryKeys) {
+					EntityCacheUtil.putResult(${entity.name}ModelImpl.ENTITY_CACHE_ENABLED, ${entity.name}Impl.class, primaryKey, _null${entity.name});
+				}
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+
+			return map;
+		</#if>
+	}
+
 	/**
 	 * Returns all the ${entity.humanNames}.
 	 *
@@ -1576,6 +1688,10 @@ public class ${entity.name}PersistenceImpl extends BasePersistenceImpl<${entity.
 	</#if>
 
 	private static final String _SQL_SELECT_${entity.alias?upper_case} = "SELECT ${entity.alias} FROM ${entity.name} ${entity.alias}";
+
+	<#if entity.hasPrimitivePK()>
+		private static final String _SQL_SELECT_${entity.alias?upper_case}_WHERE_PKS_IN = "SELECT ${entity.alias} FROM ${entity.name} ${entity.alias} WHERE ${entity.PKDBName} IN (";
+	</#if>
 
 	<#if entity.getFinderList()?size != 0>
 		private static final String _SQL_SELECT_${entity.alias?upper_case}_WHERE = "SELECT ${entity.alias} FROM ${entity.name} ${entity.alias} WHERE ";

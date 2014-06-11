@@ -430,6 +430,10 @@ public interface PortletItemPersistence extends BasePersistence<PortletItem> {
 	public com.liferay.portal.model.PortletItem fetchByPrimaryKey(
 		long portletItemId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.PortletItem> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the portlet items.
 	*

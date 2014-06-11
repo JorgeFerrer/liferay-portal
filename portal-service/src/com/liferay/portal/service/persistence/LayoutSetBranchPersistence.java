@@ -750,6 +750,10 @@ public interface LayoutSetBranchPersistence extends BasePersistence<LayoutSetBra
 	public com.liferay.portal.model.LayoutSetBranch fetchByPrimaryKey(
 		long layoutSetBranchId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutSetBranch> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the layout set branchs.
 	*

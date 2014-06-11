@@ -1064,6 +1064,10 @@ public interface AnnouncementsEntryPersistence extends BasePersistence<Announcem
 	public com.liferay.portlet.announcements.model.AnnouncementsEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.announcements.model.AnnouncementsEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the announcements entries.
 	*

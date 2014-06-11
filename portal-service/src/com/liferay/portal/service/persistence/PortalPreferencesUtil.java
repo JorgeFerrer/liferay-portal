@@ -244,6 +244,11 @@ public class PortalPreferencesUtil {
 		return getPersistence().fetchByPrimaryKey(portalPreferencesId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.PortalPreferences> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the portal preferenceses.
 	*

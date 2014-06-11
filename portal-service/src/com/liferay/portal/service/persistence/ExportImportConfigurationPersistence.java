@@ -727,6 +727,10 @@ public interface ExportImportConfigurationPersistence extends BasePersistence<Ex
 	public com.liferay.portal.model.ExportImportConfiguration fetchByPrimaryKey(
 		long exportImportConfigurationId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ExportImportConfiguration> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the export import configurations.
 	*

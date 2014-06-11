@@ -1076,6 +1076,10 @@ public interface PortletPreferencesPersistence extends BasePersistence<PortletPr
 	public com.liferay.portal.model.PortletPreferences fetchByPrimaryKey(
 		long portletPreferencesId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.PortletPreferences> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the portlet preferenceses.
 	*

@@ -181,6 +181,11 @@ public class ClusterGroupUtil {
 		return getPersistence().fetchByPrimaryKey(clusterGroupId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.ClusterGroup> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the cluster groups.
 	*

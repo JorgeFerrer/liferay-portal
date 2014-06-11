@@ -1451,6 +1451,10 @@ public interface LayoutRevisionPersistence extends BasePersistence<LayoutRevisio
 	public com.liferay.portal.model.LayoutRevision fetchByPrimaryKey(
 		long layoutRevisionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutRevision> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the layout revisions.
 	*

@@ -51,8 +51,11 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -2726,6 +2729,100 @@ public class SCFrameworkVersionPersistenceImpl extends BasePersistenceImpl<SCFra
 		return fetchByPrimaryKey((Serializable)frameworkVersionId);
 	}
 
+	@Override
+	public Map<Serializable, SCFrameworkVersion> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, SCFrameworkVersion> map = new HashMap<Serializable, SCFrameworkVersion>();
+
+		if (primaryKeys.size() == 1) {
+			Iterator<Serializable> iterator = primaryKeys.iterator();
+
+			Serializable primaryKey = iterator.next();
+
+			SCFrameworkVersion scFrameworkVersion = fetchByPrimaryKey(primaryKey);
+
+			if (scFrameworkVersion != null) {
+				map.put(primaryKey, scFrameworkVersion);
+			}
+
+			return map;
+		}
+
+		Set<Serializable> uncachedPrimaryKeys = null;
+
+		for (Serializable primaryKey : primaryKeys) {
+			SCFrameworkVersion scFrameworkVersion = (SCFrameworkVersion)EntityCacheUtil.getResult(SCFrameworkVersionModelImpl.ENTITY_CACHE_ENABLED,
+					SCFrameworkVersionImpl.class, primaryKey);
+
+			if (scFrameworkVersion == null) {
+				if (uncachedPrimaryKeys == null) {
+					uncachedPrimaryKeys = new HashSet<Serializable>();
+				}
+
+				uncachedPrimaryKeys.add(primaryKey);
+			}
+			else {
+				map.put(primaryKey, scFrameworkVersion);
+			}
+		}
+
+		if (uncachedPrimaryKeys == null) {
+			return map;
+		}
+
+		StringBundler query = new StringBundler((uncachedPrimaryKeys.size() * 2) +
+				1);
+
+		query.append(_SQL_SELECT_SCFRAMEWORKVERSION_WHERE_PKS_IN);
+
+		for (Serializable primaryKey : uncachedPrimaryKeys) {
+			query.append(String.valueOf(primaryKey));
+
+			query.append(StringPool.COMMA);
+		}
+
+		query.setIndex(query.index() - 1);
+
+		query.append(StringPool.CLOSE_PARENTHESIS);
+
+		String sql = query.toString();
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Query q = session.createQuery(sql);
+
+			for (SCFrameworkVersion scFrameworkVersion : (List<SCFrameworkVersion>)q.list()) {
+				map.put(scFrameworkVersion.getPrimaryKeyObj(),
+					scFrameworkVersion);
+
+				cacheResult(scFrameworkVersion);
+
+				uncachedPrimaryKeys.remove(scFrameworkVersion.getPrimaryKeyObj());
+			}
+
+			for (Serializable primaryKey : uncachedPrimaryKeys) {
+				EntityCacheUtil.putResult(SCFrameworkVersionModelImpl.ENTITY_CACHE_ENABLED,
+					SCFrameworkVersionImpl.class, primaryKey,
+					_nullSCFrameworkVersion);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		return map;
+	}
+
 	/**
 	 * Returns all the s c framework versions.
 	 *
@@ -3218,6 +3315,7 @@ public class SCFrameworkVersionPersistenceImpl extends BasePersistenceImpl<SCFra
 	protected SCProductVersionPersistence scProductVersionPersistence;
 	protected TableMapper<SCFrameworkVersion, com.liferay.portlet.softwarecatalog.model.SCProductVersion> scFrameworkVersionToSCProductVersionTableMapper;
 	private static final String _SQL_SELECT_SCFRAMEWORKVERSION = "SELECT scFrameworkVersion FROM SCFrameworkVersion scFrameworkVersion";
+	private static final String _SQL_SELECT_SCFRAMEWORKVERSION_WHERE_PKS_IN = "SELECT scFrameworkVersion FROM SCFrameworkVersion scFrameworkVersion WHERE frameworkVersionId IN (";
 	private static final String _SQL_SELECT_SCFRAMEWORKVERSION_WHERE = "SELECT scFrameworkVersion FROM SCFrameworkVersion scFrameworkVersion WHERE ";
 	private static final String _SQL_COUNT_SCFRAMEWORKVERSION = "SELECT COUNT(scFrameworkVersion) FROM SCFrameworkVersion scFrameworkVersion";
 	private static final String _SQL_COUNT_SCFRAMEWORKVERSION_WHERE = "SELECT COUNT(scFrameworkVersion) FROM SCFrameworkVersion scFrameworkVersion WHERE ";

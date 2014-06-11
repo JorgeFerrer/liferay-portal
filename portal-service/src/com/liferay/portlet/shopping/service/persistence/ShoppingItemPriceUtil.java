@@ -323,6 +323,11 @@ public class ShoppingItemPriceUtil {
 		return getPersistence().fetchByPrimaryKey(itemPriceId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingItemPrice> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the shopping item prices.
 	*

@@ -1770,6 +1770,11 @@ public class DLFileShortcutUtil {
 		return getPersistence().fetchByPrimaryKey(fileShortcutId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileShortcut> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the document library file shortcuts.
 	*

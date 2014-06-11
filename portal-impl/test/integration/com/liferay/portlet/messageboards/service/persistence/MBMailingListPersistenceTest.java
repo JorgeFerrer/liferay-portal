@@ -52,6 +52,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -374,6 +375,88 @@ public class MBMailingListPersistenceTest {
 		MBMailingList missingMBMailingList = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingMBMailingList);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		MBMailingList newMBMailingList1 = addMBMailingList();
+		MBMailingList newMBMailingList2 = addMBMailingList();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBMailingList1.getPrimaryKey());
+		primaryKeys.add(newMBMailingList2.getPrimaryKey());
+
+		Map<Serializable, MBMailingList> mbMailingLists = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, mbMailingLists.size());
+		Assert.assertEquals(newMBMailingList1,
+			mbMailingLists.get(newMBMailingList1.getPrimaryKey()));
+		Assert.assertEquals(newMBMailingList2,
+			mbMailingLists.get(newMBMailingList2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, MBMailingList> mbMailingLists = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbMailingLists.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		MBMailingList newMBMailingList = addMBMailingList();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBMailingList.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, MBMailingList> mbMailingLists = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbMailingLists.size());
+		Assert.assertEquals(newMBMailingList,
+			mbMailingLists.get(newMBMailingList.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, MBMailingList> mbMailingLists = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(mbMailingLists.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		MBMailingList newMBMailingList = addMBMailingList();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newMBMailingList.getPrimaryKey());
+
+		Map<Serializable, MBMailingList> mbMailingLists = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, mbMailingLists.size());
+		Assert.assertEquals(newMBMailingList,
+			mbMailingLists.get(newMBMailingList.getPrimaryKey()));
 	}
 
 	@Test

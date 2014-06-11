@@ -44,7 +44,10 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The persistence implementation for the org group role service.
@@ -1404,6 +1407,26 @@ public class OrgGroupRolePersistenceImpl extends BasePersistenceImpl<OrgGroupRol
 	@Override
 	public OrgGroupRole fetchByPrimaryKey(OrgGroupRolePK orgGroupRolePK) {
 		return fetchByPrimaryKey((Serializable)orgGroupRolePK);
+	}
+
+	@Override
+	public Map<Serializable, OrgGroupRole> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, OrgGroupRole> map = new HashMap<Serializable, OrgGroupRole>();
+
+		for (Serializable primaryKey : primaryKeys) {
+			OrgGroupRole orgGroupRole = fetchByPrimaryKey(primaryKey);
+
+			if (orgGroupRole != null) {
+				map.put(primaryKey, orgGroupRole);
+			}
+		}
+
+		return map;
 	}
 
 	/**

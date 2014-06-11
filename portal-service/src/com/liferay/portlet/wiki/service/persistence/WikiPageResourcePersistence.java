@@ -270,6 +270,10 @@ public interface WikiPageResourcePersistence extends BasePersistence<WikiPageRes
 	public com.liferay.portlet.wiki.model.WikiPageResource fetchByPrimaryKey(
 		long resourcePrimKey);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.wiki.model.WikiPageResource> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the wiki page resources.
 	*

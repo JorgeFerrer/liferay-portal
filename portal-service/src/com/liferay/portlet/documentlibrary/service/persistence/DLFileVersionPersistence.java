@@ -1357,6 +1357,10 @@ public interface DLFileVersionPersistence extends BasePersistence<DLFileVersion>
 	public com.liferay.portlet.documentlibrary.model.DLFileVersion fetchByPrimaryKey(
 		long fileVersionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file versions.
 	*

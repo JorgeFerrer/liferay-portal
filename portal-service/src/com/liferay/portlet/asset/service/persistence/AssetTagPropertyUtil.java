@@ -684,6 +684,11 @@ public class AssetTagPropertyUtil {
 		return getPersistence().fetchByPrimaryKey(tagPropertyId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetTagProperty> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the asset tag properties.
 	*

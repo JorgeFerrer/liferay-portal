@@ -91,10 +91,12 @@ public class RandomLookAndFeelAction extends Action {
 					layout.getPlid(), theme.getThemeId(),
 					colorScheme.getColorSchemeId(), layout.getCss(), wapTheme);
 
-				themeDisplay.setLookAndFeel(theme, colorScheme);
-
 				request.setAttribute(WebKeys.THEME, theme);
 				request.setAttribute(WebKeys.COLOR_SCHEME, colorScheme);
+
+				themeDisplay.setTheme(theme);
+				themeDisplay.setColorScheme(colorScheme);
+				themeDisplay.initializeLookAndFeel();
 			}
 		}
 		catch (Exception e) {

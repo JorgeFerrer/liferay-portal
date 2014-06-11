@@ -51,6 +51,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -320,6 +321,90 @@ public class SocialActivityCounterPersistenceTest {
 		SocialActivityCounter missingSocialActivityCounter = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingSocialActivityCounter);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		SocialActivityCounter newSocialActivityCounter1 = addSocialActivityCounter();
+		SocialActivityCounter newSocialActivityCounter2 = addSocialActivityCounter();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityCounter1.getPrimaryKey());
+		primaryKeys.add(newSocialActivityCounter2.getPrimaryKey());
+
+		Map<Serializable, SocialActivityCounter> socialActivityCounters = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, socialActivityCounters.size());
+		Assert.assertEquals(newSocialActivityCounter1,
+			socialActivityCounters.get(
+				newSocialActivityCounter1.getPrimaryKey()));
+		Assert.assertEquals(newSocialActivityCounter2,
+			socialActivityCounters.get(
+				newSocialActivityCounter2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, SocialActivityCounter> socialActivityCounters = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(socialActivityCounters.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		SocialActivityCounter newSocialActivityCounter = addSocialActivityCounter();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityCounter.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, SocialActivityCounter> socialActivityCounters = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, socialActivityCounters.size());
+		Assert.assertEquals(newSocialActivityCounter,
+			socialActivityCounters.get(newSocialActivityCounter.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, SocialActivityCounter> socialActivityCounters = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(socialActivityCounters.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		SocialActivityCounter newSocialActivityCounter = addSocialActivityCounter();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityCounter.getPrimaryKey());
+
+		Map<Serializable, SocialActivityCounter> socialActivityCounters = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, socialActivityCounters.size());
+		Assert.assertEquals(newSocialActivityCounter,
+			socialActivityCounters.get(newSocialActivityCounter.getPrimaryKey()));
 	}
 
 	@Test

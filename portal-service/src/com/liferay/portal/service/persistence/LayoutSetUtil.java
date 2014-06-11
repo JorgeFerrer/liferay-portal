@@ -538,6 +538,11 @@ public class LayoutSetUtil {
 		return getPersistence().fetchByPrimaryKey(layoutSetId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutSet> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the layout sets.
 	*

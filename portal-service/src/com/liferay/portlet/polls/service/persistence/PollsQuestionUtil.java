@@ -756,6 +756,11 @@ public class PollsQuestionUtil {
 		return getPersistence().fetchByPrimaryKey(questionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.polls.model.PollsQuestion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the polls questions.
 	*

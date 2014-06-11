@@ -366,6 +366,10 @@ public interface SCProductScreenshotPersistence extends BasePersistence<SCProduc
 	public com.liferay.portlet.softwarecatalog.model.SCProductScreenshot fetchByPrimaryKey(
 		long productScreenshotId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCProductScreenshot> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the s c product screenshots.
 	*

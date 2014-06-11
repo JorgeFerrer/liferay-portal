@@ -51,6 +51,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -302,6 +303,92 @@ public class SocialActivityAchievementPersistenceTest {
 		SocialActivityAchievement missingSocialActivityAchievement = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingSocialActivityAchievement);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		SocialActivityAchievement newSocialActivityAchievement1 = addSocialActivityAchievement();
+		SocialActivityAchievement newSocialActivityAchievement2 = addSocialActivityAchievement();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityAchievement1.getPrimaryKey());
+		primaryKeys.add(newSocialActivityAchievement2.getPrimaryKey());
+
+		Map<Serializable, SocialActivityAchievement> socialActivityAchievements = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, socialActivityAchievements.size());
+		Assert.assertEquals(newSocialActivityAchievement1,
+			socialActivityAchievements.get(
+				newSocialActivityAchievement1.getPrimaryKey()));
+		Assert.assertEquals(newSocialActivityAchievement2,
+			socialActivityAchievements.get(
+				newSocialActivityAchievement2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, SocialActivityAchievement> socialActivityAchievements = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(socialActivityAchievements.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		SocialActivityAchievement newSocialActivityAchievement = addSocialActivityAchievement();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityAchievement.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, SocialActivityAchievement> socialActivityAchievements = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, socialActivityAchievements.size());
+		Assert.assertEquals(newSocialActivityAchievement,
+			socialActivityAchievements.get(
+				newSocialActivityAchievement.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, SocialActivityAchievement> socialActivityAchievements = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(socialActivityAchievements.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		SocialActivityAchievement newSocialActivityAchievement = addSocialActivityAchievement();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSocialActivityAchievement.getPrimaryKey());
+
+		Map<Serializable, SocialActivityAchievement> socialActivityAchievements = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, socialActivityAchievements.size());
+		Assert.assertEquals(newSocialActivityAchievement,
+			socialActivityAchievements.get(
+				newSocialActivityAchievement.getPrimaryKey()));
 	}
 
 	@Test

@@ -867,6 +867,11 @@ public class SocialActivityCounterUtil {
 		return getPersistence().fetchByPrimaryKey(activityCounterId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivityCounter> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social activity counters.
 	*

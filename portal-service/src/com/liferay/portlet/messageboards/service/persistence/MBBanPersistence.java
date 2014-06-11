@@ -801,6 +801,10 @@ public interface MBBanPersistence extends BasePersistence<MBBan> {
 	public com.liferay.portlet.messageboards.model.MBBan fetchByPrimaryKey(
 		long banId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBBan> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards bans.
 	*

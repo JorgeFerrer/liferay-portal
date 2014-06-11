@@ -179,6 +179,11 @@ public class CounterUtil {
 		return getPersistence().fetchByPrimaryKey(name);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.counter.model.Counter> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the counters.
 	*

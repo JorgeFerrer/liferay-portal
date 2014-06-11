@@ -215,6 +215,10 @@ public interface UserTrackerPathPersistence extends BasePersistence<UserTrackerP
 	public com.liferay.portal.model.UserTrackerPath fetchByPrimaryKey(
 		long userTrackerPathId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.UserTrackerPath> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the user tracker paths.
 	*

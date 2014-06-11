@@ -1404,6 +1404,10 @@ public interface DLFileShortcutPersistence extends BasePersistence<DLFileShortcu
 	public com.liferay.portlet.documentlibrary.model.DLFileShortcut fetchByPrimaryKey(
 		long fileShortcutId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileShortcut> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file shortcuts.
 	*

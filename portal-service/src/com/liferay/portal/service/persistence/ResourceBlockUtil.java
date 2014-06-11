@@ -593,6 +593,11 @@ public class ResourceBlockUtil {
 		return getPersistence().fetchByPrimaryKey(resourceBlockId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceBlock> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the resource blocks.
 	*

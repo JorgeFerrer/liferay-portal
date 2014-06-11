@@ -2648,6 +2648,11 @@ public class DLFolderUtil {
 		return getPersistence().fetchByPrimaryKey(folderId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFolder> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the document library folders.
 	*

@@ -2052,6 +2052,11 @@ public class CalEventUtil {
 		return getPersistence().fetchByPrimaryKey(eventId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.calendar.model.CalEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the cal events.
 	*

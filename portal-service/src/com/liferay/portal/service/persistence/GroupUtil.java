@@ -2201,6 +2201,11 @@ public class GroupUtil {
 		return getPersistence().fetchByPrimaryKey(groupId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Group> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the groups.
 	*

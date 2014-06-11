@@ -733,6 +733,11 @@ public class LayoutBranchUtil {
 		return getPersistence().fetchByPrimaryKey(LayoutBranchId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutBranch> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the layout branchs.
 	*

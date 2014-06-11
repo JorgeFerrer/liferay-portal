@@ -571,6 +571,11 @@ public class ResourceTypePermissionUtil {
 		return getPersistence().fetchByPrimaryKey(resourceTypePermissionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceTypePermission> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the resource type permissions.
 	*

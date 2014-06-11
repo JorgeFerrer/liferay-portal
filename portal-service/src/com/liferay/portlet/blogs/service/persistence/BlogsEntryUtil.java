@@ -5041,6 +5041,11 @@ public class BlogsEntryUtil {
 		return getPersistence().fetchByPrimaryKey(entryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.blogs.model.BlogsEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the blogs entries.
 	*

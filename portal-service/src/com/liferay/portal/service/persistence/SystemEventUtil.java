@@ -842,6 +842,11 @@ public class SystemEventUtil {
 		return getPersistence().fetchByPrimaryKey(systemEventId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.SystemEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the system events.
 	*

@@ -529,6 +529,11 @@ public class AssetTagStatsUtil {
 		return getPersistence().fetchByPrimaryKey(tagStatsId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetTagStats> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the asset tag statses.
 	*

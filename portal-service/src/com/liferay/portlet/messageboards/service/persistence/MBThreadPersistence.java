@@ -2883,6 +2883,10 @@ public interface MBThreadPersistence extends BasePersistence<MBThread> {
 	public com.liferay.portlet.messageboards.model.MBThread fetchByPrimaryKey(
 		long threadId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBThread> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards threads.
 	*
