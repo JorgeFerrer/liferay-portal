@@ -4323,6 +4323,10 @@ public interface MBMessagePersistence extends BasePersistence<MBMessage> {
 	public com.liferay.portlet.messageboards.model.MBMessage fetchByPrimaryKey(
 		long messageId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBMessage> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message-boards messages.
 	*

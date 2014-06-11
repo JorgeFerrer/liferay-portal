@@ -632,6 +632,10 @@ public interface DDLRecordSetPersistence extends BasePersistence<DDLRecordSet> {
 	public com.liferay.portlet.dynamicdatalists.model.DDLRecordSet fetchByPrimaryKey(
 		long recordSetId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatalists.model.DDLRecordSet> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the d d l record sets.
 	*

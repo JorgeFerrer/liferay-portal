@@ -1795,6 +1795,10 @@ public interface RolePersistence extends BasePersistence<Role> {
 	*/
 	public com.liferay.portal.model.Role fetchByPrimaryKey(long roleId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Role> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the roles.
 	*

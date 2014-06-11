@@ -3239,6 +3239,11 @@ public class DDMTemplateUtil {
 		return getPersistence().fetchByPrimaryKey(templateId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatamapping.model.DDMTemplate> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d d m templates.
 	*

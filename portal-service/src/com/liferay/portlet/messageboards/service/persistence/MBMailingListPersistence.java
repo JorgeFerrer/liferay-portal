@@ -569,6 +569,10 @@ public interface MBMailingListPersistence extends BasePersistence<MBMailingList>
 	public com.liferay.portlet.messageboards.model.MBMailingList fetchByPrimaryKey(
 		long mailingListId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBMailingList> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards mailing lists.
 	*

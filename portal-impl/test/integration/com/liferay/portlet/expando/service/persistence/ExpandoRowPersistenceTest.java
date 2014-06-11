@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -247,6 +248,88 @@ public class ExpandoRowPersistenceTest {
 		ExpandoRow missingExpandoRow = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingExpandoRow);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		ExpandoRow newExpandoRow1 = addExpandoRow();
+		ExpandoRow newExpandoRow2 = addExpandoRow();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExpandoRow1.getPrimaryKey());
+		primaryKeys.add(newExpandoRow2.getPrimaryKey());
+
+		Map<Serializable, ExpandoRow> expandoRows = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, expandoRows.size());
+		Assert.assertEquals(newExpandoRow1,
+			expandoRows.get(newExpandoRow1.getPrimaryKey()));
+		Assert.assertEquals(newExpandoRow2,
+			expandoRows.get(newExpandoRow2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, ExpandoRow> expandoRows = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(expandoRows.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		ExpandoRow newExpandoRow = addExpandoRow();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExpandoRow.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, ExpandoRow> expandoRows = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, expandoRows.size());
+		Assert.assertEquals(newExpandoRow,
+			expandoRows.get(newExpandoRow.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, ExpandoRow> expandoRows = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(expandoRows.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		ExpandoRow newExpandoRow = addExpandoRow();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExpandoRow.getPrimaryKey());
+
+		Map<Serializable, ExpandoRow> expandoRows = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, expandoRows.size());
+		Assert.assertEquals(newExpandoRow,
+			expandoRows.get(newExpandoRow.getPrimaryKey()));
 	}
 
 	@Test

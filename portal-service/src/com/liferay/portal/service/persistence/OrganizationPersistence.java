@@ -1464,6 +1464,10 @@ public interface OrganizationPersistence extends BasePersistence<Organization> {
 	public com.liferay.portal.model.Organization fetchByPrimaryKey(
 		long organizationId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Organization> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the organizations.
 	*

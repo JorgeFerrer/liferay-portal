@@ -383,6 +383,10 @@ public interface LayoutSetPersistence extends BasePersistence<LayoutSet> {
 	public com.liferay.portal.model.LayoutSet fetchByPrimaryKey(
 		long layoutSetId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutSet> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the layout sets.
 	*

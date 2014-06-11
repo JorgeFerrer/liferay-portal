@@ -47,6 +47,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -324,6 +325,92 @@ public class ExportImportConfigurationPersistenceTest {
 		ExportImportConfiguration missingExportImportConfiguration = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingExportImportConfiguration);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		ExportImportConfiguration newExportImportConfiguration1 = addExportImportConfiguration();
+		ExportImportConfiguration newExportImportConfiguration2 = addExportImportConfiguration();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExportImportConfiguration1.getPrimaryKey());
+		primaryKeys.add(newExportImportConfiguration2.getPrimaryKey());
+
+		Map<Serializable, ExportImportConfiguration> exportImportConfigurations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, exportImportConfigurations.size());
+		Assert.assertEquals(newExportImportConfiguration1,
+			exportImportConfigurations.get(
+				newExportImportConfiguration1.getPrimaryKey()));
+		Assert.assertEquals(newExportImportConfiguration2,
+			exportImportConfigurations.get(
+				newExportImportConfiguration2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, ExportImportConfiguration> exportImportConfigurations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(exportImportConfigurations.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		ExportImportConfiguration newExportImportConfiguration = addExportImportConfiguration();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExportImportConfiguration.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, ExportImportConfiguration> exportImportConfigurations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, exportImportConfigurations.size());
+		Assert.assertEquals(newExportImportConfiguration,
+			exportImportConfigurations.get(
+				newExportImportConfiguration.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, ExportImportConfiguration> exportImportConfigurations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(exportImportConfigurations.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		ExportImportConfiguration newExportImportConfiguration = addExportImportConfiguration();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newExportImportConfiguration.getPrimaryKey());
+
+		Map<Serializable, ExportImportConfiguration> exportImportConfigurations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, exportImportConfigurations.size());
+		Assert.assertEquals(newExportImportConfiguration,
+			exportImportConfigurations.get(
+				newExportImportConfiguration.getPrimaryKey()));
 	}
 
 	@Test

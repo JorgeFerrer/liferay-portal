@@ -813,6 +813,11 @@ public class SubscriptionUtil {
 		return getPersistence().fetchByPrimaryKey(subscriptionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Subscription> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the subscriptions.
 	*

@@ -516,6 +516,10 @@ public interface MDRRulePersistence extends BasePersistence<MDRRule> {
 	public com.liferay.portlet.mobiledevicerules.model.MDRRule fetchByPrimaryKey(
 		long ruleId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRRule> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the m d r rules.
 	*

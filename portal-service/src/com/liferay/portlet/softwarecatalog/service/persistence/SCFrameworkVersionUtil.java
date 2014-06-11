@@ -782,6 +782,11 @@ public class SCFrameworkVersionUtil {
 		return getPersistence().fetchByPrimaryKey(frameworkVersionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the s c framework versions.
 	*

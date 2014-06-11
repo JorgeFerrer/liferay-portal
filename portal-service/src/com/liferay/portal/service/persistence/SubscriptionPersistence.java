@@ -611,6 +611,10 @@ public interface SubscriptionPersistence extends BasePersistence<Subscription> {
 	public com.liferay.portal.model.Subscription fetchByPrimaryKey(
 		long subscriptionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Subscription> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the subscriptions.
 	*

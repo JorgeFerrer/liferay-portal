@@ -386,6 +386,10 @@ public interface ResourceBlockPermissionPersistence extends BasePersistence<Reso
 	public com.liferay.portal.model.ResourceBlockPermission fetchByPrimaryKey(
 		long resourceBlockPermissionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ResourceBlockPermission> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the resource block permissions.
 	*

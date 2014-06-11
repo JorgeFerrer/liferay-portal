@@ -984,6 +984,11 @@ public class DDLRecordUtil {
 		return getPersistence().fetchByPrimaryKey(recordId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatalists.model.DDLRecord> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d d l records.
 	*

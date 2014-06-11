@@ -1933,6 +1933,11 @@ public class SocialActivityUtil {
 		return getPersistence().fetchByPrimaryKey(activityId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivity> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social activities.
 	*

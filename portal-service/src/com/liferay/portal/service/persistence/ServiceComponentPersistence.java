@@ -269,6 +269,10 @@ public interface ServiceComponentPersistence extends BasePersistence<ServiceComp
 	public com.liferay.portal.model.ServiceComponent fetchByPrimaryKey(
 		long serviceComponentId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ServiceComponent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the service components.
 	*

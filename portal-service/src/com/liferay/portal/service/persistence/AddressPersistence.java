@@ -1142,6 +1142,10 @@ public interface AddressPersistence extends BasePersistence<Address> {
 	*/
 	public com.liferay.portal.model.Address fetchByPrimaryKey(long addressId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Address> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the addresses.
 	*

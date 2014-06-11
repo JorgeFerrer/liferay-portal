@@ -690,6 +690,11 @@ public class MDRActionUtil {
 		return getPersistence().fetchByPrimaryKey(actionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRAction> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the m d r actions.
 	*

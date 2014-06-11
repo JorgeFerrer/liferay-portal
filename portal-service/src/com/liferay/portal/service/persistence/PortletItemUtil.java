@@ -595,6 +595,11 @@ public class PortletItemUtil {
 		return getPersistence().fetchByPrimaryKey(portletItemId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.PortletItem> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the portlet items.
 	*

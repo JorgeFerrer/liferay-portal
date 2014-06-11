@@ -47,6 +47,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -259,6 +260,84 @@ public class RegionPersistenceTest {
 		Region missingRegion = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingRegion);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Region newRegion1 = addRegion();
+		Region newRegion2 = addRegion();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newRegion1.getPrimaryKey());
+		primaryKeys.add(newRegion2.getPrimaryKey());
+
+		Map<Serializable, Region> regions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, regions.size());
+		Assert.assertEquals(newRegion1, regions.get(newRegion1.getPrimaryKey()));
+		Assert.assertEquals(newRegion2, regions.get(newRegion2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Region> regions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(regions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Region newRegion = addRegion();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newRegion.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Region> regions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, regions.size());
+		Assert.assertEquals(newRegion, regions.get(newRegion.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Region> regions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(regions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Region newRegion = addRegion();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newRegion.getPrimaryKey());
+
+		Map<Serializable, Region> regions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, regions.size());
+		Assert.assertEquals(newRegion, regions.get(newRegion.getPrimaryKey()));
 	}
 
 	@Test

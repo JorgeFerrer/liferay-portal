@@ -49,6 +49,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -297,6 +298,88 @@ public class SubscriptionPersistenceTest {
 		Subscription missingSubscription = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingSubscription);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Subscription newSubscription1 = addSubscription();
+		Subscription newSubscription2 = addSubscription();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSubscription1.getPrimaryKey());
+		primaryKeys.add(newSubscription2.getPrimaryKey());
+
+		Map<Serializable, Subscription> subscriptions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, subscriptions.size());
+		Assert.assertEquals(newSubscription1,
+			subscriptions.get(newSubscription1.getPrimaryKey()));
+		Assert.assertEquals(newSubscription2,
+			subscriptions.get(newSubscription2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Subscription> subscriptions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(subscriptions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Subscription newSubscription = addSubscription();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSubscription.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Subscription> subscriptions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, subscriptions.size());
+		Assert.assertEquals(newSubscription,
+			subscriptions.get(newSubscription.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Subscription> subscriptions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(subscriptions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Subscription newSubscription = addSubscription();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newSubscription.getPrimaryKey());
+
+		Map<Serializable, Subscription> subscriptions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, subscriptions.size());
+		Assert.assertEquals(newSubscription,
+			subscriptions.get(newSubscription.getPrimaryKey()));
 	}
 
 	@Test

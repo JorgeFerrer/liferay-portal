@@ -885,6 +885,11 @@ public class MBThreadFlagUtil {
 		return getPersistence().fetchByPrimaryKey(threadFlagId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBThreadFlag> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the message boards thread flags.
 	*

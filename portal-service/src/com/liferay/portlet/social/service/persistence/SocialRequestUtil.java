@@ -1939,6 +1939,11 @@ public class SocialRequestUtil {
 		return getPersistence().fetchByPrimaryKey(requestId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialRequest> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the social requests.
 	*

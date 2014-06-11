@@ -649,6 +649,10 @@ public interface SCProductEntryPersistence extends BasePersistence<SCProductEntr
 	public com.liferay.portlet.softwarecatalog.model.SCProductEntry fetchByPrimaryKey(
 		long productEntryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCProductEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the s c product entries.
 	*

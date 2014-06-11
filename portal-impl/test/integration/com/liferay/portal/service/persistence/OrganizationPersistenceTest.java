@@ -51,6 +51,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -376,6 +377,88 @@ public class OrganizationPersistenceTest {
 		Organization missingOrganization = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingOrganization);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		Organization newOrganization1 = addOrganization();
+		Organization newOrganization2 = addOrganization();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newOrganization1.getPrimaryKey());
+		primaryKeys.add(newOrganization2.getPrimaryKey());
+
+		Map<Serializable, Organization> organizations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, organizations.size());
+		Assert.assertEquals(newOrganization1,
+			organizations.get(newOrganization1.getPrimaryKey()));
+		Assert.assertEquals(newOrganization2,
+			organizations.get(newOrganization2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, Organization> organizations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(organizations.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		Organization newOrganization = addOrganization();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newOrganization.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, Organization> organizations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, organizations.size());
+		Assert.assertEquals(newOrganization,
+			organizations.get(newOrganization.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, Organization> organizations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(organizations.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		Organization newOrganization = addOrganization();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newOrganization.getPrimaryKey());
+
+		Map<Serializable, Organization> organizations = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, organizations.size());
+		Assert.assertEquals(newOrganization,
+			organizations.get(newOrganization.getPrimaryKey()));
 	}
 
 	@Test

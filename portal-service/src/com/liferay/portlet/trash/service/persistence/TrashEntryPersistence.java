@@ -641,6 +641,10 @@ public interface TrashEntryPersistence extends BasePersistence<TrashEntry> {
 	public com.liferay.portlet.trash.model.TrashEntry fetchByPrimaryKey(
 		long entryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.trash.model.TrashEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the trash entries.
 	*

@@ -1048,6 +1048,10 @@ public interface AssetVocabularyPersistence extends BasePersistence<AssetVocabul
 	public com.liferay.portlet.asset.model.AssetVocabulary fetchByPrimaryKey(
 		long vocabularyId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetVocabulary> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the asset vocabularies.
 	*

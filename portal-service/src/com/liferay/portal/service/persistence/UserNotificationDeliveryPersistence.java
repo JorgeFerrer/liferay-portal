@@ -288,6 +288,10 @@ public interface UserNotificationDeliveryPersistence extends BasePersistence<Use
 	public com.liferay.portal.model.UserNotificationDelivery fetchByPrimaryKey(
 		long userNotificationDeliveryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.UserNotificationDelivery> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the user notification deliveries.
 	*

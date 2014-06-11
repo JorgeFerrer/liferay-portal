@@ -735,6 +735,10 @@ public interface DLFileEntryTypePersistence extends BasePersistence<DLFileEntryT
 	public com.liferay.portlet.documentlibrary.model.DLFileEntryType fetchByPrimaryKey(
 		long fileEntryTypeId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileEntryType> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the document library file entry types.
 	*

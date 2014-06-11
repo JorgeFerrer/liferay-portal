@@ -451,6 +451,11 @@ public class UserIdMapperUtil {
 		return getPersistence().fetchByPrimaryKey(userIdMapperId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserIdMapper> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user ID mappers.
 	*

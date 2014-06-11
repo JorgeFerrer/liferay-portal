@@ -270,6 +270,10 @@ public interface AnnouncementsDeliveryPersistence extends BasePersistence<Announ
 	public com.liferay.portlet.announcements.model.AnnouncementsDelivery fetchByPrimaryKey(
 		long deliveryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.announcements.model.AnnouncementsDelivery> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the announcements deliveries.
 	*

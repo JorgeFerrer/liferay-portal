@@ -594,6 +594,10 @@ public interface SCFrameworkVersionPersistence extends BasePersistence<SCFramewo
 	public com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion fetchByPrimaryKey(
 		long frameworkVersionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCFrameworkVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the s c framework versions.
 	*

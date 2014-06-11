@@ -396,6 +396,11 @@ public class PasswordPolicyRelUtil {
 		return getPersistence().fetchByPrimaryKey(passwordPolicyRelId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.PasswordPolicyRel> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the password policy rels.
 	*

@@ -717,6 +717,10 @@ public interface UserNotificationEventPersistence extends BasePersistence<UserNo
 	public com.liferay.portal.model.UserNotificationEvent fetchByPrimaryKey(
 		long userNotificationEventId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.UserNotificationEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the user notification events.
 	*

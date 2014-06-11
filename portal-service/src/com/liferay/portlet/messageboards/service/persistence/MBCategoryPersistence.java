@@ -2297,6 +2297,10 @@ public interface MBCategoryPersistence extends BasePersistence<MBCategory> {
 	public com.liferay.portlet.messageboards.model.MBCategory fetchByPrimaryKey(
 		long categoryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBCategory> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards categories.
 	*

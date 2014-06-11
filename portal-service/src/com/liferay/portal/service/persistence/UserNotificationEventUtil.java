@@ -929,6 +929,11 @@ public class UserNotificationEventUtil {
 		return getPersistence().fetchByPrimaryKey(userNotificationEventId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserNotificationEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user notification events.
 	*

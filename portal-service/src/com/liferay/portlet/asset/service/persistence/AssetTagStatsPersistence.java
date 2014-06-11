@@ -386,6 +386,10 @@ public interface AssetTagStatsPersistence extends BasePersistence<AssetTagStats>
 	public com.liferay.portlet.asset.model.AssetTagStats fetchByPrimaryKey(
 		long tagStatsId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetTagStats> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the asset tag statses.
 	*

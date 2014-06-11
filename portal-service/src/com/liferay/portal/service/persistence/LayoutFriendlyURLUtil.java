@@ -1447,6 +1447,11 @@ public class LayoutFriendlyURLUtil {
 		return getPersistence().fetchByPrimaryKey(layoutFriendlyURLId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutFriendlyURL> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the layout friendly u r ls.
 	*

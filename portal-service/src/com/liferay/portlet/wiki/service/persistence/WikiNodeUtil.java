@@ -1351,6 +1351,11 @@ public class WikiNodeUtil {
 		return getPersistence().fetchByPrimaryKey(nodeId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.wiki.model.WikiNode> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the wiki nodes.
 	*

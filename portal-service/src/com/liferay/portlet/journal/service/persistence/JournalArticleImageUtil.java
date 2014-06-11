@@ -749,6 +749,11 @@ public class JournalArticleImageUtil {
 		return getPersistence().fetchByPrimaryKey(articleImageId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalArticleImage> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the journal article images.
 	*

@@ -456,6 +456,10 @@ public interface ContactPersistence extends BasePersistence<Contact> {
 	*/
 	public com.liferay.portal.model.Contact fetchByPrimaryKey(long contactId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Contact> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the contacts.
 	*

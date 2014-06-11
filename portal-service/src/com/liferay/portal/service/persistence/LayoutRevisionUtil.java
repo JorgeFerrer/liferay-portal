@@ -1850,6 +1850,11 @@ public class LayoutRevisionUtil {
 		return getPersistence().fetchByPrimaryKey(layoutRevisionId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutRevision> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the layout revisions.
 	*

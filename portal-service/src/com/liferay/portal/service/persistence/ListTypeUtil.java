@@ -315,6 +315,11 @@ public class ListTypeUtil {
 		return getPersistence().fetchByPrimaryKey(listTypeId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.ListType> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the list types.
 	*

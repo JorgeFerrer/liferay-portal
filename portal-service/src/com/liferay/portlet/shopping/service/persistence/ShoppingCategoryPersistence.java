@@ -476,6 +476,10 @@ public interface ShoppingCategoryPersistence extends BasePersistence<ShoppingCat
 	public com.liferay.portlet.shopping.model.ShoppingCategory fetchByPrimaryKey(
 		long categoryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingCategory> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shopping categories.
 	*

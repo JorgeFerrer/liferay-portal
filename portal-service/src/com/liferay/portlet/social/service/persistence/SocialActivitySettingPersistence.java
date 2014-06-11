@@ -677,6 +677,10 @@ public interface SocialActivitySettingPersistence extends BasePersistence<Social
 	public com.liferay.portlet.social.model.SocialActivitySetting fetchByPrimaryKey(
 		long activitySettingId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivitySetting> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social activity settings.
 	*

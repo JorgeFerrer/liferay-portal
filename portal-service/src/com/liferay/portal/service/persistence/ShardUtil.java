@@ -291,6 +291,11 @@ public class ShardUtil {
 		return getPersistence().fetchByPrimaryKey(shardId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Shard> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the shards.
 	*

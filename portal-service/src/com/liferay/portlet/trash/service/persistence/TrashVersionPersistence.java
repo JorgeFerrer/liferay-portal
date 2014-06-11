@@ -453,6 +453,10 @@ public interface TrashVersionPersistence extends BasePersistence<TrashVersion> {
 	public com.liferay.portlet.trash.model.TrashVersion fetchByPrimaryKey(
 		long versionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.trash.model.TrashVersion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the trash versions.
 	*

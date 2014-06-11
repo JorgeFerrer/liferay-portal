@@ -1022,6 +1022,11 @@ public class MBBanUtil {
 		return getPersistence().fetchByPrimaryKey(banId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBBan> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the message boards bans.
 	*

@@ -141,6 +141,10 @@ public interface ClassNamePersistence extends BasePersistence<ClassName> {
 	public com.liferay.portal.model.ClassName fetchByPrimaryKey(
 		long classNameId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ClassName> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the class names.
 	*

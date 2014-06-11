@@ -386,6 +386,11 @@ public class DLSyncEventUtil {
 		return getPersistence().fetchByPrimaryKey(syncEventId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLSyncEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d l sync events.
 	*

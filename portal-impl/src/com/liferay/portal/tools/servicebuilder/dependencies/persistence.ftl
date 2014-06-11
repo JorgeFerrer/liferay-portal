@@ -44,6 +44,10 @@ public interface ${entity.name}Persistence extends BasePersistence<${entity.name
 				@Deprecated
 			</#if>
 
+			<#if method.name == "fetchByPrimaryKeys">
+				@Override
+			</#if>
+
 			public ${serviceBuilder.getTypeGenericsName(method.returns)} ${method.name} (
 
 			<#assign parameters = method.parameters>

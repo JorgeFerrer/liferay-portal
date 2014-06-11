@@ -385,6 +385,10 @@ public interface ExpandoRowPersistence extends BasePersistence<ExpandoRow> {
 	public com.liferay.portlet.expando.model.ExpandoRow fetchByPrimaryKey(
 		long rowId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.expando.model.ExpandoRow> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the expando rows.
 	*

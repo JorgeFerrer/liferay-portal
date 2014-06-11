@@ -577,6 +577,10 @@ public interface PollsQuestionPersistence extends BasePersistence<PollsQuestion>
 	public com.liferay.portlet.polls.model.PollsQuestion fetchByPrimaryKey(
 		long questionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.polls.model.PollsQuestion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the polls questions.
 	*

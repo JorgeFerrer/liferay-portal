@@ -636,6 +636,11 @@ public class SCLicenseUtil {
 		return getPersistence().fetchByPrimaryKey(licenseId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.softwarecatalog.model.SCLicense> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the s c licenses.
 	*

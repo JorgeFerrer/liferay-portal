@@ -991,6 +991,11 @@ public class AssetLinkUtil {
 		return getPersistence().fetchByPrimaryKey(linkId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the asset links.
 	*

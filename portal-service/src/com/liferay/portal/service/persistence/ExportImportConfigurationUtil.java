@@ -943,6 +943,11 @@ public class ExportImportConfigurationUtil {
 		return getPersistence().fetchByPrimaryKey(exportImportConfigurationId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.ExportImportConfiguration> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the export import configurations.
 	*

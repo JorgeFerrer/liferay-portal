@@ -925,6 +925,11 @@ public class UserGroupGroupRoleUtil {
 		return getPersistence().fetchByPrimaryKey(userGroupGroupRolePK);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.UserGroupGroupRole> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the user group group roles.
 	*

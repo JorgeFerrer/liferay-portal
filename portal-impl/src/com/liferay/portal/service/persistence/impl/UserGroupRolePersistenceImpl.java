@@ -44,7 +44,10 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The persistence implementation for the user group role service.
@@ -2989,6 +2992,26 @@ public class UserGroupRolePersistenceImpl extends BasePersistenceImpl<UserGroupR
 	@Override
 	public UserGroupRole fetchByPrimaryKey(UserGroupRolePK userGroupRolePK) {
 		return fetchByPrimaryKey((Serializable)userGroupRolePK);
+	}
+
+	@Override
+	public Map<Serializable, UserGroupRole> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys) {
+		if (primaryKeys.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		Map<Serializable, UserGroupRole> map = new HashMap<Serializable, UserGroupRole>();
+
+		for (Serializable primaryKey : primaryKeys) {
+			UserGroupRole userGroupRole = fetchByPrimaryKey(primaryKey);
+
+			if (userGroupRole != null) {
+				map.put(primaryKey, userGroupRole);
+			}
+		}
+
+		return map;
 	}
 
 	/**

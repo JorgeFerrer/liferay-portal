@@ -526,6 +526,10 @@ public interface MBStatsUserPersistence extends BasePersistence<MBStatsUser> {
 	public com.liferay.portlet.messageboards.model.MBStatsUser fetchByPrimaryKey(
 		long statsUserId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBStatsUser> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards stats users.
 	*

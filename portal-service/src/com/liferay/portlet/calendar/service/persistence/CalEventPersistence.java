@@ -1656,6 +1656,10 @@ public interface CalEventPersistence extends BasePersistence<CalEvent> {
 	public com.liferay.portlet.calendar.model.CalEvent fetchByPrimaryKey(
 		long eventId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.calendar.model.CalEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the cal events.
 	*

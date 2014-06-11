@@ -942,6 +942,11 @@ public class DLFileEntryTypeUtil {
 		return getPersistence().fetchByPrimaryKey(fileEntryTypeId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileEntryType> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the document library file entry types.
 	*

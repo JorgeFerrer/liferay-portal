@@ -989,6 +989,10 @@ public interface WebsitePersistence extends BasePersistence<Website> {
 	*/
 	public com.liferay.portal.model.Website fetchByPrimaryKey(long websiteId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Website> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the websites.
 	*

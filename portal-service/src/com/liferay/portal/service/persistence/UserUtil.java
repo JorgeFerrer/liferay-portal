@@ -2062,6 +2062,11 @@ public class UserUtil {
 		return getPersistence().fetchByPrimaryKey(userId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.User> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the users.
 	*

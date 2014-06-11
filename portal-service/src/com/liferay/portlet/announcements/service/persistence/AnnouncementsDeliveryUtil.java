@@ -388,6 +388,11 @@ public class AnnouncementsDeliveryUtil {
 		return getPersistence().fetchByPrimaryKey(deliveryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.announcements.model.AnnouncementsDelivery> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the announcements deliveries.
 	*

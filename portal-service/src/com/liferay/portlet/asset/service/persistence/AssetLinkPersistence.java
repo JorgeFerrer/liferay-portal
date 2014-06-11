@@ -773,6 +773,10 @@ public interface AssetLinkPersistence extends BasePersistence<AssetLink> {
 	public com.liferay.portlet.asset.model.AssetLink fetchByPrimaryKey(
 		long linkId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the asset links.
 	*

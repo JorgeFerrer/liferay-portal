@@ -49,6 +49,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -465,6 +466,88 @@ public class LayoutRevisionPersistenceTest {
 		LayoutRevision missingLayoutRevision = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingLayoutRevision);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		LayoutRevision newLayoutRevision1 = addLayoutRevision();
+		LayoutRevision newLayoutRevision2 = addLayoutRevision();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutRevision1.getPrimaryKey());
+		primaryKeys.add(newLayoutRevision2.getPrimaryKey());
+
+		Map<Serializable, LayoutRevision> layoutRevisions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, layoutRevisions.size());
+		Assert.assertEquals(newLayoutRevision1,
+			layoutRevisions.get(newLayoutRevision1.getPrimaryKey()));
+		Assert.assertEquals(newLayoutRevision2,
+			layoutRevisions.get(newLayoutRevision2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, LayoutRevision> layoutRevisions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(layoutRevisions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		LayoutRevision newLayoutRevision = addLayoutRevision();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutRevision.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, LayoutRevision> layoutRevisions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, layoutRevisions.size());
+		Assert.assertEquals(newLayoutRevision,
+			layoutRevisions.get(newLayoutRevision.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, LayoutRevision> layoutRevisions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(layoutRevisions.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		LayoutRevision newLayoutRevision = addLayoutRevision();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newLayoutRevision.getPrimaryKey());
+
+		Map<Serializable, LayoutRevision> layoutRevisions = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, layoutRevisions.size());
+		Assert.assertEquals(newLayoutRevision,
+			layoutRevisions.get(newLayoutRevision.getPrimaryKey()));
 	}
 
 	@Test

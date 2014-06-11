@@ -265,6 +265,10 @@ public interface DLSyncEventPersistence extends BasePersistence<DLSyncEvent> {
 	public com.liferay.portlet.documentlibrary.model.DLSyncEvent fetchByPrimaryKey(
 		long syncEventId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLSyncEvent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the d l sync events.
 	*

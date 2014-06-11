@@ -308,6 +308,11 @@ public class ImageUtil {
 		return getPersistence().fetchByPrimaryKey(imageId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Image> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the images.
 	*

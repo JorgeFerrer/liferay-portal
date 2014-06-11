@@ -505,6 +505,10 @@ public interface RegionPersistence extends BasePersistence<Region> {
 	*/
 	public com.liferay.portal.model.Region fetchByPrimaryKey(long regionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.Region> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the regions.
 	*

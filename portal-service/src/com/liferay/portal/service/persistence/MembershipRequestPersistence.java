@@ -599,6 +599,10 @@ public interface MembershipRequestPersistence extends BasePersistence<Membership
 	public com.liferay.portal.model.MembershipRequest fetchByPrimaryKey(
 		long membershipRequestId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.MembershipRequest> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the membership requests.
 	*

@@ -886,6 +886,11 @@ public class PollsVoteUtil {
 		return getPersistence().fetchByPrimaryKey(voteId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.polls.model.PollsVote> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the polls votes.
 	*

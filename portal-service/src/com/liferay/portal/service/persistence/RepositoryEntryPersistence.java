@@ -567,6 +567,10 @@ public interface RepositoryEntryPersistence extends BasePersistence<RepositoryEn
 	public com.liferay.portal.model.RepositoryEntry fetchByPrimaryKey(
 		long repositoryEntryId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.RepositoryEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the repository entries.
 	*

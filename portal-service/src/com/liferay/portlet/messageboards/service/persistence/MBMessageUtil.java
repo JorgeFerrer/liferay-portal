@@ -5323,6 +5323,11 @@ public class MBMessageUtil {
 		return getPersistence().fetchByPrimaryKey(messageId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBMessage> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the message-boards messages.
 	*

@@ -1379,6 +1379,11 @@ public class PortletPreferencesUtil {
 		return getPersistence().fetchByPrimaryKey(portletPreferencesId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.PortletPreferences> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the portlet preferenceses.
 	*

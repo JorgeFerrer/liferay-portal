@@ -712,6 +712,10 @@ public interface UserGroupGroupRolePersistence extends BasePersistence<UserGroup
 	public com.liferay.portal.model.UserGroupGroupRole fetchByPrimaryKey(
 		com.liferay.portal.service.persistence.UserGroupGroupRolePK userGroupGroupRolePK);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.UserGroupGroupRole> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the user group group roles.
 	*

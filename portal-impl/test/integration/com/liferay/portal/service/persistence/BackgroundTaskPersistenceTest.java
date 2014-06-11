@@ -48,6 +48,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -456,6 +457,88 @@ public class BackgroundTaskPersistenceTest {
 		BackgroundTask missingBackgroundTask = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingBackgroundTask);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		BackgroundTask newBackgroundTask1 = addBackgroundTask();
+		BackgroundTask newBackgroundTask2 = addBackgroundTask();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newBackgroundTask1.getPrimaryKey());
+		primaryKeys.add(newBackgroundTask2.getPrimaryKey());
+
+		Map<Serializable, BackgroundTask> backgroundTasks = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, backgroundTasks.size());
+		Assert.assertEquals(newBackgroundTask1,
+			backgroundTasks.get(newBackgroundTask1.getPrimaryKey()));
+		Assert.assertEquals(newBackgroundTask2,
+			backgroundTasks.get(newBackgroundTask2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, BackgroundTask> backgroundTasks = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(backgroundTasks.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		BackgroundTask newBackgroundTask = addBackgroundTask();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newBackgroundTask.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, BackgroundTask> backgroundTasks = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, backgroundTasks.size());
+		Assert.assertEquals(newBackgroundTask,
+			backgroundTasks.get(newBackgroundTask.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, BackgroundTask> backgroundTasks = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(backgroundTasks.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		BackgroundTask newBackgroundTask = addBackgroundTask();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newBackgroundTask.getPrimaryKey());
+
+		Map<Serializable, BackgroundTask> backgroundTasks = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, backgroundTasks.size());
+		Assert.assertEquals(newBackgroundTask,
+			backgroundTasks.get(newBackgroundTask.getPrimaryKey()));
 	}
 
 	@Test

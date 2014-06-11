@@ -542,6 +542,10 @@ public interface SocialActivityLimitPersistence extends BasePersistence<SocialAc
 	public com.liferay.portlet.social.model.SocialActivityLimit fetchByPrimaryKey(
 		long activityLimitId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivityLimit> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social activity limits.
 	*

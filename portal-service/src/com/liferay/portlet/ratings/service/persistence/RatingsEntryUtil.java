@@ -871,6 +871,11 @@ public class RatingsEntryUtil {
 		return getPersistence().fetchByPrimaryKey(entryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.ratings.model.RatingsEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the ratings entries.
 	*

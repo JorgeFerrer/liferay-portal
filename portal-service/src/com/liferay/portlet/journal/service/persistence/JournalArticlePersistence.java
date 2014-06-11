@@ -6204,6 +6204,10 @@ public interface JournalArticlePersistence extends BasePersistence<JournalArticl
 	public com.liferay.portlet.journal.model.JournalArticle fetchByPrimaryKey(
 		long id);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalArticle> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the journal articles.
 	*

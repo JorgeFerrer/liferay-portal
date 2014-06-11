@@ -860,6 +860,11 @@ public class DLFileRankUtil {
 		return getPersistence().fetchByPrimaryKey(fileRankId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.documentlibrary.model.DLFileRank> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the document library file ranks.
 	*

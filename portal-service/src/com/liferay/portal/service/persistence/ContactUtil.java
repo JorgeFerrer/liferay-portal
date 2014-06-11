@@ -621,6 +621,11 @@ public class ContactUtil {
 		return getPersistence().fetchByPrimaryKey(contactId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Contact> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the contacts.
 	*

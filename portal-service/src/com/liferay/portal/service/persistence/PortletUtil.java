@@ -382,6 +382,11 @@ public class PortletUtil {
 		return getPersistence().fetchByPrimaryKey(id);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Portlet> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the portlets.
 	*

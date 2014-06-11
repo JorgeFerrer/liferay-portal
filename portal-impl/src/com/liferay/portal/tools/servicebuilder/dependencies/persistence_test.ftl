@@ -56,6 +56,7 @@ import java.sql.SQLException;
 import java.io.Serializable;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -552,6 +553,170 @@ public class ${entity.name}PersistenceTest {
 		${entity.name} missing${entity.name} = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missing${entity.name});
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist() throws Exception {
+		${entity.name} new${entity.name}1 = add${entity.name}();
+		${entity.name} new${entity.name}2 = add${entity.name}();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(new${entity.name}1.getPrimaryKey());
+		primaryKeys.add(new${entity.name}2.getPrimaryKey());
+
+		Map<Serializable, ${entity.name}> ${entity.varNames} = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, ${entity.varNames}.size());
+		Assert.assertEquals(new${entity.name}1, ${entity.varNames}.get(new${entity.name}1.getPrimaryKey()));
+		Assert.assertEquals(new${entity.name}2, ${entity.varNames}.get(new${entity.name}2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist() throws Exception {
+		<#if entity.hasCompoundPK()>
+			${entity.PKClassName} pk1 = new ${entity.PKClassName}(
+
+			<#list entity.PKList as column>
+				<#if column.type == "int">
+					RandomTestUtil.nextInt()
+				<#elseif column.type == "long">
+					RandomTestUtil.nextLong()
+				<#elseif column.type == "String">
+					RandomTestUtil.randomString()
+				</#if>
+
+				<#if column_has_next>
+					,
+				</#if>
+			</#list>
+
+			);
+
+			${entity.PKClassName} pk2 = new ${entity.PKClassName}(
+
+			<#list entity.PKList as column>
+				<#if column.type == "int">
+					RandomTestUtil.nextInt()
+				<#elseif column.type == "long">
+					RandomTestUtil.nextLong()
+				<#elseif column.type == "String">
+					RandomTestUtil.randomString()
+				</#if>
+
+				<#if column_has_next>
+					,
+				</#if>
+			</#list>
+
+			);
+		<#else>
+			<#assign column = entity.PKList[0]>
+
+			${column.type} pk1 =
+
+			<#if column.type == "int">
+				RandomTestUtil.nextInt()
+			<#elseif column.type == "long">
+				RandomTestUtil.nextLong()
+			<#elseif column.type == "String">
+				RandomTestUtil.randomString()
+			</#if>
+
+			;
+
+			${column.type} pk2 =
+
+			<#if column.type == "int">
+				RandomTestUtil.nextInt()
+			<#elseif column.type == "long">
+				RandomTestUtil.nextLong()
+			<#elseif column.type == "String">
+				RandomTestUtil.randomString()
+			</#if>
+
+			;
+		</#if>
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, ${entity.name}> ${entity.varNames} = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(${entity.varNames}.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist() throws Exception {
+		${entity.name} new${entity.name} = add${entity.name}();
+
+		<#if entity.hasCompoundPK()>
+			${entity.PKClassName} pk = new ${entity.PKClassName}(
+
+			<#list entity.PKList as column>
+				<#if column.type == "int">
+					RandomTestUtil.nextInt()
+				<#elseif column.type == "long">
+					RandomTestUtil.nextLong()
+				<#elseif column.type == "String">
+					RandomTestUtil.randomString()
+				</#if>
+
+				<#if column_has_next>
+					,
+				</#if>
+			</#list>
+
+			);
+		<#else>
+			${column.type} pk =
+
+			<#if column.type == "int">
+				RandomTestUtil.nextInt()
+			<#elseif column.type == "long">
+				RandomTestUtil.nextLong()
+			<#elseif column.type == "String">
+				RandomTestUtil.randomString()
+			</#if>
+
+			;
+		</#if>
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(new${entity.name}.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, ${entity.name}> ${entity.varNames} = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, ${entity.varNames}.size());
+		Assert.assertEquals(new${entity.name}, ${entity.varNames}.get(new${entity.name}.getPrimaryKey()));
+	}
+
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys() throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, ${entity.name}> ${entity.varNames} = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(${entity.varNames}.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey() throws Exception {
+		${entity.name} new${entity.name} = add${entity.name}();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(new${entity.name}.getPrimaryKey());
+
+		Map<Serializable, ${entity.name}> ${entity.varNames} = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, ${entity.varNames}.size());
+		Assert.assertEquals(new${entity.name}, ${entity.varNames}.get(new${entity.name}.getPrimaryKey()));
 	}
 
 	<#if entity.hasActionableDynamicQuery()>

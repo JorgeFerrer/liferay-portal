@@ -450,6 +450,11 @@ public class TeamUtil {
 		return getPersistence().fetchByPrimaryKey(teamId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.Team> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the teams.
 	*

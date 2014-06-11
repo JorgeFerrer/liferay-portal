@@ -815,6 +815,11 @@ public class JournalFeedUtil {
 		return getPersistence().fetchByPrimaryKey(id);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalFeed> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the journal feeds.
 	*

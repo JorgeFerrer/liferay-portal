@@ -208,6 +208,15 @@ public class MBMessageIndexer extends BaseIndexer {
 	}
 
 	@Override
+	public void updateFullQuery(SearchContext searchContext) {
+		if (searchContext.isIncludeDiscussions()) {
+			searchContext.addFullQueryEntryClassName(MBMessage.class.getName());
+
+			searchContext.setAttribute("discussion", Boolean.TRUE);
+		}
+	}
+
+	@Override
 	protected void doDelete(Object obj) throws Exception {
 		SearchContext searchContext = new SearchContext();
 

@@ -789,6 +789,11 @@ public class MembershipRequestUtil {
 		return getPersistence().fetchByPrimaryKey(membershipRequestId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.MembershipRequest> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the membership requests.
 	*

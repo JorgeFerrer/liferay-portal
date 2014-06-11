@@ -265,6 +265,10 @@ public interface ShoppingCouponPersistence extends BasePersistence<ShoppingCoupo
 	public com.liferay.portlet.shopping.model.ShoppingCoupon fetchByPrimaryKey(
 		long couponId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingCoupon> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shopping coupons.
 	*

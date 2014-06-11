@@ -193,6 +193,10 @@ public interface VirtualHostPersistence extends BasePersistence<VirtualHost> {
 	public com.liferay.portal.model.VirtualHost fetchByPrimaryKey(
 		long virtualHostId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.VirtualHost> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the virtual hosts.
 	*

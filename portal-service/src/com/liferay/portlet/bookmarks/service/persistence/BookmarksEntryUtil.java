@@ -3585,6 +3585,11 @@ public class BookmarksEntryUtil {
 		return getPersistence().fetchByPrimaryKey(entryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.bookmarks.model.BookmarksEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the bookmarks entries.
 	*

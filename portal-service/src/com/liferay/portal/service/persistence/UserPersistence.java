@@ -1634,6 +1634,10 @@ public interface UserPersistence extends BasePersistence<User> {
 	*/
 	public com.liferay.portal.model.User fetchByPrimaryKey(long userId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.User> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the users.
 	*

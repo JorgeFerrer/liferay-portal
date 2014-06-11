@@ -617,6 +617,10 @@ public interface MBDiscussionPersistence extends BasePersistence<MBDiscussion> {
 	public com.liferay.portlet.messageboards.model.MBDiscussion fetchByPrimaryKey(
 		long discussionId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.messageboards.model.MBDiscussion> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the message boards discussions.
 	*

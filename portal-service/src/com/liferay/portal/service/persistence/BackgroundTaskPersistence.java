@@ -1682,6 +1682,10 @@ public interface BackgroundTaskPersistence extends BasePersistence<BackgroundTas
 	public com.liferay.portal.model.BackgroundTask fetchByPrimaryKey(
 		long backgroundTaskId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.BackgroundTask> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the background tasks.
 	*

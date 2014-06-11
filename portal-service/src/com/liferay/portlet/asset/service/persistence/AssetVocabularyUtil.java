@@ -1321,6 +1321,11 @@ public class AssetVocabularyUtil {
 		return getPersistence().fetchByPrimaryKey(vocabularyId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.asset.model.AssetVocabulary> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the asset vocabularies.
 	*

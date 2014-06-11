@@ -1538,6 +1538,10 @@ public interface SocialRequestPersistence extends BasePersistence<SocialRequest>
 	public com.liferay.portlet.social.model.SocialRequest fetchByPrimaryKey(
 		long requestId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialRequest> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social requests.
 	*

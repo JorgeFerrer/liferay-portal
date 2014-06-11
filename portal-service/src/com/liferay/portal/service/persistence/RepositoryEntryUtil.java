@@ -749,6 +749,11 @@ public class RepositoryEntryUtil {
 		return getPersistence().fetchByPrimaryKey(repositoryEntryId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.RepositoryEntry> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the repository entries.
 	*

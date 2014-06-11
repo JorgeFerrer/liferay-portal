@@ -1392,6 +1392,11 @@ public class MDRRuleGroupInstanceUtil {
 		return getPersistence().fetchByPrimaryKey(ruleGroupInstanceId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.mobiledevicerules.model.MDRRuleGroupInstance> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the m d r rule group instances.
 	*

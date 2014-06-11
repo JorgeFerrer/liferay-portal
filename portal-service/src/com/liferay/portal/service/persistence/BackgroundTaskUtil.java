@@ -2134,6 +2134,11 @@ public class BackgroundTaskUtil {
 		return getPersistence().fetchByPrimaryKey(backgroundTaskId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.BackgroundTask> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the background tasks.
 	*

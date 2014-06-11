@@ -94,6 +94,10 @@ public interface ClusterGroupPersistence extends BasePersistence<ClusterGroup> {
 	public com.liferay.portal.model.ClusterGroup fetchByPrimaryKey(
 		long clusterGroupId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.ClusterGroup> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the cluster groups.
 	*

@@ -52,6 +52,7 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -305,6 +306,88 @@ public class DDMContentPersistenceTest {
 		DDMContent missingDDMContent = _persistence.fetchByPrimaryKey(pk);
 
 		Assert.assertNull(missingDDMContent);
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereAllPrimaryKeysExist()
+		throws Exception {
+		DDMContent newDDMContent1 = addDDMContent();
+		DDMContent newDDMContent2 = addDDMContent();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newDDMContent1.getPrimaryKey());
+		primaryKeys.add(newDDMContent2.getPrimaryKey());
+
+		Map<Serializable, DDMContent> ddmContents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(2, ddmContents.size());
+		Assert.assertEquals(newDDMContent1,
+			ddmContents.get(newDDMContent1.getPrimaryKey()));
+		Assert.assertEquals(newDDMContent2,
+			ddmContents.get(newDDMContent2.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereNoPrimaryKeysExist()
+		throws Exception {
+		long pk1 = RandomTestUtil.nextLong();
+
+		long pk2 = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(pk1);
+		primaryKeys.add(pk2);
+
+		Map<Serializable, DDMContent> ddmContents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(ddmContents.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithMultiplePrimaryKeysWhereSomePrimaryKeysExist()
+		throws Exception {
+		DDMContent newDDMContent = addDDMContent();
+
+		long pk = RandomTestUtil.nextLong();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newDDMContent.getPrimaryKey());
+		primaryKeys.add(pk);
+
+		Map<Serializable, DDMContent> ddmContents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, ddmContents.size());
+		Assert.assertEquals(newDDMContent,
+			ddmContents.get(newDDMContent.getPrimaryKey()));
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithNoPrimaryKeys()
+		throws Exception {
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		Map<Serializable, DDMContent> ddmContents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertTrue(ddmContents.isEmpty());
+	}
+
+	@Test
+	public void testFetchByPrimaryKeysWithOnePrimaryKey()
+		throws Exception {
+		DDMContent newDDMContent = addDDMContent();
+
+		Set<Serializable> primaryKeys = new HashSet<Serializable>();
+
+		primaryKeys.add(newDDMContent.getPrimaryKey());
+
+		Map<Serializable, DDMContent> ddmContents = _persistence.fetchByPrimaryKeys(primaryKeys);
+
+		Assert.assertEquals(1, ddmContents.size());
+		Assert.assertEquals(newDDMContent,
+			ddmContents.get(newDDMContent.getPrimaryKey()));
 	}
 
 	@Test

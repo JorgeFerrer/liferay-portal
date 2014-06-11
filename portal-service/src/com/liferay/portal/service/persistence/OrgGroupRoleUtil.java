@@ -465,6 +465,11 @@ public class OrgGroupRoleUtil {
 		return getPersistence().fetchByPrimaryKey(orgGroupRolePK);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.OrgGroupRole> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the org group roles.
 	*

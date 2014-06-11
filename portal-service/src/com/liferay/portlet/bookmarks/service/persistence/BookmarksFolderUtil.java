@@ -2145,6 +2145,11 @@ public class BookmarksFolderUtil {
 		return getPersistence().fetchByPrimaryKey(folderId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.bookmarks.model.BookmarksFolder> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the bookmarks folders.
 	*

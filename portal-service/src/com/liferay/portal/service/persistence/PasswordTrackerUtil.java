@@ -322,6 +322,11 @@ public class PasswordTrackerUtil {
 		return getPersistence().fetchByPrimaryKey(passwordTrackerId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.PasswordTracker> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the password trackers.
 	*

@@ -1211,6 +1211,10 @@ public interface ExpandoValuePersistence extends BasePersistence<ExpandoValue> {
 	public com.liferay.portlet.expando.model.ExpandoValue fetchByPrimaryKey(
 		long valueId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.expando.model.ExpandoValue> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the expando values.
 	*

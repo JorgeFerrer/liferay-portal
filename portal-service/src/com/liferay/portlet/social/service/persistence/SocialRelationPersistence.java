@@ -1387,6 +1387,10 @@ public interface SocialRelationPersistence extends BasePersistence<SocialRelatio
 	public com.liferay.portlet.social.model.SocialRelation fetchByPrimaryKey(
 		long relationId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialRelation> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social relations.
 	*

@@ -6140,6 +6140,11 @@ public class WikiPageUtil {
 		return getPersistence().fetchByPrimaryKey(pageId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.wiki.model.WikiPage> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the wiki pages.
 	*

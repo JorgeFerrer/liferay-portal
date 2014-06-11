@@ -799,6 +799,10 @@ public interface SocialActivityAchievementPersistence extends BasePersistence<So
 	public com.liferay.portlet.social.model.SocialActivityAchievement fetchByPrimaryKey(
 		long activityAchievementId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.social.model.SocialActivityAchievement> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the social activity achievements.
 	*

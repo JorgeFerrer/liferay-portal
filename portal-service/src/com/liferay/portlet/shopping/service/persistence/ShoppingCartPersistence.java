@@ -385,6 +385,10 @@ public interface ShoppingCartPersistence extends BasePersistence<ShoppingCart> {
 	public com.liferay.portlet.shopping.model.ShoppingCart fetchByPrimaryKey(
 		long cartId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portlet.shopping.model.ShoppingCart> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the shopping carts.
 	*

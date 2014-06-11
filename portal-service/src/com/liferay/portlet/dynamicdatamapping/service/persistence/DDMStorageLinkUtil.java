@@ -525,6 +525,11 @@ public class DDMStorageLinkUtil {
 		return getPersistence().fetchByPrimaryKey(storageLinkId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.dynamicdatamapping.model.DDMStorageLink> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the d d m storage links.
 	*

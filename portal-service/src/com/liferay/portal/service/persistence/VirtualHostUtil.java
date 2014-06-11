@@ -303,6 +303,11 @@ public class VirtualHostUtil {
 		return getPersistence().fetchByPrimaryKey(virtualHostId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portal.model.VirtualHost> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the virtual hosts.
 	*

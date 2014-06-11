@@ -1142,6 +1142,10 @@ public interface LayoutFriendlyURLPersistence extends BasePersistence<LayoutFrie
 	public com.liferay.portal.model.LayoutFriendlyURL fetchByPrimaryKey(
 		long layoutFriendlyURLId);
 
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.portal.model.LayoutFriendlyURL> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
+
 	/**
 	* Returns all the layout friendly u r ls.
 	*

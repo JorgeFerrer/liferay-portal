@@ -1423,6 +1423,11 @@ public class JournalContentSearchUtil {
 		return getPersistence().fetchByPrimaryKey(contentSearchId);
 	}
 
+	public static java.util.Map<java.io.Serializable, com.liferay.portlet.journal.model.JournalContentSearch> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
+	}
+
 	/**
 	* Returns all the journal content searchs.
 	*
