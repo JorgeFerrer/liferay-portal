@@ -112,8 +112,8 @@ public class SocialActivityCounterFinderImpl
 
 	@Override
 	public List<SocialActivityCounter> findAC_ByG_N_S_E_1(
-			long groupId, String name, int startPeriod, int endPeriod,
-			int periodLength) {
+		long groupId, String name, int startPeriod, int endPeriod,
+		int periodLength) {
 
 		StringBundler sb = new StringBundler(9);
 
@@ -198,8 +198,8 @@ public class SocialActivityCounterFinderImpl
 
 	@Override
 	public List<SocialActivityCounter> findAC_ByG_N_S_E_2(
-			long groupId, String counterName, int startPeriod, int endPeriod,
-			int periodLength) {
+		long groupId, String counterName, int startPeriod, int endPeriod,
+		int periodLength) {
 
 		Session session = null;
 
@@ -250,8 +250,7 @@ public class SocialActivityCounterFinderImpl
 
 	@Override
 	public List<SocialActivityCounter> findAC_By_G_C_C_N_S_E(
-			long groupId, List<Long> userIds, String[] names, int start,
-			int end) {
+		long groupId, List<Long> userIds, String[] names, int start, int end) {
 
 		if (names.length == 0) {
 			return null;
@@ -293,7 +292,7 @@ public class SocialActivityCounterFinderImpl
 
 	@Override
 	public List<Long> findU_ByG_N(
-			long groupId, String[] names, int start, int end) {
+		long groupId, String[] names, int start, int end) {
 
 		if (names.length == 0) {
 			return null;

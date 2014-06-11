@@ -720,7 +720,7 @@ public class AssetUtil {
 	}
 
 	public static String substituteCategoryPropertyVariables(
-			long groupId, long categoryId, String s) {
+		long groupId, long categoryId, String s) {
 
 		String result = s;
 

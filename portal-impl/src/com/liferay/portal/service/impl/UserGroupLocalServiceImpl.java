@@ -546,9 +546,8 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<UserGroup> search(
-			long companyId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String keywords, LinkedHashMap<String, Object> params,
+		int start, int end, OrderByComparator obc) {
 
 		return userGroupFinder.findByKeywords(
 			companyId, keywords, params, start, end, obc);
@@ -586,8 +585,8 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
+		long companyId, String keywords, LinkedHashMap<String, Object> params,
+		int start, int end, Sort sort) {
 
 		String name = null;
 		String description = null;
@@ -644,9 +643,9 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<UserGroup> search(
-			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc) {
+		long companyId, String name, String description,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		return userGroupFinder.findByC_N_D(
 			companyId, name, description, params, andOperator, start, end, obc);
@@ -687,9 +686,9 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort) {
+		long companyId, String name, String description,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -721,8 +720,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String keywords,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String keywords, LinkedHashMap<String, Object> params) {
 
 		if (!PropsValues.USER_GROUPS_INDEXER_ENABLED ||
 			!PropsValues.USER_GROUPS_SEARCH_WITH_INDEX ||
@@ -782,8 +780,8 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String name, String description,
-			LinkedHashMap<String, Object> params, boolean andOperator) {
+		long companyId, String name, String description,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		if (!PropsValues.USER_GROUPS_INDEXER_ENABLED ||
 			!PropsValues.USER_GROUPS_SEARCH_WITH_INDEX ||

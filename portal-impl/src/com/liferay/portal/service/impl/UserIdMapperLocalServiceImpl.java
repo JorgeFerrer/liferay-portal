@@ -54,7 +54,7 @@ public class UserIdMapperLocalServiceImpl
 
 	@Override
 	public UserIdMapper updateUserIdMapper(
-			long userId, String type, String description, String externalUserId) {
+		long userId, String type, String description, String externalUserId) {
 
 		UserIdMapper userIdMapper = userIdMapperPersistence.fetchByU_T(
 			userId, type);

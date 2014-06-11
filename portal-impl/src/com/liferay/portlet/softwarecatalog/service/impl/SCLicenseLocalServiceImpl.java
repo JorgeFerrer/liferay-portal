@@ -86,7 +86,7 @@ public class SCLicenseLocalServiceImpl extends SCLicenseLocalServiceBaseImpl {
 
 	@Override
 	public List<SCLicense> getLicenses(
-			boolean active, boolean recommended, int start, int end) {
+		boolean active, boolean recommended, int start, int end) {
 
 		return scLicensePersistence.findByA_R(active, recommended, start, end);
 	}

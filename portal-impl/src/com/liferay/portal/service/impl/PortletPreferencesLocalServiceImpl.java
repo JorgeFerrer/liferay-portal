@@ -47,8 +47,8 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public PortletPreferences addPortletPreferences(
-			long companyId, long ownerId, int ownerType, long plid,
-			String portletId, Portlet portlet, String defaultPreferences) {
+		long companyId, long ownerId, int ownerType, long plid,
+		String portletId, Portlet portlet, String defaultPreferences) {
 
 		long portletPreferencesId = counterLocalService.increment();
 
@@ -94,7 +94,8 @@ public class PortletPreferencesLocalServiceImpl
 	}
 
 	@Override
-	public void deletePortletPreferences(long ownerId, int ownerType, long plid) {
+	public void deletePortletPreferences(
+		long ownerId, int ownerType, long plid) {
 
 		portletPreferencesPersistence.removeByO_O_P(ownerId, ownerType, plid);
 	}
@@ -167,7 +168,7 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
-			int ownerType, long plid, String portletId) {
+		int ownerType, long plid, String portletId) {
 
 		return portletPreferencesPersistence.findByO_P_P(
 			ownerType, plid, portletId);
@@ -175,7 +176,7 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
-			long ownerId, int ownerType, long plid) {
+		long ownerId, int ownerType, long plid) {
 
 		return portletPreferencesPersistence.findByO_O_P(
 			ownerId, ownerType, plid);
@@ -192,8 +193,8 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
-			long companyId, long groupId, long ownerId, int ownerType,
-			String portletId, boolean privateLayout) {
+		long companyId, long groupId, long ownerId, int ownerType,
+		String portletId, boolean privateLayout) {
 
 		return portletPreferencesFinder.findByC_G_O_O_P_P(
 			companyId, groupId, ownerId, ownerType, portletId, privateLayout);
@@ -201,7 +202,7 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public List<PortletPreferences> getPortletPreferences(
-			long plid, String portletId) {
+		long plid, String portletId) {
 
 		return portletPreferencesPersistence.findByP_P(plid, portletId);
 	}
@@ -214,7 +215,7 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public long getPortletPreferencesCount(
-			int ownerType, long plid, String portletId) {
+		int ownerType, long plid, String portletId) {
 
 		return portletPreferencesPersistence.countByO_P_P(
 			ownerType, plid, portletId);
@@ -228,8 +229,8 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public long getPortletPreferencesCount(
-			long ownerId, int ownerType, long plid, Portlet portlet,
-			boolean excludeDefaultPreferences) {
+		long ownerId, int ownerType, long plid, Portlet portlet,
+		boolean excludeDefaultPreferences) {
 
 		String portletId = portlet.getPortletId();
 
@@ -243,8 +244,8 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public long getPortletPreferencesCount(
-			long ownerId, int ownerType, String portletId,
-			boolean excludeDefaultPreferences) {
+		long ownerId, int ownerType, String portletId,
+		boolean excludeDefaultPreferences) {
 
 		return portletPreferencesFinder.countByO_O_P(
 			ownerId, ownerType, portletId, excludeDefaultPreferences);
@@ -305,8 +306,8 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public PortletPreferences updatePreferences(
-			long ownerId, int ownerType, long plid, String portletId,
-			javax.portlet.PortletPreferences portletPreferences) {
+		long ownerId, int ownerType, long plid, String portletId,
+		javax.portlet.PortletPreferences portletPreferences) {
 
 		String xml = PortletPreferencesFactoryUtil.toXML(portletPreferences);
 
@@ -315,8 +316,7 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public PortletPreferences updatePreferences(
-			long ownerId, int ownerType, long plid, String portletId,
-			String xml) {
+		long ownerId, int ownerType, long plid, String portletId, String xml) {
 
 		PortletPreferences portletPreferences =
 			portletPreferencesPersistence.fetchByO_O_P_P(

@@ -59,8 +59,8 @@ public class BlogsEntryFinderImpl
 
 	@Override
 	public int countByOrganizationId(
-			long organizationId, Date displayDate,
-			QueryDefinition queryDefinition) {
+		long organizationId, Date displayDate,
+		QueryDefinition queryDefinition) {
 
 		List<Long> organizationIds = new ArrayList<Long>();
 
@@ -72,8 +72,8 @@ public class BlogsEntryFinderImpl
 
 	@Override
 	public int countByOrganizationIds(
-			List<Long> organizationIds, Date displayDate,
-			QueryDefinition queryDefinition) {
+		List<Long> organizationIds, Date displayDate,
+		QueryDefinition queryDefinition) {
 
 		Timestamp displayDate_TS = CalendarUtil.getTimestamp(displayDate);
 
@@ -139,8 +139,8 @@ public class BlogsEntryFinderImpl
 
 	@Override
 	public List<BlogsEntry> findByGroupIds(
-			long companyId, long groupId, Date displayDate,
-			QueryDefinition queryDefinition) {
+		long companyId, long groupId, Date displayDate,
+		QueryDefinition queryDefinition) {
 
 		Session session = null;
 
@@ -190,8 +190,8 @@ public class BlogsEntryFinderImpl
 
 	@Override
 	public List<BlogsEntry> findByOrganizationId(
-			long organizationId, Date displayDate,
-			QueryDefinition queryDefinition) {
+		long organizationId, Date displayDate,
+		QueryDefinition queryDefinition) {
 
 		List<Long> organizationIds = new ArrayList<Long>();
 
@@ -203,8 +203,8 @@ public class BlogsEntryFinderImpl
 
 	@Override
 	public List<BlogsEntry> findByOrganizationIds(
-			List<Long> organizationIds, Date displayDate,
-			QueryDefinition queryDefinition) {
+		List<Long> organizationIds, Date displayDate,
+		QueryDefinition queryDefinition) {
 
 		Timestamp displayDate_TS = CalendarUtil.getTimestamp(displayDate);
 

@@ -106,7 +106,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getGroupTags(
-			long groupId, int start, int end, OrderByComparator obc) {
+		long groupId, int start, int end, OrderByComparator obc) {
 
 		return assetTagPersistence.filterFindByGroupId(
 			groupId, start, end, obc);
@@ -119,7 +119,7 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public AssetTagDisplay getGroupTagsDisplay(
-			long groupId, String name, int start, int end) {
+		long groupId, String name, int start, int end) {
 
 		List<AssetTag> tags = null;
 		int total = 0;
@@ -197,8 +197,8 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getTags(
-			long groupId, long classNameId, String name, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long classNameId, String name, int start, int end,
+		OrderByComparator obc) {
 
 		return assetTagFinder.filterFindByG_C_N(
 			groupId, classNameId, name, start, end, obc);
@@ -206,16 +206,15 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getTags(
-			long groupId, String name, String[] tagProperties, int start,
-			int end) {
+		long groupId, String name, String[] tagProperties, int start, int end) {
 
 		return getTags(new long[] {groupId}, name, tagProperties, start, end);
 	}
 
 	@Override
 	public List<AssetTag> getTags(
-			long[] groupIds, String name, String[] tagProperties, int start,
-			int end) {
+		long[] groupIds, String name, String[] tagProperties, int start,
+		int end) {
 
 		return assetTagFinder.filterFindByG_N_P(
 			groupIds, name, tagProperties, start, end, null);
@@ -271,16 +270,15 @@ public class AssetTagServiceImpl extends AssetTagServiceBaseImpl {
 
 	@Override
 	public JSONArray search(
-			long groupId, String name, String[] tagProperties, int start,
-			int end) {
+		long groupId, String name, String[] tagProperties, int start, int end) {
 
 		return search(new long[] {groupId}, name, tagProperties, start, end);
 	}
 
 	@Override
 	public JSONArray search(
-			long[] groupIds, String name, String[] tagProperties, int start,
-			int end) {
+		long[] groupIds, String name, String[] tagProperties, int start,
+		int end) {
 
 		List<AssetTag> tags = getTags(
 			groupIds, name, tagProperties, start, end);

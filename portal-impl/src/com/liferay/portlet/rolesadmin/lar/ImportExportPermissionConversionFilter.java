@@ -55,7 +55,7 @@ public class ImportExportPermissionConversionFilter
 
 	@Override
 	public boolean accept(
-			Role role, ResourceTypePermission resourceTypePermission) {
+		Role role, ResourceTypePermission resourceTypePermission) {
 
 		if (role.getType() != RoleConstants.TYPE_REGULAR) {
 			return true;

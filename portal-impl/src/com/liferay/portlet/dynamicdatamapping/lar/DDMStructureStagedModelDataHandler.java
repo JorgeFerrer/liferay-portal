@@ -302,8 +302,8 @@ public class DDMStructureStagedModelDataHandler
 	}
 
 	protected DDMStructure fetchExistingStructure(
-			String uuid, long groupId, long classNameId, String structureKey,
-			boolean preloaded) {
+		String uuid, long groupId, long classNameId, String structureKey,
+		boolean preloaded) {
 
 		DDMStructure existingStructure = null;
 

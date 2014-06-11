@@ -453,7 +453,7 @@ public class LuceneHelperImpl implements LuceneHelper {
 
 	@Override
 	public InputStream getLoadIndexesInputStreamFromCluster(
-			long companyId, Address bootupAddress) {
+		long companyId, Address bootupAddress) {
 
 		if (!isLoadIndexFromClusterEnabled()) {
 			return null;
@@ -957,7 +957,7 @@ public class LuceneHelperImpl implements LuceneHelper {
 	}
 
 	private void _loadIndexFromCluster(
-			IndexAccessor indexAccessor, long localLastGeneration) {
+		IndexAccessor indexAccessor, long localLastGeneration) {
 
 		List<Address> clusterNodeAddresses =
 			ClusterExecutorUtil.getClusterNodeAddresses();

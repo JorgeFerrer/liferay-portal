@@ -220,8 +220,8 @@ public class DDMXMLImpl implements DDMXML {
 
 	@Override
 	public String updateXMLDefaultLocale(
-			String xml, Locale contentDefaultLocale,
-			Locale contentNewDefaultLocale) {
+		String xml, Locale contentDefaultLocale,
+		Locale contentNewDefaultLocale) {
 
 		try {
 			if (LocaleUtil.equals(

@@ -120,7 +120,8 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
-	public void deleteRuleGroupInstance(MDRRuleGroupInstance ruleGroupInstance) {
+	public void deleteRuleGroupInstance(
+		MDRRuleGroupInstance ruleGroupInstance) {
 
 		// Rule group instance
 
@@ -145,7 +146,8 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 	}
 
 	@Override
-	public MDRRuleGroupInstance fetchRuleGroupInstance(long ruleGroupInstanceId) {
+	public MDRRuleGroupInstance fetchRuleGroupInstance(
+		long ruleGroupInstanceId) {
 
 		return mdrRuleGroupInstancePersistence.fetchByPrimaryKey(
 			ruleGroupInstanceId);
@@ -153,7 +155,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 
 	@Override
 	public MDRRuleGroupInstance fetchRuleGroupInstance(
-			String className, long classPK, long ruleGroupId) {
+		String className, long classPK, long ruleGroupId) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -188,7 +190,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 
 	@Override
 	public List<MDRRuleGroupInstance> getRuleGroupInstances(
-			long ruleGroupId, int start, int end) {
+		long ruleGroupId, int start, int end) {
 
 		return mdrRuleGroupInstancePersistence.findByRuleGroupId(
 			ruleGroupId, start, end);
@@ -196,7 +198,7 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 
 	@Override
 	public List<MDRRuleGroupInstance> getRuleGroupInstances(
-			String className, long classPK) {
+		String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -205,8 +207,8 @@ public class MDRRuleGroupInstanceLocalServiceImpl
 
 	@Override
 	public List<MDRRuleGroupInstance> getRuleGroupInstances(
-			String className, long classPK, int start, int end,
-			OrderByComparator orderByComparator) {
+		String className, long classPK, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

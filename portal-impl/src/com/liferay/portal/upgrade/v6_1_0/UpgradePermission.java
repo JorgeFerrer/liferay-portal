@@ -50,8 +50,8 @@ import java.util.List;
 public class UpgradePermission extends UpgradeProcess {
 
 	protected ResourceBlock convertResourcePermissions(
-			String tableName, String pkColumnName, long companyId, long groupId,
-			String name, long primKey) {
+		String tableName, String pkColumnName, long companyId, long groupId,
+		String name, long primKey) {
 
 		PermissionedModel permissionedModel = new UpgradePermissionedModel(
 			tableName, pkColumnName, primKey);
@@ -164,8 +164,8 @@ public class UpgradePermission extends UpgradeProcess {
 	}
 
 	protected ResourceBlockPermissionsContainer
-			getResourceBlockPermissionsContainer(
-				long companyId, long groupId, String name, long primKey) {
+		getResourceBlockPermissionsContainer(
+			long companyId, long groupId, String name, long primKey) {
 
 		ResourceBlockPermissionsContainer resourceBlockPermissionContainer =
 			new ResourceBlockPermissionsContainer();

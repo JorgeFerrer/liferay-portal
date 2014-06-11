@@ -189,8 +189,8 @@ public class WikiUtil {
 	}
 
 	public static DiffVersionsInfo getDiffVersionsInfo(
-			long nodeId, String title, double sourceVersion,
-			double targetVersion, PageContext pageContext) {
+		long nodeId, String title, double sourceVersion, double targetVersion,
+		PageContext pageContext) {
 
 		double previousVersion = 0;
 		double nextVersion = 0;

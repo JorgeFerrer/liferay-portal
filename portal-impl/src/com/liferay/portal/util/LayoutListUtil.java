@@ -41,8 +41,8 @@ import java.util.Locale;
 public class LayoutListUtil {
 
 	public static List<LayoutDescription> getLayoutDescriptions(
-			long groupId, boolean privateLayout, String rootNodeName,
-			Locale locale) {
+		long groupId, boolean privateLayout, String rootNodeName,
+		Locale locale) {
 
 		ThreadLocalCache<List<LayoutDescription>> threadLocalCache =
 			ThreadLocalCacheManager.getThreadLocalCache(
@@ -82,8 +82,8 @@ public class LayoutListUtil {
 	}
 
 	protected static List<LayoutDescription> doGetLayoutDescriptions(
-			long groupId, boolean privateLayout, String rootNodeName,
-			Locale locale) {
+		long groupId, boolean privateLayout, String rootNodeName,
+		Locale locale) {
 
 		List<LayoutDescription> layoutDescriptions =
 			new ArrayList<LayoutDescription>();

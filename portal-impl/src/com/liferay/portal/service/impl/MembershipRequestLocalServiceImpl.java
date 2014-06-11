@@ -45,7 +45,8 @@ import java.util.List;
 /**
  * @author Jorge Ferrer
  */
-public class MembershipRequestLocalServiceImpl
+public class
+	MembershipRequestLocalServiceImpl
 	extends MembershipRequestLocalServiceBaseImpl {
 
 	@Override
@@ -113,14 +114,15 @@ public class MembershipRequestLocalServiceImpl
 
 	@Override
 	public List<MembershipRequest> getMembershipRequests(
-			long userId, long groupId, int statusId) {
+		long userId, long groupId, int statusId) {
 
 		return membershipRequestPersistence.findByG_U_S(
 			groupId, userId, statusId);
 	}
 
 	@Override
-	public boolean hasMembershipRequest(long userId, long groupId, int statusId) {
+	public boolean hasMembershipRequest(
+		long userId, long groupId, int statusId) {
 
 		List<MembershipRequest> membershipRequests = getMembershipRequests(
 			userId, groupId, statusId);
@@ -135,7 +137,7 @@ public class MembershipRequestLocalServiceImpl
 
 	@Override
 	public List<MembershipRequest> search(
-			long groupId, int status, int start, int end) {
+		long groupId, int status, int start, int end) {
 
 		return membershipRequestPersistence.findByG_S(
 			groupId, status, start, end);

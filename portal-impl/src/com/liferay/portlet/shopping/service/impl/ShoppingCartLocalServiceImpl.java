@@ -74,7 +74,8 @@ public class ShoppingCartLocalServiceImpl
 	}
 
 	@Override
-	public Map<ShoppingCartItem, Integer> getItems(long groupId, String itemIds) {
+	public Map<ShoppingCartItem, Integer> getItems(
+		long groupId, String itemIds) {
 
 		Map<ShoppingCartItem, Integer> items =
 			new TreeMap<ShoppingCartItem, Integer>();

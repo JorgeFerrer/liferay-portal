@@ -118,7 +118,7 @@ public class AssetCategoryPropertyLocalServiceImpl
 
 	@Override
 	public List<AssetCategoryProperty> getCategoryPropertyValues(
-			long groupId, String key) {
+		long groupId, String key) {
 
 		return assetCategoryPropertyFinder.findByG_K(groupId, key);
 	}

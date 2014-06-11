@@ -240,8 +240,8 @@ public class LayoutPrototypeLocalServiceImpl
 
 	@Override
 	public List<LayoutPrototype> search(
-			long companyId, Boolean active, int start, int end,
-			OrderByComparator obc) {
+		long companyId, Boolean active, int start, int end,
+		OrderByComparator obc) {
 
 		if (active != null) {
 			return layoutPrototypePersistence.findByC_A(

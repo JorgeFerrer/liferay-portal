@@ -988,7 +988,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String name, String description, String[] params) {
+		long companyId, String name, String description, String[] params) {
 
 		if (params == null) {
 			params = new String[0];

@@ -61,7 +61,7 @@ public class ServiceComponentLocalServiceImpl
 
 	@Override
 	public void destroyServiceComponent(
-			ServletContext servletContext, ClassLoader classLoader) {
+		ServletContext servletContext, ClassLoader classLoader) {
 
 		try {
 			clearCacheRegistry(servletContext);

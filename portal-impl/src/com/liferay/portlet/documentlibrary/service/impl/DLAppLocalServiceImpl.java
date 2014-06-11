@@ -311,8 +311,8 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 */
 	@Override
 	public DLFileRank addFileRank(
-			long repositoryId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext) {
+		long repositoryId, long companyId, long userId, long fileEntryId,
+		ServiceContext serviceContext) {
 
 		return dlFileRankLocalService.addFileRank(
 			repositoryId, companyId, userId, fileEntryId, serviceContext);
@@ -1235,8 +1235,8 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 */
 	@Override
 	public DLFileRank updateFileRank(
-			long repositoryId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext) {
+		long repositoryId, long companyId, long userId, long fileEntryId,
+		ServiceContext serviceContext) {
 
 		return dlFileRankLocalService.updateFileRank(
 			repositoryId, companyId, userId, fileEntryId, serviceContext);
@@ -1280,7 +1280,7 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 	 */
 	@Override
 	public void updateFileShortcuts(
-			long toRepositoryId, long oldToFileEntryId, long newToFileEntryId) {
+		long toRepositoryId, long oldToFileEntryId, long newToFileEntryId) {
 
 		dlFileShortcutLocalService.updateFileShortcuts(
 			oldToFileEntryId, newToFileEntryId);

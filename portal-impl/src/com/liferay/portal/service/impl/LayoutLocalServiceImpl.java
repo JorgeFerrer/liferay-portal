@@ -1151,7 +1151,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public Layout fetchFirstLayout(
-			long groupId, boolean privateLayout, long parentLayoutId) {
+		long groupId, boolean privateLayout, long parentLayoutId) {
 
 		return layoutPersistence.fetchByG_P_P_First(
 			groupId, privateLayout, parentLayoutId,
@@ -1160,14 +1160,14 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public Layout fetchLayout(
-			long groupId, boolean privateLayout, long layoutId) {
+		long groupId, boolean privateLayout, long layoutId) {
 
 		return layoutPersistence.fetchByG_P_L(groupId, privateLayout, layoutId);
 	}
 
 	@Override
 	public Layout fetchLayoutByFriendlyURL(
-			long groupId, boolean privateLayout, String friendlyURL) {
+		long groupId, boolean privateLayout, String friendlyURL) {
 
 		return layoutPersistence.fetchByG_P_F(
 			groupId, privateLayout, friendlyURL);
@@ -1393,7 +1393,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Layout> getLayouts(
-			long groupId, boolean privateLayout, long parentLayoutId) {
+		long groupId, boolean privateLayout, long parentLayoutId) {
 
 		return layoutPersistence.findByG_P_P(
 			groupId, privateLayout, parentLayoutId);
@@ -1425,8 +1425,8 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Layout> getLayouts(
-			long groupId, boolean privateLayout, long parentLayoutId,
-			boolean incomplete, int start, int end) {
+		long groupId, boolean privateLayout, long parentLayoutId,
+		boolean incomplete, int start, int end) {
 
 		return layoutPersistence.findByG_P_P(
 			groupId, privateLayout, parentLayoutId, start, end);
@@ -1473,7 +1473,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Layout> getLayouts(
-			long groupId, boolean privateLayout, String type) {
+		long groupId, boolean privateLayout, String type) {
 
 		return layoutPersistence.findByG_P_T(groupId, privateLayout, type);
 	}
@@ -1503,13 +1503,14 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public List<Layout> getLayoutsByLayoutPrototypeUuid(
-			String layoutPrototypeUuid) {
+		String layoutPrototypeUuid) {
 
 		return layoutPersistence.findByLayoutPrototypeUuid(layoutPrototypeUuid);
 	}
 
 	@Override
-	public int getLayoutsByLayoutPrototypeUuidCount(String layoutPrototypeUuid) {
+	public int getLayoutsByLayoutPrototypeUuidCount(
+		String layoutPrototypeUuid) {
 
 		return layoutPersistence.countByLayoutPrototypeUuid(
 			layoutPrototypeUuid);
@@ -1559,7 +1560,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 
 	@Override
 	public int getLayoutsCount(
-			Group group, boolean privateLayout, long parentLayoutId) {
+		Group group, boolean privateLayout, long parentLayoutId) {
 
 		return layoutPersistence.countByG_P_P(
 			group.getGroupId(), privateLayout, parentLayoutId);
@@ -1674,7 +1675,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Layout> getScopeGroupLayouts(
-			long groupId, boolean privateLayout) {
+		long groupId, boolean privateLayout) {
 
 		return layoutFinder.findByScopeGroup(groupId, privateLayout);
 	}
@@ -1738,7 +1739,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 	 */
 	@Override
 	public boolean hasLayouts(
-			long groupId, boolean privateLayout, long parentLayoutId) {
+		long groupId, boolean privateLayout, long parentLayoutId) {
 
 		return layoutPersistence.countByG_P_P(
 			groupId, privateLayout, parentLayoutId) > 0;

@@ -52,7 +52,7 @@ public class DLFileVersionLocalServiceImpl
 
 	@Override
 	public DLFileVersion getFileVersionByUuidAndGroupId(
-			String uuid, long groupId) {
+		String uuid, long groupId) {
 
 		return dlFileVersionPersistence.fetchByUUID_G(uuid, groupId);
 	}

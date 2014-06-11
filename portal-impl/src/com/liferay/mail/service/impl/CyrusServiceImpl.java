@@ -70,7 +70,7 @@ public class CyrusServiceImpl implements CyrusService, IdentifiableBean {
 
 	@Override
 	public void updateEmailAddress(
-			long companyId, long userId, String emailAddress) {
+		long companyId, long userId, String emailAddress) {
 
 		CyrusVirtualUtil.removeByUserId(userId);
 

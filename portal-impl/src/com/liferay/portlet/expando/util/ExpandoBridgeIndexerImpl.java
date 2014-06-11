@@ -207,7 +207,7 @@ public class ExpandoBridgeIndexerImpl implements ExpandoBridgeIndexer {
 	}
 
 	protected void doAddAttributes(
-			Document document, ExpandoBridge expandoBridge) {
+		Document document, ExpandoBridge expandoBridge) {
 
 		List<ExpandoColumn> expandoColumns =
 			ExpandoColumnLocalServiceUtil.getDefaultTableColumns(

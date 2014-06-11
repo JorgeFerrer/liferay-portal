@@ -122,7 +122,8 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteAddresses(long companyId, String className, long classPK) {
+	public void deleteAddresses(
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -141,7 +142,7 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 
 	@Override
 	public List<Address> getAddresses(
-			long companyId, String className, long classPK) {
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -179,8 +180,8 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long addressId, long companyId, long classNameId, long classPK,
-			boolean mailing, boolean primary) {
+		long addressId, long companyId, long classNameId, long classPK,
+		boolean mailing, boolean primary) {
 
 		// Check to make sure there isn't another address with the same company
 		// id, class name, and class pk that also has mailing set to true

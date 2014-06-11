@@ -132,7 +132,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public void deleteUserNotificationEvents(
-			Collection<String> uuids, long companyId) {
+		Collection<String> uuids, long companyId) {
 
 		for (String uuid : uuids) {
 			deleteUserNotificationEvent(uuid, companyId);
@@ -141,14 +141,14 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public List<UserNotificationEvent> getArchivedUserNotificationEvents(
-			long userId, boolean archived) {
+		long userId, boolean archived) {
 
 		return userNotificationEventPersistence.findByU_A(userId, archived);
 	}
 
 	@Override
 	public List<UserNotificationEvent> getArchivedUserNotificationEvents(
-			long userId, boolean archived, int start, int end) {
+		long userId, boolean archived, int start, int end) {
 
 		return userNotificationEventPersistence.findByU_A(
 			userId, archived, start, end);
@@ -156,21 +156,21 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public int getArchivedUserNotificationEventsCount(
-			long userId, boolean archived) {
+		long userId, boolean archived) {
 
 		return userNotificationEventPersistence.countByU_A(userId, archived);
 	}
 
 	@Override
 	public List<UserNotificationEvent> getDeliveredUserNotificationEvents(
-			long userId, boolean delivered) {
+		long userId, boolean delivered) {
 
 		return userNotificationEventPersistence.findByU_D(userId, delivered);
 	}
 
 	@Override
 	public List<UserNotificationEvent> getDeliveredUserNotificationEvents(
-			long userId, boolean delivered, int start, int end) {
+		long userId, boolean delivered, int start, int end) {
 
 		return userNotificationEventPersistence.findByU_D(
 			userId, delivered, start, end);
@@ -178,7 +178,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public int getDeliveredUserNotificationEventsCount(
-			long userId, boolean delivered) {
+		long userId, boolean delivered) {
 
 		return userNotificationEventPersistence.countByU_D(userId, delivered);
 	}
@@ -196,7 +196,7 @@ public class UserNotificationEventLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<UserNotificationEvent> getUserNotificationEvents(
-			long userId, boolean archived) {
+		long userId, boolean archived) {
 
 		return getArchivedUserNotificationEvents(userId, archived);
 	}
@@ -208,14 +208,14 @@ public class UserNotificationEventLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<UserNotificationEvent> getUserNotificationEvents(
-			long userId, boolean archived, int start, int end) {
+		long userId, boolean archived, int start, int end) {
 
 		return getArchivedUserNotificationEvents(userId, archived, start, end);
 	}
 
 	@Override
 	public List<UserNotificationEvent> getUserNotificationEvents(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		return userNotificationEventPersistence.findByUserId(
 			userId, start, end);
@@ -263,7 +263,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public UserNotificationEvent updateUserNotificationEvent(
-			String uuid, long companyId, boolean archive) {
+		String uuid, long companyId, boolean archive) {
 
 		List<UserNotificationEvent> userNotificationEvents =
 			userNotificationEventPersistence.findByUuid_C(uuid, companyId);
@@ -284,7 +284,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public List<UserNotificationEvent> updateUserNotificationEvents(
-			Collection<String> uuids, long companyId, boolean archive) {
+		Collection<String> uuids, long companyId, boolean archive) {
 
 		List<UserNotificationEvent> userNotificationEvents =
 			new ArrayList<UserNotificationEvent>();

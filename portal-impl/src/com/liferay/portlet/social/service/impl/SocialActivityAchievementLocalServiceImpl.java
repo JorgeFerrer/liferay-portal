@@ -71,7 +71,7 @@ public class SocialActivityAchievementLocalServiceImpl
 
 	@Override
 	public SocialActivityAchievement fetchUserAchievement(
-			long userId, long groupId, String name) {
+		long userId, long groupId, String name) {
 
 		return socialActivityAchievementPersistence.fetchByG_U_N(
 			groupId, userId, name);
@@ -85,7 +85,7 @@ public class SocialActivityAchievementLocalServiceImpl
 
 	@Override
 	public List<SocialActivityAchievement> getGroupAchievements(
-			long groupId, String name) {
+		long groupId, String name) {
 
 		return socialActivityAchievementPersistence.findByG_N(groupId, name);
 	}
@@ -103,7 +103,7 @@ public class SocialActivityAchievementLocalServiceImpl
 
 	@Override
 	public List<SocialActivityAchievement> getGroupFirstAchievements(
-			long groupId) {
+		long groupId) {
 
 		return socialActivityAchievementPersistence.findByG_F(groupId, true);
 	}
@@ -116,7 +116,7 @@ public class SocialActivityAchievementLocalServiceImpl
 
 	@Override
 	public List<SocialActivityAchievement> getUserAchievements(
-			long userId, long groupId) {
+		long userId, long groupId) {
 
 		return socialActivityAchievementPersistence.findByG_U(groupId, userId);
 	}

@@ -121,7 +121,7 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 
 	@Override
 	public List<Website> getWebsites(
-			long companyId, String className, long classPK) {
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -148,8 +148,8 @@ public class WebsiteLocalServiceImpl extends WebsiteLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long websiteId, long companyId, long classNameId, long classPK,
-			boolean primary) {
+		long websiteId, long companyId, long classNameId, long classPK,
+		boolean primary) {
 
 		// Check to make sure there isn't another website with the same company
 		// id, class name, and class pk that also has primary set to true

@@ -34,7 +34,8 @@ public class PrefsPropsImpl implements PrefsProps {
 	}
 
 	@Override
-	public boolean getBoolean(long companyId, String name, boolean defaultValue) {
+	public boolean getBoolean(
+		long companyId, String name, boolean defaultValue) {
 
 		return PrefsPropsUtil.getBoolean(companyId, name, defaultValue);
 	}

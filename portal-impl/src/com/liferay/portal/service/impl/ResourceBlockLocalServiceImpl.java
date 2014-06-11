@@ -86,7 +86,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void addCompanyScopePermissions(
-			long companyId, String name, long roleId, long actionIdsLong) {
+		long companyId, String name, long roleId, long actionIdsLong) {
 
 		updateCompanyScopePermissions(
 			companyId, name, roleId, actionIdsLong,
@@ -106,8 +106,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void addGroupScopePermissions(
-			long companyId, long groupId, String name, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name, long roleId,
+		long actionIdsLong) {
 
 		updateGroupScopePermissions(
 			companyId, groupId, name, roleId, actionIdsLong,
@@ -155,9 +155,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void addIndividualScopePermissions(
-			long companyId, long groupId, String name,
-			PermissionedModel permissionedModel, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name,
+		PermissionedModel permissionedModel, long roleId, long actionIdsLong) {
 
 		updateIndividualScopePermissions(
 			companyId, groupId, name, permissionedModel, roleId, actionIdsLong,
@@ -180,8 +179,8 @@ public class ResourceBlockLocalServiceImpl
 	 */
 	@Override
 	public ResourceBlock addResourceBlock(
-			long companyId, long groupId, String name, String permissionsHash,
-			ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
+		long companyId, long groupId, String name, String permissionsHash,
+		ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
 
 		long resourceBlockId = counterLocalService.increment(
 			ResourceBlock.class.getName());
@@ -269,7 +268,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public List<String> getCompanyScopePermissions(
-			ResourceBlock resourceBlock, long roleId) {
+		ResourceBlock resourceBlock, long roleId) {
 
 		long actionIdsLong =
 			resourceTypePermissionLocalService.getCompanyScopeActionIds(
@@ -280,7 +279,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public List<String> getGroupScopePermissions(
-			ResourceBlock resourceBlock, long roleId) {
+		ResourceBlock resourceBlock, long roleId) {
 
 		long actionIdsLong =
 			resourceTypePermissionLocalService.getGroupScopeActionIds(
@@ -314,7 +313,8 @@ public class ResourceBlockLocalServiceImpl
 	}
 
 	@Override
-	public List<String> getPermissions(ResourceBlock resourceBlock, long roleId) {
+	public List<String> getPermissions(
+		ResourceBlock resourceBlock, long roleId) {
 
 		ResourceBlockPermissionsContainer resourceBlockPermissionsContainer =
 			resourceBlockPermissionLocalService.
@@ -350,7 +350,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public ResourceBlockIdsBag getResourceBlockIdsBag(
-			long companyId, long groupId, String name, long[] roleIds) {
+		long companyId, long groupId, String name, long[] roleIds) {
 
 		return resourceBlockFinder.findByC_G_N_R(
 			companyId, groupId, name, roleIds);
@@ -392,7 +392,7 @@ public class ResourceBlockLocalServiceImpl
 		isolation = Isolation.READ_COMMITTED,
 		propagation = Propagation.REQUIRES_NEW)
 	public void releasePermissionedModelResourceBlock(
-			PermissionedModel permissionedModel) {
+		PermissionedModel permissionedModel) {
 
 		releaseResourceBlock(permissionedModel.getResourceBlockId());
 	}
@@ -477,13 +477,12 @@ public class ResourceBlockLocalServiceImpl
 		isolation = Isolation.READ_COMMITTED,
 		propagation = Propagation.REQUIRES_NEW)
 	public void releaseResourceBlock(ResourceBlock resourceBlock) {
-
 		releaseResourceBlock(resourceBlock.getResourceBlockId());
 	}
 
 	@Override
 	public void removeAllGroupScopePermissions(
-			long companyId, String name, long roleId, long actionIdsLong) {
+		long companyId, String name, long roleId, long actionIdsLong) {
 
 		List<ResourceTypePermission> resourceTypePermissions =
 			resourceTypePermissionLocalService.
@@ -519,7 +518,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void removeCompanyScopePermissions(
-			long companyId, String name, long roleId, long actionIdsLong) {
+		long companyId, String name, long roleId, long actionIdsLong) {
 
 		updateCompanyScopePermissions(
 			companyId, name, roleId, actionIdsLong,
@@ -539,8 +538,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void removeGroupScopePermissions(
-			long companyId, long groupId, String name, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name, long roleId,
+		long actionIdsLong) {
 
 		updateGroupScopePermissions(
 			companyId, groupId, name, roleId, actionIdsLong,
@@ -590,9 +589,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void removeIndividualScopePermissions(
-			long companyId, long groupId, String name,
-			PermissionedModel permissionedModel, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name,
+		PermissionedModel permissionedModel, long roleId, long actionIdsLong) {
 
 		updateIndividualScopePermissions(
 			companyId, groupId, name, permissionedModel, roleId, actionIdsLong,
@@ -613,7 +611,7 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void setCompanyScopePermissions(
-			long companyId, String name, long roleId, long actionIdsLong) {
+		long companyId, String name, long roleId, long actionIdsLong) {
 
 		updateCompanyScopePermissions(
 			companyId, name, roleId, actionIdsLong,
@@ -635,8 +633,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void setGroupScopePermissions(
-			long companyId, long groupId, String name, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name, long roleId,
+		long actionIdsLong) {
 
 		updateGroupScopePermissions(
 			companyId, groupId, name, roleId, actionIdsLong,
@@ -725,9 +723,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void setIndividualScopePermissions(
-			long companyId, long groupId, String name,
-			PermissionedModel permissionedModel, long roleId,
-			long actionIdsLong) {
+		long companyId, long groupId, String name,
+		PermissionedModel permissionedModel, long roleId, long actionIdsLong) {
 
 		updateIndividualScopePermissions(
 			companyId, groupId, name, permissionedModel, roleId, actionIdsLong,
@@ -736,8 +733,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void updateCompanyScopePermissions(
-			long companyId, String name, long roleId, long actionIdsLong,
-			int operator) {
+		long companyId, String name, long roleId, long actionIdsLong,
+		int operator) {
 
 		resourceTypePermissionLocalService.
 			updateCompanyScopeResourceTypePermissions(
@@ -753,8 +750,8 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void updateGroupScopePermissions(
-			long companyId, long groupId, String name, long roleId,
-			long actionIdsLong, int operator) {
+		long companyId, long groupId, String name, long roleId,
+		long actionIdsLong, int operator) {
 
 		resourceTypePermissionLocalService.
 			updateGroupScopeResourceTypePermissions(
@@ -770,9 +767,9 @@ public class ResourceBlockLocalServiceImpl
 
 	@Override
 	public void updateIndividualScopePermissions(
-			long companyId, long groupId, String name,
-			PermissionedModel permissionedModel, long roleId,
-			long actionIdsLong, int operator) {
+		long companyId, long groupId, String name,
+		PermissionedModel permissionedModel, long roleId, long actionIdsLong,
+		int operator) {
 
 		ResourceBlock resourceBlock =
 			resourceBlockPersistence.fetchByPrimaryKey(
@@ -829,9 +826,9 @@ public class ResourceBlockLocalServiceImpl
 		isolation = Isolation.READ_COMMITTED,
 		propagation = Propagation.REQUIRES_NEW)
 	public ResourceBlock updateResourceBlockId(
-			long companyId, long groupId, String name,
-			final PermissionedModel permissionedModel, String permissionsHash,
-			ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
+		long companyId, long groupId, String name,
+		final PermissionedModel permissionedModel, String permissionsHash,
+		ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
 
 		ResourceBlock resourceBlock = null;
 
@@ -1027,8 +1024,8 @@ public class ResourceBlockLocalServiceImpl
 	}
 
 	protected void updatePermissions(
-			List<ResourceBlock> resourceBlocks, long roleId, long actionIdsLong,
-			int operator) {
+		List<ResourceBlock> resourceBlocks, long roleId, long actionIdsLong,
+		int operator) {
 
 		for (ResourceBlock resourceBlock : resourceBlocks) {
 			resourceBlockPermissionLocalService.updateResourceBlockPermission(

@@ -148,8 +148,8 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 
 	@Override
 	public List<DDLRecord> findByR_S(
-			long recordSetId, int status, int start, int end,
-			OrderByComparator orderByComparator) {
+		long recordSetId, int status, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		Session session = null;
 
@@ -189,8 +189,8 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 
 	@Override
 	public List<DDLRecord> findByC_S_S(
-			long companyId, int status, int scope, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, int status, int scope, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		Session session = null;
 
@@ -281,8 +281,8 @@ public class DDLRecordFinderImpl extends BasePersistenceImpl<DDLRecord>
 
 	@Override
 	public List<DDLRecord> findByC_S_S_MinAndMax(
-			long companyId, int status, int scope, long minRecordId,
-			long maxRecordId) {
+		long companyId, int status, int scope, long minRecordId,
+		long maxRecordId) {
 
 		Session session = null;
 

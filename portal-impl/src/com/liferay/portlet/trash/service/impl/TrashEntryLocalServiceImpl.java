@@ -294,7 +294,7 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<TrashEntry> getEntries(
-			long groupId, int start, int end, OrderByComparator obc) {
+		long groupId, int start, int end, OrderByComparator obc) {
 
 		return trashEntryPersistence.findByGroupId(groupId, start, end, obc);
 	}
@@ -354,8 +354,8 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 
 	@Override
 	public Hits search(
-			long companyId, long groupId, long userId, String keywords,
-			int start, int end, Sort sort) {
+		long companyId, long groupId, long userId, String keywords, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -373,8 +373,8 @@ public class TrashEntryLocalServiceImpl extends TrashEntryLocalServiceBaseImpl {
 
 	@Override
 	public BaseModelSearchResult<TrashEntry> searchTrashEntries(
-			long companyId, long groupId, long userId, String keywords,
-			int start, int end, Sort sort) {
+		long companyId, long groupId, long userId, String keywords, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(

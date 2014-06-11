@@ -63,7 +63,7 @@ public abstract class BaseStagingBackgroundTaskExecutor
 	}
 
 	protected void markBackgroundTask(
-			long backgroundTaskId, String backgroundTaskState) {
+		long backgroundTaskId, String backgroundTaskState) {
 
 		BackgroundTask backgroundTask =
 			BackgroundTaskLocalServiceUtil.fetchBackgroundTask(
@@ -89,7 +89,7 @@ public abstract class BaseStagingBackgroundTaskExecutor
 	}
 
 	protected BackgroundTaskResult processMissingReferences(
-			long backgroundTaskId, MissingReferences missingReferences) {
+		long backgroundTaskId, MissingReferences missingReferences) {
 
 		BackgroundTaskResult backgroundTaskResult = new BackgroundTaskResult(
 			BackgroundTaskConstants.STATUS_SUCCESSFUL);

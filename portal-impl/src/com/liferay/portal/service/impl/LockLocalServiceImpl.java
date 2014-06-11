@@ -199,8 +199,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Lock lock(
-			String className, String key, String owner,
-			boolean retrieveFromCache) {
+		String className, String key, String owner, boolean retrieveFromCache) {
 
 		return lock(className, key, null, owner);
 	}
@@ -209,8 +208,8 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Lock lock(
-			String className, String key, String expectedOwner,
-			String updatedOwner) {
+		String className, String key, String expectedOwner,
+		String updatedOwner) {
 
 		Lock lock = lockFinder.fetchByC_K(className, key, LockMode.UPGRADE);
 
@@ -255,8 +254,8 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Lock lock(
-			String className, String key, String expectedOwner,
-			String updatedOwner, boolean retrieveFromCache) {
+		String className, String key, String expectedOwner, String updatedOwner,
+		boolean retrieveFromCache) {
 
 		return lock(className, key, expectedOwner, updatedOwner);
 	}
@@ -354,8 +353,7 @@ public class LockLocalServiceImpl extends LockLocalServiceBaseImpl {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void unlock(
-			String className, String key, String owner,
-			boolean retrieveFromCache) {
+		String className, String key, String owner, boolean retrieveFromCache) {
 
 		unlock(className, key, owner);
 	}

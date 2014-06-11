@@ -51,7 +51,7 @@ public class RatingsEntryFinderImpl
 
 	@Override
 	public List<RatingsEntry> findByU_C_C(
-			long userId, long classNameId, List<Long> classPKs) {
+		long userId, long classNameId, List<Long> classPKs) {
 
 		Object[] finderArgs = new Object[] {
 			userId, classNameId,

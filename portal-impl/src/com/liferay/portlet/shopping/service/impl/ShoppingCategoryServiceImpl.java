@@ -62,7 +62,7 @@ public class ShoppingCategoryServiceImpl
 
 	@Override
 	public List<ShoppingCategory> getCategories(
-			long groupId, long parentCategoryId, int start, int end) {
+		long groupId, long parentCategoryId, int start, int end) {
 
 		return shoppingCategoryPersistence.filterFindByG_P(
 			groupId, parentCategoryId, start, end);
@@ -90,7 +90,7 @@ public class ShoppingCategoryServiceImpl
 
 	@Override
 	public void getSubcategoryIds(
-			List<Long> categoryIds, long groupId, long categoryId) {
+		List<Long> categoryIds, long groupId, long categoryId) {
 
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.filterFindByG_P(groupId, categoryId);

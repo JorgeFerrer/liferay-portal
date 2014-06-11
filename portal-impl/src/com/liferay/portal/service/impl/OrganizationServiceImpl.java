@@ -494,7 +494,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public List<Organization> getOrganizations(
-			long companyId, long parentOrganizationId) {
+		long companyId, long parentOrganizationId) {
 
 		return organizationPersistence.filterFindByC_P(
 			companyId, parentOrganizationId);
@@ -525,7 +525,7 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 */
 	@Override
 	public List<Organization> getOrganizations(
-			long companyId, long parentOrganizationId, int start, int end) {
+		long companyId, long parentOrganizationId, int start, int end) {
 
 		return organizationPersistence.filterFindByC_P(
 			companyId, parentOrganizationId, start, end);
@@ -541,7 +541,8 @@ public class OrganizationServiceImpl extends OrganizationServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getOrganizationsCount(long companyId, long parentOrganizationId) {
+	public int getOrganizationsCount(
+		long companyId, long parentOrganizationId) {
 
 		return organizationPersistence.filterCountByC_P(
 			companyId, parentOrganizationId);

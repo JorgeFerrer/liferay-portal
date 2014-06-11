@@ -42,7 +42,7 @@ public class WebDAVPropsLocalServiceImpl
 
 	@Override
 	public WebDAVProps getWebDAVProps(
-			long companyId, String className, long classPK) {
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

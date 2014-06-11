@@ -760,8 +760,8 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public SocialActivityCounter fetchActivityCounterByEndPeriod(
-			long groupId, long classNameId, long classPK, String name,
-			int ownerType, int endPeriod) {
+		long groupId, long classNameId, long classPK, String name,
+		int ownerType, int endPeriod) {
 
 		return socialActivityCounterPersistence.fetchByG_C_C_N_O_E(
 			groupId, classNameId, classPK, name, ownerType, endPeriod);
@@ -782,8 +782,8 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public SocialActivityCounter fetchActivityCounterByStartPeriod(
-			long groupId, long classNameId, long classPK, String name,
-			int ownerType, int startPeriod) {
+		long groupId, long classNameId, long classPK, String name,
+		int ownerType, int startPeriod) {
 
 		return socialActivityCounterPersistence.fetchByG_C_C_N_O_S(
 			groupId, classNameId, classPK, name, ownerType, startPeriod);
@@ -803,8 +803,8 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public SocialActivityCounter fetchLatestActivityCounter(
-			long groupId, long classNameId, long classPK, String name,
-			int ownerType) {
+		long groupId, long classNameId, long classPK, String name,
+		int ownerType) {
 
 		return socialActivityCounterPersistence.fetchByG_C_C_N_O_E(
 			groupId, classNameId, classPK, name, ownerType,
@@ -828,7 +828,7 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivityCounter> getOffsetActivityCounters(
-			long groupId, String name, int startOffset, int endOffset) {
+		long groupId, String name, int startOffset, int endOffset) {
 
 		int startPeriod = SocialCounterPeriodUtil.getStartPeriod(startOffset);
 		int endPeriod = SocialCounterPeriodUtil.getEndPeriod(endOffset);
@@ -856,7 +856,7 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivityCounter> getOffsetDistributionActivityCounters(
-			long groupId, String name, int startOffset, int endOffset) {
+		long groupId, String name, int startOffset, int endOffset) {
 
 		int startPeriod = SocialCounterPeriodUtil.getStartPeriod(startOffset);
 		int endPeriod = SocialCounterPeriodUtil.getEndPeriod(endOffset);
@@ -883,7 +883,7 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivityCounter> getPeriodActivityCounters(
-			long groupId, String name, int startPeriod, int endPeriod) {
+		long groupId, String name, int startPeriod, int endPeriod) {
 
 		if (endPeriod == SocialActivityCounterConstants.END_PERIOD_UNDEFINED) {
 			endPeriod = SocialCounterPeriodUtil.getEndPeriod();
@@ -917,7 +917,7 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public List<SocialActivityCounter> getPeriodDistributionActivityCounters(
-			long groupId, String name, int startPeriod, int endPeriod) {
+		long groupId, String name, int startPeriod, int endPeriod) {
 
 		int offset = SocialCounterPeriodUtil.getOffset(endPeriod);
 
@@ -958,8 +958,8 @@ public class SocialActivityCounterLocalServiceImpl
 	 */
 	@Override
 	public List<Tuple> getUserActivityCounters(
-			long groupId, String[] rankingNames, String[] selectedNames,
-			int start, int end) {
+		long groupId, String[] rankingNames, String[] selectedNames, int start,
+		int end) {
 
 		List<Long> userIds = socialActivityCounterFinder.findU_ByG_N(
 			groupId, rankingNames, start, end);
@@ -1013,7 +1013,8 @@ public class SocialActivityCounterLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getUserActivityCountersCount(long groupId, String[] rankingNames) {
+	public int getUserActivityCountersCount(
+		long groupId, String[] rankingNames) {
 
 		return socialActivityCounterFinder.countU_ByG_N(groupId, rankingNames);
 	}
@@ -1264,8 +1265,8 @@ public class SocialActivityCounterLocalServiceImpl
 	}
 
 	protected void incrementActivityCounter(
-			SocialActivityCounter activityCounter,
-			SocialActivityCounterDefinition activityCounterDefinition) {
+		SocialActivityCounter activityCounter,
+		SocialActivityCounterDefinition activityCounterDefinition) {
 
 		activityCounter.setCurrentValue(
 			activityCounter.getCurrentValue() +

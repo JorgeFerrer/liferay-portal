@@ -370,7 +370,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public void addPasswordPolicyOrganizations(
-			long passwordPolicyId, long[] organizationIds) {
+		long passwordPolicyId, long[] organizationIds) {
 
 		passwordPolicyRelLocalService.addPasswordPolicyRels(
 			passwordPolicyId, Organization.class.getName(), organizationIds);
@@ -640,7 +640,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> getOrganizations(
-			long companyId, long parentOrganizationId) {
+		long companyId, long parentOrganizationId) {
 
 		return getOrganizations(
 			companyId, parentOrganizationId, QueryUtil.ALL_POS,
@@ -674,7 +674,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> getOrganizations(
-			long companyId, long parentOrganizationId, int start, int end) {
+		long companyId, long parentOrganizationId, int start, int end) {
 
 		if (parentOrganizationId ==
 				OrganizationConstants.ANY_PARENT_ORGANIZATION_ID) {
@@ -723,7 +723,8 @@ public class OrganizationLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getOrganizationsCount(long companyId, long parentOrganizationId) {
+	public int getOrganizationsCount(
+		long companyId, long parentOrganizationId) {
 
 		if (parentOrganizationId ==
 				OrganizationConstants.ANY_PARENT_ORGANIZATION_ID) {
@@ -772,7 +773,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> getSuborganizations(
-			List<Organization> organizations) {
+		List<Organization> organizations) {
 
 		List<Organization> allSuborganizations = new ArrayList<Organization>();
 
@@ -800,7 +801,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> getSuborganizations(
-			long companyId, long organizationId) {
+		long companyId, long organizationId) {
 
 		return organizationPersistence.findByC_P(companyId, organizationId);
 	}
@@ -938,7 +939,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public boolean hasPasswordPolicyOrganization(
-			long passwordPolicyId, long organizationId) {
+		long passwordPolicyId, long organizationId) {
 
 		return passwordPolicyRelLocalService.hasPasswordPolicyRel(
 			passwordPolicyId, Organization.class.getName(), organizationId);
@@ -1098,8 +1099,8 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public Hits search(
-			long companyId, long parentOrganizationId, String keywords,
-			LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
+		long companyId, long parentOrganizationId, String keywords,
+		LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
 		String name = null;
 		String type = null;
@@ -1171,9 +1172,9 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> search(
-			long companyId, long parentOrganizationId, String keywords,
-			String type, Long regionId, Long countryId,
-			LinkedHashMap<String, Object> params, int start, int end) {
+		long companyId, long parentOrganizationId, String keywords, String type,
+		Long regionId, Long countryId, LinkedHashMap<String, Object> params,
+		int start, int end) {
 
 		return search(
 			companyId, parentOrganizationId, keywords, type, regionId,
@@ -1223,10 +1224,9 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> search(
-			long companyId, long parentOrganizationId, String keywords,
-			String type, Long regionId, Long countryId,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long parentOrganizationId, String keywords, String type,
+		Long regionId, Long countryId, LinkedHashMap<String, Object> params,
+		int start, int end, OrderByComparator obc) {
 
 		String parentOrganizationIdComparator = StringPool.EQUAL;
 
@@ -1287,10 +1287,10 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> search(
-			long companyId, long parentOrganizationId, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end) {
+		long companyId, long parentOrganizationId, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end) {
 
 		return search(
 			companyId, parentOrganizationId, name, type, street, city, zip,
@@ -1347,10 +1347,10 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public List<Organization> search(
-			long companyId, long parentOrganizationId, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, long parentOrganizationId, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		String parentOrganizationIdComparator = StringPool.EQUAL;
 
@@ -1409,10 +1409,10 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public Hits search(
-			long companyId, long parentOrganizationId, String name, String type,
-			String street, String city, String zip, String region,
-			String country, LinkedHashMap<String, Object> params,
-			boolean andSearch, int start, int end, Sort sort) {
+		long companyId, long parentOrganizationId, String name, String type,
+		String street, String city, String zip, String region, String country,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -1453,9 +1453,8 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long parentOrganizationId, String keywords,
-			String type, Long regionId, Long countryId,
-			LinkedHashMap<String, Object> params) {
+		long companyId, long parentOrganizationId, String keywords, String type,
+		Long regionId, Long countryId, LinkedHashMap<String, Object> params) {
 
 		if (!PropsValues.ORGANIZATIONS_INDEXER_ENABLED ||
 			!PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX ||
@@ -1543,10 +1542,9 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long parentOrganizationId, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long companyId, long parentOrganizationId, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		if (!PropsValues.ORGANIZATIONS_INDEXER_ENABLED ||
 			!PropsValues.ORGANIZATIONS_SEARCH_WITH_INDEX ||
@@ -1696,7 +1694,7 @@ public class OrganizationLocalServiceImpl
 	 */
 	@Override
 	public void unsetPasswordPolicyOrganizations(
-			long passwordPolicyId, long[] organizationIds) {
+		long passwordPolicyId, long[] organizationIds) {
 
 		passwordPolicyRelLocalService.deletePasswordPolicyRels(
 			passwordPolicyId, Organization.class.getName(), organizationIds);
@@ -1962,8 +1960,8 @@ public class OrganizationLocalServiceImpl
 	}
 
 	protected void addSuborganizations(
-			List<Organization> allSuborganizations,
-			List<Organization> organizations) {
+		List<Organization> allSuborganizations,
+		List<Organization> organizations) {
 
 		for (Organization organization : organizations) {
 			if (!allSuborganizations.contains(organization)) {
@@ -1980,10 +1978,10 @@ public class OrganizationLocalServiceImpl
 	}
 
 	protected SearchContext buildSearchContext(
-			long companyId, long parentOrganizationId, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andSearch, int start, int end, Sort sort) {
+		long companyId, long parentOrganizationId, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort sort) {
 
 		String regionCode = null;
 
@@ -2058,7 +2056,7 @@ public class OrganizationLocalServiceImpl
 	}
 
 	protected long getParentOrganizationId(
-			long companyId, long parentOrganizationId) {
+		long companyId, long parentOrganizationId) {
 
 		if (parentOrganizationId !=
 				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {

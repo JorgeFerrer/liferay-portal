@@ -725,7 +725,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public WikiPage fetchLatestPage(
-			long resourcePrimKey, int status, boolean preferApproved) {
+		long resourcePrimKey, int status, boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -753,8 +753,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public WikiPage fetchLatestPage(
-			long resourcePrimKey, long nodeId, int status,
-			boolean preferApproved) {
+		long resourcePrimKey, long nodeId, int status, boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -782,7 +781,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public WikiPage fetchLatestPage(
-			long nodeId, String title, int status, boolean preferApproved) {
+		long nodeId, String title, int status, boolean preferApproved) {
 
 		WikiPage page = null;
 
@@ -832,7 +831,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getChildren(
-			long nodeId, boolean head, String parentTitle) {
+		long nodeId, boolean head, String parentTitle) {
 
 		return wikiPagePersistence.findByN_H_P_S(
 			nodeId, head, parentTitle, WorkflowConstants.STATUS_APPROVED);
@@ -1134,7 +1133,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int start, int end) {
+		long nodeId, boolean head, int start, int end) {
 
 		return getPages(
 			nodeId, head, start, end, new PageCreateDateComparator(false));
@@ -1142,7 +1141,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int status, int start, int end) {
+		long nodeId, boolean head, int status, int start, int end) {
 
 		return getPages(
 			nodeId, head, status, start, end,
@@ -1151,8 +1150,8 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int status, int start, int end,
-			OrderByComparator obc) {
+		long nodeId, boolean head, int status, int start, int end,
+		OrderByComparator obc) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return wikiPagePersistence.findByN_H(nodeId, head, start, end, obc);
@@ -1165,8 +1164,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, boolean head, int start, int end,
-			OrderByComparator obc) {
+		long nodeId, boolean head, int start, int end, OrderByComparator obc) {
 
 		return getPages(
 			nodeId, head, WorkflowConstants.STATUS_APPROVED, start, end, obc);
@@ -1181,21 +1179,21 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, int start, int end, OrderByComparator obc) {
+		long nodeId, int start, int end, OrderByComparator obc) {
 
 		return wikiPagePersistence.findByNodeId(nodeId, start, end, obc);
 	}
 
 	@Override
 	public List<WikiPage> getPages(
-			long resourcePrimKey, long nodeId, int status) {
+		long resourcePrimKey, long nodeId, int status) {
 
 		return wikiPagePersistence.findByR_N_S(resourcePrimKey, nodeId, status);
 	}
 
 	@Override
 	public List<WikiPage> getPages(
-			long userId, long nodeId, int status, int start, int end) {
+		long userId, long nodeId, int status, int start, int end) {
 
 		if (userId > 0) {
 			return wikiPagePersistence.findByU_N_S(
@@ -1211,7 +1209,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, String title, boolean head, int start, int end) {
+		long nodeId, String title, boolean head, int start, int end) {
 
 		return wikiPagePersistence.findByN_T_H(
 			nodeId, title, head, start, end,
@@ -1220,7 +1218,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, String title, int start, int end) {
+		long nodeId, String title, int start, int end) {
 
 		return wikiPagePersistence.findByN_T(
 			nodeId, title, start, end, new PageCreateDateComparator(false));
@@ -1228,8 +1226,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getPages(
-			long nodeId, String title, int start, int end,
-			OrderByComparator obc) {
+		long nodeId, String title, int start, int end, OrderByComparator obc) {
 
 		return wikiPagePersistence.findByN_T(nodeId, title, start, end, obc);
 	}
@@ -1323,7 +1320,7 @@ public class WikiPageLocalServiceImpl extends WikiPageLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiPage> getRecentChanges(
-			long groupId, long nodeId, int start, int end) {
+		long groupId, long nodeId, int start, int end) {
 
 		Calendar cal = CalendarFactoryUtil.getCalendar();
 

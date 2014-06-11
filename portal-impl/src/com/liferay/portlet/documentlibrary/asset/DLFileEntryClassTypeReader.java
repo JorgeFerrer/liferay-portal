@@ -35,7 +35,7 @@ public class DLFileEntryClassTypeReader implements ClassTypeReader {
 
 	@Override
 	public List<ClassType> getAvailableClassTypes(
-			long[] groupIds, Locale locale) {
+		long[] groupIds, Locale locale) {
 
 		List<ClassType> classTypes = new ArrayList<ClassType>();
 

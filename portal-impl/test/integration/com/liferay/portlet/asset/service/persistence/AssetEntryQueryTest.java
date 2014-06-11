@@ -414,7 +414,7 @@ public class AssetEntryQueryTest {
 	}
 
 	protected AssetEntryQuery buildAssetEntryQueryWithAssetTagIds(
-			AssetEntryQuery assetEntryQuery, long[] assetTagIds, boolean any,
+		AssetEntryQuery assetEntryQuery, long[] assetTagIds, boolean any,
 		boolean not) {
 
 		if (any && not) {

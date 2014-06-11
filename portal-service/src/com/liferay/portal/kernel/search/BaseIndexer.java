@@ -1227,7 +1227,8 @@ public abstract class BaseIndexer implements Indexer {
 		}
 	}
 
-	protected void addTrashFields(Document document, TrashedModel trashedModel) {
+	protected void addTrashFields(
+		Document document, TrashedModel trashedModel) {
 
 		TrashEntry trashEntry = null;
 

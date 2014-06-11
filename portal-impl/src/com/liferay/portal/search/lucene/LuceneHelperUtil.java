@@ -330,7 +330,7 @@ public class LuceneHelperUtil {
 	}
 
 	public static InputStream getLoadIndexesInputStreamFromCluster(
-			long companyId, Address bootupAddress) {
+		long companyId, Address bootupAddress) {
 
 		return getLuceneHelper().getLoadIndexesInputStreamFromCluster(
 			companyId, bootupAddress);

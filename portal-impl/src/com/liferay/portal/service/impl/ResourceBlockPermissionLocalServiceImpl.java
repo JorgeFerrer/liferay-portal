@@ -42,8 +42,8 @@ public class ResourceBlockPermissionLocalServiceImpl
 
 	@Override
 	public void addResourceBlockPermissions(
-			long resourceBlockId,
-			ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
+		long resourceBlockId,
+		ResourceBlockPermissionsContainer resourceBlockPermissionsContainer) {
 
 		Map<Long, Long> permissions =
 			resourceBlockPermissionsContainer.getPermissions();
@@ -133,7 +133,7 @@ public class ResourceBlockPermissionLocalServiceImpl
 
 	@Override
 	public int getResourceBlockPermissionsCount(
-			long resourceBlockId, long roleId) {
+		long resourceBlockId, long roleId) {
 
 		return resourceBlockPermissionPersistence.countByR_R(
 			resourceBlockId, roleId);
@@ -141,7 +141,7 @@ public class ResourceBlockPermissionLocalServiceImpl
 
 	@Override
 	public void updateResourceBlockPermission(
-			long resourceBlockId, long roleId, long actionIdsLong, int operator) {
+		long resourceBlockId, long roleId, long actionIdsLong, int operator) {
 
 		ResourceBlockPermission resourceBlockPermission =
 			resourceBlockPermissionPersistence.fetchByR_R(

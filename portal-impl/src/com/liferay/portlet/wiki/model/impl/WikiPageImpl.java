@@ -194,7 +194,8 @@ public class WikiPageImpl extends WikiPageBaseImpl {
 	}
 
 	@Override
-	public List<FileEntry> getDeletedAttachmentsFileEntries(int start, int end) {
+	public List<FileEntry> getDeletedAttachmentsFileEntries(
+		int start, int end) {
 
 		List<FileEntry> fileEntries = new ArrayList<FileEntry>();
 

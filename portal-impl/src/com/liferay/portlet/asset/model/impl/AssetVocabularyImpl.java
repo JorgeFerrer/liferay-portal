@@ -179,7 +179,7 @@ public class AssetVocabularyImpl extends AssetVocabularyBaseImpl {
 
 	@Override
 	public boolean isMissingRequiredCategory(
-			long classNameId, final long[] categoryIds) {
+		long classNameId, final long[] categoryIds) {
 
 		if (!isRequired(classNameId)) {
 			return false;

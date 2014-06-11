@@ -195,7 +195,7 @@ public class ExpandoTableLocalServiceImpl
 
 	@Override
 	public ExpandoTable fetchTable(
-			long companyId, long classNameId, String name) {
+		long companyId, long classNameId, String name) {
 
 		return expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, name);

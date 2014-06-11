@@ -320,7 +320,7 @@ public class JournalPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getArticleActionableDynamicQuery(
-			final PortletDataContext portletDataContext) {
+		final PortletDataContext portletDataContext) {
 
 		ActionableDynamicQuery actionableDynamicQuery =
 			JournalArticleLocalServiceUtil.getExportActionableDynamicQuery(
@@ -362,8 +362,8 @@ public class JournalPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getDDMStructureActionableDynamicQuery(
-			final PortletDataContext portletDataContext,
-			final List<DDMTemplate> ddmTemplates, final boolean export) {
+		final PortletDataContext portletDataContext,
+		final List<DDMTemplate> ddmTemplates, final boolean export) {
 
 		ExportActionableDynamicQuery exportActionableDynamicQuery =
 			DDMStructureLocalServiceUtil.getExportActionableDynamicQuery(
@@ -419,7 +419,7 @@ public class JournalPortletDataHandler extends BasePortletDataHandler {
 	}
 
 	protected ActionableDynamicQuery getDDMTemplateActionableDynamicQuery(
-			final PortletDataContext portletDataContext) {
+		final PortletDataContext portletDataContext) {
 
 		ExportActionableDynamicQuery exportActionableDynamicQuery =
 			DDMTemplateLocalServiceUtil.getExportActionableDynamicQuery(

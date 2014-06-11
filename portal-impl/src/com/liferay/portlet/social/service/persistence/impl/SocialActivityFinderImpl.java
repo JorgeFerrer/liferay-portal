@@ -439,7 +439,8 @@ public class SocialActivityFinderImpl
 	}
 
 	@Override
-	public List<SocialActivity> findByGroupId(long groupId, int start, int end) {
+	public List<SocialActivity> findByGroupId(
+		long groupId, int start, int end) {
 
 		Session session = null;
 
@@ -469,7 +470,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByGroupUsers(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		Session session = null;
 
@@ -499,7 +500,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByOrganizationId(
-			long organizationId, int start, int end) {
+		long organizationId, int start, int end) {
 
 		Session session = null;
 
@@ -529,7 +530,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByOrganizationUsers(
-			long organizationId, int start, int end) {
+		long organizationId, int start, int end) {
 
 		Session session = null;
 
@@ -558,7 +559,8 @@ public class SocialActivityFinderImpl
 	}
 
 	@Override
-	public List<SocialActivity> findByRelation(long userId, int start, int end) {
+	public List<SocialActivity> findByRelation(
+		long userId, int start, int end) {
 
 		Session session = null;
 
@@ -588,7 +590,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByRelationType(
-			long userId, int type, int start, int end) {
+		long userId, int type, int start, int end) {
 
 		Session session = null;
 
@@ -619,7 +621,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByUserGroups(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		Session session = null;
 
@@ -651,7 +653,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByUserGroupsAndOrganizations(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		Session session = null;
 
@@ -697,7 +699,7 @@ public class SocialActivityFinderImpl
 
 	@Override
 	public List<SocialActivity> findByUserOrganizations(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		Session session = null;
 

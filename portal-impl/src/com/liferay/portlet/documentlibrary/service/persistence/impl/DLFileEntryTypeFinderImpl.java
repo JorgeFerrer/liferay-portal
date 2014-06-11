@@ -55,8 +55,8 @@ public class DLFileEntryTypeFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -77,8 +77,8 @@ public class DLFileEntryTypeFinderImpl
 
 	@Override
 	public int filterCountByKeywords(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -99,9 +99,9 @@ public class DLFileEntryTypeFinderImpl
 
 	@Override
 	public List<DLFileEntryType> filterFindByKeywords(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -122,9 +122,9 @@ public class DLFileEntryTypeFinderImpl
 
 	@Override
 	public List<DLFileEntryType> findByKeywords(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -144,9 +144,9 @@ public class DLFileEntryTypeFinderImpl
 	}
 
 	protected int doCountByC_G_N_D_S(
-			long companyId, long[] groupIds, String[] names,
-			String[] descriptions, boolean andOperator,
-			boolean includeBasicFileEntryType, boolean inlineSQLHelper) {
+		long companyId, long[] groupIds, String[] names, String[] descriptions,
+		boolean andOperator, boolean includeBasicFileEntryType,
+		boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);
@@ -210,10 +210,9 @@ public class DLFileEntryTypeFinderImpl
 	}
 
 	protected List<DLFileEntryType> doFindByC_G_N_D_S(
-			long companyId, long[] groupIds, String[] names,
-			String[] descriptions, boolean andOperator,
-			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator, boolean inlineSQLHelper) {
+		long companyId, long[] groupIds, String[] names, String[] descriptions,
+		boolean andOperator, boolean includeBasicFileEntryType, int start,
+		int end, OrderByComparator orderByComparator, boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);

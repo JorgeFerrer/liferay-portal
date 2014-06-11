@@ -65,7 +65,7 @@ public class AssetCategoryPropertyServiceImpl
 
 	@Override
 	public List<AssetCategoryProperty> getCategoryPropertyValues(
-			long companyId, String key) {
+		long companyId, String key) {
 
 		return assetCategoryPropertyLocalService.getCategoryPropertyValues(
 			companyId, key);

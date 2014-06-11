@@ -741,7 +741,7 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, long userId, String keywords, int start, int end) {
+		long companyId, long userId, String keywords, int start, int end) {
 
 		return search(companyId, userId, null, 0, null, keywords, start, end);
 	}
@@ -767,8 +767,8 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, long userId, String portletId, long groupId,
-			String type, String keywords, int start, int end) {
+		long companyId, long userId, String portletId, long groupId,
+		String type, String keywords, int start, int end) {
 
 		try {
 
@@ -1185,9 +1185,9 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	 */
 	@Override
 	public void updateSecurity(
-			long companyId, String authType, boolean autoLogin,
-			boolean sendPassword, boolean strangers, boolean strangersWithMx,
-			boolean strangersVerify, boolean siteLogo) {
+		long companyId, String authType, boolean autoLogin,
+		boolean sendPassword, boolean strangers, boolean strangersWithMx,
+		boolean strangersVerify, boolean siteLogo) {
 
 		PortletPreferences preferences = PrefsPropsUtil.getPreferences(
 			companyId);
@@ -1439,9 +1439,9 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 	}
 
 	protected void updateAccount(
-			Company company, String name, String legalName, String legalId,
-			String legalType, String sicCode, String tickerSymbol,
-			String industry, String type, String size) {
+		Company company, String name, String legalName, String legalId,
+		String legalType, String sicCode, String tickerSymbol, String industry,
+		String type, String size) {
 
 		Date now = new Date();
 

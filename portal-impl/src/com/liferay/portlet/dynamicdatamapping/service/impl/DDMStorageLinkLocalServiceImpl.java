@@ -30,8 +30,8 @@ public class DDMStorageLinkLocalServiceImpl
 
 	@Override
 	public DDMStorageLink addStorageLink(
-			long classNameId, long classPK, long structureId,
-			ServiceContext serviceContext) {
+		long classNameId, long classPK, long structureId,
+		ServiceContext serviceContext) {
 
 		long storageLinkId = counterLocalService.increment();
 

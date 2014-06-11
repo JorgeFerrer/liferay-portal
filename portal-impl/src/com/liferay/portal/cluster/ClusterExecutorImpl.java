@@ -178,8 +178,8 @@ public class ClusterExecutorImpl
 
 	@Override
 	public void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback) {
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback) {
 
 		FutureClusterResponses futureClusterResponses = execute(clusterRequest);
 
@@ -192,9 +192,9 @@ public class ClusterExecutorImpl
 
 	@Override
 	public void execute(
-			ClusterRequest clusterRequest,
-			ClusterResponseCallback clusterResponseCallback, long timeout,
-			TimeUnit timeUnit) {
+		ClusterRequest clusterRequest,
+		ClusterResponseCallback clusterResponseCallback, long timeout,
+		TimeUnit timeUnit) {
 
 		FutureClusterResponses futureClusterResponses = execute(clusterRequest);
 

@@ -243,7 +243,7 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public DLFileEntryType fetchFileEntryType(
-			long groupId, String fileEntryTypeKey) {
+		long groupId, String fileEntryTypeKey) {
 
 		fileEntryTypeKey = StringUtil.toUpperCase(fileEntryTypeKey.trim());
 
@@ -322,9 +322,9 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public List<DLFileEntryType> search(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return dlFileEntryTypeFinder.findByKeywords(
 			companyId, groupIds, keywords, includeBasicFileEntryType, start,
@@ -333,8 +333,8 @@ public class DLFileEntryTypeLocalServiceImpl
 
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, String keywords,
-			boolean includeBasicFileEntryType) {
+		long companyId, long[] groupIds, String keywords,
+		boolean includeBasicFileEntryType) {
 
 		return dlFileEntryTypeFinder.countByKeywords(
 			companyId, groupIds, keywords, includeBasicFileEntryType);
@@ -558,7 +558,7 @@ public class DLFileEntryTypeLocalServiceImpl
 	}
 
 	protected void fixDDMStructureKey(
-			String fileEntryTypeUuid, long fileEntryTypeId, long groupId) {
+		String fileEntryTypeUuid, long fileEntryTypeId, long groupId) {
 
 		DDMStructure ddmStructure = ddmStructureLocalService.fetchStructure(
 			groupId,

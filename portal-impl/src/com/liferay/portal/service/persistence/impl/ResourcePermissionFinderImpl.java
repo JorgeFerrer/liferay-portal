@@ -108,8 +108,8 @@ public class ResourcePermissionFinderImpl
 
 	@Override
 	public int countByC_N_S_P_R_A(
-			long companyId, String name, int scope, String primKey,
-			long[] roleIds, long actionId) {
+		long companyId, String name, int scope, String primKey, long[] roleIds,
+		long actionId) {
 
 		Object[] finderArgs = new Object[] {
 			companyId, name, scope, primKey, roleIds, actionId
@@ -179,7 +179,7 @@ public class ResourcePermissionFinderImpl
 
 	@Override
 	public List<ResourcePermission> findByResource(
-			long companyId, long groupId, String name, String primKey) {
+		long companyId, long groupId, String name, String primKey) {
 
 		Session session = null;
 
@@ -212,7 +212,7 @@ public class ResourcePermissionFinderImpl
 
 	@Override
 	public List<ResourcePermission> findByR_S(
-			long roleId, int[] scopes, int start, int end) {
+		long roleId, int[] scopes, int start, int end) {
 
 		Session session = null;
 

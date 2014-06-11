@@ -66,7 +66,7 @@ public class SCFrameworkVersionServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active) {
+		long groupId, boolean active) {
 
 		return scFrameworkVersionLocalService.getFrameworkVersions(
 			groupId, active);
@@ -74,7 +74,7 @@ public class SCFrameworkVersionServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active, int start, int end) {
+		long groupId, boolean active, int start, int end) {
 
 		return scFrameworkVersionLocalService.getFrameworkVersions(
 			groupId, active, start, end);

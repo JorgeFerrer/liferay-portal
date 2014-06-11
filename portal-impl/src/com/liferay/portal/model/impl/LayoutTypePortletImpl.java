@@ -1442,7 +1442,7 @@ public class LayoutTypePortletImpl
 	}
 
 	protected List<Portlet> getEmbeddedPortlets(
-			List<Portlet> columnPortlets, List<Portlet> staticPortlets) {
+		List<Portlet> columnPortlets, List<Portlet> staticPortlets) {
 
 		if (_embeddedPortlets != null) {
 			return _embeddedPortlets;

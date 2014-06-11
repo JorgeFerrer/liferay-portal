@@ -32,7 +32,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public PasswordPolicyRel addPasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK) {
+		long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -63,7 +63,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void addPasswordPolicyRels(
-			long passwordPolicyId, String className, long[] classPKs) {
+		long passwordPolicyId, String className, long[] classPKs) {
 
 		for (int i = 0; i < classPKs.length; i++) {
 			addPasswordPolicyRel(passwordPolicyId, className, classPKs[i]);
@@ -72,7 +72,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void deletePasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK) {
+		long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -115,7 +115,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public void deletePasswordPolicyRels(
-			long passwordPolicyId, String className, long[] classPKs) {
+		long passwordPolicyId, String className, long[] classPKs) {
 
 		for (int i = 0; i < classPKs.length; i++) {
 			deletePasswordPolicyRel(passwordPolicyId, className, classPKs[i]);
@@ -124,7 +124,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public PasswordPolicyRel fetchPasswordPolicyRel(
-			String className, long classPK) {
+		String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -173,7 +173,7 @@ public class PasswordPolicyRelLocalServiceImpl
 
 	@Override
 	public boolean hasPasswordPolicyRel(
-			long passwordPolicyId, String className, long classPK) {
+		long passwordPolicyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

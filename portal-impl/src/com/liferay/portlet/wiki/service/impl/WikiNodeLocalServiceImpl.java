@@ -281,7 +281,7 @@ public class WikiNodeLocalServiceImpl extends WikiNodeLocalServiceBaseImpl {
 
 	@Override
 	public List<WikiNode> getCompanyNodes(
-			long companyId, int status, int start, int end) {
+		long companyId, int status, int start, int end) {
 
 		return wikiNodePersistence.findByC_S(companyId, status, start, end);
 	}

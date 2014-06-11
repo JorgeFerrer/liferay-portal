@@ -50,7 +50,8 @@ public class ClusterExecutorUtil {
 		clusterExecutor.destroy();
 	}
 
-	public static FutureClusterResponses execute(ClusterRequest clusterRequest) {
+	public static FutureClusterResponses execute(
+		ClusterRequest clusterRequest) {
 
 		ClusterExecutor clusterExecutor = getClusterExecutor();
 

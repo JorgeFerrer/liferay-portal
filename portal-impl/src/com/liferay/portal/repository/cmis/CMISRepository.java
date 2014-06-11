@@ -445,7 +445,7 @@ public class CMISRepository extends BaseCmisRepository {
 
 	@Override
 	public List<FileEntry> getFileEntries(
-			long folderId, int start, int end, OrderByComparator obc) {
+		long folderId, int start, int end, OrderByComparator obc) {
 
 		List<FileEntry> fileEntries = getFileEntries(folderId);
 
@@ -702,7 +702,7 @@ public class CMISRepository extends BaseCmisRepository {
 
 	@Override
 	public List<Object> getFoldersAndFileEntries(
-			long folderId, int start, int end, OrderByComparator obc) {
+		long folderId, int start, int end, OrderByComparator obc) {
 
 		List<Object> foldersAndFileEntries = getFoldersAndFileEntries(folderId);
 

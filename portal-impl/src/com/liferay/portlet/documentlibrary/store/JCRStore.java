@@ -574,7 +574,7 @@ public class JCRStore extends BaseStore {
 
 	@Override
 	public boolean hasDirectory(
-			long companyId, long repositoryId, String dirName) {
+		long companyId, long repositoryId, String dirName) {
 
 		Session session = null;
 

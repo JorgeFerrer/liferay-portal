@@ -54,7 +54,7 @@ public class ResourceTypePermissionFinderImpl
 	 */
 	@Override
 	public List<ResourceTypePermission> findByEitherScopeC_G_N(
-			long companyId, long groupId, String name) {
+		long companyId, long groupId, String name) {
 
 		Session session = null;
 
@@ -100,7 +100,7 @@ public class ResourceTypePermissionFinderImpl
 	 */
 	@Override
 	public List<ResourceTypePermission> findByGroupScopeC_N_R(
-			long companyId, String name, long roleId) {
+		long companyId, String name, long roleId) {
 
 		Session session = null;
 

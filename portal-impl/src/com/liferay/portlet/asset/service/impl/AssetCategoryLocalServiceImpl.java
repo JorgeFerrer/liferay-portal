@@ -385,7 +385,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getChildCategories(
-			long parentCategoryId, int start, int end, OrderByComparator obc) {
+		long parentCategoryId, int start, int end, OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByParentCategoryId(
 			parentCategoryId, start, end, obc);
@@ -421,7 +421,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getVocabularyCategories(
-			long vocabularyId, int start, int end, OrderByComparator obc) {
+		long vocabularyId, int start, int end, OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByVocabularyId(
 			vocabularyId, start, end, obc);
@@ -429,8 +429,8 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getVocabularyCategories(
-			long parentCategoryId, long vocabularyId, int start, int end,
-			OrderByComparator obc) {
+		long parentCategoryId, long vocabularyId, int start, int end,
+		OrderByComparator obc) {
 
 		return assetCategoryPersistence.findByP_V(
 			parentCategoryId, vocabularyId, start, end, obc);
@@ -444,7 +444,7 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> getVocabularyRootCategories(
-			long vocabularyId, int start, int end, OrderByComparator obc) {
+		long vocabularyId, int start, int end, OrderByComparator obc) {
 
 		return getVocabularyCategories(
 			AssetCategoryConstants.DEFAULT_PARENT_CATEGORY_ID, vocabularyId,
@@ -529,8 +529,8 @@ public class AssetCategoryLocalServiceImpl
 
 	@Override
 	public List<AssetCategory> search(
-			long groupId, String name, String[] categoryProperties, int start,
-			int end) {
+		long groupId, String name, String[] categoryProperties, int start,
+		int end) {
 
 		return assetCategoryFinder.findByG_N_P(
 			groupId, name, categoryProperties, start, end);
@@ -755,7 +755,7 @@ public class AssetCategoryLocalServiceImpl
 	}
 
 	protected void updateChildrenVocabularyId(
-			AssetCategory category, long vocabularyId) {
+		AssetCategory category, long vocabularyId) {
 
 		List<AssetCategory> childrenCategories =
 			assetCategoryPersistence.findByParentCategoryId(

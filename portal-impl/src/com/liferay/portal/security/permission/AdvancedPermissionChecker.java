@@ -189,7 +189,7 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 	}
 
 	public ResourceBlockIdsBag getOwnerResourceBlockIdsBag(
-			long companyId, long groupId, String name) {
+		long companyId, long groupId, String name) {
 
 		ResourceBlockIdsBag resourceBlockIdsBag =
 			PermissionCacheUtil.getResourceBlockIdsBag(

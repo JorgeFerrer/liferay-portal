@@ -276,7 +276,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getCategoryMessagesCount(
-			long groupId, long categoryId, int status) {
+		long groupId, long categoryId, int status) {
 
 		return mbMessageLocalService.getCategoryMessagesCount(
 			groupId, categoryId, status);
@@ -526,7 +526,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getThreadAnswersCount(
-			long groupId, long categoryId, long threadId) {
+		long groupId, long categoryId, long threadId) {
 
 		return mbMessagePersistence.filterCountByG_C_T_A(
 			groupId, categoryId, threadId, true);
@@ -534,8 +534,8 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public List<MBMessage> getThreadMessages(
-			long groupId, long categoryId, long threadId, int status, int start,
-			int end) {
+		long groupId, long categoryId, long threadId, int status, int start,
+		int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.filterFindByG_C_T(
@@ -549,7 +549,7 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 
 	@Override
 	public int getThreadMessagesCount(
-			long groupId, long categoryId, long threadId, int status) {
+		long groupId, long categoryId, long threadId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbMessagePersistence.filterCountByG_C_T(
@@ -749,9 +749,9 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 	}
 
 	protected String exportToRSS(
-			String name, String description, String type, double version,
-			String displayStyle, String feedURL, String entryURL,
-			List<MBMessage> messages, ThemeDisplay themeDisplay) {
+		String name, String description, String type, double version,
+		String displayStyle, String feedURL, String entryURL,
+		List<MBMessage> messages, ThemeDisplay themeDisplay) {
 
 		SyndFeed syndFeed = new SyndFeedImpl();
 

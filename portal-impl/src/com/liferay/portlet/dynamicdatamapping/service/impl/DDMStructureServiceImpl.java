@@ -412,7 +412,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 
 	@Override
 	public List<DDMStructure> getStructures(
-			long[] groupIds, long classNameId, int start, int end) {
+		long[] groupIds, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.filterFindByG_C(
 			groupIds, classNameId, start, end);
@@ -449,9 +449,8 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 */
 	@Override
 	public List<DDMStructure> search(
-			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, String keywords,
+		int start, int end, OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.filterFindByKeywords(
 			companyId, groupIds, classNameIds, keywords, start, end,
@@ -495,10 +494,9 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 */
 	@Override
 	public List<DDMStructure> search(
-			long companyId, long[] groupIds, long[] classNameIds, String name,
-			String description, String storageType, int type,
-			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, String name,
+		String description, String storageType, int type, boolean andOperator,
+		int start, int end, OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.filterFindByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,
@@ -520,8 +518,7 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords) {
+		long companyId, long[] groupIds, long[] classNameIds, String keywords) {
 
 		return ddmStructureFinder.filterCountByKeywords(
 			companyId, groupIds, classNameIds, keywords);
@@ -549,9 +546,8 @@ public class DDMStructureServiceImpl extends DDMStructureServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds, String name,
-			String description, String storageType, int type,
-			boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, String name,
+		String description, String storageType, int type, boolean andOperator) {
 
 		return ddmStructureFinder.filterCountByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,

@@ -71,7 +71,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getCompanyStatsUsers(
-			long companyId, int start, int end) {
+		long companyId, int start, int end) {
 
 		return blogsStatsUserPersistence.findByC_NotE(
 			companyId, 0, start, end, new StatsUserLastPostDateComparator());
@@ -79,7 +79,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getCompanyStatsUsers(
-			long companyId, int start, int end, OrderByComparator obc) {
+		long companyId, int start, int end, OrderByComparator obc) {
 
 		return blogsStatsUserPersistence.findByC_NotE(
 			companyId, 0, start, end, obc);
@@ -93,7 +93,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getGroupsStatsUsers(
-			long companyId, long groupId, int start, int end) {
+		long companyId, long groupId, int start, int end) {
 
 		return blogsStatsUserFinder.findByGroupIds(
 			companyId, groupId, start, end);
@@ -101,7 +101,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getGroupStatsUsers(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return blogsStatsUserPersistence.findByG_NotE(
 			groupId, 0, start, end, new StatsUserLastPostDateComparator());
@@ -109,7 +109,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getGroupStatsUsers(
-			long groupId, int start, int end, OrderByComparator obc) {
+		long groupId, int start, int end, OrderByComparator obc) {
 
 		return blogsStatsUserPersistence.findByG_NotE(
 			groupId, 0, start, end, obc);
@@ -122,7 +122,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getOrganizationStatsUsers(
-			long organizationId, int start, int end) {
+		long organizationId, int start, int end) {
 
 		return blogsStatsUserFinder.findByOrganizationId(
 			organizationId, start, end, new StatsUserLastPostDateComparator());
@@ -130,7 +130,7 @@ public class BlogsStatsUserLocalServiceImpl
 
 	@Override
 	public List<BlogsStatsUser> getOrganizationStatsUsers(
-			long organizationId, int start, int end, OrderByComparator obc) {
+		long organizationId, int start, int end, OrderByComparator obc) {
 
 		return blogsStatsUserFinder.findByOrganizationId(
 			organizationId, start, end, obc);

@@ -48,7 +48,7 @@ public class FileEntryUtil {
 	}
 
 	public static FileEntry fetchByR_F_T(
-			long repositoryId, long folderId, String title) {
+		long repositoryId, long folderId, String title) {
 
 		DLFileEntry dlFileEntry = DLFileEntryUtil.fetchByG_F_T(
 			repositoryId, folderId, title);

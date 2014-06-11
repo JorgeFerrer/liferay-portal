@@ -217,7 +217,7 @@ public class AssetEntryFinderImpl
 	}
 
 	protected SQLQuery buildAssetQuerySQL(
-			AssetEntryQuery entryQuery, boolean count, Session session) {
+		AssetEntryQuery entryQuery, boolean count, Session session) {
 
 		StringBundler sb = new StringBundler(64);
 
@@ -465,7 +465,7 @@ public class AssetEntryFinderImpl
 	}
 
 	protected void buildNotAllCategoriesSQL(
-			long[] categoryIds, StringBundler sb) {
+		long[] categoryIds, StringBundler sb) {
 
 		String findByAndCategoryIdsSQL = CustomSQLUtil.get(
 			FIND_BY_AND_CATEGORY_IDS);
@@ -525,7 +525,7 @@ public class AssetEntryFinderImpl
 	}
 
 	protected void buildNotAnyCategoriesSQL(
-			long[] notCategoryIds, StringBundler sb) {
+		long[] notCategoryIds, StringBundler sb) {
 
 		sb.append(" AND (NOT ");
 

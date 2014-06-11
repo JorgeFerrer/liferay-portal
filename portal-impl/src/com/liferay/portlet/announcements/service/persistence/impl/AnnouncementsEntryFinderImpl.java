@@ -66,12 +66,11 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public int countByScope(
-			long userId, long classNameId, long[] classPKs,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue) {
+		long userId, long classNameId, long[] classPKs, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
+		int expirationDateMinute, boolean alert, int flagValue) {
 
 		Session session = null;
 
@@ -128,12 +127,11 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public int countByScopes(
-			long userId, LinkedHashMap<Long, long[]> scopes,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue) {
+		long userId, LinkedHashMap<Long, long[]> scopes, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
+		int expirationDateMinute, boolean alert, int flagValue) {
 
 		Session session = null;
 
@@ -189,7 +187,7 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public List<AnnouncementsEntry> findByDisplayDate(
-			Date displayDateLT, Date displayDateGT) {
+		Date displayDateLT, Date displayDateGT) {
 
 		Timestamp displayDateLT_TS = CalendarUtil.getTimestamp(displayDateLT);
 		Timestamp displayDateGT_TS = CalendarUtil.getTimestamp(displayDateGT);
@@ -222,12 +220,12 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public List<AnnouncementsEntry> findByScope(
-			long userId, long classNameId, long[] classPKs,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end) {
+		long userId, long classNameId, long[] classPKs, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
+		int expirationDateMinute, boolean alert, int flagValue, int start,
+		int end) {
 
 		Session session = null;
 
@@ -275,12 +273,12 @@ public class AnnouncementsEntryFinderImpl
 
 	@Override
 	public List<AnnouncementsEntry> findByScopes(
-			long userId, LinkedHashMap<Long, long[]> scopes,
-			int displayDateMonth, int displayDateDay, int displayDateYear,
-			int displayDateHour, int displayDateMinute, int expirationDateMonth,
-			int expirationDateDay, int expirationDateYear,
-			int expirationDateHour, int expirationDateMinute, boolean alert,
-			int flagValue, int start, int end) {
+		long userId, LinkedHashMap<Long, long[]> scopes, int displayDateMonth,
+		int displayDateDay, int displayDateYear, int displayDateHour,
+		int displayDateMinute, int expirationDateMonth, int expirationDateDay,
+		int expirationDateYear, int expirationDateHour,
+		int expirationDateMinute, boolean alert, int flagValue, int start,
+		int end) {
 
 		Session session = null;
 

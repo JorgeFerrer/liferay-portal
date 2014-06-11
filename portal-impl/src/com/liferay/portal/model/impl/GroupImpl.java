@@ -136,14 +136,15 @@ public class GroupImpl extends GroupBaseImpl {
 	 */
 	@Deprecated
 	@Override
-	public List<Group> getChildrenWithLayouts(boolean site, int start, int end) {
+	public List<Group> getChildrenWithLayouts(
+		boolean site, int start, int end) {
 
 		return getChildrenWithLayouts(site, start, end, null);
 	}
 
 	@Override
 	public List<Group> getChildrenWithLayouts(
-			boolean site, int start, int end, OrderByComparator obc) {
+		boolean site, int start, int end, OrderByComparator obc) {
 
 		return GroupLocalServiceUtil.getLayoutsGroups(
 			getCompanyId(), getGroupId(), site, start, end, obc);

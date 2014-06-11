@@ -252,7 +252,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public JournalFolder fetchFolder(
-			long groupId, long parentFolderId, String name) {
+		long groupId, long parentFolderId, String name) {
 
 		return journalFolderPersistence.fetchByG_P_N(
 			groupId, parentFolderId, name);
@@ -266,7 +266,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<JournalFolder> getCompanyFolders(
-			long companyId, int start, int end) {
+		long companyId, int start, int end) {
 
 		return journalFolderPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -295,7 +295,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int status) {
+		long groupId, long parentFolderId, int status) {
 
 		return journalFolderPersistence.findByG_P_S(
 			groupId, parentFolderId, status);
@@ -303,7 +303,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int start, int end) {
+		long groupId, long parentFolderId, int start, int end) {
 
 		return getFolders(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED, start,
@@ -312,7 +312,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int status, int start, int end) {
+		long groupId, long parentFolderId, int status, int start, int end) {
 
 		return journalFolderPersistence.findByG_P_S(
 			groupId, parentFolderId, status, start, end);
@@ -330,7 +330,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<Object> getFoldersAndArticles(
-			long groupId, long folderId, int status) {
+		long groupId, long folderId, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -340,8 +340,8 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public List<Object> getFoldersAndArticles(
-			long groupId, long folderId, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long folderId, int start, int end,
+		OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			WorkflowConstants.STATUS_ANY, start, end, obc);
@@ -352,7 +352,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public int getFoldersAndArticlesCount(
-			long groupId, List<Long> folderIds, int status) {
+		long groupId, List<Long> folderIds, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -386,7 +386,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public int getFoldersAndArticlesCount(
-			long groupId, long folderId, int status) {
+		long groupId, long folderId, int status) {
 
 		return journalFolderFinder.countF_A_ByG_F(
 			groupId, folderId, new QueryDefinition(status));
@@ -454,7 +454,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId) {
+		List<Long> folderIds, long groupId, long folderId) {
 
 		List<JournalFolder> folders = journalFolderPersistence.findByG_P(
 			groupId, folderId);
@@ -808,7 +808,7 @@ public class JournalFolderLocalServiceImpl
 
 	@Override
 	public void updateFolderDDMStructures(
-			JournalFolder folder, long[] ddmStructureIdsArray) {
+		JournalFolder folder, long[] ddmStructureIdsArray) {
 
 		Set<Long> ddmStructureIds = SetUtil.fromArray(ddmStructureIdsArray);
 		Set<Long> originalDDMStructureIds = getDDMStructureIds(
@@ -1003,7 +1003,8 @@ public class JournalFolderLocalServiceImpl
 		return ddmStructureIds;
 	}
 
-	protected long getParentFolderId(JournalFolder folder, long parentFolderId) {
+	protected long getParentFolderId(
+		JournalFolder folder, long parentFolderId) {
 
 		if (parentFolderId == JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return parentFolderId;

@@ -108,7 +108,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int status) {
+		long groupId, long parentFolderId, int status) {
 
 		return journalFolderPersistence.filterFindByG_P_S(
 			groupId, parentFolderId, status);
@@ -116,7 +116,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int start, int end) {
+		long groupId, long parentFolderId, int start, int end) {
 
 		return getFolders(
 			groupId, parentFolderId, WorkflowConstants.STATUS_APPROVED, start,
@@ -125,7 +125,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<JournalFolder> getFolders(
-			long groupId, long parentFolderId, int status, int start, int end) {
+		long groupId, long parentFolderId, int status, int start, int end) {
 
 		return journalFolderPersistence.filterFindByG_P_S(
 			groupId, parentFolderId, status, start, end);
@@ -133,8 +133,8 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<Object> getFoldersAndArticles(
-			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long folderId, int status, int start, int end,
+		OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -145,8 +145,8 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<Object> getFoldersAndArticles(
-			long groupId, long folderId, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long folderId, int start, int end,
+		OrderByComparator obc) {
 
 		return getFoldersAndArticles(
 			groupId, folderId, WorkflowConstants.STATUS_ANY, start, end, obc);
@@ -154,7 +154,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public int getFoldersAndArticlesCount(
-			long groupId, List<Long> folderIds, int status) {
+		long groupId, List<Long> folderIds, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 
@@ -187,7 +187,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public int getFoldersAndArticlesCount(
-			long groupId, long folderId, int status) {
+		long groupId, long folderId, int status) {
 
 		return journalFolderFinder.filterCountF_A_ByG_F(
 			groupId, folderId, new QueryDefinition(status));
@@ -220,14 +220,14 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 	@Deprecated
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId) {
+		List<Long> folderIds, long groupId, long folderId) {
 
 		getSubfolderIds(folderIds, groupId, folderId, true);
 	}
 
 	@Override
 	public void getSubfolderIds(
-			List<Long> folderIds, long groupId, long folderId, boolean recurse) {
+		List<Long> folderIds, long groupId, long folderId, boolean recurse) {
 
 		List<JournalFolder> folders =
 			journalFolderPersistence.filterFindByG_P_NotS(
@@ -246,7 +246,7 @@ public class JournalFolderServiceImpl extends JournalFolderServiceBaseImpl {
 
 	@Override
 	public List<Long> getSubfolderIds(
-			long groupId, long folderId, boolean recurse) {
+		long groupId, long folderId, boolean recurse) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 

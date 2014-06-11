@@ -228,7 +228,7 @@ public class LiferayLocalRepository
 
 	@Override
 	public List<FileEntry> getRepositoryFileEntries(
-			long rootFolderId, int start, int end, OrderByComparator obc) {
+		long rootFolderId, int start, int end, OrderByComparator obc) {
 
 		List<DLFileEntry> dlFileEntries =
 			dlFileEntryLocalService.getGroupFileEntries(

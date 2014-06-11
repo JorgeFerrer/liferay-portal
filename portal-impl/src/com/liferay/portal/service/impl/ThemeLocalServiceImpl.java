@@ -96,8 +96,8 @@ public class ThemeLocalServiceImpl extends ThemeLocalServiceBaseImpl {
 
 	@Override
 	public ColorScheme getColorScheme(
-			long companyId, String themeId, String colorSchemeId,
-			boolean wapTheme) {
+		long companyId, String themeId, String colorSchemeId,
+		boolean wapTheme) {
 
 		colorSchemeId = GetterUtil.getString(colorSchemeId);
 
@@ -138,7 +138,7 @@ public class ThemeLocalServiceImpl extends ThemeLocalServiceBaseImpl {
 
 	@Override
 	public List<Theme> getControlPanelThemes(
-			long companyId, long userId, boolean wapTheme) {
+		long companyId, long userId, boolean wapTheme) {
 
 		List<Theme> themes = getThemes(companyId);
 
@@ -161,7 +161,7 @@ public class ThemeLocalServiceImpl extends ThemeLocalServiceBaseImpl {
 
 	@Override
 	public List<Theme> getPageThemes(
-			long companyId, long groupId, long userId, boolean wapTheme) {
+		long companyId, long groupId, long userId, boolean wapTheme) {
 
 		List<Theme> themes = getThemes(companyId);
 
@@ -255,7 +255,7 @@ public class ThemeLocalServiceImpl extends ThemeLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<Theme> getThemes(
-			long companyId, long groupId, long userId, boolean wapTheme) {
+		long companyId, long groupId, long userId, boolean wapTheme) {
 
 		return getPageThemes(companyId, groupId, userId, wapTheme);
 	}

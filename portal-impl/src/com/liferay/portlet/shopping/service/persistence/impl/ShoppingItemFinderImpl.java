@@ -117,7 +117,7 @@ public class ShoppingItemFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long groupId, long[] categoryIds, String keywords) {
+		long groupId, long[] categoryIds, String keywords) {
 
 		Session session = null;
 
@@ -260,7 +260,7 @@ public class ShoppingItemFinderImpl
 
 	@Override
 	public List<ShoppingItem> findByFeatured(
-			long groupId, long[] categoryIds, int numOfItems) {
+		long groupId, long[] categoryIds, int numOfItems) {
 
 		int countByFeatured = countByFeatured(groupId, categoryIds);
 
@@ -320,8 +320,7 @@ public class ShoppingItemFinderImpl
 
 	@Override
 	public List<ShoppingItem> findByKeywords(
-			long groupId, long[] categoryIds, String keywords, int start,
-			int end) {
+		long groupId, long[] categoryIds, String keywords, int start, int end) {
 
 		Session session = null;
 
@@ -383,7 +382,7 @@ public class ShoppingItemFinderImpl
 
 	@Override
 	public List<ShoppingItem> findBySale(
-			long groupId, long[] categoryIds, int numOfItems) {
+		long groupId, long[] categoryIds, int numOfItems) {
 
 		int countBySale = countBySale(groupId, categoryIds);
 
@@ -442,7 +441,7 @@ public class ShoppingItemFinderImpl
 	}
 
 	protected int doCountByG_C(
-			long groupId, List<Long> categoryIds, boolean inlineSQLHelper) {
+		long groupId, List<Long> categoryIds, boolean inlineSQLHelper) {
 
 		Session session = null;
 

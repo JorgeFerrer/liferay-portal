@@ -552,14 +552,14 @@ public class ResourceActionsImpl implements ResourceActions {
 	@Deprecated
 	@Override
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource) {
+		long companyId, Group group, String modelResource) {
 
 		return getRoles(companyId, group, modelResource, null);
 	}
 
 	@Override
 	public List<Role> getRoles(
-			long companyId, Group group, String modelResource, int[] roleTypes) {
+		long companyId, Group group, String modelResource, int[] roleTypes) {
 
 		if (roleTypes == null) {
 			roleTypes = getRoleTypes(companyId, group, modelResource);

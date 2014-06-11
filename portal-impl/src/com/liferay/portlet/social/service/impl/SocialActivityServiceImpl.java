@@ -212,7 +212,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 */
 	@Override
 	public int getActivitiesCount(
-			long mirrorActivityId, long classNameId, long classPK) {
+		long mirrorActivityId, long classNameId, long classPK) {
 
 		return socialActivityLocalService.getActivitiesCount(
 			mirrorActivityId, classNameId, classPK);
@@ -231,7 +231,7 @@ public class SocialActivityServiceImpl extends SocialActivityServiceBaseImpl {
 	 */
 	@Override
 	public int getActivitiesCount(
-			long mirrorActivityId, String className, long classPK) {
+		long mirrorActivityId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

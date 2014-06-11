@@ -82,7 +82,7 @@ public class RoleStagedModelDataHandler
 	}
 
 	protected void deleteRolePermissions(
-			PortletDataContext portletDataContext, Role importedRole) {
+		PortletDataContext portletDataContext, Role importedRole) {
 
 		List<ResourcePermission> resourcePermissions =
 			ResourcePermissionLocalServiceUtil.getRoleResourcePermissions(
@@ -211,7 +211,7 @@ public class RoleStagedModelDataHandler
 	}
 
 	protected List<ResourceTypePermission> getResourceTypePermissions(
-			PortletDataContext portletDataContext, Role importedRole) {
+		PortletDataContext portletDataContext, Role importedRole) {
 
 		DynamicQuery dynamicQuery =
 			ResourceTypePermissionLocalServiceUtil.dynamicQuery();

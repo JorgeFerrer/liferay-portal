@@ -237,7 +237,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getInverseRelations(
-			long userId, int type, int start, int end) {
+		long userId, int type, int start, int end) {
 
 		return socialRelationPersistence.findByU2_T(userId, type, start, end);
 	}
@@ -310,7 +310,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
-			long userId, int type, int start, int end) {
+		long userId, int type, int start, int end) {
 
 		return socialRelationPersistence.findByU1_T(userId, type, start, end);
 	}
@@ -337,7 +337,7 @@ public class SocialRelationLocalServiceImpl
 	 */
 	@Override
 	public List<SocialRelation> getRelations(
-			long userId1, long userId2, int start, int end) {
+		long userId1, long userId2, int start, int end) {
 
 		return socialRelationPersistence.findByU1_U2(
 			userId1, userId2, start, end);

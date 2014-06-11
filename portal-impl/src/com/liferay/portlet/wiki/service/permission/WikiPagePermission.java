@@ -124,7 +124,7 @@ public class WikiPagePermission implements BaseModelPermissionChecker {
 	}
 
 	public static boolean contains(
-			PermissionChecker permissionChecker, WikiPage page, String actionId) {
+		PermissionChecker permissionChecker, WikiPage page, String actionId) {
 
 		Boolean hasPermission = StagingPermissionUtil.hasPermission(
 			permissionChecker, page.getGroupId(), WikiPage.class.getName(),

@@ -113,7 +113,8 @@ public class WikiNodeServiceImpl extends WikiNodeServiceBaseImpl {
 	}
 
 	@Override
-	public List<WikiNode> getNodes(long groupId, int status, int start, int end) {
+	public List<WikiNode> getNodes(
+		long groupId, int status, int start, int end) {
 
 		return wikiNodePersistence.filterFindByG_S(groupId, status, start, end);
 	}

@@ -47,8 +47,7 @@ import javax.servlet.http.HttpSession;
 public class LiveUsers {
 
 	public static void addClusterNode(
-			String clusterNodeId,
-			Map<Long, Map<Long, Set<String>>> clusterUsers) {
+		String clusterNodeId, Map<Long, Map<Long, Set<String>>> clusterUsers) {
 
 		_instance._addClusterNode(clusterNodeId, clusterUsers);
 	}
@@ -111,8 +110,8 @@ public class LiveUsers {
 	}
 
 	public static void signIn(
-			String clusterNodeId, long companyId, long userId, String sessionId,
-			String remoteAddr, String remoteHost, String userAgent) {
+		String clusterNodeId, long companyId, long userId, String sessionId,
+		String remoteAddr, String remoteHost, String userAgent) {
 
 		_instance._signIn(
 			clusterNodeId, companyId, userId, sessionId, remoteAddr, remoteHost,
@@ -120,7 +119,7 @@ public class LiveUsers {
 	}
 
 	public static void signOut(
-			String clusterNodeId, long companyId, long userId, String sessionId) {
+		String clusterNodeId, long companyId, long userId, String sessionId) {
 
 		_instance._signOut(clusterNodeId, companyId, userId, sessionId);
 	}
@@ -423,8 +422,8 @@ public class LiveUsers {
 	}
 
 	private void _signIn(
-			String clusterNodeId, long companyId, long userId, String sessionId,
-			String remoteAddr, String remoteHost, String userAgent) {
+		String clusterNodeId, long companyId, long userId, String sessionId,
+		String remoteAddr, String remoteHost, String userAgent) {
 
 		_addClusterUser(clusterNodeId, companyId, userId, sessionId);
 
@@ -464,7 +463,7 @@ public class LiveUsers {
 	}
 
 	private void _signOut(
-			String clusterNodeId, long companyId, long userId, String sessionId) {
+		String clusterNodeId, long companyId, long userId, String sessionId) {
 
 		_removeClusterUser(clusterNodeId, companyId, userId, sessionId);
 

@@ -359,7 +359,6 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFileEntriesCount(long groupId, long folderId, int status) {
-
 		List<Long> folderIds = new ArrayList<Long>();
 
 		folderIds.add(folderId);
@@ -370,7 +369,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFileEntriesCount(
-			long groupId, long folderId, long fileEntryTypeId) {
+		long groupId, long folderId, long fileEntryTypeId) {
 
 		return dlFileEntryPersistence.filterCountByG_F_F(
 			groupId, folderId, fileEntryTypeId);
@@ -378,7 +377,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFileEntriesCount(
-			long groupId, long folderId, String[] mimeTypes) {
+		long groupId, long folderId, String[] mimeTypes) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -436,7 +435,7 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 
 	@Override
 	public int getFoldersFileEntriesCount(
-			long groupId, List<Long> folderIds, int status) {
+		long groupId, List<Long> folderIds, int status) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(status);
 

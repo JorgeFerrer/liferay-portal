@@ -155,7 +155,8 @@ public class AssetTagStatsLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetTagStats> getTagStats(long classNameId, int start, int end) {
+	public List<AssetTagStats> getTagStats(
+		long classNameId, int start, int end) {
 
 		return assetTagStatsPersistence.findByClassNameId(
 			classNameId, start, end);

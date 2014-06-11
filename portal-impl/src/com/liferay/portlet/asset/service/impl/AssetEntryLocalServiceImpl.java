@@ -175,7 +175,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetEntry> getCompanyEntries(
-			long companyId, int start, int end) {
+		long companyId, int start, int end) {
 
 		return assetEntryPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -295,14 +295,14 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetEntry> getTopViewedEntries(
-			String className, boolean asc, int start, int end) {
+		String className, boolean asc, int start, int end) {
 
 		return getTopViewedEntries(new String[] {className}, asc, start, end);
 	}
 
 	@Override
 	public List<AssetEntry> getTopViewedEntries(
-			String[] className, boolean asc, int start, int end) {
+		String[] className, boolean asc, int start, int end) {
 
 		long[] classNameIds = new long[className.length];
 
@@ -348,7 +348,7 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 		configuration = "AssetEntry", incrementClass = NumberIncrement.class)
 	@Override
 	public void incrementViewCounter(
-			long userId, String className, long classPK, int increment) {
+		long userId, String className, long classPK, int increment) {
 
 		if (ExportImportThreadLocal.isImportInProcess() || (classPK <= 0)) {
 			return;
@@ -381,8 +381,8 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			long classTypeId, String keywords, int status, int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		long classTypeId, String keywords, int status, int start, int end) {
 
 		return search(
 			companyId, groupIds, userId, className, classTypeId, null, null,
@@ -391,10 +391,10 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			long classTypeId, String userName, String title, String description,
-			String assetCategoryIds, String assetTagNames, int status,
-			boolean andSearch, int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		long classTypeId, String userName, String title, String description,
+		String assetCategoryIds, String assetTagNames, int status,
+		boolean andSearch, int start, int end) {
 
 		try {
 			Indexer indexer = AssetSearcher.getInstance();
@@ -449,8 +449,8 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			String keywords, int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		String keywords, int start, int end) {
 
 		return search(
 			companyId, groupIds, userId, className, keywords,
@@ -459,8 +459,8 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			String keywords, int status, int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		String keywords, int status, int start, int end) {
 
 		return search(
 			companyId, groupIds, userId, className, 0, keywords, status, start,
@@ -475,10 +475,10 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			String userName, String title, String description,
-			String assetCategoryIds, String assetTagNames, boolean andSearch,
-			int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		String userName, String title, String description,
+		String assetCategoryIds, String assetTagNames, boolean andSearch,
+		int start, int end) {
 
 		return search(
 			companyId, groupIds, userId, className, userName, title,
@@ -488,10 +488,10 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, long userId, String className,
-			String userName, String title, String description,
-			String assetCategoryIds, String assetTagNames, int status,
-			boolean andSearch, int start, int end) {
+		long companyId, long[] groupIds, long userId, String className,
+		String userName, String title, String description,
+		String assetCategoryIds, String assetTagNames, int status,
+		boolean andSearch, int start, int end) {
 
 		return search(
 			companyId, groupIds, userId, className, 0, userName, title,
@@ -506,8 +506,8 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public Hits search(
-			long companyId, long[] groupIds, String className, String keywords,
-			int start, int end) {
+		long companyId, long[] groupIds, String className, String keywords,
+		int start, int end) {
 
 		return search(
 			companyId, groupIds, 0, className, keywords,

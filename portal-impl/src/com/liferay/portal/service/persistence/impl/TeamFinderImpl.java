@@ -55,8 +55,8 @@ public class TeamFinderImpl
 
 	@Override
 	public int countByG_N_D(
-			long groupId, String name, String description,
-			LinkedHashMap<String, Object> params) {
+		long groupId, String name, String description,
+		LinkedHashMap<String, Object> params) {
 
 		name = CustomSQLUtil.keywords(name)[0];
 		description = CustomSQLUtil.keywords(description)[0];
@@ -107,9 +107,9 @@ public class TeamFinderImpl
 
 	@Override
 	public List<Team> findByG_N_D(
-			long groupId, String name, String description,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String name, String description,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		name = CustomSQLUtil.keywords(name)[0];
 		description = CustomSQLUtil.keywords(description)[0];

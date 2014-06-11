@@ -143,7 +143,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortalPreferencesImpl fromXML(
-			long ownerId, int ownerType, String xml) {
+		long ownerId, int ownerType, String xml) {
 
 		try {
 			Map<String, Preference> preferencesMap = toPreferencesMap(xml);
@@ -158,8 +158,8 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferencesImpl fromXML(
-			long companyId, long ownerId, int ownerType, long plid,
-			String portletId, String xml) {
+		long companyId, long ownerId, int ownerType, long plid,
+		String portletId, String xml) {
 
 		try {
 			Map<String, Preference> preferencesMap = toPreferencesMap(xml);
@@ -179,14 +179,14 @@ public class PortletPreferencesFactoryImpl
 	@Deprecated
 	@Override
 	public PortalPreferences fromXML(
-			long companyId, long ownerId, int ownerType, String xml) {
+		long companyId, long ownerId, int ownerType, String xml) {
 
 		return fromXML(ownerId, ownerType, xml);
 	}
 
 	@Override
 	public PortletPreferences getLayoutPortletSetup(
-			Layout layout, String portletId) {
+		Layout layout, String portletId) {
 
 		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
@@ -214,7 +214,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long userId, boolean signedIn) {
+		HttpSession session, long userId, boolean signedIn) {
 
 		long ownerId = userId;
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
@@ -287,13 +287,14 @@ public class PortletPreferencesFactoryImpl
 	@Deprecated
 	@Override
 	public PortalPreferences getPortalPreferences(
-			HttpSession session, long companyId, long userId, boolean signedIn) {
+		HttpSession session, long companyId, long userId, boolean signedIn) {
 
 		return getPortalPreferences(session, userId, signedIn);
 	}
 
 	@Override
-	public PortalPreferences getPortalPreferences(long userId, boolean signedIn) {
+	public PortalPreferences getPortalPreferences(
+		long userId, boolean signedIn) {
 
 		return getPortalPreferences(null, userId, signedIn);
 	}
@@ -305,13 +306,14 @@ public class PortletPreferencesFactoryImpl
 	@Deprecated
 	@Override
 	public PortalPreferences getPortalPreferences(
-			long companyId, long userId, boolean signedIn) {
+		long companyId, long userId, boolean signedIn) {
 
 		return getPortalPreferences(userId, signedIn);
 	}
 
 	@Override
-	public PortalPreferences getPortalPreferences(PortletRequest portletRequest) {
+	public PortalPreferences getPortalPreferences(
+		PortletRequest portletRequest) {
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			portletRequest);
@@ -459,15 +461,15 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			HttpServletRequest request, String portletId) {
+		HttpServletRequest request, String portletId) {
 
 		return getPortletSetup(request, portletId, null);
 	}
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			HttpServletRequest request, String portletId,
-			String defaultPreferences) {
+		HttpServletRequest request, String portletId,
+		String defaultPreferences) {
 
 		PortletRequest portletRequest = (PortletRequest)request.getAttribute(
 			JavaConstants.JAVAX_PORTLET_REQUEST);
@@ -489,7 +491,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			Layout layout, String portletId, String defaultPreferences) {
+		Layout layout, String portletId, String defaultPreferences) {
 
 		return getPortletSetup(
 			LayoutConstants.DEFAULT_PLID, layout, portletId,
@@ -498,8 +500,8 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			long siteGroupId, Layout layout, String portletId,
-			String defaultPreferences) {
+		long siteGroupId, Layout layout, String portletId,
+		String defaultPreferences) {
 
 		return getPortletSetup(
 			siteGroupId, layout, portletId, defaultPreferences, false);
@@ -515,7 +517,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getPortletSetup(
-			PortletRequest portletRequest, String portletId) {
+		PortletRequest portletRequest, String portletId) {
 
 		if (portletRequest instanceof ConfigurationPortletRequest) {
 			PortletRequestWrapper portletRequestWrapper =
@@ -532,8 +534,8 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public Map<Long, PortletPreferences> getPortletSetupMap(
-			long companyId, long groupId, long ownerId, int ownerType,
-			String portletId, boolean privateLayout) {
+		long companyId, long groupId, long ownerId, int ownerType,
+		String portletId, boolean privateLayout) {
 
 		Map<Long, PortletPreferences> portletSetupMap =
 			new HashMap<Long, PortletPreferences>();
@@ -583,7 +585,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getStrictLayoutPortletSetup(
-			Layout layout, String portletId) {
+		Layout layout, String portletId) {
 
 		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
@@ -600,7 +602,7 @@ public class PortletPreferencesFactoryImpl
 
 	@Override
 	public PortletPreferences getStrictPortletSetup(
-			Layout layout, String portletId) {
+		Layout layout, String portletId) {
 
 		return getPortletSetup(
 			LayoutConstants.DEFAULT_PLID, layout, portletId, StringPool.BLANK,
@@ -644,8 +646,8 @@ public class PortletPreferencesFactoryImpl
 	}
 
 	protected PortletPreferences getPortletSetup(
-			long siteGroupId, Layout layout, String portletId,
-			String defaultPreferences, boolean strictMode) {
+		long siteGroupId, Layout layout, String portletId,
+		String defaultPreferences, boolean strictMode) {
 
 		String originalPortletId = portletId;
 

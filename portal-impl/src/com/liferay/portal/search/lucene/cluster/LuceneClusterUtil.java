@@ -35,7 +35,7 @@ public class LuceneClusterUtil {
 	}
 
 	public static void loadIndexesFromCluster(
-			long[] companyIds, Address bootupAddress) {
+		long[] companyIds, Address bootupAddress) {
 
 		if (bootupAddress == null) {
 			return;

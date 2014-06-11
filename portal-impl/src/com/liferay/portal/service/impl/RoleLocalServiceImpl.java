@@ -642,7 +642,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 
 	@Override
 	public List<Role> getResourceBlockRoles(
-			long resourceBlockId, String className, String actionId) {
+		long resourceBlockId, String className, String actionId) {
 
 		return roleFinder.findByR_N_A(resourceBlockId, className, actionId);
 	}
@@ -662,7 +662,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public Map<String, List<String>> getResourceRoles(
-			long companyId, String name, int scope, String primKey) {
+		long companyId, String name, int scope, String primKey) {
 
 		return roleFinder.findByC_N_S_P(companyId, name, scope, primKey);
 	}
@@ -683,8 +683,8 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> getResourceRoles(
-			long companyId, String name, int scope, String primKey,
-			String actionId) {
+		long companyId, String name, int scope, String primKey,
+		String actionId) {
 
 		return roleFinder.findByC_N_S_P_A(
 			companyId, name, scope, primKey, actionId);
@@ -1167,8 +1167,8 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> search(
-			long companyId, String keywords, Integer[] types, int start,
-			int end, OrderByComparator obc) {
+		long companyId, String keywords, Integer[] types, int start, int end,
+		OrderByComparator obc) {
 
 		return search(
 			companyId, keywords, types, new LinkedHashMap<String, Object>(),
@@ -1208,9 +1208,9 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> search(
-			long companyId, String keywords, Integer[] types,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String keywords, Integer[] types,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		return roleFinder.findByKeywords(
 			companyId, keywords, types, params, start, end, obc);
@@ -1246,8 +1246,8 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> search(
-			long companyId, String name, String description, Integer[] types,
-			int start, int end, OrderByComparator obc) {
+		long companyId, String name, String description, Integer[] types,
+		int start, int end, OrderByComparator obc) {
 
 		return search(
 			companyId, name, description, types,
@@ -1287,9 +1287,9 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<Role> search(
-			long companyId, String name, String description, Integer[] types,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String name, String description, Integer[] types,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		return roleFinder.findByC_N_D_T(
 			companyId, name, description, types, params, true, start, end, obc);
@@ -1326,8 +1326,8 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String keywords, Integer[] types,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String keywords, Integer[] types,
+		LinkedHashMap<String, Object> params) {
 
 		return roleFinder.countByKeywords(companyId, keywords, types, params);
 	}
@@ -1344,7 +1344,7 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String name, String description, Integer[] types) {
+		long companyId, String name, String description, Integer[] types) {
 
 		return searchCount(
 			companyId, name, description, types,
@@ -1367,8 +1367,8 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String name, String description, Integer[] types,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String name, String description, Integer[] types,
+		LinkedHashMap<String, Object> params) {
 
 		return roleFinder.countByC_N_D_T(
 			companyId, name, description, types, params, true);

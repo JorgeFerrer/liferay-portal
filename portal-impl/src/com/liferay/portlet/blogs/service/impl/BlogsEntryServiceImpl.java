@@ -177,14 +177,14 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, Date displayDate, int status, int max) {
+		long groupId, Date displayDate, int status, int max) {
 
 		return getGroupEntries(groupId, displayDate, status, 0, max);
 	}
 
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, Date displayDate, int status, int start, int end) {
+		long groupId, Date displayDate, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return blogsEntryPersistence.filterFindByG_LtD_NotS(
@@ -205,7 +205,7 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 
 	@Override
 	public List<BlogsEntry> getGroupEntries(
-			long groupId, int status, int start, int end) {
+		long groupId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return blogsEntryPersistence.filterFindByG_NotS(
@@ -218,7 +218,8 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	@Override
-	public int getGroupEntriesCount(long groupId, Date displayDate, int status) {
+	public int getGroupEntriesCount(
+		long groupId, Date displayDate, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return blogsEntryPersistence.filterCountByG_LtD_NotS(
@@ -418,9 +419,9 @@ public class BlogsEntryServiceImpl extends BlogsEntryServiceBaseImpl {
 	}
 
 	protected String exportToRSS(
-			String name, String description, String type, double version,
-			String displayStyle, String feedURL, String entryURL,
-			List<BlogsEntry> blogsEntries, ThemeDisplay themeDisplay) {
+		String name, String description, String type, double version,
+		String displayStyle, String feedURL, String entryURL,
+		List<BlogsEntry> blogsEntries, ThemeDisplay themeDisplay) {
 
 		SyndFeed syndFeed = new SyndFeedImpl();
 

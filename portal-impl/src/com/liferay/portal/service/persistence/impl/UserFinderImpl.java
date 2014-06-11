@@ -129,8 +129,8 @@ public class UserFinderImpl
 
 	@Override
 	public int countBySocialUsers(
-			long companyId, long userId, int socialRelationType,
-			String socialRelationTypeComparator, int status) {
+		long companyId, long userId, int socialRelationType,
+		String socialRelationTypeComparator, int status) {
 
 		Session session = null;
 
@@ -220,8 +220,8 @@ public class UserFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params) {
 
 		String[] firstNames = null;
 		String[] middleNames = null;
@@ -248,9 +248,9 @@ public class UserFinderImpl
 
 	@Override
 	public int countByC_FN_MN_LN_SN_EA_S(
-			long companyId, String firstName, String middleName,
-			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andOperator) {
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String[] firstNames = CustomSQLUtil.keywords(firstName);
 		String[] middleNames = CustomSQLUtil.keywords(middleName);
@@ -265,10 +265,9 @@ public class UserFinderImpl
 
 	@Override
 	public int countByC_FN_MN_LN_SN_EA_S(
-			long companyId, String[] firstNames, String[] middleNames,
-			String[] lastNames, String[] screenNames, String[] emailAddresses,
-			int status, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long companyId, String[] firstNames, String[] middleNames,
+		String[] lastNames, String[] screenNames, String[] emailAddresses,
+		int status, LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		firstNames = CustomSQLUtil.keywords(firstNames);
 		middleNames = CustomSQLUtil.keywords(middleNames);
@@ -475,9 +474,9 @@ public class UserFinderImpl
 
 	@Override
 	public List<User> findByKeywords(
-			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		String[] firstNames = null;
 		String[] middleNames = null;
@@ -585,9 +584,9 @@ public class UserFinderImpl
 
 	@Override
 	public List<User> findBySocialUsers(
-			long companyId, long userId, int socialRelationType,
-			String socialRelationTypeComparator, int status, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long userId, int socialRelationType,
+		String socialRelationTypeComparator, int status, int start, int end,
+		OrderByComparator obc) {
 
 		Session session = null;
 
@@ -627,10 +626,10 @@ public class UserFinderImpl
 
 	@Override
 	public List<User> findByC_FN_MN_LN_SN_EA_S(
-			long companyId, String firstName, String middleName,
-			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc) {
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		String[] firstNames = CustomSQLUtil.keywords(firstName);
 		String[] middleNames = CustomSQLUtil.keywords(middleName);
@@ -645,10 +644,10 @@ public class UserFinderImpl
 
 	@Override
 	public List<User> findByC_FN_MN_LN_SN_EA_S(
-			long companyId, String[] firstNames, String[] middleNames,
-			String[] lastNames, String[] screenNames, String[] emailAddresses,
-			int status, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, String[] firstNames, String[] middleNames,
+		String[] lastNames, String[] screenNames, String[] emailAddresses,
+		int status, LinkedHashMap<String, Object> params, boolean andOperator,
+		int start, int end, OrderByComparator obc) {
 
 		firstNames = CustomSQLUtil.keywords(firstNames);
 		middleNames = CustomSQLUtil.keywords(middleNames);

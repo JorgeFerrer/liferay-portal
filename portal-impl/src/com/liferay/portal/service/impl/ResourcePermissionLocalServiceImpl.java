@@ -171,8 +171,8 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public void addResourcePermissions(
-			String resourceName, String roleName, int scope,
-			long resourceActionBitwiseValue) {
+		String resourceName, String roleName, int scope,
+		long resourceActionBitwiseValue) {
 
 		List<Role> roles = rolePersistence.findByName(roleName);
 
@@ -454,7 +454,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getResourcePermissions(
-			long companyId, String name, int scope, String primKey) {
+		long companyId, String name, int scope, String primKey) {
 
 		return resourcePermissionPersistence.findByC_N_S_P(
 			companyId, name, scope, primKey);
@@ -473,7 +473,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public int getResourcePermissionsCount(
-			long companyId, String name, int scope, String primKey) {
+		long companyId, String name, int scope, String primKey) {
 
 		return resourcePermissionPersistence.countByC_N_S_P(
 			companyId, name, scope, primKey);
@@ -492,7 +492,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getResourceResourcePermissions(
-			long companyId, long groupId, String name, String primKey) {
+		long companyId, long groupId, String name, String primKey) {
 
 		return resourcePermissionFinder.findByResource(
 			companyId, groupId, name, primKey);
@@ -534,7 +534,7 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	@Override
 	public List<ResourcePermission> getRoleResourcePermissions(
-			long roleId, int[] scopes, int start, int end) {
+		long roleId, int[] scopes, int start, int end) {
 
 		return resourcePermissionFinder.findByR_S(roleId, scopes, start, end);
 	}

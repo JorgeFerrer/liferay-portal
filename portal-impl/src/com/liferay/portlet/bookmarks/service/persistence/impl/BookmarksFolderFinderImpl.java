@@ -76,21 +76,21 @@ public class BookmarksFolderFinderImpl
 
 	@Override
 	public int countF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition) {
+		long groupId, long folderId, QueryDefinition queryDefinition) {
 
 		return doCountF_E_ByG_F(groupId, folderId, queryDefinition, false);
 	}
 
 	@Override
 	public int filterCountF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition) {
+		long groupId, long folderId, QueryDefinition queryDefinition) {
 
 		return doCountF_E_ByG_F(groupId, folderId, queryDefinition, true);
 	}
 
 	@Override
 	public List<Object> filterFindBF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition) {
+		long groupId, long folderId, QueryDefinition queryDefinition) {
 
 		return doFindF_E_ByG_F(groupId, folderId, queryDefinition, true);
 	}
@@ -120,14 +120,14 @@ public class BookmarksFolderFinderImpl
 
 	@Override
 	public List<Object> findF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition) {
+		long groupId, long folderId, QueryDefinition queryDefinition) {
 
 		return doFindF_E_ByG_F(groupId, folderId, queryDefinition, false);
 	}
 
 	protected int doCountF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition,
-			boolean inlineSQLHelper) {
+		long groupId, long folderId, QueryDefinition queryDefinition,
+		boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -221,8 +221,8 @@ public class BookmarksFolderFinderImpl
 	}
 
 	protected List<Object> doFindF_E_ByG_F(
-			long groupId, long folderId, QueryDefinition queryDefinition,
-			boolean inlineSQLHelper) {
+		long groupId, long folderId, QueryDefinition queryDefinition,
+		boolean inlineSQLHelper) {
 
 		Session session = null;
 

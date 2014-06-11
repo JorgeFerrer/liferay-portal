@@ -58,22 +58,20 @@ public class AssetVocabularyFinderImpl
 
 	@Override
 	public List<AssetVocabulary> filterFindByG_N(
-			long groupId, String name, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String name, int start, int end, OrderByComparator obc) {
 
 		return doFindByG_N(groupId, name, start, end, obc, true);
 	}
 
 	@Override
 	public List<AssetVocabulary> findByG_N(
-			long groupId, String name, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String name, int start, int end, OrderByComparator obc) {
 
 		return doFindByG_N(groupId, name, start, end, obc, false);
 	}
 
 	protected int doCountByG_N(
-			long groupId, String name, boolean inlineSQLHelper) {
+		long groupId, String name, boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -119,8 +117,8 @@ public class AssetVocabularyFinderImpl
 	}
 
 	protected List<AssetVocabulary> doFindByG_N(
-			long groupId, String name, int start, int end,
-			OrderByComparator obc, boolean inlineSQLHelper) {
+		long groupId, String name, int start, int end, OrderByComparator obc,
+		boolean inlineSQLHelper) {
 
 		name = StringUtil.toLowerCase(name.trim());
 

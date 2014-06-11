@@ -89,7 +89,7 @@ public class AssetTagPropertyFinderImpl
 
 	@Override
 	public List<AssetTagProperty> findByG_K(
-			long groupId, String key, int start, int end) {
+		long groupId, String key, int start, int end) {
 
 		Session session = null;
 

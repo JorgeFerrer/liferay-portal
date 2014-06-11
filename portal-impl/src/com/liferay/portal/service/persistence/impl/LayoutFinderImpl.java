@@ -133,8 +133,8 @@ public class LayoutFinderImpl
 
 	@Override
 	public List<LayoutReference> findByC_P_P(
-			long companyId, String portletId, String preferencesKey,
-			String preferencesValue) {
+		long companyId, String portletId, String preferencesKey,
+		String preferencesValue) {
 
 		String preferences =
 			"%<preference><name>" + preferencesKey + "</name><value>" +

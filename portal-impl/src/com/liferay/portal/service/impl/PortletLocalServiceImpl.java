@@ -578,7 +578,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 	@Override
 	@Skip
 	public List<Portlet> getPortlets(
-			long companyId, boolean showSystem, boolean showPortal) {
+		long companyId, boolean showSystem, boolean showPortal) {
 
 		Map<String, Portlet> portletsPool = _getPortletsPool(companyId);
 
@@ -631,7 +631,8 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	@Skip
-	public PortletCategory getWARDisplay(String servletContextName, String xml) {
+	public PortletCategory getWARDisplay(
+		String servletContextName, String xml) {
 
 		try {
 			return _readLiferayDisplayXML(servletContextName, xml);
@@ -886,7 +887,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public Portlet updatePortlet(
-			long companyId, String portletId, String roles, boolean active) {
+		long companyId, String portletId, String roles, boolean active) {
 
 		portletId = PortalUtil.getJsSafePortletId(portletId);
 

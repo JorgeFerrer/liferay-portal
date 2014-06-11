@@ -30,7 +30,7 @@ import java.util.List;
 public class FolderUtil {
 
 	public static Folder fetchByR_P_N(
-			long groupId, long parentFolderId, String name) {
+		long groupId, long parentFolderId, String name) {
 
 		DLFolder dlFolder = DLFolderUtil.fetchByG_P_N(
 			groupId, parentFolderId, name);
@@ -65,7 +65,8 @@ public class FolderUtil {
 	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
 	@Deprecated
-	public static List<Folder> findByR_P(long repositoryId, long parentFolderId) {
+	public static List<Folder> findByR_P(
+		long repositoryId, long parentFolderId) {
 
 		List<DLFolder> dlFolders = DLFolderUtil.findByG_P(
 			repositoryId, parentFolderId);

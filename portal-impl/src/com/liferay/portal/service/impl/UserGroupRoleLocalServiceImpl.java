@@ -36,7 +36,7 @@ public class UserGroupRoleLocalServiceImpl
 
 	@Override
 	public List<UserGroupRole> addUserGroupRoles(
-			long userId, long groupId, long[] roleIds) {
+		long userId, long groupId, long[] roleIds) {
 
 		List<UserGroupRole> userGroupRoles = new ArrayList<UserGroupRole>();
 
@@ -60,7 +60,7 @@ public class UserGroupRoleLocalServiceImpl
 
 	@Override
 	public List<UserGroupRole> addUserGroupRoles(
-			long[] userIds, long groupId, long roleId) {
+		long[] userIds, long groupId, long roleId) {
 
 		List<UserGroupRole> userGroupRoles = new ArrayList<UserGroupRole>();
 
@@ -93,7 +93,8 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupRoles(long userId, long groupId, long[] roleIds) {
+	public void deleteUserGroupRoles(
+		long userId, long groupId, long[] roleIds) {
 
 		for (long roleId : roleIds) {
 			UserGroupRolePK userGroupRolePK = new UserGroupRolePK(
@@ -130,7 +131,8 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupRoles(long[] userIds, long groupId, int roleType) {
+	public void deleteUserGroupRoles(
+		long[] userIds, long groupId, int roleType) {
 
 		List<Role> roles = rolePersistence.findByT_S(
 			roleType, StringPool.BLANK);
@@ -152,7 +154,8 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	@Override
-	public void deleteUserGroupRoles(long[] userIds, long groupId, long roleId) {
+	public void deleteUserGroupRoles(
+		long[] userIds, long groupId, long roleId) {
 
 		for (long userId : userIds) {
 			UserGroupRolePK pk = new UserGroupRolePK(userId, groupId, roleId);
@@ -211,14 +214,14 @@ public class UserGroupRoleLocalServiceImpl
 
 	@Override
 	public List<UserGroupRole> getUserGroupRolesByGroupAndRole(
-			long groupId, long roleId) {
+		long groupId, long roleId) {
 
 		return userGroupRolePersistence.findByG_R(groupId, roleId);
 	}
 
 	@Override
 	public List<UserGroupRole> getUserGroupRolesByUserUserGroupAndGroup(
-			long userId, long groupId) {
+		long userId, long groupId) {
 
 		return userGroupRoleFinder.findByUserUserGroupGroupRole(
 			userId, groupId);
@@ -232,7 +235,7 @@ public class UserGroupRoleLocalServiceImpl
 
 	@Override
 	public boolean hasUserGroupRole(
-			long userId, long groupId, long roleId, boolean inherit) {
+		long userId, long groupId, long roleId, boolean inherit) {
 
 		UserGroupRolePK userGroupRolePK = new UserGroupRolePK(
 			userId, groupId, roleId);
@@ -279,7 +282,7 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	protected UserGroupRole addUserGroupRole(
-			long userId, long groupId, long roleId) {
+		long userId, long groupId, long roleId) {
 
 		UserGroupRolePK userGroupRolePK = new UserGroupRolePK(
 			userId, groupId, roleId);

@@ -30,8 +30,8 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public DDMStructureLink addStructureLink(
-			long classNameId, long classPK, long structureId,
-			ServiceContext serviceContext) {
+		long classNameId, long classPK, long structureId,
+		ServiceContext serviceContext) {
 
 		long structureLinkId = counterLocalService.increment();
 
@@ -104,7 +104,7 @@ public class DDMStructureLinkLocalServiceImpl
 
 	@Override
 	public List<DDMStructureLink> getStructureLinks(
-			long structureId, int start, int end) {
+		long structureId, int start, int end) {
 
 		return ddmStructureLinkPersistence.findByStructureId(
 			structureId, start, end);

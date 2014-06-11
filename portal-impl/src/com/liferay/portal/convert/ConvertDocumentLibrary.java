@@ -167,7 +167,7 @@ public class ConvertDocumentLibrary extends ConvertProcess {
 	}
 
 	protected void migrateDLFileEntry(
-			long companyId, long repositoryId, DLFileEntry dlFileEntry) {
+		long companyId, long repositoryId, DLFileEntry dlFileEntry) {
 
 		String fileName = dlFileEntry.getName();
 

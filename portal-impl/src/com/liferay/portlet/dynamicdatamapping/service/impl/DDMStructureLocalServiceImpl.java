@@ -530,7 +530,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public DDMStructure fetchStructure(
-			long groupId, long classNameId, String structureKey) {
+		long groupId, long classNameId, String structureKey) {
 
 		structureKey = getStructureKey(structureKey);
 
@@ -610,7 +610,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long classNameId, int start, int end) {
+		long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByClassNameId(
 			classNameId, start, end);
@@ -627,7 +627,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long companyId, long classNameId) {
+		long companyId, long classNameId) {
 
 		return ddmStructurePersistence.findByC_C(companyId, classNameId);
 	}
@@ -656,7 +656,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long companyId, long classNameId, int start, int end) {
+		long companyId, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByC_C(
 			companyId, classNameId, start, end);
@@ -676,8 +676,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long companyId, long classNameId,
-			OrderByComparator orderByComparator) {
+		long companyId, long classNameId, OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByC_C(
 			companyId, classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -691,7 +690,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getClassStructures(
-			long classNameId, OrderByComparator orderByComparator) {
+		long classNameId, OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByClassNameId(
 			classNameId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -708,7 +707,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getDLFileEntryTypeStructures(
-			long dlFileEntryTypeId) {
+		long dlFileEntryTypeId) {
 
 		return dlFileEntryTypePersistence.getDDMStructures(dlFileEntryTypeId);
 	}
@@ -850,7 +849,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructure(
-			long groupId, String name, String description) {
+		long groupId, String name, String description) {
 
 		return ddmStructurePersistence.findByG_N_D(groupId, name, description);
 	}
@@ -881,7 +880,7 @@ public class DDMStructureLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<DDMStructure> getStructureEntries(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return getStructures(groupId, start, end);
 	}
@@ -976,7 +975,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
-			long groupId, long classNameId, int start, int end) {
+		long groupId, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupId, classNameId, start, end);
@@ -1009,8 +1008,8 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
-			long groupId, long classNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long classNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupId, classNameId, start, end, orderByComparator);
@@ -1018,7 +1017,7 @@ public class DDMStructureLocalServiceImpl
 
 	@Override
 	public List<DDMStructure> getStructures(
-			long groupId, String name, String description) {
+		long groupId, String name, String description) {
 
 		return ddmStructurePersistence.findByG_N_D(groupId, name, description);
 	}
@@ -1077,7 +1076,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> getStructures(
-			long[] groupIds, long classNameId, int start, int end) {
+		long[] groupIds, long classNameId, int start, int end) {
 
 		return ddmStructurePersistence.findByG_C(
 			groupIds, classNameId, start, end);
@@ -1157,9 +1156,8 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> search(
-			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, String keywords,
+		int start, int end, OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.findByKeywords(
 			companyId, groupIds, classNameIds, keywords, start, end,
@@ -1203,10 +1201,9 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public List<DDMStructure> search(
-			long companyId, long[] groupIds, long[] classNameIds, String name,
-			String description, String storageType, int type,
-			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, String name,
+		String description, String storageType, int type, boolean andOperator,
+		int start, int end, OrderByComparator orderByComparator) {
 
 		return ddmStructureFinder.findByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,
@@ -1228,8 +1225,7 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds,
-			String keywords) {
+		long companyId, long[] groupIds, long[] classNameIds, String keywords) {
 
 		return ddmStructureFinder.countByKeywords(
 			companyId, groupIds, classNameIds, keywords);
@@ -1257,9 +1253,8 @@ public class DDMStructureLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds, String name,
-			String description, String storageType, int type,
-			boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, String name,
+		String description, String storageType, int type, boolean andOperator) {
 
 		return ddmStructureFinder.countByC_G_C_N_D_S_T(
 			companyId, groupIds, classNameIds, name, description, storageType,

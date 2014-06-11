@@ -192,7 +192,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public List<ShoppingCategory> getCategories(
-			long groupId, long parentCategoryId, int start, int end) {
+		long groupId, long parentCategoryId, int start, int end) {
 
 		return shoppingCategoryPersistence.findByG_P(
 			groupId, parentCategoryId, start, end);
@@ -260,7 +260,7 @@ public class ShoppingCategoryLocalServiceImpl
 
 	@Override
 	public void getSubcategoryIds(
-			List<Long> categoryIds, long groupId, long categoryId) {
+		List<Long> categoryIds, long groupId, long categoryId) {
 
 		List<ShoppingCategory> categories =
 			shoppingCategoryPersistence.findByG_P(groupId, categoryId);
@@ -331,7 +331,7 @@ public class ShoppingCategoryLocalServiceImpl
 	}
 
 	protected long getParentCategoryId(
-			ShoppingCategory category, long parentCategoryId) {
+		ShoppingCategory category, long parentCategoryId) {
 
 		if (parentCategoryId ==
 				ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {

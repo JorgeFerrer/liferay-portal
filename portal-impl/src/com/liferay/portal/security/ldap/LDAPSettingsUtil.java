@@ -116,7 +116,7 @@ public class LDAPSettingsUtil {
 	}
 
 	public static long getPreferredLDAPServerId(
-			long companyId, String screenName) {
+		long companyId, String screenName) {
 
 		User user = UserLocalServiceUtil.fetchUserByScreenName(
 			companyId, screenName);

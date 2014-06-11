@@ -171,7 +171,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public ExpandoColumn getColumn(
-			long companyId, long classNameId, String tableName, String name) {
+		long companyId, long classNameId, String tableName, String name) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -191,7 +191,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public ExpandoColumn getColumn(
-			long companyId, String className, String tableName, String name) {
+		long companyId, String className, String tableName, String name) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -205,7 +205,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getColumns(
-			long tableId, Collection<String> names) {
+		long tableId, Collection<String> names) {
 
 		return expandoColumnPersistence.findByT_N(
 			tableId, names.toArray(new String[names.size()]));
@@ -213,7 +213,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getColumns(
-			long companyId, long classNameId, String tableName) {
+		long companyId, long classNameId, String tableName) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -227,8 +227,8 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getColumns(
-			long companyId, long classNameId, String tableName,
-			Collection<String> names) {
+		long companyId, long classNameId, String tableName,
+		Collection<String> names) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -243,7 +243,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getColumns(
-			long companyId, String className, String tableName) {
+		long companyId, String className, String tableName) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -252,8 +252,8 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getColumns(
-			long companyId, String className, String tableName,
-			Collection<String> columnNames) {
+		long companyId, String className, String tableName,
+		Collection<String> columnNames) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -267,7 +267,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public int getColumnsCount(
-			long companyId, long classNameId, String tableName) {
+		long companyId, long classNameId, String tableName) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -281,7 +281,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public int getColumnsCount(
-			long companyId, String className, String tableName) {
+		long companyId, String className, String tableName) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -290,7 +290,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public ExpandoColumn getDefaultTableColumn(
-			long companyId, long classNameId, String name) {
+		long companyId, long classNameId, String name) {
 
 		return getColumn(
 			companyId, classNameId, ExpandoTableConstants.DEFAULT_TABLE_NAME,
@@ -299,7 +299,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public ExpandoColumn getDefaultTableColumn(
-			long companyId, String className, String name) {
+		long companyId, String className, String name) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -310,7 +310,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getDefaultTableColumns(
-			long companyId, long classNameId) {
+		long companyId, long classNameId) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, ExpandoTableConstants.DEFAULT_TABLE_NAME);
@@ -324,7 +324,7 @@ public class ExpandoColumnLocalServiceImpl
 
 	@Override
 	public List<ExpandoColumn> getDefaultTableColumns(
-			long companyId, String className) {
+		long companyId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

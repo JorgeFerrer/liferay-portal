@@ -44,7 +44,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public void deleteActivitySetting(
-			long groupId, String className, long classPK) {
+		long groupId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 		String name = _PREFIX_CLASS_PK.concat(String.valueOf(classPK));
@@ -65,7 +65,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public SocialActivityDefinition getActivityDefinition(
-			long groupId, String className, int activityType) {
+		long groupId, String className, int activityType) {
 
 		String key = encodeKey(groupId, className, activityType);
 
@@ -94,7 +94,7 @@ public class SocialActivitySettingLocalServiceImpl
 
 	@Override
 	public List<SocialActivityDefinition> getActivityDefinitions(
-			long groupId, String className) {
+		long groupId, String className) {
 
 		List<SocialActivityDefinition> activityDefinitions =
 			new ArrayList<SocialActivityDefinition>();
@@ -318,8 +318,8 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	protected SocialActivityDefinition getActivityDefinition(
-			long groupId, String className, int activityType,
-			SocialActivityDefinition defaultActivityDefinition) {
+		long groupId, String className, int activityType,
+		SocialActivityDefinition defaultActivityDefinition) {
 
 		SocialActivityDefinition activityDefinition =
 			defaultActivityDefinition.clone();
@@ -386,7 +386,7 @@ public class SocialActivitySettingLocalServiceImpl
 	}
 
 	protected List<SocialActivitySetting> getActivitySettings(
-			long groupId, String className, int activityType) {
+		long groupId, String className, int activityType) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

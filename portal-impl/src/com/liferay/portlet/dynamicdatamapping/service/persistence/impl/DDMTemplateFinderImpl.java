@@ -61,8 +61,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -87,8 +87,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -123,9 +123,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -140,9 +140,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String[] names, String[] descriptions, String[] types,
-			String[] modes, String[] languages, boolean andOperator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator) {
 
 		long[] groupIds = new long[] {groupId};
 		long[] classNameIds = new long[] {classNameId};
@@ -155,9 +155,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -172,10 +172,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int countByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator) {
 
 		return doCountByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, names, descriptions,
@@ -184,8 +183,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByKeywords(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -210,8 +209,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByKeywords(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -236,9 +235,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -253,9 +252,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String[] names, String[] descriptions, String[] types,
-			String[] modes, String[] languages, boolean andOperator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator) {
 
 		long[] groupIds = new long[] {groupId};
 		long[] classNameIds = new long[] {classNameId};
@@ -268,9 +267,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -285,10 +284,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public int filterCountByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator) {
 
 		return doCountByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, names, descriptions,
@@ -316,9 +314,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByKeywords(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -344,9 +342,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByKeywords(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode,
-			int start, int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -372,10 +370,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -391,10 +389,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String[] names, String[] descriptions, String[] types,
-			String[] modes, String[] languages, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long[] groupIds = new long[] {groupId};
 		long[] classNameIds = new long[] {classNameId};
@@ -408,10 +406,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -427,11 +425,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return doFindByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, names, descriptions,
@@ -441,8 +438,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByG_SC(
-			long groupId, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long structureClassNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long[] groupIds = new long[] {groupId};
 		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
@@ -454,8 +451,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> filterFindByG_SC(
-			long[] groupIds, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long[] groupIds, long structureClassNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
 
@@ -466,9 +463,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByKeywords(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -494,9 +491,9 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByKeywords(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode,
-			int start, int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -522,8 +519,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByG_SC(
-			long groupId, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long structureClassNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long[] groupIds = new long[] {groupId};
 		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
@@ -535,8 +532,8 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByG_SC(
-			long[] groupIds, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long[] groupIds, long structureClassNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
 
@@ -547,10 +544,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -566,10 +563,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByC_G_C_C_N_D_T_M_L(
-			long companyId, long groupId, long classNameId, long classPK,
-			String[] names, String[] descriptions, String[] types,
-			String[] modes, String[] languages, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		long[] groupIds = new long[] {groupId};
 		long[] classNameIds = new long[] {classNameId};
@@ -583,10 +580,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description, false);
@@ -602,11 +599,10 @@ public class DDMTemplateFinderImpl
 
 	@Override
 	public List<DDMTemplate> findByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return doFindByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, names, descriptions,
@@ -615,8 +611,8 @@ public class DDMTemplateFinderImpl
 	}
 
 	protected int doCountByG_C_SC(
-			long[] groupIds, long classNameId, long structureClassNameId,
-			boolean inlineSQLHelper) {
+		long[] groupIds, long classNameId, long structureClassNameId,
+		boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -668,10 +664,9 @@ public class DDMTemplateFinderImpl
 	}
 
 	protected int doCountByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator, boolean inlineSQLHelper) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);
@@ -757,9 +752,8 @@ public class DDMTemplateFinderImpl
 	}
 
 	protected List<DDMTemplate> doFindByG_C_SC(
-			long[] groupIds, long classNameId, long structureClassNameId,
-			int start, int end, OrderByComparator orderByComparator,
-			boolean inlineSQLHelper) {
+		long[] groupIds, long classNameId, long structureClassNameId, int start,
+		int end, OrderByComparator orderByComparator, boolean inlineSQLHelper) {
 
 		Session session = null;
 
@@ -806,11 +800,10 @@ public class DDMTemplateFinderImpl
 	}
 
 	protected List<DDMTemplate> doFindByC_G_C_C_N_D_T_M_L(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String[] names, String[] descriptions,
-			String[] types, String[] modes, String[] languages,
-			boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator, boolean inlineSQLHelper) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String[] names, String[] descriptions, String[] types, String[] modes,
+		String[] languages, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator, boolean inlineSQLHelper) {
 
 		names = CustomSQLUtil.keywords(names);
 		descriptions = CustomSQLUtil.keywords(descriptions, false);

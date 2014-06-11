@@ -33,8 +33,8 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 	@Override
 	public void postProcess(
-			long companyId, PortletRequest portletRequest,
-			PortletPreferences portletPreferences) {
+		long companyId, PortletRequest portletRequest,
+		PortletPreferences portletPreferences) {
 
 		String languageId = LocaleUtil.toLanguageId(
 			LocaleUtil.getSiteDefault());

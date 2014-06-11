@@ -145,8 +145,8 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	}
 
 	public int getNextPriority(
-			long groupId, boolean privateLayout, long parentLayoutId,
-			String sourcePrototypeLayoutUuid, int defaultPriority) {
+		long groupId, boolean privateLayout, long parentLayoutId,
+		String sourcePrototypeLayoutUuid, int defaultPriority) {
 
 		try {
 			int priority = defaultPriority;
@@ -181,7 +181,7 @@ public class LayoutLocalServiceHelper implements IdentifiableBean {
 	}
 
 	public long getParentLayoutId(
-			long groupId, boolean privateLayout, long parentLayoutId) {
+		long groupId, boolean privateLayout, long parentLayoutId) {
 
 		if (parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) {
 

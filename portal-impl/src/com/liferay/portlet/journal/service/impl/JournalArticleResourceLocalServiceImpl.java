@@ -36,14 +36,14 @@ public class JournalArticleResourceLocalServiceImpl
 
 	@Override
 	public JournalArticleResource fetchArticleResource(
-			long groupId, String articleId) {
+		long groupId, String articleId) {
 
 		return journalArticleResourcePersistence.fetchByG_A(groupId, articleId);
 	}
 
 	@Override
 	public JournalArticleResource fetchArticleResource(
-			String uuid, long groupId) {
+		String uuid, long groupId) {
 
 		return journalArticleResourcePersistence.fetchByUUID_G(uuid, groupId);
 	}
@@ -65,7 +65,7 @@ public class JournalArticleResourceLocalServiceImpl
 
 	@Override
 	public long getArticleResourcePrimKey(
-			String uuid, long groupId, String articleId) {
+		String uuid, long groupId, String articleId) {
 
 		JournalArticleResource articleResource = null;
 

@@ -81,7 +81,7 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void addFile(
-			long companyId, long repositoryId, String fileName, InputStream is) {
+		long companyId, long repositoryId, String fileName, InputStream is) {
 
 		try {
 			S3Object s3Object = new S3Object(
@@ -108,7 +108,7 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void deleteDirectory(
-			long companyId, long repositoryId, String dirName) {
+		long companyId, long repositoryId, String dirName) {
 
 		try {
 			S3Object[] s3Objects = _s3Service.listObjects(
@@ -143,8 +143,8 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void deleteFile(
-			long companyId, long repositoryId, String fileName,
-			String versionLabel) {
+		long companyId, long repositoryId, String fileName,
+		String versionLabel) {
 
 		try {
 			_s3Service.deleteObject(
@@ -267,8 +267,8 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public boolean hasFile(
-			long companyId, long repositoryId, String fileName,
-			String versionLabel) {
+		long companyId, long repositoryId, String fileName,
+		String versionLabel) {
 
 		try {
 			S3Object[] s3Objects = _s3Service.listObjects(
@@ -293,8 +293,8 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void updateFile(
-			long companyId, long repositoryId, long newRepositoryId,
-			String fileName) {
+		long companyId, long repositoryId, long newRepositoryId,
+		String fileName) {
 
 		try {
 			S3Object[] s3Objects = _s3Service.listObjects(
@@ -344,8 +344,8 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void updateFile(
-			long companyId, long repositoryId, String fileName,
-			String newFileName) {
+		long companyId, long repositoryId, String fileName,
+		String newFileName) {
 
 		try {
 			S3Object[] s3Objects = _s3Service.listObjects(
@@ -400,8 +400,8 @@ public class S3Store extends BaseStore {
 
 	@Override
 	public void updateFile(
-			long companyId, long repositoryId, String fileName,
-			String versionLabel, InputStream is) {
+		long companyId, long repositoryId, String fileName, String versionLabel,
+		InputStream is) {
 
 		try {
 			S3Object s3Object = new S3Object(

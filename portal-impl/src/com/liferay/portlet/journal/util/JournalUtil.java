@@ -604,8 +604,8 @@ public class JournalUtil {
 	}
 
 	public static DiffVersionsInfo getDiffVersionsInfo(
-			long groupId, String articleId, double sourceVersion,
-			double targetVersion) {
+		long groupId, String articleId, double sourceVersion,
+		double targetVersion) {
 
 		double previousVersion = 0;
 		double nextVersion = 0;
@@ -905,14 +905,14 @@ public class JournalUtil {
 	}
 
 	public static String getEmailFromAddress(
-			PortletPreferences preferences, long companyId) {
+		PortletPreferences preferences, long companyId) {
 
 		return PortalUtil.getEmailFromAddress(
 			preferences, companyId, PropsValues.JOURNAL_EMAIL_FROM_ADDRESS);
 	}
 
 	public static String getEmailFromName(
-			PortletPreferences preferences, long companyId) {
+		PortletPreferences preferences, long companyId) {
 
 		return PortalUtil.getEmailFromName(
 			preferences, companyId, PropsValues.JOURNAL_EMAIL_FROM_NAME);
@@ -1191,7 +1191,7 @@ public class JournalUtil {
 	}
 
 	public static boolean isSubscribedToStructure(
-			long companyId, long groupId, long userId, long ddmStructureId) {
+		long companyId, long groupId, long userId, long ddmStructureId) {
 
 		return SubscriptionLocalServiceUtil.isSubscribed(
 			companyId, userId, DDMStructure.class.getName(), ddmStructureId);

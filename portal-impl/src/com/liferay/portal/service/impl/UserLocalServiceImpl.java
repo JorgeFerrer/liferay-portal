@@ -3113,9 +3113,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<User> search(
-			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		return userFinder.findByKeywords(
 			companyId, keywords, status, params, start, end, obc);
@@ -3154,8 +3154,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
 		String firstName = null;
 		String middleName = null;
@@ -3249,10 +3249,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public List<User> search(
-			long companyId, String firstName, String middleName,
-			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, OrderByComparator obc) {
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, OrderByComparator obc) {
 
 		return userFinder.findByC_FN_MN_LN_SN_EA_S(
 			companyId, firstName, middleName, lastName, screenName,
@@ -3300,10 +3300,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public Hits search(
-			long companyId, String firstName, String middleName,
-			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort) {
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -3337,8 +3337,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String keywords, int status,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params) {
 
 		if (!PropsValues.USERS_INDEXER_ENABLED ||
 			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
@@ -3424,9 +3424,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 */
 	@Override
 	public int searchCount(
-			long companyId, String firstName, String middleName,
-			String lastName, String screenName, String emailAddress, int status,
-			LinkedHashMap<String, Object> params, boolean andSearch) {
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andSearch) {
 
 		if (!PropsValues.USERS_INDEXER_ENABLED ||
 			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
@@ -3485,8 +3485,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 	@Override
 	public List<User> searchSocial(
-			long companyId, long[] groupIds, String keywords, int start,
-			int end) {
+		long companyId, long[] groupIds, String keywords, int start, int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -4041,7 +4040,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void unsetPasswordPolicyUsers(long passwordPolicyId, long[] userIds) {
+	public void unsetPasswordPolicyUsers(
+		long passwordPolicyId, long[] userIds) {
 
 		passwordPolicyRelLocalService.deletePasswordPolicyRels(
 			passwordPolicyId, User.class.getName(), userIds);
@@ -6068,7 +6068,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	protected void notifyUser(
-			User user, String password, ServiceContext serviceContext) {
+		User user, String password, ServiceContext serviceContext) {
 
 		if (!PrefsPropsUtil.getBoolean(
 				user.getCompanyId(),

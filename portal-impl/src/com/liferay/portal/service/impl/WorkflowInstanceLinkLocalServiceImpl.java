@@ -136,7 +136,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 
 	@Override
 	public WorkflowInstanceLink fetchWorkflowInstanceLink(
-			long companyId, long groupId, String className, long classPK) {
+		long companyId, long groupId, String className, long classPK) {
 
 		List<WorkflowInstanceLink> workflowInstanceLinks =
 			getWorkflowInstanceLinks(companyId, groupId, className, classPK);
@@ -194,7 +194,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 
 	@Override
 	public List<WorkflowInstanceLink> getWorkflowInstanceLinks(
-			long companyId, long groupId, String className, long classPK) {
+		long companyId, long groupId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -204,7 +204,7 @@ public class WorkflowInstanceLinkLocalServiceImpl
 
 	@Override
 	public boolean hasWorkflowInstanceLink(
-			long companyId, long groupId, String className, long classPK) {
+		long companyId, long groupId, String className, long classPK) {
 
 		WorkflowInstanceLink workflowInstanceLink = fetchWorkflowInstanceLink(
 			companyId, groupId, className, classPK);

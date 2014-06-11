@@ -411,7 +411,8 @@ public class PersistenceNestedSetsTreeManager<T extends NestedSetsTreeNodeModel>
 	}
 
 	@Override
-	protected long getMaxNestedSetsTreeNodeRight(long nestedSetsTreeNodeScopeId) {
+	protected long getMaxNestedSetsTreeNodeRight(
+		long nestedSetsTreeNodeScopeId) {
 
 		Session session = null;
 

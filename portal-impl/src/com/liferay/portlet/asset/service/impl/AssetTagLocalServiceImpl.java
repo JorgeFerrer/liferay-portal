@@ -346,8 +346,8 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getSocialActivityCounterOffsetTags(
-			long groupId, String socialActivityCounterName, int startOffset,
-			int endOffset) {
+		long groupId, String socialActivityCounterName, int startOffset,
+		int endOffset) {
 
 		int startPeriod = SocialCounterPeriodUtil.getStartPeriod(startOffset);
 		int endPeriod = SocialCounterPeriodUtil.getEndPeriod(endOffset);
@@ -358,8 +358,8 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getSocialActivityCounterPeriodTags(
-			long groupId, String socialActivityCounterName, int startPeriod,
-			int endPeriod) {
+		long groupId, String socialActivityCounterName, int startPeriod,
+		int endPeriod) {
 
 		int offset = SocialCounterPeriodUtil.getOffset(endPeriod);
 
@@ -476,7 +476,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> getTags(
-			long groupId, long classNameId, String name, int start, int end) {
+		long groupId, long classNameId, String name, int start, int end) {
 
 		return assetTagFinder.findByG_C_N(
 			groupId, classNameId, name, start, end, null);
@@ -559,16 +559,15 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 
 	@Override
 	public List<AssetTag> search(
-			long groupId, String name, String[] tagProperties, int start,
-			int end) {
+		long groupId, String name, String[] tagProperties, int start, int end) {
 
 		return search(new long[] {groupId}, name, tagProperties, start, end);
 	}
 
 	@Override
 	public List<AssetTag> search(
-			long[] groupIds, String name, String[] tagProperties, int start,
-			int end) {
+		long[] groupIds, String name, String[] tagProperties, int start,
+		int end) {
 
 		return assetTagFinder.findByG_N_P(
 			groupIds, name, tagProperties, start, end, null);

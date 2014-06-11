@@ -138,8 +138,8 @@ public class LayoutFriendlyURLStagedModelDataHandler
 	}
 
 	protected LayoutFriendlyURL fetchExistingLayoutFriendlyURL(
-			PortletDataContext portletDataContext,
-			LayoutFriendlyURL layoutFriendlyURL, long plid) {
+		PortletDataContext portletDataContext,
+		LayoutFriendlyURL layoutFriendlyURL, long plid) {
 
 		LayoutFriendlyURL existingLayoutFriendlyURL =
 			LayoutFriendlyURLLocalServiceUtil.

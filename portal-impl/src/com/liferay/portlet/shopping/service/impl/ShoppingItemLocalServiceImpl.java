@@ -324,7 +324,7 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public List<ShoppingItem> getFeaturedItems(
-			long groupId, long categoryId, int numOfItems) {
+		long groupId, long categoryId, int numOfItems) {
 
 		List<ShoppingItem> featuredItems = shoppingItemFinder.findByFeatured(
 			groupId, new long[] {categoryId}, numOfItems);
@@ -391,8 +391,8 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public List<ShoppingItem> getItems(
-			long groupId, long categoryId, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long categoryId, int start, int end,
+		OrderByComparator obc) {
 
 		return shoppingItemPersistence.findByG_C(
 			groupId, categoryId, start, end, obc);
@@ -417,7 +417,7 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public List<ShoppingItem> getSaleItems(
-			long groupId, long categoryId, int numOfItems) {
+		long groupId, long categoryId, int numOfItems) {
 
 		List<ShoppingItem> saleItems = shoppingItemFinder.findBySale(
 			groupId, new long[] {categoryId}, numOfItems);
@@ -445,8 +445,7 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public List<ShoppingItem> search(
-			long groupId, long[] categoryIds, String keywords, int start,
-			int end) {
+		long groupId, long[] categoryIds, String keywords, int start, int end) {
 
 		return shoppingItemFinder.findByKeywords(
 			groupId, categoryIds, keywords, start, end);

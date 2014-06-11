@@ -29,9 +29,8 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 
 	@Override
 	public Ticket addTicket(
-			long companyId, String className, long classPK, int type,
-			String extraInfo, Date expirationDate,
-			ServiceContext serviceContext) {
+		long companyId, String className, long classPK, int type,
+		String extraInfo, Date expirationDate, ServiceContext serviceContext) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 		Date now = new Date();

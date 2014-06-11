@@ -196,7 +196,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<MDRRuleGroup> search(
-			long groupId, String name, boolean andOperator, int start, int end) {
+		long groupId, String name, boolean andOperator, int start, int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -209,8 +209,8 @@ public class MDRRuleGroupLocalServiceImpl
 
 	@Override
 	public List<MDRRuleGroup> search(
-			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end) {
+		long groupId, String name, LinkedHashMap<String, Object> params,
+		boolean andOperator, int start, int end) {
 
 		return mdrRuleGroupFinder.findByG_N(
 			groupId, name, params, andOperator, start, end);
@@ -223,8 +223,8 @@ public class MDRRuleGroupLocalServiceImpl
 	@Deprecated
 	@Override
 	public List<MDRRuleGroup> searchByKeywords(
-			long groupId, String keywords, boolean andOperator, int start,
-			int end) {
+		long groupId, String keywords, boolean andOperator, int start,
+		int end) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -237,8 +237,8 @@ public class MDRRuleGroupLocalServiceImpl
 
 	@Override
 	public List<MDRRuleGroup> searchByKeywords(
-			long groupId, String keywords, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end) {
+		long groupId, String keywords, LinkedHashMap<String, Object> params,
+		boolean andOperator, int start, int end) {
 
 		return mdrRuleGroupFinder.findByKeywords(
 			groupId, keywords, params, start, end);
@@ -251,7 +251,7 @@ public class MDRRuleGroupLocalServiceImpl
 	@Deprecated
 	@Override
 	public int searchByKeywordsCount(
-			long groupId, String keywords, boolean andOperator) {
+		long groupId, String keywords, boolean andOperator) {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
@@ -263,8 +263,8 @@ public class MDRRuleGroupLocalServiceImpl
 
 	@Override
 	public int searchByKeywordsCount(
-			long groupId, String keywords, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long groupId, String keywords, LinkedHashMap<String, Object> params,
+		boolean andOperator) {
 
 		return mdrRuleGroupFinder.countByKeywords(groupId, keywords, params);
 	}
@@ -288,8 +288,8 @@ public class MDRRuleGroupLocalServiceImpl
 
 	@Override
 	public int searchCount(
-			long groupId, String name, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long groupId, String name, LinkedHashMap<String, Object> params,
+		boolean andOperator) {
 
 		return mdrRuleGroupFinder.countByG_N(
 			groupId, name, params, andOperator);

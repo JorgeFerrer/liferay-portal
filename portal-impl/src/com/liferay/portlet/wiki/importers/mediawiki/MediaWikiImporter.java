@@ -126,8 +126,8 @@ public class MediaWikiImporter implements WikiImporter {
 	}
 
 	protected long getUserId(
-			long userId, WikiNode node, String author,
-			Map<String, String> usersMap) {
+		long userId, WikiNode node, String author,
+		Map<String, String> usersMap) {
 
 		User user = null;
 

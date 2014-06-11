@@ -274,8 +274,8 @@ public class DLFileShortcutLocalServiceImpl
 
 	@Override
 	public List<DLFileShortcut> getFileShortcuts(
-			long groupId, long folderId, boolean active, int status, int start,
-			int end) {
+		long groupId, long folderId, boolean active, int status, int start,
+		int end) {
 
 		return dlFileShortcutPersistence.findByG_F_A_S(
 			groupId, folderId, active, status, start, end);
@@ -283,7 +283,7 @@ public class DLFileShortcutLocalServiceImpl
 
 	@Override
 	public int getFileShortcutsCount(
-			long groupId, long folderId, boolean active, int status) {
+		long groupId, long folderId, boolean active, int status) {
 
 		return dlFileShortcutPersistence.countByG_F_A_S(
 			groupId, folderId, active, status);
@@ -370,7 +370,7 @@ public class DLFileShortcutLocalServiceImpl
 
 	@Override
 	public void updateFileShortcuts(
-			long oldToFileEntryId, long newToFileEntryId) {
+		long oldToFileEntryId, long newToFileEntryId) {
 
 		List<DLFileShortcut> fileShortcuts =
 			dlFileShortcutPersistence.findByToFileEntryId(oldToFileEntryId);

@@ -84,7 +84,7 @@ public class PortletItemLocalServiceImpl
 
 	@Override
 	public List<PortletItem> getPortletItems(
-			long groupId, String portletId, String className) {
+		long groupId, String portletId, String className) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

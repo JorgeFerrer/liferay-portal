@@ -64,7 +64,7 @@ public class LayoutTemplateLocalServiceImpl
 
 	@Override
 	public String getContent(
-			String layoutTemplateId, boolean standard, String themeId) {
+		String layoutTemplateId, boolean standard, String themeId) {
 
 		LayoutTemplate layoutTemplate = getLayoutTemplate(
 			layoutTemplateId, standard, themeId);
@@ -217,7 +217,7 @@ public class LayoutTemplateLocalServiceImpl
 
 	@Override
 	public String getWapContent(
-			String layoutTemplateId, boolean standard, String themeId) {
+		String layoutTemplateId, boolean standard, String themeId) {
 
 		LayoutTemplate layoutTemplate = getLayoutTemplate(
 			layoutTemplateId, standard, themeId);

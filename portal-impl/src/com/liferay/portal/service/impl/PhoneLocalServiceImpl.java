@@ -126,7 +126,8 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<Phone> getPhones(long companyId, String className, long classPK) {
+	public List<Phone> getPhones(
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -155,8 +156,8 @@ public class PhoneLocalServiceImpl extends PhoneLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long phoneId, long companyId, long classNameId, long classPK,
-			boolean primary) {
+		long phoneId, long companyId, long classNameId, long classPK,
+		boolean primary) {
 
 		// Check to make sure there isn't another phone with the same company
 		// id, class name, and class pk that also has primary set to true

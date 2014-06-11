@@ -114,14 +114,14 @@ public class CalUtil {
 	}
 
 	public static String getEmailFromAddress(
-			PortletPreferences preferences, long companyId) {
+		PortletPreferences preferences, long companyId) {
 
 		return PortalUtil.getEmailFromAddress(
 			preferences, companyId, PropsValues.CALENDAR_EMAIL_FROM_ADDRESS);
 	}
 
 	public static String getEmailFromName(
-			PortletPreferences preferences, long companyId) {
+		PortletPreferences preferences, long companyId) {
 
 		return PortalUtil.getEmailFromName(
 			preferences, companyId, PropsValues.CALENDAR_EMAIL_FROM_NAME);

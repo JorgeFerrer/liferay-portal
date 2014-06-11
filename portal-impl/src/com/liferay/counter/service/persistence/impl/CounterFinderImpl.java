@@ -376,7 +376,7 @@ public class CounterFinderImpl
 	}
 
 	private CounterHolder _obtainIncrement(
-			String counterName, long range, long size) {
+		String counterName, long range, long size) {
 
 		Session session = null;
 

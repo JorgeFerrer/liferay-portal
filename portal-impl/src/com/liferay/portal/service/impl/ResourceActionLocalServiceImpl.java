@@ -62,7 +62,7 @@ public class ResourceActionLocalServiceImpl
 
 	@Override
 	public void checkResourceActions(
-			String name, List<String> actionIds, boolean addDefaultActions) {
+		String name, List<String> actionIds, boolean addDefaultActions) {
 
 		long lastBitwiseValue = -1;
 		List<ResourceAction> newResourceActions = null;

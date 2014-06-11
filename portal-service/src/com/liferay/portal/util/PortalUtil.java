@@ -892,14 +892,14 @@ public class PortalUtil {
 	}
 
 	public static String getEmailFromAddress(
-			PortletPreferences preferences, long companyId, String defaultValue) {
+		PortletPreferences preferences, long companyId, String defaultValue) {
 
 		return getPortal().getEmailFromAddress(
 			preferences, companyId, defaultValue);
 	}
 
 	public static String getEmailFromName(
-			PortletPreferences preferences, long companyId, String defaultValue) {
+		PortletPreferences preferences, long companyId, String defaultValue) {
 
 		return getPortal().getEmailFromName(
 			preferences, companyId, defaultValue);

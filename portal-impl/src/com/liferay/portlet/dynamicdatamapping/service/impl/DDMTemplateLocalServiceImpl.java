@@ -479,7 +479,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public DDMTemplate fetchTemplate(
-			long groupId, long classNameId, String templateKey) {
+		long groupId, long classNameId, String templateKey) {
 
 		templateKey = StringUtil.toUpperCase(templateKey.trim());
 
@@ -679,7 +679,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long groupId, long classNameId, long classPK) {
+		long groupId, long classNameId, long classPK) {
 
 		return ddmTemplatePersistence.findByG_C_C(
 			groupId, classNameId, classPK);
@@ -723,7 +723,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long groupId, long classNameId, long classPK, String type) {
+		long groupId, long classNameId, long classPK, String type) {
 
 		return ddmTemplatePersistence.findByG_C_C_T(
 			groupId, classNameId, classPK, type);
@@ -746,8 +746,8 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long groupId, long classNameId, long classPK, String type,
-			String mode) {
+		long groupId, long classNameId, long classPK, String type,
+		String mode) {
 
 		return ddmTemplatePersistence.findByG_C_C_T_M(
 			groupId, classNameId, classPK, type, mode);
@@ -755,7 +755,7 @@ public class DDMTemplateLocalServiceImpl
 
 	@Override
 	public List<DDMTemplate> getTemplates(
-			long[] groupIds, long classNameId, long classPK) {
+		long[] groupIds, long classNameId, long classPK) {
 
 		return ddmTemplatePersistence.findByG_C_C(
 			groupIds, classNameId, classPK);
@@ -769,14 +769,14 @@ public class DDMTemplateLocalServiceImpl
 
 	@Override
 	public List<DDMTemplate> getTemplatesByClassPK(
-			long groupId, long classPK, int start, int end) {
+		long groupId, long classPK, int start, int end) {
 
 		return ddmTemplatePersistence.findByG_CPK(groupId, classPK, start, end);
 	}
 
 	@Override
 	public List<DDMTemplate> getTemplatesByClassPK(
-			long[] groupIds, long classPK) {
+		long[] groupIds, long classPK) {
 
 		return ddmTemplatePersistence.findByG_CPK(groupIds, classPK);
 	}
@@ -822,8 +822,8 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> getTemplatesByStructureClassNameId(
-			long groupId, long structureClassNameId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long structureClassNameId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.findByG_SC(
 			groupId, structureClassNameId, start, end, orderByComparator);
@@ -841,7 +841,7 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public int getTemplatesByStructureClassNameIdCount(
-			long groupId, long structureClassNameId) {
+		long groupId, long structureClassNameId) {
 
 		return ddmTemplateFinder.countByG_SC(groupId, structureClassNameId);
 	}
@@ -929,9 +929,9 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> search(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.findByKeywords(
 			companyId, groupId, classNameId, classPK, keywords, type, mode,
@@ -982,10 +982,10 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> search(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.findByC_G_C_C_N_D_T_M_L(
 			companyId, groupId, classNameId, classPK, name, description, type,
@@ -1030,9 +1030,9 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> search(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode,
-			int start, int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.findByKeywords(
 			companyId, groupIds, classNameIds, classPKs, keywords, type, mode,
@@ -1083,10 +1083,10 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public List<DDMTemplate> search(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator, int start,
-			int end, OrderByComparator orderByComparator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddmTemplateFinder.findByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, name, description,
@@ -1116,8 +1116,8 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long groupId, long classNameId, long classPK,
-			String keywords, String type, String mode) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String keywords, String type, String mode) {
 
 		return ddmTemplateFinder.countByKeywords(
 			companyId, groupId, classNameId, classPK, keywords, type, mode);
@@ -1151,9 +1151,9 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long groupId, long classNameId, long classPK,
-			String name, String description, String type, String mode,
-			String language, boolean andOperator) {
+		long companyId, long groupId, long classNameId, long classPK,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		return ddmTemplateFinder.countByC_G_C_C_N_D_T_M_L(
 			companyId, groupId, classNameId, classPK, name, description, type,
@@ -1183,8 +1183,8 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String keywords, String type, String mode) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String keywords, String type, String mode) {
 
 		return ddmTemplateFinder.countByKeywords(
 			companyId, groupIds, classNameIds, classPKs, keywords, type, mode);
@@ -1218,9 +1218,9 @@ public class DDMTemplateLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long[] groupIds, long[] classNameIds,
-			long[] classPKs, String name, String description, String type,
-			String mode, String language, boolean andOperator) {
+		long companyId, long[] groupIds, long[] classNameIds, long[] classPKs,
+		String name, String description, String type, String mode,
+		String language, boolean andOperator) {
 
 		return ddmTemplateFinder.countByC_G_C_C_N_D_T_M_L(
 			companyId, groupIds, classNameIds, classPKs, name, description,

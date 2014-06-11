@@ -97,7 +97,7 @@ public class CMISFileEntry extends CMISModel implements FileEntry {
 
 	@Override
 	public boolean containsPermission(
-			PermissionChecker permissionChecker, String actionId) {
+		PermissionChecker permissionChecker, String actionId) {
 
 		return containsPermission(_document, actionId);
 	}

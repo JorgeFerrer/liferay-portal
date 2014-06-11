@@ -97,7 +97,7 @@ public class AssetTagPropertyServiceImpl
 	 */
 	@Override
 	public List<AssetTagProperty> getTagPropertyValues(
-			long companyId, String key) {
+		long companyId, String key) {
 
 		return assetTagPropertyLocalService.getTagPropertyValues(
 			companyId, key);

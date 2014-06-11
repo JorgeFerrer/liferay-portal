@@ -1154,7 +1154,7 @@ public class DLImpl implements DL {
 
 	@Override
 	public boolean isSubscribedToFileEntryType(
-			long companyId, long groupId, long userId, long fileEntryTypeId) {
+		long companyId, long groupId, long userId, long fileEntryTypeId) {
 
 		if (fileEntryTypeId ==
 				DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT) {

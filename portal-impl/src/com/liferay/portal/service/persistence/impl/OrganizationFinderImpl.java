@@ -92,10 +92,9 @@ public class OrganizationFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String keywords, String type,
-			Long regionId, Long countryId,
-			LinkedHashMap<String, Object> params) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String keywords, String type,
+		Long regionId, Long countryId, LinkedHashMap<String, Object> params) {
 
 		String[] names = null;
 		String[] streets = null;
@@ -146,11 +145,10 @@ public class OrganizationFinderImpl
 
 	@Override
 	public int countByC_PO_N_T_S_C_Z_R_C(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] streets = CustomSQLUtil.keywords(street);
@@ -165,11 +163,11 @@ public class OrganizationFinderImpl
 
 	@Override
 	public int countByC_PO_N_T_S_C_Z_R_C(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String[] names, String type,
-			String[] streets, String[] cities, String[] zips, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String[] names, String type,
+		String[] streets, String[] cities, String[] zips, Long regionId,
+		Long countryId, LinkedHashMap<String, Object> params,
+		boolean andOperator) {
 
 		names = CustomSQLUtil.keywords(names);
 		streets = CustomSQLUtil.keywords(streets);
@@ -298,10 +296,10 @@ public class OrganizationFinderImpl
 
 	@Override
 	public List<Organization> findByKeywords(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String keywords, String type,
-			Long regionId, Long countryId, LinkedHashMap<String, Object> params,
-			int start, int end, OrderByComparator obc) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String keywords, String type,
+		Long regionId, Long countryId, LinkedHashMap<String, Object> params,
+		int start, int end, OrderByComparator obc) {
 
 		String[] names = null;
 		String[] streets = null;
@@ -350,8 +348,8 @@ public class OrganizationFinderImpl
 
 	@Override
 	public List<Long> findByC_P(
-			long companyId, long parentOrganizationId,
-			long previousOrganizationId, int size) {
+		long companyId, long parentOrganizationId, long previousOrganizationId,
+		int size) {
 
 		Session session = null;
 
@@ -390,11 +388,11 @@ public class OrganizationFinderImpl
 
 	@Override
 	public List<Organization> findByC_PO_N_T_S_C_Z_R_C(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String name, String type,
-			String street, String city, String zip, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String name, String type,
+		String street, String city, String zip, Long regionId, Long countryId,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] streets = CustomSQLUtil.keywords(street);
@@ -409,11 +407,11 @@ public class OrganizationFinderImpl
 
 	@Override
 	public List<Organization> findByC_PO_N_T_S_C_Z_R_C(
-			long companyId, long parentOrganizationId,
-			String parentOrganizationIdComparator, String[] names, String type,
-			String[] streets, String[] cities, String[] zips, Long regionId,
-			Long countryId, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, long parentOrganizationId,
+		String parentOrganizationIdComparator, String[] names, String type,
+		String[] streets, String[] cities, String[] zips, Long regionId,
+		Long countryId, LinkedHashMap<String, Object> params,
+		boolean andOperator, int start, int end, OrderByComparator obc) {
 
 		names = CustomSQLUtil.keywords(names);
 		streets = CustomSQLUtil.keywords(streets);

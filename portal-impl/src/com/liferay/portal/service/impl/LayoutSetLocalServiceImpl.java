@@ -179,7 +179,7 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 
 	@Override
 	public List<LayoutSet> getLayoutSetsByLayoutSetPrototypeUuid(
-			String layoutSetPrototypeUuid) {
+		String layoutSetPrototypeUuid) {
 
 		return layoutSetPersistence.findByLayoutSetPrototypeUuid(
 			layoutSetPrototypeUuid);

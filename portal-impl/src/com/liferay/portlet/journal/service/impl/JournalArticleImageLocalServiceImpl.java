@@ -85,8 +85,8 @@ public class JournalArticleImageLocalServiceImpl
 
 	@Override
 	public void deleteArticleImage(
-			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId) {
+		long groupId, String articleId, double version, String elInstanceId,
+		String elName, String languageId) {
 
 		JournalArticleImage articleImage =
 			journalArticleImagePersistence.fetchByG_A_V_E_E_L(
@@ -117,8 +117,8 @@ public class JournalArticleImageLocalServiceImpl
 
 	@Override
 	public long getArticleImageId(
-			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId) {
+		long groupId, String articleId, double version, String elInstanceId,
+		String elName, String languageId) {
 
 		return getArticleImageId(
 			groupId, articleId, version, elInstanceId, elName, languageId,
@@ -127,8 +127,8 @@ public class JournalArticleImageLocalServiceImpl
 
 	@Override
 	public long getArticleImageId(
-			long groupId, String articleId, double version, String elInstanceId,
-			String elName, String languageId, boolean tempImage) {
+		long groupId, String articleId, double version, String elInstanceId,
+		String elName, String languageId, boolean tempImage) {
 
 		JournalArticleImage articleImage =
 			journalArticleImagePersistence.fetchByG_A_V_E_E_L(
@@ -162,7 +162,7 @@ public class JournalArticleImageLocalServiceImpl
 
 	@Override
 	public List<JournalArticleImage> getArticleImages(
-			long groupId, String articleId, double version) {
+		long groupId, String articleId, double version) {
 
 		return journalArticleImagePersistence.findByG_A_V(
 			groupId, articleId, version);

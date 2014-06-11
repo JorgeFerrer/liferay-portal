@@ -90,7 +90,7 @@ public class AssetCategoryPropertyFinderImpl
 
 	@Override
 	public List<AssetCategoryProperty> findByG_K(
-			long groupId, String key, int start, int end) {
+		long groupId, String key, int start, int end) {
 
 		Session session = null;
 

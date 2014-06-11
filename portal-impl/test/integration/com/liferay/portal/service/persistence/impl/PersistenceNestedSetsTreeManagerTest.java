@@ -608,7 +608,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertCountAncestors(
-			long ancestorsCount, AssetCategory assetCategory) {
+		long ancestorsCount, AssetCategory assetCategory) {
 
 		Assert.assertEquals(
 			ancestorsCount,
@@ -616,7 +616,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertCountChildren(
-			long childrenCount, AssetCategory assetCategory) {
+		long childrenCount, AssetCategory assetCategory) {
 
 		Assert.assertEquals(
 			childrenCount,
@@ -645,7 +645,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertGetDescendants(
-			AssetCategory assetCategory, AssetCategory... childAssetCategories) {
+		AssetCategory assetCategory, AssetCategory... childAssetCategories) {
 
 		List<AssetCategory> expectedAssetCategories =
 			new ArrayList<AssetCategory>(Arrays.asList(childAssetCategories));
@@ -664,8 +664,8 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void assertLeftAndRight(
-			AssetCategory assetCategory, long leftCategoryId,
-			long rightCategoryId) {
+		AssetCategory assetCategory, long leftCategoryId,
+		long rightCategoryId) {
 
 		Assert.assertEquals(leftCategoryId, assetCategory.getLeftCategoryId());
 		Assert.assertEquals(
@@ -680,7 +680,7 @@ public class PersistenceNestedSetsTreeManagerTest {
 	}
 
 	protected void synchronizeAssetCategories(
-			AssetCategory assetCategory, boolean delete) {
+		AssetCategory assetCategory, boolean delete) {
 
 		if (assetCategory != null) {
 			if (delete) {

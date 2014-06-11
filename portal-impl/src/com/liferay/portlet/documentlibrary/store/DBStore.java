@@ -87,7 +87,7 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public void deleteDirectory(
-			long companyId, long repositoryId, String dirName) {
+		long companyId, long repositoryId, String dirName) {
 
 		DLContentLocalServiceUtil.deleteContentsByDirectory(
 			companyId, repositoryId, dirName);
@@ -95,7 +95,6 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public void deleteFile(long companyId, long repositoryId, String fileName) {
-
 		DLContentLocalServiceUtil.deleteContents(
 			companyId, repositoryId, fileName);
 	}
@@ -266,8 +265,8 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public boolean hasFile(
-			long companyId, long repositoryId, String fileName,
-			String versionLabel) {
+		long companyId, long repositoryId, String fileName,
+		String versionLabel) {
 
 		return DLContentLocalServiceUtil.hasContent(
 			companyId, repositoryId, fileName, versionLabel);
@@ -279,8 +278,8 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public void updateFile(
-			long companyId, long repositoryId, long newRepositoryId,
-			String fileName) {
+		long companyId, long repositoryId, long newRepositoryId,
+		String fileName) {
 
 		DLContentLocalServiceUtil.updateDLContent(
 			companyId, repositoryId, newRepositoryId, fileName, fileName);
@@ -288,8 +287,8 @@ public class DBStore extends BaseStore {
 
 	@Override
 	public void updateFile(
-			long companyId, long repositoryId, String fileName,
-			String newFileName) {
+		long companyId, long repositoryId, String fileName,
+		String newFileName) {
 
 		DLContentLocalServiceUtil.updateDLContent(
 			companyId, repositoryId, repositoryId, fileName, newFileName);

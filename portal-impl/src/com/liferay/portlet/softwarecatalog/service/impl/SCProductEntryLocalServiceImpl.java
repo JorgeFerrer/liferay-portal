@@ -263,7 +263,7 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public List<SCProductEntry> getCompanyProductEntries(
-			long companyId, int start, int end) {
+		long companyId, int start, int end) {
 
 		return scProductEntryPersistence.findByCompanyId(companyId, start, end);
 	}
@@ -276,14 +276,14 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return scProductEntryPersistence.findByGroupId(groupId, start, end);
 	}
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, int start, int end, OrderByComparator obc) {
+		long groupId, int start, int end, OrderByComparator obc) {
 
 		return scProductEntryPersistence.findByGroupId(
 			groupId, start, end, obc);
@@ -291,15 +291,14 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, long userId, int start, int end) {
+		long groupId, long userId, int start, int end) {
 
 		return scProductEntryPersistence.findByG_U(groupId, userId, start, end);
 	}
 
 	@Override
 	public List<SCProductEntry> getProductEntries(
-			long groupId, long userId, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long userId, int start, int end, OrderByComparator obc) {
 
 		return scProductEntryPersistence.findByG_U(
 			groupId, userId, start, end, obc);
@@ -325,8 +324,8 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public String getRepositoryXML(
-			long groupId, String baseImageURL, Date oldestDate,
-			int maxNumOfVersions, Properties repoSettings) {
+		long groupId, String baseImageURL, Date oldestDate,
+		int maxNumOfVersions, Properties repoSettings) {
 
 		return getRepositoryXML(
 			groupId, null, baseImageURL, oldestDate, maxNumOfVersions,
@@ -335,8 +334,8 @@ public class SCProductEntryLocalServiceImpl
 
 	@Override
 	public String getRepositoryXML(
-			long groupId, String version, String baseImageURL, Date oldestDate,
-			int maxNumOfVersions, Properties repoSettings) {
+		long groupId, String version, String baseImageURL, Date oldestDate,
+		int maxNumOfVersions, Properties repoSettings) {
 
 		Document doc = SAXReaderUtil.createDocument();
 
@@ -473,8 +472,8 @@ public class SCProductEntryLocalServiceImpl
 	}
 
 	protected void populatePluginPackageElement(
-			Element el, SCProductEntry productEntry,
-			SCProductVersion productVersion, String baseImageURL) {
+		Element el, SCProductEntry productEntry,
+		SCProductVersion productVersion, String baseImageURL) {
 
 		DocUtil.add(el, "name", productEntry.getName());
 

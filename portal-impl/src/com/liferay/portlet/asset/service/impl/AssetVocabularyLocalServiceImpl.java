@@ -263,7 +263,7 @@ public class AssetVocabularyLocalServiceImpl
 
 	@Override
 	public List<AssetVocabulary> getGroupsVocabularies(
-			long[] groupIds, String className) {
+		long[] groupIds, String className) {
 
 		List<AssetVocabulary> vocabularies =
 			assetVocabularyPersistence.findByGroupId(groupIds);
@@ -305,8 +305,7 @@ public class AssetVocabularyLocalServiceImpl
 
 	@Override
 	public List<AssetVocabulary> getGroupVocabularies(
-			long groupId, String name, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String name, int start, int end, OrderByComparator obc) {
 
 		return assetVocabularyFinder.findByG_N(groupId, name, start, end, obc);
 	}

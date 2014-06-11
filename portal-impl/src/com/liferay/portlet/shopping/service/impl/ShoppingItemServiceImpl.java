@@ -98,8 +98,8 @@ public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
 
 	@Override
 	public List<ShoppingItem> getItems(
-			long groupId, long categoryId, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long categoryId, int start, int end,
+		OrderByComparator obc) {
 
 		return shoppingItemPersistence.filterFindByG_C(
 			groupId, categoryId, start, end, obc);

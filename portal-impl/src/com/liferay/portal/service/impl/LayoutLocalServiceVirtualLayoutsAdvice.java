@@ -234,7 +234,7 @@ public class LayoutLocalServiceVirtualLayoutsAdvice
 	}
 
 	protected List<Layout> getPrototypeLinkedLayouts(
-			long groupId, boolean privateLayout) {
+		long groupId, boolean privateLayout) {
 
 		Class<?> clazz = getClass();
 

@@ -92,7 +92,7 @@ public class SystemEventLocalServiceImpl
 
 	@Override
 	public SystemEvent fetchSystemEvent(
-			long groupId, long classNameId, long classPK, int type) {
+		long groupId, long classNameId, long classPK, int type) {
 
 		return systemEventPersistence.fetchByG_C_C_T_First(
 			groupId, classNameId, classPK, type, null);
@@ -100,7 +100,7 @@ public class SystemEventLocalServiceImpl
 
 	@Override
 	public List<SystemEvent> getSystemEvents(
-			long groupId, long classNameId, long classPK) {
+		long groupId, long classNameId, long classPK) {
 
 		return systemEventPersistence.findByG_C_C(
 			groupId, classNameId, classPK);
@@ -108,7 +108,7 @@ public class SystemEventLocalServiceImpl
 
 	@Override
 	public List<SystemEvent> getSystemEvents(
-			long groupId, long classNameId, long classPK, int type) {
+		long groupId, long classNameId, long classPK, int type) {
 
 		return systemEventPersistence.findByG_C_C_T(
 			groupId, classNameId, classPK, type);

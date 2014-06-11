@@ -108,7 +108,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long parentCategoryId, int start, int end) {
+		long groupId, long parentCategoryId, int start, int end) {
 
 		return mbCategoryPersistence.filterFindByG_P(
 			groupId, parentCategoryId, start, end);
@@ -116,7 +116,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long parentCategoryId, int status, int start, int end) {
+		long groupId, long parentCategoryId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterFindByG_P(
@@ -129,8 +129,8 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long excludedCategoryId, long parentCategoryId,
-			int status, int start, int end) {
+		long groupId, long excludedCategoryId, long parentCategoryId,
+		int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterFindByNotC_G_P(
@@ -143,7 +143,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long[] parentCategoryIds, int start, int end) {
+		long groupId, long[] parentCategoryIds, int start, int end) {
 
 		return mbCategoryPersistence.filterFindByG_P(
 			groupId, parentCategoryIds, start, end);
@@ -151,8 +151,8 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long[] parentCategoryIds, int status, int start,
-			int end) {
+		long groupId, long[] parentCategoryIds, int status, int start,
+		int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterFindByG_P(
@@ -165,8 +165,8 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getCategories(
-			long groupId, long[] excludedCategoryIds, long[] parentCategoryIds,
-			int status, int start, int end) {
+		long groupId, long[] excludedCategoryIds, long[] parentCategoryIds,
+		int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterFindByNotC_G_P(
@@ -187,7 +187,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public int getCategoriesCount(
-			long groupId, long parentCategoryId, int status) {
+		long groupId, long parentCategoryId, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterCountByG_P(
@@ -200,8 +200,8 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public int getCategoriesCount(
-			long groupId, long excludedCategoryId, long parentCategoryId,
-			int status) {
+		long groupId, long excludedCategoryId, long parentCategoryId,
+		int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterCountByNotC_G_P(
@@ -221,7 +221,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public int getCategoriesCount(
-			long groupId, long[] parentCategoryIds, int status) {
+		long groupId, long[] parentCategoryIds, int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterCountByG_P(
@@ -234,8 +234,8 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public int getCategoriesCount(
-			long groupId, long[] excludedCategoryIds, long[] parentCategoryIds,
-			int status) {
+		long groupId, long[] excludedCategoryIds, long[] parentCategoryIds,
+		int status) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return mbCategoryPersistence.filterCountByNotC_G_P(
@@ -272,7 +272,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<Long> getSubcategoryIds(
-			List<Long> categoryIds, long groupId, long categoryId) {
+		List<Long> categoryIds, long groupId, long categoryId) {
 
 		List<MBCategory> categories = mbCategoryPersistence.filterFindByG_P(
 			groupId, categoryId);
@@ -293,7 +293,7 @@ public class MBCategoryServiceImpl extends MBCategoryServiceBaseImpl {
 
 	@Override
 	public List<MBCategory> getSubscribedCategories(
-			long groupId, long userId, int start, int end) {
+		long groupId, long userId, int start, int end) {
 
 		long[] categoryIds = getCategoryIds(
 			groupId, MBCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);

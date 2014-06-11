@@ -42,7 +42,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static boolean getBoolean(
-			long companyId, String name, boolean defaultValue) {
+		long companyId, String name, boolean defaultValue) {
 
 		PortletPreferences preferences = getPreferences(companyId, true);
 
@@ -110,7 +110,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static double getDouble(
-			long companyId, String name, double defaultValue) {
+		long companyId, String name, double defaultValue) {
 
 		PortletPreferences preferences = getPreferences(companyId, true);
 
@@ -151,7 +151,8 @@ public class PrefsPropsUtil {
 		return getInteger(preferences, companyId, name);
 	}
 
-	public static int getInteger(long companyId, String name, int defaultValue) {
+	public static int getInteger(
+		long companyId, String name, int defaultValue) {
 
 		PortletPreferences preferences = getPreferences(companyId, true);
 
@@ -251,12 +252,11 @@ public class PrefsPropsUtil {
 	}
 
 	public static PortletPreferences getPreferences(long companyId) {
-
 		return getPreferences(companyId, false);
 	}
 
 	public static PortletPreferences getPreferences(
-			long companyId, boolean readOnly) {
+		long companyId, boolean readOnly) {
 
 		long ownerId = companyId;
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_COMPANY;
@@ -301,7 +301,8 @@ public class PrefsPropsUtil {
 		return newProperties;
 	}
 
-	public static Properties getProperties(String prefix, boolean removePrefix) {
+	public static Properties getProperties(
+		String prefix, boolean removePrefix) {
 
 		PortletPreferences preferences = getPreferences(true);
 
@@ -316,7 +317,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static short getShort(
-			long companyId, String name, short defaultValue) {
+		long companyId, String name, short defaultValue) {
 
 		PortletPreferences preferences = getPreferences(companyId, true);
 
@@ -358,7 +359,7 @@ public class PrefsPropsUtil {
 	}
 
 	public static String getString(
-			long companyId, String name, String defaultValue) {
+		long companyId, String name, String defaultValue) {
 
 		PortletPreferences preferences = getPreferences(companyId, true);
 

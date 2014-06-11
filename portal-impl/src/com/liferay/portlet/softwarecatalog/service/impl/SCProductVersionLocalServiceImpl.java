@@ -150,7 +150,7 @@ public class SCProductVersionLocalServiceImpl
 
 	@Override
 	public List<SCProductVersion> getProductVersions(
-			long productEntryId, int start, int end) {
+		long productEntryId, int start, int end) {
 
 		return scProductVersionPersistence.findByProductEntryId(
 			productEntryId, start, end);

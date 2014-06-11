@@ -37,8 +37,8 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 
 	@Override
 	public DLFileRank addFileRank(
-			long groupId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext) {
+		long groupId, long companyId, long userId, long fileEntryId,
+		ServiceContext serviceContext) {
 
 		long fileRankId = counterLocalService.increment();
 
@@ -187,8 +187,8 @@ public class DLFileRankLocalServiceImpl extends DLFileRankLocalServiceBaseImpl {
 
 	@Override
 	public DLFileRank updateFileRank(
-			long groupId, long companyId, long userId, long fileEntryId,
-			ServiceContext serviceContext) {
+		long groupId, long companyId, long userId, long fileEntryId,
+		ServiceContext serviceContext) {
 
 		if (!PropsValues.DL_FILE_RANK_ENABLED) {
 			return null;

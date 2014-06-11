@@ -65,8 +65,8 @@ public class SocialActivityLimitLocalServiceImpl
 
 	@Override
 	public SocialActivityLimit fetchActivityLimit(
-			long groupId, long userId, long classNameId, long classPK,
-			int activityType, String activityCounterName) {
+		long groupId, long userId, long classNameId, long classPK,
+		int activityType, String activityCounterName) {
 
 		return socialActivityLimitPersistence.fetchByG_U_C_C_A_A(
 			groupId, userId, classNameId, classPK, activityType,

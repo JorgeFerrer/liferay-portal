@@ -246,7 +246,7 @@ public class ResourceActionsUtil {
 	}
 
 	public static List<Role> getRoles(
-			long companyId, Group group, String modelResource, int[] roleTypes) {
+		long companyId, Group group, String modelResource, int[] roleTypes) {
 
 		return getResourceActions().getRoles(
 			companyId, group, modelResource, roleTypes);

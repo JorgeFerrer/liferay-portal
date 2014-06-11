@@ -69,8 +69,8 @@ public class JournalFeedFinderImpl
 
 	@Override
 	public int countByC_G_F_N_D(
-			long companyId, long groupId, String feedId, String name,
-			String description, boolean andOperator) {
+		long companyId, long groupId, String feedId, String name,
+		String description, boolean andOperator) {
 
 		String[] feedIds = CustomSQLUtil.keywords(feedId, false);
 		String[] names = CustomSQLUtil.keywords(name);
@@ -82,8 +82,8 @@ public class JournalFeedFinderImpl
 
 	@Override
 	public int countByC_G_F_N_D(
-			long companyId, long groupId, String[] feedIds, String[] names,
-			String[] descriptions, boolean andOperator) {
+		long companyId, long groupId, String[] feedIds, String[] names,
+		String[] descriptions, boolean andOperator) {
 
 		feedIds = CustomSQLUtil.keywords(feedIds, false);
 		names = CustomSQLUtil.keywords(names);
@@ -148,8 +148,8 @@ public class JournalFeedFinderImpl
 
 	@Override
 	public List<JournalFeed> findByKeywords(
-			long companyId, long groupId, String keywords, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long groupId, String keywords, int start, int end,
+		OrderByComparator obc) {
 
 		String[] feedIds = null;
 		String[] names = null;
@@ -172,9 +172,9 @@ public class JournalFeedFinderImpl
 
 	@Override
 	public List<JournalFeed> findByC_G_F_N_D(
-			long companyId, long groupId, String feedId, String name,
-			String description, boolean andOperator, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long groupId, String feedId, String name,
+		String description, boolean andOperator, int start, int end,
+		OrderByComparator obc) {
 
 		String[] feedIds = CustomSQLUtil.keywords(feedId, false);
 		String[] names = CustomSQLUtil.keywords(name);
@@ -187,9 +187,9 @@ public class JournalFeedFinderImpl
 
 	@Override
 	public List<JournalFeed> findByC_G_F_N_D(
-			long companyId, long groupId, String[] feedIds, String[] names,
-			String[] descriptions, boolean andOperator, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long groupId, String[] feedIds, String[] names,
+		String[] descriptions, boolean andOperator, int start, int end,
+		OrderByComparator obc) {
 
 		feedIds = CustomSQLUtil.keywords(feedIds, false);
 		names = CustomSQLUtil.keywords(names);

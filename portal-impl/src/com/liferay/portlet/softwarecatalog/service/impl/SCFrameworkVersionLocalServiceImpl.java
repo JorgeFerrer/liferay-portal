@@ -170,14 +170,14 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active) {
+		long groupId, boolean active) {
 
 		return scFrameworkVersionPersistence.findByG_A(groupId, active);
 	}
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, boolean active, int start, int end) {
+		long groupId, boolean active, int start, int end) {
 
 		return scFrameworkVersionPersistence.findByG_A(
 			groupId, active, start, end);
@@ -185,7 +185,7 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getFrameworkVersions(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return scFrameworkVersionPersistence.findByGroupId(groupId, start, end);
 	}
@@ -203,7 +203,7 @@ public class SCFrameworkVersionLocalServiceImpl
 
 	@Override
 	public List<SCFrameworkVersion> getProductVersionFrameworkVersions(
-			long productVersionId) {
+		long productVersionId) {
 
 		return scProductVersionPersistence.getSCFrameworkVersions(
 			productVersionId);

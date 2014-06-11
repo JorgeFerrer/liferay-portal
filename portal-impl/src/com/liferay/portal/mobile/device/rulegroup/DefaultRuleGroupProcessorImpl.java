@@ -126,7 +126,7 @@ public class DefaultRuleGroupProcessorImpl implements RuleGroupProcessor {
 	}
 
 	protected MDRRuleGroupInstance evaluateRuleGroupInstances(
-			String className, long classPK, ThemeDisplay themeDisplay) {
+		String className, long classPK, ThemeDisplay themeDisplay) {
 
 		List<MDRRuleGroupInstance> mdrRuleGroupInstances =
 			_mdrRuleGroupInstanceLocalService.getRuleGroupInstances(

@@ -174,7 +174,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public int getGroupThreadsCount(
-			long groupId, long userId, Date modifiedDate, int status) {
+		long groupId, long userId, Date modifiedDate, int status) {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			QueryDefinition queryDefinition = new QueryDefinition(status);
@@ -202,15 +202,15 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public int getGroupThreadsCount(
-			long groupId, long userId, int status, boolean subscribed) {
+		long groupId, long userId, int status, boolean subscribed) {
 
 		return getGroupThreadsCount(groupId, userId, status, subscribed, true);
 	}
 
 	@Override
 	public int getGroupThreadsCount(
-			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous) {
+		long groupId, long userId, int status, boolean subscribed,
+		boolean includeAnonymous) {
 
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return doGetGroupThreadsCount(
@@ -250,7 +250,7 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 
 	@Override
 	public List<MBThread> getThreads(
-			long groupId, long categoryId, int status, int start, int end) {
+		long groupId, long categoryId, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -402,8 +402,8 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	protected List<MBThread> doGetGroupThreads(
-			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous, int start, int end) {
+		long groupId, long userId, int status, boolean subscribed,
+		boolean includeAnonymous, int start, int end) {
 
 		if (userId <= 0) {
 			if (status == WorkflowConstants.STATUS_ANY) {
@@ -431,8 +431,8 @@ public class MBThreadServiceImpl extends MBThreadServiceBaseImpl {
 	}
 
 	protected int doGetGroupThreadsCount(
-			long groupId, long userId, int status, boolean subscribed,
-			boolean includeAnonymous) {
+		long groupId, long userId, int status, boolean subscribed,
+		boolean includeAnonymous) {
 
 		if (userId <= 0) {
 			if (status == WorkflowConstants.STATUS_ANY) {

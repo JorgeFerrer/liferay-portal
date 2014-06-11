@@ -909,8 +909,8 @@ public class LayoutImporter {
 	}
 
 	protected void updateLayoutPriorities(
-			PortletDataContext portletDataContext, List<Element> layoutElements,
-			boolean privateLayout) {
+		PortletDataContext portletDataContext, List<Element> layoutElements,
+		boolean privateLayout) {
 
 		Map<Long, Layout> layouts =
 			(Map<Long, Layout>)portletDataContext.getNewPrimaryKeysMap(

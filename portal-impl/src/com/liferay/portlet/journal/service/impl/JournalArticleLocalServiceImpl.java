@@ -1364,7 +1364,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchArticle(
-			long groupId, String articleId, double version) {
+		long groupId, String articleId, double version) {
 
 		return journalArticlePersistence.fetchByG_A_V(
 			groupId, articleId, version);
@@ -1372,7 +1372,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchLatestArticle(
-			long resourcePrimKey, int status, boolean preferApproved) {
+		long resourcePrimKey, int status, boolean preferApproved) {
 
 		JournalArticle article = null;
 
@@ -1401,7 +1401,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public JournalArticle fetchLatestArticle(
-			long groupId, String articleId, int status) {
+		long groupId, String articleId, int status) {
 
 		OrderByComparator orderByComparator = new ArticleVersionComparator();
 
@@ -2248,7 +2248,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, int start, int end, OrderByComparator obc) {
+		long groupId, int start, int end, OrderByComparator obc) {
 
 		return journalArticlePersistence.findByGroupId(
 			groupId, start, end, obc);
@@ -2292,7 +2292,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, long folderId, int start, int end) {
+		long groupId, long folderId, int start, int end) {
 
 		return journalArticlePersistence.findByG_F(
 			groupId, folderId, start, end);
@@ -2300,7 +2300,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, long folderId, int status, int start, int end) {
+		long groupId, long folderId, int status, int start, int end) {
 
 		return journalArticlePersistence.findByG_F_ST(
 			groupId, folderId, status, start, end);
@@ -2333,8 +2333,8 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, long folderId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long folderId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return journalArticlePersistence.findByG_F(
 			groupId, folderId, start, end, orderByComparator);
@@ -2356,8 +2356,8 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getArticles(
-			long groupId, String articleId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, String articleId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return journalArticlePersistence.findByG_A(
 			groupId, articleId, start, end, orderByComparator);
@@ -2365,7 +2365,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getArticlesByResourcePrimKey(
-			long resourcePrimKey) {
+		long resourcePrimKey) {
 
 		return journalArticlePersistence.findByResourcePrimKey(resourcePrimKey);
 	}
@@ -2450,7 +2450,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
-			long companyId, double version, int status, int start, int end) {
+		long companyId, double version, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.findByC_V(
@@ -2489,7 +2489,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getCompanyArticles(
-			long companyId, int status, int start, int end) {
+		long companyId, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.findByCompanyId(
@@ -2528,7 +2528,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int getCompanyArticlesCount(
-			long companyId, double version, int status, int start, int end) {
+		long companyId, double version, int status, int start, int end) {
 
 		if (status == WorkflowConstants.STATUS_ANY) {
 			return journalArticlePersistence.countByC_V(companyId, version);
@@ -2655,7 +2655,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> getIndexableArticlesByResourcePrimKey(
-			long resourcePrimKey) {
+		long resourcePrimKey) {
 
 		return journalArticlePersistence.findByR_I(resourcePrimKey, true);
 	}
@@ -2993,7 +2993,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getStructureArticles(
-			long groupId, String ddmStructureKey) {
+		long groupId, String ddmStructureKey) {
 
 		return journalArticlePersistence.findByG_S(groupId, ddmStructureKey);
 	}
@@ -3025,15 +3025,16 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getStructureArticles(
-			long groupId, String ddmStructureKey, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String ddmStructureKey, int start, int end,
+		OrderByComparator obc) {
 
 		return journalArticlePersistence.findByG_S(
 			groupId, ddmStructureKey, start, end, obc);
 	}
 
 	@Override
-	public List<JournalArticle> getStructureArticles(String[] ddmStructureKeys) {
+	public List<JournalArticle> getStructureArticles(
+		String[] ddmStructureKeys) {
 
 		return journalArticlePersistence.findByStructureId(ddmStructureKeys);
 	}
@@ -3065,7 +3066,7 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getTemplateArticles(
-			long groupId, String ddmTemplateKey) {
+		long groupId, String ddmTemplateKey) {
 
 		return journalArticlePersistence.findByG_T(groupId, ddmTemplateKey);
 	}
@@ -3097,8 +3098,8 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> getTemplateArticles(
-			long groupId, String ddmTemplateKey, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String ddmTemplateKey, int start, int end,
+		OrderByComparator obc) {
 
 		return journalArticlePersistence.findByG_T(
 			groupId, ddmTemplateKey, start, end, obc);
@@ -3650,7 +3651,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> search(
-			long groupId, List<Long> folderIds, int status, int start, int end) {
+		long groupId, List<Long> folderIds, int status, int start, int end) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, null);
@@ -3661,7 +3662,7 @@ public class JournalArticleLocalServiceImpl
 
 	@Override
 	public List<JournalArticle> search(
-			long groupId, long folderId, int status, int start, int end) {
+		long groupId, long folderId, int status, int start, int end) {
 
 		List<Long> folderIds = new ArrayList<Long>();
 
@@ -3732,11 +3733,11 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String keywords, Double version, String type,
-			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate, int start, int end,
-			OrderByComparator obc) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String keywords, Double version, String type, String ddmStructureKey,
+		String ddmTemplateKey, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate, int start, int end,
+		OrderByComparator obc) {
 
 		return journalArticleFinder.findByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -3813,12 +3814,12 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, Double version, String title,
-			String description, String content, String type,
-			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, Double version, String title, String description,
+		String content, String type, String ddmStructureKey,
+		String ddmTemplateKey, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate, boolean andOperator, int start, int end,
+		OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -3898,12 +3899,12 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public List<JournalArticle> search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, Double version, String title,
-			String description, String content, String type,
-			String[] ddmStructureKeys, String[] ddmTemplateKeys,
-			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, Double version, String title, String description,
+		String content, String type, String[] ddmStructureKeys,
+		String[] ddmTemplateKeys, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate, boolean andOperator, int start, int end,
+		OrderByComparator obc) {
 
 		QueryDefinition queryDefinition = new QueryDefinition(
 			status, start, end, obc);
@@ -3962,10 +3963,9 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public Hits search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String ddmStructureKey, String ddmTemplateKey,
-			String keywords, LinkedHashMap<String, Object> params, int start,
-			int end, Sort sort) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String ddmStructureKey, String ddmTemplateKey, String keywords,
+		LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
 		String articleId = null;
 		String title = null;
@@ -4055,12 +4055,11 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public Hits search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, String title,
-			String description, String content, String type, int status,
-			String ddmStructureKey, String ddmTemplateKey,
-			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, String title, String description, String content,
+		String type, int status, String ddmStructureKey, String ddmTemplateKey,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort sort) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -4086,12 +4085,11 @@ public class JournalArticleLocalServiceImpl
 	@Deprecated
 	@Override
 	public Hits search(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, String title,
-			String description, String content, String type,
-			String statusString, String ddmStructureKey, String ddmTemplateKey,
-			LinkedHashMap<String, Object> params, boolean andSearch, int start,
-			int end, Sort sort) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, String title, String description, String content,
+		String type, String statusString, String ddmStructureKey,
+		String ddmTemplateKey, LinkedHashMap<String, Object> params,
+		boolean andSearch, int start, int end, Sort sort) {
 
 		int status = GetterUtil.getInteger(statusString);
 
@@ -4179,10 +4177,10 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String keywords, Double version, String type,
-			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String keywords, Double version, String type, String ddmStructureKey,
+		String ddmTemplateKey, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate) {
 
 		return journalArticleFinder.countByKeywords(
 			companyId, groupId, folderIds, classNameId, keywords, version, type,
@@ -4240,12 +4238,11 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, Double version, String title,
-			String description, String content, String type,
-			String ddmStructureKey, String ddmTemplateKey, Date displayDateGT,
-			Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, Double version, String title, String description,
+		String content, String type, String ddmStructureKey,
+		String ddmTemplateKey, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate, boolean andOperator) {
 
 		return journalArticleFinder.countByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -4306,12 +4303,11 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(
-			long companyId, long groupId, List<Long> folderIds,
-			long classNameId, String articleId, Double version, String title,
-			String description, String content, String type,
-			String[] ddmStructureKeys, String[] ddmTemplateKeys,
-			Date displayDateGT, Date displayDateLT, int status, Date reviewDate,
-			boolean andOperator) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String articleId, Double version, String title, String description,
+		String content, String type, String[] ddmStructureKeys,
+		String[] ddmTemplateKeys, Date displayDateGT, Date displayDateLT,
+		int status, Date reviewDate, boolean andOperator) {
 
 		return journalArticleFinder.countByC_G_F_C_A_V_T_D_C_T_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -5491,8 +5487,8 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public void updateTemplateId(
-			long groupId, long classNameId, String oldDDMTemplateKey,
-			String newDDMTemplateKey) {
+		long groupId, long classNameId, String oldDDMTemplateKey,
+		String newDDMTemplateKey) {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_C_T(
 			groupId, classNameId, oldDDMTemplateKey);
@@ -6684,7 +6680,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	protected void updateUrlTitles(
-			long groupId, String articleId, String urlTitle) {
+		long groupId, String articleId, String urlTitle) {
 
 		List<JournalArticle> articles = journalArticlePersistence.findByG_A(
 			groupId, articleId);

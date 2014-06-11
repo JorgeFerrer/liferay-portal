@@ -49,8 +49,8 @@ import javax.servlet.http.HttpServletResponse;
 public class TemplateProcessor implements ColumnProcessor {
 
 	public TemplateProcessor(
-			HttpServletRequest request, HttpServletResponse response,
-			String portletId) {
+		HttpServletRequest request, HttpServletResponse response,
+		String portletId) {
 
 		_request = request;
 		_response = response;

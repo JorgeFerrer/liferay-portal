@@ -234,8 +234,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	@Override
 	public List<DDLRecord> getCompanyRecords(
-			long companyId, int status, int scope, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, int status, int scope, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddlRecordFinder.findByC_S_S(
 			companyId, status, scope, start, end, orderByComparator);
@@ -248,8 +248,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<DDLRecord> getCompanyRecords(
-			long companyId, int scope, int start, int end,
-			OrderByComparator orderByComparator) {
+		long companyId, int scope, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return getCompanyRecords(
 			companyId, WorkflowConstants.STATUS_ANY, scope, start, end,
@@ -303,8 +303,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	@Override
 	public List<DDLRecord> getMinAndMaxCompanyRecords(
-			long companyId, int status, int scope, long minRecordId,
-			long maxRecordId) {
+		long companyId, int status, int scope, long minRecordId,
+		long maxRecordId) {
 
 		return ddlRecordFinder.findByC_S_S_MinAndMax(
 			companyId, status, scope, minRecordId, maxRecordId);
@@ -322,8 +322,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	@Override
 	public List<DDLRecord> getRecords(
-			long recordSetId, int status, int start, int end,
-			OrderByComparator orderByComparator) {
+		long recordSetId, int status, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddlRecordFinder.findByR_S(
 			recordSetId, status, start, end, orderByComparator);
@@ -357,8 +357,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	@Override
 	public List<DDLRecordVersion> getRecordVersions(
-			long recordId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long recordId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return ddlRecordVersionPersistence.findByRecordId(
 			recordId, start, end, orderByComparator);
@@ -404,7 +404,7 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 
 	@Override
 	public BaseModelSearchResult<DDLRecord> searchDDLRecords(
-			SearchContext searchContext) {
+		SearchContext searchContext) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -648,8 +648,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	protected DDLRecordVersion addRecordVersion(
-			User user, DDLRecord record, long ddmStorageId, String version,
-			int displayIndex, int status) {
+		User user, DDLRecord record, long ddmStorageId, String version,
+		int displayIndex, int status) {
 
 		long recordVersionId = counterLocalService.increment();
 
@@ -758,8 +758,8 @@ public class DDLRecordLocalServiceImpl extends DDLRecordLocalServiceBaseImpl {
 	}
 
 	protected void updateRecordVersion(
-			User user, DDLRecordVersion recordVersion, String version,
-			int displayIndex, int status, ServiceContext serviceContext) {
+		User user, DDLRecordVersion recordVersion, String version,
+		int displayIndex, int status, ServiceContext serviceContext) {
 
 		recordVersion.setUserId(user.getUserId());
 		recordVersion.setUserName(user.getFullName());

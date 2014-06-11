@@ -29,7 +29,7 @@ public class ClusterGroupLocalServiceImpl
 
 	@Override
 	public ClusterGroup addClusterGroup(
-			String name, List<String> clusterNodeIds) {
+		String name, List<String> clusterNodeIds) {
 
 		long clusterGroupId = counterLocalService.increment();
 

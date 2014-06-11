@@ -172,8 +172,8 @@ public class RoleFinderImpl
 
 	@Override
 	public int countByC_N_D_T(
-			long companyId, String name, String description, Integer[] types,
-			LinkedHashMap<String, Object> params, boolean andOperator) {
+		long companyId, String name, String description, Integer[] types,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -184,9 +184,8 @@ public class RoleFinderImpl
 
 	@Override
 	public int countByC_N_D_T(
-			long companyId, String[] names, String[] descriptions,
-			Integer[] types, LinkedHashMap<String, Object> params,
-			boolean andOperator) {
+		long companyId, String[] names, String[] descriptions, Integer[] types,
+		LinkedHashMap<String, Object> params, boolean andOperator) {
 
 		names = CustomSQLUtil.keywords(names, true);
 		descriptions = CustomSQLUtil.keywords(descriptions, true);
@@ -246,7 +245,8 @@ public class RoleFinderImpl
 	}
 
 	@Override
-	public int countByKeywords(long companyId, String keywords, Integer[] types) {
+	public int countByKeywords(
+		long companyId, String keywords, Integer[] types) {
 
 		return countByKeywords(
 			companyId, keywords, types, new LinkedHashMap<String, Object>());
@@ -254,8 +254,8 @@ public class RoleFinderImpl
 
 	@Override
 	public int countByKeywords(
-			long companyId, String keywords, Integer[] types,
-			LinkedHashMap<String, Object> params) {
+		long companyId, String keywords, Integer[] types,
+		LinkedHashMap<String, Object> params) {
 
 		String[] names = null;
 		String[] descriptions = null;
@@ -458,7 +458,7 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByR_N_A(
-			long resourceBlockId, String className, String actionId) {
+		long resourceBlockId, String className, String actionId) {
 
 		Session session = null;
 
@@ -494,9 +494,9 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByC_N_D_T(
-			long companyId, String name, String description, Integer[] types,
-			LinkedHashMap<String, Object> params, boolean andOperator,
-			int start, int end, OrderByComparator obc) {
+		long companyId, String name, String description, Integer[] types,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		String[] names = CustomSQLUtil.keywords(name);
 		String[] descriptions = CustomSQLUtil.keywords(description);
@@ -508,9 +508,9 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByC_N_D_T(
-			long companyId, String[] names, String[] descriptions,
-			Integer[] types, LinkedHashMap<String, Object> params,
-			boolean andOperator, int start, int end, OrderByComparator obc) {
+		long companyId, String[] names, String[] descriptions, Integer[] types,
+		LinkedHashMap<String, Object> params, boolean andOperator, int start,
+		int end, OrderByComparator obc) {
 
 		names = CustomSQLUtil.keywords(names, true);
 		descriptions = CustomSQLUtil.keywords(descriptions, true);
@@ -562,7 +562,7 @@ public class RoleFinderImpl
 
 	@Override
 	public Map<String, List<String>> findByC_N_S_P(
-			long companyId, String name, int scope, String primKey) {
+		long companyId, String name, int scope, String primKey) {
 
 		Session session = null;
 
@@ -617,8 +617,8 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByC_N_S_P_A(
-			long companyId, String name, int scope, String primKey,
-			String actionId) {
+		long companyId, String name, int scope, String primKey,
+		String actionId) {
 
 		Session session = null;
 
@@ -656,8 +656,8 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByKeywords(
-			long companyId, String keywords, Integer[] types, int start,
-			int end, OrderByComparator obc) {
+		long companyId, String keywords, Integer[] types, int start, int end,
+		OrderByComparator obc) {
 
 		return findByKeywords(
 			companyId, keywords, types, new LinkedHashMap<String, Object>(),
@@ -666,9 +666,9 @@ public class RoleFinderImpl
 
 	@Override
 	public List<Role> findByKeywords(
-			long companyId, String keywords, Integer[] types,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long companyId, String keywords, Integer[] types,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		String[] names = null;
 		String[] descriptions = null;

@@ -99,7 +99,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getClassActivitySet(
-			long classNameId, long classPK, int type) {
+		long classNameId, long classPK, int type) {
 
 		return socialActivitySetPersistence.fetchByC_C_T_First(
 			classNameId, classPK, type,
@@ -108,7 +108,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getClassActivitySet(
-			long userId, long classNameId, long classPK, int type) {
+		long userId, long classNameId, long classPK, int type) {
 
 		return socialActivitySetPersistence.fetchByU_C_C_T_First(
 			userId, classNameId, classPK, type,
@@ -117,7 +117,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getGroupActivitySets(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return socialActivitySetPersistence.findByGroupId(
 			groupId, start, end, new SocialActivitySetModifiedDateComparator());
@@ -130,14 +130,14 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getRelationActivitySets(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByRelation(userId, start, end);
 	}
 
 	@Override
 	public List<SocialActivitySet> getRelationActivitySets(
-			long userId, int type, int start, int end) {
+		long userId, int type, int start, int end) {
 
 		return socialActivitySetFinder.findByRelationType(
 			userId, type, start, end);
@@ -157,7 +157,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getUserActivitySet(
-			long groupId, long userId, int type) {
+		long groupId, long userId, int type) {
 
 		return socialActivitySetPersistence.fetchByG_U_T_First(
 			groupId, userId, type,
@@ -166,7 +166,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public SocialActivitySet getUserActivitySet(
-			long groupId, long userId, long classNameId, int type) {
+		long groupId, long userId, long classNameId, int type) {
 
 		return socialActivitySetPersistence.fetchByG_U_C_T_First(
 			groupId, userId, classNameId, type,
@@ -175,7 +175,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getUserActivitySets(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		return socialActivitySetPersistence.findByUserId(userId, start, end);
 	}
@@ -187,7 +187,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getUserGroupsActivitySets(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByUserGroups(userId, start, end);
 	}
@@ -200,7 +200,7 @@ public class SocialActivitySetLocalServiceImpl
 
 	@Override
 	public List<SocialActivitySet> getUserViewableActivitySets(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		return socialActivitySetFinder.findByUser(userId, start, end);
 	}

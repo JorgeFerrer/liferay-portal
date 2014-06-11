@@ -73,7 +73,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_PortalRollback(
-			String transactionPortletBarText) {
+		String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -84,7 +84,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_PortletRollback(
-			String transactionPortletBarText) {
+		String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -93,7 +93,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 
 	@Override
 	public void testAddClassNameAndTestTransactionPortletBar_Success(
-			String transactionPortletBarText) {
+		String transactionPortletBarText) {
 
 		addClassName(PortalService.class.getName());
 
@@ -221,7 +221,7 @@ public class PortalServiceImpl extends PortalServiceBaseImpl {
 	}
 
 	protected void addTransactionPortletBar(
-			String transactionPortletBarText, boolean rollback) {
+		String transactionPortletBarText, boolean rollback) {
 
 		try {
 			Message message = new Message();

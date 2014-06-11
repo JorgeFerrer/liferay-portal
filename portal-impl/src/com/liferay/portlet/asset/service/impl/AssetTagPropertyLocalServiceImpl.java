@@ -197,7 +197,8 @@ public class AssetTagPropertyLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<AssetTagProperty> getTagPropertyValues(long groupId, String key) {
+	public List<AssetTagProperty> getTagPropertyValues(
+		long groupId, String key) {
 
 		return assetTagPropertyFinder.findByG_K(groupId, key);
 	}

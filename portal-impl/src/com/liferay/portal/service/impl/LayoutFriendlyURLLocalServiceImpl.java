@@ -113,7 +113,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL deleteLayoutFriendlyURL(
-			LayoutFriendlyURL layoutFriendlyURL) {
+		LayoutFriendlyURL layoutFriendlyURL) {
 
 		return layoutFriendlyURLPersistence.remove(layoutFriendlyURL);
 	}
@@ -141,7 +141,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL fetchFirstLayoutFriendlyURL(
-			long groupId, boolean privateLayout, String friendlyURL) {
+		long groupId, boolean privateLayout, String friendlyURL) {
 
 		return layoutFriendlyURLPersistence.fetchByG_P_F_First(
 			groupId, privateLayout, friendlyURL, null);
@@ -149,8 +149,8 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
-			long groupId, boolean privateLayout, String friendlyURL,
-			String languageId) {
+		long groupId, boolean privateLayout, String friendlyURL,
+		String languageId) {
 
 		return layoutFriendlyURLPersistence.fetchByG_P_F_L(
 			groupId, privateLayout, friendlyURL, languageId);
@@ -158,14 +158,14 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
-			long plid, String languageId) {
+		long plid, String languageId) {
 
 		return fetchLayoutFriendlyURL(plid, languageId, true);
 	}
 
 	@Override
 	public LayoutFriendlyURL fetchLayoutFriendlyURL(
-			long plid, String languageId, boolean useDefault) {
+		long plid, String languageId, boolean useDefault) {
 
 		LayoutFriendlyURL layoutFriendlyURL =
 			layoutFriendlyURLPersistence.fetchByP_L(plid, languageId);
@@ -235,7 +235,7 @@ public class LayoutFriendlyURLLocalServiceImpl
 
 	@Override
 	public List<LayoutFriendlyURL> getLayoutFriendlyURLs(
-			long plid, String friendlyURL, int start, int end) {
+		long plid, String friendlyURL, int start, int end) {
 
 		return layoutFriendlyURLPersistence.findByP_F(
 			plid, friendlyURL, start, end);

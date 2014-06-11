@@ -108,7 +108,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public List<ExpandoRow> getDefaultTableRows(
-			long companyId, long classNameId, int start, int end) {
+		long companyId, long classNameId, int start, int end) {
 
 		return expandoRowLocalService.getRows(
 			companyId, classNameId, ExpandoTableConstants.DEFAULT_TABLE_NAME,
@@ -117,7 +117,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public List<ExpandoRow> getDefaultTableRows(
-			long companyId, String className, int start, int end) {
+		long companyId, String className, int start, int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -155,7 +155,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public ExpandoRow getRow(
-			long companyId, long classNameId, String tableName, long classPK) {
+		long companyId, long classNameId, String tableName, long classPK) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -169,7 +169,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public ExpandoRow getRow(
-			long companyId, String className, String tableName, long classPK) {
+		long companyId, String className, String tableName, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -185,8 +185,8 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public List<ExpandoRow> getRows(
-			long companyId, long classNameId, String tableName, int start,
-			int end) {
+		long companyId, long classNameId, String tableName, int start,
+		int end) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -201,8 +201,8 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 
 	@Override
 	public List<ExpandoRow> getRows(
-			long companyId, String className, String tableName, int start,
-			int end) {
+		long companyId, String className, String tableName, int start,
+		int end) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -217,7 +217,7 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	@Deprecated
 	@Override
 	public List<ExpandoRow> getRows(
-			String className, String tableName, int start, int end) {
+		String className, String tableName, int start, int end) {
 
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -231,7 +231,8 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRowsCount(long companyId, long classNameId, String tableName) {
+	public int getRowsCount(
+		long companyId, long classNameId, String tableName) {
 
 		ExpandoTable table = expandoTablePersistence.fetchByC_C_N(
 			companyId, classNameId, tableName);
@@ -244,7 +245,8 @@ public class ExpandoRowLocalServiceImpl extends ExpandoRowLocalServiceBaseImpl {
 	}
 
 	@Override
-	public int getRowsCount(long companyId, String className, String tableName) {
+	public int getRowsCount(
+		long companyId, String className, String tableName) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 

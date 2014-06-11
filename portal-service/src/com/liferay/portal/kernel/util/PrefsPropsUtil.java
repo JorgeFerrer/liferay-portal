@@ -104,16 +104,15 @@ public class PrefsPropsUtil {
 	}
 
 	public static double getDouble(String name, double defaultValue) {
-
 		return getPrefsProps().getDouble(name, defaultValue);
 	}
 
 	public static int getInteger(long companyId, String name) {
-
 		return getPrefsProps().getInteger(companyId, name);
 	}
 
-	public static int getInteger(long companyId, String name, int defaultValue) {
+	public static int getInteger(
+		long companyId, String name, int defaultValue) {
 
 		return getPrefsProps().getInteger(companyId, name, defaultValue);
 	}
@@ -137,17 +136,14 @@ public class PrefsPropsUtil {
 	}
 
 	public static int getInteger(String name, int defaultValue) {
-
 		return getPrefsProps().getInteger(name, defaultValue);
 	}
 
 	public static long getLong(long companyId, String name) {
-
 		return getPrefsProps().getLong(companyId, name);
 	}
 
 	public static long getLong(long companyId, String name, long defaultValue) {
-
 		return getPrefsProps().getLong(companyId, name, defaultValue);
 	}
 
@@ -170,7 +166,6 @@ public class PrefsPropsUtil {
 	}
 
 	public static long getLong(String name, long defaultValue) {
-
 		return getPrefsProps().getLong(name, defaultValue);
 	}
 
@@ -184,7 +179,6 @@ public class PrefsPropsUtil {
 	}
 
 	public static PortletPreferences getPreferences(long companyId) {
-
 		return getPrefsProps().getPreferences(companyId);
 	}
 
@@ -208,18 +202,18 @@ public class PrefsPropsUtil {
 			preferences, companyId, prefix, removePrefix);
 	}
 
-	public static Properties getProperties(String prefix, boolean removePrefix) {
+	public static Properties getProperties(
+		String prefix, boolean removePrefix) {
 
 		return getPrefsProps().getProperties(prefix, removePrefix);
 	}
 
 	public static short getShort(long companyId, String name) {
-
 		return getPrefsProps().getShort(companyId, name);
 	}
 
 	public static short getShort(
-			long companyId, String name, short defaultValue) {
+		long companyId, String name, short defaultValue) {
 
 		return getPrefsProps().getShort(companyId, name, defaultValue);
 	}
@@ -243,17 +237,15 @@ public class PrefsPropsUtil {
 	}
 
 	public static short getShort(String name, short defaultValue) {
-
 		return getPrefsProps().getShort(name, defaultValue);
 	}
 
 	public static String getString(long companyId, String name) {
-
 		return getPrefsProps().getString(companyId, name);
 	}
 
 	public static String getString(
-			long companyId, String name, String defaultValue) {
+		long companyId, String name, String defaultValue) {
 
 		return getPrefsProps().getString(companyId, name, defaultValue);
 	}
@@ -317,19 +309,17 @@ public class PrefsPropsUtil {
 	}
 
 	public static String getString(String name, String defaultValue) {
-
 		return getPrefsProps().getString(name, defaultValue);
 	}
 
 	public static String[] getStringArray(
-			long companyId, String name, String delimiter) {
+		long companyId, String name, String delimiter) {
 
 		return getPrefsProps().getStringArray(companyId, name, delimiter);
 	}
 
 	public static String[] getStringArray(
-			long companyId, String name, String delimiter,
-			String[] defaultValue) {
+		long companyId, String name, String delimiter, String[] defaultValue) {
 
 		return getPrefsProps().getStringArray(
 			companyId, name, delimiter, defaultValue);
@@ -352,18 +342,16 @@ public class PrefsPropsUtil {
 	}
 
 	public static String[] getStringArray(String name, String delimiter) {
-
 		return getPrefsProps().getStringArray(name, delimiter);
 	}
 
 	public static String[] getStringArray(
-			String name, String delimiter, String[] defaultValue) {
+		String name, String delimiter, String[] defaultValue) {
 
 		return getPrefsProps().getStringArray(name, delimiter, defaultValue);
 	}
 
 	public static String getStringFromNames(long companyId, String... names) {
-
 		return getPrefsProps().getStringFromNames(companyId, names);
 	}
 

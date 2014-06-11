@@ -32,7 +32,7 @@ public class MDRRuleGroupStagedModelDataHandler
 
 	@Override
 	public void deleteStagedModel(
-			String uuid, long groupId, String className, String extraData) {
+		String uuid, long groupId, String className, String extraData) {
 
 		MDRRuleGroup ruleGroup =
 			MDRRuleGroupLocalServiceUtil.fetchMDRRuleGroupByUuidAndGroupId(

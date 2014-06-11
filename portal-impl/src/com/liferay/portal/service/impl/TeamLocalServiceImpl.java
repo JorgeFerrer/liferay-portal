@@ -142,9 +142,9 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public List<Team> search(
-			long groupId, String name, String description,
-			LinkedHashMap<String, Object> params, int start, int end,
-			OrderByComparator obc) {
+		long groupId, String name, String description,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator obc) {
 
 		return teamFinder.findByG_N_D(
 			groupId, name, description, params, start, end, obc);
@@ -152,8 +152,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 	@Override
 	public int searchCount(
-			long groupId, String name, String description,
-			LinkedHashMap<String, Object> params) {
+		long groupId, String name, String description,
+		LinkedHashMap<String, Object> params) {
 
 		return teamFinder.countByG_N_D(groupId, name, description, params);
 	}

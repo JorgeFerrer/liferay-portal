@@ -499,7 +499,8 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CalEvent> getEvents(long groupId, Calendar cal, String[] types) {
+	public List<CalEvent> getEvents(
+		long groupId, Calendar cal, String[] types) {
 
 		if (types != null) {
 			types = ArrayUtil.distinct(types);
@@ -559,14 +560,14 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 	@Override
 	public List<CalEvent> getEvents(
-			long groupId, String type, int start, int end) {
+		long groupId, String type, int start, int end) {
 
 		return getEvents(groupId, new String[] {type}, start, end);
 	}
 
 	@Override
 	public List<CalEvent> getEvents(
-			long groupId, String[] types, int start, int end) {
+		long groupId, String[] types, int start, int end) {
 
 		if ((types != null) && (types.length > 0) &&
 			((types.length > 1) || Validator.isNotNull(types[0]))) {
@@ -610,7 +611,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 
 	@Override
 	public List<CalEvent> getRepeatingEvents(
-			long groupId, Calendar cal, String[] types) {
+		long groupId, Calendar cal, String[] types) {
 
 		Map<String, List<CalEvent>> eventsPool =
 			CalEventLocalUtil.getEventsPool(groupId);

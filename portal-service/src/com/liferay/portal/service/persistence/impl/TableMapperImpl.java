@@ -172,7 +172,8 @@ public class TableMapperImpl<L extends BaseModel<L>, R extends BaseModel<R>>
 	}
 
 	@Override
-	public boolean deleteTableMapping(long leftPrimaryKey, long rightPrimaryKey) {
+	public boolean deleteTableMapping(
+		long leftPrimaryKey, long rightPrimaryKey) {
 
 		if (!containsTableMapping(leftPrimaryKey, rightPrimaryKey, false)) {
 			return false;

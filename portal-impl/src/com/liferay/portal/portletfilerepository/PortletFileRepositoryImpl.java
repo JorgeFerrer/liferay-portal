@@ -350,7 +350,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 
 	@Override
 	public List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status) {
+		long groupId, long folderId, int status) {
 
 		return getPortletFileEntries(
 			groupId, folderId, status, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -359,8 +359,8 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 
 	@Override
 	public List<FileEntry> getPortletFileEntries(
-			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator obc) {
+		long groupId, long folderId, int status, int start, int end,
+		OrderByComparator obc) {
 
 		return toFileEntries(
 			DLFileEntryLocalServiceUtil.getFileEntries(
@@ -376,7 +376,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 
 	@Override
 	public int getPortletFileEntriesCount(
-			long groupId, long folderId, int status) {
+		long groupId, long folderId, int status) {
 
 		return DLFileEntryLocalServiceUtil.getFileEntriesCount(
 			groupId, folderId, status);

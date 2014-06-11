@@ -380,11 +380,11 @@ public class ShoppingOrderLocalServiceImpl
 
 	@Override
 	public List<ShoppingOrder> search(
-			long groupId, long companyId, long userId, String number,
-			String billingFirstName, String billingLastName,
-			String billingEmailAddress, String shippingFirstName,
-			String shippingLastName, String shippingEmailAddress,
-			String ppPaymentStatus, boolean andOperator, int start, int end) {
+		long groupId, long companyId, long userId, String number,
+		String billingFirstName, String billingLastName,
+		String billingEmailAddress, String shippingFirstName,
+		String shippingLastName, String shippingEmailAddress,
+		String ppPaymentStatus, boolean andOperator, int start, int end) {
 
 		OrderDateComparator obc = new OrderDateComparator(false);
 
@@ -397,11 +397,11 @@ public class ShoppingOrderLocalServiceImpl
 
 	@Override
 	public int searchCount(
-			long groupId, long companyId, long userId, String number,
-			String billingFirstName, String billingLastName,
-			String billingEmailAddress, String shippingFirstName,
-			String shippingLastName, String shippingEmailAddress,
-			String ppPaymentStatus, boolean andOperator) {
+		long groupId, long companyId, long userId, String number,
+		String billingFirstName, String billingLastName,
+		String billingEmailAddress, String shippingFirstName,
+		String shippingLastName, String shippingEmailAddress,
+		String ppPaymentStatus, boolean andOperator) {
 
 		return shoppingOrderFinder.countByG_C_U_N_PPPS(
 			groupId, companyId, userId, number, billingFirstName,

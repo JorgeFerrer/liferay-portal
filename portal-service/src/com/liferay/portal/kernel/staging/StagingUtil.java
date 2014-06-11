@@ -490,7 +490,8 @@ public class StagingUtil {
 	}
 
 	public static void setRecentLayoutRevisionId(
-			User user, long layoutSetBranchId, long plid, long layoutRevisionId) {
+			User user, long layoutSetBranchId, long plid,
+			long layoutRevisionId) {
 
 		getStaging().setRecentLayoutRevisionId(
 			user, layoutSetBranchId, plid, layoutRevisionId);

@@ -218,7 +218,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int start, int end) {
+		long groupId, long folderId, int start, int end) {
 
 		return getEntries(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end);
@@ -226,15 +226,15 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int status, int start, int end) {
+		long groupId, long folderId, int status, int start, int end) {
 
 		return getEntries(groupId, folderId, status, start, end, null);
 	}
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int status, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long folderId, int status, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return bookmarksEntryPersistence.findByG_F_S(
 			groupId, folderId, status, start, end, orderByComparator);
@@ -242,8 +242,8 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getEntries(
-			long groupId, long folderId, int start, int end,
-			OrderByComparator orderByComparator) {
+		long groupId, long folderId, int start, int end,
+		OrderByComparator orderByComparator) {
 
 		return getEntries(
 			groupId, folderId, WorkflowConstants.STATUS_APPROVED, start, end,
@@ -280,7 +280,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getGroupEntries(
-			long groupId, int start, int end) {
+		long groupId, int start, int end) {
 
 		return bookmarksEntryPersistence.findByG_S(
 			groupId, WorkflowConstants.STATUS_APPROVED, start, end,
@@ -289,7 +289,7 @@ public class BookmarksEntryLocalServiceImpl
 
 	@Override
 	public List<BookmarksEntry> getGroupEntries(
-			long groupId, long userId, int start, int end) {
+		long groupId, long userId, int start, int end) {
 
 		OrderByComparator orderByComparator = new EntryModifiedDateComparator();
 

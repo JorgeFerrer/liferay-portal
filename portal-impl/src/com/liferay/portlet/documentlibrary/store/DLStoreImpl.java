@@ -360,8 +360,8 @@ public class DLStoreImpl implements DLStore {
 	}
 
 	public Hits search(
-			long companyId, long userId, String portletId, long groupId,
-			long[] repositoryIds, String keywords, int start, int end) {
+		long companyId, long userId, String portletId, long groupId,
+		long[] repositoryIds, String keywords, int start, int end) {
 
 		try {
 			SearchContext searchContext = new SearchContext();

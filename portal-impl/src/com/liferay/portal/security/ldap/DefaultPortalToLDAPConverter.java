@@ -185,7 +185,7 @@ public class DefaultPortalToLDAPConverter implements PortalToLDAPConverter {
 
 	@Override
 	public Attributes getLDAPUserAttributes(
-			long ldapServerId, User user, Properties userMappings) {
+		long ldapServerId, User user, Properties userMappings) {
 
 		Attributes attributes = new BasicAttributes(true);
 

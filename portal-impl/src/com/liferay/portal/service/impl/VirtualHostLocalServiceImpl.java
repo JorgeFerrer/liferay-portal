@@ -52,7 +52,7 @@ public class VirtualHostLocalServiceImpl
 
 	@Override
 	public VirtualHost updateVirtualHost(
-			long companyId, long layoutSetId, String hostname) {
+		long companyId, long layoutSetId, String hostname) {
 
 		VirtualHost virtualHost = virtualHostPersistence.fetchByC_L(
 			companyId, layoutSetId);

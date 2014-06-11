@@ -110,7 +110,7 @@ public class EmailAddressLocalServiceImpl
 
 	@Override
 	public void deleteEmailAddresses(
-			long companyId, String className, long classPK) {
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -129,7 +129,7 @@ public class EmailAddressLocalServiceImpl
 
 	@Override
 	public List<EmailAddress> getEmailAddresses(
-			long companyId, String className, long classPK) {
+		long companyId, String className, long classPK) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
 
@@ -158,8 +158,8 @@ public class EmailAddressLocalServiceImpl
 	}
 
 	protected void validate(
-			long emailAddressId, long companyId, long classNameId, long classPK,
-			boolean primary) {
+		long emailAddressId, long companyId, long classNameId, long classPK,
+		boolean primary) {
 
 		// Check to make sure there isn't another emailAddress with the same
 		// company id, class name, and class pk that also has primary set to

@@ -101,8 +101,8 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public void deleteArticleContentSearch(
-			long groupId, boolean privateLayout, long layoutId,
-			String portletId, String articleId) {
+		long groupId, boolean privateLayout, long layoutId, String portletId,
+		String articleId) {
 
 		JournalContentSearch contentSearch =
 			journalContentSearchPersistence.fetchByG_P_L_P_A(
@@ -126,7 +126,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public void deleteLayoutContentSearches(
-			long groupId, boolean privateLayout, long layoutId) {
+		long groupId, boolean privateLayout, long layoutId) {
 
 		List<JournalContentSearch> contentSearches =
 			journalContentSearchPersistence.findByG_P_L(
@@ -138,7 +138,8 @@ public class JournalContentSearchLocalServiceImpl
 	}
 
 	@Override
-	public void deleteOwnerContentSearches(long groupId, boolean privateLayout) {
+	public void deleteOwnerContentSearches(
+		long groupId, boolean privateLayout) {
 
 		List<JournalContentSearch> contentSearches =
 			journalContentSearchPersistence.findByG_P(groupId, privateLayout);
@@ -156,21 +157,21 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public List<JournalContentSearch> getArticleContentSearches(
-			long groupId, String articleId) {
+		long groupId, String articleId) {
 
 		return journalContentSearchPersistence.findByG_A(groupId, articleId);
 	}
 
 	@Override
 	public List<JournalContentSearch> getArticleContentSearches(
-			String articleId) {
+		String articleId) {
 
 		return journalContentSearchPersistence.findByArticleId(articleId);
 	}
 
 	@Override
 	public List<Long> getLayoutIds(
-			long groupId, boolean privateLayout, String articleId) {
+		long groupId, boolean privateLayout, String articleId) {
 
 		List<Long> layoutIds = new ArrayList<Long>();
 
@@ -187,7 +188,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public int getLayoutIdsCount(
-			long groupId, boolean privateLayout, String articleId) {
+		long groupId, boolean privateLayout, String articleId) {
 
 		return journalContentSearchPersistence.countByG_P_A(
 			groupId, privateLayout, articleId);
@@ -200,7 +201,7 @@ public class JournalContentSearchLocalServiceImpl
 
 	@Override
 	public List<JournalContentSearch> getPortletContentSearches(
-			String portletId) {
+		String portletId) {
 
 		return journalContentSearchPersistence.findByPortletId(portletId);
 	}

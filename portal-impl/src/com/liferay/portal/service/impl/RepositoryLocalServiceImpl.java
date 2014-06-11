@@ -197,7 +197,7 @@ public class RepositoryLocalServiceImpl
 
 	@Override
 	public Repository fetchRepository(
-			long groupId, String name, String portletId) {
+		long groupId, String name, String portletId) {
 
 		return repositoryPersistence.fetchByG_N_P(groupId, name, portletId);
 	}

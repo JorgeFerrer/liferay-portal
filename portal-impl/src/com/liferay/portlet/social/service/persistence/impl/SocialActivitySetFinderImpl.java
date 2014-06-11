@@ -218,7 +218,7 @@ public class SocialActivitySetFinderImpl
 
 	@Override
 	public List<SocialActivitySet> findByRelation(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		Session session = null;
 
@@ -248,7 +248,7 @@ public class SocialActivitySetFinderImpl
 
 	@Override
 	public List<SocialActivitySet> findByRelationType(
-			long userId, int type, int start, int end) {
+		long userId, int type, int start, int end) {
 
 		Session session = null;
 
@@ -312,7 +312,7 @@ public class SocialActivitySetFinderImpl
 
 	@Override
 	public List<SocialActivitySet> findByUserGroups(
-			long userId, int start, int end) {
+		long userId, int start, int end) {
 
 		Session session = null;
 
