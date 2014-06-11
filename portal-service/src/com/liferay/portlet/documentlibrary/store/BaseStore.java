@@ -52,7 +52,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract void addDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Adds a file based on a byte array.
@@ -137,7 +137,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract void addFile(
 			long companyId, long repositoryId, String fileName, InputStream is)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Ensures company's root directory exists. Only implemented by {@link
@@ -196,7 +196,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract void deleteDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Deletes a file. If a file has multiple versions, all versions will be
@@ -212,7 +212,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract void deleteFile(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Deletes a file at a particular version.
@@ -229,7 +229,7 @@ public abstract class BaseStore implements Store {
 	public abstract void deleteFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns the file as a {@link File} object.
@@ -390,7 +390,7 @@ public abstract class BaseStore implements Store {
 	public abstract InputStream getFileAsStream(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns all files of the directory.
@@ -406,7 +406,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract String[] getFileNames(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns the size of the file.
@@ -422,7 +422,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract long getFileSize(
 			long companyId, long repositoryId, String fileName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the directory exists.
@@ -439,7 +439,7 @@ public abstract class BaseStore implements Store {
 	@Override
 	public abstract boolean hasDirectory(
 			long companyId, long repositoryId, String dirName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the file exists.
@@ -477,7 +477,7 @@ public abstract class BaseStore implements Store {
 	public abstract boolean hasFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Moves an existing directory. Only implemented by {@link
@@ -505,7 +505,7 @@ public abstract class BaseStore implements Store {
 	public abstract void updateFile(
 			long companyId, long repositoryId, long newRepositoryId,
 			String fileName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Updates a file based on a byte array.
@@ -596,7 +596,7 @@ public abstract class BaseStore implements Store {
 	public abstract void updateFile(
 			long companyId, long repositoryId, String fileName,
 			String versionLabel, InputStream is)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Update's a file version label. Similar to {@link #copyFileVersion(long,

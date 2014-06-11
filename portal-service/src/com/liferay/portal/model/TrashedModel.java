@@ -29,7 +29,7 @@ public interface TrashedModel {
 
 	public int getStatus();
 
-	public TrashEntry getTrashEntry() throws PortalException, SystemException;
+	public TrashEntry getTrashEntry() throws PortalException;
 
 	public long getTrashEntryClassPK();
 

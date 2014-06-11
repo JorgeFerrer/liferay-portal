@@ -112,12 +112,12 @@ public interface PortletDataContext extends Serializable {
 
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			Class<?> clazz)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #addClassedModel(Element,
@@ -127,7 +127,7 @@ public interface PortletDataContext extends Serializable {
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			Class<?> clazz, String namespace)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #addClassedModel(Element,
@@ -137,7 +137,7 @@ public interface PortletDataContext extends Serializable {
 	public void addClassedModel(
 			Element element, String path, ClassedModel classedModel,
 			String namespace)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 7.0.0, replaced by {@link
@@ -165,27 +165,27 @@ public interface PortletDataContext extends Serializable {
 
 	public void addExpando(
 			Element element, String path, ClassedModel classedModel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addLocks(Class<?> clazz, String key)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addLocks(String className, String key, Lock lock);
 
 	public void addPermissions(Class<?> clazz, long classPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addPermissions(String resourceName, long resourcePK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addPermissions(
 		String resourceName, long resourcePK, List<KeyValuePair> permissions);
 
 	public void addPortalPermissions()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addPortletPermissions(String resourceName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean addPrimaryKey(Class<?> clazz, String primaryKey);
 
@@ -546,12 +546,12 @@ public interface PortletDataContext extends Serializable {
 
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			Class<?> clazz)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -561,7 +561,7 @@ public interface PortletDataContext extends Serializable {
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			Class<?> clazz, String namespace)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -571,7 +571,7 @@ public interface PortletDataContext extends Serializable {
 	public void importClassedModel(
 			ClassedModel classedModel, ClassedModel newClassedModel,
 			String namespace)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 7.0.0, replaced by {@link
@@ -581,23 +581,23 @@ public interface PortletDataContext extends Serializable {
 	@Deprecated
 	public void importComments(
 			Class<?> clazz, long classPK, long newClassPK, long groupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importLocks(Class<?> clazz, String key, String newKey)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importPermissions(Class<?> clazz, long classPK, long newClassPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importPermissions(
 			String resourceName, long resourcePK, long newResourcePK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importPortalPermissions()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importPortletPermissions(String resourceName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 7.0.0, replaced by {@link
@@ -607,7 +607,7 @@ public interface PortletDataContext extends Serializable {
 	@Deprecated
 	public void importRatingsEntries(
 			Class<?> clazz, long classPK, long newClassPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isCompanyStagedGroupedModel(
 		StagedGroupedModel stagedGroupedModel);

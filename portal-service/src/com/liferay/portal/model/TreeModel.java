@@ -24,7 +24,7 @@ import java.io.Serializable;
  */
 public interface TreeModel {
 
-	public String buildTreePath() throws PortalException, SystemException;
+	public String buildTreePath() throws PortalException;
 
 	public Serializable getPrimaryKeyObj();
 

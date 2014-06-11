@@ -381,7 +381,7 @@ public abstract class BaseTrashHandler implements TrashHandler {
 
 	protected abstract boolean hasPermission(
 			PermissionChecker permissionChecker, long classPK, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	private static Log _log = LogFactoryUtil.getLog(BaseTrashHandler.class);
 

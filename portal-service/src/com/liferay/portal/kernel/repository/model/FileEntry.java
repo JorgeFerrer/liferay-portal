@@ -58,7 +58,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public long getCompanyId();
@@ -76,10 +76,10 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 */
 	@JSON(include = false)
 	public InputStream getContentStream()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public InputStream getContentStream(String version)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public Date getCreateDate();
@@ -102,10 +102,10 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public FileVersion getFileVersion() throws PortalException, SystemException;
+	public FileVersion getFileVersion() throws PortalException;
 
 	public FileVersion getFileVersion(String version)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public List<FileVersion> getFileVersions(int status)
 		throws SystemException;
@@ -132,7 +132,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public FileVersion getLatestFileVersion()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns the latest file version, optionally bypassing security checks. In
@@ -147,7 +147,7 @@ public interface FileEntry extends RepositoryModel<FileEntry> {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public FileVersion getLatestFileVersion(boolean trusted)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Lock getLock();
 

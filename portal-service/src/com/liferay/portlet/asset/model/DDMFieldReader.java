@@ -23,9 +23,9 @@ import com.liferay.portlet.dynamicdatamapping.storage.Fields;
  */
 public interface DDMFieldReader {
 
-	public Fields getFields() throws PortalException, SystemException;
+	public Fields getFields() throws PortalException;
 
 	public Fields getFields(String ddmType)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

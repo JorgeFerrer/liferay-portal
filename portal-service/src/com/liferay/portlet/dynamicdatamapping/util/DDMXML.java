@@ -35,12 +35,12 @@ public interface DDMXML {
 	public String formatXML(String xml) throws SystemException;
 
 	public Fields getFields(DDMStructure structure, String xml)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Fields getFields(
 			DDMStructure structure, XPath xPath, String xml,
 			List<String> fieldNames)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getXML(Document document, Fields fields)
 		throws SystemException;

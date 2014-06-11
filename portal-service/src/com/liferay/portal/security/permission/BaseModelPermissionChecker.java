@@ -25,6 +25,6 @@ public interface BaseModelPermissionChecker {
 	public void checkBaseModel(
 			PermissionChecker permissionChecker, long groupId, long primaryKey,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

@@ -31,7 +31,7 @@ public interface ActionHandler {
 	public void applyAction(
 			MDRAction mdrAction, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Collection<String> getPropertyNames();
 

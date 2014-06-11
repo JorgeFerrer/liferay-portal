@@ -71,7 +71,7 @@ public abstract class BaseRedirectActionHandler implements ActionHandler {
 	protected abstract String getURL(
 			MDRAction mdrAction, HttpServletRequest request,
 			HttpServletResponse response)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	private static Log _log = LogFactoryUtil.getLog(
 		BaseRedirectActionHandler.class);

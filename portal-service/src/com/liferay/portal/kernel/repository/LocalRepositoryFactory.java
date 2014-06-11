@@ -23,10 +23,10 @@ import com.liferay.portal.kernel.exception.SystemException;
 public interface LocalRepositoryFactory {
 
 	public LocalRepository create(long repositoryId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public LocalRepository create(
 			long folderId, long fileEntryId, long fileVersionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

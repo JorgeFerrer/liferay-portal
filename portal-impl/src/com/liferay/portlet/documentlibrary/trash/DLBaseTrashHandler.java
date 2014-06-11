@@ -263,6 +263,6 @@ public abstract class DLBaseTrashHandler extends BaseTrashHandler {
 	}
 
 	protected abstract Repository getRepository(long classPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

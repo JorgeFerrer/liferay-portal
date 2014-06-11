@@ -99,7 +99,7 @@ public interface UserGroupMembershipPolicy {
 	 */
 	public void checkMembership(
 			long[] userIds, long[] addUserGroupIds, long[] removeUserGroupIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the user can be added to the user group.
@@ -113,7 +113,7 @@ public interface UserGroupMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipAllowed(long userId, long userGroupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if user group membership for the user is
@@ -128,7 +128,7 @@ public interface UserGroupMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipRequired(long userId, long userGroupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Performs membership policy related actions after the users are added to
@@ -163,7 +163,7 @@ public interface UserGroupMembershipPolicy {
 	 */
 	public void propagateMembership(
 			long[] userIds, long[] addUserGroupIds, long[] removeUserGroupIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of each of the portal's
@@ -176,7 +176,7 @@ public interface UserGroupMembershipPolicy {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void verifyPolicy() throws PortalException, SystemException;
+	public void verifyPolicy() throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the user group and
@@ -187,7 +187,7 @@ public interface UserGroupMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(UserGroup userGroup)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the user group, with
@@ -235,6 +235,6 @@ public interface UserGroupMembershipPolicy {
 	public void verifyPolicy(
 			UserGroup userGroup, UserGroup oldUserGroup,
 			Map<String, Serializable> oldExpandoAttributes)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

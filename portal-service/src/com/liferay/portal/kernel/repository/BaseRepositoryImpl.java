@@ -166,7 +166,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 	public abstract List<Object> getFoldersAndFileEntries(
 			long folderId, String[] mimeTypes, int start, int end,
 			OrderByComparator obc)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public List<Object> getFoldersAndFileEntriesAndFileShortcuts(
@@ -207,7 +207,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 
 	public abstract int getFoldersAndFileEntriesCount(
 			long folderId, String[] mimeTypes)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public int getFoldersCount(
@@ -292,7 +292,7 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 
 	@Override
 	public abstract void initRepository()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #checkOutFileEntry(long,

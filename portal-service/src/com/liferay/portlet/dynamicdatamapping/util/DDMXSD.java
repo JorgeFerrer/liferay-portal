@@ -86,14 +86,14 @@ public interface DDMXSD {
 		throws Exception;
 
 	public JSONArray getJSONArray(DDMStructure structure, String xsd)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public JSONArray getJSONArray(Document document) throws PortalException;
 
 	public JSONArray getJSONArray(Element element) throws PortalException;
 
 	public JSONArray getJSONArray(String xml)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getSimpleFieldHTML(
 			PageContext pageContext, Element element, Field field,
@@ -108,6 +108,6 @@ public interface DDMXSD {
 		throws Exception;
 
 	public String getXSD(long classNameId, long classPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

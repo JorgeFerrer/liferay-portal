@@ -30,6 +30,6 @@ public interface ClassTypeReader {
 		throws SystemException;
 
 	public ClassType getClassType(long classTypeId, Locale locale)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

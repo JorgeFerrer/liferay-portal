@@ -36,7 +36,7 @@ public interface UserNotificationHandler {
 	public boolean isDeliver(
 			long userId, long classNameId, int notificationType,
 			int deliveryType, ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isOpenDialog();
 

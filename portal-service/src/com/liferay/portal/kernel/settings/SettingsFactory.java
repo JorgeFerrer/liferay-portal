@@ -37,11 +37,11 @@ public interface SettingsFactory {
 		throws SystemException;
 
 	public Settings getGroupServiceSettings(long groupId, String serviceName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public ArchivedSettings getPortletInstanceArchivedSettings(
 			long groupId, String portletId, String name)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
 			long groupId, String portletId)
@@ -53,10 +53,10 @@ public interface SettingsFactory {
 
 	public Settings getPortletInstanceGroupDefaultSettings(
 			long groupId, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Settings getPortletInstanceSettings(Layout layout, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void registerFallbackKeys(
 		String settingsId, FallbackKeys fallbackKeys);

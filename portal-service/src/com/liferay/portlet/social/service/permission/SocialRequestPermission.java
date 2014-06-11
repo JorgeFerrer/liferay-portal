@@ -26,11 +26,11 @@ public interface SocialRequestPermission {
 	public void check(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, long requestId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

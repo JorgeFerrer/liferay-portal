@@ -39,20 +39,20 @@ public interface DDM {
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Fields getFields(
 			long ddmStructureId, long ddmTemplateId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Fields getFields(long ddmStructureId, ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Fields getFields(
 			long ddmStructureId, String fieldNamespace,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String[] getFieldsDisplayValues(Field fieldsDisplayField)
 		throws Exception;

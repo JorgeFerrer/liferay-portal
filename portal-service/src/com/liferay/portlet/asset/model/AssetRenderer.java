@@ -66,7 +66,7 @@ public interface AssetRenderer {
 
 	public long getGroupId();
 
-	public String getIconCssClass() throws PortalException, SystemException;
+	public String getIconCssClass() throws PortalException;
 
 	public String getIconPath(PortletRequest portletRequest);
 
@@ -145,10 +145,10 @@ public interface AssetRenderer {
 	public String getViewInContextMessage();
 
 	public boolean hasEditPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean hasViewPermission(PermissionChecker permissionChecker)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isConvertible();
 

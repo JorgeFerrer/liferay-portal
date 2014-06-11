@@ -27,7 +27,7 @@ public interface MDRRuleGroupInstancePermission {
 	public void check(
 			PermissionChecker permissionChecker, long ruleGroupInstanceId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(
 			PermissionChecker permissionChecker,
@@ -37,7 +37,7 @@ public interface MDRRuleGroupInstancePermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, long ruleGroupInstanceId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 		PermissionChecker permissionChecker,

@@ -33,7 +33,7 @@ public interface TrashRenderer {
 
 	public long getClassPK();
 
-	public String getIconCssClass() throws PortalException, SystemException;
+	public String getIconCssClass() throws PortalException;
 
 	public String getIconPath(PortletRequest portletRequest);
 

@@ -44,12 +44,12 @@ public interface Trash {
 	public void addBaseModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addContainerModelBreadcrumbEntries(
 			HttpServletRequest request, String className, long classPK,
 			PortletURL containerModelURL)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void addTrashSessionMessages(
 		ActionRequest actionRequest, List<TrashedModel> trashedModels);
@@ -67,22 +67,22 @@ public interface Trash {
 	public void deleteEntriesAttachments(
 			long companyId, long repositoryId, Date date,
 			String[] attachmentFileNames)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public List<TrashEntry> getEntries(Hits hits)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public OrderByComparator getEntryOrderByComparator(
 		String orderByCol, String orderByType);
 
-	public int getMaxAge(Group group) throws PortalException, SystemException;
+	public int getMaxAge(Group group) throws PortalException;
 
 	public String getNewName(String oldName, String token);
 
 	public String getNewName(
 			ThemeDisplay themeDisplay, String className, long classPK,
 			String oldName)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getOriginalTitle(String title);
 
@@ -92,12 +92,12 @@ public interface Trash {
 
 	public PortletURL getViewContentURL(
 			HttpServletRequest request, String className, long classPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isInTrash(String className, long classPK)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isTrashEnabled(long groupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

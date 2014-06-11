@@ -83,11 +83,11 @@ public abstract class BaseRepositoryFactory<T> {
 
 	protected abstract T createExternalRepository(
 			long repositoryId, long classNameId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected abstract T createExternalRepository(
 			long folderId, long fileEntryId, long fileVersionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected BaseRepository createExternalRepositoryImpl(
 			long repositoryId, long classNameId)
@@ -264,13 +264,13 @@ public abstract class BaseRepositoryFactory<T> {
 	}
 
 	protected abstract long getFileEntryRepositoryId(long fileEntryId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected abstract long getFileVersionRepositoryId(long fileVersionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected abstract long getFolderRepositoryId(long folderId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected abstract Repository getRepository(long repositoryId)
 		throws SystemException;

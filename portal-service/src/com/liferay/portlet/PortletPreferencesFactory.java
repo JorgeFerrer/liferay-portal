@@ -40,7 +40,7 @@ public interface PortletPreferencesFactory {
 
 	public void checkControlPanelPortletPreferences(
 			ThemeDisplay themeDisplay, Portlet portlet)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferences fromDefaultXML(String xml) throws SystemException;
 
@@ -97,29 +97,29 @@ public interface PortletPreferencesFactory {
 
 	public PortletPreferences getPortletPreferences(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, Layout selLayout, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferencesIds getPortletPreferencesIds(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferencesIds getPortletPreferencesIds(
 			long scopeGroupId, long userId, Layout layout, String portletId,
 			boolean modeEditGuest)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
 			HttpServletRequest request, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
 			HttpServletRequest request, String portletId,
 			String defaultPreferences)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
 			Layout layout, String portletId, String defaultPreferences)
@@ -131,11 +131,11 @@ public interface PortletPreferencesFactory {
 		throws SystemException;
 
 	public PortletPreferences getPortletSetup(PortletRequest portletRequest)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PortletPreferences getPortletSetup(
 			PortletRequest portletRequest, String portletId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Map<Long, PortletPreferences> getPortletSetupMap(
 			long companyId, long groupId, long ownerId, int ownerType,

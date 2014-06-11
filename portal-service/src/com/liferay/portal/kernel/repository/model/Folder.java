@@ -50,13 +50,13 @@ public interface Folder extends RepositoryModel<Folder> {
 
 	public boolean containsPermission(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public List<Long> getAncestorFolderIds()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public List<Folder> getAncestors()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public long getCompanyId();
@@ -78,7 +78,7 @@ public interface Folder extends RepositoryModel<Folder> {
 
 	public String getName();
 
-	public Folder getParentFolder() throws PortalException, SystemException;
+	public Folder getParentFolder() throws PortalException;
 
 	public long getParentFolderId();
 

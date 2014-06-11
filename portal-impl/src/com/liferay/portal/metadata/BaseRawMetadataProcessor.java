@@ -131,11 +131,11 @@ public abstract class BaseRawMetadataProcessor implements RawMetadataProcessor {
 
 	protected abstract Metadata extractMetadata(
 			String extension, String mimeType, File file)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected abstract Metadata extractMetadata(
 			String extension, String mimeType, InputStream inputStream)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	protected Object getFieldValue(Metadata metadata, Field field) {
 		Object fieldValue = null;

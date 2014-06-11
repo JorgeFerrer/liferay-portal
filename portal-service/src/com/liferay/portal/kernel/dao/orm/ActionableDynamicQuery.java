@@ -33,9 +33,9 @@ public interface ActionableDynamicQuery {
 
 	public PerformCountMethod getPerformCountMethod();
 
-	public void performActions() throws PortalException, SystemException;
+	public void performActions() throws PortalException;
 
-	public long performCount() throws PortalException, SystemException;
+	public long performCount() throws PortalException;
 
 	public void setAddCriteriaMethod(AddCriteriaMethod addCriteriaMethod);
 
@@ -74,13 +74,13 @@ public interface ActionableDynamicQuery {
 	public interface PerformActionMethod {
 
 		public void performAction(Object object)
-			throws PortalException, SystemException;
+			throws PortalException;
 
 	}
 
 	public interface PerformCountMethod {
 
-		public long performCount() throws PortalException, SystemException;
+		public long performCount() throws PortalException;
 
 	}
 

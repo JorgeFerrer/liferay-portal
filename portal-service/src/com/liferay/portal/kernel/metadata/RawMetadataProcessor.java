@@ -47,11 +47,11 @@ public interface RawMetadataProcessor {
 
 	public Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, File file)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Map<String, Fields> getRawMetadataMap(
 			String extension, String mimeType, InputStream inputStream)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void importGeneratedFiles(
 			PortletDataContext portletDataContext, FileEntry fileEntry,

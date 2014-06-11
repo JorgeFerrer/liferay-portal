@@ -49,7 +49,7 @@ public interface RawMetadataProcessor {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void generateMetadata(FileVersion fileVersion)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isSupported(FileVersion fileVersion);
 
@@ -69,7 +69,7 @@ public interface RawMetadataProcessor {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void saveMetadata(FileVersion fileVersion)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Launches extraction of raw metadata from the file version.

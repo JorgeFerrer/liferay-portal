@@ -30,7 +30,7 @@ import javax.servlet.ServletContext;
  */
 public interface PortletLister {
 
-	public TreeView getTreeView() throws PortalException, SystemException;
+	public TreeView getTreeView() throws PortalException;
 
 	public void setHierarchicalTree(boolean hierarchicalTree);
 

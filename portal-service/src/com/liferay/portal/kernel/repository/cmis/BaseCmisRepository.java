@@ -35,33 +35,33 @@ public abstract class BaseCmisRepository extends BaseRepositoryImpl {
 		throws SystemException;
 
 	public abstract String getObjectName(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract List<String> getObjectPaths(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract boolean isCancelCheckOutAllowable(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract boolean isCheckInAllowable(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract boolean isCheckOutAllowable(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract boolean isSupportsMinorVersions()
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract FileEntry toFileEntry(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract Folder toFolder(String objectId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public abstract FileEntry updateFileEntry(
 			String objectId, String mimeType, Map<String, Object> properties,
 			InputStream is, String sourceFileName, long size,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

@@ -27,6 +27,6 @@ public interface PermissionPropagator {
 	public void propagateRolePermissions(
 			ActionRequest actionRequest, String className, String primKey,
 			long[] roleIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

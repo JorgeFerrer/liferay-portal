@@ -27,21 +27,21 @@ public interface AccountPermission {
 	public void check(
 			PermissionChecker permissionChecker, Account account,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(
 			PermissionChecker permissionChecker, long accountId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, Account account,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, long accountId,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

@@ -28,25 +28,25 @@ public interface LayoutPermission {
 
 	public void check(
 			PermissionChecker permissionChecker, Layout layout, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(
 			PermissionChecker permissionChecker, long groupId,
 			boolean privateLayout, long layoutId, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(
 			PermissionChecker permissionChecker, long plid, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, Layout layout,
 			boolean checkViewableGroup, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, Layout layout, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #contains(PermissionChecker,
@@ -57,7 +57,7 @@ public interface LayoutPermission {
 			PermissionChecker permissionChecker, Layout layout,
 			String controlPanelCategory, boolean checkViewableGroup,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #contains(PermissionChecker,
@@ -67,12 +67,12 @@ public interface LayoutPermission {
 	public boolean contains(
 			PermissionChecker permissionChecker, Layout layout,
 			String controlPanelCategory, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, long groupId,
 			boolean privateLayout, long layoutId, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link #contains(PermissionChecker,
@@ -83,20 +83,20 @@ public interface LayoutPermission {
 			PermissionChecker permissionChecker, long groupId,
 			boolean privateLayout, long layoutId, String controlPanelCategory,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean contains(
 			PermissionChecker permissionChecker, long plid, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean containsWithoutViewableGroup(
 			PermissionChecker permissionChecker, Layout layout,
 			boolean checkLayoutUpdateable, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean containsWithoutViewableGroup(
 			PermissionChecker permissionChecker, Layout layout, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -108,7 +108,7 @@ public interface LayoutPermission {
 			PermissionChecker permissionChecker, Layout layout,
 			String controlPanelCategory, boolean checkLayoutUpdateable,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * @deprecated As of 6.2.0, replaced by {@link
@@ -119,6 +119,6 @@ public interface LayoutPermission {
 	public boolean containsWithoutViewableGroup(
 			PermissionChecker permissionChecker, Layout layout,
 			String controlPanelCategory, String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

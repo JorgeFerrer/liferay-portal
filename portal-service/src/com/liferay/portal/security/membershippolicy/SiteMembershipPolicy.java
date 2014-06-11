@@ -128,7 +128,7 @@ public interface SiteMembershipPolicy {
 	 */
 	public void checkMembership(
 			long[] userIds, long[] addGroupIds, long[] removeGroupIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks if the site roles can be added to or removed from their users.
@@ -148,7 +148,7 @@ public interface SiteMembershipPolicy {
 	public void checkRoles(
 			List<UserGroupRole> addUserGroupRoles,
 			List<UserGroupRole> removeUserGroupRoles)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the user can be added to the site. Liferay's
@@ -162,7 +162,7 @@ public interface SiteMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipAllowed(long userId, long groupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the policy prevents the user from being
@@ -179,7 +179,7 @@ public interface SiteMembershipPolicy {
 	 */
 	public boolean isMembershipProtected(
 			PermissionChecker permissionChecker, long userId, long groupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if site membership for the user is mandatory.
@@ -194,7 +194,7 @@ public interface SiteMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isMembershipRequired(long userId, long groupId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the role can be added to the user on the
@@ -209,7 +209,7 @@ public interface SiteMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleAllowed(long userId, long groupId, long roleId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the policy prevents the user from being
@@ -228,7 +228,7 @@ public interface SiteMembershipPolicy {
 	public boolean isRoleProtected(
 			PermissionChecker permissionChecker, long userId, long groupId,
 			long roleId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the role is mandatory for the user on the
@@ -243,7 +243,7 @@ public interface SiteMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleRequired(long userId, long groupId, long roleId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Performs membership policy related actions after the users are added to
@@ -278,7 +278,7 @@ public interface SiteMembershipPolicy {
 	 */
 	public void propagateMembership(
 			long[] userIds, long[] addGroupIds, long[] removeGroupIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Performs membership policy related actions after the respective site
@@ -308,7 +308,7 @@ public interface SiteMembershipPolicy {
 	public void propagateRoles(
 			List<UserGroupRole> addUserGroupRoles,
 			List<UserGroupRole> removeUserGroupRoles)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of each of the portal's
@@ -321,7 +321,7 @@ public interface SiteMembershipPolicy {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void verifyPolicy() throws PortalException, SystemException;
+	public void verifyPolicy() throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the site and performs
@@ -332,7 +332,7 @@ public interface SiteMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void verifyPolicy(Group group)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the site, with respect
@@ -388,7 +388,7 @@ public interface SiteMembershipPolicy {
 			List<AssetTag> oldAssetTags,
 			Map<String, Serializable> oldExpandoAttributes,
 			UnicodeProperties oldTypeSettingsProperties)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the site role and
@@ -398,7 +398,7 @@ public interface SiteMembershipPolicy {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void verifyPolicy(Role role) throws PortalException, SystemException;
+	public void verifyPolicy(Role role) throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the site role, with
@@ -415,6 +415,6 @@ public interface SiteMembershipPolicy {
 	public void verifyPolicy(
 			Role role, Role oldRole,
 			Map<String, Serializable> oldExpandoAttributes)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

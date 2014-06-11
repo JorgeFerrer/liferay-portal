@@ -30,7 +30,7 @@ public abstract class BasicToolkit implements Toolkit {
 	public abstract void validate(
 			long userId, String password1, String password2,
 			PasswordPolicy passwordPolicy)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	@Override
 	public void validate(

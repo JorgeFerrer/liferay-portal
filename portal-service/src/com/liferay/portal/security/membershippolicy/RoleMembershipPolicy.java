@@ -97,7 +97,7 @@ public interface RoleMembershipPolicy {
 	 */
 	public void checkRoles(
 			long[] userIds, long[] addRoleIds, long[] removeRoleIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the role can be added to the user. Liferay's
@@ -111,7 +111,7 @@ public interface RoleMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleAllowed(long userId, long roleId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Returns <code>true</code> if the role is mandatory for the user.
@@ -126,7 +126,7 @@ public interface RoleMembershipPolicy {
 	 * @throws SystemException if a system exception occurred
 	 */
 	public boolean isRoleRequired(long userId, long roleId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Performs membership policy related actions after the respective roles are
@@ -155,7 +155,7 @@ public interface RoleMembershipPolicy {
 	 */
 	public void propagateRoles(
 			long[] userIds, long[] addRoleIds, long[] removeRoleIds)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of each of the portal's
@@ -168,7 +168,7 @@ public interface RoleMembershipPolicy {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void verifyPolicy() throws PortalException, SystemException;
+	public void verifyPolicy() throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the role and performs
@@ -178,7 +178,7 @@ public interface RoleMembershipPolicy {
 	 * @throws PortalException if a portal exception occurred
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void verifyPolicy(Role role) throws PortalException, SystemException;
+	public void verifyPolicy(Role role) throws PortalException;
 
 	/**
 	 * Checks the integrity of the membership policy of the role, with respect
@@ -195,6 +195,6 @@ public interface RoleMembershipPolicy {
 	public void verifyPolicy(
 			Role role, Role oldRole,
 			Map<String, Serializable> oldExpandoAttributes)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

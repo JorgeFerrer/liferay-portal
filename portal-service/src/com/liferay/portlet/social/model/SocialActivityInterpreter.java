@@ -40,6 +40,6 @@ public interface SocialActivityInterpreter {
 		SocialActivitySet activitySet, ServiceContext serviceContext);
 
 	public void updateActivitySet(long activityId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

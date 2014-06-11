@@ -26,11 +26,11 @@ public interface CommonPermission {
 	public void check(
 			PermissionChecker permissionChecker, long classNameId, long classPK,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(
 			PermissionChecker permissionChecker, String className, long classPK,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

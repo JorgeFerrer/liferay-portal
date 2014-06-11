@@ -26,9 +26,9 @@ import java.io.Serializable;
 public interface PersistedModelLocalService {
 
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

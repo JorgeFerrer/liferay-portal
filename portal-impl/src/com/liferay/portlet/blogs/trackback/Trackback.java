@@ -32,7 +32,7 @@ public interface Trackback {
 			BlogsEntry entry, ThemeDisplay themeDisplay, String excerpt,
 			String url, String blogName, String title,
 			Function<String, ServiceContext> serviceContextFunction)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void setCommentManager(CommentManager commentManager);
 

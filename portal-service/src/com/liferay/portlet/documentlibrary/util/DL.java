@@ -92,7 +92,7 @@ public interface DL {
 	public int compareVersions(String version1, String version2);
 
 	public String getAbsolutePath(PortletRequest portletRequest, long folderId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Set<String> getAllMediaGalleryMimeTypes();
 
@@ -108,11 +108,11 @@ public interface DL {
 
 	public String getDLFileEntryControlPanelLink(
 			PortletRequest portletRequest, long fileEntryId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getDLFolderControlPanelLink(
 			PortletRequest portletRequest, long folderId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public Map<String, String> getEmailDefinitionTerms(
 		PortletRequest portletRequest, String emailFromAddress,
@@ -192,17 +192,17 @@ public interface DL {
 
 	public String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry,
 			boolean manualCheckInRequired)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public String getWebDavURL(
 			ThemeDisplay themeDisplay, Folder folder, FileEntry fileEntry,
 			boolean manualCheckInRequired, boolean officeExtensionRequired)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean hasWorkflowDefinitionLink(
 			long companyId, long groupId, long folderId, long fileEntryTypeId)
@@ -219,18 +219,18 @@ public interface DL {
 
 	public boolean isSubscribedToFolder(
 			long companyId, long groupId, long userId, long folderId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isSubscribedToFolder(
 			long companyId, long groupId, long userId, long folderId,
 			boolean recursive)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public boolean isValidVersion(String version);
 
 	public void startWorkflowInstance(
 			long userId, DLFileVersion dlFileVersion, String syncEventType,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }

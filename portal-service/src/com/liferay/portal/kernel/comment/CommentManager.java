@@ -28,9 +28,9 @@ public interface CommentManager {
 			long userId, long groupId, String className, long classPK,
 			String userName, String subject, String body,
 			Function<String, ServiceContext> serviceContextFunction)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void deleteComment(long commentId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 }
