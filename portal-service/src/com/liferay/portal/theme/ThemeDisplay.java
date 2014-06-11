@@ -1296,6 +1296,10 @@ public class ThemeDisplay
 		_cdnHost = cdnHost;
 	}
 
+	public void setColorScheme(ColorScheme colorScheme) {
+		this._colorScheme = colorScheme;
+	}
+
 	public void setCompany(Company company)
 		throws PortalException, SystemException {
 
@@ -1433,21 +1437,32 @@ public class ThemeDisplay
 		LocaleThreadLocal.setThemeDisplayLocale(locale);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, please see {@link
+	 *             #setColorScheme(com.liferay.portal.model.ColorScheme)},
+	 *             {@link #setTheme(com.liferay.portal.model.Theme)} and
+	 *             {@link #initializeLookAndFeel()}
+	 */
+	@Deprecated
 	public void setLookAndFeel(Theme theme, ColorScheme colorScheme) {
-		_theme = theme;
-		_colorScheme = colorScheme;
+		setTheme(theme);
+		setColorScheme(colorScheme);
 
-		if ((theme == null) || (colorScheme == null)) {
+		initializeLookAndFeel();
+	}
+
+	public void initializeLookAndFeel() {
+		if ((_theme == null) || (_colorScheme == null)) {
 			return;
 		}
 
-		String themeStaticResourcePath = theme.getStaticResourcePath();
+		String themeStaticResourcePath = _theme.getStaticResourcePath();
 
 		String cdnBaseURL = getCDNBaseURL();
 
 		setPathColorSchemeImages(
 			cdnBaseURL + themeStaticResourcePath +
-				colorScheme.getColorSchemeImagesPath());
+				_colorScheme.getColorSchemeImagesPath());
 
 		String dynamicResourcesHost = getCDNDynamicResourcesHost();
 
@@ -1466,15 +1481,15 @@ public class ThemeDisplay
 
 		setPathThemeCss(
 			dynamicResourcesHost + themeStaticResourcePath +
-				theme.getCssPath());
+				_theme.getCssPath());
 
 		setPathThemeImages(
-			cdnBaseURL + themeStaticResourcePath + theme.getImagesPath());
+			cdnBaseURL + themeStaticResourcePath + _theme.getImagesPath());
 		setPathThemeJavaScript(
 			cdnBaseURL + themeStaticResourcePath +
-				theme.getJavaScriptPath());
+				_theme.getJavaScriptPath());
 
-		String rootPath = theme.getRootPath();
+		String rootPath = _theme.getRootPath();
 
 		if (rootPath.equals(StringPool.SLASH)) {
 			setPathThemeRoot(themeStaticResourcePath);
@@ -1484,7 +1499,7 @@ public class ThemeDisplay
 		}
 
 		setPathThemeTemplates(
-			cdnBaseURL + themeStaticResourcePath + theme.getTemplatesPath());
+			cdnBaseURL + themeStaticResourcePath + _theme.getTemplatesPath());
 	}
 
 	public void setMDRRuleGroupInstance(
@@ -1767,6 +1782,10 @@ public class ThemeDisplay
 
 	public void setStatePopUp(boolean statePopUp) {
 		_statePopUp = statePopUp;
+	}
+
+	public void setTheme(Theme theme) {
+		this._theme = theme;
 	}
 
 	public void setThemeCssFastLoad(boolean themeCssFastLoad) {
