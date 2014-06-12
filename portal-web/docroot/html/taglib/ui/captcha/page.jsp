@@ -16,4 +16,10 @@
 
 <%@ include file="/html/taglib/ui/captcha/init.jsp" %>
 
-<liferay-util:include page="<%= CaptchaUtil.getTaglibPath() %>" />
+<%
+String taglibPath = CaptchaUtil.getTaglibPath();
+%>
+
+<c:if test="<%= Validator.isNotNull(taglibPath) %>">
+	<jsp:include page="<%= taglibPath %>" />
+</c:if>
