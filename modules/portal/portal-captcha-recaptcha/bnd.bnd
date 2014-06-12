@@ -1,0 +1,15 @@
+Bundle-Name: Liferay ReCaptcha
+Bundle-Version: ${plugin.full.version}
+Import-Package:\
+	com.liferay.portal.captcha.simplecaptcha,\
+	com.liferay.portal.kernel.captcha,\
+	com.liferay.portal.kernel.exception,\
+	com.liferay.portal.kernel.log,\
+	com.liferay.portal.kernel.servlet,\
+	com.liferay.portal.kernel.util,\
+	com.liferay.portal.util,\
+	javax.portlet,\
+	javax.portlet.filter,\
+	javax.servlet.http
+Include-Resource:\
+	classes

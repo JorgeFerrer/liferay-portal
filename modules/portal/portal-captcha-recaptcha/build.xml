@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project>
+	<property name="import.shared" value="portal-captcha-simple" />
+	<property name="plugin.full.version" value="1.0.0" />
+	<property name="plugin.name" value="com.liferay.portal.captcha.recaptcha" />
+
+	<import file="../../../tools/sdk/build-common-osgi-plugin.xml" />
+
+	<property name="auto.deploy.dir" value="${liferay.home}/osgi/portal" />
+
+	<target name="compile">
+		<copy todir="lib">
+			<fileset dir="${liferay.home}/osgi/portal" includes="com.liferay.portal.captcha.simple.jar" />
+		</copy>
+
+		<compile
+			module.dir="${basedir}"
+		/>
+	</target>
+</project>

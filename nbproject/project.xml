@@ -24,6 +24,12 @@
 					<encoding>UTF-8</encoding>
 				</source-folder>
 				<source-folder>
+					<label>modules\portal\portal-captcha-recaptcha\src</label>
+					<type>java</type>
+					<location>modules/portal/portal-captcha-recaptcha/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
 					<label>modules\portal\portal-captcha-simple\src</label>
 					<type>java</type>
 					<location>modules/portal/portal-captcha-simple/src</location>
@@ -158,6 +164,10 @@
 					<source-folder style="packages">
 						<label>modules\core\registry-api\src</label>
 						<location>modules/core/registry-api/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\portal\portal-captcha-recaptcha\src</label>
+						<location>modules/portal/portal-captcha-recaptcha/src</location>
 					</source-folder>
 					<source-folder style="packages">
 						<label>modules\portal\portal-captcha-simple\src</label>
