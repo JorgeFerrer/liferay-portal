@@ -15,11 +15,11 @@
 package com.liferay.portlet.blogs;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-public class BlogsSettings extends BaseApplicationSettings {
+public class BlogsSettings {
 
 	public static BlogsSettings getInstance(long groupId)
 		throws PortalException {
@@ -146,12 +146,13 @@ public class BlogsSettings extends BaseApplicationSettings {
 
 	private static final String[] _MULTI_VALUED_KEYS = {};
 
-	private static final String[] _SERVICE_NAMES = {
-		BlogsConstants.SERVICE_NAME};
-
 	static {
-		registerSettingsStructure(
-			_SERVICE_NAMES, _MULTI_VALUED_KEYS, _getFallbackKeys());
+		SettingsFactory settingsFactory =
+			SettingsFactoryUtil.getSettingsFactory();
+
+		settingsFactory.registerMetadata(
+			BlogsConstants.SERVICE_NAME, _getFallbackKeys(),
+			_MULTI_VALUED_KEYS);
 	}
 
 	private TypedSettings _typedSettings;

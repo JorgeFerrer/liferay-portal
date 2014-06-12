@@ -15,10 +15,10 @@
 package com.liferay.portlet.blogs;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.settings.BaseApplicationSettings;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-public class BlogsPortletInstanceSettings extends BaseApplicationSettings {
+public class BlogsPortletInstanceSettings {
 
 	public static BlogsPortletInstanceSettings getInstance(
 			Layout layout, String portletId)
@@ -163,12 +163,14 @@ public class BlogsPortletInstanceSettings extends BaseApplicationSettings {
 
 	private static final String[] _MULTI_VALUED_KEYS = {};
 
-	private static final String[] _PORTLET_IDS = {
-		PortletKeys.BLOGS, PortletKeys.BLOGS_ADMIN};
-
 	static {
-		registerSettingsStructure(
-			_PORTLET_IDS, _MULTI_VALUED_KEYS, _getFallbackKeys());
+		SettingsFactory settingsFactory =
+			SettingsFactoryUtil.getSettingsFactory();
+
+		settingsFactory.registerMetadata(
+			PortletKeys.BLOGS, _getFallbackKeys(), _MULTI_VALUED_KEYS);
+		settingsFactory.registerMetadata(
+			PortletKeys.BLOGS_ADMIN, _getFallbackKeys(), _MULTI_VALUED_KEYS);
 	}
 
 	private TypedSettings _typedSettings;

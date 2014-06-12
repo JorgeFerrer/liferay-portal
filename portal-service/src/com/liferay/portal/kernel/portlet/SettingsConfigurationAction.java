@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -40,13 +41,9 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.PortletConfigFactoryUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -66,16 +63,6 @@ import javax.servlet.ServletContext;
 public class SettingsConfigurationAction
 	extends LiferayPortlet
 	implements ConfigurationAction, ResourceServingConfigurationAction {
-
-	public static void registerMultiValuedKeys(
-		String settingsId, String[] multiValuedKeysArray) {
-
-		List<String> multiValuedKeysList = new ArrayList<String>();
-
-		Collections.addAll(multiValuedKeysList, multiValuedKeysArray);
-
-		_multiValuedKeysMap.put(settingsId, multiValuedKeysList);
-	}
 
 	public SettingsConfigurationAction() {
 		setParameterNamePrefix("preferences--");
@@ -234,7 +221,7 @@ public class SettingsConfigurationAction
 	public void setPreference(
 		PortletRequest portletRequest, String name, String value) {
 
-		setPreference(portletRequest, name, new String[] {value});
+		setPreference(portletRequest, name, new String[]{value});
 	}
 
 	public void setPreference(
@@ -331,7 +318,11 @@ public class SettingsConfigurationAction
 	protected void updateMultiValuedKeys(ActionRequest actionRequest) {
 		String settingsId = getSettingsId(actionRequest);
 
-		List<String> multiValuedKeys = _multiValuedKeysMap.get(settingsId);
+		SettingsFactory settingsFactory =
+			SettingsFactoryUtil.getSettingsFactory();
+
+		List<String> multiValuedKeys = settingsFactory.getMultiValuedKeys(
+			settingsId);
 
 		if (multiValuedKeys == null) {
 			throw new IllegalStateException(
@@ -392,9 +383,6 @@ public class SettingsConfigurationAction
 			SessionErrors.add(actionRequest, "emailFromAddress");
 		}
 	}
-
-	private static ConcurrentMap<String, List<String>> _multiValuedKeysMap =
-		new ConcurrentHashMap<String, List<String>>();
 
 	private String _parameterNamePrefix;
 
