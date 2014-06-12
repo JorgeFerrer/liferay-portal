@@ -61,9 +61,6 @@ serverURL.setParameter("tabs3", tabs3);
 			<c:when test='<%= tabs2.equals("properties") %>'>
 				<liferay-util:include page="/html/portlet/admin/server/properties.jsp" />
 			</c:when>
-			<c:when test='<%= tabs2.equals("captcha") %>'>
-				<liferay-util:include page="/html/portlet/admin/server/captcha.jsp" />
-			</c:when>
 			<c:when test='<%= tabs2.equals("data-migration") %>'>
 				<liferay-util:include page="/html/portlet/admin/server/data_migration.jsp" />
 			</c:when>

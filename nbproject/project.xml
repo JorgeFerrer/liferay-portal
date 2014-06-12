@@ -430,7 +430,6 @@
 				<classpath mode="compile">lib/portal/jets3t.jar</classpath>
 				<classpath mode="compile">lib/portal/jfreechart.jar</classpath>
 				<classpath mode="compile">lib/portal/jgroups.jar</classpath>
-				<classpath mode="compile">lib/portal/jhlabs-filters.jar</classpath>
 				<classpath mode="compile">lib/portal/jodconverter.jar</classpath>
 				<classpath mode="compile">lib/portal/jodd.jar</classpath>
 				<classpath mode="compile">lib/portal/jrcs-diff.jar</classpath>
@@ -494,7 +493,6 @@
 				<classpath mode="compile">lib/portal/scala-reflect.jar</classpath>
 				<classpath mode="compile">lib/portal/scribe.jar</classpath>
 				<classpath mode="compile">lib/portal/serializer.jar</classpath>
-				<classpath mode="compile">lib/portal/simplecaptcha.jar</classpath>
 				<classpath mode="compile">lib/portal/slf4j-api.jar</classpath>
 				<classpath mode="compile">lib/portal/soap.jar</classpath>
 				<classpath mode="compile">lib/portal/spring-aop.jar</classpath>
