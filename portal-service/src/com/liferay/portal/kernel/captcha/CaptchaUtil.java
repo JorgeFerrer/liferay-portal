@@ -14,7 +14,9 @@
 
 package com.liferay.portal.kernel.captcha;
 
-import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
+import com.liferay.registry.Registry;
+import com.liferay.registry.RegistryUtil;
+import com.liferay.registry.ServiceTracker;
 
 import java.io.IOException;
 
@@ -27,63 +29,138 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Brian Wing Shun Chan
+ * @author Raymond Augé
  */
 public class CaptchaUtil {
 
 	public static void check(HttpServletRequest request)
 		throws CaptchaException {
 
-		getCaptcha().check(request);
+		_instance._check(request);
 	}
 
 	public static void check(PortletRequest portletRequest)
 		throws CaptchaException {
 
-		getCaptcha().check(portletRequest);
-	}
-
-	public static Captcha getCaptcha() {
-		PortalRuntimePermission.checkGetBeanProperty(CaptchaUtil.class);
-
-		return _captcha;
+		_instance._check(portletRequest);
 	}
 
 	public static String getTaglibPath() {
-		return getCaptcha().getTaglibPath();
+		return _instance._getTaglibPath();
 	}
 
 	public static boolean isEnabled(HttpServletRequest request)
 		throws CaptchaException {
 
-		return getCaptcha().isEnabled(request);
+		return _instance._isEnabled(request);
 	}
 
 	public static boolean isEnabled(PortletRequest portletRequest)
 		throws CaptchaException {
 
-		return getCaptcha().isEnabled(portletRequest);
+		return _instance._isEnabled(portletRequest);
 	}
 
 	public static void serveImage(
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
 
-		getCaptcha().serveImage(request, response);
+		_instance._serveImage(request, response);
 	}
 
 	public static void serveImage(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws IOException {
 
-		getCaptcha().serveImage(resourceRequest, resourceResponse);
+		_instance._serveImage(resourceRequest, resourceResponse);
 	}
 
-	public void setCaptcha(Captcha captcha) {
-		PortalRuntimePermission.checkSetBeanProperty(getClass());
+	public CaptchaUtil() {
+		Registry registry = RegistryUtil.getRegistry();
 
-		_captcha = captcha;
+		_serviceTracker = registry.trackServices(Captcha.class);
+
+		_serviceTracker.open();
 	}
 
-	private static Captcha _captcha;
+	public void _check(HttpServletRequest request)
+		throws CaptchaException {
+
+		if (_serviceTracker.isEmpty()) {
+			return;
+		}
+
+		_get().check(request);
+	}
+
+	public void _check(PortletRequest portletRequest)
+		throws CaptchaException {
+
+		if (_serviceTracker.isEmpty()) {
+			return;
+		}
+
+		_get().check(portletRequest);
+	}
+
+	public String _getTaglibPath() {
+		if (_serviceTracker.isEmpty()) {
+			return null;
+		}
+
+		return _get().getTaglibPath();
+	}
+
+	public boolean _isEnabled(HttpServletRequest request)
+		throws CaptchaException {
+
+		if (_serviceTracker.isEmpty()) {
+			return false;
+		}
+
+		return _get().isEnabled(request);
+	}
+
+	public boolean _isEnabled(PortletRequest portletRequest)
+		throws CaptchaException {
+
+		if (_serviceTracker.isEmpty()) {
+			return false;
+		}
+
+		return _get().isEnabled(portletRequest);
+	}
+
+	public void _serveImage(
+			HttpServletRequest request, HttpServletResponse response)
+		throws IOException {
+
+		if (_serviceTracker.isEmpty()) {
+			return;
+		}
+
+		_get().serveImage(request, response);
+	}
+
+	public void _serveImage(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws IOException {
+
+		if (_serviceTracker.isEmpty()) {
+			return;
+		}
+
+		Captcha captcha = _serviceTracker.getService();
+
+		captcha.serveImage(resourceRequest, resourceResponse);
+	}
+
+	private Captcha _get() {
+		return _serviceTracker.getService();
+	}
+
+	private static CaptchaUtil _instance = new CaptchaUtil();
+
+	private ServiceTracker<Captcha, Captcha> _serviceTracker;
 
 }
