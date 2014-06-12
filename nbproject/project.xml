@@ -24,6 +24,12 @@
 					<encoding>UTF-8</encoding>
 				</source-folder>
 				<source-folder>
+					<label>modules\portal\portal-captcha-simple\src</label>
+					<type>java</type>
+					<location>modules/portal/portal-captcha-simple/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
 					<label>portal-impl\src</label>
 					<type>java</type>
 					<location>portal-impl/src</location>
@@ -150,8 +156,12 @@
 			<view>
 				<items>
 					<source-folder style="packages">
-						<label>modules\core\registry\registry-api\src</label>
-						<location>modules/core/registry/registry-api/src</location>
+						<label>modules\core\registry-api\src</label>
+						<location>modules/core/registry-api/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\portal\portal-captcha-simple\src</label>
+						<location>modules/portal/portal-captcha-simple/src</location>
 					</source-folder>
 					<source-folder style="packages">
 						<label>portal-impl\src</label>
@@ -545,6 +555,8 @@
 				<classpath mode="compile">lib/portal/xuggle-xuggler.jar</classpath>
 				<classpath mode="compile">lib/portal/xz.jar</classpath>
 				<classpath mode="compile">modules/core/registry-impl/lib/org.eclipse.osgi.jar</classpath>
+				<classpath mode="compile">modules/portal/portal-captcha-simple/lib/jhlabs-filters.jar</classpath>
+				<classpath mode="compile">modules/portal/portal-captcha-simple/lib/simplecaptcha.jar</classpath>
 				<source-level>1.5</source-level>
 			</compilation-unit>
 		</java-data>
