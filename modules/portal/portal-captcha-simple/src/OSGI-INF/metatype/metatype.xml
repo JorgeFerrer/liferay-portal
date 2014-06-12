@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<metatype:MetaData
+	xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	localization="OSGI-INF/l10n/Language"
+>
+	<OCD
+		name="%captcha.engine.simplecaptcha"
+		id="captcha.engine.simplecaptcha"
+	>
+		<AD
+			id="captcha.max.challenges"
+			name="%captcha.max.challenges"
+			description="%captcha.max.challenges.description"
+			type="Integer"
+			default="1"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.height"
+			name="%captcha.engine.simplecaptcha.height"
+			description="%captcha.engine.simplecaptcha.height.description"
+			type="Integer"
+			default="50"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.width"
+			name="%captcha.engine.simplecaptcha.width"
+			description="%captcha.engine.simplecaptcha.width.description"
+			type="Integer"
+			default="150"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.background.producers"
+			name="%captcha.engine.simplecaptcha.background.producers"
+			description="%captcha.engine.simplecaptcha.background.producers.description"
+			type="String"
+			cardinality="2147483647"
+			default="nl.captcha.backgrounds.FlatColorBackgroundProducer,nl.captcha.backgrounds.GradiatedBackgroundProducer,nl.captcha.backgrounds.SquigglesBackgroundProducer,nl.captcha.backgrounds.TransparentBackgroundProducer"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.gimpy.renderers"
+			name="%captcha.engine.simplecaptcha.gimpy.renderers"
+			description="%captcha.engine.simplecaptcha.gimpy.renderers.description"
+			type="String"
+			cardinality="2147483647"
+			default="nl.captcha.gimpy.BlockGimpyRenderer,nl.captcha.gimpy.DropShadowGimpyRenderer,nl.captcha.gimpy.FishEyeGimpyRenderer,nl.captcha.gimpy.RippleGimpyRenderer,nl.captcha.gimpy.ShearGimpyRenderer"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.noise.producers"
+			name="%captcha.engine.simplecaptcha.noise.producers"
+			description="%captcha.engine.simplecaptcha.noise.producers.description"
+			type="String"
+			cardinality="2147483647"
+			default="nl.captcha.noise.CurvedLineNoiseProducer,nl.captcha.noise.StraightLineNoiseProducer"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.text.producers"
+			name="%captcha.engine.simplecaptcha.text.producers"
+			description="%captcha.engine.simplecaptcha.text.producers.description"
+			type="String"
+			cardinality="2147483647"
+			default="com.liferay.portal.captcha.simplecaptcha.PinNumberTextProducer"
+		/>
+		<AD
+			id="captcha.engine.simplecaptcha.word.renderers"
+			name="%captcha.engine.simplecaptcha.word.renderers"
+			description="%captcha.engine.simplecaptcha.word.renderers.description"
+			type="String"
+			cardinality="2147483647"
+			default="nl.captcha.text.renderer.DefaultWordRenderer"
+		/>
+	</OCD>
+	<Designate pid="captcha.engine.simplecaptcha">
+		<Object ocdref="captcha.engine.simplecaptcha" />
+	</Designate>
+</metatype:MetaData>
