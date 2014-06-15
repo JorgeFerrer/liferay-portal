@@ -36,7 +36,8 @@ public class DLSettings {
 		"emailFileEntryAddedBody", "emailFileEntryAddedSubject",
 		"emailFileEntryUpdatedBody", "emailFileEntryUpdatedSubject",
 		"emailFromAddress", "emailFromName", "emailFileEntryAddedEnabled",
-		"emailFileEntryUpdatedEnabled"};
+		"emailFileEntryUpdatedEnabled"
+	};
 
 	public static DLSettings getInstance(long groupId) throws PortalException {
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(

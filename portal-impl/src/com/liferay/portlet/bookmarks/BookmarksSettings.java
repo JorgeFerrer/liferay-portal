@@ -39,7 +39,8 @@ public class BookmarksSettings {
 		"emailFromName", "entriesPerPage", "entryColumns", "folderColumns",
 		"foldersPerPage", "rootFolderId", "emailEntryAddedEnabled",
 		"emailEntryUpdatedEnabled", "enableRelatedAssets", "showFoldersSearch",
-		"showSubfolders"};
+		"showSubfolders"
+	};
 
 	public static BookmarksSettings getInstance(long groupId)
 		throws PortalException {

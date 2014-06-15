@@ -40,7 +40,8 @@ public class DLPortletInstanceSettings {
 		"fileEntriesPerPage", "fileEntryColumns", "folderColumns",
 		"foldersPerPage", "mimeTypes", "enableCommentRatings", "enableRatings",
 		"enableRelatedAssets", "showActions", "showFolderMenu",
-		"showFoldersSearch", "showSubfolders", "showTabs"};
+		"showFoldersSearch", "showSubfolders", "showTabs"
+	};
 
 	public static DLPortletInstanceSettings getInstance(
 			Layout layout, String portletId)

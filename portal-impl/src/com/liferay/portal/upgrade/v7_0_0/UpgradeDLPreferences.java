@@ -31,7 +31,8 @@ public class UpgradeDLPreferences extends BaseUpgradePortletPreferences {
 		return new String[] {
 			PortletKeys.DOCUMENT_LIBRARY,
 			PortletKeys.DOCUMENT_LIBRARY_DISPLAY + StringPool.PERCENT,
-			PortletKeys.MEDIA_GALLERY_DISPLAY + StringPool.PERCENT};
+			PortletKeys.MEDIA_GALLERY_DISPLAY + StringPool.PERCENT
+		};
 	}
 
 	@Override

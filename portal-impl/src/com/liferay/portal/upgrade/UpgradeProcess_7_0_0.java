@@ -63,7 +63,7 @@ public class UpgradeProcess_7_0_0 extends UpgradeProcess {
 
 		// This must be the last upgrade process. Otherwise, upgrades based on
 		// BaseUpgradePortletPreferences will fail because the portlet
-		// preferences will be in the new Settings format.
+		// preferences will be in the new settings format.
 
 		upgrade(UpgradePortletSettings.class);
 	}
