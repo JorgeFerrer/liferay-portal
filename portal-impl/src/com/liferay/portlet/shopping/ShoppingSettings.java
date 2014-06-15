@@ -47,7 +47,8 @@ public class ShoppingSettings {
 		"emailOrderShippingSubject", "insurance", "insuranceFormula",
 		"minOrder", "paypalEmailAddress", "shipping", "shippingFormula",
 		"taxRate", "taxState", "emailOrderConfirmationEnabled",
-		"emailOrderShippingEnabled"};
+		"emailOrderShippingEnabled"
+	};
 
 	public static final String CC_NONE = "none";
 
