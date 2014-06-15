@@ -36,7 +36,8 @@ public class WikiSettings {
 		"emailFromAddress", "emailFromName", "emailPageAddedBody",
 		"emailPageAddedSubject", "emailPageUpdatedBody",
 		"emailPageUpdatedSubject", "emailPageAddedEnabled",
-		"emailPageUpdatedEnabled"};
+		"emailPageUpdatedEnabled"
+	};
 
 	public static WikiSettings getInstance(long groupId)
 		throws PortalException {
