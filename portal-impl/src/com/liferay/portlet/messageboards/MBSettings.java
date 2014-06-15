@@ -43,7 +43,8 @@ public class MBSettings {
 		"recentPostsDateOffset", "rssDelta", "rssDisplayStyle", "rssFeedType",
 		"allowAnonymousPosting", "emailHtmlFormat", "emailMessageAddedEnabled",
 		"emailMessageUpdatedEnabled", "enableFlags", "enableRatings",
-		"enableRss", "subscribeByDefault", "threadAsQuestionByDefault"};
+		"enableRss", "subscribeByDefault", "threadAsQuestionByDefault"
+	};
 
 	public static MBSettings getInstance(long groupId) throws PortalException {
 		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(

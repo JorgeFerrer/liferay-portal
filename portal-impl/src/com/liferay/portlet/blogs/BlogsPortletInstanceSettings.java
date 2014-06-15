@@ -39,7 +39,8 @@ public class BlogsPortletInstanceSettings {
 		"socialBookmarksDisplayStyle", "socialBookmarksTypes",
 		"enableCommentRatings", "enableComments", "enableFlags",
 		"enableRatings", "enableRelatedAssets", "enableRss",
-		"enableSocialBookmarks"};
+		"enableSocialBookmarks"
+	};
 
 	public static BlogsPortletInstanceSettings getInstance(
 			Layout layout, String portletId)
