@@ -5618,7 +5618,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_SN)) {
 			if (Validator.isNull(login)) {
-				throw new UserScreenNameException();
+				throw new UserScreenNameException.MustNotBeNull();
 			}
 		}
 		else if (authType.equals(CompanyConstants.AUTH_TYPE_ID)) {
@@ -6444,19 +6444,20 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException();
+			throw new UserScreenNameException.MustNotBeNull();
 		}
 
 		ScreenNameValidator screenNameValidator =
 			ScreenNameValidatorFactory.getInstance();
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
-			throw new UserScreenNameException();
+			throw new UserScreenNameException.MustValidate(
+				screenName, screenNameValidator);
 		}
 
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
-				throw new UserScreenNameException();
+				throw new UserScreenNameException.MustNotBeNumeric(screenName);
 			}
 
 			if (!screenName.equals(String.valueOf(userId))) {
@@ -6464,7 +6465,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 					GetterUtil.getLong(screenName));
 
 				if (group != null) {
-					throw new UserScreenNameException();
+					throw new UserScreenNameException.MustNotBeUsedByGroup(
+						screenName, group);
 				}
 			}
 		}
@@ -6474,7 +6476,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				(c != CharPool.DASH) && (c != CharPool.PERIOD) &&
 				(c != CharPool.UNDERLINE)) {
 
-				throw new UserScreenNameException();
+				throw new UserScreenNameException.MustBeAlphaNumeric(
+					CharPool.DASH, CharPool.PERIOD, CharPool.UNDERLINE);
 			}
 		}
 
@@ -6482,7 +6485,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		for (String anonymousName : anonymousNames) {
 			if (StringUtil.equalsIgnoreCase(screenName, anonymousName)) {
-				throw new UserScreenNameException();
+				throw new UserScreenNameException.MustNotBeReservedForAnonymous(
+					anonymousNames);
 			}
 		}
 
@@ -6510,8 +6514,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		int exceptionType = LayoutImpl.validateFriendlyURL(friendlyURL);
 
 		if (exceptionType != -1) {
-			throw new UserScreenNameException(
-				new GroupFriendlyURLException(exceptionType));
+			throw new UserScreenNameException.MustProduceValidFriendlyURL(
+				screenName, exceptionType);
 		}
 
 		String[] reservedScreenNames = PrefsPropsUtil.getStringArray(
