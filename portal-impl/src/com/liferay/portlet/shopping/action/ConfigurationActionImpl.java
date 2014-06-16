@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.WebKeys;
-import com.liferay.portlet.shopping.ShoppingSettings;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -33,10 +32,6 @@ import javax.portlet.PortletConfig;
  * @author Brian Wing Shun Chan
  */
 public class ConfigurationActionImpl extends SettingsConfigurationAction {
-
-	public ConfigurationActionImpl() {
-		addMultiValuedKeys(ShoppingSettings.MULTI_VALUED_KEYS);
-	}
 
 	@Override
 	public void processAction(
