@@ -17,7 +17,6 @@ package com.liferay.portlet.bookmarks.action;
 import com.liferay.portal.kernel.portlet.SettingsConfigurationAction;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portlet.bookmarks.BookmarksSettings;
 import com.liferay.portlet.bookmarks.model.BookmarksFolderConstants;
 import com.liferay.portlet.bookmarks.service.BookmarksFolderLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.NoSuchFolderException;
@@ -30,10 +29,6 @@ import javax.portlet.PortletConfig;
  * @author Sergio González
  */
 public class ConfigurationActionImpl extends SettingsConfigurationAction {
-
-	public ConfigurationActionImpl() {
-		addMultiValuedKeys(BookmarksSettings.MULTI_VALUED_KEYS);
-	}
 
 	@Override
 	public void processAction(
