@@ -322,6 +322,9 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		throws PortalException, SystemException {
 
 		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
+
+		resetPortletPreferencesValues(
+			portletId, PortletKeys.PREFS_OWNER_TYPE_ARCHIVED, serviceKeys);
 	}
 
 	protected void upgradeMainPortlet(
@@ -336,6 +339,9 @@ public class UpgradePortletSettings extends UpgradeProcess {
 			portletInstanceKeys);
 
 		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
+
+		resetPortletPreferencesValues(
+			portletId, PortletKeys.PREFS_OWNER_TYPE_ARCHIVED, serviceKeys);
 	}
 
 	protected void visitPortletPreferences(
