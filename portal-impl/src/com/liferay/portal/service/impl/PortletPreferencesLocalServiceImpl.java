@@ -244,6 +244,14 @@ public class PortletPreferencesLocalServiceImpl
 
 	@Override
 	public long getPortletPreferencesCount(
+		long ownerId, int ownerType, long plid, String portletId) {
+
+		return portletPreferencesPersistence.countByO_O_P_P(
+			ownerId, ownerType, plid, portletId);
+	}
+
+	@Override
+	public long getPortletPreferencesCount(
 		long ownerId, int ownerType, String portletId,
 		boolean excludeDefaultPreferences) {
 
