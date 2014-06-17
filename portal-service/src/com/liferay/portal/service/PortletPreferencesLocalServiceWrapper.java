@@ -377,6 +377,13 @@ public class PortletPreferencesLocalServiceWrapper
 	}
 
 	@Override
+	public long getPortletPreferencesCount(long ownerId, int ownerType,
+		long plid, java.lang.String portletId) {
+		return _portletPreferencesLocalService.getPortletPreferencesCount(ownerId,
+			ownerType, plid, portletId);
+	}
+
+	@Override
 	public long getPortletPreferencesCount(int ownerType,
 		java.lang.String portletId) {
 		return _portletPreferencesLocalService.getPortletPreferencesCount(ownerType,
