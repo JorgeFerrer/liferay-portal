@@ -289,6 +289,10 @@ public interface PortletPreferencesLocalService extends BaseLocalService,
 		java.lang.String portletId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getPortletPreferencesCount(long ownerId, int ownerType,
+		long plid, java.lang.String portletId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getPortletPreferencesCount(int ownerType,
 		java.lang.String portletId);
 

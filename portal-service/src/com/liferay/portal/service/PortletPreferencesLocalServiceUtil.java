@@ -347,6 +347,13 @@ public class PortletPreferencesLocalServiceUtil {
 				   .getPortletPreferencesCount(ownerType, plid, portletId);
 	}
 
+	public static long getPortletPreferencesCount(long ownerId, int ownerType,
+		long plid, java.lang.String portletId) {
+		return getService()
+				   .getPortletPreferencesCount(ownerId, ownerType, plid,
+			portletId);
+	}
+
 	public static long getPortletPreferencesCount(int ownerType,
 		java.lang.String portletId) {
 		return getService().getPortletPreferencesCount(ownerType, portletId);

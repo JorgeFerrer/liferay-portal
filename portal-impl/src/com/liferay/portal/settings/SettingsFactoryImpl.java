@@ -32,7 +32,6 @@ import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
 import com.liferay.portal.service.PortletItemLocalServiceUtil;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 
 import java.util.ArrayList;
@@ -71,8 +70,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		return applyFallbackKeys(
 			serviceName,
-			new PortletPreferencesSettings(
-				getCompanyPortletPreferences(companyId, serviceName)));
+			new LazyPortletPreferencesSettings(
+				companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
+				serviceName));
 	}
 
 	@Override
@@ -135,8 +135,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		return applyFallbackKeys(
 			PortletConstants.getRootPortletId(portletId),
-			new PortletPreferencesSettings(
-				getCompanyPortletPreferences(companyId, portletId)));
+			new LazyPortletPreferencesSettings(
+				companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
+				portletId));
 	}
 
 	@Override
@@ -148,9 +149,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		return applyFallbackKeys(
 			PortletConstants.getRootPortletId(portletId),
-			new PortletPreferencesSettings(
-				getGroupPortletPreferences(
-					group.getCompanyId(), groupId, portletId)));
+			new LazyPortletPreferencesSettings(
+				group.getCompanyId(), groupId,
+				PortletKeys.PREFS_OWNER_TYPE_GROUP, 0, portletId));
 	}
 
 	@Override
@@ -159,9 +160,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		return applyFallbackKeys(
 			PortletConstants.getRootPortletId(portletId),
-			new PortletPreferencesSettings(
-				getPortletInstancePortletPreferences(layout, portletId),
-				getGroupSettings(layout.getGroupId(), portletId)));
+			new LazyPortletPreferencesSettings(
+				layout.getCompanyId(), PortletKeys.PREFS_OWNER_ID_DEFAULT,
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
+				portletId, getGroupSettings(layout.getGroupId(), portletId)));
 	}
 
 	@Override
@@ -194,28 +196,27 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		return settings;
 	}
 
-	protected PortletPreferences getCompanyPortletPreferences(
-		long companyId, String settingsId) {
-
-		return PortletPreferencesLocalServiceUtil.getPreferences(
-			companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
-			settingsId);
-	}
+//	protected PortletPreferences getCompanyPortletPreferences(
+//		long companyId, String settingsId) {
+//
+//		return PortletPreferencesLocalServiceUtil.getPreferences(
+//			companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
+//			settingsId);
+//	}
 
 	protected Settings getCompanySettings(long companyId, String settingsId) {
-
-		return new PortletPreferencesSettings(
-			getCompanyPortletPreferences(companyId, settingsId),
-			getPortalPreferencesSettings(companyId, settingsId));
+		return new LazyPortletPreferencesSettings(
+			companyId, companyId, PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0,
+			settingsId, getPortalPreferencesSettings(companyId, settingsId));
 	}
 
-	protected PortletPreferences getGroupPortletPreferences(
-		long companyId, long groupId, String settingsId) {
-
-		return PortletPreferencesLocalServiceUtil.getPreferences(
-			companyId, groupId, PortletKeys.PREFS_OWNER_TYPE_GROUP, 0,
-			settingsId);
-	}
+//	protected PortletPreferences getGroupPortletPreferences(
+//		long companyId, long groupId, String settingsId) {
+//
+//		return PortletPreferencesLocalServiceUtil.getPreferences(
+//			companyId, groupId, PortletKeys.PREFS_OWNER_TYPE_GROUP, 0,
+//			settingsId);
+//	}
 
 	protected Settings getGroupSettings(long groupId, String settingsId)
 		throws PortalException {
@@ -224,9 +225,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		long companyId = group.getCompanyId();
 
-		return new PortletPreferencesSettings(
-			getGroupPortletPreferences(companyId, groupId, settingsId),
-			getCompanySettings(companyId, settingsId));
+		return new LazyPortletPreferencesSettings(
+			companyId, groupId, PortletKeys.PREFS_OWNER_TYPE_GROUP, 0,
+			settingsId, getCompanySettings(companyId, settingsId));
 	}
 
 	protected PortletPreferences getPortalPreferences(long companyId) {
@@ -262,21 +263,21 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		return new PropertiesSettings(getPortalProperties(settingsId));
 	}
 
-	protected PortletPreferences getPortletInstancePortletPreferences(
-		Layout layout, String portletId) {
-
-		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
-		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
-
-		if (PortletConstants.hasUserId(portletId)) {
-			ownerId = PortletConstants.getUserId(portletId);
-			ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
-		}
-
-		return PortletPreferencesLocalServiceUtil.getPreferences(
-			layout.getCompanyId(), ownerId, ownerType, layout.getPlid(),
-			portletId);
-	}
+//	protected PortletPreferences getPortletInstancePortletPreferences(
+//		Layout layout, String portletId) {
+//
+//		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
+//		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
+//
+//		if (PortletConstants.hasUserId(portletId)) {
+//			ownerId = PortletConstants.getUserId(portletId);
+//			ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
+//		}
+//
+//		return PortletPreferencesLocalServiceUtil.getPreferences(
+//			layout.getCompanyId(), ownerId, ownerType, layout.getPlid(),
+//			portletId);
+//	}
 
 	private ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =
 		new ConcurrentHashMap<String, FallbackKeys>();
