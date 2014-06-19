@@ -24,6 +24,18 @@
 					<encoding>UTF-8</encoding>
 				</source-folder>
 				<source-folder>
+					<label>modules\portal\portal-captcha-recaptcha\src</label>
+					<type>java</type>
+					<location>modules/portal/portal-captcha-recaptcha/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\portal\portal-captcha-simple\src</label>
+					<type>java</type>
+					<location>modules/portal/portal-captcha-simple/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
 					<label>portal-impl\src</label>
 					<type>java</type>
 					<location>portal-impl/src</location>
@@ -150,8 +162,16 @@
 			<view>
 				<items>
 					<source-folder style="packages">
-						<label>modules\core\registry\registry-api\src</label>
-						<location>modules/core/registry/registry-api/src</location>
+						<label>modules\core\registry-api\src</label>
+						<location>modules/core/registry-api/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\portal\portal-captcha-recaptcha\src</label>
+						<location>modules/portal/portal-captcha-recaptcha/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\portal\portal-captcha-simple\src</label>
+						<location>modules/portal/portal-captcha-simple/src</location>
 					</source-folder>
 					<source-folder style="packages">
 						<label>portal-impl\src</label>
@@ -430,7 +450,6 @@
 				<classpath mode="compile">lib/portal/jets3t.jar</classpath>
 				<classpath mode="compile">lib/portal/jfreechart.jar</classpath>
 				<classpath mode="compile">lib/portal/jgroups.jar</classpath>
-				<classpath mode="compile">lib/portal/jhlabs-filters.jar</classpath>
 				<classpath mode="compile">lib/portal/jodconverter.jar</classpath>
 				<classpath mode="compile">lib/portal/jodd.jar</classpath>
 				<classpath mode="compile">lib/portal/jrcs-diff.jar</classpath>
@@ -494,7 +513,6 @@
 				<classpath mode="compile">lib/portal/scala-reflect.jar</classpath>
 				<classpath mode="compile">lib/portal/scribe.jar</classpath>
 				<classpath mode="compile">lib/portal/serializer.jar</classpath>
-				<classpath mode="compile">lib/portal/simplecaptcha.jar</classpath>
 				<classpath mode="compile">lib/portal/slf4j-api.jar</classpath>
 				<classpath mode="compile">lib/portal/soap.jar</classpath>
 				<classpath mode="compile">lib/portal/spring-aop.jar</classpath>
@@ -547,6 +565,8 @@
 				<classpath mode="compile">lib/portal/xuggle-xuggler.jar</classpath>
 				<classpath mode="compile">lib/portal/xz.jar</classpath>
 				<classpath mode="compile">modules/core/registry-impl/lib/org.eclipse.osgi.jar</classpath>
+				<classpath mode="compile">modules/portal/portal-captcha-simple/lib/jhlabs-filters.jar</classpath>
+				<classpath mode="compile">modules/portal/portal-captcha-simple/lib/simplecaptcha.jar</classpath>
 				<source-level>1.5</source-level>
 			</compilation-unit>
 		</java-data>

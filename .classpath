@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="definitions"/>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="modules/core/registry-api/src"/>
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="modules/portal/portal-captcha-recaptcha/src"/>
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="modules/portal/portal-captcha-simple/src"/>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="portal-impl/src"/>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="portal-impl/test/integration"/>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="portal-impl/test/unit"/>
@@ -202,7 +204,6 @@
 	<classpathentry kind="lib" path="lib/portal/jets3t.jar"/>
 	<classpathentry kind="lib" path="lib/portal/jfreechart.jar"/>
 	<classpathentry kind="lib" path="lib/portal/jgroups.jar"/>
-	<classpathentry kind="lib" path="lib/portal/jhlabs-filters.jar"/>
 	<classpathentry kind="lib" path="lib/portal/jodconverter.jar"/>
 	<classpathentry kind="lib" path="lib/portal/jodd.jar"/>
 	<classpathentry kind="lib" path="lib/portal/jrcs-diff.jar"/>
@@ -267,7 +268,6 @@
 	<classpathentry kind="lib" path="lib/portal/scala-reflect.jar"/>
 	<classpathentry kind="lib" path="lib/portal/scribe.jar"/>
 	<classpathentry kind="lib" path="lib/portal/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/portal/simplecaptcha.jar"/>
 	<classpathentry kind="lib" path="lib/portal/slf4j-api.jar"/>
 	<classpathentry kind="lib" path="lib/portal/soap.jar"/>
 	<classpathentry kind="lib" path="lib/portal/spring-aop.jar"/>
@@ -320,5 +320,7 @@
 	<classpathentry kind="lib" path="lib/portal/xuggle-xuggler-noarch.jar"/>
 	<classpathentry kind="lib" path="lib/portal/xz.jar"/>
 	<classpathentry kind="lib" path="modules/core/registry-impl/lib/org.eclipse.osgi.jar"/>
+	<classpathentry kind="lib" path="modules/portal/portal-captcha-simple/lib/jhlabs-filters.jar"/>
+	<classpathentry kind="lib" path="modules/portal/portal-captcha-simple/lib/simplecaptcha.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

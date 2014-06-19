@@ -1,4 +1,4 @@
-<%--
+<#--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,23 +12,23 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
+-->
 
-<%@ include file="/html/taglib/ui/captcha/init.jsp" %>
+<#assign aui = PortalJspTagLibs["/WEB-INF/tld/aui.tld"] />
 
 <noscript>
-	<iframe frameborder="0" height="300" src="<%= HttpUtil.protocolize(PropsValues.CAPTCHA_ENGINE_RECAPTCHA_URL_NOSCRIPT, request.isSecure()) %><%= PrefsPropsUtil.getString(PropsKeys.CAPTCHA_ENGINE_RECAPTCHA_KEY_PUBLIC, PropsValues.CAPTCHA_ENGINE_RECAPTCHA_KEY_PUBLIC) %>" width="500"></iframe><br />
+	<iframe frameborder="0" height="300" src="${urlNoscript}${keyPublic}" width="500"></iframe><br />
 
 	<textarea cols="40" name="recaptcha_challenge_field" rows="3"></textarea>
 
 	<input name="recaptcha_response_field" type="hidden" value="manual_challenge" />
 </noscript>
 
-<aui:script position="inline">
+<@aui["script"] position="inline">
 	var RecaptchaOptions = {
-		lang : '<%= locale.getLanguage() %>',
+		lang : '${locale.language}',
 		theme : 'white'
 	};
-</aui:script>
+</@>
 
-<script src="<%= HttpUtil.protocolize(PropsValues.CAPTCHA_ENGINE_RECAPTCHA_URL_SCRIPT, request.isSecure()) %><%= PrefsPropsUtil.getString(PropsKeys.CAPTCHA_ENGINE_RECAPTCHA_KEY_PUBLIC, PropsValues.CAPTCHA_ENGINE_RECAPTCHA_KEY_PUBLIC) %>" type="text/javascript"></script>
+<script src="${urlScript}${keyPublic}" type="text/javascript"></script>

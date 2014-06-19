@@ -1,0 +1,17 @@
+Bundle-Name: Liferay SimpleCaptcha
+Bundle-Version: ${plugin.full.version}
+Import-Package:\
+	com.liferay.portal.kernel.captcha,\
+	com.liferay.portal.kernel.log,\
+	com.liferay.portal.kernel.security,\
+	com.liferay.portal.kernel.util,\
+	javax.portlet,\
+	javax.servlet.http,\
+	*;resolution:='optional'
+Include-Resource:\
+	@lib/jhlabs-filters.jar,\
+	@lib/simplecaptcha.jar,\
+	@../../../util-java/util-java.jar,\
+	@../../../util-taglib/util-taglib.jar,\
+	classes
+Export-Package: com.liferay.portal.captcha.simplecaptcha
