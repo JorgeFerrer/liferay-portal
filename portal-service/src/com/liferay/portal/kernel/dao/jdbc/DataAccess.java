@@ -93,6 +93,23 @@ public class DataAccess {
 		}
 	}
 
+	public static void deepCleanUp(ResultSet rs) {
+		try {
+			if (rs != null) {
+				Statement statement = rs.getStatement();
+
+				Connection con = statement.getConnection();
+
+				cleanUp(con, statement, rs);
+			}
+		}
+		catch (SQLException sqle) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(sqle.getMessage());
+			}
+		}
+	}
+
 	public static Connection getConnection() throws SQLException {
 		DataSource dataSource = _pacl.getDataSource();
 
