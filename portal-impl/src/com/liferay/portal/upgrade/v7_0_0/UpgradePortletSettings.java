@@ -69,8 +69,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 			ps = con.prepareStatement(
 				"insert into PortletPreferences (portletPreferencesId, " +
-				"ownerId, ownerType, plid, portletId, preferences, " +
-				"mvccVersion) values (?, ?, ?, ?, ?, ?, ?)");
+					"ownerId, ownerType, plid, portletId, preferences, " +
+						"mvccVersion) values (?, ?, ?, ?, ?, ?, ?)");
 
 			ps.setLong(1, portletPreferencesRow.getPortletPreferencesId());
 			ps.setLong(2, portletPreferencesRow.getOwnerId());
@@ -88,14 +88,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	}
 
 	protected void createServiceSettings(
-			final String portletId, final int ownerType,
-			final String serviceName)
+			String portletId, int ownerType, String serviceName)
 		throws PortalException {
 
 		ResultSet rs = null;
 
 		try {
-			rs = getPortletPreferences(portletId, ownerType);
+			rs = getPortletPreferencesResultSet(portletId, ownerType);
 
 			while (rs.next()) {
 				PortletPreferencesRow portletPreferencesRow =
@@ -214,7 +213,8 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		return groupId;
 	}
 
-	protected ResultSet getPortletPreferences(String portletId, int ownerType)
+	protected ResultSet getPortletPreferencesResultSet(
+			String portletId, int ownerType)
 		throws SQLException {
 
 		Connection con = DataAccess.getUpgradeOptimizedConnection();
@@ -227,19 +227,17 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		ps.setInt(1, ownerType);
 		ps.setString(2, portletId);
 
-		ResultSet rs = ps.executeQuery();
-
-		return rs;
+		return ps.executeQuery();
 	}
 
 	protected void resetPortletPreferencesValues(
-			String portletId, int ownerType, final String[] keys)
+			String portletId, int ownerType, String[] keys)
 		throws PortalException {
 
 		ResultSet rs = null;
 
 		try {
-			rs = getPortletPreferences(portletId, ownerType);
+			rs = getPortletPreferencesResultSet(portletId, ownerType);
 
 			while (rs.next()) {
 				PortletPreferencesRow portletPreferencesRow =
@@ -280,12 +278,12 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		catch (SQLException sqle) {
 			throw new PortalException(
 				"Unable to clean keys with ownerType " + ownerType + " for " +
-				"portlet " + portletId, sqle);
+					"portlet " + portletId, sqle);
 		}
 		catch (ReadOnlyException roe) {
 			throw new PortalException(
 				"Unable to clean keys with ownerType " + ownerType + " for " +
-				"portlet " + portletId, roe);
+					"portlet " + portletId, roe);
 		}
 		finally {
 			DataAccess.deepCleanUp(rs);
@@ -304,9 +302,9 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 			ps = con.prepareStatement(
 				"update PortletPreferences set mvccVersion = ?, ownerId = ?, " +
-				"ownerType = ?, plid = ?, portletId = ?, " +
-				"portletPreferencesId = ?, preferences = ? " +
-				"where portletPreferencesId = ?");
+					"ownerType = ?, plid = ?, portletId = ?, " +
+						"portletPreferencesId = ?, preferences = ? " +
+							"where portletPreferencesId = ?");
 
 			ps.setLong(1, portletPreferencesRow.getOwnerId());
 			ps.setInt(2, portletPreferencesRow.getOwnerType());
@@ -349,13 +347,13 @@ public class UpgradePortletSettings extends UpgradeProcess {
 	}
 
 	private void _logCopyOfServiceSettings(
-		String portletId, long plid, final String serviceName, long groupId) {
+		String portletId, long plid, String serviceName, long groupId) {
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				"Copying settings of portlet " + portletId + " placed in " +
 					"layout " + plid + " to service " + serviceName + " in " +
-					"group " + groupId);
+						"group " + groupId);
 		}
 	}
 

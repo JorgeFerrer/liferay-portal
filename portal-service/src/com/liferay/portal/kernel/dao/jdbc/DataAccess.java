@@ -93,14 +93,14 @@ public class DataAccess {
 		}
 	}
 
-	public static void deepCleanUp(ResultSet rs) {
+	public static void deepCleanUp(ResultSet resultSet) {
 		try {
-			if (rs != null) {
-				Statement statement = rs.getStatement();
+			if (resultSet != null) {
+				Statement statement = resultSet.getStatement();
 
 				Connection con = statement.getConnection();
 
-				cleanUp(con, statement, rs);
+				cleanUp(con, statement, resultSet);
 			}
 		}
 		catch (SQLException sqle) {
