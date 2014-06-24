@@ -117,7 +117,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 						portletId, plid, serviceName, groupId);
 				}
 
-				updatePortletPreferences(portletPreferencesRow);
+				addPortletPreferences(portletPreferencesRow);
 			}
 		}
 		catch (SQLException sqle) {
