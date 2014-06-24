@@ -87,7 +87,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 		}
 	}
 
-	protected void createServiceSettings(
+	protected void copyPortletSettingsAsServiceSettings(
 			String portletId, int ownerType, String serviceName)
 		throws PortalException {
 
@@ -113,7 +113,7 @@ public class UpgradePortletSettings extends UpgradeProcess {
 					portletPreferencesRow.setOwnerId(groupId);
 					portletPreferencesRow.setPlid(0);
 
-					_logCopyOfServiceSettings(
+					_logCopyOfPortletInstanceSettings(
 						portletId, plid, serviceName, groupId);
 				}
 
@@ -327,7 +327,10 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 		_logPortletUpgrade(portletId);
 
-		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
+		// Delete Service Keys From Portlet Settings
+
+		resetPortletPreferencesValues(
+			portletId, ownerType, serviceKeys);
 	}
 
 	protected void upgradeMainPortlet(
@@ -337,16 +340,24 @@ public class UpgradePortletSettings extends UpgradeProcess {
 
 		_logPortletUpgrade(portletId);
 
-		createServiceSettings(portletId, ownerType, serviceName);
+		// Create new settings for the service from the existing portlet
+		// settings
+
+		copyPortletSettingsAsServiceSettings(portletId, ownerType, serviceName);
+
+		// Delete Portlet Instance Keys From Service Settings
 
 		resetPortletPreferencesValues(
 			serviceName, PortletKeys.PREFS_OWNER_TYPE_GROUP,
 			portletInstanceKeys);
 
-		resetPortletPreferencesValues(portletId, ownerType, serviceKeys);
+		// Delete Service Keys From Portlet Settings
+
+		resetPortletPreferencesValues(
+			portletId, ownerType, serviceKeys);
 	}
 
-	private void _logCopyOfServiceSettings(
+	private void _logCopyOfPortletInstanceSettings(
 		String portletId, long plid, String serviceName, long groupId) {
 
 		if (_log.isInfoEnabled()) {
