@@ -83,6 +83,30 @@ public class UserEmailAddressException extends PortalException {
 
 	}
 
+	public static class MustNotBeDuplicate extends UserEmailAddressException {
+
+		public MustNotBeDuplicate(long userId, String emailAddress) {
+			super(
+				"User email address " + emailAddress + " cannot be set for " +
+					" user " + userId + " because it is already being used");
+
+			_userId = userId;
+			_emailAddress = emailAddress;
+		}
+
+		public String getEmailAddress() {
+			return _emailAddress;
+		}
+
+		public long getUserId() {
+			return _userId;
+		}
+
+		private String _emailAddress;
+		private long _userId;
+
+	}
+
 	public static class MustNotBeNull extends UserEmailAddressException {
 
 		public MustNotBeNull() {

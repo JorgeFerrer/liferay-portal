@@ -20,7 +20,6 @@ import com.liferay.portal.ContactFirstNameException;
 import com.liferay.portal.ContactFullNameException;
 import com.liferay.portal.ContactLastNameException;
 import com.liferay.portal.DuplicateOpenIdException;
-import com.liferay.portal.DuplicateUserEmailAddressException;
 import com.liferay.portal.DuplicateUserScreenNameException;
 import com.liferay.portal.GroupFriendlyURLException;
 import com.liferay.portal.ModelListenerException;
@@ -5441,8 +5440,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			if (userPersistence.fetchByC_EA(
 					user.getCompanyId(), emailAddress) != null) {
 
-				throw new DuplicateUserEmailAddressException(
-					"{userId=" + user.getUserId() + "}");
+				throw new UserEmailAddressException.MustNotBeDuplicate(
+					user.getUserId(), emailAddress);
 			}
 
 			setEmailAddress(
@@ -6218,8 +6217,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			User user = userPersistence.fetchByC_EA(companyId, emailAddress);
 
 			if ((user != null) && (user.getUserId() != userId)) {
-				throw new DuplicateUserEmailAddressException(
-					"{userId=" + userId + "}");
+				throw new UserEmailAddressException.MustNotBeDuplicate(
+					userId, emailAddress);
 			}
 		}
 
@@ -6263,8 +6262,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				if (userPersistence.fetchByC_EA(
 						user.getCompanyId(), emailAddress) != null) {
 
-					throw new DuplicateUserEmailAddressException(
-						"{userId=" + userId + "}");
+					throw new UserEmailAddressException.MustNotBeDuplicate(
+						userId, emailAddress);
 				}
 			}
 
@@ -6353,8 +6352,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			if (userPersistence.fetchByC_EA(
 					user.getCompanyId(), emailAddress1) != null) {
 
-				throw new DuplicateUserEmailAddressException(
-					"{userId=" + user.getUserId() + "}");
+				throw new UserEmailAddressException.MustNotBeDuplicate(
+					user.getUserId(), emailAddress1);
 			}
 		}
 	}
