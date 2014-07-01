@@ -26,7 +26,6 @@ page import="com.liferay.portal.ContactFullNameException" %><%@
 page import="com.liferay.portal.ContactLastNameException" %><%@
 page import="com.liferay.portal.DuplicateOpenIdException" %><%@
 page import="com.liferay.portal.DuplicateOrganizationException" %><%@
-page import="com.liferay.portal.DuplicateUserScreenNameException" %><%@
 page import="com.liferay.portal.EmailAddressException" %><%@
 page import="com.liferay.portal.GroupFriendlyURLException" %><%@
 page import="com.liferay.portal.NoSuchCountryException" %><%@
