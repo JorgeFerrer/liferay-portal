@@ -6439,7 +6439,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		throws PortalException {
 
 		if (Validator.isNull(screenName)) {
-			throw new UserScreenNameException.MustNotBeNull();
+			throw new UserScreenNameException.MustNotBeNull(userId);
 		}
 
 		ScreenNameValidator screenNameValidator =
@@ -6447,12 +6447,13 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (!screenNameValidator.validate(companyId, screenName)) {
 			throw new UserScreenNameException.MustValidate(
-				screenName, screenNameValidator);
+				userId, screenName, screenNameValidator);
 		}
 
 		if (Validator.isNumber(screenName)) {
 			if (!PropsValues.USERS_SCREEN_NAME_ALLOW_NUMERIC) {
-				throw new UserScreenNameException.MustNotBeNumeric(screenName);
+				throw new UserScreenNameException.MustNotBeNumeric(
+					userId, screenName);
 			}
 
 			if (!screenName.equals(String.valueOf(userId))) {
@@ -6461,7 +6462,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 				if (group != null) {
 					throw new UserScreenNameException.MustNotBeUsedByGroup(
-						screenName, group);
+						userId, screenName, group);
 				}
 			}
 		}
@@ -6472,7 +6473,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				(c != CharPool.UNDERLINE)) {
 
 				throw new UserScreenNameException.MustBeAlphaNumeric(
-					CharPool.DASH, CharPool.PERIOD, CharPool.UNDERLINE);
+					userId, screenName, CharPool.DASH, CharPool.PERIOD,
+					CharPool.UNDERLINE);
 			}
 		}
 
@@ -6481,7 +6483,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		for (String anonymousName : anonymousNames) {
 			if (StringUtil.equalsIgnoreCase(screenName, anonymousName)) {
 				throw new UserScreenNameException.MustNotBeReservedForAnonymous(
-					anonymousNames);
+					userId, screenName, anonymousNames);
 			}
 		}
 
@@ -6510,7 +6512,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		if (exceptionType != -1) {
 			throw new UserScreenNameException.MustProduceValidFriendlyURL(
-				screenName, exceptionType);
+				userId, screenName, exceptionType);
 		}
 
 		String[] reservedScreenNames = PrefsPropsUtil.getStringArray(
