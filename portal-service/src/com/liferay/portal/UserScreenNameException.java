@@ -68,6 +68,30 @@ public class UserScreenNameException extends PortalException {
 
 	}
 
+	public static class MustNotBeDuplicate extends UserScreenNameException {
+
+		public MustNotBeDuplicate(long userId, String screenName) {
+			super(
+				"Screen name " + screenName + " cannot be set for " +
+					" user " + userId + " because it is already being used");
+
+			_userId = userId;
+			_screenName = screenName;
+		}
+
+		public String getScreenName() {
+			return _screenName;
+		}
+
+		public long getUserId() {
+			return _userId;
+		}
+
+		private String _screenName;
+		private long _userId;
+
+	}
+
 	public static class MustNotBeNull extends UserScreenNameException {
 
 		public MustNotBeNull() {

@@ -6489,8 +6489,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = userPersistence.fetchByC_SN(companyId, screenName);
 
 		if ((user != null) && (user.getUserId() != userId)) {
-			throw new DuplicateUserScreenNameException(
-				"{userId=" + userId + "}");
+			throw new UserScreenNameException.MustNotBeDuplicate(
+				userId, screenName);
 		}
 
 		String friendlyURL = StringPool.SLASH + screenName;
