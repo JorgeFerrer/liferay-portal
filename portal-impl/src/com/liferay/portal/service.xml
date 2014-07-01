@@ -3346,7 +3346,6 @@
 		<exception>DuplicateRole</exception>
 		<exception>DuplicateTeam</exception>
 		<exception>DuplicateUserGroup</exception>
-		<exception>DuplicateUserId</exception>
 		<exception>DuplicateUserScreenName</exception>
 		<exception>EmailAddress</exception>
 		<exception>ExpiredLock</exception>
