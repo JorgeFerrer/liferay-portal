@@ -97,7 +97,44 @@ try {
 		layoutId = selLayout.getLayoutId();
 	}
 }
-catch (NoSuchLayoutException nsle) {
+catch (Exception e) {
+    _log.error("Cannot fetch selected layout by selPlid= '" + selPlid + "': " + e, e);
+
+    // 'selLayout' is used throughout /html/portlet/layouts_admin/*, so we most
+    // likely cannot proceed without it
+
+    %>
+    <p class="portlet-msg-error">
+        <liferay-ui:message key="selected-page-cannot-be-displayed" />
+    </p>
+    <%
+
+    /*
+        This file (init_attributes.jsp) is included by 5 other JSPs:
+
+          * /html/portlet/dockbar/edit_layout_panel.jsp
+            * may include /html/portlet/layouts_admin/edit_layout.jsp
+              * uses 'selLayout' extensively and assumes it is not null
+
+          * ./add_layout.jsp
+            * uses 'selLayout' extensively and assumes it is not null
+
+          * ./tree_js.jsp
+            * does not use 'selLayout'
+
+          * ./view.jsp
+            * does not use 'selLayout', but includes './edit_layout.jsp'
+              * as mentioned above, uses 'selLayout' extensively and assumes it is not null
+            * JSP renders existing page for editing, seems only correct to stop any processing here, if we cannot fetch the page
+
+          * ./view_resources.jsp
+            * does not use 'selLayout', but includes './edit_layout.jsp', which does
+            * not sure what's the use of this file, does not seem to be included / used from anywhere
+
+        The most reasonable action seems to be to stop any further page processing
+     */
+
+    return;
 }
 
 Layout refererLayout = null;
@@ -107,7 +144,11 @@ try {
 		refererLayout = LayoutLocalServiceUtil.getLayout(refererPlid);
 	}
 }
-catch (NoSuchLayoutException nsle) {
+catch (Exception e) {
+    _log.error("Cannot fetch refererLayout by refererPlid= '" + refererPlid + "': " + e, e);
+
+    // 'refererLayout' does not seems to be used anywhere in /html/portlet/layouts_admin/**,
+    // so we most likely can proceed without it
 }
 
 Organization organization = null;
@@ -230,4 +271,8 @@ request.setAttribute("edit_pages.jsp-rootNodeName", rootNodeName);
 
 request.setAttribute("edit_pages.jsp-portletURL", portletURL);
 request.setAttribute("edit_pages.jsp-redirectURL", redirectURL);
+%>
+
+<%!
+private static final Log _log = LogFactoryUtil.getLog("portal-web.docroot.html.portlet.layouts_admin.init_attributes_jsp");
 %>
