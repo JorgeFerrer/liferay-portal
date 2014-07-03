@@ -19,8 +19,6 @@ import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.model.PasswordPolicy;
 import com.liferay.portal.model.User;
 
-import java.util.Date;
-
 /**
  * @author Scott Lee
  */
@@ -55,26 +53,26 @@ public class UserLockoutException extends PortalException {
 	}
 
 	public static class LDAPLockout extends UserLockoutException {
-		public LDAPLockout(String fullDN, String message) {
+		public LDAPLockout(String fullUserDN, String message) {
 			super(
 				String.format(
 					"User %s has been locked out of LDAP with the following " +
 						"message: %s",
-					fullDN, message));
+					fullUserDN, message));
 
-			_fullDN = fullDN;
+			_fullUserDN = fullUserDN;
 			_message = message;
 		}
 
-		public String getFullDN() {
-			return _fullDN;
+		public String getFullUserDN() {
+			return _fullUserDN;
 		}
 
 		public String getMessage() {
 			return _message;
 		}
 
-		private String _fullDN;
+		private String _fullUserDN;
 		private String _message;
 
 	}
