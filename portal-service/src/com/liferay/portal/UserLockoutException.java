@@ -66,6 +66,14 @@ public class UserLockoutException extends PortalException {
 			_message = message;
 		}
 
+		public String getFullDN() {
+			return _fullDN;
+		}
+
+		public String getMessage() {
+			return _message;
+		}
+
 		private String _fullDN;
 		private String _message;
 
@@ -86,6 +94,14 @@ public class UserLockoutException extends PortalException {
 
 			_user = user;
 			_passwordPolicy = passwordPolicy;
+		}
+
+		public PasswordPolicy getPasswordPolicy() {
+			return _passwordPolicy;
+		}
+
+		public User getUser() {
+			return _user;
 		}
 
 		private PasswordPolicy _passwordPolicy;
