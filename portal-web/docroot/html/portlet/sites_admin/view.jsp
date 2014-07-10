@@ -25,8 +25,8 @@ String sitesListView = ParamUtil.get(request, "sitesListView", SiteConstants.LIS
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("struts_action", "/sites_admin/view");
-portletURL.setParameter("sitesListView", sitesListView);
 portletURL.setParameter("groupId", String.valueOf(groupId));
+portletURL.setParameter("sitesListView", sitesListView);
 
 String portletURLString = portletURL.toString();
 
