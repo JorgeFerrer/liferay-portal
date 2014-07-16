@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.settings.SettingsRegister;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.util.DLUtil;
@@ -46,6 +47,11 @@ public class DLPortletInstanceSettings {
 	public static DLPortletInstanceSettings getInstance(
 			Layout layout, String portletId)
 		throws PortalException {
+
+		SettingsRegister settingsRegister = new SettingsRegister(
+			_getFallbackKeys(), _MULTI_VALUED_KEYS, portletId);
+
+		settingsRegister.run();
 
 		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
 			layout, portletId);
