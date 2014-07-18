@@ -243,8 +243,9 @@ if (selUser != null) {
 	request.setAttribute("user.organizationRoles", organizationRoles);
 	request.setAttribute("user.siteRoles", siteRoles);
 	request.setAttribute("user.inheritedSiteRoles", inheritedSiteRoles);
-	request.setAttribute("user.roleGroups", roleGroups);
 	request.setAttribute("user.userGroups", userGroups);
+	request.setAttribute("user.allGroups", allGroups);
+	request.setAttribute("user.roleGroups", roleGroups);
 
 	request.setAttribute("addresses.className", Contact.class.getName());
 	request.setAttribute("emailAddresses.className", Contact.class.getName());
