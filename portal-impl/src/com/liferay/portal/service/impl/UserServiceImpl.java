@@ -37,6 +37,7 @@ import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Phone;
+import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
@@ -50,7 +51,9 @@ import com.liferay.portal.security.membershippolicy.SiteMembershipPolicyUtil;
 import com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUtil;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.base.UserServiceBaseImpl;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.OrganizationPermissionUtil;
@@ -61,6 +64,8 @@ import com.liferay.portal.service.permission.TeamPermissionUtil;
 import com.liferay.portal.service.permission.UserGroupPermissionUtil;
 import com.liferay.portal.service.permission.UserGroupRolePermissionUtil;
 import com.liferay.portal.service.permission.UserPermissionUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.announcements.model.AnnouncementsDelivery;
 import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
@@ -227,7 +232,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		userLocalService.addRoleUsers(roleId, userIds);
 
 		RoleMembershipPolicyUtil.propagateRoles(
-			userIds, new long[] {roleId}, null);
+			userIds, new long[]{roleId}, null);
 	}
 
 	/**
@@ -529,7 +534,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 
 		checkMembership(
-			new long[] {user.getUserId()}, groupIds, organizationIds, roleIds,
+			new long[]{user.getUserId()}, groupIds, organizationIds, roleIds,
 			userGroupIds);
 
 		propagateMembership(
@@ -1008,6 +1013,35 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		}
 
 		return userLocalService.hasRoleUser(companyId, name, userId, inherited);
+	}
+
+	/**
+	 * Sends the password email to the user with the email address. The content
+	 * of this email can be specified in <code>portal.properties</code> with the
+	 * <code>admin.email.password</code> keys.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  emailAddress the user's email address
+	 * @throws PortalException if a user with the email address could not be
+	 *         found
+	 */
+	@Override
+	public void sendPassword(long companyId, String emailAddress)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		userLocalService.sendPassword(
+			companyId, emailAddress, serviceContext);
+	}
+
+	protected javax.portlet.PortletPreferences getPortalPreferences(long companyId) {
+		long ownerId = companyId;
+		int ownerType = PortletKeys.PREFS_OWNER_TYPE_COMPANY;
+
+		return PortalPreferencesLocalServiceUtil.getPreferences(
+			ownerId, ownerType);
 	}
 
 	/**

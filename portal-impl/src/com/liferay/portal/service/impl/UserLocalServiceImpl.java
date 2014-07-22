@@ -131,9 +131,11 @@ import com.liferay.portal.security.pwd.PwdAuthenticator;
 import com.liferay.portal.security.pwd.PwdToolkitUtil;
 import com.liferay.portal.security.pwd.RegExpToolkit;
 import com.liferay.portal.service.BaseServiceImpl;
+import com.liferay.portal.service.PortalPreferencesLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.base.UserLocalServiceBaseImpl;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.SubscriptionSender;
@@ -3583,7 +3585,49 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	/**
 	 * Sends the password email to the user with the email address. The content
 	 * of this email can be specified in <code>portal.properties</code> with the
-	 * <code>admin.email.password</code> keys.
+	 * <code>admin.email.password</code> keys and overridden through the
+	 * "Portal Settings" UI.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  emailAddress the user's email address
+	 * @param  serviceContext the service context to be applied
+	 * @throws PortalException if a user with the email address could not be
+	 *         found
+	 */
+	@Override
+	public void sendPassword(
+			long companyId, String emailAddress, ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUserByEmailAddress(
+			companyId, emailAddress);
+
+		Company company = companyLocalService.getCompanyById(companyId);
+
+		String fromName = PrefsPropsUtil.getString(companyId, "emailFromName");
+		String fromAddress = PrefsPropsUtil.getString("emailFromAddress");
+
+		String emailPasswordPrefix = "emailPasswordSent";
+
+		if (company.isSendPasswordResetLink()) {
+			emailPasswordPrefix = "emailPasswordReset";
+		}
+
+		String languageId = user.getLanguageId();
+
+		String subject = PrefsPropsUtil.getString(
+			emailPasswordPrefix + "Subject_" + languageId);
+		String body = PrefsPropsUtil.getString(
+			emailPasswordPrefix + "Body_" + languageId);
+
+		sendPassword(
+			companyId, emailAddress, fromName, fromAddress, subject, body,
+			serviceContext);
+	}
+
+	/**
+	 * Sends the password email to the user with the email address. The content
+	 * of this email can be specified with the subject and body parameters.
 	 *
 	 * @param  companyId the primary key of the user's company
 	 * @param  emailAddress the user's email address

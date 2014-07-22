@@ -14,6 +14,7 @@
 
 package com.liferay.portal.jsonwebservice;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upload.UploadServletRequest;
@@ -23,7 +24,14 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.security.ac.AccessControlThreadLocal;
+import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.servlet.JSONServlet;
 import com.liferay.portal.spring.context.PortalContextLoaderListener;
 import com.liferay.portal.struts.JSONAction;
@@ -76,6 +84,42 @@ public class JSONWebServiceServlet extends JSONServlet {
 		if (_log.isDebugEnabled()) {
 			_log.debug("Servlet context " + request.getContextPath());
 		}
+
+		// Service context
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				request);
+
+			serviceContext.setPortalURL(PortalUtil.getPortalURL(request));
+			serviceContext.setPathMain(PortalUtil.getPathMain());
+
+			if (serviceContext.getCompanyId() == 0) {
+				long companyId = PortalUtil.getCompanyId(request);
+
+				serviceContext.setCompanyId(companyId);
+			}
+
+			if (serviceContext.getScopeGroupId() == 0) {
+				Group guestGroup = GroupLocalServiceUtil.getGroup(
+					serviceContext.getCompanyId(), GroupConstants.GUEST);
+
+				serviceContext.setScopeGroupId(guestGroup.getGroupId());
+			}
+
+			if (serviceContext.getPlid() == 0) {
+				long plid = LayoutLocalServiceUtil.getDefaultPlid(
+					serviceContext.getScopeGroupId(), false);
+
+				serviceContext.setPlid(plid);
+			}
+
+			ServiceContextThreadLocal.pushServiceContext(serviceContext);
+		}
+		catch (PortalException pe) {
+			throw new ServletException("Error building ServiceContext", pe);
+		}
+		// Dispatch
 
 		String apiPath = PortalUtil.getPathMain() + "/portal/api/jsonws";
 
