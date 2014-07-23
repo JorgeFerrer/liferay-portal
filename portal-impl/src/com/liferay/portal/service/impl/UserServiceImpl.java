@@ -1029,7 +1029,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			ServiceContextThreadLocal.getServiceContext();
 
 		userLocalService.sendPassword(
-			companyId, emailAddress, serviceContext);
+			companyId, emailAddress, null, null, null, null, serviceContext);
 	}
 
 	 * Sets the users in the role, removing and adding users to the role as
