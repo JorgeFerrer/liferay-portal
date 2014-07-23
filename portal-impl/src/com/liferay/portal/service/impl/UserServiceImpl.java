@@ -1022,18 +1022,29 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         found
 	 */
 	@Override
-	public boolean sendPassword(long companyId, String emailAddress)
+	public boolean sendPasswordByEmailAddress(
+			long companyId, String emailAddress)
 		throws PortalException {
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
+		User user = userPersistence.findByC_EA(companyId, emailAddress);
 
-		userLocalService.sendPassword(
-			companyId, emailAddress, null, null, null, null, serviceContext);
+		return sendPasswordByUser(user);
+	}
 
-		Company company = companyPersistence.findByPrimaryKey(companyId);
+	public boolean sendPasswordByScreenName(long companyId, String screenName)
+		throws PortalException {
 
-		return company.isSendPassword();
+		User user = userPersistence.findByC_SN(companyId, screenName);
+
+		return sendPasswordByUser(user);
+	}
+
+	public boolean sendPasswordByUserId(long companyId, long userId)
+		throws PortalException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		return sendPasswordByUser(user);
 	}
 
 	/*
