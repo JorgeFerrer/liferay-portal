@@ -1022,7 +1022,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         found
 	 */
 	@Override
-	public void sendPassword(long companyId, String emailAddress)
+	public boolean sendPassword(long companyId, String emailAddress)
 		throws PortalException {
 
 		ServiceContext serviceContext =
@@ -1030,8 +1030,13 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 		userLocalService.sendPassword(
 			companyId, emailAddress, null, null, null, null, serviceContext);
+
+		Company company = companyPersistence.findByPrimaryKey(companyId);
+
+		return company.isSendPassword();
 	}
 
+	/*
 	 * Sets the users in the role, removing and adding users to the role as
 	 * necessary.
 	 *
@@ -2622,6 +2627,16 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			UserGroupMembershipPolicyUtil.propagateMembership(
 				userIds, userGroupIds, null);
 		}
+	}
+
+	protected boolean sendPasswordByUser(User user) throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		return userLocalService.sendPassword(
+			user.getCompanyId(), user.getEmailAddress(), null, null, null, null,
+			serviceContext);
 	}
 
 	protected void updateAnnouncementsDeliveries(

@@ -3599,7 +3599,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 *         found
 	 */
 	@Override
-	public void sendPassword(
+	public boolean sendPassword(
 			long companyId, String emailAddress, String fromName,
 			String fromAddress, String subject, String body,
 			ServiceContext serviceContext)
@@ -3759,6 +3759,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		subscriptionSender.addRuntimeSubscribers(toAddress, toName);
 
 		subscriptionSender.flushNotificationsAsync();
+
+		return company.isSendPassword();
 	}
 
 	/**
