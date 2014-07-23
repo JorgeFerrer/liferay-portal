@@ -1023,7 +1023,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	 *         found
 	 */
 	@Override
-	public void sendPassword(long companyId, String emailAddress)
+	public boolean sendPassword(long companyId, String emailAddress)
 		throws PortalException {
 
 		ServiceContext serviceContext =
@@ -1031,6 +1031,10 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 
 		userLocalService.sendPassword(
 			companyId, emailAddress, null, null, null, null, serviceContext);
+
+		Company company = companyPersistence.findByPrimaryKey(companyId);
+
+		return company.isSendPassword();
 	}
 
 	/**
