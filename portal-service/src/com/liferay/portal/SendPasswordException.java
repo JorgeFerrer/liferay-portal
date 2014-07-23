@@ -15,26 +15,53 @@
 package com.liferay.portal;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.model.Company;
 
 /**
  * @author Brian Wing Shun Chan
  */
 public class SendPasswordException extends PortalException {
 
+	public static class Forbidden extends SendPasswordException {
+
+		public Forbidden(Company company) {
+			super(String.format(
+				"Send password is forbidden for company %s", company));
+
+			_company = company;
+		}
+
+		public Company getCompany() {
+			return _company;
+		}
+
+		private Company _company;
+
+	}
+
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner classes
+	 */
 	public SendPasswordException() {
 		super();
 	}
 
-	public SendPasswordException(String msg) {
-		super(msg);
-	}
-
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner classes
+	 */
 	public SendPasswordException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner classes
+	 */
 	public SendPasswordException(Throwable cause) {
 		super(cause);
+	}
+
+	protected SendPasswordException(String msg) {
+		super(msg);
 	}
 
 }
