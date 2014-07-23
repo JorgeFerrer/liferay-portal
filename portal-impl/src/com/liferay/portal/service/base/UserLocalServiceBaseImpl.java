@@ -56,6 +56,7 @@ import com.liferay.portal.service.persistence.PasswordPolicyFinder;
 import com.liferay.portal.service.persistence.PasswordPolicyPersistence;
 import com.liferay.portal.service.persistence.PasswordPolicyRelPersistence;
 import com.liferay.portal.service.persistence.PasswordTrackerPersistence;
+import com.liferay.portal.service.persistence.PortalPreferencesPersistence;
 import com.liferay.portal.service.persistence.RoleFinder;
 import com.liferay.portal.service.persistence.RolePersistence;
 import com.liferay.portal.service.persistence.SubscriptionPersistence;
@@ -1827,6 +1828,44 @@ public abstract class UserLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the portal preferences local service.
+	 *
+	 * @return the portal preferences local service
+	 */
+	public com.liferay.portal.service.PortalPreferencesLocalService getPortalPreferencesLocalService() {
+		return portalPreferencesLocalService;
+	}
+
+	/**
+	 * Sets the portal preferences local service.
+	 *
+	 * @param portalPreferencesLocalService the portal preferences local service
+	 */
+	public void setPortalPreferencesLocalService(
+		com.liferay.portal.service.PortalPreferencesLocalService portalPreferencesLocalService) {
+		this.portalPreferencesLocalService = portalPreferencesLocalService;
+	}
+
+	/**
+	 * Returns the portal preferences persistence.
+	 *
+	 * @return the portal preferences persistence
+	 */
+	public PortalPreferencesPersistence getPortalPreferencesPersistence() {
+		return portalPreferencesPersistence;
+	}
+
+	/**
+	 * Sets the portal preferences persistence.
+	 *
+	 * @param portalPreferencesPersistence the portal preferences persistence
+	 */
+	public void setPortalPreferencesPersistence(
+		PortalPreferencesPersistence portalPreferencesPersistence) {
+		this.portalPreferencesPersistence = portalPreferencesPersistence;
+	}
+
+	/**
 	 * Returns the resource local service.
 	 *
 	 * @return the resource local service
@@ -3210,6 +3249,10 @@ public abstract class UserLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.liferay.portal.service.PasswordTrackerLocalService passwordTrackerLocalService;
 	@BeanReference(type = PasswordTrackerPersistence.class)
 	protected PasswordTrackerPersistence passwordTrackerPersistence;
+	@BeanReference(type = com.liferay.portal.service.PortalPreferencesLocalService.class)
+	protected com.liferay.portal.service.PortalPreferencesLocalService portalPreferencesLocalService;
+	@BeanReference(type = PortalPreferencesPersistence.class)
+	protected PortalPreferencesPersistence portalPreferencesPersistence;
 	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
 	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
 	@BeanReference(type = com.liferay.portal.service.RoleLocalService.class)

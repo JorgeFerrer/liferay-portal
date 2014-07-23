@@ -2431,8 +2431,7 @@ public class UserLocalServiceWrapper implements UserLocalService,
 
 	/**
 	* Sends the password email to the user with the email address. The content
-	* of this email can be specified in <code>portal.properties</code> with the
-	* <code>admin.email.password</code> keys.
+	* of this email can be specified with the subject and body parameters.
 	*
 	* @param companyId the primary key of the user's company
 	* @param emailAddress the user's email address
@@ -2455,6 +2454,25 @@ public class UserLocalServiceWrapper implements UserLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_userLocalService.sendPassword(companyId, emailAddress, fromName,
 			fromAddress, subject, body, serviceContext);
+	}
+
+	/**
+	* Sends the password email to the user with the email address. The content
+	* of this email can be specified in <code>portal.properties</code> with the
+	* <code>admin.email.password</code> keys and overridden through the
+	* "Portal Settings" UI.
+	*
+	* @param companyId the primary key of the user's company
+	* @param emailAddress the user's email address
+	* @param serviceContext the service context to be applied
+	* @throws PortalException if a user with the email address could not be
+	found
+	*/
+	@Override
+	public void sendPassword(long companyId, java.lang.String emailAddress,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_userLocalService.sendPassword(companyId, emailAddress, serviceContext);
 	}
 
 	/**

@@ -966,6 +966,28 @@ public class UserServiceSoap {
 	}
 
 	/**
+	* Sends the password email to the user with the email address. The content
+	* of this email can be specified in <code>portal.properties</code> with the
+	* <code>admin.email.password</code> keys.
+	*
+	* @param companyId the primary key of the user's company
+	* @param emailAddress the user's email address
+	* @throws PortalException if a user with the email address could not be
+	found
+	*/
+	public static void sendPassword(long companyId,
+		java.lang.String emailAddress) throws RemoteException {
+		try {
+			UserServiceUtil.sendPassword(companyId, emailAddress);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	/**
 	* Sets the users in the role, removing and adding users to the role as
 	* necessary.
 	*

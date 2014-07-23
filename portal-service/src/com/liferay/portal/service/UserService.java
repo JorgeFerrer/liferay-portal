@@ -629,6 +629,19 @@ public interface UserService extends BaseService {
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
+	* Sends the password email to the user with the email address. The content
+	* of this email can be specified in <code>portal.properties</code> with the
+	* <code>admin.email.password</code> keys.
+	*
+	* @param companyId the primary key of the user's company
+	* @param emailAddress the user's email address
+	* @throws PortalException if a user with the email address could not be
+	found
+	*/
+	public void sendPassword(long companyId, java.lang.String emailAddress)
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	/**
 	* Sets the Spring bean ID for this bean.
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
