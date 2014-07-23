@@ -32,6 +32,7 @@ import com.liferay.portal.PasswordExpiredException;
 import com.liferay.portal.RequiredUserException;
 import com.liferay.portal.ReservedUserEmailAddressException;
 import com.liferay.portal.ReservedUserScreenNameException;
+import com.liferay.portal.SendPasswordException;
 import com.liferay.portal.UserEmailAddressException;
 import com.liferay.portal.UserIdException;
 import com.liferay.portal.UserLockoutException;
@@ -3608,7 +3609,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 
 		if (!company.isSendPassword() && !company.isSendPasswordResetLink()) {
-			return;
+			throw new SendPasswordException.MustBeEnabled(company);
 		}
 
 		emailAddress = StringUtil.toLowerCase(emailAddress.trim());
