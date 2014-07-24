@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanUtil;
 
@@ -287,7 +288,14 @@ public class JSONWebServiceActionImpl implements JSONWebServiceAction {
 		if ((parameterName != null) && parameterName.equals("serviceContext") &&
 			parameterType.equals(ServiceContext.class)) {
 
-			return new ServiceContext();
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
+
+			if (serviceContext == null) {
+				serviceContext = new ServiceContext();
+			}
+
+			return serviceContext;
 		}
 
 		String className = parameterType.getName();
