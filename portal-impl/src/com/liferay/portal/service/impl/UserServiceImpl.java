@@ -51,6 +51,7 @@ import com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUti
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.base.UserServiceBaseImpl;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.OrganizationPermissionUtil;
@@ -1008,6 +1009,28 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		}
 
 		return userLocalService.hasRoleUser(companyId, name, userId, inherited);
+	}
+
+	/**
+	 * Sends the password email to the user with the email address. The content
+	 * of this email can be specified in <code>portal.properties</code> with the
+	 * <code>admin.email.password</code> keys and overridden through the
+	 * "Portal Settings" UI.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  emailAddress the user's email address
+	 * @throws PortalException if a user with the email address could not be
+	 *         found
+	 */
+	@Override
+	public void sendPassword(long companyId, String emailAddress)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		userLocalService.sendPassword(
+			companyId, emailAddress, null, null, null, null, serviceContext);
 	}
 
 	/**
