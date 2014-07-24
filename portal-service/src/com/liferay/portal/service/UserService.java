@@ -629,16 +629,65 @@ public interface UserService extends BaseService {
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
-	* Sends the password email to the user with the email address. The content
-	* of this email can be specified in <code>portal.properties</code> with the
-	* <code>admin.email.password</code> keys.
+	* Sends an email to specified user with the new password or a link to reset
+	* the password, depending on the portal settings.
+	*
+	* Note that this method sends the email asynchronously, so it returns the
+	* result before the email was sent. If an error ocurred sending the email
+	* this method won't be aware.
 	*
 	* @param companyId the primary key of the user's company
-	* @param emailAddress the user's email address
-	* @throws PortalException if a user with the email address could not be
-	found
+	* @param userId the user's primary key
+	* @return true if the new password was sent and false if a reset link was
+	sent to user.
+	* @throws PortalException if the specified user could not be found or if
+	an error occurred. Note that if ocurrs an error sending the
+	email, this method doesn't raises an exception.
+	* @since 7.0.0
 	*/
-	public void sendPassword(long companyId, java.lang.String emailAddress)
+	public boolean sendPasswordByEmailAddress(long companyId,
+		java.lang.String emailAddress)
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	/**
+	* Sends an email to specified user with the new password or a link to reset
+	* the password, depending on the portal settings.
+	*
+	* Note that this method sends the email asynchronously, so it returns the
+	* result before the email was sent. If an error ocurred sending the email
+	* this method won't be aware.
+	*
+	* @param companyId the primary key of the user's company
+	* @param userId the user's primary key
+	* @return true if the new password was sent and false if a reset link was
+	sent to user.
+	* @throws PortalException if the specified user could not be found or if
+	an error occurred. Note that if ocurrs an error sending the
+	email, this method doesn't raises an exception.
+	* @since 7.0.0
+	*/
+	public boolean sendPasswordByScreenName(long companyId,
+		java.lang.String screenName)
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	/**
+	* Sends an email to specified user with the new password or a link to reset
+	* the password, depending on the portal settings.
+	*
+	* Note that this method sends the email asynchronously, so it returns the
+	* result before the email was sent. If an error ocurred sending the email
+	* this method won't be aware.
+	*
+	* @param companyId the primary key of the user's company
+	* @param userId the user's primary key
+	* @return true if the new password was sent and false if a reset link was
+	sent to user.
+	* @throws PortalException if the specified user could not be found or if
+	an error occurred. Note that if ocurrs an error sending the
+	email, this method doesn't raises an exception.
+	* @since 7.0.0
+	*/
+	public boolean sendPasswordByUserId(long companyId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
@@ -648,16 +697,6 @@ public interface UserService extends BaseService {
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 
-	/**
-	* Sets the users in the role, removing and adding users to the role as
-	* necessary.
-	*
-	* @param roleId the primary key of the role
-	* @param userIds the primary keys of the users
-	* @throws PortalException if the current user did not have permission to
-	assign role members or if the operation was not allowed by the
-	membership policy
-	*/
 	public void setRoleUsers(long roleId, long[] userIds)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
