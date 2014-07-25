@@ -51,6 +51,7 @@ import com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUti
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.base.UserServiceBaseImpl;
 import com.liferay.portal.service.permission.GroupPermissionUtil;
 import com.liferay.portal.service.permission.OrganizationPermissionUtil;
@@ -1011,6 +1012,83 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 	}
 
 	/**
+	 * Sends an email to specified user with the new password or a link to reset
+	 * the password, depending on the portal settings.
+	 *
+	 * Note that this method sends the email asynchronously, so it returns the
+	 * result before the email was sent. If an error ocurred sending the email
+	 * this method won't be aware.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  userId the user's primary key
+	 * @return true if the new password was sent and false if a reset link was
+	 * 		   sent to user.
+	 * @throws PortalException if the specified user could not be found or if
+	 *         an error occurred. Note that if ocurrs an error sending the
+	 *         email, this method doesn't raises an exception.
+	 * @since 7.0.0
+	 */
+	@Override
+	public boolean sendPasswordByEmailAddress(
+			long companyId, String emailAddress)
+		throws PortalException {
+
+		User user = userPersistence.findByC_EA(companyId, emailAddress);
+
+		return sendPasswordByUser(user);
+	}
+
+	/**
+	 * Sends an email to specified user with the new password or a link to reset
+	 * the password, depending on the portal settings.
+	 *
+	 * Note that this method sends the email asynchronously, so it returns the
+	 * result before the email was sent. If an error ocurred sending the email
+	 * this method won't be aware.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  userId the user's primary key
+	 * @return true if the new password was sent and false if a reset link was
+	 * 		   sent to user.
+	 * @throws PortalException if the specified user could not be found or if
+	 *         an error occurred. Note that if ocurrs an error sending the
+	 *         email, this method doesn't raises an exception.
+	 * @since 7.0.0
+	 */
+	public boolean sendPasswordByScreenName(long companyId, String screenName)
+		throws PortalException {
+
+		User user = userPersistence.findByC_SN(companyId, screenName);
+
+		return sendPasswordByUser(user);
+	}
+
+	/**
+	 * Sends an email to specified user with the new password or a link to reset
+	 * the password, depending on the portal settings.
+	 *
+	 * Note that this method sends the email asynchronously, so it returns the
+	 * result before the email was sent. If an error ocurred sending the email
+	 * this method won't be aware.
+	 *
+	 * @param  companyId the primary key of the user's company
+	 * @param  userId the user's primary key
+	 * @return true if the new password was sent and false if a reset link was
+	 * 		   sent to user.
+	 * @throws PortalException if the specified user could not be found or if
+	 *         an error occurred. Note that if ocurrs an error sending the
+	 *         email, this method doesn't raises an exception.
+	 * @since 7.0.0
+	 */
+	public boolean sendPasswordByUserId(long companyId, long userId)
+		throws PortalException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		return sendPasswordByUser(user);
+	}
+
+	/*
 	 * Sets the users in the role, removing and adding users to the role as
 	 * necessary.
 	 *
@@ -2601,6 +2679,16 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			UserGroupMembershipPolicyUtil.propagateMembership(
 				userIds, userGroupIds, null);
 		}
+	}
+
+	protected boolean sendPasswordByUser(User user) throws PortalException {
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		return userLocalService.sendPassword(
+			user.getCompanyId(), user.getEmailAddress(), null, null, null, null,
+			serviceContext);
 	}
 
 	protected void updateAnnouncementsDeliveries(
