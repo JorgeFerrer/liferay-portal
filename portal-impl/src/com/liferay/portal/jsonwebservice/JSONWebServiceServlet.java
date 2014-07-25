@@ -119,6 +119,7 @@ public class JSONWebServiceServlet extends JSONServlet {
 		catch (PortalException pe) {
 			throw new ServletException("Error building ServiceContext", pe);
 		}
+
 		// Dispatch
 
 		String apiPath = PortalUtil.getPathMain() + "/portal/api/jsonws";
