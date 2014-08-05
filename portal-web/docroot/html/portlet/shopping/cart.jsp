@@ -35,13 +35,13 @@ boolean minQuantityMultiple = PrefsPropsUtil.getBoolean(company.getCompanyId(), 
 		if (!itemsInStock) {
 			if (confirm('<%= UnicodeLanguageUtil.get(request, "your-cart-has-items-that-are-out-of-stock") %>')) {
 				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = '<%= Constants.CHECKOUT %>';
-				document.<portlet:namespace />fm.<portlet:namespace />redirect.value = '<portlet:actionURL><portlet:param name="struts_action" value="/shopping/checkout" /></portlet:actionURL>';
+				document.<portlet:namespace />fm.<portlet:namespace />redirect.value = '<portlet:actionURL><portlet:param name="struts_action" value="/shopping/checkout" /><portlet:param name="cmd" value='<%= Constants.CHECKOUT %>'/></portlet:actionURL>';
 				<portlet:namespace />updateCart();
 			}
 		}
 		else {
 			document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = '<%= Constants.CHECKOUT %>';
-			document.<portlet:namespace />fm.<portlet:namespace />redirect.value = '<portlet:actionURL><portlet:param name="struts_action" value="/shopping/checkout" /></portlet:actionURL>';
+			document.<portlet:namespace />fm.<portlet:namespace />redirect.value = '<portlet:actionURL><portlet:param name="struts_action" value="/shopping/checkout" /><portlet:param name="cmd" value='<%= Constants.CHECKOUT %>'/></portlet:actionURL>';
 			<portlet:namespace />updateCart();
 		}
 	}
@@ -124,10 +124,9 @@ boolean minQuantityMultiple = PrefsPropsUtil.getBoolean(company.getCompanyId(), 
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="itemIds" type="hidden" />
 
-	<liferay-ui:header
-		backURL="<%= redirect %>"
-		title="cart"
-	/>
+	<liferay-util:include page="/html/portlet/shopping/tabs1.jsp">
+		<liferay-util:param name="tabs1" value="cart" />
+	</liferay-util:include>
 
 	<liferay-ui:error exception="<%= CartMinQuantityException.class %>">
 
@@ -541,7 +540,7 @@ boolean minQuantityMultiple = PrefsPropsUtil.getBoolean(company.getCompanyId(), 
 
 		<aui:button onClick='<%= renderResponse.getNamespace() + "emptyCart();" %>' value="empty-cart" />
 
-		<aui:button onClick='<%= renderResponse.getNamespace() + "checkout();" %>' value="checkout" />
+		<aui:button disabled="<%= items.isEmpty() %>" onClick='<%= renderResponse.getNamespace() + "checkout();" %>' value="checkout" />
 	</aui:button-row>
 </aui:form>
 

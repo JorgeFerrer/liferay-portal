@@ -81,6 +81,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>DETAILS_DESCRIPTION_FIELD</td>
+	<td>//textarea[contains(@id,'kaleoformsportlet_description')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td></td>
 	<td></td>
 	<td></td>
@@ -98,7 +103,7 @@
 </tr>
 <tr>
 	<td>ADD_FIELDS_DEFINITION_BUTTON</td>
-	<td>//a[contains(.,'Add Fields Definition')]</td>
+	<td>//button[contains(.,'Add Fields Definition')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -109,12 +114,12 @@
 <!--FIELDS_DEFINITION_TABLE-->
 <tr>
 	<td>FIELDS_DEFINITION_TABLE_NAME</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_fieldsDefinitionName}')]/td[1])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_kfFieldsDefinitionName}')]/td[1])[1]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>FIELDS_DEFINITION_TABLE_ACTIONS</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_fieldsDefinitionName}')]/td[4]/div/a[@title='Actions'])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_kfFieldsDefinitionName}')]/td[4]/div/a[@title='Actions'])[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -151,7 +156,7 @@
 </tr>
 <tr>
 	<td>ADD_WORKFLOW_BUTTON</td>
-	<td>//a[contains(.,'Add Workflow')]</td>
+	<td>//button[contains(.,'Add Workflow')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -163,6 +168,11 @@
 <tr>
 	<td>WORKFLOW_TABLE_NAME</td>
 	<td>xpath=(//div[contains(@id,'kaleoformsportlet_workflowDefinitions')]//tr[contains(.,'${key_workflowDefinition}')]/td[1])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_TABLE_TITLE</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_workflowDefinitions')]//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[2])[1]</td>
 	<td></td>
 </tr>
 <tr>

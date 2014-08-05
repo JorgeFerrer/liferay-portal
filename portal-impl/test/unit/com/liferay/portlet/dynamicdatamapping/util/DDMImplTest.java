@@ -26,11 +26,7 @@ import com.liferay.portlet.dynamicdatamapping.storage.Fields;
 
 import java.io.Serializable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -108,8 +104,8 @@ public class DDMImplTest extends BaseDDMTestCase {
 		DDMForm ddmForm = createDDMForm();
 
 		addDDMFormFields(
-			ddmForm, createTextDDMFormField("Title", "", true, false, false),
-			createTextDDMFormField("Content", "", true, false, false));
+			ddmForm, createTextDDMFormField("Title"),
+			createTextDDMFormField("Content"));
 
 		DDMStructure ddmStructure = createStructure("Test Structure", ddmForm);
 
@@ -197,8 +193,7 @@ public class DDMImplTest extends BaseDDMTestCase {
 
 		DDMForm ddmForm = createDDMForm();
 
-		addDDMFormFields(
-			ddmForm, createTextDDMFormField("Title", "", true, false, false));
+		addDDMFormFields(ddmForm, createTextDDMFormField("Title"));
 
 		DDMStructure ddmStructure = createStructure("Test Structure", ddmForm);
 
@@ -408,43 +403,11 @@ public class DDMImplTest extends BaseDDMTestCase {
 
 		try {
 			_ddmImpl.mergeFields(newFields, existingFields);
-		}
-		catch (NullPointerException npe) {
+
 			Assert.fail();
 		}
-	}
-
-	protected Field createField(
-		long ddmStructureId, String fieldName, List<Serializable> enValues,
-		List<Serializable> ptValues) {
-
-		Map<Locale, List<Serializable>> valuesMap = createValuesMap(
-			enValues, ptValues);
-
-		return new MockField(
-			ddmStructureId, fieldName, valuesMap, LocaleUtil.US);
-	}
-
-	protected Fields createFields(Field... fieldsArray) {
-		Fields fields = new Fields();
-
-		for (Field field : fieldsArray) {
-			fields.put(field);
+		catch (NullPointerException npe) {
 		}
-
-		return fields;
-	}
-
-	protected Field createFieldsDisplayField(
-		long ddmStructureId, String value) {
-
-		Field fieldsDisplayField = new MockField(
-			ddmStructureId, DDMImpl.FIELDS_DISPLAY_NAME,
-			createValuesList(value), LocaleUtil.US);
-
-		fieldsDisplayField.setDefaultLocale(LocaleUtil.US);
-
-		return fieldsDisplayField;
 	}
 
 	protected DDMFormField createSeparatorDDMFormField(
@@ -462,33 +425,6 @@ public class DDMImplTest extends BaseDDMTestCase {
 		return ddmFormField;
 	}
 
-	protected List<Serializable> createValuesList(String... valuesString) {
-		List<Serializable> values = new ArrayList<Serializable>();
-
-		for (String valueString : valuesString) {
-			values.add(valueString);
-		}
-
-		return values;
-	}
-
-	protected Map<Locale, List<Serializable>> createValuesMap(
-		List<Serializable> enValues, List<Serializable> ptValues) {
-
-		Map<Locale, List<Serializable>> valuesMap =
-			new HashMap<Locale, List<Serializable>>();
-
-		if (enValues != null) {
-			valuesMap.put(LocaleUtil.US, enValues);
-		}
-
-		if (ptValues != null) {
-			valuesMap.put(LocaleUtil.BRAZIL, ptValues);
-		}
-
-		return valuesMap;
-	}
-
 	protected void testValues(
 		List<Serializable> actualValues, String... expectedValues) {
 
@@ -500,30 +436,5 @@ public class DDMImplTest extends BaseDDMTestCase {
 	}
 
 	private DDMImpl _ddmImpl = new DDMImpl();
-
-	private class MockField extends Field {
-
-		public MockField(
-			long ddmStructureId, String name, List<Serializable> values,
-			Locale locale) {
-
-			super(ddmStructureId, name, values, locale);
-		}
-
-		public MockField(
-			long ddmStructureId, String name,
-			Map<Locale, List<Serializable>> valuesMap, Locale defaultLocale) {
-
-			super(ddmStructureId, name, valuesMap, defaultLocale);
-		}
-
-		@Override
-		public DDMStructure getDDMStructure() {
-			return structures.get(getDDMStructureId());
-		}
-
-		private static final long serialVersionUID = 1L;
-
-	}
 
 }

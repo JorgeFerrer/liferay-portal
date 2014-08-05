@@ -104,6 +104,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>RESET_CHANGES_MESSAGE</td>
+	<td>//span[@class='page-customization-bar-message']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESET_CHANGES_BUTTON</td>
+	<td>//button[contains(.,'Reset Changes')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SUCCESS_MESSAGE</td>
 	<td>//span[@class='portlet-msg-success']</td>
 	<td></td>
@@ -244,6 +254,11 @@
 <tr>
 	<td>SCREENSHOTS_USERBAR_GO_TO_MENU_ADD_SITE_NOT_PRESENT_PNG</td>
 	<td>so/screenshots/userbar/userbar_go_to_menu_add_site_not_present.png</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCREENSHOTS_USERBAR_GO_TO_MENU_ADD_SITE_SITE_NAME_REQUIRED_PNG</td>
+	<td>so/screenshots/userbar/userbar_go_to_menu_add_site_site_name_required.png</td>
 	<td></td>
 </tr>
 <tr>

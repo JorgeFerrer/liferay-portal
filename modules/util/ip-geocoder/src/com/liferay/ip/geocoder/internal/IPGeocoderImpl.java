@@ -80,7 +80,7 @@ public class IPGeocoderImpl implements IPGeocoder {
 				ipGeocoderFile, LookupService.GEOIP_MEMORY_CACHE);
 		}
 		catch (IOException ioe) {
-			_logger.error("Unable to activate IP geocoder service", ioe);
+			_logger.error("Unable to activate Liferay IP Geocoder", ioe);
 		}
 	}
 

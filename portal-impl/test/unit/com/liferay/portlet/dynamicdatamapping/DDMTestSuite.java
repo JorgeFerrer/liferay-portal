@@ -24,9 +24,11 @@ import com.liferay.portlet.dynamicdatamapping.storage.DDMFormValuesTest;
 import com.liferay.portlet.dynamicdatamapping.storage.DDMFormValuesValidatorTest;
 import com.liferay.portlet.dynamicdatamapping.storage.GeolocationFieldRendererTest;
 import com.liferay.portlet.dynamicdatamapping.util.DDMFormTemplateSynchonizerTest;
+import com.liferay.portlet.dynamicdatamapping.util.DDMFormValuesToFieldsConverterTest;
 import com.liferay.portlet.dynamicdatamapping.util.DDMImplTest;
 import com.liferay.portlet.dynamicdatamapping.util.DDMXMLImplTest;
 import com.liferay.portlet.dynamicdatamapping.util.DDMXSDImplTest;
+import com.liferay.portlet.dynamicdatamapping.util.FieldsToDDMFormValuesConverterTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -42,9 +44,11 @@ import org.junit.runners.Suite.SuiteClasses;
 		DDMFormTemplateSynchonizerTest.class,
 		DDMFormValuesJSONDeserializerTest.class,
 		DDMFormValuesJSONSerializerTest.class, DDMFormValuesTest.class,
+		DDMFormValuesToFieldsConverterTest.class,
 		DDMFormValuesValidatorTest.class, DDMFormXSDDeserializerTest.class,
 		DDMFormXSDDeserializerTest.class, DDMImplTest.class,
 		DDMStructureImplTest.class, DDMXMLImplTest.class, DDMXSDImplTest.class,
+		FieldsToDDMFormValuesConverterTest.class,
 		GeolocationFieldRendererTest.class
 	})
 public class DDMTestSuite {
