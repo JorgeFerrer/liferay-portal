@@ -224,13 +224,6 @@ if (organization != null) {
 						showOrganizations = true;
 					}
 
-					if ((status == WorkflowConstants.STATUS_APPROVED) && (usersCount == 0) && (inactiveUsersCount > 0)) {
-						status = WorkflowConstants.STATUS_INACTIVE;
-					}
-					else if ((status == WorkflowConstants.STATUS_INACTIVE) && (usersCount > 0) && (inactiveUsersCount == 0)) {
-						status = WorkflowConstants.STATUS_APPROVED;
-					}
-
 					if ((organization != null) && !OrganizationPermissionUtil.contains(permissionChecker, organization, ActionKeys.MANAGE_USERS)) {
 						inactiveUsersCount = 0;
 
