@@ -49,15 +49,42 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 
 <h3><liferay-ui:message key="regular-roles" /></h3>
 
+<%
+Map<Role, List<String>> roleGroupNames = new HashMap<Role, List<String>>();
+
+for (Group group : roleGroups) {
+	List<Role> groupRoles = RoleLocalServiceUtil.getGroupRoles(group.getGroupId());
+
+	for (Role groupRole : groupRoles) {
+		if (roleGroupNames.containsKey(groupRole)) {
+			List<String> groupNames = roleGroupNames.get(groupRole);
+
+			groupNames.add(group.getDescriptiveName(locale));
+		}
+		else {
+			roleGroupNames.put(groupRole, new ArrayList<String>(Arrays.asList(group.getDescriptiveName(locale))));
+		}
+	}
+}
+
+List<Role> regularRoles = new ArrayList<Role>(roles);
+
+for (Role role : roleGroupNames.keySet()) {
+	if (!regularRoles.contains(role)) {
+		regularRoles.add(role);
+	}
+}
+%>
+
 <liferay-ui:search-container
 	curParam="regularRolesCur"
 	headerNames="title,null"
 	id="rolesSearchContainer"
 	iteratorURL="<%= currentURLObj %>"
-	total="<%= roles.size() %>"
+	total="<%= regularRoles.size() %>"
 >
 	<liferay-ui:search-container-results
-		results="<%= roles.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
+		results="<%= regularRoles.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
 	/>
 
 	<liferay-ui:search-container-row
@@ -65,19 +92,56 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 		keyProperty="roleId"
 		modelVar="role"
 	>
+
+		<%
+		boolean hasImplicitRole = roleGroupNames.containsKey(role);
+		%>
+
 		<liferay-ui:search-container-column-text
+			buffer="buffer"
 			name="title"
 		>
+
+		<liferay-util:buffer var="iconRole">
 			<liferay-ui:icon
 				iconCssClass="<%= RolesAdminUtil.getIconCssClass(role) %>"
 				label="<%= true %>"
 				message="<%= HtmlUtil.escape(role.getTitle(locale)) %>"
 			/>
+		</liferay-util:buffer>
+
+			<%
+			buffer.append(iconRole);
+
+			if (hasImplicitRole) {
+				List<String> names = roleGroupNames.get(role);
+
+				String message = StringPool.BLANK;
+
+				if (names.size() == 1) {
+					message = LanguageUtil.format(request, "this-user-is-assigned-x-from-x", new Object[] {HtmlUtil.escape(role.getTitle(locale)), names.get(0)}, false);
+				}
+				else {
+					message = LanguageUtil.format(request, "this-user-is-assigned-x-from-x-and-x", new Object[] {HtmlUtil.escape(role.getTitle(locale)), StringUtil.merge(names.subList(0, names.size() - 1).toArray(new String[names.size() - 1]), StringPool.COMMA_AND_SPACE) + ((names.size() > 2) ? StringPool.COMMA : StringPool.BLANK), names.get(names.size() - 1)}, false);
+				}
+			%>
+
+				<liferay-util:buffer var="iconHelp">
+					<liferay-ui:icon-help message="<%= message %>" />
+				</liferay-util:buffer>
+
+			<%
+				buffer.append(iconHelp);
+			}
+			%>
+
 		</liferay-ui:search-container-column-text>
 
 		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !RoleMembershipPolicyUtil.isRoleRequired(selUser.getUserId(), role.getRoleId()) %>">
 			<liferay-ui:search-container-column-text>
-				<a class="modify-link" data-rowId="<%= role.getRoleId() %>" href="javascript:;"><%= removeRoleIcon %></a>
+				<c:if test="<%= !hasImplicitRole %>">
+					<a class="modify-link" data-rowId="<%= role.getRoleId() %>" href="javascript:;"><%= removeRoleIcon %></a>
+				</c:if>
 			</liferay-ui:search-container-column-text>
 		</c:if>
 	</liferay-ui:search-container-row>
@@ -120,54 +184,6 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "roles"
 		);
 	</aui:script>
 </c:if>
-
-<h3><liferay-ui:message key="inherited-regular-roles" /></h3>
-
-<c:if test="<%= roleGroups.isEmpty() %>">
-	<liferay-ui:message key="this-user-does-not-have-any-inherited-regular-roles" />
-</c:if>
-
-<liferay-ui:search-container
-	curParam="inheritedRegularRolesCur"
-	headerNames="title,group"
-	id="inheritedRolesSearchContainer"
-	iteratorURL="<%= currentURLObj %>"
-	total="<%= roleGroups.size() %>"
->
-	<liferay-ui:search-container-results
-		results="<%= roleGroups.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="com.liferay.portal.model.Group"
-		keyProperty="groupId"
-		modelVar="group"
-		rowIdProperty="friendlyURL"
-	>
-
-		<%
-		List<Role> groupRoles = RoleLocalServiceUtil.getGroupRoles(group.getGroupId());
-		%>
-
-		<liferay-ui:search-container-column-text
-			name="title"
-			value="<%= HtmlUtil.escape(ListUtil.toString(groupRoles, Role.NAME_ACCESSOR)) %>"
-		>
-			<liferay-ui:icon
-				iconCssClass="<%= RolesAdminUtil.getIconCssClass(groupRoles.get(0)) %>"
-				label="<%= true %>"
-				message="<%= HtmlUtil.escape(ListUtil.toString(groupRoles, Role.NAME_ACCESSOR)) %>"
-			/>
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			name="group"
-			value="<%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator />
-</liferay-ui:search-container>
 
 <h3><liferay-ui:message key="organization-roles" /></h3>
 
