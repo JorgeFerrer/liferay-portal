@@ -131,10 +131,10 @@ else if (selUser != null) {
 	}
 }
 
-List<UserGroupGroupRole> inheritedSiteRoles = Collections.emptyList();
+List<UserGroupGroupRole> userGroupGroupRoles = Collections.emptyList();
 
 if (selUser != null) {
-	inheritedSiteRoles = UserGroupGroupRoleLocalServiceUtil.getUserGroupGroupRolesByUser(selUser.getUserId());
+	userGroupGroupRoles = UserGroupGroupRoleLocalServiceUtil.getUserGroupGroupRolesByUser(selUser.getUserId());
 }
 
 List<Group> relatedGroups = GroupLocalServiceUtil.getUserGroupsRelatedGroups(userGroups);
@@ -247,8 +247,8 @@ if (selUser != null) {
 	request.setAttribute("user.roles", roles);
 	request.setAttribute("user.organizationRoles", organizationRoles);
 	request.setAttribute("user.siteRoles", siteRoles);
-	request.setAttribute("user.inheritedSiteRoles", inheritedSiteRoles);
 	request.setAttribute("user.userGroups", userGroups);
+	request.setAttribute("user.userGroupGroupRoles", userGroupGroupRoles);
 	request.setAttribute("user.allGroups", allGroups);
 	request.setAttribute("user.roleGroups", roleGroups);
 

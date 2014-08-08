@@ -18,8 +18,9 @@
 
 <%
 User selUser = (User)request.getAttribute("user.selUser");
-List<Group> groups = (List<Group>)request.getAttribute("user.groups");
-List<Group> inheritedSites = (List<Group>)request.getAttribute("user.inheritedSites");
+List<Group> regularGroups = (List<Group>)request.getAttribute("user.regularGroups");
+List<UserGroupRole> siteRoles = (List<UserGroupRole>)request.getAttribute("user.siteRoles");
+List<UserGroupGroupRole> userGroupGroupRoles = (List<UserGroupGroupRole>)request.getAttribute("user.userGroupGroupRoles");
 
 currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites");
 %>
@@ -38,14 +39,64 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites"
 
 <h3><liferay-ui:message key="sites" /></h3>
 
+<%
+Map<Group, Map<Role, List<String>>> groupRoleUserGroupNamesMap = new HashMap<Group, Map<Role, List<String>>>();
+
+for (UserGroupGroupRole userGroupGroupRole : userGroupGroupRoles) {
+	Group group = userGroupGroupRole.getGroup();
+	Role role = userGroupGroupRole.getRole();
+	UserGroup userGroup = userGroupGroupRole.getUserGroup();
+
+	Map<Role, List<String>> roleUserGroupNames = groupRoleUserGroupNamesMap.get(group);
+
+	if (roleUserGroupNames != null) {
+		List<String> userGroupNames = roleUserGroupNames.get(role);
+
+		if (userGroupNames != null) {
+			userGroupNames.add(userGroup.getName());
+		}
+		else {
+			roleUserGroupNames.put(role, new ArrayList<String>(Arrays.asList(userGroup.getName())));
+		}
+	}
+	else {
+		roleUserGroupNames = new HashMap<Role, List<String>>();
+
+		roleUserGroupNames.put(role, new ArrayList<String>(Arrays.asList(userGroup.getName())));
+
+		groupRoleUserGroupNamesMap.put(group, roleUserGroupNames);
+	}
+}
+
+for (UserGroupRole siteRole : siteRoles) {
+	Group group = siteRole.getGroup();
+	Role role = siteRole.getRole();
+
+	Map<Role, List<String>> roleUserGroupNames = groupRoleUserGroupNamesMap.get(group);
+
+	if (roleUserGroupNames != null) {
+		if (!roleUserGroupNames.containsKey(role)) {
+			roleUserGroupNames.put(role, new ArrayList<String>());
+		}
+	}
+	else {
+		roleUserGroupNames = new HashMap<Role, List<String>>();
+
+		roleUserGroupNames.put(role, new ArrayList<String>());
+
+		groupRoleUserGroupNamesMap.put(group, roleUserGroupNames);
+	}
+}
+%>
+
 <liferay-ui:search-container
 	curParam="sitesCur"
 	headerNames="name,roles,null"
 	iteratorURL="<%= currentURLObj %>"
-	total="<%= groups.size() %>"
+	total="<%= regularGroups.size() %>"
 >
 	<liferay-ui:search-container-results
-		results="<%= groups.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
+		results="<%= regularGroups.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
 	/>
 
 	<liferay-ui:search-container-row
@@ -55,23 +106,110 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites"
 		modelVar="group"
 		rowIdProperty="friendlyURL"
 	>
+
+		<%
+		List<String> names = new ArrayList<String>();
+
+		Map<Role, List<String>> roleUserGroupNames = groupRoleUserGroupNamesMap.get(group);
+
+		if (roleUserGroupNames != null) {
+			Set<String> userGroupNames = new HashSet<String>();
+
+			for (List<String> values : roleUserGroupNames.values()) {
+				userGroupNames.addAll(values);
+			}
+
+			names.addAll(userGroupNames);
+		}
+
+		names.addAll(SitesUtil.getOrganizationNames(group, selUser));
+
+		boolean hasImplicitSiteMembership = !names.isEmpty();
+		%>
+
 		<liferay-ui:search-container-column-text
+			buffer="buffer"
 			name="name"
-			value="<%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>"
-		/>
+		>
+
+			<%
+			String groupName = HtmlUtil.escape(group.getDescriptiveName(locale));
+
+			buffer.append(groupName);
+
+			if (hasImplicitSiteMembership) {
+				String message = StringPool.BLANK;
+
+				if (names.size() == 1) {
+					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x", new Object[] {groupName, names.get(0)}, false);
+				}
+				else {
+					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x-and-x", new Object[] {groupName, StringUtil.merge(names.subList(0, names.size() - 1).toArray(new String[names.size() - 1]), StringPool.COMMA_AND_SPACE) + ((names.size() > 2) ? StringPool.COMMA : StringPool.BLANK), names.get(names.size() - 1)}, false);
+				}
+			%>
+
+				<liferay-util:buffer var="iconHelp">
+					<liferay-ui:icon-help message="<%= message %>" />
+				</liferay-util:buffer>
+
+			<%
+				buffer.append(iconHelp);
+			}
+			%>
+
+		</liferay-ui:search-container-column-text>
 
 		<%
 		List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId(), group.getGroupId());
 		%>
 
 		<liferay-ui:search-container-column-text
+			buffer="buffer"
 			name="roles"
-			value="<%= ListUtil.toString(userGroupRoles, UsersAdmin.USER_GROUP_ROLE_TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
-		/>
+		>
+
+			<%
+			if (roleUserGroupNames != null) {
+				for (Role role : roleUserGroupNames.keySet()) {
+					String title = HtmlUtil.escape(role.getTitle(locale));
+
+					buffer.append(title);
+
+					names = roleUserGroupNames.get(role);
+
+					if ((names != null) && !names.isEmpty()) {
+						String message = StringPool.BLANK;
+
+						if (names.size() == 1) {
+							message = LanguageUtil.format(request, "this-user-is-assigned-x-from-x", new Object[] {title, names.get(0)}, false);
+						}
+						else {
+							message = LanguageUtil.format(request, "this-user-is-assigned-x-from-x-and-x", new Object[] {title, StringUtil.merge(names.subList(0, names.size() - 1).toArray(new String[names.size() - 1]), StringPool.COMMA_AND_SPACE) + ((names.size() > 2) ? StringPool.COMMA : StringPool.BLANK), names.get(names.size() - 1)}, false);
+						}
+					%>
+
+						<liferay-util:buffer var="iconHelp">
+							<liferay-ui:icon-help message="<%= message %>" />
+						</liferay-util:buffer>
+
+					<%
+						buffer.append(iconHelp);
+					}
+
+					buffer.append(StringPool.COMMA_AND_SPACE);
+				}
+
+				if (!roleUserGroupNames.isEmpty()) {
+					buffer.setIndex(buffer.index() - 1);
+				}
+			}
+			%>
+
+		</liferay-ui:search-container-column-text>
 
 		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !SiteMembershipPolicyUtil.isMembershipRequired(selUser.getUserId(), group.getGroupId()) && !SiteMembershipPolicyUtil.isMembershipProtected(permissionChecker, selUser.getUserId(), group.getGroupId()) %>">
 			<liferay-ui:search-container-column-text>
-				<c:if test="<%= group.isManualMembership() %>">
+				<c:if test="<%= !hasImplicitSiteMembership && group.isManualMembership() %>">
 					<a class="modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeGroupIcon %></a>
 				</c:if>
 			</liferay-ui:search-container-column-text>
@@ -172,44 +310,3 @@ currentURLObj.setParameter("historyKey", renderResponse.getNamespace() + "sites"
 		);
 	</aui:script>
 </c:if>
-
-<h3><liferay-ui:message key="inherited-sites" /></h3>
-
-<c:if test="<%= inheritedSites.isEmpty() %>">
-	<liferay-ui:message key="this-user-does-not-have-any-inherited-sites" />
-</c:if>
-
-<liferay-ui:search-container
-	curParam="inheritedSitesCur"
-	headerNames="name,roles"
-	iteratorURL="<%= currentURLObj %>"
-	total="<%= inheritedSites.size() %>"
->
-	<liferay-ui:search-container-results
-		results="<%= inheritedSites.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="com.liferay.portal.model.Group"
-		escapedModel="<%= true %>"
-		keyProperty="groupId"
-		modelVar="inheritedSite"
-		rowIdProperty="friendlyURL"
-	>
-		<liferay-ui:search-container-column-text
-			name="name"
-			value="<%= HtmlUtil.escape(inheritedSite.getDescriptiveName(locale)) %>"
-		/>
-
-		<%
-		List<Role> inheritedRoles = RoleLocalServiceUtil.getUserGroupGroupRoles(selUser.getUserId(), inheritedSite.getGroupId());
-		%>
-
-		<liferay-ui:search-container-column-text
-			name="roles"
-			value="<%= ListUtil.toString(inheritedRoles, Role.TITLE_ACCESSOR, StringPool.COMMA_AND_SPACE) %>"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator />
-</liferay-ui:search-container>
