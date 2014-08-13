@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -45,7 +44,6 @@ import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -81,15 +79,6 @@ public class BlogsEntryPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<BlogsEntry> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<BlogsEntry> iterator = _blogsEntries.iterator();
@@ -98,10 +87,6 @@ public class BlogsEntryPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<BlogsEntry> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -338,12 +323,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByG_NotS() {
+	public void testCountByG_S() {
 		try {
-			_persistence.countByG_NotS(RandomTestUtil.nextLong(),
+			_persistence.countByG_S(RandomTestUtil.nextLong(),
 				RandomTestUtil.nextInt());
 
-			_persistence.countByG_NotS(0L, 0);
+			_persistence.countByG_S(0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -351,12 +336,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByG_S() {
+	public void testCountByG_NotS() {
 		try {
-			_persistence.countByG_S(RandomTestUtil.nextLong(),
+			_persistence.countByG_NotS(RandomTestUtil.nextLong(),
 				RandomTestUtil.nextInt());
 
-			_persistence.countByG_S(0L, 0);
+			_persistence.countByG_NotS(0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -390,12 +375,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_NotS() {
+	public void testCountByC_S() {
 		try {
-			_persistence.countByC_NotS(RandomTestUtil.nextLong(),
+			_persistence.countByC_S(RandomTestUtil.nextLong(),
 				RandomTestUtil.nextInt());
 
-			_persistence.countByC_NotS(0L, 0);
+			_persistence.countByC_S(0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -403,12 +388,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_S() {
+	public void testCountByC_NotS() {
 		try {
-			_persistence.countByC_S(RandomTestUtil.nextLong(),
+			_persistence.countByC_NotS(RandomTestUtil.nextLong(),
 				RandomTestUtil.nextInt());
 
-			_persistence.countByC_S(0L, 0);
+			_persistence.countByC_NotS(0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -442,19 +427,6 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByG_U_NotS() {
-		try {
-			_persistence.countByG_U_NotS(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
-
-			_persistence.countByG_U_NotS(0L, 0L, 0);
-		}
-		catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	@Test
 	public void testCountByG_U_S() {
 		try {
 			_persistence.countByG_U_S(RandomTestUtil.nextLong(),
@@ -468,12 +440,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByG_LtD_NotS() {
+	public void testCountByG_U_NotS() {
 		try {
-			_persistence.countByG_LtD_NotS(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextDate(), RandomTestUtil.nextInt());
+			_persistence.countByG_U_NotS(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
 
-			_persistence.countByG_LtD_NotS(0L, RandomTestUtil.nextDate(), 0);
+			_persistence.countByG_U_NotS(0L, 0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -494,12 +466,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_U_NotS() {
+	public void testCountByG_LtD_NotS() {
 		try {
-			_persistence.countByC_U_NotS(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
+			_persistence.countByG_LtD_NotS(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextDate(), RandomTestUtil.nextInt());
 
-			_persistence.countByC_U_NotS(0L, 0L, 0);
+			_persistence.countByG_LtD_NotS(0L, RandomTestUtil.nextDate(), 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -520,12 +492,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByC_LtD_NotS() {
+	public void testCountByC_U_NotS() {
 		try {
-			_persistence.countByC_LtD_NotS(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextDate(), RandomTestUtil.nextInt());
+			_persistence.countByC_U_NotS(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
 
-			_persistence.countByC_LtD_NotS(0L, RandomTestUtil.nextDate(), 0);
+			_persistence.countByC_U_NotS(0L, 0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -546,14 +518,12 @@ public class BlogsEntryPersistenceTest {
 	}
 
 	@Test
-	public void testCountByG_U_LtD_NotS() {
+	public void testCountByC_LtD_NotS() {
 		try {
-			_persistence.countByG_U_LtD_NotS(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextLong(), RandomTestUtil.nextDate(),
-				RandomTestUtil.nextInt());
+			_persistence.countByC_LtD_NotS(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextDate(), RandomTestUtil.nextInt());
 
-			_persistence.countByG_U_LtD_NotS(0L, 0L, RandomTestUtil.nextDate(),
-				0);
+			_persistence.countByC_LtD_NotS(0L, RandomTestUtil.nextDate(), 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -568,6 +538,21 @@ public class BlogsEntryPersistenceTest {
 				RandomTestUtil.nextInt());
 
 			_persistence.countByG_U_LtD_S(0L, 0L, RandomTestUtil.nextDate(), 0);
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testCountByG_U_LtD_NotS() {
+		try {
+			_persistence.countByG_U_LtD_NotS(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextDate(),
+				RandomTestUtil.nextInt());
+
+			_persistence.countByG_U_LtD_NotS(0L, 0L, RandomTestUtil.nextDate(),
+				0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -906,6 +891,5 @@ public class BlogsEntryPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(BlogsEntryPersistenceTest.class);
 	private List<BlogsEntry> _blogsEntries = new ArrayList<BlogsEntry>();
-	private ModelListener<BlogsEntry>[] _modelListeners;
 	private BlogsEntryPersistence _persistence = BlogsEntryUtil.getPersistence();
 }

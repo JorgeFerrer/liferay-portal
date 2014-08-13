@@ -1,0 +1,6 @@
+Bundle-Version: 6.2.0
+Export-Package:\
+	*
+Include-Resource:\
+	classes,\
+	@${project.dir}/../lib/development/dumbster.jar

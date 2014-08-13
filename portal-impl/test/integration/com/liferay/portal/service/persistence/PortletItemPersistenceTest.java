@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.model.impl.PortletItemModelImpl;
 import com.liferay.portal.service.PortletItemLocalServiceUtil;
@@ -44,7 +43,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -80,15 +78,6 @@ public class PortletItemPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<PortletItem> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<PortletItem> iterator = _portletItems.iterator();
@@ -97,10 +86,6 @@ public class PortletItemPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<PortletItem> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -524,6 +509,5 @@ public class PortletItemPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(PortletItemPersistenceTest.class);
 	private List<PortletItem> _portletItems = new ArrayList<PortletItem>();
-	private ModelListener<PortletItem>[] _modelListeners;
 	private PortletItemPersistence _persistence = PortletItemUtil.getPersistence();
 }

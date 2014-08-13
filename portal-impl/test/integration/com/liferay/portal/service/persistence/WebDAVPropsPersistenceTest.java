@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.WebDAVProps;
 import com.liferay.portal.model.impl.WebDAVPropsModelImpl;
 import com.liferay.portal.service.WebDAVPropsLocalServiceUtil;
@@ -42,7 +41,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -78,15 +76,6 @@ public class WebDAVPropsPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<WebDAVProps> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<WebDAVProps> iterator = _webDAVPropses.iterator();
@@ -95,10 +84,6 @@ public class WebDAVPropsPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<WebDAVProps> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -467,6 +452,5 @@ public class WebDAVPropsPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(WebDAVPropsPersistenceTest.class);
 	private List<WebDAVProps> _webDAVPropses = new ArrayList<WebDAVProps>();
-	private ModelListener<WebDAVProps>[] _modelListeners;
 	private WebDAVPropsPersistence _persistence = WebDAVPropsUtil.getPersistence();
 }

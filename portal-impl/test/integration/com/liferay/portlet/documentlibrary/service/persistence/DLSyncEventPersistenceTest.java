@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -42,7 +41,6 @@ import com.liferay.portlet.documentlibrary.service.DLSyncEventLocalServiceUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -78,15 +76,6 @@ public class DLSyncEventPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<DLSyncEvent> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<DLSyncEvent> iterator = _dlSyncEvents.iterator();
@@ -95,10 +84,6 @@ public class DLSyncEventPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<DLSyncEvent> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -452,6 +437,5 @@ public class DLSyncEventPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(DLSyncEventPersistenceTest.class);
 	private List<DLSyncEvent> _dlSyncEvents = new ArrayList<DLSyncEvent>();
-	private ModelListener<DLSyncEvent>[] _modelListeners;
 	private DLSyncEventPersistence _persistence = DLSyncEventUtil.getPersistence();
 }

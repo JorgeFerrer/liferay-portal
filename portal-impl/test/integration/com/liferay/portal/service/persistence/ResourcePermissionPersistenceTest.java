@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.ResourcePermission;
 import com.liferay.portal.model.impl.ResourcePermissionModelImpl;
 import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
@@ -43,7 +42,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class ResourcePermissionPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<ResourcePermission> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<ResourcePermission> iterator = _resourcePermissions.iterator();
@@ -96,10 +85,6 @@ public class ResourcePermissionPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<ResourcePermission> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -578,6 +563,5 @@ public class ResourcePermissionPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(ResourcePermissionPersistenceTest.class);
 	private List<ResourcePermission> _resourcePermissions = new ArrayList<ResourcePermission>();
-	private ModelListener<ResourcePermission>[] _modelListeners;
 	private ResourcePermissionPersistence _persistence = ResourcePermissionUtil.getPersistence();
 }

@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.UserTracker;
 import com.liferay.portal.service.UserTrackerLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -41,7 +40,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -77,15 +75,6 @@ public class UserTrackerPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<UserTracker> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<UserTracker> iterator = _userTrackers.iterator();
@@ -94,10 +83,6 @@ public class UserTrackerPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<UserTracker> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -478,6 +463,5 @@ public class UserTrackerPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(UserTrackerPersistenceTest.class);
 	private List<UserTracker> _userTrackers = new ArrayList<UserTracker>();
-	private ModelListener<UserTracker>[] _modelListeners;
 	private UserTrackerPersistence _persistence = UserTrackerUtil.getPersistence();
 }

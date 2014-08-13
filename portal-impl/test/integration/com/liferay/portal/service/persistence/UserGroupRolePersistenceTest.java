@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.util.IntegerWrapper;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -36,7 +35,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -72,15 +70,6 @@ public class UserGroupRolePersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<UserGroupRole> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<UserGroupRole> iterator = _userGroupRoles.iterator();
@@ -89,10 +78,6 @@ public class UserGroupRolePersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<UserGroupRole> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -454,6 +439,5 @@ public class UserGroupRolePersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(UserGroupRolePersistenceTest.class);
 	private List<UserGroupRole> _userGroupRoles = new ArrayList<UserGroupRole>();
-	private ModelListener<UserGroupRole>[] _modelListeners;
 	private UserGroupRolePersistence _persistence = UserGroupRoleUtil.getPersistence();
 }

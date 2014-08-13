@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.RepositoryEntry;
 import com.liferay.portal.model.impl.RepositoryEntryModelImpl;
 import com.liferay.portal.service.RepositoryEntryLocalServiceUtil;
@@ -44,7 +43,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -80,15 +78,6 @@ public class RepositoryEntryPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<RepositoryEntry> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<RepositoryEntry> iterator = _repositoryEntries.iterator();
@@ -97,10 +86,6 @@ public class RepositoryEntryPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<RepositoryEntry> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -558,6 +543,5 @@ public class RepositoryEntryPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(RepositoryEntryPersistenceTest.class);
 	private List<RepositoryEntry> _repositoryEntries = new ArrayList<RepositoryEntry>();
-	private ModelListener<RepositoryEntry>[] _modelListeners;
 	private RepositoryEntryPersistence _persistence = RepositoryEntryUtil.getPersistence();
 }

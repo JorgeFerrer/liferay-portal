@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -41,7 +40,6 @@ import com.liferay.portlet.softwarecatalog.service.SCFrameworkVersionLocalServic
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -77,15 +75,6 @@ public class SCFrameworkVersionPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<SCFrameworkVersion> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<SCFrameworkVersion> iterator = _scFrameworkVersions.iterator();
@@ -94,10 +83,6 @@ public class SCFrameworkVersionPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<SCFrameworkVersion> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -503,6 +488,5 @@ public class SCFrameworkVersionPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(SCFrameworkVersionPersistenceTest.class);
 	private List<SCFrameworkVersion> _scFrameworkVersions = new ArrayList<SCFrameworkVersion>();
-	private ModelListener<SCFrameworkVersion>[] _modelListeners;
 	private SCFrameworkVersionPersistence _persistence = SCFrameworkVersionUtil.getPersistence();
 }

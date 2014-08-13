@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -45,7 +44,6 @@ import com.liferay.portlet.asset.service.AssetCategoryPropertyLocalServiceUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -81,15 +79,6 @@ public class AssetCategoryPropertyPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<AssetCategoryProperty> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<AssetCategoryProperty> iterator = _assetCategoryProperties.iterator();
@@ -98,10 +87,6 @@ public class AssetCategoryPropertyPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<AssetCategoryProperty> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -525,6 +510,5 @@ public class AssetCategoryPropertyPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(AssetCategoryPropertyPersistenceTest.class);
 	private List<AssetCategoryProperty> _assetCategoryProperties = new ArrayList<AssetCategoryProperty>();
-	private ModelListener<AssetCategoryProperty>[] _modelListeners;
 	private AssetCategoryPropertyPersistence _persistence = AssetCategoryPropertyUtil.getPersistence();
 }

@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.UserNotificationDelivery;
 import com.liferay.portal.model.impl.UserNotificationDeliveryModelImpl;
 import com.liferay.portal.service.UserNotificationDeliveryLocalServiceUtil;
@@ -43,7 +42,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class UserNotificationDeliveryPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<UserNotificationDelivery> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<UserNotificationDelivery> iterator = _userNotificationDeliveries.iterator();
@@ -96,10 +85,6 @@ public class UserNotificationDeliveryPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<UserNotificationDelivery> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -510,6 +495,5 @@ public class UserNotificationDeliveryPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(UserNotificationDeliveryPersistenceTest.class);
 	private List<UserNotificationDelivery> _userNotificationDeliveries = new ArrayList<UserNotificationDelivery>();
-	private ModelListener<UserNotificationDelivery>[] _modelListeners;
 	private UserNotificationDeliveryPersistence _persistence = UserNotificationDeliveryUtil.getPersistence();
 }

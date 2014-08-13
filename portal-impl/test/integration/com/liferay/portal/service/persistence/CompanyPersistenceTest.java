@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.impl.CompanyModelImpl;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -43,7 +42,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class CompanyPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<Company> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<Company> iterator = _companies.iterator();
@@ -96,10 +85,6 @@ public class CompanyPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<Company> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -519,6 +504,5 @@ public class CompanyPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(CompanyPersistenceTest.class);
 	private List<Company> _companies = new ArrayList<Company>();
-	private ModelListener<Company>[] _modelListeners;
 	private CompanyPersistence _persistence = CompanyUtil.getPersistence();
 }

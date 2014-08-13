@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -43,7 +42,6 @@ import com.liferay.portlet.shopping.service.ShoppingCartLocalServiceUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class ShoppingCartPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<ShoppingCart> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<ShoppingCart> iterator = _shoppingCarts.iterator();
@@ -96,10 +85,6 @@ public class ShoppingCartPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<ShoppingCart> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -508,6 +493,5 @@ public class ShoppingCartPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(ShoppingCartPersistenceTest.class);
 	private List<ShoppingCart> _shoppingCarts = new ArrayList<ShoppingCart>();
-	private ModelListener<ShoppingCart>[] _modelListeners;
 	private ShoppingCartPersistence _persistence = ShoppingCartUtil.getPersistence();
 }

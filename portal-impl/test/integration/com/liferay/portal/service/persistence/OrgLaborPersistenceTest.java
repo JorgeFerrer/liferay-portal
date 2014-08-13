@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.OrgLabor;
 import com.liferay.portal.service.OrgLaborLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -39,7 +38,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -75,15 +73,6 @@ public class OrgLaborPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<OrgLabor> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<OrgLabor> iterator = _orgLabors.iterator();
@@ -92,10 +81,6 @@ public class OrgLaborPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<OrgLabor> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -502,6 +487,5 @@ public class OrgLaborPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(OrgLaborPersistenceTest.class);
 	private List<OrgLabor> _orgLabors = new ArrayList<OrgLabor>();
-	private ModelListener<OrgLabor>[] _modelListeners;
 	private OrgLaborPersistence _persistence = OrgLaborUtil.getPersistence();
 }

@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.model.LayoutSet;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.impl.LayoutSetModelImpl;
 import com.liferay.portal.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -43,7 +42,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class LayoutSetPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<LayoutSet> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<LayoutSet> iterator = _layoutSets.iterator();
@@ -96,10 +85,6 @@ public class LayoutSetPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<LayoutSet> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -547,6 +532,5 @@ public class LayoutSetPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(LayoutSetPersistenceTest.class);
 	private List<LayoutSet> _layoutSets = new ArrayList<LayoutSet>();
-	private ModelListener<LayoutSet>[] _modelListeners;
 	private LayoutSetPersistence _persistence = LayoutSetUtil.getPersistence();
 }

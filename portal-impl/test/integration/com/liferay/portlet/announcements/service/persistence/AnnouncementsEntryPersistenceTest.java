@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -42,7 +41,6 @@ import com.liferay.portlet.announcements.service.AnnouncementsEntryLocalServiceU
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -78,15 +76,6 @@ public class AnnouncementsEntryPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<AnnouncementsEntry> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<AnnouncementsEntry> iterator = _announcementsEntries.iterator();
@@ -95,10 +84,6 @@ public class AnnouncementsEntryPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<AnnouncementsEntry> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -559,6 +544,5 @@ public class AnnouncementsEntryPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(AnnouncementsEntryPersistenceTest.class);
 	private List<AnnouncementsEntry> _announcementsEntries = new ArrayList<AnnouncementsEntry>();
-	private ModelListener<AnnouncementsEntry>[] _modelListeners;
 	private AnnouncementsEntryPersistence _persistence = AnnouncementsEntryUtil.getPersistence();
 }

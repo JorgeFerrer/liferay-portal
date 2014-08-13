@@ -202,6 +202,7 @@
 				clean.delete.lib=true
 				ivy.home=${project.dir}/.ivy
 				liferay.home=${liferay.home}
+				module.framework.base.dir=${liferay.home}/osgi
 			</echo>
 
 			<copy file="${project.dir}/tools/sdk/build.${env.COMPUTERNAME}.properties" tofile="${project.dir}/tools/sdk/build.${env.HOST}.properties" />
@@ -269,6 +270,8 @@
 				includes="*.log*"
 			/>
 		</delete>
+
+		<delete dir="${liferay.home}/data/elasticsearch" />
 
 		<delete failonerror="false">
 			<fileset
@@ -482,7 +485,7 @@ ${app.server.tomcat.dir}, then run "ant -buildfile build-dist.xml unzip-tomcat".
 		<antcall target="deploy-properties" />
 
 		<copy todir="${app.server.lib.global.dir}">
-			<fileset dir="lib/development" includes="hsql.jar,jtds.jar,junit.jar,mysql.jar,postgresql.jar" />
+			<fileset dir="lib/development" includes="hsql.jar,jtds.jar,mysql.jar,postgresql.jar" />
 			<fileset dir="lib/global" />
 		</copy>
 

@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.tools.DBUpgrader;
@@ -42,7 +41,6 @@ import com.liferay.portlet.asset.service.AssetTagStatsLocalServiceUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -78,15 +76,6 @@ public class AssetTagStatsPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<AssetTagStats> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<AssetTagStats> iterator = _assetTagStatses.iterator();
@@ -95,10 +84,6 @@ public class AssetTagStatsPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<AssetTagStats> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -461,6 +446,5 @@ public class AssetTagStatsPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(AssetTagStatsPersistenceTest.class);
 	private List<AssetTagStats> _assetTagStatses = new ArrayList<AssetTagStats>();
-	private ModelListener<AssetTagStats>[] _modelListeners;
 	private AssetTagStatsPersistence _persistence = AssetTagStatsUtil.getPersistence();
 }

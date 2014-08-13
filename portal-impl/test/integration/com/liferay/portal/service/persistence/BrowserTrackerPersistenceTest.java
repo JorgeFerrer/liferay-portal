@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.model.BrowserTracker;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.impl.BrowserTrackerModelImpl;
 import com.liferay.portal.service.BrowserTrackerLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -41,7 +40,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -77,15 +75,6 @@ public class BrowserTrackerPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<BrowserTracker> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<BrowserTracker> iterator = _browserTrackers.iterator();
@@ -94,10 +83,6 @@ public class BrowserTrackerPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<BrowserTracker> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -436,6 +421,5 @@ public class BrowserTrackerPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(BrowserTrackerPersistenceTest.class);
 	private List<BrowserTracker> _browserTrackers = new ArrayList<BrowserTracker>();
-	private ModelListener<BrowserTracker>[] _modelListeners;
 	private BrowserTrackerPersistence _persistence = BrowserTrackerUtil.getPersistence();
 }

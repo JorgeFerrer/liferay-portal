@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.UserIdMapper;
 import com.liferay.portal.model.impl.UserIdMapperModelImpl;
 import com.liferay.portal.service.UserIdMapperLocalServiceUtil;
@@ -43,7 +42,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -79,15 +77,6 @@ public class UserIdMapperPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<UserIdMapper> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<UserIdMapper> iterator = _userIdMappers.iterator();
@@ -96,10 +85,6 @@ public class UserIdMapperPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<UserIdMapper> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -488,6 +473,5 @@ public class UserIdMapperPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(UserIdMapperPersistenceTest.class);
 	private List<UserIdMapper> _userIdMappers = new ArrayList<UserIdMapper>();
-	private ModelListener<UserIdMapper>[] _modelListeners;
 	private UserIdMapperPersistence _persistence = UserIdMapperUtil.getPersistence();
 }

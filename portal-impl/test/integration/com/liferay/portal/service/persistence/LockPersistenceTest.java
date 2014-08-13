@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Lock;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.model.impl.LockModelImpl;
 import com.liferay.portal.service.LockLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
@@ -44,7 +43,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -80,15 +78,6 @@ public class LockPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<Lock> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<Lock> iterator = _locks.iterator();
@@ -97,10 +86,6 @@ public class LockPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<Lock> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -521,6 +506,5 @@ public class LockPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(LockPersistenceTest.class);
 	private List<Lock> _locks = new ArrayList<Lock>();
-	private ModelListener<Lock>[] _modelListeners;
 	private LockPersistence _persistence = LockUtil.getPersistence();
 }

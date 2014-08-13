@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.model.BackgroundTask;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.BackgroundTaskLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
@@ -41,7 +40,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -77,15 +75,6 @@ public class BackgroundTaskPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<BackgroundTask> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<BackgroundTask> iterator = _backgroundTasks.iterator();
@@ -94,10 +83,6 @@ public class BackgroundTaskPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<BackgroundTask> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -684,6 +669,5 @@ public class BackgroundTaskPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(BackgroundTaskPersistenceTest.class);
 	private List<BackgroundTask> _backgroundTasks = new ArrayList<BackgroundTask>();
-	private ModelListener<BackgroundTask>[] _modelListeners;
 	private BackgroundTaskPersistence _persistence = BackgroundTaskUtil.getPersistence();
 }

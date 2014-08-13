@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.ContactLocalServiceUtil;
 import com.liferay.portal.test.TransactionalTestRule;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
@@ -40,7 +39,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -76,15 +74,6 @@ public class ContactPersistenceTest {
 		TemplateManagerUtil.init();
 	}
 
-	@Before
-	public void setUp() {
-		_modelListeners = _persistence.getListeners();
-
-		for (ModelListener<Contact> modelListener : _modelListeners) {
-			_persistence.unregisterListener(modelListener);
-		}
-	}
-
 	@After
 	public void tearDown() throws Exception {
 		Iterator<Contact> iterator = _contacts.iterator();
@@ -93,10 +82,6 @@ public class ContactPersistenceTest {
 			_persistence.remove(iterator.next());
 
 			iterator.remove();
-		}
-
-		for (ModelListener<Contact> modelListener : _modelListeners) {
-			_persistence.registerListener(modelListener);
 		}
 	}
 
@@ -623,6 +608,5 @@ public class ContactPersistenceTest {
 
 	private static Log _log = LogFactoryUtil.getLog(ContactPersistenceTest.class);
 	private List<Contact> _contacts = new ArrayList<Contact>();
-	private ModelListener<Contact>[] _modelListeners;
 	private ContactPersistence _persistence = ContactUtil.getPersistence();
 }
