@@ -266,9 +266,10 @@ if (!ParamUtil.getBoolean(renderRequest, "advancedSearch")) {
 	<%
 	boolean showDeleteButton = !results.isEmpty() && (searchTerms.getStatus() != WorkflowConstants.STATUS_ANY) && (searchTerms.isActive() || (!searchTerms.isActive() && PropsValues.USERS_DELETE));
 	boolean showRestoreButton = !results.isEmpty() && (searchTerms.getStatus() != WorkflowConstants.STATUS_ANY) && !searchTerms.isActive();
+	boolean showDropdown = (inactiveUsersCount > 0) || (usersCount > 0);
 	%>
 
-	<c:if test="<%= showDeleteButton || showRestoreButton %>">
+	<c:if test="<%= showDeleteButton || showRestoreButton || showDropdown %>">
 		<c:if test="<%= (usersListView.equals(UserConstants.LIST_VIEW_FLAT_USERS)) && (userOrganization == null) %>">
 			<div class="separator"><!-- --></div>
 		</c:if>
@@ -292,7 +293,7 @@ if (!ParamUtil.getBoolean(renderRequest, "advancedSearch")) {
 				<aui:button disabled="<%= true %>" name="restore" onClick="<%= taglibOnClick %>" value="restore" />
 			</c:if>
 
-			<c:if test="<%= (inactiveUsersCount > 0) && (usersCount > 0) %>">
+			<c:if test="<%= showDropdown %>">
 				<div class="pull-right user-status-selector">
 					<aui:select changesContext="<%= true %>" inlineLabel="left" label="show" name="userStatusSelect" onChange='<%= renderResponse.getNamespace() + "showUsers(this);" %>'>
 						<aui:option label="active" selected="<%= status == WorkflowConstants.STATUS_APPROVED %>" value="<%= WorkflowConstants.STATUS_APPROVED %>" />
