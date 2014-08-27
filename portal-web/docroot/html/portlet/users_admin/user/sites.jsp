@@ -129,7 +129,7 @@ for (UserGroupRole siteRole : siteRoles) {
 
 		names.addAll(SitesUtil.getOrganizationNames(group, selUser));
 
-		boolean hasImplicitSiteMembership = !names.isEmpty();
+		boolean hasUserGroupSiteMembership = !names.isEmpty();
 		%>
 
 		<liferay-ui:search-container-column-text
@@ -142,14 +142,18 @@ for (UserGroupRole siteRole : siteRoles) {
 
 			buffer.append(groupName);
 
-			if (hasImplicitSiteMembership) {
+			List<String> userGroupNames = SitesUtil.getUserGroupNames(group, selUser);
+
+			if (!userGroupNames.isEmpty()) {
+				hasUserGroupSiteMembership = true;
+
 				String message = StringPool.BLANK;
 
-				if (names.size() == 1) {
-					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x", new Object[] {groupName, names.get(0)}, false);
+				if (userGroupNames.size() == 1) {
+					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x", new Object[] {groupName, userGroupNames.get(0)}, false);
 				}
 				else {
-					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x-and-x", new Object[] {groupName, StringUtil.merge(names.subList(0, names.size() - 1).toArray(new String[names.size() - 1]), StringPool.COMMA_AND_SPACE) + ((names.size() > 2) ? StringPool.COMMA : StringPool.BLANK), names.get(names.size() - 1)}, false);
+					message = LanguageUtil.format(request, "this-user-is-a-member-of-x-because-he-belongs-to-x-and-x", new Object[] {groupName, StringUtil.merge(userGroupNames.subList(0, userGroupNames.size() - 1).toArray(new String[userGroupNames.size() - 1]), StringPool.COMMA_AND_SPACE) + ((userGroupNames.size() > 2) ? StringPool.COMMA : StringPool.BLANK), userGroupNames.get(userGroupNames.size() - 1)}, false);
 				}
 			%>
 
@@ -210,7 +214,7 @@ for (UserGroupRole siteRole : siteRoles) {
 
 		<c:if test="<%= !portletName.equals(PortletKeys.MY_ACCOUNT) && !SiteMembershipPolicyUtil.isMembershipRequired(selUser.getUserId(), group.getGroupId()) && !SiteMembershipPolicyUtil.isMembershipProtected(permissionChecker, selUser.getUserId(), group.getGroupId()) %>">
 			<liferay-ui:search-container-column-text>
-				<c:if test="<%= !hasImplicitSiteMembership && group.isManualMembership() %>">
+				<c:if test="<%= !hasUserGroupSiteMembership && group.isManualMembership() %>">
 					<a class="modify-link" data-rowId="<%= group.getGroupId() %>" href="javascript:;"><%= removeGroupIcon %></a>
 				</c:if>
 			</liferay-ui:search-container-column-text>
