@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.util;
 
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -23,8 +22,7 @@ import java.util.TimeZone;
  */
 public class TimeZoneComparator implements Comparator<TimeZone> {
 
-	public TimeZoneComparator(Locale locale) {
-		_locale = locale;
+	public TimeZoneComparator() {
 	}
 
 	@Override
@@ -35,15 +33,13 @@ public class TimeZoneComparator implements Comparator<TimeZone> {
 		int value = rawOffset1.compareTo(rawOffset2);
 
 		if (value == 0) {
-			String displayName1 = timeZone1.getDisplayName(_locale);
-			String displayName2 = timeZone2.getDisplayName(_locale);
+			String timeZoneID1 = timeZone1.getID();
+			String timeZoneID2 = timeZone2.getID();
 
-			value = displayName1.compareTo(displayName2);
+			value = timeZoneID1.compareTo(timeZoneID2);
 		}
 
 		return value;
 	}
-
-	private Locale _locale;
 
 }
