@@ -18,7 +18,6 @@
 
 <%
 User selUser = (User)request.getAttribute("user.selUser");
-List<Group> groups = (List<Group>)request.getAttribute("user.groups");
 List<Organization> organizations = (List<Organization>)request.getAttribute("user.organizations");
 Long[] organizationIds = UsersAdminUtil.getOrganizationIds(organizations);
 List<Role> roles = (List<Role>)request.getAttribute("user.roles");
@@ -60,10 +59,11 @@ for (Group group : roleGroups) {
 			List<String> groupNames = roleGroupNames.get(groupRole);
 
 			groupNames.add(group.getDescriptiveName(locale));
+
+			continue;
 		}
-		else {
-			roleGroupNames.put(groupRole, new ArrayList<String>(Arrays.asList(group.getDescriptiveName(locale))));
-		}
+
+		roleGroupNames.put(groupRole, new ArrayList<String>(Arrays.asList(group.getDescriptiveName(locale))));
 	}
 }
 
@@ -345,17 +345,7 @@ for (UserGroupGroupRole userGroupGroupRole : userGroupGroupRoles) {
 
 	Map<Group, List<String>> groupUserGroupNames = roleGroupUserGroupNamesMap.get(role);
 
-	if (groupUserGroupNames != null) {
-		List<String> userGroupNames = groupUserGroupNames.get(group);
-
-		if (userGroupNames != null) {
-			userGroupNames.add(userGroup.getName());
-		}
-		else {
-			groupUserGroupNames.put(group, new ArrayList<String>(Arrays.asList(userGroup.getName())));
-		}
-	}
-	else {
+	if (groupUserGroupNames == null) {
 		groupUserGroupNames = new HashMap<Group, List<String>>();
 
 		groupUserGroupNames.put(group, new ArrayList<String>(Arrays.asList(userGroup.getName())));
@@ -363,7 +353,19 @@ for (UserGroupGroupRole userGroupGroupRole : userGroupGroupRoles) {
 		roleGroupUserGroupNamesMap.put(role, groupUserGroupNames);
 
 		allSiteRoles.add(new Object[] {group, role});
+
+		continue;
 	}
+
+	List<String> userGroupNames = groupUserGroupNames.get(group);
+
+	if (userGroupNames == null) {
+		groupUserGroupNames.put(group, new ArrayList<String>(Arrays.asList(userGroup.getName())));
+
+		continue;
+	}
+
+	userGroupNames.add(userGroup.getName());
 }
 
 for (UserGroupRole siteRole : siteRoles) {
@@ -372,12 +374,7 @@ for (UserGroupRole siteRole : siteRoles) {
 
 	Map<Group, List<String>> groupUserGroupNames = roleGroupUserGroupNamesMap.get(role);
 
-	if (groupUserGroupNames != null) {
-		if (!groupUserGroupNames.containsKey(group)) {
-			groupUserGroupNames.put(group, new ArrayList<String>());
-		}
-	}
-	else {
+	if (groupUserGroupNames == null) {
 		groupUserGroupNames = new HashMap<Group, List<String>>();
 
 		groupUserGroupNames.put(group, new ArrayList<String>());
@@ -385,7 +382,15 @@ for (UserGroupRole siteRole : siteRoles) {
 		roleGroupUserGroupNamesMap.put(role, groupUserGroupNames);
 
 		allSiteRoles.add(new Object[] {group, role});
+
+		continue;
 	}
+
+	if (groupUserGroupNames.containsKey(group)) {
+		continue;
+	}
+
+	groupUserGroupNames.put(group, new ArrayList<String>());
 }
 %>
 
