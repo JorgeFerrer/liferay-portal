@@ -24,6 +24,8 @@ boolean disabled = GetterUtil.getBoolean((String)request.getAttribute("liferay-u
 int displayStyle = GetterUtil.getInteger((String)request.getAttribute("liferay-ui:input-time-zone:displayStyle"));
 String name = namespace + request.getAttribute("liferay-ui:input-time-zone:name");
 boolean nullable = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-time-zone:nullable"));
+String timeZoneIdArizona = "US/Arizona";
+String timeZoneIdDenver = "America/Denver";
 String value = (String)request.getAttribute("liferay-ui:input-time-zone:value");
 
 NumberFormat numberFormat = NumberFormat.getInstance(locale);
@@ -37,7 +39,7 @@ numberFormat.setMinimumIntegerDigits(2);
 	</c:if>
 
 	<%
-	Set<TimeZone> timeZones = new TreeSet<TimeZone>(new TimeZoneComparator(locale));
+	Set<TimeZone> timeZones = new TreeSet<TimeZone>(new TimeZoneComparator());
 
 	for (String timeZoneId : PropsUtil.getArray(PropsKeys.TIME_ZONES)) {
 		TimeZone curTimeZone = TimeZoneUtil.getTimeZone(timeZoneId);
@@ -60,9 +62,39 @@ numberFormat.setMinimumIntegerDigits(2);
 
 			offset += offsetHour + ":" + offsetMinute;
 		}
+
+		String curTimeZoneID = curTimeZone.getID();
+
+		String displayName = curTimeZone.getDisplayName(daylight, displayStyle, locale);
+
+		if (curTimeZoneID.equals(timeZoneIdDenver) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdArizona))) {
+			displayName = "Mountain Standard Time (Arizona)";
+
+			offset = StringPool.BLANK;
+
+			String offsetMinute = numberFormat.format(Math.abs(rawOffset % Time.HOUR) / Time.MINUTE);
+			String offsetHour = numberFormat.format((rawOffset / Time.HOUR) - 1);
+
+			offset += offsetHour + ":" + offsetMinute;
 	%>
 
-		<option <%= value.equals(curTimeZone.getID()) ? "selected" : "" %> value="<%= curTimeZone.getID() %>">(UTC <%= offset %>) <%= curTimeZone.getDisplayName(daylight, displayStyle, locale) %></option>
+			<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
+
+		<%
+			continue;
+		}
+		else if (curTimeZoneID.equals(timeZoneIdArizona) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdDenver))) {
+			displayName = "Mountain Daylight Time (Denver)";
+		%>
+
+			<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
+
+		<%
+			continue;
+		}
+		%>
+
+		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
 
 	<%
 	}
