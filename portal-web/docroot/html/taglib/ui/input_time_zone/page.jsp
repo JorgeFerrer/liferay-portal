@@ -47,9 +47,7 @@ numberFormat.setMinimumIntegerDigits(2);
 	for (TimeZone curTimeZone : timeZones) {
 		String offset = StringPool.BLANK;
 
-		int rawOffset = curTimeZone.getRawOffset();
-
-		int totalOffset = rawOffset + curTimeZone.getDSTSavings();
+		int totalOffset = curTimeZone.getRawOffset() + curTimeZone.getDSTSavings();
 
 		if (rawOffset > 0) {
 			offset = "+";
@@ -63,11 +61,9 @@ numberFormat.setMinimumIntegerDigits(2);
 		}
 
 		String curTimeZoneID = curTimeZone.getID();
-
-		String displayName = curTimeZone.getDisplayName(curTimeZone.inDaylightTime(new Date()), displayStyle, locale);
 		%>
 
-		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
+		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= curTimeZone.getDisplayName(curTimeZone.inDaylightTime(new Date()), displayStyle, locale) %></option>
 
 	<%
 	}
