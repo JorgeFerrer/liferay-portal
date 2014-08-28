@@ -68,29 +68,10 @@ numberFormat.setMinimumIntegerDigits(2);
 		String displayName = curTimeZone.getDisplayName(daylight, displayStyle, locale);
 
 		if (curTimeZoneID.equals(timeZoneIdDenver) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdArizona))) {
-			displayName = "Mountain Standard Time (Arizona)";
-
-			offset = StringPool.BLANK;
-
-			String offsetMinute = numberFormat.format(Math.abs(rawOffset % Time.HOUR) / Time.MINUTE);
-			String offsetHour = numberFormat.format((rawOffset / Time.HOUR) - 1);
-
-			offset += offsetHour + ":" + offsetMinute;
-	%>
-
-			<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
-
-		<%
-			continue;
+			displayName = "Mountain Daylight Time (Arizona)";
 		}
 		else if (curTimeZoneID.equals(timeZoneIdArizona) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdDenver))) {
-			displayName = "Mountain Daylight Time (Denver)";
-		%>
-
-			<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
-
-		<%
-			continue;
+			displayName = "Mountain Standard Time (Denver)";
 		}
 		%>
 
