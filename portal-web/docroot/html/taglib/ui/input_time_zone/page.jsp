@@ -24,8 +24,6 @@ boolean disabled = GetterUtil.getBoolean((String)request.getAttribute("liferay-u
 int displayStyle = GetterUtil.getInteger((String)request.getAttribute("liferay-ui:input-time-zone:displayStyle"));
 String name = namespace + request.getAttribute("liferay-ui:input-time-zone:name");
 boolean nullable = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-time-zone:nullable"));
-String timeZoneIdArizona = "US/Arizona";
-String timeZoneIdDenver = "America/Denver";
 String value = (String)request.getAttribute("liferay-ui:input-time-zone:value");
 
 NumberFormat numberFormat = NumberFormat.getInstance(locale);
@@ -66,13 +64,6 @@ numberFormat.setMinimumIntegerDigits(2);
 		String curTimeZoneID = curTimeZone.getID();
 
 		String displayName = curTimeZone.getDisplayName(daylight, displayStyle, locale);
-
-		if (curTimeZoneID.equals(timeZoneIdDenver) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdArizona))) {
-			displayName = "Mountain Daylight Time (Arizona)";
-		}
-		else if (curTimeZoneID.equals(timeZoneIdArizona) && timeZones.contains(TimeZoneUtil.getTimeZone(timeZoneIdDenver))) {
-			displayName = "Mountain Standard Time (Denver)";
-		}
 		%>
 
 		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
