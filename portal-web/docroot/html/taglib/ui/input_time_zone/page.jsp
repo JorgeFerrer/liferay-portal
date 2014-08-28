@@ -49,11 +49,11 @@ numberFormat.setMinimumIntegerDigits(2);
 
 		int totalOffset = curTimeZone.getRawOffset() + curTimeZone.getDSTSavings();
 
-		if (rawOffset > 0) {
+		if (totalOffset > 0) {
 			offset = "+";
 		}
 
-		if (rawOffset != 0) {
+		if (totalOffset != 0) {
 			String offsetHour = numberFormat.format(totalOffset / Time.HOUR);
 			String offsetMinute = numberFormat.format(Math.abs(totalOffset % Time.HOUR) / Time.MINUTE);
 
