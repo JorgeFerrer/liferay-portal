@@ -19,7 +19,6 @@
 <%
 boolean autoFocus = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-time-zone:autoFocus"));
 String cssClass = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-time-zone:cssClass")) + " form-control";
-boolean daylight = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-time-zone:daylight"));
 boolean disabled = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:input-time-zone:disabled"));
 int displayStyle = GetterUtil.getInteger((String)request.getAttribute("liferay-ui:input-time-zone:displayStyle"));
 String name = namespace + request.getAttribute("liferay-ui:input-time-zone:name");
@@ -50,20 +49,22 @@ numberFormat.setMinimumIntegerDigits(2);
 
 		int rawOffset = curTimeZone.getRawOffset();
 
+		int totalOffset = rawOffset + curTimeZone.getDSTSavings();
+
 		if (rawOffset > 0) {
 			offset = "+";
 		}
 
 		if (rawOffset != 0) {
-			String offsetHour = numberFormat.format(rawOffset / Time.HOUR);
-			String offsetMinute = numberFormat.format(Math.abs(rawOffset % Time.HOUR) / Time.MINUTE);
+			String offsetHour = numberFormat.format(totalOffset / Time.HOUR);
+			String offsetMinute = numberFormat.format(Math.abs(totalOffset % Time.HOUR) / Time.MINUTE);
 
 			offset += offsetHour + ":" + offsetMinute;
 		}
 
 		String curTimeZoneID = curTimeZone.getID();
 
-		String displayName = curTimeZone.getDisplayName(daylight, displayStyle, locale);
+		String displayName = curTimeZone.getDisplayName(curTimeZone.inDaylightTime(new Date()), displayStyle, locale);
 		%>
 
 		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= displayName %></option>
