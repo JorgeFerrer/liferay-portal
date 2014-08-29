@@ -102,13 +102,13 @@ for (Role role : roleGroupNames.keySet()) {
 			name="title"
 		>
 
-		<liferay-util:buffer var="iconRole">
-			<liferay-ui:icon
-				iconCssClass="<%= RolesAdminUtil.getIconCssClass(role) %>"
-				label="<%= true %>"
-				message="<%= HtmlUtil.escape(role.getTitle(locale)) %>"
-			/>
-		</liferay-util:buffer>
+			<liferay-util:buffer var="iconRole">
+				<liferay-ui:icon
+					iconCssClass="<%= RolesAdminUtil.getIconCssClass(role) %>"
+					label="<%= true %>"
+					message="<%= HtmlUtil.escape(role.getTitle(locale)) %>"
+				/>
+			</liferay-util:buffer>
 
 			<%
 			buffer.append(iconRole);
