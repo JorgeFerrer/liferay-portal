@@ -137,25 +137,15 @@ if (selUser != null) {
 	userGroupGroupRoles = UserGroupGroupRoleLocalServiceUtil.getUserGroupGroupRolesByUser(selUser.getUserId());
 }
 
-List<Group> relatedGroups = GroupLocalServiceUtil.getUserGroupsRelatedGroups(userGroups);
+List<Group> regularGroups = new ArrayList<Group>(groups);
 
-relatedGroups = ListUtil.unique(relatedGroups);
+regularGroups.addAll(GroupLocalServiceUtil.getUserGroupsRelatedGroups(userGroups));
 
 List<Group> organizationsRelatedGroups = GroupLocalServiceUtil.getOrganizationsRelatedGroups(organizations);
 
-for (Group group : organizationsRelatedGroups) {
-	if (!relatedGroups.contains(group)) {
-		relatedGroups.add(group);
-	}
-}
+regularGroups.addAll(organizationsRelatedGroups);
 
-List<Group> regularGroups = new ArrayList<Group>(groups);
-
-for (Group group : relatedGroups) {
-	if (!regularGroups.contains(group)) {
-		regularGroups.add(group);
-	}
-}
+regularGroups = ListUtil.unique(regularGroups);
 
 List<Group> allGroups = new ArrayList<Group>(regularGroups);
 
