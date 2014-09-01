@@ -457,9 +457,9 @@ for (UserGroupRole siteRole : siteRoles) {
 				}
 			%>
 
-			<liferay-util:buffer var="iconHelp">
-				<liferay-ui:icon-help message="<%= message %>" />
-			</liferay-util:buffer>
+				<liferay-util:buffer var="iconHelp">
+					<liferay-ui:icon-help message="<%= message %>" />
+				</liferay-util:buffer>
 
 			<%
 				buffer.append(iconHelp);
