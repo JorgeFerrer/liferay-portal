@@ -139,7 +139,7 @@ if (selUser != null) {
 
 List<Group> relatedGroups = GroupLocalServiceUtil.getUserGroupsRelatedGroups(userGroups);
 
-ListUtil.distinct(relatedGroups);
+relatedGroups = ListUtil.unique(relatedGroups);
 
 List<Group> organizationsRelatedGroups = GroupLocalServiceUtil.getOrganizationsRelatedGroups(organizations);
 
