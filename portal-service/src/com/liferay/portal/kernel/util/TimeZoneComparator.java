@@ -27,10 +27,12 @@ public class TimeZoneComparator implements Comparator<TimeZone> {
 
 	@Override
 	public int compare(TimeZone timeZone1, TimeZone timeZone2) {
-		Integer rawOffset1 = timeZone1.getRawOffset();
-		Integer rawOffset2 = timeZone2.getRawOffset();
+		Integer totalOffset1 =
+			timeZone1.getRawOffset() + timeZone1.getDSTSavings();
+		Integer totalOffset2 =
+			timeZone2.getRawOffset() + timeZone2.getDSTSavings();
 
-		int value = rawOffset1.compareTo(rawOffset2);
+		int value = totalOffset1.compareTo(totalOffset2);
 
 		if (value == 0) {
 			Integer timeZoneDSTSavings1 = timeZone1.getDSTSavings();
