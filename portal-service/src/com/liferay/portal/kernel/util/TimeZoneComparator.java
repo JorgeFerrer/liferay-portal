@@ -35,13 +35,6 @@ public class TimeZoneComparator implements Comparator<TimeZone> {
 		int value = totalOffset1.compareTo(totalOffset2);
 
 		if (value == 0) {
-			Integer timeZoneDSTSavings1 = timeZone1.getDSTSavings();
-			Integer timeZoneDSTSavings2 = timeZone2.getDSTSavings();
-
-			value = timeZoneDSTSavings1.compareTo(timeZoneDSTSavings2);
-		}
-
-		if (value == 0) {
 			String timeZoneID1 = timeZone1.getID();
 			String timeZoneID2 = timeZone2.getID();
 
