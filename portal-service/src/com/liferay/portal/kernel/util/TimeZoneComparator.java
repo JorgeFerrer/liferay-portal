@@ -35,10 +35,10 @@ public class TimeZoneComparator implements Comparator<TimeZone> {
 		int value = totalOffset1.compareTo(totalOffset2);
 
 		if (value == 0) {
-			String timeZoneID1 = timeZone1.getID();
-			String timeZoneID2 = timeZone2.getID();
+			String timeZoneId1 = timeZone1.getID();
+			String timeZoneId2 = timeZone2.getID();
 
-			value = timeZoneID1.compareTo(timeZoneID2);
+			value = timeZoneId1.compareTo(timeZoneId2);
 		}
 
 		return value;

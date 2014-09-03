@@ -59,11 +59,9 @@ numberFormat.setMinimumIntegerDigits(2);
 
 			offset += offsetHour + ":" + offsetMinute;
 		}
+	%>
 
-		String curTimeZoneID = curTimeZone.getID();
-		%>
-
-		<option <%= value.equals(curTimeZoneID) ? "selected" : "" %> value="<%= curTimeZoneID %>">(UTC <%= offset %>) <%= curTimeZone.getDisplayName(curTimeZone.inDaylightTime(new Date()), displayStyle, locale) %></option>
+		<option <%= value.equals(curTimeZone.getID()) ? "selected" : "" %> value="<%= curTimeZone.getID() %>">(UTC <%= offset %>) <%= curTimeZone.getDisplayName(curTimeZone.inDaylightTime(new Date()), displayStyle, locale) %></option>
 
 	<%
 	}
