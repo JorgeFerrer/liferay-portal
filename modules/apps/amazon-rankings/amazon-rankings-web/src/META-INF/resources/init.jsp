@@ -41,6 +41,7 @@ page import="java.util.TreeSet" %>
 
 <%@ page import="javax.portlet.ValidatorException" %><%@
 page import="javax.portlet.WindowState" %>
+<%@ page import="com.liferay.amazon.rankings.web.AmazonRankingsConfiguration" %>
 
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
@@ -48,10 +49,12 @@ page import="javax.portlet.WindowState" %>
 <%
 WindowState windowState = liferayPortletRequest.getWindowState();
 
-String amazonAccessKeyId = portletPreferences.getValue("amazon.access.key.id", StringPool.BLANK);
-String amazonAssociateTag = portletPreferences.getValue("amazon.associate.tag" , StringPool.BLANK);
-String amazonSecretAccessKey = portletPreferences.getValue("amazon.secret.access.key", StringPool.BLANK);
-String[] isbns = portletPreferences.getValues("isbns", StringPool.EMPTY_ARRAY);
+AmazonRankingsConfiguration configuration = renderRequest.getAttribute("configuration");
+
+String amazonAccessKeyId = portletPreferences.getValue("amazon.access.key.id", configuration.amazonAccessKeyId());
+String amazonAssociateTag = portletPreferences.getValue("amazon.associate.tag" , configuration.amazonAssociateTag());
+String amazonSecretAccessKey = portletPreferences.getValue("amazon.secret.access.key", configuration.amazonSecretAccessKey());
+String[] isbns = portletPreferences.getValues("isbns", configuration.isbns());
 
 NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 %>
