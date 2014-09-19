@@ -636,9 +636,9 @@ public class PropsValues {
 
 	public static final boolean DL_SHOW_LIFERAY_SYNC_MESSAGE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DL_SHOW_LIFERAY_SYNC_MESSAGE));
 
-	public static boolean DL_STORE_ANTIVIRUS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DL_STORE_ANTIVIRUS_ENABLED), false);
-
 	public static final String DL_STORE_ADVANCED_FILE_SYSTEM_ROOT_DIR = PropsUtil.get(PropsKeys.DL_STORE_ADVANCED_FILE_SYSTEM_ROOT_DIR);
+
+	public static boolean DL_STORE_ANTIVIRUS_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DL_STORE_ANTIVIRUS_ENABLED), false);
 
 	public static final String DL_STORE_ANTIVIRUS_IMPL = PropsUtil.get(PropsKeys.DL_STORE_ANTIVIRUS_IMPL);
 
@@ -675,7 +675,7 @@ public class PropsValues {
 	public static final boolean DYNAMIC_DATA_MAPPING_STRUCTURE_FORCE_AUTOGENERATE_KEY = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DYNAMIC_DATA_MAPPING_STRUCTURE_FORCE_AUTOGENERATE_KEY));
 
 	public static final String[] DYNAMIC_DATA_MAPPING_STRUCTURE_PRIVATE_FIELD_NAMES = PropsUtil.getArray(PropsKeys.DYNAMIC_DATA_MAPPING_STRUCTURE_PRIVATE_FIELD_NAMES);
-	
+
 	public static final boolean DYNAMIC_DATA_MAPPING_TEMPLATE_FORCE_AUTOGENERATE_KEY = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.DYNAMIC_DATA_MAPPING_TEMPLATE_FORCE_AUTOGENERATE_KEY));
 
 	public static final String DYNAMIC_DATA_MAPPING_TEMPLATE_LANGUAGE_DEFAULT = PropsUtil.get(PropsKeys.DYNAMIC_DATA_MAPPING_TEMPLATE_LANGUAGE_DEFAULT);
@@ -827,10 +827,6 @@ public class PropsValues {
 	public static final String INTRABAND_PROXY_DUMP_CLASSES_DIR = PropsUtil.get(PropsKeys.INTRABAND_PROXY_DUMP_CLASSES_DIR);
 
 	public static final boolean INTRABAND_PROXY_DUMP_CLASSES_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.INTRABAND_PROXY_DUMP_CLASSES_ENABLED));
-
-	public static final String INVITATION_EMAIL_MESSAGE_BODY = PropsUtil.get(PropsKeys.INVITATION_EMAIL_MESSAGE_BODY);
-
-	public static final String INVITATION_EMAIL_MESSAGE_SUBJECT = PropsUtil.get(PropsKeys.INVITATION_EMAIL_MESSAGE_SUBJECT);
 
 	public static final boolean JAVADOC_MANAGER_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.JAVADOC_MANAGER_ENABLED));
 
@@ -1023,8 +1019,6 @@ public class PropsValues {
 	public static String[] LAYOUT_STATIC_PORTLETS_ALL = PropsUtil.getArray(PropsKeys.LAYOUT_STATIC_PORTLETS_ALL);
 
 	public static boolean LAYOUT_TEMPLATE_CACHE_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.LAYOUT_TEMPLATE_CACHE_ENABLED));
-
-	public static String[] LAYOUT_TYPES = PropsUtil.getArray(PropsKeys.LAYOUT_TYPES);
 
 	public static boolean LAYOUT_USER_PRIVATE_LAYOUTS_AUTO_CREATE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.LAYOUT_USER_PRIVATE_LAYOUTS_AUTO_CREATE));
 
@@ -1786,7 +1780,13 @@ public class PropsValues {
 
 	public static boolean THEME_CSS_FAST_LOAD = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_CSS_FAST_LOAD));
 
+	public static boolean THEME_CSS_FAST_LOAD_CHECK_MODIFIED_DATE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_CSS_FAST_LOAD_CHECK_MODIFIED_DATE));
+
+	public static boolean THEME_CSS_FAST_LOAD_CHECK_REQUEST_PARAMETER = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_CSS_FAST_LOAD_CHECK_REQUEST_PARAMETER));
+
 	public static boolean THEME_IMAGES_FAST_LOAD = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_IMAGES_FAST_LOAD));
+
+	public static boolean THEME_IMAGES_FAST_LOAD_CHECK_REQUEST_PARAMETER = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_IMAGES_FAST_LOAD_CHECK_REQUEST_PARAMETER));
 
 	public static boolean THEME_JSP_OVERRIDE_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.THEME_JSP_OVERRIDE_ENABLED));
 

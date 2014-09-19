@@ -529,17 +529,17 @@ public class DLAppServiceSoap {
 	* @param groupId the primary key of the group
 	* @param folderId the primary key of the folder where the file entry was
 	eventually to reside
+	* @param folderName the temporary folder's name
 	* @param fileName the file's original name
-	* @param tempFolderName the temporary folder's name
 	* @throws PortalException if the file name was invalid
-	* @see com.liferay.portal.kernel.util.TempFileUtil
+	* @see com.liferay.portal.kernel.util.TempFileEntryUtil
 	*/
 	public static void deleteTempFileEntry(long groupId, long folderId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+		java.lang.String folderName, java.lang.String fileName)
 		throws RemoteException {
 		try {
-			DLAppServiceUtil.deleteTempFileEntry(groupId, folderId, fileName,
-				tempFolderName);
+			DLAppServiceUtil.deleteTempFileEntry(groupId, folderId, folderName,
+				fileName);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -1911,18 +1911,17 @@ public class DLAppServiceSoap {
 	* @param groupId the primary key of the group
 	* @param folderId the primary key of the folder where the file entry will
 	eventually reside
-	* @param tempFolderName the temporary folder's name
+	* @param folderName the temporary folder's name
 	* @return the temporary file entry names
 	* @throws PortalException if the folder was invalid
 	* @see #addTempFileEntry(long, long, String, String, File, String)
-	* @see com.liferay.portal.kernel.util.TempFileUtil
+	* @see com.liferay.portal.kernel.util.TempFileEntryUtil
 	*/
-	public static java.lang.String[] getTempFileEntryNames(long groupId,
-		long folderId, java.lang.String tempFolderName)
-		throws RemoteException {
+	public static java.lang.String[] getTempFileNames(long groupId,
+		long folderId, java.lang.String folderName) throws RemoteException {
 		try {
-			java.lang.String[] returnValue = DLAppServiceUtil.getTempFileEntryNames(groupId,
-					folderId, tempFolderName);
+			java.lang.String[] returnValue = DLAppServiceUtil.getTempFileNames(groupId,
+					folderId, folderName);
 
 			return returnValue;
 		}

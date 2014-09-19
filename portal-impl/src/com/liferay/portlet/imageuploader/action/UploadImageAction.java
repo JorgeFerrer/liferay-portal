@@ -37,7 +37,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TempFileUtil;
+import com.liferay.portal.kernel.util.TempFileEntryUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.PrincipalException;
@@ -191,9 +191,9 @@ public class UploadImageAction extends PortletAction {
 		String fileName = uploadPortletRequest.getFileName("fileName");
 
 		try {
-			TempFileUtil.deleteTempFile(
+			TempFileEntryUtil.deleteTempFileEntry(
 				themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-				fileName, getTempImageFolderName());
+				getTempImageFolderName(), fileName);
 		}
 		catch (Exception e) {
 		}
@@ -203,9 +203,9 @@ public class UploadImageAction extends PortletAction {
 		try {
 			inputStream = uploadPortletRequest.getFileAsStream("fileName");
 
-			return TempFileUtil.addTempFile(
+			return TempFileEntryUtil.addTempFileEntry(
 				themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-				fileName, getTempImageFolderName(), inputStream, contentType);
+				getTempImageFolderName(), fileName, inputStream, contentType);
 		}
 		finally {
 			StreamUtil.cleanUp(inputStream);
@@ -218,9 +218,9 @@ public class UploadImageAction extends PortletAction {
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		return TempFileUtil.getTempFile(
+		return TempFileEntryUtil.getTempFileEntry(
 			themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-			getTempImageFileName(portletRequest), getTempImageFolderName());
+			getTempImageFolderName(), getTempImageFileName(portletRequest));
 	}
 
 	protected String getTempImageFileName(PortletRequest portletRequest) {
@@ -366,17 +366,17 @@ public class UploadImageAction extends PortletAction {
 			File file = FileUtil.createTempFile(bytes);
 
 			try {
-				TempFileUtil.deleteTempFile(
+				TempFileEntryUtil.deleteTempFileEntry(
 					themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-					getTempImageFileName(actionRequest),
-					getTempImageFolderName());
+					getTempImageFolderName(),
+					getTempImageFileName(actionRequest));
 			}
 			catch (Exception e) {
 			}
 
-			return TempFileUtil.addTempFile(
+			return TempFileEntryUtil.addTempFileEntry(
 				themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-				getTempImageFileName(actionRequest), getTempImageFolderName(),
+				getTempImageFolderName(), getTempImageFileName(actionRequest),
 				file, tempFileEntry.getMimeType());
 		}
 		catch (NoSuchFileEntryException nsfee) {

@@ -61,7 +61,7 @@ import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TempFileUtil;
+import com.liferay.portal.kernel.util.TempFileEntryUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Document;
@@ -633,15 +633,15 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 			long groupId, long userId, String folderName)
 		throws PortalException {
 
-		String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(
+		String[] tempFileNames = LayoutServiceUtil.getTempFileNames(
 			groupId, folderName);
 
-		if (tempFileEntryNames.length == 0) {
+		if (tempFileNames.length == 0) {
 			return null;
 		}
 
-		return TempFileUtil.getTempFile(
-			groupId, userId, tempFileEntryNames[0], folderName);
+		return TempFileEntryUtil.getTempFileEntry(
+			groupId, userId, folderName, tempFileNames[0]);
 	}
 
 	@Override
@@ -1247,21 +1247,18 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 				portletDataContext, entityStagedModel, DLFileEntry.class,
 				classPK);
 
-			String uuid = referenceElement.attributeValue("uuid");
-
-			Map<Long, Long> groupIds =
+			Map<Long, Long> dlFileEntryIds =
 				(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
-					Group.class);
+					DLFileEntry.class);
 
-			long importGroupId = MapUtil.getLong(
-				groupIds, groupId, portletDataContext.getScopeGroupId());
+			long fileEntryId = MapUtil.getLong(
+				dlFileEntryIds, classPK, classPK);
 
 			FileEntry importedFileEntry = null;
 
 			try {
-				importedFileEntry =
-					DLAppLocalServiceUtil.getFileEntryByUuidAndGroupId(
-						uuid, importGroupId);
+				importedFileEntry = DLAppLocalServiceUtil.getFileEntry(
+					fileEntryId);
 			}
 			catch (PortalException pe) {
 				if (_log.isDebugEnabled()) {

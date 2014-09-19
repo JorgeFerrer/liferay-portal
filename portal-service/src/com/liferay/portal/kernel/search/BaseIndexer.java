@@ -526,6 +526,8 @@ public abstract class BaseIndexer implements Indexer {
 
 			QueryConfig queryConfig = searchContext.getQueryConfig();
 
+			addDefaultHighlightFieldNames(queryConfig);
+
 			if (ArrayUtil.isEmpty(queryConfig.getSelectedFieldNames())) {
 				addDefaultSelectedFieldNames(searchContext);
 			}
@@ -652,6 +654,15 @@ public abstract class BaseIndexer implements Indexer {
 		document.addLocalizedKeyword(
 			"localized_title", assetEntry.getTitleMap(), true, true);
 		document.addKeyword("visible", assetEntry.isVisible());
+	}
+
+	protected void addDefaultHighlightFieldNames(QueryConfig queryConfig) {
+		queryConfig.addHighlightFieldNames(Field.ASSET_CATEGORY_TITLES);
+
+		if (queryConfig.isHighlightEnabled()) {
+			queryConfig.addHighlightFieldNames(
+				Field.CONTENT, Field.DESCRIPTION, Field.TITLE);
+		}
 	}
 
 	protected void addDefaultSelectedFieldNames(SearchContext searchContext) {

@@ -237,7 +237,7 @@ public class DLAppServiceHttp {
 
 	public static com.liferay.portal.kernel.repository.model.FileEntry addTempFileEntry(
 		HttpPrincipal httpPrincipal, long groupId, long folderId,
-		java.lang.String fileName, java.lang.String tempFolderName,
+		java.lang.String folderName, java.lang.String fileName,
 		java.io.File file, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -245,7 +245,7 @@ public class DLAppServiceHttp {
 					"addTempFileEntry", _addTempFileEntryParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					folderId, fileName, tempFolderName, file, mimeType);
+					folderId, folderName, fileName, file, mimeType);
 
 			Object returnObj = null;
 
@@ -271,7 +271,7 @@ public class DLAppServiceHttp {
 
 	public static com.liferay.portal.kernel.repository.model.FileEntry addTempFileEntry(
 		HttpPrincipal httpPrincipal, long groupId, long folderId,
-		java.lang.String fileName, java.lang.String tempFolderName,
+		java.lang.String folderName, java.lang.String fileName,
 		java.io.InputStream inputStream, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -279,7 +279,7 @@ public class DLAppServiceHttp {
 					"addTempFileEntry", _addTempFileEntryParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					folderId, fileName, tempFolderName, inputStream, mimeType);
+					folderId, folderName, fileName, inputStream, mimeType);
 
 			Object returnObj = null;
 
@@ -684,15 +684,15 @@ public class DLAppServiceHttp {
 	}
 
 	public static void deleteTempFileEntry(HttpPrincipal httpPrincipal,
-		long groupId, long folderId, java.lang.String fileName,
-		java.lang.String tempFolderName)
+		long groupId, long folderId, java.lang.String folderName,
+		java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(DLAppServiceUtil.class,
 					"deleteTempFileEntry", _deleteTempFileEntryParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					folderId, fileName, tempFolderName);
+					folderId, folderName, fileName);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -2438,17 +2438,16 @@ public class DLAppServiceHttp {
 		}
 	}
 
-	public static java.lang.String[] getTempFileEntryNames(
+	public static java.lang.String[] getTempFileNames(
 		HttpPrincipal httpPrincipal, long groupId, long folderId,
-		java.lang.String tempFolderName)
+		java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(DLAppServiceUtil.class,
-					"getTempFileEntryNames",
-					_getTempFileEntryNamesParameterTypes73);
+					"getTempFileNames", _getTempFileNamesParameterTypes73);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
-					folderId, tempFolderName);
+					folderId, folderName);
 
 			Object returnObj = null;
 
@@ -4022,7 +4021,7 @@ public class DLAppServiceHttp {
 	private static final Class<?>[] _getSubfolderIdsParameterTypes72 = new Class[] {
 			long.class, long.class, boolean.class
 		};
-	private static final Class<?>[] _getTempFileEntryNamesParameterTypes73 = new Class[] {
+	private static final Class<?>[] _getTempFileNamesParameterTypes73 = new Class[] {
 			long.class, long.class, java.lang.String.class
 		};
 	private static final Class<?>[] _lockFileEntryParameterTypes74 = new Class[] {

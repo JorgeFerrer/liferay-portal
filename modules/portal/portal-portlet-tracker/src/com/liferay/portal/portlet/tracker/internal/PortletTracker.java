@@ -218,6 +218,8 @@ public class PortletTracker
 		ServiceReference<Portlet> serviceReference, Portlet portlet,
 		String portletName, String portletId) {
 
+		warnPorletProperties(portletName, serviceReference);
+
 		Bundle bundle = serviceReference.getBundle();
 
 		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
@@ -690,7 +692,7 @@ public class PortletTracker
 			SetUtil.fromArray(new String[] {toLowerCase(PortletMode.VIEW)}));
 
 		List<String> portletModesStrings = StringPlus.asList(
-			serviceReference.getProperty("javax.portlet.portlet.modes"));
+			serviceReference.getProperty("javax.portlet.portlet-mode"));
 
 		for (String portletModesString : portletModesStrings) {
 			String[] portletModesStringParts = StringUtil.split(
@@ -900,7 +902,7 @@ public class PortletTracker
 				}));
 
 		List<String> windowStatesStrings = StringPlus.asList(
-			serviceReference.getProperty("javax.portlet.window.states"));
+			serviceReference.getProperty("javax.portlet.window-state"));
 
 		for (String windowStatesString : windowStatesStrings) {
 			String[] windowStatesStringParts = StringUtil.split(
@@ -1238,6 +1240,23 @@ public class PortletTracker
 		_servletContext = null;
 	}
 
+	private void warnPorletProperties(
+		String portletName, ServiceReference<Portlet> serviceReference) {
+
+		if (!_log.isWarnEnabled()) {
+			return;
+		}
+
+		List<String> invalidKeys = _portletPropertyValidator.validate(
+			serviceReference.getPropertyKeys());
+
+		for (String invalidKey : invalidKeys) {
+			_log.warn(
+				"Invalid property " + invalidKey + " for portlet " +
+					portletName);
+		}
+	}
+
 	private static final String _NAMESPACE = "com.liferay.portlet.";
 
 	private static final int _PORTLET_ID_MAX_LENGTH =
@@ -1251,6 +1270,8 @@ public class PortletTracker
 	private List<String> _httpServiceEndpoints;
 	private PortletInstanceFactory _portletInstanceFactory;
 	private PortletLocalService _portletLocalService;
+	private PortletPropertyValidator _portletPropertyValidator =
+		new PortletPropertyValidator();
 	private ResourceActionLocalService _resourceActionLocalService;
 	private ResourceActions _resourceActions;
 	private Map<Bundle, ServiceRegistrations> _serviceRegistrations =

@@ -68,10 +68,10 @@ boolean privateLayout = ParamUtil.getBoolean(request, "privateLayout");
 						'strings.pendingFileText': '<liferay-ui:message key="this-file-was-previously-uploaded-but-not-actually-imported" />',
 						'strings.uploadsCompleteText': '<liferay-ui:message key="the-file-is-ready-to-be-imported" />',
 						tempFileURL: {
-							method: Liferay.Service.bind('/layout/get-temp-file-entry-names'),
+							method: Liferay.Service.bind('/layout/get-temp-file-names'),
 							params: {
 								groupId: <%= groupId %>,
-								tempFolderName: '<%= ExportImportHelper.TEMP_FOLDER_NAME %>'
+								folderName: '<%= ExportImportHelper.TEMP_FOLDER_NAME %>'
 							}
 						},
 						uploadFile: '<liferay-portlet:actionURL doAsUserId="<%= user.getUserId() %>"><portlet:param name="struts_action" value="/layouts_admin/import_layouts" /><portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD_TEMP %>" /><portlet:param name="groupId" value="<%= String.valueOf(groupId) %>" /><portlet:param name="privateLayout" value="<%= String.valueOf(privateLayout) %>" /></liferay-portlet:actionURL>&ticketKey=<%= ticket.getKey() %><liferay-ui:input-permissions-params modelName="<%= Group.class.getName() %>" />'

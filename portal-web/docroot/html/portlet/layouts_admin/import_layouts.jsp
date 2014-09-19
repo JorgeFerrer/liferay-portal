@@ -21,7 +21,7 @@ long groupId = ParamUtil.getLong(request, "groupId");
 boolean privateLayout = ParamUtil.getBoolean(request, "privateLayout");
 boolean validate = ParamUtil.getBoolean(request, "validate", true);
 
-String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(groupId, ExportImportHelper.TEMP_FOLDER_NAME);
+String[] tempFileNames = LayoutServiceUtil.getTempFileNames(groupId, ExportImportHelper.TEMP_FOLDER_NAME);
 %>
 
 <portlet:renderURL var="backURL">
@@ -52,7 +52,7 @@ String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(groupId, E
 			</div>
 
 			<c:choose>
-				<c:when test="<%= (tempFileEntryNames.length > 0) && !validate %>">
+				<c:when test="<%= (tempFileNames.length > 0) && !validate %>">
 					<liferay-util:include page="/html/portlet/layouts_admin/import_layouts_resources.jsp" />
 				</c:when>
 				<c:otherwise>

@@ -31,7 +31,7 @@ String subtitle = BeanParamUtil.getString(entry, request, "subtitle");
 String content = BeanParamUtil.getString(entry, request, "content");
 boolean allowPingbacks = PropsValues.BLOGS_PINGBACK_ENABLED && BeanParamUtil.getBoolean(entry, request, "allowPingbacks", true);
 boolean allowTrackbacks = PropsValues.BLOGS_TRACKBACK_ENABLED && BeanParamUtil.getBoolean(entry, request, "allowTrackbacks", true);
-boolean smallImage = BeanParamUtil.getBoolean(entry, request, "smallImage");
+long smallImageFileEntryId = BeanParamUtil.getLong(entry, request, "smallImageFileEntryId");
 
 boolean preview = ParamUtil.getBoolean(request, "preview");
 boolean showHeader = ParamUtil.getBoolean(request, "showHeader", true);
@@ -92,88 +92,30 @@ boolean showHeader = ParamUtil.getBoolean(request, "showHeader", true);
 		<aui:workflow-status id="<%= String.valueOf(entry.getEntryId()) %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= entry.getStatus() %>" />
 	</c:if>
 
-	<aui:fieldset>
-		<liferay-ui:input-editor contents="<%= title %>" editorImpl="<%= EDITOR_TEXT_IMPL_KEY %>" name="title" placeholder="title" />
-
-		<aui:input name="title" type="hidden" />
-
-		<liferay-ui:input-editor contents="<%= subtitle %>" editorImpl="<%= EDITOR_TEXT_IMPL_KEY %>" name="subtitle" placeholder="subtitle" />
-
-		<aui:input name="subtitle" type="hidden" />
-
-		<aui:input name="displayDate" />
-
-		<c:if test="<%= preview %>">
-
-			<%
-			if (entry == null) {
-				entry = new BlogsEntryImpl();
-			}
-
-			entry.setContent(content);
-			%>
-
-			<liferay-ui:message key="preview" />:
-
-			<div class="preview">
-				<%= entry.getContent() %>
+	<liferay-ui:tabs
+		names="details,settings"
+		refresh="<%= false %>"
+		type="pills"
+	>
+		<liferay-ui:section>
+			<div class="entry-title">
+				<h2><liferay-ui:input-editor contents="<%= title %>" editorImpl="<%= EDITOR_TEXT_IMPL_KEY %>" name="title" placeholder="title" /></h2>
 			</div>
 
-			<br />
-		</c:if>
+			<aui:input name="title" type="hidden" />
 
-		<liferay-ui:input-editor contents="<%= content %>" editorImpl="<%= EDITOR_HTML_IMPL_KEY %>" name="content" placeholder="content" />
+			<div class="entry-subtitle">
+				<liferay-ui:input-editor contents="<%= subtitle %>" editorImpl="<%= EDITOR_TEXT_IMPL_KEY %>" name="subtitle" placeholder="subtitle" />
+			</div>
 
-		<aui:input name="content" type="hidden" />
+			<aui:input name="subtitle" type="hidden" />
 
-		<liferay-ui:custom-attributes-available className="<%= BlogsEntry.class.getName() %>">
-			<liferay-ui:custom-attribute-list
-				className="<%= BlogsEntry.class.getName() %>"
-				classPK="<%= entryId %>"
-				editable="<%= true %>"
-				label="<%= true %>"
-			/>
-		</liferay-ui:custom-attributes-available>
+			<div class="entry-content">
+				<liferay-ui:input-editor contents="<%= content %>" editorImpl="<%= EDITOR_HTML_IMPL_KEY %>" name="content" placeholder="content" />
+			</div>
 
-		<c:if test="<%= PropsValues.BLOGS_PINGBACK_ENABLED %>">
-			<aui:input helpMessage="to-allow-pingbacks,-please-also-ensure-the-entry's-guest-view-permission-is-enabled" name="allowPingbacks" value="<%= allowPingbacks %>" />
-		</c:if>
+			<aui:input name="content" type="hidden" />
 
-		<c:if test="<%= PropsValues.BLOGS_TRACKBACK_ENABLED %>">
-			<aui:input helpMessage="to-allow-trackbacks,-please-also-ensure-the-entry's-guest-view-permission-is-enabled" name="allowTrackbacks" value="<%= allowTrackbacks %>" />
-
-			<aui:input label="trackbacks-to-send" name="trackbacks" />
-
-			<c:if test="<%= (entry != null) && Validator.isNotNull(entry.getTrackbacks()) %>">
-				<aui:fieldset label="trackbacks-already-sent">
-
-					<%
-					int i = 0;
-
-					for (String trackback : StringUtil.split(entry.getTrackbacks())) {
-					%>
-
-						<aui:input label="" name='<%= "trackback" + (i++) %>' title="" type="resource" value="<%= trackback %>" />
-
-					<%
-					}
-					%>
-
-				</aui:fieldset>
-			</c:if>
-		</c:if>
-
-		<c:if test="<%= (entry == null) || (entry.getStatus() == WorkflowConstants.STATUS_DRAFT) %>">
-			<aui:field-wrapper label="permissions">
-				<liferay-ui:input-permissions
-					modelName="<%= BlogsEntry.class.getName() %>"
-				/>
-			</aui:field-wrapper>
-		</c:if>
-
-		<br />
-
-		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="blogsEntryAbstractPanel" persistState="<%= true %>" title="abstract">
 			<liferay-ui:error exception="<%= EntrySmallImageNameException.class %>">
 
 				<%
@@ -192,57 +134,105 @@ boolean showHeader = ParamUtil.getBoolean(request, "showHeader", true);
 				<liferay-ui:message arguments="<%= TextFormatter.formatStorageSize(imageMaxSize, locale) %>" key="please-enter-a-small-image-with-a-valid-file-size-no-larger-than-x" translateArguments="<%= false %>" />
 			</liferay-ui:error>
 
-			<aui:fieldset>
-				<aui:input label="description" name="description" />
-
-				<div id="<portlet:namespace />smallImageContainer">
-					<div class="lfr-blogs-small-image-header">
-						<aui:input label="use-small-image" name="smallImage" />
-					</div>
-
-					<div class="lfr-blogs-small-image-content toggler-content-collapsed">
-						<aui:row>
-							<c:if test="<%= smallImage && (entry != null) %>">
-								<aui:col width="<%= 50 %>">
-									<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="preview" />" class="lfr-blogs-small-image-preview" src='<%= Validator.isNotNull(entry.getSmallImageURL()) ? entry.getSmallImageURL() : themeDisplay.getPathImage() + "/template?img_id=" + entry.getSmallImageId() + "&t=" + WebServerServletTokenUtil.getToken(entry.getSmallImageId()) %>' />
-								</aui:col>
-							</c:if>
-
-							<aui:col width="<%= (smallImage && (entry != null)) ? 50 : 100 %>">
-								<aui:fieldset>
-									<aui:input cssClass="lfr-blogs-small-image-type" inlineField="<%= true %>" label="small-image-url" name="type" type="radio" />
-
-									<aui:input cssClass="lfr-blogs-small-image-value" inlineField="<%= true %>" label="" name="smallImageURL" title="small-image-url" />
-								</aui:fieldset>
-
-								<aui:fieldset>
-									<aui:input cssClass="lfr-blogs-small-image-type" inlineField="<%= true %>" label="small-image" name="type" type="radio" />
-
-									<aui:input cssClass="lfr-blogs-small-image-value" inlineField="<%= true %>" label="" name="smallFile" title="small-image-file" type="file" />
-								</aui:fieldset>
-							</aui:col>
-						</aui:row>
-					</div>
+			<aui:fieldset cssClass="entry-abstract">
+				<div class="lfr-blogs-small-image-selector">
+					<liferay-ui:image-selector fileEntryId="<%= smallImageFileEntryId %>" paramName="smallImageFileEntryId" />
 				</div>
+
+				<div class="entry-description">
+					<liferay-ui:input-editor contents="<%= subtitle %>" editorImpl="<%= EDITOR_TEXT_IMPL_KEY %>" name="description" placeholder="description" />
+				</div>
+
+				<aui:input name="description" type="hidden" />
 			</aui:fieldset>
-		</liferay-ui:panel>
+		</liferay-ui:section>
 
-		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="blogsEntryCategorizationPanel" persistState="<%= true %>" title="categorization">
-			<aui:fieldset>
-				<aui:input name="categories" type="assetCategories" />
+		<liferay-ui:section>
+			<aui:input name="displayDate" />
 
-				<aui:input name="tags" type="assetTags" />
-			</aui:fieldset>
-		</liferay-ui:panel>
-
-		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="blogsEntryAssetLinksPanel" persistState="<%= true %>" title="related-assets">
-			<aui:fieldset>
-				<liferay-ui:input-asset-links
+			<liferay-ui:custom-attributes-available className="<%= BlogsEntry.class.getName() %>">
+				<liferay-ui:custom-attribute-list
 					className="<%= BlogsEntry.class.getName() %>"
 					classPK="<%= entryId %>"
+					editable="<%= true %>"
+					label="<%= true %>"
 				/>
-			</aui:fieldset>
-		</liferay-ui:panel>
+			</liferay-ui:custom-attributes-available>
+
+			<c:if test="<%= PropsValues.BLOGS_PINGBACK_ENABLED %>">
+				<aui:input helpMessage="to-allow-pingbacks,-please-also-ensure-the-entry's-guest-view-permission-is-enabled" name="allowPingbacks" value="<%= allowPingbacks %>" />
+			</c:if>
+
+			<c:if test="<%= PropsValues.BLOGS_TRACKBACK_ENABLED %>">
+				<aui:input helpMessage="to-allow-trackbacks,-please-also-ensure-the-entry's-guest-view-permission-is-enabled" name="allowTrackbacks" value="<%= allowTrackbacks %>" />
+
+				<aui:input label="trackbacks-to-send" name="trackbacks" />
+
+				<c:if test="<%= (entry != null) && Validator.isNotNull(entry.getTrackbacks()) %>">
+					<aui:fieldset label="trackbacks-already-sent">
+
+						<%
+						int i = 0;
+
+						for (String trackback : StringUtil.split(entry.getTrackbacks())) {
+						%>
+
+							<aui:input label="" name='<%= "trackback" + (i++) %>' title="" type="resource" value="<%= trackback %>" />
+
+						<%
+						}
+						%>
+
+					</aui:fieldset>
+				</c:if>
+			</c:if>
+
+			<c:if test="<%= (entry == null) || (entry.getStatus() == WorkflowConstants.STATUS_DRAFT) %>">
+				<aui:field-wrapper label="permissions">
+					<liferay-ui:input-permissions
+						modelName="<%= BlogsEntry.class.getName() %>"
+					/>
+				</aui:field-wrapper>
+			</c:if>
+
+			<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="blogsEntryCategorizationPanel" persistState="<%= true %>" title="categorization">
+				<aui:fieldset>
+					<aui:input name="categories" type="assetCategories" />
+
+					<aui:input name="tags" type="assetTags" />
+				</aui:fieldset>
+			</liferay-ui:panel>
+
+			<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="blogsEntryAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+				<aui:fieldset>
+					<liferay-ui:input-asset-links
+						className="<%= BlogsEntry.class.getName() %>"
+						classPK="<%= entryId %>"
+					/>
+				</aui:fieldset>
+			</liferay-ui:panel>
+		</liferay-ui:section>
+	</liferay-ui:tabs>
+
+	<aui:fieldset>
+		<c:if test="<%= preview %>">
+
+			<%
+			if (entry == null) {
+				entry = new BlogsEntryImpl();
+			}
+
+			entry.setContent(content);
+			%>
+
+			<liferay-ui:message key="preview" />:
+
+			<div class="preview">
+				<%= entry.getContent() %>
+			</div>
+
+			<br />
+		</c:if>
 
 		<%
 		boolean pending = false;
@@ -280,13 +270,13 @@ boolean showHeader = ParamUtil.getBoolean(request, "showHeader", true);
 				</div>
 			</c:if>
 
+			<aui:button disabled="<%= pending %>" name="publishButton" onClick='<%= renderResponse.getNamespace() + "saveEntry(false, false);" %>' type="submit" value="<%= publishButtonLabel %>" />
+
 			<aui:button name="saveButton" onClick='<%= renderResponse.getNamespace() + "saveEntry(true, false);" %>' primary="<%= false %>" type="submit" value="<%= saveButtonLabel %>" />
 
 			<c:if test="<%= (entry == null) || entry.isDraft() || preview %>">
 				<aui:button name="previewButton" onClick='<%= renderResponse.getNamespace() + "previewEntry();" %>' value="preview" />
 			</c:if>
-
-			<aui:button disabled="<%= pending %>" name="publishButton" onClick='<%= renderResponse.getNamespace() + "saveEntry(false, false);" %>' type="submit" value="<%= publishButtonLabel %>" />
 
 			<aui:button href="<%= redirect %>" name="cancelButton" type="cancel" />
 		</aui:button-row>
@@ -494,66 +484,6 @@ boolean showHeader = ParamUtil.getBoolean(request, "showHeader", true);
 		<portlet:namespace />oldTitle = document.<portlet:namespace />fm.<portlet:namespace />title.value;
 		<portlet:namespace />oldContent = '<%= UnicodeFormatter.toString(content) %>';
 	</c:if>
-</aui:script>
-
-<aui:script use="aui-toggler">
-	var container = A.one('#<portlet:namespace />smallImageContainer');
-
-	var types = container.all('.lfr-blogs-small-image-type');
-	var values = container.all('.lfr-blogs-small-image-value');
-
-	var selectSmallImageType = function(index) {
-		types.attr('checked', false);
-
-		types.item(index).attr('checked', true);
-
-		values.attr('disabled', true);
-
-		values.item(index).attr('disabled', false);
-	};
-
-	container.delegate(
-		'change',
-		function(event) {
-			var index = types.indexOf(event.currentTarget);
-
-			selectSmallImageType(index);
-		},
-		'.lfr-blogs-small-image-type'
-	);
-
-	new A.Toggler(
-		{
-			animated: true,
-			content: '#<portlet:namespace />smallImageContainer .lfr-blogs-small-image-content',
-			expanded: <%= smallImage %>,
-			header: '#<portlet:namespace />smallImageContainer .lfr-blogs-small-image-header',
-			on: {
-				animatingChange: function(event) {
-					var instance = this;
-
-					var expanded = !instance.get('expanded');
-
-					A.one('#<portlet:namespace />smallImage').attr('checked', expanded);
-
-					if (expanded) {
-						types.each(
-							function(item, index, collection) {
-								if (item.get('checked')) {
-									values.item(index).attr('disabled', false);
-								}
-							}
-						);
-					}
-					else {
-						values.attr('disabled', true);
-					}
-				}
-			}
-		}
-	);
-
-	selectSmallImageType('<%= (entry != null) && Validator.isNotNull(entry.getSmallImageURL()) ? 0 : 1 %>');
 </aui:script>
 
 <%

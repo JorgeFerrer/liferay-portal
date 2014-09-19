@@ -46,7 +46,10 @@ public class JSONWebServiceTracker
 		try {
 			_serviceTracker = new ServiceTracker<Object, Object>(
 				bundleContext,
-				bundleContext.createFilter("(json.web.service.path=*)"), this);
+				bundleContext.createFilter(
+					"(&(json.web.service.context.name=*)(json.web.service." +
+						"context.path=*))"),
+					this);
 
 			_serviceTracker.open();
 		}
@@ -102,8 +105,10 @@ public class JSONWebServiceTracker
 	protected Object registerService(
 		ServiceReference<Object> serviceReference) {
 
-		String path = (String)serviceReference.getProperty(
-			"json.web.service.path");
+		String contextName = (String)serviceReference.getProperty(
+			"json.web.service.context.name");
+		String contextPath = (String)serviceReference.getProperty(
+			"json.web.service.context.path");
 		Object service = getService(serviceReference);
 
 		ClassLoader contextClassLoader =
@@ -115,7 +120,8 @@ public class JSONWebServiceTracker
 		ClassLoaderUtil.setContextClassLoader(classLoader);
 
 		try {
-			_jsonWebServiceActionsManager.registerService(path, service);
+			_jsonWebServiceActionsManager.registerService(
+				contextName, contextPath, service);
 		}
 		finally {
 			ClassLoaderUtil.setContextClassLoader(contextClassLoader);

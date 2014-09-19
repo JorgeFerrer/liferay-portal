@@ -344,9 +344,12 @@ public class JournalArticleLocalServiceImpl
 
 		long id = counterLocalService.increment();
 
+		String articleResourceUuid = GetterUtil.getString(
+			serviceContext.getAttribute("articleResourceUuid"));
+
 		long resourcePrimKey =
 			journalArticleResourceLocalService.getArticleResourcePrimKey(
-				serviceContext.getUuid(), groupId, articleId);
+				articleResourceUuid, groupId, articleId);
 
 		JournalArticle article = journalArticlePersistence.create(id);
 
@@ -358,6 +361,7 @@ public class JournalArticleLocalServiceImpl
 			user, groupId, articleId, version, false, content, ddmStructureKey,
 			images);
 
+		article.setUuid(serviceContext.getUuid());
 		article.setResourcePrimKey(resourcePrimKey);
 		article.setGroupId(groupId);
 		article.setCompanyId(user.getCompanyId());
@@ -1034,6 +1038,7 @@ public class JournalArticleLocalServiceImpl
 		if (articleResource != null) {
 			JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject();
 
+			extraDataJSONObject.put("uuid", article.getUuid());
 			extraDataJSONObject.put("version", article.getVersion());
 
 			systemEventLocalService.addSystemEvent(
@@ -3300,12 +3305,8 @@ public class JournalArticleLocalServiceImpl
 
 			// Article
 
-			TrashEntry trashEntry = article.getTrashEntry();
-
-			TrashVersion trashVersion =
-				trashVersionLocalService.fetchVersion(
-					trashEntry.getEntryId(), JournalArticle.class.getName(),
-					article.getResourcePrimKey());
+			TrashVersion trashVersion = trashVersionLocalService.fetchVersion(
+				JournalArticle.class.getName(), article.getResourcePrimKey());
 
 			int status = WorkflowConstants.STATUS_APPROVED;
 
@@ -4968,21 +4969,7 @@ public class JournalArticleLocalServiceImpl
 		boolean addNewVersion = false;
 
 		if (imported) {
-			if (latestVersion > version) {
-				JournalArticle existingArticle =
-					journalArticlePersistence.fetchByG_A_V(
-						groupId, articleId, version);
-
-				if (existingArticle != null) {
-					article = existingArticle;
-				}
-				else {
-					addNewVersion = true;
-				}
-			}
-			else if (latestVersion < version) {
-				addNewVersion = true;
-			}
+			article = getArticle(groupId, articleId, version);
 		}
 		else {
 			if ((version > 0) && (version != latestVersion)) {
@@ -5505,14 +5492,10 @@ public class JournalArticleLocalServiceImpl
 
 		int oldStatus = article.getStatus();
 
-		boolean neverExpire = false;
-
 		if (status == WorkflowConstants.STATUS_APPROVED) {
 			Date expirationDate = article.getExpirationDate();
 
 			if ((expirationDate != null) && expirationDate.before(now)) {
-				neverExpire = true;
-
 				article.setExpirationDate(null);
 			}
 		}
@@ -5588,25 +5571,10 @@ public class JournalArticleLocalServiceImpl
 				if (article.getClassNameId() ==
 						JournalArticleConstants.CLASSNAME_ID_DEFAULT) {
 
-					// Get the earliest display date and latest expiration date
-					// among all article versions
-
-					Date[] dateInterval = getDateInterval(
-						article.getGroupId(), article.getArticleId(),
-						article.getDisplayDate(), article.getExpirationDate());
-
-					Date publishDate = dateInterval[0];
-
-					Date expirationDate = dateInterval[1];
-
-					if (neverExpire) {
-						expirationDate = null;
-					}
-
 					assetEntryLocalService.updateEntry(
 						JournalArticle.class.getName(),
-						article.getResourcePrimKey(), publishDate,
-						expirationDate, true);
+						article.getResourcePrimKey(), article.getDisplayDate(),
+						article.getExpirationDate(), true);
 				}
 
 				// Social
@@ -6678,50 +6646,6 @@ public class JournalArticleLocalServiceImpl
 		return ddmStructure.getStructureId();
 	}
 
-	protected Date[] getDateInterval(
-		long groupId, String articleId, Date earliestDisplayDate,
-		Date latestExpirationDate) {
-
-		Date[] dateInterval = new Date[2];
-
-		List<JournalArticle> articles = journalArticlePersistence.findByG_A_ST(
-			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
-
-		boolean expiringArticle = true;
-
-		if (latestExpirationDate == null) {
-			expiringArticle = false;
-		}
-
-		for (JournalArticle article : articles) {
-			if ((earliestDisplayDate == null) ||
-				((article.getDisplayDate() != null) &&
-				 earliestDisplayDate.after(article.getDisplayDate()))) {
-
-				earliestDisplayDate = article.getDisplayDate();
-			}
-
-			if (expiringArticle &&
-				((latestExpirationDate == null) ||
-				 ((article.getExpirationDate() != null) &&
-				  latestExpirationDate.before(article.getExpirationDate())))) {
-
-				latestExpirationDate = article.getExpirationDate();
-			}
-
-			if (expiringArticle && (article.getExpirationDate() == null) &&
-				(latestExpirationDate != null)) {
-
-				expiringArticle = false;
-			}
-		}
-
-		dateInterval[0] = earliestDisplayDate;
-		dateInterval[1] = latestExpirationDate;
-
-		return dateInterval;
-	}
-
 	protected JournalArticle getFirstArticle(
 			long groupId, String articleId, int status,
 			OrderByComparator<JournalArticle> orderByComparator)
@@ -7194,18 +7118,10 @@ public class JournalArticleLocalServiceImpl
 				false);
 		}
 		else {
-			Date[] dateInterval = getDateInterval(
-				previousApprovedArticle.getGroupId(),
-				previousApprovedArticle.getArticleId(),
-				previousApprovedArticle.getDisplayDate(),
-				previousApprovedArticle.getExpirationDate());
-
-			Date displayDate = dateInterval[0];
-			Date expirationDate = dateInterval[1];
-
 			AssetEntry assetEntry = assetEntryLocalService.updateEntry(
 				JournalArticle.class.getName(), article.getResourcePrimKey(),
-				displayDate, expirationDate, true);
+				previousApprovedArticle.getDisplayDate(),
+				previousApprovedArticle.getExpirationDate(), true);
 
 			assetEntry.setModifiedDate(
 				previousApprovedArticle.getModifiedDate());

@@ -94,7 +94,7 @@ public class FindActionTest {
 
 		HttpServletRequest request = getHttpServletRequest();
 
-		FindAction.setTargetGroup(
+		FindAction.setTargetLayout(
 			request, _blogsEntry.getGroupId(), _blogLayout.getPlid());
 
 		Layout layout = (Layout)request.getAttribute(WebKeys.LAYOUT);
@@ -109,7 +109,7 @@ public class FindActionTest {
 
 		HttpServletRequest request = getHttpServletRequest();
 
-		FindAction.setTargetGroup(
+		FindAction.setTargetLayout(
 			request, _blogsEntry.getGroupId(), _blogLayout.getPlid());
 
 		Layout layout = (Layout)request.getAttribute(WebKeys.LAYOUT);
@@ -174,7 +174,7 @@ public class FindActionTest {
 		return themeDisplay;
 	}
 
-	private final static String[] _PORTLET_IDS = {
+	private static final String[] _PORTLET_IDS = {
 		PortletKeys.BLOGS_ADMIN, PortletKeys.BLOGS, PortletKeys.BLOGS_AGGREGATOR
 	};
 

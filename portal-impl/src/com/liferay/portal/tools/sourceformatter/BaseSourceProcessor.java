@@ -330,8 +330,8 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 			return;
 		}
 
-		if (_portalLanguageKeysProperties == null) {
-			_portalLanguageKeysProperties = new Properties();
+		if (_portalLanguageProperties == null) {
+			_portalLanguageProperties = new Properties();
 
 			ClassLoader classLoader =
 				BaseSourceProcessor.class.getClassLoader();
@@ -339,7 +339,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 			InputStream inputStream = classLoader.getResourceAsStream(
 				"content/Language.properties");
 
-			_portalLanguageKeysProperties.load(inputStream);
+			_portalLanguageProperties.load(inputStream);
 		}
 
 		Matcher matcher = pattern.matcher(content);
@@ -357,12 +357,17 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 					languageKey.startsWith(StringPool.OPEN_BRACKET) ||
 					languageKey.startsWith(StringPool.OPEN_CURLY_BRACE) ||
 					languageKey.startsWith(StringPool.PERIOD) ||
-					languageKey.startsWith(StringPool.UNDERLINE)) {
+					languageKey.startsWith(StringPool.UNDERLINE) ||
+					_portalLanguageProperties.containsKey(languageKey)) {
 
 					continue;
 				}
 
-				if (!_portalLanguageKeysProperties.containsKey(languageKey)) {
+				Properties languageProperties = getLanguageProperties(fileName);
+
+				if ((languageProperties == null) ||
+					!languageProperties.containsKey(languageKey)) {
+
 					processErrorMessage(
 						fileName,
 						"missing language key: " + languageKey +
@@ -908,6 +913,44 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		return new String[0];
 	}
 
+	protected Properties getLanguageProperties(String fileName) {
+		StringBundler sb = new StringBundler(4);
+
+		int pos = fileName.indexOf("/docroot/");
+
+		sb.append(BASEDIR);
+
+		if (pos != -1) {
+			sb.append(fileName.substring(0, pos + 9));
+			sb.append("WEB-INF/src/");
+		}
+		else {
+			pos = fileName.indexOf("/src/");
+
+			if (pos == -1) {
+				return null;
+			}
+
+			sb.append(fileName.substring(0, pos + 5));
+		}
+
+		sb.append("content/Language.properties");
+
+		try {
+			Properties properties = new Properties();
+
+			InputStream inputStream = new FileInputStream(sb.toString());
+
+			properties.load(inputStream);
+
+			return properties;
+		}
+		catch (Exception e) {
+		}
+
+		return null;
+	}
+
 	protected String getMainReleaseVersion() {
 		if (_mainReleaseVersion != null) {
 			return _mainReleaseVersion;
@@ -1333,70 +1376,21 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		}
 	}
 
-	protected Properties stripTopLevelDirectories(
-			Properties properties, int level)
-		throws IOException {
-
-		if (level == 0) {
-			return properties;
-		}
-
-		File dir = new File(".");
-
-		String dirName = dir.getCanonicalPath();
-
-		dirName = StringUtil.replace(
-			dirName, StringPool.BACK_SLASH, StringPool.SLASH);
-
-		int pos = dirName.length();
-
-		for (int i = 0; i < level; i++) {
-			pos = dirName.lastIndexOf(StringPool.SLASH, pos - 1);
-		}
-
-		String topLevelDirNames = dirName.substring(pos + 1) + StringPool.SLASH;
-
-		Properties newProperties = new Properties();
-
-		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-			String value = (String)entry.getValue();
-
-			if (!value.startsWith(topLevelDirNames) &&
-				!value.contains(StringPool.COMMA + topLevelDirNames)) {
-
-				continue;
-			}
-
-			if (value.startsWith(topLevelDirNames)) {
-				value = StringUtil.replaceFirst(
-					value, topLevelDirNames, StringPool.BLANK);
-			}
-
-			value = StringUtil.replace(
-				value, StringPool.COMMA + topLevelDirNames, StringPool.COMMA);
-
-			newProperties.setProperty((String)entry.getKey(), value);
-		}
-
-		return newProperties;
-	}
-
 	protected String trimContent(String content, boolean allowLeadingSpaces)
 		throws IOException {
 
 		StringBundler sb = new StringBundler();
 
-		UnsyncBufferedReader unsyncBufferedReader = new UnsyncBufferedReader(
-			new UnsyncStringReader(content));
+		try (UnsyncBufferedReader unsyncBufferedReader = 
+				new UnsyncBufferedReader(new UnsyncStringReader(content))) {
+			
+			String line = null;
 
-		String line = null;
-
-		while ((line = unsyncBufferedReader.readLine()) != null) {
-			sb.append(trimLine(line, allowLeadingSpaces));
-			sb.append("\n");
+			while ((line = unsyncBufferedReader.readLine()) != null) {
+				sb.append(trimLine(line, allowLeadingSpaces));
+				sb.append("\n");
+			}
 		}
-
-		unsyncBufferedReader.close();
 
 		content = sb.toString();
 
@@ -1510,7 +1504,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 
 				props.load(inputStream);
 
-				propertiesList.add(stripTopLevelDirectories(props, i));
+				propertiesList.add(props);
 			}
 			catch (FileNotFoundException fnfe) {
 			}
@@ -1598,7 +1592,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 	private SourceMismatchException _firstSourceMismatchException;
 	private String _mainReleaseVersion;
 	private String _oldCopyright;
-	private Properties _portalLanguageKeysProperties;
+	private Properties _portalLanguageProperties;
 	private Properties _properties;
 	private List<String> _runOutsidePortalExclusions;
 	private boolean _usePortalCompatImport;

@@ -116,12 +116,12 @@ public class WikiPageLocalServiceUtil {
 		getService().addPageResources(page, groupPermissions, guestPermissions);
 	}
 
-	public static void addTempPageAttachment(long groupId, long userId,
-		java.lang.String fileName, java.lang.String tempFolderName,
+	public static void addTempFileEntry(long groupId, long userId,
+		java.lang.String folderName, java.lang.String fileName,
 		java.io.InputStream inputStream, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
-			.addTempPageAttachment(groupId, userId, fileName, tempFolderName,
+			.addTempFileEntry(groupId, userId, folderName, fileName,
 			inputStream, mimeType);
 	}
 
@@ -218,11 +218,10 @@ public class WikiPageLocalServiceUtil {
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static void deleteTempPageAttachment(long groupId, long userId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+	public static void deleteTempFileEntry(long groupId, long userId,
+		java.lang.String folderName, java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		getService()
-			.deleteTempPageAttachment(groupId, userId, fileName, tempFolderName);
+		getService().deleteTempFileEntry(groupId, userId, folderName, fileName);
 	}
 
 	public static void deleteTrashPageAttachments(long nodeId,
@@ -367,6 +366,11 @@ public class WikiPageLocalServiceUtil {
 		return getService().fetchPage(nodeId, title, version);
 	}
 
+	public static com.liferay.portlet.wiki.model.WikiPage fetchPage(
+		long resourcePrimKey) {
+		return getService().fetchPage(resourcePrimKey);
+	}
+
 	public static com.liferay.portlet.wiki.model.WikiPage fetchWikiPage(
 		long pageId) {
 		return getService().fetchWikiPage(pageId);
@@ -421,6 +425,11 @@ public class WikiPageLocalServiceUtil {
 	public static int getChildrenCount(long nodeId, boolean head,
 		java.lang.String parentTitle, int status) {
 		return getService().getChildrenCount(nodeId, head, parentTitle, status);
+	}
+
+	public static java.util.List<com.liferay.portlet.wiki.model.WikiPage> getDependentPages(
+		long nodeId, boolean head, java.lang.String title, int status) {
+		return getService().getDependentPages(nodeId, head, title, status);
 	}
 
 	public static com.liferay.portlet.wiki.model.WikiPage getDraftPage(
@@ -672,11 +681,15 @@ public class WikiPageLocalServiceUtil {
 		return getService().getRecentChangesCount(nodeId);
 	}
 
-	public static java.lang.String[] getTempPageAttachmentNames(long groupId,
-		long userId, java.lang.String tempFolderName)
+	public static java.util.List<com.liferay.portlet.wiki.model.WikiPage> getRedirectPages(
+		long nodeId, boolean head, java.lang.String redirectTitle, int status) {
+		return getService().getRedirectPages(nodeId, head, redirectTitle, status);
+	}
+
+	public static java.lang.String[] getTempFileNames(long groupId,
+		long userId, java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService()
-				   .getTempPageAttachmentNames(groupId, userId, tempFolderName);
+		return getService().getTempFileNames(groupId, userId, folderName);
 	}
 
 	/**
@@ -754,8 +767,8 @@ public class WikiPageLocalServiceUtil {
 	}
 
 	/**
-	* @deprecated As of 7.0.0, replaced by {@link #renamePage(
-	long, long, String, String, ServiceContext)}
+	* @deprecated As of 7.0.0, replaced by {@link #renamePage(long, long,
+	String, String, ServiceContext)}
 	*/
 	@Deprecated
 	public static void movePage(long userId, long nodeId,
@@ -769,6 +782,7 @@ public class WikiPageLocalServiceUtil {
 	* @deprecated As of 6.2.0, replaced by {@link #renamePage(long, long,
 	String, String, boolean, ServiceContext)}
 	*/
+	@Deprecated
 	public static void movePage(long userId, long nodeId,
 		java.lang.String title, java.lang.String newTitle, boolean strict,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -785,6 +799,20 @@ public class WikiPageLocalServiceUtil {
 				   .movePageAttachmentToTrash(userId, nodeId, title, fileName);
 	}
 
+	public static com.liferay.portlet.wiki.model.WikiPage movePageFromTrash(
+		long userId, long nodeId, java.lang.String title, long newNodeId,
+		java.lang.String newParentTitle)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .movePageFromTrash(userId, nodeId, title, newNodeId,
+			newParentTitle);
+	}
+
+	/**
+	* @deprecated As of 7.0.0, replaced by {@link #movePageFromTrash(long,
+	long, String, long, String)} *
+	*/
+	@Deprecated
 	public static com.liferay.portlet.wiki.model.WikiPage movePageFromTrash(
 		long userId, long nodeId, java.lang.String title,
 		java.lang.String newParentTitle,
@@ -826,12 +854,6 @@ public class WikiPageLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.renamePage(userId, nodeId, title, newTitle, strict, serviceContext);
-	}
-
-	public static void restoreDependentFromTrash(
-		com.liferay.portlet.wiki.model.WikiPage page, long trashEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		getService().restoreDependentFromTrash(page, trashEntryId);
 	}
 
 	public static void restorePageAttachmentFromTrash(long userId, long nodeId,

@@ -48,10 +48,10 @@ page import="javax.portlet.WindowState" %>
 <%
 WindowState windowState = liferayPortletRequest.getWindowState();
 
-String amazonAccessKeyId = portletPreferences.getValue("amazon.access.key.id", "");
-String amazonAssociateTag = portletPreferences.getValue("amazon.associate.tag" , "");
-String amazonSecretAccessKey = portletPreferences.getValue("amazon.secret.access.key", "");
-String[] isbns = portletPreferences.getValues("isbns", new String[0]);
+String amazonAccessKeyId = portletPreferences.getValue("amazon.access.key.id", StringPool.BLANK);
+String amazonAssociateTag = portletPreferences.getValue("amazon.associate.tag" , StringPool.BLANK);
+String amazonSecretAccessKey = portletPreferences.getValue("amazon.secret.access.key", StringPool.BLANK);
+String[] isbns = portletPreferences.getValues("isbns", StringPool.EMPTY_ARRAY);
 
 NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 %>

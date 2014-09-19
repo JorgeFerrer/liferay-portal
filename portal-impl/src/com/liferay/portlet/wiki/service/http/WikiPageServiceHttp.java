@@ -213,18 +213,16 @@ public class WikiPageServiceHttp {
 		}
 	}
 
-	public static void addTempPageAttachment(HttpPrincipal httpPrincipal,
-		long nodeId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.InputStream inputStream,
-		java.lang.String mimeType)
+	public static void addTempFileEntry(HttpPrincipal httpPrincipal,
+		long nodeId, java.lang.String folderName, java.lang.String fileName,
+		java.io.InputStream inputStream, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class,
-					"addTempPageAttachment",
-					_addTempPageAttachmentParameterTypes5);
+					"addTempFileEntry", _addTempFileEntryParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
-					fileName, tempFolderName, inputStream, mimeType);
+					folderName, fileName, inputStream, mimeType);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -445,16 +443,15 @@ public class WikiPageServiceHttp {
 		}
 	}
 
-	public static void deleteTempPageAttachment(HttpPrincipal httpPrincipal,
-		long nodeId, java.lang.String fileName, java.lang.String tempFolderName)
+	public static void deleteTempFileEntry(HttpPrincipal httpPrincipal,
+		long nodeId, java.lang.String folderName, java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class,
-					"deleteTempPageAttachment",
-					_deleteTempPageAttachmentParameterTypes13);
+					"deleteTempFileEntry", _deleteTempFileEntryParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
-					fileName, tempFolderName);
+					folderName, fileName);
 
 			try {
 				TunnelUtil.invoke(httpPrincipal, methodHandler);
@@ -1162,17 +1159,15 @@ public class WikiPageServiceHttp {
 		}
 	}
 
-	public static java.lang.String[] getTempPageAttachmentNames(
-		HttpPrincipal httpPrincipal, long nodeId,
-		java.lang.String tempFolderName)
+	public static java.lang.String[] getTempFileNames(
+		HttpPrincipal httpPrincipal, long nodeId, java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(WikiPageServiceUtil.class,
-					"getTempPageAttachmentNames",
-					_getTempPageAttachmentNamesParameterTypes35);
+					"getTempFileNames", _getTempFileNamesParameterTypes35);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, nodeId,
-					tempFolderName);
+					folderName);
 
 			Object returnObj = null;
 
@@ -1561,7 +1556,7 @@ public class WikiPageServiceHttp {
 	private static final Class<?>[] _addPageAttachmentsParameterTypes4 = new Class[] {
 			long.class, java.lang.String.class, java.util.List.class
 		};
-	private static final Class<?>[] _addTempPageAttachmentParameterTypes5 = new Class[] {
+	private static final Class<?>[] _addTempFileEntryParameterTypes5 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,
 			java.io.InputStream.class, java.lang.String.class
 		};
@@ -1589,7 +1584,7 @@ public class WikiPageServiceHttp {
 	private static final Class<?>[] _deletePageAttachmentsParameterTypes12 = new Class[] {
 			long.class, java.lang.String.class
 		};
-	private static final Class<?>[] _deleteTempPageAttachmentParameterTypes13 = new Class[] {
+	private static final Class<?>[] _deleteTempFileEntryParameterTypes13 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class
 		};
 	private static final Class<?>[] _deleteTrashPageAttachmentsParameterTypes14 = new Class[] {
@@ -1666,7 +1661,7 @@ public class WikiPageServiceHttp {
 	private static final Class<?>[] _getRecentChangesCountParameterTypes34 = new Class[] {
 			long.class, long.class
 		};
-	private static final Class<?>[] _getTempPageAttachmentNamesParameterTypes35 = new Class[] {
+	private static final Class<?>[] _getTempFileNamesParameterTypes35 = new Class[] {
 			long.class, java.lang.String.class
 		};
 	private static final Class<?>[] _movePageParameterTypes36 = new Class[] {

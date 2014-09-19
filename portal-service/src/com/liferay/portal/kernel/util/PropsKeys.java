@@ -811,6 +811,8 @@ public interface PropsKeys {
 
 	public static final String DL_REPOSITORY_IMPL = "dl.repository.impl";
 
+	public static final String DL_SHOW_HIDDEN_MOUNT_FOLDERS = "dl.show.hidden.mount.folders";
+
 	public static final String DL_SHOW_LIFERAY_SYNC_MESSAGE = "dl.show.liferay.sync.message";
 
 	public static final String DL_STORE_ADVANCED_FILE_SYSTEM_ROOT_DIR = "dl.store.advanced.file.system.root.dir";
@@ -1065,6 +1067,8 @@ public interface PropsKeys {
 
 	public static final String INDEX_SEARCH_HIGHLIGHT_FRAGMENT_SIZE = "index.search.highlight.fragment.size";
 
+	public static final String INDEX_SEARCH_HIGHLIGHT_REQUIRE_FIELD_MATCH = "index.search.highlight.require.field.match";
+
 	public static final String INDEX_SEARCH_HIGHLIGHT_SNIPPET_SIZE = "index.search.highlight.snippet.size";
 
 	public static final String INDEX_SEARCH_LIMIT = "index.search.limit";
@@ -1122,12 +1126,6 @@ public interface PropsKeys {
 	public static final String INTRABAND_WELDER_SOCKET_SO_TIMEOUT = "intraband.welder.socket.so.timeout";
 
 	public static final String INTRABAND_WELDER_SOCKET_TCP_NO_DELAY = "intraband.welder.socket.tcp.no.delay";
-
-	public static final String INVITATION_EMAIL_MAX_RECIPIENTS = "invitation.email.max.recipients";
-
-	public static final String INVITATION_EMAIL_MESSAGE_BODY = "invitation.email.message.body";
-
-	public static final String INVITATION_EMAIL_MESSAGE_SUBJECT = "invitation.email.message.subject";
 
 	public static final String INVOKER_FILTER_CHAIN_SIZE = "invoker.filter.chain.cache.size";
 
@@ -1398,8 +1396,6 @@ public interface PropsKeys {
 	public static final String LAYOUT_STATIC_PORTLETS_START = "layout.static.portlets.start.";
 
 	public static final String LAYOUT_TEMPLATE_CACHE_ENABLED = "layout.template.cache.enabled";
-
-	public static final String LAYOUT_TYPES = "layout.types";
 
 	public static final String LAYOUT_URL = "layout.url";
 
@@ -2543,7 +2539,13 @@ public interface PropsKeys {
 
 	public static final String THEME_CSS_FAST_LOAD = "theme.css.fast.load";
 
+	public static final String THEME_CSS_FAST_LOAD_CHECK_MODIFIED_DATE = "theme.css.fast.load.check.modified.date";
+
+	public static final String THEME_CSS_FAST_LOAD_CHECK_REQUEST_PARAMETER = "theme.css.fast.load.check.request.parameter";
+
 	public static final String THEME_IMAGES_FAST_LOAD = "theme.images.fast.load";
+
+	public static final String THEME_IMAGES_FAST_LOAD_CHECK_REQUEST_PARAMETER = "theme.images.fast.load.check.request.parameter";
 
 	public static final String THEME_JSP_OVERRIDE_ENABLED = "theme.jsp.override.enabled";
 

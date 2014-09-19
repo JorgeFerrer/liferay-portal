@@ -68,7 +68,6 @@ layout.form.update
 layout.set.form.update
 layout.static.portlets.all
 layout.template.cache.enabled
-layout.types
 layout.user.private.layouts.auto.create
 layout.user.private.layouts.enabled
 layout.user.private.layouts.power.user.required

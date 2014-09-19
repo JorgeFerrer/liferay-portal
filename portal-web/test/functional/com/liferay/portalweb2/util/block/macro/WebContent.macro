@@ -124,15 +124,6 @@
 		</if>
 
 		<if>
-			<isset var="webContentLinkToPage" />
-			<then>
-				<var name="key_indexNumber" value="${indexNumber}" />
-
-				<execute action="CPWebcontentAddwebcontent#select" locator-key1="LINK_TO_PAGE_FIELD" value1="index=${key_indexNumber}" />
-			</then>
-		</if>
-
-		<if>
 			<isset var="webContentNumber" />
 			<then>
 				<var name="key_fieldName" value="Number" />
@@ -514,6 +505,15 @@
 		<execute action="CPWebcontentAddwebcontent#type" locator-key1="CONTENT_FIELD" value1="${webContentContent}" />
 		<execute action="CPWebcontentAddwebcontent#assertClick" locator-key1="MENU_CATEGORIZATION" value1="Categorization" />
 
+		<if>
+			<isset var="userSegmentDetailTitle" />
+			<then>
+				<var name="key_userSegmentDetailTitle" value="${userSegmentDetailTitle}" />
+
+				<execute action="CPWebcontentAddwebcontent#assertTextEquals" locator-key1="USER_SEGMENT_DETAIL_TITLE" value1="${userSegmentDetailTitle}" />
+			</then>
+		</if>
+
 		<var name="key_categoryName" value="${categoryName}" />
 		<var name="key_vocabularyName" value="${vocabularyName}" />
 
@@ -549,7 +549,7 @@
 
 		<var name="key_structureName" value="${structureName}" />
 
-		<execute action="PGWebcontentdisplayAddwebcontentStructures#assertClick" locator-key1="STRUCTURE_TABLE_CHOOSE_BUTTON" value1="Choose" />
+		<execute action="PGWebcontentdisplayAddwebcontentStructures#assertClickNoError" locator-key1="STRUCTURE_TABLE_CHOOSE_BUTTON" value1="Choose" />
 		<execute action="PGWebcontentdisplayAddwebcontentStructures#confirm" locator-key1="CONFIRMATION" value1="Selecting a new structure will change the available input fields and available templates? Do you want to proceed?" />
 		<execute action="PGWebcontentdisplayAddwebcontentStructures#selectFrame" value1="relative=top" />
 
@@ -673,7 +673,9 @@
 		<if>
 			<isset var="webContentLinkToPage" />
 			<then>
-				<execute action="CPWebcontentAddwebcontent#type" locator-key1="LINK_TO_PAGE_FIELD" value1="${webContentLinkToPage}" />
+				<var name="key_linkedPageName" value="${linkedPageName}" />
+
+				<execute action="CPWebcontentAddwebcontent#select" locator-key1="LINK_TO_PAGE_SELECT" value1="regexp:–\s+${linkedPageName}" />
 			</then>
 		</if>
 
@@ -999,7 +1001,7 @@
 			<execute action="CPWebcontentEditwebcontent#check" locator-key1="VIEW_HISTORY_VERSION_CHECKBOX" />
 		</for>
 
-		<execute action="CPWebcontentEditwebcontent#assertClick" locator-key1="VIEW_HISTORY_EXPIRE_BUTTON" value1="Expire" />
+		<execute action="CPWebcontentEditwebcontent#assertClickNoError" locator-key1="VIEW_HISTORY_EXPIRE_BUTTON" value1="Expire" />
 		<execute action="CPWebcontentEditwebcontent#confirm" locator-key1="CONFIRMATION" value1="Are you sure you want to expire the selected version?" />
 	</command>
 
@@ -1146,7 +1148,7 @@
 		<var name="key_templateName" value="${templateName}" />
 
 		<execute action="CPWebcontentSelecttemplate#selectFrame" locator-key1="TEMPLATES_IFRAME" />
-		<execute action="CPWebcontentSelecttemplate#assertClick" locator-key1="TEMPLATE_TABLE_CHOOSE" value1="Choose" />
+		<execute action="CPWebcontentSelecttemplate#assertClickNoError" locator-key1="TEMPLATE_TABLE_CHOOSE" value1="Choose" />
 		<execute action="CPWebcontentSelecttemplate#confirm" locator-key1="CONFIRMATION" value1="Selecting a new template will delete all unsaved content. Do you want to proceed?" />
 
 		<execute action="CPWebcontentAddwebcontent#assertClick" locator-key1="PUBLISH_BUTTON" value1="Publish" />

@@ -28,7 +28,7 @@ import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.TempFileUtil;
+import com.liferay.portal.kernel.util.TempFileEntryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -285,16 +285,15 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 	@Override
 	public FileEntry addTempFileEntry(
-			long groupId, String fileName, String tempFolderName,
+			long groupId, String folderName, String fileName,
 			InputStream inputStream, String mimeType)
 		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.EXPORT_IMPORT_LAYOUTS);
 
-		return TempFileUtil.addTempFile(
-			groupId, getUserId(), fileName, tempFolderName, inputStream,
-			mimeType);
+		return TempFileEntryUtil.addTempFileEntry(
+			groupId, getUserId(), folderName, fileName, inputStream, mimeType);
 	}
 
 	/**
@@ -345,14 +344,14 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 	@Override
 	public void deleteTempFileEntry(
-			long groupId, String fileName, String tempFolderName)
+			long groupId, String folderName, String fileName)
 		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.EXPORT_IMPORT_LAYOUTS);
 
-		TempFileUtil.deleteTempFile(
-			groupId, getUserId(), fileName, tempFolderName);
+		TempFileEntryUtil.deleteTempFileEntry(
+			groupId, getUserId(), folderName, fileName);
 	}
 
 	/**
@@ -895,14 +894,14 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 	}
 
 	@Override
-	public String[] getTempFileEntryNames(long groupId, String tempFolderName)
+	public String[] getTempFileNames(long groupId, String folderName)
 		throws PortalException {
 
 		GroupPermissionUtil.check(
 			getPermissionChecker(), groupId, ActionKeys.EXPORT_IMPORT_LAYOUTS);
 
-		return TempFileUtil.getTempFileEntryNames(
-			groupId, getUserId(), tempFolderName);
+		return TempFileEntryUtil.getTempFileNames(
+			groupId, getUserId(), folderName);
 	}
 
 	/**

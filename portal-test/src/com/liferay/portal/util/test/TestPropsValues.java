@@ -14,9 +14,8 @@
 
 package com.liferay.portal.util.test;
 
+import com.liferay.portal.kernel.exception.LoggedExceptionInInitializerError;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -55,6 +54,26 @@ public class TestPropsValues {
 
 	public static final String USER_PASSWORD = TestPropsUtil.get(
 		"user.password");
+
+	static {
+		String companyWebId = TestPropsUtil.get("company.web.id");
+
+		try {
+			if (Validator.isNull(companyWebId)) {
+				companyWebId = GetterUtil.getString(
+					PropsUtil.get(PropsKeys.COMPANY_DEFAULT_WEB_ID));
+
+				TestPropsUtil.set("company.web.id", companyWebId);
+			}
+		}
+		catch (Exception e) {
+			throw new LoggedExceptionInInitializerError(e);
+		}
+
+		TestPropsUtil.printProperties();
+
+		COMPANY_WEB_ID = companyWebId;
+	}
 
 	public static long getCompanyId() throws PortalException {
 		if (_companyId > 0) {
@@ -116,32 +135,10 @@ public class TestPropsValues {
 		return _userId;
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(TestPropsValues.class);
-
 	private static long _companyId;
 	private static long _groupId;
 	private static long _plid;
 	private static User _user;
 	private static long _userId;
-
-	static {
-		String companyWebId = TestPropsUtil.get("company.web.id");
-
-		try {
-			if (Validator.isNull(companyWebId)) {
-				companyWebId = GetterUtil.getString(
-					PropsUtil.get(PropsKeys.COMPANY_DEFAULT_WEB_ID));
-
-				TestPropsUtil.set("company.web.id", companyWebId);
-			}
-		}
-		catch (Exception e) {
-			_log.fatal("Error initializing test properties", e);
-		}
-
-		TestPropsUtil.printProperties();
-
-		COMPANY_WEB_ID = companyWebId;
-	}
 
 }

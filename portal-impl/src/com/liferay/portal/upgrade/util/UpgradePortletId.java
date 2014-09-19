@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.ResourceConstants;
-import com.liferay.portal.model.impl.LayoutTypePortletImpl;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 
 import java.sql.Connection;
@@ -69,7 +68,7 @@ public class UpgradePortletId extends UpgradeProcess {
 				continue;
 			}
 
-			String instanceId = LayoutTypePortletImpl.generateInstanceId();
+			String instanceId = PortletConstants.generateInstanceId();
 
 			String newPortletId = PortletConstants.assemblePortletId(
 				portletId, instanceId);
@@ -426,20 +425,28 @@ public class UpgradePortletId extends UpgradeProcess {
 					int pos = primKey.indexOf(
 						PortletConstants.LAYOUT_SEPARATOR);
 
-					long plid = GetterUtil.getLong(primKey.substring(0, pos));
+					if (pos != -1) {
+						long plid = GetterUtil.getLong(
+							primKey.substring(0, pos));
 
-					String portletId = primKey.substring(
-						pos + PortletConstants.LAYOUT_SEPARATOR.length());
+						String portletId = primKey.substring(
+							pos + PortletConstants.LAYOUT_SEPARATOR.length());
 
-					String instanceId = PortletConstants.getInstanceId(
-						portletId);
-					long userId = PortletConstants.getUserId(portletId);
+						String instanceId = PortletConstants.getInstanceId(
+							portletId);
+						long userId = PortletConstants.getUserId(portletId);
 
-					String newPortletId = PortletConstants.assemblePortletId(
-						newRootPortletId, userId, instanceId);
+						String newPortletId =
+							PortletConstants.assemblePortletId(
+								newRootPortletId, userId, instanceId);
 
-					primKey = PortletPermissionUtil.getPrimaryKey(
-						plid, newPortletId);
+						primKey = PortletPermissionUtil.getPrimaryKey(
+							plid, newPortletId);
+					}
+
+					if (name.equals(primKey)) {
+						primKey = newName;
+					}
 				}
 
 				updateResourcePermission(

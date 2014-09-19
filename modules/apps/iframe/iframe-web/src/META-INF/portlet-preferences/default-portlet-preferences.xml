@@ -17,16 +17,4 @@
 		<name>hidden-variables</name>
 		<value>var1=hello;var2=world</value>
 	</preference>
-	<preference>
-		<name>password</name>
-		<value/>
-	</preference>
-	<preference>
-		<name>src</name>
-		<value/>
-	</preference>
-	<preference>
-		<name>user-name</name>
-		<value/>
-	</preference>
 </portlet-preferences>

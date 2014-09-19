@@ -78,11 +78,11 @@ long folderId = BeanParamUtil.getLong(fileEntry, request, "folderId");
 							metadataExplanationContainer: '#<portlet:namespace />metadataExplanationContainer',
 							namespace: '<portlet:namespace />',
 							tempFileURL: {
-								method: Liferay.Service.bind('/dlapp/get-temp-file-entry-names'),
+								method: Liferay.Service.bind('/dlapp/get-temp-file-names'),
 								params: {
 									groupId: <%= scopeGroupId %>,
 									folderId: <%= folderId %>,
-									tempFolderName: 'com.liferay.portlet.documentlibrary.action.EditFileEntryAction'
+									folderName: 'com.liferay.portlet.documentlibrary.action.EditFileEntryAction'
 								}
 							},
 							tempRandomSuffix: '<%= EditFileEntryAction.TEMP_RANDOM_SUFFIX %>',

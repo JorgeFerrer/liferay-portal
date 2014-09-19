@@ -78,12 +78,12 @@ public class WikiPageServiceWrapper implements WikiPageService,
 	}
 
 	@Override
-	public void addTempPageAttachment(long nodeId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.InputStream inputStream,
+	public void addTempFileEntry(long nodeId, java.lang.String folderName,
+		java.lang.String fileName, java.io.InputStream inputStream,
 		java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		_wikiPageService.addTempPageAttachment(nodeId, fileName,
-			tempFolderName, inputStream, mimeType);
+		_wikiPageService.addTempFileEntry(nodeId, folderName, fileName,
+			inputStream, mimeType);
 	}
 
 	@Override
@@ -141,11 +141,10 @@ public class WikiPageServiceWrapper implements WikiPageService,
 	}
 
 	@Override
-	public void deleteTempPageAttachment(long nodeId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+	public void deleteTempFileEntry(long nodeId, java.lang.String folderName,
+		java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		_wikiPageService.deleteTempPageAttachment(nodeId, fileName,
-			tempFolderName);
+		_wikiPageService.deleteTempFileEntry(nodeId, folderName, fileName);
 	}
 
 	@Override
@@ -329,11 +328,10 @@ public class WikiPageServiceWrapper implements WikiPageService,
 	}
 
 	@Override
-	public java.lang.String[] getTempPageAttachmentNames(long nodeId,
-		java.lang.String tempFolderName)
+	public java.lang.String[] getTempFileNames(long nodeId,
+		java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _wikiPageService.getTempPageAttachmentNames(nodeId,
-			tempFolderName);
+		return _wikiPageService.getTempFileNames(nodeId, folderName);
 	}
 
 	/**

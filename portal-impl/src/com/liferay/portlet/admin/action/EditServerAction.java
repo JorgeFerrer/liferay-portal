@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.log.SanitizerLogWrapper;
 import com.liferay.portal.kernel.mail.Account;
 import com.liferay.portal.kernel.messaging.BaseAsyncDestination;
 import com.liferay.portal.kernel.messaging.Destination;
@@ -528,7 +529,9 @@ public class EditServerAction extends PortletAction {
 			SessionErrors.add(
 				actionRequest, ScriptingException.class.getName(), se);
 
-			_log.error(se.getMessage());
+			Log log = SanitizerLogWrapper.allowCRLF(_log);
+
+			log.error(se.getMessage());
 		}
 	}
 
@@ -619,7 +622,9 @@ public class EditServerAction extends PortletAction {
 
 	protected void threadDump() throws Exception {
 		if (_log.isInfoEnabled()) {
-			_log.info(ThreadUtil.threadDump());
+			Log log = SanitizerLogWrapper.allowCRLF(_log);
+
+			log.info(ThreadUtil.threadDump());
 		}
 		else {
 			_log.error(

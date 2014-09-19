@@ -73,8 +73,8 @@ public interface WikiPageService extends BaseService {
 		java.util.List<com.liferay.portal.kernel.util.ObjectValuePair<java.lang.String, java.io.InputStream>> inputStreamOVPs)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public void addTempPageAttachment(long nodeId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.InputStream inputStream,
+	public void addTempFileEntry(long nodeId, java.lang.String folderName,
+		java.lang.String fileName, java.io.InputStream inputStream,
 		java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
@@ -109,8 +109,8 @@ public interface WikiPageService extends BaseService {
 	public void deletePageAttachments(long nodeId, java.lang.String title)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public void deleteTempPageAttachment(long nodeId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+	public void deleteTempFileEntry(long nodeId, java.lang.String folderName,
+		java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public void deleteTrashPageAttachments(long nodeId, java.lang.String title)
@@ -236,8 +236,8 @@ public interface WikiPageService extends BaseService {
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.lang.String[] getTempPageAttachmentNames(long nodeId,
-		java.lang.String tempFolderName)
+	public java.lang.String[] getTempFileNames(long nodeId,
+		java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**

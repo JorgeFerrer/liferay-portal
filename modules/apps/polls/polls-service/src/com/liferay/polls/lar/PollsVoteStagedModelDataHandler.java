@@ -14,7 +14,7 @@
 
 package com.liferay.polls.lar;
 
-import com.liferay.polls.DuplicateVoteException;
+import com.liferay.polls.exception.DuplicateVoteException;
 import com.liferay.polls.model.PollsChoice;
 import com.liferay.polls.model.PollsQuestion;
 import com.liferay.polls.model.PollsVote;
@@ -116,9 +116,6 @@ public class PollsVoteStagedModelDataHandler
 	protected void doImportStagedModel(
 			PortletDataContext portletDataContext, PollsVote vote)
 		throws Exception {
-
-		StagedModelDataHandlerUtil.importReferenceStagedModel(
-			portletDataContext, vote, PollsChoice.class, vote.getChoiceId());
 
 		Map<Long, Long> questionIds =
 			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(

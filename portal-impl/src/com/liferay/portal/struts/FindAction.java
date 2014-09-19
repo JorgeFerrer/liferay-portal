@@ -29,6 +29,7 @@ import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.impl.VirtualLayout;
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
@@ -75,7 +76,6 @@ public abstract class FindAction extends Action {
 			WebKeys.THEME_DISPLAY);
 
 		try {
-			long plid = ParamUtil.getLong(request, "p_l_id");
 			long primaryKey = ParamUtil.getLong(
 				request, getPrimaryKeyParameterName());
 
@@ -98,11 +98,15 @@ public abstract class FindAction extends Action {
 			}
 
 			Object[] plidAndPortletId = getPlidAndPortletId(
-				themeDisplay, groupId, plid, _portletIds);
+				themeDisplay, groupId, themeDisplay.getPlid(), _portletIds);
 
-			plid = (Long)plidAndPortletId[0];
+			long plid = (Long)plidAndPortletId[0];
 
-			setTargetGroup(request, groupId, plid);
+			Layout layout = setTargetLayout(request, groupId, plid);
+
+			LayoutPermissionUtil.check(
+				themeDisplay.getPermissionChecker(), layout, true,
+				ActionKeys.VIEW);
 
 			String portletId = (String)plidAndPortletId[1];
 
@@ -153,7 +157,8 @@ public abstract class FindAction extends Action {
 				noSuchEntryRedirect);
 
 			if (Validator.isNotNull(noSuchEntryRedirect) &&
-				(e instanceof NoSuchLayoutException)) {
+				(e instanceof NoSuchLayoutException ||
+				 e instanceof PrincipalException)) {
 
 				response.sendRedirect(noSuchEntryRedirect);
 			}
@@ -277,7 +282,7 @@ public abstract class FindAction extends Action {
 		return portletId;
 	}
 
-	protected static void setTargetGroup(
+	protected static Layout setTargetLayout(
 			HttpServletRequest request, long groupId, long plid)
 		throws Exception {
 
@@ -296,12 +301,14 @@ public abstract class FindAction extends Action {
 			 !SitesUtil.isUserGroupLayoutSetViewable(
 				permissionChecker, layout.getGroup()))) {
 
-			return;
+			return layout;
 		}
 
 		layout = new VirtualLayout(layout, group);
 
 		request.setAttribute(WebKeys.LAYOUT, layout);
+
+		return layout;
 	}
 
 	protected abstract long getGroupId(long primaryKey) throws Exception;

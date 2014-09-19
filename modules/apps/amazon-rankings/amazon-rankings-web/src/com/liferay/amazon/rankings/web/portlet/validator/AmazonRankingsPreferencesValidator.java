@@ -18,6 +18,7 @@ import com.liferay.amazon.rankings.web.model.AmazonRankings;
 import com.liferay.amazon.rankings.web.util.AmazonRankingsUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +48,13 @@ public class AmazonRankingsPreferencesValidator
 		List<String> badIsbns = new ArrayList<String>();
 
 		String amazonAccessKeyId = portletPreferences.getValue(
-			"amazon.access.key.id", "");
+			"amazon.access.key.id", StringPool.BLANK);
 		String amazonAssociateTag = portletPreferences.getValue(
-			"amazon.associate.tag" , "");
+			"amazon.associate.tag" , StringPool.BLANK);
 		String amazonSecretAccessKey = portletPreferences.getValue(
-			"amazon.secret.access.key", "");
-		String[] isbns = portletPreferences.getValues("isbns", new String[0]);
+			"amazon.secret.access.key", StringPool.BLANK);
+		String[] isbns = portletPreferences.getValues(
+			"isbns", StringPool.EMPTY_ARRAY);
 
 		for (String isbn : isbns) {
 			AmazonRankings amazonRankings =

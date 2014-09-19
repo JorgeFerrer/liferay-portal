@@ -19,7 +19,7 @@
 <%
 boolean validate = ParamUtil.getBoolean(request, "validate", true);
 
-String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(scopeGroupId, ExportImportHelper.TEMP_FOLDER_NAME + portletDisplay.getId());
+String[] tempFileNames = LayoutServiceUtil.getTempFileNames(scopeGroupId, ExportImportHelper.TEMP_FOLDER_NAME + portletDisplay.getId());
 %>
 
 <liferay-ui:tabs
@@ -41,7 +41,7 @@ String[] tempFileEntryNames = LayoutServiceUtil.getTempFileEntryNames(scopeGroup
 			</div>
 
 			<c:choose>
-				<c:when test="<%= (tempFileEntryNames.length > 0) && !validate %>">
+				<c:when test="<%= (tempFileNames.length > 0) && !validate %>">
 					<liferay-util:include page="/html/portlet/portlet_configuration/import_portlet_resources.jsp" />
 				</c:when>
 				<c:otherwise>

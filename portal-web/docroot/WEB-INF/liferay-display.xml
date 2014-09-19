@@ -38,15 +38,12 @@
 		<portlet id="188" />
 		<portlet id="28" />
 		<portlet id="29" />
-		<portlet id="100" />
 		<portlet id="107" />
 		<portlet id="108" />
 		<portlet id="143" />
 	</category>
 	<category name="category.entertainment" />
-	<category name="category.finance">
-		<portlet id="61" />
-	</category>
+	<category name="category.finance" />
 	<category name="category.hidden">
 		<portlet id="9" />
 		<portlet id="15" />

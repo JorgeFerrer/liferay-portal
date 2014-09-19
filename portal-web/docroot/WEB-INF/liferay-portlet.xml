@@ -563,16 +563,6 @@
 		<add-default-resource>true</add-default-resource>
 	</portlet>
 	<portlet>
-		<portlet-name>61</portlet-name>
-		<icon>/html/icons/loan_calculator.png</icon>
-		<struts-path>loan_calculator</struts-path>
-		<remoteable>true</remoteable>
-		<private-request-attributes>false</private-request-attributes>
-		<private-session-attributes>false</private-session-attributes>
-		<render-weight>50</render-weight>
-		<css-class-wrapper>portlet-loan-calculator</css-class-wrapper>
-	</portlet>
-	<portlet>
 		<portlet-name>62</portlet-name>
 		<icon>/html/icons/journal_articles.png</icon>
 		<struts-path>journal_articles</struts-path>
@@ -822,18 +812,6 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/asset_tag_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-asset-tag-admin</css-class-wrapper>
-	</portlet>
-	<portlet>
-		<portlet-name>100</portlet-name>
-		<icon>/html/icons/default.png</icon>
-		<struts-path>invitation</struts-path>
-		<configuration-action-class>com.liferay.portlet.invitation.action.ConfigurationActionImpl</configuration-action-class>
-		<preferences-owned-by-group>true</preferences-owned-by-group>
-		<use-default-template>false</use-default-template>
-		<private-request-attributes>false</private-request-attributes>
-		<private-session-attributes>false</private-session-attributes>
-		<render-weight>50</render-weight>
-		<css-class-wrapper>portlet-invitation</css-class-wrapper>
 	</portlet>
 	<portlet>
 		<portlet-name>101</portlet-name>

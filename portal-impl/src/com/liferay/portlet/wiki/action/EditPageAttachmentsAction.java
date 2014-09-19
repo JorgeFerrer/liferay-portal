@@ -27,7 +27,7 @@ import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TempFileUtil;
+import com.liferay.portal.kernel.util.TempFileEntryUtil;
 import com.liferay.portal.model.TrashedModel;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.security.auth.PrincipalException;
@@ -246,9 +246,9 @@ public class EditPageAttachmentsAction extends EditFileEntryAction {
 		FileEntry tempFileEntry = null;
 
 		try {
-			tempFileEntry = TempFileUtil.getTempFile(
+			tempFileEntry = TempFileEntryUtil.getTempFileEntry(
 				themeDisplay.getScopeGroupId(), themeDisplay.getUserId(),
-				selectedFileName, _TEMP_FOLDER_NAME);
+				_TEMP_FOLDER_NAME, selectedFileName);
 
 			InputStream inputStream = tempFileEntry.getContentStream();
 			String mimeType = tempFileEntry.getMimeType();
@@ -270,7 +270,8 @@ public class EditPageAttachmentsAction extends EditFileEntryAction {
 		}
 		finally {
 			if (tempFileEntry != null) {
-				TempFileUtil.deleteTempFile(tempFileEntry.getFileEntryId());
+				TempFileEntryUtil.deleteTempFileEntry(
+					tempFileEntry.getFileEntryId());
 			}
 		}
 	}
@@ -291,7 +292,7 @@ public class EditPageAttachmentsAction extends EditFileEntryAction {
 
 			String mimeType = uploadPortletRequest.getContentType("file");
 
-			WikiPageServiceUtil.addTempPageAttachment(
+			WikiPageServiceUtil.addTempFileEntry(
 				nodeId, sourceFileName, _TEMP_FOLDER_NAME, inputStream,
 				mimeType);
 		}
@@ -343,7 +344,7 @@ public class EditPageAttachmentsAction extends EditFileEntryAction {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		try {
-			WikiPageServiceUtil.deleteTempPageAttachment(
+			WikiPageServiceUtil.deleteTempFileEntry(
 				nodeId, fileName, _TEMP_FOLDER_NAME);
 
 			jsonObject.put("deleted", Boolean.TRUE);

@@ -128,7 +128,7 @@ public class DynamicCSSUtil {
 				if (PortalUtil.isRightToLeft(request) &&
 					!RTLCSSUtil.isExcludedPath(resourcePath)) {
 
-					content = RTLCSSUtil.getRtlCss(content);
+					content = RTLCSSUtil.getRtlCss(resourcePath, content);
 				}
 
 				return content;
@@ -138,6 +138,16 @@ public class DynamicCSSUtil {
 		String parsedContent = null;
 
 		boolean themeCssFastLoad = _isThemeCssFastLoad(request, themeDisplay);
+
+		URLConnection resourceURLConnection = null;
+
+		if (PropsValues.THEME_CSS_FAST_LOAD_CHECK_MODIFIED_DATE) {
+			URL resourceURL = servletContext.getResource(resourcePath);
+
+			if (resourceURL != null) {
+				resourceURLConnection = resourceURL.openConnection();
+			}
+		}
 
 		URLConnection cacheResourceURLConnection = null;
 
@@ -149,7 +159,10 @@ public class DynamicCSSUtil {
 		}
 
 		if ((themeCssFastLoad || !content.contains(_CSS_IMPORT_BEGIN)) &&
-			(cacheResourceURLConnection != null)) {
+			(cacheResourceURLConnection != null) &&
+			(resourceURLConnection != null) &&
+			(cacheResourceURLConnection.getLastModified() >=
+				resourceURLConnection.getLastModified())) {
 
 			parsedContent = StringUtil.read(
 				cacheResourceURLConnection.getInputStream());
@@ -181,7 +194,8 @@ public class DynamicCSSUtil {
 			if (PortalUtil.isRightToLeft(request) &&
 				!RTLCSSUtil.isExcludedPath(resourcePath)) {
 
-				parsedContent = RTLCSSUtil.getRtlCss(parsedContent);
+				parsedContent = RTLCSSUtil.getRtlCss(
+					resourcePath, parsedContent);
 
 				// Append custom CSS for RTL
 
@@ -499,6 +513,10 @@ public class DynamicCSSUtil {
 
 	private static boolean _isThemeCssFastLoad(
 		HttpServletRequest request, ThemeDisplay themeDisplay) {
+
+		if (!PropsValues.THEME_CSS_FAST_LOAD_CHECK_REQUEST_PARAMETER) {
+			return PropsValues.THEME_CSS_FAST_LOAD;
+		}
 
 		if (themeDisplay != null) {
 			return themeDisplay.isThemeCssFastLoad();

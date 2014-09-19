@@ -218,12 +218,11 @@ public class LayoutServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.repository.model.FileEntry addTempFileEntry(
-		long groupId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.InputStream inputStream,
-		java.lang.String mimeType)
+		long groupId, java.lang.String folderName, java.lang.String fileName,
+		java.io.InputStream inputStream, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .addTempFileEntry(groupId, fileName, tempFolderName,
+				   .addTempFileEntry(groupId, folderName, fileName,
 			inputStream, mimeType);
 	}
 
@@ -263,9 +262,9 @@ public class LayoutServiceUtil {
 	}
 
 	public static void deleteTempFileEntry(long groupId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+		java.lang.String folderName, java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		getService().deleteTempFileEntry(groupId, fileName, tempFolderName);
+		getService().deleteTempFileEntry(groupId, folderName, fileName);
 	}
 
 	/**
@@ -620,10 +619,10 @@ public class LayoutServiceUtil {
 				   .getLayoutsCount(groupId, privateLayout, parentLayoutId);
 	}
 
-	public static java.lang.String[] getTempFileEntryNames(long groupId,
-		java.lang.String tempFolderName)
+	public static java.lang.String[] getTempFileNames(long groupId,
+		java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getTempFileEntryNames(groupId, tempFolderName);
+		return getService().getTempFileNames(groupId, folderName);
 	}
 
 	/**

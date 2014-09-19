@@ -18,8 +18,7 @@ import com.liferay.portal.kernel.cluster.ClusterNode;
 import com.liferay.portal.kernel.cluster.ClusterNodeResponse;
 import com.liferay.portal.kernel.cluster.ClusterNodeResponses;
 import com.liferay.portal.kernel.cluster.FutureClusterResponses;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.exception.LoggedExceptionInInitializerError;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.model.ClusterGroup;
@@ -36,7 +35,7 @@ public class PortalManagerUtil {
 	public static MethodHandler createManageActionMethodHandler(
 		ManageAction<?> manageAction) {
 
-		return new MethodHandler(_manageMethod, manageAction);
+		return new MethodHandler(_MANAGE_METHOD, manageAction);
 	}
 
 	public static PortalManager getPortalManager() {
@@ -100,18 +99,17 @@ public class PortalManagerUtil {
 		_portalManager = portalManager;
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(PortalManagerUtil.class);
+	private static final Method _MANAGE_METHOD;
 
-	private static Method _manageMethod;
 	private static PortalManager _portalManager;
 
 	static {
 		try {
-			_manageMethod = PortalManagerUtil.class.getDeclaredMethod(
+			_MANAGE_METHOD = PortalManagerUtil.class.getDeclaredMethod(
 				"manage", ManageAction.class);
 		}
 		catch (Exception e) {
-			_log.error(e, e);
+			throw new LoggedExceptionInInitializerError(e);
 		}
 	}
 

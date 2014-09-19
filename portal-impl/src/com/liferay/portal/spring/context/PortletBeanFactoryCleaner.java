@@ -130,20 +130,6 @@ public class PortletBeanFactoryCleaner implements BeanFactoryAware {
 
 	private static final Field _SHADOW_MATCH_CACHE_FIELD;
 
-	static {
-		Field shadowMatchCacheField = null;
-
-		try {
-			shadowMatchCacheField = ReflectionUtil.getDeclaredField(
-				AspectJExpressionPointcut.class, "shadowMatchCache");
-		}
-		catch (Exception e) {
-			throw new LoggedExceptionInInitializerError(e);
-		}
-
-		_SHADOW_MATCH_CACHE_FIELD = shadowMatchCacheField;
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(
 		PortletBeanFactoryCleaner.class);
 
@@ -152,5 +138,15 @@ public class PortletBeanFactoryCleaner implements BeanFactoryAware {
 	private static BeanFactory _beanFactory;
 	private static final Set<BeanFactoryAware> _beanFactoryAwares =
 		new HashSet<BeanFactoryAware>();
+
+	static {
+		try {
+			_SHADOW_MATCH_CACHE_FIELD = ReflectionUtil.getDeclaredField(
+				AspectJExpressionPointcut.class, "shadowMatchCache");
+		}
+		catch (Exception e) {
+			throw new LoggedExceptionInInitializerError(e);
+		}
+	}
 
 }

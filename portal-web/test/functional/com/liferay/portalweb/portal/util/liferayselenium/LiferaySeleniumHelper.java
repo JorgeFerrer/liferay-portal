@@ -36,7 +36,6 @@ import com.liferay.portalweb.portal.util.TestPropsValues;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
-import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 
 import java.io.BufferedReader;
@@ -813,6 +812,19 @@ public class LiferaySeleniumHelper {
 			}
 		}
 
+		// LPS-50047
+
+		if (line.matches(
+				".*The web application \\[\\] created a ThreadLocal with key " +
+					"of type.*")) {
+
+			if (line.contains(
+					"[com.sun.syndication.feed.impl.ToStringBean$1]")) {
+
+				return true;
+			}
+		}
+
 		if (Validator.equals(
 				TestPropsValues.LIFERAY_PORTAL_BUNDLE, "6.2.10.1") ||
 			Validator.equals(
@@ -1027,9 +1039,9 @@ public class LiferaySeleniumHelper {
 
 		robot.delay(1000);
 
-		robot.mousePress(InputEvent.BUTTON1_MASK);
+		_screen.mouseDown(Button.LEFT);
 
-		robot.delay(1000);
+		liferaySelenium.pause("2000");
 
 		String[] coords = coordString.split(",");
 
@@ -1042,7 +1054,7 @@ public class LiferaySeleniumHelper {
 
 		robot.delay(1500);
 
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
+		_screen.mouseUp(Button.LEFT);
 	}
 
 	public static void sikuliLeftMouseDown(LiferaySelenium liferaySelenium)

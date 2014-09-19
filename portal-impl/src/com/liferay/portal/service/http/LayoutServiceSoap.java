@@ -355,11 +355,10 @@ public class LayoutServiceSoap {
 	}
 
 	public static void deleteTempFileEntry(long groupId,
-		java.lang.String fileName, java.lang.String tempFolderName)
+		java.lang.String folderName, java.lang.String fileName)
 		throws RemoteException {
 		try {
-			LayoutServiceUtil.deleteTempFileEntry(groupId, fileName,
-				tempFolderName);
+			LayoutServiceUtil.deleteTempFileEntry(groupId, folderName, fileName);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -607,11 +606,11 @@ public class LayoutServiceSoap {
 		}
 	}
 
-	public static java.lang.String[] getTempFileEntryNames(long groupId,
-		java.lang.String tempFolderName) throws RemoteException {
+	public static java.lang.String[] getTempFileNames(long groupId,
+		java.lang.String folderName) throws RemoteException {
 		try {
-			java.lang.String[] returnValue = LayoutServiceUtil.getTempFileEntryNames(groupId,
-					tempFolderName);
+			java.lang.String[] returnValue = LayoutServiceUtil.getTempFileNames(groupId,
+					folderName);
 
 			return returnValue;
 		}

@@ -721,8 +721,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 				FileEntry fileEntry = fromLocalRepository.moveFileEntry(
 					userId, fileEntryId, newFolderId, serviceContext);
 
-				dlAppHelperLocalService.moveFileEntry(fileEntry);
-
 				return fileEntry;
 			}
 
@@ -829,8 +827,6 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 					userId, folderId, parentFolderId, sourceLocalRepository,
 					destinationLocalRepository, serviceContext);
 			}
-
-			dlAppHelperLocalService.moveFolder(folder);
 
 			return folder;
 		}
@@ -1390,6 +1386,8 @@ public class DLAppLocalServiceImpl extends DLAppLocalServiceBaseImpl {
 		dlAppHelperLocalService.deleteRepositoryFileEntries(repositoryId);
 
 		localRepository.deleteAll();
+
+		repositoryLocalService.deleteRepository(repositoryId);
 	}
 
 	protected LocalRepository getFileEntryLocalRepository(long fileEntryId)

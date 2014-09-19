@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.security.jaas;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
 import java.util.Map;
@@ -38,7 +36,7 @@ public class PortalLoginModule implements LoginModule {
 			_loginModule = (LoginModule)clazz.newInstance();
 		}
 		catch (Exception e) {
-			_log.error(e);
+			throw new AssertionError(e);
 		}
 	}
 
@@ -73,8 +71,6 @@ public class PortalLoginModule implements LoginModule {
 	private static final String _CLASS_NAME =
 		"com.liferay.portal.security.jaas.PortalLoginModule";
 
-	private static Log _log = LogFactoryUtil.getLog(PortalLoginModule.class);
-
-	private LoginModule _loginModule;
+	private final LoginModule _loginModule;
 
 }

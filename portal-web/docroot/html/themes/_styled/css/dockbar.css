@@ -88,7 +88,7 @@ $editLayoutPanelWidth: 460px;
 			width: 100%;
 
 			@include respond-to(phone, tablet) {
-				@include flexbox;
+				@include display-flex;
 
 				padding: 0;
 			}
@@ -237,7 +237,7 @@ $editLayoutPanelWidth: 460px;
 					}
 
 					@include respond-to(phone, tablet) {
-						@include flexbox;
+						@include display-flex;
 
 						float: left;
 						max-width: 100%;
@@ -1043,6 +1043,10 @@ $editLayoutPanelWidth: 460px;
 				}
 			}
 		}
+
+		.lfr-page-layouts {
+			margin-left: 0;
+		}
 	}
 
 	.lfr-has-add-content {
@@ -1358,7 +1362,7 @@ $editLayoutPanelWidth: 460px;
 				.info-link {
 					color: #333;
 					display: block;
-					margin: 5px 0 0 5px;
+					margin: 0 0 0 5px;
 					padding: 12px 18px;
 					position: relative;
 

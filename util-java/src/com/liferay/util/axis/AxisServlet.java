@@ -260,25 +260,21 @@ public class AxisServlet extends org.apache.axis.transport.http.AxisServlet {
 
 	private static final Field _CACHE_FIELD;
 
-	static {
-		Field cacheField = null;
-
-		try {
-			cacheField = ReflectionUtil.getDeclaredField(
-				MethodCache.class, "cache");
-		}
-		catch (Exception e) {
-			throw new LoggedExceptionInInitializerError(e);
-		}
-
-		_CACHE_FIELD = cacheField;
-	}
-
 	private static final String _HTML_BOTTOM_WRAPPER = "</body></html>";
 
 	private static final String _HTML_TOP_WRAPPER = "<html><body>";
 
 	private static Log _log = LogFactoryUtil.getLog(AxisServlet.class);
+
+	static {
+		try {
+			_CACHE_FIELD = ReflectionUtil.getDeclaredField(
+				MethodCache.class, "cache");
+		}
+		catch (Exception e) {
+			throw new LoggedExceptionInInitializerError(e);
+		}
+	}
 
 	private String _correctLongArray;
 	private String _correctOrderByComparator;

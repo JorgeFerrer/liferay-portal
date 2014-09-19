@@ -2139,19 +2139,15 @@ public class StringUtil {
 	public static String read(InputStream is) throws IOException {
 		StringBundler sb = new StringBundler();
 
-		UnsyncBufferedReader unsyncBufferedReader = new UnsyncBufferedReader(
-			new InputStreamReader(is));
+		try (UnsyncBufferedReader unsyncBufferedReader =
+				new UnsyncBufferedReader(new InputStreamReader(is))) {
 
-		String line = null;
+			String line = null;
 
-		try {
 			while ((line = unsyncBufferedReader.readLine()) != null) {
 				sb.append(line);
 				sb.append(CharPool.NEW_LINE);
 			}
-		}
-		finally {
-			unsyncBufferedReader.close();
 		}
 
 		return sb.toString().trim();
@@ -2160,16 +2156,15 @@ public class StringUtil {
 	public static void readLines(InputStream is, Collection<String> lines)
 		throws IOException {
 
-		UnsyncBufferedReader unsyncBufferedReader = new UnsyncBufferedReader(
-			new InputStreamReader(is));
+		try (UnsyncBufferedReader unsyncBufferedReader =
+				new UnsyncBufferedReader(new InputStreamReader(is))) {
 
-		String line = null;
+			String line = null;
 
-		while ((line = unsyncBufferedReader.readLine()) != null) {
-			lines.add(line);
+			while ((line = unsyncBufferedReader.readLine()) != null) {
+				lines.add(line);
+			}
 		}
-
-		unsyncBufferedReader.close();
 	}
 
 	/**

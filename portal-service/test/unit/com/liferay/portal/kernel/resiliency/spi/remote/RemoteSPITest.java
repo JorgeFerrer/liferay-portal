@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.test.CaptureHandler;
 import com.liferay.portal.kernel.test.CodeCoverageAssertor;
 import com.liferay.portal.kernel.test.JDKLoggerTestUtil;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.test.SwappableSecurityManager;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ProxyUtil;
 
@@ -169,7 +170,7 @@ public class RemoteSPITest {
 		ConcurrentMap<String, Object> attributes =
 			ProcessContext.getAttributes();
 
-		SPI spi = (SPI)ReflectionTestUtil.invokeBridge(
+		SPI spi = ReflectionTestUtil.invokeBridge(
 			_mockRemoteSPI, "call", new Class<?>[0]);
 
 		Assert.assertSame(spi, UnicastRemoteObject.toStub(_mockRemoteSPI));
@@ -358,12 +359,12 @@ public class RemoteSPITest {
 
 		UnsyncByteArrayOutputStream unsyncByteArrayOutputStream =
 			new UnsyncByteArrayOutputStream();
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-			unsyncByteArrayOutputStream);
 
-		objectOutputStream.writeObject(_mockRemoteSPI);
+		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+				unsyncByteArrayOutputStream)) {
 
-		objectOutputStream.close();
+			objectOutputStream.writeObject(_mockRemoteSPI);
+		}
 
 		byte[] data = unsyncByteArrayOutputStream.toByteArray();
 
@@ -407,28 +408,22 @@ public class RemoteSPITest {
 		objectInputStream = new ObjectInputStream(
 			new UnsyncByteArrayInputStream(data));
 
-		SecurityManager securityManager = System.getSecurityManager();
+		final SecurityException securityException = new SecurityException();
 
-		System.setSecurityManager(new SecurityManager() {
+		try (SwappableSecurityManager swappableSecurityManager =
+				new SwappableSecurityManager() {
 
-			@Override
-			public void checkPermission(Permission permission) {
-				if ((permission instanceof RuntimePermission)) {
-					String name = permission.getName();
-
-					if (name.equals("setSecurityManager")) {
-						return;
+					@Override
+					public void checkPermission(Permission permission) {
+						if (permission instanceof ReflectPermission) {
+							throw securityException;
+						}
 					}
-				}
 
-				if (permission instanceof ReflectPermission) {
-					throw new SecurityException();
-				}
-			}
+				}) {
 
-		});
+			swappableSecurityManager.install();
 
-		try {
 			objectInputStream.readObject();
 
 			Assert.fail();
@@ -436,13 +431,7 @@ public class RemoteSPITest {
 		catch (IOException ioe) {
 			Assert.assertEquals(
 				"Unable to disable dependency management", ioe.getMessage());
-
-			Throwable cause = ioe.getCause();
-
-			Assert.assertSame(SecurityException.class, cause.getClass());
-		}
-		finally {
-			System.setSecurityManager(securityManager);
+			Assert.assertSame(securityException, ioe.getCause());
 		}
 	}
 
@@ -920,9 +909,8 @@ public class RemoteSPITest {
 				@Override
 				public Object call() {
 					AbstractQueuedSynchronizer abstractQueuedSynchronizer =
-						(AbstractQueuedSynchronizer)
-							ReflectionTestUtil.getFieldValue(
-								_mockRemoteSPI.countDownLatch, "sync");
+						ReflectionTestUtil.getFieldValue(
+							_mockRemoteSPI.countDownLatch, "sync");
 
 					while (true) {
 						Collection<Thread> threads =

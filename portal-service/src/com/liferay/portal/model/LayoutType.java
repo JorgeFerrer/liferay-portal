@@ -14,16 +14,28 @@
 
 package com.liferay.portal.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import java.io.Serializable;
 
+import java.util.Map;
+
 /**
  * @author Brian Wing Shun Chan
+ * @author Raymond Augé
  */
+@ProviderType
 public interface LayoutType extends Serializable {
 
+	public String[] getConfigurationActionDelete();
+
+	public String[] getConfigurationActionUpdate();
+
 	public Layout getLayout();
+
+	public LayoutTypeController getLayoutTypeController();
 
 	public UnicodeProperties getTypeSettingsProperties();
 
@@ -31,6 +43,19 @@ public interface LayoutType extends Serializable {
 
 	public String getTypeSettingsProperty(String key, String defaultValue);
 
+	public String getURL(Map<String, String> variables);
+
+	public boolean isFirstPageable();
+
+	public boolean isParentable();
+
+	public boolean isSitemapable();
+
+	public boolean isURLFriendliable();
+
+	/**
+	 * @deprecated As of 7.0.0, with no direct replacement
+	 */
 	public void setLayout(Layout layout);
 
 	public void setTypeSettingsProperty(String key, String value);

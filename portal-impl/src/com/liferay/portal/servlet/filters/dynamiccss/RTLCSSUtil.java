@@ -17,6 +17,7 @@ package com.liferay.portal.servlet.filters.dynamiccss;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.regex.PatternFactory;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.util.ClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
@@ -33,7 +34,9 @@ import org.mozilla.javascript.ScriptableObject;
  */
 public class RTLCSSUtil {
 
-	public static String getRtlCss(String css) throws Exception {
+	public static String getRtlCss(String fileName, String css)
+		throws Exception {
+
 		Context context = Context.enter();
 
 		String rtlCss = css;
@@ -49,6 +52,11 @@ public class RTLCSSUtil {
 				context, scope, scope, new Object[] {css});
 
 			rtlCss = (String)Context.jsToJava(result, String.class);
+		}
+		catch (Exception e) {
+			_log.error(
+				"Unable to generate RTL version for " + fileName +
+					StringPool.COMMA_AND_SPACE + e.getMessage());
 		}
 		finally {
 			Context.exit();

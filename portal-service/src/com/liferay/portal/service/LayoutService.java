@@ -209,9 +209,8 @@ public interface LayoutService extends BaseService {
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	public com.liferay.portal.kernel.repository.model.FileEntry addTempFileEntry(
-		long groupId, java.lang.String fileName,
-		java.lang.String tempFolderName, java.io.InputStream inputStream,
-		java.lang.String mimeType)
+		long groupId, java.lang.String folderName, java.lang.String fileName,
+		java.io.InputStream inputStream, java.lang.String mimeType)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
@@ -244,8 +243,8 @@ public interface LayoutService extends BaseService {
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public void deleteTempFileEntry(long groupId, java.lang.String fileName,
-		java.lang.String tempFolderName)
+	public void deleteTempFileEntry(long groupId, java.lang.String folderName,
+		java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
@@ -526,8 +525,8 @@ public interface LayoutService extends BaseService {
 		long parentLayoutId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.lang.String[] getTempFileEntryNames(long groupId,
-		java.lang.String tempFolderName)
+	public java.lang.String[] getTempFileNames(long groupId,
+		java.lang.String folderName)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**

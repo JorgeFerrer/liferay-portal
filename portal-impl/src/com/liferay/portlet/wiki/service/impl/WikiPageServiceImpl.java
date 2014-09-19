@@ -143,8 +143,8 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public void addTempPageAttachment(
-			long nodeId, String fileName, String tempFolderName,
+	public void addTempFileEntry(
+			long nodeId, String folderName, String fileName,
 			InputStream inputStream, String mimeType)
 		throws PortalException {
 
@@ -153,9 +153,9 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermission.check(
 			getPermissionChecker(), node, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.addTempPageAttachment(
-			node.getGroupId(), getUserId(), fileName, tempFolderName,
-			inputStream, mimeType);
+		wikiPageLocalService.addTempFileEntry(
+			node.getGroupId(), getUserId(), folderName, fileName, inputStream,
+			mimeType);
 	}
 
 	@Override
@@ -244,8 +244,8 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public void deleteTempPageAttachment(
-			long nodeId, String fileName, String tempFolderName)
+	public void deleteTempFileEntry(
+			long nodeId, String folderName, String fileName)
 		throws PortalException {
 
 		WikiNode node = wikiNodeLocalService.getNode(nodeId);
@@ -253,8 +253,8 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermission.check(
 			getPermissionChecker(), node, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.deleteTempPageAttachment(
-			node.getGroupId(), getUserId(), fileName, tempFolderName);
+		wikiPageLocalService.deleteTempFileEntry(
+			node.getGroupId(), getUserId(), folderName, fileName);
 	}
 
 	@Override
@@ -577,8 +577,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public String[] getTempPageAttachmentNames(
-			long nodeId, String tempFolderName)
+	public String[] getTempFileNames(long nodeId, String folderName)
 		throws PortalException {
 
 		WikiNode node = wikiNodeLocalService.getNode(nodeId);
@@ -586,8 +585,8 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermission.check(
 			getPermissionChecker(), node, ActionKeys.ADD_ATTACHMENT);
 
-		return wikiPageLocalService.getTempPageAttachmentNames(
-			node.getGroupId(), getUserId(), tempFolderName);
+		return wikiPageLocalService.getTempFileNames(
+			node.getGroupId(), getUserId(), folderName);
 	}
 
 	/**
