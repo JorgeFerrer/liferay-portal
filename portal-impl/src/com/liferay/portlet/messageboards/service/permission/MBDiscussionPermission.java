@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.kernel.workflow.permission.WorkflowPermissionUtil;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionCheckerUtil;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
@@ -122,8 +123,22 @@ public class MBDiscussionPermission {
 			return true;
 		}
 
-		return permissionChecker.hasPermission(
-			groupId, className, classPK, actionId);
+		try {
+			hasPermission =
+				PermissionCheckerUtil.checkResourcePermission(
+					permissionChecker, className, classPK, actionId);
+
+			if (hasPermission != null) {
+				return hasPermission.booleanValue();
+			}
+			else {
+				return permissionChecker.hasPermission(
+					groupId, className, classPK, actionId);
+			}
+		}
+		catch (PortalException pe) {
+			return false;
+		}
 	}
 
 }
