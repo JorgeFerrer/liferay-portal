@@ -15,10 +15,14 @@
 package com.liferay.amazon.rankings.web.portlet;
 
 import aQute.bnd.annotation.metatype.Configurable;
-import com.liferay.amazon.rankings.web.AmazonRankingsConfiguration;
-import com.liferay.amazon.rankings.web.model.AmazonRankings;
+
 import com.liferay.amazon.rankings.web.upgrade.AmazonRankingsUpgrade;
+import com.liferay.amazon.rankings.web.util.AmazonRankingsConfiguration;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.io.IOException;
+
+import java.util.Map;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
@@ -29,9 +33,6 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Reference;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
 * @author Raymond Augé
@@ -74,9 +75,15 @@ public class AmazonRankingsPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		super.doView(renderRequest, renderResponse);
+		renderRequest.setAttribute(
+			"amazonAccessKeyId", _configuration.amazonAccessKeyId());
+		renderRequest.setAttribute(
+			"amazonAssociateTag", _configuration.amazonAssociateTag());
+		renderRequest.setAttribute(
+			"amazonSecretAccessKey", _configuration.amazonSecretAccessKey());
+		renderRequest.setAttribute("isbns", _configuration.isbns());
 
-		renderRequest.setAttribute("configuration", _configuration);
+		super.doView(renderRequest, renderResponse);
 	}
 
 	@Reference(unbind = "-")

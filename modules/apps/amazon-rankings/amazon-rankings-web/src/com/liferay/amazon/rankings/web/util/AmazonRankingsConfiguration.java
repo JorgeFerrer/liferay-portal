@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.amazon.rankings.web;
+package com.liferay.amazon.rankings.web.util;
 
 import aQute.bnd.annotation.metatype.Meta;
 
