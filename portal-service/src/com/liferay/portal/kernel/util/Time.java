@@ -46,8 +46,6 @@ public class Time {
 
 	public static final String TIMESTAMP_FORMAT = "yyyyMMddkkmmssSSS";
 
-	public static final long TWO_MINUTES = Time.MINUTE * 2;
-
 	public static final long WEEK = Time.DAY * 7;
 
 	public static final long YEAR = Time.DAY * 365;
@@ -186,12 +184,14 @@ public class Time {
 
 		long millisAgo = System.currentTimeMillis() - milliseconds;
 
-		if (millisAgo < Time.TWO_MINUTES) {
-			return LanguageUtil.get(locale, "about-a-minute-ago");
-		}
-		else if (millisAgo < Time.HOUR) {
-			return LanguageUtil.format(
-				locale, "x-minutes-ago", (millisAgo / Time.MINUTE), false);
+		if (millisAgo < Time.HOUR) {
+			long minutes = millisAgo / Time.MINUTE;
+
+			if (minutes <= 1) {
+				return LanguageUtil.get(locale, "about-a-minute-ago");
+			}
+
+			return LanguageUtil.format(locale, "x-minutes-ago", minutes, false);
 		}
 		else if ((millisAgo / Time.HOUR) == 1) {
 			return LanguageUtil.get(locale, "about-an-hour-ago");
