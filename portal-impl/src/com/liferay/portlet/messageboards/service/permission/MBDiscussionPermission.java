@@ -130,10 +130,9 @@ public class MBDiscussionPermission {
 		if (hasPermission != null) {
 			return hasPermission.booleanValue();
 		}
-		else {
-			return permissionChecker.hasPermission(
-				groupId, className, classPK, actionId);
-		}
+
+		return permissionChecker.hasPermission(
+			groupId, className, classPK, actionId);
 	}
 
 }
