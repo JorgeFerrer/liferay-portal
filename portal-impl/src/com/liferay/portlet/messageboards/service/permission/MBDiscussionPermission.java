@@ -92,8 +92,9 @@ public class MBDiscussionPermission {
 	}
 
 	public static boolean contains(
-		PermissionChecker permissionChecker, long companyId, long groupId,
-		String className, long classPK, long ownerId, String actionId) {
+			PermissionChecker permissionChecker, long companyId, long groupId,
+			String className, long classPK, long ownerId, String actionId)
+		throws PortalException {
 
 		if (MBBanLocalServiceUtil.hasBan(
 				groupId, permissionChecker.getUserId())) {
@@ -123,21 +124,15 @@ public class MBDiscussionPermission {
 			return true;
 		}
 
-		try {
-			hasPermission =
-				PermissionCheckerUtil.checkResourcePermission(
-					permissionChecker, className, classPK, actionId);
+		hasPermission = PermissionCheckerUtil.checkResourcePermission(
+			permissionChecker, className, classPK, actionId);
 
-			if (hasPermission != null) {
-				return hasPermission.booleanValue();
-			}
-			else {
-				return permissionChecker.hasPermission(
-					groupId, className, classPK, actionId);
-			}
+		if (hasPermission != null) {
+			return hasPermission.booleanValue();
 		}
-		catch (PortalException pe) {
-			return false;
+		else {
+			return permissionChecker.hasPermission(
+				groupId, className, classPK, actionId);
 		}
 	}
 
