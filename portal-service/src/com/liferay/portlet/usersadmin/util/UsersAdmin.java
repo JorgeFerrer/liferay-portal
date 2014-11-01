@@ -39,6 +39,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
@@ -192,6 +193,10 @@ public interface UsersAdmin {
 
 	public OrderByComparator<Role> getRoleOrderByComparator(
 		String orderByCol, String orderByType);
+
+	public <T> String getUserColumnText(
+		Locale locale, List<? extends T> list, Accessor<T, String> accessor,
+		int count);
 
 	public OrderByComparator<UserGroup> getUserGroupOrderByComparator(
 		String orderByCol, String orderByType);
