@@ -55,8 +55,7 @@
 			href="<%= rowURL %>"
 			name="organizations"
 			value="<%= HtmlUtil.escape(UsersAdminUtil.getUserColumnText(locale, userOrganizations, Organization.NAME_ACCESSOR, userOrganizationsCount)) %>"
-		>
-		</liferay-ui:search-container-column-text>
+		/>
 	</c:otherwise>
 </c:choose>
 
@@ -69,5 +68,4 @@ int userUserGroupsCount = UserGroupLocalServiceUtil.getUserUserGroupsCount(user2
 	href="<%= rowURL %>"
 	name="user-groups"
 	value="<%= HtmlUtil.escape(UsersAdminUtil.getUserColumnText(locale, userUserGroups, UserGroup.NAME_ACCESSOR, userUserGroupsCount)) %>"
->
-</liferay-ui:search-container-column-text>
+/>
