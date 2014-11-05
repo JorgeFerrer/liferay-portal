@@ -144,17 +144,15 @@ public interface UsersAdmin {
 
 				@Override
 				public String get(UserGroupGroupRole userGroupGroupRole) {
-					try {
-						Role role = RoleLocalServiceUtil.fetchRole(
-							userGroupGroupRole.getRoleId());
+					Role role = RoleLocalServiceUtil.fetchRole(
+						userGroupGroupRole.getRoleId());
 
-						return role.getTitle(
-							LocaleThreadLocal.getThemeDisplayLocale());
-					}
-					catch (SystemException se) {
+					if (role == null) {
+						return StringPool.BLANK;
 					}
 
-					return StringPool.BLANK;
+					return role.getTitle(
+						LocaleThreadLocal.getThemeDisplayLocale());
 				}
 
 				@Override
@@ -175,17 +173,15 @@ public interface UsersAdmin {
 
 				@Override
 				public String get(UserGroupRole userGroupRole) {
-					try {
-						Role role = RoleLocalServiceUtil.fetchRole(
-							userGroupRole.getRoleId());
+					Role role = RoleLocalServiceUtil.fetchRole(
+						userGroupRole.getRoleId());
 
-						return role.getTitle(
-							LocaleThreadLocal.getThemeDisplayLocale());
-					}
-					catch (SystemException se) {
+					if (role == null) {
+						return StringPool.BLANK;
 					}
 
-					return StringPool.BLANK;
+					return role.getTitle(
+						LocaleThreadLocal.getThemeDisplayLocale());
 				}
 
 				@Override
