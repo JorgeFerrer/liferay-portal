@@ -122,6 +122,7 @@ import com.liferay.portal.security.auth.FullNameGeneratorFactory;
 import com.liferay.portal.security.auth.FullNameValidator;
 import com.liferay.portal.security.auth.FullNameValidatorFactory;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.auth.ScreenNameGenerator;
 import com.liferay.portal.security.auth.ScreenNameGeneratorFactory;
 import com.liferay.portal.security.auth.ScreenNameValidator;
@@ -4844,6 +4845,14 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			user.setPasswordModified(false);
 
 			passwordTrackerLocalService.trackPassword(userId, oldEncPwd);
+		}
+
+		long currentUserId = PrincipalThreadLocal.getUserId();
+
+		if (!silentUpdate && (currentUserId != userId)) {
+			sendPasswordNotification(
+				user, user.getCompanyId(), password1, null, null, null,
+				null, null, ServiceContextThreadLocal.getServiceContext());
 		}
 
 		return user;
