@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -28,10 +29,10 @@ import com.liferay.portal.model.Repository;
 import com.liferay.portal.model.User;
 import com.liferay.portal.repository.liferayrepository.LiferayRepository;
 import com.liferay.portal.repository.liferayrepository.model.LiferayFileEntry;
-import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.RepositoryLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.spring.hibernate.LastSessionRecorderUtil;
+import com.liferay.portal.test.DeleteAfterTestRun;
 import com.liferay.portal.test.Sync;
 import com.liferay.portal.test.SynchronousDestinationExecutionTestListener;
 import com.liferay.portal.test.listeners.MainServletExecutionTestListener;
@@ -56,7 +57,6 @@ import com.liferay.portlet.documentlibrary.util.test.DLAppTestUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -102,11 +102,6 @@ public class DLFileEntryFinderTest {
 			_repository.getRepositoryId(), "-NewRepository", serviceContext);
 
 		_newRepositoryFolder = (Folder)objects[0];
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		GroupLocalServiceUtil.deleteGroup(_group);
 	}
 
 	@Test
@@ -1300,22 +1295,25 @@ public class DLFileEntryFinderTest {
 		Assert.assertEquals("FE1.txt", dlFileEntry.getTitle());
 	}
 
-	protected int doCountBy_G_U_F_M(
-			long userId, String mimeType,
-			QueryDefinition<DLFileEntry> queryDefinition)
+	protected FileEntry addFileEntry(
+			long repositoryId, Folder folder, String titleSuffix)
 		throws Exception {
 
-		List<Long> folderIds = ListUtil.toList(
-			new long[] {_defaultRepositoryFolder.getFolderId()});
+		User user = UserTestUtil.addUser();
 
-		String[] mimeTypes = null;
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
 
-		if (mimeType != null) {
-			mimeTypes = new String[] {mimeType};
-		}
+		serviceContext.setAttribute(
+			"fileEntryTypeId",
+			DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT);
+		serviceContext.setCommand(Constants.ADD);
+		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
 
-		return DLFileEntryLocalServiceUtil.getFileEntriesCount(
-			_group.getGroupId(), userId, folderIds, mimeTypes, queryDefinition);
+		return DLAppLocalServiceUtil.addFileEntry(
+			user.getUserId(), repositoryId, folder.getFolderId(), "FE1.txt",
+			ContentTypes.TEXT_PLAIN, "FE1.txt".concat(titleSuffix), null, null,
+			(byte[])null, serviceContext);
 	}
 
 	protected int doCountBy_G_U_R_F_M_NewRepository(
@@ -1508,15 +1506,7 @@ public class DLFileEntryFinderTest {
 
 		DLAppServiceUtil.moveFolderToTrash(folderC.getFolderId());
 
-		User user = UserTestUtil.addUser(
-			RandomTestUtil.randomString(), _group.getGroupId());
-
-		FileEntry fileEntry = DLAppTestUtil.addFileEntry(
-			user.getUserId(), _group.getGroupId(), repositoryId,
-			folder.getFolderId(), "FE1.txt", ContentTypes.TEXT_PLAIN,
-			"FE1.txt".concat(titleSuffix), null,
-			DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT,
-			WorkflowConstants.ACTION_PUBLISH);
+		FileEntry fileEntry = addFileEntry(repositoryId, folder, titleSuffix);
 
 		LiferayFileEntry liferayFileEntry = (LiferayFileEntry)fileEntry;
 
@@ -1561,11 +1551,32 @@ public class DLFileEntryFinderTest {
 		return new Object[] {folder, dlFileVersion};
 	}
 
+	protected int doCountBy_G_U_F_M(
+			long userId, String mimeType,
+			QueryDefinition<DLFileEntry> queryDefinition)
+		throws Exception {
+
+		List<Long> folderIds = ListUtil.toList(
+			new long[] {_defaultRepositoryFolder.getFolderId()});
+
+		String[] mimeTypes = null;
+
+		if (mimeType != null) {
+			mimeTypes = new String[] {mimeType};
+		}
+
+		return DLFileEntryLocalServiceUtil.getFileEntriesCount(
+			_group.getGroupId(), userId, folderIds, mimeTypes, queryDefinition);
+	}
+
 	private static final long _SMALL_IMAGE_ID = 1234L;
 
 	private DLFileVersion _defaultRepositoryDLFileVersion;
 	private Folder _defaultRepositoryFolder;
+
+	@DeleteAfterTestRun
 	private Group _group;
+
 	private Folder _newRepositoryFolder;
 	private Repository _repository;
 

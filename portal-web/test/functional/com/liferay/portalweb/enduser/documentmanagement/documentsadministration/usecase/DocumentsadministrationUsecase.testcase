@@ -307,7 +307,7 @@
 			</then>
 		</while>
 
-		<execute action="PGDocumentsandmediaEditdocument#assertClick" locator-key1="SAVE_BUTTON" value1="Save" />
+		<execute action="PGDocumentsandmediaEditdocument#assertClick" locator-key1="PUBLISH_BUTTON" value1="Publish" />
 
 		<execute action="PGDocumentsandmediaDocument#assertTextEquals" locator-key1="DOCUMENT_INFO_VERSION" value1="Version PWC" />
 
@@ -370,7 +370,7 @@
 		</execute>
 
 		<execute macro="DMDocument#viewCP">
-			<var name="dmDocumentSize" value="0k" />
+			<var name="dmDocumentSize" value="0KB" />
 			<var name="dmDocumentTitle" value="Zero Document File" />
 		</execute>
 

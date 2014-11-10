@@ -67,6 +67,13 @@ public interface Group extends GroupModel, PersistedModel, TreeModel {
 	public java.lang.String getDescriptiveName(java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public java.lang.String getDisplayURL(
+		com.liferay.portal.theme.ThemeDisplay themeDisplay);
+
+	public java.lang.String getDisplayURL(
+		com.liferay.portal.theme.ThemeDisplay themeDisplay,
+		boolean privateLayout);
+
 	public java.lang.String getIconCssClass();
 
 	public java.lang.String getIconURL(

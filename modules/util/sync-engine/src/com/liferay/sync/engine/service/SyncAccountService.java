@@ -14,7 +14,6 @@
 
 package com.liferay.sync.engine.service;
 
-import com.liferay.sync.engine.documentlibrary.event.GetSyncContextEvent;
 import com.liferay.sync.engine.model.ModelListener;
 import com.liferay.sync.engine.model.SyncAccount;
 import com.liferay.sync.engine.model.SyncAccountModelListener;
@@ -34,14 +33,9 @@ import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -299,23 +293,6 @@ public class SyncAccountService {
 		return syncAccount;
 	}
 
-	public static SyncAccount synchronizeSyncAccount(
-		long syncAccountId, boolean checkState, long delay) {
-
-		Map<String, Object> parameters = new HashMap<String, Object>();
-
-		parameters.put("checkState", checkState);
-		parameters.put("uuid", null);
-
-		GetSyncContextEvent getSyncContextEvent = new GetSyncContextEvent(
-			syncAccountId, parameters);
-
-		_scheduledExecutorService.schedule(
-			getSyncContextEvent, delay, TimeUnit.MILLISECONDS);
-
-		return SyncAccountService.fetchSyncAccount(syncAccountId);
-	}
-
 	public static void unregisterModelListener(
 		ModelListener<SyncAccount> modelListener) {
 
@@ -344,6 +321,20 @@ public class SyncAccountService {
 		SyncAccount syncAccount = SyncAccountService.fetchSyncAccount(
 			syncAccountId);
 
+		if (!moveFile) {
+			SyncFile syncFile = SyncFileService.fetchSyncFile(
+				syncAccount.getFilePathName());
+
+			String sourceFileKey = syncFile.getFileKey();
+
+			String targetFileKey = FileUtil.getFileKey(filePath);
+
+			if (!sourceFileKey.equals(targetFileKey)) {
+				throw new Exception(
+					"Target folder is not the moved sync data folder");
+			}
+		}
+
 		syncAccount.setActive(false);
 
 		SyncAccountService.update(syncAccount);
@@ -359,6 +350,7 @@ public class SyncAccountService {
 		syncAccount = setFilePathName(syncAccountId, filePath.toString());
 
 		syncAccount.setActive(true);
+		syncAccount.setUiEvent(SyncAccount.UI_EVENT_DEFAULT);
 
 		SyncAccountService.update(syncAccount);
 	}
@@ -367,8 +359,6 @@ public class SyncAccountService {
 		SyncAccountService.class);
 
 	private static Set<Long> _activeSyncAccountIds;
-	private static final ScheduledExecutorService _scheduledExecutorService =
-		Executors.newScheduledThreadPool(5);
 	private static SyncAccountPersistence _syncAccountPersistence =
 		getSyncAccountPersistence();
 

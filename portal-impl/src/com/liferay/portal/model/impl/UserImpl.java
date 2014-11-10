@@ -95,12 +95,6 @@ import java.util.TreeSet;
  */
 public class UserImpl extends UserBaseImpl {
 
-	/**
-	 * Constructs the user.
-	 */
-	public UserImpl() {
-	}
-
 	@Override
 	public void addRemotePreference(RemotePreference remotePreference) {
 		_remotePreferences.put(remotePreference.getName(), remotePreference);
@@ -431,28 +425,7 @@ public class UserImpl extends UserBaseImpl {
 
 		Group group = getGroup();
 
-		int publicLayoutsPageCount = group.getPublicLayoutsPageCount();
-
-		if (publicLayoutsPageCount > 0) {
-			StringBundler sb = new StringBundler(5);
-
-			sb.append(portalURL);
-			sb.append(themeDisplay.getPathMain());
-			sb.append("/my_sites/view?groupId=");
-			sb.append(group.getGroupId());
-
-			if (privateLayout) {
-				sb.append("&privateLayout=1");
-			}
-			else {
-				sb.append("&privateLayout=0");
-			}
-
-			return PortalUtil.addPreservedParameters(
-				themeDisplay, sb.toString());
-		}
-
-		return StringPool.BLANK;
+		return group.getDisplayURL(themeDisplay, privateLayout);
 	}
 
 	/**

@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.upgrade.v6_2_0.util.JournalFeedTable;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
@@ -494,14 +493,14 @@ public class UpgradeJournal extends BaseUpgradePortletPreferences {
 		PortletPreferences preferences = PortletPreferencesFactoryUtil.fromXML(
 			companyId, ownerId, ownerType, plid, portletId, xml);
 
-		if (portletId.startsWith(PortletKeys.ASSET_PUBLISHER)) {
+		if (portletId.startsWith(_PORTLET_ID_ASSET_PUBLISHER)) {
 			updatePreferencesClassPKs(
 				preferences, "anyClassTypeJournalArticleAssetRendererFactory");
 			updatePreferencesClassPKs(preferences, "classTypeIds");
 			updatePreferencesClassPKs(
 				preferences, "classTypeIdsJournalArticleAssetRendererFactory");
 		}
-		else if (portletId.startsWith(PortletKeys.JOURNAL_CONTENT)) {
+		else if (portletId.startsWith(_PORTLET_ID_JOURNAL_CONTENT)) {
 			String templateId = preferences.getValue(
 				"templateId", StringPool.BLANK);
 
@@ -511,7 +510,7 @@ public class UpgradeJournal extends BaseUpgradePortletPreferences {
 				preferences.setValue("ddmTemplateKey", templateId);
 			}
 		}
-		else if (portletId.startsWith(PortletKeys.JOURNAL_CONTENT_LIST)) {
+		else if (portletId.startsWith(_PORTLET_ID_JOURNAL_CONTENT_LIST)) {
 			String structureId = preferences.getValue(
 				"structureId", StringPool.BLANK);
 
@@ -524,6 +523,12 @@ public class UpgradeJournal extends BaseUpgradePortletPreferences {
 
 		return PortletPreferencesFactoryUtil.toXML(preferences);
 	}
+
+	private static final String _PORTLET_ID_ASSET_PUBLISHER = "101";
+
+	private static final String _PORTLET_ID_JOURNAL_CONTENT = "56";
+
+	private static final String _PORTLET_ID_JOURNAL_CONTENT_LIST = "62";
 
 	private static Log _log = LogFactoryUtil.getLog(UpgradeJournal.class);
 

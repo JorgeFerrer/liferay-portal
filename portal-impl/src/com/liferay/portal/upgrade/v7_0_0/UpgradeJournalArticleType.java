@@ -212,78 +212,13 @@ public class UpgradeJournalArticleType extends UpgradeBaseJournal {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		if (!hasSelectedArticleTypes()) {
-			return;
-		}
+		updateArticleType();
 
-		List<String> types = getArticleTypes();
+		// UpgradeJournalArticles must be executed after calling
+		// updateArticleType because journal article types must already be
+		// converted to asset categories and asset vocabularies
 
-		if (types.size() <= 0) {
-			return;
-		}
-
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			con = DataAccess.getUpgradeOptimizedConnection();
-
-			ps = con.prepareStatement("select companyId from Company");
-
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				long vocabularyId = increment();
-
-				long companyId = rs.getLong("companyId");
-
-				long groupId = getCompanyGroupId(companyId);
-				long userId = getDefaultUserId(companyId);
-
-				String defaultLanguageId =
-					UpgradeProcessUtil.getDefaultLanguageId(companyId);
-
-				AssetVocabularySettingsHelper assetVocabularySettingsHelper =
-					new AssetVocabularySettingsHelper();
-
-				assetVocabularySettingsHelper.setMultiValued(false);
-
-				assetVocabularySettingsHelper.setClassNameIdsAndClassTypePKs(
-					new long[] {
-						PortalUtil.getClassNameId(JournalArticle.class)
-					},
-					new long[] {-1}, new boolean[] {false});
-
-				addAssetVocabulary(
-					vocabularyId, groupId, companyId, userId, "type",
-					localize(groupId, "type", defaultLanguageId),
-					assetVocabularySettingsHelper.toString());
-
-				Map<String, Long> journalArticleTypesToAssetCategoryIds =
-					new HashMap<String, Long>();
-
-				int i = 1;
-
-				for (String type : types) {
-					long assetCategoryId = increment();
-
-					addAssetCategory(
-						assetCategoryId, groupId, companyId, userId, i++, i++,
-						type, localize(groupId, type, defaultLanguageId),
-						vocabularyId);
-
-					journalArticleTypesToAssetCategoryIds.put(
-						type, assetCategoryId);
-				}
-
-				updateArticles(
-					companyId, journalArticleTypesToAssetCategoryIds);
-			}
-		}
-		finally {
-			DataAccess.cleanUp(con, ps, rs);
-		}
+		upgrade(UpgradeJournalArticles.class);
 	}
 
 	protected List<String> getArticleTypes() throws Exception {
@@ -410,6 +345,81 @@ public class UpgradeJournalArticleType extends UpgradeBaseJournal {
 				if (assetEntryId > 0) {
 					addAssetEntryToAssetCategory(assetEntryId, assetCategoryId);
 				}
+			}
+		}
+		finally {
+			DataAccess.cleanUp(con, ps, rs);
+		}
+	}
+
+	protected void updateArticleType() throws Exception {
+		if (!hasSelectedArticleTypes()) {
+			return;
+		}
+
+		List<String> types = getArticleTypes();
+
+		if (types.size() <= 0) {
+			return;
+		}
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			con = DataAccess.getUpgradeOptimizedConnection();
+
+			ps = con.prepareStatement("select companyId from Company");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				long vocabularyId = increment();
+
+				long companyId = rs.getLong("companyId");
+
+				long groupId = getCompanyGroupId(companyId);
+				long userId = getDefaultUserId(companyId);
+
+				String defaultLanguageId =
+					UpgradeProcessUtil.getDefaultLanguageId(companyId);
+
+				AssetVocabularySettingsHelper assetVocabularySettingsHelper =
+					new AssetVocabularySettingsHelper();
+
+				assetVocabularySettingsHelper.setMultiValued(false);
+
+				assetVocabularySettingsHelper.setClassNameIdsAndClassTypePKs(
+					new long[] {
+						PortalUtil.getClassNameId(JournalArticle.class)
+					},
+					new long[] {-1}, new boolean[] {false});
+
+				addAssetVocabulary(
+					vocabularyId, groupId, companyId, userId, "type",
+					localize(groupId, "type", defaultLanguageId),
+					assetVocabularySettingsHelper.toString());
+
+				Map<String, Long> journalArticleTypesToAssetCategoryIds =
+					new HashMap<String, Long>();
+
+				int i = 1;
+
+				for (String type : types) {
+					long assetCategoryId = increment();
+
+					addAssetCategory(
+						assetCategoryId, groupId, companyId, userId, i++, i++,
+						type, localize(groupId, type, defaultLanguageId),
+						vocabularyId);
+
+					journalArticleTypesToAssetCategoryIds.put(
+						type, assetCategoryId);
+				}
+
+				updateArticles(
+					companyId, journalArticleTypesToAssetCategoryIds);
 			}
 		}
 		finally {

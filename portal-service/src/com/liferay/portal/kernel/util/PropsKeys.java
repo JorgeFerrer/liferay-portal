@@ -1181,8 +1181,6 @@ public interface PropsKeys {
 
 	public static final String JOURNAL_ARTICLE_VIEW_PERMISSION_CHECK_ENABLED = "journal.article.view.permission.check.enabled";
 
-	public static final String JOURNAL_ARTICLES_PAGE_DELTA_VALUES = "journal.articles.page.delta.values";
-
 	public static final String JOURNAL_ARTICLES_SEARCH_WITH_INDEX = "journal.articles.search.with.index";
 
 	public static final String JOURNAL_CONTENT_PUBLISH_TO_LIVE_BY_DEFAULT = "journal.content.publish.to.live.by.default";
@@ -2037,6 +2035,54 @@ public interface PropsKeys {
 
 	public static final String POP_SERVER_SUBDOMAIN = "pop.server.subdomain";
 
+	public static final String PORTAL_FABRIC_AGENT_SELECTOR_CLASS = "portal.fabric.agent.selector.class";
+
+	public static final String PORTAL_FABRIC_CLIENT_EVENT_LOOP_GROUP_THREAD_COUNT = "portal.fabric.client.event.loop.group.thread.count";
+
+	public static final String PORTAL_FABRIC_CLIENT_EXECUTION_GROUP_THREAD_COUNT = "portal.fabric.client.execution.group.thread.count";
+
+	public static final String PORTAL_FABRIC_CLIENT_EXECUTION_TIMEOUT = "portal.fabric.client.execution.timeout";
+
+	public static final String PORTAL_FABRIC_CLIENT_FILE_SERVER_FOLDER_COMPRESSION_LEVEL = "portal.fabric.client.file.server.folder.compression.level";
+
+	public static final String PORTAL_FABRIC_CLIENT_FILE_SERVER_GROUP_THREAD_COUNT = "portal.fabric.client.file.server.group.thread.count";
+
+	public static final String PORTAL_FABRIC_CLIENT_RECONNECT_COUNT = "portal.fabric.client.reconnect.count";
+
+	public static final String PORTAL_FABRIC_CLIENT_RECONNECT_INTERVAL = "portal.fabric.client.reconnect.interval";
+
+	public static final String PORTAL_FABRIC_CLIENT_REPOSITORY_GET_FILE_TIMEOUT = "portal.fabric.client.repository.get.file.timeout";
+
+	public static final String PORTAL_FABRIC_CLIENT_RPC_GROUP_THREAD_COUNT = "portal.fabric.client.rpc.group.thread.count";
+
+	public static final String PORTAL_FABRIC_ENABLED = "portal.fabric.enabled";
+
+	public static final String PORTAL_FABRIC_SERVER_BOSS_GROUP_THREAD_COUNT = "portal.fabric.server.boss.group.thread.count";
+
+	public static final String PORTAL_FABRIC_SERVER_FILE_SERVER_FOLDER_COMPRESSION_LEVEL = "portal.fabric.server.file.server.folder.compression.level";
+
+	public static final String PORTAL_FABRIC_SERVER_FILE_SERVER_GROUP_THREAD_COUNT = "portal.fabric.server.file.server.group.thread.count";
+
+	public static final String PORTAL_FABRIC_SERVER_HOST = "portal.fabric.server.host";
+
+	public static final String PORTAL_FABRIC_SERVER_PORT = "portal.fabric.server.port";
+
+	public static final String PORTAL_FABRIC_SERVER_REGISTRATION_GROUP_THREAD_COUNT = "portal.fabric.server.registeration.group.thread.count";
+
+	public static final String PORTAL_FABRIC_SERVER_REPOSITORY_GET_FILE_TIMEOUT = "portal.fabric.server.repository.get.file.timeout";
+
+	public static final String PORTAL_FABRIC_SERVER_REPOSITORY_PARENT_FOLDER = "portal.fabric.server.repository.parent.folder";
+
+	public static final String PORTAL_FABRIC_SERVER_RPC_GROUP_THREAD_COUNT = "portal.fabric.server.rpc.group.thread.count";
+
+	public static final String PORTAL_FABRIC_SERVER_RPC_RELAY_TIMEOUT = "portal.fabric.server.rpc.relay.timeout";
+
+	public static final String PORTAL_FABRIC_SERVER_WARMUP_AGENT_ON_REGISTER = "portal.fanric.server.warmup.agent.on.register";
+
+	public static final String PORTAL_FABRIC_SERVER_WORKER_GROUP_THREAD_COUNT = "portal.fabric.server.worker.group.thread.count";
+
+	public static final String PORTAL_FABRIC_SERVER_WORKER_STARTUP_TIMEOUT = "portal.fabric.server.worker.startup.timeout";
+
 	public static final String PORTAL_IMPERSONATION_ENABLE = "portal.impersonation.enable";
 
 	public static final String PORTAL_INSTANCE_HTTP_INET_SOCKET_ADDRESS = "portal.instance.http.inet.socket.address";
@@ -2111,9 +2157,9 @@ public interface PropsKeys {
 
 	public static final String RATINGS_DEFAULT_NUMBER_OF_STARS = "ratings.default.number.of.stars";
 
-	public static final String RATINGS_MAX_SCORE = "ratings.max.score";
+	public static final String RATINGS_UPGRADE_STARS_NORMALIZATION_FACTOR = "ratings.upgrade.stars.normalization.factor";
 
-	public static final String RATINGS_MIN_SCORE = "ratings.min.score";
+	public static final String RATINGS_UPGRADE_THUMBS_CLASS_NAMES = "ratings.upgrade.thumbs.class.names";
 
 	public static final String RECENT_CONTENT_MAX_DISPLAY_ITEMS = "recent.content.max.display.items";
 
@@ -2694,6 +2740,8 @@ public interface PropsKeys {
 	public static final String VERIFY_DATABASE_TRANSACTIONS_DISABLED = "verify.database.transactions.disabled";
 
 	public static final String VERIFY_FREQUENCY = "verify.frequency";
+
+	public static final String VERIFY_PROCESS_CONCURRENCY_THRESHOLD = "verify.process.concurrency.threshold";
 
 	public static final String VERIFY_PROCESSES = "verify.processes";
 

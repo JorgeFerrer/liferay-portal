@@ -627,9 +627,11 @@ public class EditServerAction extends PortletAction {
 			log.info(ThreadUtil.threadDump());
 		}
 		else {
+			Class<?> clazz = getClass();
+
 			_log.error(
 				"Thread dumps require the log level to be at least INFO for " +
-					getClass().getName());
+					clazz.getName());
 		}
 	}
 

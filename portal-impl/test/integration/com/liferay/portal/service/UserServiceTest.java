@@ -16,12 +16,20 @@ package com.liferay.portal.service;
 
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.ReservedUserEmailAddressException;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.test.ExecutionTestListeners;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ReflectionUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.User;
+import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
@@ -33,14 +41,19 @@ import com.liferay.portal.test.listeners.ResetDatabaseExecutionTestListener;
 import com.liferay.portal.test.runners.LiferayIntegrationJUnitTestRunner;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.portal.util.comparator.UserScreenNameComparator;
 import com.liferay.portal.util.test.GroupTestUtil;
 import com.liferay.portal.util.test.MailServiceTestUtil;
 import com.liferay.portal.util.test.OrganizationTestUtil;
 import com.liferay.portal.util.test.RandomTestUtil;
 import com.liferay.portal.util.test.TestPropsValues;
+import com.liferay.portal.util.test.UserGroupTestUtil;
 import com.liferay.portal.util.test.UserTestUtil;
 
 import java.lang.reflect.Field;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.portlet.PortletPreferences;
 
@@ -685,6 +698,353 @@ public class UserServiceTest {
 
 		private User _user;
 
+	}
+
+	@ExecutionTestListeners(
+		listeners = {
+			MainServletExecutionTestListener.class,
+			ResetDatabaseExecutionTestListener.class
+		})
+	@RunWith(LiferayIntegrationJUnitTestRunner.class)
+	public static class WhenSearchingForUser {
+
+		@Before
+		public void setUp() throws Exception {
+			GroupTestUtil.addGroup("Original Group");
+
+			_group = GroupTestUtil.addGroup("Parent group");
+
+			for (int i = 0; i < 7; i++) {
+				_user = UserTestUtil.addUser("parent" + i, _group.getGroupId());
+			}
+
+			_user = UserTestUtil.addUser("parent7", _group.getGroupId());
+
+			Group group = GroupTestUtil.addGroup(
+				_group.getGroupId(), "Child group");
+
+			UserTestUtil.addUser("child1", group.getGroupId());
+
+			UserGroup userGroup = UserGroupTestUtil.addUserGroup(
+				_group.getGroupId());
+
+			User user = UserTestUtil.addUser("UserGroup", false, null);
+
+			UserGroupLocalServiceUtil.addUserUserGroup(
+				user.getUserId(), userGroup);
+
+			Organization organization = OrganizationTestUtil.addOrganization();
+
+			GroupLocalServiceUtil.addOrganizationGroup(
+				organization.getOrganizationId(), _group);
+
+			user = UserTestUtil.addUser("Organization", false, null);
+
+			OrganizationLocalServiceUtil.addUserOrganization(
+				user.getUserId(), organization);
+		}
+
+		@Test
+		public void shouldCountAllUsersFromGroupAdvancedDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			int usersCount = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL);
+
+			Assert.assertEquals(9, usersCount);
+		}
+
+		@Test
+		public void shouldCountAllUsersFromGroupKeywordDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			int usersCount = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params);
+
+			Assert.assertEquals(9, usersCount);
+		}
+
+		@Test
+		public void shouldCountAllUsersFromGroupWithRelationsAdvancedDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			int usersCount = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL);
+
+			Assert.assertEquals(10, usersCount);
+		}
+
+		@Test
+		public void shouldCountAllUsersFromGroupWithRelationsKeywordDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			int usersCount = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params);
+
+			Assert.assertEquals(10, usersCount);
+		}
+
+		@Test
+		public void shouldCountUsers() throws Exception {
+			int count = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, null, MATCH_ALL);
+
+			Assert.assertEquals(13, count);
+		}
+
+		@Test
+		public void shouldFindAllUserAdvancedDB() throws Exception {
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, null, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(13, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUserIndex() throws Exception {
+			Sort sort = null;
+
+			Hits users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, null, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(13, users.getLength());
+		}
+
+		@Test
+		public void shouldFindAllUserKeywordDB() throws Exception {
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, null, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(13, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupAdvancedDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(9, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupKeywordDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			OrderByComparator<User> sort = null;
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(9, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupWithRelationsAdvancedDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(10, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupWithRelationsAdvancedOrderedDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			OrderByComparator<User> sort = new UserScreenNameComparator(false);
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(10, users.size());
+			Assert.assertEquals(
+				_user.getScreenName(), users.get(1).getScreenName());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupWithRelationsKeywordDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(10, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersFromGroupWithRelationsKeywordOrderedDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			OrderByComparator<User> sort = new UserScreenNameComparator(false);
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(10, users.size());
+			Assert.assertEquals(
+				_user.getScreenName(), users.get(1).getScreenName());
+		}
+
+		@Test
+		public void shouldFindUserByKeywordFromGroupDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), _user.getEmailAddress(),
+				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(1, users.size());
+			Assert.assertEquals(
+				_user.getScreenName(), users.get(0).getScreenName());
+		}
+
+		@Test
+		public void shouldFindUserByParamsFromGroupDB() throws Exception {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			params.put("usersGroups", _group.getGroupId());
+
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null,
+				_user.getScreenName(), _user.getEmailAddress(),
+				WorkflowConstants.STATUS_APPROVED, params, MATCH_ALL,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(1, users.size());
+			Assert.assertEquals(
+				_user.getScreenName(), users.get(0).getScreenName());
+		}
+
+		@Test
+		public void shouldFindUserDB() throws Exception {
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null,
+				_user.getScreenName(), null, WorkflowConstants.STATUS_APPROVED,
+				null, MATCH_ALL, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertFalse(users.isEmpty());
+			Assert.assertEquals(_user.getUserId(), users.get(0).getUserId());
+			Assert.assertEquals(
+				_user.getScreenName(), users.get(0).getScreenName());
+		}
+
+		@Test
+		public void shouldFindUserIndex() throws Exception {
+			Sort sort = null;
+
+			Hits users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null,
+				_user.getScreenName(), null, WorkflowConstants.STATUS_APPROVED,
+				null, MATCH_ALL, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertNotEquals(users.getLength(), 0);
+
+			Document doc = users.doc(0);
+			long userId = GetterUtil.getLong(
+				doc.get(com.liferay.portal.kernel.search.Field.USER_ID));
+
+			Assert.assertEquals(_user.getUserId(), userId);
+		}
+
+		private static Boolean MATCH_ALL = Boolean.TRUE;
+
+		private Group _group;
+		private User _user;
 	}
 
 	private static void _unsetGroupUsers(

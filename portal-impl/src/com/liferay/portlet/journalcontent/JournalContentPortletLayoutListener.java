@@ -63,11 +63,11 @@ public class JournalContentPortletLayoutListener
 		try {
 			Layout layout = LayoutLocalServiceUtil.getLayout(plid);
 
-			PortletPreferences preferences =
+			PortletPreferences portletPreferences =
 				PortletPreferencesFactoryUtil.getPortletSetup(
 					layout, portletId, StringPool.BLANK);
 
-			String articleId = preferences.getValue("articleId", null);
+			String articleId = portletPreferences.getValue("articleId", null);
 
 			if (Validator.isNull(articleId)) {
 				return;
@@ -102,11 +102,11 @@ public class JournalContentPortletLayoutListener
 		try {
 			Layout layout = LayoutLocalServiceUtil.getLayout(plid);
 
-			PortletPreferences preferences =
+			PortletPreferences portletPreferences =
 				PortletPreferencesFactoryUtil.getPortletSetup(
 					layout, portletId, StringPool.BLANK);
 
-			String articleId = preferences.getValue("articleId", null);
+			String articleId = portletPreferences.getValue("articleId", null);
 
 			if (Validator.isNull(articleId)) {
 				return;
@@ -123,6 +123,40 @@ public class JournalContentPortletLayoutListener
 				PortletLocalServiceUtil.deletePortlets(
 					layout.getCompanyId(), runtimePortletIds, layout.getPlid());
 			}
+		}
+		catch (Exception e) {
+			throw new PortletLayoutListenerException(e);
+		}
+	}
+
+	@Override
+	public void onSetup(String portletId, long plid)
+		throws PortletLayoutListenerException {
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Setup " + portletId + " from layout " + plid);
+		}
+
+		try {
+			Layout layout = LayoutLocalServiceUtil.getLayout(plid);
+
+			PortletPreferences portletPreferences =
+				PortletPreferencesFactoryUtil.getPortletSetup(
+					layout, portletId, StringPool.BLANK);
+
+			String articleId = portletPreferences.getValue("articleId", null);
+
+			if (Validator.isNull(articleId)) {
+				JournalContentSearchLocalServiceUtil.deleteArticleContentSearch(
+					layout.getGroupId(), layout.isPrivateLayout(),
+					layout.getLayoutId(), portletId);
+
+				return;
+			}
+
+			JournalContentSearchLocalServiceUtil.updateContentSearch(
+				layout.getGroupId(), layout.isPrivateLayout(),
+				layout.getLayoutId(), portletId, articleId, true);
 		}
 		catch (Exception e) {
 			throw new PortletLayoutListenerException(e);

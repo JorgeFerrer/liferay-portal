@@ -873,14 +873,12 @@ public class LocalProcessExecutorTest {
 
 	@Test
 	public void testLeadingLog() throws Exception {
-		CaptureHandler captureHandler = null;
+		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
+			LocalProcessExecutor.class.getName(), Level.WARNING);
 
 		try {
 
 			// Warn level
-
-			captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-				LocalProcessExecutor.class.getName(), Level.WARNING);
 
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
 
@@ -965,9 +963,7 @@ public class LocalProcessExecutorTest {
 			Assert.assertEquals(0, logRecords.size());
 		}
 		finally {
-			if (captureHandler != null) {
-				captureHandler.close();
-			}
+			captureHandler.close();
 		}
 	}
 
@@ -1224,6 +1220,45 @@ public class LocalProcessExecutorTest {
 		finally {
 			captureHandler.close();
 		}
+	}
+
+	@Test
+	public void testSanitizePathSeparatorChar() {
+		Builder builder = new Builder();
+
+		ProcessConfig processConfig = builder.build();
+
+		char pathSeparatorChar = File.pathSeparatorChar;
+
+		if (pathSeparatorChar == CharPool.COLON) {
+			pathSeparatorChar = CharPool.SEMICOLON;
+		}
+		else {
+			pathSeparatorChar = CharPool.COLON;
+		}
+
+		ReflectionTestUtil.setFieldValue(
+			processConfig, "_pathSeparatorChar", pathSeparatorChar);
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("file1");
+		sb.append(pathSeparatorChar);
+		sb.append("file2");
+		sb.append(pathSeparatorChar);
+		sb.append("file3");
+
+		String path = sb.toString();
+
+		Assert.assertEquals(
+			path.replace(pathSeparatorChar, File.pathSeparatorChar),
+			ReflectionTestUtil.invoke(
+				processConfig, "sanitizePathSeparatorChar",
+				new Class<?>[] {String.class}, path));
+		Assert.assertNull(
+			ReflectionTestUtil.invoke(
+				processConfig, "sanitizePathSeparatorChar",
+				new Class<?>[] {String.class}, new Object[] {null}));
 	}
 
 	@Test

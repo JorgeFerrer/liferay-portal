@@ -434,7 +434,7 @@ public class EditEntryAction extends PortletAction {
 				entry.getDescription(), content, displayDateMonth,
 				displayDateDay, displayDateYear, displayDateHour,
 				displayDateMinute, entry.getAllowPingbacks(),
-				entry.getAllowTrackbacks(), null, null, serviceContext);
+				entry.getAllowTrackbacks(), null, null, null, serviceContext);
 
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -500,13 +500,24 @@ public class EditEntryAction extends PortletAction {
 		String[] trackbacks = StringUtil.split(
 			ParamUtil.getString(actionRequest, "trackbacks"));
 
+		long coverImageFileEntryId = ParamUtil.getLong(
+			actionRequest, "coverImageFileEntryId");
+		String coverImageURL = ParamUtil.getString(
+			actionRequest, "coverImageURL");
+		String coverImageFileEntryCropRegion = ParamUtil.getString(
+			actionRequest, "coverImageFileEntryCropRegion");
+
+		ImageSelector coverImageImageSelector = new ImageSelector(
+			coverImageFileEntryId, coverImageURL,
+			coverImageFileEntryCropRegion);
+
 		long smallImageFileEntryId = ParamUtil.getLong(
 			actionRequest, "smallImageFileEntryId");
 		String smallImageURL = ParamUtil.getString(
 			actionRequest, "smallImageURL");
 
-		ImageSelector imageSelector = new ImageSelector(
-			smallImageFileEntryId, smallImageURL);
+		ImageSelector smallImageImageSelector = new ImageSelector(
+			smallImageFileEntryId, smallImageURL, null);
 
 		BlogsEntry entry = null;
 		String oldUrlTitle = StringPool.BLANK;
@@ -522,7 +533,8 @@ public class EditEntryAction extends PortletAction {
 				title, subtitle, description, content, displayDateMonth,
 				displayDateDay, displayDateYear, displayDateHour,
 				displayDateMinute, allowPingbacks, allowTrackbacks, trackbacks,
-				imageSelector, serviceContext);
+				coverImageImageSelector, smallImageImageSelector,
+				serviceContext);
 
 			AssetPublisherUtil.addAndStoreSelection(
 				actionRequest, BlogsEntry.class.getName(), entry.getEntryId(),
@@ -552,7 +564,8 @@ public class EditEntryAction extends PortletAction {
 				entryId, title, subtitle, description, content,
 				displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, allowPingbacks,
-				allowTrackbacks, trackbacks, imageSelector, serviceContext);
+				allowTrackbacks, trackbacks, coverImageImageSelector,
+				smallImageImageSelector, serviceContext);
 
 			if (!tempOldUrlTitle.equals(entry.getUrlTitle())) {
 				oldUrlTitle = tempOldUrlTitle;

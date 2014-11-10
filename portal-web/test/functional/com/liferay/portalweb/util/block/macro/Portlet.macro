@@ -231,13 +231,13 @@
 	</command>
 
 	<command name="shutdownServer">
-		<description message="This will shutdown the server at master-bundles\tomcat." />
+		<description message="This will shutdown the server at ${base_branch}-bundles\tomcat." />
 
 		<execute action="BaseLiferay#antCommand" locator1="build-test.xml" value1="stop-app-server" />
 	</command>
 
 	<command name="startServer">
-		<description message="This will start the server at master-bundles\tomcat." />
+		<description message="This will start the server at ${base_branch}-bundles\tomcat." />
 
 		<execute action="BaseLiferay#antCommand" locator1="build-test.xml" value1="start-app-server" />
 	</command>
@@ -306,6 +306,15 @@
 
 	<command name="viewPG">
 		<execute action="BasePortlet#assertTextEquals" locator-key1="TITLE" value1="${portletName}" />
+
+		<if>
+			<isset var="portletBody" />
+			<then>
+				<var name="key_portletName" value="${portletName}" />
+
+				<execute action="BasePortlet#assertTextEquals" locator-key1="PORTLET_BODY" value1="${portletBody}" />
+			</then>
+		</if>
 	</command>
 
 	<command name="viewSpecificPG">

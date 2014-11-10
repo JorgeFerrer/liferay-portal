@@ -2373,6 +2373,15 @@ module.framework.properties.osgi.console=11312</echo>
 		</if>
 
 		<if>
+			<isset property="email.address.5" />
+			<then>
+				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
+					email.address.5=${email.address.5}
+				</echo>
+			</then>
+		</if>
+
+		<if>
 			<isset property="email.password.1" />
 			<then>
 				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
@@ -2404,6 +2413,15 @@ module.framework.properties.osgi.console=11312</echo>
 			<then>
 				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
 					email.password.4=${email.password.4}
+				</echo>
+			</then>
+		</if>
+
+		<if>
+			<isset property="email.password.5" />
+			<then>
+				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
+					email.password.5=${email.password.5}
 				</echo>
 			</then>
 		</if>
@@ -2619,6 +2637,15 @@ module.framework.properties.osgi.console=11312</echo>
 			<then>
 				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
 					test.skip.tear.down=true
+				</echo>
+			</then>
+		</if>
+
+		<if>
+			<isset property="timeout.explicit.wait" />
+			<then>
+				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
+					timeout.explicit.wait=${timeout.explicit.wait}
 				</echo>
 			</then>
 		</if>
@@ -2883,6 +2910,18 @@ app.server.tomcat.dir=${app.server.parent.dir}/tomcat-7.0.27</echo>
 				/>
 
 				<delete file="plugins.war.zip" />
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${test.build.unit}" arg2="true" />
+			<then>
+				<delete includeemptydirs="true" failonerror="false">
+					<fileset
+						dir="${liferay.home}/osgi/modules"
+						includes="*.jar"
+					/>
+				</delete>
 			</then>
 		</if>
 
@@ -3413,12 +3452,33 @@ if (ppstate.equals("normal")) {
 
 				StringBuilder sb = new StringBuilder();
 
-				Set packageNames = getPackageNames();
-				int packageGroupsSize = Integer.parseInt(project.getProperty("test.package.groups.size"));
+				int allPackageGroupsSize = Integer.parseInt(project.getProperty("test.package.groups.size"));
 
-				Map packageGroups = getPackageGroups(packageNames, packageGroupsSize);
+				String longRunningPackageNamesString = project.getProperty("test.package.names.long.running");
 
-				for (int i = 0; i < packageGroupsSize; i++) {
+				String[] longRunningPackageNames = longRunningPackageNamesString.split(",");
+
+				int longRunningPackageGroupsSize = longRunningPackageNames.length;
+
+				if (longRunningPackageNamesString.equals("")) {
+					longRunningPackageGroupsSize = 0;
+				}
+
+				int shortRunningPackageGroupsSize = allPackageGroupsSize - longRunningPackageGroupsSize;
+
+				Set shortRunningPackageNames = new TreeSet();
+
+				Set allPackageNames = getPackageNames();
+
+				shortRunningPackageNames.addAll(allPackageNames);
+
+				for (String longRunningPackageName : longRunningPackageNames) {
+					shortRunningPackageNames.remove(longRunningPackageName);
+				}
+
+				Map packageGroups = getPackageGroups(shortRunningPackageNames, shortRunningPackageGroupsSize);
+
+				for (int i = 0; i < shortRunningPackageGroupsSize; i++) {
 					Set packageGroup = packageGroups.get(i);
 
 					sb.append("TEST_PACKAGE_GROUP_");
@@ -3440,12 +3500,20 @@ if (ppstate.equals("normal")) {
 					sb.append("\n\n");
 				}
 
+				for (int i = 0; i < longRunningPackageGroupsSize; i++) {
+					sb.append("TEST_PACKAGE_GROUP_");
+					sb.append(shortRunningPackageGroupsSize + i);
+					sb.append("=");
+					sb.append(longRunningPackageNames[i]);
+					sb.append("\n\n");
+				}
+
 				sb.append("TEST_PACKAGE_GROUPS=");
 
-				for (int i = 0; i < packageGroupsSize; i++) {
+				for (int i = 0; i < allPackageGroupsSize; i++) {
 					sb.append(i);
 
-					if (i < packageGroupsSize - 1) {
+					if (i < allPackageGroupsSize - 1) {
 						sb.append(" ");
 					}
 				}
@@ -3453,7 +3521,7 @@ if (ppstate.equals("normal")) {
 				sb.append("\n\n");
 				sb.append("TEST_PACKAGE_NAMES=");
 
-				Iterator iterator = packageNames.iterator();
+				Iterator iterator = allPackageNames.iterator();
 
 				while (iterator.hasNext()) {
 					String packageName = iterator.next();

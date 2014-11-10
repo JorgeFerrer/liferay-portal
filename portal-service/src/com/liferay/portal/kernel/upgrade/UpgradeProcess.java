@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTable;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTableFactoryUtil;
+import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.sql.Connection;
@@ -35,9 +36,6 @@ import java.sql.ResultSetMetaData;
  * @author Alexander Chow
  */
 public abstract class UpgradeProcess extends BaseDBProcess {
-
-	public UpgradeProcess() {
-	}
 
 	public int getThreshold() {
 
@@ -158,15 +156,25 @@ public abstract class UpgradeProcess extends BaseDBProcess {
 	}
 
 	public void upgrade() throws UpgradeException {
+		long start = System.currentTimeMillis();
+
 		try {
 			if (_log.isInfoEnabled()) {
-				_log.info("Upgrading " + getClass().getName());
+				_log.info("Upgrading " + ClassUtil.getClassName(this));
 			}
 
 			doUpgrade();
 		}
 		catch (Exception e) {
 			throw new UpgradeException(e);
+		}
+		finally {
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Completed upgrade process " +
+						ClassUtil.getClassName(this) + " in " +
+							(System.currentTimeMillis() - start) + "ms");
+			}
 		}
 	}
 

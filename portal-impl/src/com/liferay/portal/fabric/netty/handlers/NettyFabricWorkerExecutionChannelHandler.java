@@ -41,12 +41,15 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GenericFutureListener;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.nio.file.Path;
@@ -85,99 +88,151 @@ public class NettyFabricWorkerExecutionChannelHandler
 	}
 
 	@Override
+	public void exceptionCaught(
+		ChannelHandlerContext channelHandlerContext, Throwable throwable) {
+
+		final Channel channel = channelHandlerContext.channel();
+
+		_log.error("Closing " + channel + " due to:", throwable);
+
+		ChannelFuture channelFuture = channel.close();
+
+		channelFuture.addListener(
+			new ChannelFutureListener() {
+
+				@Override
+				public void operationComplete(ChannelFuture channelFuture) {
+					if (_log.isInfoEnabled()) {
+						_log.info(channel + " is closed");
+					}
+				}
+
+			});
+	}
+
+	@Override
 	protected void channelRead0(
 		ChannelHandlerContext channelHandlerContext,
 		NettyFabricWorkerConfig<Serializable> nettyFabricWorkerConfig) {
 
-		NoticeableFuture<LoadedResources> noticeableFuture = loadResources(
+		NoticeableFuture<LoadedPaths> noticeableFuture = loadPaths(
 			nettyFabricWorkerConfig);
 
 		noticeableFuture.addFutureListener(
-			new PostLoadResourcesFutureListener(
+			new PostLoadPathsFutureListener(
 				channelHandlerContext, nettyFabricWorkerConfig));
 	}
 
-	protected NoticeableFuture<LoadedResources> loadResources(
+	protected NoticeableFuture<LoadedPaths> loadPaths(
 		NettyFabricWorkerConfig<Serializable> nettyFabricWorkerConfig) {
 
-		Map<Path, Path> mergedResources = new HashMap<Path, Path>();
+		Map<Path, Path> mergedPaths = new HashMap<Path, Path>();
 
 		ProcessConfig processConfig =
 			nettyFabricWorkerConfig.getProcessConfig();
 
-		final Map<Path, Path> bootstrapResources =
-			new LinkedHashMap<Path, Path>();
+		final Map<Path, Path> bootstrapPaths = new LinkedHashMap<Path, Path>();
 
 		for (String pathString :
 				StringUtil.split(
 					processConfig.getBootstrapClassPath(),
 					File.pathSeparatorChar)) {
 
-			bootstrapResources.put(Paths.get(pathString), null);
+			bootstrapPaths.put(Paths.get(pathString), null);
 		}
 
-		mergedResources.putAll(bootstrapResources);
+		mergedPaths.putAll(bootstrapPaths);
 
-		final Map<Path, Path> runtimeResources =
-			new LinkedHashMap<Path, Path>();
+		final Map<Path, Path> runtimePaths = new LinkedHashMap<Path, Path>();
 
 		for (String pathString :
 				StringUtil.split(
 					processConfig.getRuntimeClassPath(),
 					File.pathSeparatorChar)) {
 
-			runtimeResources.put(Paths.get(pathString), null);
+			runtimePaths.put(Paths.get(pathString), null);
 		}
 
-		mergedResources.putAll(runtimeResources);
+		mergedPaths.putAll(runtimePaths);
 
-		final Map<Path, Path> inputResources =
-			nettyFabricWorkerConfig.getInputResourceMap();
+		final Map<Path, Path> inputPaths =
+			nettyFabricWorkerConfig.getInputPathMap();
 
-		mergedResources.putAll(inputResources);
+		mergedPaths.putAll(inputPaths);
 
-		return new NoticeableFutureConverter<LoadedResources, Map<Path, Path>>(
-			_repository.getFiles(mergedResources, false)) {
+		return new NoticeableFutureConverter<LoadedPaths, Map<Path, Path>>(
+			_repository.getFiles(mergedPaths, false)) {
 
 			@Override
-			protected LoadedResources convert(Map<Path, Path> mergedResources) {
-				Map<Path, Path> loadedInputResources =
-					new HashMap<Path, Path>();
+			protected LoadedPaths convert(Map<Path, Path> mergedPaths)
+				throws IOException {
 
-				for (Path path : inputResources.keySet()) {
-					Path loadedInputResource = mergedResources.get(path);
+				Map<Path, Path> loadedInputPaths = new HashMap<Path, Path>();
 
-					if (loadedInputResource != null) {
-						loadedInputResources.put(path, loadedInputResource);
+				List<Path> missedInputPaths = new ArrayList<Path>();
+
+				for (Path path : inputPaths.keySet()) {
+					Path loadedInputPath = mergedPaths.get(path);
+
+					if (loadedInputPath == null) {
+						missedInputPaths.add(path);
+					}
+					else {
+						loadedInputPaths.put(path, loadedInputPath);
 					}
 				}
 
-				List<Path> loadedBootstrapResources = new ArrayList<Path>();
+				if (!missedInputPaths.isEmpty()) {
+					throw new IOException(
+						"Unable to get input paths: " + missedInputPaths);
+				}
 
-				for (Path path : bootstrapResources.keySet()) {
-					Path loadedBootstrapResource = mergedResources.get(path);
+				List<Path> loadedBootstrapPaths = new ArrayList<Path>();
 
-					if (loadedBootstrapResource != null) {
-						loadedBootstrapResources.add(loadedBootstrapResource);
+				List<Path> missedBootstrapPaths = new ArrayList<Path>();
+
+				for (Path path : bootstrapPaths.keySet()) {
+					Path loadedBootstrapPath = mergedPaths.get(path);
+
+					if (loadedBootstrapPath == null) {
+						missedBootstrapPaths.add(path);
+					}
+					else {
+						loadedBootstrapPaths.add(loadedBootstrapPath);
 					}
 				}
 
-				List<Path> loadedRuntimeResources = new ArrayList<Path>();
+				if (!missedBootstrapPaths.isEmpty() && _log.isWarnEnabled()) {
+					_log.warn(
+						"Incomplete bootstrap classpath loaded, missed: " +
+							missedBootstrapPaths);
+				}
 
-				for (Path path : runtimeResources.keySet()) {
-					Path loadedRuntimeResource = mergedResources.get(path);
+				List<Path> loadedRuntimePaths = new ArrayList<Path>();
 
-					if (loadedRuntimeResource != null) {
-						loadedRuntimeResources.add(loadedRuntimeResource);
+				List<Path> missedRuntimePaths = new ArrayList<Path>();
+
+				for (Path path : runtimePaths.keySet()) {
+					Path loadedRuntimePath = mergedPaths.get(path);
+
+					if (loadedRuntimePath == null) {
+						missedRuntimePaths.add(path);
+					}
+					else {
+						loadedRuntimePaths.add(loadedRuntimePath);
 					}
 				}
 
-				return new LoadedResources(
-					loadedInputResources,
-					StringUtil.merge(
-						loadedBootstrapResources, File.pathSeparator),
-					StringUtil.merge(
-						loadedRuntimeResources, File.pathSeparator));
+				if (!missedRuntimePaths.isEmpty() && _log.isWarnEnabled()) {
+					_log.warn(
+						"Incomplete runtime classpath loaded, missed: " +
+							missedRuntimePaths);
+				}
+
+				return new LoadedPaths(
+					loadedInputPaths,
+					StringUtil.merge(loadedBootstrapPaths, File.pathSeparator),
+					StringUtil.merge(loadedRuntimePaths, File.pathSeparator));
 			}
 		};
 	}
@@ -311,19 +366,19 @@ public class NettyFabricWorkerExecutionChannelHandler
 
 	}
 
-	protected static class LoadedResources {
+	protected static class LoadedPaths {
 
-		public LoadedResources(
-			Map<Path, Path> inputResources, String bootstrapClassPath,
+		public LoadedPaths(
+			Map<Path, Path> inputPaths, String bootstrapClassPath,
 			String runtimeClassPath) {
 
-			_inputResources = inputResources;
+			_inputPaths = inputPaths;
 			_bootstrapClassPath = bootstrapClassPath;
 			_runtimeClassPath = runtimeClassPath;
 		}
 
-		public Map<Path, Path> getInputResources() {
-			return _inputResources;
+		public Map<Path, Path> getInputPaths() {
+			return _inputPaths;
 		}
 
 		public ProcessConfig toProcessConfig(ProcessConfig processConfig) {
@@ -338,7 +393,7 @@ public class NettyFabricWorkerExecutionChannelHandler
 		}
 
 		private final String _bootstrapClassPath;
-		private final Map<Path, Path> _inputResources;
+		private final Map<Path, Path> _inputPaths;
 		private final String _runtimeClassPath;
 	}
 
@@ -347,11 +402,11 @@ public class NettyFabricWorkerExecutionChannelHandler
 			<io.netty.util.concurrent.Future<FabricWorker<Serializable>>> {
 
 		public PostFabricWorkerExecutionFutureListener(
-			Channel channel, LoadedResources loadedResources,
+			Channel channel, LoadedPaths loadedPaths,
 			NettyFabricWorkerConfig<Serializable> nettyFabricWorkerConfig) {
 
 			_channel = channel;
-			_loadedResources = loadedResources;
+			_loadedPaths = loadedPaths;
 			_nettyFabricWorkerConfig = nettyFabricWorkerConfig;
 		}
 
@@ -404,11 +459,11 @@ public class NettyFabricWorkerExecutionChannelHandler
 
 			processNoticeableFuture.addFutureListener(
 				new PostFabricWorkerFinishFutureListener(
-					_channel, _nettyFabricWorkerConfig, _loadedResources));
+					_channel, _nettyFabricWorkerConfig, _loadedPaths));
 		}
 
 		private final Channel _channel;
-		private final LoadedResources _loadedResources;
+		private final LoadedPaths _loadedPaths;
 		private final NettyFabricWorkerConfig<Serializable>
 			_nettyFabricWorkerConfig;
 	}
@@ -419,19 +474,18 @@ public class NettyFabricWorkerExecutionChannelHandler
 		public PostFabricWorkerFinishFutureListener(
 			Channel channel,
 			NettyFabricWorkerConfig<Serializable> nettyFabricWorkerConfig,
-			LoadedResources loadedResources) {
+			LoadedPaths loadedPaths) {
 
 			_channel = channel;
 			_nettyFabricWorkerConfig = nettyFabricWorkerConfig;
-			_loadedResources = loadedResources;
+			_loadedPaths = loadedPaths;
 		}
 
 		@Override
 		public void complete(Future<Serializable> future) {
-			Map<Path, Path> inputResources =
-				_loadedResources.getInputResources();
+			Map<Path, Path> inputPaths = _loadedPaths.getInputPaths();
 
-			for (Path path : inputResources.values()) {
+			for (Path path : inputPaths.values()) {
 				FileHelperUtil.delete(true, path);
 			}
 
@@ -450,16 +504,16 @@ public class NettyFabricWorkerExecutionChannelHandler
 		}
 
 		private final Channel _channel;
-		private final LoadedResources _loadedResources;
+		private final LoadedPaths _loadedPaths;
 		private final NettyFabricWorkerConfig<Serializable>
 			_nettyFabricWorkerConfig;
 
 	}
 
-	protected class PostLoadResourcesFutureListener
-		extends BaseFutureListener<LoadedResources> {
+	protected class PostLoadPathsFutureListener
+		extends BaseFutureListener<LoadedPaths> {
 
-		public PostLoadResourcesFutureListener(
+		public PostLoadPathsFutureListener(
 			ChannelHandlerContext channelHandlerContext,
 			NettyFabricWorkerConfig<Serializable> nettyFabricWorkerConfig) {
 
@@ -469,7 +523,7 @@ public class NettyFabricWorkerExecutionChannelHandler
 
 		@Override
 		public void completeWithException(
-			Future<LoadedResources> future, Throwable throwable) {
+			Future<LoadedPaths> future, Throwable throwable) {
 
 			sendResult(
 				_channelHandlerContext.channel(),
@@ -478,8 +532,8 @@ public class NettyFabricWorkerExecutionChannelHandler
 
 		@Override
 		public void completeWithResult(
-			Future<LoadedResources> loadResourcesFuture,
-			final LoadedResources loadedResources) {
+			Future<LoadedPaths> loadPathsFuture,
+			final LoadedPaths loadedPaths) {
 
 			EventExecutor eventExecutor = _channelHandlerContext.executor();
 
@@ -495,7 +549,7 @@ public class NettyFabricWorkerExecutionChannelHandler
 								_nettyFabricWorkerConfig.getProcessConfig();
 
 							return _fabricAgent.execute(
-								loadedResources.toProcessConfig(processConfig),
+								loadedPaths.toProcessConfig(processConfig),
 								_nettyFabricWorkerConfig.getProcessCallable());
 						}
 
@@ -503,7 +557,7 @@ public class NettyFabricWorkerExecutionChannelHandler
 
 			future.addListener(
 				new PostFabricWorkerExecutionFutureListener(
-					_channelHandlerContext.channel(), loadedResources,
+					_channelHandlerContext.channel(), loadedPaths,
 					_nettyFabricWorkerConfig));
 		}
 

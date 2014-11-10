@@ -16,12 +16,19 @@ package com.liferay.portal.tools.sourceformatter;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncBufferedReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.kernel.util.Validator;
+
+import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.JavaMethod;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,18 +44,21 @@ import java.util.regex.Pattern;
 public class JavaClass {
 
 	public JavaClass(
-			String name, String fileName, String absolutePath, String content,
-			int lineCount, String indent, JavaClass outerClass,
+			String name, String packagePath, File file, String fileName,
+			String absolutePath, String content, int lineCount, String indent,
+			JavaClass outerClass,
 			List<String> javaTermAccessLevelModifierExclusions)
 		throws Exception {
 
 		_name = name;
+		_packagePath = packagePath;
+		_file = file;
 		_fileName = fileName;
 		_absolutePath = absolutePath;
 		_content = content;
 		_lineCount = lineCount;
-		_outerClass = outerClass;
 		_indent = indent;
+		_outerClass = outerClass;
 		_javaTermAccessLevelModifierExclusions =
 			javaTermAccessLevelModifierExclusions;
 
@@ -57,7 +67,7 @@ public class JavaClass {
 
 	public String formatJavaTerms(
 			Set<String> annotationsExclusions, Set<String> immutableFieldTypes,
-			List<String> finalableFieldTypesExclusions,
+			List<String> checkJavaFieldTypesExclusions,
 			List<String> javaTermSortExclusions,
 			List<String> testAnnotationsExclusions)
 		throws Exception {
@@ -75,9 +85,18 @@ public class JavaClass {
 		while (itr.hasNext()) {
 			JavaTerm javaTerm = itr.next();
 
-			checkJavaFieldType(
-				javaTerm, annotationsExclusions, immutableFieldTypes,
-				finalableFieldTypesExclusions);
+			if (javaTerm.isConstructor()) {
+				checkConstructor(javaTerm);
+			}
+
+			checkUnusedParameters(javaTerm);
+
+			if (!BaseSourceProcessor.isExcluded(
+					checkJavaFieldTypesExclusions, _absolutePath)) {
+
+				checkJavaFieldType(
+					javaTerm, annotationsExclusions, immutableFieldTypes);
+			}
 
 			if (!originalContent.equals(_content)) {
 				return _content;
@@ -99,7 +118,7 @@ public class JavaClass {
 
 			String newInnerClassContent = innerClass.formatJavaTerms(
 				annotationsExclusions, immutableFieldTypes,
-				finalableFieldTypesExclusions, javaTermSortExclusions,
+				checkJavaFieldTypesExclusions, javaTermSortExclusions,
 				testAnnotationsExclusions);
 
 			if (!innerClassContent.equals(newInnerClassContent)) {
@@ -202,6 +221,107 @@ public class JavaClass {
 		}
 	}
 
+	protected void checkConstructor(JavaTerm javaTerm) throws Exception {
+		String javaTermContent = javaTerm.getContent();
+
+		if (javaTermContent.contains(StringPool.TAB + "super();")) {
+			String newJavaTermContent = StringUtil.replace(
+				javaTermContent, StringPool.TAB + "super();", StringPool.BLANK);
+
+			_content = StringUtil.replace(
+				_content, javaTermContent, newJavaTermContent);
+
+			return;
+		}
+
+		if (!ListUtil.isEmpty(javaTerm.getParameterTypes())) {
+			checkConstructorParameterOrder(javaTerm);
+
+			return;
+		}
+
+		if ((_packagePath == null) || (_constructorCount > 1) ||
+			!javaTermContent.contains("{\n" + _indent + "}\n")) {
+
+			return;
+		}
+
+		String accessModifier = getAccessModifier();
+
+		if ((javaTerm.isPrivate() &&
+			 !accessModifier.equals(_MODIFIER_PRIVATE)) ||
+			(javaTerm.isProtected() &&
+			 !accessModifier.equals(_MODIFIER_PRIVATE) &&
+			 !accessModifier.equals(_MODIFIER_PROTECTED))) {
+
+			return;
+		}
+
+		Pattern pattern = Pattern.compile("class " + _name + "[ \t\n]+extends");
+
+		Matcher matcher = pattern.matcher(_content);
+
+		if (!matcher.find()) {
+			return;
+		}
+
+		JavaDocBuilder javaDocBuilder = new JavaDocBuilder();
+
+		javaDocBuilder.addSource(_file);
+
+		com.thoughtworks.qdox.model.JavaClass javaClass =
+			javaDocBuilder.getClassByName(
+				_packagePath + StringPool.PERIOD + _name);
+
+		com.thoughtworks.qdox.model.JavaClass superJavaClass =
+			javaClass.getSuperJavaClass();
+
+		JavaMethod superJavaClassConstructor =
+			superJavaClass.getMethodBySignature(superJavaClass.getName(), null);
+
+		if ((superJavaClassConstructor != null) &&
+			ArrayUtil.isEmpty(superJavaClassConstructor.getExceptions())) {
+
+			_content = StringUtil.replace(
+				_content, javaTermContent, StringPool.BLANK);
+		}
+	}
+
+	protected void checkConstructorParameterOrder(JavaTerm javaTerm) {
+		int previousPos = -1;
+
+		for (String parameterName : javaTerm.getParameterNames()) {
+			Pattern pattern = Pattern.compile(
+				"\\{\n([\\s\\S]*?)(_" + parameterName + " =[ \t\n]+" +
+					parameterName + ";)");
+
+			Matcher matcher = pattern.matcher(javaTerm.getContent());
+
+			if (!matcher.find()) {
+				continue;
+			}
+
+			String beforeParameter = matcher.group(1);
+
+			if (beforeParameter.contains(parameterName + " =")) {
+				continue;
+			}
+
+			int pos = matcher.start(2);
+
+			if (previousPos > pos) {
+				BaseSourceProcessor.processErrorMessage(
+					_fileName,
+					"Constructor parameter order " + parameterName + ": " +
+						_fileName);
+
+				return;
+			}
+
+			previousPos = pos;
+		}
+	}
+
 	protected void checkFinalableFieldType(
 			JavaTerm javaTerm, Set<String> annotationsExclusions,
 			boolean isStatic)
@@ -268,8 +388,7 @@ public class JavaClass {
 
 	protected void checkJavaFieldType(
 			JavaTerm javaTerm, Set<String> annotationsExclusions,
-			Set<String> immutableFieldTypes,
-			List<String> finalableFieldTypesExclusions)
+			Set<String> immutableFieldTypes)
 		throws Exception {
 
 		if (!BaseSourceProcessor.portalSource || !javaTerm.isVariable()) {
@@ -308,9 +427,7 @@ public class JavaClass {
 				}
 			}
 		}
-		else if (!BaseSourceProcessor.isExcluded(
-					finalableFieldTypesExclusions, _absolutePath)) {
-
+		else {
 			checkFinalableFieldType(javaTerm, annotationsExclusions, isStatic);
 		}
 	}
@@ -393,6 +510,21 @@ public class JavaClass {
 		checkAnnotationForMethod(
 			javaTerm, "Test", "^.*test", JavaTerm.TYPE_METHOD_PUBLIC,
 			_fileName);
+	}
+
+	protected void checkUnusedParameters(JavaTerm javaTerm) {
+		if (!javaTerm.isPrivate() || !javaTerm.isMethod()) {
+			return;
+		}
+
+		for (String parameterName : javaTerm.getParameterNames()) {
+			if (StringUtil.count(javaTerm.getContent(), parameterName) == 1) {
+				BaseSourceProcessor.processErrorMessage(
+					_fileName,
+					"Unused parameter " + parameterName + ": " + _fileName +
+						" " + javaTerm.getLineCount());
+			}
+		}
 	}
 
 	protected void fixJavaTermsDividers(
@@ -651,6 +783,23 @@ public class JavaClass {
 		}
 	}
 
+	protected String getAccessModifier() {
+		Matcher matcher = _classPattern.matcher(_content);
+
+		if (matcher.find()) {
+			String accessModifier = matcher.group(1);
+
+			if (accessModifier.equals(_MODIFIER_PRIVATE) ||
+				accessModifier.equals(_MODIFIER_PROTECTED) ||
+				accessModifier.equals(_MODIFIER_PUBLIC)) {
+
+				return accessModifier;
+			}
+		}
+
+		return _MODIFIER_UNKNOWN;
+	}
+
 	protected String getClassName(String line) {
 		int pos = line.indexOf(" extends ");
 
@@ -687,6 +836,37 @@ public class JavaClass {
 		return line.substring(x + 1);
 	}
 
+	protected JavaTerm getJavaTerm(
+			String name, int type, int lineCount, int startPos, int endPos)
+		throws Exception {
+
+		String javaTermContent = _content.substring(startPos, endPos);
+
+		if (Validator.isNull(name) || !isValidJavaTerm(javaTermContent)) {
+			return null;
+		}
+
+		JavaTerm javaTerm = new JavaTerm(
+			name, type, javaTermContent, lineCount);
+
+		if (javaTerm.isConstructor()) {
+			_constructorCount++;
+		}
+
+		if (!javaTerm.isClass()) {
+			return javaTerm;
+		}
+
+		JavaClass innerClass = new JavaClass(
+			name, _packagePath, _file, _fileName, _absolutePath,
+			javaTermContent, lineCount, _indent + StringPool.TAB, this,
+			_javaTermAccessLevelModifierExclusions);
+
+		_innerClasses.add(innerClass);
+
+		return javaTerm;
+	}
+
 	protected Set<JavaTerm> getJavaTerms() throws Exception {
 		if (_javaTerms != null) {
 			return _javaTerms;
@@ -703,8 +883,6 @@ public class JavaClass {
 		int lineCount = _lineCount - 1;
 
 		String line = null;
-
-		JavaTerm javaTerm = null;
 
 		String javaTermName = null;
 		int javaTermLineCount = -1;
@@ -750,34 +928,19 @@ public class JavaClass {
 				if ((javaTermStartPosition != -1) &&
 					(javaTermEndPosition < _content.length())) {
 
-					String javaTermContent = _content.substring(
+					JavaTerm javaTerm = getJavaTerm(
+						javaTermName, javaTermType, javaTermLineCount,
 						javaTermStartPosition, javaTermEndPosition);
 
-					if (!isValidJavaTerm(javaTermContent)) {
+					if (javaTerm == null) {
 						return null;
 					}
 
-					if (Validator.isNotNull(javaTermName)) {
-						javaTerm = new JavaTerm(
-							javaTermName, javaTermType, javaTermContent,
-							javaTermLineCount);
-
-						if (javaTermType == JavaTerm.TYPE_STATIC_BLOCK) {
-							staticBlocks.add(javaTerm);
-						}
-						else {
-							javaTerms.add(javaTerm);
-
-							if (javaTerm.isClass()) {
-								JavaClass innerClass = new JavaClass(
-									javaTermName, _fileName, _absolutePath,
-									javaTermContent, javaTermLineCount,
-									_indent + StringPool.TAB, this,
-									_javaTermAccessLevelModifierExclusions);
-
-								_innerClasses.add(innerClass);
-							}
-						}
+					if (javaTermType == JavaTerm.TYPE_STATIC_BLOCK) {
+						staticBlocks.add(javaTerm);
+					}
+					else {
+						javaTerms.add(javaTerm);
 					}
 				}
 
@@ -823,30 +986,19 @@ public class JavaClass {
 				_content.lastIndexOf(StringPool.CLOSE_CURLY_BRACE) -
 					_indent.length();
 
-			String javaTermContent = _content.substring(
+			JavaTerm javaTerm = getJavaTerm(
+				javaTermName, javaTermType, javaTermLineCount,
 				javaTermStartPosition, javaTermEndPosition);
 
-			if (!isValidJavaTerm(javaTermContent)) {
+			if (javaTerm == null) {
 				return null;
 			}
-
-			javaTerm = new JavaTerm(
-				javaTermName, javaTermType, javaTermContent, javaTermLineCount);
 
 			if (javaTermType == JavaTerm.TYPE_STATIC_BLOCK) {
 				staticBlocks.add(javaTerm);
 			}
 			else {
 				javaTerms.add(javaTerm);
-
-				if (javaTerm.isClass()) {
-					JavaClass innerClass = new JavaClass(
-						javaTermName, _fileName, _absolutePath, javaTermContent,
-						javaTermLineCount, _indent + StringPool.TAB, this,
-						_javaTermAccessLevelModifierExclusions);
-
-					_innerClasses.add(innerClass);
-				}
 			}
 		}
 
@@ -1197,11 +1349,21 @@ public class JavaClass {
 		}
 	}
 
+	private static final String _MODIFIER_PRIVATE = "private";
+
+	private static final String _MODIFIER_PROTECTED = "protected";
+
+	private static final String _MODIFIER_PUBLIC = "public";
+
+	private static final String _MODIFIER_UNKNOWN = "unknown";
+
 	private String _absolutePath;
 	private Pattern _camelCasePattern = Pattern.compile("([a-z])([A-Z0-9])");
 	private Pattern _classPattern = Pattern.compile(
 		"(private |protected |public )(static )*class ([\\s\\S]*?) \\{\n");
+	private int _constructorCount = 0;
 	private String _content;
+	private File _file;
 	private String _fileName;
 	private String _indent;
 	private List<JavaClass> _innerClasses = new ArrayList<JavaClass>();
@@ -1210,5 +1372,6 @@ public class JavaClass {
 	private int _lineCount;
 	private String _name;
 	private JavaClass _outerClass;
+	private String _packagePath;
 
 }

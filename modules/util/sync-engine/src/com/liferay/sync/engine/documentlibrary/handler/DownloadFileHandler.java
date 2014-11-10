@@ -107,7 +107,9 @@ public class DownloadFileHandler extends BaseHandler {
 
 		syncFile = SyncFileService.fetchSyncFile(syncFile.getSyncFileId());
 
-		if (syncFile.getState() == SyncFile.STATE_UNSYNCED) {
+		if ((syncFile == null) ||
+			(syncFile.getState() == SyncFile.STATE_UNSYNCED)) {
+
 			return;
 		}
 

@@ -262,14 +262,17 @@ public class BlogsEntryStagedModelDataHandler
 			}
 		}
 
-		ImageSelector imageSelector = null;
+		ImageSelector coverImageImageSelector = new ImageSelector(
+			smallImageFileEntryId, entry.getCoverImageURL(), null);
+
+		ImageSelector smallImageImageSelector = null;
 
 		if (!entry.isSmallImage()) {
-			imageSelector = new ImageSelector(0);
+			smallImageImageSelector = new ImageSelector(0);
 		}
 		else {
-			imageSelector = new ImageSelector(
-				smallImageFileEntryId, entry.getSmallImageURL());
+			smallImageImageSelector = new ImageSelector(
+				smallImageFileEntryId, entry.getSmallImageURL(), null);
 		}
 
 		BlogsEntry importedEntry = null;
@@ -288,7 +291,8 @@ public class BlogsEntryStagedModelDataHandler
 					entry.getDescription(), entry.getContent(),
 					displayDateMonth, displayDateDay, displayDateYear,
 					displayDateHour, displayDateMinute, allowPingbacks,
-					allowTrackbacks, trackbacks, imageSelector, serviceContext);
+					allowTrackbacks, trackbacks, coverImageImageSelector,
+					smallImageImageSelector, serviceContext);
 			}
 			else {
 				importedEntry = BlogsEntryLocalServiceUtil.updateEntry(
@@ -296,7 +300,8 @@ public class BlogsEntryStagedModelDataHandler
 					entry.getSubtitle(), entry.getDescription(),
 					entry.getContent(), displayDateMonth, displayDateDay,
 					displayDateYear, displayDateHour, displayDateMinute,
-					allowPingbacks, allowTrackbacks, trackbacks, imageSelector,
+					allowPingbacks, allowTrackbacks, trackbacks,
+					coverImageImageSelector, smallImageImageSelector,
 					serviceContext);
 			}
 		}
@@ -306,7 +311,8 @@ public class BlogsEntryStagedModelDataHandler
 				entry.getDescription(), entry.getContent(), displayDateMonth,
 				displayDateDay, displayDateYear, displayDateHour,
 				displayDateMinute, allowPingbacks, allowTrackbacks, trackbacks,
-				imageSelector, serviceContext);
+				coverImageImageSelector, smallImageImageSelector,
+				serviceContext);
 		}
 
 		portletDataContext.importClassedModel(entry, importedEntry);

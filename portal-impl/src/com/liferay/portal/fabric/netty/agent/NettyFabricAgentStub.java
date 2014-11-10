@@ -14,7 +14,7 @@
 
 package com.liferay.portal.fabric.netty.agent;
 
-import com.liferay.portal.fabric.FabricResourceMappingVisitor;
+import com.liferay.portal.fabric.FabricPathMappingVisitor;
 import com.liferay.portal.fabric.InputResource;
 import com.liferay.portal.fabric.OutputResource;
 import com.liferay.portal.fabric.agent.FabricAgent;
@@ -45,6 +45,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -54,7 +55,7 @@ public class NettyFabricAgentStub implements FabricAgent {
 
 	public NettyFabricAgentStub(
 		Channel channel, Repository repository, Path remoteRepositoryPath,
-		long rpcRelayTimeout) {
+		long rpcRelayTimeout, long startupTimeout) {
 
 		if (channel == null) {
 			throw new NullPointerException("Channel is null");
@@ -72,6 +73,7 @@ public class NettyFabricAgentStub implements FabricAgent {
 		_repository = repository;
 		_remoteRepositoryPath = remoteRepositoryPath;
 		_rpcRelayTimeout = rpcRelayTimeout;
+		_startupTimeout = startupTimeout;
 	}
 
 	@Override
@@ -99,18 +101,17 @@ public class NettyFabricAgentStub implements FabricAgent {
 
 		final long id = _idGenerator.getAndIncrement();
 
-		FabricResourceMappingVisitor fabricResourceMappingVisitor =
-			new FabricResourceMappingVisitor(
+		FabricPathMappingVisitor fabricPathMappingVisitor =
+			new FabricPathMappingVisitor(
 				OutputResource.class, _remoteRepositoryPath, true);
 
 		ObjectGraphUtil.walkObjectGraph(
-			processCallable, fabricResourceMappingVisitor);
+			processCallable, fabricPathMappingVisitor);
 
 		NettyFabricWorkerStub<T> nettyFabricWorkerStub =
 			new NettyFabricWorkerStub<T>(
 				id, _channel, _repository,
-				fabricResourceMappingVisitor.getResourceMap(),
-				_rpcRelayTimeout);
+				fabricPathMappingVisitor.getPathMap(), _rpcRelayTimeout);
 
 		final DefaultNoticeableFuture<Object> startupNoticeableFuture =
 			new DefaultNoticeableFuture<Object>();
@@ -127,16 +128,16 @@ public class NettyFabricAgentStub implements FabricAgent {
 
 			});
 
-		fabricResourceMappingVisitor = new FabricResourceMappingVisitor(
+		fabricPathMappingVisitor = new FabricPathMappingVisitor(
 			InputResource.class, _remoteRepositoryPath);
 
 		ObjectGraphUtil.walkObjectGraph(
-			processCallable, fabricResourceMappingVisitor);
+			processCallable, fabricPathMappingVisitor);
 
 		ChannelFuture channelFuture = _channel.writeAndFlush(
 			new NettyFabricWorkerConfig<T>(
 				id, processConfig, processCallable,
-				fabricResourceMappingVisitor.getResourceMap()));
+				fabricPathMappingVisitor.getPathMap()));
 
 		channelFuture.addListener(
 			new ChannelFutureListener() {
@@ -158,8 +159,32 @@ public class NettyFabricAgentStub implements FabricAgent {
 
 			});
 
+		final ChannelFutureListener channelFutureListener =
+			new ChannelFutureListener() {
+
+			@Override
+			public void operationComplete(ChannelFuture channelFuture) {
+				startupNoticeableFuture.cancel(true);
+			}
+
+		};
+
+		final ChannelFuture closeChannelFuture = _channel.closeFuture();
+
+		closeChannelFuture.addListener(channelFutureListener);
+
+		startupNoticeableFuture.addFutureListener(
+			new FutureListener<Object>() {
+
+				@Override
+				public void complete(Future<Object> future) {
+					closeChannelFuture.removeListener(channelFutureListener);
+				}
+
+			});
+
 		try {
-			startupNoticeableFuture.get();
+			startupNoticeableFuture.get(_startupTimeout, TimeUnit.MILLISECONDS);
 
 			_nettyFabricWorkerStubs.put(id, nettyFabricWorkerStub);
 		}
@@ -218,5 +243,6 @@ public class NettyFabricAgentStub implements FabricAgent {
 	private final Map<Long, DefaultNoticeableFuture<?>>
 		_startupNoticeableFutures =
 			new ConcurrentHashMap<Long, DefaultNoticeableFuture<?>>();
+	private final long _startupTimeout;
 
 }

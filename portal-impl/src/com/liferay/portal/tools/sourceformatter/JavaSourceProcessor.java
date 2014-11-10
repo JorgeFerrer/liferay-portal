@@ -700,15 +700,27 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			});
 
 		while (true) {
-			Matcher matcher = _incorrectLineBreakPattern.matcher(newContent);
+			Matcher matcher = _incorrectLineBreakPattern1.matcher(newContent);
 
-			if (!matcher.find()) {
-				break;
+			if (matcher.find()) {
+				newContent = StringUtil.replaceFirst(
+					newContent, StringPool.NEW_LINE, StringPool.BLANK,
+					matcher.start());
+
+				continue;
 			}
 
-			newContent = StringUtil.replaceFirst(
-				newContent, StringPool.NEW_LINE, StringPool.BLANK,
-				matcher.start());
+			matcher = _incorrectLineBreakPattern2.matcher(newContent);
+
+			if (matcher.find()) {
+				newContent = StringUtil.replaceFirst(
+					newContent, StringPool.NEW_LINE, StringPool.BLANK,
+					matcher.start());
+
+				continue;
+			}
+
+			break;
 		}
 
 		newContent = sortAnnotations(newContent, StringPool.BLANK);
@@ -929,8 +941,9 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				StringUtil.count(beforeJavaClass, "\n") + 1;
 
 			newContent = formatJavaTerms(
-				className, fileName, absolutePath, newContent, javaClassContent,
-				javaClassLineCount, _finalableFieldTypesExclusions,
+				className, packagePath, file, fileName, absolutePath,
+				newContent, javaClassContent, javaClassLineCount,
+				_checkJavaFieldTypesExclusions,
 				_javaTermAccessLevelModifierExclusions, _javaTermSortExclusions,
 				_testAnnotationsExclusions);
 		}
@@ -1109,8 +1122,8 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			getProperty("add.missing.deprecation.release.version"));
 		_allowUseServiceUtilInServiceImpl = GetterUtil.getBoolean(
 			getProperty("allow.use.service.util.in.service.impl"));
-		_finalableFieldTypesExclusions = getPropertyList(
-			"finalable.field.types.excludes.files");
+		_checkJavaFieldTypesExclusions = getPropertyList(
+			"check.java.field.types.excludes.files");
 		_fitOnSingleLineExclusions = getPropertyList(
 			"fit.on.single.line.excludes.files");
 		_hibernateSQLQueryExclusions = getPropertyList(
@@ -1771,7 +1784,9 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 							lineLength, lineCount, previousLine,
 							lineLeadingTabCount, previousLineLeadingTabCount);
 
-						if (combinedLinesContent != null) {
+						if ((combinedLinesContent != null) &&
+							!combinedLinesContent.equals(content)) {
+
 							return combinedLinesContent;
 						}
 					}
@@ -2680,21 +2695,23 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 		"\n(\t*)@(.+)\\(\n([\\s\\S]*?)\n(\t*)\\)");
 	private Pattern _catchExceptionPattern = Pattern.compile(
 		"\n(\t+)catch \\((.+Exception) (.+)\\) \\{\n");
+	private List<String> _checkJavaFieldTypesExclusions;
 	private boolean _checkUnprocessedExceptions;
 	private Pattern _diamondOperatorPattern = Pattern.compile(
 		"(return|=)\n?(\t+| )new ([A-Za-z]+)(Map|Set|List)<(.+)>" +
 			"\\(\n*\t*(.*)\\);\n");
 	private Pattern _fetchByPrimaryKeysMethodPattern = Pattern.compile(
 		"@Override\n\tpublic Map<(.+)> fetchByPrimaryKeys\\(");
-	private List<String> _finalableFieldTypesExclusions;
 	private List<String> _fitOnSingleLineExclusions;
 	private List<String> _hibernateSQLQueryExclusions;
 	private Pattern _incorrectCloseCurlyBracePattern1 = Pattern.compile(
 		"\n(.+)\n\n(\t+)}\n");
 	private Pattern _incorrectCloseCurlyBracePattern2 = Pattern.compile(
 		"(\t| )@?(class |enum |interface |new )");
-	private Pattern _incorrectLineBreakPattern = Pattern.compile(
+	private Pattern _incorrectLineBreakPattern1 = Pattern.compile(
 		"\t(catch |else |finally |for |if |try |while ).*\\{\n\n\t+\\w");
+	private Pattern _incorrectLineBreakPattern2 = Pattern.compile(
+		"\\{\n\n\t*\\}");
 	private List<String> _javaTermAccessLevelModifierExclusions;
 	private List<String> _javaTermSortExclusions;
 	private Pattern _lineBreakPattern = Pattern.compile("\\}(\\)+) \\{");

@@ -119,9 +119,16 @@ public class SyncWatchEventProcessor implements Runnable {
 			!FileUtil.hasFileChanged(syncFile)) {
 		}
 		else if (Files.exists(sourceFilePath)) {
-			SyncFileService.addFileSyncFile(
-				targetFilePath, parentSyncFile.getTypePK(),
-				parentSyncFile.getRepositoryId(), _syncAccountId);
+			try {
+				SyncFileService.addFileSyncFile(
+					targetFilePath, parentSyncFile.getTypePK(),
+					parentSyncFile.getRepositoryId(), _syncAccountId);
+			}
+			catch (Exception e) {
+				if (_logger.isTraceEnabled()) {
+					_logger.trace(e.getMessage(), e);
+				}
+			}
 
 			return true;
 		}
@@ -280,7 +287,7 @@ public class SyncWatchEventProcessor implements Runnable {
 			_inProgress = true;
 
 			SyncEngineUtil.fireSyncEngineStateChanged(
-				SyncEngineUtil.SYNC_ENGINE_STATE_PROCESSING);
+				_syncAccountId, SyncEngineUtil.SYNC_ENGINE_STATE_PROCESSING);
 
 			return;
 		}
@@ -369,7 +376,7 @@ public class SyncWatchEventProcessor implements Runnable {
 		_inProgress = false;
 
 		SyncEngineUtil.fireSyncEngineStateChanged(
-			SyncEngineUtil.SYNC_ENGINE_STATE_PROCESSED);
+			_syncAccountId, SyncEngineUtil.SYNC_ENGINE_STATE_PROCESSED);
 
 		_processedSyncWatchEventIds.clear();
 	}
