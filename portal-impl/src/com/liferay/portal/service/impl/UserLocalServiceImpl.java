@@ -4776,12 +4776,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			passwordTrackerLocalService.trackPassword(userId, oldEncPwd);
 		}
 
-		long currentUserId = PrincipalThreadLocal.getUserId();
-
-		if (!silentUpdate && (currentUserId != userId)) {
+		if (!silentUpdate && (PrincipalThreadLocal.getUserId() != userId)) {
 			sendPasswordNotification(
-				user, user.getCompanyId(), password1, null, null, null,
-				null, null, ServiceContextThreadLocal.getServiceContext());
+				user, user.getCompanyId(), password1, null, null, null, null,
+				null, ServiceContextThreadLocal.getServiceContext());
 		}
 
 		return user;
