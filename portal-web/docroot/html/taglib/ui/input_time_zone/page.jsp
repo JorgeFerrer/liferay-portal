@@ -44,10 +44,12 @@ numberFormat.setMinimumIntegerDigits(2);
 		timeZones.add(curTimeZone);
 	}
 
+	long currentTime = System.currentTimeMillis();
+
 	for (TimeZone curTimeZone : timeZones) {
 		String offset = StringPool.BLANK;
 
-		int totalOffset = curTimeZone.getRawOffset() + curTimeZone.getDSTSavings();
+		int totalOffset = curTimeZone.getOffset(currentTime);
 
 		if (totalOffset > 0) {
 			offset = "+";
