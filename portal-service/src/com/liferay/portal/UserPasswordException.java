@@ -98,8 +98,8 @@ public class UserPasswordException extends PortalException {
 						modelListenerException.getMessage()),
 				PASSWORD_INVALID);
 
-			this.modelListenerException = modelListenerException;
 			this.userId = userId;
+			this.modelListenerException = modelListenerException;
 		}
 
 		public final ModelListenerException modelListenerException;
