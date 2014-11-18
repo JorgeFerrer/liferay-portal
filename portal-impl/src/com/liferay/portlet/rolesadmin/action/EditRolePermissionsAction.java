@@ -362,6 +362,7 @@ public class EditRolePermissionsAction extends PortletAction {
 				}
 
 				if (selected &&
+					scope != ResourceConstants.SCOPE_GROUP_TEMPLATE &&
 					actionId.equals(ActionKeys.ACCESS_IN_CONTROL_PANEL)) {
 
 					updateViewControlPanelPermission(
