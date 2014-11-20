@@ -3037,8 +3037,22 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		LinkedHashMap<String, Object> params, int start, int end,
 		OrderByComparator<User> obc) {
 
-		return userFinder.findByKeywords(
-			companyId, keywords, status, params, start, end, obc);
+		if (!PropsValues.USERS_INDEXER_ENABLED ||
+			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
+
+			return userFinder.findByKeywords(
+				companyId, keywords, status, params, start, end, obc);
+		}
+
+		try {
+			return UsersAdminUtil.getUsers(
+				search(
+					companyId, keywords, status, params, start, end,
+					getSortsFromOrderByComparator(obc)));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	/**
@@ -3056,25 +3070,39 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * result set.
 	 * </p>
 	 *
-	 * @param  companyId the primary key of the user's company
-	 * @param  keywords the keywords (space separated), which may occur in the
-	 *         user's first name, middle name, last name, screen name, or email
-	 *         address
-	 * @param  status the workflow status
-	 * @param  params the indexer parameters (optionally <code>null</code>). For
-	 *         more information see {@link
-	 *         com.liferay.portlet.usersadmin.util.UserIndexer}.
-	 * @param  start the lower bound of the range of users
-	 * @param  end the upper bound of the range of users (not inclusive)
-	 * @param  sort the field and direction to sort by (optionally
-	 *         <code>null</code>)
-	 * @return the matching users
-	 * @see    com.liferay.portlet.usersadmin.util.UserIndexer
+	 * @param      companyId the primary key of the user's company
+	 * @param      keywords the keywords (space separated), which may occur in
+	 *             the user's first name, middle name, last name, screen name,
+	 *             or email address
+	 * @param      status the workflow status
+	 * @param      params the indexer parameters (optionally <code>null</code>).
+	 *             For more information see {@link
+	 *             com.liferay.portlet.usersadmin.util.UserIndexer}.
+	 * @param      start the lower bound of the range of users
+	 * @param      end the upper bound of the range of users (not inclusive)
+	 * @param      sort the field and direction to sort by (optionally
+	 *             <code>null</code>)
+	 * @return     the matching users
+	 * @see        com.liferay.portlet.usersadmin.util.UserIndexer
+	 * @deprecated As of 7.0.0, replaced by {@link #search(long, String, int,
+	 *             java.util.LinkedHashMap, int, int,
+	 *             com.liferay.portal.kernel.search.Sort[])}
 	 */
+	@Deprecated
 	@Override
 	public Hits search(
 		long companyId, String keywords, int status,
 		LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
+
+		return search(
+			companyId, keywords, status, params, start, end, new Sort[] {sort});
+	}
+
+	@Override
+	public Hits search(
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params, int start, int end,
+		Sort[] sorts) {
 
 		String firstName = null;
 		String middleName = null;
@@ -3117,7 +3145,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			SearchContext searchContext = buildSearchContext(
 				companyId, firstName, middleName, lastName, fullName,
 				screenName, emailAddress, street, city, zip, region, country,
-				status, params, andOperator, start, end, sort);
+				status, params, andOperator, start, end, sorts);
 
 			return indexer.search(searchContext);
 		}
@@ -3172,9 +3200,24 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		LinkedHashMap<String, Object> params, boolean andSearch, int start,
 		int end, OrderByComparator<User> obc) {
 
-		return userFinder.findByC_FN_MN_LN_SN_EA_S(
-			companyId, firstName, middleName, lastName, screenName,
-			emailAddress, status, params, andSearch, start, end, obc);
+		if (!PropsValues.USERS_INDEXER_ENABLED ||
+			!PropsValues.USERS_SEARCH_WITH_INDEX || isUseCustomSQL(params)) {
+
+			return userFinder.findByC_FN_MN_LN_SN_EA_S(
+				companyId, firstName, middleName, lastName, screenName,
+				emailAddress, status, params, andSearch, start, end, obc);
+		}
+
+		try {
+			return UsersAdminUtil.getUsers(
+				search(
+					companyId, firstName, middleName, lastName, screenName,
+					emailAddress, status, params, andSearch, start, end,
+					getSortsFromOrderByComparator(obc)));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	/**
@@ -3194,33 +3237,50 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	 * result set.
 	 * </p>
 	 *
-	 * @param  companyId the primary key of the user's company
-	 * @param  firstName the first name keywords (space separated)
-	 * @param  middleName the middle name keywords
-	 * @param  lastName the last name keywords
-	 * @param  screenName the screen name keywords
-	 * @param  emailAddress the email address keywords
-	 * @param  status the workflow status
-	 * @param  params the indexer parameters (optionally <code>null</code>). For
-	 *         more information see {@link
-	 *         com.liferay.portlet.usersadmin.util.UserIndexer}.
-	 * @param  andSearch whether every field must match its keywords, or just
-	 *         one field. For example, &quot;users with the first name 'bob' and
-	 *         last name 'smith'&quot; vs &quot;users with the first name 'bob'
-	 *         or the last name 'smith'&quot;.
-	 * @param  start the lower bound of the range of users
-	 * @param  end the upper bound of the range of users (not inclusive)
-	 * @param  sort the field and direction to sort by (optionally
-	 *         <code>null</code>)
-	 * @return the matching users
-	 * @see    com.liferay.portlet.usersadmin.util.UserIndexer
+	 * @param      companyId the primary key of the user's company
+	 * @param      firstName the first name keywords (space separated)
+	 * @param      middleName the middle name keywords
+	 * @param      lastName the last name keywords
+	 * @param      screenName the screen name keywords
+	 * @param      emailAddress the email address keywords
+	 * @param      status the workflow status
+	 * @param      params the indexer parameters (optionally <code>null</code>).
+	 *             For more information see {@link
+	 *             com.liferay.portlet.usersadmin.util.UserIndexer}.
+	 * @param      andSearch whether every field must match its keywords, or
+	 *             just one field. For example, &quot;users with the first name
+	 *             'bob' and last name 'smith'&quot; vs &quot;users with the
+	 *             first name 'bob' or the last name 'smith'&quot;.
+	 * @param      start the lower bound of the range of users
+	 * @param      end the upper bound of the range of users (not inclusive)
+	 * @param      sort the field and direction to sort by (optionally
+	 *             <code>null</code>)
+	 * @return     the matching users
+	 * @see        com.liferay.portlet.usersadmin.util.UserIndexer
+	 * @deprecated As of 7.0.0, replaced by {@link #search(long, String, String,
+	 *             String, String, String, int, java.util.LinkedHashMap,
+	 *             boolean, int, int, com.liferay.portal.kernel.search.Sort[])}
 	 */
+	@Deprecated
 	@Override
 	public Hits search(
 		long companyId, String firstName, String middleName, String lastName,
 		String screenName, String emailAddress, int status,
 		LinkedHashMap<String, Object> params, boolean andSearch, int start,
 		int end, Sort sort) {
+
+		return search(
+			companyId, firstName, middleName, lastName, screenName,
+			emailAddress, status, params, andSearch, start, end,
+			new Sort[] {sort});
+	}
+
+	@Override
+	public Hits search(
+		long companyId, String firstName, String middleName, String lastName,
+		String screenName, String emailAddress, int status,
+		LinkedHashMap<String, Object> params, boolean andSearch, int start,
+		int end, Sort[] sorts) {
 
 		try {
 			Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(
@@ -3229,7 +3289,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			SearchContext searchContext = buildSearchContext(
 				companyId, firstName, middleName, lastName, null, screenName,
 				emailAddress, null, null, null, null, null, status, params,
-				andSearch, start, end, sort);
+				andSearch, start, end, sorts);
 
 			return indexer.search(searchContext);
 		}
@@ -3438,10 +3498,27 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			params, start, end, null);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #searchUsers(long, String,
+	 *             int, java.util.LinkedHashMap, int, int,
+	 *             com.liferay.portal.kernel.search.Sort[])}
+	 */
+	@Deprecated
 	@Override
 	public BaseModelSearchResult<User> searchUsers(
 			long companyId, String keywords, int status,
 			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
+		throws PortalException {
+
+		return searchUsers(
+			companyId, keywords, status, params, start, end, new Sort[] {sort});
+	}
+
+	@Override
+	public BaseModelSearchResult<User> searchUsers(
+			long companyId, String keywords, int status,
+			LinkedHashMap<String, Object> params, int start, int end,
+			Sort[] sorts)
 		throws PortalException {
 
 		String firstName = null;
@@ -3481,11 +3558,17 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		SearchContext searchContext = buildSearchContext(
 			companyId, firstName, middleName, lastName, fullName, screenName,
 			emailAddress, street, city, zip, region, country, status, params,
-			andOperator, start, end, sort);
+			andOperator, start, end, sorts);
 
 		return searchUsers(searchContext);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #searchUsers(long, String,
+	 *             int, java.util.LinkedHashMap, int, int,
+	 *             com.liferay.portal.kernel.search.Sort[])}
+	 */
+	@Deprecated
 	@Override
 	public BaseModelSearchResult<User> searchUsers(
 			long companyId, String firstName, String middleName,
@@ -3494,10 +3577,24 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			int end, Sort sort)
 		throws PortalException {
 
+		return searchUsers(
+			companyId, firstName, middleName, lastName, screenName,
+			emailAddress, status, params, andSearch, start, end,
+			new Sort[] {sort});
+	}
+
+	@Override
+	public BaseModelSearchResult<User> searchUsers(
+			long companyId, String firstName, String middleName,
+			String lastName, String screenName, String emailAddress, int status,
+			LinkedHashMap<String, Object> params, boolean andSearch, int start,
+			int end, Sort[] sorts)
+		throws PortalException {
+
 		SearchContext searchContext = buildSearchContext(
 			companyId, firstName, middleName, lastName, null, screenName,
 			emailAddress, null, null, null, null, null, status, params,
-			andSearch, start, end, sort);
+			andSearch, start, end, sorts);
 
 		return searchUsers(searchContext);
 	}
@@ -5885,7 +5982,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String fullName, String screenName, String emailAddress, String street,
 		String city, String zip, String region, String country, int status,
 		LinkedHashMap<String, Object> params, boolean andSearch, int start,
-		int end, Sort sort) {
+		int end, Sort[] sorts) {
 
 		SearchContext searchContext = new SearchContext();
 
@@ -5921,8 +6018,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			}
 		}
 
-		if (sort != null) {
-			searchContext.setSorts(sort);
+		if (sorts != null) {
+			searchContext.setSorts(sorts);
 		}
 
 		searchContext.setStart(start);
@@ -5954,6 +6051,23 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 	protected String getLogin(String login) {
 		return StringUtil.lowerCase(StringUtil.trim(login));
+	}
+
+	protected Sort[] getSortsFromOrderByComparator(
+		OrderByComparator<User> obc) {
+
+		String[] orderByClauses = StringUtil.split(obc.getOrderBy());
+		String[] orderByFields = obc.getOrderByFields();
+
+		Sort[] sorts = new Sort[orderByFields.length];
+
+		for (int i = 0; i < orderByFields.length; i++) {
+			boolean reverse = orderByClauses[i].contains("DESC");
+
+			sorts[i] = new Sort(orderByFields[i], reverse);
+		}
+
+		return sorts;
 	}
 
 	protected boolean isUseCustomSQL(LinkedHashMap<String, Object> params) {
