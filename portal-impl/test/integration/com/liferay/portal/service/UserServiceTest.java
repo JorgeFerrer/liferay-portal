@@ -723,27 +723,13 @@ public class UserServiceTest {
 
 		@BeforeClass
 		public static void setUp() throws Exception {
-			List<User> companyUsers = UserLocalServiceUtil.getCompanyUsers(
-				TestPropsValues.getCompanyId(), QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS);
-
-			for (User companyUser : companyUsers) {
-				if (!companyUser.isDefaultUser()) {
-					_totalUsersCount++;
-				}
-			}
-
 			_group = GroupTestUtil.addGroup("Parent group");
 
 			for (int i = 0; i < (_PARENT_USERS_COUNT - 1); i++) {
 				_user = UserTestUtil.addUser("parent" + i, _group.getGroupId());
-
-				_totalUsersCount++;
 			}
 
 			User user = UserTestUtil.addUser("child1", false, null);
-
-			_totalUsersCount++;
 
 			GroupTestUtil.addGroup(
 				TestPropsValues.getCompanyId(), user.getUserId(),
@@ -754,14 +740,10 @@ public class UserServiceTest {
 
 			user = UserTestUtil.addUser("UserGroup", false, null);
 
-			_totalUsersCount++;
-
 			UserGroupLocalServiceUtil.addUserUserGroup(
 				user.getUserId(), userGroup);
 
 			user = UserTestUtil.addUser("Organization", false, null);
-
-			_totalUsersCount++;
 
 			Organization organization =
 				OrganizationLocalServiceUtil.addOrganization(
@@ -774,6 +756,12 @@ public class UserServiceTest {
 
 			OrganizationLocalServiceUtil.addUserOrganization(
 				user.getUserId(), organization);
+
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+			_totalUsersCount = UserLocalServiceUtil.searchCount(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, true);
 		}
 
 		@Test
