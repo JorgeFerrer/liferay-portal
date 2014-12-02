@@ -723,27 +723,30 @@ public class UserServiceTest {
 
 		@BeforeClass
 		public static void setUp() throws Exception {
-			_group = GroupTestUtil.addGroup("Parent group");
+			_group = GroupTestUtil.addGroup(RandomTestUtil.randomString());
 
 			for (int i = 0; i < (_PARENT_USERS_COUNT - 1); i++) {
 				_user = UserTestUtil.addUser("parent" + i, _group.getGroupId());
 			}
 
-			User user = UserTestUtil.addUser("child1", false, null);
+			User user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			GroupTestUtil.addGroup(
 				TestPropsValues.getCompanyId(), user.getUserId(),
-				_group.getGroupId(), "Child group", null);
+				_group.getGroupId(), RandomTestUtil.randomString(), null);
 
 			UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 				_group.getGroupId());
 
-			user = UserTestUtil.addUser("UserGroup", false, null);
+			user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			UserGroupLocalServiceUtil.addUserUserGroup(
 				user.getUserId(), userGroup);
 
-			user = UserTestUtil.addUser("Organization", false, null);
+			user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			Organization organization =
 				OrganizationLocalServiceUtil.addOrganization(
