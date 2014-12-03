@@ -619,7 +619,14 @@ public class PluginsEnvironmentBuilder {
 			addClasspathEntry(sb, "/portal/lib/development/junit.jar");
 			addClasspathEntry(sb, "/portal/lib/development/mockito.jar");
 			addClasspathEntry(
-				sb, "/portal/lib/development/powermock-mockito.jar");
+				sb, "/portal/lib/development/powermock-api-mockito.jar");
+			addClasspathEntry(
+				sb, "/portal/lib/development/powermock-api-support.jar");
+			addClasspathEntry(
+				sb, "/portal/lib/development/powermock-module-junit4.jar");
+			addClasspathEntry(
+				sb,
+				"/portal/lib/development/powermock-module-junit4-common.jar");
 			addClasspathEntry(sb, "/portal/lib/development/spring-test.jar");
 
 			portalJars.add("commons-io.jar");

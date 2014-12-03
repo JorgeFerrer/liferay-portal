@@ -14,341 +14,383 @@
 
 package com.liferay.portal.wab.extender.internal.definition;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.xml.Document;
-import com.liferay.portal.kernel.xml.DocumentException;
-import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.wab.extender.internal.WabResourceServlet;
+
+import java.io.InputStream;
 
 import java.net.URL;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.felix.utils.log.Logger;
+
 import org.osgi.framework.Bundle;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * @author Raymond Augé
  * @author Miguel Pastor
  */
-public class WebXMLDefinitionLoader {
+public class WebXMLDefinitionLoader extends DefaultHandler {
 
-	public WebXMLDefinitionLoader() throws DocumentException {
-		Class<?> clazz = getClass();
+	public WebXMLDefinitionLoader(
+		Bundle bundle, SAXParserFactory saxParserFactory, Logger logger) {
 
-		ClassLoader classLoader = clazz.getClassLoader();
+		_bundle = bundle;
+		_saxParserFactory = saxParserFactory;
+		_logger = logger;
 
-		Document document = SAXReaderUtil.read(
-			classLoader.getResource(
-				"com/liferay/portal/wab/extender/internal/dependencies" +
-					"/default-web.xml"));
-
-		_defaultWebXmlRootElement = document.getRootElement();
+		_webXMLDefinition = new WebXMLDefinition();
 	}
 
-	public WebXMLDefinition loadWebXML(Bundle bundle)
-		throws DocumentException, IllegalAccessException,
-			   InstantiationException {
+	@Override
+	public void characters(char[] c, int start, int length) {
+		if (_stack.empty()) {
+			return;
+		}
 
-		WebXMLDefinition webXML = new WebXMLDefinition();
+		StringBuilder stringBuilder = _stack.peek();
 
-		readContextParameters(bundle, _defaultWebXmlRootElement, webXML);
-		readFilters(bundle, _defaultWebXmlRootElement, webXML);
-		readListeners(bundle, _defaultWebXmlRootElement, webXML);
-		readServlets(bundle, _defaultWebXmlRootElement, webXML);
+		stringBuilder.append(c, start, length);
+	}
 
-		URL url = bundle.getEntry("WEB-INF/web.xml");
+	@Override
+	public void endElement(String uri, String localName, String qName) {
+		if (qName.equals("async-supported")) {
+			boolean asyncSupported = GetterUtil.getBoolean(_stack.pop());
+
+			if (_filterDefinition != null) {
+				_filterDefinition.setAsyncSupported(asyncSupported);
+			}
+			else if (_servletDefinition != null) {
+				_servletDefinition.setAsyncSupported(asyncSupported);
+			}
+		}
+		else if (qName.equals("context-param")) {
+			_webXMLDefinition.setContextParameter(_paramName, _paramValue);
+
+			_paramName = null;
+			_paramValue = null;
+		}
+		else if (qName.equals("dispatcher")) {
+			String dispatcher = String.valueOf(_stack.pop());
+
+			dispatcher = dispatcher.toUpperCase();
+			dispatcher = dispatcher.trim();
+
+			_filterMapping.dispatchers.add(dispatcher);
+		}
+		else if (qName.equals("filter")) {
+			_webXMLDefinition.setFilterDefinition(
+				_filterDefinition.getName(), _filterDefinition);
+
+			_filterDefinition = null;
+		}
+		else if (qName.equals("filter-class")) {
+			String filterClassName = String.valueOf(_stack.pop());
+
+			Filter filter = _getFilterInstance(filterClassName.trim());
+
+			_filterDefinition.setFilter(filter);
+		}
+		else if (qName.equals("filter-mapping")) {
+			Map<String, FilterDefinition> filterDefinitions =
+				_webXMLDefinition.getFilterDefinitions();
+
+			FilterDefinition filterDefinition = filterDefinitions.get(
+				_filterMapping.filterName);
+
+			filterDefinition.setDispatchers(_filterMapping.dispatchers);
+
+			if (_filterMapping.servletName != null) {
+				List<String> servletNames = filterDefinition.getServletNames();
+
+				servletNames.add(_filterMapping.servletName);
+			}
+
+			filterDefinition.setURLPatterns(_filterMapping.urlPatterns);
+
+			_filterMapping = null;
+		}
+		else if (qName.equals("filter-name")) {
+			if (_filterMapping != null) {
+				String filterName = String.valueOf(_stack.pop());
+
+				_filterMapping.filterName = filterName.trim();
+			}
+			else if (_filterDefinition != null) {
+				String filterName = String.valueOf(_stack.pop());
+
+				_filterDefinition.setName(filterName.trim());
+			}
+		}
+		else if (qName.equals("init-param")) {
+			if (_filterDefinition != null) {
+				_filterDefinition.setInitParameter(_paramName, _paramValue);
+			}
+			else if (_servletDefinition != null) {
+				_servletDefinition.setInitParameter(_paramName, _paramValue);
+			}
+
+			_paramName = null;
+			_paramValue = null;
+		}
+		else if (qName.equals("jsp-config")) {
+			_webXMLDefinition.setJspTaglibMappings(_jspConfig.mappings);
+
+			_jspConfig = null;
+		}
+		else if (qName.equals("listener")) {
+			_webXMLDefinition.addListenerDefinition(_listenerDefinition);
+
+			_listenerDefinition = null;
+		}
+		else if (qName.equals("listener-class")) {
+			String listenerClassName = String.valueOf(_stack.pop());
+
+			EventListener eventListener = _getListenerInstance(
+				listenerClassName);
+
+			_listenerDefinition.setEventListener(eventListener);
+		}
+		else if (qName.equals("param-name")) {
+			_paramName = String.valueOf(_stack.pop());
+			_paramName = _paramName.trim();
+		}
+		else if (qName.equals("param-value")) {
+			_paramValue = String.valueOf(_stack.pop());
+			_paramValue = _paramValue.trim();
+		}
+		else if (qName.equals("servlet")) {
+			_webXMLDefinition.setServletDefinition(
+				_servletDefinition.getName(), _servletDefinition);
+
+			_servletDefinition = null;
+		}
+		else if (qName.equals("servlet-class")) {
+			String servletClassName = String.valueOf(_stack.pop());
+
+			Servlet servlet = _getServletInstance(servletClassName.trim());
+
+			_servletDefinition.setServlet(servlet);
+		}
+		else if (qName.equals("servlet-mapping")) {
+			Map<String, ServletDefinition> servletDefinitions =
+				_webXMLDefinition.getServletDefinitions();
+
+			ServletDefinition servletDefinition = servletDefinitions.get(
+				_servletMapping.servletName);
+
+			servletDefinition.setURLPatterns(_servletMapping.urlPatterns);
+
+			_servletMapping = null;
+		}
+		else if (qName.equals("servlet-name")) {
+			if (_filterMapping != null) {
+				String servletName = String.valueOf(_stack.pop());
+
+				_filterMapping.servletName = servletName.trim();
+			}
+			else if (_servletDefinition != null) {
+				String servletName = String.valueOf(_stack.pop());
+
+				_servletDefinition.setName(servletName.trim());
+			}
+			else if (_servletMapping != null) {
+				String servletName = String.valueOf(_stack.pop());
+
+				_servletMapping.servletName = servletName.trim();
+			}
+		}
+		else if (qName.equals("taglib")) {
+			_jspConfig.mappings.put(_taglibUri, _taglibLocation);
+
+			_taglibUri = null;
+			_taglibLocation = null;
+		}
+		else if (qName.equals("taglib-location")) {
+			_taglibLocation = String.valueOf(_stack.pop());
+		}
+		else if (qName.equals("taglib-uri")) {
+			_taglibUri = String.valueOf(_stack.pop());
+		}
+		else if (qName.equals("url-pattern")) {
+			if (_filterMapping != null) {
+				String urlPattern = String.valueOf(_stack.pop());
+
+				_filterMapping.urlPatterns.add(urlPattern.trim());
+			}
+			else if (_servletMapping != null) {
+				String urlPattern = String.valueOf(_stack.pop());
+
+				_servletMapping.urlPatterns.add(urlPattern.trim());
+			}
+		}
+	}
+
+	@Override
+	public void error(SAXParseException e) {
+		_logger.log(Logger.LOG_ERROR, e.getMessage(), e);
+	}
+
+	public WebXMLDefinition loadWebXML() throws Exception {
+		URL url = _bundle.getEntry("WEB-INF/web.xml");
 
 		if (url != null) {
-			Document document = SAXReaderUtil.read(url);
+			try (InputStream inputStream = url.openStream()) {
+				SAXParser saxParser = _saxParserFactory.newSAXParser();
 
-			Element rootElement = document.getRootElement();
+				XMLReader xmlReader = saxParser.getXMLReader();
 
-			readContextParameters(bundle, rootElement, webXML);
-			readFilters(bundle, rootElement, webXML);
-			readListeners(bundle, rootElement, webXML);
-			readServlets(bundle, rootElement, webXML);
-		}
+				xmlReader.setContentHandler(this);
 
-		return webXML;
-	}
-
-	protected List<String> getDispatchers(Element element) {
-		List<String> dispatchers = new ArrayList<String>();
-
-		for (Element dispatcherElement : element.elements("dispatcher")) {
-			dispatchers.add(
-				StringUtil.toUpperCase(dispatcherElement.getTextTrim()));
-		}
-
-		return dispatchers;
-	}
-
-	protected Map<String, String> getErrorPages(List<Element> elements) {
-		Map<String, String> errorPages = new HashMap<String, String>();
-
-		for (Element element : elements) {
-			String errorCode = element.elementText("error-code");
-			String exceptionType = element.elementTextTrim("exception-type");
-			String location = element.elementTextTrim("location");
-
-			if (Validator.isNotNull(errorCode)) {
-				errorPages.put(location, errorCode);
-			}
-			else if (Validator.isNotNull(exceptionType)) {
-				errorPages.put(location, exceptionType);
+				xmlReader.parse(new InputSource(inputStream));
 			}
 		}
 
-		return errorPages;
+		return _webXMLDefinition;
 	}
 
-	protected List<String> getServletNames(Element element) {
-		List<String> servletNames = new ArrayList<String>();
+	@Override
+	public void startElement(
+		String uri, String localName, String qName, Attributes attributes) {
 
-		for (Element servletNameElement : element.elements("servlet-name")) {
-			servletNames.add(servletNameElement.getTextTrim());
+		if (qName.equals("filter")) {
+			_filterDefinition = new FilterDefinition();
 		}
-
-		return servletNames;
-	}
-
-	protected List<String> getURLPatterns(Element element) {
-		List<String> urlPatterns = new ArrayList<String>();
-
-		for (Element urlPatternElement : element.elements("url-pattern")) {
-			String urlPattern = urlPatternElement.getTextTrim();
-
-			urlPatterns.add(urlPattern);
+		else if (qName.equals("filter-mapping")) {
+			_filterMapping = new FilterMapping();
 		}
-
-		return urlPatterns;
-	}
-
-	protected void readContextParameters(
-		Bundle bundle, Element element, WebXMLDefinition webXML) {
-
-		for (Element contextParamElement : element.elements("context-param")) {
-			String name = contextParamElement.elementText("param-name");
-			String value = contextParamElement.elementText("param-value");
-
-			webXML.setContextParameter(name, value);
+		else if (qName.equals("jsp-config")) {
+			_jspConfig = new JSPConfig();
+		}
+		else if (qName.equals("listener")) {
+			_listenerDefinition = new ListenerDefinition();
+		}
+		else if (qName.equals("servlet")) {
+			_servletDefinition = new ServletDefinition();
+		}
+		else if (qName.equals("servlet-mapping")) {
+			_servletMapping = new ServletMapping();
+		}
+		else if (Arrays.binarySearch(_LEAVES, qName) > -1) {
+			_stack.push(new StringBuilder());
 		}
 	}
 
-	protected void readFilters(
-			Bundle bundle, Element element, WebXMLDefinition webXML)
-		throws IllegalAccessException, InstantiationException {
+	private Filter _getFilterInstance(String filterClassName) {
+		try {
+			Class<?> clazz = _bundle.loadClass(filterClassName);
 
-		List<Element> filterMappingElements = element.elements(
-			"filter-mapping");
+			Class<? extends Filter> filterClass = clazz.asSubclass(
+				Filter.class);
 
-		Collections.reverse(new ArrayList<Element>(filterMappingElements));
+			return filterClass.newInstance();
+		}
+		catch (Exception e) {
+			_logger.log(
+				Logger.LOG_ERROR, "Unable to load filter " + filterClassName);
 
-		for (Element filterElement : element.elements("filter")) {
-			String filterClassName = filterElement.elementText("filter-class");
-
-			Class<?> clazz = null;
-
-			try {
-				clazz = bundle.loadClass(filterClassName);
-			}
-			catch (Exception e) {
-				_log.error("Unable to load filter " + filterClassName);
-
-				continue;
-			}
-
-			FilterDefinition filterDefinition = new FilterDefinition();
-
-			boolean asyncSupported = GetterUtil.getBoolean(
-				filterElement.elementText("async-supported"));
-
-			filterDefinition.setAsyncSupported(asyncSupported);
-
-			Filter filter = (Filter)clazz.newInstance();
-
-			filterDefinition.setFilter(filter);
-
-			String filterName = filterElement.elementText("filter-name");
-
-			filterDefinition.setName(filterName);
-
-			List<Element> initParamElements = filterElement.elements(
-				"init-param");
-
-			for (Element initParamElement : initParamElements) {
-				String paramName = initParamElement.elementText("param-name");
-				String paramValue = initParamElement.elementText("param-value");
-
-				filterDefinition.setInitParameter(paramName, paramValue);
-			}
-
-			for (int i = 0; i < filterMappingElements.size(); i++) {
-				Element filterMappingElement = filterMappingElements.get(i);
-
-				String filterMappingElementFilterName =
-					filterMappingElement.elementText("filter-name");
-
-				if (filterMappingElementFilterName.equals(filterName)) {
-					List<String> dispatchers = getDispatchers(
-						filterMappingElement);
-
-					filterDefinition.setDispatchers(dispatchers);
-
-					filterDefinition.setPriority(i);
-
-					List<String> servletNames = getServletNames(
-						filterMappingElement);
-
-					filterDefinition.setServletNames(servletNames);
-
-					List<String> urlPatterns = getURLPatterns(
-						filterMappingElement);
-
-					filterDefinition.setURLPatterns(urlPatterns);
-				}
-			}
-
-			webXML.setFilterDefinition(filterName, filterDefinition);
+			return null;
 		}
 	}
 
-	protected void readListeners(
-			Bundle bundle, Element element, WebXMLDefinition webXML)
-		throws IllegalAccessException, InstantiationException {
+	private EventListener _getListenerInstance(String listenerClassName) {
+		try {
+			Class<?> clazz = _bundle.loadClass(listenerClassName);
 
-		for (Element listenerElement : element.elements("listener")) {
-			ListenerDefinition listenerDefinition = new ListenerDefinition();
+			Class<? extends EventListener> eventListenerClass =
+				clazz.asSubclass(EventListener.class);
 
-			String listenerClassName = listenerElement.elementText(
-				"listener-class");
+			return eventListenerClass.newInstance();
+		}
+		catch (Exception e) {
+			_logger.log(
+				Logger.LOG_ERROR,
+				"Unable to load listener " + listenerClassName);
 
-			Class<? extends EventListener> eventListenerClass = null;
-
-			try {
-				Class<?> clazz = bundle.loadClass(listenerClassName);
-
-				eventListenerClass = clazz.asSubclass(EventListener.class);
-			}
-			catch (Exception e) {
-				_log.error("Unable to load listener " + listenerClassName);
-
-				continue;
-			}
-
-			EventListener eventListener = eventListenerClass.newInstance();
-
-			listenerDefinition.setEventListener(eventListener);
-
-			webXML.addListenerDefinition(listenerDefinition);
+			return null;
 		}
 	}
 
-	protected void readServlets(
-			Bundle bundle, Element element, WebXMLDefinition webXML)
-		throws IllegalAccessException, InstantiationException {
+	private Servlet _getServletInstance(String servletClassName) {
+		try {
+			Class<?> clazz = _bundle.loadClass(servletClassName);
 
-		List<Element> errorPageElements = element.elements("error-page");
+			Class<? extends Servlet> servletClass = clazz.asSubclass(
+				Servlet.class);
 
-		Map<String, String> errorPageLocationMappings = getErrorPages(
-			errorPageElements);
+			return servletClass.newInstance();
+		}
+		catch (Exception e) {
+			_logger.log(
+				Logger.LOG_ERROR, "Unable to load servlet " + servletClassName,
+				e);
 
-		for (Element servletElement : element.elements("servlet")) {
-			String servletClassName = servletElement.elementText(
-				"servlet-class");
-
-			Class<?> servletClass = null;
-
-			try {
-				if (servletClassName.equals(
-						WabResourceServlet.class.getName())) {
-
-					servletClass = WabResourceServlet.class;
-				}
-				else {
-					servletClass = bundle.loadClass(servletClassName);
-				}
-			}
-			catch (Exception e) {
-				_log.error("Unable to load servlet " + servletClassName);
-
-				continue;
-			}
-
-			ServletDefinition servletDefinition = new ServletDefinition();
-
-			boolean asyncSupported = GetterUtil.getBoolean(
-				servletElement.elementText("async-supported"));
-
-			servletDefinition.setAsyncSupported(asyncSupported);
-
-			String servletName = servletElement.elementText("servlet-name");
-
-			servletDefinition.setName(servletName);
-
-			Servlet servlet = (Servlet)servletClass.newInstance();
-
-			servletDefinition.setServlet(servlet);
-
-			List<Element> initParamElements = servletElement.elements(
-				"init-param");
-
-			for (Element initParamElement : initParamElements) {
-				String paramName = initParamElement.elementText("param-name");
-				String paramValue = initParamElement.elementText("param-value");
-
-				servletDefinition.setInitParameter(paramName, paramValue);
-			}
-
-			List<String> errorPages = new ArrayList<String>();
-
-			for (Element servletMappingElement :
-					element.elements("servlet-mapping")) {
-
-				String servletMappingElementServletName =
-					servletMappingElement.elementText("servlet-name");
-
-				if (servletMappingElementServletName.equals(servletName)) {
-					List<String> urlPatterns = getURLPatterns(
-						servletMappingElement);
-
-					for (String urlPattern : urlPatterns) {
-						servletDefinition.addURLPattern(urlPattern);
-
-						String errorPage = errorPageLocationMappings.get(
-							urlPattern);
-
-						if (errorPage != null) {
-							errorPages.add(errorPage);
-						}
-					}
-				}
-			}
-
-			servletDefinition.setErrorPages(errorPages);
-
-			webXML.setServletDefinition(servletName, servletDefinition);
+			return null;
 		}
 	}
 
-	private static final String _SLASH_STAR = "/*";
+	private static final String[] _LEAVES = new String[] {
+		"async-supported", "dispatcher", "error-code", "exception-type",
+		"filter-class", "filter-name", "listener-class", "location",
+		"param-name", "param-value", "servlet-class", "servlet-name",
+		"taglib-location", "taglib-uri", "url-pattern"
+	};
 
-	private static Log _log = LogFactoryUtil.getLog(
-		WebXMLDefinitionLoader.class);
+	private final Bundle _bundle;
+	private FilterDefinition _filterDefinition;
+	private FilterMapping _filterMapping;
+	private JSPConfig _jspConfig;
+	private ListenerDefinition _listenerDefinition;
+	private final Logger _logger;
+	private String _paramName;
+	private String _paramValue;
+	private final SAXParserFactory _saxParserFactory;
+	private ServletDefinition _servletDefinition;
+	private ServletMapping _servletMapping;
+	private final Stack<StringBuilder> _stack = new Stack<>();
+	private String _taglibLocation;
+	private String _taglibUri;
+	private final WebXMLDefinition _webXMLDefinition;
 
-	private Element _defaultWebXmlRootElement;
+	private class FilterMapping {
+
+		protected List<String> dispatchers = new ArrayList<>();
+		protected String filterName;
+		protected String servletName;
+		protected List<String> urlPatterns = new ArrayList<>();
+
+	}
+
+	private class JSPConfig {
+
+		protected Map<String, String> mappings = new HashMap<>();
+
+	}
+
+	private class ServletMapping {
+
+		protected String servletName;
+		protected List<String> urlPatterns = new ArrayList<>();
+
+	}
 
 }

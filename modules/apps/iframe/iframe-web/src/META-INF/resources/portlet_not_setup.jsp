@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,13 +12,16 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
-package com.liferay.portal.wab.extender.internal;
+<%@ include file="/init.jsp" %>
 
-import javax.servlet.http.HttpServlet;
+<%
+renderRequest.setAttribute(WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
+%>
 
-/**
- * @author Raymond Augé
- */
-public class WabResourceServlet extends HttpServlet {
-}
+<div class="alert alert-info portlet-configuration">
+	<a href="<%= portletDisplay.getURLConfiguration() %>" onClick="<%= portletDisplay.getURLConfigurationJS() %>">
+		<liferay-ui:message key="please-configure-this-portlet-to-make-it-visible-to-all-users" />
+	</a>
+</div>

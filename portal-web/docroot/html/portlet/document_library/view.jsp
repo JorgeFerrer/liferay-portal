@@ -269,6 +269,7 @@ if (!defaultFolderView && (folder != null) && (portletName.equals(PortletKeys.DO
 
 			],
 			rowIds: '<%= RowChecker.ROW_IDS %>',
+			scopeGroupId: <%= scopeGroupId %>,
 			select: {
 				displayViews: ['<%= StringUtil.merge(escapedDisplayViews, "','") %>']
 			},
@@ -290,4 +291,12 @@ if (!defaultFolderView && (folder != null) && (portletName.equals(PortletKeys.DO
 	};
 
 	Liferay.on('destroyPortlet', clearDocumentLibraryHandles);
+
+	var changeScopeHandles = function(event) {
+		documentLibrary.destroy();
+
+		Liferay.detach('changeScope', changeScopeHandles);
+	};
+
+	Liferay.on('changeScope', changeScopeHandles);
 </aui:script>
