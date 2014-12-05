@@ -1838,10 +1838,12 @@ public class OrganizationLocalServiceImpl
 
 		long parentGroupId = group.getParentGroupId();
 
+		boolean createSite = !group.isSite() && site;
+
 		boolean organizationGroup = isOrganizationGroup(
 			oldParentOrganizationId, group.getParentGroupId());
 
-		if (organizationGroup) {
+		if (createSite || organizationGroup) {
 			if (parentOrganizationId !=
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID) {
 
@@ -1863,7 +1865,7 @@ public class OrganizationLocalServiceImpl
 			}
 		}
 
-		if (!oldName.equals(name) || organizationGroup) {
+		if (createSite || !oldName.equals(name) || organizationGroup) {
 			groupLocalService.updateGroup(
 				group.getGroupId(), parentGroupId, name, group.getDescription(),
 				group.getType(), group.isManualMembership(),
@@ -1873,6 +1875,27 @@ public class OrganizationLocalServiceImpl
 
 		if (group.isSite() != site) {
 			groupLocalService.updateSite(group.getGroupId(), site);
+		}
+
+		// Child Organizations
+
+		if (createSite) {
+			List<Organization> childs =
+				organizationLocalService.getOrganizations(
+					companyId, organizationId);
+
+			for (Organization child : childs) {
+				Group childGroup = child.getGroup();
+
+				if (childGroup.isSite() &&
+					(childGroup.getParentGroupId() ==
+						GroupConstants.DEFAULT_PARENT_GROUP_ID)) {
+
+					childGroup.setParentGroupId(group.getGroupId());
+
+					groupLocalService.updateGroup(childGroup);
+				}
+			}
 		}
 
 		// Asset
