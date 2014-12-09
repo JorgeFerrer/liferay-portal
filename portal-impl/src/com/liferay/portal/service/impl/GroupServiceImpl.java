@@ -716,9 +716,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 		if ((classNames == null) ||
 			ArrayUtil.contains(classNames, Organization.class.getName())) {
 
-			List<Organization> userOrgs =
-				organizationLocalService.getOrganizations(
-					userId, start, end, null);
+			List<Organization> userOrgs = user.getOrganizations(false);
 
 			for (Organization organization : userOrgs) {
 				if (!organization.hasPrivateLayouts() &&
@@ -728,20 +726,6 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 				}
 				else {
 					userSiteGroups.add(0, organization.getGroup());
-				}
-
-				if (!PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
-					for (Organization ancestorOrganization :
-							organization.getAncestors()) {
-
-						if (!ancestorOrganization.hasPrivateLayouts() &&
-							!ancestorOrganization.hasPublicLayouts()) {
-
-							continue;
-						}
-
-						userSiteGroups.add(0, ancestorOrganization.getGroup());
-					}
 				}
 			}
 		}

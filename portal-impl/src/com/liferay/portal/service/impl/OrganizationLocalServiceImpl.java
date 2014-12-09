@@ -524,8 +524,13 @@ public class OrganizationLocalServiceImpl
 			return Collections.emptyList();
 		}
 
-		long[] userOrganizationIds = userPersistence.getOrganizationPrimaryKeys(
-			userId);
+		User user = userPersistence.fetchByPrimaryKey(userId);
+
+		if (user == null) {
+			return Collections.emptyList();
+		}
+
+		long[] userOrganizationIds = user.getOrganizationIds(false);
 
 		if (userOrganizationIds.length == 0) {
 			return Collections.emptyList();
