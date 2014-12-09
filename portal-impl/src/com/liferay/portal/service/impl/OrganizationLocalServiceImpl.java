@@ -1838,7 +1838,11 @@ public class OrganizationLocalServiceImpl
 
 		long parentGroupId = group.getParentGroupId();
 
-		boolean createSite = !group.isSite() && site;
+		boolean createSite = false;
+
+		if (!group.isSite() && site) {
+			createSite = true;
+		}
 
 		boolean organizationGroup = isOrganizationGroup(
 			oldParentOrganizationId, group.getParentGroupId());
@@ -1880,12 +1884,12 @@ public class OrganizationLocalServiceImpl
 		// Child Organizations
 
 		if (createSite) {
-			List<Organization> childs =
+			List<Organization> childOrganizations =
 				organizationLocalService.getOrganizations(
 					companyId, organizationId);
 
-			for (Organization child : childs) {
-				Group childGroup = child.getGroup();
+			for (Organization childOrganization : childOrganizations) {
+				Group childGroup = childOrganization.getGroup();
 
 				if (childGroup.isSite() &&
 					(childGroup.getParentGroupId() ==
