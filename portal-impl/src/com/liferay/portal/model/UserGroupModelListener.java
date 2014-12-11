@@ -15,27 +15,41 @@
 package com.liferay.portal.model;
 
 import com.liferay.portal.ModelListenerException;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.security.exportimport.UserExporterUtil;
 import com.liferay.portal.security.exportimport.UserImportTransactionThreadLocal;
 import com.liferay.portal.security.exportimport.UserOperation;
+import com.liferay.portal.service.persistence.UserGroupUtil;
 
 /**
  * @author Marcellus Tavares
  */
-public class UserGroupModelListener extends BaseModelListener<UserGroup> {
+public class UserGroupModelListener
+	extends UserCollectionReindexListener<UserGroup> {
+
+	public UserGroupModelListener() {
+		super(
+			SetUtil.fromArray(
+				new String[] {
+					Group.class.getName(), Team.class.getName()
+				}),
+			true, false);
+	}
 
 	@Override
 	public void onAfterAddAssociation(
-			Object userGroupId, String associationClassName,
+			Object classPK, String associationClassName,
 			Object associationClassPK)
 		throws ModelListenerException {
 
 		try {
 			if (associationClassName.equals(User.class.getName())) {
 				exportToLDAP(
-					(Long)associationClassPK, (Long)userGroupId,
-					UserOperation.ADD);
+					(Long)associationClassPK, (Long)classPK, UserOperation.ADD);
 			}
+
+			super.onAfterAddAssociation(
+				classPK, associationClassName, associationClassPK);
 		}
 		catch (Exception e) {
 			throw new ModelListenerException(e);
@@ -44,16 +58,19 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 
 	@Override
 	public void onAfterRemoveAssociation(
-			Object userGroupId, String associationClassName,
+			Object classPK, String associationClassName,
 			Object associationClassPK)
 		throws ModelListenerException {
 
 		try {
 			if (associationClassName.equals(User.class.getName())) {
 				exportToLDAP(
-					(Long)associationClassPK, (Long)userGroupId,
+					(Long)associationClassPK, (Long)classPK,
 					UserOperation.REMOVE);
 			}
+
+			super.onAfterRemoveAssociation(
+				classPK, associationClassName, associationClassPK);
 		}
 		catch (Exception e) {
 			throw new ModelListenerException(e);
@@ -69,6 +86,11 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 		}
 
 		UserExporterUtil.exportUser(userId, userGroupId, userOperation);
+	}
+
+	@Override
+	protected long[] getUserIds(Object classPK) {
+		return UserGroupUtil.getUserPrimaryKeys((Long)classPK);
 	}
 
 }

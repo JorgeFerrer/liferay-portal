@@ -1390,11 +1390,9 @@ public class LocalProcessExecutorTest {
 		arguments.add(
 			"-D" + SystemProperties.SYSTEM_PROPERTIES_QUIET + "=true");
 
-		boolean coberturaParentDynamicallyInstrumented = Boolean.getBoolean(
-			"cobertura.parent.dynamically.instrumented");
-
-		if (coberturaParentDynamicallyInstrumented) {
-			arguments.add("-Dcobertura.parent.dynamically.instrumented=true");
+		if (Boolean.getBoolean("junit.debug")) {
+			arguments.add(jpdaOptions);
+			arguments.add("-Djunit.debug=true");
 		}
 
 		String agentLine = System.getProperty("junit.cobertura.agent");
@@ -1404,24 +1402,12 @@ public class LocalProcessExecutorTest {
 			arguments.add("-Djunit.cobertura.agent=" + agentLine);
 		}
 
-		boolean junitCodeCoverage = Boolean.getBoolean("junit.code.coverage");
-
-		if (junitCodeCoverage) {
+		if (Boolean.getBoolean("junit.code.coverage")) {
 			arguments.add("-Djunit.code.coverage=true");
 		}
 
-		boolean junitCodeCoverageDump = Boolean.getBoolean(
-			"junit.code.coverage.dump");
-
-		if (junitCodeCoverageDump) {
+		if (Boolean.getBoolean("junit.code.coverage.dump")) {
 			arguments.add("-Djunit.code.coverage.dump=true");
-		}
-
-		boolean junitDebug = Boolean.getBoolean("junit.debug");
-
-		if (junitDebug) {
-			arguments.add(jpdaOptions);
-			arguments.add("-Djunit.debug=true");
 		}
 
 		String fileName = System.getProperty(

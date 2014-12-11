@@ -34,6 +34,10 @@ public class DummyIndexer implements Indexer {
 	}
 
 	@Override
+	public void commitCallbackReindex(final Object obj) {
+	}
+
+	@Override
 	public void delete(long companyId, String uid) {
 	}
 

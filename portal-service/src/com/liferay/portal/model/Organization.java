@@ -64,6 +64,9 @@ public interface Organization extends OrganizationModel, PersistedModel,
 
 	public java.lang.String[] getChildrenTypes();
 
+	public long[] getDescendantOrganizationIds()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 	public java.util.List<com.liferay.portal.model.Organization> getDescendants();
 
 	public com.liferay.portal.model.Group getGroup();

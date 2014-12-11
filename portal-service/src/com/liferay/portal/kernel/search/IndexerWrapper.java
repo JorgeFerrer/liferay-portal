@@ -40,6 +40,11 @@ public class IndexerWrapper implements Indexer {
 	}
 
 	@Override
+	public void commitCallbackReindex(final Object obj) {
+		_indexer.commitCallbackReindex(obj);
+	}
+
+	@Override
 	public void delete(long companyId, String uid) throws SearchException {
 		_indexer.delete(companyId, uid);
 	}

@@ -466,6 +466,11 @@ public class OrganizationLocalServiceUtil {
 		return getService().getBeanIdentifier();
 	}
 
+	public static java.util.List<com.liferay.portal.model.Organization> getDescendantOrganizations(
+		com.liferay.portal.model.Organization organization) {
+		return getService().getDescendantOrganizations(organization);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
 		return getService().getExportActionableDynamicQuery(portletDataContext);

@@ -14,6 +14,7 @@
 
 package com.liferay.portal.util.test;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Address;
 import com.liferay.portal.model.EmailAddress;
 import com.liferay.portal.model.ListType;
@@ -134,6 +135,26 @@ public class OrganizationTestUtil {
 			organization.getOrganizationId(), "http://www.test.com",
 			_getListTypeId(ListTypeConstants.ORGANIZATION_WEBSITE), false,
 			new ServiceContext());
+	}
+
+	public static Organization updateOrganization(
+			long organizationId, long parentOrganizationId, String name,
+			boolean site)
+		throws Exception {
+
+		long companyId = TestPropsValues.getCompanyId();
+		String type = OrganizationConstants.TYPE_REGULAR_ORGANIZATION;
+		int regionId = 0;
+		int countryId = 0;
+		int statusId = ListTypeConstants.ORGANIZATION_STATUS_DEFAULT;
+		String comments = StringPool.BLANK;
+		boolean logo = false;
+		byte[] logoBytes = null;
+
+		return OrganizationLocalServiceUtil.updateOrganization(
+			companyId, organizationId, parentOrganizationId, name, type,
+			regionId, countryId, statusId, comments, logo, logoBytes, site,
+			null);
 	}
 
 	private static int _getListTypeId(String type) throws Exception {

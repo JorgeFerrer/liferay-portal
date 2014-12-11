@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class TreePathUtil {
 
-	public static void rebuildTree(
+	public static List<TreeModel> rebuildTree(
 			long companyId, long parentPrimaryKey, String parentTreePath,
 			TreeModelTasks<?> treeModelTasks)
 		throws PortalException {
@@ -82,6 +82,8 @@ public class TreePathUtil {
 		}
 
 		treeModelTasks.reindexTreeModels(modifiedTreeModels);
+
+		return modifiedTreeModels;
 	}
 
 	private static final int _MODEL_TREE_REBUILD_QUERY_RESULTS_BATCH_SIZE =

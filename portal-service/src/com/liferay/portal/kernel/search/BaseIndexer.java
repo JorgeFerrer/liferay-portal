@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.search.facet.AssetEntriesFacet;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.MultiValueFacet;
 import com.liferay.portal.kernel.search.facet.ScopeFacet;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUtil;
 import com.liferay.portal.kernel.trash.TrashHandler;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -90,6 +91,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -106,6 +108,21 @@ public abstract class BaseIndexer implements Indexer {
 	@Override
 	public void addRelatedEntryFields(Document document, Object obj)
 		throws Exception {
+	}
+
+	@Override
+	public void commitCallbackReindex(final Object obj) {
+		Callable<Void> callable = new Callable<Void>() {
+
+			@Override
+			public Void call() throws Exception {
+				reindex(obj);
+
+				return null;
+			}
+		};
+
+		TransactionCommitCallbackRegistryUtil.registerCallback(callable);
 	}
 
 	@Override

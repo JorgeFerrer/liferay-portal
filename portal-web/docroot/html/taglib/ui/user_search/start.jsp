@@ -44,7 +44,7 @@ List<User> results = null;
 int total = 0;
 %>
 
-<%@ include file="/html/portlet/users_admin/user_search_results.jspf" %>
+<%@ include file="/html/portlet/users_admin/user_search_results_database.jspf" %>
 
 <%
 searchContainer.setResults(results);

@@ -74,7 +74,9 @@ PortletURL portletURL = (PortletURL)request.getAttribute("edit_user_roles.jsp-po
 	%>
 
 	<liferay-ui:search-container-results>
-		<%@ include file="/html/portlet/users_admin/user_search_results.jspf" %>
+		<c:choose>
+			<%@ include file="/html/portlet/users_admin/user_search_results.jspf" %>
+		</c:choose>
 	</liferay-ui:search-container-results>
 
 	<liferay-ui:search-container-row
