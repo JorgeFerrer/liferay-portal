@@ -475,18 +475,20 @@ public class ServicePreAction extends Action {
 
 		List<Layout> unfilteredLayouts = layouts;
 
-		if (layout == null) {
-			Object[] defaultLayout = getDefaultLayout(request, user, signedIn);
+		Object[] viewableLayouts = null;
 
-			layout = (Layout)defaultLayout[0];
-			layouts = (List<Layout>)defaultLayout[1];
+		if (layout == null) {
+			viewableLayouts = getDefaultViewableLayouts(
+				request, user, permissionChecker, doAsGroupId,
+				controlPanelCategory, signedIn);
 
 			request.setAttribute(WebKeys.LAYOUT_DEFAULT, Boolean.TRUE);
 		}
-
-		Object[] viewableLayouts = getViewableLayouts(
-			request, user, permissionChecker, layout, layouts, doAsGroupId,
-			controlPanelCategory);
+		else {
+			viewableLayouts = getViewableLayouts(
+				request, user, permissionChecker, layout, layouts, doAsGroupId,
+				controlPanelCategory);
+		}
 
 		String layoutSetLogo = null;
 
@@ -1599,14 +1601,129 @@ public class ServicePreAction extends Action {
 			userGroup.getGroupId(), false, serviceContext);
 	}
 
-	protected Object[] getDefaultLayout(
-			HttpServletRequest request, User user, boolean signedIn)
+	protected Object[] getDefaultSiteLayout(User user) throws PortalException {
+		Layout layout = null;
+		List<Layout> layouts = null;
+
+		Group guestGroup = GroupLocalServiceUtil.getGroup(
+			user.getCompanyId(), GroupConstants.GUEST);
+
+		layouts = LayoutLocalServiceUtil.getLayouts(
+			guestGroup.getGroupId(), false,
+			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+
+		if (!layouts.isEmpty()) {
+			layout = layouts.get(0);
+		}
+
+		return new Object[] {layout, layouts};
+	}
+
+	protected Object[] getDefaultUserPersonalLayout(User user)
 		throws PortalException {
 
 		Layout layout = null;
 		List<Layout> layouts = null;
 
-		// Check the virtual host
+		Group userGroup = user.getGroup();
+
+		layouts = LayoutLocalServiceUtil.getLayouts(
+			userGroup.getGroupId(), true,
+			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+
+		if (layouts.isEmpty()) {
+			layouts = LayoutLocalServiceUtil.getLayouts(
+				userGroup.getGroupId(), false,
+				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+		}
+
+		if (!layouts.isEmpty()) {
+			layout = layouts.get(0);
+		}
+
+		return new Object[] {layout, layouts};
+	}
+
+	protected Object[] getDefaultUserSiteLayout(User user)
+		throws PortalException {
+
+		Layout layout = null;
+		List<Layout> layouts = null;
+
+		LinkedHashMap<String, Object> groupParams =
+			new LinkedHashMap<String, Object>();
+
+		groupParams.put("usersGroups", new Long(user.getUserId()));
+
+		List<Group> groups = GroupLocalServiceUtil.search(
+			user.getCompanyId(), null, null, groupParams, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
+
+		for (Group group : groups) {
+			layouts = LayoutLocalServiceUtil.getLayouts(
+				group.getGroupId(), true,
+				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+
+			if (layouts.isEmpty()) {
+				layouts = LayoutLocalServiceUtil.getLayouts(
+					group.getGroupId(), false,
+					LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
+			}
+
+			if (!layouts.isEmpty()) {
+				layout = layouts.get(0);
+
+				break;
+			}
+		}
+
+		return new Object[]{layout, layouts};
+	}
+
+	protected Object[] getDefaultViewableLayouts(
+			HttpServletRequest request, User user,
+			PermissionChecker permissionChecker, long doAsGroupId,
+			String controlPanelCategory, boolean signedIn)
+		throws PortalException {
+
+		Object[] defaultLayout = getDefaultVirtualLayout(request);
+
+		defaultLayout = getViewableLayouts(
+			request, user, permissionChecker, defaultLayout, doAsGroupId,
+			controlPanelCategory);
+
+		if (defaultLayout[1] != null) {
+			return defaultLayout;
+		}
+
+		if (signedIn) {
+			defaultLayout = getDefaultUserPersonalLayout(user);
+
+			if (defaultLayout[0] == null) {
+				defaultLayout = getDefaultUserSiteLayout(user);
+			}
+
+			defaultLayout = getViewableLayouts(
+				request, user, permissionChecker, defaultLayout, doAsGroupId,
+				controlPanelCategory);
+
+			if (defaultLayout[1] != null) {
+				return defaultLayout;
+			}
+		}
+
+		defaultLayout = getDefaultSiteLayout(user);
+
+		return getViewableLayouts(
+			request, user, permissionChecker, defaultLayout, doAsGroupId,
+			controlPanelCategory);
+	}
+
+	protected Object[] getDefaultVirtualLayout(HttpServletRequest request)
+		throws PortalException {
+
+		Layout layout = null;
+		List<Layout> layouts = null;
 
 		LayoutSet layoutSet = (LayoutSet)request.getAttribute(
 			WebKeys.VIRTUAL_HOST_LAYOUT_SET);
@@ -1651,74 +1768,6 @@ public class ServicePreAction extends Action {
 				else {
 					layout = null;
 				}
-			}
-		}
-
-		if ((layout == null) && signedIn) {
-
-			// Check the user's personal layouts
-
-			Group userGroup = user.getGroup();
-
-			layouts = LayoutLocalServiceUtil.getLayouts(
-				userGroup.getGroupId(), true,
-				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-
-			if (layouts.isEmpty()) {
-				layouts = LayoutLocalServiceUtil.getLayouts(
-					userGroup.getGroupId(), false,
-					LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-			}
-
-			if (!layouts.isEmpty()) {
-				layout = layouts.get(0);
-			}
-
-			// Check the user's sites
-
-			if (layout == null) {
-				LinkedHashMap<String, Object> groupParams =
-					new LinkedHashMap<String, Object>();
-
-				groupParams.put("usersGroups", new Long(user.getUserId()));
-
-				List<Group> groups = GroupLocalServiceUtil.search(
-					user.getCompanyId(), null, null, groupParams,
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-				for (Group group : groups) {
-					layouts = LayoutLocalServiceUtil.getLayouts(
-						group.getGroupId(), true,
-						LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-
-					if (layouts.isEmpty()) {
-						layouts = LayoutLocalServiceUtil.getLayouts(
-							group.getGroupId(), false,
-							LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-					}
-
-					if (!layouts.isEmpty()) {
-						layout = layouts.get(0);
-
-						break;
-					}
-				}
-			}
-		}
-
-		if (layout == null) {
-
-			// Check the Guest site
-
-			Group guestGroup = GroupLocalServiceUtil.getGroup(
-				user.getCompanyId(), GroupConstants.GUEST);
-
-			layouts = LayoutLocalServiceUtil.getLayouts(
-				guestGroup.getGroupId(), false,
-				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-
-			if (!layouts.isEmpty()) {
-				layout = layouts.get(0);
 			}
 		}
 
@@ -1796,6 +1845,20 @@ public class ServicePreAction extends Action {
 		}
 
 		return new Object[] {layout, layouts};
+	}
+
+	protected Object[] getViewableLayouts(
+			HttpServletRequest request, User user,
+			PermissionChecker permissionChecker, Object[] defaultLayout,
+			long doAsGroupId, String controlPanelCategory)
+		throws PortalException {
+
+		Layout layout = (Layout)defaultLayout[0];
+		List<Layout> layouts = (List<Layout>)defaultLayout[1];
+
+		return getViewableLayouts(
+			request, user, permissionChecker, layout, layouts, doAsGroupId,
+			controlPanelCategory);
 	}
 
 	protected boolean hasAccessPermission(
