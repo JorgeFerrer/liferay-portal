@@ -499,6 +499,12 @@ public class OrganizationLocalServiceWrapper implements OrganizationLocalService
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.model.Organization> getDescendantOrganizations(
+		com.liferay.portal.model.Organization organization) {
+		return _organizationLocalService.getDescendantOrganizations(organization);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
 		return _organizationLocalService.getExportActionableDynamicQuery(portletDataContext);

@@ -35,6 +35,8 @@ public interface Indexer {
 	public void addRelatedEntryFields(Document document, Object obj)
 		throws Exception;
 
+	public void commitCallbackReindex(Object obj);
+
 	public void delete(long companyId, String uid) throws SearchException;
 
 	public void delete(Object obj) throws SearchException;

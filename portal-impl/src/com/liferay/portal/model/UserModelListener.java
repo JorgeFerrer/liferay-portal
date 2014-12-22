@@ -17,6 +17,7 @@ package com.liferay.portal.model;
 import com.liferay.portal.ModelListenerException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.model.impl.UserModelImpl;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.exportimport.UserExporterUtil;
@@ -37,7 +38,17 @@ import java.util.Map;
  * @author Raymond Augé
  * @author Vilmos Papp
  */
-public class UserModelListener extends BaseModelListener<User> {
+public class UserModelListener extends UserCollectionReindexListener<User> {
+
+	public UserModelListener() {
+		super(
+			SetUtil.fromArray(new String[] {
+				Group.class.getName(), Organization.class.getName(),
+				Role.class.getName(), Team.class.getName(),
+				UserGroup.class.getName()
+			}),
+			true, false);
+	}
 
 	@Override
 	public void onAfterAddAssociation(
@@ -47,11 +58,12 @@ public class UserModelListener extends BaseModelListener<User> {
 
 		try {
 			if (associationClassName.equals(Group.class.getName())) {
-				long userId = ((Long)classPK).longValue();
-				long groupId = ((Long)associationClassPK).longValue();
-
-				updateMembershipRequestStatus(userId, groupId);
+				updateMembershipRequestStatus(
+					(Long)classPK, (Long)associationClassPK);
 			}
+
+			super.onAfterAddAssociation(
+				classPK, associationClassName, associationClassPK);
 		}
 		catch (Exception e) {
 			throw new ModelListenerException(e);
@@ -104,6 +116,11 @@ public class UserModelListener extends BaseModelListener<User> {
 		}
 
 		UserExporterUtil.exportUser(user, expandoBridgeAttributes);
+	}
+
+	@Override
+	protected long[] getUserIds(Object classPK) {
+		return new long[] { (Long)classPK };
 	}
 
 	protected void updateMembershipRequestStatus(long userId, long groupId)

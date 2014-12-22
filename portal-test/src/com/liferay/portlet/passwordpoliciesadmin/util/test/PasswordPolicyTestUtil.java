@@ -29,20 +29,20 @@ public class PasswordPolicyTestUtil {
 		throws Exception {
 
 		return PasswordPolicyLocalServiceUtil.addPasswordPolicy(
-			serviceContext.getUserId(), RandomTestUtil.randomBoolean(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
-			RandomTestUtil.randomLong(), RandomTestUtil.randomBoolean(),
-			RandomTestUtil.randomBoolean(), RandomTestUtil.nextInt(),
-			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
-			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
-			RandomTestUtil.nextInt(), "(?=.{4})(?:[a-zA-Z0-9]*)",
-			RandomTestUtil.randomBoolean(), RandomTestUtil.nextInt(),
+			serviceContext.getUserId(), false, RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), RandomTestUtil.randomBoolean(),
 			RandomTestUtil.randomBoolean(), RandomTestUtil.randomLong(),
-			RandomTestUtil.randomLong(), RandomTestUtil.nextInt(),
-			RandomTestUtil.randomBoolean(), RandomTestUtil.nextInt(),
+			RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean(),
+			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
+			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
+			RandomTestUtil.nextInt(), RandomTestUtil.nextInt(),
+			"(?=.{4})(?:[a-zA-Z0-9]*)", RandomTestUtil.randomBoolean(),
+			RandomTestUtil.nextInt(), RandomTestUtil.randomBoolean(),
 			RandomTestUtil.randomLong(), RandomTestUtil.randomLong(),
-			RandomTestUtil.randomLong(), serviceContext);
+			RandomTestUtil.nextInt(), RandomTestUtil.randomBoolean(),
+			RandomTestUtil.nextInt(), RandomTestUtil.randomLong(),
+			RandomTestUtil.randomLong(), RandomTestUtil.randomLong(),
+			serviceContext);
 	}
 
 }

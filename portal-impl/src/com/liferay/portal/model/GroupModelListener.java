@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,13 +11,25 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<c:choose>
-	<c:when test="<%= PropsValues.USERS_INDEXER_ENABLED && PropsValues.USERS_SEARCH_WITH_INDEX %>">
-		<%@ include file="/html/portlet/users_admin/user_search_results_index.jspf" %>
-	</c:when>
-	<c:otherwise>
-		<%@ include file="/html/portlet/users_admin/user_search_results_database.jspf" %>
-	</c:otherwise>
-</c:choose>
+package com.liferay.portal.model;
+
+import com.liferay.portal.service.persistence.GroupUtil;
+
+import java.util.Collections;
+
+/**
+ * @author Andrew Betts
+ */
+public class GroupModelListener extends UserCollectionReindexListener<Group> {
+
+	public GroupModelListener() {
+		super(Collections.singleton(Role.class.getName()), true, false);
+	}
+
+	@Override
+	protected long[] getUserIds(Object classPK) {
+		return GroupUtil.getUserGroupPrimaryKeys((Long)classPK);
+	}
+
+}

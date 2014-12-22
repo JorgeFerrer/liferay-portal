@@ -291,6 +291,14 @@ public class UserTestUtil {
 	}
 
 	public static User updateUser(User user) throws Exception {
+		return updateUser (user, null, null, null, null, null);
+	}
+
+	public static User updateUser(
+			User user, long[] groupIds, long[] organizationIds, long[] roleIds,
+			List<UserGroupRole> userGroupRoles, long[] userGroupIds)
+		throws Exception {
+
 		String oldPassword = StringPool.BLANK;
 		String newPassword1 = StringPool.BLANK;
 		String newPassword2 = StringPool.BLANK;
@@ -326,11 +334,6 @@ public class UserTestUtil {
 		String twitterSn = StringPool.BLANK;
 		String ymSn = StringPool.BLANK;
 		String jobTitle = StringPool.BLANK;
-		long[] groupIds = null;
-		long[] organizationIds = null;
-		long[] roleIds = null;
-		List<UserGroupRole> userGroupRoles = null;
-		long[] userGroupIds = null;
 
 		ServiceContext serviceContext = new ServiceContext();
 
