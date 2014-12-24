@@ -51,7 +51,7 @@ if (selUser != null) {
 List<Organization> organizations = Collections.emptyList();
 
 if (selUser != null) {
-	organizations = selUser.getOrganizations();
+	organizations = OrganizationLocalServiceUtil.getUserOrganizations(selUser.getUserId());
 }
 
 if (filterManageableOrganizations) {
