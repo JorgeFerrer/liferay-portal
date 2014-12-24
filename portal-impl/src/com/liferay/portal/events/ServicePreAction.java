@@ -1677,14 +1677,8 @@ public class ServicePreAction extends Action {
 			// Check the user's sites
 
 			if (layout == null) {
-				LinkedHashMap<String, Object> groupParams =
-					new LinkedHashMap<String, Object>();
-
-				groupParams.put("usersGroups", new Long(user.getUserId()));
-
-				List<Group> groups = GroupLocalServiceUtil.search(
-					user.getCompanyId(), null, null, groupParams,
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+				List<Group> groups = GroupLocalServiceUtil.getUserGroups(
+					user.getUserId(), true);
 
 				for (Group group : groups) {
 					layouts = LayoutLocalServiceUtil.getLayouts(
