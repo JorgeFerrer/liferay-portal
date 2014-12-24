@@ -852,28 +852,44 @@ public class OrganizationLocalServiceImpl
 			long userId, boolean includeAdministrative)
 		throws PortalException {
 
-		if (!includeAdministrative) {
-			return userPersistence.getOrganizationPrimaryKeys(userId);
-		}
-
 		Set<Long> organizationIds = SetUtil.fromArray(
 			userPersistence.getOrganizationPrimaryKeys(userId));
 
-		List<UserGroupRole> userGroupRoles =
-			userGroupRoleLocalService.getUserGroupRoles(userId);
+		if (includeAdministrative) {
+			List<UserGroupRole> userGroupRoles =
+				userGroupRoleLocalService.getUserGroupRoles(userId);
 
-		for (UserGroupRole userGroupRole : userGroupRoles) {
-			Role role = userGroupRole.getRole();
+			for (UserGroupRole userGroupRole : userGroupRoles) {
+				Role role = userGroupRole.getRole();
 
-			String roleName = role.getName();
+				String roleName = role.getName();
 
-			if (roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
-				roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
+				if (roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
+					roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
 
-				Group group = userGroupRole.getGroup();
+					Group group = userGroupRole.getGroup();
 
-				organizationIds.add(group.getOrganizationId());
+					organizationIds.add(group.getOrganizationId());
+				}
 			}
+		}
+
+		if (!PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
+			Set<Long> ancestorOrganizationIds = new HashSet<Long>();
+
+			for (long organizationId : organizationIds) {
+				Organization organization =
+					organizationPersistence.findByPrimaryKey(
+						organizationId);
+
+				for (long ancestorOrganizationId :
+						organization.getAncestorOrganizationIds()) {
+
+					ancestorOrganizationIds.add(ancestorOrganizationId);
+				}
+			}
+
+			organizationIds.addAll(ancestorOrganizationIds);
 		}
 
 		return ArrayUtil.toLongArray(organizationIds);
@@ -897,32 +913,41 @@ public class OrganizationLocalServiceImpl
 			long userId, boolean includeAdministrative)
 		throws PortalException {
 
-		if (!includeAdministrative) {
-			return getUserOrganizations(userId);
-		}
-
 		Set<Organization> organizations = new HashSet<Organization>(
 			getUserOrganizations(userId));
 
-		List<UserGroupRole> userGroupRoles =
-			userGroupRoleLocalService.getUserGroupRoles(userId);
+		if (includeAdministrative) {
+			List<UserGroupRole> userGroupRoles =
+				userGroupRoleLocalService.getUserGroupRoles(userId);
 
-		for (UserGroupRole userGroupRole : userGroupRoles) {
-			Role role = userGroupRole.getRole();
+			for (UserGroupRole userGroupRole : userGroupRoles) {
+				Role role = userGroupRole.getRole();
 
-			String roleName = role.getName();
+				String roleName = role.getName();
 
-			if (roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
-				roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
+				if (roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
+					roleName.equals(RoleConstants.ORGANIZATION_OWNER)) {
 
-				Group group = userGroupRole.getGroup();
+					Group group = userGroupRole.getGroup();
 
-				Organization organization =
-					organizationPersistence.findByPrimaryKey(
-						group.getOrganizationId());
+					Organization organization =
+						organizationPersistence.findByPrimaryKey(
+							group.getOrganizationId());
 
-				organizations.add(organization);
+					organizations.add(organization);
+				}
 			}
+		}
+
+		if (!PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
+			Set<Organization> ancestorOrganizations =
+				new HashSet<Organization>();
+
+			for (Organization organization : organizations) {
+				ancestorOrganizations.addAll(organization.getAncestors());
+			}
+
+			organizations.addAll(ancestorOrganizations);
 		}
 
 		return new ArrayList<Organization>(organizations);
