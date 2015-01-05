@@ -591,7 +591,12 @@ public class UserFinderImpl
 
 				params3.remove("usersGroups");
 
-				params3.put("groupsOrgs", siteGroupIdsArray);
+				if (PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
+					params3.put("groupsOrgs", siteGroupIdsArray);
+				}
+				else {
+					params3.put("groupsOrgsTree", siteGroupIdsArray);
+				}
 
 				params4 = new LinkedHashMap<String, Object>(params1);
 
@@ -670,7 +675,12 @@ public class UserFinderImpl
 
 				params4.remove("usersRoles");
 
-				params4.put("groupsOrgs", siteGroupIdsArray);
+				if (PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
+					params4.put("groupsOrgs", siteGroupIdsArray);
+				}
+				else {
+					params4.put("groupsOrgsTree", siteGroupIdsArray);
+				}
 
 				params5 = new LinkedHashMap<String, Object>(params1);
 
