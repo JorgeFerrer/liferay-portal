@@ -88,6 +88,9 @@ public class UserFinderImpl
 	public static final String JOIN_BY_GROUPS_ORGS =
 		UserFinder.class.getName() + ".joinByGroupsOrgs";
 
+	public static final String JOIN_BY_GROUPS_ORGS_TREE =
+		UserFinder.class.getName() + ".joinByGroupsOrgsTree";
+
 	public static final String JOIN_BY_GROUPS_USER_GROUPS =
 		UserFinder.class.getName() + ".joinByGroupsUserGroups";
 
@@ -915,6 +918,9 @@ public class UserFinderImpl
 		else if (key.equals("groupsOrgs")) {
 			join = CustomSQLUtil.get(JOIN_BY_GROUPS_ORGS);
 		}
+		else if (key.equals("groupsOrgsTree")) {
+			join = CustomSQLUtil.get(JOIN_BY_GROUPS_ORGS_TREE);
+		}
 		else if (key.equals("groupsUserGroups")) {
 			join = CustomSQLUtil.get(JOIN_BY_GROUPS_USER_GROUPS);
 		}
@@ -1008,10 +1014,15 @@ public class UserFinderImpl
 		if (key.equals("contactTwitterSn")) {
 			join = CustomSQLUtil.get(JOIN_BY_CONTACT_TWITTER_SN);
 		}
-		else if (key.equals("groupsOrgs")) {
+		else if (key.equals("groupsOrgs") || key.equals("groupsOrgsTree")) {
 			Long[] groupIds = (Long[])value;
 
-			join = CustomSQLUtil.get(JOIN_BY_GROUPS_ORGS);
+			if (key.equals("groupsOrgs")) {
+				join = CustomSQLUtil.get(JOIN_BY_GROUPS_ORGS);
+			}
+			else {
+				join = CustomSQLUtil.get(JOIN_BY_GROUPS_ORGS_TREE);
+			}
 
 			if (groupIds.length > 1) {
 				StringBundler sb = new StringBundler(groupIds.length * 2 + 1);
@@ -1300,6 +1311,7 @@ public class UserFinderImpl
 			}
 			else if (value instanceof Long[]) {
 				if (key.equals("groupsOrgs") ||
+					key.equals("groupsOrgsTree") ||
 					key.equals("groupsUserGroups") ||
 					key.equals("usersGroups") || key.equals("usersOrgs") ||
 					key.equals("usersUserGroups")) {
