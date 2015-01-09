@@ -102,7 +102,7 @@ public class FileServerTestUtil {
 	 *         directory structure
 	 * @throws IOException if an IO exception occurred
 	 */
-	public static Path createFolderWithFiles(Path folder) throws IOException {		
+	public static Path createFolderWithFiles(Path folder) throws IOException {
 		FileHelperUtil.delete(folder);
 
 		_paths.add(Files.createDirectories(folder));
