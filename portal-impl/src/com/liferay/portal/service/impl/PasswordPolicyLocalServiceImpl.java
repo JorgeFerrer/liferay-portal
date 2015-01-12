@@ -329,8 +329,7 @@ public class PasswordPolicyLocalServiceImpl
 			return getPasswordPolicy(passwordPolicyRel.getPasswordPolicyId());
 		}
 
-		long[] organizationIds = userPersistence.getOrganizationPrimaryKeys(
-			userId);
+		long[] organizationIds = user.getOrganizationIds(false);
 
 		if (organizationIds.length == 0) {
 			return passwordPolicyPersistence.findByC_DP(

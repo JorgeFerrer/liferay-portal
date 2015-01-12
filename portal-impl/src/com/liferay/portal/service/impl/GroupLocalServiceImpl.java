@@ -1822,7 +1822,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			groupParams.put("usersGroups", new Long(userId));
 
 			return search(
-				user.getCompanyId(), null, null, groupParams, start, end);
+				user.getCompanyId(), getClassNameIds(), null, groupParams,
+				start, end);
 		}
 		else {
 			return userPersistence.getGroups(userId, start, end);
@@ -3949,6 +3950,12 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			return groups;
 		}
 
+		User user = userPersistence.fetchByPrimaryKey(userId);
+
+		if (user == null) {
+			return groups;
+		}
+
 		// Join by Users_Groups
 
 		Set<Group> joinedGroups = new HashSet<Group>(
@@ -3960,8 +3967,14 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 			// Join by Users_Orgs
 
-			long[] organizationIds = userPersistence.getOrganizationPrimaryKeys(
-				userId);
+			long[] organizationIds = null;
+
+			try {
+				organizationIds = user.getOrganizationIds(false);
+			}
+			catch (PortalException e) {
+				throw new SystemException(e);
+			}
 
 			for (long organizationId : organizationIds) {
 				for (Group group : groups) {
