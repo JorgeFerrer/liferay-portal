@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.servlet.taglib.ui.MenuItem;
 import com.liferay.portal.kernel.servlet.taglib.ui.ToolbarItem;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
-import com.liferay.portlet.dynamicdatamapping.storage.Fields;
+import com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues;
 
 import java.io.IOException;
 
@@ -33,15 +33,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface DLViewFileVersionDisplayContext extends DLDisplayContext {
 
-	public List<DDMStructure> getDDMStructures() throws PortalException;
+	public DDMFormValues getDDMFormValues(DDMStructure ddmStructure)
+		throws PortalException;
 
-	public Fields getFields(DDMStructure ddmStructure) throws PortalException;
+	public List<DDMStructure> getDDMStructures() throws PortalException;
 
 	public List<MenuItem> getMenuItems() throws PortalException;
 
 	public List<ToolbarItem> getToolbarItems() throws PortalException;
-
-	public boolean isAssetMetadataVisible() throws PortalException;
 
 	public boolean isCancelCheckoutDocumentButtonVisible()
 		throws PortalException;
@@ -64,6 +63,8 @@ public interface DLViewFileVersionDisplayContext extends DLDisplayContext {
 
 	public boolean isPermissionsButtonVisible() throws PortalException;
 
+	public boolean isVersionInfoVisible() throws PortalException;
+
 	public boolean isViewButtonVisible() throws PortalException;
 
 	public boolean isViewOriginalFileButtonVisible() throws PortalException;
@@ -72,4 +73,5 @@ public interface DLViewFileVersionDisplayContext extends DLDisplayContext {
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException;
 
+	boolean isDownloadLinkVisible() throws PortalException;
 }

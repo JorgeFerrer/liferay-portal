@@ -24,8 +24,6 @@ String uploadExceptionRedirect = ParamUtil.getString(request, "uploadExceptionRe
 
 String referringPortletResource = ParamUtil.getString(request, "referringPortletResource");
 
-String referringPortletResourceRootPortletId = PortletConstants.getRootPortletId(referringPortletResource);
-
 String uploadProgressId = "dlFileEntryUploadProgress";
 
 FileEntry fileEntry = (FileEntry)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FILE_ENTRY);
@@ -36,7 +34,7 @@ long repositoryId = BeanParamUtil.getLong(fileEntry, request, "repositoryId");
 
 if (repositoryId <= 0) {
 
-	// add_asset.jspf only passes in groupId
+	// <liferay-ui:asset_add_button /> only passes in groupId
 
 	repositoryId = BeanParamUtil.getLong(fileEntry, request, "groupId");
 }
@@ -236,7 +234,16 @@ else {
 	<aui:model-context bean="<%= fileVersion %>" model="<%= DLFileVersion.class %>" />
 
 	<c:if test="<%= fileVersion != null %>">
-		<aui:workflow-status model="<%= DLFileEntry.class %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= fileVersion.getStatus() %>" version="<%= fileVersion.getVersion() %>" />
+
+		<%
+		String version = null;
+
+		if (dlEditFileEntryDisplayContext.isVersionInfoVisible()) {
+			version = fileVersion.getVersion();
+		}
+		%>
+
+		<aui:workflow-status model="<%= DLFileEntry.class %>" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= fileVersion.getStatus() %>" version="<%= version %>" />
 	</c:if>
 
 	<aui:fieldset>
@@ -267,7 +274,7 @@ else {
 		<div class="form-group">
 			<aui:input label="folder" name="folderName" type="resource" value="<%= folderName %>" />
 
-			<c:if test="<%= referringPortletResourceRootPortletId.equals(PortletKeys.ASSET_PUBLISHER) && (fileEntryId == 0) %>">
+			<c:if test="<%= dlEditFileEntryDisplayContext.isFolderSelectionVisible() %>">
 				<aui:button name="selectFolderButton" value="select" />
 
 				<%
@@ -448,7 +455,7 @@ else {
 			</aui:field-wrapper>
 		</c:if>
 
-		<c:if test="<%= approved %>">
+		<c:if test="<%= approved && dlEditFileEntryDisplayContext.isVersionInfoVisible() %>">
 			<div class="alert alert-info">
 				<liferay-ui:message key="a-new-version-will-be-created-automatically-if-this-content-is-modified" />
 			</div>

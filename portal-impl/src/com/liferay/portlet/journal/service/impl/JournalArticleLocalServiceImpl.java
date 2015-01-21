@@ -2610,6 +2610,39 @@ public class JournalArticleLocalServiceImpl
 		return articles.get(0);
 	}
 
+	@Override
+	public List<JournalArticle> getIndexableArticlesByDDMStructureKey(
+		String[] ddmStructureKeys) {
+
+		if (PropsValues.JOURNAL_ARTICLE_INDEX_ALL_VERSIONS) {
+			return getStructureArticles(ddmStructureKeys);
+		}
+
+		QueryDefinition<JournalArticle> approvedQueryDefinition =
+			new QueryDefinition<JournalArticle>(
+				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, new ArticleVersionComparator());
+
+		List<JournalArticle> articles = new ArrayList<>();
+
+		articles.addAll(
+			journalArticleFinder.findByG_C_S(
+				0, JournalArticleConstants.CLASSNAME_ID_DEFAULT,
+				ddmStructureKeys, approvedQueryDefinition));
+
+		QueryDefinition<JournalArticle> trashQueryDefinition =
+			new QueryDefinition<JournalArticle>(
+				WorkflowConstants.STATUS_IN_TRASH, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, new ArticleVersionComparator());
+
+		articles.addAll(
+			journalArticleFinder.findByG_C_S(
+				0, JournalArticleConstants.CLASSNAME_ID_DEFAULT,
+				ddmStructureKeys, trashQueryDefinition));
+
+		return articles;
+	}
+
 	/**
 	 * Returns the indexable web content articles matching the resource primary
 	 * key.
@@ -2895,8 +2928,8 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int getNotInTrashArticlesCount(long groupId, long folderId) {
-		QueryDefinition<JournalArticle> queryDefinition =
-			new QueryDefinition<JournalArticle>(WorkflowConstants.STATUS_ANY);
+		QueryDefinition<JournalArticle> queryDefinition = new QueryDefinition<>(
+			WorkflowConstants.STATUS_ANY);
 
 		List<Long> folderIds = new ArrayList<>();
 
@@ -3680,8 +3713,8 @@ public class JournalArticleLocalServiceImpl
 	public List<JournalArticle> search(
 		long groupId, List<Long> folderIds, int status, int start, int end) {
 
-		QueryDefinition<JournalArticle> queryDefinition =
-			new QueryDefinition<JournalArticle>(status, start, end, null);
+		QueryDefinition<JournalArticle> queryDefinition = new QueryDefinition<>(
+			status, start, end, null);
 
 		return journalArticleFinder.findByG_F(
 			groupId, folderIds, queryDefinition);
@@ -3868,8 +3901,8 @@ public class JournalArticleLocalServiceImpl
 		boolean andOperator, int start, int end,
 		OrderByComparator<JournalArticle> obc) {
 
-		QueryDefinition<JournalArticle> queryDefinition =
-			new QueryDefinition<JournalArticle>(status, start, end, obc);
+		QueryDefinition<JournalArticle> queryDefinition = new QueryDefinition<>(
+			status, start, end, obc);
 
 		return journalArticleFinder.findByC_G_F_C_A_V_T_D_C_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -3950,8 +3983,8 @@ public class JournalArticleLocalServiceImpl
 		boolean andOperator, int start, int end,
 		OrderByComparator<JournalArticle> obc) {
 
-		QueryDefinition<JournalArticle> queryDefinition =
-			new QueryDefinition<JournalArticle>(status, start, end, obc);
+		QueryDefinition<JournalArticle> queryDefinition = new QueryDefinition<>(
+			status, start, end, obc);
 
 		return journalArticleFinder.findByC_G_F_C_A_V_T_D_C_S_T_D_R(
 			companyId, groupId, folderIds, classNameId, articleId, version,
@@ -4197,8 +4230,8 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public int searchCount(long groupId, List<Long> folderIds, int status) {
-		QueryDefinition<JournalArticle> queryDefinition =
-			new QueryDefinition<JournalArticle>(status);
+		QueryDefinition<JournalArticle> queryDefinition = new QueryDefinition<>(
+			status);
 
 		return journalArticleFinder.countByG_F(
 			groupId, folderIds, queryDefinition);
@@ -6694,7 +6727,7 @@ public class JournalArticleLocalServiceImpl
 			}
 
 			ObjectValuePair<Long, Integer> articleVersionStatusOVP =
-				new ObjectValuePair<Long, Integer>(article.getId(), status);
+				new ObjectValuePair<>(article.getId(), status);
 
 			articleVersionStatusOVPs.add(articleVersionStatusOVP);
 		}
@@ -6990,8 +7023,7 @@ public class JournalArticleLocalServiceImpl
 			List<JournalArticle> articles = JournalUtil.getArticles(hits);
 
 			if (articles != null) {
-				return new BaseModelSearchResult<JournalArticle>(
-					articles, hits.getLength());
+				return new BaseModelSearchResult<>(articles, hits.getLength());
 			}
 		}
 

@@ -59,8 +59,7 @@ public class AsyncBrokerTest {
 
 	@Test
 	public void testGetOpenBids() {
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		Map<String, NoticeableFuture<String>> map = asyncBroker.getOpenBids();
 
@@ -91,8 +90,7 @@ public class AsyncBrokerTest {
 
 		System.setProperty(_THREAD_ENABLED_KEY, StringPool.FALSE);
 
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		NoticeableFuture<String> noticeableFuture = asyncBroker.post(_KEY);
 
@@ -114,13 +112,12 @@ public class AsyncBrokerTest {
 
 		System.setProperty(_THREAD_ENABLED_KEY, StringPool.FALSE);
 
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			AsyncBroker.class.getName(), Level.OFF);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					AsyncBroker.class.getName(), Level.OFF)) {
 
-		try {
 			asyncBroker.post(_KEY);
 
 			GCUtil.gc(true);
@@ -132,16 +129,13 @@ public class AsyncBrokerTest {
 
 			Assert.assertTrue(logRecords.isEmpty());
 		}
-		finally {
-			captureHandler.close();
-		}
 
 		// With log
 
-		captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			AsyncBroker.class.getName(), Level.WARNING);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					AsyncBroker.class.getName(), Level.WARNING)) {
 
-		try {
 			NoticeableFuture<String> noticeableFuture = asyncBroker.post(_KEY);
 
 			String toString = noticeableFuture.toString();
@@ -164,9 +158,6 @@ public class AsyncBrokerTest {
 					" with key " + _KEY,
 				logRecord.getMessage());
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@NewEnv(type = NewEnv.Type.CLASSLOADER)
@@ -174,12 +165,11 @@ public class AsyncBrokerTest {
 	public void testOrphanCancellationNotSupported() throws Exception {
 		System.setProperty(_THREAD_ENABLED_KEY, StringPool.FALSE);
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			AsyncBroker.class.getName(), Level.SEVERE);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					AsyncBroker.class.getName(), Level.SEVERE)) {
 
-		try {
-			AsyncBroker<String, String> asyncBroker =
-				new AsyncBroker<String, String>();
+			AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 			asyncBroker.post(_KEY);
 
@@ -209,9 +199,6 @@ public class AsyncBrokerTest {
 			Assert.assertSame(
 				IllegalAccessException.class, throwable.getClass());
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@AdviseWith(adviceClasses = ReflectionUtilAdvice.class)
@@ -224,10 +211,10 @@ public class AsyncBrokerTest {
 
 		ReflectionUtilAdvice.setDeclaredFieldThrowable(throwable);
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			AsyncBroker.class.getName(), Level.WARNING);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					AsyncBroker.class.getName(), Level.WARNING)) {
 
-		try {
 			Class.forName(
 				AsyncBroker.class.getName(), true,
 				AsyncBroker.class.getClassLoader());
@@ -245,17 +232,13 @@ public class AsyncBrokerTest {
 				logRecord.getMessage());
 			Assert.assertSame(throwable, logRecord.getThrown());
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@Test
 	public void testPost() throws Exception {
 		ReflectionUtilAdvice.setDeclaredFieldThrowable(new Throwable());
 
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		ReflectionUtilAdvice.setDeclaredFieldThrowable(null);
 
@@ -279,10 +262,10 @@ public class AsyncBrokerTest {
 	public void testPostPhantomReferenceResurrectionNotSupported()
 		throws Exception {
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			AsyncBroker.class.getName(), Level.WARNING);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					AsyncBroker.class.getName(), Level.WARNING)) {
 
-		try {
 			testPost();
 
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
@@ -301,15 +284,11 @@ public class AsyncBrokerTest {
 
 			Assert.assertSame(Throwable.class, throwable.getClass());
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@Test
 	public void testTake() {
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		Map<String, DefaultNoticeableFuture<String>> defaultNoticeableFutures =
 			ReflectionTestUtil.getFieldValue(
@@ -330,8 +309,7 @@ public class AsyncBrokerTest {
 
 	@Test
 	public void testTakeWithException() throws Exception {
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		Map<String, DefaultNoticeableFuture<String>> defaultNoticeableFutures =
 			ReflectionTestUtil.getFieldValue(
@@ -364,8 +342,7 @@ public class AsyncBrokerTest {
 
 	@Test
 	public void testTakeWithResult() throws Exception {
-		AsyncBroker<String, String> asyncBroker =
-			new AsyncBroker<String, String>();
+		AsyncBroker<String, String> asyncBroker = new AsyncBroker<>();
 
 		Map<String, DefaultNoticeableFuture<String>> defaultNoticeableFutures =
 			ReflectionTestUtil.getFieldValue(

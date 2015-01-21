@@ -31,7 +31,14 @@ public class GCUtil {
 	public static void fullGC(boolean ensureEnqueuedReferences)
 		throws InterruptedException {
 
-		ReferenceQueue<Object> referenceQueue = new ReferenceQueue<Object>();
+		fullGC(true, ensureEnqueuedReferences);
+	}
+
+	public static void fullGC(
+			boolean actively, boolean ensureEnqueuedReferences)
+		throws InterruptedException {
+
+		ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
 
 		SoftReference<Object> softReference = new SoftReference<Object>(
 			new Object(), referenceQueue);
@@ -55,28 +62,36 @@ public class GCUtil {
 		Assert.assertSame(softReference, referenceQueue.remove());
 
 		if (ensureEnqueuedReferences) {
-			fullGC(false);
+			fullGC(actively, false);
 		}
 	}
 
 	public static void gc(boolean ensureEnqueuedReferences)
 		throws InterruptedException {
 
-		ReferenceQueue<Object> referenceQueue = new ReferenceQueue<Object>();
+		gc(true, ensureEnqueuedReferences);
+	}
+
+	public static void gc(boolean actively, boolean ensureEnqueuedReferences)
+		throws InterruptedException {
+
+		ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
 
 		WeakReference<Object> weakReference = new WeakReference<Object>(
 			new Object(), referenceQueue);
 
-		while (weakReference.get() != null) {
-			System.gc();
+		if (actively) {
+			while (weakReference.get() != null) {
+				System.gc();
 
-			System.runFinalization();
+				System.runFinalization();
+			}
 		}
 
 		Assert.assertSame(weakReference, referenceQueue.remove());
 
 		if (ensureEnqueuedReferences) {
-			gc(false);
+			gc(actively, false);
 		}
 	}
 

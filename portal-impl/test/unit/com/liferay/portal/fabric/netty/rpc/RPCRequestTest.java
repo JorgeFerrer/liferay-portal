@@ -49,10 +49,10 @@ public class RPCRequestTest {
 
 	@Test
 	public void testExecuteWithAsyncException() {
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(null, false, _throwable, null));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, false, null, _throwable);
 
 		doTestExecute(rpcRequest, rpcResponse);
@@ -60,10 +60,10 @@ public class RPCRequestTest {
 
 	@Test
 	public void testExecuteWithCancellation() {
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(null, true, null, null));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, true, null, null);
 
 		doTestExecute(rpcRequest, rpcResponse);
@@ -71,10 +71,10 @@ public class RPCRequestTest {
 
 	@Test
 	public void testExecuteWithResult() {
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(null, false, null, _RESULT));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, false, _RESULT, null);
 
 		doTestExecute(rpcRequest, rpcResponse);
@@ -82,10 +82,10 @@ public class RPCRequestTest {
 
 	@Test
 	public void testExecuteWithSyncException() {
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(_throwable, false, null, null));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, false, null, _throwable);
 
 		doTestExecute(rpcRequest, rpcResponse);
@@ -108,16 +108,16 @@ public class RPCRequestTest {
 
 			});
 
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(null, false, null, _RESULT));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, true, null, null);
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			RPCRequest.class.getName(), Level.SEVERE);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					RPCRequest.class.getName(), Level.SEVERE)) {
 
-		try {
 			rpcRequest.sendRPCResponse(_embeddedChannel, rpcResponse);
 
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
@@ -128,25 +128,22 @@ public class RPCRequestTest {
 				"Cancelled on sending RPC response: " + rpcResponse,
 				logRecord.getMessage());
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@Test
 	public void testSendRPCResponseFailed() {
 		_embeddedChannel.close();
 
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
+		RPCRequest<String> rpcRequest = new RPCRequest<>(
 			_ID, new TestRPCCallable(null, false, null, _RESULT));
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, true, null, null);
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			RPCRequest.class.getName(), Level.SEVERE);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					RPCRequest.class.getName(), Level.SEVERE)) {
 
-		try {
 			rpcRequest.sendRPCResponse(_embeddedChannel, rpcResponse);
 
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
@@ -161,9 +158,6 @@ public class RPCRequestTest {
 
 			Assert.assertTrue(throwable instanceof ClosedChannelException);
 		}
-		finally {
-			captureHandler.close();
-		}
 	}
 
 	@Test
@@ -171,8 +165,7 @@ public class RPCRequestTest {
 		RPCCallable<String> rpcCallable = new TestRPCCallable(
 			null, true, null, null);
 
-		RPCRequest<String> rpcRequest = new RPCRequest<String>(
-			_ID, rpcCallable);
+		RPCRequest<String> rpcRequest = new RPCRequest<>(_ID, rpcCallable);
 
 		Assert.assertEquals(
 			"{id=" + _ID + ", rpcCallable=" + rpcCallable.toString() + "}",
@@ -222,7 +215,7 @@ public class RPCRequestTest {
 			}
 
 			DefaultNoticeableFuture<String> defaultNoticeableFuture =
-				new DefaultNoticeableFuture<String>();
+				new DefaultNoticeableFuture<>();
 
 			if (_cancel) {
 				defaultNoticeableFuture.cancel(true);

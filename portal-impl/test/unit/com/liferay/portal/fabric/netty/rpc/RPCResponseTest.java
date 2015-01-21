@@ -63,7 +63,7 @@ public class RPCResponseTest {
 
 	@Test
 	public void testToString() {
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, true, _RESULT, _throwable);
 
 		Assert.assertEquals(
@@ -78,13 +78,13 @@ public class RPCResponseTest {
 
 		// No future exist
 
-		RPCResponse<String> rpcResponse = new RPCResponse<String>(
+		RPCResponse<String> rpcResponse = new RPCResponse<>(
 			_ID, cancelled, result, throwable);
 
-		CaptureHandler captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			RPCResponse.class.getName(), Level.SEVERE);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					RPCResponse.class.getName(), Level.SEVERE)) {
 
-		try {
 			rpcResponse.execute(_embeddedChannel);
 
 			List<LogRecord> logRecords = captureHandler.getLogRecords();
@@ -113,16 +113,13 @@ public class RPCResponseTest {
 					logRecord.getMessage());
 			}
 		}
-		finally {
-			captureHandler.close();
-		}
 
 		// Have futures, with log
 
-		captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			RPCResponse.class.getName(), Level.FINEST);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					RPCResponse.class.getName(), Level.FINEST)) {
 
-		try {
 			AsyncBroker<Long, Serializable> asyncBroker =
 				NettyChannelAttributes.getAsyncBroker(_embeddedChannel);
 
@@ -148,7 +145,7 @@ public class RPCResponseTest {
 				"Cancelled future with ID " + _ID, logRecord.getMessage());
 
 			DefaultNoticeableFuture<Serializable> defaultNoticeableFuture =
-				new DefaultNoticeableFuture<Serializable>();
+				new DefaultNoticeableFuture<>();
 
 			defaultNoticeableFuture.cancel(true);
 
@@ -169,16 +166,13 @@ public class RPCResponseTest {
 					" because it is already completed",
 				logRecord.getMessage());
 		}
-		finally {
-			captureHandler.close();
-		}
 
 		// Have futures, without log
 
-		captureHandler = JDKLoggerTestUtil.configureJDKLogger(
-			RPCResponse.class.getName(), Level.OFF);
+		try (CaptureHandler captureHandler =
+				JDKLoggerTestUtil.configureJDKLogger(
+					RPCResponse.class.getName(), Level.OFF)) {
 
-		try {
 			AsyncBroker<Long, Serializable> asyncBroker =
 				NettyChannelAttributes.getAsyncBroker(_embeddedChannel);
 
@@ -190,7 +184,7 @@ public class RPCResponseTest {
 			Assert.assertTrue(noticeableFuture.isCancelled());
 
 			DefaultNoticeableFuture<Serializable> defaultNoticeableFuture =
-				new DefaultNoticeableFuture<Serializable>();
+				new DefaultNoticeableFuture<>();
 
 			defaultNoticeableFuture.cancel(true);
 
@@ -201,9 +195,6 @@ public class RPCResponseTest {
 			defaultNoticeableFutures.put(_ID, defaultNoticeableFuture);
 
 			rpcResponse.execute(_embeddedChannel);
-		}
-		finally {
-			captureHandler.close();
 		}
 	}
 

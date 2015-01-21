@@ -1,4 +1,4 @@
-@import "compass";
+@import "bourbon";
 
 .lfr-asset-column-content {
 	margin-right: 1em;
@@ -14,7 +14,7 @@
 		margin-bottom: 2em;
 		text-align: center;
 
-		@include word-break(break-all);
+		@include word-wrap(break-all);
 	}
 
 	.lfr-asset-avatar img {
@@ -37,6 +37,7 @@
 	.lfr-asset-icon {
 		border-right: 1px solid transparent;
 		float: left;
+		line-height: 1em;
 		margin-right: 10px;
 		padding-right: 10px;
 

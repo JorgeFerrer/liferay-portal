@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.servlet.taglib.ui.MenuItem;
 import com.liferay.portal.kernel.servlet.taglib.ui.ToolbarItem;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
-import com.liferay.portlet.dynamicdatamapping.storage.Fields;
+import com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues;
 
 import java.io.IOException;
 
@@ -48,13 +48,15 @@ public class BaseDLViewFileVersionDisplayContext
 	}
 
 	@Override
-	public List<DDMStructure> getDDMStructures() throws PortalException {
-		return parentDLDisplayContext.getDDMStructures();
+	public DDMFormValues getDDMFormValues(DDMStructure ddmStructure)
+		throws PortalException {
+
+		return parentDLDisplayContext.getDDMFormValues(ddmStructure);
 	}
 
 	@Override
-	public Fields getFields(DDMStructure ddmStructure) throws PortalException {
-		return parentDLDisplayContext.getFields(ddmStructure);
+	public List<DDMStructure> getDDMStructures() throws PortalException {
+		return parentDLDisplayContext.getDDMStructures();
 	}
 
 	@Override
@@ -65,11 +67,6 @@ public class BaseDLViewFileVersionDisplayContext
 	@Override
 	public List<ToolbarItem> getToolbarItems() throws PortalException {
 		return parentDLDisplayContext.getToolbarItems();
-	}
-
-	@Override
-	public boolean isAssetMetadataVisible() throws PortalException {
-		return parentDLDisplayContext.isAssetMetadataVisible();
 	}
 
 	@Override
@@ -100,6 +97,11 @@ public class BaseDLViewFileVersionDisplayContext
 	}
 
 	@Override
+	public boolean isDownloadLinkVisible() throws PortalException {
+		return parentDLDisplayContext.isDownloadLinkVisible();
+	}
+
+	@Override
 	public boolean isEditButtonVisible() throws PortalException {
 		return parentDLDisplayContext.isEditButtonVisible();
 	}
@@ -122,6 +124,11 @@ public class BaseDLViewFileVersionDisplayContext
 	@Override
 	public boolean isPermissionsButtonVisible() throws PortalException {
 		return parentDLDisplayContext.isPermissionsButtonVisible();
+	}
+
+	@Override
+	public boolean isVersionInfoVisible() throws PortalException {
+		return parentDLDisplayContext.isVersionInfoVisible();
 	}
 
 	@Override
