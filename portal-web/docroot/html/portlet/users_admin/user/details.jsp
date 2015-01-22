@@ -75,7 +75,18 @@ if (selContact != null) {
 			<liferay-ui:message arguments="<%= sb.toString() %>" key="your-portal-administrator-has-disabled-the-ability-to-modify-the-following-fields" translateArguments="<%= false %>" />
 		</liferay-ui:error>
 
-		<liferay-ui:error exception="<%= UserScreenNameException.MustBeAlphaNumeric.class %>" focusField="screenName" message="please-enter-a-valid-screen-name" />
+		<liferay-ui:error exception="<%= UserScreenNameException.MustBeAlphaNumeric.class %>" focusField="screenName">
+			<%
+			UserScreenNameException.MustBeAlphaNumeric usne = (UserScreenNameException.MustBeAlphaNumeric)errorException;
+
+			char[] validChars = usne.validSpecialChars;
+
+			String validCharsString = StringUtil.merge(validChars, StringPool.DOUBLE_SPACE);
+			%>
+
+			<liferay-ui:message arguments="<%= validCharsString %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
+		</liferay-ui:error>
+
 		<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken" />
 		<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeNumeric.class %>" focusField="screenName" message="please-enter-a-valid-screen-name" />
 		<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeReserved.class %>" focusField="screenName" message="the-screen-name-you-requested-is-reserved" />
