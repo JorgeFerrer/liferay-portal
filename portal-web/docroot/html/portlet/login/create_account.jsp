@@ -99,9 +99,25 @@ birthdayCalendar.set(Calendar.YEAR, 1970);
 	<liferay-ui:error exception="<%= UserPasswordException.MustNotBeNull.class %>" message="the-password-cannot-be-blank" />
 	<liferay-ui:error exception="<%= UserPasswordException.MustNotBeTrivial.class %>" message="that-password-uses-common-words-please-enter-a-password-that-is-harder-to-guess-i-e-contains-a-mix-of-numbers-and-letters" />
 	<liferay-ui:error exception="<%= UserPasswordException.MustNotContainDictionaryWords.class %>" message="that-password-uses-common-dictionary-words" />
-	<liferay-ui:error exception="<%= UserScreenNameException.class %>" message="please-enter-a-valid-screen-name" />
-	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" message="the-screen-name-you-requested-is-already-taken" />
+
+	<liferay-ui:error exception="<%= UserScreenNameException.MustBeAlphaNumeric.class %>" focusField="screenName">
+		<%
+		UserScreenNameException.MustBeAlphaNumeric usne = (UserScreenNameException.MustBeAlphaNumeric)errorException;
+
+		char[] validChars = usne.validSpecialChars;
+
+		String validCharsString = StringUtil.merge(validChars, StringPool.DOUBLE_SPACE);
+		%>
+
+		<liferay-ui:message arguments="<%= validCharsString %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
+	</liferay-ui:error>
+
+	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken" />
+	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeNumeric.class %>" focusField="screenName" message="please-enter-a-screen-name-without-numbers" />
 	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeReserved.class %>" message="the-screen-name-you-requested-is-reserved" />
+	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeUsedByGroup.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken-by-a-group" />
+	<liferay-ui:error exception="<%= UserScreenNameException.MustValidate.class %>" focusField="screenName" message="please-enter-a-valid-screen-name" />
+
 	<liferay-ui:error exception="<%= WebsiteURLException.class %>" message="please-enter-a-valid-url" />
 
 	<c:if test='<%= SessionMessages.contains(request, "openIdUserInformationMissing") %>'>

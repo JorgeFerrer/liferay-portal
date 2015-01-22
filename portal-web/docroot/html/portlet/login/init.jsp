@@ -48,7 +48,9 @@ page import="com.liferay.portal.UserReminderQueryException" %><%@
 page import="com.liferay.portal.UserScreenNameException" %><%@
 page import="com.liferay.portal.WebsiteURLException" %><%@
 page import="com.liferay.portal.kernel.facebook.FacebookConnectUtil" %><%@
+page import="com.liferay.portal.kernel.util.ClassUtil" %><%@
 page import="com.liferay.portal.security.auth.AuthException" %><%@
+page import="com.liferay.portal.security.auth.ScreenNameValidator" %><%@
 page import="com.liferay.portal.util.OpenIdUtil" %><%@
 page import="com.liferay.portlet.login.util.LoginUtil" %>
 
