@@ -51,6 +51,11 @@ String emailAddress2 = ParamUtil.getString(request, "emailAddress2");
 				<liferay-ui:message key="the-email-address-you-requested-is-already-taken" />
 			</div>
 		</c:when>
+		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeNull.class.getName()) %>">
+			<div class="alert alert-danger">
+				<liferay-ui:message key="please-enter-an-email-address" />
+			</div>
+		</c:when>
 		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP3User.class.getName()) || SessionErrors.contains(request, UserEmailAddressException.MustNotBeReserved.class.getName()) %>">
 			<div class="alert alert-danger">
 				<liferay-ui:message key="the-email-address-you-requested-is-reserved" />
