@@ -217,6 +217,19 @@ public class UsersAdminImpl implements UsersAdmin {
 			return filteredGroupRoles;
 		}
 
+		Group group = GroupLocalServiceUtil.getGroup(groupId);
+
+		if (!(GroupPermissionUtil.contains(
+				permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) ||
+			OrganizationPermissionUtil.contains(
+				permissionChecker, group.getOrganizationId(),
+				ActionKeys.ASSIGN_USER_ROLES))) {
+
+			filteredGroupRoles.removeAll(filteredGroupRoles);
+
+			return filteredGroupRoles;
+		}
+
 		itr = filteredGroupRoles.iterator();
 
 		while (itr.hasNext()) {
@@ -232,17 +245,6 @@ public class UsersAdminImpl implements UsersAdmin {
 
 				itr.remove();
 			}
-		}
-
-		Group group = GroupLocalServiceUtil.getGroup(groupId);
-
-		if (GroupPermissionUtil.contains(
-				permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) ||
-			OrganizationPermissionUtil.contains(
-				permissionChecker, group.getOrganizationId(),
-				ActionKeys.ASSIGN_USER_ROLES)) {
-
-			return filteredGroupRoles;
 		}
 
 		itr = filteredGroupRoles.iterator();
