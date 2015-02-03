@@ -219,15 +219,13 @@ public class UsersAdminImpl implements UsersAdmin {
 
 		Group group = GroupLocalServiceUtil.getGroup(groupId);
 
-		if (!(GroupPermissionUtil.contains(
-				permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) ||
-			OrganizationPermissionUtil.contains(
+		if (!GroupPermissionUtil.contains(
+				permissionChecker, group, ActionKeys.ASSIGN_USER_ROLES) &&
+			!OrganizationPermissionUtil.contains(
 				permissionChecker, group.getOrganizationId(),
-				ActionKeys.ASSIGN_USER_ROLES))) {
+				ActionKeys.ASSIGN_USER_ROLES)) {
 
-			filteredGroupRoles.removeAll(filteredGroupRoles);
-
-			return filteredGroupRoles;
+			return Collections.emptyList();
 		}
 
 		itr = filteredGroupRoles.iterator();
