@@ -16,6 +16,7 @@ package com.liferay.portal;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ClassUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.EmailAddressValidator;
 
@@ -74,6 +75,21 @@ public class UserEmailAddressException extends PortalException {
 
 	}
 
+	public static class MustNotBeCompanyMx extends UserEmailAddressException {
+
+		public MustNotBeCompanyMx(String emailAddress) {
+			super(
+				String.format(
+					"Email address %s must not contain company mail suffix",
+					emailAddress));
+
+			this.emailAddress = emailAddress;
+		}
+
+		public final String emailAddress;
+
+	}
+
 	public static class MustNotBeDuplicate extends UserEmailAddressException {
 
 		public MustNotBeDuplicate(long userId, String emailAddress) {
@@ -104,6 +120,42 @@ public class UserEmailAddressException extends PortalException {
 					"Email address must not be null for the full name %s",
 					fullName));
 		}
+
+	}
+
+	public static class MustNotBePOP extends UserEmailAddressException {
+
+		public MustNotBePOP(String emailAddress) {
+			super(
+				String.format(
+					"Email address %s must not be reserved but is already " +
+						"used for POP notifications",
+					emailAddress));
+
+			this.emailAddress = emailAddress;
+		}
+
+		public final String emailAddress;
+
+	}
+
+	public static class MustNotBeReserved extends UserEmailAddressException {
+
+		public MustNotBeReserved(
+			String emailAddress, String[] reservedEmailAddresses) {
+
+			super(
+				String.format(
+					"Email address %s must not be a reserved one " +
+						"such as: %s",
+					emailAddress, StringUtil.merge(reservedEmailAddresses)));
+
+			this.emailAddress = emailAddress;
+			this.reservedEmailAddresses = reservedEmailAddresses;
+		}
+
+		public final String emailAddress;
+		public final String[] reservedEmailAddresses;
 
 	}
 
