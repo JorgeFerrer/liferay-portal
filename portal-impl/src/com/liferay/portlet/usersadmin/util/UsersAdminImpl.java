@@ -239,19 +239,9 @@ public class UsersAdminImpl implements UsersAdmin {
 					RoleConstants.ORGANIZATION_ADMINISTRATOR) ||
 				roleName.equals(RoleConstants.ORGANIZATION_OWNER) ||
 				roleName.equals(RoleConstants.SITE_ADMINISTRATOR) ||
-				roleName.equals(RoleConstants.SITE_OWNER)) {
-
-				itr.remove();
-			}
-		}
-
-		itr = filteredGroupRoles.iterator();
-
-		while (itr.hasNext()) {
-			Role role = itr.next();
-
-			if (!RolePermissionUtil.contains(
-					permissionChecker, groupId, role.getRoleId(),
+				roleName.equals(RoleConstants.SITE_OWNER) ||
+				!RolePermissionUtil.contains(
+					permissionChecker, groupId, groupRole.getRoleId(),
 					ActionKeys.ASSIGN_MEMBERS)) {
 
 				itr.remove();
