@@ -42,7 +42,9 @@ import com.liferay.portal.UserSmsException;
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.PortalCacheMapSynchronizeUtil;
 import com.liferay.portal.kernel.cache.PortalCacheMapSynchronizeUtil.Synchronizer;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.WildcardMode;
 import com.liferay.portal.kernel.dao.shard.ShardCallable;
@@ -3588,6 +3590,21 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			StringUtil.equalsIgnoreCase(emailAddress, user.getEmailAddress())) {
 
 			return;
+		}
+
+		DynamicQuery dynamicQuery = ticketLocalService.dynamicQuery();
+
+		dynamicQuery.add(PropertyFactoryUtil.forName("extraInfo").eq(
+			emailAddress));
+		dynamicQuery.add(PropertyFactoryUtil.forName("type").eq(
+			TicketConstants.TYPE_EMAIL_ADDRESS));
+
+		List<Ticket> currentTickets = ticketLocalService.dynamicQuery(dynamicQuery);
+
+		if (currentTickets.size() > 0) {
+			for (Ticket currentTicket : currentTickets) {
+				ticketLocalService.deleteTicket(currentTicket);
+			}
 		}
 
 		Ticket ticket = ticketLocalService.addTicket(
