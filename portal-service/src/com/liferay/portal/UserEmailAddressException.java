@@ -75,22 +75,6 @@ public class UserEmailAddressException extends PortalException {
 
 	}
 
-	public static class MustNotUseCompanyMx extends UserEmailAddressException {
-
-		public MustNotUseCompanyMx(String emailAddress) {
-			super(
-				String.format(
-					"Email address %s must not use the MX of the company or " +
-						"one of the associated mail host names",
-					emailAddress));
-
-			this.emailAddress = emailAddress;
-		}
-
-		public final String emailAddress;
-
-	}
-
 	public static class MustNotBeDuplicate extends UserEmailAddressException {
 
 		public MustNotBeDuplicate(long userId, String emailAddress) {
@@ -157,6 +141,22 @@ public class UserEmailAddressException extends PortalException {
 
 		public final String emailAddress;
 		public final String[] reservedEmailAddresses;
+
+	}
+
+	public static class MustNotUseCompanyMx extends UserEmailAddressException {
+
+		public MustNotUseCompanyMx(String emailAddress) {
+			super(
+				String.format(
+					"Email address %s must not use the MX of the company or " +
+						"one of the associated mail host names",
+					emailAddress));
+
+			this.emailAddress = emailAddress;
+		}
+
+		public final String emailAddress;
 
 	}
 

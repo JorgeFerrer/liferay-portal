@@ -64,7 +64,6 @@ public class UpdateEmailAddressAction extends Action {
 		}
 		catch (Exception e) {
 			if (e instanceof UserEmailAddressException) {
-
 				SessionErrors.add(request, e.getClass());
 
 				return actionMapping.findForward("portal.update_email_address");
