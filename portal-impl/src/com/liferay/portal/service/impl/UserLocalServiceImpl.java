@@ -6565,7 +6565,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			PropsValues.MAIL_SESSION_MAIL_POP3_USER);
 
 		if (StringUtil.equalsIgnoreCase(emailAddress, pop3User)) {
-			throw new UserEmailAddressException.MustNotBePOP(emailAddress);
+			throw new UserEmailAddressException.MustNotBePOP3User(emailAddress);
 		}
 
 		String[] reservedEmailAddresses = PrefsPropsUtil.getStringArray(

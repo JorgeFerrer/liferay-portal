@@ -75,12 +75,13 @@ public class UserEmailAddressException extends PortalException {
 
 	}
 
-	public static class MustNotBeCompanyMx extends UserEmailAddressException {
+	public static class MustNotUseCompanyMx extends UserEmailAddressException {
 
-		public MustNotBeCompanyMx(String emailAddress) {
+		public MustNotUseCompanyMx(String emailAddress) {
 			super(
 				String.format(
-					"Email address %s must not contain company mail suffix",
+					"Email address %s must not use the MX of the company or " +
+						"one of the associated mail host names",
 					emailAddress));
 
 			this.emailAddress = emailAddress;
@@ -123,13 +124,13 @@ public class UserEmailAddressException extends PortalException {
 
 	}
 
-	public static class MustNotBePOP extends UserEmailAddressException {
+	public static class MustNotBePOP3User extends UserEmailAddressException {
 
-		public MustNotBePOP(String emailAddress) {
+		public MustNotBePOP3User(String emailAddress) {
 			super(
 				String.format(
-					"Email address %s must not be reserved but is already " +
-						"used for POP notifications",
+					"Email address %s must not be the one used to connect to " +
+						"the POP3 server",
 					emailAddress));
 
 			this.emailAddress = emailAddress;

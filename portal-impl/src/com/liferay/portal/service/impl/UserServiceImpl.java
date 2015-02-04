@@ -2333,7 +2333,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			if (!company.isStrangersWithMx() &&
 				company.hasCompanyMx(emailAddress)) {
 
-				throw new UserEmailAddressException.MustNotBeCompanyMx(
+				throw new UserEmailAddressException.MustNotUseCompanyMx(
 					emailAddress);
 			}
 		}
@@ -2710,7 +2710,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 				user.getCompanyId());
 
 			if (!company.isStrangersWithMx()) {
-				throw new UserEmailAddressException.MustNotBeCompanyMx(
+				throw new UserEmailAddressException.MustNotUseCompanyMx(
 					emailAddress);
 			}
 		}

@@ -41,7 +41,7 @@ String emailAddress2 = ParamUtil.getString(request, "emailAddress2");
 				<liferay-ui:message key="please-enter-a-valid-email-address" />
 			</div>
 		</c:when>
-		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeCompanyMx.class.getName()) %>">
+		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotUseCompanyMx.class.getName()) %>">
 			<div class="alert alert-danger">
 				<liferay-ui:message key="the-email-address-you-requested-must-not-contain-company-mail-suffix" />
 			</div>
@@ -51,7 +51,7 @@ String emailAddress2 = ParamUtil.getString(request, "emailAddress2");
 				<liferay-ui:message key="the-email-address-you-requested-is-already-taken" />
 			</div>
 		</c:when>
-		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP.class.getName()) %>">
+		<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP3User.class.getName()) %>">
 			<div class="alert alert-danger">
 				<liferay-ui:message key="the-email-address-you-requested-is-reserved-for-pop-notifications" />
 			</div>
