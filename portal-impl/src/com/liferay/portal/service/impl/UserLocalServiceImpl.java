@@ -3630,6 +3630,14 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			return;
 		}
 
+		int ticketCount = ticketPersistence.countByT_EI(
+			TicketConstants.TYPE_EMAIL_ADDRESS, emailAddress);
+
+		for (int i = 0; i < ticketCount; i++) {
+			ticketPersistence.removeByT_EI(
+				TicketConstants.TYPE_EMAIL_ADDRESS, emailAddress);
+		}
+
 		Ticket ticket = ticketLocalService.addTicket(
 			user.getCompanyId(), User.class.getName(), user.getUserId(),
 			TicketConstants.TYPE_EMAIL_ADDRESS, emailAddress, null,
