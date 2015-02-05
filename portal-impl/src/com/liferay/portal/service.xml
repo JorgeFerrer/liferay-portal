@@ -2633,6 +2633,10 @@
 		<finder name="Key" return-type="Ticket">
 			<finder-column name="key" />
 		</finder>
+		<finder name="T_EI" return-type="Ticket">
+			<finder-column name="type" />
+			<finder-column name="extraInfo" />
+		</finder>
 
 		<!-- References -->
 
