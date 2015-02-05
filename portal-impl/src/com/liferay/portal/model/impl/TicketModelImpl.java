@@ -89,8 +89,10 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.model.Ticket"),
 			true);
-	public static final long KEY_COLUMN_BITMASK = 1L;
-	public static final long TICKETID_COLUMN_BITMASK = 2L;
+	public static final long EXTRAINFO_COLUMN_BITMASK = 1L;
+	public static final long KEY_COLUMN_BITMASK = 2L;
+	public static final long TYPE_COLUMN_BITMASK = 4L;
+	public static final long TICKETID_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
 				"lock.expiration.time.com.liferay.portal.model.Ticket"));
 
@@ -325,7 +327,19 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 
 	@Override
 	public void setType(int type) {
+		_columnBitmask |= TYPE_COLUMN_BITMASK;
+
+		if (!_setOriginalType) {
+			_setOriginalType = true;
+
+			_originalType = _type;
+		}
+
 		_type = type;
+	}
+
+	public int getOriginalType() {
+		return _originalType;
 	}
 
 	@Override
@@ -340,7 +354,17 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 
 	@Override
 	public void setExtraInfo(String extraInfo) {
+		_columnBitmask |= EXTRAINFO_COLUMN_BITMASK;
+
+		if (_originalExtraInfo == null) {
+			_originalExtraInfo = _extraInfo;
+		}
+
 		_extraInfo = extraInfo;
+	}
+
+	public String getOriginalExtraInfo() {
+		return GetterUtil.getString(_originalExtraInfo);
 	}
 
 	@Override
@@ -463,6 +487,12 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 		TicketModelImpl ticketModelImpl = this;
 
 		ticketModelImpl._originalKey = ticketModelImpl._key;
+
+		ticketModelImpl._originalType = ticketModelImpl._type;
+
+		ticketModelImpl._setOriginalType = false;
+
+		ticketModelImpl._originalExtraInfo = ticketModelImpl._extraInfo;
 
 		ticketModelImpl._columnBitmask = 0;
 	}
@@ -616,7 +646,10 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 	private String _key;
 	private String _originalKey;
 	private int _type;
+	private int _originalType;
+	private boolean _setOriginalType;
 	private String _extraInfo;
+	private String _originalExtraInfo;
 	private Date _expirationDate;
 	private long _columnBitmask;
 	private Ticket _escapedModel;
