@@ -79,12 +79,10 @@ if (selContact != null) {
 			<%
 			UserScreenNameException.MustBeAlphaNumeric usne = (UserScreenNameException.MustBeAlphaNumeric)errorException;
 
-			char[] validChars = usne.validSpecialChars;
-
-			String validCharsString = StringUtil.merge(validChars, StringPool.DOUBLE_SPACE);
+			String validChars = StringUtil.merge(usne.validSpecialChars, StringPool.SPACE);
 			%>
 
-			<liferay-ui:message arguments="<%= validCharsString %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
+			<liferay-ui:message arguments="<%= validChars %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
 		</liferay-ui:error>
 
 		<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken" />
