@@ -76,14 +76,7 @@ if (selContact != null) {
 		</liferay-ui:error>
 
 		<liferay-ui:error exception="<%= UserScreenNameException.MustBeAlphaNumeric.class %>" focusField="screenName">
-
-			<%
-			UserScreenNameException.MustBeAlphaNumeric usne = (UserScreenNameException.MustBeAlphaNumeric)errorException;
-
-			String validChars = StringUtil.merge(usne.validSpecialChars, StringPool.SPACE);
-			%>
-
-			<liferay-ui:message arguments="<%= validChars %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
+			<liferay-ui:message arguments="<%= ((UserScreenNameException.MustBeAlphaNumeric)errorException).getValidSpecialCharsAsString() %>" key="please-enter-a-valid-alphanumeric-screen-name" translateArguments="<%= false %>" />
 		</liferay-ui:error>
 
 		<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeDuplicate.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken" />
