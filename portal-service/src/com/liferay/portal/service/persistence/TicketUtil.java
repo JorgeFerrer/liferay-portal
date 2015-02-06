@@ -162,6 +162,69 @@ public class TicketUtil {
 	}
 
 	/**
+	* Returns the ticket where type = &#63; and extraInfo = &#63; or throws a {@link com.liferay.portal.NoSuchTicketException} if it could not be found.
+	*
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the matching ticket
+	* @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket findByT_EI(int type,
+		java.lang.String extraInfo)
+		throws com.liferay.portal.NoSuchTicketException {
+		return getPersistence().findByT_EI(type, extraInfo);
+	}
+
+	/**
+	* Returns the ticket where type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket fetchByT_EI(int type,
+		java.lang.String extraInfo) {
+		return getPersistence().fetchByT_EI(type, extraInfo);
+	}
+
+	/**
+	* Returns the ticket where type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket fetchByT_EI(int type,
+		java.lang.String extraInfo, boolean retrieveFromCache) {
+		return getPersistence().fetchByT_EI(type, extraInfo, retrieveFromCache);
+	}
+
+	/**
+	* Removes the ticket where type = &#63; and extraInfo = &#63; from the database.
+	*
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the ticket that was removed
+	*/
+	public static com.liferay.portal.model.Ticket removeByT_EI(int type,
+		java.lang.String extraInfo)
+		throws com.liferay.portal.NoSuchTicketException {
+		return getPersistence().removeByT_EI(type, extraInfo);
+	}
+
+	/**
+	* Returns the number of tickets where type = &#63; and extraInfo = &#63;.
+	*
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the number of matching tickets
+	*/
+	public static int countByT_EI(int type, java.lang.String extraInfo) {
+		return getPersistence().countByT_EI(type, extraInfo);
+	}
+
+	/**
 	* Caches the ticket in the entity cache if it is enabled.
 	*
 	* @param ticket the ticket

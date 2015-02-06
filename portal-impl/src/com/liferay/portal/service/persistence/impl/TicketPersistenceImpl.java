@@ -324,6 +324,269 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 	private static final String _FINDER_COLUMN_KEY_KEY_1 = "ticket.key IS NULL";
 	private static final String _FINDER_COLUMN_KEY_KEY_2 = "ticket.key = ?";
 	private static final String _FINDER_COLUMN_KEY_KEY_3 = "(ticket.key IS NULL OR ticket.key = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_T_EI = new FinderPath(TicketModelImpl.ENTITY_CACHE_ENABLED,
+			TicketModelImpl.FINDER_CACHE_ENABLED, TicketImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByT_EI",
+			new String[] { Integer.class.getName(), String.class.getName() },
+			TicketModelImpl.TYPE_COLUMN_BITMASK |
+			TicketModelImpl.EXTRAINFO_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_T_EI = new FinderPath(TicketModelImpl.ENTITY_CACHE_ENABLED,
+			TicketModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByT_EI",
+			new String[] { Integer.class.getName(), String.class.getName() });
+
+	/**
+	 * Returns the ticket where type = &#63; and extraInfo = &#63; or throws a {@link com.liferay.portal.NoSuchTicketException} if it could not be found.
+	 *
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @return the matching ticket
+	 * @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket findByT_EI(int type, String extraInfo)
+		throws NoSuchTicketException {
+		Ticket ticket = fetchByT_EI(type, extraInfo);
+
+		if (ticket == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("type=");
+			msg.append(type);
+
+			msg.append(", extraInfo=");
+			msg.append(extraInfo);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchTicketException(msg.toString());
+		}
+
+		return ticket;
+	}
+
+	/**
+	 * Returns the ticket where type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket fetchByT_EI(int type, String extraInfo) {
+		return fetchByT_EI(type, extraInfo, true);
+	}
+
+	/**
+	 * Returns the ticket where type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket fetchByT_EI(int type, String extraInfo,
+		boolean retrieveFromCache) {
+		Object[] finderArgs = new Object[] { type, extraInfo };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_T_EI,
+					finderArgs, this);
+		}
+
+		if (result instanceof Ticket) {
+			Ticket ticket = (Ticket)result;
+
+			if ((type != ticket.getType()) ||
+					!Validator.equals(extraInfo, ticket.getExtraInfo())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_TICKET_WHERE);
+
+			query.append(_FINDER_COLUMN_T_EI_TYPE_2);
+
+			boolean bindExtraInfo = false;
+
+			if (extraInfo == null) {
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_1);
+			}
+			else if (extraInfo.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_3);
+			}
+			else {
+				bindExtraInfo = true;
+
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(type);
+
+				if (bindExtraInfo) {
+					qPos.add(extraInfo);
+				}
+
+				List<Ticket> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_EI,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"TicketPersistenceImpl.fetchByT_EI(int, String, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					Ticket ticket = list.get(0);
+
+					result = ticket;
+
+					cacheResult(ticket);
+
+					if ((ticket.getType() != type) ||
+							(ticket.getExtraInfo() == null) ||
+							!ticket.getExtraInfo().equals(extraInfo)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_EI,
+							finderArgs, ticket);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_T_EI,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Ticket)result;
+		}
+	}
+
+	/**
+	 * Removes the ticket where type = &#63; and extraInfo = &#63; from the database.
+	 *
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @return the ticket that was removed
+	 */
+	@Override
+	public Ticket removeByT_EI(int type, String extraInfo)
+		throws NoSuchTicketException {
+		Ticket ticket = findByT_EI(type, extraInfo);
+
+		return remove(ticket);
+	}
+
+	/**
+	 * Returns the number of tickets where type = &#63; and extraInfo = &#63;.
+	 *
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @return the number of matching tickets
+	 */
+	@Override
+	public int countByT_EI(int type, String extraInfo) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_T_EI;
+
+		Object[] finderArgs = new Object[] { type, extraInfo };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TICKET_WHERE);
+
+			query.append(_FINDER_COLUMN_T_EI_TYPE_2);
+
+			boolean bindExtraInfo = false;
+
+			if (extraInfo == null) {
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_1);
+			}
+			else if (extraInfo.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_3);
+			}
+			else {
+				bindExtraInfo = true;
+
+				query.append(_FINDER_COLUMN_T_EI_EXTRAINFO_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(type);
+
+				if (bindExtraInfo) {
+					qPos.add(extraInfo);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_T_EI_TYPE_2 = "ticket.type = ? AND ";
+	private static final String _FINDER_COLUMN_T_EI_EXTRAINFO_1 = "ticket.extraInfo IS NULL";
+	private static final String _FINDER_COLUMN_T_EI_EXTRAINFO_2 = "ticket.extraInfo = ?";
+	private static final String _FINDER_COLUMN_T_EI_EXTRAINFO_3 = "(ticket.extraInfo IS NULL OR ticket.extraInfo = '')";
 
 	public TicketPersistenceImpl() {
 		setModelClass(Ticket.class);
@@ -341,6 +604,9 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY,
 			new Object[] { ticket.getKey() }, ticket);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_EI,
+			new Object[] { ticket.getType(), ticket.getExtraInfo() }, ticket);
 
 		ticket.resetOriginalValues();
 	}
@@ -422,6 +688,12 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KEY, args,
 				Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY, args, ticket);
+
+			args = new Object[] { ticket.getType(), ticket.getExtraInfo() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_T_EI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_EI, args, ticket);
 		}
 		else {
 			TicketModelImpl ticketModelImpl = (TicketModelImpl)ticket;
@@ -433,6 +705,18 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KEY, args,
 					Long.valueOf(1));
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY, args, ticket);
+			}
+
+			if ((ticketModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_T_EI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						ticket.getType(), ticket.getExtraInfo()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_T_EI, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_T_EI, args,
+					ticket);
 			}
 		}
 	}
@@ -451,6 +735,22 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KEY, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KEY, args);
+		}
+
+		args = new Object[] { ticket.getType(), ticket.getExtraInfo() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_T_EI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_T_EI, args);
+
+		if ((ticketModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_T_EI.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					ticketModelImpl.getOriginalType(),
+					ticketModelImpl.getOriginalExtraInfo()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_T_EI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_T_EI, args);
 		}
 	}
 

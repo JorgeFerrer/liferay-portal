@@ -175,6 +175,20 @@ public class TicketPersistenceTest {
 	}
 
 	@Test
+	public void testCountByT_EI() {
+		try {
+			_persistence.countByT_EI(RandomTestUtil.nextInt(), StringPool.BLANK);
+
+			_persistence.countByT_EI(0, StringPool.NULL);
+
+			_persistence.countByT_EI(0, (String)null);
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		Ticket newTicket = addTicket();
 
@@ -419,6 +433,13 @@ public class TicketPersistenceTest {
 		Assert.assertTrue(Validator.equals(existingTicket.getKey(),
 				ReflectionTestUtil.invoke(existingTicket, "getOriginalKey",
 					new Class<?>[0])));
+
+		Assert.assertEquals(existingTicket.getType(),
+			ReflectionTestUtil.invoke(existingTicket, "getOriginalType",
+				new Class<?>[0]));
+		Assert.assertTrue(Validator.equals(existingTicket.getExtraInfo(),
+				ReflectionTestUtil.invoke(existingTicket,
+					"getOriginalExtraInfo", new Class<?>[0])));
 	}
 
 	protected Ticket addTicket() throws Exception {
