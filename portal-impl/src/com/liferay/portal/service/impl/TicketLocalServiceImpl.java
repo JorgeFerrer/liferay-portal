@@ -35,12 +35,16 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 		long classNameId = classNameLocalService.getClassNameId(className);
 		Date now = new Date();
 
-		int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(classNameId,
-			classPK, type, extraInfo);
+		try {
+			int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(classNameId,
+				classPK, type, extraInfo);
 
-		for (int i = 0; i < ticketCount; i++) {
-			ticketPersistence.removeByCNID_CPK_T_EI(classNameId, classPK, type,
-				extraInfo);
+			for (int i = 0; i < ticketCount; i++) {
+				ticketPersistence.removeByCNID_CPK_T_EI(classNameId, classPK, type,
+					extraInfo);
+			}
+		}
+		catch (Exception e) {
 		}
 
 		long ticketId = counterLocalService.increment();
