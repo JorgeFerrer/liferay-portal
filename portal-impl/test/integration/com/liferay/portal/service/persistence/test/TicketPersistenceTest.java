@@ -175,6 +175,22 @@ public class TicketPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCNID_CPK_T_EI() {
+		try {
+			_persistence.countByCNID_CPK_T_EI(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextInt(),
+				StringPool.BLANK);
+
+			_persistence.countByCNID_CPK_T_EI(0L, 0L, 0, StringPool.NULL);
+
+			_persistence.countByCNID_CPK_T_EI(0L, 0L, 0, (String)null);
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		Ticket newTicket = addTicket();
 
@@ -419,6 +435,19 @@ public class TicketPersistenceTest {
 		Assert.assertTrue(Validator.equals(existingTicket.getKey(),
 				ReflectionTestUtil.invoke(existingTicket, "getOriginalKey",
 					new Class<?>[0])));
+
+		Assert.assertEquals(existingTicket.getClassNameId(),
+			ReflectionTestUtil.invoke(existingTicket, "getOriginalClassNameId",
+				new Class<?>[0]));
+		Assert.assertEquals(existingTicket.getClassPK(),
+			ReflectionTestUtil.invoke(existingTicket, "getOriginalClassPK",
+				new Class<?>[0]));
+		Assert.assertEquals(existingTicket.getType(),
+			ReflectionTestUtil.invoke(existingTicket, "getOriginalType",
+				new Class<?>[0]));
+		Assert.assertTrue(Validator.equals(existingTicket.getExtraInfo(),
+				ReflectionTestUtil.invoke(existingTicket,
+					"getOriginalExtraInfo", new Class<?>[0])));
 	}
 
 	protected Ticket addTicket() throws Exception {
