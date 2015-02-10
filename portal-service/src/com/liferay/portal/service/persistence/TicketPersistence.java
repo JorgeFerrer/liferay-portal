@@ -84,6 +84,71 @@ public interface TicketPersistence extends BasePersistence<Ticket> {
 	public int countByKey(java.lang.String key);
 
 	/**
+	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or throws a {@link com.liferay.portal.NoSuchTicketException} if it could not be found.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the matching ticket
+	* @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	*/
+	public com.liferay.portal.model.Ticket findByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo)
+		throws com.liferay.portal.NoSuchTicketException;
+
+	/**
+	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo);
+
+	/**
+	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		boolean retrieveFromCache);
+
+	/**
+	* Removes the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; from the database.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the ticket that was removed
+	*/
+	public com.liferay.portal.model.Ticket removeByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo)
+		throws com.liferay.portal.NoSuchTicketException;
+
+	/**
+	* Returns the number of tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @return the number of matching tickets
+	*/
+	public int countByCNID_CPK_T_EI(long classNameId, long classPK, int type,
+		java.lang.String extraInfo);
+
+	/**
 	* Caches the ticket in the entity cache if it is enabled.
 	*
 	* @param ticket the ticket
