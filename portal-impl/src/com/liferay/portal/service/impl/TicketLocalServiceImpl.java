@@ -14,6 +14,7 @@
 
 package com.liferay.portal.service.impl;
 
+import com.liferay.portal.NoSuchTicketException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.Ticket;
@@ -35,16 +36,16 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 		long classNameId = classNameLocalService.getClassNameId(className);
 		Date now = new Date();
 
-		try {
-			int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(classNameId,
-				classPK, type, extraInfo);
+		int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(classNameId,
+			classPK, type, extraInfo);
 
-			for (int i = 0; i < ticketCount; i++) {
-				ticketPersistence.removeByCNID_CPK_T_EI(classNameId, classPK, type,
-					extraInfo);
+		for (int i = 0; i < ticketCount; i++) {
+			try {
+				ticketPersistence.removeByCNID_CPK_T_EI(
+					classNameId, classPK, type, extraInfo);
 			}
-		}
-		catch (Exception e) {
+			catch (NoSuchTicketException nste) {
+			}
 		}
 
 		long ticketId = counterLocalService.increment();
