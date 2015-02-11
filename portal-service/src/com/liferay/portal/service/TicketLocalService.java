@@ -60,6 +60,11 @@ public interface TicketLocalService extends BaseLocalService,
 	public com.liferay.portal.model.Ticket addTicket(
 		com.liferay.portal.model.Ticket ticket);
 
+	public com.liferay.portal.model.Ticket addUniqueTicket(long companyId,
+		java.lang.String className, long classPK, int type,
+		java.lang.String extraInfo, java.util.Date expirationDate,
+		com.liferay.portal.service.ServiceContext serviceContext);
+
 	/**
 	* Creates a new ticket with the primary key. Does not add the ticket to the database.
 	*

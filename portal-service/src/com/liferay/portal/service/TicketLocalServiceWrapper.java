@@ -51,6 +51,15 @@ public class TicketLocalServiceWrapper implements TicketLocalService,
 		return _ticketLocalService.addTicket(ticket);
 	}
 
+	@Override
+	public com.liferay.portal.model.Ticket addUniqueTicket(long companyId,
+		java.lang.String className, long classPK, int type,
+		java.lang.String extraInfo, java.util.Date expirationDate,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		return _ticketLocalService.addUniqueTicket(companyId, className,
+			classPK, type, extraInfo, expirationDate, serviceContext);
+	}
+
 	/**
 	* Creates a new ticket with the primary key. Does not add the ticket to the database.
 	*
