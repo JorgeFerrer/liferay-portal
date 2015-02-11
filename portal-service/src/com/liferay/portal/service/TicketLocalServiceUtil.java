@@ -60,6 +60,15 @@ public class TicketLocalServiceUtil {
 		return getService().addTicket(ticket);
 	}
 
+	public static com.liferay.portal.model.Ticket addUniqueTicket(
+		long companyId, java.lang.String className, long classPK, int type,
+		java.lang.String extraInfo, java.util.Date expirationDate,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		return getService()
+				   .addUniqueTicket(companyId, className, classPK, type,
+			extraInfo, expirationDate, serviceContext);
+	}
+
 	/**
 	* Creates a new ticket with the primary key. Does not add the ticket to the database.
 	*
