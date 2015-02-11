@@ -29,15 +29,14 @@ import java.util.Date;
 public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 
 	@Override
-	public Ticket addTicket(
+	public Ticket addUniqueTicket(
 		long companyId, String className, long classPK, int type,
 		String extraInfo, Date expirationDate, ServiceContext serviceContext) {
 
 		long classNameId = classNameLocalService.getClassNameId(className);
-		Date now = new Date();
 
-		int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(classNameId,
-			classPK, type, extraInfo);
+		int ticketCount = ticketPersistence.countByCNID_CPK_T_EI(
+			classNameId, classPK, type, extraInfo);
 
 		for (int i = 0; i < ticketCount; i++) {
 			try {
@@ -47,6 +46,19 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 			catch (NoSuchTicketException nste) {
 			}
 		}
+
+		return addTicket(
+			companyId, className, classPK, type, extraInfo, expirationDate,
+			serviceContext);
+	}
+
+	@Override
+	public Ticket addTicket(
+		long companyId, String className, long classPK, int type,
+		String extraInfo, Date expirationDate, ServiceContext serviceContext) {
+
+		long classNameId = classNameLocalService.getClassNameId(className);
+		Date now = new Date();
 
 		long ticketId = counterLocalService.increment();
 
