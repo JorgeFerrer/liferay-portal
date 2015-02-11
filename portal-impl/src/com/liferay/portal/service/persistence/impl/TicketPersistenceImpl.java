@@ -324,9 +324,21 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 	private static final String _FINDER_COLUMN_KEY_KEY_1 = "ticket.key IS NULL";
 	private static final String _FINDER_COLUMN_KEY_KEY_2 = "ticket.key = ?";
 	private static final String _FINDER_COLUMN_KEY_KEY_3 = "(ticket.key IS NULL OR ticket.key = '')";
-	public static final FinderPath FINDER_PATH_FETCH_BY_CNID_CPK_T_EI = new FinderPath(TicketModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CNID_CPK_T_EI =
+		new FinderPath(TicketModelImpl.ENTITY_CACHE_ENABLED,
 			TicketModelImpl.FINDER_CACHE_ENABLED, TicketImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByCNID_CPK_T_EI",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCNID_CPK_T_EI",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), String.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CNID_CPK_T_EI =
+		new FinderPath(TicketModelImpl.ENTITY_CACHE_ENABLED,
+			TicketModelImpl.FINDER_CACHE_ENABLED, TicketImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCNID_CPK_T_EI",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
 				Integer.class.getName(), String.class.getName()
@@ -344,100 +356,108 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 			});
 
 	/**
-	 * Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or throws a {@link com.liferay.portal.NoSuchTicketException} if it could not be found.
+	 * Returns all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
 	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
 	 * @param type the type
 	 * @param extraInfo the extra info
-	 * @return the matching ticket
-	 * @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	 * @return the matching tickets
 	 */
 	@Override
-	public Ticket findByCNID_CPK_T_EI(long classNameId, long classPK, int type,
-		String extraInfo) throws NoSuchTicketException {
-		Ticket ticket = fetchByCNID_CPK_T_EI(classNameId, classPK, type,
-				extraInfo);
-
-		if (ticket == null) {
-			StringBundler msg = new StringBundler(10);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append(", type=");
-			msg.append(type);
-
-			msg.append(", extraInfo=");
-			msg.append(extraInfo);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchTicketException(msg.toString());
-		}
-
-		return ticket;
-	}
-
-	/**
-	 * Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class p k
-	 * @param type the type
-	 * @param extraInfo the extra info
-	 * @return the matching ticket, or <code>null</code> if a matching ticket could not be found
-	 */
-	@Override
-	public Ticket fetchByCNID_CPK_T_EI(long classNameId, long classPK,
+	public List<Ticket> findByCNID_CPK_T_EI(long classNameId, long classPK,
 		int type, String extraInfo) {
-		return fetchByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo, true);
+		return findByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns a range of all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.portal.model.impl.TicketModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
 	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
 	 * @param type the type
 	 * @param extraInfo the extra info
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	 * @param start the lower bound of the range of tickets
+	 * @param end the upper bound of the range of tickets (not inclusive)
+	 * @return the range of matching tickets
 	 */
 	@Override
-	public Ticket fetchByCNID_CPK_T_EI(long classNameId, long classPK,
-		int type, String extraInfo, boolean retrieveFromCache) {
-		Object[] finderArgs = new Object[] { classNameId, classPK, type, extraInfo };
+	public List<Ticket> findByCNID_CPK_T_EI(long classNameId, long classPK,
+		int type, String extraInfo, int start, int end) {
+		return findByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo,
+			start, end, null);
+	}
 
-		Object result = null;
+	/**
+	 * Returns an ordered range of all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.portal.model.impl.TicketModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param start the lower bound of the range of tickets
+	 * @param end the upper bound of the range of tickets (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching tickets
+	 */
+	@Override
+	public List<Ticket> findByCNID_CPK_T_EI(long classNameId, long classPK,
+		int type, String extraInfo, int start, int end,
+		OrderByComparator<Ticket> orderByComparator) {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
 
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-					finderArgs, this);
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CNID_CPK_T_EI;
+			finderArgs = new Object[] { classNameId, classPK, type, extraInfo };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CNID_CPK_T_EI;
+			finderArgs = new Object[] {
+					classNameId, classPK, type, extraInfo,
+					
+					start, end, orderByComparator
+				};
 		}
 
-		if (result instanceof Ticket) {
-			Ticket ticket = (Ticket)result;
+		List<Ticket> list = (List<Ticket>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
 
-			if ((classNameId != ticket.getClassNameId()) ||
-					(classPK != ticket.getClassPK()) ||
-					(type != ticket.getType()) ||
-					!Validator.equals(extraInfo, ticket.getExtraInfo())) {
-				result = null;
+		if ((list != null) && !list.isEmpty()) {
+			for (Ticket ticket : list) {
+				if ((classNameId != ticket.getClassNameId()) ||
+						(classPK != ticket.getClassPK()) ||
+						(type != ticket.getType()) ||
+						!Validator.equals(extraInfo, ticket.getExtraInfo())) {
+					list = null;
+
+					break;
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler query = new StringBundler(6);
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(6 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(6);
+			}
 
 			query.append(_SQL_SELECT_TICKET_WHERE);
 
@@ -461,6 +481,15 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 				query.append(_FINDER_COLUMN_CNID_CPK_T_EI_EXTRAINFO_2);
 			}
 
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(TicketModelImpl.ORDER_BY_JPQL);
+			}
+
 			String sql = query.toString();
 
 			Session session = null;
@@ -482,39 +511,25 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 					qPos.add(extraInfo);
 				}
 
-				List<Ticket> list = q.list();
+				if (!pagination) {
+					list = (List<Ticket>)QueryUtil.list(q, getDialect(), start,
+							end, false);
 
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-						finderArgs, list);
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
 				}
 				else {
-					if ((list.size() > 1) && _log.isWarnEnabled()) {
-						_log.warn(
-							"TicketPersistenceImpl.fetchByCNID_CPK_T_EI(long, long, int, String, boolean) with parameters (" +
-							StringUtil.merge(finderArgs) +
-							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-					}
-
-					Ticket ticket = list.get(0);
-
-					result = ticket;
-
-					cacheResult(ticket);
-
-					if ((ticket.getClassNameId() != classNameId) ||
-							(ticket.getClassPK() != classPK) ||
-							(ticket.getType() != type) ||
-							(ticket.getExtraInfo() == null) ||
-							!ticket.getExtraInfo().equals(extraInfo)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-							finderArgs, ticket);
-					}
+					list = (List<Ticket>)QueryUtil.list(q, getDialect(), start,
+							end);
 				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-					finderArgs);
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -523,30 +538,340 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 			}
 		}
 
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (Ticket)result;
-		}
+		return list;
 	}
 
 	/**
-	 * Removes the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; from the database.
+	 * Returns the first ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
 	 *
 	 * @param classNameId the class name ID
 	 * @param classPK the class p k
 	 * @param type the type
 	 * @param extraInfo the extra info
-	 * @return the ticket that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket
+	 * @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
 	 */
 	@Override
-	public Ticket removeByCNID_CPK_T_EI(long classNameId, long classPK,
-		int type, String extraInfo) throws NoSuchTicketException {
-		Ticket ticket = findByCNID_CPK_T_EI(classNameId, classPK, type,
-				extraInfo);
+	public Ticket findByCNID_CPK_T_EI_First(long classNameId, long classPK,
+		int type, String extraInfo, OrderByComparator<Ticket> orderByComparator)
+		throws NoSuchTicketException {
+		Ticket ticket = fetchByCNID_CPK_T_EI_First(classNameId, classPK, type,
+				extraInfo, orderByComparator);
 
-		return remove(ticket);
+		if (ticket != null) {
+			return ticket;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", type=");
+		msg.append(type);
+
+		msg.append(", extraInfo=");
+		msg.append(extraInfo);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTicketException(msg.toString());
+	}
+
+	/**
+	 * Returns the first ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket, or <code>null</code> if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket fetchByCNID_CPK_T_EI_First(long classNameId, long classPK,
+		int type, String extraInfo, OrderByComparator<Ticket> orderByComparator) {
+		List<Ticket> list = findByCNID_CPK_T_EI(classNameId, classPK, type,
+				extraInfo, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket
+	 * @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket findByCNID_CPK_T_EI_Last(long classNameId, long classPK,
+		int type, String extraInfo, OrderByComparator<Ticket> orderByComparator)
+		throws NoSuchTicketException {
+		Ticket ticket = fetchByCNID_CPK_T_EI_Last(classNameId, classPK, type,
+				extraInfo, orderByComparator);
+
+		if (ticket != null) {
+			return ticket;
+		}
+
+		StringBundler msg = new StringBundler(10);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("classNameId=");
+		msg.append(classNameId);
+
+		msg.append(", classPK=");
+		msg.append(classPK);
+
+		msg.append(", type=");
+		msg.append(type);
+
+		msg.append(", extraInfo=");
+		msg.append(extraInfo);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTicketException(msg.toString());
+	}
+
+	/**
+	 * Returns the last ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket, or <code>null</code> if a matching ticket could not be found
+	 */
+	@Override
+	public Ticket fetchByCNID_CPK_T_EI_Last(long classNameId, long classPK,
+		int type, String extraInfo, OrderByComparator<Ticket> orderByComparator) {
+		int count = countByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<Ticket> list = findByCNID_CPK_T_EI(classNameId, classPK, type,
+				extraInfo, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the tickets before and after the current ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	 *
+	 * @param ticketId the primary key of the current ticket
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket
+	 * @throws com.liferay.portal.NoSuchTicketException if a ticket with the primary key could not be found
+	 */
+	@Override
+	public Ticket[] findByCNID_CPK_T_EI_PrevAndNext(long ticketId,
+		long classNameId, long classPK, int type, String extraInfo,
+		OrderByComparator<Ticket> orderByComparator)
+		throws NoSuchTicketException {
+		Ticket ticket = findByPrimaryKey(ticketId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Ticket[] array = new TicketImpl[3];
+
+			array[0] = getByCNID_CPK_T_EI_PrevAndNext(session, ticket,
+					classNameId, classPK, type, extraInfo, orderByComparator,
+					true);
+
+			array[1] = ticket;
+
+			array[2] = getByCNID_CPK_T_EI_PrevAndNext(session, ticket,
+					classNameId, classPK, type, extraInfo, orderByComparator,
+					false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected Ticket getByCNID_CPK_T_EI_PrevAndNext(Session session,
+		Ticket ticket, long classNameId, long classPK, int type,
+		String extraInfo, OrderByComparator<Ticket> orderByComparator,
+		boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TICKET_WHERE);
+
+		query.append(_FINDER_COLUMN_CNID_CPK_T_EI_CLASSNAMEID_2);
+
+		query.append(_FINDER_COLUMN_CNID_CPK_T_EI_CLASSPK_2);
+
+		query.append(_FINDER_COLUMN_CNID_CPK_T_EI_TYPE_2);
+
+		boolean bindExtraInfo = false;
+
+		if (extraInfo == null) {
+			query.append(_FINDER_COLUMN_CNID_CPK_T_EI_EXTRAINFO_1);
+		}
+		else if (extraInfo.equals(StringPool.BLANK)) {
+			query.append(_FINDER_COLUMN_CNID_CPK_T_EI_EXTRAINFO_3);
+		}
+		else {
+			bindExtraInfo = true;
+
+			query.append(_FINDER_COLUMN_CNID_CPK_T_EI_EXTRAINFO_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TicketModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(classNameId);
+
+		qPos.add(classPK);
+
+		qPos.add(type);
+
+		if (bindExtraInfo) {
+			qPos.add(extraInfo);
+		}
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(ticket);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<Ticket> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @param classPK the class p k
+	 * @param type the type
+	 * @param extraInfo the extra info
+	 */
+	@Override
+	public void removeByCNID_CPK_T_EI(long classNameId, long classPK, int type,
+		String extraInfo) {
+		for (Ticket ticket : findByCNID_CPK_T_EI(classNameId, classPK, type,
+				extraInfo, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(ticket);
+		}
 	}
 
 	/**
@@ -655,12 +980,6 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY,
 			new Object[] { ticket.getKey() }, ticket);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-			new Object[] {
-				ticket.getClassNameId(), ticket.getClassPK(), ticket.getType(),
-				ticket.getExtraInfo()
-			}, ticket);
-
 		ticket.resetOriginalValues();
 	}
 
@@ -741,16 +1060,6 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KEY, args,
 				Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY, args, ticket);
-
-			args = new Object[] {
-					ticket.getClassNameId(), ticket.getClassPK(),
-					ticket.getType(), ticket.getExtraInfo()
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI, args,
-				ticket);
 		}
 		else {
 			TicketModelImpl ticketModelImpl = (TicketModelImpl)ticket;
@@ -762,19 +1071,6 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KEY, args,
 					Long.valueOf(1));
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KEY, args, ticket);
-			}
-
-			if ((ticketModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_CNID_CPK_T_EI.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						ticket.getClassNameId(), ticket.getClassPK(),
-						ticket.getType(), ticket.getExtraInfo()
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-					args, ticket);
 			}
 		}
 	}
@@ -793,29 +1089,6 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KEY, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KEY, args);
-		}
-
-		args = new Object[] {
-				ticket.getClassNameId(), ticket.getClassPK(), ticket.getType(),
-				ticket.getExtraInfo()
-			};
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI, args);
-
-		if ((ticketModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_CNID_CPK_T_EI.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					ticketModelImpl.getOriginalClassNameId(),
-					ticketModelImpl.getOriginalClassPK(),
-					ticketModelImpl.getOriginalType(),
-					ticketModelImpl.getOriginalExtraInfo()
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI,
-				args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CNID_CPK_T_EI,
-				args);
 		}
 	}
 
@@ -923,6 +1196,8 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 
 		boolean isNew = ticket.isNew();
 
+		TicketModelImpl ticketModelImpl = (TicketModelImpl)ticket;
+
 		Session session = null;
 
 		try {
@@ -948,6 +1223,34 @@ public class TicketPersistenceImpl extends BasePersistenceImpl<Ticket>
 
 		if (isNew || !TicketModelImpl.COLUMN_BITMASK_ENABLED) {
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((ticketModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CNID_CPK_T_EI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						ticketModelImpl.getOriginalClassNameId(),
+						ticketModelImpl.getOriginalClassPK(),
+						ticketModelImpl.getOriginalType(),
+						ticketModelImpl.getOriginalExtraInfo()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CNID_CPK_T_EI,
+					args);
+
+				args = new Object[] {
+						ticketModelImpl.getClassNameId(),
+						ticketModelImpl.getClassPK(), ticketModelImpl.getType(),
+						ticketModelImpl.getExtraInfo()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CNID_CPK_T_EI,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CNID_CPK_T_EI,
+					args);
+			}
 		}
 
 		EntityCacheUtil.putResult(TicketModelImpl.ENTITY_CACHE_ENABLED,

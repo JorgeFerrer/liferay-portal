@@ -435,19 +435,6 @@ public class TicketPersistenceTest {
 		Assert.assertTrue(Validator.equals(existingTicket.getKey(),
 				ReflectionTestUtil.invoke(existingTicket, "getOriginalKey",
 					new Class<?>[0])));
-
-		Assert.assertEquals(existingTicket.getClassNameId(),
-			ReflectionTestUtil.invoke(existingTicket, "getOriginalClassNameId",
-				new Class<?>[0]));
-		Assert.assertEquals(existingTicket.getClassPK(),
-			ReflectionTestUtil.invoke(existingTicket, "getOriginalClassPK",
-				new Class<?>[0]));
-		Assert.assertEquals(existingTicket.getType(),
-			ReflectionTestUtil.invoke(existingTicket, "getOriginalType",
-				new Class<?>[0]));
-		Assert.assertTrue(Validator.equals(existingTicket.getExtraInfo(),
-				ReflectionTestUtil.invoke(existingTicket,
-					"getOriginalExtraInfo", new Class<?>[0])));
 	}
 
 	protected Ticket addTicket() throws Exception {

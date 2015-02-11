@@ -162,69 +162,178 @@ public class TicketUtil {
 	}
 
 	/**
-	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or throws a {@link com.liferay.portal.NoSuchTicketException} if it could not be found.
+	* Returns all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
 	*
 	* @param classNameId the class name ID
 	* @param classPK the class p k
 	* @param type the type
 	* @param extraInfo the extra info
-	* @return the matching ticket
-	* @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	* @return the matching tickets
 	*/
-	public static com.liferay.portal.model.Ticket findByCNID_CPK_T_EI(
-		long classNameId, long classPK, int type, java.lang.String extraInfo)
-		throws com.liferay.portal.NoSuchTicketException {
+	public static java.util.List<com.liferay.portal.model.Ticket> findByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo) {
 		return getPersistence()
 				   .findByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo);
 	}
 
 	/**
-	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns a range of all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.portal.model.impl.TicketModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
 	*
 	* @param classNameId the class name ID
 	* @param classPK the class p k
 	* @param type the type
 	* @param extraInfo the extra info
-	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
+	* @param start the lower bound of the range of tickets
+	* @param end the upper bound of the range of tickets (not inclusive)
+	* @return the range of matching tickets
 	*/
-	public static com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI(
-		long classNameId, long classPK, int type, java.lang.String extraInfo) {
-		return getPersistence()
-				   .fetchByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo);
-	}
-
-	/**
-	* Returns the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param classNameId the class name ID
-	* @param classPK the class p k
-	* @param type the type
-	* @param extraInfo the extra info
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching ticket, or <code>null</code> if a matching ticket could not be found
-	*/
-	public static com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI(
+	public static java.util.List<com.liferay.portal.model.Ticket> findByCNID_CPK_T_EI(
 		long classNameId, long classPK, int type, java.lang.String extraInfo,
-		boolean retrieveFromCache) {
+		int start, int end) {
 		return getPersistence()
-				   .fetchByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo,
-			retrieveFromCache);
+				   .findByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo,
+			start, end);
 	}
 
 	/**
-	* Removes the ticket where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; from the database.
+	* Returns an ordered range of all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.portal.model.impl.TicketModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
 	*
 	* @param classNameId the class name ID
 	* @param classPK the class p k
 	* @param type the type
 	* @param extraInfo the extra info
-	* @return the ticket that was removed
+	* @param start the lower bound of the range of tickets
+	* @param end the upper bound of the range of tickets (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching tickets
 	*/
-	public static com.liferay.portal.model.Ticket removeByCNID_CPK_T_EI(
-		long classNameId, long classPK, int type, java.lang.String extraInfo)
+	public static java.util.List<com.liferay.portal.model.Ticket> findByCNID_CPK_T_EI(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator) {
+		return getPersistence()
+				   .findByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo,
+			start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching ticket
+	* @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket findByCNID_CPK_T_EI_First(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator)
 		throws com.liferay.portal.NoSuchTicketException {
 		return getPersistence()
-				   .removeByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo);
+				   .findByCNID_CPK_T_EI_First(classNameId, classPK, type,
+			extraInfo, orderByComparator);
+	}
+
+	/**
+	* Returns the first ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI_First(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator) {
+		return getPersistence()
+				   .fetchByCNID_CPK_T_EI_First(classNameId, classPK, type,
+			extraInfo, orderByComparator);
+	}
+
+	/**
+	* Returns the last ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching ticket
+	* @throws com.liferay.portal.NoSuchTicketException if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket findByCNID_CPK_T_EI_Last(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator)
+		throws com.liferay.portal.NoSuchTicketException {
+		return getPersistence()
+				   .findByCNID_CPK_T_EI_Last(classNameId, classPK, type,
+			extraInfo, orderByComparator);
+	}
+
+	/**
+	* Returns the last ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching ticket, or <code>null</code> if a matching ticket could not be found
+	*/
+	public static com.liferay.portal.model.Ticket fetchByCNID_CPK_T_EI_Last(
+		long classNameId, long classPK, int type, java.lang.String extraInfo,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator) {
+		return getPersistence()
+				   .fetchByCNID_CPK_T_EI_Last(classNameId, classPK, type,
+			extraInfo, orderByComparator);
+	}
+
+	/**
+	* Returns the tickets before and after the current ticket in the ordered set where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63;.
+	*
+	* @param ticketId the primary key of the current ticket
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next ticket
+	* @throws com.liferay.portal.NoSuchTicketException if a ticket with the primary key could not be found
+	*/
+	public static com.liferay.portal.model.Ticket[] findByCNID_CPK_T_EI_PrevAndNext(
+		long ticketId, long classNameId, long classPK, int type,
+		java.lang.String extraInfo,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.Ticket> orderByComparator)
+		throws com.liferay.portal.NoSuchTicketException {
+		return getPersistence()
+				   .findByCNID_CPK_T_EI_PrevAndNext(ticketId, classNameId,
+			classPK, type, extraInfo, orderByComparator);
+	}
+
+	/**
+	* Removes all the tickets where classNameId = &#63; and classPK = &#63; and type = &#63; and extraInfo = &#63; from the database.
+	*
+	* @param classNameId the class name ID
+	* @param classPK the class p k
+	* @param type the type
+	* @param extraInfo the extra info
+	*/
+	public static void removeByCNID_CPK_T_EI(long classNameId, long classPK,
+		int type, java.lang.String extraInfo) {
+		getPersistence()
+			.removeByCNID_CPK_T_EI(classNameId, classPK, type, extraInfo);
 	}
 
 	/**
