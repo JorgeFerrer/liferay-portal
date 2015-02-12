@@ -14,7 +14,6 @@
 
 package com.liferay.portal.service.impl;
 
-import com.liferay.portal.NoSuchTicketException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.Ticket;
@@ -27,21 +26,6 @@ import java.util.Date;
  * @author Mika Koivisto
  */
 public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
-
-	@Override
-	public Ticket addUniqueTicket(
-		long companyId, String className, long classPK, int type,
-		String extraInfo, Date expirationDate, ServiceContext serviceContext) {
-
-		long classNameId = classNameLocalService.getClassNameId(className);
-
-		ticketPersistence.removeByCNID_CPK_T_EI(
-			classNameId, classPK, type, extraInfo);
-
-		return addTicket(
-			companyId, className, classPK, type, extraInfo, expirationDate,
-			serviceContext);
-	}
 
 	@Override
 	public Ticket addTicket(
@@ -67,6 +51,21 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 		ticketPersistence.update(ticket);
 
 		return ticket;
+	}
+
+	@Override
+	public Ticket addUniqueTicket(
+		long companyId, String className, long classPK, int type,
+		String extraInfo, Date expirationDate, ServiceContext serviceContext) {
+
+		long classNameId = classNameLocalService.getClassNameId(className);
+
+		ticketPersistence.removeByCNID_CPK_T_EI(
+			classNameId, classPK, type, extraInfo);
+
+		return addTicket(
+			companyId, className, classPK, type, extraInfo, expirationDate,
+			serviceContext);
 	}
 
 	@Override
