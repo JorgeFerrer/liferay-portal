@@ -40,38 +40,28 @@ String ticketKey = ParamUtil.getString(request, "ticketKey");
 	</div>
 
 	<c:if test="<%= !SessionErrors.isEmpty(request) %>">
-		<c:choose>
-			<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.class.getName()) %>">
-				<div class="alert alert-danger">
-					<liferay-ui:message key="please-enter-a-valid-email-address" />
-				</div>
-			</c:when>
-			<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotUseCompanyMx.class.getName()) %>">
-				<div class="alert alert-danger">
-					<liferay-ui:message key="the-email-address-you-requested-is-not-valid-because-its-domain-is-reserved" />
-				</div>
-			</c:when>
-			<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeDuplicate.class.getName()) %>">
-				<div class="alert alert-danger">
-					<liferay-ui:message key="the-email-address-you-requested-is-already-taken" />
-				</div>
-			</c:when>
-			<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeNull.class.getName()) %>">
-				<div class="alert alert-danger">
-					<liferay-ui:message key="please-enter-an-email-address" />
-				</div>
-			</c:when>
-			<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP3User.class.getName()) || SessionErrors.contains(request, UserEmailAddressException.MustNotBeReserved.class.getName()) %>">
-				<div class="alert alert-danger">
-					<liferay-ui:message key="the-email-address-you-requested-is-reserved" />
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div class="alert alert-danger">
-					<liferay-ui:message key="please-enter-a-valid-verification-code" />
-				</div>
-			</c:otherwise>
-		</c:choose>
+		<div class="alert alert-danger">
+			<c:choose>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.class.getName()) %>">
+						<liferay-ui:message key="please-enter-a-valid-email-address" />
+				</c:when>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotUseCompanyMx.class.getName()) %>">
+						<liferay-ui:message key="the-email-address-you-requested-is-not-valid-because-its-domain-is-reserved" />
+				</c:when>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeDuplicate.class.getName()) %>">
+						<liferay-ui:message key="the-email-address-you-requested-is-already-taken" />
+				</c:when>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeNull.class.getName()) %>">
+						<liferay-ui:message key="please-enter-an-email-address" />
+				</c:when>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP3User.class.getName()) || SessionErrors.contains(request, UserEmailAddressException.MustNotBeReserved.class.getName()) %>">
+						<liferay-ui:message key="the-email-address-you-requested-is-reserved" />
+				</c:when>
+				<c:otherwise>
+						<liferay-ui:message key="please-enter-a-valid-verification-code" />
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</c:if>
 
 	<aui:input autoFocus="<%= true %>" class="lfr-input-text-container" label="email-verification-code" name="ticketKey" size="36" type="text" value="<%= ticketKey %>" />
