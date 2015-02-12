@@ -38,11 +38,8 @@ String emailAddress2 = ParamUtil.getString(request, "emailAddress2");
 	<c:if test="<%= !SessionErrors.isEmpty(request) %>">
 		<div class="alert alert-danger">
 			<c:choose>
-				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.class.getName()) %>">
-						<liferay-ui:message key="please-enter-a-valid-email-address" />
-				</c:when>
-				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotUseCompanyMx.class.getName()) %>">
-						<liferay-ui:message key="the-email-address-you-requested-is-not-valid-because-its-domain-is-reserved" />
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustBeEqual.class.getName()) %>">
+						<liferay-ui:message key="the-email-addresses-you-entered-do-not-match-each-other" />
 				</c:when>
 				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBeDuplicate.class.getName()) %>">
 						<liferay-ui:message key="the-email-address-you-requested-is-already-taken" />
@@ -52,6 +49,9 @@ String emailAddress2 = ParamUtil.getString(request, "emailAddress2");
 				</c:when>
 				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotBePOP3User.class.getName()) || SessionErrors.contains(request, UserEmailAddressException.MustNotBeReserved.class.getName()) %>">
 						<liferay-ui:message key="the-email-address-you-requested-is-reserved" />
+				</c:when>
+				<c:when test="<%= SessionErrors.contains(request, UserEmailAddressException.MustNotUseCompanyMx.class.getName()) %>">
+						<liferay-ui:message key="the-email-address-you-requested-is-not-valid-because-its-domain-is-reserved" />
 				</c:when>
 				<c:otherwise>
 						<liferay-ui:message key="please-enter-a-valid-email-address" />
