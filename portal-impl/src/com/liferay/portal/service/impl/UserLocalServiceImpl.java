@@ -3629,7 +3629,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			return;
 		}
 
-		Ticket ticket = ticketLocalService.addTicket(
+		Ticket ticket = ticketLocalService.addUniqueTicket(
 			user.getCompanyId(), User.class.getName(), user.getUserId(),
 			TicketConstants.TYPE_EMAIL_ADDRESS, emailAddress, null,
 			serviceContext);
