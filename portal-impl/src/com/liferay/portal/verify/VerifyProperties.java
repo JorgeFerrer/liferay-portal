@@ -692,7 +692,7 @@ public class VerifyProperties extends VerifyProcess {
 		"permissions.thread.local.cache.max.size",
 		"permissions.user.check.algorithm", "persistence.provider",
 		"ratings.max.score", "ratings.min.score", "scheduler.classes",
-		"schema.run.minimal", "shard.available.names",
+		"schema.run.minimal", "shard.available.names", "staging.lock.enabled",
 		"velocity.engine.resource.manager",
 		"velocity.engine.resource.manager.cache.enabled",
 		"webdav.storage.class", "webdav.storage.show.edit.url",

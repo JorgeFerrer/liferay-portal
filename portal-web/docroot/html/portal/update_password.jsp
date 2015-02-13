@@ -85,7 +85,7 @@ PasswordPolicy passwordPolicy = user.getPasswordPolicy();
 						</c:when>
 
 						<c:when test="<%= SessionErrors.contains(request, UserPasswordException.MustMatch.class.getName()) %>">
-							<liferay-ui:message key="the-passwords-you-entered-do-not-match-each-other-please-re-enter-your-password" />
+							<liferay-ui:message key="the-passwords-you-entered-do-not-match" />
 						</c:when>
 
 						<c:when test="<%= SessionErrors.contains(request, UserPasswordException.MustNotBeEqualToCurrent.class.getName()) %>">

@@ -651,6 +651,16 @@ public class AssetPublisherDisplayContext {
 		return _enableRSS;
 	}
 
+	public boolean isEnableSetAsDefaultAssetPublisher() {
+		String portletName = getPortletName();
+
+		if (portletName.equals(PortletKeys.ASSET_PUBLISHER)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public boolean isEnableSocialBookmarks() {
 		if (_enableSocialBookmarks == null) {
 			_enableSocialBookmarks = GetterUtil.getBoolean(
