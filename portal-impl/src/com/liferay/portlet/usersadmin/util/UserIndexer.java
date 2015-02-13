@@ -17,6 +17,8 @@ package com.liferay.portlet.usersadmin.util;
 import com.liferay.portal.NoSuchContactException;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
@@ -384,6 +386,9 @@ public class UserIndexer extends BaseIndexer {
 
 				// This is a temporary workaround for LPS-46825
 
+				if (_log.isDebugEnabled()) {
+					_log.debug(nscce, nscce);
+				}
 			}
 		}
 	}
@@ -447,5 +452,7 @@ public class UserIndexer extends BaseIndexer {
 
 		actionableDynamicQuery.performActions();
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(UserIndexer.class);
 
 }
