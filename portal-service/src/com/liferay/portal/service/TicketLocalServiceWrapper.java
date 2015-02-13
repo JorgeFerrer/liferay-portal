@@ -31,6 +31,15 @@ public class TicketLocalServiceWrapper implements TicketLocalService,
 	}
 
 	@Override
+	public com.liferay.portal.model.Ticket addSingleTicket(long companyId,
+		java.lang.String className, long classPK, int type,
+		java.lang.String extraInfo, java.util.Date expirationDate,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		return _ticketLocalService.addSingleTicket(companyId, className,
+			classPK, type, extraInfo, expirationDate, serviceContext);
+	}
+
+	@Override
 	public com.liferay.portal.model.Ticket addTicket(long companyId,
 		java.lang.String className, long classPK, int type,
 		java.lang.String extraInfo, java.util.Date expirationDate,
@@ -49,15 +58,6 @@ public class TicketLocalServiceWrapper implements TicketLocalService,
 	public com.liferay.portal.model.Ticket addTicket(
 		com.liferay.portal.model.Ticket ticket) {
 		return _ticketLocalService.addTicket(ticket);
-	}
-
-	@Override
-	public com.liferay.portal.model.Ticket addUniqueTicket(long companyId,
-		java.lang.String className, long classPK, int type,
-		java.lang.String extraInfo, java.util.Date expirationDate,
-		com.liferay.portal.service.ServiceContext serviceContext) {
-		return _ticketLocalService.addUniqueTicket(companyId, className,
-			classPK, type, extraInfo, expirationDate, serviceContext);
 	}
 
 	/**
