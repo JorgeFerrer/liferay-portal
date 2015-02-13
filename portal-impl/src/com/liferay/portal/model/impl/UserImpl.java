@@ -486,26 +486,22 @@ public class UserImpl extends UserBaseImpl {
 
 		long prefixId = 0;
 
-		try {
-			if (usePrefix) {
-				Contact contact = getContact();
+		if (usePrefix) {
+			Contact contact = fetchContact();
 
+			if (contact != null) {
 				prefixId = contact.getPrefixId();
 			}
-		}
-		catch (PortalException pe) {
 		}
 
 		long suffixId = 0;
 
-		try {
-			if (useSuffix) {
-				Contact contact = getContact();
+		if (useSuffix) {
+			Contact contact = fetchContact();
 
+			if (contact != null) {
 				suffixId = contact.getSuffixId();
 			}
-		}
-		catch (PortalException pe) {
 		}
 
 		return fullNameGenerator.getLocalizedFullName(
