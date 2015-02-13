@@ -91,10 +91,9 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 			true);
 	public static final long CLASSNAMEID_COLUMN_BITMASK = 1L;
 	public static final long CLASSPK_COLUMN_BITMASK = 2L;
-	public static final long EXTRAINFO_COLUMN_BITMASK = 4L;
-	public static final long KEY_COLUMN_BITMASK = 8L;
-	public static final long TYPE_COLUMN_BITMASK = 16L;
-	public static final long TICKETID_COLUMN_BITMASK = 32L;
+	public static final long KEY_COLUMN_BITMASK = 4L;
+	public static final long TYPE_COLUMN_BITMASK = 8L;
+	public static final long TICKETID_COLUMN_BITMASK = 16L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
 				"lock.expiration.time.com.liferay.portal.model.Ticket"));
 
@@ -380,17 +379,7 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 
 	@Override
 	public void setExtraInfo(String extraInfo) {
-		_columnBitmask |= EXTRAINFO_COLUMN_BITMASK;
-
-		if (_originalExtraInfo == null) {
-			_originalExtraInfo = _extraInfo;
-		}
-
 		_extraInfo = extraInfo;
-	}
-
-	public String getOriginalExtraInfo() {
-		return GetterUtil.getString(_originalExtraInfo);
 	}
 
 	@Override
@@ -525,8 +514,6 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 		ticketModelImpl._originalType = ticketModelImpl._type;
 
 		ticketModelImpl._setOriginalType = false;
-
-		ticketModelImpl._originalExtraInfo = ticketModelImpl._extraInfo;
 
 		ticketModelImpl._columnBitmask = 0;
 	}
@@ -687,7 +674,6 @@ public class TicketModelImpl extends BaseModelImpl<Ticket>
 	private int _originalType;
 	private boolean _setOriginalType;
 	private String _extraInfo;
-	private String _originalExtraInfo;
 	private Date _expirationDate;
 	private long _columnBitmask;
 	private Ticket _escapedModel;

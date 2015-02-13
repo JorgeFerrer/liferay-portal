@@ -175,15 +175,12 @@ public class TicketPersistenceTest {
 	}
 
 	@Test
-	public void testCountByCNID_CPK_T_EI() {
+	public void testCountByCNID_CPK_T() {
 		try {
-			_persistence.countByCNID_CPK_T_EI(RandomTestUtil.nextLong(),
-				RandomTestUtil.nextLong(), RandomTestUtil.nextInt(),
-				StringPool.BLANK);
+			_persistence.countByCNID_CPK_T(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
 
-			_persistence.countByCNID_CPK_T_EI(0L, 0L, 0, StringPool.NULL);
-
-			_persistence.countByCNID_CPK_T_EI(0L, 0L, 0, (String)null);
+			_persistence.countByCNID_CPK_T(0L, 0L, 0);
 		}
 		catch (Exception e) {
 			Assert.fail(e.getMessage());
