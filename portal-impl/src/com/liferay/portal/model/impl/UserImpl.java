@@ -99,6 +99,18 @@ public class UserImpl extends UserBaseImpl {
 		_remotePreferences.put(remotePreference.getName(), remotePreference);
 	}
 
+	@Override
+	public Contact fetchContact() {
+		try {
+			ShardUtil.pushCompanyService(getCompanyId());
+
+			return ContactLocalServiceUtil.fetchContact(getContactId());
+		}
+		finally {
+			ShardUtil.popCompanyService();
+		}
+	}
+
 	/**
 	 * Returns the user's addresses.
 	 *
