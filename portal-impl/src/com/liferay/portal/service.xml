@@ -2637,11 +2637,10 @@
 		<finder name="Key" return-type="Ticket">
 			<finder-column name="key" />
 		</finder>
-		<finder name="CNID_CPK_T_EI" return-type="Collection">
+		<finder name="CNID_CPK_T" return-type="Collection">
 			<finder-column name="classNameId" />
 			<finder-column name="classPK" />
 			<finder-column name="type" />
-			<finder-column name="extraInfo" />
 		</finder>
 
 		<!-- References -->
