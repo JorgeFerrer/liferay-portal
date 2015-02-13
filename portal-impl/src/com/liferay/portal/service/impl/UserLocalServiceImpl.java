@@ -1850,7 +1850,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 		catch (NoSuchImageException nsie) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to delete image " + user.getPortraitId());
+				_log.warn(
+					"Unable to delete image " + user.getPortraitId(), nsie);
 			}
 		}
 
