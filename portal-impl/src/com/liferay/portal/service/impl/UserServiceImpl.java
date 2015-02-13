@@ -18,6 +18,8 @@ import com.liferay.portal.RequiredUserException;
 import com.liferay.portal.UserEmailAddressException;
 import com.liferay.portal.UserFieldException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -512,6 +514,9 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			creatorUserId = getGuestOrUserId();
 		}
 		catch (PrincipalException pe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("No guest user found", pe);
+			}
 		}
 
 		checkAddUserPermission(
@@ -1505,6 +1510,9 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			creatorUserId = getGuestOrUserId();
 		}
 		catch (PrincipalException pe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("No guest user found", pe);
+			}
 		}
 
 		checkAddUserPermission(
@@ -2812,5 +2820,8 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			throw ufe;
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		UserServiceImpl.class);
 
 }
