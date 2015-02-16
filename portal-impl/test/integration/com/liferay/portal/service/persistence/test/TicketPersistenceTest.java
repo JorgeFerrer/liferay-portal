@@ -175,6 +175,19 @@ public class TicketPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCNID_CPK_T() {
+		try {
+			_persistence.countByCNID_CPK_T(RandomTestUtil.nextLong(),
+				RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
+
+			_persistence.countByCNID_CPK_T(0L, 0L, 0);
+		}
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Test
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		Ticket newTicket = addTicket();
 
