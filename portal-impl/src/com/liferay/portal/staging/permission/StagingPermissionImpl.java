@@ -20,9 +20,13 @@ import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.staging.permission.StagingPermission;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jorge Ferrer
@@ -71,23 +75,37 @@ public class StagingPermissionImpl implements StagingPermission {
 			long classPK, String portletId, String actionId)
 		throws Exception {
 
-		if (!actionId.equals(ActionKeys.ACCESS_IN_CONTROL_PANEL) &&
-			!actionId.equals(ActionKeys.ADD_TO_PAGE) &&
-			!actionId.equals(ActionKeys.CONFIGURATION) &&
-			!actionId.equals(ActionKeys.CUSTOMIZE) &&
-			!actionId.equals(ActionKeys.DELETE) &&
-			!actionId.equals(ActionKeys.VIEW) &&
-			group.hasLocalOrRemoteStagingGroup() &&
-			(Validator.isNull(portletId) || group.isStagedPortlet(portletId))) {
-
-			return false;
-		}
-		else {
+		if (_allowedActionIds.contains(actionId)) {
 			return null;
 		}
+
+		if (!group.hasLocalOrRemoteStagingGroup()) {
+			return null;
+		}
+
+		if (Validator.isNull(portletId)) {
+			return false;
+		}
+
+		if (group.isStagedPortlet(portletId)) {
+			return false;
+		}
+
+		return null;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		StagingPermissionImpl.class);
+
+	private static final List<String> _allowedActionIds = new ArrayList<>();
+
+	static {
+		_allowedActionIds.add(ActionKeys.ACCESS_IN_CONTROL_PANEL);
+		_allowedActionIds.add(ActionKeys.ADD_TO_PAGE);
+		_allowedActionIds.add(ActionKeys.CONFIGURATION);
+		_allowedActionIds.add(ActionKeys.CUSTOMIZE);
+		_allowedActionIds.add(ActionKeys.DELETE);
+		_allowedActionIds.add(ActionKeys.VIEW);
+	}
 
 }
