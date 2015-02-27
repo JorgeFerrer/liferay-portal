@@ -117,7 +117,8 @@ public class RuntimeTag extends TagSupport {
 				themeDisplay.getCompanyId(), portletId);
 
 			if (!isAlreadyConfigured(portlet, layout)) {
-				initializePortletConfiguration(portlet, layout);
+				initializePortletConfiguration(
+					portlet, layout, defaultPreferences);
 			}
 
 			PortletContainerUtil.render(request, response, portlet);
@@ -190,10 +191,10 @@ public class RuntimeTag extends TagSupport {
 	}
 
 	protected static void initializePortletConfiguration(
-		Portlet portlet, Layout layout) {
+		Portlet portlet, Layout layout, String defaultPreferences) {
 
 		PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-			layout, portlet.getPortletId());
+			layout, portlet.getPortletId(), defaultPreferences);
 
 		PortletLayoutListener portletLayoutListener =
 			portlet.getPortletLayoutListenerInstance();
