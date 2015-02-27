@@ -14,19 +14,15 @@
 
 package com.liferay.taglib.portletext;
 
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletContainerUtil;
-import com.liferay.portal.kernel.portlet.PortletJSONUtil;
 import com.liferay.portal.kernel.portlet.PortletLayoutListener;
 import com.liferay.portal.kernel.portlet.PortletParameterUtil;
 import com.liferay.portal.kernel.portlet.RestrictPortletServletRequest;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PrefixPredicateFilter;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
@@ -119,26 +115,11 @@ public class RuntimeTag extends TagSupport {
 			Portlet portlet = getPortlet(
 				themeDisplay.getCompanyId(), portletId);
 
-			JSONObject jsonObject = null;
-
 			if (!isAlreadyConfigured(portlet, layout)) {
 				initializePortletConfiguration(portlet, layout);
-
-				jsonObject = JSONFactoryUtil.createJSONObject();
-
-				PortletJSONUtil.populatePortletJSONObject(
-					request, StringPool.BLANK, portlet, jsonObject);
-			}
-
-			if (jsonObject != null) {
-				PortletJSONUtil.writeHeaderPaths(response, jsonObject);
 			}
 
 			PortletContainerUtil.render(request, response, portlet);
-
-			if (jsonObject != null) {
-				PortletJSONUtil.writeFooterPaths(response, jsonObject);
-			}
 		}
 		finally {
 			restrictPortletServletRequest.mergeSharedAttributes();
