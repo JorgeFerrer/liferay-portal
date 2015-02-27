@@ -129,8 +129,6 @@ public class RuntimeTag extends TagSupport {
 
 				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
 					layout, portletId);
-				PortletPreferencesFactoryUtil.getPortletSetup(
-					request, portletId, defaultPreferences);
 
 				PortletLayoutListener portletLayoutListener =
 					portlet.getPortletLayoutListenerInstance();
