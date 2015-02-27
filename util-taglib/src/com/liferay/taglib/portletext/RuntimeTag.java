@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -210,9 +211,16 @@ public class RuntimeTag extends TagSupport {
 			return false;
 		}
 
+		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
+		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
+
+		if (PortletConstants.hasUserId(portlet.getPortletId())) {
+			ownerId = PortletConstants.getUserId(portlet.getPortletId());
+			ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
+		}
+
 		if (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
-				portlet.getPortletId()) < 1) {
+				ownerId, ownerType, layout.getPlid(), portlet, false) < 1) {
 
 			return false;
 		}
