@@ -208,10 +208,6 @@ public class RuntimeTag extends TagSupport {
 	protected static boolean isAlreadyConfigured(
 		Portlet portlet, Layout layout) {
 
-		if (layout.isTypeControlPanel() || layout.isTypePanel()) {
-			return false;
-		}
-
 		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
 		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
 
