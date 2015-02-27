@@ -121,22 +121,8 @@ public class RuntimeTag extends TagSupport {
 
 			JSONObject jsonObject = null;
 
-			if ((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, themeDisplay.getPlid(),
-					portletId) < 1) ||
-				layout.isTypeControlPanel() ||
-				layout.isTypePanel()) {
-
-				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-					layout, portletId);
-
-				PortletLayoutListener portletLayoutListener =
-					portlet.getPortletLayoutListenerInstance();
-
-				if (portletLayoutListener != null) {
-					portletLayoutListener.onAddToLayout(
-						portletId, themeDisplay.getPlid());
-				}
+			if (!isAlreadyConfigured(portlet, layout)) {
+				initializePortletConfiguration(portlet, layout);
 
 				jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -219,6 +205,38 @@ public class RuntimeTag extends TagSupport {
 		portlet.setStatic(true);
 
 		return portlet;
+	}
+
+	protected static void initializePortletConfiguration(
+		Portlet portlet, Layout layout) {
+
+		PortletPreferencesFactoryUtil.getLayoutPortletSetup(
+			layout, portlet.getPortletId());
+
+		PortletLayoutListener portletLayoutListener =
+			portlet.getPortletLayoutListenerInstance();
+
+		if (portletLayoutListener != null) {
+			portletLayoutListener.onAddToLayout(
+				portlet.getPortletId(), layout.getPlid());
+		}
+	}
+
+	protected static boolean isAlreadyConfigured(
+		Portlet portlet, Layout layout) {
+
+		if (layout.isTypeControlPanel() || layout.isTypePanel()) {
+			return false;
+		}
+
+		if (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid(),
+				portlet.getPortletId()) < 1) {
+
+			return false;
+		}
+
+		return true;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(RuntimeTag.class);
