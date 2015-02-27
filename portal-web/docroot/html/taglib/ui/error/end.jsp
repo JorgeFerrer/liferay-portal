@@ -57,16 +57,7 @@ String rowBreak = (String)request.getAttribute("liferay-ui:error:rowBreak");
 	<c:otherwise>
 		<c:if test="<%= SessionErrors.contains(portletRequest, key) %>">
 			<div class="alert alert-danger">
-
-			<c:choose>
-				<c:when test="<%= translateMessage %>">
-					<%= LanguageUtil.get(request, message) %>
-				</c:when>
-				<c:otherwise>
-					<%= message %>
-				</c:otherwise>
-			</c:choose>
-
+				<liferay-ui:message key="<%= message %>" localizeKey="<%= translateMessage %>" />
 			</div>
 
 			<%= rowBreak %>
