@@ -17,7 +17,6 @@ package com.liferay.taglib.portletext;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletContainerUtil;
-import com.liferay.portal.kernel.portlet.PortletLayoutListener;
 import com.liferay.portal.kernel.portlet.PortletParameterUtil;
 import com.liferay.portal.kernel.portlet.RestrictPortletServletRequest;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
@@ -27,11 +26,8 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
@@ -116,10 +112,8 @@ public class RuntimeTag extends TagSupport {
 			Portlet portlet = getPortlet(
 				themeDisplay.getCompanyId(), portletId);
 
-			if (!isAlreadyConfigured(portlet, layout)) {
-				initializePortletConfiguration(
-					portlet, layout, defaultPreferences);
-			}
+			PortletPreferencesFactoryUtil.initializePortletPreferences(
+				portlet, layout, defaultPreferences);
 
 			PortletContainerUtil.render(request, response, portlet);
 		}
@@ -188,41 +182,6 @@ public class RuntimeTag extends TagSupport {
 		portlet.setStatic(true);
 
 		return portlet;
-	}
-
-	protected static void initializePortletConfiguration(
-		Portlet portlet, Layout layout, String defaultPreferences) {
-
-		PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-			layout, portlet.getPortletId(), defaultPreferences);
-
-		PortletLayoutListener portletLayoutListener =
-			portlet.getPortletLayoutListenerInstance();
-
-		if (portletLayoutListener != null) {
-			portletLayoutListener.onAddToLayout(
-				portlet.getPortletId(), layout.getPlid());
-		}
-	}
-
-	protected static boolean isAlreadyConfigured(
-		Portlet portlet, Layout layout) {
-
-		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
-		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
-
-		if (PortletConstants.hasUserId(portlet.getPortletId())) {
-			ownerId = PortletConstants.getUserId(portlet.getPortletId());
-			ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
-		}
-
-		if (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-				ownerId, ownerType, layout.getPlid(), portlet, false) < 1) {
-
-			return false;
-		}
-
-		return true;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(RuntimeTag.class);

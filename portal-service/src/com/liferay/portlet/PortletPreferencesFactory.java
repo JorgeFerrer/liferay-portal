@@ -143,6 +143,9 @@ public interface PortletPreferencesFactory {
 	public PortletPreferences getStrictPortletSetup(
 		Layout layout, String portletId);
 
+	public void initializePortletPreferences(
+		Portlet portlet, Layout layout, String defaultPreferences);
+
 	public String toXML(PortalPreferences portalPreferences);
 
 	public String toXML(PortletPreferences portletPreferences);

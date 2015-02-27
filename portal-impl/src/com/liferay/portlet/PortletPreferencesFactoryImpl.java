@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletMode;
+import com.liferay.portal.kernel.portlet.PortletLayoutListener;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.JavaConstants;
@@ -630,6 +631,26 @@ public class PortletPreferencesFactoryImpl
 	}
 
 	@Override
+	public void initializePortletPreferences(
+		Portlet portlet, Layout layout, String defaultPreferences) {
+
+		if (isAlreadyInitialized(portlet, layout)) {
+			return;
+		}
+
+		PortletPreferencesFactoryUtil.getLayoutPortletSetup(
+			layout, portlet.getPortletId(), defaultPreferences);
+
+		PortletLayoutListener portletLayoutListener =
+			portlet.getPortletLayoutListenerInstance();
+
+		if (portletLayoutListener != null) {
+			portletLayoutListener.onAddToLayout(
+				portlet.getPortletId(), layout.getPlid());
+		}
+	}
+
+	@Override
 	public String toXML(PortalPreferences portalPreferences) {
 		PortalPreferencesImpl portalPreferencesImpl = null;
 
@@ -737,6 +758,24 @@ public class PortletPreferencesFactoryImpl
 		return PortletPreferencesLocalServiceUtil.getPreferences(
 			layout.getCompanyId(), ownerId, ownerType, plid, portletId,
 			defaultPreferences);
+	}
+
+	protected boolean isAlreadyInitialized(Portlet portlet, Layout layout) {
+		long ownerId = PortletKeys.PREFS_OWNER_ID_DEFAULT;
+		int ownerType = PortletKeys.PREFS_OWNER_TYPE_LAYOUT;
+
+		if (PortletConstants.hasUserId(portlet.getPortletId())) {
+			ownerId = PortletConstants.getUserId(portlet.getPortletId());
+			ownerType = PortletKeys.PREFS_OWNER_TYPE_USER;
+		}
+
+		if (PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
+				ownerId, ownerType, layout.getPlid(), portlet, false) < 1) {
+
+			return false;
+		}
+
+		return true;
 	}
 
 	protected Preference readPreference(XMLEventReader xmlEventReader)
