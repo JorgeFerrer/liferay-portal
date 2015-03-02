@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.portlet.LiferayPortletConfig;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletSession;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.servlet.ProtectedPrincipal;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -827,7 +827,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 
 		_request = dynamicRequest;
 		_originalRequest = request;
-		_wapTheme = BrowserSnifferUtil.isWap(_request);
+		_wapTheme = ServletRequestUtil.isWapRequest(_request);
 		_portlet = portlet;
 		_portalContext = new PortalContextImpl();
 		_portletContext = portletContext;

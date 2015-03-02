@@ -17,7 +17,7 @@ package com.liferay.portal.model.impl;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -132,7 +132,8 @@ public class LayoutTypeControllerImpl implements LayoutTypeController {
 
 		String portletId = ParamUtil.getString(request, "p_p_id");
 
-		String path = getViewPath(portletId, BrowserSnifferUtil.isWap(request));
+		boolean wapTheme = ServletRequestUtil.isWapRequest(request);
+		String path = getViewPath(portletId, wapTheme);
 
 		RequestDispatcher requestDispatcher =
 			servletContext.getRequestDispatcher(path);

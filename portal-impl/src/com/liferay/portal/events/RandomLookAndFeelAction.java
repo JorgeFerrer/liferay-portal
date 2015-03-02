@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.RandomUtil;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.model.ColorScheme;
 import com.liferay.portal.model.Layout;
@@ -72,7 +72,7 @@ public class RandomLookAndFeelAction extends Action {
 				return;
 			}
 
-			boolean wapTheme = BrowserSnifferUtil.isWap(request);
+			boolean wapTheme = ServletRequestUtil.isWapRequest(request);
 
 			List<Theme> themes = ThemeLocalServiceUtil.getPageThemes(
 				themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),

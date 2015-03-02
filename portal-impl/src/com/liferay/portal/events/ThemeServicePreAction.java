@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 import com.liferay.portal.kernel.util.ColorSchemeFactoryUtil;
 import com.liferay.portal.kernel.util.ThemeFactoryUtil;
 import com.liferay.portal.model.ColorScheme;
@@ -68,7 +68,7 @@ public class ThemeServicePreAction extends Action {
 
 		Layout layout = themeDisplay.getLayout();
 
-		boolean wapTheme = BrowserSnifferUtil.isWap(request);
+		boolean wapTheme = ServletRequestUtil.isWapRequest(request);
 
 		if (layout != null) {
 			if (wapTheme) {

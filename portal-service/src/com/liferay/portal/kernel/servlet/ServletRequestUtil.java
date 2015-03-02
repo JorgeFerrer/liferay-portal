@@ -16,6 +16,7 @@ package com.liferay.portal.kernel.servlet;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.util.PropsValues;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -24,6 +25,14 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * @author Brian Wing Shun Chan
  */
 public class ServletRequestUtil {
+
+	public static boolean isWapRequest(HttpServletRequest request) {
+		if (!PropsValues.MOBILE_DEVICE_STYLING_WAP_ENABLED) {
+			return false;
+		}
+
+		return BrowserSnifferUtil.isWap(request);
+	}
 
 	public static void logRequestWrappers(HttpServletRequest request) {
 		HttpServletRequest tempRequest = request;

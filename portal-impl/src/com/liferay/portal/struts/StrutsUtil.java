@@ -16,7 +16,7 @@ package com.liferay.portal.struts;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 
 import java.io.IOException;
 
@@ -63,7 +63,9 @@ public class StrutsUtil {
 		if (!response.isCommitted()) {
 			String path = TEXT_HTML_DIR + uri;
 
-			if (BrowserSnifferUtil.isWap(request)) {
+			boolean wapTheme = ServletRequestUtil.isWapRequest(request);
+
+			if (wapTheme) {
 				path = TEXT_WAP_DIR + uri;
 			}
 
@@ -87,7 +89,7 @@ public class StrutsUtil {
 
 				String errorPath = TEXT_HTML_DIR + "/common/error.jsp";
 
-				if (BrowserSnifferUtil.isWap(request)) {
+				if (wapTheme) {
 					path = TEXT_WAP_DIR + "/common/error.jsp";
 				}
 
@@ -123,7 +125,9 @@ public class StrutsUtil {
 
 		String path = TEXT_HTML_DIR + uri;
 
-		if (BrowserSnifferUtil.isWap(request)) {
+		boolean wapTheme = ServletRequestUtil.isWapRequest(request);
+
+		if (wapTheme) {
 			path = TEXT_WAP_DIR + uri;
 		}
 

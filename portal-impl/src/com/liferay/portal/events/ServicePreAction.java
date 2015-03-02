@@ -28,8 +28,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
+import com.liferay.portal.kernel.servlet.ServletRequestUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ColorSchemeFactoryUtil;
 import com.liferay.portal.kernel.util.CookieKeys;
@@ -686,7 +686,7 @@ public class ServicePreAction extends Action {
 		Theme theme = null;
 		ColorScheme colorScheme = null;
 
-		boolean wapTheme = BrowserSnifferUtil.isWap(request);
+		boolean wapTheme = ServletRequestUtil.isWapRequest(request);
 
 		if ((layout != null) && group.isControlPanel()) {
 			String themeId = PrefsPropsUtil.getString(
