@@ -22,10 +22,12 @@ import com.liferay.portal.kernel.portlet.RestrictPortletServletRequest;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PrefixPredicateFilter;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.security.auth.AuthTokenWhitelistUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
@@ -112,8 +114,13 @@ public class RuntimeTag extends TagSupport {
 			Portlet portlet = getPortlet(
 				themeDisplay.getCompanyId(), portletId);
 
-			PortletPreferencesFactoryUtil.initializePortletPreferences(
-				portlet, layout, defaultPreferences);
+			if (Validator.isNotNull(defaultPreferences) ||
+				!AuthTokenWhitelistUtil.isPortletInvocationWhitelisted(
+					themeDisplay.getCompanyId(), portletId, null)) {
+
+				PortletPreferencesFactoryUtil.initializePortletPreferences(
+					portlet, layout, defaultPreferences);
+			}
 
 			PortletContainerUtil.render(request, response, portlet);
 		}
