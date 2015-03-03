@@ -59,6 +59,9 @@ public interface PortletPreferencesFactory {
 	public PortletPreferences getLayoutPortletSetup(
 		Layout layout, String portletId);
 
+	public PortletPreferences getLayoutPortletSetup(
+		Layout layout, String portletId, String defaultPreferences);
+
 	public PortalPreferences getPortalPreferences(HttpServletRequest request);
 
 	public PortalPreferences getPortalPreferences(
@@ -139,6 +142,9 @@ public interface PortletPreferencesFactory {
 
 	public PortletPreferences getStrictPortletSetup(
 		Layout layout, String portletId);
+
+	public void initializePortletPreferences(
+		Portlet portlet, Layout layout, String defaultPreferences);
 
 	public String toXML(PortalPreferences portalPreferences);
 

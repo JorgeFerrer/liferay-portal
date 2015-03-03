@@ -149,6 +149,13 @@ public class CustomizationSettingsProcessor implements ColumnProcessor {
 		return processPortlet(portletId);
 	}
 
+	@Override
+	public String processPortlet(String portletId, String defaultPreferences)
+		throws Exception {
+
+		return processPortlet(portletId);
+	}
+
 	private final boolean _customizationEnabled;
 	private final UnicodeProperties _layoutTypeSettings;
 	private final PageContext _pageContext;

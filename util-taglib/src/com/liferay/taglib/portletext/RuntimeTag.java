@@ -14,27 +14,22 @@
 
 package com.liferay.taglib.portletext;
 
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletContainerUtil;
-import com.liferay.portal.kernel.portlet.PortletJSONUtil;
-import com.liferay.portal.kernel.portlet.PortletLayoutListener;
 import com.liferay.portal.kernel.portlet.PortletParameterUtil;
 import com.liferay.portal.kernel.portlet.RestrictPortletServletRequest;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PrefixPredicateFilter;
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.security.auth.AuthTokenWhitelistUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
@@ -119,42 +114,15 @@ public class RuntimeTag extends TagSupport {
 			Portlet portlet = getPortlet(
 				themeDisplay.getCompanyId(), portletId);
 
-			JSONObject jsonObject = null;
+			if (Validator.isNotNull(defaultPreferences) ||
+				!AuthTokenWhitelistUtil.isPortletInvocationWhitelisted(
+					themeDisplay.getCompanyId(), portletId, null)) {
 
-			if ((PortletPreferencesLocalServiceUtil.getPortletPreferencesCount(
-					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, themeDisplay.getPlid(),
-					portletId) < 1) ||
-				layout.isTypeControlPanel() ||
-				layout.isTypePanel()) {
-
-				PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-					layout, portletId);
-				PortletPreferencesFactoryUtil.getPortletSetup(
-					request, portletId, defaultPreferences);
-
-				PortletLayoutListener portletLayoutListener =
-					portlet.getPortletLayoutListenerInstance();
-
-				if (portletLayoutListener != null) {
-					portletLayoutListener.onAddToLayout(
-						portletId, themeDisplay.getPlid());
-				}
-
-				jsonObject = JSONFactoryUtil.createJSONObject();
-
-				PortletJSONUtil.populatePortletJSONObject(
-					request, StringPool.BLANK, portlet, jsonObject);
-			}
-
-			if (jsonObject != null) {
-				PortletJSONUtil.writeHeaderPaths(response, jsonObject);
+				PortletPreferencesFactoryUtil.initializePortletPreferences(
+					portlet, layout, defaultPreferences);
 			}
 
 			PortletContainerUtil.render(request, response, portlet);
-
-			if (jsonObject != null) {
-				PortletJSONUtil.writeFooterPaths(response, jsonObject);
-			}
 		}
 		finally {
 			restrictPortletServletRequest.mergeSharedAttributes();

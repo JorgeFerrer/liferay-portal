@@ -14,10 +14,7 @@
 
 package com.liferay.portal.layoutconfiguration.util.velocity;
 
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.PortletContainerUtil;
-import com.liferay.portal.kernel.portlet.PortletJSONUtil;
 import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
@@ -33,6 +30,7 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.WebKeys;
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -190,35 +188,7 @@ public class TemplateProcessor implements ColumnProcessor {
 
 	@Override
 	public String processPortlet(String portletId) throws Exception {
-		_request.setAttribute(WebKeys.RENDER_PORTLET_RESOURCE, Boolean.TRUE);
-
-		BufferCacheServletResponse bufferCacheServletResponse =
-			new BufferCacheServletResponse(_response);
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			themeDisplay.getCompanyId(), portletId);
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-		PortletJSONUtil.populatePortletJSONObject(
-			_request, StringPool.BLANK, portlet, jsonObject);
-
-		try {
-			PortletJSONUtil.writeHeaderPaths(_response, jsonObject);
-
-			PortletContainerUtil.render(
-				_request, bufferCacheServletResponse, portlet);
-
-			PortletJSONUtil.writeFooterPaths(_response, jsonObject);
-
-			return bufferCacheServletResponse.getString();
-		}
-		finally {
-			_request.removeAttribute(WebKeys.RENDER_PORTLET_RESOURCE);
-		}
+		return processPortlet(portletId, (String)null);
 	}
 
 	@Override
@@ -255,6 +225,35 @@ public class TemplateProcessor implements ColumnProcessor {
 		modifiableSettings.store();
 
 		return processPortlet(portletId);
+	}
+
+	@Override
+	public String processPortlet(String portletId, String defaultPreferences)
+		throws Exception {
+
+		_request.setAttribute(WebKeys.RENDER_PORTLET_RESOURCE, Boolean.TRUE);
+
+		BufferCacheServletResponse bufferCacheServletResponse =
+			new BufferCacheServletResponse(_response);
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(
+			themeDisplay.getCompanyId(), portletId);
+
+		PortletPreferencesFactoryUtil.initializePortletPreferences(
+			portlet, themeDisplay.getLayout(), defaultPreferences);
+
+		try {
+			PortletContainerUtil.render(
+				_request, bufferCacheServletResponse, portlet);
+
+			return bufferCacheServletResponse.getString();
+		}
+		finally {
+			_request.removeAttribute(WebKeys.RENDER_PORTLET_RESOURCE);
+		}
 	}
 
 	private static final RenderWeightComparator _renderWeightComparator =
