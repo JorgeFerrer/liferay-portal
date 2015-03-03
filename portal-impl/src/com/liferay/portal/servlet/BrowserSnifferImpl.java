@@ -342,7 +342,8 @@ public class BrowserSnifferImpl implements BrowserSniffer {
 		String accept = getAccept(request);
 
 		if (PropsValues.MOBILE_DEVICE_STYLING_WAP_ENABLED &&
-				accept.contains("wap.xhtml")) {
+			accept.contains("wap.xhtml")) {
+
 			return true;
 		}
 
