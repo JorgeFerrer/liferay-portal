@@ -446,9 +446,10 @@ public class EditRolePermissionsAction extends PortletAction {
 		String selResource = null;
 		String actionId = null;
 
-		if (ArrayUtil.contains(PortletCategoryKeys.ALL, controlPanelCategory)) {
-			selResource = PortletKeys.PORTAL;
-			actionId = ActionKeys.VIEW_CONTROL_PANEL;
+		if (ArrayUtil.contains(PortletCategoryKeys.ALL, controlPanelCategory) &&
+			(scope != ResourceConstants.SCOPE_GROUP_TEMPLATE)) {
+				selResource = PortletKeys.PORTAL;
+				actionId = ActionKeys.VIEW_CONTROL_PANEL;
 		}
 		else if (ArrayUtil.contains(
 					PortletCategoryKeys.SITE_ADMINISTRATION_ALL,
