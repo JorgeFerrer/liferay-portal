@@ -258,7 +258,7 @@ if (selUser != null) {
 			try {
 				UserLocalServiceUtil.checkLockout(selUser);
 			}
-			catch (PortalException pe) {
+			catch (UserLockoutException.PasswordPolicyLockout ule) {
 				isLockout = true;
 			}
 		}
