@@ -14,6 +14,8 @@
 
 package com.liferay.portlet.journal.action;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -114,16 +116,14 @@ public class EditFeedAction extends PortletAction {
 			// Let this slide because the user can manually input a feed id for
 			// a new syndicated feed that does not yet exist.
 
+			if (_log.isDebugEnabled()) {
+				_log.debug(nsfe, nsfe);
+			}
 		}
-		catch (Exception e) {
-			if (e instanceof PrincipalException) {
-				SessionErrors.add(renderRequest, e.getClass());
+		catch (PrincipalException pe) {
+			SessionErrors.add(renderRequest, pe.getClass());
 
-				return actionMapping.findForward("portlet.journal.error");
-			}
-			else {
-				throw e;
-			}
+			return actionMapping.findForward("portlet.journal.error");
 		}
 
 		return actionMapping.findForward(
@@ -196,5 +196,7 @@ public class EditFeedAction extends PortletAction {
 				contentField, feedFormat, feedVersion, serviceContext);
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(EditFeedAction.class);
 
 }

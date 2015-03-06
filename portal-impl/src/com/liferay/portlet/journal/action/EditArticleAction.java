@@ -297,18 +297,14 @@ public class EditArticleAction extends PortletAction {
 			// Let this slide because the user can manually input a article id
 			// for a new article that does not yet exist.
 
+			if (_log.isDebugEnabled()) {
+				_log.debug(nsae, nsae);
+			}
 		}
-		catch (Exception e) {
-			if (//e instanceof NoSuchArticleException ||
-				e instanceof PrincipalException) {
+		catch (PrincipalException pe) {
+			SessionErrors.add(renderRequest, pe.getClass());
 
-				SessionErrors.add(renderRequest, e.getClass());
-
-				return actionMapping.findForward("portlet.journal.error");
-			}
-			else {
-				throw e;
-			}
+			return actionMapping.findForward("portlet.journal.error");
 		}
 
 		return actionMapping.findForward(
