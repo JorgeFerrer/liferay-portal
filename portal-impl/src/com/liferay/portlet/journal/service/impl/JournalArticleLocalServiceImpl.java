@@ -15,7 +15,6 @@
 package com.liferay.portlet.journal.service.impl;
 
 import com.liferay.portal.LocaleException;
-import com.liferay.portal.NoSuchImageException;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
@@ -1612,14 +1611,15 @@ public class JournalArticleLocalServiceImpl
 		// Get the latest article that is approved, if none are approved, get
 		// the latest unapproved article
 
-		try {
-			return getLatestArticle(
-				groupId, articleId, WorkflowConstants.STATUS_APPROVED);
+		JournalArticle article = fetchLatestArticle(
+			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
+
+		if (article != null) {
+			return article;
 		}
-		catch (NoSuchArticleException nsae) {
-			return getLatestArticle(
-				groupId, articleId, WorkflowConstants.STATUS_ANY);
-		}
+
+		return getLatestArticle(
+			groupId, articleId, WorkflowConstants.STATUS_ANY);
 	}
 
 	/**
@@ -1696,14 +1696,15 @@ public class JournalArticleLocalServiceImpl
 		// Get the latest article that is approved, if none are approved, get
 		// the latest unapproved article
 
-		try {
-			return getLatestArticleByUrlTitle(
-				groupId, urlTitle, WorkflowConstants.STATUS_APPROVED);
-		}
-		catch (NoSuchArticleException nsae) {
+		JournalArticle article = fetchLatestArticleByUrlTitle(
+			groupId, urlTitle, WorkflowConstants.STATUS_APPROVED);
+
+		if (article == null) {
 			return getLatestArticleByUrlTitle(
 				groupId, urlTitle, WorkflowConstants.STATUS_PENDING);
 		}
+
+		return article;
 	}
 
 	/**
@@ -3227,13 +3228,7 @@ public class JournalArticleLocalServiceImpl
 		throws PortalException {
 
 		for (int i = 1;; i++) {
-			JournalArticle article = null;
-
-			try {
-				article = getArticleByUrlTitle(groupId, urlTitle);
-			}
-			catch (NoSuchArticleException nsae) {
-			}
+			JournalArticle article = fetchArticleByUrlTitle(groupId, urlTitle);
 
 			if ((article == null) || articleId.equals(article.getArticleId())) {
 				break;
@@ -3265,13 +3260,13 @@ public class JournalArticleLocalServiceImpl
 	 */
 	@Override
 	public boolean hasArticle(long groupId, String articleId) {
-		try {
-			getArticle(groupId, articleId);
+		JournalArticle article = fetchArticle(groupId, articleId);
 
-			return true;
-		}
-		catch (PortalException pe) {
+		if (article == null) {
 			return false;
+		}
+		else {
+			return true;
 		}
 	}
 
@@ -6267,12 +6262,9 @@ public class JournalArticleLocalServiceImpl
 				String languageId = dynamicContentEl.attributeValue(
 					"language-id");
 
-				Image oldImage = null;
+				Image oldImage = imageLocalService.fetchImage(imageId);
 
-				try {
-					oldImage = imageLocalService.getImage(imageId);
-				}
-				catch (NoSuchImageException nsie) {
+				if (oldImage == null) {
 					continue;
 				}
 
@@ -6917,14 +6909,8 @@ public class JournalArticleLocalServiceImpl
 				id, serviceContext.getScopeGroupId(), articleId, title);
 		}
 
-		JournalArticle urlTitleArticle = null;
-
-		try {
-			urlTitleArticle = getArticleByUrlTitle(
-				serviceContext.getScopeGroupId(), urlTitle);
-		}
-		catch (NoSuchArticleException nsae) {
-		}
+		JournalArticle urlTitleArticle = fetchArticleByUrlTitle(
+			serviceContext.getScopeGroupId(), urlTitle);
 
 		if ((urlTitleArticle != null) &&
 			!Validator.equals(
@@ -6941,22 +6927,18 @@ public class JournalArticleLocalServiceImpl
 			long groupId, String articleId, double version)
 		throws PortalException {
 
-		double latestApprovedVersion;
+		JournalArticle article = fetchLatestArticle(
+			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
 
-		try {
-			latestApprovedVersion = getLatestVersion(
-				groupId, articleId, WorkflowConstants.STATUS_APPROVED);
-
-			if (version >= latestApprovedVersion) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		catch (NoSuchArticleException nsae) {
+		if (article == null) {
 			return true;
 		}
+
+		if (version >= article.getVersion()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	protected void notifySubscribers(
