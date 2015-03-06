@@ -1347,6 +1347,23 @@ public class JournalArticleLocalServiceImpl
 		}
 	}
 
+	@Override
+	public JournalArticle fetchArticle(long groupId, String articleId) {
+
+		// Get the latest article that is approved, if none are approved, get
+		// the latest unapproved article
+
+		JournalArticle article = fetchLatestArticle(
+			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
+
+		if (article != null) {
+			return article;
+		}
+
+		return fetchLatestArticle(
+			groupId, articleId, WorkflowConstants.STATUS_ANY);
+	}
+
 	/**
 	 * Returns the web content article matching the group, article ID, and
 	 * version.
@@ -1364,6 +1381,46 @@ public class JournalArticleLocalServiceImpl
 
 		return journalArticlePersistence.fetchByG_A_V(
 			groupId, articleId, version);
+	}
+
+	@Override
+	public JournalArticle fetchArticleByUrlTitle(
+		long groupId, String urlTitle) {
+
+		JournalArticle article = fetchLatestArticleByUrlTitle(
+			groupId, urlTitle, WorkflowConstants.STATUS_APPROVED);
+
+		if (article != null) {
+			return article;
+		}
+
+		return fetchLatestArticleByUrlTitle(
+			groupId, urlTitle, WorkflowConstants.STATUS_PENDING);
+	}
+
+	@Override
+	public JournalArticle fetchDisplayArticle(long groupId, String articleId) {
+		List<JournalArticle> articles = journalArticlePersistence.findByG_A_ST(
+			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
+
+		if (articles.isEmpty()) {
+			return null;
+		}
+
+		Date now = new Date();
+
+		for (JournalArticle article : articles) {
+			Date displayDate = article.getDisplayDate();
+			Date expirationDate = article.getExpirationDate();
+
+			if (((displayDate == null) || displayDate.before(now)) &&
+				((expirationDate == null) || expirationDate.after(now))) {
+
+				return article;
+			}
+		}
+
+		return articles.get(0);
 	}
 
 	@Override
@@ -1469,6 +1526,31 @@ public class JournalArticleLocalServiceImpl
 
 		return journalArticlePersistence.fetchByG_A_ST_First(
 			groupId, articleId, status, orderByComparator);
+	}
+
+	@Override
+	public JournalArticle fetchLatestArticleByUrlTitle(
+		long groupId, String urlTitle, int status) {
+
+		List<JournalArticle> articles = null;
+
+		OrderByComparator<JournalArticle> orderByComparator =
+			new ArticleVersionComparator();
+
+		if (status == WorkflowConstants.STATUS_ANY) {
+			articles = journalArticlePersistence.findByG_UT(
+				groupId, urlTitle, 0, 1, orderByComparator);
+		}
+		else {
+			articles = journalArticlePersistence.findByG_UT_ST(
+				groupId, urlTitle, status, 0, 1, orderByComparator);
+		}
+
+		if (articles.isEmpty()) {
+			return null;
+		}
+
+		return articles.get(0);
 	}
 
 	/**
@@ -2538,31 +2620,15 @@ public class JournalArticleLocalServiceImpl
 	public JournalArticle getDisplayArticle(long groupId, String articleId)
 		throws PortalException {
 
-		List<JournalArticle> articles = journalArticlePersistence.findByG_A_ST(
-			groupId, articleId, WorkflowConstants.STATUS_APPROVED);
+		JournalArticle article = fetchDisplayArticle(groupId, articleId);
 
-		if (articles.isEmpty()) {
+		if (article == null) {
 			throw new NoSuchArticleException(
 				"No approved JournalArticle exists with the key {groupId=" +
 					groupId + ", " + "articleId=" + articleId + "}");
 		}
 
-		Date now = new Date();
-
-		for (int i = 0; i < articles.size(); i++) {
-			JournalArticle article = articles.get(i);
-
-			Date displayDate = article.getDisplayDate();
-			Date expirationDate = article.getExpirationDate();
-
-			if (((displayDate == null) || displayDate.before(now)) &&
-				((expirationDate == null) || expirationDate.after(now))) {
-
-				return article;
-			}
-		}
-
-		return articles.get(0);
+		return article;
 	}
 
 	/**
@@ -2848,27 +2914,16 @@ public class JournalArticleLocalServiceImpl
 			long groupId, String urlTitle, int status)
 		throws PortalException {
 
-		List<JournalArticle> articles = null;
+		JournalArticle article = fetchLatestArticleByUrlTitle(
+			groupId, urlTitle, status);
 
-		OrderByComparator<JournalArticle> orderByComparator =
-			new ArticleVersionComparator();
-
-		if (status == WorkflowConstants.STATUS_ANY) {
-			articles = journalArticlePersistence.findByG_UT(
-				groupId, urlTitle, 0, 1, orderByComparator);
-		}
-		else {
-			articles = journalArticlePersistence.findByG_UT_ST(
-				groupId, urlTitle, status, 0, 1, orderByComparator);
-		}
-
-		if (articles.isEmpty()) {
+		if (article == null) {
 			throw new NoSuchArticleException(
 				"No JournalArticle exists with the key {groupId=" + groupId +
 					", urlTitle=" + urlTitle + ", status=" + status + "}");
 		}
 
-		return articles.get(0);
+		return article;
 	}
 
 	/**
