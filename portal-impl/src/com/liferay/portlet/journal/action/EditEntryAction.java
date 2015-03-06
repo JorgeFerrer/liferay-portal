@@ -14,11 +14,14 @@
 
 package com.liferay.portlet.journal.action;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.TrashedModel;
@@ -253,13 +256,27 @@ public class EditEntryAction extends PortletAction {
 					HtmlUtil.unescape(articleId), newFolderId, serviceContext);
 			}
 			catch (InvalidDDMStructureException idse) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(idse.getMessage());
+				}
+
 				invalidArticleIds.add(articleId);
 			}
 		}
 
 		if (!invalidArticleIds.isEmpty()) {
-			throw new InvalidDDMStructureException();
+			StringBundler sb = new StringBundler(4);
+
+			sb.append("Folder ");
+			sb.append(newFolderId);
+			sb.append(" does not allow the structures for these articles: ");
+			sb.append(StringUtil.merge(invalidArticleIds));
+
+			throw new InvalidDDMStructureException(sb.toString());
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditEntryAction.class);
 
 }
