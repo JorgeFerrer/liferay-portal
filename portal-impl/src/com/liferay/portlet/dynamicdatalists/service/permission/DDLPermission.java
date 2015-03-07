@@ -15,8 +15,8 @@
 package com.liferay.portlet.dynamicdatalists.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.permission.BaseResourcePermission;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.util.PortletKeys;
 
@@ -24,7 +24,7 @@ import com.liferay.portal.util.PortletKeys;
  * @author Bruno Basto
  * @author Levente Hudák
  */
-public class DDLPermission {
+public class DDLPermission extends BaseResourcePermission {
 
 	public static final String RESOURCE_NAME =
 		"com.liferay.portlet.dynamicdatalists";
@@ -39,27 +39,26 @@ public class DDLPermission {
 	}
 
 	public static boolean contains(
-		PermissionChecker permissionChecker, long groupId, String actionId) {
+		PermissionChecker permissionChecker, long classPK, String actionId) {
 
 		return contains(
-			permissionChecker, groupId, PortletKeys.DYNAMIC_DATA_LISTS,
-			actionId);
+			permissionChecker, RESOURCE_NAME, PortletKeys.DYNAMIC_DATA_LISTS,
+			classPK, actionId);
 	}
 
 	public static boolean contains(
 		PermissionChecker permissionChecker, long groupId, String portletId,
 		String actionId) {
 
-		Boolean hasPermission = StagingPermissionUtil.hasPermission(
-			permissionChecker, groupId, RESOURCE_NAME, groupId, portletId,
-			actionId);
+		return contains(
+			permissionChecker, RESOURCE_NAME, portletId, groupId, actionId);
+	}
 
-		if (hasPermission != null) {
-			return hasPermission.booleanValue();
-		}
+	@Override
+	public Boolean checkResource(
+		PermissionChecker permissionChecker, long classPK, String actionId) {
 
-		return permissionChecker.hasPermission(
-			groupId, RESOURCE_NAME, groupId, actionId);
+		return contains(permissionChecker, classPK, actionId);
 	}
 
 }
