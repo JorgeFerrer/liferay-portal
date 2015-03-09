@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.journal.action;
 
-import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -234,14 +233,14 @@ public class RSSAction extends com.liferay.portal.struts.RSSAction {
 		long plid = PortalUtil.getPlidFromFriendlyURL(
 			themeDisplay.getCompanyId(), feed.getTargetLayoutFriendlyUrl());
 
-		Layout layout = themeDisplay.getLayout();
+		Layout layout = null;
 
 		if (plid > 0) {
-			try {
-				layout = LayoutLocalServiceUtil.getLayout(plid);
-			}
-			catch (NoSuchLayoutException nsle) {
-			}
+			layout = LayoutLocalServiceUtil.fetchLayout(plid);
+		}
+
+		if (layout == null) {
+			layout = themeDisplay.getLayout();
 		}
 
 		String rss = exportToRSS(
