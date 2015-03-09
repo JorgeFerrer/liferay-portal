@@ -83,8 +83,12 @@ public class StagingPermissionImpl implements StagingPermission {
 			return null;
 		}
 
-		if (Validator.isNull(portletId)) {
+		if (Validator.equals(Layout.class.getName(), className)) {
 			return false;
+		}
+
+		if (Validator.isNull(portletId)) {
+			return null;
 		}
 
 		if (group.isStagedPortlet(portletId)) {
