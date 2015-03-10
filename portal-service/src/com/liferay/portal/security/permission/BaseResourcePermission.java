@@ -30,17 +30,17 @@ public abstract class BaseResourcePermission
 	implements ResourcePermissionChecker {
 
 	public static boolean contains(
-		PermissionChecker permissionChecker, String name, String portletId,
-		long classPK, String actionId) {
+		PermissionChecker permissionChecker, long groupId, String name,
+		String portletId, long classPK, String actionId) {
 
 		Boolean hasPermission = StagingPermissionUtil.hasPermission(
-			permissionChecker, classPK, name, classPK, portletId, actionId);
+			permissionChecker, groupId, name, classPK, portletId, actionId);
 
 		if (hasPermission != null) {
 			return hasPermission.booleanValue();
 		}
 
-		Group group = GroupLocalServiceUtil.fetchGroup(classPK);
+		Group group = GroupLocalServiceUtil.fetchGroup(groupId);
 
 		if ((group != null) && group.isStagingGroup()) {
 			classPK = group.getLiveGroupId();
@@ -55,7 +55,7 @@ public abstract class BaseResourcePermission
 
 			if (count == 0) {
 				ResourceLocalServiceUtil.addResources(
-					permissionChecker.getCompanyId(), classPK, 0, name, classPK,
+					permissionChecker.getCompanyId(), groupId, 0, name, classPK,
 					false, true, true);
 			}
 		}
@@ -66,7 +66,15 @@ public abstract class BaseResourcePermission
 		}
 
 		return permissionChecker.hasPermission(
-			classPK, name, classPK, actionId);
+			groupId, name, classPK, actionId);
+	}
+
+	public static boolean contains(
+		PermissionChecker permissionChecker, String name, String portletId,
+		long classPK, String actionId) {
+
+		return contains(
+			permissionChecker, classPK, name, portletId, classPK, actionId);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

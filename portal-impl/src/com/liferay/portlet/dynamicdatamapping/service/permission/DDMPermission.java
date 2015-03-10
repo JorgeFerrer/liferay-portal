@@ -15,49 +15,48 @@
 package com.liferay.portlet.dynamicdatamapping.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.BaseResourcePermission;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.util.PortletKeys;
 
 /**
  * @author Bruno Basto
  */
-public class DDMPermission {
+public class DDMPermission extends BaseResourcePermission {
 
 	public static void check(
-			PermissionChecker permissionChecker, long groupId, String name,
-			String actionId)
+			PermissionChecker permissionChecker, long groupId,
+			String resourceName, String actionId)
 		throws PortalException {
 
-		if (!contains(permissionChecker, groupId, name, actionId)) {
+		if (!contains(permissionChecker, groupId, resourceName, actionId)) {
 			throw new PrincipalException();
 		}
 	}
 
 	public static boolean contains(
-		PermissionChecker permissionChecker, long groupId, String name,
+		PermissionChecker permissionChecker, long classPK, String resourceName,
 		String actionId) {
 
-		Boolean hasPermission = null;
-
 		if (actionId.equals(ActionKeys.ADD_PORTLET_DISPLAY_TEMPLATE)) {
-			hasPermission = StagingPermissionUtil.hasPermission(
-				permissionChecker, groupId, name, groupId,
-				PortletKeys.PORTLET_DISPLAY_TEMPLATES, actionId);
+			return contains(
+				permissionChecker, resourceName,
+				PortletKeys.PORTLET_DISPLAY_TEMPLATES, classPK, actionId);
 		}
 		else {
-			hasPermission = StagingPermissionUtil.hasPermission(
-				permissionChecker, groupId, name, groupId, name, actionId);
+			return contains(
+				permissionChecker, resourceName, resourceName, classPK,
+				actionId);
 		}
+	}
 
-		if (hasPermission != null) {
-			return hasPermission.booleanValue();
-		}
+	@Override
+	public Boolean checkResource(
+		PermissionChecker permissionChecker, long classPK, String actionId) {
 
-		return permissionChecker.hasPermission(
-			groupId, name, groupId, actionId);
+		return null;
 	}
 
 }

@@ -16,12 +16,14 @@ package com.liferay.portlet.softwarecatalog.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.permission.BaseResourcePermission;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.util.PortletKeys;
 
 /**
  * @author Jorge Ferrer
  */
-public class SCPermission {
+public class SCPermission extends BaseResourcePermission {
 
 	public static final String RESOURCE_NAME =
 		"com.liferay.portlet.softwarecatalog";
@@ -36,10 +38,18 @@ public class SCPermission {
 	}
 
 	public static boolean contains(
-		PermissionChecker permissionChecker, long groupId, String actionId) {
+		PermissionChecker permissionChecker, long classPK, String actionId) {
 
-		return permissionChecker.hasPermission(
-			groupId, RESOURCE_NAME, groupId, actionId);
+		return contains(
+			permissionChecker, RESOURCE_NAME, PortletKeys.SOFTWARE_CATALOG,
+			classPK, actionId);
+	}
+
+	@Override
+	public Boolean checkResource(
+		PermissionChecker permissionChecker, long classPK, String actionId) {
+
+		return contains(permissionChecker, classPK, actionId);
 	}
 
 }
