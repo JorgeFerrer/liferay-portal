@@ -58,32 +58,6 @@ public class UserScreenNameException extends PortalException {
 		super(cause);
 	}
 
-	public static class MustBeAlphaNumeric extends UserScreenNameException {
-
-		public MustBeAlphaNumeric(
-			long userId, String screenName, char ... validSpecialChars) {
-
-			super(
-				String.format(
-					"Screen name %s for user %s must be alphanumeric or one " +
-						"of the following special characters: %s",
-					screenName, userId, new String(validSpecialChars)));
-
-			this.userId = userId;
-			this.screenName = screenName;
-			this.validSpecialChars = validSpecialChars;
-		}
-
-		public String getValidSpecialCharsAsString() {
-			return StringUtil.merge(this.validSpecialChars, StringPool.SPACE);
-		}
-
-		public final String screenName;
-		public final long userId;
-		public final char[] validSpecialChars;
-
-	}
-
 	public static class MustNotBeDuplicate extends UserScreenNameException {
 
 		public MustNotBeDuplicate(long userId, String screenName) {
