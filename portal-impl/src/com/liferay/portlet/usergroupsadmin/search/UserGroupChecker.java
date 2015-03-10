@@ -26,9 +26,9 @@ import javax.portlet.RenderResponse;
 /**
  * @author Drew Brokke
  */
-public class UserGroupDeletePermissionChecker extends RowChecker {
+public class UserGroupChecker extends RowChecker {
 
-	public UserGroupDeletePermissionChecker(RenderResponse renderResponse) {
+	public UserGroupChecker(RenderResponse renderResponse) {
 		super(renderResponse);
 	}
 
