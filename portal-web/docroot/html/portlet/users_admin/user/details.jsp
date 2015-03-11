@@ -113,7 +113,23 @@ else {
 				</c:when>
 				<c:otherwise>
 					<aui:input name="screenName">
-						<aui:validator name="alphanum" />
+
+						<%
+						String specialChars = PropsUtil.get(PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
+						String errorMessage = LanguageUtil.format(request, "please-enter-a-valid-alphanumeric-screen-name", StringUtil.merge(specialChars.toCharArray(), " "), false);
+						%>
+
+						<aui:validator errorMessage="<%= errorMessage %>" name="custom">
+							function(val) {
+								var pattern = new RegExp('[^A-Za-z0-9' + '<%= specialChars %>' + ']');
+
+								if (val.match(pattern)) {
+									return false;
+								}
+
+								return true;
+							}
+						</aui:validator>
 					</aui:input>
 				</c:otherwise>
 			</c:choose>
