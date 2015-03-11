@@ -17,7 +17,6 @@ package com.liferay.portal;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.security.auth.ScreenNameValidator;

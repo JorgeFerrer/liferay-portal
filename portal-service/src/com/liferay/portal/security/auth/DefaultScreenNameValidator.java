@@ -44,12 +44,13 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 	}
 
 	private boolean hasValidChars(String screenName) {
-		String specialChars = PropsUtil.get(PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
+		String specialChars = PropsUtil.get(
+			PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
 
 		specialChars.replaceAll(StringPool.SLASH, StringPool.BLANK);
-		
+
 		String pattern = "[A-Za-z0-9" + specialChars + "]+";
-		
+
 		return screenName.matches(pattern);
 	}
 
