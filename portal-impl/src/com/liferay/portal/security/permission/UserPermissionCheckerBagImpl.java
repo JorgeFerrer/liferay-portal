@@ -16,6 +16,7 @@ package com.liferay.portal.security.permission;
 
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.UserConstants;
 
 import java.util.ArrayList;
@@ -44,13 +45,15 @@ public class UserPermissionCheckerBagImpl implements UserPermissionCheckerBag {
 
 	public UserPermissionCheckerBagImpl(
 		long userId, Set<Group> userGroups, List<Organization> userOrgs,
-		Set<Group> userOrgGroups, List<Group> userUserGroupGroups) {
+		Set<Group> userOrgGroups, List<Group> userUserGroupGroups,
+		Set<Role> userRoles) {
 
 		_userId = userId;
 		_userGroups = userGroups;
 		_userOrgs = userOrgs;
 		_userOrgGroups = userOrgGroups;
 		_userUserGroupGroups = userUserGroupGroups;
+		_userRoles = userRoles;
 	}
 
 	public UserPermissionCheckerBagImpl(
@@ -61,7 +64,8 @@ public class UserPermissionCheckerBagImpl implements UserPermissionCheckerBag {
 			userPermissionCheckerBag.getUserGroups(),
 			userPermissionCheckerBag.getUserOrgs(),
 			userPermissionCheckerBag.getUserOrgGroups(),
-			userPermissionCheckerBag.getUserUserGroupGroups());
+			userPermissionCheckerBag.getUserUserGroupGroups(),
+			userPermissionCheckerBag.getRoles());
 	}
 
 	@Override
@@ -119,8 +123,18 @@ public class UserPermissionCheckerBagImpl implements UserPermissionCheckerBag {
 	}
 
 	@Override
+	public Set<Role> getRoles() {
+		return _userRoles;
+	}
+
+	@Override
 	public List<Group> getUserUserGroupGroups() {
 		return _userUserGroupGroups;
+	}
+
+	@Override
+	public boolean hasRole(Role role) {
+		return _userRoles.contains(role);
 	}
 
 	private List<Group> _groups;
@@ -128,6 +142,7 @@ public class UserPermissionCheckerBagImpl implements UserPermissionCheckerBag {
 	private final long _userId;
 	private final Set<Group> _userOrgGroups;
 	private final List<Organization> _userOrgs;
+	private final Set<Role> _userRoles;
 	private final List<Group> _userUserGroupGroups;
 
 }
