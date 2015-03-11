@@ -44,17 +44,27 @@ public class PermissionCheckerBagImpl
 	extends UserPermissionCheckerBagImpl implements PermissionCheckerBag {
 
 	public PermissionCheckerBagImpl() {
-		this(UserConstants.USER_ID_DEFAULT);
+		super(
+			UserConstants.USER_ID_DEFAULT, Collections.<Group>emptySet(),
+			Collections.<Organization>emptyList(),
+			Collections.<Group>emptySet(), Collections.<Group>emptyList(),
+			Collections.<Role>emptySet());
 	}
 
 	public PermissionCheckerBagImpl(long userId) {
-		this(userId, Collections.<Role>emptyList());
+		super(
+			userId, Collections.<Group>emptySet(),
+			Collections.<Organization>emptyList(),
+			Collections.<Group>emptySet(), Collections.<Group>emptyList(),
+			Collections.<Role>emptySet());
 	}
 
-	public PermissionCheckerBagImpl(long userId, List<Role> roles) {
-		super(userId);
-
-		_roles = roles;
+	public PermissionCheckerBagImpl(long userId, Set<Role> roles) {
+		super(
+			userId, Collections.<Group>emptySet(),
+			Collections.<Organization>emptyList(),
+			Collections.<Group>emptySet(), Collections.<Group>emptyList(),
+			roles);
 	}
 
 	public PermissionCheckerBagImpl(
