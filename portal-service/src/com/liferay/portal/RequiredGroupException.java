@@ -39,9 +39,9 @@ public class RequiredGroupException extends PortalException {
 		return _type;
 	}
 
-	public static class MustNotDeleteCurrentSite extends RequiredGroupException{
+	public static class MustNotDeleteCurrentGroup extends RequiredGroupException{
 
-		public MustNotDeleteCurrentSite(long groupId){
+		public MustNotDeleteCurrentGroup(long groupId){
 			super(
 				String.format(
 					"Site %s cannot be deleted because it is currently being accessed",
@@ -55,9 +55,9 @@ public class RequiredGroupException extends PortalException {
 
 	}
 
-	public static class MustNotDeleteSiteThatHasChild extends RequiredGroupException{
+	public static class MustNotDeleteGroupThatHasChild extends RequiredGroupException{
 
-		public MustNotDeleteSiteThatHasChild(long groupId){
+		public MustNotDeleteGroupThatHasChild(long groupId){
 			super(
 				String.format(
 					"Site %s cannot be deleted because it has child sites",

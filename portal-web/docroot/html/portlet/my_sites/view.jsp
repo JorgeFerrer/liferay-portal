@@ -96,8 +96,8 @@ request.setAttribute("view.jsp-tabs1", tabs1);
 			<aui:nav-bar-search file="/html/portlet/users_admin/group_search.jsp" searchContainer="<%= searchContainer %>" />
 		</aui:nav-bar>
 
-		<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteCurrentSite.class %>" message="you-cannot-delete-this-site-because-you-are-currently-accessing-this-site" />
-		<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteSiteThatHasChild.class %>" message="you-cannot-delete-sites-that-have-subsites" />
+		<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteCurrentGroup.class %>" message="you-cannot-delete-this-site-because-you-are-currently-accessing-this-site" />
+		<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteGroupThatHasChild.class %>" message="you-cannot-delete-sites-that-have-subsites" />
 		<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteSystemGroup.class %>" message="the-site-cannot-be-deleted-or-deactivated-because-it-is-a-required-system-site" />
 
 		<liferay-ui:search-container-row
