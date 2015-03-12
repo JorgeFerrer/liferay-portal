@@ -44,7 +44,7 @@ public class RequiredGroupException extends PortalException {
 		public MustNotDeleteCurrentSite(long groupId){
 			super(
 				String.format(
-					"Site %s cannot be deleted because you are currently accessing it.",
+					"Site %s cannot be deleted because it is currently being accessed",
 					groupId),
 				CURRENT_GROUP);
 
@@ -76,7 +76,7 @@ public class RequiredGroupException extends PortalException {
 		public MustNotDeleteSystemGroup(long groupId){
 			super(
 				String.format(
-					"The site %s is required by the system, and cannot be deleted",
+					"Site %s cannot be deleted because it is a system required site",
 					groupId),
 				SYSTEM_GROUP);
 
