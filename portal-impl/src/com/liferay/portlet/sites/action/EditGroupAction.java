@@ -458,7 +458,7 @@ public class EditGroupAction extends PortletAction {
 			(groupId == themeDisplay.getScopeGroupId()) ||
 			(groupId == getRefererGroupId(themeDisplay))) {
 
-			throw new RequiredGroupException.MustNotDeleteCurrentSite(groupId);
+			throw new RequiredGroupException.MustNotDeleteCurrentGroup(groupId);
 		}
 
 		Group group = GroupServiceUtil.getGroup(groupId);

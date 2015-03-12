@@ -793,7 +793,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			if (groupPersistence.countByC_P_S(
 					group.getCompanyId(), group.getGroupId(), true) > 0) {
 
-				throw new RequiredGroupException.MustNotDeleteSiteThatHasChild(
+				throw new RequiredGroupException.MustNotDeleteGroupThatHasChild(
 					group.getGroupId());
 			}
 

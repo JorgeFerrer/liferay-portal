@@ -62,8 +62,8 @@ String searchURLString = searchURL.toString();
 		<liferay-ui:message arguments="<%= HtmlUtil.escape(group.getDescriptiveName(locale)) %>" key="site-x-does-not-have-any-private-pages" translateArguments="<%= false %>" />
 	</liferay-ui:error>
 
-	<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteCurrentSite.class %>" message="you-cannot-delete-this-site-because-you-are-currently-accessing-this-site" />
-	<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteSiteThatHasChild.class %>" message="you-cannot-delete-sites-that-have-subsites" />
+	<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteCurrentGroup.class %>" message="you-cannot-delete-this-site-because-you-are-currently-accessing-this-site" />
+	<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteGroupThatHasChild.class %>" message="you-cannot-delete-sites-that-have-subsites" />
 	<liferay-ui:error exception="<%= RequiredGroupException.MustNotDeleteSystemGroup.class %>" message="the-site-cannot-be-deleted-or-deactivated-because-it-is-a-required-system-site" />
 
 	<c:choose>
