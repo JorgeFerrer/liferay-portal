@@ -29,9 +29,9 @@ import javax.portlet.RenderResponse;
 /**
  * @author Brian Wing Shun Chan
  */
-public class UserGroupChecker extends RowChecker {
+public class SiteMembershipChecker extends RowChecker {
 
-	public UserGroupChecker(RenderResponse renderResponse, Group group) {
+	public SiteMembershipChecker(RenderResponse renderResponse, Group group) {
 		super(renderResponse);
 
 		_group = group;
@@ -96,7 +96,7 @@ public class UserGroupChecker extends RowChecker {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		UserGroupChecker.class);
+		SiteMembershipChecker.class);
 
 	private final Group _group;
 
