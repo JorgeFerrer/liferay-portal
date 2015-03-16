@@ -14,11 +14,15 @@
 
 package com.liferay.portal.security.auth;
 
+import java.util.Locale;
+
 /**
  * @author Brian Wing Shun Chan
  */
 public interface ScreenNameValidator {
 
 	public boolean validate(long companyId, String screenName);
+	
+	public String getDescription(Locale locale);
 
 }

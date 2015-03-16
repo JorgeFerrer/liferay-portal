@@ -109,7 +109,16 @@ birthdayCalendar.set(Calendar.YEAR, 1970);
 	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeReservedForAnonymous.class %>" focusField="screenName" message="the-screen-name-you-requested-is-reserved-for-the-anonymous-user" />
 	<liferay-ui:error exception="<%= UserScreenNameException.MustNotBeUsedByGroup.class %>" focusField="screenName" message="the-screen-name-you-requested-is-already-taken-by-a-site" />
 	<liferay-ui:error exception="<%= UserScreenNameException.MustProduceValidFriendlyURL.class %>" focusField="screenName" message="the-screen-name-you-requested-must-produce-a-valid-friendly-url" />
-	<liferay-ui:error exception="<%= UserScreenNameException.MustValidate.class %>" focusField="screenName" message="please-enter-a-valid-screen-name" />
+	<liferay-ui:error exception="<%= UserScreenNameException.MustValidate.class %>" focusField="screenName">
+
+		<%
+		UserScreenNameException.MustValidate usne = (UserScreenNameException.MustValidate)errorException;
+
+		String key = usne.screenNameValidator.getDescription(locale);
+		%>
+
+		<liferay-ui:message key="<%= key %>" />
+	</liferay-ui:error>
 
 	<liferay-ui:error exception="<%= WebsiteURLException.class %>" message="please-enter-a-valid-url" />
 
