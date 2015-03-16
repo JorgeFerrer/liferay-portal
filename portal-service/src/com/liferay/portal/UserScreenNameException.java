@@ -16,8 +16,8 @@ package com.liferay.portal;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ClassUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.security.auth.ScreenNameValidator;
@@ -214,9 +214,10 @@ public class UserScreenNameException extends PortalException {
 
 			super(
 				String.format(
-					"Screen name %s for user %s must validate with %s",
+					"Screen name %s for user %s must validate with %s: %s",
 					screenName, userId,
-					ClassUtil.getClassName(screenNameValidator)));
+					ClassUtil.getClassName(screenNameValidator),
+					screenNameValidator.getDescription(LocaleUtil.getDefault())));
 
 			this.userId = userId;
 			this.screenName = screenName;

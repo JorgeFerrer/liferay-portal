@@ -14,11 +14,14 @@
 
 package com.liferay.portal.security.auth;
 
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+
+import java.util.Locale;
 
 /**
  * @author Brian Wing Shun Chan
@@ -30,6 +33,14 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 	public static final String POSTFIX = "postfix";
 
 	@Override
+	public String getDescription(Locale locale) {
+		return LanguageUtil.format(
+			locale,
+			"the-screen-name-cannot-be-an-email-address-or-a-reserved-word",
+			new String[] {CYRUS + ", " + POSTFIX, getSpecialChars()}, false);
+	}
+
+	@Override
 	public boolean validate(long companyId, String screenName) {
 		if (Validator.isEmailAddress(screenName) ||
 			StringUtil.equalsIgnoreCase(screenName, CYRUS) ||
@@ -38,19 +49,28 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 
 			return false;
 		}
-		else {
-			return true;
+
+		return true;
+	}
+
+	private String getSpecialChars() {
+		if (_specialChars == null) {
+			String specialChars = PropsUtil.get(
+				PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
+
+			_specialChars = specialChars.replaceAll(
+				StringPool.SLASH, StringPool.BLANK);
 		}
+
+		return _specialChars;
 	}
 
 	private boolean hasInvalidChars(String screenName) {
-		String specialChars = PropsUtil.get(PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
-
-		specialChars.replaceAll(StringPool.SLASH, StringPool.BLANK);
-
-		String validChars = "[A-Za-z0-9" + specialChars + "]+";
+		String validChars = "[A-Za-z0-9" + getSpecialChars() + "]+";
 
 		return !screenName.matches(validChars);
 	}
+
+	private String _specialChars;
 
 }
