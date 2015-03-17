@@ -1193,3 +1193,46 @@ Use the className instead of the classNameId.
 #### Why was this change made?
 
 To simplify the usage of this taglib.
+
+---------------------------------------
+
+### Added new methods in `ScreenNameValidator` interface
+- **Date:** 2015-Mar-17
+- **JIRA Ticket:** LPS-53409
+
+#### What changed?
+
+The `ScreenNameValidator` interface has new methods `getDescription(Locale locale)`,
+`getJSValidation()`, and `getJSValidationErrorMessage(Locale locale)`.
+
+
+#### Who is affected?
+
+This affects developers who have implemented custom screen name validator with
+the `ScreenNameValidator` interface.
+
+
+#### How should I update my code?
+
+You should implement the new methods introduced in the interface.
+
+- `getDescription(Locale locale)`: returns the description that explains why the
+screen name validation fails.
+
+- `getJSValidation()`: returns the JavaScript input validator on the client side.
+
+`getJSValidation(Locale locale)`: returns the error message to be displayed
+when the JavaScript input validator fails.
+
+
+#### Why was this change made?
+
+Previous to Liferay 7, validation for user screen name characters was hard-coded 
+in `UserLocalService`. A new property `users.screen.name.special.characters` has
+been added to provide configurability of special characters allowed in screen
+names.
+
+In addition, developers can now specify custom input validator for the screen name
+on the client side by providing a JavaScript validator in `getJSValidation()`.
+
+---------------------------------------
