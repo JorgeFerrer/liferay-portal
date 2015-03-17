@@ -122,6 +122,7 @@ else {
 				</c:when>
 				<c:otherwise>
 					<aui:input name="screenName">
+
 						<%
 						ScreenNameValidator screenNameValidator = ScreenNameValidatorFactory.getInstance();
 						%>
