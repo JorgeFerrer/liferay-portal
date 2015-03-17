@@ -217,7 +217,8 @@ public class UserScreenNameException extends PortalException {
 					"Screen name %s for user %s must validate with %s: %s",
 					screenName, userId,
 					ClassUtil.getClassName(screenNameValidator),
-					screenNameValidator.getDescription(LocaleUtil.getDefault())));
+					screenNameValidator.getDescription(
+						LocaleUtil.getDefault())));
 
 			this.userId = userId;
 			this.screenName = screenName;

@@ -21,10 +21,10 @@ import java.util.Locale;
  */
 public interface ScreenNameValidator {
 
-	public boolean validate(long companyId, String screenName);
-	
 	public String getDescription(Locale locale);
 
 	public String getJSValidation();
+
+	public boolean validate(long companyId, String screenName);
 
 }
