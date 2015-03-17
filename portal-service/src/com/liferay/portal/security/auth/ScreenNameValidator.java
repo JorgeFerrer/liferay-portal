@@ -25,4 +25,6 @@ public interface ScreenNameValidator {
 	
 	public String getDescription(Locale locale);
 
+	public String getJSValidation();
+
 }

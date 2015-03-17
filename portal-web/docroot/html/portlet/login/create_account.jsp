@@ -138,7 +138,17 @@ birthdayCalendar.set(Calendar.YEAR, 1970);
 			%>
 
 			<c:if test="<%= !autoGenerateScreenName %>">
-				<aui:input autoFocus="<%= true %>" model="<%= User.class %>" name="screenName" />
+				<aui:input autoFocus="<%= true %>" model="<%= User.class %>" name="screenName">
+					<%
+					ScreenNameValidator screenNameValidator = ScreenNameValidatorFactory.getInstance();
+					%>
+
+					<c:if test="<%= !screenNameValidator.getJSValidation().isEmpty() %>">
+						<aui:validator errorMessage="<%= screenNameValidator.getDescription(locale) %>" name="custom">
+							<%= screenNameValidator.getJSValidation() %>
+						</aui:validator>
+					</c:if>
+				</aui:input>
 			</c:if>
 
 			<aui:input autoFocus="<%= autoGenerateScreenName %>" model="<%= User.class %>" name="emailAddress">

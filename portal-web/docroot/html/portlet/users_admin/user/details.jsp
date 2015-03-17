@@ -122,7 +122,15 @@ else {
 				</c:when>
 				<c:otherwise>
 					<aui:input name="screenName">
-						<aui:validator name="alphanum" />
+						<%
+						ScreenNameValidator screenNameValidator = ScreenNameValidatorFactory.getInstance();
+						%>
+
+						<c:if test="<%= !screenNameValidator.getJSValidation().isEmpty() %>">
+							<aui:validator errorMessage="<%= screenNameValidator.getDescription(locale) %>" name="custom">
+								<%= screenNameValidator.getJSValidation() %>
+							</aui:validator>
+						</c:if>
 					</aui:input>
 				</c:otherwise>
 			</c:choose>

@@ -41,6 +41,18 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 	}
 
 	@Override
+	public String getJSValidation() {
+		return "function(val) {" +
+					"var pattern = new RegExp('[^A-Za-z0-9" +
+						getSpecialChars() + "]');" +
+					"if (val.match(pattern)) {" +
+						"return false;" +
+					"}" +
+					"return true;" +
+				"}";
+	}
+
+	@Override
 	public boolean validate(long companyId, String screenName) {
 		if (Validator.isEmailAddress(screenName) ||
 			StringUtil.equalsIgnoreCase(screenName, CYRUS) ||
