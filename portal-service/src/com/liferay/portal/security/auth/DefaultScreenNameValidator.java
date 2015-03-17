@@ -61,17 +61,42 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 		return LanguageUtil.get(locale, _description);
 	}
 
+	@Override
+	public String getJSValidation() {
+		return "function(val) {" +
+					"var pattern = new RegExp('[^A-Za-z0-9" +
+						getSpecialChars() + "]');" +
+					"if (val.match(pattern)) {" +
+						"return false;" +
+					"}" +
+					"return true;" +
+				"}";
+	}
+
+	@Override
+	public String getJSValidationErrorMessage(Locale locale) {
+		return LanguageUtil.format(locale,
+			"the-screen-name-must-contain-only-alphanumeric",
+			getSpecialChars(), false);
+	}
+
+	private String getSpecialChars() {
+		if (_specialChars == null) {
+			String specialChars = PropsUtil.get(
+				PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
+
+			_specialChars = specialChars.replaceAll(StringPool.SLASH, StringPool.BLANK);
+		}
+
+		return _specialChars;
+	}
+
 	private boolean hasInvalidChars(String screenName) {
-		String specialChars = PropsUtil.get(
-			PropsKeys.USERS_SCREEN_NAME_SPECIAL_CHARACTERS);
-
-		specialChars.replaceAll(StringPool.SLASH, StringPool.BLANK);
-
-		String validChars = "[A-Za-z0-9" + specialChars + "]+";
+		String validChars = "[A-Za-z0-9" + getSpecialChars() + "]+";
 
 		if (!screenName.matches(validChars)) {
-			_arguments = specialChars;
-			_description = "please-enter-a-valid-alphanumeric-screen-name";
+			_arguments = getSpecialChars();
+			_description = "the-screen-name-must-contain-only-alphanumeric";
 
 			return true;
 		}
@@ -81,5 +106,6 @@ public class DefaultScreenNameValidator implements ScreenNameValidator {
 
 	private String _arguments;
 	private String _description;
+	private String _specialChars;
 
 }
