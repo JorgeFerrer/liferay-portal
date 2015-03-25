@@ -244,6 +244,7 @@ public class LangBuilder {
 
 					if (_keysWithUpdatedValues.contains(key) &&
 						!key.startsWith("lang.user.name.")) {
+
 						translatedText = null;
 					}
 
