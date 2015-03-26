@@ -21,9 +21,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 String backURL = ParamUtil.getString(request, "backURL", redirect);
 
-PasswordPolicy passwordPolicy = (PasswordPolicy)request.getAttribute(WebKeys.PASSWORD_POLICY);
+long passwordPolicyId = ParamUtil.getLong(request, "passwordPolicyId");
 
-long passwordPolicyId = BeanParamUtil.getLong(passwordPolicy, request, "passwordPolicyId");
+PasswordPolicy passwordPolicy = PasswordPolicyLocalServiceUtil.fetchPasswordPolicy(passwordPolicyId);
 
 boolean defaultPolicy = BeanParamUtil.getBoolean(passwordPolicy, request, "defaultPolicy");
 %>

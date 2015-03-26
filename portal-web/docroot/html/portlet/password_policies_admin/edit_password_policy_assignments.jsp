@@ -25,7 +25,9 @@ int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 
 String redirect = ParamUtil.getString(request, "redirect");
 
-PasswordPolicy passwordPolicy = (PasswordPolicy)request.getAttribute(WebKeys.PASSWORD_POLICY);
+long passwordPolicyId = ParamUtil.getLong(request, "passwordPolicyId");
+
+PasswordPolicy passwordPolicy = PasswordPolicyLocalServiceUtil.fetchPasswordPolicy(passwordPolicyId);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
