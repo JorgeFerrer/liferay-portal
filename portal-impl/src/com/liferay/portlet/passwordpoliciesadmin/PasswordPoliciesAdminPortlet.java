@@ -115,7 +115,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 					"edit_password_policy_assignments"));
 	}
 
-	protected void updatePasswordPolicyOrganizations(
+	public void updatePasswordPolicyOrganizations(
 			ActionRequest actionRequest)
 		throws Exception {
 
@@ -133,7 +133,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 			passwordPolicyId, removeOrganizationIds);
 	}
 
-	protected void updatePasswordPolicyUsers(ActionRequest actionRequest)
+	public void updatePasswordPolicyUsers(ActionRequest actionRequest)
 		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
