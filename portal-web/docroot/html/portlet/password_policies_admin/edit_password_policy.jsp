@@ -34,12 +34,11 @@ boolean defaultPolicy = BeanParamUtil.getBoolean(passwordPolicy, request, "defau
 	title='<%= (passwordPolicy == null) ? "new-password-policy" : passwordPolicy.getName() %>'
 />
 
-<portlet:actionURL var="editPasswordPolicyURL">
-	<portlet:param name="struts_action" value="/password_policies_admin/edit_password_policy" />
+<portlet:actionURL name="editPasswordPolicy" var="editPasswordPolicyURL">
+	<portlet:param name="redirect" value="<%= redirect %>" />
 </portlet:actionURL>
 
 <aui:form action="<%= editPasswordPolicyURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (passwordPolicy == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="passwordPolicyId" type="hidden" value="<%= passwordPolicyId %>" />
 
