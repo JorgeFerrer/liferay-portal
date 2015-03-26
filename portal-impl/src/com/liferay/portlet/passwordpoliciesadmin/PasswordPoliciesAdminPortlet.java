@@ -14,17 +14,16 @@
 
 package com.liferay.portlet.passwordpoliciesadmin;
 
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-
 import com.liferay.portal.DuplicatePasswordPolicyException;
+import com.liferay.portal.NoSuchPasswordPolicyException;
+import com.liferay.portal.PasswordPolicyNameException;
+import com.liferay.portal.RequiredPasswordPolicyException;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.PasswordPolicy;
-import com.liferay.portal.NoSuchPasswordPolicyException;
-import com.liferay.portal.PasswordPolicyNameException;
-import com.liferay.portal.RequiredPasswordPolicyException;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.OrganizationServiceUtil;
 import com.liferay.portal.service.PasswordPolicyServiceUtil;
@@ -46,7 +45,7 @@ import javax.portlet.RenderResponse;
 public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 
 	public void deletePasswordPolicy(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
@@ -56,7 +55,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 	}
 
 	public void editPasswordPolicy(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
@@ -133,7 +132,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 
 	public void editPasswordPolicyAssignments(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception{
+		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
 			actionRequest, "passwordPolicyId");
@@ -146,7 +145,8 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		if (ArrayUtil.isNotEmpty(addUserIds) ||
 			ArrayUtil.isNotEmpty(removeUserIds)) {
 
-			UserServiceUtil.addPasswordPolicyUsers(passwordPolicyId, addUserIds);
+			UserServiceUtil.addPasswordPolicyUsers(
+				passwordPolicyId, addUserIds);
 			UserServiceUtil.unsetPasswordPolicyUsers(
 				passwordPolicyId, removeUserIds);
 		}
@@ -173,8 +173,8 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 
 		if (SessionErrors.contains(
 				renderRequest, NoSuchPasswordPolicyException.class.getName()) ||
-				SessionErrors.contains(
-					renderRequest, PrincipalException.class.getName())) {
+			SessionErrors.contains(
+				renderRequest, PrincipalException.class.getName())) {
 
 			include("/error.jsp", renderRequest, renderResponse);
 		}
@@ -186,10 +186,10 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 	@Override
 	protected boolean isSessionErrorException(Throwable cause) {
 		if (cause instanceof DuplicatePasswordPolicyException ||
-				cause instanceof NoSuchPasswordPolicyException ||
-				cause instanceof PasswordPolicyNameException ||
-				cause instanceof PrincipalException ||
-				cause instanceof RequiredPasswordPolicyException) {
+			cause instanceof NoSuchPasswordPolicyException ||
+			cause instanceof PasswordPolicyNameException ||
+			cause instanceof PrincipalException ||
+			cause instanceof RequiredPasswordPolicyException) {
 
 			return true;
 		}
