@@ -121,7 +121,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 				"portlet.password_policies_admin.edit_password_policy"));
 	}
 
-	protected void deletePasswordPolicy(ActionRequest actionRequest)
+	public void deletePasswordPolicy(ActionRequest actionRequest)
 		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
@@ -130,7 +130,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		PasswordPolicyServiceUtil.deletePasswordPolicy(passwordPolicyId);
 	}
 
-	protected void updatePasswordPolicy(ActionRequest actionRequest)
+	public void updatePasswordPolicy(ActionRequest actionRequest)
 		throws Exception {
 
 		long passwordPolicyId = ParamUtil.getLong(
