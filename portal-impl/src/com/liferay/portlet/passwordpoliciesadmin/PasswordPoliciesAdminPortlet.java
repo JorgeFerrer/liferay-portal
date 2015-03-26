@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import com.liferay.portal.DuplicatePasswordPolicyException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.PasswordPolicy;
@@ -127,27 +128,9 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void editPasswordPolicyOrganizations(
+	public void editPasswordPolicyAssignments(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
-
-		long passwordPolicyId = ParamUtil.getLong(
-			actionRequest, "passwordPolicyId");
-
-		long[] addOrganizationIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "addOrganizationIds"), 0L);
-		long[] removeOrganizationIds = StringUtil.split(
-			ParamUtil.getString(actionRequest, "removeOrganizationIds"), 0L);
-
-		OrganizationServiceUtil.addPasswordPolicyOrganizations(
-			passwordPolicyId, addOrganizationIds);
-		OrganizationServiceUtil.unsetPasswordPolicyOrganizations(
-			passwordPolicyId, removeOrganizationIds);
-	}
-
-	public void editPasswordPolicyUsers(
-		ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
+		throws Exception{
 
 		long passwordPolicyId = ParamUtil.getLong(
 			actionRequest, "passwordPolicyId");
@@ -157,9 +140,27 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		long[] removeUserIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "removeUserIds"), 0L);
 
-		UserServiceUtil.addPasswordPolicyUsers(passwordPolicyId, addUserIds);
-		UserServiceUtil.unsetPasswordPolicyUsers(
-			passwordPolicyId, removeUserIds);
+		if (ArrayUtil.isNotEmpty(addUserIds) ||
+			ArrayUtil.isNotEmpty(removeUserIds)) {
+
+			UserServiceUtil.addPasswordPolicyUsers(passwordPolicyId, addUserIds);
+			UserServiceUtil.unsetPasswordPolicyUsers(
+				passwordPolicyId, removeUserIds);
+		}
+
+		long[] addOrganizationIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "addOrganizationIds"), 0L);
+		long[] removeOrganizationIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "removeOrganizationIds"), 0L);
+
+		if (ArrayUtil.isNotEmpty(addOrganizationIds) ||
+			ArrayUtil.isNotEmpty(removeOrganizationIds)) {
+
+			OrganizationServiceUtil.addPasswordPolicyOrganizations(
+				passwordPolicyId, addOrganizationIds);
+			OrganizationServiceUtil.unsetPasswordPolicyOrganizations(
+				passwordPolicyId, removeOrganizationIds);
+		}
 	}
 
 	@Override
