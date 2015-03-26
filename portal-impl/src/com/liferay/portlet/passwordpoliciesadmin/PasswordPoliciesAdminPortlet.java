@@ -51,7 +51,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		PasswordPolicyServiceUtil.deletePasswordPolicy(passwordPolicyId);
 	}
 
-	public void updatePasswordPolicy(
+	public void editPasswordPolicy(
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
@@ -127,7 +127,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void updatePasswordPolicyOrganizations(
+	public void editPasswordPolicyOrganizations(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
@@ -145,7 +145,7 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 			passwordPolicyId, removeOrganizationIds);
 	}
 
-	public void updatePasswordPolicyUsers(
+	public void editPasswordPolicyUsers(
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
