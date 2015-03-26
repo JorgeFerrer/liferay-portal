@@ -93,8 +93,8 @@ public class PasswordPolicyServiceImpl extends PasswordPolicyServiceBaseImpl {
 	}
 
 	@Override
-	public PasswordPolicy fetchPasswordPolicy(
-		long passwordPolicyId) throws PortalException {
+	public PasswordPolicy fetchPasswordPolicy(long passwordPolicyId)
+		throws PortalException {
 
 		PasswordPolicyPermissionUtil.check(
 			getPermissionChecker(), passwordPolicyId, ActionKeys.VIEW);
