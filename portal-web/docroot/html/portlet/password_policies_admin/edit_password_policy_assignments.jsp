@@ -25,11 +25,13 @@ int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 
 String redirect = ParamUtil.getString(request, "redirect");
 
-PasswordPolicy passwordPolicy = (PasswordPolicy)request.getAttribute(WebKeys.PASSWORD_POLICY);
+long passwordPolicyId = ParamUtil.getLong(request, "passwordPolicyId");
+
+PasswordPolicy passwordPolicy = PasswordPolicyLocalServiceUtil.fetchPasswordPolicy(passwordPolicyId);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("struts_action", "/password_policies_admin/edit_password_policy_assignments");
+portletURL.setParameter("mvcPath", "/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp");
 portletURL.setParameter("tabs1", tabs1);
 portletURL.setParameter("redirect", redirect);
 portletURL.setParameter("passwordPolicyId", String.valueOf(passwordPolicy.getPasswordPolicyId()));
@@ -56,12 +58,11 @@ portletURL.setParameter("tabs3", tabs3);
 	url="<%= portletURL.toString() %>"
 />
 
-<portlet:actionURL var="editAssignmentsURL">
-	<portlet:param name="struts_action" value="/password_policies_admin/edit_password_policy_assignments" />
+<portlet:actionURL name="editPasswordPolicyAssignments" var="editPasswordPolicyAssignmentsURL">
+	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:actionURL>
 
-<aui:form action="<%= editAssignmentsURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" />
+<aui:form action="<%= editPasswordPolicyAssignmentsURL %>" method="post" name="fm">
 	<aui:input name="tabs1" type="hidden" value="<%= tabs1 %>" />
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 	<aui:input name="tabs3" type="hidden" value="<%= tabs3 %>" />
@@ -127,7 +128,7 @@ portletURL.setParameter("tabs3", tabs3);
 							%>
 
 							<portlet:renderURL var="assignMembersURL">
-								<portlet:param name="struts_action" value="/password_policies_admin/edit_password_policy_assignments" />
+								<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp" />
 								<portlet:param name="tabs1" value="<%= tabs1 %>" />
 								<portlet:param name="tabs2" value="users" />
 								<portlet:param name="tabs3" value="current" />
@@ -221,7 +222,7 @@ portletURL.setParameter("tabs3", tabs3);
 							%>
 
 							<portlet:renderURL var="assignMembersURL">
-								<portlet:param name="struts_action" value="/password_policies_admin/edit_password_policy_assignments" />
+								<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp" />
 								<portlet:param name="tabs1" value="<%= tabs1 %>" />
 								<portlet:param name="tabs2" value="organizations" />
 								<portlet:param name="tabs3" value="current" />
@@ -280,7 +281,6 @@ portletURL.setParameter("tabs3", tabs3);
 
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		form.fm('<%= Constants.CMD %>').val('password_policy_organizations');
 		form.fm('assignmentsRedirect').val(assignmentsRedirect);
 		form.fm('addOrganizationIds').val(Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
 		form.fm('removeOrganizationIds').val(Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
@@ -293,7 +293,6 @@ portletURL.setParameter("tabs3", tabs3);
 
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		form.fm('<%= Constants.CMD %>').val('password_policy_users');
 		form.fm('assignmentsRedirect').val(assignmentsRedirect);
 		form.fm('addUserIds').val(Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
 		form.fm('removeUserIds').val(Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
