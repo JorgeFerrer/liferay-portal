@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,8 +11,28 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/html/portlet/my_places/init.jsp" %>
+package com.liferay.poshi.runner.util;
 
-<liferay-ui:my-sites />
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @author Karen Dang
+ * @author Michael Hashimoto
+ */
+public class RegexUtil {
+
+	public static String replace(String content, String regex, String group) {
+		Pattern pattern = Pattern.compile(regex);
+
+		Matcher matcher = pattern.matcher(content);
+
+		while (matcher.find()) {
+			return matcher.group(GetterUtil.getInteger(group));
+		}
+
+		return null;
+	}
+
+}

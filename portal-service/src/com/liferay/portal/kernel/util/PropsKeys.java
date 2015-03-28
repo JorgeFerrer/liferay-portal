@@ -841,8 +841,6 @@ public interface PropsKeys {
 
 	public static final String EHCACHE_CACHE_MANAGER_PEER_PROVIDER_FACTORY = "ehcache.cache.manager.peer.provider.factory";
 
-	public static final String EHCACHE_CACHE_MANAGER_STATISTICS_THREAD_POOL_SIZE = "ehcache.cache.manager.statistics.thread.pool.size";
-
 	public static final String EHCACHE_CLUSTER_LINK_REPLICATION_ENABLED = "ehcache.cluster.link.replication.enabled";
 
 	public static final String EHCACHE_MULTI_VM_CONFIG_LOCATION = "ehcache.multi.vm.config.location";
@@ -2650,6 +2648,8 @@ public interface PropsKeys {
 	public static final String USERS_SCREEN_NAME_ALWAYS_AUTOGENERATE = "users.screen.name.always.autogenerate";
 
 	public static final String USERS_SCREEN_NAME_GENERATOR = "users.screen.name.generator";
+
+	public static final String USERS_SCREEN_NAME_SPECIAL_CHARACTERS = "users.screen.name.special.characters";
 
 	public static final String USERS_SCREEN_NAME_VALIDATOR = "users.screen.name.validator";
 

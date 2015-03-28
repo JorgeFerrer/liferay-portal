@@ -16,4 +16,7 @@
 
 <%@ include file="/html/portlet/init.jsp" %>
 
-<%@ include file="/html/portlet/my_places/init-ext.jsp" %>
+<%@ page import="com.liferay.portal.MembershipRequestCommentsException" %><%@
+page import="com.liferay.portlet.usersadmin.search.GroupDisplayTerms" %>
+
+<%@ include file="/html/portlet/my_sites/init-ext.jsp" %>
