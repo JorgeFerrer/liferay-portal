@@ -40,6 +40,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 /**
+ * @author Brian Wing Shun Chan
+ * @author Scott Lee
  * @author Drew Brokke
  */
 public class PasswordPoliciesAdminPortlet extends MVCPortlet {
