@@ -167,6 +167,10 @@ public class EditConfigurationAction extends PortletAction {
 			portlet = ActionUtil.getPortlet(resourceRequest);
 		}
 		catch (PrincipalException pe) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(pe, pe);
+			}
+
 			return;
 		}
 
