@@ -67,7 +67,6 @@ portletURL.setParameter("tabs3", tabs3);
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 	<aui:input name="tabs3" type="hidden" value="<%= tabs3 %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-	<aui:input name="assignmentsRedirect" type="hidden" />
 	<aui:input name="passwordPolicyId" type="hidden" value="<%= String.valueOf(passwordPolicy.getPasswordPolicyId()) %>" />
 
 	<c:choose>
@@ -149,7 +148,7 @@ portletURL.setParameter("tabs3", tabs3);
 				<div class="separator"><!-- --></div>
 
 				<%
-				String taglibOnClick = renderResponse.getNamespace() + "updatePasswordPolicyUsers('" + portletURL.toString() + StringPool.AMPERSAND + renderResponse.getNamespace() + "cur=" + cur + "');";
+				String taglibOnClick = renderResponse.getNamespace() + "updatePasswordPolicyUsers();";
 				%>
 
 				<aui:button onClick="<%= taglibOnClick %>" value="update-associations" />
@@ -264,7 +263,7 @@ portletURL.setParameter("tabs3", tabs3);
 				<div class="separator"><!-- --></div>
 
 				<%
-				String taglibOnClick = renderResponse.getNamespace() + "updatePasswordPolicyOrganizations('" + portletURL.toString() + StringPool.AMPERSAND + renderResponse.getNamespace() + "cur=" + cur + "');";
+				String taglibOnClick = renderResponse.getNamespace() + "updatePasswordPolicyOrganizations();";
 				%>
 
 				<aui:button onClick="<%= taglibOnClick %>" value="update-associations" />
@@ -276,24 +275,22 @@ portletURL.setParameter("tabs3", tabs3);
 </aui:form>
 
 <aui:script>
-	function <portlet:namespace />updatePasswordPolicyOrganizations(assignmentsRedirect) {
+	function <portlet:namespace />updatePasswordPolicyOrganizations() {
 		var Util = Liferay.Util;
 
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		form.fm('assignmentsRedirect').val(assignmentsRedirect);
 		form.fm('addOrganizationIds').val(Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
 		form.fm('removeOrganizationIds').val(Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
 
 		submitForm(form);
 	}
 
-	function <portlet:namespace />updatePasswordPolicyUsers(assignmentsRedirect) {
+	function <portlet:namespace />updatePasswordPolicyUsers() {
 		var Util = Liferay.Util;
 
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		form.fm('assignmentsRedirect').val(assignmentsRedirect);
 		form.fm('addUserIds').val(Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
 		form.fm('removeUserIds').val(Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
 
