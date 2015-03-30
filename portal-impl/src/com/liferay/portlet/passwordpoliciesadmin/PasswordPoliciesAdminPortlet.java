@@ -141,26 +141,27 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 			ParamUtil.getString(actionRequest, "addUserIds"), 0L);
 		long[] removeUserIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "removeUserIds"), 0L);
-
-		if (ArrayUtil.isNotEmpty(addUserIds) ||
-			ArrayUtil.isNotEmpty(removeUserIds)) {
-
-			UserServiceUtil.addPasswordPolicyUsers(
-				passwordPolicyId, addUserIds);
-			UserServiceUtil.unsetPasswordPolicyUsers(
-				passwordPolicyId, removeUserIds);
-		}
-
 		long[] addOrganizationIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "addOrganizationIds"), 0L);
 		long[] removeOrganizationIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "removeOrganizationIds"), 0L);
 
-		if (ArrayUtil.isNotEmpty(addOrganizationIds) ||
-			ArrayUtil.isNotEmpty(removeOrganizationIds)) {
+		if (ArrayUtil.isNotEmpty(addUserIds)) {
+			UserServiceUtil.addPasswordPolicyUsers(
+				passwordPolicyId, addUserIds);
+		}
 
+		if (ArrayUtil.isNotEmpty(removeUserIds)) {
+			UserServiceUtil.unsetPasswordPolicyUsers(
+				passwordPolicyId, removeUserIds);
+		}
+
+		if (ArrayUtil.isNotEmpty(addOrganizationIds)) {
 			OrganizationServiceUtil.addPasswordPolicyOrganizations(
 				passwordPolicyId, addOrganizationIds);
+		}
+
+		if (ArrayUtil.isNotEmpty(removeOrganizationIds)) {
 			OrganizationServiceUtil.unsetPasswordPolicyOrganizations(
 				passwordPolicyId, removeOrganizationIds);
 		}
