@@ -14,7 +14,6 @@
 
 package com.liferay.portlet.portletconfiguration.action;
 
-import com.liferay.portal.NoSuchLayoutException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
@@ -230,15 +229,13 @@ public class EditScopeAction extends PortletAction {
 			String scopeLayoutUuid = GetterUtil.getString(
 				portletPreferences.getValue("lfrScopeLayoutUuid", null));
 
-			try {
-				Layout scopeLayout =
-					LayoutLocalServiceUtil.getLayoutByUuidAndGroupId(
-						scopeLayoutUuid, layout.getGroupId(),
-						layout.isPrivateLayout());
+			Layout scopeLayout =
+				LayoutLocalServiceUtil.fetchLayoutByUuidAndGroupId(
+					scopeLayoutUuid, layout.getGroupId(),
+					layout.isPrivateLayout());
 
+			if (scopeLayout != null) {
 				scopeName = scopeLayout.getName(themeDisplay.getLocale());
-			}
-			catch (NoSuchLayoutException nsle) {
 			}
 		}
 		else {
