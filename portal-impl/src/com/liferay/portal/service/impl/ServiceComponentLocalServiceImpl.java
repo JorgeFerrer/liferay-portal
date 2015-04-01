@@ -27,18 +27,34 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTable;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTableFactoryUtil;
 import com.liferay.portal.kernel.upgrade.util.UpgradeTableListener;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.ModelHintsUtil;
+import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.ResourcePermission;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.ServiceComponent;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.ResourceActionsUtil;
+import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.base.ServiceComponentLocalServiceBaseImpl;
 import com.liferay.portal.service.configuration.ServiceComponentConfiguration;
 import com.liferay.portal.tools.servicebuilder.Entity;
+import com.liferay.portal.util.PortalInstances;
+import com.liferay.portal.util.PortletCategoryKeys;
+import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
 
 import java.io.IOException;
@@ -217,6 +233,46 @@ public class ServiceComponentLocalServiceImpl
 			}
 			catch (Exception e) {
 				_log.error(e, e);
+			}
+		}
+	}
+
+	@Override
+	public void verifyRoles() throws Exception {
+		long[] companyIds = PortalInstances.getCompanyIdsBySQL();
+
+		for (long companyId : companyIds) {
+			RoleLocalServiceUtil.checkSystemRoles(companyId);
+
+			List<Role> roles = RoleLocalServiceUtil.getRoles(companyId);
+
+			for (Role role : roles) {
+				List<ResourcePermission> resourcePermissions =
+					ResourcePermissionLocalServiceUtil
+						.getRoleResourcePermissions(role.getRoleId());
+
+				for (ResourcePermission resourcePermission :
+					resourcePermissions) {
+
+					int scope = resourcePermission.getScope();
+
+					if (scope == ResourceConstants.SCOPE_INDIVIDUAL) {
+						continue;
+					}
+
+					if (resourcePermission.hasActionId(
+							ActionKeys.ACCESS_IN_CONTROL_PANEL)) {
+
+						String name = resourcePermission.getName();
+						String primKey = resourcePermission.getPrimKey();
+
+						updateViewControlPanelPermission(
+							role, name, primKey, scope);
+
+						updateViewRootResourcePermission(
+							role, name, primKey, scope);
+					}
+				}
 			}
 		}
 	}
@@ -455,6 +511,86 @@ public class ServiceComponentLocalServiceImpl
 			ServiceComponent serviceComponent = serviceComponents.get(i);
 
 			serviceComponentPersistence.remove(serviceComponent);
+		}
+	}
+
+	protected void updateAction(
+			Role role, String selResource, String actionId, String curGroupId,
+			int scope)
+		throws Exception {
+
+		long companyId = role.getCompanyId();
+		long roleId = role.getRoleId();
+
+		if (scope == ResourceConstants.SCOPE_COMPANY) {
+			ResourcePermissionLocalServiceUtil.addResourcePermission(
+				companyId, selResource, scope,
+				String.valueOf(role.getCompanyId()), roleId, actionId);
+		}
+		else if (scope == ResourceConstants.SCOPE_GROUP_TEMPLATE) {
+			ResourcePermissionLocalServiceUtil.addResourcePermission(
+				companyId, selResource, ResourceConstants.SCOPE_GROUP_TEMPLATE,
+				String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID), roleId,
+				actionId);
+		}
+		else if (scope == ResourceConstants.SCOPE_GROUP) {
+			ResourcePermissionLocalServiceUtil.addResourcePermission(
+				companyId, selResource, ResourceConstants.SCOPE_GROUP,
+				curGroupId, roleId, actionId);
+		}
+	}
+
+	protected void updateViewControlPanelPermission(
+			Role role, String portletId, String primKey, int scope)
+		throws Exception {
+
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(
+			role.getCompanyId(), portletId);
+
+		if (Validator.isNull(portlet)) {
+			return;
+		}
+
+		String controlPanelCategory = portlet.getControlPanelEntryCategory();
+
+		if (Validator.isNull(controlPanelCategory)) {
+			return;
+		}
+
+		String selResource = null;
+		String actionId = null;
+
+		if (ArrayUtil.contains(PortletCategoryKeys.ALL, controlPanelCategory)) {
+			selResource = PortletKeys.PORTAL;
+			actionId = ActionKeys.VIEW_CONTROL_PANEL;
+		}
+		else if (ArrayUtil.contains(PortletCategoryKeys.SITE_ADMINISTRATION_ALL,
+				controlPanelCategory)) {
+
+			selResource = Group.class.getName();
+			actionId = ActionKeys.VIEW_SITE_ADMINISTRATION;
+		}
+
+		if (selResource != null) {
+			updateAction(role, selResource, actionId, primKey, scope);
+		}
+	}
+
+	protected void updateViewRootResourcePermission(
+			Role role, String portletId, String primKey, int scope)
+		throws Exception {
+
+		String modelResource = ResourceActionsUtil.getPortletRootModelResource(
+			portletId);
+
+		if (modelResource != null) {
+			List<String> actions = ResourceActionsUtil.getModelResourceActions(
+				modelResource);
+
+			if (actions.contains(ActionKeys.VIEW)) {
+				updateAction(
+					role, modelResource, ActionKeys.VIEW, primKey, scope);
+			}
 		}
 	}
 

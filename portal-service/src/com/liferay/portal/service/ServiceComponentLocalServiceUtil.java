@@ -290,6 +290,10 @@ public class ServiceComponentLocalServiceUtil {
 		getService().verifyDB();
 	}
 
+	public static void verifyRoles() throws java.lang.Exception {
+		getService().verifyRoles();
+	}
+
 	public static ServiceComponentLocalService getService() {
 		if (_service == null) {
 			_service = (ServiceComponentLocalService)PortalBeanLocatorUtil.locate(ServiceComponentLocalService.class.getName());

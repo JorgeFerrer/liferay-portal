@@ -195,6 +195,14 @@ long usedMemory = totalMemory - runtime.freeMemory();
 		</tr>
 		<tr>
 			<td>
+				<liferay-ui:message key="verify-roles" />
+			</td>
+			<td>
+				<aui:button cssClass="save-server-button" data-cmd="verifyRoles" value="execute" />
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<liferay-ui:message key="clean-up-permissions" /> <liferay-ui:icon-help message="clean-up-permissions-help" />
 			</td>
 			<td>

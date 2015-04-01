@@ -305,6 +305,11 @@ public class ServiceComponentLocalServiceWrapper
 		_serviceComponentLocalService.verifyDB();
 	}
 
+	@Override
+	public void verifyRoles() throws java.lang.Exception {
+		_serviceComponentLocalService.verifyRoles();
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

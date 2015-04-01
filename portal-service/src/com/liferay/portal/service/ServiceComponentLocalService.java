@@ -250,4 +250,6 @@ public interface ServiceComponentLocalService extends BaseLocalService,
 		java.lang.String indexesSQL) throws java.lang.Exception;
 
 	public void verifyDB();
+
+	public void verifyRoles() throws java.lang.Exception;
 }

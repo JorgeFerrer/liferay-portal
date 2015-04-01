@@ -232,6 +232,9 @@ public class EditServerAction extends PortletAction {
 		else if (cmd.equals("verifyPluginTables")) {
 			verifyPluginTables();
 		}
+		else if (cmd.equals("verifyRoles")) {
+			verifyRoles();
+		}
 
 		sendRedirect(actionRequest, actionResponse, redirect);
 	}
@@ -950,6 +953,10 @@ public class EditServerAction extends PortletAction {
 
 	protected void verifyPluginTables() throws Exception {
 		ServiceComponentLocalServiceUtil.verifyDB();
+	}
+
+	protected void verifyRoles() throws Exception {
+		ServiceComponentLocalServiceUtil.verifyRoles();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
