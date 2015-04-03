@@ -578,7 +578,7 @@ public class S3Store extends BaseStore {
 			return headKey.substring(x + 1);
 		}
 		else {
-			throw new NoSuchFileException(fileName);
+			throw new NoSuchFileException(companyId, repositoryId, fileName);
 		}
 	}
 
