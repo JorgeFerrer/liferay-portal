@@ -76,7 +76,7 @@ public interface DLContentLocalService extends BaseLocalService,
 
 	public void deleteContent(long companyId, long repositoryId,
 		java.lang.String path, java.lang.String version)
-		throws PortalException;
+		throws com.liferay.portlet.documentlibrary.NoSuchContentException;
 
 	public void deleteContents(long companyId, long repositoryId,
 		java.lang.String path);
