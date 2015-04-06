@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
@@ -287,8 +288,9 @@ public class SettingsConfigurationAction
 			String portletResource = ParamUtil.getString(
 				actionRequest, "portletResource");
 
-			return SettingsFactoryUtil.getPortletInstanceSettings(
-				themeDisplay.getLayout(), portletResource);
+			return SettingsFactoryUtil.getSettings(
+				new PortletInstanceSettingsLocator(
+					themeDisplay.getLayout(), portletResource));
 		}
 
 		throw new IllegalArgumentException(

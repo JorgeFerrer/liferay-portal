@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.PortletInstanceSettings;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
@@ -45,8 +46,8 @@ public class DLPortletInstanceSettings implements PortletInstanceSettings {
 			Layout layout, String portletId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
-			layout, portletId);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new PortletInstanceSettingsLocator(layout, portletId));
 
 		return new DLPortletInstanceSettings(settings);
 	}
@@ -55,8 +56,8 @@ public class DLPortletInstanceSettings implements PortletInstanceSettings {
 			Layout layout, String portletId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getPortletInstanceSettings(
-			layout, portletId);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new PortletInstanceSettingsLocator(layout, portletId));
 
 		Settings parameterMapSettings = new ParameterMapSettings(
 			parameterMap, settings);

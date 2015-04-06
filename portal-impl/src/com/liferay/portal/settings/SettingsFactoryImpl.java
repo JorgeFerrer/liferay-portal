@@ -90,40 +90,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getPortletInstanceSettings(Layout layout, String portletId)
-		throws SettingsException {
-
-		long companyId = getCompanyId(layout.getGroupId());
-
-		Settings portalPropertiesSettings =
-			_settingsLocatorHelper.getPortalPropertiesSettings();
-
-		Settings configurationBeanSettings =
-			_settingsLocatorHelper.getConfigurationBeanSettings(
-				portletId, portalPropertiesSettings);
-
-		Settings portalPreferencesSettings =
-			_settingsLocatorHelper.getPortalPreferencesSettings(
-				companyId, configurationBeanSettings);
-
-		Settings companyPortletPreferencesSettings =
-			_settingsLocatorHelper.getCompanyPortletPreferencesSettings(
-				companyId, portletId, portalPreferencesSettings);
-
-		Settings groupPortletPreferencesSettings =
-			_settingsLocatorHelper.getGroupPortletPreferencesSettings(
-				layout.getGroupId(), portletId,
-				companyPortletPreferencesSettings);
-
-		Settings portletInstancePortletPreferencesSettings =
-			_settingsLocatorHelper.getPortletInstancePortletPreferencesSettings(
-				layout, portletId, groupPortletPreferencesSettings);
-
-		return applyFallbackKeys(
-			portletId, portletInstancePortletPreferencesSettings);
-	}
-
-	@Override
 	public Settings getServerSettings(String settingsId) {
 		Settings portalPropertiesSettings =
 			_settingsLocatorHelper.getPortalPropertiesSettings();
