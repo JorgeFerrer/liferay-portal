@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.settings.SettingsLocator;
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
@@ -51,29 +52,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 	public SettingsFactoryImpl() {
 		registerSettingsMetadata(PortalSettings.class, null, null);
-	}
-
-	@Override
-	public Settings getCompanyServiceSettings(
-		long companyId, String serviceName) {
-
-		Settings portalPropertiesSettings =
-			_settingsLocatorHelper.getPortalPropertiesSettings();
-
-		Settings configurationBeanSettings =
-			_settingsLocatorHelper.getConfigurationBeanSettings(
-				serviceName, portalPropertiesSettings);
-
-		Settings portalPreferencesSettings =
-			_settingsLocatorHelper.getPortalPreferencesSettings(
-				companyId, configurationBeanSettings);
-
-		Settings companyPortletPreferencesSettings =
-			_settingsLocatorHelper.getCompanyPortletPreferencesSettings(
-				companyId, serviceName, portalPreferencesSettings);
-
-		return applyFallbackKeys(
-			serviceName, companyPortletPreferencesSettings);
 	}
 
 	@Override
@@ -180,6 +158,14 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		return _settingsLocatorHelper.getConfigurationBeanSettings(
 			settingsId, portalPropertiesSettings);
+	}
+
+	public Settings getSettings(SettingsLocator settingsLocator)
+		throws SettingsException {
+
+		Settings settings = settingsLocator.retrieveSettings();
+
+		return applyFallbackKeys(settingsLocator.getSettingsId(), settings);
 	}
 
 	@Override

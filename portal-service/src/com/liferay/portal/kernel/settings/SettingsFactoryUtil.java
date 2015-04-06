@@ -25,13 +25,6 @@ import java.util.List;
  */
 public class SettingsFactoryUtil {
 
-	public static Settings getCompanyServiceSettings(
-		long companyId, String serviceName) {
-
-		return getSettingsFactory().getCompanyServiceSettings(
-			companyId, serviceName);
-	}
-
 	public static Settings getGroupServiceSettings(
 			long groupId, String serviceName)
 		throws SettingsException {
@@ -65,6 +58,12 @@ public class SettingsFactoryUtil {
 
 	public static Settings getServerSettings(String settingsId) {
 		return getSettingsFactory().getServerSettings(settingsId);
+	}
+
+	public static Settings getSettings(SettingsLocator settingsLocator)
+		throws SettingsException {
+
+		return getSettingsFactory().getSettings(settingsLocator);
 	}
 
 	public static SettingsDescriptor getSettingsDescriptor(String settingsId) {
