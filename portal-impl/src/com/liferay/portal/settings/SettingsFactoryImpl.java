@@ -221,10 +221,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	public void unregisterSettingsDefinition(
 		SettingsDefinition<?, ?> settingsDefinition) {
 
-		SettingsDescriptor settingsDescriptor =
-			new SettingsDefinitionSettingsDescriptor(settingsDefinition);
-
-		_unregister(settingsDescriptor);
+		_unregister(settingsDefinition.getSettingsIds());
 	}
 
 	protected Settings applyFallbackKeys(String settingsId, Settings settings) {
@@ -419,15 +416,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		}
 	}
 
-	private void _unregister(SettingsDescriptor settingsDescriptor) {
-		for (String settingsId : settingsDescriptor.getSettingsIds()) {
-			_configurationBeans.remove(settingsId);
-
+	private void _unregister(String[] settingsIds) {
+		for (String settingsId : settingsIds) {
 			_fallbackKeysMap.remove(settingsId);
 
 			_portletPropertiesMap.remove(settingsId);
 
-			_settingsDescriptors.put(settingsId, settingsDescriptor);
+			_settingsDescriptors.remove(settingsId);
 		}
 	}
 
