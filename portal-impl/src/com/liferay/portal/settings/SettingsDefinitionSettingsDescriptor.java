@@ -14,6 +14,8 @@
 
 package com.liferay.portal.settings;
 
+import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
+import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
 
@@ -34,6 +36,11 @@ public class SettingsDefinitionSettingsDescriptor
 
 		_settingsDefinition = settingsDefinition;
 
+		Class<?> settingsClass = settingsDefinition.getSettingsClass();
+
+		_resourceManager = new ClassLoaderResourceManager(
+			settingsClass.getClassLoader());
+
 		_initAllKeys();
 		_initMultiValuedKeys();
 		_initSettingsIds();
@@ -47,6 +54,10 @@ public class SettingsDefinitionSettingsDescriptor
 	@Override
 	public Set<String> getMultiValuedKeys() {
 		return _multiValuedKeys;
+	}
+
+	public ResourceManager getResourceManager() {
+		return _resourceManager;
 	}
 
 	@Override
@@ -91,6 +102,7 @@ public class SettingsDefinitionSettingsDescriptor
 
 	private final Set<String> _allKeys = new HashSet<>();
 	private final Set<String> _multiValuedKeys = new HashSet<>();
+	private final ResourceManager _resourceManager;
 	private final SettingsDefinition<?, ?> _settingsDefinition;
 	private final Set<String> _settingsIds = new HashSet<>();
 

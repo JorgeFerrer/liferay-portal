@@ -396,7 +396,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	protected ResourceManager getResourceManager(String settingsId) {
 		settingsId = PortletConstants.getRootPortletId(settingsId);
 
-		return _resourceManagers.get(settingsId);
+		SettingsDescriptor settingsDescriptor = _settingsDescriptors.get(
+			settingsId);
+
+		return settingsDescriptor.getResourceManager();
 	}
 
 	private void _register(
@@ -413,12 +416,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			if (fallbackKeys != null) {
 				_fallbackKeysMap.put(settingsId, fallbackKeys);
 			}
-
-			Class<?> settingsClass = settingsDescriptor.getSettingsClass();
-
-			_resourceManagers.put(
-				settingsId,
-				new ClassLoaderResourceManager(settingsClass.getClassLoader()));
 		}
 	}
 
@@ -429,8 +426,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			_fallbackKeysMap.remove(settingsId);
 
 			_portletPropertiesMap.remove(settingsId);
-
-			_resourceManagers.remove(settingsId);
 
 			_settingsDescriptors.put(settingsId, settingsDescriptor);
 		}
@@ -455,8 +450,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	private final ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =
 		new ConcurrentHashMap<>();
 	private final Map<String, Properties> _portletPropertiesMap =
-		new ConcurrentHashMap<>();
-	private final ConcurrentMap<String, ResourceManager> _resourceManagers =
 		new ConcurrentHashMap<>();
 	private final Map<String, SettingsDescriptor> _settingsDescriptors =
 		new ConcurrentHashMap<>();
