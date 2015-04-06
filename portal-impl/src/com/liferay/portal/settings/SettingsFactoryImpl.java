@@ -66,10 +66,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public void clearCache() {
-	}
-
-	@Override
 	public Settings getCompanyServiceSettings(
 		long companyId, String serviceName) {
 

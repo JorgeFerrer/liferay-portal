@@ -25,8 +25,6 @@ import java.util.List;
  */
 public interface SettingsFactory {
 
-	public void clearCache();
-
 	public Settings getCompanyServiceSettings(
 		long companyId, String serviceName);
 
