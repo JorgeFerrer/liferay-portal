@@ -67,7 +67,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 	@Override
 	public void clearCache() {
-		_portletPropertiesMap.clear();
 	}
 
 	@Override
@@ -364,33 +363,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		return portletItem;
 	}
 
-	protected Properties getPortletProperties(String serviceName) {
-		Properties properties = _portletPropertiesMap.get(serviceName);
-
-		if (properties == null) {
-			properties = new Properties();
-
-			ResourceManager resourceManager = getResourceManager(serviceName);
-
-			if (resourceManager != null) {
-				ResourceRetriever resourceRetriever =
-					resourceManager.getResourceRetriever("portlet.properties");
-
-				InputStream inputStream = resourceRetriever.getInputStream();
-
-				try {
-					properties.load(inputStream);
-				}
-				catch (Exception e) {
-				}
-
-				_portletPropertiesMap.put(serviceName, properties);
-			}
-		}
-
-		return properties;
-	}
-
 	protected ResourceManager getResourceManager(String settingsId) {
 		settingsId = PortletConstants.getRootPortletId(settingsId);
 
@@ -416,8 +388,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		for (String settingsId : settingsIds) {
 			_fallbackKeysMap.remove(settingsId);
 
-			_portletPropertiesMap.remove(settingsId);
-
 			_settingsDescriptors.remove(settingsId);
 		}
 	}
@@ -440,8 +410,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	private final ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =
-		new ConcurrentHashMap<>();
-	private final Map<String, Properties> _portletPropertiesMap =
 		new ConcurrentHashMap<>();
 	private final Map<String, SettingsDescriptor> _settingsDescriptors =
 		new ConcurrentHashMap<>();
