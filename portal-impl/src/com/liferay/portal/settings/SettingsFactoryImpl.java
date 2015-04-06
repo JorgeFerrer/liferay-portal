@@ -55,34 +55,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getGroupServiceSettings(long groupId, String serviceName)
-		throws SettingsException {
-
-		long companyId = getCompanyId(groupId);
-
-		Settings portalPropertiesSettings =
-			_settingsLocatorHelper.getPortalPropertiesSettings();
-
-		Settings configurationBeanSettings =
-			_settingsLocatorHelper.getConfigurationBeanSettings(
-				serviceName, portalPropertiesSettings);
-
-		Settings portalPreferencesSettings =
-			_settingsLocatorHelper.getPortalPreferencesSettings(
-				companyId, configurationBeanSettings);
-
-		Settings companyPortletPreferencesSettings =
-			_settingsLocatorHelper.getCompanyPortletPreferencesSettings(
-				companyId, serviceName, portalPreferencesSettings);
-
-		Settings groupPortletPreferencesSettings =
-			_settingsLocatorHelper.getGroupPortletPreferencesSettings(
-				groupId, serviceName, companyPortletPreferencesSettings);
-
-		return applyFallbackKeys(serviceName, groupPortletPreferencesSettings);
-	}
-
-	@Override
 	public ArchivedSettings getPortletInstanceArchivedSettings(
 			long groupId, String portletId, String name)
 		throws SettingsException {

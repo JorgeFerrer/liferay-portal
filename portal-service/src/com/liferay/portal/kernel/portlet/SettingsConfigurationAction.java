@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
@@ -278,8 +279,9 @@ public class SettingsConfigurationAction
 					themeDisplay.getCompanyId(), serviceName));
 		}
 		else if (settingsScope.equals("group")) {
-			return SettingsFactoryUtil.getGroupServiceSettings(
-				themeDisplay.getSiteGroupId(), serviceName);
+			return SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					themeDisplay.getSiteGroupId(), serviceName));
 		}
 		else if (settingsScope.equals("portletInstance")) {
 			String portletResource = ParamUtil.getString(
