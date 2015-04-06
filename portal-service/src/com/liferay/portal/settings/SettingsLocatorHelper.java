@@ -148,17 +148,6 @@ public class SettingsLocatorHelper {
 			parentSettings);
 	}
 
-	protected long getCompanyId(long groupId) throws SettingsException {
-		try {
-			Group group = GroupLocalServiceUtil.getGroup(groupId);
-
-			return group.getCompanyId();
-		}
-		catch (PortalException pe) {
-			throw new SettingsException(pe);
-		}
-	}
-
 	protected Object getConfigurationBean(String settingsId) {
 		settingsId = PortletConstants.getRootPortletId(settingsId);
 

@@ -25,9 +25,6 @@ import java.util.List;
  */
 public interface SettingsFactory {
 
-	public Settings getGroupServiceSettings(long groupId, String serviceName)
-		throws SettingsException;
-
 	public ArchivedSettings getPortletInstanceArchivedSettings(
 			long groupId, String portletId, String name)
 		throws SettingsException;

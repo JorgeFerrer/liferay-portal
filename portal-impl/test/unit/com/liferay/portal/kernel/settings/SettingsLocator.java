@@ -22,6 +22,6 @@ public interface SettingsLocator {
 
 	public String getSettingsId();
 
-	public Settings retrieveSettings();
+	public Settings retrieveSettings() throws SettingsException;
 
 }
