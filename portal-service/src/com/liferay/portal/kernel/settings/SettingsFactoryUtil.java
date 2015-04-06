@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.settings;
 
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
-import com.liferay.portal.model.Layout;
 
 import java.util.List;
 
@@ -38,14 +37,6 @@ public class SettingsFactoryUtil {
 
 		return getSettingsFactory().getPortletInstanceArchivedSettingsList(
 			groupId, portletId);
-	}
-
-	public static Settings getPortletInstanceSettings(
-			Layout layout, String portletId)
-		throws SettingsException {
-
-		return getSettingsFactory().getPortletInstanceSettings(
-			layout, portletId);
 	}
 
 	public static Settings getServerSettings(String settingsId) {
