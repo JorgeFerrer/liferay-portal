@@ -25,9 +25,6 @@ import java.util.List;
  */
 public interface SettingsFactory {
 
-	public Settings getCompanyServiceSettings(
-		long companyId, String serviceName);
-
 	public Settings getGroupServiceSettings(long groupId, String serviceName)
 		throws SettingsException;
 
@@ -42,6 +39,9 @@ public interface SettingsFactory {
 		throws SettingsException;
 
 	public Settings getServerSettings(String settingsId);
+
+	public Settings getSettings(SettingsLocator settingsLocator)
+		throws SettingsException;
 
 	public SettingsDescriptor getSettingsDescriptor(String settingsId);
 
