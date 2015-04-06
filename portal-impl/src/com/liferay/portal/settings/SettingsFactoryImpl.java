@@ -201,9 +201,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean) {
 
 		SettingsDescriptor settingsDescriptor =
-			new SettingsDefinitionSettingsDescriptor(settingsDefinition);
+			new SettingsDefinitionSettingsDescriptor(
+				settingsDefinition, configurationBean);
 
-		_register(settingsDescriptor, configurationBean, null);
+		_register(settingsDescriptor, null);
 	}
 
 	@Override
@@ -212,9 +213,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		FallbackKeys fallbackKeys) {
 
 		SettingsDescriptor settingsDescriptor = new AnnotatedSettingsDescriptor(
-			settingsClass);
+			settingsClass, configurationBean);
 
-		_register(settingsDescriptor, configurationBean, fallbackKeys);
+		_register(settingsDescriptor, fallbackKeys);
 	}
 
 	@Override
@@ -400,15 +401,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	private void _register(
-		SettingsDescriptor settingsDescriptor, Object configurationBean,
-		FallbackKeys fallbackKeys) {
+		SettingsDescriptor settingsDescriptor, FallbackKeys fallbackKeys) {
 
 		for (String settingsId : settingsDescriptor.getSettingsIds()) {
 			_settingsDescriptors.put(settingsId, settingsDescriptor);
-
-			if (configurationBean != null) {
-				_configurationBeans.put(settingsId, configurationBean);
-			}
 
 			if (fallbackKeys != null) {
 				_fallbackKeysMap.put(settingsId, fallbackKeys);
@@ -429,7 +425,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	private Object getConfigurationBean(String settingsId) {
 		settingsId = PortletConstants.getRootPortletId(settingsId);
 
-		return _configurationBeans.get(settingsId);
+		SettingsDescriptor settingsDescriptor = getSettingsDescriptor(
+			settingsId);
+
+		return settingsDescriptor.getConfigurationBean();
 	}
 
 	private Settings getConfigurationBeanSettings(
@@ -440,8 +439,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			getConfigurationBean(settingsId), parentSettings);
 	}
 
-	private final ConcurrentMap<String, Object> _configurationBeans =
-		new ConcurrentHashMap<>();
 	private final ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =
 		new ConcurrentHashMap<>();
 	private final Map<String, Properties> _portletPropertiesMap =

@@ -32,8 +32,11 @@ import java.util.Set;
  */
 public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 
-	public AnnotatedSettingsDescriptor(Class<?> settingsClass) {
+	public AnnotatedSettingsDescriptor(
+		Class<?> settingsClass, Object configurationBean) {
+
 		_settingsClass = settingsClass;
+		_configurationBean = configurationBean;
 
 		_resourceManager = new ClassLoaderResourceManager(
 			settingsClass.getClassLoader());
@@ -48,6 +51,10 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 	@Override
 	public Set<String> getAllKeys() {
 		return _allKeys;
+	}
+
+	public Object getConfigurationBean() {
+		return _configurationBean;
 	}
 
 	@Override
@@ -152,6 +159,7 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 	}
 
 	private final Set<String> _allKeys = new HashSet<>();
+	private final Object _configurationBean;
 	private final Set<String> _multiValuedKeys = new HashSet<>();
 	private final ResourceManager _resourceManager;
 	private final Class<?> _settingsClass;

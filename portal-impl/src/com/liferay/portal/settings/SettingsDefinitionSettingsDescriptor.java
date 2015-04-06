@@ -32,9 +32,10 @@ public class SettingsDefinitionSettingsDescriptor
 	implements SettingsDescriptor {
 
 	public SettingsDefinitionSettingsDescriptor(
-		SettingsDefinition<?, ?> settingsDefinition) {
+		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean) {
 
 		_settingsDefinition = settingsDefinition;
+		_configurationBean = configurationBean;
 
 		Class<?> settingsClass = settingsDefinition.getSettingsClass();
 
@@ -49,6 +50,11 @@ public class SettingsDefinitionSettingsDescriptor
 	@Override
 	public Set<String> getAllKeys() {
 		return _allKeys;
+	}
+
+	@Override
+	public Object getConfigurationBean() {
+		return _configurationBean;
 	}
 
 	@Override
@@ -101,6 +107,7 @@ public class SettingsDefinitionSettingsDescriptor
 	}
 
 	private final Set<String> _allKeys = new HashSet<>();
+	private final Object _configurationBean;
 	private final Set<String> _multiValuedKeys = new HashSet<>();
 	private final ResourceManager _resourceManager;
 	private final SettingsDefinition<?, ?> _settingsDefinition;

@@ -25,6 +25,8 @@ public interface SettingsDescriptor {
 
 	public Set<String> getAllKeys();
 
+	public Object getConfigurationBean();
+
 	public Set<String> getMultiValuedKeys();
 
 	public ResourceManager getResourceManager();
