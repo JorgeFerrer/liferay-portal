@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.settings;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.settings.SettingsLocatorHelper;
 
 /**
  * @author Ivan Zaera

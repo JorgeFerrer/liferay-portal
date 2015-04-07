@@ -12,11 +12,13 @@
  * details.
  */
 
-package com.liferay.portal.settings;
+package com.liferay.portal.kernel.settings;
 
+import com.liferay.portal.kernel.settings.LocationVariableResolver;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.settings.MockResourceManager;
 import com.liferay.portal.util.FileImpl;
 
 import java.io.File;

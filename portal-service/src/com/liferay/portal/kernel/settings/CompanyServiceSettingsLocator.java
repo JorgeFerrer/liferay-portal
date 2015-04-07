@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.settings;
 
-import com.liferay.portal.settings.SettingsLocatorHelper;
-
 /**
  * @author Ivan Zaera
  * @author Jorge Ferrer

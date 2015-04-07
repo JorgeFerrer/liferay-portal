@@ -15,7 +15,6 @@
 package com.liferay.portal.kernel.settings;
 
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
-import com.liferay.portal.model.Layout;
 
 import java.util.List;
 

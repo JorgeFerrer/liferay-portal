@@ -12,10 +12,8 @@
  * details.
  */
 
-package com.liferay.portal.settings;
+package com.liferay.portal.kernel.settings;
 
-import com.liferay.portal.kernel.settings.BaseSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.util.Properties;

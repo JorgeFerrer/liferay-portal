@@ -12,12 +12,9 @@
  * details.
  */
 
-package com.liferay.portal.settings;
+package com.liferay.portal.kernel.settings;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.settings.BaseSettings;
-import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.Settings;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
