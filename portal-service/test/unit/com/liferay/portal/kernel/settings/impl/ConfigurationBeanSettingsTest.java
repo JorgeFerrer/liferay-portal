@@ -12,7 +12,9 @@
  * details.
  */
 
-package com.liferay.portal.kernel.settings;
+package com.liferay.portal.kernel.settings.impl;
+
+import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 
 import org.junit.Assert;
 import org.junit.Before;

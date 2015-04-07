@@ -19,10 +19,10 @@ import com.liferay.bookmarks.constants.BookmarksConstants;
 import com.liferay.bookmarks.settings.BookmarksGroupServiceSettings;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.settings.impl.ParameterMapSettings;
 
 import java.util.Map;
 

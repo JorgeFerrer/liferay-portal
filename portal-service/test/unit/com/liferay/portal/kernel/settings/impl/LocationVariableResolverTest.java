@@ -12,10 +12,13 @@
  * details.
  */
 
-package com.liferay.portal.kernel.settings;
+package com.liferay.portal.kernel.settings.impl;
 
+import com.liferay.portal.kernel.settings.MockFile;
+import com.liferay.portal.kernel.settings.MockResourceManager;
+import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.FileUtil;
-//import com.liferay.portal.util.FileImpl;
 
 import java.io.File;
 import java.io.IOException;
