@@ -14,12 +14,8 @@
 
 package com.liferay.portal.kernel.settings;
 
-import com.liferay.portal.kernel.settings.LocationVariableResolver;
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.settings.MockResourceManager;
-import com.liferay.portal.util.FileImpl;
+//import com.liferay.portal.util.FileImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,10 +36,10 @@ import org.powermock.api.mockito.PowerMockito;
 public class LocationVariableResolverTest extends PowerMockito {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		FileUtil fileUtil = new FileUtil();
 
-		fileUtil.setFile(new FileImpl());
+		fileUtil.setFile(new MockFile());
 
 		_mockResourceManager = new MockResourceManager(
 			"En un lugar de la Mancha...");
