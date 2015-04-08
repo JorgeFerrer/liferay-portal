@@ -21,10 +21,10 @@ import com.liferay.portal.kernel.settings.PortletInstanceSettings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
 import com.liferay.portal.kernel.util.HashMapDictionary;
-import com.liferay.portal.settings.impl.ConfigurationBeanBuilder;
-import com.liferay.portal.settings.impl.GroupServiceSettingsProviderBuilder;
-import com.liferay.portal.settings.impl.PortletInstanceSettingsProviderBuilder;
-import com.liferay.portal.settings.impl.SettingsProviderBuilder;
+import com.liferay.portal.settings.internal.ConfigurationBeanBuilder;
+import com.liferay.portal.settings.internal.GroupServiceSettingsProviderBuilder;
+import com.liferay.portal.settings.internal.PortletInstanceSettingsProviderBuilder;
+import com.liferay.portal.settings.internal.SettingsProviderBuilder;
 
 import java.io.IOException;
 

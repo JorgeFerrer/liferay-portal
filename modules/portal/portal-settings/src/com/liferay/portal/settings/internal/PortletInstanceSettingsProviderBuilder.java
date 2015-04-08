@@ -12,16 +12,18 @@
  * details.
  */
 
-package com.liferay.portal.settings.impl;
+package com.liferay.portal.settings.internal;
 
-import com.liferay.portal.kernel.settings.GroupServiceSettings;
-import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
+import com.liferay.portal.kernel.settings.PortletInstanceSettings;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsProvider;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
+import com.liferay.portal.kernel.settings.internal.ParameterMapSettings;
+import com.liferay.portal.model.Layout;
 
 import java.lang.reflect.Constructor;
 
@@ -30,13 +32,13 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-public class GroupServiceSettingsProviderBuilder
-	<S extends GroupServiceSettings, C>
-	implements GroupServiceSettingsProvider<S>,
-			   SettingsProviderBuilder<GroupServiceSettingsProvider<S>> {
+public class PortletInstanceSettingsProviderBuilder
+	<P extends PortletInstanceSettings, C>
+	implements PortletInstanceSettingsProvider<P>,
+			   SettingsProviderBuilder<PortletInstanceSettingsProvider<P>> {
 
-	public GroupServiceSettingsProviderBuilder(
-		SettingsDefinition<S, C> settingsDefinition,
+	public PortletInstanceSettingsProviderBuilder(
+		SettingsDefinition<P, C> settingsDefinition,
 		SettingsFactory settingsFactory) {
 
 		_validateSettingsDefinition(settingsDefinition);
@@ -46,9 +48,11 @@ public class GroupServiceSettingsProviderBuilder
 	}
 
 	@Override
-	public S getGroupServiceSettings(long groupId) throws SettingsException {
-		Settings settings = _settingsFactory.getGroupServiceSettings(
-			groupId, _getSettingsId());
+	public P getPortletInstanceSettings(Layout layout, String portletId)
+		throws SettingsException {
+
+		Settings settings = _settingsFactory.getSettings(
+			new PortletInstanceSettingsLocator(layout, portletId));
 
 		try {
 			return _getSettings(settings);
@@ -60,12 +64,12 @@ public class GroupServiceSettingsProviderBuilder
 	}
 
 	@Override
-	public S getGroupServiceSettings(
-			long groupId, Map<String, String[]> parameterMap)
+	public P getPortletInstanceSettings(
+			Layout layout, String portletId, Map<String, String[]> parameterMap)
 		throws SettingsException {
 
-		Settings settings = _settingsFactory.getGroupServiceSettings(
-			groupId, _getSettingsId());
+		Settings settings = _settingsFactory.getSettings(
+			new PortletInstanceSettingsLocator(layout, portletId));
 
 		try {
 			return _getSettings(
@@ -78,30 +82,34 @@ public class GroupServiceSettingsProviderBuilder
 	}
 
 	@Override
-	public GroupServiceSettingsProvider<S> getSettingsProvider() {
+	public PortletInstanceSettingsProvider<P> getSettingsProvider() {
 		return this;
 	}
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	public Class<GroupServiceSettingsProvider<S>>
+	public Class<PortletInstanceSettingsProvider<P>>
 		getSettingsProviderServiceClass() {
 
-		return (Class)GroupServiceSettingsProvider.class;
+		return (Class)PortletInstanceSettingsProvider.class;
 	}
 
-	private S _getSettings(Settings settings) throws Exception {
+	private P _getSettings(Settings settings) throws Exception {
+		Object settingsExtraInstance = null;
+
 		Class<?> settingsExtraClass =
 			_settingsDefinition.getSettingsExtraClass();
 
-		Constructor<?> constructor = settingsExtraClass.getConstructor(
-			TypedSettings.class);
-
 		TypedSettings typedSettings = new TypedSettings(settings);
 
-		Object settingsExtraInstance = constructor.newInstance(typedSettings);
+		if (settingsExtraClass != null) {
+			Constructor<?> constructor = settingsExtraClass.getConstructor(
+				TypedSettings.class);
 
-		SettingsInvocationHandler<S, C> settingsInvocationHandler =
+			settingsExtraInstance = constructor.newInstance(typedSettings);
+		}
+
+		SettingsInvocationHandler<P, C> settingsInvocationHandler =
 			new SettingsInvocationHandler<>(
 				_settingsDefinition.getSettingsClass(), settingsExtraInstance,
 				typedSettings);
@@ -109,33 +117,19 @@ public class GroupServiceSettingsProviderBuilder
 		return settingsInvocationHandler.createProxy();
 	}
 
-	private String _getSettingsId() {
-		String[] settingsIds = _settingsDefinition.getSettingsIds();
-
-		return settingsIds[0];
-	}
-
 	private void _validateSettingsDefinition(
-		SettingsDefinition<S, C> settingsDefinition) {
+		SettingsDefinition<P, C> settingsDefinition) {
 
 		Class<?> settingsClass = settingsDefinition.getSettingsClass();
 
-		if (!GroupServiceSettings.class.isAssignableFrom(settingsClass)) {
+		if (!PortletInstanceSettings.class.isAssignableFrom(settingsClass)) {
 			throw new IllegalArgumentException(
 				"Settings class " + settingsClass.getName() + " is not a " +
-					"group service settings");
-		}
-
-		String[] settingsIds = settingsDefinition.getSettingsIds();
-
-		if (settingsIds.length != 1) {
-			throw new IllegalArgumentException(
-				"Group service settings definitions must return a single " +
-					"settings ID");
+					"portlet instance settings");
 		}
 	}
 
-	private final SettingsDefinition<S, C> _settingsDefinition;
+	private final SettingsDefinition<P, C> _settingsDefinition;
 	private final SettingsFactory _settingsFactory;
 
 }

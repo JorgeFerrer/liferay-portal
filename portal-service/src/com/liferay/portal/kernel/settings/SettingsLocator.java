@@ -12,15 +12,16 @@
  * details.
  */
 
-package com.liferay.portal.settings.impl;
+package com.liferay.portal.kernel.settings;
 
 /**
- * @author Iván Zaera
+ * @author Ivan Zaera
+ * @author Jorge Ferrer
  */
-public interface SettingsProviderBuilder<T> {
+public interface SettingsLocator {
 
-	public T getSettingsProvider();
+	public String getSettingsId();
 
-	public Class<T> getSettingsProviderServiceClass();
+	public Settings retrieveSettings() throws SettingsException;
 
 }
