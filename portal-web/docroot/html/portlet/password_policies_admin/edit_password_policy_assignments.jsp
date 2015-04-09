@@ -21,8 +21,6 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 String tabs2 = ParamUtil.getString(request, "tabs2", "users");
 String tabs3 = ParamUtil.getString(request, "tabs3", "current");
 
-int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
-
 String redirect = ParamUtil.getString(request, "redirect");
 
 long passwordPolicyId = ParamUtil.getLong(request, "passwordPolicyId");
@@ -58,15 +56,13 @@ portletURL.setParameter("tabs3", tabs3);
 	url="<%= portletURL.toString() %>"
 />
 
-<portlet:actionURL name="editPasswordPolicyAssignments" var="editPasswordPolicyAssignmentsURL">
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-</portlet:actionURL>
+<portlet:actionURL name="editPasswordPolicyAssignments" var="editPasswordPolicyAssignmentsURL" />
 
 <aui:form action="<%= editPasswordPolicyAssignmentsURL %>" method="post" name="fm">
 	<aui:input name="tabs1" type="hidden" value="<%= tabs1 %>" />
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 	<aui:input name="tabs3" type="hidden" value="<%= tabs3 %>" />
-	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="passwordPolicyId" type="hidden" value="<%= String.valueOf(passwordPolicy.getPasswordPolicyId()) %>" />
 
 	<c:choose>
