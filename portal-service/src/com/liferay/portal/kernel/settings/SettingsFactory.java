@@ -33,6 +33,9 @@ public interface SettingsFactory {
 
 	public Settings getServerSettings(String settingsId);
 
+	public <T> T getSettings(Class<T> clazz, SettingsLocator settingsLocator)
+		throws SettingsException;
+
 	public Settings getSettings(SettingsLocator settingsLocator)
 		throws SettingsException;
 
