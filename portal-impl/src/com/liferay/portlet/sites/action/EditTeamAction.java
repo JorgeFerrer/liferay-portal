@@ -15,6 +15,7 @@
 package com.liferay.portlet.sites.action;
 
 import com.liferay.portal.DuplicateTeamException;
+import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.NoSuchTeamException;
 import com.liferay.portal.TeamNameException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -95,10 +96,12 @@ public class EditTeamAction extends PortletAction {
 		throws Exception {
 
 		try {
+			ActionUtil.getGroup(renderRequest);
 			ActionUtil.getTeam(renderRequest);
 		}
 		catch (Exception e) {
-			if (e instanceof NoSuchTeamException ||
+			if (e instanceof NoSuchGroupException ||
+				e instanceof NoSuchTeamException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(renderRequest, e.getClass());
