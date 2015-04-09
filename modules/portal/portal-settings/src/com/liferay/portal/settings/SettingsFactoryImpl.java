@@ -47,10 +47,15 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.portlet.PortletPreferences;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Raymond Augé
  * @author Jorge Ferrer
  */
+@Component(
+	immediate = true, service = SettingsFactory.class
+)
 @DoPrivileged
 public class SettingsFactoryImpl implements SettingsFactory {
 
