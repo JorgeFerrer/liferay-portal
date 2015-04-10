@@ -48,6 +48,7 @@ import java.util.concurrent.ConcurrentMap;
 import javax.portlet.PortletPreferences;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Raymond Augé
@@ -234,6 +235,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		return portletItem;
 	}
 
+	@Reference(unbind = "-")
+	protected void setSettingsLocatorHelper(
+		SettingsLocatorHelper settingsLocatorHelper) {
+
+		_settingsLocatorHelper = settingsLocatorHelper;
+	}
+
 	private <T> Class<?> _getOverrideClass(Class<T> clazz) {
 		Settings.OverrideClass overrideClass = clazz.getAnnotation(
 			Settings.OverrideClass.class);
@@ -273,7 +281,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		new ConcurrentHashMap<>();
 	private final Map<String, SettingsDescriptor> _settingsDescriptors =
 		new ConcurrentHashMap<>();
-	private final SettingsLocatorHelper _settingsLocatorHelper =
-		new SettingsLocatorHelper();
+	private SettingsLocatorHelper _settingsLocatorHelper;
 
 }
