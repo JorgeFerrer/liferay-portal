@@ -163,10 +163,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean) {
 
 		SettingsDescriptor settingsDescriptor =
-			new SettingsDefinitionSettingsDescriptor(
-				settingsDefinition, configurationBean);
+			new SettingsDefinitionSettingsDescriptor(settingsDefinition);
 
-		_register(settingsDescriptor, null);
+		_register(
+			settingsDefinition.getSettingsIds(), settingsDescriptor, null);
 	}
 
 	@Override
@@ -175,9 +175,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		FallbackKeys fallbackKeys) {
 
 		SettingsDescriptor settingsDescriptor = new AnnotatedSettingsDescriptor(
-			settingsClass, configurationBean);
+			settingsClass);
 
-		_register(settingsDescriptor, fallbackKeys);
+		Settings.Config settingsConfig = settingsClass.getAnnotation(
+			Settings.Config.class);
+
+		_register(
+			settingsConfig.settingsIds(), settingsDescriptor, fallbackKeys);
 	}
 
 	@Override
@@ -258,9 +262,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	private void _register(
-		SettingsDescriptor settingsDescriptor, FallbackKeys fallbackKeys) {
+		String[] settingsIds, SettingsDescriptor settingsDescriptor,
+		FallbackKeys fallbackKeys) {
 
-		for (String settingsId : settingsDescriptor.getSettingsIds()) {
+		for (String settingsId : settingsIds) {
 			_settingsDescriptors.put(settingsId, settingsDescriptor);
 
 			if (fallbackKeys != null) {

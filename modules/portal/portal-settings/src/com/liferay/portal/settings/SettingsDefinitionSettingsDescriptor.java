@@ -14,14 +14,11 @@
 
 package com.liferay.portal.settings;
 
-import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
-import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
 
 import java.lang.reflect.Method;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,19 +29,12 @@ public class SettingsDefinitionSettingsDescriptor
 	implements SettingsDescriptor {
 
 	public SettingsDefinitionSettingsDescriptor(
-		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean) {
+		SettingsDefinition<?, ?> settingsDefinition) {
 
 		_settingsDefinition = settingsDefinition;
-		_configurationBean = configurationBean;
-
-		Class<?> settingsClass = settingsDefinition.getSettingsClass();
-
-		_resourceManager = new ClassLoaderResourceManager(
-			settingsClass.getClassLoader());
 
 		_initAllKeys();
 		_initMultiValuedKeys();
-		_initSettingsIds();
 	}
 
 	@Override
@@ -53,28 +43,8 @@ public class SettingsDefinitionSettingsDescriptor
 	}
 
 	@Override
-	public Object getConfigurationBean() {
-		return _configurationBean;
-	}
-
-	@Override
 	public Set<String> getMultiValuedKeys() {
 		return _multiValuedKeys;
-	}
-
-	@Override
-	public ResourceManager getResourceManager() {
-		return _resourceManager;
-	}
-
-	@Override
-	public Class<?> getSettingsClass() {
-		return _settingsDefinition.getSettingsClass();
-	}
-
-	@Override
-	public Set<String> getSettingsIds() {
-		return _settingsIds;
 	}
 
 	private void _initAllKeys() {
@@ -103,15 +73,8 @@ public class SettingsDefinitionSettingsDescriptor
 		}
 	}
 
-	private void _initSettingsIds() {
-		Collections.addAll(_settingsIds, _settingsDefinition.getSettingsIds());
-	}
-
 	private final Set<String> _allKeys = new HashSet<>();
-	private final Object _configurationBean;
 	private final Set<String> _multiValuedKeys = new HashSet<>();
-	private final ResourceManager _resourceManager;
 	private final SettingsDefinition<?, ?> _settingsDefinition;
-	private final Set<String> _settingsIds = new HashSet<>();
 
 }

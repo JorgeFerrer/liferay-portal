@@ -14,8 +14,6 @@
 
 package com.liferay.portal.settings;
 
-import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
-import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -32,20 +30,13 @@ import java.util.Set;
  */
 public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 
-	public AnnotatedSettingsDescriptor(
-		Class<?> settingsClass, Object configurationBean) {
-
+	public AnnotatedSettingsDescriptor(Class<?> settingsClass) {
 		_settingsClass = settingsClass;
-		_configurationBean = configurationBean;
-
-		_resourceManager = new ClassLoaderResourceManager(
-			settingsClass.getClassLoader());
 
 		Method[] methods = _getPropertyMethods();
 
 		_initAllKeys(methods);
 		_initMultiValuedKeys(methods);
-		_initSettingsIds();
 	}
 
 	@Override
@@ -54,28 +45,8 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 	}
 
 	@Override
-	public Object getConfigurationBean() {
-		return _configurationBean;
-	}
-
-	@Override
 	public Set<String> getMultiValuedKeys() {
 		return _multiValuedKeys;
-	}
-
-	@Override
-	public ResourceManager getResourceManager() {
-		return _resourceManager;
-	}
-
-	@Override
-	public Class<?> getSettingsClass() {
-		return _settingsClass;
-	}
-
-	@Override
-	public Set<String> getSettingsIds() {
-		return _settingsIds;
 	}
 
 	private Method[] _getPropertyMethods() {
@@ -149,22 +120,8 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 		}
 	}
 
-	private void _initSettingsIds() {
-		Class<?> settingsClass = getSettingsClass();
-
-		Settings.Config settingsConfig = settingsClass.getAnnotation(
-			Settings.Config.class);
-
-		for (String settingsId : settingsConfig.settingsIds()) {
-			_settingsIds.add(settingsId);
-		}
-	}
-
 	private final Set<String> _allKeys = new HashSet<>();
-	private final Object _configurationBean;
 	private final Set<String> _multiValuedKeys = new HashSet<>();
-	private final ResourceManager _resourceManager;
 	private final Class<?> _settingsClass;
-	private final Set<String> _settingsIds = new HashSet<>();
 
 }
