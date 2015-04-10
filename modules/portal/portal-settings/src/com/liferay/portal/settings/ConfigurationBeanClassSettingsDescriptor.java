@@ -15,7 +15,6 @@
 package com.liferay.portal.settings;
 
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
 
 import java.lang.reflect.Method;
 
@@ -25,13 +24,13 @@ import java.util.Set;
 /**
  * @author Iván Zaera
  */
-public class SettingsDefinitionSettingsDescriptor
+public class ConfigurationBeanClassSettingsDescriptor
 	implements SettingsDescriptor {
 
-	public SettingsDefinitionSettingsDescriptor(
-		SettingsDefinition<?, ?> settingsDefinition) {
+	public ConfigurationBeanClassSettingsDescriptor(
+		Class<?> configurationBeanClass) {
 
-		_settingsDefinition = settingsDefinition;
+		_configurationBeanClass = configurationBeanClass;
 
 		_initAllKeys();
 		_initMultiValuedKeys();
@@ -48,10 +47,7 @@ public class SettingsDefinitionSettingsDescriptor
 	}
 
 	private void _initAllKeys() {
-		Class<?> configurationBeanClass =
-			_settingsDefinition.getConfigurationBeanClass();
-
-		Method[] methods = configurationBeanClass.getMethods();
+		Method[] methods = _configurationBeanClass.getMethods();
 
 		for (Method method : methods) {
 			_allKeys.add(method.getName());
@@ -59,10 +55,7 @@ public class SettingsDefinitionSettingsDescriptor
 	}
 
 	private void _initMultiValuedKeys() {
-		Class<?> configurationBeanClass =
-			_settingsDefinition.getConfigurationBeanClass();
-
-		Method[] methods = configurationBeanClass.getMethods();
+		Method[] methods = _configurationBeanClass.getMethods();
 
 		for (Method method : methods) {
 			Class<?> returnType = method.getReturnType();
@@ -74,7 +67,7 @@ public class SettingsDefinitionSettingsDescriptor
 	}
 
 	private final Set<String> _allKeys = new HashSet<>();
+	private final Class<?> _configurationBeanClass;
 	private final Set<String> _multiValuedKeys = new HashSet<>();
-	private final SettingsDefinition<?, ?> _settingsDefinition;
 
 }

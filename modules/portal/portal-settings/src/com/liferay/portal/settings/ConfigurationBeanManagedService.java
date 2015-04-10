@@ -15,9 +15,9 @@
 package com.liferay.portal.settings;
 
 import aQute.bnd.annotation.metatype.Configurable;
-import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.kernel.util.HashMapDictionary;
+import com.liferay.portal.settings.util.ConfigurationPidUtil;
 
 import java.util.Dictionary;
 
@@ -38,7 +38,8 @@ public class ConfigurationBeanManagedService implements ManagedService {
 		_bundleContext = bundleContext;
 		_configurationBeanClass = configurationBeanClass;
 
-		_configurationPid = _getConfigurationPid(configurationBeanClass);
+		_configurationPid = ConfigurationPidUtil.getConfigurationPid(
+			configurationBeanClass);
 	}
 
 	public Object getConfigurationBean() {
@@ -95,12 +96,6 @@ public class ConfigurationBeanManagedService implements ManagedService {
 		_configurationBeanServiceRegistration = _bundleContext.registerService(
 			_configurationBeanClass.getName(), _configurationBean,
 			new HashMapDictionary<String, Object>());
-	}
-
-	private String _getConfigurationPid(Class<?> configurationBeanClass) {
-		Meta.OCD ocd = configurationBeanClass.getAnnotation(Meta.OCD.class);
-
-		return ocd.id();
 	}
 
 	private BundleContext _bundleContext;

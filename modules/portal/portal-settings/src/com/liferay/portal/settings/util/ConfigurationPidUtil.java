@@ -12,19 +12,19 @@
  * details.
  */
 
-package com.liferay.portal.kernel.settings.definition;
+package com.liferay.portal.settings.util;
+
+import aQute.bnd.annotation.metatype.Meta;
 
 /**
  * @author Iván Zaera
  */
-public interface SettingsDefinition<S, C> {
+public class ConfigurationPidUtil {
 
-	public Class<C> getConfigurationBeanClass();
+	public static String getConfigurationPid(Class<?> configurationBeanClass) {
+		Meta.OCD ocd = configurationBeanClass.getAnnotation(Meta.OCD.class);
 
-	public Class<S> getSettingsClass();
-
-	public Class<?> getSettingsExtraClass();
-
-	public String[] getSettingsIds();
+		return ocd.id();
+	}
 
 }

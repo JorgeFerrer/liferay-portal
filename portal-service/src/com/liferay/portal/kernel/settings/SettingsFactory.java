@@ -14,8 +14,6 @@
 
 package com.liferay.portal.kernel.settings;
 
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
-
 import java.util.List;
 
 /**
@@ -41,14 +39,8 @@ public interface SettingsFactory {
 
 	public SettingsDescriptor getSettingsDescriptor(String settingsId);
 
-	public void registerSettingsDefinition(
-		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean);
-
 	public void registerSettingsMetadata(
 		Class<?> settingsClass, Object configurationBean,
 		FallbackKeys fallbackKeys);
-
-	public void unregisterSettingsDefinition(
-		SettingsDefinition<?, ?> settingsDefinition);
 
 }

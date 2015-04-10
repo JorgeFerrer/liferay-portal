@@ -28,13 +28,15 @@ import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.settings.SettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.TypedSettings;
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.PortletItemLocalServiceUtil;
+import com.liferay.portal.settings.util.ConfigurationPidUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -49,6 +51,8 @@ import javax.portlet.PortletPreferences;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
 /**
  * @author Raymond Augé
@@ -159,17 +163,6 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public void registerSettingsDefinition(
-		SettingsDefinition<?, ?> settingsDefinition, Object configurationBean) {
-
-		SettingsDescriptor settingsDescriptor =
-			new SettingsDefinitionSettingsDescriptor(settingsDefinition);
-
-		_register(
-			settingsDefinition.getSettingsIds(), settingsDescriptor, null);
-	}
-
-	@Override
 	public void registerSettingsMetadata(
 		Class<?> settingsClass, Object configurationBean,
 		FallbackKeys fallbackKeys) {
@@ -180,15 +173,9 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		Settings.Config settingsConfig = settingsClass.getAnnotation(
 			Settings.Config.class);
 
-		_register(
-			settingsConfig.settingsIds(), settingsDescriptor, fallbackKeys);
-	}
-
-	@Override
-	public void unregisterSettingsDefinition(
-		SettingsDefinition<?, ?> settingsDefinition) {
-
-		_unregister(settingsDefinition.getSettingsIds());
+		for (String settingsId : settingsConfig.settingsIds()) {
+			_register(settingsId, settingsDescriptor, fallbackKeys);
+		}
 	}
 
 	protected Settings applyFallbackKeys(String settingsId, Settings settings) {
@@ -239,11 +226,67 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		return portletItem;
 	}
 
+	@Reference(
+		cardinality = ReferenceCardinality.MULTIPLE,
+		policy = ReferencePolicy.DYNAMIC
+	)
+	protected void setConfigurationBeanDeclaration(
+			ConfigurationBeanDeclaration configurationBeanDeclaration)
+		throws SettingsException {
+
+		Class configurationBeanClass =
+			configurationBeanDeclaration.getConfigurationBeanClass();
+
+		String settingsId = ConfigurationPidUtil.getConfigurationPid(
+			configurationBeanClass);
+
+		ConfigurationBeanClassSettingsDescriptor
+			configurationBeanClassSettingsDescriptor =
+				new ConfigurationBeanClassSettingsDescriptor(
+					configurationBeanClass);
+
+		_register(settingsId, configurationBeanClassSettingsDescriptor, null);
+	}
+
+	@Reference(
+		cardinality = ReferenceCardinality.MULTIPLE,
+		policy = ReferencePolicy.DYNAMIC
+	)
+	protected void setSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
+		String settingsId = settingsIdMapping.getSettingsId();
+
+		Class<?> configurationBeanClass =
+			settingsIdMapping.getConfigurationBeanClass();
+
+		ConfigurationBeanClassSettingsDescriptor
+			configurationBeanClassSettingsDescriptor =
+				new ConfigurationBeanClassSettingsDescriptor(
+					configurationBeanClass);
+
+		_register(settingsId, configurationBeanClassSettingsDescriptor, null);
+	}
+
 	@Reference(unbind = "-")
 	protected void setSettingsLocatorHelper(
 		SettingsLocatorHelper settingsLocatorHelper) {
 
 		_settingsLocatorHelper = settingsLocatorHelper;
+	}
+
+	protected void unsetConfigurationBeanDeclaration(
+		ConfigurationBeanDeclaration configurationBeanDeclaration) {
+
+		Class configurationBeanClass =
+			configurationBeanDeclaration.getConfigurationBeanClass();
+
+		String settingsId = ConfigurationPidUtil.getConfigurationPid(
+			configurationBeanClass);
+
+		_unregister(settingsId);
+	}
+
+	protected void unsetSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
+		_unregister(settingsIdMapping.getSettingsId());
 	}
 
 	private <T> Class<?> _getOverrideClass(Class<T> clazz) {
@@ -262,26 +305,24 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	private void _register(
-		String[] settingsIds, SettingsDescriptor settingsDescriptor,
+		String settingsId, SettingsDescriptor settingsDescriptor,
 		FallbackKeys fallbackKeys) {
 
-		for (String settingsId : settingsIds) {
-			_settingsDescriptors.put(settingsId, settingsDescriptor);
+		_settingsDescriptors.put(settingsId, settingsDescriptor);
 
-			if (fallbackKeys != null) {
-				_fallbackKeysMap.put(settingsId, fallbackKeys);
-			}
+		if (fallbackKeys != null) {
+			_fallbackKeysMap.put(settingsId, fallbackKeys);
 		}
 	}
 
-	private void _unregister(String[] settingsIds) {
-		for (String settingsId : settingsIds) {
-			_fallbackKeysMap.remove(settingsId);
+	private void _unregister(String settingsId) {
+		_fallbackKeysMap.remove(settingsId);
 
-			_settingsDescriptors.remove(settingsId);
-		}
+		_settingsDescriptors.remove(settingsId);
 	}
 
+	private final ConcurrentMap<String, Class<?>> _configurationBeanClasses =
+		new ConcurrentHashMap<>();
 	private final ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =
 		new ConcurrentHashMap<>();
 	private final Map<String, SettingsDescriptor> _settingsDescriptors =
