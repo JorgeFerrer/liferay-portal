@@ -12,41 +12,28 @@
  * details.
  */
 
-package com.liferay.rss.web.settings.definition;
+package com.liferay.rss.web.configuration.internal;
 
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.rss.web.configuration.RSSPortletInstanceConfiguration;
 import com.liferay.rss.web.constants.RSSPortletKeys;
-import com.liferay.rss.web.settings.RSSPortletInstanceSettings;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Juergen Kappler
+ * @author Iván Zaera
  */
-@Component(immediate = true)
-public class RSSPortletInstanceSettingsDefinition
-		implements SettingsDefinition<RSSPortletInstanceSettings,
-		RSSPortletInstanceConfiguration> {
+@Component
+public class RSSPortletInstanceSettingsIdMapping implements SettingsIdMapping {
 
 	@Override
-	public Class<RSSPortletInstanceConfiguration> getConfigurationBeanClass() {
+	public Class<?> getConfigurationBeanClass() {
 		return RSSPortletInstanceConfiguration.class;
 	}
 
 	@Override
-	public Class<RSSPortletInstanceSettings> getSettingsClass() {
-		return RSSPortletInstanceSettings.class;
-	}
-
-	@Override
-	public Class<?> getSettingsExtraClass() {
-		return null;
-	}
-
-	@Override
-	public String[] getSettingsIds() {
-		return new String[] {RSSPortletKeys.RSS};
+	public String getSettingsId() {
+		return RSSPortletKeys.RSS;
 	}
 
 }
