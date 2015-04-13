@@ -19,7 +19,8 @@ import aQute.bnd.annotation.metatype.Configurable;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.settings.PortletInstanceSettingsProvider;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.WebKeys;
@@ -86,8 +87,10 @@ public class RSSPortlet extends MVCPortlet {
 
 		try {
 			RSSPortletInstanceSettings rssPortletInstanceSettings =
-				_portletInstanceSettingsProvider.getPortletInstanceSettings(
-					themeDisplay.getLayout(), portletDisplay.getId());
+				_settingsFactory.getSettings(
+					RSSPortletInstanceSettings.class,
+					new PortletInstanceSettingsLocator(
+						themeDisplay.getLayout(), portletDisplay.getId()));
 
 			renderRequest.setAttribute(
 				RSSPortletInstanceSettings.class.getName(),
@@ -107,22 +110,16 @@ public class RSSPortlet extends MVCPortlet {
 			RSSWebConfiguration.class, properties);
 	}
 
-	@Reference(
-		target = "(class.name=com.liferay.rss.web.settings.RSSPortletInstanceSettings)"
-	)
-	protected void setPortletInstanceSettingsProvider(
-		PortletInstanceSettingsProvider<RSSPortletInstanceSettings>
-			portletInstanceSettingsProvider) {
-
-		_portletInstanceSettingsProvider = portletInstanceSettingsProvider;
-	}
-
 	@Reference(unbind = "-")
 	protected void setRSSWebUpgrade(RSSWebUpgrade rssWebUpgrade) {
 	}
 
-	private PortletInstanceSettingsProvider<RSSPortletInstanceSettings>
-		_portletInstanceSettingsProvider;
+	@Reference(unbind = "-")
+	protected void setSettingsFactory(SettingsFactory settingsFactory) {
+		_settingsFactory = settingsFactory;
+	}
+
 	private volatile RSSWebConfiguration _rssWebConfiguration;
+	private SettingsFactory _settingsFactory;
 
 }
