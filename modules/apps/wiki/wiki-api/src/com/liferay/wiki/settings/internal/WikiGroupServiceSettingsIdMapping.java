@@ -12,41 +12,25 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.definition;
+package com.liferay.wiki.settings.internal;
 
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
 import com.liferay.wiki.constants.WikiConstants;
-import com.liferay.wiki.settings.WikiGroupServiceSettings;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Iván Zaera
  */
-@Component(immediate = true)
-public class WikiGroupServiceSettingsDefinition
-	implements SettingsDefinition<WikiGroupServiceSettings,
-			   WikiGroupServiceConfiguration> {
+public class WikiGroupServiceSettingsIdMapping implements SettingsIdMapping {
 
 	@Override
-	public Class<WikiGroupServiceConfiguration> getConfigurationBeanClass() {
+	public Class<?> getConfigurationBeanClass() {
 		return WikiGroupServiceConfiguration.class;
 	}
 
 	@Override
-	public Class<WikiGroupServiceSettings> getSettingsClass() {
-		return WikiGroupServiceSettings.class;
-	}
-
-	@Override
-	public Class<?> getSettingsExtraClass() {
-		return WikiGroupServiceSettingsExtraImpl.class;
-	}
-
-	@Override
-	public String[] getSettingsIds() {
-		return new String[] {WikiConstants.SERVICE_NAME};
+	public String getSettingsId() {
+		return WikiConstants.SERVICE_NAME;
 	}
 
 }
