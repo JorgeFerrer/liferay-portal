@@ -12,18 +12,29 @@
  * details.
  */
 
-package com.liferay.wiki.settings;
+package com.liferay.wiki.web.settings.internal;
 
-import com.liferay.portal.kernel.settings.GroupServiceSettings;
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
-import com.liferay.wiki.settings.internal.WikiGroupServiceSettingsExtraImpl;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+import com.liferay.wiki.constants.WikiPortletKeys;
+import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Iván Zaera
  */
-@Settings.OverrideClass(WikiGroupServiceSettingsExtraImpl.class)
-public interface WikiGroupServiceSettings
-	extends GroupServiceSettings, WikiGroupServiceConfiguration,
-			WikiGroupServiceSettingsExtra {
+@Component
+public class WikiAdminPortletInstanceSettingsIdMapping
+	implements SettingsIdMapping {
+
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return WikiPortletInstanceConfiguration.class;
+	}
+
+	@Override
+	public String getSettingsId() {
+		return WikiPortletKeys.WIKI_ADMIN;
+	}
+
 }

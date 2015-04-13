@@ -12,44 +12,28 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.definition;
+package com.liferay.wiki.web.settings.internal;
 
-import com.liferay.portal.kernel.settings.definition.SettingsDefinition;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.wiki.constants.WikiPortletKeys;
 import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
-import com.liferay.wiki.web.settings.WikiPortletInstanceSettings;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Iván Zaera
  */
-@Component(immediate = true)
-public class WikiPortletInstanceSettingsDefinition
-	implements SettingsDefinition
-		<WikiPortletInstanceSettings, WikiPortletInstanceConfiguration> {
+@Component
+public class WikiPortletInstanceSettingsIdMapping implements SettingsIdMapping {
 
 	@Override
-	public Class<WikiPortletInstanceConfiguration> getConfigurationBeanClass() {
+	public Class<?> getConfigurationBeanClass() {
 		return WikiPortletInstanceConfiguration.class;
 	}
 
 	@Override
-	public Class<WikiPortletInstanceSettings> getSettingsClass() {
-		return WikiPortletInstanceSettings.class;
-	}
-
-	@Override
-	public Class<?> getSettingsExtraClass() {
-		return WikiPortletInstanceSettingsExtraImpl.class;
-	}
-
-	@Override
-	public String[] getSettingsIds() {
-		return new String[] {
-			WikiPortletKeys.WIKI, WikiPortletKeys.WIKI_ADMIN,
-			WikiPortletKeys.WIKI_DISPLAY
-		};
+	public String getSettingsId() {
+		return WikiPortletKeys.WIKI;
 	}
 
 }

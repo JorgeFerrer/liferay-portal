@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.definition;
+package com.liferay.wiki.web.settings.internal;
 
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
