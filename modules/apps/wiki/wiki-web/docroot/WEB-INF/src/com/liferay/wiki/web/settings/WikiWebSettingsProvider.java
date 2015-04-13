@@ -14,10 +14,8 @@
 
 package com.liferay.wiki.web.settings;
 
-import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
-import com.liferay.portal.kernel.settings.PortletInstanceSettingsProvider;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
-import com.liferay.wiki.settings.WikiGroupServiceSettings;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -36,16 +34,8 @@ public class WikiWebSettingsProvider {
 		return _wikiWebSettingsProvider;
 	}
 
-	public GroupServiceSettingsProvider<WikiGroupServiceSettings>
-		getGroupServiceSettingsProvider() {
-
-		return _groupServiceSettingsProvider;
-	}
-
-	public PortletInstanceSettingsProvider<WikiPortletInstanceSettings>
-		getPortletInstanceSettingsProvider() {
-
-		return _portletInstanceSettingsProvider;
+	public SettingsFactory getSettingsFactory() {
+		return _settingsFactory;
 	}
 
 	public WikiGroupServiceConfiguration getWikiGroupServiceConfiguration() {
@@ -62,24 +52,9 @@ public class WikiWebSettingsProvider {
 		_wikiWebSettingsProvider = null;
 	}
 
-	@Reference(
-		target = "(class.name=com.liferay.wiki.settings.WikiGroupServiceSettings)"
-	)
-	protected void setGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<WikiGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = groupServiceSettingsProvider;
-	}
-
-	@Reference(
-		target = "(class.name=com.liferay.wiki.web.settings.WikiPortletInstanceSettings)"
-	)
-	protected void setPortletInstanceSettingsProvider(
-		PortletInstanceSettingsProvider<WikiPortletInstanceSettings>
-			portletInstanceSettingsProvider) {
-
-		_portletInstanceSettingsProvider = portletInstanceSettingsProvider;
+	@Reference(unbind = "-")
+	protected void setSettingsFactory(SettingsFactory settingsFactory) {
+		_settingsFactory = settingsFactory;
 	}
 
 	@Reference
@@ -87,20 +62,6 @@ public class WikiWebSettingsProvider {
 		WikiGroupServiceConfiguration wikiGroupServiceConfiguration) {
 
 		_wikiGroupServiceConfiguration = wikiGroupServiceConfiguration;
-	}
-
-	protected void unsetGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<WikiGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = null;
-	}
-
-	protected void unsetPortletIntanceSettingsProvider(
-		PortletInstanceSettingsProvider<WikiPortletInstanceSettings>
-			portletIntanceSettingsProvider) {
-
-		_portletInstanceSettingsProvider = null;
 	}
 
 	protected void unsetWikiGroupServiceConfiguration(
@@ -111,10 +72,7 @@ public class WikiWebSettingsProvider {
 
 	private static WikiWebSettingsProvider _wikiWebSettingsProvider;
 
-	private GroupServiceSettingsProvider<WikiGroupServiceSettings>
-		_groupServiceSettingsProvider;
-	private PortletInstanceSettingsProvider<WikiPortletInstanceSettings>
-		_portletInstanceSettingsProvider;
+	private SettingsFactory _settingsFactory;
 	private WikiGroupServiceConfiguration _wikiGroupServiceConfiguration;
 
 }

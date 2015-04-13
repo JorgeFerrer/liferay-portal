@@ -18,9 +18,12 @@ import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
 import com.liferay.wiki.constants.WikiConstants;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Iván Zaera
  */
+@Component
 public class WikiGroupServiceSettingsIdMapping implements SettingsIdMapping {
 
 	@Override
