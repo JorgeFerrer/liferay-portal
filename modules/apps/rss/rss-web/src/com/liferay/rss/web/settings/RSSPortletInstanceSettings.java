@@ -14,12 +14,11 @@
 
 package com.liferay.rss.web.settings;
 
-import com.liferay.portal.kernel.settings.PortletInstanceSettings;
 import com.liferay.rss.web.configuration.RSSPortletInstanceConfiguration;
 
 /**
  * @author Juergen Kappler
  */
 public interface RSSPortletInstanceSettings
-	extends PortletInstanceSettings, RSSPortletInstanceConfiguration {
+	extends RSSPortletInstanceConfiguration {
 }
