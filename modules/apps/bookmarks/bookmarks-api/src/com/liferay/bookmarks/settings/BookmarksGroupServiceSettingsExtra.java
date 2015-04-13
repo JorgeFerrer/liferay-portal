@@ -14,15 +14,19 @@
 
 package com.liferay.bookmarks.settings;
 
-import com.liferay.bookmarks.configuration.BookmarksGroupServiceConfiguration;
-import com.liferay.bookmarks.settings.definition.BookmarksGroupServiceSettingsExtraImpl;
-import com.liferay.portal.kernel.settings.Settings;
-
 /**
  * @author Iván Zaera
  */
-@Settings.OverrideClass(BookmarksGroupServiceSettingsExtraImpl.class)
-public interface BookmarksGroupServiceSettings
-	extends BookmarksGroupServiceConfiguration,
-		BookmarksGroupServiceSettingsExtra {
+public interface BookmarksGroupServiceSettingsExtra {
+
+	public String emailEntryAddedBodyXml();
+
+	public String emailEntryAddedSubjectXml();
+
+	public String emailEntryUpdatedBodyXml();
+
+	public String emailEntryUpdatedSubjectXml();
+
+	public long rootFolderId();
+
 }
