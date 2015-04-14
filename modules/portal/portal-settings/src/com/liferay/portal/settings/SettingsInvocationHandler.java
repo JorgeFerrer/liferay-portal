@@ -30,17 +30,17 @@ import java.lang.reflect.Method;
 public class SettingsInvocationHandler<S> implements InvocationHandler {
 
 	public SettingsInvocationHandler(
-		Class<S> settingsClass, Object settingsOverrideInstance,
+		Class<S> clazz, Object settingsOverrideInstance,
 		TypedSettings typedSettings) {
 
-		_settingsClass = settingsClass;
+		_clazz = clazz;
 		_settingsOverrideInstance = settingsOverrideInstance;
 		_typedSettings = typedSettings;
 	}
 
 	public S createProxy() {
 		return (S)ProxyUtil.newProxyInstance(
-			_settingsClass.getClassLoader(), new Class[] {_settingsClass},
+			_clazz.getClassLoader(), new Class[]{_clazz},
 			this);
 	}
 
@@ -170,7 +170,7 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 		}
 	}
 
-	private final Class<S> _settingsClass;
+	private final Class<S> _clazz;
 	private final Object _settingsOverrideInstance;
 	private final TypedSettings _typedSettings;
 
