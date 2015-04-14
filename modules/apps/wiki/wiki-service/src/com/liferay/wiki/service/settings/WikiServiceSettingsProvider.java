@@ -14,9 +14,8 @@
 
 package com.liferay.wiki.service.settings;
 
-import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
-import com.liferay.wiki.settings.WikiGroupServiceSettings;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -45,10 +44,8 @@ public class WikiServiceSettingsProvider {
 		_wikiServiceSettingsProvider = null;
 	}
 
-	public GroupServiceSettingsProvider<WikiGroupServiceSettings>
-		getGroupServiceSettingsProvider() {
-
-		return _groupServiceSettingsProvider;
+	public SettingsFactory getSettingsFactory() {
+		return _settingsFactory;
 	}
 
 	public WikiGroupServiceConfiguration getWikiGroupServiceConfiguration() {
@@ -62,33 +59,20 @@ public class WikiServiceSettingsProvider {
 		_wikiGroupServiceConfiguration = wikiGroupServiceConfiguration;
 	}
 
-	public void unsetGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<WikiGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = null;
+	@Reference(unbind = "-")
+	protected void setSettingsFactory(SettingsFactory settingsFactory) {
+		_settingsFactory = settingsFactory;
 	}
 
-	public void unsetWikiGroupServiceConfiguration(
+	protected void unsetWikiGroupServiceConfiguration(
 		WikiGroupServiceConfiguration wikiGroupServiceConfiguration) {
 
 		_wikiGroupServiceConfiguration = null;
 	}
 
-	@Reference(
-		target = "(class.name=com.liferay.wiki.settings.WikiGroupServiceSettings)"
-	)
-	protected void setGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<WikiGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = groupServiceSettingsProvider;
-	}
-
 	private static WikiServiceSettingsProvider _wikiServiceSettingsProvider;
 
-	private GroupServiceSettingsProvider<WikiGroupServiceSettings>
-		_groupServiceSettingsProvider;
+	private SettingsFactory _settingsFactory;
 	private WikiGroupServiceConfiguration _wikiGroupServiceConfiguration;
 
 }

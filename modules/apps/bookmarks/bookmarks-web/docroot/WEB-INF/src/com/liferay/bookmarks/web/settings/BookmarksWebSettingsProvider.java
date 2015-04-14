@@ -15,8 +15,7 @@
 package com.liferay.bookmarks.web.settings;
 
 import com.liferay.bookmarks.configuration.BookmarksGroupServiceConfiguration;
-import com.liferay.bookmarks.settings.BookmarksGroupServiceSettings;
-import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -43,10 +42,8 @@ public class BookmarksWebSettingsProvider {
 		return _bookmarksGroupServiceConfiguration;
 	}
 
-	public GroupServiceSettingsProvider<BookmarksGroupServiceSettings>
-		getGroupServiceSettingsProvider() {
-
-		return _groupServiceSettingsProvider;
+	public SettingsFactory getSettingsFactory() {
+		return _settingsFactory;
 	}
 
 	@Activate
@@ -67,14 +64,9 @@ public class BookmarksWebSettingsProvider {
 			bookmarksGroupServiceConfiguration;
 	}
 
-	@Reference(
-		target = "(class.name=com.liferay.bookmarks.settings.BookmarksGroupServiceSettings)"
-	)
-	protected void setGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<BookmarksGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = groupServiceSettingsProvider;
+	@Reference(unbind = "-")
+	protected void setSettingsFactory(SettingsFactory settingsFactory) {
+		_settingsFactory = settingsFactory;
 	}
 
 	protected void unsetBookmarksGroupServiceConfiguration(
@@ -83,18 +75,10 @@ public class BookmarksWebSettingsProvider {
 		_bookmarksGroupServiceConfiguration = null;
 	}
 
-	protected void unsetGroupServiceSettingsProvider(
-		GroupServiceSettingsProvider<BookmarksGroupServiceSettings>
-			groupServiceSettingsProvider) {
-
-		_groupServiceSettingsProvider = null;
-	}
-
 	private static BookmarksWebSettingsProvider _bookmarksWebSettingsProvider;
 
 	private BookmarksGroupServiceConfiguration
 		_bookmarksGroupServiceConfiguration;
-	private GroupServiceSettingsProvider<BookmarksGroupServiceSettings>
-		_groupServiceSettingsProvider;
+	private SettingsFactory _settingsFactory;
 
 }

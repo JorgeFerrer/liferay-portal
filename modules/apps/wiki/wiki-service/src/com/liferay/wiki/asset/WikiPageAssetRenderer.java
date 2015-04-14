@@ -17,7 +17,8 @@ package com.liferay.wiki.asset;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.settings.GroupServiceSettingsProvider;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.security.permission.ActionKeys;
@@ -27,6 +28,7 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.asset.model.AssetRendererFactory;
 import com.liferay.portlet.asset.model.BaseAssetRenderer;
 import com.liferay.portlet.trash.util.TrashUtil;
+import com.liferay.wiki.constants.WikiConstants;
 import com.liferay.wiki.constants.WikiPortletKeys;
 import com.liferay.wiki.constants.WikiWebKeys;
 import com.liferay.wiki.model.WikiPage;
@@ -72,13 +74,13 @@ public class WikiPageAssetRenderer
 		WikiServiceSettingsProvider wikiServiceSettingsProvider =
 			WikiServiceSettingsProvider.getWikiServiceSettingsProvider();
 
-		GroupServiceSettingsProvider<WikiGroupServiceSettings>
-			groupServiceSettingsProvider =
-				wikiServiceSettingsProvider.getGroupServiceSettingsProvider();
+		SettingsFactory settingsFactory =
+			wikiServiceSettingsProvider.getSettingsFactory();
 
-		_wikiGroupServiceSettings =
-			groupServiceSettingsProvider.getGroupServiceSettings(
-				page.getGroupId());
+		_wikiGroupServiceSettings = settingsFactory.getSettings(
+			WikiGroupServiceSettings.class,
+			new GroupServiceSettingsLocator(
+				page.getGroupId(), WikiConstants.SERVICE_NAME));
 	}
 
 	@Override
