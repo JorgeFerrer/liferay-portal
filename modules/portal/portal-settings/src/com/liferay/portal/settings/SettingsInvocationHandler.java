@@ -30,11 +30,11 @@ import java.lang.reflect.Method;
 public class SettingsInvocationHandler<S> implements InvocationHandler {
 
 	public SettingsInvocationHandler(
-		Class<S> settingsClass, Object settingsExtraInstance,
+		Class<S> settingsClass, Object settingsOverrideInstance,
 		TypedSettings typedSettings) {
 
 		_settingsClass = settingsClass;
-		_settingsExtraInstance = settingsExtraInstance;
+		_settingsOverrideInstance = settingsOverrideInstance;
 		_typedSettings = typedSettings;
 	}
 
@@ -48,9 +48,9 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args)
 		throws InvocationTargetException {
 
-		if (_settingsExtraInstance != null) {
+		if (_settingsOverrideInstance != null) {
 			try {
-				return _invokeSettingsExtra(method, args);
+				return _invokeSettingsOverride(method, args);
 			}
 			catch (InvocationTargetException ite) {
 				throw ite;
@@ -67,15 +67,15 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 		}
 	}
 
-	private Object _invokeSettingsExtra(Method method, Object[] args)
+	private Object _invokeSettingsOverride(Method method, Object[] args)
 		throws IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
 
-		Class<?> clazz = _settingsExtraInstance.getClass();
+		Class<?> clazz = _settingsOverrideInstance.getClass();
 
 		method = clazz.getMethod(method.getName(), method.getParameterTypes());
 
-		return method.invoke(_settingsExtraInstance, args);
+		return method.invoke(_settingsOverrideInstance, args);
 	}
 
 	private Object _invokeTypedSettings(Method method, Object[] args)
@@ -171,7 +171,7 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 	}
 
 	private final Class<S> _settingsClass;
-	private final Object _settingsExtraInstance;
+	private final Object _settingsOverrideInstance;
 	private final TypedSettings _typedSettings;
 
 }

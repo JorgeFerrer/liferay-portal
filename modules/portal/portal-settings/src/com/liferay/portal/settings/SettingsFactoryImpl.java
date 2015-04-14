@@ -118,23 +118,24 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 		Settings settings = getSettings(settingsLocator);
 
-		Class<?> settingsExtraClass = _getOverrideClass(clazz);
+		Class<?> settingsOverrideClass = _getOverrideClass(clazz);
 
 		try {
 			TypedSettings typedSettings = new TypedSettings(settings);
 
-			Object settingsExtraInstance = null;
+			Object settingsOverrideInstance = null;
 
-			if (settingsExtraClass != null) {
-				Constructor<?> constructor = settingsExtraClass.getConstructor(
-					TypedSettings.class);
+			if (settingsOverrideClass != null) {
+				Constructor<?> constructor =
+					settingsOverrideClass.getConstructor(TypedSettings.class);
 
-				settingsExtraInstance = constructor.newInstance(typedSettings);
+				settingsOverrideInstance = constructor.newInstance(
+					typedSettings);
 			}
 
 			SettingsInvocationHandler<T> settingsInvocationHandler =
 				new SettingsInvocationHandler<>(
-					clazz, settingsExtraInstance, typedSettings);
+					clazz, settingsOverrideInstance, typedSettings);
 
 			return settingsInvocationHandler.createProxy();
 		}
