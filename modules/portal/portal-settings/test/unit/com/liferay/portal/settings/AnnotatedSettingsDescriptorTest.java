@@ -20,9 +20,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import org.testng.Assert;
 
 /**
  * @author Iván Zaera
@@ -52,17 +51,6 @@ public class AnnotatedSettingsDescriptorTest {
 		Assert.assertEquals(
 			multiValuedKeys.size(), expectedMultiValuedKeys.size());
 		Assert.assertTrue(multiValuedKeys.containsAll(expectedMultiValuedKeys));
-	}
-
-	@Test
-	public void testGetSettingsIds() {
-		Set<String> settingsIds = _annotatedSettingsDescriptor.getSettingsIds();
-
-		Collection<String> expectedSettingsIds = Arrays.asList(
-			"settingsId.1", "settingsId.2");
-
-		Assert.assertEquals(settingsIds.size(), expectedSettingsIds.size());
-		Assert.assertTrue(settingsIds.containsAll(expectedSettingsIds));
 	}
 
 	@Settings.Config(settingsIds = {"settingsId.1", "settingsId.2"})
@@ -101,6 +89,6 @@ public class AnnotatedSettingsDescriptorTest {
 	}
 
 	private final AnnotatedSettingsDescriptor _annotatedSettingsDescriptor =
-		new AnnotatedSettingsDescriptor(MockSettings.class, null);
+		new AnnotatedSettingsDescriptor(MockSettings.class);
 
 }
