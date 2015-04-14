@@ -16,12 +16,12 @@ package com.liferay.wiki.settings;
 
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
-import com.liferay.wiki.settings.internal.WikiGroupServiceSettingsExtraImpl;
+import com.liferay.wiki.settings.internal.WikiGroupServiceSettingsOverrideImpl;
 
 /**
  * @author Iván Zaera
  */
-@Settings.OverrideClass(WikiGroupServiceSettingsExtraImpl.class)
+@Settings.OverrideClass(WikiGroupServiceSettingsOverrideImpl.class)
 public interface WikiGroupServiceSettings
-	extends WikiGroupServiceConfiguration, WikiGroupServiceSettingsExtra {
+	extends WikiGroupServiceConfiguration, WikiGroupServiceSettingsOverride {
 }

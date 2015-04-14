@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.wiki.web.settings.WikiPortletInstanceSettingsExtra;
+import com.liferay.wiki.web.settings.WikiPortletInstanceSettingsOverride;
 
 import java.io.IOException;
 
@@ -27,10 +27,12 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public class WikiPortletInstanceSettingsExtraImpl
-	implements WikiPortletInstanceSettingsExtra {
+public class WikiPortletInstanceSettingsOverrideImpl
+	implements WikiPortletInstanceSettingsOverride {
 
-	public WikiPortletInstanceSettingsExtraImpl(TypedSettings typedSettings) {
+	public WikiPortletInstanceSettingsOverrideImpl(
+		TypedSettings typedSettings) {
+
 		_typedSettings = typedSettings;
 	}
 

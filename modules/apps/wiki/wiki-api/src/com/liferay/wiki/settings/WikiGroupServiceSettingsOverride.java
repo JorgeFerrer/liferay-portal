@@ -17,7 +17,7 @@ package com.liferay.wiki.settings;
 /**
  * @author Iván Zaera
  */
-public interface WikiGroupServiceSettingsExtra {
+public interface WikiGroupServiceSettingsOverride {
 
 	public String emailPageAddedBodyXml();
 

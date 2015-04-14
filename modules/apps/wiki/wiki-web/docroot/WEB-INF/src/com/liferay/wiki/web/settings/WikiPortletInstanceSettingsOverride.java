@@ -12,21 +12,23 @@
  * details.
  */
 
-package com.liferay.bookmarks.settings;
+package com.liferay.wiki.web.settings;
+
+import java.io.IOException;
+
+import javax.portlet.ValidatorException;
 
 /**
  * @author Iván Zaera
  */
-public interface BookmarksGroupServiceSettingsExtra {
+public interface WikiPortletInstanceSettingsOverride {
 
-	public String emailEntryAddedBodyXml();
+	public boolean enableRss();
 
-	public String emailEntryAddedSubjectXml();
+	public void setHiddenNodes(String[] hiddenNodes);
 
-	public String emailEntryUpdatedBodyXml();
+	public void setVisibleNodes(String[] visibleNodes);
 
-	public String emailEntryUpdatedSubjectXml();
-
-	public long rootFolderId();
+	public void store() throws IOException, ValidatorException;
 
 }

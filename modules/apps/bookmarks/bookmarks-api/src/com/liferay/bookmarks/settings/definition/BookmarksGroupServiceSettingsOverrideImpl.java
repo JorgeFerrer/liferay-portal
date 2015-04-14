@@ -15,17 +15,19 @@
 package com.liferay.bookmarks.settings.definition;
 
 import com.liferay.bookmarks.model.BookmarksFolderConstants;
-import com.liferay.bookmarks.settings.BookmarksGroupServiceSettingsExtra;
+import com.liferay.bookmarks.settings.BookmarksGroupServiceSettingsOverride;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 
 /**
  * @author Iván Zaera
  */
-public class BookmarksGroupServiceSettingsExtraImpl
-	implements BookmarksGroupServiceSettingsExtra {
+public class BookmarksGroupServiceSettingsOverrideImpl
+	implements BookmarksGroupServiceSettingsOverride {
 
-	public BookmarksGroupServiceSettingsExtraImpl(TypedSettings typedSettings) {
+	public BookmarksGroupServiceSettingsOverrideImpl(
+		TypedSettings typedSettings) {
+
 		_typedSettings = typedSettings;
 	}
 

@@ -16,15 +16,15 @@ package com.liferay.wiki.settings.internal;
 
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.wiki.settings.WikiGroupServiceSettingsExtra;
+import com.liferay.wiki.settings.WikiGroupServiceSettingsOverride;
 
 /**
  * @author Iván Zaera
  */
-public class WikiGroupServiceSettingsExtraImpl
-	implements WikiGroupServiceSettingsExtra {
+public class WikiGroupServiceSettingsOverrideImpl
+	implements WikiGroupServiceSettingsOverride {
 
-	public WikiGroupServiceSettingsExtraImpl(TypedSettings typedSettings) {
+	public WikiGroupServiceSettingsOverrideImpl(TypedSettings typedSettings) {
 		_typedSettings = typedSettings;
 	}
 
