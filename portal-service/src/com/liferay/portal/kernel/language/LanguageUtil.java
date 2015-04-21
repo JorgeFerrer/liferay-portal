@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
@@ -304,6 +305,15 @@ public class LanguageUtil {
 		throws PortalException {
 
 		return getLanguage().isInheritLocales(groupId);
+	}
+
+	public static boolean isRequiredUserNameField(
+		Locale locale, String fieldName) {
+
+		String requiredFields = get(
+			locale, "lang.user.name.required.field.names");
+
+		return StringUtil.contains(requiredFields, fieldName);
 	}
 
 	public static boolean isValidLanguageKey(Locale locale, String key) {
