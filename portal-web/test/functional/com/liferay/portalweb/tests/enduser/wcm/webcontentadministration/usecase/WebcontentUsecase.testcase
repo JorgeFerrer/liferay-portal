@@ -23,7 +23,7 @@
 		<execute macro="Page#tearDownPG" />
 	</tear-down>
 
-	<command name="AddAudioViaWebContent" priority="4">
+	<command known-issues="LPS-55073" name="AddAudioViaWebContent" priority="4">
 		<execute macro="Page#gotoCP">
 			<var name="portletName" value="Server Administration" />
 		</execute>
@@ -96,7 +96,7 @@
 		<execute macro="WebContent#viewAudioViaWCD" />
 	</command>
 
-	<command name="AddContentWithTitleAndAllFieldsNull" priority="5">
+	<command known-issues="WCM-260" name="AddContentWithTitleAndAllFieldsNull" priority="5">
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 		</execute>
@@ -251,8 +251,8 @@
 
 		<execute macro="PermissionsInline#gotoConfigurationPG" />
 
-		<var name="key_roleName" value="${roleName?replace(' ', '-')}" />
-		<var name="key_roleName" value="${key_roleName?lowercase()}" />
+		<var method="StringUtil#replace(${roleName}, ' ', '-')" name="key_roleName" />
+		<var method="StringUtil#lowerCase(${key_roleName})" name="key_roleName" />
 
 		<execute function="AssertChecked" locator1="Permissions#CONFIGURATION_PERMISSIONS_VIEW_CHECKBOX" />
 
@@ -978,6 +978,7 @@
 		</execute>
 
 		<execute macro="WebContent#viewTranslationPGViaWCD">
+			<var name="fieldName" value="Text" />
 			<var name="localizedText" value="WC contenu WebContent" />
 			<var name="localizedTitle" value="WC WebContent Titre" />
 			<var name="lowercaseLanguageCode" value="fr" />

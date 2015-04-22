@@ -150,6 +150,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7433,18 +7434,16 @@ public class JournalArticleLocalServiceImpl
 		Locale articleDefaultLocale = LocaleUtil.fromLanguageId(
 			LocalizationUtil.getDefaultLanguageId(content));
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales(groupId);
-
-		if (!ArrayUtil.contains(availableLocales, articleDefaultLocale)) {
+		if (!LanguageUtil.isAvailableLocale(groupId, articleDefaultLocale)) {
 			LocaleException le = new LocaleException(
 				LocaleException.TYPE_CONTENT,
 				"The locale " + articleDefaultLocale +
 					" is not available in site with groupId" + groupId);
 
-			Locale[] sourceAvailableLocales = {articleDefaultLocale};
-
-			le.setSourceAvailableLocales(sourceAvailableLocales);
-			le.setTargetAvailableLocales(availableLocales);
+			le.setSourceAvailableLocales(
+				Collections.singleton(articleDefaultLocale));
+			le.setTargetAvailableLocales(
+				LanguageUtil.getAvailableLocales(groupId));
 
 			throw le;
 		}

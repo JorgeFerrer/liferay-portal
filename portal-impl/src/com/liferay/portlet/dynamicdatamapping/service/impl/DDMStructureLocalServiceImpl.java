@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackRegistryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GroupThreadLocal;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.SetUtil;
@@ -60,6 +59,7 @@ import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.model.JournalFolderConstants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -1721,9 +1721,7 @@ public class DDMStructureLocalServiceImpl
 			throw new StructureNameException();
 		}
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales();
-
-		if (!ArrayUtil.contains(availableLocales, contentDefaultLocale)) {
+		if (!LanguageUtil.isAvailableLocale(contentDefaultLocale)) {
 			Long companyId = CompanyThreadLocal.getCompanyId();
 
 			LocaleException le = new LocaleException(
@@ -1731,8 +1729,9 @@ public class DDMStructureLocalServiceImpl
 				"The locale " + contentDefaultLocale +
 					" is not available in company " + companyId);
 
-			le.setSourceAvailableLocales(new Locale[] {contentDefaultLocale});
-			le.setTargetAvailableLocales(availableLocales);
+			le.setSourceAvailableLocales(
+				Collections.singleton(contentDefaultLocale));
+			le.setTargetAvailableLocales(LanguageUtil.getAvailableLocales());
 
 			throw le;
 		}

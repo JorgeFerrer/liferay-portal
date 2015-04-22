@@ -77,6 +77,8 @@ public class TemplateHandlerRegistryUtilTest {
 
 	@Test
 	public void testGetTemplateHandlers() {
+		boolean exists = false;
+
 		List<TemplateHandler> templateHandlers =
 			TemplateHandlerRegistryUtil.getTemplateHandlers();
 
@@ -84,11 +86,13 @@ public class TemplateHandlerRegistryUtilTest {
 			String className = templateHandler.getClassName();
 
 			if (className.equals(TestTemplateHandler.class.getName())) {
-				return;
+				exists = true;
+
+				break;
 			}
 		}
 
-		Assert.fail();
+		Assert.assertTrue(exists);
 	}
 
 }

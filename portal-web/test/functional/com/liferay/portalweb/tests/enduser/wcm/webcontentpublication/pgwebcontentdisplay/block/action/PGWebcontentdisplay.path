@@ -9,11 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>EXTEND_ACTION_PATH</td>
 	<td>BasePortlet</td>
 	<td></td>
@@ -179,6 +174,11 @@
 <tr>
 	<td>WEB_CONTENT_CONTENT</td>
 	<td>//div[@class='journal-content-article']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_CONTENT_IMAGE</td>
+	<td>//div[@class='journal-content-article']/img</td>
 	<td></td>
 </tr>
 <tr>

@@ -43,7 +43,7 @@ public class ExportImportLifecycleEventListenerRegistryUtilTest {
 
 	@Test
 	public void testGetAsyncExportImportLifecycleListeners() {
-		boolean found = false;
+		boolean exists = false;
 
 		Set<ExportImportLifecycleListener> exportImportLifecycleListeners =
 			ExportImportLifecycleEventListenerRegistryUtil.
@@ -56,25 +56,25 @@ public class ExportImportLifecycleEventListenerRegistryUtilTest {
 
 			String className = clazz.getName();
 
+			Assert.assertNotEquals(
+				TestSyncExportImportLifecycleListener.class.getName(),
+				className);
+
 			if (className.equals(
 					TestAsyncExportImportLifecycleListener.class.getName())) {
 
-				found = true;
-			}
-			else if (className.equals(
-						TestSyncExportImportLifecycleListener.class.
-							getName())) {
+				exists = true;
 
-				Assert.fail();
+				break;
 			}
 		}
 
-		Assert.assertTrue(found);
+		Assert.assertTrue(exists);
 	}
 
 	@Test
 	public void testGetSyncExportImportLifecycleListeners() {
-		boolean found = false;
+		boolean exists = false;
 
 		Set<ExportImportLifecycleListener> exportImportLifecycleListeners =
 			ExportImportLifecycleEventListenerRegistryUtil.
@@ -87,20 +87,20 @@ public class ExportImportLifecycleEventListenerRegistryUtilTest {
 
 			String className = clazz.getName();
 
+			Assert.assertNotEquals(
+				TestAsyncExportImportLifecycleListener.class.getName(),
+				className);
+
 			if (className.equals(
-					TestAsyncExportImportLifecycleListener.class.getName())) {
+					TestSyncExportImportLifecycleListener.class.getName())) {
 
-				Assert.fail();
-			}
-			else if (className.equals(
-						TestSyncExportImportLifecycleListener.class.
-							getName())) {
+				exists = true;
 
-				found = true;
+				break;
 			}
 		}
 
-		Assert.assertTrue(found);
+		Assert.assertTrue(exists);
 	}
 
 }

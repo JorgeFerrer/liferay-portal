@@ -1061,16 +1061,6 @@ public class PortalImpl implements Portal {
 		return actualURL;
 	}
 
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link
-	 *             LanguageUtil#getAvailableLocales}
-	 */
-	@Deprecated
-	@Override
-	public Locale[] getAlternateLocales(HttpServletRequest request) {
-		return LanguageUtil.getAvailableLocales();
-	}
-
 	@Override
 	public String getAlternateURL(
 			String canonicalURL, ThemeDisplay themeDisplay, Locale locale,
@@ -3404,6 +3394,27 @@ public class PortalImpl implements Portal {
 
 			if (LanguageUtil.isAvailableLocale(groupId, locale)) {
 				return locale;
+			}
+			else if (groupId > 0) {
+				boolean inheritLocales = true;
+
+				try {
+					inheritLocales = LanguageUtil.isInheritLocales(groupId);
+				}
+				catch (PortalException pe) {
+					_log.error(pe);
+				}
+
+				if (!inheritLocales) {
+					String i18nLanguageCode = (String)request.getAttribute(
+						WebKeys.I18N_LANGUAGE_CODE);
+
+					locale = LanguageUtil.getLocale(groupId, i18nLanguageCode);
+
+					if (LanguageUtil.isAvailableLocale(groupId, locale)) {
+						return locale;
+					}
+				}
 			}
 		}
 
@@ -7950,7 +7961,7 @@ public class PortalImpl implements Portal {
 						curLayoutSet.getLayoutSetId()) &&
 					 (group.getClassPK() != themeDisplay.getUserId()))) {
 
-					if (group.isControlPanel()) {
+					if (group.isControlPanel() || group.isUserPersonalPanel()) {
 						virtualHostname = themeDisplay.getServerName();
 
 						if (Validator.isNull(virtualHostname) ||

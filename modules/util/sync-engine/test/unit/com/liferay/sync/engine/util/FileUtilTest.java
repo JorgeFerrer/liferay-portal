@@ -12,11 +12,7 @@
  * details.
  */
 
-package com.liferay.sync.engine;
-
-import com.liferay.sync.engine.util.FileUtil;
-import com.liferay.sync.engine.util.OSDetector;
-import com.liferay.sync.engine.util.PropsValues;
+package com.liferay.sync.engine.util;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;

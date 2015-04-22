@@ -9,11 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>EXTEND_ACTION_PATH</td>
 	<td>CPWebcontentAddwebcontent</td>
 	<td></td>
@@ -49,7 +44,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>AVAILABLE_TRANSLATIONS_LINK</td>
+	<td>AVAILABLE_TRANSLATION</td>
 	<td>//span[contains(@class,'translation-editing') and contains(.,'${key_localizedLanguage}')]</td>
 	<td></td>
 </tr>

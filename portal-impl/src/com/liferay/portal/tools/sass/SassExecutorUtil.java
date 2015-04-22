@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.util.NamedThreadFactory;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.scripting.ruby.RubyExecutor;
-import com.liferay.sass.compiler.SassCompiler;
+import com.liferay.sass.compiler.jni.JniSassCompiler;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +73,7 @@ public class SassExecutorUtil {
 		int threads = 1;
 
 		try {
-			_sassCompiler = new SassCompiler();
+			_jniSassCompiler = new JniSassCompiler();
 		}
 		catch (Throwable t) {
 			threads = 2;
@@ -115,9 +115,9 @@ public class SassExecutorUtil {
 			cssThemePath = filePath.substring(0, pos + 4);
 		}
 
-		if (_sassCompiler != null) {
+		if (_jniSassCompiler != null) {
 			try {
-				return _sassCompiler.compileString(
+				return _jniSassCompiler.compileString(
 					content,
 					_portalCommonDirName + File.pathSeparator + cssThemePath,
 					"");
@@ -209,9 +209,9 @@ public class SassExecutorUtil {
 	private static String _docrootDirName;
 	private static Exception _exception;
 	private static ExecutorService _executorService;
+	private static JniSassCompiler _jniSassCompiler;
 	private static Thread _mainThread;
 	private static String _portalCommonDirName;
-	private static SassCompiler _sassCompiler;
 	private static final ConcurrentMap<String, SassFile> _sassFileCache =
 		new ConcurrentHashMap<>();
 	private static ScriptingContainer _scriptingContainer;

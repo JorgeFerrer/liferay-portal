@@ -31,7 +31,7 @@
 		<if>
 			<condition function="IsElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_GENERIC" />
 			<then>
-				<execute macro="CalendarEvent#tearDownPG" />
+				<execute macro="CalendarEvent#tearDown" />
 			</then>
 		</if>
 
@@ -381,6 +381,40 @@
 			<var name="site" value="${site}" />
 			<var name="user" value="${user}" />
 		</execute>
+	</command>
+
+	<command name="AddCalendarEventRegularOnSpecificDayOfWeekViaScheduler" priority="5">
+		<var name="eventTitle" value="Calendar Event Regular Title" />
+		<var name="eventType" value="Regular" />
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="Calendar#goToSpecificDayViaSmallCalendar">
+			<var name="dateNumber" value="8" />
+		</execute>
+
+		<execute macro="CalendarEvent#goToAddOnSpecifcDayOfWeekViaWeekView">
+			<var name="dayOfWeek" value="2" />
+		</execute>
+
+		<execute macro="CalendarEvent#addPG">
+			<var name="eventTitle" value="${eventTitle}" />
+			<var name="eventType" value="${eventType}" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="Calendar#goToBusyDayViaSmallCalendar" />
+
+		<execute macro="CalendarEvent#viewPG">
+			<var name="eventTitle" value="${eventTitle}" />
+		</execute>
+
+		<execute macro="CalendarEvent#tearDownOnBusyDayInCurrentMonth" />
 	</command>
 
 	<command name="AddCalendarEventRegularRSVPYes" priority="5">
@@ -978,11 +1012,11 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
-		<execute macro="Calendar#viewMonthSmallCalendar">
+		<execute macro="Calendar#goToMonthViaSmallCalendar">
 			<var name="dateMonth" value="February 2016" />
 		</execute>
 
-		<execute macro="Calendar#viewBusyDaySmallCalendar">
+		<execute macro="Calendar#goToSpecificBusyDayViaSmallCalendar">
 			<var name="dateNumber" value="2" />
 		</execute>
 
@@ -1161,6 +1195,7 @@
 			<var name="calendarDefaultName" value="Liferay" />
 			<var name="calendarName" value="Test Test" />
 			<var name="eventTitle" value="${eventTitle}" />
+			<var name="eventType" value="${eventType}" />
 		</execute>
 	</command>
 
@@ -1391,11 +1426,11 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
-		<execute macro="Calendar#viewMonthSmallCalendar">
+		<execute macro="Calendar#goToMonthViaSmallCalendar">
 			<var name="dateMonth" value="February 2015" />
 		</execute>
 
-		<execute macro="Calendar#viewBusyDaySmallCalendar">
+		<execute macro="Calendar#goToSpecificBusyDayViaSmallCalendar">
 			<var name="dateNumber" value="2" />
 		</execute>
 
@@ -1413,11 +1448,11 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
-		<execute macro="Calendar#viewMonthSmallCalendar">
+		<execute macro="Calendar#goToMonthViaSmallCalendar">
 			<var name="dateMonth" value="February 2015" />
 		</execute>
 
-		<execute macro="Calendar#viewBusyDaySmallCalendar">
+		<execute macro="Calendar#goToSpecificBusyDayViaSmallCalendar">
 			<var name="dateNumber" value="3" />
 		</execute>
 
@@ -2365,6 +2400,145 @@
 		</execute>
 	</command>
 
+	<command known-issues="LPS-51310" name="InviteUsersAndViewResponse" priority="5">
+		<execute macro="Page#gotoCP">
+			<var name="portletName" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#addCP">
+			<var name="userEmailAddress" value="userea1@liferay.com" />
+			<var name="userFirstName" value="userfn1" />
+			<var name="userLastName" value="userln1" />
+			<var name="userScreenName" value="usersn1" />
+		</execute>
+
+		<execute macro="User#addCP">
+			<var name="userEmailAddress" value="userea2@liferay.com" />
+			<var name="userFirstName" value="userfn2" />
+			<var name="userLastName" value="userln2" />
+			<var name="userScreenName" value="usersn2" />
+		</execute>
+
+		<execute macro="User#addCP">
+			<var name="userEmailAddress" value="userea3@liferay.com" />
+			<var name="userFirstName" value="userfn3" />
+			<var name="userLastName" value="userln3" />
+			<var name="userScreenName" value="usersn3" />
+		</execute>
+
+		<execute macro="Page#gotoCP">
+			<var name="portletName" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#editPasswordCP">
+			<var name="userEmailAddress" value="userea1@liferay.com" />
+			<var name="userScreenName" value="usersn1" />
+		</execute>
+
+		<execute macro="Page#gotoCP">
+			<var name="portletName" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#editPasswordCP">
+			<var name="userEmailAddress" value="userea2@liferay.com" />
+			<var name="userScreenName" value="usersn2" />
+		</execute>
+
+		<execute macro="Page#gotoCP">
+			<var name="portletName" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#editPasswordCP">
+			<var name="userEmailAddress" value="userea3@liferay.com" />
+			<var name="userScreenName" value="usersn3" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="CalendarEvent#gotoAdd" />
+
+		<execute macro="CalendarEvent#addPG">
+			<var name="eventTitle" value="Calendar Event Title" />
+			<var name="eventType" value="Regular" />
+			<var name="inviteResource" value="true" />
+			<var name="optionSet" value="true" />
+			<var name="resourceNameList" value="userfn1 userln1,userfn2 userln2,userfn3 userln3" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea1@liferay.com" />
+			<var name="userLoginFullName" value="userfn1 userln1" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="CalendarEvent#addRSVP">
+			<var name="eventTitle" value="Calendar Event Title" />
+			<var name="rsvp" value="Maybe" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea2@liferay.com" />
+			<var name="userLoginFullName" value="userfn2 userln2" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="CalendarEvent#addRSVP">
+			<var name="eventTitle" value="Calendar Event Title" />
+			<var name="rsvp" value="No" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea3@liferay.com" />
+			<var name="userLoginFullName" value="userfn3 userln3" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="CalendarEvent#addRSVP">
+			<var name="eventTitle" value="Calendar Event Title" />
+			<var name="rsvp" value="Yes" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="test@liferay.com" />
+			<var name="userLoginFullName" value="Test Test" />
+		</execute>
+
+		<execute macro="Page#gotoPG">
+			<var name="pageName" value="${pageName}" />
+		</execute>
+
+		<execute macro="CalendarEvent#gotoEdit">
+			<var name="eventTitle" value="Calendar Event Title" />
+		</execute>
+
+		<execute macro="CalendarEvent#viewRSVPPending">
+			<var name="resourceName" value="Liferay" />
+		</execute>
+
+		<execute macro="CalendarEvent#viewRSVPAccepted">
+			<var name="resourceName" value="userfn3 userln3" />
+		</execute>
+
+		<execute macro="CalendarEvent#viewRSVPDeclined">
+			<var name="resourceName" value="userfn2 userln2" />
+		</execute>
+
+		<execute macro="CalendarEvent#viewRSVPMaybe">
+			<var name="resourceName" value="userfn1 userln1" />
+		</execute>
+	</command>
+
 	<command name="SearchForOtherCalendars" priority="5">
 		<var name="eventType" value="Regular" />
 		<var name="userEmailAddress" value="userea@liferay.com" />
@@ -2614,6 +2788,7 @@
 		<execute macro="CalendarEvent#viewEventDetails">
 			<var name="calendarName" value="Liferay" />
 			<var name="eventTitle" value="Calendar Event All Day Title" />
+			<var name="eventType" value="All Day" />
 		</execute>
 
 		<execute macro="CalendarEvent#viewEventDetailsTime">
@@ -2661,10 +2836,6 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Month" />
-		</execute>
-
 		<execute macro="CalendarEvent#viewEventDetails">
 			<var name="calendarName" value="Liferay" />
 			<var name="eventTitle" value="Site Event" />
@@ -2676,10 +2847,6 @@
 
 		<execute macro="Page#gotoPG">
 			<var name="pageName" value="${pageName}" />
-		</execute>
-
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Month" />
 		</execute>
 
 		<execute macro="CalendarEvent#viewEventDetails">
@@ -2695,10 +2862,6 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Month" />
-		</execute>
-
 		<execute macro="CalendarEvent#viewEventDetails">
 			<var name="calendarName" value="Liferay" />
 			<var name="eventTitle" value="Site Event" />
@@ -2710,10 +2873,6 @@
 
 		<execute macro="Page#gotoPG">
 			<var name="pageName" value="${pageName}" />
-		</execute>
-
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Month" />
 		</execute>
 
 		<execute macro="CalendarEvent#viewEventDetails">

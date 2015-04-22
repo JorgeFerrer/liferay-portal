@@ -19,9 +19,12 @@
 <%
 PanelApp panelApp = (PanelApp)request.getAttribute("productivity-center-ui:panel-app:panelApp");
 PanelCategory panelCategory = (PanelCategory)request.getAttribute("productivity-center-ui:panel-app:panelCategory");
+
+String ppid = themeDisplay.getPpid();
 %>
 
-<li class="selected-portlet"
+<li
+	<%= ppid.equals(panelApp.getPortletId()) ? "class='selected-portlet'" : StringPool.BLANK %>
 	data-search="<%= HtmlUtil.escape(panelCategory.getLabel(themeDisplay.getLocale()) + "-" + panelApp.getLabel(themeDisplay.getLocale())) %>"
 	role="presentation"
 >

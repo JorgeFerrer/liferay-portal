@@ -9,11 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>BACK_BUTTON</td>
 	<td>//a[@title='Back']</td>
 	<td></td>
@@ -361,12 +356,12 @@
 </tr>
 <tr>
 	<td>ADT_SOCIAL_DETAILS_ICON</td>
-	<td>//img[@title='Details']</td>
+	<td>//div[contains(.,'Details')]/span/a/i[@class='icon-file-alt']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>ADT_SOCIAL_PRINT_ICON</td>
-	<td>//img[@title='Print']</td>
+	<td>//div[contains(.,'Print')]/span/a/i[@class='icon-print']</td>
 	<td></td>
 </tr>
 <tr>

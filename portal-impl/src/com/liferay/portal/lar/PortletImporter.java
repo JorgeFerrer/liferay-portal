@@ -99,6 +99,7 @@ import com.liferay.portlet.journal.util.JournalContentUtil;
 import java.io.File;
 import java.io.Serializable;
 
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -1281,16 +1282,15 @@ public class PortletImporter {
 			portlet.getPortletDataHandlerInstance();
 
 		if (portletDataHandler.isDataLocalized()) {
-			Locale[] sourceAvailableLocales = LocaleUtil.fromLanguageIds(
-				StringUtil.split(
-					headerElement.attributeValue("available-locales")));
-
-			Locale[] targetAvailableLocales = LanguageUtil.getAvailableLocales(
-				PortalUtil.getSiteGroupId(groupId));
+			List<Locale> sourceAvailableLocales = Arrays.asList(
+				LocaleUtil.fromLanguageIds(
+					StringUtil.split(
+						headerElement.attributeValue("available-locales"))));
 
 			for (Locale sourceAvailableLocale : sourceAvailableLocales) {
-				if (!ArrayUtil.contains(
-						targetAvailableLocales, sourceAvailableLocale)) {
+				if (!LanguageUtil.isAvailableLocale(
+						PortalUtil.getSiteGroupId(groupId),
+						sourceAvailableLocale)) {
 
 					LocaleException le = new LocaleException(
 						LocaleException.TYPE_EXPORT_IMPORT,
@@ -1298,7 +1298,9 @@ public class PortletImporter {
 							"available in company " + companyId);
 
 					le.setSourceAvailableLocales(sourceAvailableLocales);
-					le.setTargetAvailableLocales(targetAvailableLocales);
+					le.setTargetAvailableLocales(
+						LanguageUtil.getAvailableLocales(
+							PortalUtil.getSiteGroupId(groupId)));
 
 					throw le;
 				}

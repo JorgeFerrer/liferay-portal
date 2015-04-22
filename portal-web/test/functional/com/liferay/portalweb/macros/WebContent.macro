@@ -435,6 +435,7 @@
 		<execute function="AssertTextEquals" locator1="CPWebcontentEditwebcontent#TITLE_FIELD" value1="${webContentTitle}" />
 		<execute function="AssertClick" locator1="CPWebcontentEditwebcontent#ADD_TRANSLATION" value1="Add Translation" />
 		<execute function="AssertClick" locator1="CPWebcontentEditwebcontent#ADD_TRANSLATION_MENULIST_LANGUAGE" value1="${localizedLanguage}" />
+		<execute function="AssertClick" locator1="CPWebcontentEditwebcontent#AVAILABLE_TRANSLATION" value1="${localizedLanguage}" />
 
 		<if>
 			<isset var="localizedTitle" />
@@ -1386,7 +1387,7 @@
 		</execute>
 
 		<for list="${documentTypes}" param="documentType">
-			<var name="documentTypeUppercase" value="${documentType?uppercase()}" />
+			<var method="StringUtil#upperCase(${documentType})" name="documentTypeUppercase" />
 
 			<execute function="AssertTextEquals#assertPartialText" locator1="PGAssetpublisherAsset#DOCUMENT_CONVERSION_${documentTypeUppercase}" value1="${documentTypeUppercase}" />
 			<execute function="AssertElementPresent" locator1="PGAssetpublisherAsset#DOCUMENT_CONVERSION_${documentTypeUppercase}_ICON" />
@@ -1607,7 +1608,7 @@
 		</execute>
 
 		<for list="${documentTypes}" param="documentType">
-			<var name="documentTypeUppercase" value="${documentType?uppercase()}" />
+			<var method="StringUtil#upperCase(${documentType})" name="documentTypeUppercase" />
 
 			<execute function="AssertElementNotPresent" locator1="PGAssetpublisherAsset#DOCUMENT_CONVERSION_${documentTypeUppercase}" />
 		</for>
@@ -1653,6 +1654,12 @@
 				<equals arg1="${expiredContent}" arg2="true" />
 				<then>
 					<execute function="AssertTextEquals" locator1="PGWebcontentdisplay#ALERT_MESSAGE" value1="${webContentTitle} is expired." />
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${image}" arg2="true" />
+				<then>
+					<execute function="AssertElementPresent" locator1="PGWebcontentdisplay#WEB_CONTENT_CONTENT_IMAGE" />
 				</then>
 			</elseif>
 			<else>
@@ -1745,7 +1752,7 @@
 
 		<var name="key_localizedLanguage" value="${localizedLanguage}" />
 
-		<execute function="AssertClick" locator1="CPWebcontentEditwebcontent#AVAILABLE_TRANSLATIONS_LINK" value1="${localizedLanguage}" />
+		<execute function="AssertClick" locator1="CPWebcontentEditwebcontent#AVAILABLE_TRANSLATION" value1="${localizedLanguage}" />
 
 		<execute function="AssertTextEquals" locator1="CPWebcontentEditwebcontent#TITLE_FIELD" value1="${localizedTitle}" />
 		<execute function="SelectFrame" locator1="CPWebcontentEditwebcontent#CONTENT_FIELD" />
@@ -1783,7 +1790,7 @@
 				<if>
 					<isset var="localizedText" />
 					<then>
-						<var name="key_fieldName" value="${localizedText}" />
+						<var name="key_fieldName" value="${fieldName}" />
 
 						<execute function="AssertTextEquals" locator1="PGWebcontentdisplayEditwebcontent#TEXT_FIELD" value1="${localizedText}" />
 					</then>

@@ -825,8 +825,6 @@ public interface PropsKeys {
 
 	public static final String DYNAMIC_RESOURCE_SERVLET_ALLOWED_PATHS = "dynamic.resource.servlet.allowed.paths";
 
-	public static final String EDITOR_INLINE_EDITING_ENABLED = "editor.inline.editing.enabled";
-
 	public static final String EDITOR_WYSIWYG_DEFAULT = "editor.wysiwyg.default";
 
 	public static final String EHCACHE_BLOCKING_CACHE_ALLOWED = "ehcache.blocking.cache.allowed";
@@ -1480,28 +1478,6 @@ public interface PropsKeys {
 	public static final String LOGOUT_EVENTS_PRE = "logout.events.pre";
 
 	public static final String LOOK_AND_FEEL_MODIFIABLE = "look.and.feel.modifiable";
-
-	public static final String LUCENE_ANALYZER_MAX_TOKENS = "lucene.analyzer.max.tokens";
-
-	public static final String LUCENE_BOOLEAN_QUERY_CLAUSE_MAX_SIZE = "lucene.boolean.query.clause.max.size";
-
-	public static final String LUCENE_BUFFER_SIZE = "lucene.buffer.size";
-
-	public static final String LUCENE_COMMIT_BATCH_SIZE = "lucene.commit.batch.size";
-
-	public static final String LUCENE_COMMIT_TIME_INTERVAL = "lucene.commit.time.interval";
-
-	public static final String LUCENE_DIR = "lucene.dir";
-
-	public static final String LUCENE_MERGE_FACTOR = "lucene.merge.factor";
-
-	public static final String LUCENE_MERGE_POLICY = "lucene.merge.policy";
-
-	public static final String LUCENE_MERGE_SCHEDULER = "lucene.merge.scheduler";
-
-	public static final String LUCENE_STORE_TYPE = "lucene.store.type";
-
-	public static final String LUCENE_STORE_TYPE_FILE_FORCE_MMAP = "lucene.store.type.file.force.mmap";
 
 	public static final String MAIL_AUDIT_TRAIL = "mail.audit.trail";
 
@@ -2457,6 +2433,10 @@ public interface PropsKeys {
 
 	public static final String STAGING_DELETE_TEMP_LAR_ON_SUCCESS = "staging.delete.temp.lar.on.success";
 
+	public static final String STAGING_DRAFT_EXPORT_IMPORT_CONFIGURATION_CHECK_INTERVAL = "staging.draft.export.import.configuration.check.interval";
+
+	public static final String STAGING_DRAFT_EXPORT_IMPORT_CONFIGURATION_CLEAN_UP_COUNT = "staging.draft.export.import.configuration.clean.up.count";
+
 	public static final String STAGING_LIVE_GROUP_REMOTE_STAGING_ENABLED = "staging.live.group.remote.staging.enabled";
 
 	public static final String STAGING_REMOTE_TRANSFER_BUFFER_SIZE = "staging.remote.transfer.buffer.size";
@@ -2481,7 +2461,7 @@ public interface PropsKeys {
 
 	public static final String SYSTEM_SITE_ROLES = "system.site.roles";
 
-	public static final String TABLE_MAPPER_CACHELESS_MAPPING_TABLE_NAMES = "table.mapper.cacheless.mapping.table.names";
+	public static final String TABLE_MAPPER_CACHE_MAPPING_TABLE_NAMES = "table.mapper.cache.mapping.table.names";
 
 	public static final String TERMS_OF_USE_JOURNAL_ARTICLE_GROUP_ID = "terms.of.use.journal.article.group.id";
 
@@ -2618,8 +2598,6 @@ public interface PropsKeys {
 	public static final String USERS_IMAGE_MAX_WIDTH = "users.image.max.width";
 
 	public static final String USERS_INDEXER_ENABLED = "users.indexer.enabled";
-
-	public static final String USERS_LAST_NAME_REQUIRED = "users.last.name.required";
 
 	public static final String USERS_LIST_VIEWS = "users.list.views";
 

@@ -25,8 +25,6 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-
 <%@ page import="com.liferay.portal.NoSuchLayoutPrototypeException" %><%@
 page import="com.liferay.portal.RequiredLayoutPrototypeException" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@

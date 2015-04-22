@@ -122,13 +122,13 @@
 
 				<execute macro="CalendarEvent#save" />
 
-				<var name="key_endDate" value="${endDate}" />
-				<var name="key_endDateTime" value="${endDateTime}" />
-				<var name="key_startDate" value="${startDate}" />
-				<var name="key_startDateTime" value="${startDateTime}" />
-
-				<execute function="AssertElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR" />
-				<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR_TITLE" value1="${eventTitle}" />
+				<execute macro="CalendarEvent#viewRegularEventTitleViaMonthViewCmd">
+					<var name="endDate" value="${endDate}" />
+					<var name="endDateTime" value="${endDateTime}" />
+					<var name="eventTitle" value="${eventTitle}" />
+					<var name="startDate" value="${startDate}" />
+					<var name="startDateTime" value="${startDateTime}" />
+				</execute>
 			</then>
 			<elseif>
 				<equals arg1="${eventType}" arg2="All Day" />
@@ -226,7 +226,7 @@
 		<if>
 			<equals arg1="${addRSVPEnabled}" arg2="true" />
 			<then>
-				<execute macro="CalendarEvent#addRSVPPG">
+				<execute macro="CalendarEvent#addRSVP">
 					<var name="endDate" value="${endDate}" />
 					<var name="endDateTime" value="${endDateTime}" />
 					<var name="eventTitle" value="${eventTitle}" />
@@ -240,7 +240,11 @@
 		</if>
 	</command>
 
-	<command name="addRSVPPG">
+	<command name="addRSVP">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
 		<execute macro="CalendarEvent#selectViaSchedulerCmd">
 			<var name="eventTitle" value="${eventTitle}" />
 		</execute>
@@ -253,11 +257,21 @@
 
 		<execute function="Pause" value1="3000" />
 
-		<execute macro="CalendarEvent#selectViaSchedulerCmd">
-			<var name="eventTitle" value="${eventTitle}" />
-		</execute>
+		<if>
+			<equals arg1="${rsvp}" arg2="No" />
+			<then>
+				<var name="key_eventTitle" value="${eventTitle}" />
 
-		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_ATTEND_INACTIVE" value1="${rsvp}" />
+				<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_SPECIFIC" />
+			</then>
+			<else>
+				<execute macro="CalendarEvent#selectViaSchedulerCmd">
+					<var name="eventTitle" value="${eventTitle}" />
+				</execute>
+
+				<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_ATTEND_INACTIVE" value1="${rsvp}" />
+			</else>
+		</if>
 	</command>
 
 	<command name="addSetTimePG">
@@ -298,13 +312,13 @@
 
 				<execute macro="CalendarEvent#save" />
 
-				<var name="key_endDate" value="${endDate}" />
-				<var name="key_endDateTime" value="${setEndDateTime}" />
-				<var name="key_startDate" value="${startDate}" />
-				<var name="key_startDateTime" value="${setStartDateTime}" />
-
-				<execute function="AssertElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR" />
-				<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR_TITLE" value1="${eventTitle}" />
+				<execute macro="CalendarEvent#viewRegularEventTitleViaMonthViewCmd">
+					<var name="endDate" value="${endDate}" />
+					<var name="endDateTime" value="${endDateTime}" />
+					<var name="eventTitle" value="${eventTitle}" />
+					<var name="startDate" value="${startDate}" />
+					<var name="startDateTime" value="${startDateTime}" />
+				</execute>
 			</then>
 			<elseif>
 				<equals arg1="${eventType}" arg2="Repeating" />
@@ -385,6 +399,7 @@
 
 		<execute macro="CalendarEvent#selectViaSchedulerCmd">
 			<var name="eventTitle" value="${eventTitle}" />
+			<var name="eventType" value="${eventType}" />
 		</execute>
 
 		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_EVENT_TITLE" value1="${eventTitle}" />
@@ -462,6 +477,55 @@
 		</if>
 
 		<execute function="Pause" locator1="3000" />
+	</command>
+
+	<command name="delete">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Agenda" />
+		</execute>
+
+		<var name="i" value="1" />
+
+		<while>
+			<condition function="IsElementPresent" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
+			<then>
+				<execute function="Click" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
+
+				<if>
+					<condition function="IsElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" />
+					<then>
+						<var method="MathUtil#sum(${i}, 1)" name="i" />
+
+						<execute function="Click" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
+					</then>
+					<else>
+						<if>
+							<condition function="IsElementNotPresent" locator1="xpath=(//input[contains(@value,'Repeating')])" />
+							<then>
+								<execute function="Pause" value1="1000" />
+								<execute function="ClickNoError" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" value1="Delete" />
+								<execute function="Pause" value1="1000" />
+								<execute function="Confirm#waitForConfirmation" value1="Deleting this event will cancel the meeting with your guests. Would you like to delete?" />
+							</then>
+							<else>
+								<execute function="Pause" value1="1000" />
+								<execute function="ClickNoError" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" value1="Delete" />
+								<execute function="Pause" value1="1000" />
+								<execute function="AssertClick" locator1="PGCalendarRecurringEventDialogBox#ALL_EVENTS_IN_THE_SERIES_BUTTON" value1="All Events in the Series"  />
+							</else>
+						</if>
+					</else>
+				</if>
+			</then>
+		</while>
+
+		<execute function="AssertTextEquals" locator1="PGCalendarAgendaView#EMPTY_MESSAGE" value1="No events." />
+		<execute function="AssertElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_GENERIC" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_REPEATING" />
+
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
 	</command>
 
 	<command name="deleteCommentPG">
@@ -897,6 +961,43 @@
 		<execute function="AssertElementPresent#assertVisible" locator1="PGCalendarAddevent#END_DATE_TIME" />
 	</command>
 
+	<command name="goToAddOnSpecifcDayOfWeekViaWeekView">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
+		<var name="key_dayOfWeek" value="${dayOfWeek}" />
+
+		<execute function="Click" locator1="PGCalendar#SCHEDULER_SPECIFIC_DAY" />
+
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_EVENT_TITLE" value1="e.g., Dinner at Brian's" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_EVENT_TITLE_GUEST" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_ATTEND_ACTIVE" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_ATTEND_INACTIVE" />
+		<execute function="AssertElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_CALENDAR_SELECT" />
+		<execute function="AssertElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_SAVE_BUTTON" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_VIEW_DETAILS_BUTTON" />
+		<execute function="AssertElementNotPresent" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" />
+
+		<execute function="AssertClick#assertTextClickAtAndWait" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_EDIT_BUTTON" value1="Edit" />
+
+		<execute macro="CalendarEvent#selectEventIframe" />
+	</command>
+
+	<command name="gotoEdit">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
+		<execute macro="CalendarEvent#selectViaSchedulerCmd">
+			<var name="eventTitle" value="${eventTitle}" />
+		</execute>
+
+		<execute function="AssertClick" locator1="PGCalendar#SCHEDULER_EVENT_DIALOG_BOX_EDIT_BUTTON" value1="Edit" />
+
+		<execute function="SelectFrame" locator1="PGCalendarEditevent#EDIT_EVENT_IFRAME" />
+	</command>
+
 	<command name="gotoRepeatConfiguration">
 		<execute function="Check" locator1="PGCalendarAddevent#REPEAT_CHECKBOX" />
 	</command>
@@ -916,7 +1017,10 @@
 			<var name="key_resource" value="${resourceName}" />
 
 			<execute function="Click" locator1="PGCalendarAddevent#INVITATIONS_INVITE_RESOURCE_FIELD_LIST" value1="${resourceName}" />
-			<execute function="AssertTextEquals" locator1="PGCalendarAddevent#INVITATIONS_PENDING" value1="${resourceName}" />
+
+			<execute macro="CalendarEvent#viewRSVPPending">
+				<var name="resourceName" value="${resourceName}" />
+			</execute>
 		</for>
 	</command>
 
@@ -1047,7 +1151,15 @@
 	<command name="selectViaSchedulerCmd">
 		<var name="key_eventTitle" value="${eventTitle}" />
 
-		<execute function="AssertClick#assertTextClickNoMouseOver" locator1="PGCalendar#SCHEDULER_EVENT_SPECIFIC" value1="${eventTitle}" />
+		<if>
+			<equals arg1="${eventType}" arg2="All Day" />
+			<then>
+				<execute function="AssertClick#assertTextClickNoMouseOver" locator1="PGCalendar#SCHEDULER_EVENT_SPECIFIC" value1="${eventTitle}" />
+			</then>
+			<else>
+				<execute function="AssertClick#assertTextClickNoMouseOver" locator1="PGCalendar#SCHEDULER_REGULAR_EVENT_SPECIFIC_CURRENT_DAY_VIA_DAY_OR_WEEK_VIEW" value1="${eventTitle}" />
+			</else>
+		</if>
 	</command>
 
 	<command name="setAllDay">
@@ -1163,53 +1275,32 @@
 		</if>
 	</command>
 
-	<command name="tearDownPG">
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Agenda" />
-		</execute>
-
-		<var name="i" value="1" />
-
-		<while>
-			<condition function="IsElementPresent" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
+	<command name="tearDown">
+		<if>
+			<equals arg1="${marketplace}" arg2="true" />
 			<then>
-				<execute function="Click" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
+				<execute macro="Page#addPG">
+					<var name="pageName" value="Marketplace Calendar Testing" />
+				</execute>
 
-				<if>
-					<condition function="IsElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" />
-					<then>
-						<var name="i" value="${i?increment()}" />
+				<execute macro="Portlet#addPG">
+					<var name="pageName" value="Marketplace Calendar Testing" />
+					<var name="portletName" value="Calendar" />
+				</execute>
 
-						<execute function="Click" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')])[${i}]" />
-					</then>
-					<else>
-						<if>
-							<condition function="IsElementNotPresent" locator1="xpath=(//input[contains(@value,'Repeating')])" />
-							<then>
-								<execute function="Pause" value1="1000" />
-								<execute function="ClickNoError" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" value1="Delete" />
-								<execute function="Pause" value1="1000" />
-								<execute function="Confirm#waitForConfirmation" value1="Deleting this event will cancel the meeting with your guests. Would you like to delete?" />
-							</then>
-							<else>
-								<execute function="Pause" value1="1000" />
-								<execute function="ClickNoError" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_DIALOG_BOX_DELETE_BUTTON" value1="Delete" />
-								<execute function="Pause" value1="1000" />
-								<execute function="AssertClick" locator1="PGCalendarRecurringEventDialogBox#ALL_EVENTS_IN_THE_SERIES_BUTTON" value1="All Events in the Series"  />
-							</else>
-						</if>
-					</else>
-				</if>
+				<execute macro="Page#gotoPG">
+					<var name="pageName" value="Marketplace Calendar Testing" />
+				</execute>
 			</then>
-		</while>
+		</if>
 
-		<execute function="AssertTextEquals" locator1="PGCalendarAgendaView#EMPTY_MESSAGE" value1="No events." />
-		<execute function="AssertElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_GENERIC" />
-		<execute function="AssertElementNotPresent" locator1="PGCalendarAgendaView#SCHEDULER_EVENT_REPEATING" />
+		<execute macro="CalendarEvent#delete" />
+	</command>
 
-		<execute macro="CalendarEvent#changeViewPG">
-			<var name="viewType" value="Week" />
-		</execute>
+	<command name="tearDownOnBusyDayInCurrentMonth">
+		<execute macro="Calendar#goToBusyDayViaSmallCalendar" />
+
+		<execute macro="CalendarEvent#delete" />
 	</command>
 
 	<command name="viewAgendaPG">
@@ -1225,7 +1316,7 @@
 			<then>
 				<execute function="AssertElementPresent" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')]//div[contains(.,'${key_eventTitle}')])[${i}]" />
 				<execute function="AssertTextEquals" locator1="xpath=(//div[contains(@class,'scheduler-view-agenda-event') and contains(@data-clientid,'scheduler-event')]//div[contains(.,'${key_eventTitle}')])[${i}]" value1="${eventTitle}" />
-				<var name="i" value="${i?increment()}" />
+				<var method="MathUtil#sum(${i}, 1)" name="i" />
 			</then>
 		</while>
 
@@ -1317,7 +1408,7 @@
 					<then>
 						<execute function="AssertTextEquals" locator1="xpath=(//td[contains(@class,'scheduler-view-day-table-col scheduler-view-day-table-colday scheduler-today')]//div[@class='scheduler-event-content' and contains(.,'${key_eventTitle}')])[${i}]" value1="${eventTitle}" />
 
-						<var name="i" value="${i?increment()}" />
+						<var method="MathUtil#sum(${i}, 1)" name="i" />
 					</then>
 				</if>
 			</then>
@@ -1389,8 +1480,13 @@
 	</command>
 
 	<command name="viewEventDetails">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
 		<execute macro="CalendarEvent#selectViaSchedulerCmd">
 			<var name="eventTitle" value="${eventTitle}" />
+			<var name="eventType" value="${eventType}" />
 		</execute>
 
 		<execute macro="CalendarEvent#viewTitleViaSchedulerDialogBoxCmd">
@@ -1464,7 +1560,7 @@
 					<then>
 						<execute function="AssertTextEquals" locator1="xpath=(//div[contains(@class,'scheduler-view-table scheduler-view-month')]//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[${i}]" value1="${eventTitle}" />
 
-						<var name="i" value="${i?increment()}" />
+						<var method="MathUtil#sum(${i}, 1)" name="i" />
 					</then>
 					<elseif>
 						<condition function="IsElementNotPresent#isNotVisible" locator1="xpath=(//div[contains(@class,'scheduler-view-table scheduler-view-month')]//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[2]" />
@@ -1494,7 +1590,7 @@
 							<then>
 								<execute function="AssertElementPresent" locator1="xpath=(//div[contains(@class,'scheduler-view-table scheduler-view-month')]//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[${i}]" />
 								<execute function="AssertTextEquals" locator1="xpath=(//div[contains(@class,'scheduler-view-table scheduler-view-month')]//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[${i}]" value1="${eventTitle}" />
-								<var name="i" value="${i?increment()}" />
+								<var method="MathUtil#sum(${i}, 1)" name="i" />
 							</then>
 						</while>
 
@@ -1569,8 +1665,46 @@
 		<execute function="SelectFrame" value1="relative=top" />
 	</command>
 
+	<command name="viewRegularEventTitleViaMonthViewCmd">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Month" />
+		</execute>
+
+		<var name="key_endDate" value="${endDate}" />
+		<var name="key_endDateTime" value="${endDateTime}" />
+		<var name="key_startDate" value="${startDate}" />
+		<var name="key_startDateTime" value="${startDateTime}" />
+
+		<execute function="AssertElementPresent" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR" />
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_EVENT_REGULAR_TITLE_VIA_MONTH" value1="${eventTitle}" />
+	</command>
+
 	<command name="viewRepeatWeekStartDay">
 		<execute function="AssertTextEquals" locator1="PGCalendarAddevent#REPEAT_REPEAT_ON_DAY_OF_THE_WEEK_WEEKDAY_WEEK_START_DAY" value1="${weekStartDay}" />
+	</command>
+
+	<command name="viewRSVPAccepted">
+		<var name="key_resource" value="${resourceName}" />
+
+		<execute function="AssertTextEquals" locator1="PGCalendarAddevent#INVITATIONS_ACCEPTED" value1="${resourceName}" />
+	</command>
+
+	<command name="viewRSVPDeclined">
+		<var name="key_resource" value="${resourceName}" />
+
+		<execute function="AssertTextEquals" locator1="PGCalendarAddevent#INVITATIONS_DECLINED" value1="${resourceName}" />
+	</command>
+
+	<command name="viewRSVPMaybe">
+		<var name="key_resource" value="${resourceName}" />
+
+		<execute function="AssertTextEquals" locator1="PGCalendarAddevent#INVITATIONS_MAYBE" value1="${resourceName}" />
+	</command>
+
+	<command name="viewRSVPPending">
+		<var name="key_resource" value="${resourceName}" />
+
+		<execute function="AssertTextEquals" locator1="PGCalendarAddevent#INVITATIONS_PENDING" value1="${resourceName}" />
 	</command>
 
 	<command name="viewTitleViaDetailsCmd">
@@ -1639,7 +1773,7 @@
 			<then>
 				<execute function="AssertElementPresent" locator1="xpath=(//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[${i}]" />
 				<execute function="AssertTextEquals" locator1="xpath=(//div[contains(@class,'calendar-portlet-event')]/div[contains(.,'${key_eventTitle}')])[${i}]" value1="${eventTitle}" />
-				<var name="i" value="${i?increment()}" />
+				<var method="MathUtil#sum(${i}, 1)" name="i" />
 			</then>
 		</while>
 	</command>

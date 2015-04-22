@@ -27,6 +27,7 @@ import com.liferay.registry.collections.ServiceTrackerMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Sergio González
@@ -49,10 +50,22 @@ public class FormNavigatorEntryUtil {
 	public static <T> List<FormNavigatorEntry<T>> getFormNavigatorEntries(
 		String formNavigatorId, User user, T formModelBean) {
 
-		@SuppressWarnings("rawtypes")
-		List<FormNavigatorEntry<T>> formNavigatorEntries =
-			(List)_instance._formNavigatorEntries.getService(
-				_getKey(formNavigatorId, null));
+		List<FormNavigatorEntry<T>> formNavigatorEntries = new ArrayList<>();
+
+		String[] categoryKeys = FormNavigatorCategoryUtil.getKeys(
+			formNavigatorId);
+
+		for (String categoryKey : categoryKeys) {
+
+			@SuppressWarnings("rawtypes")
+			List<FormNavigatorEntry<T>> curFormNavigatorEntries =
+				(List)_instance._formNavigatorEntries.getService(
+					_getKey(formNavigatorId, categoryKey));
+
+			if (curFormNavigatorEntries != null) {
+				formNavigatorEntries.addAll(curFormNavigatorEntries);
+			}
+		}
 
 		return filterVisibleFormNavigatorEntries(
 			formNavigatorEntries, user, formModelBean);
@@ -80,8 +93,8 @@ public class FormNavigatorEntryUtil {
 	}
 
 	public static <T> String[] getLabels(
-		String formNavigatorId, String categoryKey, User user,
-		T formModelBean) {
+		String formNavigatorId, String categoryKey, User user, T formModelBean,
+		Locale locale) {
 
 		List<String> labels = new ArrayList<>();
 
@@ -90,7 +103,7 @@ public class FormNavigatorEntryUtil {
 				formNavigatorId, categoryKey, user, formModelBean);
 
 		for (FormNavigatorEntry<T> formNavigatorEntry : formNavigatorEntries) {
-			String label = formNavigatorEntry.getLabel();
+			String label = formNavigatorEntry.getLabel(locale);
 
 			if (Validator.isNotNull(label)) {
 				labels.add(label);
@@ -122,10 +135,6 @@ public class FormNavigatorEntryUtil {
 	}
 
 	private static String _getKey(String formNavigatorId, String categoryKey) {
-		if (Validator.isNull(categoryKey)) {
-			return formNavigatorId;
-		}
-
 		return formNavigatorId + StringPool.PERIOD + categoryKey;
 	}
 
@@ -149,8 +158,6 @@ public class FormNavigatorEntryUtil {
 						_getKey(
 							formNavigatorEntry.getFormNavigatorId(),
 							formNavigatorEntry.getCategoryKey()));
-					emitter.emit(
-						_getKey(formNavigatorEntry.getFormNavigatorId(), null));
 
 					registry.ungetService(serviceReference);
 				}

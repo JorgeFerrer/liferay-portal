@@ -85,6 +85,7 @@ import com.liferay.portlet.sites.util.SitesUtil;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1245,22 +1246,21 @@ public class LayoutImporter {
 
 		// Available locales
 
-		Locale[] sourceAvailableLocales = LocaleUtil.fromLanguageIds(
-			StringUtil.split(
-				headerElement.attributeValue("available-locales")));
-
-		Locale[] targetAvailableLocales = LanguageUtil.getAvailableLocales(
-			groupId);
+		List<Locale> sourceAvailableLocales = Arrays.asList(
+			LocaleUtil.fromLanguageIds(
+				StringUtil.split(
+					headerElement.attributeValue("available-locales"))));
 
 		for (Locale sourceAvailableLocale : sourceAvailableLocales) {
-			if (!ArrayUtil.contains(
-					targetAvailableLocales, sourceAvailableLocale)) {
+			if (!LanguageUtil.isAvailableLocale(
+					groupId, sourceAvailableLocale)) {
 
 				LocaleException le = new LocaleException(
 					LocaleException.TYPE_EXPORT_IMPORT);
 
 				le.setSourceAvailableLocales(sourceAvailableLocales);
-				le.setTargetAvailableLocales(targetAvailableLocales);
+				le.setTargetAvailableLocales(
+					LanguageUtil.getAvailableLocales(groupId));
 
 				throw le;
 			}
