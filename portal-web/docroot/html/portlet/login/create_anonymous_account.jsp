@@ -54,7 +54,7 @@
 		<aui:col width="<%= 50 %>">
 			<aui:input model="<%= User.class %>" name="firstName" />
 
-			<c:if test="<%= LanguageUtil.isRequiredUserNameField(locale, "last-name") %>">
+			<c:if test='<%= LanguageUtil.isRequiredUserNameField(locale, "last-name") %>'>
 				<aui:input model="<%= User.class %>" name="lastName">
 					<aui:validator name="required" />
 				</aui:input>

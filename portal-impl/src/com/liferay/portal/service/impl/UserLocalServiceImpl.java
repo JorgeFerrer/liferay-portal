@@ -6616,14 +6616,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			throw new ContactFirstNameException();
 		}
 		else if (Validator.isNull(middleName) &&
-			LanguageUtil.isRequiredUserNameField(locale, "middle-name")) {
+				 LanguageUtil.isRequiredUserNameField(locale, "middle-name")) {
 
-			throw new ContactRequiredNameException("A middle name is required for this user's locale.");
+			throw new ContactRequiredNameException(
+				"A middle name is required for this user's locale.");
 		}
 		else if (Validator.isNull(lastName) &&
-			LanguageUtil.isRequiredUserNameField(locale, "last-name")) {
+				 LanguageUtil.isRequiredUserNameField(locale, "last-name")) {
 
-			throw new ContactRequiredNameException("A last name is required for this user's locale.");
+			throw new ContactRequiredNameException(
+				"A last name is required for this user's locale.");
 		}
 
 		FullNameValidator fullNameValidator =
