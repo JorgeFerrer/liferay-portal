@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portlet.passwordpoliciesadmin.search;
+package com.liferay.password.policies.admin.web.search;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
