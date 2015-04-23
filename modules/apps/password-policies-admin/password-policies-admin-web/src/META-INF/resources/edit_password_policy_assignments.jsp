@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/html/portlet/password_policies_admin/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1");
@@ -29,7 +29,7 @@ PasswordPolicy passwordPolicy = PasswordPolicyLocalServiceUtil.fetchPasswordPoli
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("mvcPath", "/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp");
+portletURL.setParameter("mvcPath", "/edit_password_policy_assignments.jsp");
 portletURL.setParameter("tabs1", tabs1);
 portletURL.setParameter("redirect", redirect);
 portletURL.setParameter("passwordPolicyId", String.valueOf(passwordPolicy.getPasswordPolicyId()));
@@ -121,7 +121,7 @@ portletURL.setParameter("tabs3", tabs3);
 							%>
 
 							<portlet:renderURL var="assignMembersURL">
-								<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp" />
+								<portlet:param name="mvcPath" value="/edit_password_policy_assignments.jsp" />
 								<portlet:param name="tabs1" value="<%= tabs1 %>" />
 								<portlet:param name="tabs2" value="users" />
 								<portlet:param name="tabs3" value="current" />
@@ -213,7 +213,7 @@ portletURL.setParameter("tabs3", tabs3);
 							%>
 
 							<portlet:renderURL var="assignMembersURL">
-								<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp" />
+								<portlet:param name="mvcPath" value="/edit_password_policy_assignments.jsp" />
 								<portlet:param name="tabs1" value="<%= tabs1 %>" />
 								<portlet:param name="tabs2" value="organizations" />
 								<portlet:param name="tabs3" value="current" />
