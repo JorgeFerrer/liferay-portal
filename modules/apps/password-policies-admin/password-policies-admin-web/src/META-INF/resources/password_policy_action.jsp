@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/html/portlet/password_policies_admin/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 PasswordPolicySearch searchContainer = (PasswordPolicySearch)request.getAttribute("liferay-ui:search:searchContainer");
@@ -29,7 +29,7 @@ PasswordPolicy passwordPolicy = (PasswordPolicy)row.getObject();
 <liferay-ui:icon-menu icon="<%= StringPool.BLANK %>" message="<%= StringPool.BLANK %>">
 	<c:if test="<%= PasswordPolicyPermissionUtil.contains(permissionChecker, passwordPolicy.getPasswordPolicyId(), ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy.jsp" />
+			<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
 			<portlet:param name="passwordPolicyId" value="<%= String.valueOf(passwordPolicy.getPasswordPolicyId()) %>" />
 		</portlet:renderURL>
@@ -61,7 +61,7 @@ PasswordPolicy passwordPolicy = (PasswordPolicy)row.getObject();
 
 	<c:if test="<%= PasswordPolicyPermissionUtil.contains(permissionChecker, passwordPolicy.getPasswordPolicyId(), ActionKeys.ASSIGN_MEMBERS) %>">
 		<portlet:renderURL var="assignMembersURL">
-			<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy_assignments.jsp" />
+			<portlet:param name="mvcPath" value="/edit_password_policy_assignments.jsp" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
 			<portlet:param name="passwordPolicyId" value="<%= String.valueOf(passwordPolicy.getPasswordPolicyId()) %>" />
 		</portlet:renderURL>

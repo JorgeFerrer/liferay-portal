@@ -25,4 +25,4 @@ page import="com.liferay.portlet.passwordpoliciesadmin.search.PasswordPolicyDisp
 page import="com.liferay.portlet.passwordpoliciesadmin.search.PasswordPolicySearch" %><%@
 page import="com.liferay.portlet.passwordpoliciesadmin.search.UserPasswordPolicyChecker" %>
 
-<%@ include file="/html/portlet/password_policies_admin/init-ext.jsp" %>
+<%@ include file="/init-ext.jsp" %>

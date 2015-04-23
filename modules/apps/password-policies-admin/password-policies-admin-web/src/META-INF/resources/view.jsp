@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/html/portlet/password_policies_admin/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
@@ -49,7 +49,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 				<portlet:renderURL var="viewPasswordPoliciesURL" />
 
 				<portlet:renderURL var="addPasswordPolicyURL">
-					<portlet:param name="mvcPath" value="/html/portlet/password_policies_admin/edit_password_policy.jsp" />
+					<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
 					<portlet:param name="redirect" value="<%= viewPasswordPoliciesURL %>" />
 				</portlet:renderURL>
 
@@ -58,7 +58,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 		</aui:nav>
 
 		<c:if test="<%= !passwordPolicyEnabled %>">
-			<aui:nav-bar-search file="/html/portlet/password_policies_admin/password_policy_search.jsp" searchContainer="<%= searchContainer %>" />
+			<aui:nav-bar-search file="/password_policy_search.jsp" searchContainer="<%= searchContainer %>" />
 		</c:if>
 	</aui:nav-bar>
 
@@ -96,7 +96,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 
 			PortletURL rowURL = renderResponse.createRenderURL();
 
-			rowURL.setParameter("mvcPath", "/html/portlet/password_policies_admin/edit_password_policy.jsp");
+			rowURL.setParameter("mvcPath", "/edit_password_policy.jsp");
 			rowURL.setParameter("redirect", searchContainer.getIteratorURL().toString());
 			rowURL.setParameter("passwordPolicyId", String.valueOf(passwordPolicy.getPasswordPolicyId()));
 
@@ -110,7 +110,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 
 			// Action
 
-			row.addJSP("/html/portlet/password_policies_admin/password_policy_action.jsp", "entry-action");
+			row.addJSP("/password_policy_action.jsp", "entry-action");
 
 			// Add result row
 
