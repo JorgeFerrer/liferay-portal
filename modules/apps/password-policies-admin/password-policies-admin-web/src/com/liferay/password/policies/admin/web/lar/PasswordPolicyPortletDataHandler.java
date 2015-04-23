@@ -14,11 +14,13 @@
 
 package com.liferay.password.policies.admin.web.lar;
 
+import com.liferay.password.policies.admin.web.constants.PasswordPoliciesAdminPortletKeys;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.lar.PortletDataHandler;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.portal.kernel.lar.StagedModelType;
@@ -32,9 +34,18 @@ import java.util.List;
 
 import javax.portlet.PortletPreferences;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Daniela Zapata Riesco
  */
+@Component(
+	property = {
+		"javax.portlet.name=" +
+			PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN
+	},
+	service = PortletDataHandler.class
+)
 public class PasswordPolicyPortletDataHandler extends BasePortletDataHandler {
 
 	public static final String NAMESPACE = "password_policies_admin";
