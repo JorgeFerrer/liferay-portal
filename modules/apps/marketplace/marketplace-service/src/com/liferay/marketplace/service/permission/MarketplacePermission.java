@@ -30,7 +30,8 @@ public class MarketplacePermission {
 		throws PortalException {
 
 		if (!contains(permissionChecker)) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), "com.liferay.marketplace", null);
 		}
 	}
 

@@ -55,7 +55,8 @@ public class MBDiscussionPermission implements BaseModelPermissionChecker {
 				permissionChecker, companyId, groupId, className, classPK,
 				ownerId, actionId)) {
 
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), className, classPK, actionId);
 		}
 	}
 
@@ -68,7 +69,8 @@ public class MBDiscussionPermission implements BaseModelPermissionChecker {
 				permissionChecker, className, classPK, messageId, ownerId,
 				actionId)) {
 
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), className, classPK, actionId);
 		}
 	}
 
