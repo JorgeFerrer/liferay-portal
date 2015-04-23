@@ -14,6 +14,7 @@
 
 package com.liferay.password.policies.admin.web.search;
 
+import com.liferay.password.policies.admin.web.constants.PasswordPoliciesAdminPortletKeys;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -21,7 +22,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.PasswordPolicy;
-import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.comparator.PasswordPolicyDescriptionComparator;
 import com.liferay.portal.util.comparator.PasswordPolicyNameComparator;
 import com.liferay.portlet.PortalPreferences;
@@ -82,18 +82,18 @@ public class PasswordPolicySearch extends SearchContainer<PasswordPolicy> {
 				Validator.isNotNull(orderByType)) {
 
 				preferences.setValue(
-					PortletKeys.PASSWORD_POLICIES_ADMIN,
+					PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN,
 					"password-policies-order-by-col", orderByCol);
 				preferences.setValue(
-					PortletKeys.PASSWORD_POLICIES_ADMIN,
+					PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN,
 					"password-policies-order-by-type", orderByType);
 			}
 			else {
 				orderByCol = preferences.getValue(
-					PortletKeys.PASSWORD_POLICIES_ADMIN,
+					PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN,
 					"password-policies-order-by-col", "name");
 				orderByType = preferences.getValue(
-					PortletKeys.PASSWORD_POLICIES_ADMIN,
+					PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN,
 					"password-policies-order-by-type", "asc");
 			}
 
