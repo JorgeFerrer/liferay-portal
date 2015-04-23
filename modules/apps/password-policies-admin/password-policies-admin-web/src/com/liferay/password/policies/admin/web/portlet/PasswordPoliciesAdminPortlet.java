@@ -15,6 +15,7 @@
 package com.liferay.password.policies.admin.web.portlet;
 
 import com.liferay.password.policies.admin.web.constants.PasswordPoliciesAdminPortletKeys;
+import com.liferay.password.policies.admin.web.upgrade.PasswordPoliciesAdminUpgrade;
 import com.liferay.portal.DuplicatePasswordPolicyException;
 import com.liferay.portal.NoSuchPasswordPolicyException;
 import com.liferay.portal.PasswordPolicyNameException;
@@ -42,6 +43,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -224,6 +226,11 @@ public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 		}
 
 		return false;
+	}
+
+	@Reference(unbind = "-")
+	protected void setPasswordPoliciesAdminUpgrade(
+		PasswordPoliciesAdminUpgrade passwordPoliciesAdminUpgrade) {
 	}
 
 }
