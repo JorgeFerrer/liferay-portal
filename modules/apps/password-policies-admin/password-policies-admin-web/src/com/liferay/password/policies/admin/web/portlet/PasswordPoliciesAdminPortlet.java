@@ -14,6 +14,7 @@
 
 package com.liferay.password.policies.admin.web.portlet;
 
+import com.liferay.password.policies.admin.web.constants.PasswordPoliciesAdminPortletKeys;
 import com.liferay.portal.DuplicatePasswordPolicyException;
 import com.liferay.portal.NoSuchPasswordPolicyException;
 import com.liferay.portal.PasswordPolicyNameException;
@@ -35,15 +36,40 @@ import java.io.IOException;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Brian Wing Shun Chan
  * @author Scott Lee
  * @author Drew Brokke
  */
+@Component(
+	immediate = true,
+	property = {
+		"com.liferay.portlet.control-panel-entry-category=users",
+		"com.liferay.portlet.control-panel-entry-weight=4.0",
+		"com.liferay.portlet.css-class-wrapper=portlet-users-admin",
+		"com.liferay.portlet.icon=/icons/password_policies_admin.png",
+		"com.liferay.portlet.preferences-owned-by-group=true",
+		"com.liferay.portlet.private-request-attributes=false",
+		"com.liferay.portlet.private-session-attributes=false",
+		"com.liferay.portlet.render-weight=50",
+		"com.liferay.portlet.use-default-template=true",
+		"javax.portlet.display-name=Password Policies Admin",
+		"javax.portlet.init-param.template-path=/",
+		"javax.portlet.init-param.view-template=/view.jsp",
+		"javax.portlet.name=" + PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN,
+		"javax.portlet.resource-bundle=content.Language",
+		"javax.portlet.security-role-ref=administrator",
+		"javax.portlet.supports.mime-type=text/html"
+	},
+	service = Portlet.class
+)
 public class PasswordPoliciesAdminPortlet extends MVCPortlet {
 
 	public void deletePasswordPolicy(
