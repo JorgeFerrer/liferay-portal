@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.portlet.PortletRequest;
 
@@ -90,6 +91,13 @@ public interface Language {
 		ResourceBundle resourceBundle, String pattern, Object[] arguments,
 		boolean translateArguments);
 
+	public String get(
+		HttpServletRequest request, ResourceBundle resourceBundle, String key);
+
+	public String get(
+		HttpServletRequest request, ResourceBundle resourceBundle, String key,
+		String defaultValue);
+
 	public String get(HttpServletRequest request, String key);
 
 	public String get(
@@ -104,9 +112,9 @@ public interface Language {
 	public String get(
 		ResourceBundle resourceBundle, String key, String defaultValue);
 
-	public Locale[] getAvailableLocales();
+	public Set<Locale> getAvailableLocales();
 
-	public Locale[] getAvailableLocales(long groupId);
+	public Set<Locale> getAvailableLocales(long groupId);
 
 	public String getBCP47LanguageId(HttpServletRequest request);
 
@@ -114,17 +122,17 @@ public interface Language {
 
 	public String getBCP47LanguageId(PortletRequest portletRequest);
 
-	public String getCharset(Locale locale);
-
 	public String getLanguageId(HttpServletRequest request);
 
 	public String getLanguageId(Locale locale);
 
 	public String getLanguageId(PortletRequest portletRequest);
 
+	public Locale getLocale(long groupId, String languageCode);
+
 	public Locale getLocale(String languageCode);
 
-	public Locale[] getSupportedLocales();
+	public Set<Locale> getSupportedLocales();
 
 	public String getTimeDescription(
 		HttpServletRequest request, long milliseconds);

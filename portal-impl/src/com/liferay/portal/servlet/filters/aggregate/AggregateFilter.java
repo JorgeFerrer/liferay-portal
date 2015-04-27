@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.BrowserSniffer;
 import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
+import com.liferay.portal.kernel.servlet.FileTimestampUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.PortalWebResourcesUtil;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -35,6 +36,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.URLUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.minifier.MinifierUtil;
 import com.liferay.portal.servlet.filters.IgnoreModuleRequestFilter;
@@ -281,18 +283,11 @@ public class AggregateFilter extends IgnoreModuleRequestFilter {
 			boolean staleCache = false;
 
 			for (String fileName : fileNames) {
-				URL resourceURL = portalWebResourcesServletContext.getResource(
+				long lastModified = FileTimestampUtil.getTimestamp(
+					portalWebResourcesServletContext,
 					bundleDirName.concat(StringPool.SLASH).concat(fileName));
 
-				if (resourceURL == null) {
-					continue;
-				}
-
-				URLConnection urlConnection = resourceURL.openConnection();
-
-				if (urlConnection.getLastModified() >
-						cacheFile.lastModified()) {
-
+				if (lastModified > cacheFile.lastModified()) {
 					staleCache = true;
 
 					break;
@@ -381,8 +376,6 @@ public class AggregateFilter extends IgnoreModuleRequestFilter {
 			return null;
 		}
 
-		URLConnection urlConnection = resourceURL.openConnection();
-
 		String cacheCommonFileName = getCacheFileName(request);
 
 		File cacheContentTypeFile = new File(
@@ -391,7 +384,8 @@ public class AggregateFilter extends IgnoreModuleRequestFilter {
 			_tempDir, cacheCommonFileName + "_E_DATA");
 
 		if (cacheDataFile.exists() &&
-			(cacheDataFile.lastModified() >= urlConnection.getLastModified())) {
+			(cacheDataFile.lastModified() >=
+				URLUtil.getLastModifiedTime(resourceURL))) {
 
 			if (cacheContentTypeFile.exists()) {
 				String contentType = FileUtil.read(cacheContentTypeFile);

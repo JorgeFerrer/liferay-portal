@@ -22,8 +22,6 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.unit.converter.web.model.UnitConverter" %><%@

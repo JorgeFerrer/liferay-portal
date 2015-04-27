@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -32,6 +33,8 @@ import com.liferay.portal.util.PortletKeys;
 
 import java.util.Locale;
 import java.util.Map;
+
+import javax.portlet.WindowStateException;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -65,14 +68,16 @@ public class AlloyEditorConfigContributor implements EditorConfigContributor {
 		String languageId = LocaleUtil.toLanguageId(themeDisplay.getLocale());
 
 		jsonObject.put("language", languageId.replace("iw_", "he_"));
+		jsonObject.put(
+			"removePlugins", "toolbar,elementspath,resize,liststyle,link");
 
 		if (liferayPortletResponse != null) {
-			LiferayPortletURL documentSelectorURL =
+			LiferayPortletURL itemSelectorURL =
 				liferayPortletResponse.createRenderURL(
-					PortletKeys.DOCUMENT_SELECTOR);
+					PortletKeys.ITEM_SELECTOR);
 
-			documentSelectorURL.setParameter("mvcPath", "/view.jsp");
-			documentSelectorURL.setParameter(
+			itemSelectorURL.setParameter("mvcPath", "/view.jsp");
+			itemSelectorURL.setParameter(
 				"groupId", String.valueOf(themeDisplay.getScopeGroupId()));
 
 			String name =
@@ -81,9 +86,8 @@ public class AlloyEditorConfigContributor implements EditorConfigContributor {
 						(String)inputEditorTaglibAttributes.get(
 							"liferay-ui:input-editor:name"));
 
-			documentSelectorURL.setParameter(
-				"eventName", name + "selectDocument");
-			documentSelectorURL.setParameter(
+			itemSelectorURL.setParameter("eventName", name + "selectDocument");
+			itemSelectorURL.setParameter(
 				"showGroupsSelector", Boolean.TRUE.toString());
 
 			Map<String, String> fileBrowserParamsMap =
@@ -94,24 +98,29 @@ public class AlloyEditorConfigContributor implements EditorConfigContributor {
 				for (Map.Entry<String, String> entry :
 						fileBrowserParamsMap.entrySet()) {
 
-					documentSelectorURL.setParameter(
+					itemSelectorURL.setParameter(
 						entry.getKey(), entry.getValue());
 				}
 			}
 
-			jsonObject.put(
-				"filebrowserBrowseUrl", documentSelectorURL.toString());
+			try {
+				itemSelectorURL.setWindowState(LiferayWindowState.POP_UP);
+			}
+			catch (WindowStateException wse) {
+			}
+
+			jsonObject.put("filebrowserBrowseUrl", itemSelectorURL.toString());
 			jsonObject.put(
 				"filebrowserFlashBrowseUrl",
-				documentSelectorURL.toString() + "&Type=flash");
+				itemSelectorURL.toString() + "&Type=flash");
 			jsonObject.put(
 				"filebrowserImageBrowseLinkUrl",
-				documentSelectorURL.toString() + "&Type=image");
+				itemSelectorURL.toString() + "&Type=image");
 			jsonObject.put(
 				"filebrowserImageBrowseUrl",
-				documentSelectorURL.toString() + "&Type=image");
+				itemSelectorURL.toString() + "&Type=image");
 
-			jsonObject.put("srcNode", "#" + name);
+			jsonObject.put("srcNode", name);
 		}
 
 		JSONObject toolbarsJSONObject = JSONFactoryUtil.createJSONObject();

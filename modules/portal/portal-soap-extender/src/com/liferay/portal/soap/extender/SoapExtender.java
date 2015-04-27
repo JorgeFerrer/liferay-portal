@@ -93,6 +93,10 @@ public class SoapExtender {
 				new ServletContextHelper(_bundleContext.getBundle()) {},
 				properties);
 
+		CXFNonSpringServlet cxfNonSpringServlet = new CXFNonSpringServlet();
+
+		cxfNonSpringServlet.setBus(bus);
+
 		properties = new Hashtable<>();
 
 		properties.put(
@@ -102,10 +106,6 @@ public class SoapExtender {
 			HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME, "CXFServlet");
 		properties.put(
 			HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN, "/*");
-
-		CXFNonSpringServlet cxfNonSpringServlet = new CXFNonSpringServlet();
-
-		cxfNonSpringServlet.setBus(bus);
 
 		_servletServiceRegistration = _bundleContext.registerService(
 			Servlet.class, cxfNonSpringServlet, properties);

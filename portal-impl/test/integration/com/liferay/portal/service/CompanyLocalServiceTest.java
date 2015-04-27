@@ -24,6 +24,7 @@ import com.liferay.portal.NoSuchShardException;
 import com.liferay.portal.NoSuchVirtualHostException;
 import com.liferay.portal.RequiredCompanyException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.test.randomizerbumpers.NumericStringRandomizerBumper;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.Sync;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
@@ -361,9 +362,9 @@ public class CompanyLocalServiceTest {
 		CompanyLocalServiceUtil.deleteCompany(company);
 
 		for (long companyId : PortalInstances.getCompanyIds()) {
-			if (companyId == company.getCompanyId()) {
-				Assert.fail("Company instance was not deleted");
-			}
+			Assert.assertNotEquals(
+				"Company instance was not deleted", company.getCompanyId(),
+				companyId);
 		}
 	}
 
@@ -554,7 +555,8 @@ public class CompanyLocalServiceTest {
 		throws Exception {
 
 		return UserTestUtil.addUser(
-			companyId, userId, RandomTestUtil.randomString(), false,
+			companyId, userId,
+			RandomTestUtil.randomString(NumericStringRandomizerBumper.INSTANCE),
 			LocaleUtil.getDefault(), RandomTestUtil.randomString(),
 			RandomTestUtil.randomString(), new long[] {groupId},
 			serviceContext);
@@ -587,14 +589,10 @@ public class CompanyLocalServiceTest {
 					account.getTickerSymbol(), account.getIndustry(),
 					account.getType(), account.getSize());
 
-				if (expectFailure) {
-					Assert.fail();
-				}
+				Assert.assertFalse(expectFailure);
 			}
 			catch (AccountNameException ane) {
-				if (!expectFailure) {
-					Assert.fail();
-				}
+				Assert.assertTrue(expectFailure);
 			}
 		}
 	}
@@ -636,9 +634,8 @@ public class CompanyLocalServiceTest {
 			}
 		}
 		catch (CompanyMxException cme) {
-			if (valid || !mailMxUpdate) {
-				Assert.fail();
-			}
+			Assert.assertFalse(valid);
+			Assert.assertTrue(mailMxUpdate);
 		}
 		finally {
 			CompanyLocalServiceUtil.deleteCompany(company.getCompanyId());
@@ -659,14 +656,10 @@ public class CompanyLocalServiceTest {
 					company.getCompanyId(), virtualHostName, company.getMx(),
 					company.getMaxUsers(), company.getActive());
 
-				if (expectFailure) {
-					Assert.fail();
-				}
+				Assert.assertFalse(expectFailure);
 			}
 			catch (CompanyVirtualHostException cvhe) {
-				if (!expectFailure) {
-					Assert.fail();
-				}
+				Assert.assertTrue(expectFailure);
 			}
 		}
 

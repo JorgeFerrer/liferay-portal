@@ -23,6 +23,8 @@ import com.liferay.portal.PortletIdException;
 import com.liferay.portal.kernel.lar.ExportImportDateUtil;
 import com.liferay.portal.kernel.lar.ExportImportHelper;
 import com.liferay.portal.kernel.lar.MissingReferences;
+import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationConstants;
+import com.liferay.portal.kernel.lar.exportimportconfiguration.ExportImportConfigurationSettingsMapFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -31,16 +33,26 @@ import com.liferay.portal.kernel.staging.StagingUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.DateRange;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.model.ExportImportConfiguration;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.service.ExportImportConfigurationLocalServiceUtil;
 import com.liferay.portal.service.LayoutServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.dynamicdatalists.RecordSetDuplicateRecordSetKeyException;
 import com.liferay.portlet.dynamicdatamapping.StructureDuplicateStructureKeyException;
 import com.liferay.portlet.layoutsadmin.action.ImportLayoutsAction;
 
 import java.io.InputStream;
+import java.io.Serializable;
+
+import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -302,14 +314,32 @@ public class ExportImportAction extends ImportLayoutsAction {
 			ActionRequest actionRequest, InputStream inputStream)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		long plid = ParamUtil.getLong(actionRequest, "plid");
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 
 		Portlet portlet = ActionUtil.getPortlet(actionRequest);
 
+		Map<String, Serializable> settingsMap =
+			ExportImportConfigurationSettingsMapFactory.buildImportSettingsMap(
+				themeDisplay.getUserId(), plid, groupId, portlet.getPortletId(),
+				actionRequest.getParameterMap(), StringPool.BLANK,
+				themeDisplay.getLocale(), themeDisplay.getTimeZone(),
+				StringPool.BLANK);
+
+		ExportImportConfiguration exportImportConfiguration =
+			ExportImportConfigurationLocalServiceUtil.
+				addExportImportConfiguration(
+					themeDisplay.getUserId(), groupId, StringPool.BLANK,
+					StringPool.BLANK,
+					ExportImportConfigurationConstants.TYPE_IMPORT_PORTLET,
+					settingsMap, WorkflowConstants.STATUS_DRAFT,
+					new ServiceContext());
+
 		return LayoutServiceUtil.validateImportPortletInfo(
-			plid, groupId, portlet.getPortletId(),
-			actionRequest.getParameterMap(), inputStream);
+			exportImportConfiguration, inputStream);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

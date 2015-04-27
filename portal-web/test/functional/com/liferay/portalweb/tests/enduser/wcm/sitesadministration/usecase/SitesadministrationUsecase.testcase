@@ -174,7 +174,7 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Site#deactivateOrganizationSiteCP">
+		<execute macro="Site#deactivateCP">
 			<var name="siteName" value="${org2Name}" />
 		</execute>
 
@@ -187,7 +187,7 @@
 			<var name="portletName" value="Sites" />
 		</execute>
 
-		<execute macro="Site#deactivateOrganizationSiteCP">
+		<execute macro="Site#deactivateCP">
 			<var name="siteName" value="${org2Name}" />
 			<var name="successMessage" value="true" />
 		</execute>
@@ -1149,7 +1149,7 @@
 
 		<execute function="AssertTextEquals" locator1="CPSitepagesExport#CURRENT_AND_PREVIOUS_STATUS" value1="Successful" />
 
-		<var method="selenium#getText(&quot;//tr/td[5]/span/a&quot;)" name="valueName" />
+		<var method="selenium#getText('//tr/td[5]/span/a')" name="valueName" />
 
 		<echo message="value name ${valueName}" />
 

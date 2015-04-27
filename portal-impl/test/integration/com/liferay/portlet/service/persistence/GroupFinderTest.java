@@ -110,19 +110,24 @@ public class GroupFinderTest {
 	public void testFindByC_C_N_DJoinByRoleResourcePermissions()
 		throws Exception {
 
+		boolean exists = false;
+
 		List<Group> groups = findByC_C_N_D(
 			_arbitraryResourceAction.getActionId(),
 			_resourcePermission.getName(), _resourcePermission.getRoleId());
 
 		for (Group group : groups) {
 			if (group.getGroupId() == _group.getGroupId()) {
-				return;
+				exists = true;
+
+				break;
 			}
 		}
 
-		Assert.fail(
+		Assert.assertTrue(
 			"The method findByC_C_N_D should have returned the group " +
-				_group.getGroupId());
+				_group.getGroupId(),
+			exists);
 	}
 
 	@Test
@@ -134,15 +139,20 @@ public class GroupFinderTest {
 			_resourceTypePermission.getName(),
 			_resourceTypePermission.getRoleId());
 
+		boolean exists = false;
+
 		for (Group group : groups) {
 			if (group.getGroupId() == _group.getGroupId()) {
-				return;
+				exists = true;
+
+				break;
 			}
 		}
 
-		Assert.fail(
+		Assert.assertTrue(
 			"The method findByC_C_N_D should have returned the group " +
-				_group.getGroupId());
+				_group.getGroupId(),
+			exists);
 	}
 
 	@Test

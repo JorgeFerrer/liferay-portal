@@ -424,8 +424,7 @@
 		</if>
 
 		<var locator="PGBlogsAdd#DISPLAY_DATE_DATE_MINUTE" name="displayDateMinute" />
-		<var name="displayDateMinuteFuture" value="${displayDateMinute?increment()}" />
-		<var name="displayDateMinuteFuture" value="${displayDateMinuteFuture?increment()}" />
+		<var method="MathUtil#sum('${displayDateMinute}', '2')" name="displayDateMinuteFuture" />
 		<var name="displayDateMinuteFutureLength" value="${displayDateMinuteFuture?length()}" />
 
 		<if>
@@ -436,8 +435,8 @@
 		</if>
 
 		<var locator="PGBlogsAdd#DISPLAY_DATE_DATE_MERIDIAN" name="displayDateMeridian" />
-		<var name="displayDateMeridian" value="${displayDateMeridian?replace('0', 'AM')}" />
-		<var name="displayDateMeridian" value="${displayDateMeridian?replace('1', 'PM')}" />
+		<var method="StringUtil#replace('${displayDateMeridian}', '0', 'AM')" name="displayDateMeridian" />
+		<var method="StringUtil#replace('${displayDateMeridian}', '1', 'PM')" name="displayDateMeridian" />
 
 		<var name="displayDate" value="${displayDateHour}:${displayDateMinuteFuture} ${displayDateMeridian}" />
 
@@ -951,8 +950,8 @@
 
 	<command name="removeViewPermissionsPG">
 		<var name="key_entryTitle" value="${entryTitle}" />
-		<var name="key_roleName" value="${roleName?replace(' ', '-')}" />
-		<var name="key_roleName" value="${key_roleName?lowercase()}" />
+		<var method="StringUtil#replace('${roleName}', ' ', '-')" name="key_roleName" />
+		<var method="StringUtil#lowerCase('${key_roleName}')" name="key_roleName" />
 
 		<execute function="AssertClick" locator1="PGBlogs#ENTRY_PERMISSIONS" value1="Permissions" />
 
@@ -1241,10 +1240,10 @@
 	</command>
 
 	<command name="viewFriendlyURLPG">
-		<var name="entryTitleURL" value="${entryTitle?replace(' ', '-')}" />
-		<var name="entryTitleURL" value="${entryTitleURL?lowercase()}" />
-		<var name="pageNameURL" value="${pageName?replace(' ', '-')}" />
-		<var name="pageNameURL" value="${pageNameURL?lowercase()}" />
+		<var method="StringUtil#replace('${entryTitle}', ' ', '-')" name="entryTitleURL" />
+		<var method="StringUtil#lowerCase('${entryTitleURL}')" name="entryTitleURL" />
+		<var method="StringUtil#replace('${pageName}', ' ', '-')" name="pageNameURL" />
+		<var method="StringUtil#lowerCase('${pageNameURL}')" name="pageNameURL" />
 
 		<var name="friendlyURL" value="http://localhost:8080/web/guest/${pageNameURL}/-/blogs/${entryTitleURL}" />
 
@@ -1255,10 +1254,10 @@
 	</command>
 
 	<command name="viewFriendlyURLViaRecentBloggersPG">
-		<var name="entryTitleURL" value="${entryTitle?replace(' ', '-')}" />
-		<var name="entryTitleURL" value="${entryTitleURL?lowercase()}" />
-		<var name="pageNameURL" value="${pageName?replace(' ', '-')}" />
-		<var name="pageNameURL" value="${pageNameURL?lowercase()}" />
+		<var method="StringUtil#replace('${entryTitle}', ' ', '-')" name="entryTitleURL" />
+		<var method="StringUtil#lowerCase('${entryTitleURL}')" name="entryTitleURL" />
+		<var method="StringUtil#replace('${pageName}', ' ', '-')" name="pageNameURL" />
+		<var method="StringUtil#lowerCase('${pageNameURL}')" name="pageNameURL" />
 
 		<var name="friendlyURL" value="http://localhost:8080/web/guest/${pageNameURL}/-/blogs/${entryTitleURL}" />
 
@@ -1441,8 +1440,8 @@
 			<isset var="tagNameList" />
 			<then>
 				<for list="${tagNameList}" param="tagName">
-					<var name="key_tagName" value="${tagName?lowercase()}" />
-					<var name="tagName" value="${tagName?lowercase()}" />
+					<var method="StringUtil#lowerCase('${tagName}')" name="tagName" />
+					<var name="key_tagName" value="tagName" />
 
 					<execute function="AssertTextEquals" locator1="PGBlogs#ENTRY_TAG" value1="${tagName}" />
 					<execute function="AssertClick" locator1="PGBlogs#ENTRY_TAG" value1="${tagName}" />
@@ -1451,8 +1450,8 @@
 				</for>
 			</then>
 			<else>
-				<var name="key_tagName" value="${tagName?lowercase()}" />
-				<var name="tagName" value="${tagName?lowercase()}" />
+				<var method="StringUtil#lowerCase('${tagName}')" name="tagName" />
+				<var name="key_tagName" value="tagName" />
 
 				<execute function="AssertTextEquals" locator1="PGBlogs#ENTRY_TAG" value1="${tagName}" />
 				<execute function="AssertClick" locator1="PGBlogs#ENTRY_TAG" value1="${tagName}" />
@@ -1477,7 +1476,7 @@
 			</not>
 			<then>
 				<var locator="CPBlogsEntry#ENTRY_STATS_VIEW_COUNT" name="entryViewCount" />
-				<var name="entryViewCount" value="${entryViewCount?getFirstNumber()}" />
+				<var method="selenium#getFirstNumber('${entryViewCount}')" name="entryViewCount" />
 			</then>
 		</if>
 
@@ -1501,7 +1500,7 @@
 
 		<execute function="AssertClick" locator1="CPBlogs#ENTRY_TABLE_TITLE" value1="${entryTitle}" />
 
-		<var name="entryViewCount" value="${entryViewCount?increment()}" />
+		<var method="MathUtil#sum('${entryViewCount}', '1')" name="entryViewCount" />
 
 		<execute function="AssertTextEquals" locator1="CPBlogsEntry#ENTRY_STATS_VIEW_COUNT" value1="${entryViewCount} Views," />
 	</command>
@@ -1518,7 +1517,7 @@
 		<execute function="AssertClick" locator1="PGBlogs#ENTRY_TITLE" value1="${entryTitle}" />
 
 		<var locator="PGBlogsEntry#ENTRY_STATS_VIEW_COUNT" name="entryViewCount" />
-		<var name="entryViewCount" value="${entryViewCount?getFirstNumber()}" />
+		<var method="selenium#getFirstNumber('${entryViewCount}')" name="entryViewCount" />
 
 		<if>
 			<equals arg1="${entryViewCount}" arg2="1" />
@@ -1534,15 +1533,15 @@
 
 		<execute function="AssertClick" locator1="PGBlogs#ENTRY_TITLE" value1="${entryTitle}" />
 
-		<var name="entryViewCount" value="${entryViewCount?increment()}" />
+		<var method="MathUtil#sum('${entryViewCount}', '1')" name="entryViewCount" />
 
 		<execute function="AssertTextEquals" locator1="PGBlogsEntry#ENTRY_STATS_VIEW_COUNT" value1="${entryViewCount} Views," />
 	</command>
 
 	<command name="viewViewPermissionsPG">
 		<var name="key_entryTitle" value="${entryTitle}" />
-		<var name="key_roleName" value="${roleName?replace(' ', '-')}" />
-		<var name="key_roleName" value="${key_roleName?lowercase()}" />
+		<var method="StringUtil#replace('${roleName}', ' ', '-')" name="key_roleName" />
+		<var method="StringUtil#lowerCase('${key_roleName}')" name="key_roleName" />
 
 		<execute function="AssertClick" locator1="PGBlogs#ENTRY_PERMISSIONS" value1="Permissions" />
 

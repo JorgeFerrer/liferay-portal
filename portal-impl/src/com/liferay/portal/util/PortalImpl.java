@@ -117,7 +117,7 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.PortletConstants;
+import com.liferay.portal.model.PortletInstance;
 import com.liferay.portal.model.PublicRenderParameter;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.ResourcePermission;
@@ -1059,16 +1059,6 @@ public class PortalImpl implements Portal {
 		}
 
 		return actualURL;
-	}
-
-	/**
-	 * @deprecated As of 6.2.0, replaced by {@link
-	 *             LanguageUtil#getAvailableLocales}
-	 */
-	@Deprecated
-	@Override
-	public Locale[] getAlternateLocales(HttpServletRequest request) {
-		return LanguageUtil.getAvailableLocales();
 	}
 
 	@Override
@@ -2807,11 +2797,11 @@ public class PortalImpl implements Portal {
 			defaultAssetPublisherPortletId;
 
 		if (Validator.isNull(defaultAssetPublisherPortletId)) {
-			String instanceId = PortletConstants.generateInstanceId();
+			PortletInstance portletInstance = new PortletInstance(
+				"com_liferay_asset_publisher_web_AssetPublisherPortlet");
 
-			defaultAssetPublisherPortletId = PortletConstants.assemblePortletId(
-				"com_liferay_asset_publisher_web_AssetPublisherPortlet",
-				instanceId);
+			defaultAssetPublisherPortletId =
+				portletInstance.getPortletInstanceKey();
 		}
 
 		HttpServletRequest request = (HttpServletRequest)requestContext.get(
@@ -3404,6 +3394,27 @@ public class PortalImpl implements Portal {
 
 			if (LanguageUtil.isAvailableLocale(groupId, locale)) {
 				return locale;
+			}
+			else if (groupId > 0) {
+				boolean inheritLocales = true;
+
+				try {
+					inheritLocales = LanguageUtil.isInheritLocales(groupId);
+				}
+				catch (PortalException pe) {
+					_log.error(pe);
+				}
+
+				if (!inheritLocales) {
+					String i18nLanguageCode = (String)request.getAttribute(
+						WebKeys.I18N_LANGUAGE_CODE);
+
+					locale = LanguageUtil.getLocale(groupId, i18nLanguageCode);
+
+					if (LanguageUtil.isAvailableLocale(groupId, locale)) {
+						return locale;
+					}
+				}
 			}
 		}
 
@@ -7950,7 +7961,7 @@ public class PortalImpl implements Portal {
 						curLayoutSet.getLayoutSetId()) &&
 					 (group.getClassPK() != themeDisplay.getUserId()))) {
 
-					if (group.isControlPanel()) {
+					if (group.isControlPanel() || group.isUserPersonalPanel()) {
 						virtualHostname = themeDisplay.getServerName();
 
 						if (Validator.isNull(virtualHostname) ||

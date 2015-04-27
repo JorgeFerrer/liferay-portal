@@ -172,7 +172,8 @@ public class BuildCssTask extends BasePortalToolsTask {
 
 		if (!isLegacy()) {
 			addDependency(
-				"com.liferay", "com.liferay.sass.compiler", "1.0.0-SNAPSHOT");
+				"com.liferay", "com.liferay.sass.compiler.jni",
+				"1.0.0-SNAPSHOT");
 		}
 
 		addDependency("com.liferay", "com.liferay.rtl.css", "1.0.0-SNAPSHOT");

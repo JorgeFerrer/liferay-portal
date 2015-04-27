@@ -32,6 +32,7 @@
 	<classpathentry kind="lib" path="lib/development/catalina.jar"/>
 	<classpathentry kind="lib" path="lib/development/cobertura.jar"/>
 	<classpathentry kind="lib" path="lib/development/com.liferay.ant.bnd.jar"/>
+	<classpathentry kind="lib" path="lib/development/com.liferay.cobertura.agent.jar"/>
 	<classpathentry kind="lib" path="lib/development/deployment.jar"/>
 	<classpathentry kind="lib" path="lib/development/derby.jar"/>
 	<classpathentry kind="lib" path="lib/development/derbytools.jar"/>
@@ -121,7 +122,6 @@
 	<classpathentry kind="lib" path="lib/portal/bcmail.jar"/>
 	<classpathentry kind="lib" path="lib/portal/bcprov.jar"/>
 	<classpathentry kind="lib" path="lib/portal/bnd.jar"/>
-	<classpathentry kind="lib" path="lib/portal/bobo-browse.jar"/>
 	<classpathentry kind="lib" path="lib/portal/boilerpipe.jar"/>
 	<classpathentry kind="lib" path="lib/portal/bsh.jar"/>
 	<classpathentry kind="lib" path="lib/portal/bsf.jar"/>
@@ -138,7 +138,7 @@
 	<classpathentry kind="lib" path="lib/portal/closure-compiler.jar"/>
 	<classpathentry kind="lib" path="lib/portal/com.liferay.rtl.css.jar"/>
 	<classpathentry kind="lib" path="lib/portal/com.liferay.ruby.gems.jar"/>
-	<classpathentry kind="lib" path="lib/portal/com.liferay.sass.compiler.jar"/>
+	<classpathentry kind="lib" path="lib/portal/com.liferay.sass.compiler.jni.jar"/>
 	<classpathentry kind="lib" path="lib/portal/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/portal/commons-codec.jar"/>
 	<classpathentry kind="lib" path="lib/portal/commons-collections.jar"/>
@@ -234,17 +234,6 @@
 	<classpathentry kind="lib" path="lib/portal/liferay-yui-compressor.jar"/>
 	<classpathentry kind="lib" path="lib/portal/log4j.jar"/>
 	<classpathentry kind="lib" path="lib/portal/log4j-extras.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-analyzers.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-core.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-grouping.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-highlighter.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-icu.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-join.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-memory.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-misc.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-queries.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-queryparser.jar"/>
-	<classpathentry kind="lib" path="lib/portal/lucene-spellchecker.jar"/>
 	<classpathentry kind="lib" path="lib/portal/mchange-commons-java.jar"/>
 	<classpathentry kind="lib" path="lib/portal/metadata-extractor.jar"/>
 	<classpathentry kind="lib" path="lib/portal/mime4j-core.jar"/>

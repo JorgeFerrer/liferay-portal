@@ -22,8 +22,6 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-
 <%@ page import="com.liferay.network.utilities.web.model.DNSLookup" %><%@
 page import="com.liferay.network.utilities.web.model.Whois" %><%@
 page import="com.liferay.network.utilities.web.util.NetworkUtil" %><%@

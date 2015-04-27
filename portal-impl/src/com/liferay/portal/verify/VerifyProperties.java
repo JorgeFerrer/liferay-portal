@@ -722,6 +722,46 @@ public class VerifyProperties extends VerifyProcess {
 			"com.liferay.portal.ldap"
 		},
 
+		// Lucene
+
+		new String[] {
+			"lucene.analyzer.max.tokens", "analyzer.max.tokens",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.buffer.size", "buffer.size",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.commit.batch.size", "commit.batch.size",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.commit.time.interval", "commit.time.interval",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {"lucene.dir", "dir", "com.liferay.portal.search.lucene"},
+		new String[] {
+			"lucene.merge.factor", "merge.factor",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.merge.policy", "merge.policy",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.merge.scheduler", "merge.scheduler",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.store.type", "store.type",
+			"com.liferay.portal.search.lucene"
+		},
+		new String[] {
+			"lucene.store.type.file.force.mmap", "store.type.file.force.mmp",
+			"com.liferay.portal.search.lucene"
+		},
+
 		// Monitoring
 
 		new String[] {
@@ -1032,6 +1072,7 @@ public class VerifyProperties extends VerifyProcess {
 		"dynamic.data.mapping.structure.private.field.repeatable[" +
 			"_fieldsDisplay]",
 		"dynamic.data.mapping.template.language.types",
+		"editor.inline.editing.enabled",
 		"editor.wysiwyg.portal-web.docroot.html.portlet.asset_publisher." +
 			"configuration.jsp",
 		"editor.wysiwyg.portal-web.docroot.html.portlet.blogs.configuration." +
@@ -1050,12 +1091,13 @@ public class VerifyProperties extends VerifyProcess {
 		"editor.wysiwyg.portal-web.docroot.html.portlet.portal_settings." +
 			"email_notifications.jsp",
 		"ehcache.cache.manager.statistics.thread.pool.size",
-		"ehcache.statistics.enabled", "index.filter.search.limit",
-		"invitation.email.max.recipients", "invitation.email.message.body",
-		"invitation.email.message.subject", "javax.persistence.validation.mode",
-		"jbi.workflow.url", "json.deserializer.strict.mode",
-		"journal.article.form.translate", "journal.article.types",
-		"journal.articles.page.delta.values",
+		"ehcache.statistics.enabled",
+		"hot.deploy.hook.custom.jsp.verification.enabled",
+		"index.filter.search.limit", "invitation.email.max.recipients",
+		"invitation.email.message.body", "invitation.email.message.subject",
+		"javax.persistence.validation.mode", "jbi.workflow.url",
+		"json.deserializer.strict.mode", "journal.article.form.translate",
+		"journal.article.types", "journal.articles.page.delta.values",
 		"journal.template.language.parser[css]",
 		"journal.template.language.parser[ftl]",
 		"journal.template.language.parser[vm]",
@@ -1066,7 +1108,7 @@ public class VerifyProperties extends VerifyProcess {
 		"jpa.provider.property.eclipselink.logging.level",
 		"jpa.provider.property.eclipselink.logging.timestamp",
 		"language.display.style.options", "layout.reset.portlet.ids",
-		"layout.types", "lucene.analyzer",
+		"layout.set.form.update", "layout.types", "lucene.analyzer",
 		"lucene.cluster.index.loading.sync.timeout", "lucene.file.extractor",
 		"lucene.file.extractor.regexp.strip", "lucene.replicate.write",
 		"lucene.store.jdbc.auto.clean.up",
@@ -1088,10 +1130,15 @@ public class VerifyProperties extends VerifyProcess {
 		"schema.run.minimal", "service.builder.service.read.only.prefixes",
 		"shard.available.names", "siteminder.auth.enabled",
 		"siteminder.import.from.ldap", "siteminder.user.header",
-		"staging.lock.enabled", "tck.url", "webdav.storage.class",
-		"webdav.storage.show.edit.url", "webdav.storage.show.view.url",
-		"webdav.storage.tokens", "wiki.email.page.added.signature",
-		"wiki.email.page.updated.signature", "xss.allow"
+		"sites.form.add.advanced", "sites.form.add.main",
+		"sites.form.add.miscellaneous", "sites.form.add.seo",
+		"sites.form.update.advanced", "sites.form.update.main",
+		"sites.form.update.miscellaneous", "sites.form.update.seo",
+		"staging.lock.enabled", "table.mapper.cacheless.mapping.table.names",
+		"tck.url", "webdav.storage.class", "webdav.storage.show.edit.url",
+		"webdav.storage.show.view.url", "webdav.storage.tokens",
+		"wiki.email.page.added.signature", "wiki.email.page.updated.signature",
+		"xss.allow"
 	};
 
 	private static final String[] _OBSOLETE_SYSTEM_KEYS = new String[] {

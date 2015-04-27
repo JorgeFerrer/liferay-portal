@@ -76,7 +76,9 @@ public class InputTag extends BaseInputTag {
 
 				baseType = type;
 			}
-			else if (Validator.equals(type, "switch")) {
+			else if (Validator.equals(type, "toggle-card") ||
+					 Validator.equals(type, "toggle-switch")) {
+
 				baseType = "checkbox";
 			}
 		}

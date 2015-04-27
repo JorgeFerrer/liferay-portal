@@ -26,8 +26,6 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page contentType="text/html; charset=UTF-8" %>
-
 <%@ page import="com.liferay.journal.web.asset.JournalArticleAssetRenderer" %><%@
 page import="com.liferay.journal.web.configuration.JournalWebConfigurationValues" %><%@
 page import="com.liferay.journal.web.constants.JournalPortletKeys" %><%@

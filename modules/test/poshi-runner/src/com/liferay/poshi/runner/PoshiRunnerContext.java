@@ -14,17 +14,18 @@
 
 package com.liferay.poshi.runner;
 
-import com.liferay.poshi.runner.util.FileUtil;
+import com.liferay.poshi.runner.selenium.LiferaySelenium;
 import com.liferay.poshi.runner.util.OSDetector;
 import com.liferay.poshi.runner.util.PropsValues;
 import com.liferay.poshi.runner.util.StringUtil;
 import com.liferay.poshi.runner.util.Validator;
 
+import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.tools.ant.DirectoryScanner;
@@ -36,6 +37,17 @@ import org.dom4j.Element;
  * @author Michael Hashimoto
  */
 public class PoshiRunnerContext {
+
+	public static void clear() {
+		_actionExtendClassName.clear();
+		_commandElements.clear();
+		_commandSummaries.clear();
+		_filePaths.clear();
+		_functionLocatorCounts.clear();
+		_pathLocators.clear();
+		_rootElements.clear();
+		_seleniumParameterCounts.clear();
+	}
 
 	public static List<Element> getActionCaseElements(String classCommandName) {
 		List<Element> actionCaseElements = new ArrayList<>();
@@ -143,6 +155,14 @@ public class PoshiRunnerContext {
 		return _commandElements.get("test-case#" + classCommandName);
 	}
 
+	public static String getTestCaseCommandName() {
+		return _testClassCommandName;
+	}
+
+	public static String getTestCaseName() {
+		return _testClassName;
+	}
+
 	public static Element getTestCaseRootElement(String className) {
 		return _rootElements.get("test-case#" + className);
 	}
@@ -162,6 +182,14 @@ public class PoshiRunnerContext {
 	public static void readFiles() throws Exception {
 		_readPoshiFiles();
 		_readSeleniumFiles();
+	}
+
+	public static void setTestCaseCommandName(String testClassCommandName) {
+		_testClassCommandName = testClassCommandName;
+	}
+
+	public static void setTestCaseName(String testClassName) {
+		_testClassName = testClassName;
 	}
 
 	private static String _getCommandSummary(
@@ -389,46 +417,13 @@ public class PoshiRunnerContext {
 	}
 
 	private static void _readSeleniumFiles() throws Exception {
-		String[] fileNames = {
-			"LiferaySelenium.java", "WebDriverToSeleniumBridge.java"
-		};
+		Method[] methods = LiferaySelenium.class.getMethods();
 
-		for (String fileName : fileNames) {
-			String filePath = "src/com/liferay/poshi/runner/selenium/";
+		for (Method method : methods) {
+			Class[] parameterTypes = method.getParameterTypes();
 
-			if (OSDetector.isWindows()) {
-				filePath = filePath.replace("/", "\\");
-			}
-
-			try {
-				String content = FileUtil.read(filePath + fileName);
-
-				Matcher matcher = _pattern.matcher(content);
-
-				while (matcher.find()) {
-					String methodSignature = matcher.group();
-
-					int x = methodSignature.indexOf(" ", 7);
-					int y = methodSignature.indexOf("(");
-
-					String commandName = methodSignature.substring(x + 1, y);
-
-					int parameterCount = 0;
-
-					int z = methodSignature.indexOf(")");
-
-					String parameters = methodSignature.substring(y + 1, z);
-
-					if (!parameters.equals("")) {
-						parameterCount = StringUtil.count(parameters, ",") + 1;
-					}
-
-					_seleniumParameterCounts.put(commandName, parameterCount);
-				}
-			}
-			catch (Exception e) {
-				throw new PoshiRunnerException(e);
-			}
+			_seleniumParameterCounts.put(
+				method.getName(), parameterTypes.length);
 		}
 
 		_seleniumParameterCounts.put("open", 1);
@@ -453,5 +448,7 @@ public class PoshiRunnerContext {
 	private static final Map<String, Element> _rootElements = new HashMap<>();
 	private static final Map<String, Integer> _seleniumParameterCounts =
 		new HashMap<>();
+	private static String _testClassCommandName;
+	private static String _testClassName;
 
 }

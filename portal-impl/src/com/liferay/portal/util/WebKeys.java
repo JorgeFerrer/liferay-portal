@@ -101,6 +101,8 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 
 	public static final String DYNAMIC_DATA_LISTS_RECORD_VERSION = "DYNAMIC_DATA_LISTS_RECORD_VERSION";
 
+	public static final String DYNAMIC_DATA_MAPPING_FORM_HTML = "DYNAMIC_DATA_MAPPING_FORM_HTML";
+
 	public static final String DYNAMIC_DATA_MAPPING_STRUCTURE = "DYNAMIC_DATA_MAPPING_STRUCTURE";
 
 	public static final String DYNAMIC_DATA_MAPPING_TEMPLATE = "DYNAMIC_DATA_MAPPING_TEMPLATE";
@@ -128,6 +130,8 @@ public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 	public static final String GOOGLE_GADGET = "GOOGLE_GADGET";
 
 	public static final String HTTPS_INITIAL = "HTTPS_INITIAL";
+
+	public static final String I18N_LANGUAGE_CODE = "I18N_LANGUAGE_CODE";
 
 	public static final String I18N_LANGUAGE_ID = "I18N_LANGUAGE_ID";
 

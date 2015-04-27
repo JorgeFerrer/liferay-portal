@@ -586,16 +586,6 @@
 							'aui-base'
 						]
 					},
-					'liferay-look-and-feel': {
-						path: 'look_and_feel.js',
-						requires: [
-							'aui-color-picker-popover',
-							'aui-io-plugin-deprecated',
-							'aui-io-request',
-							'aui-modal',
-							'aui-tabview'
-						]
-					},
 					'liferay-map-base': {
 						path: 'map_base.js',
 						requires: [
@@ -959,6 +949,9 @@
 				base: PATH_JAVASCRIPT + '/misc/',
 				combine: COMBINE,
 				modules: {
+					'soyutils': {
+						path: '/soyutils.js'
+					},
 					'swfobject': {
 						path: '/swfobject.js'
 					},

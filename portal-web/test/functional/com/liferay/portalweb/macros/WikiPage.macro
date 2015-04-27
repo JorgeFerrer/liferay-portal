@@ -834,8 +834,8 @@
 				<equals arg1="${siteURL}" arg2="true" />
 			</and>
 			<then>
-				<var name="siteNameURL" value="${siteName?replace(' ', '-')}" />
-				<var name="siteNameURL" value="/${siteNameURL?lowercase()}" />
+				<var method="StringUtil#replace('${siteName}', ' ', '-')" name="siteNameURL" />
+				<var method="StringUtil#lowerCase('/${siteNameURL}')" name="siteNameURL" />
 			</then>
 			<elseif>
 				<isset var="friendlyURL" />
@@ -858,13 +858,13 @@
 			</else>
 		</if>
 
-		<var name="pageNameURL" value="${pageName?replace(' ', '-')}" />
-		<var name="pageNameURL" value="/${pageNameURL?lowercase()}" />
+		<var method="StringUtil#replace('${pageName}', ' ', '-')" name="pageNameURL" />
+		<var method="StringUtil#lowerCase('/${pageNameURL}')" name="pageNameURL" />
 
 		<if>
 			<isset var="wikiNodeName" />
 			<then>
-				<var name="wikiNodeNameURL" value="${wikiNodeName?replace(' ', '-')}" />
+				<var method="StringUtil#replace('${wikiNodeName}', ' ', '-')" name="wikiNodeNameURL" />
 				<var name="wikiNodeNameURL" value="/${wikiNodeNameURL}" />
 			</then>
 			<else>
@@ -872,8 +872,8 @@
 			</else>
 		</if>
 
-		<var name="wikiPage2TitleURL" value="${wikiPage2Title?replace(' ', '+')}" />
-		<var name="wikiPage2TitleURL" value="/${wikiPage2TitleURL?lowercase()}" />
+		<var method="StringUtil#replace('${wikiPage2Title}', ' ', '+')" name="wikiPage2TitleURL" />
+		<var method="StringUtil#lowerCase('${wikiPage2TitleURL}')" name="wikiPage2TitleURL" />
 
 		<if>
 			<isset var="virtualHostsURL" />
@@ -977,7 +977,7 @@
 	</command>
 
 	<command name="removeViewPermissionPG">
-		<var name="key_roleName" value="${key_roleName?lowercase()}" />
+		<var method="StringUtil#lowerCase('${key_roleName}')" name="key_roleName" />
 		<var name="key_wikiPageTitle" value="${wikiPageTitle}" />
 
 		<execute function="AssertClick" locator1="PGWiki#DETAILS_BUTTON" value1="Details" />
@@ -1280,7 +1280,6 @@
 		<execute function="AssertTextEquals" locator1="PGWiki#DETAILS_BUTTON" value1="Details" />
 		<execute function="AssertTextEquals" locator1="PGWiki#PRINT_BUTTON" value1="Print" />
 		<execute function="AssertElementPresent" locator1="PGWiki#COMMENTS_DROP_DOWN" />
-		<execute function="AssertElementPresent" locator1="PGWiki#COMMENTS_BE_THE_FIRST_LINK" />
 		<execute function="AssertElementPresent" locator1="PGWiki#COMMENTS_SUBSCRIBE_TO_COMMENTS_LINK" />
 		<execute function="AssertElementPresent" locator1="PGWiki#RATINGS_LABEL" />
 		<execute function="AssertElementPresent" locator1="PGWiki#RATINGS_AVERAGE" />
@@ -1562,13 +1561,13 @@
 
 	<command name="viewTagPG">
 		<var name="key_wikiPageTitle" value="${wikiPageTitle}" />
-		<var name="tagName" value="${tagName?lowercase()}" />
+		<var method="StringUtil#lowerCase('${tagName}')" name="tagName" />
 
 		<execute function="AssertTextEquals" locator1="PGWiki#WIKI_PAGE_TAG" value1="${tagName}" />
 	</command>
 
 	<command name="viewTagViaAddPG">
-		<var name="tagName" value="${tagName?lowercase()}" />
+		<var method="StringUtil#lowerCase('${tagName}')" name="tagName" />
 
 		<execute function="AssertElementPresent" locator1="PGWikiAddpage#CATEGORIZATION_TAG" value1="${tagName}" />
 	</command>

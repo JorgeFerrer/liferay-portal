@@ -1355,8 +1355,7 @@
 						</then>
 					</if>
 
-					<delete dir="${liferay.home}/data" />
-					<delete dir="${liferay.home}/osgi/state" />
+					<antcall target="delete-liferay-home" />
 
 					<if>
 						<equals arg1="${test.ant.launched.by.selenium}" arg2="true" />
@@ -1980,15 +1979,7 @@ go]]></replacevalue>
 	<target name="clean-up-bundles">
 		<delete file="test.${user.name}.properties" />
 
-		<if>
-			<not>
-				<isset property="skip.delete-liferay-home" />
-			</not>
-			<then>
-				<delete dir="${liferay.home}/data" />
-				<delete dir="${liferay.home}/logs" />
-			</then>
-		</if>
+		<antcall target="delete-liferay-home" />
 
 		<delete includeemptydirs="true">
 			<fileset dir="${app.server.parent.dir}" excludes="*.zip" />
@@ -2152,6 +2143,21 @@ go]]></replacevalue>
 				<copy todir="lib/development/libs">
 					<fileset dir="tools/selenium/sikuli/linux" />
 				</copy>
+			</then>
+		</if>
+	</target>
+
+	<target name="delete-liferay-home">
+		<if>
+			<not>
+				<equals arg1="${delete.liferay.home}" arg2="false" />
+			</not>
+			<then>
+				<delete dir="${liferay.home}/data" />
+				<delete dir="${liferay.home}/logs" />
+				<delete dir="${liferay.home}/osgi/state" />
+
+				<delete file="${liferay.home}/portal-setup-wizard.properties" />
 			</then>
 		</if>
 	</target>
@@ -3053,7 +3059,7 @@ ${custom.properties}</echo>
 							META-INF/audit-spring.xml,\
 							META-INF/cluster-spring.xml,\
 							META-INF/comment-spring.xml,\
-							META-INF/editor-spring.xml,\
+							META-INF/form-navigator-spring.xml,\
 							META-INF/jcr-spring.xml,\
 							META-INF/ldap-spring.xml,\
 							META-INF/messaging-core-spring.xml,\
@@ -3090,6 +3096,15 @@ ${custom.properties}</echo>
 				<echo file="portal-impl/src/portal-ext.properties" append="true">
 
 portal.security.manager.strategy=liferay</echo>
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${javascript.fast.load}" arg2="false" />
+			<then>
+				<echo file="portal-impl/src/portal-ext.properties" append="true">
+
+javascript.fast.load=false</echo>
 			</then>
 		</if>
 
@@ -4682,15 +4697,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 				<isset property="skip.rebuild-database" />
 			</not>
 			<then>
-				<if>
-					<not>
-						<isset property="skip.delete-liferay-home" />
-					</not>
-					<then>
-						<delete dir="${liferay.home}/data" />
-						<delete dir="${liferay.home}/logs" />
-					</then>
-				</if>
+				<antcall target="delete-liferay-home" />
 
 				<if>
 					<equals arg1="${database.type}" arg2="db2" />
@@ -4839,7 +4846,7 @@ cluster.link.bind.addr["cluster-link-udp"]=127.0.0.1</echo>
 			<arg line="log -1 --pretty=format:%cd HEAD" />
 		</exec>
 
-		<loadfile property="copyright.content" srcFile="${project.dir}/portal-impl/src/com/liferay/portal/tools/servicebuilder/dependencies/copyright.txt" />
+		<loadfile property="copyright.content" srcFile="${project.dir}/copyright.txt" />
 
 		<echo file="${app.server.dir}/webapps/ROOT/html/common/themes/bottom-test.jsp"><![CDATA[<%--
 ${copyright.content}
@@ -5018,7 +5025,7 @@ if (ppstate.equals("normal")) {
 					DirectoryScanner directoryScanner = new DirectoryScanner();
 
 					directoryScanner.setBasedir(project.getProperty("lp.plugins.dir"));
-					directoryScanner.setIncludes(new String[] {"**/hooks/*/build.xml", "**/layoutpl/*/build.xml", "**/portlets/*/build.xml", "**/themes/*/build.xml", "**/webs/*/build.xml"});
+					directoryScanner.setIncludes(new String[] {"**/hooks/*/build.xml", "**/layoutpl/*/build.xml", "**/portlets/*/build.xml", "**/shared/*/build.xml", "**/themes/*/build.xml", "**/webs/*/build.xml"});
 
 					directoryScanner.scan();
 
@@ -5215,6 +5222,24 @@ if (ppstate.equals("normal")) {
 		</if>
 
 		<ant dir="portal-impl" target="compile-test" inheritAll="false" />
+
+		<if>
+			<equals arg1="${database.type}" arg2="hsql" />
+			<then>
+				<antcall target="rebuild-database" inheritAll="false">
+					<param name="database.type" value="mysql" />
+				</antcall>
+
+				<echo file="portal-impl/classes/portal-ext.properties">liferay.home=${liferay.home}
+
+jdbc.default.jndi.name=
+
+jdbc.default.driverClassName=${database.mysql.driver}
+jdbc.default.url=${database.mysql.url}
+jdbc.default.username=${database.mysql.username}
+jdbc.default.password=${database.mysql.password}</echo>
+			</then>
+		</if>
 
 		<if>
 			<contains string="${test.class}" substring="#" />

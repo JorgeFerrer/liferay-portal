@@ -147,33 +147,35 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 			createDDMFormFieldValue(
 				"wqer", "Title",
 				createLocalizedValue("Title", "Titulo", LocaleUtil.US)));
-
 		expectedDDMFormValues.addDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"thsy", "Content",
 				createLocalizedValue("Content", "Conteudo", LocaleUtil.US)));
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US,pt_BR");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
+			"availableLanguageIds", "en_US,pt_BR");
+		mockHttpServletRequest.addParameter(
 			"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Title
 
-		httpServletRequest.addParameter("ddm$$Title$wqer$0$$en_US", "Title");
-		httpServletRequest.addParameter("ddm$$Title$wqer$0$$pt_BR", "Titulo");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$wqer$0$$en_US", "Title");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$wqer$0$$pt_BR", "Titulo");
 
 		// Content
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Content$thsy$0$$en_US", "Content");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Content$thsy$0$$pt_BR", "Conteudo");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
 	}
@@ -195,28 +197,32 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 			createDDMFormFieldValue(
 				"wqer", "Title",
 				createLocalizedValue("Title 1", "Titulo 1", LocaleUtil.US)));
-
 		expectedDDMFormValues.addDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"fahu", "Title",
 				createLocalizedValue("Title 2", "Titulo 2", LocaleUtil.US)));
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US,pt_BR");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
+			"availableLanguageIds", "en_US,pt_BR");
+		mockHttpServletRequest.addParameter(
 			"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Title
 
-		httpServletRequest.addParameter("ddm$$Title$wqer$0$$en_US", "Title 1");
-		httpServletRequest.addParameter("ddm$$Title$wqer$0$$pt_BR", "Titulo 1");
-		httpServletRequest.addParameter("ddm$$Title$fahu$1$$en_US", "Title 2");
-		httpServletRequest.addParameter("ddm$$Title$fahu$1$$pt_BR", "Titulo 2");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$wqer$0$$en_US", "Title 1");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$wqer$0$$pt_BR", "Titulo 1");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$fahu$1$$en_US", "Title 2");
+		mockHttpServletRequest.addParameter(
+			"ddm$$Title$fahu$1$$pt_BR", "Titulo 2");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
 	}
@@ -249,7 +255,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 			createDDMFormFieldValue(
 				"gatu", "Phone",
 				createLocalizedValue("12", "34", LocaleUtil.US)));
-
 		paulDDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"hato", "Phone",
@@ -268,37 +273,38 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 		expectedDDMFormValues.addDDMFormFieldValue(joeDDMFormFieldValue);
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US,pt_BR");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
+			"availableLanguageIds", "en_US,pt_BR");
+		mockHttpServletRequest.addParameter(
 			"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Name
 
-		httpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
-		httpServletRequest.addParameter("ddm$$Name$wqer$0$$pt_BR", "Paulo");
-		httpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
-		httpServletRequest.addParameter("ddm$$Name$fahu$1$$pt_BR", "Joao");
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$pt_BR", "Paulo");
+		mockHttpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
+		mockHttpServletRequest.addParameter("ddm$$Name$fahu$1$$pt_BR", "Joao");
 
 		// Phone
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$gatu$0$$en_US", "12");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$gatu$0$$pt_BR", "34");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1$$en_US", "56");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1$$pt_BR", "78");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Phone$jamh$0$$en_US", "90");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Phone$jamh$0$$pt_BR", "01");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
 	}
@@ -337,19 +343,16 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 				"gatu", "Text1",
 				createLocalizedValue(
 					"Text1 Paul One", "Text1 Paulo Um", LocaleUtil.US)));
-
 		paulDDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"hayt", "Text1",
 				createLocalizedValue(
 					"Text1 Paul Two", "Text1 Paulo Dois", LocaleUtil.US)));
-
 		paulDDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"haby", "Text2",
 				createLocalizedValue(
 					"Text2 Paul One", "Text2 Paulo Um", LocaleUtil.US)));
-
 		paulDDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"makp", "Text2",
@@ -367,7 +370,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 				"banm", "Text1",
 				createLocalizedValue(
 					"Text1 Joe One", "Text1 Joao Um", LocaleUtil.US)));
-
 		joeDDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"bagj", "Text2",
@@ -376,52 +378,53 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 		expectedDDMFormValues.addDDMFormFieldValue(joeDDMFormFieldValue);
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US,pt_BR");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
+			"availableLanguageIds", "en_US,pt_BR");
+		mockHttpServletRequest.addParameter(
 			"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Name
 
-		httpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
-		httpServletRequest.addParameter("ddm$$Name$wqer$0$$pt_BR", "Paulo");
-		httpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
-		httpServletRequest.addParameter("ddm$$Name$fahu$1$$pt_BR", "Joao");
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$pt_BR", "Paulo");
+		mockHttpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
+		mockHttpServletRequest.addParameter("ddm$$Name$fahu$1$$pt_BR", "Joao");
 
 		// Text 1
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text1$gatu$0$$en_US", "Text1 Paul One");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text1$gatu$0$$pt_BR", "Text1 Paulo Um");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text1$hayt$1$$en_US", "Text1 Paul Two");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text1$hayt$1$$pt_BR", "Text1 Paulo Dois");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Text1$banm$0$$en_US", "Text1 Joe One");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Text1$banm$0$$pt_BR", "Text1 Joao Um");
 
 		// Text 2
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text2$haby$0$$en_US", "Text2 Paul One");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text2$haby$0$$pt_BR", "Text2 Paulo Um");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text2$makp$1$$en_US", "Text2 Paul Two");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Text2$makp$1$$pt_BR", "Text2 Paulo Dois");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Text2$bagj$0$$en_US", "Text2 Joe One");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Text2$bagj$0$$pt_BR", "Text2 Joao Um");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
 	}
@@ -458,7 +461,6 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		paulPhone1DDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"jkau", "Ext", new UnlocalizedValue("1.1")));
-
 		paulPhone1DDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"amat", "Ext", new UnlocalizedValue("1.2")));
@@ -472,11 +474,9 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		paulPhone2DDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"hamp", "Ext", new UnlocalizedValue("2.1")));
-
 		paulPhone2DDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"xzal", "Ext", new UnlocalizedValue("2.2")));
-
 		paulPhone2DDMFormFieldValue.addNestedDDMFormFieldValue(
 			createDDMFormFieldValue(
 				"kaly", "Ext", new UnlocalizedValue("2.3")));
@@ -501,44 +501,44 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 		expectedDDMFormValues.addDDMFormFieldValue(joeDDMFormFieldValue);
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter("availableLanguageIds", "en_US");
+		mockHttpServletRequest.addParameter(
 			"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Name
 
-		httpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
-		httpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Paul");
+		mockHttpServletRequest.addParameter("ddm$$Name$fahu$1$$en_US", "Joe");
 
 		// Phone
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$gatu$0$$en_US", "1");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1$$en_US", "2");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Phone$jakl$0$$en_US", "3");
 
 		// Ext
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$gatu$0#Ext$jkau$0$$en_US", "1.1");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$gatu$0#Ext$amat$1$$en_US", "1.2");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1#Ext$hamp$0$$en_US", "2.1");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1#Ext$xzal$1$$en_US", "2.2");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$wqer$0#Phone$hato$1#Ext$kaly$2$$en_US", "2.3");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Name$fahu$1#Phone$jakl$0#Ext$bagt$0$$en_US", "3.1");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
 	}
@@ -592,32 +592,85 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 
 		expectedDDMFormValues.addDDMFormFieldValue(separator3DDMFormFieldValue);
 
-		MockHttpServletRequest httpServletRequest =
+		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		httpServletRequest.addParameter("availableLanguageIds", "en_US,pt_BR");
-			httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
+			"availableLanguageIds", "en_US,pt_BR");
+			mockHttpServletRequest.addParameter(
 				"defaultLanguageId", LocaleUtil.toLanguageId(LocaleUtil.US));
 
 		// Name
 
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$wqer$0#Name$gatu$0$$en_US", "Joe");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$wqer$0#Name$gatu$0$$pt_BR", "Joao");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$haby$1#Name$hato$0$$en_US", "Paul");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$haby$1#Name$hato$0$$pt_BR", "Paulo");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$bajk$2#Name$fahu$0$$en_US", "Claude");
-		httpServletRequest.addParameter(
+		mockHttpServletRequest.addParameter(
 			"ddm$$Separator$bajk$2#Name$fahu$0$$pt_BR", "Claudio");
 
 		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
-			httpServletRequest, ddmForm);
+			mockHttpServletRequest, ddmForm);
 
 		assertEquals(expectedDDMFormValues, actualDDMFormValues);
+	}
+
+	@Test
+	public void testCreateWithTextAndUncheckedCheckboxField() throws Exception {
+		DDMForm ddmForm = DDMFormTestUtil.createDDMForm();
+
+		ddmForm.addDDMFormField(
+			DDMFormTestUtil.createTextDDMFormField(
+				"Name", false, false, false));
+
+		DDMFormField checkbockDDMFormField = DDMFormTestUtil.createDDMFormField(
+			"Boolean", "Boolean", DDMFormFieldType.CHECKBOX, "boolean", false,
+			false, false);
+
+		LocalizedValue predefinedValue =
+			checkbockDDMFormField.getPredefinedValue();
+
+		predefinedValue.addString(LocaleUtil.US, "false");
+
+		ddmForm.addDDMFormField(checkbockDDMFormField);
+
+		DDMFormValues expectedDDMFormValues = createDDMFormValues(
+			ddmForm, createAvailableLocales(LocaleUtil.US), LocaleUtil.US);
+
+		expectedDDMFormValues.addDDMFormFieldValue(
+			createDDMFormFieldValue(
+				"amay", "Name", new UnlocalizedValue("Joe")));
+
+		expectedDDMFormValues.addDDMFormFieldValue(
+			createDDMFormFieldValue(
+				"wqer", "Boolean", new UnlocalizedValue("false")));
+
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
+
+		mockHttpServletRequest.addParameter("availableLanguageIds", "en_US");
+		mockHttpServletRequest.addParameter("defaultLanguageId", "en_US");
+
+		// Name
+
+		mockHttpServletRequest.addParameter("ddm$$Name$wqer$0$$en_US", "Joe");
+
+		DDMFormValues actualDDMFormValues = _ddmFormValuesFactory.create(
+			mockHttpServletRequest, ddmForm);
+
+		List<DDMFormFieldValue> actualDDMFormFieldValues =
+			actualDDMFormValues.getDDMFormFieldValues();
+
+		Assert.assertEquals(2, actualDDMFormFieldValues.size());
+
+		assertEquals("Joe", actualDDMFormFieldValues.get(0), LocaleUtil.US);
+		assertEquals("false", actualDDMFormFieldValues.get(1), LocaleUtil.US);
 	}
 
 	protected void assertEquals(
@@ -634,6 +687,15 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		JSONAssert.assertEquals(
 			serializedExpectedDDMFormValues, serializedActualDDMFormValues,
 			false);
+	}
+
+	protected void assertEquals(
+		String expectedValueString, DDMFormFieldValue actualDDMFormFieldValue,
+		Locale locale) {
+
+		Value actualValue = actualDDMFormFieldValue.getValue();
+
+		Assert.assertEquals(expectedValueString, actualValue.getString(locale));
 	}
 
 	protected Set<Locale> createAvailableLocales(Locale... locales) {

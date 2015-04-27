@@ -2,26 +2,6 @@
 	<property name="testcase.url" value="" />
 	<property name="testray.main.component.name" value="Tools" />
 
-	<command name="GetFirstNumber" priority="5">
-		<echo message="Test getFirstNumber()" />
-
-		<var name="string" value="abc1de" />
-
-		<var name="stringFirstNumber" value="${string?getFirstNumber()}" />
-
-		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${stringFirstNumber}" />
-			<var name="expected" value="1" />
-		</execute>
-
-		<echo message="Test getFirstNumber() used inline" />
-
-		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${string?getFirstNumber()}" />
-			<var name="expected" value="1" />
-		</execute>
-	</command>
-
 	<command name="GetIPAddress" priority="5">
 		<echo message="Test getIPAddress()" />
 
@@ -35,7 +15,7 @@
 
 		<var name="number" value="1" />
 
-		<var name="numberIncremented" value="${number?increment()}" />
+		<var method="MathUtil#sum('${number}', '1')" name="numberIncremented" />
 
 		<execute macro="TestUtils#assertEquals">
 			<var name="actual" value="${numberIncremented}" />
@@ -45,7 +25,7 @@
 		<echo message="Test increment() used inline" />
 
 		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${number?increment()}" />
+			<var method="MathUtil#sum('${number}', '1')" name="actual" />
 			<var name="expected" value="2" />
 		</execute>
 	</command>
@@ -75,7 +55,7 @@
 
 		<var name="string" value="abCDe" />
 
-		<var name="stringLowercased" value="${string?lowercase()}" />
+		<var method="StringUtil#lowerCase('${string}')" name="stringLowercased" />
 
 		<execute macro="TestUtils#assertEquals">
 			<var name="actual" value="${stringLowercased}" />
@@ -85,7 +65,7 @@
 		<echo message="Test lowercase() used inline" />
 
 		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${string?lowercase()}" />
+			<var method="StringUtil#lowerCase('${string}')" name="actual" />
 			<var name="expected" value="abcde" />
 		</execute>
 	</command>
@@ -111,7 +91,7 @@
 
 		<var name="string" value="abcde" />
 
-		<var name="stringReplaced" value="${string?replace('abc','123')}" />
+		<var method="StringUtil#replace('${string}', 'abc','123')" name="stringReplaced" />
 
 		<execute macro="TestUtils#assertEquals">
 			<var name="actual" value="${stringReplaced}" />
@@ -121,7 +101,7 @@
 		<echo message="Test replace() used inline" />
 
 		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${string?replace('abc','123')}" />
+			<var method="StringUtil#replace('${string}', 'abc','123')" name="actual" />
 			<var name="expected" value="123de" />
 		</execute>
 	</command>
@@ -131,7 +111,7 @@
 
 		<var name="string" value="abCDe" />
 
-		<var name="stringUppercased" value="${string?uppercase()}" />
+		<var method="StringUtil#upperCase('${string}')" name="stringUppercased" />
 
 		<execute macro="TestUtils#assertEquals">
 			<var name="actual" value="${stringUppercased}" />
@@ -141,7 +121,7 @@
 		<echo message="Test uppercase() used inline" />
 
 		<execute macro="TestUtils#assertEquals">
-			<var name="actual" value="${string?uppercase()}" />
+			<var method="StringUtil#upperCase('${string}')" name="actual" />
 			<var name="expected" value="ABCDE" />
 		</execute>
 	</command>

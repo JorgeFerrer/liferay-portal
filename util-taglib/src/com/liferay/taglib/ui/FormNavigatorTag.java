@@ -118,7 +118,11 @@ public class FormNavigatorTag extends IncludeTag {
 			return _categoryNames;
 		}
 
-		return FormNavigatorCategoryUtil.getLabels(_id);
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		return FormNavigatorCategoryUtil.getLabels(
+			_id, themeDisplay.getLocale());
 	}
 
 	protected String[][] getCategorySectionKeys() {
@@ -131,7 +135,7 @@ public class FormNavigatorTag extends IncludeTag {
 
 		String[] categoryKeys = getCategoryKeys();
 
-		String[][] categorySectionKeys = new String[categoryKeys.length][];
+		String[][] categorySectionKeys = new String[0][];
 
 		for (int i = 0; i < categoryKeys.length; i++) {
 			String categoryKey = categoryKeys[i];
@@ -155,7 +159,7 @@ public class FormNavigatorTag extends IncludeTag {
 
 		String[] categoryKeys = getCategoryKeys();
 
-		String[][] categorySectionLabels = new String[categoryKeys.length][];
+		String[][] categorySectionLabels = new String[0][];
 
 		for (int i = 0; i < categoryKeys.length; i++) {
 			String categoryKey = categoryKeys[i];
@@ -163,7 +167,8 @@ public class FormNavigatorTag extends IncludeTag {
 			categorySectionLabels = ArrayUtil.append(
 				categorySectionLabels,
 				FormNavigatorEntryUtil.getLabels(
-					_id, categoryKey, themeDisplay.getUser(), _formModelBean));
+					_id, categoryKey, themeDisplay.getUser(), _formModelBean,
+					themeDisplay.getLocale()));
 		}
 
 		return categorySectionLabels;

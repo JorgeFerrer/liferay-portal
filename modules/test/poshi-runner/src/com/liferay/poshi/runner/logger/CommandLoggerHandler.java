@@ -129,9 +129,7 @@ public final class CommandLoggerHandler {
 
 		String classCommandName = element.attributeValue("function");
 
-		String commandNameText = "<b>" + classCommandName + "</b>";
-
-		sb.append(_getLineItemText("command-name", commandNameText));
+		sb.append(_getLineItemText("command-name", classCommandName));
 
 		String className =
 			PoshiRunnerGetterUtil.getClassNameFromClassCommandName(
@@ -143,32 +141,28 @@ public final class CommandLoggerHandler {
 		for (int i = 0; i < functionLocatorCount; i++) {
 			String locatorKey = "locator" + (i + 1);
 
-			if (PoshiRunnerVariablesUtil.containsKeyInCommandMap(locatorKey)) {
+			if (PoshiRunnerVariablesUtil.containsKeyInExecuteMap(locatorKey)) {
 				sb.append(_getLineItemText("misc", " with "));
 				sb.append(_getLineItemText("param-type", locatorKey));
 				sb.append(_getLineItemText("misc", "&nbsp;"));
 
-				String paramValueText =
-					PoshiRunnerVariablesUtil.getValueFromCommandMap(locatorKey);
+				String paramValue =
+					PoshiRunnerVariablesUtil.getValueFromExecuteMap(locatorKey);
 
-				paramValueText = "<b>" + paramValueText + "</b>";
-
-				sb.append(_getLineItemText("param-value", paramValueText));
+				sb.append(_getLineItemText("param-value", paramValue));
 			}
 
 			String valueKey = "value" + (i + 1);
 
-			if (PoshiRunnerVariablesUtil.containsKeyInCommandMap(valueKey)) {
+			if (PoshiRunnerVariablesUtil.containsKeyInExecuteMap(valueKey)) {
 				sb.append(_getLineItemText("misc", " with "));
 				sb.append(_getLineItemText("param-type", valueKey));
 				sb.append(_getLineItemText("misc", "&nbsp;"));
 
-				String paramValueText =
-					PoshiRunnerVariablesUtil.getValueFromCommandMap(valueKey);
+				String paramValue =
+					PoshiRunnerVariablesUtil.getValueFromExecuteMap(valueKey);
 
-				paramValueText = "<b>" + paramValueText + "</b>";
-
-				sb.append(_getLineItemText("param-value", paramValueText));
+				sb.append(_getLineItemText("param-value", paramValue));
 			}
 		}
 

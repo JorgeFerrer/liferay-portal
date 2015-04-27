@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.SessionParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.URLUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.PortletConstants;
@@ -38,7 +39,7 @@ import com.liferay.portal.tools.SassToCssBuilder;
 import com.liferay.portal.util.ClassLoaderUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.sass.compiler.SassCompiler;
+import com.liferay.sass.compiler.jni.JniSassCompiler;
 
 import java.io.File;
 
@@ -74,7 +75,7 @@ public class DynamicCSSUtil {
 			}
 
 			try {
-				_sassCompiler = new SassCompiler();
+				_jniSassCompiler = new JniSassCompiler();
 			}
 			catch (Throwable t) {
 				RubyExecutor rubyExecutor = new RubyExecutor();
@@ -144,35 +145,27 @@ public class DynamicCSSUtil {
 
 		boolean themeCssFastLoad = _isThemeCssFastLoad(request, themeDisplay);
 
-		URLConnection cacheResourceURLConnection = null;
-
 		URL cacheResourceURL = _getCacheResourceURL(
 			servletContext, request, resourcePath);
 
 		if (cacheResourceURL != null) {
-			cacheResourceURLConnection = cacheResourceURL.openConnection();
-
 			if (!themeCssFastLoad) {
 				URL resourceURL = servletContext.getResource(resourcePath);
 
 				if (resourceURL != null) {
-					URLConnection resourceURLConnection =
-						resourceURL.openConnection();
+					if (URLUtil.getLastModifiedTime(cacheResourceURL) <
+							URLUtil.getLastModifiedTime(resourceURL)) {
 
-					if (cacheResourceURLConnection.getLastModified() <
-							resourceURLConnection.getLastModified()) {
-
-						cacheResourceURLConnection = null;
+						cacheResourceURL = null;
 					}
 				}
 			}
 		}
 
 		if ((themeCssFastLoad || !content.contains(_CSS_IMPORT_BEGIN)) &&
-			(cacheResourceURLConnection != null)) {
+			(cacheResourceURL != null)) {
 
-			parsedContent = StringUtil.read(
-				cacheResourceURLConnection.getInputStream());
+			parsedContent = StringUtil.read(cacheResourceURL.openStream());
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
@@ -558,8 +551,8 @@ public class DynamicCSSUtil {
 			}
 		}
 
-		if (_sassCompiler != null) {
-			content = _sassCompiler.compileString(
+		if (_jniSassCompiler != null) {
+			content = _jniSassCompiler.compileString(
 				content, commonSassPath + File.pathSeparator + cssThemePath,
 				"");
 		}
@@ -617,11 +610,11 @@ public class DynamicCSSUtil {
 	private static final Log _log = LogFactoryUtil.getLog(DynamicCSSUtil.class);
 
 	private static boolean _initialized;
+	private static JniSassCompiler _jniSassCompiler;
 	private static final Pattern _pluginThemePattern = Pattern.compile(
 		"\\/([^\\/]+)-theme\\/", Pattern.CASE_INSENSITIVE);
 	private static final Pattern _portalThemePattern = Pattern.compile(
 		"themes\\/([^\\/]+)\\/css", Pattern.CASE_INSENSITIVE);
-	private static SassCompiler _sassCompiler;
 	private static ScriptingContainer _scriptingContainer;
 	private static Object _scriptObject;
 

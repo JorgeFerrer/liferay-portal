@@ -14,6 +14,7 @@
 
 package com.liferay.portal.kernel.servlet.taglib.ui;
 
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.registry.Registry;
 import com.liferay.registry.RegistryUtil;
@@ -23,7 +24,9 @@ import com.liferay.registry.collections.ServiceTrackerCollections;
 import com.liferay.registry.collections.ServiceTrackerMap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Sergio González
@@ -33,7 +36,14 @@ public class FormNavigatorCategoryUtil {
 	public static List<FormNavigatorCategory> getFormNavigatorCategories(
 		String formNavigatorId) {
 
-		return _instance._formNavigatorCategories.getService(formNavigatorId);
+		List<FormNavigatorCategory> formNavigatorCategories =
+			_instance._formNavigatorCategories.getService(formNavigatorId);
+
+		if (formNavigatorCategories != null) {
+			return formNavigatorCategories;
+		}
+
+		return Collections.emptyList();
 	}
 
 	public static String[] getKeys(String formNavigatorId) {
@@ -41,6 +51,10 @@ public class FormNavigatorCategoryUtil {
 
 		List<FormNavigatorCategory> formNavigatorCategories =
 			getFormNavigatorCategories(formNavigatorId);
+
+		if (ListUtil.isEmpty(formNavigatorCategories)) {
+			return new String[] {""};
+		}
 
 		for (FormNavigatorCategory formNavigatorCategory :
 				formNavigatorCategories) {
@@ -55,16 +69,20 @@ public class FormNavigatorCategoryUtil {
 		return keys.toArray(new String[keys.size()]);
 	}
 
-	public static String[] getLabels(String formNavigatorId) {
+	public static String[] getLabels(String formNavigatorId, Locale locale) {
 		List<String> labels = new ArrayList<>();
 
 		List<FormNavigatorCategory> formNavigatorCategories =
 			getFormNavigatorCategories(formNavigatorId);
 
+		if (ListUtil.isEmpty(formNavigatorCategories)) {
+			return new String[] {""};
+		}
+
 		for (FormNavigatorCategory formNavigatorCategory :
 				formNavigatorCategories) {
 
-			String label = formNavigatorCategory.getLabel();
+			String label = formNavigatorCategory.getLabel(locale);
 
 			if (Validator.isNotNull(label)) {
 				labels.add(label);

@@ -32,6 +32,9 @@
 	<bean id="com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusRegistryUtil" class="com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusRegistryUtil">
 		<property name="backgroundTaskStatusRegistry" ref="com.liferay.portal.kernel.backgroundtask.BackgroundTaskStatusRegistry" />
 	</bean>
+	<bean id="com.liferay.portal.kernel.backgroundtask.BackgroundTaskThreadLocalManager" class="com.liferay.portal.backgroundtask.BackgroundTaskThreadLocalManagerImpl">
+		<property name="permissionCheckerFactory" ref="com.liferay.portal.security.permission.PermissionCheckerFactory" />
+	</bean>
 	<bean id="com.liferay.portal.kernel.bean.BeanPropertiesUtil" class="com.liferay.portal.kernel.bean.BeanPropertiesUtil">
 		<property name="beanProperties">
 			<bean class="com.liferay.portal.bean.BeanPropertiesImpl" />
@@ -642,10 +645,9 @@
 			<bean class="com.liferay.portal.security.permission.InlineSQLHelperImpl" />
 		</property>
 	</bean>
+	<bean id="com.liferay.portal.security.permission.PermissionCheckerFactory" class="com.liferay.portal.security.permission.PermissionCheckerFactoryImpl" />
 	<bean id="com.liferay.portal.security.permission.PermissionCheckerFactoryUtil" class="com.liferay.portal.security.permission.PermissionCheckerFactoryUtil">
-		<property name="permissionCheckerFactory">
-			<bean class="com.liferay.portal.security.permission.PermissionCheckerFactoryImpl" />
-		</property>
+		<property name="permissionCheckerFactory" ref="com.liferay.portal.security.permission.PermissionCheckerFactory" />
 	</bean>
 	<bean id="com.liferay.portal.security.permission.PermissionConverterUtil" class="com.liferay.portal.security.permission.PermissionConverterUtil">
 		<property name="permissionConverter">
@@ -934,6 +936,11 @@
 	<bean id="com.liferay.portlet.dynamicdatalists.util.DDLUtil" class="com.liferay.portlet.dynamicdatalists.util.DDLUtil">
 		<property name="DDL">
 			<bean class="com.liferay.portlet.dynamicdatalists.util.DDLImpl" />
+		</property>
+	</bean>
+	<bean id="com.liferay.portlet.dynamicdatamapping.io.DDMFormFieldTypesJSONSerializerUtil" class="com.liferay.portlet.dynamicdatamapping.io.DDMFormFieldTypesJSONSerializerUtil">
+		<property name="DDMFormFieldTypesJSONSerializer">
+			<bean class="com.liferay.portlet.dynamicdatamapping.io.DDMFormFieldTypesJSONSerializerImpl" />
 		</property>
 	</bean>
 	<bean id="com.liferay.portlet.dynamicdatamapping.io.DDMFormJSONDeserializerUtil" class="com.liferay.portlet.dynamicdatamapping.io.DDMFormJSONDeserializerUtil">

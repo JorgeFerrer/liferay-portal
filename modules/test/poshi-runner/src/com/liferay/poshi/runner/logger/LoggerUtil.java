@@ -14,11 +14,15 @@
 
 package com.liferay.poshi.runner.logger;
 
+import com.liferay.poshi.runner.PoshiRunnerContext;
 import com.liferay.poshi.runner.PoshiRunnerGetterUtil;
 import com.liferay.poshi.runner.util.FileUtil;
+import com.liferay.poshi.runner.util.StringUtil;
 import com.liferay.poshi.runner.util.Validator;
 
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import java.util.List;
 
@@ -90,6 +94,10 @@ public final class LoggerUtil {
 		sb.append("parentNode.appendChild(childNode);");
 
 		_javascriptExecutor.executeScript(sb.toString());
+	}
+
+	public static void executeJavaScript(String script) {
+		_javascriptExecutor.executeScript(script);
 	}
 
 	public static String getClassName(LoggerElement loggerElement) {
@@ -292,17 +300,24 @@ public final class LoggerUtil {
 
 		_javascriptExecutor = (JavascriptExecutor)_webDriver;
 
-		_webDriver.get("file://" + _getResourcesDir() + "html/index.html");
+		String cssContent = _readResource(
+			"META-INF/resources/css/main_rtl.css");
+
+		FileUtil.write(_CURRENT_DIR + "/test-results/css/main.css", cssContent);
+
+		String htmlContent = _readResource(
+			"META-INF/resources/html/index.html");
+
+		FileUtil.write(_getHtmlFilePath(), htmlContent);
+
+		_webDriver.get("file://" + _getHtmlFilePath());
 	}
 
 	public static void stopLogger() throws Exception {
-		FileUtil.copyDirectory(
-			_getResourcesDir() + "css", _CURRENT_DIR + "/test-results/css");
-
 		String content = (String)_javascriptExecutor.executeScript(
 			"return document.getElementsByTagName('html')[0].outerHTML;");
 
-		FileUtil.write(_CURRENT_DIR + "/test-results/html/index.html", content);
+		FileUtil.write(_getHtmlFilePath(), content);
 
 		if (isLoggerStarted()) {
 			_webDriver.quit();
@@ -311,16 +326,41 @@ public final class LoggerUtil {
 		}
 	}
 
-	private static String _getResourcesDir() {
-		LoggerUtil loggerUtil = new LoggerUtil();
+	private static String _getHtmlFilePath() {
+		StringBuilder sb = new StringBuilder();
 
-		Class<?> clazz = loggerUtil.getClass();
+		sb.append(_CURRENT_DIR);
+		sb.append("/test-results/");
+		sb.append(
+			StringUtil.replace(
+				PoshiRunnerContext.getTestCaseCommandName(), "#", "_"));
+		sb.append("/index.html");
 
-		ClassLoader classLoader = clazz.getClassLoader();
+		return sb.toString();
+	}
 
-		URL url = classLoader.getResource("META-INF/resources/");
+	private static String _readResource(String path) throws Exception {
+		StringBuilder sb = new StringBuilder();
 
-		return url.getPath();
+		ClassLoader classLoader = LoggerUtil.class.getClassLoader();
+
+		InputStream inputStream = classLoader.getResourceAsStream(path);
+
+		InputStreamReader inputStreamReader = new InputStreamReader(
+			inputStream);
+
+		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+		String line = null;
+
+		while ((line = bufferedReader.readLine()) != null) {
+			sb.append(line);
+			sb.append("\n");
+		}
+
+		bufferedReader.close();
+
+		return sb.toString();
 	}
 
 	private static final String _CURRENT_DIR =

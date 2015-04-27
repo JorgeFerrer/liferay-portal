@@ -190,10 +190,9 @@ public class SitemapImpl implements Sitemap {
 
 		Map<Locale, String> alternateURLs = new HashMap<>();
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
-			layout.getGroupId());
+		for (Locale availableLocale : LanguageUtil.getAvailableLocales(
+				layout.getGroupId())) {
 
-		for (Locale availableLocale : availableLocales) {
 			String alternateURL = PortalUtil.getAlternateURL(
 				canonicalURL, themeDisplay, availableLocale, layout);
 
@@ -250,10 +249,10 @@ public class SitemapImpl implements Sitemap {
 				element, articleURL, null, journalArticle.getModifiedDate(),
 				articleURL, getAlternateURLs(articleURL, themeDisplay, layout));
 
-			Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+			Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(
 				layout.getGroupId());
 
-			if (availableLocales.length > 1) {
+			if (availableLocales.size() > 1) {
 				Locale defaultLocale = LocaleUtil.getSiteDefault();
 
 				for (Locale availableLocale : availableLocales) {
@@ -298,10 +297,10 @@ public class SitemapImpl implements Sitemap {
 			layout.getModifiedDate(), layoutFullURL,
 			getAlternateURLs(layoutFullURL, themeDisplay, layout));
 
-		Locale[] availableLocales = LanguageUtil.getAvailableLocales(
+		Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(
 			layout.getGroupId());
 
-		if (availableLocales.length > 1) {
+		if (availableLocales.size() > 1) {
 			Locale defaultLocale = LocaleUtil.getSiteDefault();
 
 			for (Locale availableLocale : availableLocales) {

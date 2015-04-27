@@ -9,11 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>ADD_EVENT_IFRAME</td>
 	<td>//iframe[contains(@class,'dialog-iframe-node ')]</td>
 	<td></td>
@@ -257,6 +252,16 @@
 <tr>
 	<td>INVITATIONS_ACCEPTED</td>
 	<td>//div[contains(@id,'calendarListAccepted')]/div/div[contains(.,'${key_resource}')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INVITATIONS_DECLINED</td>
+	<td>//div[contains(@id,'calendarListDeclined')]/div/div[contains(.,'${key_resource}')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INVITATIONS_MAYBE</td>
+	<td>//div[contains(@id,'calendarListMaybe')]/div/div[contains(.,'${key_resource}')]/span</td>
 	<td></td>
 </tr>
 <tr>

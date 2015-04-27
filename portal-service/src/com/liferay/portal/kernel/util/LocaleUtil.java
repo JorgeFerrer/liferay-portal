@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -169,12 +170,18 @@ public class LocaleUtil {
 		return getInstance()._toBCP47LanguageIds(languageIds);
 	}
 
-	public static String[] toDisplayNames(Locale[] locales, Locale locale) {
+	public static String[] toDisplayNames(
+		Collection<Locale> locales, Locale locale) {
+
 		return getInstance()._toDisplayNames(locales, locale);
 	}
 
 	public static String toLanguageId(Locale locale) {
 		return getInstance()._toLanguageId(locale);
+	}
+
+	public static String[] toLanguageIds(Collection<Locale> locales) {
+		return getInstance()._toLanguageIds(locales);
 	}
 
 	public static String[] toLanguageIds(Locale[] locales) {
@@ -444,11 +451,15 @@ public class LocaleUtil {
 		return bcp47LanguageIds;
 	}
 
-	private String[] _toDisplayNames(Locale[] locales, Locale locale) {
-		String[] displayNames = new String[locales.length];
+	private String[] _toDisplayNames(
+		Collection<Locale> locales, Locale locale) {
 
-		for (int i = 0; i < locales.length; i++) {
-			displayNames[i] = locales[i].getDisplayName(locale);
+		String[] displayNames = new String[locales.size()];
+
+		int i = 0;
+
+		for (Locale curLocale : locales) {
+			displayNames[i++] = curLocale.getDisplayName(locale);
 		}
 
 		return displayNames;
@@ -500,6 +511,18 @@ public class LocaleUtil {
 		}
 
 		return sb.toString();
+	}
+
+	private String[] _toLanguageIds(Collection<Locale> locales) {
+		String[] languageIds = new String[locales.size()];
+
+		int i = 0;
+
+		for (Locale locale : locales) {
+			languageIds[i++] = _toLanguageId(locale);
+		}
+
+		return languageIds;
 	}
 
 	private String[] _toLanguageIds(Locale[] locales) {

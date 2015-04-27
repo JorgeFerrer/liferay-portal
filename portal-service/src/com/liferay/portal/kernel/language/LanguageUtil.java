@@ -19,11 +19,13 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.portlet.PortletRequest;
 
@@ -155,6 +157,19 @@ public class LanguageUtil {
 			resourceBundle, pattern, arguments, translateArguments);
 	}
 
+	public static String get(
+		HttpServletRequest request, ResourceBundle resourceBundle, String key) {
+
+		return getLanguage().get(request, resourceBundle, key);
+	}
+
+	public static String get(
+		HttpServletRequest request, ResourceBundle resourceBundle, String key,
+		String defaultValue) {
+
+		return getLanguage().get(request, resourceBundle, key, defaultValue);
+	}
+
 	public static String get(HttpServletRequest request, String key) {
 		return getLanguage().get(request, key);
 	}
@@ -183,11 +198,11 @@ public class LanguageUtil {
 		return getLanguage().get(resourceBundle, key, defaultValue);
 	}
 
-	public static Locale[] getAvailableLocales() {
+	public static Set<Locale> getAvailableLocales() {
 		return getLanguage().getAvailableLocales();
 	}
 
-	public static Locale[] getAvailableLocales(long groupId) {
+	public static Set<Locale> getAvailableLocales(long groupId) {
 		return getLanguage().getAvailableLocales(groupId);
 	}
 
@@ -201,10 +216,6 @@ public class LanguageUtil {
 
 	public static String getBCP47LanguageId(PortletRequest portletRequest) {
 		return getLanguage().getBCP47LanguageId(portletRequest);
-	}
-
-	public static String getCharset(Locale locale) {
-		return getLanguage().getCharset(locale);
 	}
 
 	public static Language getLanguage() {
@@ -225,11 +236,15 @@ public class LanguageUtil {
 		return getLanguage().getLanguageId(portletRequest);
 	}
 
+	public static Locale getLocale(long groupId, String languageCode) {
+		return getLanguage().getLocale(groupId, languageCode);
+	}
+
 	public static Locale getLocale(String languageCode) {
 		return getLanguage().getLocale(languageCode);
 	}
 
-	public static Locale[] getSupportedLocales() {
+	public static Set<Locale> getSupportedLocales() {
 		return getLanguage().getSupportedLocales();
 	}
 
@@ -303,6 +318,15 @@ public class LanguageUtil {
 		throws PortalException {
 
 		return getLanguage().isInheritLocales(groupId);
+	}
+
+	public static boolean isRequiredUserNameField(
+		Locale locale, String fieldName) {
+
+		String requiredFields = get(
+			locale, "lang.user.name.required.field.names");
+
+		return StringUtil.contains(requiredFields, fieldName);
 	}
 
 	public static boolean isValidLanguageKey(Locale locale, String key) {

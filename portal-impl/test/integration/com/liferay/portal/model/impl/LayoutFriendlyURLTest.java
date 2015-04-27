@@ -71,23 +71,13 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/casa");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		Group group = GroupTestUtil.addGroup();
 
 		_groups.add(group);
 
-		try {
-			addLayout(group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test
@@ -99,23 +89,13 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/casa");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		Group group = GroupTestUtil.addGroup();
 
 		_groups.add(group);
 
-		try {
-			addLayout(group.getGroupId(), true, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(group.getGroupId(), true, friendlyURLMap);
 	}
 
 	@Test
@@ -127,12 +107,7 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/casa");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test(expected = LayoutFriendlyURLsException.class)
@@ -339,23 +314,13 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/home");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		Group group = GroupTestUtil.addGroup();
 
 		_groups.add(group);
 
-		try {
-			addLayout(group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test
@@ -367,12 +332,7 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/casa");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		friendlyURLMap = new HashMap<>();
 
@@ -397,19 +357,8 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/home");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
-
-		try {
-			addLayout(_group.getGroupId(), true, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
+		addLayout(_group.getGroupId(), true, friendlyURLMap);
 	}
 
 	@Test
@@ -421,12 +370,7 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/home");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test
@@ -438,12 +382,7 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/casa");
 		friendlyURLMap.put(LocaleUtil.US, "/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		friendlyURLMap = new HashMap<>();
 
@@ -467,34 +406,19 @@ public class LayoutFriendlyURLTest {
 
 		friendlyURLMap.put(LocaleUtil.US, "/blogs");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		friendlyURLMap = new HashMap<>();
 
 		friendlyURLMap.put(LocaleUtil.US, "/home/blogs");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 
 		friendlyURLMap = new HashMap<>();
 
 		friendlyURLMap.put(LocaleUtil.US, "/blogs/home");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test
@@ -506,12 +430,7 @@ public class LayoutFriendlyURLTest {
 		friendlyURLMap.put(LocaleUtil.SPAIN, "/blogs/two");
 		friendlyURLMap.put(LocaleUtil.US, "/two");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 	}
 
 	@Test
@@ -520,12 +439,7 @@ public class LayoutFriendlyURLTest {
 
 		friendlyURLMap.put(LocaleUtil.US, "/eshome");
 
-		try {
-			addLayout(_group.getGroupId(), false, friendlyURLMap);
-		}
-		catch (LayoutFriendlyURLsException lfurle) {
-			Assert.fail();
-		}
+		addLayout(_group.getGroupId(), false, friendlyURLMap);
 	}
 
 	protected void addLayout(

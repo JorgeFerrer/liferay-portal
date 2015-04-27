@@ -9,13 +9,13 @@
 </thead>
 <tbody>
 <tr>
-	<td></td>
-	<td></td>
+	<td>NAME_FIELD</td>
+	<td>//input[contains(@class,'field tag-name')]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>NAME_FIELD</td>
-	<td>//input[contains(@class,'field tag-name')]</td>
+	<td>NAME_FIELD_ERROR</td>
+	<td>//div[contains(@class,'form-group') and contains(@class,'has-error')]</td>
 	<td></td>
 </tr>
 <tr>

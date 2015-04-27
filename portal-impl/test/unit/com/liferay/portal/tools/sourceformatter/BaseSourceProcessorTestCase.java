@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import java.util.List;
 
@@ -107,22 +106,17 @@ public class BaseSourceProcessorTestCase {
 		else {
 			String actualFormattedContent = (String)tuple.getObject(0);
 
-			try {
-				File file = new File(_DIR_NAME + "/expected/" + fileName);
+			File file = new File(_DIR_NAME + "/expected/" + fileName);
 
-				String expectedFormattedContent = FileUtils.readFileToString(
-					file, StringPool.UTF8);
+			String expectedFormattedContent = FileUtils.readFileToString(
+				file, StringPool.UTF8);
 
-				expectedFormattedContent = StringUtil.replace(
-					expectedFormattedContent, StringPool.RETURN_NEW_LINE,
-					StringPool.NEW_LINE);
+			expectedFormattedContent = StringUtil.replace(
+				expectedFormattedContent, StringPool.RETURN_NEW_LINE,
+				StringPool.NEW_LINE);
 
-				Assert.assertEquals(
-					expectedFormattedContent, actualFormattedContent);
-			}
-			catch (FileNotFoundException fnfe) {
-				Assert.fail();
-			}
+			Assert.assertEquals(
+				expectedFormattedContent, actualFormattedContent);
 		}
 	}
 

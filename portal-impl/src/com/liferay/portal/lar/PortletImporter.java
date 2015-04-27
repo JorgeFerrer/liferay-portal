@@ -14,6 +14,12 @@
 
 package com.liferay.portal.lar;
 
+import static com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_FAILED;
+import static com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_STARTED;
+import static com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_SUCCEEDED;
+import static com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants.PROCESS_FLAG_PORTLET_IMPORT_IN_PROCESS;
+import static com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants.PROCESS_FLAG_PORTLET_STAGING_IN_PROCESS;
+
 import com.liferay.portal.LARFileException;
 import com.liferay.portal.LARTypeException;
 import com.liferay.portal.LayoutImportException;
@@ -37,7 +43,6 @@ import com.liferay.portal.kernel.lar.PortletDataHandler;
 import com.liferay.portal.kernel.lar.PortletDataHandlerKeys;
 import com.liferay.portal.kernel.lar.PortletDataHandlerStatusMessageSenderUtil;
 import com.liferay.portal.kernel.lar.UserIdStrategy;
-import com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleConstants;
 import com.liferay.portal.kernel.lar.lifecycle.ExportImportLifecycleManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -99,6 +104,7 @@ import com.liferay.portlet.journal.util.JournalContentUtil;
 import java.io.File;
 import java.io.Serializable;
 
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -261,21 +267,25 @@ public class PortletImporter {
 				userId, plid, groupId, portletId, parameterMap, file);
 
 			ExportImportLifecycleManager.fireExportImportLifecycleEvent(
-				ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_STARTED,
+				EVENT_PORTLET_IMPORT_STARTED, getProcessFlag(),
 				PortletDataContextFactoryUtil.clonePortletDataContext(
 					portletDataContext));
 
 			doImportPortletInfo(portletDataContext, userId);
 
+			ExportImportThreadLocal.setPortletImportInProcess(false);
+
 			ExportImportLifecycleManager.fireExportImportLifecycleEvent(
-				ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_SUCCEEDED,
+				EVENT_PORTLET_IMPORT_SUCCEEDED, getProcessFlag(),
 				PortletDataContextFactoryUtil.clonePortletDataContext(
 					portletDataContext),
 				userId);
 		}
 		catch (Throwable t) {
+			ExportImportThreadLocal.setPortletImportInProcess(false);
+
 			ExportImportLifecycleManager.fireExportImportLifecycleEvent(
-				ExportImportLifecycleConstants.EVENT_PORTLET_IMPORT_FAILED,
+				EVENT_PORTLET_IMPORT_FAILED, getProcessFlag(),
 				PortletDataContextFactoryUtil.clonePortletDataContext(
 					portletDataContext),
 				t);
@@ -283,8 +293,6 @@ public class PortletImporter {
 			throw t;
 		}
 		finally {
-			ExportImportThreadLocal.setPortletImportInProcess(false);
-
 			CacheUtil.clearCache();
 			JournalContentUtil.clearCache();
 			PermissionCacheUtil.clearCache();
@@ -694,6 +702,14 @@ public class PortletImporter {
 		}
 
 		return portletPreferences;
+	}
+
+	protected int getProcessFlag() {
+		if (ExportImportThreadLocal.isPortletStagingInProcess()) {
+			return PROCESS_FLAG_PORTLET_STAGING_IN_PROCESS;
+		}
+
+		return PROCESS_FLAG_PORTLET_IMPORT_IN_PROCESS;
 	}
 
 	protected void importPortletData(
@@ -1281,16 +1297,15 @@ public class PortletImporter {
 			portlet.getPortletDataHandlerInstance();
 
 		if (portletDataHandler.isDataLocalized()) {
-			Locale[] sourceAvailableLocales = LocaleUtil.fromLanguageIds(
-				StringUtil.split(
-					headerElement.attributeValue("available-locales")));
-
-			Locale[] targetAvailableLocales = LanguageUtil.getAvailableLocales(
-				PortalUtil.getSiteGroupId(groupId));
+			List<Locale> sourceAvailableLocales = Arrays.asList(
+				LocaleUtil.fromLanguageIds(
+					StringUtil.split(
+						headerElement.attributeValue("available-locales"))));
 
 			for (Locale sourceAvailableLocale : sourceAvailableLocales) {
-				if (!ArrayUtil.contains(
-						targetAvailableLocales, sourceAvailableLocale)) {
+				if (!LanguageUtil.isAvailableLocale(
+						PortalUtil.getSiteGroupId(groupId),
+						sourceAvailableLocale)) {
 
 					LocaleException le = new LocaleException(
 						LocaleException.TYPE_EXPORT_IMPORT,
@@ -1298,7 +1313,9 @@ public class PortletImporter {
 							"available in company " + companyId);
 
 					le.setSourceAvailableLocales(sourceAvailableLocales);
-					le.setTargetAvailableLocales(targetAvailableLocales);
+					le.setTargetAvailableLocales(
+						LanguageUtil.getAvailableLocales(
+							PortalUtil.getSiteGroupId(groupId)));
 
 					throw le;
 				}
