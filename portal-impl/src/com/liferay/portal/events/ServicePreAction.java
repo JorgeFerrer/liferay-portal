@@ -446,7 +446,8 @@ public class ServicePreAction extends Action {
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
 
-					throw new PrincipalException("User is not authenticated");
+					throw new PrincipalException.MustBeAuthenticated(
+						String.valueOf(user.getUserId()));
 				}
 
 				sb = new StringBundler(6);
@@ -1783,7 +1784,8 @@ public class ServicePreAction extends Action {
 				if (user.isDefaultUser() &&
 					PropsValues.AUTH_LOGIN_PROMPT_ENABLED) {
 
-					throw new PrincipalException("User is not authenticated");
+					throw new PrincipalException.MustBeAuthenticated(
+						String.valueOf(user.getUserId()));
 				}
 
 				SessionErrors.add(

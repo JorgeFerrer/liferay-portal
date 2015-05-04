@@ -58,6 +58,7 @@ import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutPrototype;
 import com.liferay.portal.model.LayoutRevision;
 import com.liferay.portal.model.LayoutTypePortlet;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.ThemeSetting;
 import com.liferay.portal.model.User;
@@ -366,7 +367,8 @@ public class EditLayoutsAction extends PortletAction {
 		else if (cmd.equals(Constants.UPDATE)) {
 			if (group.isCompany()) {
 				if (!permissionChecker.isCompanyAdmin()) {
-					throw new PrincipalException();
+					throw new PrincipalException.MustBeCompanyAdmin(
+						permissionChecker.getUserId());
 				}
 			}
 			else if (group.isLayoutPrototype()) {
