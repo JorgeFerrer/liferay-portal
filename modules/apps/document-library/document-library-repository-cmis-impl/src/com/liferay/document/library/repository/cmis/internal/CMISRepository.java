@@ -2073,7 +2073,8 @@ public class CMISRepository extends BaseCmisRepository {
 			catch (Exception e2) {
 			}
 
-			throw new PrincipalException(message, e);
+			throw new PrincipalException.MustBeAuthenticated(
+				_cmisRepositoryHandler.getLogin());
 		}
 	}
 
