@@ -21,17 +21,33 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class ContactFullNameException extends PortalException {
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner class in
+	 * com.liferay.portal.ContactNameException
+	 */
 	public ContactFullNameException() {
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner class in
+	 * com.liferay.portal.ContactNameException
+	 */
 	public ContactFullNameException(String msg) {
 		super(msg);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner class in
+	 * com.liferay.portal.ContactNameException
+	 */
 	public ContactFullNameException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by the inner class in
+	 * com.liferay.portal.ContactNameException
+	 */
 	public ContactFullNameException(Throwable cause) {
 		super(cause);
 	}
