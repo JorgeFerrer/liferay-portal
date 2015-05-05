@@ -60,4 +60,12 @@ public class ContactNameException extends PortalException {
 
 	}
 
+	public static class MustHaveFullName extends ContactNameException {
+
+		public MustHaveFullName() {
+			super("Please enter a valid first, middle, and last name.");
+		}
+
+	}
+
 }
