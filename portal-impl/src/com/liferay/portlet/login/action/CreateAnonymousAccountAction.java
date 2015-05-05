@@ -15,7 +15,6 @@
 package com.liferay.portlet.login.action;
 
 import com.liferay.portal.CompanyMaxUsersException;
-import com.liferay.portal.ContactLastNameException;
 import com.liferay.portal.ContactNameException;
 import com.liferay.portal.EmailAddressException;
 import com.liferay.portal.GroupFriendlyURLException;
@@ -134,7 +133,6 @@ public class CreateAnonymousAccountAction extends PortletAction {
 			else if (e instanceof CaptchaTextException ||
 					 e instanceof CompanyMaxUsersException ||
 					 e instanceof ContactNameException ||
-					 e instanceof ContactLastNameException ||
 					 e instanceof EmailAddressException ||
 					 e instanceof GroupFriendlyURLException ||
 					 e instanceof UserEmailAddressException) {
