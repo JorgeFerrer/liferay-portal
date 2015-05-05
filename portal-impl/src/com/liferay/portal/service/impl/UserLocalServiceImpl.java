@@ -16,7 +16,6 @@ package com.liferay.portal.service.impl;
 
 import com.liferay.portal.CompanyMaxUsersException;
 import com.liferay.portal.ContactBirthdayException;
-import com.liferay.portal.ContactFullNameException;
 import com.liferay.portal.ContactLastNameException;
 import com.liferay.portal.ContactNameException;
 import com.liferay.portal.DuplicateOpenIdException;
@@ -6649,7 +6648,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (!fullNameValidator.validate(
 				companyId, firstName, middleName, lastName)) {
 
-			throw new ContactFullNameException();
+			throw new ContactNameException.MustHaveFullName();
 		}
 	}
 
