@@ -68,4 +68,12 @@ public class ContactNameException extends PortalException {
 
 	}
 
+	public static class MustHaveLastName extends ContactNameException {
+
+		public MustHaveLastName() {
+			super("Please enter a valid last name.");
+		}
+
+	}
+
 }
