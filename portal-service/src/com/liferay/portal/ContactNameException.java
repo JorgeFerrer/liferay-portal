@@ -52,4 +52,12 @@ public class ContactNameException extends PortalException {
 		super(cause);
 	}
 
+	public static class MustHaveFirstName extends ContactNameException {
+
+		public MustHaveFirstName() {
+			super("Please enter a valid first name.");
+		}
+
+	}
+
 }
