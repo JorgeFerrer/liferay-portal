@@ -393,8 +393,8 @@ public class PortletPreferencesFactoryImpl
 				// preferences
 
 				throw new PrincipalException.MustHavePermission(
-					permissionChecker.getUserId(), Layout.class.getName(),
-					layout.getLayoutId(), ActionKeys.UPDATE);
+					userId, Layout.class.getName(), layout.getLayoutId(),
+					ActionKeys.UPDATE);
 			}
 		}
 
