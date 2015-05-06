@@ -169,11 +169,6 @@
 			<forward name="portlet.admin.error" path="portlet.admin.error" />
 		</action>
 
-		<action path="/admin_server/edit_site" type="com.liferay.portlet.sites.action.EditGroupAction">
-			<forward name="portlet.sites_admin.edit_site" path="portlet.sites_admin.edit_site" />
-			<forward name="portlet.sites_admin.error" path="portlet.sites_admin.error" />
-		</action>
-
 		<action path="/admin_server/edit_user" type="com.liferay.portlet.usersadmin.action.EditUserAction">
 			<forward name="portlet.users_admin.edit_user" path="portlet.directory.view_user" />
 			<forward name="portlet.users_admin.error" path="portlet.directory.error" />
@@ -1389,8 +1384,6 @@
 
 		<action path="/sites_admin/select_site_role" forward="portlet.roles_admin.select_site_role" />
 
-		<action path="/sites_admin/select_team" forward="portlet.sites_admin.select_team" />
-
 		<action path="/sites_admin/view" forward="portlet.sites_admin.view" />
 
 		<!-- Sites Directory -->
@@ -1567,11 +1560,6 @@
 		</action>
 
 		<action path="/users_admin/edit_user_details" forward="portlet.users_admin.edit_user_details" />
-
-		<action path="/users_admin/edit_user_roles" type="com.liferay.portlet.sites.action.EditUserRolesAction">
-			<forward name="portlet.sites_admin.edit_user_roles" path="portlet.sites_admin.edit_user_roles" />
-			<forward name="portlet.sites_admin.error" path="portlet.sites_admin.error" />
-		</action>
 
 		<action path="/users_admin/export_layouts" type="com.liferay.portlet.layoutsadmin.action.ExportLayoutsAction">
 			<forward name="portlet.layouts_admin.error" path="portlet.layouts_admin.error" />

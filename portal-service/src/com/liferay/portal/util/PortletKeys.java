@@ -125,8 +125,6 @@ public class PortletKeys {
 
 	public static final String PAGE_RATINGS = "108";
 
-	public static final String PASSWORD_POLICIES_ADMIN = "129";
-
 	public static final String PLUGINS_ADMIN = "132";
 
 	public static final String PORTAL = "90";
@@ -166,8 +164,6 @@ public class PortletKeys {
 	public static final String SHOPPING = "34";
 
 	public static final String SITE_MEMBERS_DIRECTORY = "187";
-
-	public static final String SITE_MEMBERSHIPS_ADMIN = "174";
 
 	public static final String SITE_SETTINGS = "165";
 

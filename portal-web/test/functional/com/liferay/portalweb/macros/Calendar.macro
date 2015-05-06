@@ -527,11 +527,9 @@
 		<execute function="Pause" locator1="5000" />
 	</command>
 
-	<command name="gotoConfiguration">
-		<execute function="Click" locator1="PGCalendar#COG_ICON" />
-		<execute function="AssertClick" locator1="PGCalendar#COG_MENULIST_CONFIGURATION" value1="Configuration" />
-
-		<execute function="SelectFrame" locator1="CalendarConfiguration#CALENDAR_CONFIGURATION_IFRAME" />
+	<command name="gotoCurrentSiteCalendarsManage">
+		<execute function="Click" locator1="PGCalendar#CURRENT_SITE_CALENDARS_MENULIST_ARROW" />
+		<execute function="AssertClick" locator1="PGCalendar#CURRENT_SITE_CALENDARS_MENULIST_MANAGE_CALENDAR" value1="Manage Calendars" />
 	</command>
 
 	<command name="gotoMenulistOptionCmd">
@@ -542,7 +540,7 @@
 		<if>
 			<equals arg1="${menuListOption}" arg2="RSS" />
 			<then>
-				<execute function="SelectWindow" locator1="title=${calendarName}" />
+				<execute function="SelectWindow#selectPopUp" />
 			</then>
 		</if>
 	</command>
@@ -608,6 +606,21 @@
 		</execute>
 	</command>
 
+	<command name="importCalendarFile">
+		<var name="key_calendarName" value="${calendarName}" />
+
+		<execute function="AssertTextEquals" locator1="CalendarManageCalendars#CALENDAR_TABLE_NAME" value1="${calendarName}" />
+		<execute function="Click" locator1="CalendarManageCalendars#CALENDAR_TABLE_ACTIONS" />
+
+		<execute function="AssertClick" locator1="CalendarManageCalendars#ACTIONS_MENULIST_IMPORT" value1="Import" />
+
+		<execute function="UploadCommonFile" locator1="CalendarImport#FILE_FIELD" value1="${calendarFile}" />
+
+		<execute function="Click" locator1="CalendarImport#IMPORT_BUTTON" />
+
+		<execute function="AssertTextEquals" locator1="CalendarImport#SUCCESS_MESSAGE" value1="Your request completed successfully." />
+	</command>
+
 	<command name="removeViewPermissionsPG">
 		<execute macro="CalendarEvent#changeViewPG">
 			<var name="viewType" value="Week" />
@@ -666,9 +679,9 @@
 	</command>
 
 	<command name="selectPermissionsIframeCmd">
-		<execute function="AssertTextEquals" locator1="PGCalendarPermissions#PERMISSIONS_TITLE" value1="Permissions" />
+		<execute function="AssertTextEquals" locator1="CalendarPermissions#PERMISSIONS_TITLE" value1="Permissions" />
 
-		<execute function="SelectFrame" locator1="PGCalendarPermissions#CALENDAR_PERMISSIONS_IFRAME" />
+		<execute function="SelectFrame" locator1="CalendarPermissions#CALENDAR_PERMISSIONS_IFRAME" />
 	</command>
 
 	<command name="tearDownColorPG">
@@ -795,6 +808,34 @@
 		<execute function="AssertElementNotPresent" locator1="PGCalendar#MY_CALENDARS_CALENDAR_ADDITIONAL_GENERIC" />
 		<execute function="AssertElementNotPresent" locator1="PGCalendar#CURRENT_SITE_CALENDARS_CALENDAR_ADDITIONAL_GENERIC" />
 		<execute function="AssertElementNotPresent" locator1="PGCalendar#OTHER_CALENDARS_CALENDAR_GENERIC" />
+	</command>
+
+	<command name="viewFirstHourViaScheduler">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Day" />
+		</execute>
+
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_VIEW_DAY_FIRST_HOUR" value1="${firstHour}" />
+
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_VIEW_WEEK_FIRST_HOUR" value1="${firstHour}" />
+	</command>
+
+	<command name="viewLastHourViaScheduler">
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Day" />
+		</execute>
+
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_VIEW_DAY_LAST_HOUR" value1="${lastHour}" />
+
+		<execute macro="CalendarEvent#changeViewPG">
+			<var name="viewType" value="Week" />
+		</execute>
+
+		<execute function="AssertTextEquals" locator1="PGCalendar#SCHEDULER_VIEW_WEEK_LAST_HOUR" value1="${lastHour}" />
 	</command>
 
 	<command name="viewMonth">
@@ -927,7 +968,7 @@
 	</command>
 
 	<command name="viewPermissionsIframeCmd">
-		<execute function="AssertTextEquals" locator1="PGCalendarPermissions#HEADER_TITLE" value1="${calendarName}" />
+		<execute function="AssertTextEquals" locator1="CalendarPermissions#HEADER_TITLE" value1="${calendarName}" />
 
 		<execute function="SelectFrameTop" value1="relative=top" />
 	</command>
@@ -978,6 +1019,13 @@
 		<execute function="AssertTextEquals" locator1="CalendarRSS#FEED_EVENT_LINK" value1="${eventTitle}" />
 		<execute function="AssertTextEquals" locator1="CalendarRSS#FEED_EVENT_TITLE" value1="${eventTitle}" />
 		<execute function="AssertElementPresent" locator1="CalendarRSS#FEED_EVENT_DATES" />
+	</command>
+
+	<command name="viewSelectedSchedulerView">
+		<var method="StringUtil#upperCase(${view})" name="viewUppercase" />
+
+		<execute function="AssertElementPresent" locator1="PGCalendar#VIEW_${viewUppercase}_BUTTON_ACTIVE" />
+		<execute function="AssertElementPresent#assertVisible" locator1="PGCalendar#SCHEDULER_VIEW_${viewUppercase}" />
 	</command>
 
 	<command name="viewWeekCountViaMonthView">

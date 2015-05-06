@@ -105,7 +105,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.XPath;
 import org.dom4j.io.SAXReader;
 
@@ -128,20 +127,6 @@ import org.dom4j.io.SAXReader;
 public class ServiceBuilder {
 
 	public static final String AUTHOR = "Brian Wing Shun Chan";
-
-	public static final String MODEL_HINTS_CONFIGS =
-		"classpath*:META-INF/portal-model-hints.xml,META-INF" +
-			"/portal-model-hints.xml,classpath*:META-INF" +
-				"/ext-model-hints.xml,META-INF/portlet-model-hints.xml";
-
-	public static final String OUTPUT_KEY_MODIFIED_FILES =
-		"service.builder.modified.files";
-
-	public static final String READ_ONLY_PREFIXES =
-		"fetch,get,has,is,load,reindex,search";
-
-	public static final String RESOURCE_ACTION_CONFIGS =
-		"META-INF/resource-actions/default.xml,resource-actions/default.xml";
 
 	public static String getContent(String fileName) throws Exception {
 		Document document = _getContentDocument(fileName);
@@ -248,7 +233,7 @@ public class ServiceBuilder {
 	public static void main(String[] args) throws Exception {
 		Map<String, String> arguments = ArgumentsUtil.parseArguments(args);
 
-		String apiDir = arguments.get("service.api.dir");
+		String apiDirName = arguments.get("service.api.dir");
 		boolean autoImportDefaultReferences = GetterUtil.getBoolean(
 			arguments.get("service.auto.import.default.references"), true);
 		boolean autoNamespaceTables = GetterUtil.getBoolean(
@@ -259,12 +244,12 @@ public class ServiceBuilder {
 		boolean buildNumberIncrement = GetterUtil.getBoolean(
 			arguments.get("service.build.number.increment"), true);
 		String hbmFileName = arguments.get("service.hbm.file");
-		String implDir = arguments.get("service.impl.dir");
+		String implDirName = arguments.get("service.impl.dir");
 		String inputFileName = arguments.get("service.input.file");
 		String[] modelHintsConfigs = StringUtil.split(
 			GetterUtil.getString(
 				arguments.get("service.model.hints.configs"),
-				MODEL_HINTS_CONFIGS));
+				StringUtil.merge(ServiceBuilderArgs.MODEL_HINTS_CONFIGS)));
 		String modelHintsFileName = arguments.get("service.model.hints.file");
 		boolean osgiModule = GetterUtil.getBoolean(
 			arguments.get("service.osgi.module"));
@@ -273,26 +258,26 @@ public class ServiceBuilder {
 		String[] readOnlyPrefixes = StringUtil.split(
 			GetterUtil.getString(
 				arguments.get("service.read.only.prefixes"),
-				READ_ONLY_PREFIXES));
+				StringUtil.merge(ServiceBuilderArgs.READ_ONLY_PREFIXES)));
 		String remotingFileName = arguments.get("service.remoting.file");
 		String[] resourceActionsConfigs = StringUtil.split(
 			GetterUtil.getString(
 				arguments.get("service.resource.actions.configs"),
-				RESOURCE_ACTION_CONFIGS));
-		String resourcesDir = arguments.get("service.resources.dir");
+				StringUtil.merge(ServiceBuilderArgs.RESOURCE_ACTION_CONFIGS)));
+		String resourcesDirName = arguments.get("service.resources.dir");
 		String springFileName = arguments.get("service.spring.file");
 		String[] springNamespaces = StringUtil.split(
 			arguments.get("service.spring.namespaces"));
-		String sqlDir = arguments.get("service.sql.dir");
+		String sqlDirName = arguments.get("service.sql.dir");
 		String sqlFileName = arguments.get("service.sql.file");
 		String sqlIndexesFileName = arguments.get("service.sql.indexes.file");
 		String sqlSequencesFileName = arguments.get(
 			"service.sql.sequences.file");
 		String targetEntityName = arguments.get("service.target.entity.name");
-		String testDir = arguments.get("service.test.dir");
+		String testDirName = arguments.get("service.test.dir");
 
 		Set<String> resourceActionModels = readResourceActionModels(
-			implDir, resourceActionsConfigs);
+			implDirName, resourceActionsConfigs);
 
 		ModelHintsUtil modelHintsUtil = new ModelHintsUtil();
 
@@ -306,18 +291,20 @@ public class ServiceBuilder {
 
 		try {
 			ServiceBuilder serviceBuilder = new ServiceBuilder(
-				apiDir, autoImportDefaultReferences, autoNamespaceTables,
+				apiDirName, autoImportDefaultReferences, autoNamespaceTables,
 				beanLocatorUtil, buildNumber, buildNumberIncrement, hbmFileName,
-				implDir, inputFileName, modelHintsFileName, osgiModule,
+				implDirName, inputFileName, modelHintsFileName, osgiModule,
 				pluginName, propsUtil, readOnlyPrefixes, remotingFileName,
-				resourceActionModels, resourcesDir, springFileName,
-				springNamespaces, sqlDir, sqlFileName, sqlIndexesFileName,
-				sqlSequencesFileName, targetEntityName, testDir, true);
+				resourceActionModels, resourcesDirName, springFileName,
+				springNamespaces, sqlDirName, sqlFileName, sqlIndexesFileName,
+				sqlSequencesFileName, targetEntityName, testDirName, true);
 
 			String modifiedFileNames = StringUtil.merge(
 				serviceBuilder.getModifiedFileNames());
 
-			System.setProperty("service.modified.files", modifiedFileNames);
+			System.setProperty(
+				ServiceBuilderArgs.OUTPUT_KEY_MODIFIED_FILES,
+				modifiedFileNames);
 		}
 		catch (Throwable t) {
 			String message =
@@ -332,14 +319,14 @@ public class ServiceBuilder {
 				"\tservice.hbm.file=${basedir}/src/META-INF/portal-hbm.xml\n" +
 				"\tservice.impl.dir=${basedir}/src\n" +
 				"\tservice.input.file=${service.file}\n" +
-				"\tservice.model.hints.configs=" + MODEL_HINTS_CONFIGS + "\n" +
+				"\tservice.model.hints.configs=" + StringUtil.merge(ServiceBuilderArgs.MODEL_HINTS_CONFIGS) + "\n" +
 				"\tservice.model.hints.file=${basedir}/src/META-INF/portal-model-hints.xml\n" +
 				"\tservice.osgi.module=false\n" +
 				"\tservice.plugin.name=\n" +
 				"\tservice.props.util=com.liferay.portal.util.PropsUtil\n" +
-				"\tservice.read.only.prefixes=" + READ_ONLY_PREFIXES + "\n" +
+				"\tservice.read.only.prefixes=" + StringUtil.merge(ServiceBuilderArgs.READ_ONLY_PREFIXES) + "\n" +
 				"\tservice.remoting.file=${basedir}/../portal-web/docroot/WEB-INF/remoting-servlet.xml\n" +
-				"\tservice.resource.actions.configs=" + RESOURCE_ACTION_CONFIGS + "\n" +
+				"\tservice.resource.actions.configs=" + StringUtil.merge(ServiceBuilderArgs.RESOURCE_ACTION_CONFIGS) + "\n" +
 				"\tservice.resources.dir=${basedir}/src\n" +
 				"\tservice.spring.file=${basedir}/src/META-INF/portal-spring.xml\n" +
 				"\tservice.spring.namespaces=beans\n" +
@@ -662,17 +649,17 @@ public class ServiceBuilder {
 	}
 
 	public ServiceBuilder(
-			String apiDir, boolean autoImportDefaultReferences,
+			String apiDirName, boolean autoImportDefaultReferences,
 			boolean autoNamespaceTables, String beanLocatorUtil,
 			long buildNumber, boolean buildNumberIncrement, String hbmFileName,
-			String implDir, String inputFileName, String modelHintsFileName,
+			String implDirName, String inputFileName, String modelHintsFileName,
 			boolean osgiModule, String pluginName, String propsUtil,
 			String[] readOnlyPrefixes, String remotingFileName,
-			Set<String> resourceActionModels, String resourcesDir,
-			String springFileName, String[] springNamespaces, String sqlDir,
+			Set<String> resourceActionModels, String resourcesDirName,
+			String springFileName, String[] springNamespaces, String sqlDirName,
 			String sqlFileName, String sqlIndexesFileName,
 			String sqlSequencesFileName, String targetEntityName,
-			String testDir, boolean build)
+			String testDirName, boolean build)
 		throws Exception {
 
 		_tplBadAliasNames = _getTplProperty(
@@ -731,14 +718,14 @@ public class ServiceBuilder {
 		_tplSpringXml = _getTplProperty("spring_xml", _tplSpringXml);
 
 		try {
-			_apiDir = apiDir;
+			_apiDirName = apiDirName;
 			_autoImportDefaultReferences = autoImportDefaultReferences;
 			_autoNamespaceTables = autoNamespaceTables;
 			_beanLocatorUtil = beanLocatorUtil;
 			_buildNumber = buildNumber;
 			_buildNumberIncrement = buildNumberIncrement;
 			_hbmFileName = hbmFileName;
-			_implDir = implDir;
+			_implDirName = implDirName;
 			_modelHintsFileName = modelHintsFileName;
 			_osgiModule = osgiModule;
 			_pluginName = GetterUtil.getString(pluginName);
@@ -746,7 +733,7 @@ public class ServiceBuilder {
 			_readOnlyPrefixes = readOnlyPrefixes;
 			_remotingFileName = remotingFileName;
 			_resourceActionModels = resourceActionModels;
-			_resourcesDir = resourcesDir;
+			_resourcesDirName = resourcesDirName;
 			_springFileName = springFileName;
 
 			_springNamespaces = springNamespaces;
@@ -758,12 +745,12 @@ public class ServiceBuilder {
 					_springNamespaces, _SPRING_NAMESPACE_BEANS);
 			}
 
-			_sqlDir = sqlDir;
+			_sqlDirName = sqlDirName;
 			_sqlFileName = sqlFileName;
 			_sqlIndexesFileName = sqlIndexesFileName;
 			_sqlSequencesFileName = sqlSequencesFileName;
 			_targetEntityName = targetEntityName;
-			_testDir = testDir;
+			_testDirName = testDirName;
 			_build = build;
 
 			_badTableNames = _readLines(_tplBadTableNames);
@@ -788,14 +775,14 @@ public class ServiceBuilder {
 			}
 
 			_outputPath =
-				_implDir + "/" + StringUtil.replace(packagePath, ".", "/");
+				_implDirName + "/" + StringUtil.replace(packagePath, ".", "/");
 
 			_serviceOutputPath =
-				_apiDir + "/" + StringUtil.replace(packagePath, ".", "/");
+				_apiDirName + "/" + StringUtil.replace(packagePath, ".", "/");
 
-			if (Validator.isNotNull(_testDir)) {
+			if (Validator.isNotNull(_testDirName)) {
 				_testOutputPath =
-					_testDir + "/" + StringUtil.replace(packagePath, ".", "/");
+					_testDirName + "/" + StringUtil.replace(packagePath, ".", "/");
 			}
 
 			_packagePath = packagePath;
@@ -904,7 +891,7 @@ public class ServiceBuilder {
 							_createPersistence(entity);
 							_createPersistenceUtil(entity);
 
-							if (Validator.isNotNull(_testDir)) {
+							if (Validator.isNotNull(_testDirName)) {
 								_createPersistenceTest(entity);
 							}
 
@@ -1279,9 +1266,10 @@ public class ServiceBuilder {
 			return entity;
 		}
 
-		String refPackageDir = StringUtil.replace(refPackage, ".", "/");
+		String refPackageDirName = StringUtil.replace(refPackage, ".", "/");
 
-		String refFileName = _implDir + "/" + refPackageDir + "/service.xml";
+		String refFileName =
+			_implDirName + "/" + refPackageDirName + "/service.xml";
 
 		File refFile = new File(refFileName);
 
@@ -1297,7 +1285,7 @@ public class ServiceBuilder {
 
 			try {
 				refContent = StringUtil.read(
-					classLoader, refPackageDir + "/service.xml");
+					classLoader, refPackageDirName + "/service.xml");
 			}
 			catch (IOException ioe) {
 				throw new ServiceBuilderException(
@@ -1311,14 +1299,14 @@ public class ServiceBuilder {
 		}
 
 		ServiceBuilder serviceBuilder = new ServiceBuilder(
-			_apiDir, _autoImportDefaultReferences, _autoNamespaceTables,
+			_apiDirName, _autoImportDefaultReferences, _autoNamespaceTables,
 			_beanLocatorUtil, _buildNumber, _buildNumberIncrement, _hbmFileName,
-			_implDir, refFile.getAbsolutePath(), _modelHintsFileName,
+			_implDirName, refFile.getAbsolutePath(), _modelHintsFileName,
 			_osgiModule, _pluginName, _propsUtil, _readOnlyPrefixes,
-			_remotingFileName, _resourceActionModels, _resourcesDir,
-			_springFileName, _springNamespaces, _sqlDir, _sqlFileName,
+			_remotingFileName, _resourceActionModels, _resourcesDirName,
+			_springFileName, _springNamespaces, _sqlDirName, _sqlFileName,
 			_sqlIndexesFileName, _sqlSequencesFileName, _targetEntityName,
-			_testDir, false);
+			_testDirName, false);
 
 		entity = serviceBuilder.getEntity(refEntity);
 
@@ -2033,13 +2021,12 @@ public class ServiceBuilder {
 					new String[] {resourceElement.attributeValue("file")}));
 		}
 
-		XPath xPath = document.createXPath(
-			"//model-resource/model-name/text()");
+		XPath xPath = document.createXPath("//model-resource/model-name");
 
-		List<Node> nodes = xPath.selectNodes(rootElement);
+		List<Element> elements = xPath.selectNodes(rootElement);
 
-		for (Node node : nodes) {
-			resourceActionModels.add(node.getText().trim());
+		for (Element element : elements) {
+			resourceActionModels.add(element.getText().trim());
 		}
 	}
 
@@ -2894,14 +2881,14 @@ public class ServiceBuilder {
 
 		File propsFile = null;
 
-		if (Validator.isNotNull(_resourcesDir)) {
-			propsFile = new File(_resourcesDir + "/service.properties");
+		if (Validator.isNotNull(_resourcesDirName)) {
+			propsFile = new File(_resourcesDirName + "/service.properties");
 		}
 		else {
 
 			// Backwards compatibility
 
-			propsFile = new File(_implDir + "/service.properties");
+			propsFile = new File(_implDirName + "/service.properties");
 		}
 
 		long buildNumber = 1;
@@ -3342,7 +3329,7 @@ public class ServiceBuilder {
 		}
 
 		File file = new File(
-			_implDir + "/" + StringUtil.replace(_propsUtil, ".", "/") +
+			_implDirName + "/" + StringUtil.replace(_propsUtil, ".", "/") +
 				".java");
 
 		if (file.exists()) {
@@ -3520,7 +3507,7 @@ public class ServiceBuilder {
 	}
 
 	private void _createSQLIndexes() throws Exception {
-		File sqlDir = new File(_sqlDir);
+		File sqlDir = new File(_sqlDirName);
 
 		if (!sqlDir.exists()) {
 			return;
@@ -3528,7 +3515,7 @@ public class ServiceBuilder {
 
 		// indexes.sql loading
 
-		File sqlFile = new File(_sqlDir + "/" + _sqlIndexesFileName);
+		File sqlFile = new File(_sqlDirName + "/" + _sqlIndexesFileName);
 
 		if (!sqlFile.exists()) {
 			FileUtils.touch(sqlFile);
@@ -3639,7 +3626,7 @@ public class ServiceBuilder {
 
 		// indexes.properties
 
-		File file = new File(_sqlDir, "indexes.properties");
+		File file = new File(_sqlDirName, "indexes.properties");
 
 		file.delete();
 	}
@@ -3709,13 +3696,13 @@ public class ServiceBuilder {
 	}
 
 	private void _createSQLSequences() throws IOException {
-		File sqlDir = new File(_sqlDir);
+		File sqlDir = new File(_sqlDirName);
 
 		if (!sqlDir.exists()) {
 			return;
 		}
 
-		File sqlFile = new File(_sqlDir + "/" + _sqlSequencesFileName);
+		File sqlFile = new File(_sqlDirName + "/" + _sqlSequencesFileName);
 
 		if (!sqlFile.exists()) {
 			FileUtils.touch(sqlFile);
@@ -3792,13 +3779,13 @@ public class ServiceBuilder {
 	}
 
 	private void _createSQLTables() throws Exception {
-		File sqlDir = new File(_sqlDir);
+		File sqlDir = new File(_sqlDirName);
 
 		if (!sqlDir.exists()) {
 			return;
 		}
 
-		File sqlFile = new File(_sqlDir + "/" + _sqlFileName);
+		File sqlFile = new File(_sqlDirName + "/" + _sqlFileName);
 
 		if (!sqlFile.exists()) {
 			FileUtils.touch(sqlFile);
@@ -4093,13 +4080,13 @@ public class ServiceBuilder {
 
 		Map<String, Object> context = new HashMap<>();
 
-		context.put("apiDir", _apiDir);
+		context.put("apiDir", _apiDirName);
 		context.put("arrayUtil", ArrayUtil_IW.getInstance());
 		context.put("author", _author);
 		context.put("beanLocatorUtil", _beanLocatorUtil);
 		context.put("beanLocatorUtilShortName", _beanLocatorUtilShortName);
 		context.put("hbmFileName", _hbmFileName);
-		context.put("implDir", _implDir);
+		context.put("implDir", _implDirName);
 		context.put("modelHintsFileName", _modelHintsFileName);
 		context.put("modelHintsUtil", ModelHintsUtil.getModelHints());
 		context.put("osgiModule", _osgiModule);
@@ -4113,7 +4100,7 @@ public class ServiceBuilder {
 		context.put("serviceBuilder", this);
 		context.put("serviceOutputPath", _serviceOutputPath);
 		context.put("springFileName", _springFileName);
-		context.put("sqlDir", _sqlDir);
+		context.put("sqlDir", _sqlDirName);
 		context.put("sqlFileName", _sqlFileName);
 		context.put("stringUtil", StringUtil_IW.getInstance());
 		context.put("system", staticModels.get("java.lang.System"));
@@ -4442,11 +4429,11 @@ public class ServiceBuilder {
 	private JavaClass _getJavaClass(String fileName) throws IOException {
 		int pos = 0;
 
-		if (fileName.startsWith(_implDir)) {
-			pos = _implDir.length() + 1;
+		if (fileName.startsWith(_implDirName)) {
+			pos = _implDirName.length() + 1;
 		}
-		else if (fileName.startsWith(_apiDir)) {
-			pos = _apiDir.length() + 1;
+		else if (fileName.startsWith(_apiDirName)) {
+			pos = _apiDirName.length() + 1;
 		}
 		else {
 			return null;
@@ -5392,7 +5379,7 @@ public class ServiceBuilder {
 			String sqlFileName, String createTableSQL, Entity entity)
 		throws IOException {
 
-		File updateSQLFile = new File(_sqlDir + "/" + sqlFileName);
+		File updateSQLFile = new File(_sqlDirName + "/" + sqlFileName);
 
 		if (updateSQLFile.exists()) {
 			_createSQLTables(updateSQLFile, createTableSQL, entity, false);
@@ -5418,7 +5405,7 @@ public class ServiceBuilder {
 	private static Pattern _setterPattern = Pattern.compile(
 		"public void set.*" + Pattern.quote("("));
 
-	private String _apiDir;
+	private String _apiDirName;
 	private String _author;
 	private boolean _autoImportDefaultReferences;
 	private boolean _autoNamespaceTables;
@@ -5435,7 +5422,7 @@ public class ServiceBuilder {
 	private Map<String, EntityMapping> _entityMappings;
 	private Map<String, Entity> _entityPool = new HashMap<>();
 	private String _hbmFileName;
-	private String _implDir;
+	private String _implDirName;
 	private Map<String, JavaClass> _javaClasses = new HashMap<>();
 	private String _modelHintsFileName;
 	private Set<String> _modifiedFileNames = new HashSet<>();
@@ -5451,16 +5438,16 @@ public class ServiceBuilder {
 	private String[] _readOnlyPrefixes;
 	private String _remotingFileName;
 	private Set<String> _resourceActionModels = new HashSet<>();
-	private String _resourcesDir;
+	private String _resourcesDirName;
 	private String _serviceOutputPath;
 	private String _springFileName;
 	private String[] _springNamespaces;
-	private String _sqlDir;
+	private String _sqlDirName;
 	private String _sqlFileName;
 	private String _sqlIndexesFileName;
 	private String _sqlSequencesFileName;
 	private String _targetEntityName;
-	private String _testDir;
+	private String _testDirName;
 	private String _testOutputPath;
 	private String _tplActionableDynamicQuery =
 		_TPL_ROOT + "actionable_dynamic_query.ftl";

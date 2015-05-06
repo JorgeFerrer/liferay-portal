@@ -515,13 +515,13 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="build-service">
-		<path id="service.classpath">
+		<path id="service.builder.classpath">
 			<fileset dir="${project.dir}/tools/sdk/dependencies/com.liferay.portal.tools.service.builder/lib" includes="*.jar" />
 		</path>
 
 		<java
 			classname="com.liferay.portal.tools.service.builder.ServiceBuilder"
-			classpathref="service.classpath"
+			classpathref="service.builder.classpath"
 			fork="true"
 			newenvironment="true"
 			outputproperty="build-service.output"
@@ -790,14 +790,14 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="build-wsdd" depends="compile">
-		<path id="wsdd.classpath">
+		<path id="wsdd.builder.classpath">
 			<fileset dir="${project.dir}/tools/sdk/dependencies/com.liferay.portal.tools.wsdd.builder/lib" includes="*.jar" />
 			<path refid="project.classpath" />
 		</path>
 
 		<java
 			classname="com.liferay.portal.tools.wsdd.builder.WSDDBuilder"
-			classpathref="wsdd.classpath"
+			classpathref="wsdd.builder.classpath"
 			fork="true"
 			maxmemory="512m"
 			newenvironment="true"
@@ -1103,9 +1103,10 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="format-source">
-		<copy todir="${project.dir}/portal-impl/classes" overwrite="true" preservelastmodified="true">
-			<fileset dir="${project.dir}/portal-impl/src" includes="com/liferay/portal/tools/dependencies/*.properties" />
-		</copy>
+		<path id="source.formatter.classpath">
+			<fileset dir="${project.dir}/tools/sdk/dependencies/com.liferay.source.formatter/lib" includes="*.jar" />
+			<path refid="project.classpath" />
+		</path>
 
 		<if>
 			<not>
@@ -1117,8 +1118,8 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 		</if>
 
 		<java
-			classname="com.liferay.portal.tools.sourceformatter.SourceFormatter"
-			classpathref="project.classpath"
+			classname="com.liferay.source.formatter.SourceFormatter"
+			classpathref="source.formatter.classpath"
 			dir="${source.formatter.dir}"
 			fork="true"
 			newenvironment="true"

@@ -464,16 +464,16 @@ Please set the environment variable ANT_OPTS to the recommended value of
 	<if>
 		<and>
 			<not>
-				<isset property="jdk.6.home" />
+				<isset property="jdk.7.home" />
 			</not>
 			<equals arg1="${java.specification.version}" arg2="1.6" />
 		</and>
 		<then>
-			<property name="jdk.6.home" value="${env.JAVA_HOME}" />
+			<property name="jdk.7.home" value="${env.JAVA_HOME}" />
 		</then>
 	</if>
 
-	<property name="junit.cobertura.agent" value="-javaagent:${project.dir}/${junit.cobertura.agent.jar}=${junit.cobertura.includes};${junit.cobertura.excludes}" />
+	<property name="junit.whip.agent" value="-javaagent:${project.dir}/${junit.whip.jar}=${junit.whip.includes};${junit.whip.excludes}" />
 
 	<if>
 		<not>
@@ -879,13 +879,13 @@ Please set the environment variable ANT_OPTS to the recommended value of
 		<sequential>
 			<junit dir="${project.dir}" fork="on" forkmode="@{forkmode}" haltonfailure="${junit.halt.on.failure}" jvm="${junit.jvm}" outputtoformatters="false" printsummary="on" showoutput="true">
 				<sysproperty key="junit.aspectj.dump" file="woven-classes" />
-				<sysproperty key="junit.cobertura.agent" value="${junit.cobertura.agent}" />
 				<sysproperty key="junit.code.coverage" value="${junit.code.coverage}" />
 				<sysproperty key="junit.code.coverage.dump" value="${junit.code.coverage.dump}" />
 				<sysproperty key="junit.debug" value="${junit.debug}" />
+				<sysproperty key="junit.whip.agent" value="${junit.whip.agent}" />
 				<sysproperty key="net.sourceforge.cobertura.datafile" file="test-coverage/@{test.type}/cobertura.ser" />
 				<jvmarg line="${junit.debug.jpda}" />
-				<jvmarg line="${junit.cobertura.agent}" />
+				<jvmarg line="${junit.whip.agent}" />
 				<jvmarg value="-Xmx${junit.java.mx}" />
 				<jvmarg value="-Xss2m" />
 				<jvmarg value="-XX:MaxPermSize=${junit.java.maxpermsize}" />
@@ -1311,9 +1311,14 @@ rerun your task.
 	<target name="format-javadoc">
 		<echo>Run "ant compile compile-test" before using format-javadoc to generate @Override tags.</echo>
 
+		<path id="javadoc.formatter.classpath">
+			<fileset dir="${project.dir}/tools/sdk/dependencies/com.liferay.javadoc.formatter/lib" includes="*.jar" />
+			<path refid="project.classpath" />
+		</path>
+
 		<java
-			classname="com.liferay.portal.tools.JavadocFormatter"
-			classpathref="project.classpath"
+			classname="com.liferay.javadoc.formatter.JavadocFormatter"
+			classpathref="javadoc.formatter.classpath"
 			fork="true"
 			newenvironment="true"
 		>
