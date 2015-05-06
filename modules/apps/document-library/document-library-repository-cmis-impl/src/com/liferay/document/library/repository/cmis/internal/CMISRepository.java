@@ -1519,13 +1519,13 @@ public class CMISRepository extends BaseCmisRepository {
 
 		if (properties != null) {
 			if (!allowableActionsSet.contains(Action.CAN_UPDATE_PROPERTIES)) {
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(0, Action.CAN_UPDATE_PROPERTIES.toString());
 			}
 		}
 
 		if (contentStream != null) {
 			if (!allowableActionsSet.contains(Action.CAN_SET_CONTENT_STREAM)) {
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(0, Action.CAN_SET_CONTENT_STREAM.toString());
 			}
 		}
 	}
@@ -2073,7 +2073,8 @@ public class CMISRepository extends BaseCmisRepository {
 			catch (Exception e2) {
 			}
 
-			throw new PrincipalException(message, e);
+			throw new PrincipalException.MustBeAuthenticated(
+				_cmisRepositoryHandler.getLogin());
 		}
 	}
 

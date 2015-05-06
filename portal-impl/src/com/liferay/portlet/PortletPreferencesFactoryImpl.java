@@ -16,6 +16,8 @@ package com.liferay.portlet;
 
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.SingleVMPoolUtil;
+import com.liferay.portal.kernel.cache.key.CacheKeyGenerator;
+import com.liferay.portal.kernel.cache.key.CacheKeyGeneratorUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
@@ -49,6 +51,7 @@ import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
+import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portal.xml.StAXReaderUtil;
 import com.liferay.portlet.portletconfiguration.util.ConfigurationPortletRequest;
@@ -389,7 +392,9 @@ public class PortletPreferencesFactoryImpl
 				// Only users with the correct permissions can update guest
 				// preferences
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					permissionChecker.getUserId(), Layout.class.getName(),
+					layout.getLayoutId(), ActionKeys.UPDATE);
 			}
 		}
 
@@ -821,8 +826,10 @@ public class PortletPreferencesFactoryImpl
 			return Collections.emptyMap();
 		}
 
+		String cacheKey = _encodeCacheKey(xml);
+
 		Map<String, Preference> preferencesMap = _preferencesMapPortalCache.get(
-			xml);
+			cacheKey);
 
 		if (preferencesMap != null) {
 			return preferencesMap;
@@ -877,9 +884,27 @@ public class PortletPreferencesFactoryImpl
 			preferencesMap = Collections.emptyMap();
 		}
 
-		_preferencesMapPortalCache.put(xml, preferencesMap);
+		_preferencesMapPortalCache.put(cacheKey, preferencesMap);
 
 		return preferencesMap;
+	}
+
+	private String _encodeCacheKey(String xml) {
+		if (xml.length() <=
+				PropsValues.PORTLET_PREFERENCES_CACHE_KEY_THRESHOLD_SIZE) {
+
+			return xml;
+		}
+
+		CacheKeyGenerator cacheKeyGenerator =
+			CacheKeyGeneratorUtil.getCacheKeyGenerator(
+				PortletPreferencesFactoryImpl.class.getName());
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Cache key generator " + cacheKeyGenerator.getClass());
+		}
+
+		return String.valueOf(cacheKeyGenerator.getCacheKey(xml));
 	}
 
 	private final Log _log = LogFactoryUtil.getLog(

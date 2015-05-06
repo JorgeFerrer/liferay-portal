@@ -19,23 +19,23 @@
 <%
 String randomNamespace = StringUtil.randomId() + StringPool.UNDERLINE;
 
+CommentManager commentManager = CommentManagerUtil.getCommentManager();
+
 DiscussionTaglibHelper discussionTaglibHelper = new DiscussionTaglibHelper(request);
 DiscussionRequestHelper discussionRequestHelper = new DiscussionRequestHelper(request);
 
-CommentSectionDisplayContext commentSectionDisplayContext = new MBCommentSectionDisplayContext(discussionTaglibHelper, discussionRequestHelper);
+DiscussionPermission discussionPermission = new MBDiscussionPermissionImpl(discussionRequestHelper.getPermissionChecker());
+Discussion discussion = commentManager.getDiscussion(discussionTaglibHelper.getUserId(), discussionRequestHelper.getScopeGroupId(), discussionTaglibHelper.getClassName(), discussionTaglibHelper.getClassPK(), ServiceContextFactory.getInstance(request));
 
-MBMessageDisplay messageDisplay = MBMessageLocalServiceUtil.getDiscussionMessageDisplay(discussionTaglibHelper.getUserId(), scopeGroupId, discussionTaglibHelper.getClassName(), discussionTaglibHelper.getClassPK(), WorkflowConstants.STATUS_ANY, new MessageThreadComparator());
+Comment rootComment = discussion.getRootComment();
 
-MBTreeWalker treeWalker = messageDisplay.getTreeWalker();
-MBMessage rootMessage = treeWalker.getRoot();
-List<MBMessage> messages = treeWalker.getMessages();
-int messagesCount = messages.size();
+CommentSectionDisplayContext commentSectionDisplayContext = new MBCommentSectionDisplayContext(discussionTaglibHelper, discussionRequestHelper, discussionPermission, discussion);
 %>
 
 <section>
 	<div class="hide lfr-message-response" id="<portlet:namespace />discussionStatusMessages"></div>
 
-	<c:if test="<%= commentSectionDisplayContext.isDiscussionMaxComments() %>">
+	<c:if test="<%= discussion.isMaxCommentsLimitExceeded() %>">
 		<div class="alert alert-warning">
 			<liferay-ui:message key="maximum-number-of-comments-has-been-reached" />
 		</div>
@@ -55,22 +55,21 @@ int messagesCount = messages.size();
 				<aui:input name="permissionClassPK" type="hidden" value="<%= discussionTaglibHelper.getPermissionClassPK() %>" />
 				<aui:input name="permissionOwnerId" type="hidden" value="<%= String.valueOf(discussionTaglibHelper.getUserId()) %>" />
 				<aui:input name="messageId" type="hidden" />
-				<aui:input name="threadId" type="hidden" value="<%= commentSectionDisplayContext.getThreadId() %>" />
 				<aui:input name="parentMessageId" type="hidden" />
 				<aui:input name="body" type="hidden" />
 				<aui:input name="workflowAction" type="hidden" value="<%= String.valueOf(WorkflowConstants.ACTION_PUBLISH) %>" />
 				<aui:input name="ajax" type="hidden" value="<%= true %>" />
 
 				<%
-				MBMessage message = rootMessage;
+				Comment comment = rootComment;
 				%>
 
 				<c:if test="<%= commentSectionDisplayContext.isControlsVisible() %>">
 					<aui:fieldset cssClass="add-comment" id='<%= randomNamespace + "messageScroll0" %>'>
-						<c:if test="<%= !commentSectionDisplayContext.isDiscussionMaxComments() %>">
-							<div id="<%= randomNamespace %>messageScroll<%= commentSectionDisplayContext.getRootMessageId() %>">
-								<aui:input name="messageId0" type="hidden" value="<%= commentSectionDisplayContext.getRootMessageId() %>" />
-								<aui:input name="parentMessageId0" type="hidden" value="<%= commentSectionDisplayContext.getRootMessageId() %>" />
+						<c:if test="<%= !discussion.isMaxCommentsLimitExceeded() %>">
+							<div id="<%= randomNamespace %>messageScroll<%= rootComment.getCommentId() %>">
+								<aui:input name="messageId0" type="hidden" value="<%= rootComment.getCommentId() %>" />
+								<aui:input name="parentMessageId0" type="hidden" value="<%= rootComment.getCommentId() %>" />
 							</div>
 						</c:if>
 
@@ -103,7 +102,7 @@ int messagesCount = messages.size();
 							</c:choose>
 						</c:if>
 
-						<c:if test="<%= !commentSectionDisplayContext.isDiscussionMaxComments() %>">
+						<c:if test="<%= !discussion.isMaxCommentsLimitExceeded() %>">
 							<aui:input name="emailAddress" type="hidden" />
 
 							<c:choose>
@@ -141,33 +140,22 @@ int messagesCount = messages.size();
 					</aui:fieldset>
 				</c:if>
 
-				<c:if test="<%= messagesCount > 1 %>">
+				<c:if test="<%= commentSectionDisplayContext.isMessageThreadVisible() %>">
 					<a name="<%= randomNamespace %>messages_top"></a>
 
 					<aui:row>
 
 						<%
-						List<Long> classPKs = new ArrayList<Long>();
-
-						for (MBMessage curMessage : messages) {
-							if (!curMessage.isRoot()) {
-								classPKs.add(curMessage.getMessageId());
-							}
-						}
-
-						List<RatingsEntry> ratingsEntries = RatingsEntryLocalServiceUtil.getEntries(discussionTaglibHelper.getUserId(), MBDiscussion.class.getName(), classPKs);
-						List<RatingsStats> ratingsStatsList = RatingsStatsLocalServiceUtil.getStats(MBDiscussion.class.getName(), classPKs);
-
-						int[] range = treeWalker.getChildrenRange(rootMessage);
-
 						int index = 0;
 						int rootIndexPage = 0;
 						boolean moreCommentsPagination = false;
 
-						for (int j = range[0]; j < range[1]; j++) {
+						CommentIterator commentIterator = rootComment.getThreadCommentsIterator();
+
+						while (commentIterator.hasNext()) {
 							index = GetterUtil.getInteger(request.getAttribute("liferay-ui:discussion:index"), 1);
 
-							rootIndexPage = j;
+							rootIndexPage = commentIterator.getIndexPage();
 
 							if ((index + 1) > PropsValues.DISCUSSION_COMMENTS_DELTA_VALUE) {
 								moreCommentsPagination = true;
@@ -175,16 +163,11 @@ int messagesCount = messages.size();
 								break;
 							}
 
-							message = (MBMessage)messages.get(j);
+							comment = commentIterator.next();
 
-							request.setAttribute(WebKeys.MESSAGE_BOARDS_TREE_WALKER, treeWalker);
-							request.setAttribute(WebKeys.MESSAGE_BOARDS_TREE_WALKER_CUR_MESSAGE, message);
-
-							request.setAttribute("liferay-ui:discussion:messageDisplay", messageDisplay);
+							request.setAttribute("liferay-ui:discussion:currentComment", comment);
+							request.setAttribute("liferay-ui:discussion:discussion", discussion);
 							request.setAttribute("liferay-ui:discussion:randomNamespace", randomNamespace);
-							request.setAttribute("liferay-ui:discussion:ratingsEntries", ratingsEntries);
-							request.setAttribute("liferay-ui:discussion:ratingsStatsList", ratingsStatsList);
-							request.setAttribute("liferay-ui:discussion:rootMessage", rootMessage);
 						%>
 
 							<liferay-util:include page="/html/taglib/ui/discussion/view_message_thread.jsp" />

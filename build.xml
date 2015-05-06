@@ -1048,14 +1048,14 @@
 		<copy file="${project.dir}/tools/sdk/build.${env.COMPUTERNAME}.properties" tofile="${project.dir}/tools/sdk/build.${env.HOSTNAME}.properties" />
 	</target>
 
-	<target name="setup-testable-tomcat">
-		<setup-testable-tomcat />
-	</target>
-
 	<target name="sort-xml-attributes">
+		<path id="source.formatter.classpath">
+			<fileset dir="${project.dir}/tools/sdk/dependencies/com.liferay.source.formatter/lib" includes="*.jar" />
+		</path>
+
 		<java
-			classname="com.liferay.portal.tools.XMLAttributesSorter"
-			classpathref="project.classpath"
+			classname="com.liferay.portal.tools.source.formatter.XMLAttributesSorter"
+			classpathref="source.formatter.classpath"
 			fork="true"
 			newenvironment="true"
 		>
