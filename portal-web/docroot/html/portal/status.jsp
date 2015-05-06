@@ -53,7 +53,7 @@ if (Validator.isNotNull(exception)) {
 %>
 
 <c:choose>
-	<c:when test="<%= SessionErrors.contains(request, PrincipalException.class.getName()) %>">
+	<c:when test="<%= SessionErrors.contains(request, PrincipalException.MustHavePermission.class.getName()) %>">
 		<h3 class="alert alert-danger">
 			<liferay-ui:message key="forbidden" />
 		</h3>
