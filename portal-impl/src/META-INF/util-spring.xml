@@ -87,6 +87,11 @@
 				<entry key="com.liferay.portal.kernel.dao.orm.FinderCache#BaseModel">
 					<bean class="com.liferay.portal.cache.key.HashCodeCacheKeyGenerator" />
 				</entry>
+				<entry key="com.liferay.portlet.PortletPreferencesFactoryImpl">
+					<bean class="com.liferay.portal.cache.key.MessageDigestCacheKeyGenerator">
+						<constructor-arg value="SHA-1" />
+					</bean>
+				</entry>
 			</map>
 		</property>
 		<property name="defaultCacheKeyGenerator">
@@ -1199,6 +1204,7 @@
 	<bean id="com.liferay.portlet.sites.util.SitesUtil" class="com.liferay.portlet.sites.util.SitesUtil">
 		<property name="sites" ref="com.liferay.portlet.sites.util.Sites" />
 	</bean>
+	<bean id="com.liferay.portlet.sitesadmin.lar.StagedGroupStagedModelDataHandler" class="com.liferay.portlet.sitesadmin.lar.StagedGroupStagedModelDataHandler" />
 	<bean id="com.liferay.portlet.social.service.permission.SocialActivityPermissionUtil" class="com.liferay.portlet.social.service.permission.SocialActivityPermissionUtil">
 		<property name="socialActivityPermission">
 			<bean class="com.liferay.portlet.social.service.permission.SocialActivityPermissionImpl" />
