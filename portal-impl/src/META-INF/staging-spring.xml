@@ -40,6 +40,7 @@
 			<bean class="com.liferay.portal.staging.permission.StagingPermissionImpl" />
 		</property>
 	</bean>
+	<bean id="com.liferay.portal.lar.lifecycle.CacheExportImportLifecycleListener" class="com.liferay.portal.lar.lifecycle.CacheExportImportLifecycleListener" />
 	<bean id="com.liferay.portal.lar.lifecycle.IndexingExportImportLifecycleListener" class="com.liferay.portal.lar.lifecycle.IndexingExportImportLifecycleListener" />
 	<bean id="com.liferay.portal.lar.lifecycle.LoggerExportImportLifecycleListener" class="com.liferay.portal.lar.lifecycle.LoggerExportImportLifecycleListener" />
 	<bean id="com.liferay.portal.model.adapter.builder.StagedGroupModelAdapterBuilder" class="com.liferay.portal.model.adapter.builder.StagedGroupModelAdapterBuilder" />
@@ -53,4 +54,5 @@
 		<aop:advisor advice-ref="com.liferay.portal.service.impl.PortletPreferencesLocalServiceStagingAdvice" pointcut="bean(com.liferay.portal.service.PortletPreferencesLocalService)" />
 	</aop:config>
 	<bean id="com.liferay.portlet.asset.model.adapter.builder.StagedAssetTagModelAdapterBuilder" class="com.liferay.portlet.asset.model.adapter.builder.StagedAssetTagModelAdapterBuilder" />
+	<bean id="com.liferay.portlet.documentlibrary.lar.lifecycle.DLIndexingExportImportLifecycleListener" class="com.liferay.portlet.documentlibrary.lar.lifecycle.DLIndexingExportImportLifecycleListener" />
 </beans>

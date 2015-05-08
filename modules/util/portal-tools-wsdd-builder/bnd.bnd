@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Tools WSDD Builder
 Bundle-SymbolicName: com.liferay.portal.tools.wsdd.builder
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 Include-Resource:\
 	classes,\
 	@../../../lib/portal/xercesImpl.jar!/org/apache/xerces/xni/XNIException.class,\

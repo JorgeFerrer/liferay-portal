@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.PortalWebResourcesUtil;
@@ -60,6 +62,7 @@ import com.liferay.portal.model.LayoutType;
 import com.liferay.portal.model.LayoutTypeAccessPolicy;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
+import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Theme;
@@ -99,6 +102,7 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portal.webserver.WebServerServletTokenUtil;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
@@ -121,6 +125,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1054,10 +1059,14 @@ public class ServicePreAction extends Action {
 
 					themeDisplay.setShowManageSiteMembershipsIcon(true);
 
+					String portletId = PortletProviderUtil.getPortletId(
+						MembershipRequest.class.getName(),
+						PortletProvider.Action.VIEW);
+
 					LiferayPortletURL manageSiteMembershipsURL =
 						new PortletURLImpl(
-							request, PortletKeys.SITE_MEMBERSHIPS_ADMIN,
-							controlPanelPlid, PortletRequest.RENDER_PHASE);
+							request, portletId, controlPanelPlid,
+							PortletRequest.RENDER_PHASE);
 
 					manageSiteMembershipsURL.setDoAsGroupId(scopeGroupId);
 					manageSiteMembershipsURL.setParameter(
@@ -1235,32 +1244,7 @@ public class ServicePreAction extends Action {
 				}
 			}
 
-			Portlet myAccountPortlet = PortalUtil.getFirstMyAccountPortlet(
-				themeDisplay);
-
-			if (myAccountPortlet != null) {
-				PortletURLImpl myAccountURL = new PortletURLImpl(
-					request, myAccountPortlet.getPortletId(), controlPanelPlid,
-					PortletRequest.RENDER_PHASE);
-
-				if (signedIn) {
-					myAccountURL.setDoAsGroupId(user.getGroupId());
-				}
-				else if (scopeGroupId > 0) {
-					myAccountURL.setDoAsGroupId(scopeGroupId);
-				}
-
-				if (refererPlid > 0) {
-					myAccountURL.setRefererPlid(refererPlid);
-				}
-				else {
-					myAccountURL.setRefererPlid(plid);
-				}
-
-				myAccountURL.setWindowState(WindowState.MAXIMIZED);
-
-				themeDisplay.setURLMyAccount(myAccountURL);
-			}
+			themeDisplay.setURLMyAccount(_getURLMyAccount(companyId, request));
 		}
 
 		if (!user.isActive() ||
@@ -2407,6 +2391,30 @@ public class ServicePreAction extends Action {
 
 	protected File privateLARFile;
 	protected File publicLARFile;
+
+	private PortletURL _getURLMyAccount(
+			long companyId, HttpServletRequest request)
+		throws PortalException {
+
+		try {
+			Group userPersonalPanelGroup = GroupLocalServiceUtil.getGroup(
+				companyId, GroupConstants.USER_PERSONAL_PANEL);
+
+			long plid = LayoutLocalServiceUtil.getDefaultPlid(
+				userPersonalPanelGroup.getGroupId(), true);
+
+			PortletURL portletURL = PortletURLFactoryUtil.create(
+				request, PortletKeys.MY_ACCOUNT, plid,
+				PortletRequest.RENDER_PHASE);
+
+			portletURL.setWindowState(WindowState.MAXIMIZED);
+
+			return portletURL;
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+	}
 
 	private static final String _PATH_PORTAL_LAYOUT = "/portal/layout";
 

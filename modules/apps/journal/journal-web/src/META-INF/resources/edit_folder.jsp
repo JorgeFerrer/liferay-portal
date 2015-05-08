@@ -38,7 +38,9 @@ if (workflowEnabled) {
 }
 %>
 
-<portlet:actionURL name='<%= rootFolder ? "updateWorkflowDefinitions" : ((folder == null) ? "addFolder" : "updateFolder") %>' var="editFolderURL" />
+<portlet:actionURL name='<%= rootFolder ? "updateWorkflowDefinitions" : ((folder == null) ? "addFolder" : "updateFolder") %>' var="editFolderURL">
+	<portlet:param name="mvcPath" value="/edit_folder.jsp" />
+</portlet:actionURL>
 
 <liferay-util:buffer var="removeDDMStructureIcon">
 	<liferay-ui:icon
@@ -149,7 +151,7 @@ if (workflowEnabled) {
 		<c:if test="<%= rootFolder || (folder != null) %>">
 
 			<%
-			List<DDMStructure> ddmStructures = DDMStructureLocalServiceUtil.getJournalFolderStructures(PortalUtil.getCurrentAndAncestorSiteGroupIds(scopeGroupId), folderId, JournalFolderConstants.RESTRICTION_TYPE_DDM_STRUCTURES_AND_WORKFLOW);
+			List<DDMStructure> ddmStructures = JournalFolderLocalServiceUtil.getDDMStructures(PortalUtil.getCurrentAndAncestorSiteGroupIds(scopeGroupId), folderId, JournalFolderConstants.RESTRICTION_TYPE_DDM_STRUCTURES_AND_WORKFLOW);
 
 			String headerNames = null;
 
@@ -167,7 +169,7 @@ if (workflowEnabled) {
 					<%
 					JournalFolder parentFolder = JournalFolderLocalServiceUtil.fetchFolder(folder.getParentFolderId());
 
-					String parentFolderName = LanguageUtil.get(locale, "home");
+					String parentFolderName = LanguageUtil.get(request, "home");
 
 					if (parentFolder != null) {
 						parentFolderName = parentFolder.getName();

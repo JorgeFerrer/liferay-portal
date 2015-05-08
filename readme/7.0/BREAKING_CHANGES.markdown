@@ -1454,3 +1454,78 @@ OSGi plugins in a more extensible way, allowing the developer to include new
 sections to access to their own utils and services.
 
 ---------------------------------------
+
+### Removed the type settings breadcrumbShowParentGroups from groups
+- **Date:** 2015-Apr-21
+- **JIRA Ticket:** LPS-54791
+
+#### What changed?
+
+The type settings breadcrumbShowParentGroups was removed from groups, it is
+no longer available in site configuration. Now it is only available in the
+breadcrumb configuration.
+
+#### Who is affected?
+
+This affects all site administrators that have set the showParentGroups 
+preference in the site administration.
+
+#### How should I update my code?
+
+There is no need to change the code. This should be updated at the portlet
+instance level. 
+
+#### Why was this change made?
+
+This change was introduced to support the new settings API. 
+
+---------------------------------------
+
+### Changed the method `getText` of editors' window API.
+- **Date:** 2015-Apr-28
+- **JIRA Ticket:** LPS-52698
+
+#### What changed?
+
+The method `getText` now returns the editor's content without any html markup.
+
+#### Who is affected?
+
+This affects developers that are using the `getText` method of the editor's
+window API.
+
+#### How should I update my code?
+
+To continue using the editor the same way you did before this change was
+implemented, you'll need to change your calls to `getText` method and use
+the `getHTML` method instead.
+
+#### Why was this change made?
+
+This change was made to have a properly `getText` method in the editor's window
+API that returns just the editor's content without any html markup. This is used
+for blog's abstract field.
+
+---------------------------------------
+
+### Moved Contact*NameException classes to inner classes of ContactNameException
+- **Date:** 2015-May-5
+- **JIRA Ticket:** LPS-55364
+
+#### What changed?
+
+The use of ContactFirstNameException, ContactFullNameException, and ContactLastNameException has been moved to inner classes in a new class called ContactNameException.
+
+#### Who is affected?
+
+This affects developers who may have included one of the three classes above in their code.
+
+#### How should I update my code?
+
+While the old classes have been kept for backwards-compatibility, they are being deprecated.  You are encouraged to use the new pattern of inner classes for exceptions wherever possible (example: ContactFirstNameExeception now becomes ContactNameException.MustHaveFirstName).
+
+#### Why was this change made?
+
+This change was made in accordance with the new exceptions pattern being applied throughout portal. It also allows the new localized user name configuration feature to be thoroughly covered by exceptions for different configurations. 
+
+---------------------------------------
