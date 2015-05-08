@@ -12,14 +12,13 @@
  * details.
  */
 
-package com.liferay.password.policies.admin.web.lar;
+package com.liferay.portlet.passwordpoliciesadmin.lar;
 
-import com.liferay.password.policies.admin.web.constants.PasswordPoliciesAdminPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
 import com.liferay.portal.kernel.lar.ExportImportPathUtil;
 import com.liferay.portal.kernel.lar.PortletDataContext;
-import com.liferay.portal.kernel.lar.StagedModelDataHandler;
+import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.PasswordPolicy;
@@ -30,18 +29,10 @@ import com.liferay.portal.service.ServiceContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-
 /**
  * @author Daniela Zapata Riesco
  */
-@Component(
-	property = {
-		"javax.portlet.name=" +
-			PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN
-	},
-	service = StagedModelDataHandler.class
-)
+@OSGiBeanProperties
 public class PasswordPolicyStagedModelDataHandler
 	extends BaseStagedModelDataHandler<PasswordPolicy> {
 
