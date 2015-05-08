@@ -58,7 +58,9 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 		</aui:nav>
 
 		<c:if test="<%= !passwordPolicyEnabled %>">
-			<aui:nav-bar-search file="/password_policy_search.jsp" searchContainer="<%= searchContainer %>" />
+			<aui:nav-bar-search searchContainer="<%= searchContainer %>">
+				<%@ include file="/password_policy_search.jsp" %>
+			</aui:nav-bar-search>
 		</c:if>
 	</aui:nav-bar>
 
@@ -110,7 +112,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 
 			// Action
 
-			row.addJSP("/password_policy_action.jsp", "entry-action");
+			row.addJSP("/password_policy_action.jsp", "entry-action", application, request, response);
 
 			// Add result row
 

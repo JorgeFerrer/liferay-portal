@@ -14,8 +14,6 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
-
 <div class="col-xs-12 form-search">
 	<liferay-ui:input-search autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" name="<%= PasswordPolicyDisplayTerms.NAME %>" placeholder='<%= LanguageUtil.get(request, "keywords") %>' />
 </div>
