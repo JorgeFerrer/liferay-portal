@@ -19,7 +19,7 @@ FullNameDefinition fullNameDefinition = FullNameDefinitionFactory.getInstance(us
 %>
 
 <liferay-ui:error exception="<%= ContactNameException.MustHaveFirstName.class %>" message="please-enter-a-valid-first-name" />
-<liferay-ui:error exception="<%= ContactNameException.MustHaveFullName.class %>" message="please-enter-a-valid-first-middle-and-last-name" />
+<liferay-ui:error exception="<%= ContactNameException.MustHaveValidFullName.class %>" message="please-enter-a-valid-first-middle-and-last-name" />
 
 <div id="<portlet:namespace />userNameFields">
 
