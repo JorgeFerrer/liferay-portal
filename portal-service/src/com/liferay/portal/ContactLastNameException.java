@@ -18,36 +18,23 @@ import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Brian Wing Shun Chan
+ * @deprecated As of 7.0.0, replaced by {@link
+ *             ContactNameException.MustHaveLastName}
  */
+@Deprecated
 public class ContactLastNameException extends PortalException {
 
-	/**
-	 * @deprecated As of 7.0.0, replaced by the inner class in
-	 * com.liferay.portal.ContactNameException
-	 */
 	public ContactLastNameException() {
 	}
 
-	/**
-	 * @deprecated As of 7.0.0, replaced by the inner class in
-	 * com.liferay.portal.ContactNameException
-	 */
 	public ContactLastNameException(String msg) {
 		super(msg);
 	}
 
-	/**
-	 * @deprecated As of 7.0.0, replaced by the inner class in
-	 * com.liferay.portal.ContactNameException
-	 */
 	public ContactLastNameException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	/**
-	 * @deprecated As of 7.0.0, replaced by the inner class in
-	 * com.liferay.portal.ContactNameException
-	 */
 	public ContactLastNameException(Throwable cause) {
 		super(cause);
 	}
