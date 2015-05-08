@@ -6647,7 +6647,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		if (!fullNameValidator.validate(
 				companyId, firstName, middleName, lastName)) {
 
-			throw new ContactNameException.MustHaveFullName();
+			throw new ContactNameException.MustHaveValidFullName(
+				fullNameValidator);
 		}
 	}
 

@@ -15,6 +15,7 @@
 package com.liferay.portal;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.security.auth.FullNameValidator;
 
 /**
  * @author Drew Brokke
@@ -60,11 +61,18 @@ public class ContactNameException extends PortalException {
 
 	}
 
-	public static class MustHaveFullName extends ContactNameException {
+	public static class MustHaveValidFullName extends ContactNameException {
 
-		public MustHaveFullName() {
-			super("Please enter a valid first, middle, and last name.");
+		public MustHaveValidFullName(FullNameValidator fullNameValidator) {
+			super(
+					String.format(
+						"Contact full name must validate with %s",
+						fullNameValidator.getClass().getName()));
+			
+			this.fullNameValidator = fullNameValidator;
 		}
+		
+		public final FullNameValidator fullNameValidator;
 
 	}
 
