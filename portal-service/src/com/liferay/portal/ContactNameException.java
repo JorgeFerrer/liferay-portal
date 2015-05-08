@@ -61,6 +61,14 @@ public class ContactNameException extends PortalException {
 
 	}
 
+	public static class MustHaveLastName extends ContactNameException {
+
+		public MustHaveLastName() {
+			super("Last name is required for contacts");
+		}
+
+	}
+
 	public static class MustHaveValidFullName extends ContactNameException {
 
 		public MustHaveValidFullName(FullNameValidator fullNameValidator) {
@@ -68,19 +76,11 @@ public class ContactNameException extends PortalException {
 					String.format(
 						"Contact full name must validate with %s",
 						fullNameValidator.getClass().getName()));
-			
+
 			this.fullNameValidator = fullNameValidator;
 		}
-		
+
 		public final FullNameValidator fullNameValidator;
-
-	}
-
-	public static class MustHaveLastName extends ContactNameException {
-
-		public MustHaveLastName() {
-			super("Last name is required for contacts");
-		}
 
 	}
 

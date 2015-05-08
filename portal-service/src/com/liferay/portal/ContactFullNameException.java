@@ -34,7 +34,7 @@ public class ContactFullNameException extends PortalException {
 	public ContactFullNameException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-	
+
 	public ContactFullNameException(Throwable cause) {
 		super(cause);
 	}
