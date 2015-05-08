@@ -20,7 +20,7 @@ package com.liferay.password.policies.admin.web.constants;
 public class PasswordPoliciesAdminPortletKeys {
 
 	public static final String PASSWORD_POLICIES_ADMIN =
-		"com_liferay_password_policies_admin_portlet_" +
+		"com_liferay_password_policies_admin_web_portlet_" +
 			"PasswordPoliciesAdminPortlet";
 
 }
