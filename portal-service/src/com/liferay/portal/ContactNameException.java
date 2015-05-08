@@ -56,7 +56,7 @@ public class ContactNameException extends PortalException {
 	public static class MustHaveFirstName extends ContactNameException {
 
 		public MustHaveFirstName() {
-			super("Please enter a valid first name.");
+			super("First name is required for contacts");
 		}
 
 	}
@@ -79,7 +79,7 @@ public class ContactNameException extends PortalException {
 	public static class MustHaveLastName extends ContactNameException {
 
 		public MustHaveLastName() {
-			super("Please enter a valid last name.");
+			super("Last name is required for contacts");
 		}
 
 	}
