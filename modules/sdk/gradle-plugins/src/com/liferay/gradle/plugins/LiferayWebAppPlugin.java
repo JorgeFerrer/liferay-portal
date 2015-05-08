@@ -16,12 +16,14 @@ package com.liferay.gradle.plugins;
 
 import com.liferay.gradle.plugins.extensions.LiferayExtension;
 import com.liferay.gradle.plugins.tasks.BuildCssTask;
-import com.liferay.gradle.plugins.tasks.BuildWsdlTask;
-import com.liferay.gradle.plugins.tasks.BuildXsdTask;
 import com.liferay.gradle.plugins.tasks.DirectDeployTask;
-import com.liferay.gradle.plugins.util.FileUtil;
-import com.liferay.gradle.plugins.util.GradleUtil;
-import com.liferay.gradle.plugins.util.Validator;
+import com.liferay.gradle.plugins.wsdd.builder.BuildWSDDTask;
+import com.liferay.gradle.plugins.wsdd.builder.WSDDBuilderPlugin;
+import com.liferay.gradle.plugins.wsdl.builder.BuildWSDLTask;
+import com.liferay.gradle.plugins.xsd.builder.BuildXSDTask;
+import com.liferay.gradle.util.FileUtil;
+import com.liferay.gradle.util.GradleUtil;
+import com.liferay.gradle.util.Validator;
 
 import groovy.lang.Closure;
 
@@ -67,13 +69,6 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 	public static final String DEPLOY_TASK_NAME = "deploy";
 
 	public static final String DIRECT_DEPLOY_TASK_NAME = "directDeploy";
-
-	@Override
-	public void apply(Project project) {
-		super.apply(project);
-
-		configureWebAppDirName(project);
-	}
 
 	protected Copy addTaskDeploy(Project project) {
 		Copy copy = GradleUtil.addTask(project, DEPLOY_TASK_NAME, Copy.class);
@@ -167,6 +162,11 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 	}
 
 	@Override
+	protected void configureProperties(Project project) {
+		configureWebAppDirName(project);
+	}
+
+	@Override
 	protected void configureSourceSetMain(Project project) {
 		SourceSet sourceSet = GradleUtil.getSourceSet(
 			project, SourceSet.MAIN_SOURCE_SET_NAME);
@@ -199,30 +199,55 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 	}
 
 	@Override
-	protected void configureTaskBuildWsdlRootDirs(BuildWsdlTask buildWsdlTask) {
-		FileCollection rootDirs = buildWsdlTask.getRootDirs();
+	protected void configureTaskBuildWSDD(Project project) {
+		super.configureTaskBuildWSDD(project);
 
-		if ((rootDirs != null) && !rootDirs.isEmpty()) {
-			return;
-		}
+		BuildWSDDTask buildWSDDTask = (BuildWSDDTask)GradleUtil.getTask(
+			project, WSDDBuilderPlugin.BUILD_WSDD_TASK_NAME);
 
-		Project project = buildWsdlTask.getProject();
-
-		File rootDir = new File(getWebAppDir(project), "WEB-INF/wsdl");
-
-		buildWsdlTask.rootDirs(rootDir);
+		configureTaskBuildWSDDInputFileName(buildWSDDTask);
+		configureTaskBuildWSDDServerConfigFileName(buildWSDDTask);
 	}
 
-	protected void configureTaskBuildXsdRootDir(BuildXsdTask buildXsdTask) {
-		if (buildXsdTask.getRootDir() != null) {
-			return;
+	protected void configureTaskBuildWSDDInputFileName(
+		BuildWSDDTask buildWSDDTask) {
+
+		Project project = buildWSDDTask.getProject();
+
+		File inputFile = new File(getWebAppDir(project), "WEB-INF/service.xml");
+
+		buildWSDDTask.setInputFileName(project.relativePath(inputFile));
+	}
+
+	protected void configureTaskBuildWSDDServerConfigFileName(
+		BuildWSDDTask buildWSDDTask) {
+
+		Project project = buildWSDDTask.getProject();
+
+		File serverConfigFile = new File(
+			getWebAppDir(project), "WEB-INF/server-config.wsdd");
+
+		buildWSDDTask.setServerConfigFileName(
+			project.relativePath(serverConfigFile));
+	}
+
+	@Override
+	protected void configureTaskBuildWSDLInputDir(BuildWSDLTask buildWSDLTask) {
+		File inputDir = buildWSDLTask.getInputDir();
+
+		if (!inputDir.exists()) {
+			inputDir = new File(
+				getWebAppDir(buildWSDLTask.getProject()), "WEB-INF/wsdl");
+
+			buildWSDLTask.setInputDir(inputDir);
 		}
+	}
 
-		Project project = buildXsdTask.getProject();
+	protected void configureTaskBuildXSDInputDir(BuildXSDTask buildXSDTask) {
+		File inputDir = new File(
+			getWebAppDir(buildXSDTask.getProject()), "WEB-INF/xsd");
 
-		File rootDir = new File(getWebAppDir(project), "WEB-INF/xsd");
-
-		buildXsdTask.setRootDir(rootDir);
+		buildXSDTask.setInputDir(inputDir);
 	}
 
 	protected void configureTaskDeploy(

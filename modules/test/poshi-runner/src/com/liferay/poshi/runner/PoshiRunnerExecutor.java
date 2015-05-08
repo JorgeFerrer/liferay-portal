@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.dom4j.Element;
 
@@ -228,11 +230,7 @@ public class PoshiRunnerExecutor {
 
 		PoshiRunnerVariablesUtil.pushCommandMap();
 
-		PoshiRunnerStackTraceUtil.pushFilePath(classCommandName, "function");
-
 		parseElement(commandElement);
-
-		PoshiRunnerStackTraceUtil.popFilePath();
 
 		PoshiRunnerVariablesUtil.popCommandMap();
 	}
@@ -306,8 +304,7 @@ public class PoshiRunnerExecutor {
 			}
 		}
 
-		PoshiRunnerStackTraceUtil.pushStackTrace(
-			executeElement.attributeValue("line-number"));
+		PoshiRunnerStackTraceUtil.pushStackTrace(executeElement);
 
 		CommandLoggerHandler.startCommand(executeElement);
 		SummaryLoggerHandler.startSummary(executeElement);
@@ -389,11 +386,7 @@ public class PoshiRunnerExecutor {
 
 		PoshiRunnerVariablesUtil.pushCommandMap();
 
-		PoshiRunnerStackTraceUtil.pushFilePath(classCommandName, "macro");
-
 		parseElement(commandElement);
-
-		PoshiRunnerStackTraceUtil.popFilePath();
 
 		PoshiRunnerVariablesUtil.popCommandMap();
 	}
@@ -424,8 +417,7 @@ public class PoshiRunnerExecutor {
 			runVarElement(executeVarElement, false);
 		}
 
-		PoshiRunnerStackTraceUtil.pushStackTrace(
-			executeElement.attributeValue("line-number"));
+		PoshiRunnerStackTraceUtil.pushStackTrace(executeElement);
 
 		SummaryLoggerHandler.startSummary(executeElement);
 
@@ -503,6 +495,8 @@ public class PoshiRunnerExecutor {
 
 			parameterClasses.add(String.class);
 		}
+
+		CommandLoggerHandler.logSeleniumCommand(executeElement, arguments);
 
 		LiferaySelenium liferaySelenium = SeleniumUtil.getSelenium();
 
@@ -584,13 +578,22 @@ public class PoshiRunnerExecutor {
 			}
 		}
 
-		varValue = PoshiRunnerVariablesUtil.replaceCommandVars(varValue);
+		String replacedVarValue = PoshiRunnerVariablesUtil.replaceCommandVars(
+			varValue);
+
+		Matcher matcher = _pattern.matcher(replacedVarValue);
+
+		if (matcher.matches() && replacedVarValue.equals(varValue)) {
+			return;
+		}
 
 		if (commandVar) {
-			PoshiRunnerVariablesUtil.putIntoCommandMap(varName, varValue);
+			PoshiRunnerVariablesUtil.putIntoCommandMap(
+				varName, replacedVarValue);
 		}
 		else {
-			PoshiRunnerVariablesUtil.putIntoExecuteMap(varName, varValue);
+			PoshiRunnerVariablesUtil.putIntoExecuteMap(
+				varName, replacedVarValue);
 		}
 	}
 
@@ -620,6 +623,7 @@ public class PoshiRunnerExecutor {
 		}
 	}
 
+	private static final Pattern _pattern = Pattern.compile("\\$\\{([^}]*)\\}");
 	private static Object _returnObject;
 
 }

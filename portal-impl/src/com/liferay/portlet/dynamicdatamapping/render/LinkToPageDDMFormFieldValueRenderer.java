@@ -14,12 +14,12 @@
 
 package com.liferay.portlet.dynamicdatamapping.render;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.service.LayoutServiceUtil;
+import com.liferay.portal.model.Layout;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portlet.dynamicdatamapping.model.DDMFormFieldType;
 import com.liferay.portlet.dynamicdatamapping.model.Value;
 import com.liferay.portlet.dynamicdatamapping.storage.DDMFormFieldValue;
@@ -52,15 +52,15 @@ public class LinkToPageDDMFormFieldValueRenderer
 				boolean privateLayout = jsonObject.getBoolean("privateLayout");
 				long layoutId = jsonObject.getLong("layoutId");
 
-				try {
-					return LayoutServiceUtil.getLayoutName(
-						groupId, privateLayout, layoutId,
-						LanguageUtil.getLanguageId(locale));
-				}
-				catch (PortalException pe) {
+				Layout layout = LayoutLocalServiceUtil.fetchLayout(
+					groupId, privateLayout, layoutId);
+
+				if (layout == null) {
 					return LanguageUtil.format(
 						locale, "is-temporarily-unavailable", "content");
 				}
+
+				return layout.getName(locale);
 			}
 
 			protected JSONObject createJSONObject(String json) {
