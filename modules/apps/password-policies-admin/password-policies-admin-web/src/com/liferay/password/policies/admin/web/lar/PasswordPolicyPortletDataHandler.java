@@ -41,8 +41,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"javax.portlet.name=" +
-			PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN
+		"javax.portlet.name=" + PasswordPoliciesAdminPortletKeys.PASSWORD_POLICIES_ADMIN
 	},
 	service = PortletDataHandler.class
 )
