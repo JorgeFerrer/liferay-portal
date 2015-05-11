@@ -181,7 +181,7 @@ public class RepositoryServiceTest {
 			PermissionThreadLocal.getPermissionChecker();
 
 		try {
-			PermissionChecker permissionChecker = 
+			PermissionChecker permissionChecker =
 				new SimplePermissionChecker() {
 
 					@Override

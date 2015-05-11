@@ -1471,7 +1471,7 @@ public class SitesImpl implements Sites {
 				permissionChecker, layout, ActionKeys.UPDATE)) {
 
 			throw new PrincipalException.MustHavePermission(
-				permissionChecker.getUserId(), layout.getName(), 
+				permissionChecker.getUserId(), layout.getName(),
 				layout.getLayoutId(), ActionKeys.UPDATE);
 		}
 		else if (!group.isUser() &&

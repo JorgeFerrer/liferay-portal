@@ -771,8 +771,9 @@ public class MBMessageServiceImpl extends MBMessageServiceBaseImpl {
 					ActionKeys.REPLY_TO_MESSAGE)) {
 
 				throw new PrincipalException.MustHavePermission(
-					getPermissionChecker().getUserId(), MBCategory.class.getName(),
-					categoryId, ActionKeys.REPLY_TO_MESSAGE);
+					getPermissionChecker().getUserId(),
+					MBCategory.class.getName(), categoryId,
+					ActionKeys.REPLY_TO_MESSAGE);
 			}
 		}
 		else {
