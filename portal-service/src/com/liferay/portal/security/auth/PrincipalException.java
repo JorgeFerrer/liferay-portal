@@ -101,9 +101,7 @@ public class PrincipalException extends PortalException {
 	public static class MustBeInvokedByPost extends PrincipalException {
 
 		public MustBeInvokedByPost(String url) {
-			super(
-				String.format(
-					"URL %s must be invoked using POST", url));
+			super(String.format("URL %s must be invoked using POST", url));
 
 			this.url = url;
 		}
@@ -138,7 +136,7 @@ public class PrincipalException extends PortalException {
 			this.strutsPath = strutsPath;
 			this.portletId = portletId;
 		}
-		
+
 		public final String portletId;
 		public final String strutsPath;
 
@@ -150,8 +148,7 @@ public class PrincipalException extends PortalException {
 		public MustBeSupportedActionForRole(long roleId, String actionId) {
 			super(
 				String.format(
-					"Action %s is not supported by role %s", actionId,
-					roleId));
+					"Action %s is not supported by role %s", actionId, roleId));
 
 			this.actionId = actionId;
 			this.roleId = roleId;
@@ -168,7 +165,7 @@ public class PrincipalException extends PortalException {
 			super(
 				String.format(
 					"User %s does not have permission to perform action %s",
-					Validator.isNull(userId) ? "" : userId, 
+					Validator.isNull(userId) ? "" : userId,
 					StringUtil.merge(actionId, ",")));
 
 			this.actionId = actionId;
@@ -257,9 +254,7 @@ public class PrincipalException extends PortalException {
 	public static class MustHaveValidPortletId extends PrincipalException {
 
 		public MustHaveValidPortletId(String portletId) {
-			super(
-				String.format(
-					"Portlet ID %s is invalid", portletId));
+			super(String.format("Portlet ID %s is invalid", portletId));
 
 			this.portletId = portletId;
 		}
@@ -271,9 +266,7 @@ public class PrincipalException extends PortalException {
 	public static class MustHaveValidPrincipalName extends PrincipalException {
 
 		public MustHaveValidPrincipalName(String name) {
-			super(
-				String.format(
-					"Principal name cannot be %s", name));
+			super(String.format("Principal name cannot be %s", name));
 
 			this.name = name;
 		}
