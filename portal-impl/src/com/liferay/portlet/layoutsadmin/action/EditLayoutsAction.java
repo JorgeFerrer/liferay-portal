@@ -58,7 +58,6 @@ import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutPrototype;
 import com.liferay.portal.model.LayoutRevision;
 import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.ThemeSetting;
 import com.liferay.portal.model.User;
