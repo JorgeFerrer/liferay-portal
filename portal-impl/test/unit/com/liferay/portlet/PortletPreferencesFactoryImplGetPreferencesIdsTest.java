@@ -225,7 +225,7 @@ public class PortletPreferencesFactoryImplGetPreferencesIdsTest {
 			_layout.getPlid(), portletPreferencesIds.getPlid());
 	}
 
-	@Test(expected = PrincipalException.class)
+	@Test(expected = PrincipalException.MustHavePermission.class)
 	public void testPreferencesWithModeEditGuestInPrivateLayout()
 		throws Exception {
 
@@ -255,7 +255,7 @@ public class PortletPreferencesFactoryImplGetPreferencesIdsTest {
 			siteGroupId, _USER_ID, _layout, _PORTLET_ID, modeEditGuest);
 	}
 
-	@Test(expected = PrincipalException.class)
+	@Test(expected = PrincipalException.MustHavePermission.class)
 	public void
 			testPreferencesWithModeEditGuestInPublicLayoutWithoutPermission()
 		throws Exception {

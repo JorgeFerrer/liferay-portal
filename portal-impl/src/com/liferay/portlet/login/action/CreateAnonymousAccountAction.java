@@ -15,9 +15,7 @@
 package com.liferay.portlet.login.action;
 
 import com.liferay.portal.CompanyMaxUsersException;
-import com.liferay.portal.ContactFirstNameException;
-import com.liferay.portal.ContactFullNameException;
-import com.liferay.portal.ContactLastNameException;
+import com.liferay.portal.ContactNameException;
 import com.liferay.portal.EmailAddressException;
 import com.liferay.portal.GroupFriendlyURLException;
 import com.liferay.portal.UserEmailAddressException;
@@ -32,6 +30,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
@@ -81,7 +80,8 @@ public class CreateAnonymousAccountAction extends PortletAction {
 		Company company = themeDisplay.getCompany();
 
 		if (!company.isStrangers()) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustBeEnabled(
+				company.getCompanyId(), PropsKeys.COMPANY_SECURITY_STRANGERS);
 		}
 
 		String portletName = portletConfig.getPortletName();
@@ -134,9 +134,7 @@ public class CreateAnonymousAccountAction extends PortletAction {
 			}
 			else if (e instanceof CaptchaTextException ||
 					 e instanceof CompanyMaxUsersException ||
-					 e instanceof ContactFirstNameException ||
-					 e instanceof ContactFullNameException ||
-					 e instanceof ContactLastNameException ||
+					 e instanceof ContactNameException ||
 					 e instanceof EmailAddressException ||
 					 e instanceof GroupFriendlyURLException ||
 					 e instanceof UserEmailAddressException) {

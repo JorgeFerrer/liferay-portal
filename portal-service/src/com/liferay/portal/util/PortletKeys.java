@@ -165,13 +165,10 @@ public class PortletKeys {
 
 	public static final String SHOPPING = "34";
 
+	public static final String SITE_ADMIN =
+		"com_liferay_site_admin_web_portlet_SiteAdminPortlet";
+
 	public static final String SITE_MEMBERS_DIRECTORY = "187";
-
-	public static final String SITE_MEMBERSHIPS_ADMIN = "174";
-
-	public static final String SITE_SETTINGS = "165";
-
-	public static final String SITES_ADMIN = "134";
 
 	public static final String SOCIAL_ACTIVITY = "179";
 

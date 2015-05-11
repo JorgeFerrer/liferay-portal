@@ -19,9 +19,7 @@ import com.liferay.portal.AddressStreetException;
 import com.liferay.portal.AddressZipException;
 import com.liferay.portal.CompanyMaxUsersException;
 import com.liferay.portal.ContactBirthdayException;
-import com.liferay.portal.ContactFirstNameException;
-import com.liferay.portal.ContactFullNameException;
-import com.liferay.portal.ContactLastNameException;
+import com.liferay.portal.ContactNameException;
 import com.liferay.portal.DuplicateOpenIdException;
 import com.liferay.portal.EmailAddressException;
 import com.liferay.portal.GroupFriendlyURLException;
@@ -50,6 +48,7 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -106,7 +105,8 @@ public class CreateAccountAction extends PortletAction {
 		Company company = themeDisplay.getCompany();
 
 		if (!company.isStrangers()) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustBeEnabled(
+				company.getCompanyId(), PropsKeys.COMPANY_SECURITY_STRANGERS);
 		}
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
@@ -134,9 +134,7 @@ public class CreateAccountAction extends PortletAction {
 				e instanceof CaptchaTextException ||
 				e instanceof CompanyMaxUsersException ||
 				e instanceof ContactBirthdayException ||
-				e instanceof ContactFirstNameException ||
-				e instanceof ContactFullNameException ||
-				e instanceof ContactLastNameException ||
+				e instanceof ContactNameException ||
 				e instanceof DuplicateOpenIdException ||
 				e instanceof EmailAddressException ||
 				e instanceof GroupFriendlyURLException ||
@@ -358,7 +356,8 @@ public class CreateAccountAction extends PortletAction {
 			themeDisplay.getCompanyId(), emailAddress);
 
 		if (anonymousUser.getStatus() != WorkflowConstants.STATUS_INCOMPLETE) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustBeAuthenticated(
+				String.valueOf(anonymousUser.getUserId()));
 		}
 
 		UserLocalServiceUtil.deleteUser(anonymousUser.getUserId());

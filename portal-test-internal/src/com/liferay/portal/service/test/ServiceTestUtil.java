@@ -15,10 +15,10 @@
 package com.liferay.portal.service.test;
 
 import com.liferay.portal.jcr.JCRFactoryUtil;
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseDestination;
+import com.liferay.portal.kernel.messaging.Destination;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBus;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
@@ -50,6 +50,10 @@ import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.registry.Filter;
+import com.liferay.registry.Registry;
+import com.liferay.registry.RegistryUtil;
+import com.liferay.registry.dependency.ServiceDependencyManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -146,16 +150,8 @@ public class ServiceTestUtil {
 
 		MessageBusUtil messageBusUtil = new MessageBusUtil();
 
-		MessageBus messageBus = (MessageBus)PortalBeanLocatorUtil.locate(
-			MessageBus.class.getName());
-
-		messageBusUtil.setMessageBus(messageBus);
-
-		SynchronousMessageSender synchronousMessageSender =
-			(SynchronousMessageSender)PortalBeanLocatorUtil.locate(
-				SynchronousMessageSender.class.getName());
-
-		messageBusUtil.setSynchronousMessageSender(synchronousMessageSender);
+		messageBusUtil.setSynchronousMessageSenderMode(
+			SynchronousMessageSender.Mode.DEFAULT);
 
 		// Scheduler
 
@@ -176,6 +172,14 @@ public class ServiceTestUtil {
 		}
 	}
 
+	private static Filter _registerDestinationFilter(String destinationName) {
+		Registry registry = RegistryUtil.getRegistry();
+
+		return registry.getFilter(
+			"(&(destination.name=" + destinationName +
+				")(objectClass=" + Destination.class.getName() + "))");
+	}
+
 	public static void initStaticServices() {
 
 		// Indexers
@@ -185,6 +189,26 @@ public class ServiceTestUtil {
 		// Messaging
 
 		if (TestPropsValues.DL_FILE_ENTRY_PROCESSORS_TRIGGER_SYNCHRONOUSLY) {
+			ServiceDependencyManager serviceDependencyManager =
+				new ServiceDependencyManager();
+
+			Filter audioProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_AUDIO_PROCESSOR);
+			Filter imageProcessFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_IMAGE_PROCESSOR);
+			Filter pdfProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_PDF_PROCESSOR);
+			Filter rawMetaDataProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_RAW_METADATA_PROCESSOR);
+			Filter videoProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_VIDEO_PROCESSOR);
+
+			serviceDependencyManager.registerDependencies(
+				audioProcessorFilter, imageProcessFilter, pdfProcessorFilter,
+				rawMetaDataProcessorFilter, videoProcessorFilter);
+
+			serviceDependencyManager.waitForDependencies();
+
 			_replaceWithSynchronousDestination(
 				DestinationNames.DOCUMENT_LIBRARY_AUDIO_PROCESSOR);
 			_replaceWithSynchronousDestination(

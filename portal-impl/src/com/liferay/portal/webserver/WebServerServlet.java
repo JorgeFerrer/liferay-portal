@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.repository.RepositoryException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileShortcut;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
@@ -65,6 +66,7 @@ import com.liferay.portal.repository.liferayrepository.model.LiferayFileEntry;
 import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
@@ -81,7 +83,6 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
 import com.liferay.portlet.documentlibrary.NoSuchFolderException;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileShortcut;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
@@ -402,10 +403,10 @@ public class WebServerServlet extends HttpServlet {
 
 	protected FileEntry getFileEntry(String[] pathArray) throws Exception {
 		if (pathArray.length == 1) {
-			long dlFileShortcutId = GetterUtil.getLong(pathArray[0]);
+			long fileShortcutId = GetterUtil.getLong(pathArray[0]);
 
-			DLFileShortcut dlFileShortcut = DLAppServiceUtil.getFileShortcut(
-				dlFileShortcutId);
+			FileShortcut dlFileShortcut = DLAppServiceUtil.getFileShortcut(
+				fileShortcutId);
 
 			return DLAppServiceUtil.getFileEntry(
 				dlFileShortcut.getToFileEntryId());
@@ -891,7 +892,10 @@ public class WebServerServlet extends HttpServlet {
 			if (!PortletPermissionUtil.hasControlPanelAccessPermission(
 					permissionChecker, fileEntry.getGroupId(), portletId)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					permissionChecker.getUserId(), FileEntry.class.getName(),
+					fileEntry.getFileEntryId(),
+					ActionKeys.ACCESS_IN_CONTROL_PANEL);
 			}
 		}
 
@@ -1234,13 +1238,12 @@ public class WebServerServlet extends HttpServlet {
 
 	private static void _checkFileEntry(String[] pathArray) throws Exception {
 		if (pathArray.length == 1) {
-			long dlFileShortcutId = GetterUtil.getLong(pathArray[0]);
+			long fileShortcutId = GetterUtil.getLong(pathArray[0]);
 
-			DLFileShortcut dlFileShortcut =
-				DLAppLocalServiceUtil.getFileShortcut(dlFileShortcutId);
+			FileShortcut fileShortcut = DLAppLocalServiceUtil.getFileShortcut(
+				fileShortcutId);
 
-			DLAppLocalServiceUtil.getFileEntry(
-				dlFileShortcut.getToFileEntryId());
+			DLAppLocalServiceUtil.getFileEntry(fileShortcut.getToFileEntryId());
 		}
 		else if (pathArray.length == 2) {
 

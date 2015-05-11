@@ -155,8 +155,6 @@ public class SitesImpl implements Sites {
 
 		PortletURL portletURL = renderResponse.createRenderURL();
 
-		portletURL.setParameter("struts_action", "/sites_admin/view");
-
 		List<Group> ancestorGroups = group.getAncestors();
 
 		Collections.reverse(ancestorGroups);
@@ -498,7 +496,10 @@ public class SitesImpl implements Sites {
 			!GroupPermissionUtil.contains(
 				permissionChecker, group, ActionKeys.PUBLISH_STAGING)) {
 
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), Group.class.getName(),
+				group.getGroupId(), ActionKeys.MANAGE_STAGING,
+				ActionKeys.PUBLISH_STAGING);
 		}
 
 		if (LayoutPermissionUtil.contains(
@@ -1469,13 +1470,17 @@ public class SitesImpl implements Sites {
 			!LayoutPermissionUtil.contains(
 				permissionChecker, layout, ActionKeys.UPDATE)) {
 
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), layout.getName(),
+				layout.getLayoutId(), ActionKeys.UPDATE);
 		}
 		else if (!group.isUser() &&
 				 !GroupPermissionUtil.contains(
 					 permissionChecker, group, ActionKeys.UPDATE)) {
 
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), group.getName(),
+				group.getGroupId(), ActionKeys.UPDATE);
 		}
 		else if (group.isUser() &&
 				 (permissionChecker.getUserId() != group.getClassPK())) {

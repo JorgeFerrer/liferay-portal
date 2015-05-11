@@ -117,6 +117,7 @@ import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletInstance;
 import com.liferay.portal.model.PublicRenderParameter;
 import com.liferay.portal.model.ResourceConstants;
@@ -2476,6 +2477,10 @@ public class PortalImpl implements Portal {
 		return facebookURL;
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public Portlet getFirstMyAccountPortlet(ThemeDisplay themeDisplay) {
 		List<Portlet> portlets = getControlPanelPortlets(
@@ -4648,20 +4653,29 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String getPortletTitle(String portletId, Locale locale) {
-		return LanguageUtil.get(
-			locale,
-			JavaConstants.JAVAX_PORTLET_TITLE.concat(StringPool.PERIOD).concat(
-				portletId));
+		PortletConfig portletConfig = PortletConfigFactoryUtil.get(portletId);
+
+		return getPortletTitle(
+			portletId, portletConfig.getResourceBundle(locale));
 	}
 
 	@Override
 	public String getPortletTitle(
 		String portletId, ResourceBundle resourceBundle) {
 
-		return LanguageUtil.get(
+		portletId = PortletConstants.getRootPortletId(portletId);
+
+		String portletTitle = LanguageUtil.get(
 			resourceBundle,
 			JavaConstants.JAVAX_PORTLET_TITLE.concat(StringPool.PERIOD).concat(
 				portletId));
+
+		if (Validator.isNull(portletTitle)) {
+			portletTitle = ResourceBundleUtil.getString(
+				resourceBundle, JavaConstants.JAVAX_PORTLET_TITLE);
+		}
+
+		return portletTitle;
 	}
 
 	@Override
