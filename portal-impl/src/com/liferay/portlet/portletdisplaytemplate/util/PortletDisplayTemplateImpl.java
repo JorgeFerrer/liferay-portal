@@ -344,6 +344,8 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 			Map<String, Object> contextObjects)
 		throws Exception {
 
+		Transformer transformer = TransformerHolder.getTransformer();
+
 		contextObjects.put(
 			PortletDisplayTemplateConstants.TEMPLATE_ID,
 			ddmTemplate.getTemplateId());
@@ -431,7 +433,7 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 			contextObjects.putAll(_getPortletPreferences(renderRequest));
 		}
 
-		return _transformer.transform(
+		return transformer.transform(
 			themeDisplay, contextObjects, ddmTemplate.getScript(), language,
 			unsyncStringWriter);
 	}
@@ -496,7 +498,15 @@ public class PortletDisplayTemplateImpl implements PortletDisplayTemplate {
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortletDisplayTemplateImpl.class);
 
-	private final Transformer _transformer = new Transformer(
-		PropsKeys.DYNAMIC_DATA_LISTS_ERROR_TEMPLATE, true);
+	private static class TransformerHolder {
+
+		public static Transformer getTransformer() {
+			return _transformer;
+		}
+
+		private static final Transformer _transformer = new Transformer(
+			PropsKeys.DYNAMIC_DATA_LISTS_ERROR_TEMPLATE, true);
+
+	}
 
 }

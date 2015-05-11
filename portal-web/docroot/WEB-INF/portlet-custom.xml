@@ -733,27 +733,6 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>129</portlet-name>
-		<display-name>Password Policies Admin</display-name>
-		<portlet-class>com.liferay.portlet.passwordpoliciesadmin.PasswordPoliciesAdminPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/password_policies_admin/</value>
-		</init-param>
-		<init-param>
-			<name>view-template</name>
-			<value>/html/portlet/password_policies_admin/view.jsp</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-	</portlet>
-	<portlet>
 		<portlet-name>130</portlet-name>
 		<display-name>Portal Settings</display-name>
 		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
@@ -833,27 +812,6 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-	</portlet>
-	<portlet>
-		<portlet-name>134</portlet-name>
-		<display-name>Sites Admin</display-name>
-		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/sites_admin/</value>
-		</init-param>
-		<init-param>
-			<name>view-action</name>
-			<value>/sites_admin/view</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
 	</portlet>
 	<portlet>
 		<portlet-name>135</portlet-name>
@@ -1243,24 +1201,6 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>165</portlet-name>
-		<display-name>Site Settings</display-name>
-		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/sites_admin/</value>
-		</init-param>
-		<init-param>
-			<name>view-action</name>
-			<value>/sites_admin/edit_site</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-	</portlet>
-	<portlet>
 		<portlet-name>166</portlet-name>
 		<display-name>Dynamic Data Mapping</display-name>
 		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
@@ -1358,27 +1298,6 @@
 		</security-role-ref>
 		<security-role-ref>
 			<role-name>user</role-name>
-		</security-role-ref>
-	</portlet>
-	<portlet>
-		<portlet-name>174</portlet-name>
-		<display-name>Site Memberships Admin</display-name>
-		<portlet-class>com.liferay.portlet.sitememberships.SiteMembershipsPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/site_memberships/</value>
-		</init-param>
-		<init-param>
-			<name>view-template</name>
-			<value>/html/portlet/site_memberships/view.jsp</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-		<security-role-ref>
-			<role-name>administrator</role-name>
 		</security-role-ref>
 	</portlet>
 	<portlet>
