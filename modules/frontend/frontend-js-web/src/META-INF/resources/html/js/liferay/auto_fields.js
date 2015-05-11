@@ -16,14 +16,20 @@ AUI.add(
 			'success-field'
 		];
 
-		var TPL_ADD_BUTTON = '<button type="button" class="add-row btn-content btn btn-icon-only toolbar-first toolbar-item" title=""><span class="btn-icon icon icon-plus"></span></button>';
+		var TPL_ADD_BUTTON = '<button type="button" class="add-row btn-content btn btn-icon-only toolbar-first toolbar-item" title="">' +
+				'<span class="btn-icon icon icon-plus"></span>' +
+			'</button>';
 
-		var TPL_DELETE_BUTTON = '<button type="button" class="delete-row btn-content btn btn-icon-only toolbar-last toolbar-item" title=""><span class="btn-icon icon icon-minus"></span></button>';
+		var TPL_DELETE_BUTTON = '<button type="button" class="delete-row btn-content btn btn-icon-only toolbar-last toolbar-item" title="">' +
+				'<span class="btn-icon icon icon-minus"></span>' +
+			'</button>';
 
-		var TPL_AUTOROW_CONTROLS = '<span class="lfr-autorow-controls toolbar toolbar-horizontal"><span class="toolbar-content">' +
-				TPL_ADD_BUTTON +
-				TPL_DELETE_BUTTON +
-			'</span></span>';
+		var TPL_AUTOROW_CONTROLS = '<span class="lfr-autorow-controls toolbar toolbar-horizontal">' +
+				'<span class="toolbar-content">' +
+					TPL_ADD_BUTTON +
+					TPL_DELETE_BUTTON +
+				'</span>' +
+			'</span>';
 
 		var TPL_LOADING = '<div class="' + CSS_ICON_LOADING + '"></div>';
 
@@ -57,104 +63,6 @@ AUI.add(
 						instance.config = config;
 					},
 
-					render: function() {
-						var instance = this;
-
-						var config = instance.config;
-
-						var contentBox = A.one(config.contentBox);
-
-						var baseRows = contentBox.all(config.baseRows || '.lfr-form-row');
-						var baseContainer = A.Node.create('<div class="lfr-form-row"><div class="row-fields"></div></div>');
-
-						instance._contentBox = contentBox;
-						instance._guid = baseRows.size();
-
-						instance.url = config.url;
-
-						instance._undoManager = new Liferay.UndoManager().render(contentBox);
-
-						if (config.fieldIndexes) {
-							instance._fieldIndexes = A.all('[name=' + config.fieldIndexes + ']');
-
-							if (!instance._fieldIndexes.size()) {
-								instance._fieldIndexes = A.Node.create('<input name="' + config.fieldIndexes + '" type="hidden" />');
-
-								contentBox.append(instance._fieldIndexes);
-							}
-						}
-						else {
-							instance._fieldIndexes = A.all([]);
-						}
-
-						contentBox.delegate(
-							'click',
-							function(event) {
-								var link = event.currentTarget;
-								var currentRow = link.ancestor('.lfr-form-row');
-
-								if (link.hasClass('add-row')) {
-									instance.addRow(currentRow);
-								}
-								else if (link.hasClass('delete-row')) {
-									link.fire('change');
-
-									instance.deleteRow(currentRow);
-								}
-							},
-							'.lfr-autorow-controls .btn'
-						);
-
-						baseRows.each(
-							function(item, index) {
-								var formRow;
-								var firstChild;
-
-								if (item.hasClass('lfr-form-row')) {
-									formRow = item;
-								}
-								else {
-									formRow = baseContainer.clone();
-									firstChild = formRow.one('> div');
-									firstChild.append(item);
-								}
-
-								formRow.append(TPL_AUTOROW_CONTROLS);
-
-								if (!contentBox.contains(formRow)) {
-									contentBox.append(formRow);
-								}
-
-								if (index === 0) {
-									instance._rowTemplate = formRow.clone();
-									instance._clearForm(instance._rowTemplate);
-								}
-							}
-						);
-
-						if (config.sortable) {
-							instance._makeSortable(config.sortableHandle);
-						}
-
-						Liferay.on(
-							'saveAutoFields',
-							function(event) {
-								instance.save(event.form);
-							}
-						);
-
-						instance._undoManager.on(
-							'clearList',
-							function(event) {
-								contentBox.all('.lfr-form-row').each(instance._clearHiddenRows, instance);
-							}
-						);
-
-						instance._attachSubmitListener();
-
-						return instance;
-					},
-
 					addRow: function(node) {
 						var instance = this;
 
@@ -164,7 +72,11 @@ AUI.add(
 
 						node.placeAfter(clone);
 
-						Liferay.Util.focusFormField(clone.one('input[type=text], input[type=password], textarea'));
+						var input = clone.one('input[type=text], input[type=password], textarea');
+
+						if (input) {
+							Liferay.Util.focusFormField(input);
+						}
 
 						instance.fire(
 							'clone',
@@ -185,7 +97,7 @@ AUI.add(
 
 						var visibleRows = instance._contentBox.all('.lfr-form-row:visible').size();
 
-						var deleteRow = (visibleRows > 1);
+						var deleteRow = visibleRows > 1;
 
 						if (visibleRows == 1) {
 							instance.addRow(node);
@@ -277,6 +189,105 @@ AUI.add(
 						}
 					},
 
+					render: function() {
+						var instance = this;
+
+						var baseContainer = A.Node.create('<div class="lfr-form-row"><div class="row-fields"></div></div>');
+
+						var config = instance.config;
+						var contentBox = A.one(config.contentBox);
+
+						var baseRows = contentBox.all(config.baseRows || '.lfr-form-row');
+
+						instance._contentBox = contentBox;
+						instance._guid = baseRows.size();
+
+						instance.url = config.url;
+
+						instance._undoManager = new Liferay.UndoManager().render(contentBox);
+
+						if (config.fieldIndexes) {
+							instance._fieldIndexes = A.all('[name=' + config.fieldIndexes + ']');
+
+							if (!instance._fieldIndexes.size()) {
+								instance._fieldIndexes = A.Node.create('<input name="' + config.fieldIndexes + '" type="hidden" />');
+
+								contentBox.append(instance._fieldIndexes);
+							}
+						}
+						else {
+							instance._fieldIndexes = A.all([]);
+						}
+
+						contentBox.delegate(
+							'click',
+							function(event) {
+								var link = event.currentTarget;
+
+								var currentRow = link.ancestor('.lfr-form-row');
+
+								if (link.hasClass('add-row')) {
+									instance.addRow(currentRow);
+								}
+								else if (link.hasClass('delete-row')) {
+									link.fire('change');
+
+									instance.deleteRow(currentRow);
+								}
+							},
+							'.lfr-autorow-controls .btn'
+						);
+
+						baseRows.each(
+							function(item, index) {
+								var firstChild;
+								var formRow;
+
+								if (item.hasClass('lfr-form-row')) {
+									formRow = item;
+								}
+								else {
+									formRow = baseContainer.clone();
+									firstChild = formRow.one('> div');
+									firstChild.append(item);
+								}
+
+								formRow.append(TPL_AUTOROW_CONTROLS);
+
+								if (!contentBox.contains(formRow)) {
+									contentBox.append(formRow);
+								}
+
+								if (index === 0) {
+									instance._rowTemplate = formRow.clone();
+									instance._clearForm(instance._rowTemplate);
+								}
+							}
+						);
+
+						if (config.sortable) {
+							instance._makeSortable(config.sortableHandle);
+						}
+
+						Liferay.on(
+							'saveAutoFields',
+							function(event) {
+								instance.save(event.form);
+							}
+						);
+
+						instance._undoManager.on(
+							'clearList',
+							function(event) {
+								contentBox.all('.lfr-form-row').each(instance._clearHiddenRows, instance);
+							}
+						);
+
+						instance._attachSubmitListener();
+
+						return instance;
+					},
+
 					reset: function() {
 						var instance = this;
 
@@ -317,6 +328,7 @@ AUI.add(
 							visibleRows.each(
 								function(item, index) {
 									var formField = item.one('input, textarea, select');
+
 									var fieldId = formField.attr('id');
 
 									if (!fieldId) {
@@ -356,8 +368,9 @@ AUI.add(
 					_clearForm: function(node) {
 						node.all('input, select, textarea').each(
 							function(item, index) {
-								var type = item.getAttribute('type');
 								var tag = item.get('nodeName').toLowerCase();
+
+								var type = item.getAttribute('type');
 
 								if (type == 'text' || type == 'password' || tag == 'textarea') {
 									item.val('');
@@ -397,8 +410,10 @@ AUI.add(
 						var instance = this;
 
 						var currentRow = node;
+
 						var clone = currentRow.clone();
-						var guid = (++instance._guid);
+
+						var guid = ++instance._guid;
 
 						var formValidator = instance._getFormValidator(node);
 
@@ -425,11 +440,14 @@ AUI.add(
 
 						node.all('input, select, textarea, span').each(
 							function(item, index) {
-								var oldName = item.attr('name') || item.attr('id');
-								var originalName = oldName.replace(/([0-9]+)$/, '');
-								var newName = originalName + guid;
-								var inputType = item.attr('type');
 								var inputNodeName = item.attr('nodeName');
+								var inputType = item.attr('type');
+
+								var oldName = item.attr('name') || item.attr('id');
+
+								var originalName = oldName.replace(/([0-9]+)$/, '');
+
+								var newName = originalName + guid;
 
 								if (inputType == 'radio') {
 									oldName = item.attr('id');

@@ -20,7 +20,7 @@ feature or API will be dropped in an upcoming version.
 replaces an old API, in spite of the old API being kept in Liferay Portal for
 backwards compatibility.
 
-*This document has been reviewed through commit `5996ef5`.*
+*This document has been reviewed through commit `205a27d`.*
 
 ## Breaking Changes Contribution Guidelines
 
@@ -1412,6 +1412,10 @@ The following portal properties (and the equivalent `PropsKeys` and
 `PropsValues`) that were used to decide what sections would be displayed in the
 `form-navigator` have been removed:
 
+- `company.settings.form.configuration`
+- `company.settings.form.identification`
+- `company.settings.form.miscellaneous`
+- `company.settings.form.social`
 - `layout.set.form.update`
 - `sites.form.add.advanced`
 - `sites.form.add.main`
@@ -1452,5 +1456,80 @@ new section that was rendered from the portal classloader.
 There was a need to add new sections and categories to `form-navigator` tags via
 OSGi plugins in a more extensible way, allowing the developer to include new
 sections to access to their own utils and services.
+
+---------------------------------------
+
+### Removed the Type Setting `breadcrumbShowParentGroups` from Groups
+- **Date:** 2015-Apr-21
+- **JIRA Ticket:** LPS-54791
+
+#### What changed?
+
+The type setting `breadcrumbShowParentGroups` was removed from groups and is
+no longer available in the site configuration. Now, it is only available in the
+breadcrumb configuration.
+
+#### Who is affected?
+
+This affects all site administrators that have set the `showParentGroups`
+preference in Site Administration.
+
+#### How should I update my code?
+
+There are no code updates required. This should only be updated at the portlet
+instance level.
+
+#### Why was this change made?
+
+This change was introduced to support the new Settings API.
+
+---------------------------------------
+
+### Changed Return Value of the Method `getText` of the Editor's Window API
+- **Date:** 2015-Apr-28
+- **JIRA Ticket:** LPS-52698
+
+#### What changed?
+
+The method `getText` now returns the editor's content, without any HTML markup.
+
+#### Who is affected?
+
+This affects developers that are using the `getText` method of the editor's
+window API.
+
+#### How should I update my code?
+
+To continue using the editor the same way you did before this change was
+implemented, you should change calls to the `getText` method to instead call the
+`getHTML` method.
+
+#### Why was this change made?
+
+This change was made in the editor's window API to provide a proper `getText`
+method that returns just the editor's content, without any HTML markup. This
+change is used for the blog abstract field.
+
+---------------------------------------
+
+### Moved Contact*NameException classes to inner classes of ContactNameException
+- **Date:** 2015-May-5
+- **JIRA Ticket:** LPS-55364
+
+#### What changed?
+
+The use of ContactFirstNameException, ContactFullNameException, and ContactLastNameException has been moved to inner classes in a new class called ContactNameException.
+
+#### Who is affected?
+
+This affects developers who may have included one of the three classes above in their code.
+
+#### How should I update my code?
+
+While the old classes have been kept for backwards-compatibility, they are being deprecated.  You are encouraged to use the new pattern of inner classes for exceptions wherever possible (example: ContactFirstNameExeception now becomes ContactNameException.MustHaveFirstName).
+
+#### Why was this change made?
+
+This change was made in accordance with the new exceptions pattern being applied throughout portal. It also allows the new localized user name configuration feature to be thoroughly covered by exceptions for different configurations. 
 
 ---------------------------------------

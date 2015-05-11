@@ -49,6 +49,21 @@ import java.util.List;
 public class AssetEntryServiceImpl extends AssetEntryServiceBaseImpl {
 
 	@Override
+	public AssetEntry fetchEntry(long entryId) throws PortalException {
+		AssetEntry entry = assetEntryLocalService.fetchEntry(entryId);
+
+		if (entry != null) {
+			if (AssetEntryPermission.contains(
+					getPermissionChecker(), entry, ActionKeys.VIEW)) {
+
+				return entry;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
 	public List<AssetEntry> getCompanyEntries(
 		long companyId, int start, int end) {
 

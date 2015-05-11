@@ -905,10 +905,6 @@ public interface PropsKeys {
 
 	public static final String GZIP_COMPRESSION_LEVEL = "gzip.compression.level";
 
-	public static final String HIBERNATE_CACHE_USE_QUERY_CACHE = "hibernate.cache.use_query_cache";
-
-	public static final String HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = "hibernate.cache.use_second_level_cache";
-
 	public static final String HIBERNATE_CONFIGS = "hibernate.configs";
 
 	public static final String HIBERNATE_DIALECT = "hibernate.dialect";
@@ -1705,8 +1701,6 @@ public interface PropsKeys {
 
 	public static final String MY_SITES_SHOW_USER_PUBLIC_SITES_WITH_NO_LAYOUTS = "my.sites.show.user.public.sites.with.no.layouts";
 
-	public static final String NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME = "net.sf.ehcache.configurationResourceName";
-
 	public static final String NETVIBES_SERVLET_MAPPING = "netvibes.servlet.mapping";
 
 	public static final String NOTIFICATIONS_MAX_EVENTS = "notifications.max.events";
@@ -2040,6 +2034,8 @@ public interface PropsKeys {
 	public static final String PORTLET_INTERRUPTED_REQUEST_WHITELIST = "portlet.interrupted.request.whitelist";
 
 	public static final String PORTLET_INTERRUPTED_REQUEST_WHITELIST_ACTIONS = "portlet.interrupted.request.whitelist.actions";
+
+	public static final String PORTLET_PREFERENCES_CACHE_KEY_THRESHOLD_SIZE = "portlet.preferences.cache.key.threshold.size";
 
 	public static final String PORTLET_PREFERENCES_STRICT_STORE = "portlet.preferences.strict.store";
 
