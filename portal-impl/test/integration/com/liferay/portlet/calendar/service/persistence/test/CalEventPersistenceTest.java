@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
-import com.liferay.portal.util.PropsValues;
 
 import com.liferay.portlet.calendar.NoSuchEventException;
 import com.liferay.portlet.calendar.model.CalEvent;
@@ -338,12 +337,6 @@ public class CalEventPersistenceTest {
 			getOrderByComparator());
 	}
 
-	@Test
-	public void testFilterFindByGroupId() throws Exception {
-		_persistence.filterFindByGroupId(0, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, getOrderByComparator());
-	}
-
 	protected OrderByComparator<CalEvent> getOrderByComparator() {
 		return OrderByComparatorFactoryUtil.create("CalEvent", "uuid", true,
 			"eventId", true, "groupId", true, "companyId", true, "userId",
@@ -551,10 +544,6 @@ public class CalEventPersistenceTest {
 
 	@Test
 	public void testResetOriginalValues() throws Exception {
-		if (!PropsValues.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			return;
-		}
-
 		CalEvent newCalEvent = addCalEvent();
 
 		_persistence.clearCache();

@@ -16,6 +16,8 @@ package com.liferay.poshi.runner;
 
 import com.liferay.poshi.runner.logger.CommandLoggerHandler;
 import com.liferay.poshi.runner.logger.LoggerUtil;
+import com.liferay.poshi.runner.logger.SummaryLoggerHandler;
+import com.liferay.poshi.runner.logger.XMLLoggerHandler;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
 import com.liferay.poshi.runner.util.PropsValues;
 
@@ -41,11 +43,11 @@ public class PoshiRunner {
 	public static List<String> getList() throws Exception {
 		PoshiRunnerContext.readFiles();
 
-		PoshiRunnerValidation.validate();
+		String testName = PropsValues.TEST_NAME;
+
+		PoshiRunnerValidation.validate(testName);
 
 		List<String> classCommandNames = new ArrayList<>();
-
-		String testName = PropsValues.TEST_NAME;
 
 		if (testName.contains("#")) {
 			classCommandNames.add(testName);
@@ -81,6 +83,8 @@ public class PoshiRunner {
 		PoshiRunnerContext.setTestCaseCommandName(_testClassCommandName);
 		PoshiRunnerContext.setTestCaseName(_testClassName);
 
+		XMLLoggerHandler.generateXMLLog(classCommandName);
+
 		LoggerUtil.startLogger();
 
 		SeleniumUtil.startSelenium();
@@ -94,7 +98,11 @@ public class PoshiRunner {
 			_runCommand();
 		}
 		catch (Exception e) {
-			throw new PoshiRunnerException(e.getMessage(), e);
+			PoshiRunnerStackTraceUtil.printStackTrace(e.getMessage());
+
+			PoshiRunnerStackTraceUtil.emptyStackTrace();
+
+			throw new Exception(e.getMessage(), e);
 		}
 		finally {
 			try {
@@ -129,12 +137,12 @@ public class PoshiRunner {
 			classCommandName);
 
 		if (commandElement != null) {
-			PoshiRunnerStackTraceUtil.pushFilePath(
+			PoshiRunnerStackTraceUtil.startStackTrace(
 				classCommandName, "test-case");
 
 			PoshiRunnerExecutor.parseElement(commandElement);
 
-			PoshiRunnerStackTraceUtil.popFilePath();
+			PoshiRunnerStackTraceUtil.emptyStackTrace();
 		}
 	}
 
@@ -147,6 +155,8 @@ public class PoshiRunner {
 	private void _runSetUp() throws Exception {
 		CommandLoggerHandler.logClassCommandName(_testClassName + "#set-up");
 
+		SummaryLoggerHandler.startMajorSteps();
+
 		_runClassCommandName(_testClassName + "#set-up");
 	}
 
@@ -154,6 +164,8 @@ public class PoshiRunner {
 		try {
 			CommandLoggerHandler.logClassCommandName(
 				_testClassName + "#tear-down");
+
+			SummaryLoggerHandler.startMajorSteps();
 
 			_runClassCommandName(_testClassName + "#tear-down");
 		}

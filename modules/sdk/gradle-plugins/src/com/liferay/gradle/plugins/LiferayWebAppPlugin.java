@@ -15,13 +15,18 @@
 package com.liferay.gradle.plugins;
 
 import com.liferay.gradle.plugins.extensions.LiferayExtension;
+import com.liferay.gradle.plugins.service.builder.BuildServiceTask;
+import com.liferay.gradle.plugins.service.builder.ServiceBuilderPlugin;
 import com.liferay.gradle.plugins.tasks.BuildCssTask;
-import com.liferay.gradle.plugins.tasks.BuildWsdlTask;
-import com.liferay.gradle.plugins.tasks.BuildXsdTask;
 import com.liferay.gradle.plugins.tasks.DirectDeployTask;
-import com.liferay.gradle.plugins.util.FileUtil;
-import com.liferay.gradle.plugins.util.GradleUtil;
-import com.liferay.gradle.plugins.util.Validator;
+import com.liferay.gradle.plugins.wsdd.builder.BuildWSDDTask;
+import com.liferay.gradle.plugins.wsdd.builder.WSDDBuilderPlugin;
+import com.liferay.gradle.plugins.wsdl.builder.BuildWSDLTask;
+import com.liferay.gradle.plugins.xsd.builder.BuildXSDTask;
+import com.liferay.gradle.util.FileUtil;
+import com.liferay.gradle.util.GradleUtil;
+import com.liferay.gradle.util.StringUtil;
+import com.liferay.gradle.util.Validator;
 
 import groovy.lang.Closure;
 
@@ -51,13 +56,17 @@ import org.gradle.api.file.RelativePath;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.internal.file.copy.CopySpecInternal;
 import org.gradle.api.internal.file.copy.CopySpecResolver;
+import org.gradle.api.plugins.BasePlugin;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.WarPlugin;
 import org.gradle.api.plugins.WarPluginConvention;
+import org.gradle.api.specs.Spec;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskOutputs;
+import org.gradle.api.tasks.bundling.Jar;
 import org.gradle.api.tasks.bundling.War;
+import org.gradle.api.tasks.compile.JavaCompile;
 
 /**
  * @author Andrea Di Giorgi
@@ -68,11 +77,81 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 
 	public static final String DIRECT_DEPLOY_TASK_NAME = "directDeploy";
 
-	@Override
-	public void apply(Project project) {
-		super.apply(project);
+	protected Task addTaskBuildServiceCompile(
+		BuildServiceTask buildServiceTask) {
 
-		configureWebAppDirName(project);
+		Project project = buildServiceTask.getProject();
+
+		JavaCompile javaCompile = GradleUtil.addTask(
+			project, buildServiceTask.getName() + "Compile", JavaCompile.class);
+
+		javaCompile.dependsOn(buildServiceTask);
+		javaCompile.dependsOn(
+			BasePlugin.CLEAN_TASK_NAME +
+				StringUtil.capitalize(javaCompile.getName()));
+
+		FileCollection fileCollection = buildServiceTask.getClasspath();
+
+		final File serviceJarFile = getServiceJarFile(project);
+
+		fileCollection = fileCollection.filter(
+			new Spec<File>() {
+
+				@Override
+				public boolean isSatisfiedBy(File file) {
+					if (file.equals(serviceJarFile)) {
+						return false;
+					}
+
+					return true;
+				}
+
+			});
+
+		javaCompile.setClasspath(fileCollection);
+
+		File destinationDir = new File(
+			project.getBuildDir(), javaCompile.getName());
+
+		javaCompile.setDestinationDir(destinationDir);
+
+		javaCompile.setSource(buildServiceTask.getApiDirName());
+
+		return javaCompile;
+	}
+
+	protected Task addTaskBuildServiceJar(
+		BuildServiceTask buildServiceTask, Task buildServiceCompileTask) {
+
+		Project project = buildServiceTask.getProject();
+
+		Jar jar = GradleUtil.addTask(
+			project, buildServiceTask.getName() + "Jar", Jar.class);
+
+		jar.from(buildServiceCompileTask.getOutputs());
+
+		jar.setDescription("Assembles the service JAR file.");
+
+		File serviceJarFile = getServiceJarFile(project);
+
+		jar.setArchiveName(serviceJarFile.getName());
+		jar.setDestinationDir(serviceJarFile.getParentFile());
+
+		return jar;
+	}
+
+	protected void addTaskBuildServiceTasks(Project project) {
+		BuildServiceTask buildServiceTask =
+			(BuildServiceTask)GradleUtil.getTask(
+				project, ServiceBuilderPlugin.BUILD_SERVICE_TASK_NAME);
+
+		Task buildServiceCompileTask = addTaskBuildServiceCompile(
+			buildServiceTask);
+
+		Task buildServiceJarTask = addTaskBuildServiceJar(
+			buildServiceTask, buildServiceCompileTask);
+
+		buildServiceTask.finalizedBy(buildServiceJarTask);
 	}
 
 	protected Copy addTaskDeploy(Project project) {
@@ -143,8 +222,7 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 
 				@Override
 				public void execute(Project project) {
-					File serviceJarFile = new File(
-						getLibDir(project), project.getName() + "-service.jar");
+					File serviceJarFile = getServiceJarFile(project);
 
 					if (serviceJarFile.exists()) {
 						GradleUtil.addDependency(
@@ -164,6 +242,11 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 				project, WarPlugin.PROVIDED_COMPILE_CONFIGURATION_NAME,
 				dependencyNotation);
 		}
+	}
+
+	@Override
+	protected void configureProperties(Project project) {
+		configureWebAppDirName(project);
 	}
 
 	@Override
@@ -199,30 +282,55 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 	}
 
 	@Override
-	protected void configureTaskBuildWsdlRootDirs(BuildWsdlTask buildWsdlTask) {
-		FileCollection rootDirs = buildWsdlTask.getRootDirs();
+	protected void configureTaskBuildWSDD(Project project) {
+		super.configureTaskBuildWSDD(project);
 
-		if ((rootDirs != null) && !rootDirs.isEmpty()) {
-			return;
-		}
+		BuildWSDDTask buildWSDDTask = (BuildWSDDTask)GradleUtil.getTask(
+			project, WSDDBuilderPlugin.BUILD_WSDD_TASK_NAME);
 
-		Project project = buildWsdlTask.getProject();
-
-		File rootDir = new File(getWebAppDir(project), "WEB-INF/wsdl");
-
-		buildWsdlTask.rootDirs(rootDir);
+		configureTaskBuildWSDDInputFileName(buildWSDDTask);
+		configureTaskBuildWSDDServerConfigFileName(buildWSDDTask);
 	}
 
-	protected void configureTaskBuildXsdRootDir(BuildXsdTask buildXsdTask) {
-		if (buildXsdTask.getRootDir() != null) {
-			return;
+	protected void configureTaskBuildWSDDInputFileName(
+		BuildWSDDTask buildWSDDTask) {
+
+		Project project = buildWSDDTask.getProject();
+
+		File inputFile = new File(getWebAppDir(project), "WEB-INF/service.xml");
+
+		buildWSDDTask.setInputFileName(project.relativePath(inputFile));
+	}
+
+	protected void configureTaskBuildWSDDServerConfigFileName(
+		BuildWSDDTask buildWSDDTask) {
+
+		Project project = buildWSDDTask.getProject();
+
+		File serverConfigFile = new File(
+			getWebAppDir(project), "WEB-INF/server-config.wsdd");
+
+		buildWSDDTask.setServerConfigFileName(
+			project.relativePath(serverConfigFile));
+	}
+
+	@Override
+	protected void configureTaskBuildWSDLInputDir(BuildWSDLTask buildWSDLTask) {
+		File inputDir = buildWSDLTask.getInputDir();
+
+		if (!inputDir.exists()) {
+			inputDir = new File(
+				getWebAppDir(buildWSDLTask.getProject()), "WEB-INF/wsdl");
+
+			buildWSDLTask.setInputDir(inputDir);
 		}
+	}
 
-		Project project = buildXsdTask.getProject();
+	protected void configureTaskBuildXSDInputDir(BuildXSDTask buildXSDTask) {
+		File inputDir = new File(
+			getWebAppDir(buildXSDTask.getProject()), "WEB-INF/xsd");
 
-		File rootDir = new File(getWebAppDir(project), "WEB-INF/xsd");
-
-		buildXsdTask.setRootDir(rootDir);
+		buildXSDTask.setInputDir(inputDir);
 	}
 
 	protected void configureTaskDeploy(
@@ -322,6 +430,8 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 		configureTaskDeploy(project, liferayExtension);
 		configureTaskDirectDeploy(project, liferayExtension);
 		configureTaskWar(project, liferayExtension);
+
+		addTaskBuildServiceTasks(project);
 	}
 
 	protected void configureTaskWar(
@@ -536,6 +646,15 @@ public class LiferayWebAppPlugin extends LiferayJavaPlugin {
 	@Override
 	protected File getLibDir(Project project) {
 		return new File(getWebAppDir(project), "WEB-INF/lib");
+	}
+
+	@Override
+	protected File getServiceBaseDir(Project project) {
+		return new File(getWebAppDir(project), "WEB-INF");
+	}
+
+	protected File getServiceJarFile(Project project) {
+		return new File(getLibDir(project), project.getName() + "-service.jar");
 	}
 
 	protected File getWebAppDir(Project project) {

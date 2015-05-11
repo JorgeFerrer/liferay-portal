@@ -99,6 +99,7 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portal.webserver.WebServerServletTokenUtil;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
@@ -121,6 +122,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1053,39 +1055,6 @@ public class ServicePreAction extends Action {
 						ActionKeys.ASSIGN_MEMBERS)) {
 
 					themeDisplay.setShowManageSiteMembershipsIcon(true);
-
-					LiferayPortletURL manageSiteMembershipsURL =
-						new PortletURLImpl(
-							request, PortletKeys.SITE_MEMBERSHIPS_ADMIN,
-							controlPanelPlid, PortletRequest.RENDER_PHASE);
-
-					manageSiteMembershipsURL.setDoAsGroupId(scopeGroupId);
-					manageSiteMembershipsURL.setParameter(
-						"groupId", String.valueOf(scopeGroupId));
-					manageSiteMembershipsURL.setParameter(
-						"selPlid", String.valueOf(plid));
-					manageSiteMembershipsURL.setPortletMode(PortletMode.VIEW);
-
-					if (PropsValues.
-							DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
-
-						manageSiteMembershipsURL.setControlPanelCategory(
-							PortletCategoryKeys.PORTLET);
-						manageSiteMembershipsURL.setWindowState(
-							LiferayWindowState.POP_UP);
-					}
-					else {
-						manageSiteMembershipsURL.setParameter(
-							"redirect", themeDisplay.getURLHome());
-						manageSiteMembershipsURL.setParameter(
-							"showBackURL", Boolean.FALSE.toString());
-						manageSiteMembershipsURL.setPlid(plid);
-						manageSiteMembershipsURL.setWindowState(
-							WindowState.MAXIMIZED);
-					}
-
-					themeDisplay.setURLManageSiteMemberships(
-						manageSiteMembershipsURL);
 				}
 				else {
 					themeDisplay.setShowManageSiteMembershipsIcon(false);
@@ -1113,35 +1082,6 @@ public class ServicePreAction extends Action {
 				hasUpdateGroupPermission) {
 
 				themeDisplay.setShowSiteSettingsIcon(true);
-
-				LiferayPortletURL siteSettingsURL = new PortletURLImpl(
-					request, PortletKeys.SITE_SETTINGS, controlPanelPlid,
-					PortletRequest.RENDER_PHASE);
-
-				siteSettingsURL.setDoAsGroupId(scopeGroupId);
-				siteSettingsURL.setParameter(
-					"struts_action", "/sites_admin/edit_site");
-				siteSettingsURL.setParameter(
-					"groupId", String.valueOf(scopeGroupId));
-				siteSettingsURL.setParameter(
-					"showBackURL", Boolean.FALSE.toString());
-				siteSettingsURL.setPortletMode(PortletMode.VIEW);
-
-				if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
-					siteSettingsURL.setControlPanelCategory(
-						PortletCategoryKeys.PORTLET);
-					siteSettingsURL.setParameter("closeRedirect", currentURL);
-					siteSettingsURL.setWindowState(LiferayWindowState.POP_UP);
-				}
-				else {
-					siteSettingsURL.setParameter(
-						"redirect", themeDisplay.getURLHome());
-					siteSettingsURL.setPlid(plid);
-					siteSettingsURL.setWindowState(
-						LiferayWindowState.MAXIMIZED);
-				}
-
-				themeDisplay.setURLSiteSettings(siteSettingsURL);
 			}
 
 			if (!group.isLayoutPrototype() &&
@@ -1149,43 +1089,6 @@ public class ServicePreAction extends Action {
 				 hasManageLayoutsGroupPermission || hasUpdateGroupPermission)) {
 
 				themeDisplay.setShowSiteMapSettingsIcon(true);
-
-				LiferayPortletURL siteMapSettingsURL = new PortletURLImpl(
-					request, PortletKeys.GROUP_PAGES, controlPanelPlid,
-					PortletRequest.RENDER_PHASE);
-
-				siteMapSettingsURL.setDoAsGroupId(scopeGroupId);
-				siteMapSettingsURL.setParameter(
-					"struts_action", "/group_pages/edit_layouts");
-
-				if (layout.isPrivateLayout()) {
-					siteMapSettingsURL.setParameter("tabs1", "private-pages");
-				}
-				else {
-					siteMapSettingsURL.setParameter("tabs1", "public-pages");
-				}
-
-				siteMapSettingsURL.setParameter(
-					"groupId", String.valueOf(scopeGroupId));
-				siteMapSettingsURL.setPortletMode(PortletMode.VIEW);
-
-				if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
-					siteMapSettingsURL.setControlPanelCategory(
-						PortletCategoryKeys.PORTLET);
-					siteMapSettingsURL.setParameter(
-						"closeRedirect", currentURL);
-					siteMapSettingsURL.setWindowState(
-						LiferayWindowState.POP_UP);
-				}
-				else {
-					siteMapSettingsURL.setParameter(
-						"redirect", themeDisplay.getURLHome());
-					siteMapSettingsURL.setPlid(plid);
-					siteMapSettingsURL.setWindowState(
-						LiferayWindowState.MAXIMIZED);
-				}
-
-				themeDisplay.setURLSiteMapSettings(siteMapSettingsURL);
 			}
 
 			if (group.hasStagingGroup() && !group.isStagingGroup()) {
@@ -1235,32 +1138,7 @@ public class ServicePreAction extends Action {
 				}
 			}
 
-			Portlet myAccountPortlet = PortalUtil.getFirstMyAccountPortlet(
-				themeDisplay);
-
-			if (myAccountPortlet != null) {
-				PortletURLImpl myAccountURL = new PortletURLImpl(
-					request, myAccountPortlet.getPortletId(), controlPanelPlid,
-					PortletRequest.RENDER_PHASE);
-
-				if (signedIn) {
-					myAccountURL.setDoAsGroupId(user.getGroupId());
-				}
-				else if (scopeGroupId > 0) {
-					myAccountURL.setDoAsGroupId(scopeGroupId);
-				}
-
-				if (refererPlid > 0) {
-					myAccountURL.setRefererPlid(refererPlid);
-				}
-				else {
-					myAccountURL.setRefererPlid(plid);
-				}
-
-				myAccountURL.setWindowState(WindowState.MAXIMIZED);
-
-				themeDisplay.setURLMyAccount(myAccountURL);
-			}
+			themeDisplay.setURLMyAccount(_getURLMyAccount(companyId, request));
 		}
 
 		if (!user.isActive() ||
@@ -2407,6 +2285,30 @@ public class ServicePreAction extends Action {
 
 	protected File privateLARFile;
 	protected File publicLARFile;
+
+	private PortletURL _getURLMyAccount(
+			long companyId, HttpServletRequest request)
+		throws PortalException {
+
+		try {
+			Group userPersonalPanelGroup = GroupLocalServiceUtil.getGroup(
+				companyId, GroupConstants.USER_PERSONAL_PANEL);
+
+			long plid = LayoutLocalServiceUtil.getDefaultPlid(
+				userPersonalPanelGroup.getGroupId(), true);
+
+			PortletURL portletURL = PortletURLFactoryUtil.create(
+				request, PortletKeys.MY_ACCOUNT, plid,
+				PortletRequest.RENDER_PHASE);
+
+			portletURL.setWindowState(WindowState.MAXIMIZED);
+
+			return portletURL;
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+	}
 
 	private static final String _PATH_PORTAL_LAYOUT = "/portal/layout";
 

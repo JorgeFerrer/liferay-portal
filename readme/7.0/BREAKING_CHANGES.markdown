@@ -20,7 +20,7 @@ feature or API will be dropped in an upcoming version.
 replaces an old API, in spite of the old API being kept in Liferay Portal for
 backwards compatibility.
 
-*This document has been reviewed through commit `5996ef5`.*
+*This document has been reviewed through commit `205a27d`.*
 
 ## Breaking Changes Contribution Guidelines
 
@@ -1413,6 +1413,12 @@ The following portal properties (and the equivalent `PropsKeys` and
 `form-navigator` have been removed:
 
 - `layout.set.form.update`
+- `organizations.form.add.identification`
+- `organizations.form.add.main`
+- `organizations.form.add.miscellaneous`
+- `organizations.form.update.identification`
+- `organizations.form.update.main`
+- `organizations.form.update.miscellaneous`
 - `sites.form.add.advanced`
 - `sites.form.add.main`
 - `sites.form.add.miscellaneous`
@@ -1452,5 +1458,58 @@ new section that was rendered from the portal classloader.
 There was a need to add new sections and categories to `form-navigator` tags via
 OSGi plugins in a more extensible way, allowing the developer to include new
 sections to access to their own utils and services.
+
+---------------------------------------
+
+### Removed the Type Setting `breadcrumbShowParentGroups` from Groups
+- **Date:** 2015-Apr-21
+- **JIRA Ticket:** LPS-54791
+
+#### What changed?
+
+The type setting `breadcrumbShowParentGroups` was removed from groups and is
+no longer available in the site configuration. Now, it is only available in the
+breadcrumb configuration.
+
+#### Who is affected?
+
+This affects all site administrators that have set the `showParentGroups`
+preference in Site Administration.
+
+#### How should I update my code?
+
+There are no code updates required. This should only be updated at the portlet
+instance level.
+
+#### Why was this change made?
+
+This change was introduced to support the new Settings API.
+
+---------------------------------------
+
+### Changed Return Value of the Method `getText` of the Editor's Window API
+- **Date:** 2015-Apr-28
+- **JIRA Ticket:** LPS-52698
+
+#### What changed?
+
+The method `getText` now returns the editor's content, without any HTML markup.
+
+#### Who is affected?
+
+This affects developers that are using the `getText` method of the editor's
+window API.
+
+#### How should I update my code?
+
+To continue using the editor the same way you did before this change was
+implemented, you should change calls to the `getText` method to instead call the
+`getHTML` method.
+
+#### Why was this change made?
+
+This change was made in the editor's window API to provide a proper `getText`
+method that returns just the editor's content, without any HTML markup. This
+change is used for the blog abstract field.
 
 ---------------------------------------
