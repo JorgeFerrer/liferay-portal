@@ -48,13 +48,11 @@ public class LayoutEmbeddedPortletsFormNavigatorEntry
 			List<Portlet> embeddedPortlets = new ArrayList<>();
 
 			LayoutTypePortlet layoutTypePortlet =
-					(LayoutTypePortlet)layout.getLayoutType();
+				(LayoutTypePortlet)layout.getLayoutType();
 
 			List<String> portletIds = layoutTypePortlet.getPortletIds();
 
-			for (Portlet portlet :
-					layoutTypePortlet.getAllPortlets(false)) {
-
+			for (Portlet portlet : layoutTypePortlet.getAllPortlets(false)) {
 				if (!portletIds.contains(portlet.getPortletId())) {
 					embeddedPortlets.add(portlet);
 				}
