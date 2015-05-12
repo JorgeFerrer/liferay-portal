@@ -40,30 +40,32 @@ public class LayoutEmbeddedPortletsFormNavigatorEntry
 
 	@Override
 	public boolean isVisible(User user, Layout layout) {
-		try {
-			if (layout.isSupportsEmbeddedPortlets()) {
-				List<Portlet> embeddedPortlets = new ArrayList<>();
+		if (!layout.isSupportsEmbeddedPortlets()) {
+			return false;
+		}
 
-				LayoutTypePortlet layoutTypePortlet =
+		try {
+			List<Portlet> embeddedPortlets = new ArrayList<>();
+
+			LayoutTypePortlet layoutTypePortlet =
 					(LayoutTypePortlet)layout.getLayoutType();
 
-				List<String> portletIds = layoutTypePortlet.getPortletIds();
+			List<String> portletIds = layoutTypePortlet.getPortletIds();
 
-				for (Portlet portlet :
-						layoutTypePortlet.getAllPortlets(false)) {
+			for (Portlet portlet :
+					layoutTypePortlet.getAllPortlets(false)) {
 
-					if (!portletIds.contains(portlet.getPortletId())) {
-						embeddedPortlets.add(portlet);
-					}
+				if (!portletIds.contains(portlet.getPortletId())) {
+					embeddedPortlets.add(portlet);
 				}
+			}
 
-				if (!embeddedPortlets.isEmpty()) {
-					return true;
-				}
+			if (!embeddedPortlets.isEmpty()) {
+				return true;
 			}
 		}
 		catch (PortalException pe) {
-			_log.error(pe, pe);
+			_log.error("Unable to display form for embedded portlets", pe);
 		}
 
 		return false;

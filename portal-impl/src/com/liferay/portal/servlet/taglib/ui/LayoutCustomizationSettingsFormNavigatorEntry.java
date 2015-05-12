@@ -44,7 +44,7 @@ public class LayoutCustomizationSettingsFormNavigatorEntry
 			}
 		}
 		catch (PortalException pe) {
-			_log.error(pe, pe);
+			_log.error("Unable to display form for customization settings", pe);
 		}
 
 		return false;
