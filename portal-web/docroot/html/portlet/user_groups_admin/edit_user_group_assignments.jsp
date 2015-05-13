@@ -1,4 +1,3 @@
-<%@ page import="com.liferay.portal.service.UserGroupServiceUtil" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -31,7 +30,7 @@ UserGroup userGroup = UserGroupServiceUtil.fetchUserGroup(userGroupId);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("struts_action", "/user_groups_admin/edit_user_group_assignments");
+portletURL.setParameter("mvcPath", "/html/portlet/user_groups_admin/edit_user_group_assignments.jsp");
 portletURL.setParameter("tabs1", tabs1);
 portletURL.setParameter("tabs2", tabs2);
 portletURL.setParameter("redirect", redirect);
@@ -50,15 +49,12 @@ portletURL.setParameter("userGroupId", String.valueOf(userGroup.getUserGroupId()
 	url="<%= portletURL.toString() %>"
 />
 
-<portlet:actionURL var="editAssignmentsURL">
-	<portlet:param name="struts_action" value="/user_groups_admin/edit_user_group_assignments" />
-</portlet:actionURL>
+<portlet:actionURL name="editUserGroupAssignments" var="editUserGroupAssignmentsURL" />
 
-<aui:form action="<%= editAssignmentsURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" />
+<aui:form action="<%= editUserGroupAssignmentsURL %>" method="post" name="fm">
 	<aui:input name="tabs1" type="hidden" value="<%= tabs1 %>" />
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
-	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="assignmentsRedirect" type="hidden" />
 	<aui:input name="userGroupId" type="hidden" value="<%= userGroup.getUserGroupId() %>" />
 	<aui:input name="addUserIds" type="hidden" />
@@ -125,7 +121,6 @@ portletURL.setParameter("userGroupId", String.valueOf(userGroup.getUserGroupId()
 
 		var form = AUI.$(document.<portlet:namespace />fm);
 
-		form.fm('<%= Constants.CMD %>').val('user_group_users');
 		form.fm('assignmentsRedirect').val(assignmentsRedirect);
 		form.fm('addUserIds').val(Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
 		form.fm('removeUserIds').val(Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
