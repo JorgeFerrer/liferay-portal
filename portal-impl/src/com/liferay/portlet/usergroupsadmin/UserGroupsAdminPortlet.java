@@ -138,4 +138,86 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	@Override
+	public void processAction(
+			ActionMapping actionMapping, ActionForm actionForm,
+			PortletConfig portletConfig, ActionRequest actionRequest,
+			ActionResponse actionResponse)
+		throws Exception {
+
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+		try {
+			if (cmd.equals("user_group_users")) {
+				updateUserGroupUsers(actionRequest);
+			}
+
+			if (Validator.isNotNull(cmd)) {
+				String redirect = ParamUtil.getString(
+					actionRequest, "assignmentsRedirect");
+
+				sendRedirect(actionRequest, actionResponse, redirect);
+			}
+		}
+		catch (Exception e) {
+			if (e instanceof MembershipPolicyException) {
+				SessionErrors.add(actionRequest, e.getClass(), e);
+			}
+			else if (e instanceof NoSuchUserGroupException ||
+					 e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				setForward(actionRequest, "portlet.user_groups_admin.error");
+			}
+			else {
+				throw e;
+			}
+		}
+	}
+
+	@Override
+	public ActionForward render(
+			ActionMapping actionMapping, ActionForm actionForm,
+			PortletConfig portletConfig, RenderRequest renderRequest,
+			RenderResponse renderResponse)
+		throws Exception {
+
+		try {
+			ActionUtil.getUserGroup(renderRequest);
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchUserGroupException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(renderRequest, e.getClass());
+
+				return actionMapping.findForward(
+					"portlet.user_groups_admin.error");
+			}
+			else {
+				throw e;
+			}
+		}
+
+		return actionMapping.findForward(
+			getForward(
+				renderRequest,
+				"portlet.user_groups_admin.edit_user_group_assignments"));
+	}
+
+	protected void updateUserGroupUsers(ActionRequest actionRequest)
+		throws Exception {
+
+		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
+
+		long[] addUserIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "addUserIds"), 0L);
+		long[] removeUserIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "removeUserIds"), 0L);
+
+		UserServiceUtil.addUserGroupUsers(userGroupId, addUserIds);
+		UserServiceUtil.unsetUserGroupUsers(userGroupId, removeUserIds);
+	}
+
 }
