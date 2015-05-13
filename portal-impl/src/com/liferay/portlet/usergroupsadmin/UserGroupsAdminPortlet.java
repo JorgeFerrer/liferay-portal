@@ -97,7 +97,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 				renderRequest, "portlet.user_groups_admin.edit_user_group"));
 	}
 
-	protected void deleteUserGroups(ActionRequest actionRequest)
+	public void deleteUserGroups(ActionRequest actionRequest)
 		throws Exception {
 
 		long[] deleteUserGroupIds = StringUtil.split(
@@ -108,7 +108,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	protected void updateUserGroup(ActionRequest actionRequest)
+	public void updateUserGroup(ActionRequest actionRequest)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
