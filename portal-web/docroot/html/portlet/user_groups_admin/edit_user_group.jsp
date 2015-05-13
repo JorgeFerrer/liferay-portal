@@ -21,9 +21,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 String backURL = ParamUtil.getString(request, "backURL", redirect);
 
-UserGroup userGroup = (UserGroup)request.getAttribute(WebKeys.USER_GROUP);
+long userGroupId = ParamUtil.getLong(request, "userGroupId");
 
-long userGroupId = BeanParamUtil.getLong(userGroup, request, "userGroupId");
+UserGroup userGroup = UserGroupServiceUtil.fetchUserGroup(userGroupId);
 
 boolean hasUserGroupUpdatePermission = true;
 
