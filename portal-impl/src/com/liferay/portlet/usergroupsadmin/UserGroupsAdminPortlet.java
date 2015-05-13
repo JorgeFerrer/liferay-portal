@@ -90,7 +90,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void updateUserGroup(
+	public void editUserGroup(
 		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
@@ -141,7 +141,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void updateUserGroupUsers(ActionRequest actionRequest, ActionResponse actionResponse)
+	public void editUserGroupAssignments(ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
