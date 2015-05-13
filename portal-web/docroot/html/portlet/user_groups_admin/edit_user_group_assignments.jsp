@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.portal.service.UserGroupServiceUtil" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -24,7 +25,9 @@ int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 
 String redirect = ParamUtil.getString(request, "redirect");
 
-UserGroup userGroup = (UserGroup)request.getAttribute(WebKeys.USER_GROUP);
+long userGroupId = ParamUtil.getLong(request, "userGroupId");
+
+UserGroup userGroup = UserGroupServiceUtil.fetchUserGroup(userGroupId);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
