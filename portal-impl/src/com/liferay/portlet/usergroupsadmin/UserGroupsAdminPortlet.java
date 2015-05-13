@@ -206,7 +206,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 				"portlet.user_groups_admin.edit_user_group_assignments"));
 	}
 
-	protected void updateUserGroupUsers(ActionRequest actionRequest)
+	public void updateUserGroupUsers(ActionRequest actionRequest)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
