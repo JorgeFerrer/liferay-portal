@@ -24,9 +24,11 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.membershippolicy.MembershipPolicyException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserGroupServiceUtil;
+import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portlet.sites.util.SitesUtil;
 
 import javax.portlet.ActionRequest;
@@ -50,7 +52,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		if (SessionErrors.contains(
-			renderRequest, NoSuchUserGroupException.class.getName()) ||
+				renderRequest, NoSuchUserGroupException.class.getName()) ||
 			SessionErrors.contains(
 				renderRequest, PrincipalException.class.getName())) {
 
@@ -64,6 +66,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 	@Override
 	protected boolean isSessionErrorException(Throwable cause) {
 		if (cause instanceof DuplicateUserGroupException ||
+			cause instanceof MembershipPolicyException ||
 			cause instanceof NoSuchUserGroupException ||
 			cause instanceof PrincipalException ||
 			cause instanceof RequiredUserGroupException ||
@@ -138,75 +141,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	@Override
-	public void processAction(
-			ActionMapping actionMapping, ActionForm actionForm,
-			PortletConfig portletConfig, ActionRequest actionRequest,
-			ActionResponse actionResponse)
-		throws Exception {
-
-		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
-
-		try {
-			if (cmd.equals("user_group_users")) {
-				updateUserGroupUsers(actionRequest);
-			}
-
-			if (Validator.isNotNull(cmd)) {
-				String redirect = ParamUtil.getString(
-					actionRequest, "assignmentsRedirect");
-
-				sendRedirect(actionRequest, actionResponse, redirect);
-			}
-		}
-		catch (Exception e) {
-			if (e instanceof MembershipPolicyException) {
-				SessionErrors.add(actionRequest, e.getClass(), e);
-			}
-			else if (e instanceof NoSuchUserGroupException ||
-					 e instanceof PrincipalException) {
-
-				SessionErrors.add(actionRequest, e.getClass());
-
-				setForward(actionRequest, "portlet.user_groups_admin.error");
-			}
-			else {
-				throw e;
-			}
-		}
-	}
-
-	@Override
-	public ActionForward render(
-			ActionMapping actionMapping, ActionForm actionForm,
-			PortletConfig portletConfig, RenderRequest renderRequest,
-			RenderResponse renderResponse)
-		throws Exception {
-
-		try {
-			ActionUtil.getUserGroup(renderRequest);
-		}
-		catch (Exception e) {
-			if (e instanceof NoSuchUserGroupException ||
-				e instanceof PrincipalException) {
-
-				SessionErrors.add(renderRequest, e.getClass());
-
-				return actionMapping.findForward(
-					"portlet.user_groups_admin.error");
-			}
-			else {
-				throw e;
-			}
-		}
-
-		return actionMapping.findForward(
-			getForward(
-				renderRequest,
-				"portlet.user_groups_admin.edit_user_group_assignments"));
-	}
-
-	public void updateUserGroupUsers(ActionRequest actionRequest)
+	public void updateUserGroupUsers(ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
