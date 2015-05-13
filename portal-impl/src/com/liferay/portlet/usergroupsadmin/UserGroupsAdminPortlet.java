@@ -14,6 +14,29 @@
 
 package com.liferay.portlet.usergroupsadmin;
 
+import com.liferay.portal.DuplicateUserGroupException;
+import com.liferay.portal.NoSuchUserGroupException;
+import com.liferay.portal.RequiredUserGroupException;
+import com.liferay.portal.UserGroupNameException;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.service.UserGroupServiceUtil;
+import com.liferay.portlet.sites.util.SitesUtil;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import java.io.IOException;
+
 /**
  * @author Charles May
  * @author Drew Brokke
@@ -22,82 +45,38 @@ package com.liferay.portlet.usergroupsadmin;
 public class UserGroupsAdminPortlet extends MVCPortlet {
 
 	@Override
-	public void processAction(
-			ActionMapping actionMapping, ActionForm actionForm,
-			PortletConfig portletConfig, ActionRequest actionRequest,
-			ActionResponse actionResponse)
-		throws Exception {
+	protected void doDispatch(
+		RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
 
-		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+		if (SessionErrors.contains(
+			renderRequest, NoSuchUserGroupException.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest, PrincipalException.class.getName())) {
 
-		try {
-			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-				updateUserGroup(actionRequest);
-			}
-			else if (cmd.equals(Constants.DELETE)) {
-				deleteUserGroups(actionRequest);
-			}
-
-			sendRedirect(actionRequest, actionResponse);
+			include("/error.jsp", renderRequest, renderResponse);
 		}
-		catch (Exception e) {
-			if (e instanceof PrincipalException) {
-				SessionErrors.add(actionRequest, e.getClass());
-
-				setForward(actionRequest, "portlet.user_groups_admin.error");
-			}
-			else if (e instanceof DuplicateUserGroupException ||
-					 e instanceof NoSuchUserGroupException ||
-					 e instanceof RequiredUserGroupException ||
-					 e instanceof UserGroupNameException) {
-
-				SessionErrors.add(actionRequest, e.getClass());
-
-				if (cmd.equals(Constants.DELETE)) {
-					String redirect = PortalUtil.escapeRedirect(
-						ParamUtil.getString(actionRequest, "redirect"));
-
-					if (Validator.isNotNull(redirect)) {
-						actionResponse.sendRedirect(redirect);
-					}
-				}
-			}
-			else {
-				throw e;
-			}
+		else {
+			super.doDispatch(renderRequest, renderResponse);
 		}
 	}
 
 	@Override
-	public ActionForward render(
-			ActionMapping actionMapping, ActionForm actionForm,
-			PortletConfig portletConfig, RenderRequest renderRequest,
-			RenderResponse renderResponse)
-		throws Exception {
+	protected boolean isSessionErrorException(Throwable cause) {
+		if (cause instanceof DuplicateUserGroupException ||
+			cause instanceof NoSuchUserGroupException ||
+			cause instanceof PrincipalException ||
+			cause instanceof RequiredUserGroupException ||
+			cause instanceof UserGroupNameException) {
 
-		try {
-			ActionUtil.getUserGroup(renderRequest);
-		}
-		catch (Exception e) {
-			if (e instanceof NoSuchUserGroupException ||
-				e instanceof PrincipalException) {
-
-				SessionErrors.add(renderRequest, e.getClass());
-
-				return actionMapping.findForward(
-					"portlet.user_groups_admin.error");
-			}
-			else {
-				throw e;
-			}
+			return true;
 		}
 
-		return actionMapping.findForward(
-			getForward(
-				renderRequest, "portlet.user_groups_admin.edit_user_group"));
+		return false;
 	}
 
-	public void deleteUserGroups(ActionRequest actionRequest)
+	public void deleteUserGroups(
+		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long[] deleteUserGroupIds = StringUtil.split(
@@ -108,7 +87,8 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void updateUserGroup(ActionRequest actionRequest)
+	public void updateUserGroup(
+		ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
