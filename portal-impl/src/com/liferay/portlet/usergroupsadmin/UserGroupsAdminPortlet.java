@@ -46,40 +46,8 @@ import java.io.IOException;
 
 public class UserGroupsAdminPortlet extends MVCPortlet {
 
-	@Override
-	protected void doDispatch(
-		RenderRequest renderRequest, RenderResponse renderResponse)
-		throws IOException, PortletException {
-
-		if (SessionErrors.contains(
-				renderRequest, NoSuchUserGroupException.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
-
-			include("/error.jsp", renderRequest, renderResponse);
-		}
-		else {
-			super.doDispatch(renderRequest, renderResponse);
-		}
-	}
-
-	@Override
-	protected boolean isSessionErrorException(Throwable cause) {
-		if (cause instanceof DuplicateUserGroupException ||
-			cause instanceof MembershipPolicyException ||
-			cause instanceof NoSuchUserGroupException ||
-			cause instanceof PrincipalException ||
-			cause instanceof RequiredUserGroupException ||
-			cause instanceof UserGroupNameException) {
-
-			return true;
-		}
-
-		return false;
-	}
-
 	public void deleteUserGroups(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long[] deleteUserGroupIds = StringUtil.split(
@@ -91,7 +59,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 	}
 
 	public void editUserGroup(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
@@ -141,7 +109,8 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void editUserGroupAssignments(ActionRequest actionRequest, ActionResponse actionResponse)
+	public void editUserGroupAssignments(
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		long userGroupId = ParamUtil.getLong(actionRequest, "userGroupId");
@@ -153,6 +122,38 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 
 		UserServiceUtil.addUserGroupUsers(userGroupId, addUserIds);
 		UserServiceUtil.unsetUserGroupUsers(userGroupId, removeUserIds);
+	}
+
+	@Override
+	protected void doDispatch(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		if (SessionErrors.contains(
+				renderRequest, NoSuchUserGroupException.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest, PrincipalException.class.getName())) {
+
+			include("/error.jsp", renderRequest, renderResponse);
+		}
+		else {
+			super.doDispatch(renderRequest, renderResponse);
+		}
+	}
+
+	@Override
+	protected boolean isSessionErrorException(Throwable cause) {
+		if (cause instanceof DuplicateUserGroupException ||
+			cause instanceof MembershipPolicyException ||
+			cause instanceof NoSuchUserGroupException ||
+			cause instanceof PrincipalException ||
+			cause instanceof RequiredUserGroupException ||
+			cause instanceof UserGroupNameException) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 }
