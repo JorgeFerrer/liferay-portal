@@ -10,6 +10,7 @@
 		<dirset dir="apps/bookmarks" includes="*" />
 		<dirset dir="apps/comments" includes="*" />
 		<dirset dir="apps/configuration-admin" includes="*" />
+		<dirset dir="apps/control-panel" includes="*" />
 		<dirset dir="apps/currency-converter" includes="*" />
 		<dirset dir="apps/dictionary" includes="*" />
 		<dirset dir="apps/document-library" includes="*" />
@@ -28,6 +29,7 @@
 		<dirset dir="apps/nested-portlets" includes="*" />
 		<dirset dir="apps/network-utilities" includes="*" />
 		<dirset dir="apps/password-generator" includes="*" />
+		<dirset dir="apps/password-policies-admin" includes="*" />
 		<dirset dir="apps/polls" includes="*" />
 		<dirset dir="apps/portlet-css" includes="*" />
 		<dirset dir="apps/productivity-center" includes="*" />

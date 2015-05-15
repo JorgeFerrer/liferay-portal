@@ -18,10 +18,6 @@
 			<bean class="com.liferay.portal.events.StartupHelper" />
 		</property>
 	</bean>
-	<bean id="com.liferay.portal.cache.configurator.PortalCacheConfigurator" class="com.liferay.portal.cache.configurator.impl.PortalCacheConfiguratorImpl" />
-	<bean id="com.liferay.portal.cache.configurator.util.PortalCacheConfiguratorUtil" class="com.liferay.portal.cache.configurator.util.PortalCacheConfiguratorUtil">
-		<property name="portalCacheConfigurator" ref="com.liferay.portal.cache.configurator.PortalCacheConfigurator" />
-	</bean>
 	<bean id="com.liferay.portal.format.IdenticalPhoneNumberFormatImpl" class="com.liferay.portal.format.IdenticalPhoneNumberFormatImpl" />
 	<bean id="com.liferay.portal.kernel.audit.AuditMessageFactoryUtil" class="com.liferay.portal.kernel.audit.AuditMessageFactoryUtil">
 		<property name="auditMessageFactory">
@@ -45,12 +41,6 @@
 			<bean class="com.liferay.portal.bean.ConstantsBeanFactoryImpl" />
 		</property>
 	</bean>
-	<bean id="com.liferay.portal.kernel.cache.MultiVMPool" class="com.liferay.portal.cache.MultiVMPoolImpl">
-		<property name="portalCacheManager" ref="com.liferay.portal.kernel.cache.MultiVMPortalCacheManager" />
-	</bean>
-	<bean id="com.liferay.portal.kernel.cache.MultiVMPoolUtil" class="com.liferay.portal.kernel.cache.MultiVMPoolUtil">
-		<property name="multiVMPool" ref="com.liferay.portal.kernel.cache.MultiVMPool" />
-	</bean>
 	<bean id="com.liferay.portal.kernel.cache.MultiVMPortalCacheManager" class="com.liferay.portal.resiliency.spi.cache.SPIPortalCacheManagerConfigurator" factory-method="createSPIPortalCacheManager">
 		<constructor-arg name="portalCacheManager">
 			<bean class="com.liferay.portal.cache.ehcache.EhcachePortalCacheManager">
@@ -66,11 +56,9 @@
 			</bean>
 		</constructor-arg>
 	</bean>
-	<bean id="com.liferay.portal.kernel.cache.SingleVMPool" class="com.liferay.portal.cache.SingleVMPoolImpl">
-		<property name="portalCacheManager" ref="com.liferay.portal.kernel.cache.SingleVMPortalCacheManager" />
-	</bean>
-	<bean id="com.liferay.portal.kernel.cache.SingleVMPoolUtil" class="com.liferay.portal.kernel.cache.SingleVMPoolUtil">
-		<property name="singleVMPool" ref="com.liferay.portal.kernel.cache.SingleVMPool" />
+	<bean id="com.liferay.portal.kernel.cache.MultiVMPool" class="com.liferay.portal.cache.MultiVMPoolImpl" />
+	<bean id="com.liferay.portal.kernel.cache.MultiVMPoolUtil" class="com.liferay.portal.kernel.cache.MultiVMPoolUtil">
+		<property name="multiVMPool" ref="com.liferay.portal.kernel.cache.MultiVMPool" />
 	</bean>
 	<bean id="com.liferay.portal.kernel.cache.SingleVMPortalCacheManager" class="com.liferay.portal.cache.ehcache.EhcachePortalCacheManager">
 		<property name="configFile">
@@ -80,6 +68,10 @@
 		<property name="name">
 			<util:constant static-field="com.liferay.portal.kernel.cache.PortalCacheManagerNames.SINGLE_VM" />
 		</property>
+	</bean>
+	<bean id="com.liferay.portal.kernel.cache.SingleVMPool" class="com.liferay.portal.cache.SingleVMPoolImpl" />
+	<bean id="com.liferay.portal.kernel.cache.SingleVMPoolUtil" class="com.liferay.portal.kernel.cache.SingleVMPoolUtil">
+		<property name="singleVMPool" ref="com.liferay.portal.kernel.cache.SingleVMPool" />
 	</bean>
 	<bean id="com.liferay.portal.kernel.cache.key.CacheKeyGeneratorUtil" class="com.liferay.portal.kernel.cache.key.CacheKeyGeneratorUtil">
 		<property name="cacheKeyGenerators">
@@ -280,28 +272,6 @@
 	<bean id="com.liferay.portal.kernel.sanitizer.SanitizerUtil" class="com.liferay.portal.kernel.sanitizer.SanitizerUtil">
 		<property name="sanitizer">
 			<bean class="com.liferay.portal.sanitizer.SanitizerImpl" />
-		</property>
-	</bean>
-	<bean id="com.liferay.portal.kernel.scripting.ScriptingUtil" class="com.liferay.portal.kernel.scripting.ScriptingUtil">
-		<property name="scripting">
-			<bean class="com.liferay.portal.scripting.ScriptingImpl">
-				<property name="scriptingExecutors">
-					<map>
-						<entry key="beanshell">
-							<bean class="com.liferay.portal.scripting.beanshell.BeanShellExecutor" />
-						</entry>
-						<entry key="javascript">
-							<bean class="com.liferay.portal.scripting.javascript.JavaScriptExecutor" />
-						</entry>
-						<entry key="python">
-							<bean class="com.liferay.portal.scripting.python.PythonExecutor" />
-						</entry>
-						<entry key="ruby">
-							<bean class="com.liferay.portal.scripting.ruby.RubyExecutor" depends-on="com.liferay.portal.kernel.util.FileUtil" />
-						</entry>
-					</map>
-				</property>
-			</bean>
 		</property>
 	</bean>
 	<bean id="com.liferay.portal.kernel.servlet.BrowserSnifferUtil" class="com.liferay.portal.kernel.servlet.BrowserSnifferUtil">
@@ -571,6 +541,7 @@
 		<constructor-arg name="portletContainer" ref="com.liferay.portlet.PortletContainerImpl" />
 	</bean>
 	<bean id="com.liferay.portal.sanitizer.DummySanitizerImpl" class="com.liferay.portal.sanitizer.DummySanitizerImpl" />
+	<bean id="com.liferay.portal.scripting.ruby.RubyExecutor" class="com.liferay.portal.scripting.ruby.RubyExecutor" depends-on="com.liferay.portal.kernel.util.FileUtil" />
 	<bean id="com.liferay.portal.security.ac.AccessControlUtil" class="com.liferay.portal.security.ac.AccessControlUtil">
 		<property name="accessControl">
 			<bean class="com.liferay.portal.security.ac.AccessControlImpl" />
@@ -609,6 +580,8 @@
 	</bean>
 	<bean id="com.liferay.portal.security.auth.LiberalEmailAddressValidator" class="com.liferay.portal.security.auth.LiberalEmailAddressValidator" />
 	<bean id="com.liferay.portal.security.auth.LiberalScreenNameValidator" class="com.liferay.portal.security.auth.LiberalScreenNameValidator" />
+	<bean id="com.liferay.portal.security.auth.LoginFailure" class="com.liferay.portal.security.auth.LoginFailure" />
+	<bean id="com.liferay.portal.security.auth.LoginMaxFailures" class="com.liferay.portal.security.auth.LoginMaxFailures" />
 	<bean id="com.liferay.portal.security.auth.ParameterAutoLogin" class="com.liferay.portal.security.auth.ParameterAutoLogin" />
 	<bean id="com.liferay.portal.security.auth.PortalSessionAuthVerifier" class="com.liferay.portal.security.auth.PortalSessionAuthVerifier" />
 	<bean id="com.liferay.portal.security.auth.RememberMeAutoLogin" class="com.liferay.portal.security.auth.RememberMeAutoLogin" />
@@ -1183,10 +1156,7 @@
 			<bean class="com.liferay.portlet.mobiledevicerules.service.permission.MDRRuleGroupInstancePermissionImpl" />
 		</property>
 	</bean>
-	<bean id="com.liferay.portlet.passwordpoliciesadmin.util.PasswordPoliciesAdmin" class="com.liferay.portlet.passwordpoliciesadmin.util.PasswordPoliciesAdminImpl" />
-	<bean id="com.liferay.portlet.passwordpoliciesadmin.util.PasswordPoliciesAdminUtil" class="com.liferay.portlet.passwordpoliciesadmin.util.PasswordPoliciesAdminUtil">
-		<property name="passwordPoliciesAdmin" ref="com.liferay.portlet.passwordpoliciesadmin.util.PasswordPoliciesAdmin" />
-	</bean>
+	<bean id="com.liferay.portlet.passwordpoliciesadmin.lar.PasswordPolicyStagedModelDataHandler" class="com.liferay.portlet.passwordpoliciesadmin.lar.PasswordPolicyStagedModelDataHandler" />
 	<bean id="com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplate" class="com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplateImpl" />
 	<bean id="com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplateUtil" class="com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplateUtil">
 		<property name="portletDisplayTemplate" ref="com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplate" />

@@ -16,6 +16,7 @@ package com.liferay.poshi.runner;
 
 import com.liferay.poshi.runner.logger.CommandLoggerHandler;
 import com.liferay.poshi.runner.logger.SummaryLoggerHandler;
+import com.liferay.poshi.runner.logger.XMLLoggerHandler;
 import com.liferay.poshi.runner.selenium.LiferaySelenium;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
 import com.liferay.poshi.runner.util.GetterUtil;
@@ -170,7 +171,7 @@ public class PoshiRunnerExecutor {
 				runTaskElement(childElement);
 			}
 			else if (childElementName.equals("var")) {
-				runVarElement(childElement, true);
+				runVarElement(childElement, true, true);
 			}
 			else if (childElementName.equals("while")) {
 				runWhileElement(childElement);
@@ -181,6 +182,8 @@ public class PoshiRunnerExecutor {
 	public static void runEchoElement(Element element) throws Exception {
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
 
+		XMLLoggerHandler.updateStatus(element, "pending");
+
 		String message = element.attributeValue("message");
 
 		if (message == null) {
@@ -189,10 +192,14 @@ public class PoshiRunnerExecutor {
 
 		System.out.println(
 			PoshiRunnerVariablesUtil.replaceCommandVars(message));
+
+		XMLLoggerHandler.updateStatus(element, "pass");
 	}
 
 	public static void runFailElement(Element element) throws Exception {
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
+
+		XMLLoggerHandler.updateStatus(element, "pending");
 
 		String message = element.attributeValue("message");
 
@@ -207,6 +214,8 @@ public class PoshiRunnerExecutor {
 	public static void runForElement(Element element) throws Exception {
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
 
+		XMLLoggerHandler.updateStatus(element, "pending");
+
 		String list = PoshiRunnerVariablesUtil.replaceCommandVars(
 			element.attributeValue("list"));
 
@@ -220,6 +229,8 @@ public class PoshiRunnerExecutor {
 
 			parseElement(element);
 		}
+
+		XMLLoggerHandler.updateStatus(element, "pass");
 	}
 
 	public static void runFunctionCommandElement(
@@ -243,7 +254,7 @@ public class PoshiRunnerExecutor {
 		List<Element> executeVarElements = executeElement.elements("var");
 
 		for (Element executeVarElement : executeVarElements) {
-			runVarElement(executeVarElement, false);
+			runVarElement(executeVarElement, false, false);
 		}
 
 		String classCommandName = executeElement.attributeValue("function");
@@ -403,21 +414,21 @@ public class PoshiRunnerExecutor {
 			PoshiRunnerGetterUtil.getClassNameFromClassCommandName(
 				classCommandName);
 
+		PoshiRunnerStackTraceUtil.pushStackTrace(executeElement);
+
 		Element rootElement = PoshiRunnerContext.getMacroRootElement(className);
 
 		List<Element> rootVarElements = rootElement.elements("var");
 
 		for (Element rootVarElement : rootVarElements) {
-			runVarElement(rootVarElement, false);
+			runVarElement(rootVarElement, false, true);
 		}
 
 		List<Element> executeVarElements = executeElement.elements("var");
 
 		for (Element executeVarElement : executeVarElements) {
-			runVarElement(executeVarElement, false);
+			runVarElement(executeVarElement, false, false);
 		}
-
-		PoshiRunnerStackTraceUtil.pushStackTrace(executeElement);
 
 		SummaryLoggerHandler.startSummary(executeElement);
 
@@ -521,6 +532,8 @@ public class PoshiRunnerExecutor {
 	public static void runTaskElement(Element element) throws Exception {
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
 
+		XMLLoggerHandler.updateStatus(element, "pending");
+
 		try {
 			SummaryLoggerHandler.startSummary(element);
 
@@ -533,12 +546,19 @@ public class PoshiRunnerExecutor {
 		}
 
 		SummaryLoggerHandler.passSummary(element);
+
+		XMLLoggerHandler.updateStatus(element, "pass");
 	}
 
-	public static void runVarElement(Element element, boolean commandVar)
+	public static void runVarElement(
+			Element element, boolean commandVar, boolean updateLoggerStatus)
 		throws Exception {
 
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
+
+		if (updateLoggerStatus) {
+			XMLLoggerHandler.updateStatus(element, "pending");
+		}
 
 		String varName = element.attributeValue("name");
 		String varValue = element.attributeValue("value");
@@ -611,6 +631,10 @@ public class PoshiRunnerExecutor {
 		Matcher matcher = _variablePattern.matcher(replacedVarValue);
 
 		if (matcher.matches() && replacedVarValue.equals(varValue)) {
+			if (updateLoggerStatus) {
+				XMLLoggerHandler.updateStatus(element, "pass");
+			}
+
 			return;
 		}
 
@@ -621,6 +645,10 @@ public class PoshiRunnerExecutor {
 		else {
 			PoshiRunnerVariablesUtil.putIntoExecuteMap(
 				varName, replacedVarValue);
+		}
+
+		if (updateLoggerStatus) {
+			XMLLoggerHandler.updateStatus(element, "pass");
 		}
 	}
 

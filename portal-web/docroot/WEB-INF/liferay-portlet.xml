@@ -556,14 +556,12 @@
 	<portlet>
 		<portlet-name>127</portlet-name>
 		<icon>/html/icons/user_groups_admin.png</icon>
-		<struts-path>user_groups_admin</struts-path>
-		<portlet-url-class>com.liferay.portal.struts.StrutsActionPortletURL</portlet-url-class>
 		<portlet-data-handler-class>com.liferay.portlet.usergroupsadmin.lar.UserGroupsAdminPortletDataHandler</portlet-data-handler-class>
 		<staged-model-data-handler-class>com.liferay.portlet.usergroupsadmin.lar.UserGroupStagedModelDataHandler</staged-model-data-handler-class>
 		<control-panel-entry-category>users</control-panel-entry-category>
 		<control-panel-entry-weight>2.0</control-panel-entry-weight>
 		<custom-attributes-display>com.liferay.portlet.usergroupsadmin.UserGroupCustomAttributesDisplay</custom-attributes-display>
-		<use-default-template>false</use-default-template>
+		<use-default-template>true</use-default-template>
 		<private-request-attributes>false</private-request-attributes>
 		<private-session-attributes>false</private-session-attributes>
 		<render-weight>50</render-weight>
@@ -587,21 +585,6 @@
 		<render-weight>50</render-weight>
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/html/portlet/users_admin/js/main.js</footer-portlet-javascript>
-		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
-	</portlet>
-	<portlet>
-		<portlet-name>129</portlet-name>
-		<icon>/html/icons/password_policies_admin.png</icon>
-		<portlet-data-handler-class>com.liferay.portlet.passwordpoliciesadmin.lar.PasswordPolicyPortletDataHandler</portlet-data-handler-class>
-		<staged-model-data-handler-class>com.liferay.portlet.passwordpoliciesadmin.lar.PasswordPolicyStagedModelDataHandler</staged-model-data-handler-class>
-		<control-panel-entry-category>users</control-panel-entry-category>
-		<control-panel-entry-weight>4.0</control-panel-entry-weight>
-		<preferences-owned-by-group>true</preferences-owned-by-group>
-		<use-default-template>true</use-default-template>
-		<private-request-attributes>false</private-request-attributes>
-		<private-session-attributes>false</private-session-attributes>
-		<render-weight>50</render-weight>
-		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-users-admin</css-class-wrapper>
 	</portlet>
 	<portlet>
@@ -856,19 +839,6 @@
 		<header-portlet-css>/html/portlet/users_admin/css/main.css</header-portlet-css>
 		<header-portlet-css>/html/portlet/workflow_definitions/css/main.css</header-portlet-css>
 		<css-class-wrapper>portlet-workflow-instances</css-class-wrapper>
-	</portlet>
-	<portlet>
-		<portlet-name>160</portlet-name>
-		<icon>/html/icons/default.png</icon>
-		<struts-path>control_panel_menu</struts-path>
-		<use-default-template>false</use-default-template>
-		<show-portlet-access-denied>false</show-portlet-access-denied>
-		<show-portlet-inactive>false</show-portlet-inactive>
-		<private-request-attributes>false</private-request-attributes>
-		<private-session-attributes>false</private-session-attributes>
-		<render-weight>50</render-weight>
-		<add-default-resource>true</add-default-resource>
-		<system>true</system>
 	</portlet>
 	<portlet>
 		<portlet-name>161</portlet-name>

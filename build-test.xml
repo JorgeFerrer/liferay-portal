@@ -40,7 +40,6 @@
 			<if>
 				<not>
 					<or>
-						<equals arg1="${app.server.type}" arg2="geronimo" />
 						<equals arg1="${app.server.type}" arg2="glassfish" />
 						<equals arg1="${app.server.type}" arg2="jboss" />
 						<equals arg1="${app.server.type}" arg2="jetty" />
@@ -53,7 +52,7 @@
 					</or>
 				</not>
 				<then>
-					<fail>Please set "app.server.type" to one of the following:${line.separator}geronimo, glassfish, jboss, jetty, jonas, resin, tcserver, tomcat, weblogic, or websphere.</fail>
+					<fail>Please set "app.server.type" to one of the following:${line.separator}, glassfish, jboss, jetty, jonas, resin, tcserver, tomcat, weblogic, or websphere.</fail>
 				</then>
 			</if>
 
@@ -3361,6 +3360,10 @@ auto.deploy.dest.dir=C:/WINDOWS/system32/config/systemprofile/liferay/websphere-
 			<equals arg1="${setup.wizard.enabled}" arg2="true" />
 			<then>
 				<replace file="portal-impl/src/portal-ext.properties" token="setup.wizard.enabled=false" value="" />
+
+				<echo append="true" file="portal-impl/src/portal-ext.properties">
+
+include-and-override=${liferay.home}/portal-setup-wizard.properties</echo>
 			</then>
 		</if>
 
@@ -3474,15 +3477,6 @@ module.framework.properties.osgi.console=11312</echo>
 			<then>
 				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
 					mobile.android.home=${mobile.android.home}
-				</echo>
-			</then>
-		</if>
-
-		<if>
-			<isset property="ignore.errors.delimiter" />
-			<then>
-				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
-					ignore.errors.delimiter=${ignore.errors.delimiter}
 				</echo>
 			</then>
 		</if>
@@ -4086,6 +4080,17 @@ module.framework.properties.osgi.console=11312</echo>
 			</then>
 		</if>
 
+		<get-testcase-property property.name="ignore.errors.delimiter" />
+
+		<if>
+			<isset property="ignore.errors.delimiter" />
+			<then>
+				<echo file="portal-web/test/test-portal-web-ext.properties" append="true">
+					ignore.errors.delimiter=${ignore.errors.delimiter}
+				</echo>
+			</then>
+		</if>
+
 		<get-testcase-property property.name="mobile.device.enabled" />
 
 		<if>
@@ -4156,23 +4161,6 @@ app.server.tomcat.dir=${app.server.parent.dir}/tomcat-7.0.27</echo>
 		<antcall target="record-git-commit-portal" inheritAll="false" />
 
 		<antcall target="compile" inheritAll="false" />
-
-		<if>
-			<matches pattern="http" string="${test.build.bundle.geronimo.zip.url}" />
-			<then>
-				<antcall target="prepare-test-bundle">
-					<param name="app.server.type" value="geronimo" />
-					<param name="test.app.server.bin.dir" value="${app.server.geronimo.bin.dir}" />
-					<param name="test.build.bundle.zip.url" value="${test.build.bundle.geronimo.zip.url}" />
-				</antcall>
-			</then>
-			<elseif>
-				<equals arg1="${test.build.bundle.geronimo}" arg2="true" />
-				<then>
-					<ant antfile="build-dist.xml" target="build-dist-geronimo" inheritAll="false" />
-				</then>
-			</elseif>
-		</if>
 
 		<if>
 			<matches pattern="http" string="${test.build.bundle.glassfish.zip.url}" />

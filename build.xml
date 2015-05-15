@@ -70,18 +70,6 @@
 		<antcall target="deploy" />
 	</target>
 
-	<target name="build-registry-api" depends="setup-sdk">
-		<ant-execute
-			ant.dir="${project.dir}/modules"
-			ant.target="clean"
-		/>
-
-		<ant-execute
-			ant.dir="${project.dir}/modules/core/registry-api"
-			ant.target="compile"
-		/>
-	</target>
-
 	<target name="check-sdk-uptodate">
 		<uptodate property="sdk.uptodate">
 			<mapper to="${project.dir}/tools/sdk" type="merge" />
@@ -109,7 +97,16 @@
 
 			<ant dir="sql" target="clean" inheritAll="false" />
 
-			<delete dir="tools/sdk" />
+			<sequential>
+				<delete dir="tools/sdk" />
+
+				<antcall target="setup-sdk" />
+
+				<ant-execute
+					ant.dir="${project.dir}/modules"
+					ant.target="clean"
+				/>
+			</sequential>
 
 			<delete dir="${doc.dir}" />
 
@@ -139,30 +136,9 @@
 			<delete dir="test-results" />
 
 			<if>
-				<equals arg1="${app.server.type}" arg2="resin" />
+				<available file="support-${app.server.type}" />
 				<then>
-					<ant dir="support-resin" target="clean" inheritAll="false" />
-				</then>
-			</if>
-
-			<if>
-				<equals arg1="${app.server.type}" arg2="tomcat" />
-				<then>
-					<delete failonerror="false">
-						<fileset
-							dir="${app.server.dir}/conf/Catalina/localhost"
-							includes="*-hook.xml,*-portlet.xml"
-						/>
-					</delete>
-
-					<ant dir="support-tomcat" target="clean" inheritAll="false" />
-				</then>
-			</if>
-
-			<if>
-				<equals arg1="${app.server.type}" arg2="websphere" />
-				<then>
-					<ant dir="support-websphere" target="clean" inheritAll="false" />
+					<ant dir="support-${app.server.type}" target="clean" inheritAll="false" />
 				</then>
 			</if>
 
@@ -235,22 +211,23 @@
 		<antcall target="print-current-time" />
 	</target>
 
-	<target name="compile" depends="build-registry-api">
+	<target name="compile" depends="setup-sdk">
 		<delete file="javac.output.txt" />
+
+		<ant dir="modules/core/registry-api" target="compile" inheritAll="false" />
 
 		<ant dir="portal-service" target="compile" inheritAll="false" />
 
 		<parallel failonany="true" threadcount="${parallel.thread.count}">
+			<ant dir="portal-test" target="compile" inheritAll="false" />
 			<ant dir="util-bridges" target="compile" inheritAll="false" />
 			<ant dir="util-java" target="compile" inheritAll="false" />
 			<ant dir="util-slf4j" target="compile" inheritAll="false" />
 		</parallel>
 
-		<ant dir="util-taglib" target="compile" inheritAll="false" />
-
 		<parallel failonany="true" threadcount="${parallel.thread.count}">
 			<ant dir="portal-impl" target="compile" inheritAll="false" />
-			<ant dir="portal-test" target="compile" inheritAll="false" />
+			<ant dir="util-taglib" target="compile" inheritAll="false" />
 		</parallel>
 
 		<parallel failonany="true" threadcount="${parallel.thread.count}">
@@ -400,32 +377,6 @@
 		<copy todir="${app.server.lib.portal.dir}">
 			<fileset dir="lib/portal" />
 		</copy>
-
-		<if>
-			<and>
-				<equals arg1="${app.server.type}" arg2="geronimo" />
-				<equals arg1="${app.server.geronimo.version}" arg2="2.2.1" />
-				<not>
-					<available file="${app.server.geronimo.dir}/repository/org/apache/geronimo/specs/geronimo-el_2.2_spec/1.0.3/geronimo-el_2.2_spec-1.0.3.jar" />
-				</not>
-			</and>
-			<then>
-				<mkdir dir="${app.server.geronimo.dir}/repository/org/apache/geronimo/specs/geronimo-el_2.2_spec/1.0.3" />
-
-				<mirrors-get
-					dest="${app.server.geronimo.dir}/repository/org/apache/geronimo/specs/geronimo-el_2.2_spec/1.0.3/geronimo-el_2.2_spec-1.0.3.jar"
-					src="http://repo1.maven.org/maven2/org/apache/geronimo/specs/geronimo-el_2.2_spec/1.0.3/geronimo-el_2.2_spec-1.0.3.jar"
-					verbose="true"
-				/>
-
-				<concat
-					append="true"
-					destfile="${app.server.geronimo.dir}/var/config/artifact_aliases.properties"
-				>
-					org.apache.geronimo.specs/geronimo-el_1.0_spec/1.0.2/jar=org.apache.geronimo.specs/geronimo-el_2.2_spec/1.0.3/jar
-				</concat>
-			</then>
-		</if>
 
 		<if>
 			<equals arg1="${app.server.type}" arg2="glassfish" />
@@ -916,7 +867,7 @@
 			casesensitive="false"
 			delimiter=","
 			distinct="true"
-			match="app\.(server\.(geronimo|glassfish|jboss|jetty|jonas|resin|tcat|tcserver|tomcat|weblogic|websphere).+)\.dir"
+			match="app\.(server\.(glassfish|jboss|jetty|jonas|resin|tcat|tcserver|tomcat|weblogic|websphere).+)\.dir"
 			override="true"
 			property="app.server.dir.property.list"
 			select="\1"

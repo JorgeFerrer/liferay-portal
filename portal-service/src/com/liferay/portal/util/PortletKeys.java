@@ -47,8 +47,6 @@ public class PortletKeys {
 
 	public static final String CONTROL_PANEL_HOME = "190";
 
-	public static final String CONTROL_PANEL_MENU = "160";
-
 	public static final String DIRECTORY = "11";
 
 	public static final String DOCKBAR = "145";
@@ -124,8 +122,6 @@ public class PortletKeys {
 	public static final String PAGE_COMMENTS = "107";
 
 	public static final String PAGE_RATINGS = "108";
-
-	public static final String PASSWORD_POLICIES_ADMIN = "129";
 
 	public static final String PLUGINS_ADMIN = "132";
 

@@ -693,14 +693,14 @@
 	<portlet>
 		<portlet-name>127</portlet-name>
 		<display-name>User Groups Admin</display-name>
-		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
+		<portlet-class>com.liferay.portlet.usergroupsadmin.UserGroupsAdminPortlet</portlet-class>
 		<init-param>
 			<name>template-path</name>
 			<value>/html/portlet/user_groups_admin/</value>
 		</init-param>
 		<init-param>
-			<name>view-action</name>
-			<value>/user_groups_admin/view</value>
+			<name>view-template</name>
+			<value>/html/portlet/user_groups_admin/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -722,27 +722,6 @@
 		<init-param>
 			<name>view-action</name>
 			<value>/roles_admin/view</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-	</portlet>
-	<portlet>
-		<portlet-name>129</portlet-name>
-		<display-name>Password Policies Admin</display-name>
-		<portlet-class>com.liferay.portlet.passwordpoliciesadmin.PasswordPoliciesAdminPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/password_policies_admin/</value>
-		</init-param>
-		<init-param>
-			<name>view-template</name>
-			<value>/html/portlet/password_policies_admin/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -1100,24 +1079,6 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-	</portlet>
-	<portlet>
-		<portlet-name>160</portlet-name>
-		<display-name>Control Panel Menu</display-name>
-		<portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
-		<init-param>
-			<name>template-path</name>
-			<value>/html/portlet/control_panel_menu/</value>
-		</init-param>
-		<init-param>
-			<name>view-action</name>
-			<value>/control_panel_menu/view</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
 	</portlet>
 	<portlet>
 		<portlet-name>161</portlet-name>

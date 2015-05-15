@@ -27,9 +27,9 @@ import com.liferay.portal.kernel.repository.model.FileShortcut;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.taglib.ui.DeleteMenuItem;
-import com.liferay.portal.kernel.servlet.taglib.ui.JavascriptMenuItem;
-import com.liferay.portal.kernel.servlet.taglib.ui.JavascriptToolbarItem;
-import com.liferay.portal.kernel.servlet.taglib.ui.JavascriptUIItem;
+import com.liferay.portal.kernel.servlet.taglib.ui.JavaScriptMenuItem;
+import com.liferay.portal.kernel.servlet.taglib.ui.JavaScriptToolbarItem;
+import com.liferay.portal.kernel.servlet.taglib.ui.JavaScriptUIItem;
 import com.liferay.portal.kernel.servlet.taglib.ui.MenuItem;
 import com.liferay.portal.kernel.servlet.taglib.ui.ToolbarItem;
 import com.liferay.portal.kernel.servlet.taglib.ui.URLMenuItem;
@@ -112,11 +112,11 @@ public class UIItemsBuilder {
 			return;
 		}
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-undo",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-undo",
 			DLUIItemKeys.CANCEL_CHECKOUT,
 			UnicodeLanguageUtil.get(_request, "cancel-checkout[document]"),
-			getSubmitFormJavascript(Constants.CANCEL_CHECKOUT, null));
+			getSubmitFormJavaScript(Constants.CANCEL_CHECKOUT, null));
 	}
 
 	public void addCheckinMenuItem(List<MenuItem> menuItems)
@@ -140,10 +140,10 @@ public class UIItemsBuilder {
 			return;
 		}
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-lock",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-lock",
 			DLUIItemKeys.CHECKIN, UnicodeLanguageUtil.get(_request, "checkin"),
-			getSubmitFormJavascript(Constants.CHECKIN, null));
+			getSubmitFormJavaScript(Constants.CHECKIN, null));
 	}
 
 	public void addCheckoutMenuItem(List<MenuItem> menuItems)
@@ -171,11 +171,11 @@ public class UIItemsBuilder {
 			return;
 		}
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-unlock",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-unlock",
 			DLUIItemKeys.CHECKOUT,
 			UnicodeLanguageUtil.get(_request, "checkout[document]"),
-			getSubmitFormJavascript(Constants.CHECKOUT, null));
+			getSubmitFormJavaScript(Constants.CHECKOUT, null));
 	}
 
 	public void addDeleteMenuItem(List<MenuItem> menuItems)
@@ -229,11 +229,11 @@ public class UIItemsBuilder {
 				_request, "are-you-sure-you-want-to-delete-this"));
 		sb.append("')) {");
 		sb.append(
-			getSubmitFormJavascript(Constants.DELETE, portletURL.toString()));
+			getSubmitFormJavaScript(Constants.DELETE, portletURL.toString()));
 		sb.append("}");
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-remove",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-remove",
 			DLUIItemKeys.DELETE, UnicodeLanguageUtil.get(_request, "delete"),
 			sb.toString());
 	}
@@ -370,11 +370,11 @@ public class UIItemsBuilder {
 		portletURL.setParameter(
 			"folderId", String.valueOf(_fileEntry.getFolderId()));
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-trash",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-trash",
 			DLUIItemKeys.MOVE_TO_THE_RECYCLE_BIN,
 			UnicodeLanguageUtil.get(_request, "move-to-the-recycle-bin"),
-			getSubmitFormJavascript(
+			getSubmitFormJavaScript(
 				Constants.MOVE_TO_TRASH, portletURL.toString()));
 	}
 
@@ -393,8 +393,8 @@ public class UIItemsBuilder {
 
 		String onClick = getNamespace() + "openDocument('" + webDavURL + "');";
 
-		JavascriptMenuItem javascriptMenuItem = _addJavascriptUIItem(
-			new JavascriptMenuItem(), menuItems, "icon-file-alt",
+		JavaScriptMenuItem javascriptMenuItem = _addJavaScriptUIItem(
+			new JavaScriptMenuItem(), menuItems, "icon-file-alt",
 			DLUIItemKeys.OPEN_IN_MS_OFFICE, "open-in-ms-office", onClick);
 
 		String javaScript =
@@ -420,7 +420,7 @@ public class UIItemsBuilder {
 
 		template.processTemplate(unsyncStringWriter);
 
-		javascriptMenuItem.setJavascript(unsyncStringWriter.toString());
+		javascriptMenuItem.setJavaScript(unsyncStringWriter.toString());
 	}
 
 	public void addOpenInMsOfficeToolbarItem(List<ToolbarItem> toolbarItems)
@@ -442,8 +442,8 @@ public class UIItemsBuilder {
 		sb.append(webDavURL);
 		sb.append("');");
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-file-alt",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-file-alt",
 			DLUIItemKeys.OPEN_IN_MS_OFFICE,
 			UnicodeLanguageUtil.get(_request, "open-in-ms-office"),
 			sb.toString());
@@ -507,8 +507,8 @@ public class UIItemsBuilder {
 		sb.append(permissionsURL);
 		sb.append("'});");
 
-		_addJavascriptUIItem(
-			new JavascriptToolbarItem(), toolbarItems, "icon-lock",
+		_addJavaScriptUIItem(
+			new JavaScriptToolbarItem(), toolbarItems, "icon-lock",
 			DLUIItemKeys.PERMISSIONS,
 			UnicodeLanguageUtil.get(_request, "permissions"), sb.toString());
 	}
@@ -538,7 +538,7 @@ public class UIItemsBuilder {
 		return liferayPortletResponse.getNamespace();
 	}
 
-	protected String getSubmitFormJavascript(String cmd, String redirect) {
+	protected String getSubmitFormJavaScript(String cmd, String redirect) {
 		StringBundler sb = new StringBundler(18);
 
 		sb.append("document.");
@@ -633,7 +633,7 @@ public class UIItemsBuilder {
 		}
 	}
 
-	private <T extends JavascriptUIItem> T _addJavascriptUIItem(
+	private <T extends JavaScriptUIItem> T _addJavaScriptUIItem(
 		T javascriptUIItem, List<? super T> javascriptUIItems, String icon,
 		String key, String label, String onClick ) {
 

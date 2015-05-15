@@ -20,6 +20,11 @@ import com.liferay.portal.kernel.repository.Repository;
 import com.liferay.portal.kernel.repository.capabilities.TrashCapability;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.util.RepositoryTrashUtil;
+import com.liferay.portal.kernel.search.BooleanQuery;
+import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Query;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.trash.TrashActionKeys;
 import com.liferay.portal.kernel.trash.TrashHandler;
 import com.liferay.portal.kernel.trash.TrashHandlerRegistryUtil;
@@ -93,6 +98,18 @@ public class DLFileEntryTrashHandler extends DLBaseTrashHandler {
 	@Override
 	public String getClassName() {
 		return DLFileEntry.class.getName();
+	}
+
+	@Override
+	public Query getExcludeQuery(SearchContext searchContext) {
+		BooleanQuery excludeQuery = BooleanQueryFactoryUtil.create(
+			searchContext);
+
+		excludeQuery.addRequiredTerm(
+			Field.ENTRY_CLASS_NAME, DLFileEntryConstants.getClassName());
+		excludeQuery.addRequiredTerm(Field.HIDDEN, true);
+
+		return excludeQuery;
 	}
 
 	@Override

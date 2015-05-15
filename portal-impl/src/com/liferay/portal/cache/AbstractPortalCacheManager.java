@@ -25,17 +25,33 @@ import com.liferay.portal.kernel.cache.CallbackFactory;
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.PortalCacheException;
 import com.liferay.portal.kernel.cache.PortalCacheManager;
-import com.liferay.portal.kernel.cache.PortalCacheProvider;
 import com.liferay.portal.kernel.cache.configuration.CallbackConfiguration;
 import com.liferay.portal.kernel.cache.configuration.PortalCacheConfiguration;
 import com.liferay.portal.kernel.cache.configuration.PortalCacheManagerConfiguration;
+import com.liferay.portal.kernel.cache.configurator.PortalCacheConfiguratorSettings;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPIUtil;
+import com.liferay.portal.kernel.util.AggregateClassLoader;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.ClassLoaderUtil;
 import com.liferay.portal.util.PropsValues;
+import com.liferay.registry.Filter;
+import com.liferay.registry.Registry;
+import com.liferay.registry.RegistryUtil;
+import com.liferay.registry.ServiceReference;
+import com.liferay.registry.ServiceRegistrar;
+import com.liferay.registry.ServiceTracker;
+import com.liferay.registry.ServiceTrackerCustomizer;
 
 import java.io.Serializable;
 
+import java.net.URL;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,37 +64,7 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 	implements PortalCacheManager<K, V> {
 
 	public void afterPropertiesSet() {
-		if ((_portalCacheManagerConfiguration != null) ||
-			(_mpiOnly && SPIUtil.isSPI())) {
-
-			return;
-		}
-
-		if (name == null) {
-			throw new NullPointerException("Name is null");
-		}
-
-		initPortalCacheManager();
-
-		_portalCacheManagerConfiguration = getPortalCacheManagerConfiguration();
-
-		for (CallbackConfiguration callbackConfiguration :
-				_portalCacheManagerConfiguration.
-					getCacheManagerListenerConfigurations()) {
-
-			CallbackFactory callbackFactory =
-				callbackConfiguration.getCallbackFactory();
-
-			CacheManagerListener cacheManagerListener =
-				callbackFactory.createCacheManagerListener(
-					callbackConfiguration.getProperties());
-
-			if (cacheManagerListener != null) {
-				registerCacheManagerListener(cacheManagerListener);
-			}
-		}
-
-		PortalCacheProvider.registerPortalCacheManager(this);
+		initialize();
 	}
 
 	@Override
@@ -88,7 +74,13 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 
 	@Override
 	public void destroy() {
-		PortalCacheProvider.unregisterPortalCacheManager(getName());
+		if (_serviceRegistrar != null) {
+			_serviceRegistrar.destroy();
+		}
+
+		if (_serviceTracker != null) {
+			_serviceTracker.close();
+		}
 
 		portalCaches.clear();
 
@@ -170,12 +162,12 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 
 	@Override
 	public String getName() {
-		return name;
+		return _name;
 	}
 
 	@Override
 	public boolean isClusterAware() {
-		return clusterAware;
+		return _clusterAware;
 	}
 
 	@Override
@@ -194,7 +186,7 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 	}
 
 	public void setClusterAware(boolean clusterAware) {
-		this.clusterAware = clusterAware;
+		this._clusterAware = clusterAware;
 	}
 
 	public void setMpiOnly(boolean mpiOnly) {
@@ -202,7 +194,7 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		_name = name;
 	}
 
 	@Override
@@ -228,6 +220,72 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 
 	protected abstract PortalCacheManagerConfiguration
 		getPortalCacheManagerConfiguration();
+
+	protected abstract String getType();
+
+	protected void initialize() {
+		if ((_portalCacheManagerConfiguration != null) ||
+			(_mpiOnly && SPIUtil.isSPI())) {
+
+			return;
+		}
+
+		if (Validator.isNull(_name)) {
+			throw new IllegalArgumentException(
+				"Portal cache manager name is not specified");
+		}
+
+		initPortalCacheManager();
+
+		_portalCacheManagerConfiguration = getPortalCacheManagerConfiguration();
+
+		for (CallbackConfiguration callbackConfiguration :
+				_portalCacheManagerConfiguration.
+					getCacheManagerListenerConfigurations()) {
+
+			CallbackFactory callbackFactory =
+				callbackConfiguration.getCallbackFactory();
+
+			CacheManagerListener cacheManagerListener =
+				callbackFactory.createCacheManagerListener(
+					callbackConfiguration.getProperties());
+
+			if (cacheManagerListener != null) {
+				registerCacheManagerListener(cacheManagerListener);
+			}
+		}
+
+		Registry registry = RegistryUtil.getRegistry();
+
+		_serviceRegistrar = registry.getServiceRegistrar(
+			(Class<PortalCacheManager<K, V>>)(Class<?>)
+				PortalCacheManager.class);
+
+		Map<String, Object> properties = new HashMap<>();
+
+		properties.put("portal.cache.manager.name", _name);
+		properties.put("portal.cache.manager.type", getType());
+
+		_serviceRegistrar.registerService(
+			(Class<PortalCacheManager<K, V>>)(Class<?>)PortalCacheManager.class,
+			this, properties);
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("(&(objectClass=");
+		sb.append(PortalCacheConfiguratorSettings.class.getName());
+		sb.append(")(portal.cache.manager.name=");
+		sb.append(_name);
+		sb.append("))");
+
+		Filter filter = registry.getFilter(sb.toString());
+
+		_serviceTracker = registry.trackServices(
+			filter,
+			new PortalCacheConfiguratorSettingsServiceTrackerCustomizer());
+
+		_serviceTracker.open();
+	}
 
 	protected abstract void initPortalCacheManager();
 
@@ -271,8 +329,6 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 
 	protected final AggregatedCacheManagerListener
 		aggregatedCacheManagerListener = new AggregatedCacheManagerListener();
-	protected boolean clusterAware;
-	protected String name;
 	protected final ConcurrentMap<String, PortalCache<K, V>> portalCaches =
 		new ConcurrentHashMap<>();
 
@@ -297,14 +353,103 @@ public abstract class AbstractPortalCacheManager<K extends Serializable, V>
 				callbackConfiguration.getCallbackFactory();
 
 			CacheListener<K, V> cacheListener =
-				(CacheListener<K, V>)callbackFactory.createCacheListener(
+				callbackFactory.createCacheListener(
 					callbackConfiguration.getProperties());
 
 			portalCache.registerCacheListener(cacheListener, entry.getValue());
 		}
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		AbstractPortalCacheManager.class);
+
+	private boolean _clusterAware;
 	private boolean _mpiOnly;
+	private String _name;
 	private PortalCacheManagerConfiguration _portalCacheManagerConfiguration;
+	private ServiceRegistrar<PortalCacheManager<K, V>> _serviceRegistrar;
+	private ServiceTracker<PortalCacheConfiguratorSettings,
+		PortalCacheConfiguratorSettings> _serviceTracker;
+
+	private class PortalCacheConfiguratorSettingsServiceTrackerCustomizer
+		implements ServiceTrackerCustomizer
+			<PortalCacheConfiguratorSettings, PortalCacheConfiguratorSettings> {
+
+		@Override
+		public PortalCacheConfiguratorSettings addingService(
+			ServiceReference<PortalCacheConfiguratorSettings>
+				serviceReference) {
+
+			Registry registry = RegistryUtil.getRegistry();
+
+			PortalCacheConfiguratorSettings portalCacheConfiguratorSettings =
+				registry.getService(serviceReference);
+
+			if (_reconfigure(portalCacheConfiguratorSettings)) {
+				return portalCacheConfiguratorSettings;
+			}
+
+			return null;
+		}
+
+		@Override
+		public void modifiedService(
+			ServiceReference<PortalCacheConfiguratorSettings> serviceReference,
+			PortalCacheConfiguratorSettings portalCacheConfiguratorSettings) {
+
+			_reconfigure(portalCacheConfiguratorSettings);
+		}
+
+		@Override
+		public void removedService(
+			ServiceReference<PortalCacheConfiguratorSettings> serviceReference,
+			PortalCacheConfiguratorSettings portalCacheConfiguratorSettings) {
+		}
+
+		private boolean _reconfigure(
+			PortalCacheConfiguratorSettings portalCacheConfiguratorSettings) {
+
+			String portalCacheConfigurationLocation =
+				portalCacheConfiguratorSettings.
+					getPortalCacheConfigrationLocation();
+
+			if (Validator.isNull(portalCacheConfigurationLocation)) {
+				return false;
+			}
+
+			ClassLoader classLoader =
+				portalCacheConfiguratorSettings.getClassLoader();
+
+			URL url = classLoader.getResource(portalCacheConfigurationLocation);
+
+			if (url == null) {
+				return false;
+			}
+
+			ClassLoader contextClassLoader =
+				ClassLoaderUtil.getContextClassLoader();
+
+			ClassLoaderUtil.setContextClassLoader(
+				AggregateClassLoader.getAggregateClassLoader(
+					ClassLoaderUtil.getPortalClassLoader(),
+					portalCacheConfiguratorSettings.getClassLoader()));
+
+			try {
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"Reconfiguring caches in cache manager " + _name +
+							" using " + url);
+				}
+
+				reconfigureCaches(url);
+			}
+			finally {
+				ClassLoaderUtil.setContextClassLoader(contextClassLoader);
+			}
+
+			return true;
+		}
+
+	}
 
 }

@@ -116,6 +116,18 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>lib/development/bsh.jar</file-name>
+				<version>2.0 B4</version>
+				<project-name>BeanShell</project-name>
+				<project-url>http://www.beanshell.org</project-url>
+				<licenses>
+					<license>
+						<license-name>LGPL 2.1</license-name>
+						<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>lib/development/catalina.jar</file-name>
 				<version>7.0.42</version>
 				<project-name>Tomcat</project-name>
@@ -1273,18 +1285,6 @@
 				<comments>
 					Removed org.cyberneko.* because it conflicts with nekohtml.jar.
 				</comments>
-			</library>
-			<library>
-				<file-name>lib/portal/bsh.jar</file-name>
-				<version>2.0 B4</version>
-				<project-name>BeanShell</project-name>
-				<project-url>http://www.beanshell.org</project-url>
-				<licenses>
-					<license>
-						<license-name>LGPL 2.1</license-name>
-						<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
-					</license>
-				</licenses>
 			</library>
 			<library>
 				<file-name>lib/portal/bsf.jar</file-name>
@@ -2560,21 +2560,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>lib/portal/jython.jar</file-name>
-				<version>2.5.2</version>
-				<project-name>Jython</project-name>
-				<project-url>http://www.jython.org</project-url>
-				<licenses>
-					<license>
-						<license-name>Python Software Foundation License 2</license-name>
-						<license-url>http://www.jython.org/license.html</license-url>
-					</license>
-				</licenses>
-				<comments>
-					See LPS-24672.
-				</comments>
-			</library>
-			<library>
 				<file-name>lib/portal/kxml2.jar</file-name>
 				<version>2.3.0</version>
 				<project-name>kXML 2</project-name>
@@ -2618,7 +2603,7 @@
 					</license>
 				</licenses>
 				<comments>
-					See LPS-3169 and LPS-25202.
+					See LPS-3169, LPS-25202, and LPS-25836.
 				</comments>
 			</library>
 			<library>
@@ -2914,21 +2899,6 @@
 						<license-url>http://en.wikipedia.org/wiki/Public_domain</license-url>
 					</license>
 				</licenses>
-			</library>
-			<library>
-				<file-name>lib/portal/rhino.jar</file-name>
-				<version>1.7 R4</version>
-				<project-name>Rhino</project-name>
-				<project-url>http://www.mozilla.org/rhino</project-url>
-				<licenses>
-					<license>
-						<license-name>MPL 1.1</license-name>
-						<license-url>http://www.mozilla.org/MPL/1.1</license-url>
-					</license>
-				</licenses>
-				<comments>
-					See LPS-3169 and LPS-25836.
-				</comments>
 			</library>
 			<library>
 				<file-name>lib/portal/ridl.jar</file-name>

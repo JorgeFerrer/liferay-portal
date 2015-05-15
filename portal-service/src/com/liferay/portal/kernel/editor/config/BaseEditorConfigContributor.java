@@ -17,6 +17,7 @@ package com.liferay.portal.kernel.editor.config;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -35,6 +36,17 @@ public abstract class BaseEditorConfigContributor
 		}
 
 		return JSONFactoryUtil.createJSONArray();
+	}
+
+	protected JSONObject toJSONObject(String json) {
+		try {
+			return JSONFactoryUtil.createJSONObject(json);
+		}
+		catch (JSONException jsone) {
+			_log.error("Unable to create a JSON object from: " + json, jsone);
+		}
+
+		return JSONFactoryUtil.createJSONObject();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

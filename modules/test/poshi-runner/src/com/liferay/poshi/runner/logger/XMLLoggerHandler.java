@@ -16,11 +16,14 @@ package com.liferay.poshi.runner.logger;
 
 import com.liferay.poshi.runner.PoshiRunnerContext;
 import com.liferay.poshi.runner.PoshiRunnerGetterUtil;
+import com.liferay.poshi.runner.PoshiRunnerStackTraceUtil;
 import com.liferay.poshi.runner.util.HtmlUtil;
 import com.liferay.poshi.runner.util.PropsValues;
 import com.liferay.poshi.runner.util.Validator;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.dom4j.Attribute;
 import org.dom4j.Element;
@@ -30,7 +33,9 @@ import org.dom4j.Element;
  */
 public final class XMLLoggerHandler {
 
-	public static void generateXMLLog(String classCommandName) {
+	public static void generateXMLLog(String classCommandName)
+		throws Exception {
+
 		_xmlLogLoggerElement = new LoggerElement("xmlLogContainer");
 
 		_xmlLogLoggerElement.setClassName("xml-log-container");
@@ -72,21 +77,36 @@ public final class XMLLoggerHandler {
 			className + "#set-up");
 
 		if (setUpElement != null) {
+			PoshiRunnerStackTraceUtil.startStackTrace(
+				className + "#set-up", "test-case");
+
 			childContainerLoggerElement.addChildLoggerElement(
 				_getLoggerElementFromElement(setUpElement));
+
+			PoshiRunnerStackTraceUtil.emptyStackTrace();
 		}
+
+		PoshiRunnerStackTraceUtil.startStackTrace(
+			classCommandName, "test-case");
 
 		childContainerLoggerElement.addChildLoggerElement(
 			_getLoggerElementFromElement(
 				PoshiRunnerContext.getTestCaseCommandElement(
 					classCommandName)));
 
+		PoshiRunnerStackTraceUtil.emptyStackTrace();
+
 		Element tearDownElement = PoshiRunnerContext.getTestCaseCommandElement(
 			className + "#tear-down");
 
 		if (tearDownElement != null) {
+			PoshiRunnerStackTraceUtil.startStackTrace(
+				className + "#tear-down", "test-case");
+
 			childContainerLoggerElement.addChildLoggerElement(
 				_getLoggerElementFromElement(tearDownElement));
+
+			PoshiRunnerStackTraceUtil.emptyStackTrace();
 		}
 
 		headerLoggerElement.addChildLoggerElement(childContainerLoggerElement);
@@ -96,6 +116,31 @@ public final class XMLLoggerHandler {
 
 	public static String getXMLLogText() {
 		return _xmlLogLoggerElement.toString();
+	}
+
+	public static void updateStatus(Element element, String status) {
+		PoshiRunnerStackTraceUtil.setCurrentElement(element);
+
+		String stackTrace = PoshiRunnerStackTraceUtil.getSimpleStackTrace();
+
+		if (stackTrace.contains(".function")) {
+			return;
+		}
+
+		LoggerElement loggerElement = _loggerElements.get(stackTrace);
+
+		loggerElement.setAttribute("data-status01", status);
+
+		if (status.equals("conditional-fail") || status.equals("pass")) {
+			LoggerUtil.executeJavaScript(
+				"loggerInterface.fire('line-trigger', '" +
+					loggerElement.getID() + "', false)");
+		}
+		else if (status.equals("pending")) {
+			LoggerUtil.executeJavaScript(
+				"loggerInterface.fire('line-trigger', '" +
+					loggerElement.getID() + "', true)");
+		}
 	}
 
 	private static LoggerElement _getBtnContainerLoggerElement(
@@ -149,18 +194,22 @@ public final class XMLLoggerHandler {
 		return loggerElement.toString();
 	}
 
-	private static LoggerElement _getChildContainerLoggerElement() {
+	private static LoggerElement _getChildContainerLoggerElement()
+		throws Exception {
+
 		return _getChildContainerLoggerElement(null, null);
 	}
 
 	private static LoggerElement _getChildContainerLoggerElement(
-		Element element) {
+			Element element)
+		throws Exception {
 
 		return _getChildContainerLoggerElement(element, null);
 	}
 
 	private static LoggerElement _getChildContainerLoggerElement(
-		Element element, Element rootElement) {
+			Element element, Element rootElement)
+		throws Exception {
 
 		LoggerElement loggerElement = new LoggerElement();
 
@@ -267,7 +316,9 @@ public final class XMLLoggerHandler {
 		return closingLineContainerLoggerElement;
 	}
 
-	private static LoggerElement _getConditionalLoggerElement(Element element) {
+	private static LoggerElement _getConditionalLoggerElement(Element element)
+		throws Exception {
+
 		LoggerElement loggerElement = _getLineGroupLoggerElement(
 			"conditional", element);
 
@@ -298,7 +349,9 @@ public final class XMLLoggerHandler {
 		return _getLineGroupLoggerElement(element);
 	}
 
-	private static LoggerElement _getForLoggerElement(Element element) {
+	private static LoggerElement _getForLoggerElement(Element element)
+		throws Exception {
+
 		return _getLoggerElementFromElement(element);
 	}
 
@@ -309,7 +362,8 @@ public final class XMLLoggerHandler {
 	}
 
 	private static LoggerElement _getIfChildContainerLoggerElement(
-		Element element) {
+			Element element)
+		throws Exception {
 
 		LoggerElement loggerElement = _getChildContainerLoggerElement();
 
@@ -342,7 +396,9 @@ public final class XMLLoggerHandler {
 		return loggerElement;
 	}
 
-	private static LoggerElement _getIfLoggerElement(Element element) {
+	private static LoggerElement _getIfLoggerElement(Element element)
+		throws Exception {
+
 		LoggerElement loggerElement = _getLineGroupLoggerElement(
 			"conditional", element);
 
@@ -425,6 +481,8 @@ public final class XMLLoggerHandler {
 		_btnLinkCollapseId++;
 		_btnLinkVarId++;
 
+		PoshiRunnerStackTraceUtil.setCurrentElement(element);
+
 		LoggerElement loggerElement = new LoggerElement();
 
 		loggerElement.setClassName("line-group");
@@ -438,6 +496,11 @@ public final class XMLLoggerHandler {
 			_getBtnContainerLoggerElement(element));
 		loggerElement.addChildLoggerElement(
 			_getLineContainerLoggerElement(element));
+
+		loggerElement.setWrittenToLogger(true);
+
+		_loggerElements.put(
+			PoshiRunnerStackTraceUtil.getSimpleStackTrace(), loggerElement);
 
 		return loggerElement;
 	}
@@ -470,7 +533,9 @@ public final class XMLLoggerHandler {
 		return loggerElement.toString();
 	}
 
-	private static LoggerElement _getLoggerElementFromElement(Element element) {
+	private static LoggerElement _getLoggerElementFromElement(Element element)
+		throws Exception {
+
 		LoggerElement loggerElement = _getLineGroupLoggerElement(element);
 
 		loggerElement.addChildLoggerElement(
@@ -482,7 +547,8 @@ public final class XMLLoggerHandler {
 	}
 
 	private static LoggerElement _getMacroCommandLoggerElement(
-		String classCommandName) {
+			String classCommandName)
+		throws Exception {
 
 		Element commandElement = PoshiRunnerContext.getMacroCommandElement(
 			classCommandName);
@@ -497,15 +563,21 @@ public final class XMLLoggerHandler {
 	}
 
 	private static LoggerElement _getMacroExecuteLoggerElement(
-		Element executeElement, String macroType) {
+			Element executeElement, String macroType)
+		throws Exception {
 
 		LoggerElement loggerElement = _getLineGroupLoggerElement(
 			"macro", executeElement);
 
 		String classCommandName = executeElement.attributeValue(macroType);
 
+		PoshiRunnerStackTraceUtil.pushStackTrace(executeElement);
+
 		loggerElement.addChildLoggerElement(
 			_getMacroCommandLoggerElement(classCommandName));
+
+		PoshiRunnerStackTraceUtil.popStackTrace();
+
 		loggerElement.addChildLoggerElement(
 			_getClosingLineContainerLoggerElement(executeElement));
 
@@ -539,7 +611,9 @@ public final class XMLLoggerHandler {
 		return _getLineGroupLoggerElement("var", element);
 	}
 
-	private static LoggerElement _getWhileLoggerElement(Element element) {
+	private static LoggerElement _getWhileLoggerElement(Element element)
+		throws Exception {
+
 		LoggerElement loggerElement = _getLineGroupLoggerElement(element);
 
 		loggerElement.addChildLoggerElement(
@@ -571,6 +645,8 @@ public final class XMLLoggerHandler {
 
 	private static int _btnLinkCollapseId;
 	private static int _btnLinkVarId;
+	private static final Map<String, LoggerElement> _loggerElements =
+		new HashMap<>();
 	private static LoggerElement _xmlLogLoggerElement = null;
 
 }

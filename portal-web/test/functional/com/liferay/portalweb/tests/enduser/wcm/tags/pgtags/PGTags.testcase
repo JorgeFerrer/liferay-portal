@@ -390,6 +390,8 @@
 			<var name="portletName" value="Web Content" />
 		</execute>
 
+		<execute macro="WebContentNavigator#gotoAddCP" />
+
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="first tag,second tag" />
 			<var name="webContentContent" value="Web Content Content" />
@@ -474,6 +476,8 @@
 			<var name="portletName" value="Web Content" />
 		</execute>
 
+		<execute macro="WebContentNavigator#gotoAddCP" />
+
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="first tag,second tag" />
 			<var name="webContentContent" value="Web Content Content" />
@@ -550,7 +554,7 @@
 		</execute>
 	</command>
 
-	<command name="DisplayWebContentTagViaAP" priority="5">
+	<command known-issues="LPS-51687" name="DisplayWebContentTagViaAP" priority="5">
 		<execute macro="Page#addPG">
 			<var name="pageName" value="Tags Navigation Page" />
 		</execute>
@@ -587,6 +591,8 @@
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
 
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="tag name" />
@@ -655,6 +661,8 @@
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
 
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="first tag,second tag" />
@@ -987,6 +995,8 @@
 			<var name="portletName" value="Web Content" />
 		</execute>
 
+		<execute macro="WebContentNavigator#gotoAddCP" />
+
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="first tag,second tag" />
 			<var name="webContentContent" value="Web Content Content" />
@@ -1021,6 +1031,8 @@
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
 
 		<execute macro="WebContent#addWithTagCP">
 			<var name="tagNameList" value="first tag,second tag" />

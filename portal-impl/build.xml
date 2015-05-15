@@ -907,19 +907,21 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="clean">
-		<delete dir="classes" />
+		<clean-common>
+			<clean-extra>
+				<delete dir="classes" />
 
-		<if>
-			<and>
-				<equals arg1="${app.server.type}" arg2="tomcat" />
-				<antelope:endswith string="${app.server.portal.dir}" with="/portal-web/docroot" />
-			</and>
-			<then>
-				<delete dir="${app.server.classes.portal.dir}" />
-			</then>
-		</if>
-
-		<antcall target="build-common-java.clean" />
+				<if>
+					<and>
+						<equals arg1="${app.server.type}" arg2="tomcat" />
+						<antelope:endswith string="${app.server.portal.dir}" with="/portal-web/docroot" />
+					</and>
+					<then>
+						<delete dir="${app.server.classes.portal.dir}" />
+					</then>
+				</if>
+			</clean-extra>
+		</clean-common>
 	</target>
 
 	<target name="compile">
@@ -949,7 +951,7 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 		<copy todir="${portal-impl.classes.dir}/com/liferay/portal/tools/sql/dependencies" preservelastmodified="true">
 			<fileset
 				dir="${project.dir}/sql"
-				includes="portal-data-common.sql,portal-data-counter.sql,portal-data-release.sql,portal-tables.sql,indexes.properties,indexes.sql,quartz-tables.sql,sequences.sql,update-*.sql"
+				includes="portal-data-common.sql,portal-data-counter.sql,portal-data-release.sql,portal-tables.sql,indexes.properties,indexes.sql,sequences.sql,update-*.sql"
 			/>
 		</copy>
 

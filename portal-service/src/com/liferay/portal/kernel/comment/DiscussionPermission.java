@@ -21,19 +21,35 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public interface DiscussionPermission {
 
+	public void checkAddPermission(
+			long companyId, long groupId, String className, long classPK,
+			long userId)
+		throws PortalException;
+
+	public void checkDeletePermission(
+			String className, long classPK, long commentId, long userId)
+		throws PortalException;
+
+	public void checkUpdatePermission(
+			String className, long classPK, long commentId, long userId)
+		throws PortalException;
+
+	public void checkViewPermission(
+			long companyId, long groupId, String className, long classPK,
+			long userId)
+		throws PortalException;
+
 	public boolean hasAddPermission(
 			long companyId, long groupId, String className, long classPK,
 			long userId)
 		throws PortalException;
 
 	public boolean hasDeletePermission(
-			long companyId, long groupId, String className, long classPK,
-			long commentId, long userId)
+			String className, long classPK, long commentId, long userId)
 		throws PortalException;
 
 	public boolean hasUpdatePermission(
-			long companyId, long groupId, String className, long classPK,
-			long commentId, long userId)
+			String className, long classPK, long commentId, long userId)
 		throws PortalException;
 
 	public boolean hasViewPermission(

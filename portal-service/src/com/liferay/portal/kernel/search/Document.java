@@ -108,7 +108,11 @@ public interface Document extends Cloneable, Serializable {
 
 	public void addKeywordSortable(String name, Boolean value);
 
-	public void addKeywordSortable(String name, Boolean[] value);
+	public void addKeywordSortable(String name, Boolean[] values);
+
+	public void addKeywordSortable(String name, String value);
+
+	public void addKeywordSortable(String name, String[] values);
 
 	public void addLocalizedKeyword(String name, Map<Locale, String> values);
 

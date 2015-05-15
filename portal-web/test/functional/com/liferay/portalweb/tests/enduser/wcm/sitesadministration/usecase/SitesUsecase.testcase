@@ -102,11 +102,13 @@
 		</execute>
 	</command>
 
-	<command name="AddWebContentWithGlobalScopeViaCPToLiferayAP" priority="4">
+	<command known-issues="LPS-55465" name="AddWebContentWithGlobalScopeViaCPToLiferayAP" priority="4">
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 			<var name="siteScopeName" value="Global" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
 
 		<execute macro="WebContent#addCP">
 			<var name="webContentContent" value="WC WebContent Content" />
@@ -210,6 +212,8 @@
 			<var name="portletName" value="Web Content" />
 			<var name="siteScopeName" value="Global" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
 
 		<execute macro="WebContent#addCP">
 			<var name="webContentContent" value="WC WebContent Content" />
@@ -336,7 +340,7 @@
 		<execute function="AssertTextNotPresent" locator1="PGAssetpublisher#ASSET_ABSTRACT_READ_MORE" value1="Read More" />
 	</command>
 
-	<command name="AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP" priority="4">
+	<command known-issues="LPS-55465" name="AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP" priority="4">
 		<execute macro="Page#gotoContentCP">
 			<var name="portletName" value="Web Content" />
 			<var name="siteScopeName" value="Global" />
@@ -376,6 +380,8 @@
 			<var name="portletName" value="Web Content" />
 			<var name="siteScopeName" value="Global" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddWithStructureCP" />
 
 		<execute macro="WebContent#addWithStructureCP">
 			<var name="structureName" value="WC Structure Name" />
@@ -469,6 +475,8 @@
 			<var name="portletName" value="Web Content" />
 			<var name="siteScopeName" value="Global" />
 		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddWithStructureCP" />
 
 		<execute macro="WebContent#addWithStructureCP">
 			<var name="structureName" value="WC Structure Name" />

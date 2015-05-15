@@ -939,6 +939,13 @@ public class VerifyProperties extends VerifyProcess {
 			"com.liferay.rss.web"
 		},
 
+		// Scripting
+
+		new String[] {
+			"scripting.forbidden.classes", "forbidden.classes",
+			"com.liferay.portal.scripting.javascript"
+		},
+
 		// Search
 
 		new String[] {
@@ -1062,7 +1069,10 @@ public class VerifyProperties extends VerifyProcess {
 			"CharBufferPoolFilter",
 		"com.liferay.portal.servlet.filters.monitoring.MonitoringFilter",
 		"com.liferay.portal.servlet.filters.validhtml.ValidHtmlFilter",
-		"commons.pool.enabled", "convert.processes", "discussion.thread.view",
+		"commons.pool.enabled", "company.settings.form.configuration",
+		"company.settings.form.identification",
+		"company.settings.form.miscellaneous", "company.settings.form.social",
+		"convert.processes", "discussion.thread.view",
 		"dl.file.entry.read.count.enabled",
 		"dynamic.data.lists.template.language.parser[ftl]",
 		"dynamic.data.lists.template.language.parser[vm]",
@@ -1111,7 +1121,8 @@ public class VerifyProperties extends VerifyProcess {
 		"jpa.provider", "jpa.provider.property.eclipselink.allow-zero-id",
 		"jpa.provider.property.eclipselink.logging.level",
 		"jpa.provider.property.eclipselink.logging.timestamp",
-		"language.display.style.options", "layout.reset.portlet.ids",
+		"language.display.style.options", "layout.form.add",
+		"layout.form.update", "layout.reset.portlet.ids",
 		"layout.set.form.update", "layout.types", "lucene.analyzer",
 		"lucene.cluster.index.loading.sync.timeout", "lucene.file.extractor",
 		"lucene.file.extractor.regexp.strip", "lucene.replicate.write",
@@ -1131,8 +1142,13 @@ public class VerifyProperties extends VerifyProcess {
 		"multicast.group.port[\"hibernate\"]",
 		"net.sf.ehcache.configurationResourceName",
 		"net.sf.ehcache.configurationResourceName.peerProviderProperties",
-		"portal.ctx", "portal.security.manager.enable",
-		"permissions.list.filter", "permissions.thread.local.cache.max.size",
+		"organizations.form.add.identification", "organizations.form.add.main",
+		"organizations.form.add.miscellaneous",
+		"organizations.form.update.identification",
+		"organizations.form.update.main",
+		"organizations.form.update.miscellaneous", "portal.ctx",
+		"portal.security.manager.enable", "permissions.list.filter",
+		"permissions.thread.local.cache.max.size",
 		"permissions.user.check.algorithm", "persistence.provider",
 		"ratings.max.score", "ratings.min.score", "scheduler.classes",
 		"schema.run.minimal", "search.container.page.iterator.page.values",

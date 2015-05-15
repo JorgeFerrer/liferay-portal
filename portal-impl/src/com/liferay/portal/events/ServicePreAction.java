@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
+import com.liferay.portal.kernel.servlet.PortalWebResourceConstants;
 import com.liferay.portal.kernel.servlet.PortalWebResourcesUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ColorSchemeFactoryUtil;
@@ -99,7 +100,6 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portal.webserver.WebServerServletTokenUtil;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
-import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.portlet.PortletURLImpl;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
@@ -122,7 +122,6 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -825,8 +824,17 @@ public class ServicePreAction extends Action {
 		themeDisplay.setPathFriendlyURLPrivateUser(friendlyURLPrivateUserPath);
 		themeDisplay.setPathFriendlyURLPublic(friendlyURLPublicPath);
 		themeDisplay.setPathImage(imagePath);
-		themeDisplay.setPathJavaScript(
-			PortalWebResourcesUtil.getContextPath().concat("/html/js"));
+
+		String editorsPath = PortalWebResourcesUtil.getContextPath(
+			PortalWebResourceConstants.RESOURCE_TYPE_EDITORS);
+
+		themeDisplay.setPathEditors(editorsPath.concat("/html"));
+
+		String javaScriptPath = PortalWebResourcesUtil.getContextPath(
+			PortalWebResourceConstants.RESOURCE_TYPE_JS);
+
+		themeDisplay.setPathJavaScript(javaScriptPath.concat("/html/js"));
+
 		themeDisplay.setPathMain(mainPath);
 		themeDisplay.setPathSound(contextPath.concat("/html/sound"));
 		themeDisplay.setPermissionChecker(permissionChecker);
@@ -1137,8 +1145,6 @@ public class ServicePreAction extends Action {
 					themeDisplay.setURLPublishToLive(publishToLiveURL);
 				}
 			}
-
-			themeDisplay.setURLMyAccount(_getURLMyAccount(companyId, request));
 		}
 
 		if (!user.isActive() ||
@@ -2285,30 +2291,6 @@ public class ServicePreAction extends Action {
 
 	protected File privateLARFile;
 	protected File publicLARFile;
-
-	private PortletURL _getURLMyAccount(
-			long companyId, HttpServletRequest request)
-		throws PortalException {
-
-		try {
-			Group userPersonalPanelGroup = GroupLocalServiceUtil.getGroup(
-				companyId, GroupConstants.USER_PERSONAL_PANEL);
-
-			long plid = LayoutLocalServiceUtil.getDefaultPlid(
-				userPersonalPanelGroup.getGroupId(), true);
-
-			PortletURL portletURL = PortletURLFactoryUtil.create(
-				request, PortletKeys.MY_ACCOUNT, plid,
-				PortletRequest.RENDER_PHASE);
-
-			portletURL.setWindowState(WindowState.MAXIMIZED);
-
-			return portletURL;
-		}
-		catch (WindowStateException wse) {
-			throw new PortalException(wse);
-		}
-	}
 
 	private static final String _PATH_PORTAL_LAYOUT = "/portal/layout";
 
