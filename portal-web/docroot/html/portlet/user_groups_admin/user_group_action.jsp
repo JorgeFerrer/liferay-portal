@@ -88,7 +88,7 @@ UserGroup userGroup = (UserGroup)row.getObject();
 	</c:if>
 
 	<c:if test="<%= GroupPermissionUtil.contains(permissionChecker, userGroupGroup, ActionKeys.MANAGE_LAYOUTS) %>">
-		<liferay-portlet:renderURL portletName="<%= PortletKeys.USERS_ADMIN %>" var="managePagesURL" >
+		<liferay-portlet:renderURL portletName="<%= PortletKeys.USERS_ADMIN %>" var="managePagesURL">
 			<portlet:param name="struts_action" value="/users_admin/edit_layouts" />
 			<portlet:param name="groupId" value="<%= String.valueOf(userGroupGroup.getGroupId()) %>" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
