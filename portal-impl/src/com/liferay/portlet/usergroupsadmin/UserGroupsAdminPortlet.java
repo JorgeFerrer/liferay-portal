@@ -31,13 +31,13 @@ import com.liferay.portal.service.UserGroupServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portlet.sites.util.SitesUtil;
 
+import java.io.IOException;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
-import java.io.IOException;
 
 /**
  * @author Charles May
@@ -134,21 +134,28 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, PrincipalException.class.getName())) {
 
-			include("/html/portlet/user_groups_admin/error.jsp", renderRequest, renderResponse);
+			include(
+				"/html/portlet/user_groups_admin/error.jsp", renderRequest,
+				renderResponse);
 		}
 		else if (SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
+					renderRequest, PrincipalException.class.getName())) {
 
-			include("/html/portlet/user_groups_admin/view.jsp", renderRequest, renderResponse);
+			include(
+				"/html/portlet/user_groups_admin/view.jsp", renderRequest,
+				renderResponse);
 		}
 		else if (SessionErrors.contains(
-				renderRequest, DuplicateUserGroupException.class.getName()) ||
+					renderRequest,
+					DuplicateUserGroupException.class.getName()) ||
 			SessionErrors.contains(
 				renderRequest, RequiredUserGroupException.class.getName()) ||
 			SessionErrors.contains(
 				renderRequest, UserGroupNameException.class.getName())) {
 
-			include("/html/portlet/user_groups_admin/edit_user_group.jsp", renderRequest, renderResponse);
+			include(
+				"/html/portlet/user_groups_admin/edit_user_group.jsp",
+				renderRequest, renderResponse);
 		}
 		else {
 			super.doDispatch(renderRequest, renderResponse);
