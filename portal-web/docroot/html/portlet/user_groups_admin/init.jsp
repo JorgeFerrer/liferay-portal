@@ -18,6 +18,7 @@
 
 <%@ page import="com.liferay.portal.DuplicateUserGroupException" %><%@
 page import="com.liferay.portal.RequiredUserGroupException" %><%@
+page import="com.liferay.portal.NoSuchUserGroupException" %><%@
 page import="com.liferay.portal.UserGroupNameException" %><%@
 page import="com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUtil" %><%@
 page import="com.liferay.portal.service.permission.UserGroupPermissionUtil" %><%@
