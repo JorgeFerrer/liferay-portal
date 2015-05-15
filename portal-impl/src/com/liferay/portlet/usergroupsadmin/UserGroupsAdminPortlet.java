@@ -134,7 +134,20 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, PrincipalException.class.getName())) {
 
-			include("/error.jsp", renderRequest, renderResponse);
+			include("/html/portlet/user_groups_admin/error.jsp", renderRequest, renderResponse);
+		}
+		else if (SessionErrors.contains(
+					renderRequest,
+					RequiredUserGroupException.class.getName())) {
+
+			include("/html/portlet/user_groups_admin/view.jsp", renderRequest, renderResponse);
+		}
+		else if (SessionErrors.contains(
+				renderRequest, DuplicateUserGroupException.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest, UserGroupNameException.class.getName())) {
+
+			include("/html/portlet/user_groups_admin/edit_user_group.jsp", renderRequest, renderResponse);
 		}
 		else {
 			super.doDispatch(renderRequest, renderResponse);
