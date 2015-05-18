@@ -14,7 +14,10 @@
 
 package com.liferay.portlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.util.xml.XMLFormatter;
 
@@ -147,6 +150,10 @@ public abstract class BasePreferencesImpl implements Serializable {
 	public abstract void reset(String key) throws ReadOnlyException;
 
 	public void setValue(String key, String value) throws ReadOnlyException {
+		if (_log.isDebugEnabled()) {
+			_log.debug("setValues {key=" + key + ", value=" + value + "}");
+		}
+
 		if (key == null) {
 			throw new IllegalArgumentException();
 		}
@@ -177,6 +184,12 @@ public abstract class BasePreferencesImpl implements Serializable {
 
 	public void setValues(String key, String[] values)
 		throws ReadOnlyException {
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"setValues {key=" + key + ", values=" + StringUtil.merge(
+					values) + "}");
+		}
 
 		if (key == null) {
 			throw new IllegalArgumentException();
@@ -338,6 +351,7 @@ public abstract class BasePreferencesImpl implements Serializable {
 
 	private static final String _NULL_VALUE = "NULL_VALUE";
 
+	private static Log _log = LogFactoryUtil.getLog(BasePreferencesImpl.class);
 	private Map<String, Preference> _modifiedPreferences;
 	private final Map<String, Preference> _originalPreferences;
 	private final String _originalXML;
