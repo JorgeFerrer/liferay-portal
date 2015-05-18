@@ -92,7 +92,6 @@ UserGroup userGroup = (UserGroup)row.getObject();
 			<portlet:param name="struts_action" value="/users_admin/edit_layouts" />
 			<portlet:param name="groupId" value="<%= String.valueOf(userGroupGroup.getGroupId()) %>" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
-			<portlet:param name="servletContext" value="<%= String.valueOf(application) %>" />
 		</liferay-portlet:renderURL>
 
 		<liferay-ui:icon
