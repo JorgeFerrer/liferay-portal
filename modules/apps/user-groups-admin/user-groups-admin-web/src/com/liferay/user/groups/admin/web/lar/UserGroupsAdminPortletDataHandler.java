@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.lar.PortletDataHandler;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.portal.kernel.lar.xstream.XStreamAliasRegistryUtil;
@@ -25,15 +26,25 @@ import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.model.impl.UserGroupImpl;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
+import com.liferay.user.groups.admin.web.constants.UserGroupsAdminPortletKeys;
 
 import java.util.List;
 
 import javax.portlet.PortletPreferences;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Michael C. Han
  * @author David Mendez Gonzalez
  */
+@Component(
+	immediate = true,
+	property = {
+		"javax.portlet.name=" + UserGroupsAdminPortletKeys.USER_GROUPS_ADMIN
+	},
+	service = PortletDataHandler.class
+)
 public class UserGroupsAdminPortletDataHandler extends BasePortletDataHandler {
 
 	public static final String NAMESPACE = "user_groups_admin";
