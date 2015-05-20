@@ -37,7 +37,7 @@ String portletURLString = portletURL.toString();
 	<liferay-portlet:renderURLParams varImpl="portletURL" />
 	<aui:input name="redirect" type="hidden" value="<%= portletURLString %>" />
 
-	<%@ include file="/html/portlet/user_groups_admin/view_flat_user_groups.jspf" %>
+	<%@ include file="/view_flat_user_groups.jspf" %>
 
 </aui:form>
 

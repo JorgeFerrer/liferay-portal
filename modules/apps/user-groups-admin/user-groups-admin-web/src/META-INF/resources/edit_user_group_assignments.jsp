@@ -30,7 +30,7 @@ UserGroup userGroup = UserGroupServiceUtil.fetchUserGroup(userGroupId);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("mvcPath", "/html/portlet/user_groups_admin/edit_user_group_assignments.jsp");
+portletURL.setParameter("mvcPath", "/edit_user_group_assignments.jsp");
 portletURL.setParameter("tabs1", tabs1);
 portletURL.setParameter("tabs2", tabs2);
 portletURL.setParameter("redirect", redirect);
