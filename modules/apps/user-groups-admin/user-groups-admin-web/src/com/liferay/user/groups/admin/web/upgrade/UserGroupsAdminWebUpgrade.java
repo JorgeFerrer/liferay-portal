@@ -14,11 +14,11 @@
 
 package com.liferay.user.groups.admin.web.upgrade;
 
-import com.liferay.user.groups.admin.web.constants.UserGroupsAdminPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.service.ReleaseLocalService;
 import com.liferay.portal.upgrade.util.UpgradePortletId;
+import com.liferay.user.groups.admin.web.constants.UserGroupsAdminPortletKeys;
 
 import java.util.Collections;
 
@@ -54,8 +54,7 @@ public class UserGroupsAdminWebUpgrade {
 			protected String[][] getRenamePortletIdsArray() {
 				return new String[][] {
 					new String[] {
-						"127",
-						UserGroupsAdminPortletKeys.USER_GROUPS_ADMIN
+						"127", UserGroupsAdminPortletKeys.USER_GROUPS_ADMIN
 					}
 				};
 			}

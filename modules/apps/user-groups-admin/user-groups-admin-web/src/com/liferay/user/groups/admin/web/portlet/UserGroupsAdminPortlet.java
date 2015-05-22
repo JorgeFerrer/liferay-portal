@@ -163,17 +163,13 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, PrincipalException.class.getName())) {
 
-			include(
-				"/error.jsp", renderRequest,
-				renderResponse);
+			include("/error.jsp", renderRequest, renderResponse);
 		}
 		else if (SessionErrors.contains(
 					renderRequest,
 					RequiredUserGroupException.class.getName())) {
 
-			include(
-				"/view.jsp", renderRequest,
-				renderResponse);
+			include("/view.jsp", renderRequest, renderResponse);
 		}
 		else if (SessionErrors.contains(
 					renderRequest,
@@ -181,9 +177,7 @@ public class UserGroupsAdminPortlet extends MVCPortlet {
 				 SessionErrors.contains(
 					 renderRequest, UserGroupNameException.class.getName())) {
 
-			include(
-				"/edit_user_group.jsp",
-				renderRequest, renderResponse);
+			include("/edit_user_group.jsp", renderRequest, renderResponse);
 		}
 		else {
 			super.doDispatch(renderRequest, renderResponse);

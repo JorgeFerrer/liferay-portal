@@ -22,9 +22,11 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.portal.DuplicateUserGroupException" %><%@
+page import="com.liferay.portal.NoSuchUserGroupException" %><%@
+page import="com.liferay.portal.RequiredUserGroupException" %><%@
+page import="com.liferay.portal.UserGroupNameException" %><%@
 page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
@@ -44,21 +46,18 @@ page import="com.liferay.portal.model.LayoutSetPrototype" %><%@
 page import="com.liferay.portal.model.Organization" %><%@
 page import="com.liferay.portal.model.User" %><%@
 page import="com.liferay.portal.model.UserGroup" %><%@
-page import="com.liferay.portal.NoSuchUserGroupException" %><%@
-page import="com.liferay.portal.RequiredUserGroupException" %><%@
 page import="com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUtil" %><%@
 page import="com.liferay.portal.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.service.LayoutLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.LayoutSetLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.LayoutSetPrototypeLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.LayoutSetPrototypeServiceUtil" %><%@
+page import="com.liferay.portal.service.UserGroupLocalServiceUtil" %><%@
+page import="com.liferay.portal.service.UserGroupServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.permission.GroupPermissionUtil" %><%@
 page import="com.liferay.portal.service.permission.PortalPermissionUtil" %><%@
 page import="com.liferay.portal.service.permission.UserGroupPermissionUtil" %><%@
-page import="com.liferay.portal.service.UserGroupLocalServiceUtil" %><%@
-page import="com.liferay.portal.service.UserGroupServiceUtil" %><%@
-page import="com.liferay.portal.UserGroupNameException" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
 page import="com.liferay.portal.util.PortletKeys" %><%@
 page import="com.liferay.portal.util.PropsValues" %><%@
@@ -66,11 +65,10 @@ page import="com.liferay.portal.util.WebKeys" %><%@
 page import="com.liferay.portlet.usergroupsadmin.search.UserGroupChecker" %><%@
 page import="com.liferay.portlet.usergroupsadmin.search.UserGroupDisplayTerms" %><%@
 page import="com.liferay.portlet.usergroupsadmin.search.UserGroupSearch" %><%@
+page import="com.liferay.portlet.usergroupsadmin.search.UserUserGroupChecker" %><%@
 page import="com.liferay.portlet.usersadmin.search.UserSearch" %><%@
 page import="com.liferay.portlet.usersadmin.search.UserSearchTerms" %><%@
-page import="com.liferay.taglib.search.ResultRow" %><%@
-page import="com.liferay.user.groups.admin.web.constants.UserGroupsAdminPortletKeys" %><%@
-page import="com.liferay.portlet.usergroupsadmin.search.UserUserGroupChecker" %>
+page import="com.liferay.taglib.search.ResultRow" %>
 
 <%@ page import="java.util.LinkedHashMap" %><%@
 page import="java.util.List" %>

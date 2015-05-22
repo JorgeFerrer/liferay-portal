@@ -47,7 +47,6 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Hugo Huijser
  */
-@OSGiBeanProperties
 @Component(
 	immediate = true,
 	property = {
@@ -55,6 +54,7 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Indexer.class
 )
+@OSGiBeanProperties
 public class UserGroupIndexer extends BaseIndexer {
 
 	public static final String CLASS_NAME = UserGroup.class.getName();
