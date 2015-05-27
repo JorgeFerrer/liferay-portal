@@ -17,6 +17,7 @@ package com.liferay.portal.captcha.recaptcha;
 import com.liferay.portal.captcha.simplecaptcha.SimpleCaptchaImpl;
 import com.liferay.portal.kernel.captcha.CaptchaException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
+import com.liferay.portal.kernel.captcha.ReCaptchaException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
@@ -50,6 +51,34 @@ import javax.servlet.http.HttpServletResponse;
  * @author Daniel Sanz
  */
 public class ReCaptchaImpl extends SimpleCaptchaImpl {
+
+	@Override
+	public void check(HttpServletRequest request) throws CaptchaException {
+		try {
+			super.check(request);
+		}
+		catch (CaptchaTextException cte) {
+			throw new ReCaptchaException();
+		}
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("reCAPTCHA verification passed");
+		}
+	}
+
+	@Override
+	public void check(PortletRequest portletRequest) throws CaptchaException {
+		try {
+			super.check(portletRequest);
+		}
+		catch (CaptchaTextException cte) {
+			throw new ReCaptchaException();
+		}
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("reCAPTCHA verification passed");
+		}
+	}
 
 	@Override
 	public String getTaglibPath() {
@@ -103,13 +132,13 @@ public class ReCaptchaImpl extends SimpleCaptchaImpl {
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
 
-			throw new CaptchaTextException();
+			throw new ReCaptchaException();
 		}
 
 		if (content == null) {
 			_log.error("reCAPTCHA did not return a result");
 
-			throw new CaptchaTextException();
+			throw new ReCaptchaException();
 		}
 
 		try {
@@ -145,7 +174,7 @@ public class ReCaptchaImpl extends SimpleCaptchaImpl {
 		catch (JSONException jsone) {
 			_log.error("reCAPTCHA did not return a valid result: " + content);
 
-			throw new CaptchaTextException();
+			throw new ReCaptchaException();
 		}
 	}
 

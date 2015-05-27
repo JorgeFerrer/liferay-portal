@@ -42,6 +42,7 @@ import com.liferay.portal.WebsiteURLException;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.captcha.ReCaptchaException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.Constants;
@@ -142,6 +143,7 @@ public class CreateAccountAction extends PortletAction {
 				e instanceof NoSuchRegionException ||
 				e instanceof OrganizationParentException ||
 				e instanceof PhoneNumberException ||
+				e instanceof ReCaptchaException ||
 				e instanceof RequiredFieldException ||
 				e instanceof RequiredUserException ||
 				e instanceof TermsOfUseException ||
