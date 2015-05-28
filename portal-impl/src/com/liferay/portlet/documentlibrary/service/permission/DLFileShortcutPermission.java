@@ -47,7 +47,9 @@ public class DLFileShortcutPermission {
 		throws PortalException {
 
 		if (!contains(permissionChecker, fileShortcut, actionId)) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker.getUserId(), FileShortcut.class.getName(),
+				fileShortcut.getFileShortcutId(), actionId);
 		}
 	}
 
