@@ -1,0 +1,10 @@
+Bundle-Name: Liferay User Groups Admin Test
+Bundle-SymbolicName: com.liferay.user.groups.admin.test
+Bundle-Version: 1.0.0
+Import-Package:\
+	com.liferay.user.groups.admin.web.constants*,\
+	com.liferay.user.groups.admin.web.lar*,
+Include-Resource:\
+	classes,\
+	test-classes/integration,\
+	../../../../portal-impl/test/test-portal-impl.properties
