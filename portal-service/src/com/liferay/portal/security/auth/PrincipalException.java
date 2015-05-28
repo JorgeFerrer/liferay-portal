@@ -276,6 +276,17 @@ public class PrincipalException extends PortalException {
 
 	}
 
+	public static class MustHaveValidGroup extends PrincipalException {
+
+		public MustHaveValidGroup() {
+			super(
+				String.format(
+					"Permissions check for this action requires a valid " +
+						"group"));
+		}
+
+	}
+
 	public static class MustHaveValidPermissionChecker
 		extends PrincipalException {
 

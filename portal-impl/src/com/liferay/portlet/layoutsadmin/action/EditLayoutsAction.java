@@ -287,7 +287,7 @@ public class EditLayoutsAction extends PortletAction {
 		Group group = getGroup(portletRequest);
 
 		if (group == null) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustHaveValidGroup();
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
