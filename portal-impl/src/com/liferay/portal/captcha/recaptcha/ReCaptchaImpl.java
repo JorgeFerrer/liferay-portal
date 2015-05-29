@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
@@ -149,27 +150,26 @@ public class ReCaptchaImpl extends SimpleCaptchaImpl {
 			if (StringUtil.equalsIgnoreCase(success, "true")) {
 				return true;
 			}
-			else {
-				JSONArray jsonArray = jsonObject.getJSONArray("error-codes");
 
-				if (jsonArray != null) {
-					StringBundler sb = new StringBundler(
-						jsonArray.length() * 2);
+			JSONArray jsonArray = jsonObject.getJSONArray("error-codes");
 
-					for (int i = 0; i < jsonArray.length(); i++) {
-						sb.append(jsonArray.getString(i));
-
-						if (i < (jsonArray.length() - 1)) {
-							sb.append(", ");
-						}
-					}
-
-					_log.error(
-						"reCAPTCHA encountered an error: " + sb.toString());
-				}
-
+			if ((jsonArray == null) || (jsonArray.length() == 0)) {
 				return false;
 			}
+
+			StringBundler sb = new StringBundler(jsonArray.length() * 2 - 1);
+
+			for (int i = 0; i < jsonArray.length(); i++) {
+				sb.append(jsonArray.getString(i));
+
+				if (i < (jsonArray.length() - 1)) {
+					sb.append(StringPool.COMMA_AND_SPACE);
+				}
+			}
+
+			_log.error("reCAPTCHA encountered an error: " + sb.toString());
+
+			return false;
 		}
 		catch (JSONException jsone) {
 			_log.error("reCAPTCHA did not return a valid result: " + content);
