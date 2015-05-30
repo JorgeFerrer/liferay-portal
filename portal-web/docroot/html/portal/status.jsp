@@ -74,7 +74,7 @@ if (Validator.isNotNull(exception)) {
 		SessionErrors.contains(request, PrincipalException.MustHaveUserGroupRole.class.getName()) ||
 		SessionErrors.contains(request, PrincipalException.MustHaveUserRole.class.getName()) ||
 		SessionErrors.contains(request, PrincipalException.MustNotBeGroupAdmin.class.getName()) %>">
-		
+
 		<h3 class="alert alert-danger">
 			<liferay-ui:message key="forbidden" />
 		</h3>

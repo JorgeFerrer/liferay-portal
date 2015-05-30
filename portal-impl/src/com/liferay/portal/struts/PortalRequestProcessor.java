@@ -793,7 +793,8 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 		if (!isPublicPath(path)) {
 			if (user == null) {
-				SessionErrors.add(request,
+				SessionErrors.add(
+					request,
 					PrincipalException.MustBeAuthenticated.class.getName());
 
 				return _PATH_PORTAL_LOGIN;
