@@ -363,7 +363,8 @@ public class PortletAction extends Action {
 			HttpServletRequest request = PortalUtil.getHttpServletRequest(
 				actionRequest);
 
-			SessionErrors.add(request,
+			SessionErrors.add(
+				request,
 				PrincipalException.MustBeAuthenticated.class.getName());
 
 			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
