@@ -120,8 +120,7 @@ public class EditLayoutSetAction extends EditLayoutsAction {
 			checkPermissions(renderRequest);
 		}
 		catch (PrincipalException pe) {
-			SessionErrors.add(
-				renderRequest, pe.getClass().getName());
+			SessionErrors.add(renderRequest, pe.getClass().getName());
 
 			return actionMapping.findForward("portlet.layouts_admin.error");
 		}

@@ -986,8 +986,9 @@ public class AssetPublisherUtil {
 			Group parentGroup = GroupLocalServiceUtil.getGroup(parentGroupId);
 
 			if (!SitesUtil.isContentSharingWithChildrenEnabled(parentGroup)) {
-				throw new ConfigurationException.MustHaveContentSharingWithChildrenEnabled(
-					parentGroupId);
+				throw new ConfigurationException.
+								MustHaveContentSharingWithChildrenEnabled(
+									parentGroupId);
 			}
 
 			Group group = GroupLocalServiceUtil.getGroup(siteGroupId);

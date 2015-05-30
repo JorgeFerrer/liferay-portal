@@ -68,7 +68,7 @@ else if (company.getAuthType().equals(CompanyConstants.AUTH_TYPE_ID)) {
 	SessionErrors.contains(request, PrincipalException.MustHaveUserGroupRole.class.getName()) ||
 	SessionErrors.contains(request, PrincipalException.MustHaveUserRole.class.getName()) ||
 	SessionErrors.contains(request, PrincipalException.MustNotBeGroupAdmin.class.getName()) %>">
-	
+
 	<div class="alert alert-danger">
 		<liferay-ui:message key="you-do-not-have-permission-to-access-the-requested-resource" />
 	</div>
@@ -76,6 +76,7 @@ else if (company.getAuthType().equals(CompanyConstants.AUTH_TYPE_ID)) {
 
 <c:if test="<%= SessionErrors.contains(request, PrincipalException.MustBeEnabled.class.getName()) %>">
 	<div class="alert alert-danger">
+
 		<%
 		PrincipalException.MustBeEnabled pe = (PrincipalException.MustBeEnabled)errorException;
 		%>
