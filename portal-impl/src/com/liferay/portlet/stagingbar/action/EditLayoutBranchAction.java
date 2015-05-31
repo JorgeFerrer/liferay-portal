@@ -131,7 +131,7 @@ public class EditLayoutBranchAction extends EditLayoutsAction {
 		}
 		catch (PrincipalException pe) {
 			SessionErrors.add(
-				renderRequest, PrincipalException.class.getName());
+				renderRequest, pe.getClass().getName());
 
 			return actionMapping.findForward("portlet.staging_bar.error");
 		}

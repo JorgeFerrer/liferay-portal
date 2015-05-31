@@ -241,7 +241,7 @@ public class EditLayoutsAction extends PortletAction {
 		}
 		catch (PrincipalException pe) {
 			SessionErrors.add(
-				renderRequest, PrincipalException.class.getName());
+				renderRequest, pe.getClass().getName());
 
 			return actionMapping.findForward("portlet.layouts_admin.error");
 		}
