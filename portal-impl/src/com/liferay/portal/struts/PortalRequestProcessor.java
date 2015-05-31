@@ -793,7 +793,8 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 		if (!isPublicPath(path)) {
 			if (user == null) {
-				SessionErrors.add(request, PrincipalException.class.getName());
+				SessionErrors.add(request,
+					PrincipalException.MustBeAuthenticated.class.getName());
 
 				return _PATH_PORTAL_LOGIN;
 			}
@@ -976,7 +977,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 				}
 			}
 			catch (Exception e) {
-				SessionErrors.add(request, PrincipalException.class.getName());
+				SessionErrors.add(request, e.getClass().getName());
 
 				authorized = false;
 			}
