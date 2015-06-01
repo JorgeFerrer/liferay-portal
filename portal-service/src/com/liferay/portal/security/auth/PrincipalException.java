@@ -24,6 +24,10 @@ import com.liferay.portal.security.permission.PermissionChecker;
  */
 public class PrincipalException extends PortalException {
 
+	public static Class[] getNestedClasses() {
+		return _NESTED_CLASSES;
+	}
+
 	/**
 	 * @deprecated As of 7.0.0, replaced by the inner classes
 	 */
@@ -394,5 +398,18 @@ public class PrincipalException extends PortalException {
 		public final long userId;
 
 	}
+
+	private static final Class[] _NESTED_CLASSES = {
+		MustBeAuthenticated.class, MustBeCompanyAdmin.class,
+		MustBeEnabled.class, MustBeInvokedByPost.class,
+		MustBeMarketplaceAdmin.class, MustBeOmniadmin.class,
+		MustBeOwnedByCurrentUser.class, MustBePortletStrutsPath.class,
+		MustBeSupportedActionForRole.class, MustBeValidPortlet.class,
+		MustHavePermission.class, MustHaveUserGroupRole.class,
+		MustHaveUserRole.class, MustHaveValidGroup.class,
+		MustHaveValidPermissionChecker.class, MustHaveValidPortletId.class,
+		MustHaveValidPrincipalName.class, MustInitializePermissionChecker.class,
+		MustNotBeGroupAdmin.class
+	};
 
 }
