@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.TrashedModel;
+import com.liferay.portal.security.auth.ConfigurationException;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -1050,6 +1051,8 @@ public class JournalPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		if (SessionErrors.contains(
+				renderRequest, ConfigurationException.class.getName()) ||
+			SessionErrors.contains(
 				renderRequest, NoSuchArticleException.class.getName()) ||
 			SessionErrors.contains(
 				renderRequest, NoSuchFeedException.class.getName()) ||
@@ -1060,7 +1063,66 @@ public class JournalPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, NoSuchTemplateException.class.getName()) ||
 			SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
+				renderRequest,
+				PrincipalException.MustBeAuthenticated.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeCompanyAdmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeEnabled.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeInvokedByPost.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeMarketplaceAdmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeOmniadmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeOwnedByCurrentUser.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBePortletStrutsPath.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustBeSupportedActionForRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeValidPortlet.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHavePermission.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveUserGroupRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveUserRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveValidGroup.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustHaveValidPermissionChecker.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveValidPortletId.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustHaveValidPrincipalName.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustInitializePermissionChecker.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustNotBeGroupAdmin.class.getName())) {
 
 			include(
 				"/portlet/journal/html/error.jsp", renderRequest,

@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.security.auth.ConfigurationException;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -266,7 +267,68 @@ public class AssetPublisherPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		if (SessionErrors.contains(
-				renderRequest, PrincipalException.class.getName())) {
+				renderRequest, ConfigurationException.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeAuthenticated.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeCompanyAdmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeEnabled.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeInvokedByPost.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeMarketplaceAdmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeOmniadmin.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeOwnedByCurrentUser.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBePortletStrutsPath.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustBeSupportedActionForRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustBeValidPortlet.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHavePermission.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveUserGroupRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveUserRole.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveValidGroup.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustHaveValidPermissionChecker.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustHaveValidPortletId.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustHaveValidPrincipalName.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.
+					MustInitializePermissionChecker.class.getName()) ||
+			SessionErrors.contains(
+				renderRequest,
+				PrincipalException.MustNotBeGroupAdmin.class.getName())) {
 
 			include("/error.jsp", renderRequest, renderResponse);
 		}
@@ -277,7 +339,9 @@ public class AssetPublisherPortlet extends MVCPortlet {
 
 	@Override
 	protected boolean isSessionErrorException(Throwable cause) {
-		if (cause instanceof PrincipalException) {
+		if (cause instanceof ConfigurationException ||
+			cause instanceof PrincipalException) {
+
 			return true;
 		}
 

@@ -83,7 +83,9 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 			if (locked && !hasFileEntryLock(fileEntryId) &&
 				!_hasOverrideCheckoutPermission(fileEntryId)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					getUserId(), DLFileEntry.class.getName(), fileEntryId,
+					ActionKeys.OVERRIDE_CHECKOUT);
 			}
 		}
 		catch (NoSuchFileEntryException nsfee) {
@@ -105,7 +107,9 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 			if (isLocked && !hasFileEntryLock(fileEntryId) &&
 				!_hasOverrideCheckoutPermission(fileEntryId)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					getUserId(), DLFileEntry.class.getName(), fileEntryId,
+					ActionKeys.OVERRIDE_CHECKOUT);
 			}
 		}
 		catch (NoSuchFileEntryException nsfee) {
@@ -136,7 +140,9 @@ public class DLFileEntryServiceImpl extends DLFileEntryServiceBaseImpl {
 			if (!hasFileEntryLock(fileEntryId) &&
 				!_hasOverrideCheckoutPermission(fileEntryId)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					getUserId(), DLFileEntry.class.getName(), fileEntryId,
+					ActionKeys.OVERRIDE_CHECKOUT);
 			}
 		}
 		catch (NoSuchFileEntryException nsfee) {

@@ -240,8 +240,7 @@ public class EditLayoutsAction extends PortletAction {
 			checkPermissions(renderRequest);
 		}
 		catch (PrincipalException pe) {
-			SessionErrors.add(
-				renderRequest, PrincipalException.class.getName());
+			SessionErrors.add(renderRequest, pe.getClass().getName());
 
 			return actionMapping.findForward("portlet.layouts_admin.error");
 		}
@@ -287,7 +286,7 @@ public class EditLayoutsAction extends PortletAction {
 		Group group = getGroup(portletRequest);
 
 		if (group == null) {
-			throw new PrincipalException();
+			throw new PrincipalException.MustHaveValidGroup();
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
@@ -313,7 +312,9 @@ public class EditLayoutsAction extends PortletAction {
 				if (!GroupPermissionUtil.contains(
 						permissionChecker, group, ActionKeys.ADD_LAYOUT)) {
 
-					throw new PrincipalException();
+					throw new PrincipalException.MustHavePermission(
+						permissionChecker.getUserId(), Group.class.getName(),
+						group.getGroupId(), ActionKeys.ADD_LAYOUT);
 				}
 			}
 			else {
@@ -322,7 +323,9 @@ public class EditLayoutsAction extends PortletAction {
 				if (!LayoutPermissionUtil.contains(
 						permissionChecker, layout, ActionKeys.ADD_LAYOUT)) {
 
-					throw new PrincipalException();
+					throw new PrincipalException.MustHavePermission(
+						permissionChecker.getUserId(), Layout.class.getName(),
+						layout.getLayoutId(), ActionKeys.ADD_LAYOUT);
 				}
 			}
 		}
@@ -330,7 +333,9 @@ public class EditLayoutsAction extends PortletAction {
 			if (!LayoutPermissionUtil.contains(
 					permissionChecker, layout, ActionKeys.DELETE)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					permissionChecker.getUserId(), Layout.class.getName(),
+					layout.getLayoutId(), ActionKeys.DELETE);
 			}
 		}
 		else if (cmd.equals(Constants.PUBLISH_TO_LIVE) ||
@@ -348,7 +353,9 @@ public class EditLayoutsAction extends PortletAction {
 					permissionChecker, group, ActionKeys.PUBLISH_STAGING);
 
 				if (!hasUpdateLayoutPermission && !publishToLive) {
-					throw new PrincipalException();
+					throw new PrincipalException.MustHavePermission(
+						permissionChecker.getUserId(), Group.class.getName(),
+						group.getGroupId(), ActionKeys.PUBLISH_STAGING);
 				}
 			}
 			else {
@@ -358,7 +365,8 @@ public class EditLayoutsAction extends PortletAction {
 		else if (cmd.equals(Constants.UPDATE)) {
 			if (group.isCompany()) {
 				if (!permissionChecker.isCompanyAdmin()) {
-					throw new PrincipalException();
+					throw new PrincipalException.MustBeCompanyAdmin(
+						permissionChecker.getUserId());
 				}
 			}
 			else if (group.isLayoutPrototype()) {
@@ -388,7 +396,9 @@ public class EditLayoutsAction extends PortletAction {
 			if (!LayoutPermissionUtil.contains(
 					permissionChecker, layout, ActionKeys.CUSTOMIZE)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					permissionChecker.getUserId(), Layout.class.getName(),
+					layout.getLayoutId(), ActionKeys.CUSTOMIZE);
 			}
 		}
 		else {
