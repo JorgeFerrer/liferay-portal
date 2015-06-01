@@ -17,6 +17,7 @@ package com.liferay.portlet.messageboards.action;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.captcha.ReCaptchaException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.sanitizer.SanitizerException;
@@ -171,6 +172,7 @@ public class EditMessageAction extends PortletAction {
 					 e instanceof LockedThreadException ||
 					 e instanceof MessageBodyException ||
 					 e instanceof MessageSubjectException ||
+					 e instanceof ReCaptchaException ||
 					 e instanceof SanitizerException) {
 
 				UploadException uploadException =

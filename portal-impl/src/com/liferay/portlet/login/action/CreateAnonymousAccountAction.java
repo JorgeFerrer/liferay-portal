@@ -21,6 +21,7 @@ import com.liferay.portal.GroupFriendlyURLException;
 import com.liferay.portal.UserEmailAddressException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.captcha.ReCaptchaException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
@@ -135,6 +136,7 @@ public class CreateAnonymousAccountAction extends PortletAction {
 					 e instanceof ContactNameException ||
 					 e instanceof EmailAddressException ||
 					 e instanceof GroupFriendlyURLException ||
+					 e instanceof ReCaptchaException ||
 					 e instanceof UserEmailAddressException) {
 
 				SessionErrors.add(actionRequest, e.getClass(), e);

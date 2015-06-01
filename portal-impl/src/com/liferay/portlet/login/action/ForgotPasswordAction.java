@@ -24,6 +24,7 @@ import com.liferay.portal.UserReminderQueryException;
 import com.liferay.portal.kernel.captcha.CaptchaException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.captcha.ReCaptchaException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -85,6 +86,7 @@ public class ForgotPasswordAction extends PortletAction {
 		}
 		catch (Exception e) {
 			if (e instanceof CaptchaTextException ||
+				e instanceof ReCaptchaException ||
 				e instanceof UserEmailAddressException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
