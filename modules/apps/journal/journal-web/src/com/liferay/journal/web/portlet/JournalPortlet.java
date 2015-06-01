@@ -1063,10 +1063,7 @@ public class JournalPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, NoSuchTemplateException.class.getName()) ||
 			SessionErrors.contains(
-				renderRequest, PrincipalException.getNestedClasses()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustNotBeGroupAdmin.class.getName())) {
+				renderRequest, PrincipalException.getNestedClasses())) {
 
 			include(
 				"/portlet/journal/html/error.jsp", renderRequest,

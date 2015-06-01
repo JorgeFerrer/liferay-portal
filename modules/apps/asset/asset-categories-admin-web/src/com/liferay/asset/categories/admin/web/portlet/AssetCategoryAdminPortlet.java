@@ -218,66 +218,7 @@ public class AssetCategoryAdminPortlet extends MVCPortlet {
 			SessionErrors.contains(
 				renderRequest, NoSuchVocabularyException.class.getName()) ||
 			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeAuthenticated.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeCompanyAdmin.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeEnabled.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeInvokedByPost.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeMarketplaceAdmin.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeOmniadmin.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeOwnedByCurrentUser.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBePortletStrutsPath.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.
-					MustBeSupportedActionForRole.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustBeValidPortlet.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustHavePermission.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustHaveUserGroupRole.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustHaveUserRole.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustHaveValidGroup.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.
-					MustHaveValidPermissionChecker.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustHaveValidPortletId.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.
-					MustHaveValidPrincipalName.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.
-					MustInitializePermissionChecker.class.getName()) ||
-			SessionErrors.contains(
-				renderRequest,
-				PrincipalException.MustNotBeGroupAdmin.class.getName())) {
+				renderRequest, PrincipalException.getNestedClasses())) {
 
 			include("/error.jsp", renderRequest, renderResponse);
 		}
