@@ -89,10 +89,6 @@ public class EditUserAction
 		User user = PortalUtil.getSelectedUser(actionRequest);
 
 		if (Validator.isNotNull(currentPassword)) {
-			if (Validator.isNull(newPassword)) {
-				throw new UserPasswordException.MustNotBeNull(user.getUserId());
-			}
-
 			Company company = PortalUtil.getCompany(actionRequest);
 
 			String authType = company.getAuthType();
