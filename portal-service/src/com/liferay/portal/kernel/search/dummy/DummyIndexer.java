@@ -190,10 +190,14 @@ public class DummyIndexer implements Indexer {
 		SearchContext searchContext) {
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #postProcessSearchQuery(
+	 *             BooleanQuery, BooleanFilter, SearchContext)}
+	 */
+	@Deprecated
 	@Override
 	public void postProcessSearchQuery(
-			BooleanQuery searchQuery, SearchContext searchContext)
-		throws Exception {
+		BooleanQuery searchQuery, SearchContext searchContext) {
 
 		throw new UnsupportedOperationException();
 	}
@@ -225,6 +229,11 @@ public class DummyIndexer implements Indexer {
 		SearchContext searchContext, String... selectedFieldNames) {
 
 		return null;
+	}
+
+	@Override
+	public long searchCount(SearchContext searchContext) {
+		return 0;
 	}
 
 	@Override

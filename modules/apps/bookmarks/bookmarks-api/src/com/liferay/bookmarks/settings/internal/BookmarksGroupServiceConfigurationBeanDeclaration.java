@@ -27,7 +27,7 @@ public class BookmarksGroupServiceConfigurationBeanDeclaration
 	implements ConfigurationBeanDeclaration {
 
 	@Override
-	public Class getConfigurationBeanClass() {
+	public Class<?> getConfigurationBeanClass() {
 		return BookmarksGroupServiceConfiguration.class;
 	}
 

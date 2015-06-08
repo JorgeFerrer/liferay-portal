@@ -32,8 +32,6 @@ public interface FindActionHelper {
 
 	public String getPrimaryKeyParameterName();
 
-	public String getStrutsAction(HttpServletRequest request, String portletId);
-
 	public String[] initPortletIds();
 
 	public PortletURL processPortletURL(

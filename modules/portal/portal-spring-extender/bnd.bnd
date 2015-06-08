@@ -67,6 +67,7 @@ Import-Package:\
 	org.springframework.web.servlet.config
 Include-Resource:\
 	classes
-Provide-Capability: liferay.extender;\
+Provide-Capability:\
+	liferay.extender;\
 	liferay.extender="spring.extender";\
 	version:Version="${plugin.full.version}"

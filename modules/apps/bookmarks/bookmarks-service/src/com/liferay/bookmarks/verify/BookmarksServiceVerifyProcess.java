@@ -18,7 +18,7 @@ import com.liferay.bookmarks.model.BookmarksEntry;
 import com.liferay.bookmarks.model.BookmarksFolder;
 import com.liferay.bookmarks.service.BookmarksEntryLocalServiceUtil;
 import com.liferay.bookmarks.service.BookmarksFolderLocalServiceUtil;
-import com.liferay.bookmarks.upgrade.BookmarksServicesUpgrade;
+import com.liferay.bookmarks.upgrade.BookmarksServiceUpgrade;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PortalInstances;
@@ -47,7 +47,7 @@ public class BookmarksServiceVerifyProcess extends VerifyProcess {
 
 	@Reference(unbind = "-")
 	protected void setBookmarksServicesUpgrade(
-		BookmarksServicesUpgrade bookmarksServicesUpgrade) {
+		BookmarksServiceUpgrade bookmarksServicesUpgrade) {
 	}
 
 	protected void updateEntryAssets() throws Exception {

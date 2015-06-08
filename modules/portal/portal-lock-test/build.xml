@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project>
+	<property name="osgi.ide.dependencies" value="hibernate-core.jar" />
+
+	<import file="../../../tools/sdk/build-common-osgi-plugin.xml" />
+
+	<property name="import.shared" value="portal-lock-service" />
+</project>

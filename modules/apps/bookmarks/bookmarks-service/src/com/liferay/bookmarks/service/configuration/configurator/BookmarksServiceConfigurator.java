@@ -14,7 +14,7 @@
 
 package com.liferay.bookmarks.service.configuration.configurator;
 
-import com.liferay.bookmarks.upgrade.BookmarksServicesUpgrade;
+import com.liferay.bookmarks.upgrade.BookmarksServiceUpgrade;
 import com.liferay.portal.service.configuration.ServiceComponentConfiguration;
 import com.liferay.portal.service.configuration.configurator.ServiceConfigurator;
 import com.liferay.portal.spring.extender.loader.ModuleResourceLoader;
@@ -56,8 +56,8 @@ public class BookmarksServiceConfigurator {
 	}
 
 	@Reference(unbind = "-")
-	protected void setBookmarksServicesUpgrade(
-		BookmarksServicesUpgrade bookmarksServicesUpgrade) {
+	protected void setBookmarksServiceUpgrade(
+		BookmarksServiceUpgrade bookmarksServiceUpgrade) {
 	}
 
 	@Reference(unbind = "-")

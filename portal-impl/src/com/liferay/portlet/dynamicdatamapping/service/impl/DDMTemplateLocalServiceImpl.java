@@ -1354,9 +1354,8 @@ public class DDMTemplateLocalServiceImpl
 	}
 
 	protected DDMTemplateVersion addTemplateVersion(
-			User user, DDMTemplate template, String version,
-			ServiceContext serviceContext)
-		throws PortalException {
+		User user, DDMTemplate template, String version,
+		ServiceContext serviceContext) {
 
 		long templateVersionId = counterLocalService.increment();
 

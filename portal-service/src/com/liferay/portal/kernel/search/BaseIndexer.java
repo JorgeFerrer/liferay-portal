@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.QueryFilter;
 import com.liferay.portal.kernel.search.filter.TermsFilter;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.search.hits.HitsProcessor;
 import com.liferay.portal.kernel.search.hits.HitsProcessorRegistryUtil;
 import com.liferay.portal.kernel.trash.TrashHandler;
@@ -604,6 +605,38 @@ public abstract class BaseIndexer implements Indexer {
 		return search(searchContext);
 	}
 
+	@Override
+	public long searchCount(SearchContext searchContext)
+		throws SearchException {
+
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		if ((permissionChecker != null) &&
+			isUseSearchResultPermissionFilter(searchContext)) {
+
+			Hits hits = search(searchContext);
+
+			return hits.getLength();
+		}
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		queryConfig.setHighlightEnabled(false);
+		queryConfig.setHitsProcessingEnabled(false);
+		queryConfig.setScoreEnabled(false);
+		queryConfig.setQueryIndexingEnabled(false);
+		queryConfig.setQuerySuggestionEnabled(false);
+
+		searchContext.setSearchEngineId(getSearchEngineId());
+
+		BooleanQuery fullQuery = getFullQuery(searchContext);
+
+		fullQuery.setQueryConfig(queryConfig);
+
+		return SearchEngineUtil.searchCount(searchContext, fullQuery);
+	}
+
 	public void setCommitImmediately(boolean commitImmediately) {
 		_commitImmediately = commitImmediately;
 	}
@@ -743,8 +776,7 @@ public abstract class BaseIndexer implements Indexer {
 			Collection<Facet> facets)
 		throws ParseException {
 
-		BooleanQuery facetBooleanQuery = BooleanQueryFactoryUtil.create(
-			searchContext);
+		BooleanQuery facetBooleanQuery = new BooleanQueryImpl();
 
 		for (Facet facet : facets) {
 			BooleanClause<Query> facetBooleanClause = facet.getFacetClause();
@@ -1218,8 +1250,7 @@ public abstract class BaseIndexer implements Indexer {
 			BooleanFilter fullQueryBooleanFilter, SearchContext searchContext)
 		throws Exception {
 
-		BooleanQuery searchQuery = BooleanQueryFactoryUtil.create(
-			searchContext);
+		BooleanQuery searchQuery = new BooleanQueryImpl();
 
 		addSearchKeywords(searchQuery, searchContext);
 		postProcessSearchQuery(
@@ -1256,8 +1287,7 @@ public abstract class BaseIndexer implements Indexer {
 				facetBooleanFilter, BooleanClauseOccur.MUST);
 		}
 
-		BooleanQuery fullBooleanQuery = BooleanQueryFactoryUtil.create(
-			searchContext);
+		BooleanQuery fullBooleanQuery = new BooleanQueryImpl();
 
 		if (fullQueryBooleanFilter.hasClauses()) {
 			fullBooleanQuery.setPreBooleanFilter(fullQueryBooleanFilter);
