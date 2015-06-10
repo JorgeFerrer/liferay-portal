@@ -282,6 +282,7 @@ public class AssetPublisherPortlet extends MVCPortlet {
 	protected boolean isSessionErrorException(Throwable cause) {
 		if (cause instanceof ConfigurationException ||
 			cause instanceof PrincipalException) {
+
 			return true;
 		}
 
