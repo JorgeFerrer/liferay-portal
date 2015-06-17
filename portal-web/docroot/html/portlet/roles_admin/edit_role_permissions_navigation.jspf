@@ -121,22 +121,27 @@
 
 											<%
 											for (Portlet categoryPortlet : categoryPortlets) {
-												editPermissionsResourceURL.setParameter("portletResource", categoryPortlet.getPortletId());
 
-												editPermissionsURL.setParameter("portletResource", categoryPortlet.getPortletId());
+												if (!Validator.equals(categoryPortlet.getControlPanelEntryClass(),
+														com.liferay.portlet.OmniadminControlPanelEntry.class.getName())) {
 
-												data.put("resource-href", editPermissionsResourceURL.toString());
-											%>
+													editPermissionsResourceURL.setParameter("portletResource", categoryPortlet.getPortletId());
 
-												<li class="permission-navigation-item-container">
-													<span class='permission-navigation-item <%= portletResource.equals(categoryPortlet.getPortletId())? "selected" : "" %>'>
-														<aui:a cssClass="permission-navigation-link" data="<%= data %>" href="<%= editPermissionsURL.toString() %>">
-															<%= PortalUtil.getPortletLongTitle(categoryPortlet, application, locale) %>
-														</aui:a>
-													</span>
-												</li>
+													editPermissionsURL.setParameter("portletResource", categoryPortlet.getPortletId());
+
+													data.put("resource-href", editPermissionsResourceURL.toString());
+												%>
+
+													<li class="permission-navigation-item-container">
+														<span class='permission-navigation-item <%= portletResource.equals(categoryPortlet.getPortletId())? "selected" : "" %>'>
+															<aui:a cssClass="permission-navigation-link" data="<%= data %>" href="<%= editPermissionsURL.toString() %>">
+																<%= PortalUtil.getPortletLongTitle(categoryPortlet, application, locale) %>
+															</aui:a>
+														</span>
+													</li>
 
 											<%
+												}
 											}
 											%>
 
