@@ -277,7 +277,9 @@ public abstract class SettingsConfigurationAction
 		String settingsScope = ParamUtil.getString(
 			actionRequest, "settingsScope");
 
-		if (settingsScope.equals("portletInstance")) {
+		if (settingsScope.equals("group") ||
+			settingsScope.equals("portletInstance")) {
+
 			settingsId = ParamUtil.getString(actionRequest, "portletResource");
 		}
 
