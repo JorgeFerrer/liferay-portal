@@ -26,7 +26,9 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.dynamic.data.lists.exception.NoSuchRecordException" %><%@
+<%@ page import="com.liferay.dynamic.data.lists.constants.DDLActionKeys" %><%@
+page import="com.liferay.dynamic.data.lists.constants.DDLWebKeys" %><%@
+page import="com.liferay.dynamic.data.lists.exception.NoSuchRecordException" %><%@
 page import="com.liferay.dynamic.data.lists.exception.NoSuchRecordSetException" %><%@
 page import="com.liferay.dynamic.data.lists.exception.RecordSetDDMStructureIdException" %><%@
 page import="com.liferay.dynamic.data.lists.exception.RecordSetNameException" %><%@

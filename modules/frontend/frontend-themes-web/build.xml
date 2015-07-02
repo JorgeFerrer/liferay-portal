@@ -192,14 +192,14 @@
 				<replaceregexp match="^// INSERT CUSTOM VARS" replace="@import &quot;../../aui_variables&quot;;" byline="true">
 					<fileset
 						dir="${lexicon.deploy.theme.dir}"
-						includes="atlas.scss,bootstrap.scss,lexicon.scss"
+						includes="atlas.scss,bootstrap.scss,lexicon-base.scss"
 					/>
 				</replaceregexp>
 
 				<replaceregexp match="^// INSERT CUSTOM EXTENSIONS" replace="@import &quot;../../aui_custom&quot;;${line.separator}@import &quot;../../liferay_custom&quot;;${line.separator}@import &quot;../alloy-font-awesome/scss/font-awesome&quot;;" byline="true">
 					<fileset
 						dir="${lexicon.deploy.theme.dir}"
-						includes="atlas.scss,bootstrap.scss,lexicon.scss"
+						includes="atlas.scss,bootstrap.scss,lexicon-base.scss"
 					/>
 				</replaceregexp>
 			</then>
