@@ -90,33 +90,6 @@ public class EditInstanceAction extends PortletAction {
 		}
 	}
 
-	@Override
-	public ActionForward render(
-			ActionMapping actionMapping, ActionForm actionForm,
-			PortletConfig portletConfig, RenderRequest renderRequest,
-			RenderResponse renderResponse)
-		throws Exception {
-
-		try {
-			ActionUtil.getInstance(renderRequest);
-		}
-		catch (Exception e) {
-			if (e instanceof NoSuchCompanyException ||
-				e instanceof PrincipalException) {
-
-				SessionErrors.add(renderRequest, e.getClass());
-
-				return actionMapping.findForward("portlet.admin.error");
-			}
-			else {
-				throw e;
-			}
-		}
-
-		return actionMapping.findForward(
-			getForward(renderRequest, "portlet.admin.edit_instance"));
-	}
-
 	protected void deleteInstance(ActionRequest actionRequest)
 		throws Exception {
 
