@@ -796,10 +796,6 @@
 			<name>template-path</name>
 			<value>/html/portlet/portal_instances/</value>
 		</init-param>
-		<init-param>
-			<name>view-action</name>
-			<value>/admin_instances/view</value>
-		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
