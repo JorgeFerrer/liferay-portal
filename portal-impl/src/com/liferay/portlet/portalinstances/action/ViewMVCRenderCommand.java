@@ -27,7 +27,7 @@ import javax.portlet.RenderResponse;
 @OSGiBeanProperties(
 	property = {
 		"javax.portlet.name=" + PortletKeys.ADMIN_INSTANCE, "mvc.command.name=",
-		"mvc.command.name=/admin_instances/view"
+		"mvc.command.name=/portal_instances/view"
 	}
 )
 public class ViewMVCRenderCommand implements MVCRenderCommand {
@@ -36,7 +36,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		return "/html/portlet/admin/view.jsp";
+		return "/html/portlet/portal_instances/view.jsp";
 	}
 
 }

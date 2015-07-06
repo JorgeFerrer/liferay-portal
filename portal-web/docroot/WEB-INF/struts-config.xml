@@ -147,8 +147,6 @@
 			<forward name="portlet.admin.error" path="portlet.admin.error" />
 		</action>
 
-		<action path="/admin_instances/view" forward="portlet.admin.view" />
-
 		<!-- Admin Plugins -->
 
 		<action path="/admin_plugins/edit_server" type="com.liferay.portlet.admin.action.EditServerAction">
