@@ -43,10 +43,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "server");
 
 boolean showTabs1 = false;
 
-if (portletName.equals(PortletKeys.ADMIN_INSTANCE)) {
-	tabs1 = "instances";
-}
-else if (portletName.equals(PortletKeys.ADMIN_PLUGINS)) {
+if (portletName.equals(PortletKeys.ADMIN_PLUGINS)) {
 	tabs1 = "plugins";
 }
 else if (portletName.equals(PortletKeys.ADMIN_SERVER)) {

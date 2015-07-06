@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/html/portlet/admin/init.jsp" %>
+<%@ include file="/html/portlet/portal_instances/init.jsp" %>
 
 <c:choose>
 	<c:when test="<%= permissionChecker.isOmniadmin() %>">
@@ -54,75 +54,8 @@
 				/>
 			</c:if>
 
-			<c:choose>
-				<c:when test='<%= tabs1.equals("server") %>'>
-					<liferay-util:include page="/html/portlet/admin/server.jsp" />
-
-					<aui:script use="liferay-admin">
-						new Liferay.Portlet.Admin(
-							{
-								form: document.<portlet:namespace />fm,
-								namespace: '<portlet:namespace />',
-								url: '<portlet:actionURL><portlet:param name="struts_action" value="/admin/edit_server" /></portlet:actionURL>'
-							}
-						);
-					</aui:script>
-				</c:when>
-				<c:when test='<%= tabs1.equals("instances") %>'>
-					<%@ include file="/html/portlet/admin/instances.jspf" %>
-				</c:when>
-				<c:when test='<%= tabs1.equals("plugins") %>'>
-
-					<%
-					PortletURL marketplaceURL = null;
-
-					if ((PrefsPropsUtil.getBoolean(PropsKeys.AUTO_DEPLOY_ENABLED, PropsValues.AUTO_DEPLOY_ENABLED) || PortalUtil.isOmniadmin(user.getUserId())) && PortletLocalServiceUtil.hasPortlet(themeDisplay.getCompanyId(), PortletKeys.MARKETPLACE_STORE)) {
-						marketplaceURL = ((RenderResponseImpl)renderResponse).createRenderURL(PortletKeys.MARKETPLACE_STORE);
-					}
-
-					boolean showEditPluginHREF = false;
-					%>
-
-					<%@ include file="/html/portlet/plugins_admin/plugins.jspf" %>
-				</c:when>
-			</c:choose>
+			<%@ include file="/html/portlet/portal_instances/instances.jspf" %>
 		</aui:form>
-
-		<portlet:renderURL var="redirectURL">
-			<portlet:param name="struts_action" value="/admin/view" />
-			<portlet:param name="tabs1" value="<%= tabs1 %>" />
-			<portlet:param name="tabs2" value="<%= tabs2 %>" />
-			<portlet:param name="tabs3" value="<%= tabs3 %>" />
-			<portlet:param name="<%= SearchContainer.DEFAULT_CUR_PARAM %>" value="<%= String.valueOf(cur) %>" />
-			<portlet:param name="<%= SearchContainer.DEFAULT_DELTA_PARAM %>" value="<%= String.valueOf(delta) %>" />
-		</portlet:renderURL>
-
-		<portlet:actionURL var="editServerURL">
-			<portlet:param name="struts_action" value="/admin/edit_server" />
-		</portlet:actionURL>
-
-		<aui:script>
-			AUI.$('#<portlet:namespace />fm').on(
-				'click',
-				'.save-server-button',
-				function(event) {
-					var currentTarget = AUI.$(event.currentTarget);
-
-					var form = document.<portlet:namespace />fm;
-
-					form.<portlet:namespace /><%= Constants.CMD %>.value = currentTarget.data('cmd');
-					form.<portlet:namespace />redirect.value = '<%= redirectURL %>';
-
-					var className = currentTarget.data('classname');
-
-					if (className) {
-						form.<portlet:namespace />className.value = className;
-					}
-
-					submitForm(form, '<%= editServerURL %>');
-				}
-			);
-		</aui:script>
 	</c:when>
 	<c:otherwise>
 		<liferay-util:include page="/html/portal/portlet_access_denied.jsp" />
