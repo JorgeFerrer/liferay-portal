@@ -25,14 +25,14 @@
 
 		PortletURL portletURL = renderResponse.createRenderURL();
 
-		portletURL.setParameter("struts_action", "/admin/view");
+		portletURL.setParameter("mvcRenderCommandName", "/portal_instances/view");
 		portletURL.setParameter("tabs1", tabs1);
 		portletURL.setParameter("tabs2", tabs2);
 		portletURL.setParameter("tabs3", tabs3);
 		%>
 
 		<portlet:renderURL var="redirectURL">
-			<portlet:param name="struts_action" value="/admin/view" />
+			<portlet:param name="mvcRenderCommandName" value="/portal_instances/view" />
 			<portlet:param name="tabs1" value="<%= tabs1 %>" />
 			<portlet:param name="tabs2" value="<%= tabs2 %>" />
 			<portlet:param name="tabs3" value="<%= tabs3 %>" />
