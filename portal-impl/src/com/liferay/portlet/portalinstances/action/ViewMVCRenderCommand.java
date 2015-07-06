@@ -26,8 +26,8 @@ import javax.portlet.RenderResponse;
  */
 @OSGiBeanProperties(
 	property = {
-		"javax.portlet.name=" + PortletKeys.ADMIN_INSTANCE, "mvc.command.name=",
-		"mvc.command.name=/portal_instances/view"
+		"javax.portlet.name=" + PortletKeys.PORTAL_INSTANCES,
+		"mvc.command.name=", "mvc.command.name=/portal_instances/view"
 	}
 )
 public class ViewMVCRenderCommand implements MVCRenderCommand {
