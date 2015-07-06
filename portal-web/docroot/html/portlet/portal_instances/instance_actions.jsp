@@ -32,8 +32,7 @@ Company companyObject = (Company)row.getObject();
 	<liferay-ui:icon iconCssClass="icon-edit" message="edit" url="<%= editURL %>" />
 
 	<c:if test="<%= companyObject.getCompanyId() != PortalInstances.getDefaultCompanyId() %>">
-		<portlet:actionURL var="deleteURL">
-			<portlet:param name="struts_action" value="/admin/edit_instance" />
+		<portlet:actionURL name="/portal_instances/edit_instance" var="deleteURL">
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="companyId" value="<%= String.valueOf(companyObject.getCompanyId()) %>" />
