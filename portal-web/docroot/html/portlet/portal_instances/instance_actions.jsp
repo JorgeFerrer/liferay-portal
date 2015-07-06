@@ -24,7 +24,7 @@ Company companyObject = (Company)row.getObject();
 
 <liferay-ui:icon-menu icon="<%= StringPool.BLANK %>" message="<%= StringPool.BLANK %>">
 	<portlet:renderURL var="editURL">
-		<portlet:param name="struts_action" value="/admin/edit_instance" />
+		<portlet:param name="mvcRenderCommandName" value="/portal_instances/edit_instance" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="companyId" value="<%= String.valueOf(companyObject.getCompanyId()) %>" />
 	</portlet:renderURL>
