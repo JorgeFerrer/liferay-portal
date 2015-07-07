@@ -21,7 +21,6 @@
 
 		<%
 		int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
-		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		PortletURL portletURL = renderResponse.createRenderURL();
 
