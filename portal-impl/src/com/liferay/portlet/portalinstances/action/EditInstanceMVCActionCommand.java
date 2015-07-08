@@ -20,7 +20,6 @@ import com.liferay.portal.CompanyWebIdException;
 import com.liferay.portal.NoSuchCompanyException;
 import com.liferay.portal.RequiredCompanyException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.util.Constants;
@@ -76,8 +75,7 @@ public class EditInstanceMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse, redirect);
 		}
 		catch (Exception e) {
-			String mvcPath =
-				"/html/portlet/portal_instances/error.jsp";
+			String mvcPath = "/html/portlet/portal_instances/error.jsp";
 
 			if (e instanceof NoSuchCompanyException ||
 				e instanceof PrincipalException) {
