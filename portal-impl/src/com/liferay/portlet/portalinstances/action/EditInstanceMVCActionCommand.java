@@ -81,9 +81,8 @@ public class EditInstanceMVCActionCommand extends BaseMVCActionCommand {
 
 				SessionErrors.add(actionRequest, e.getClass());
 
-				actionRequest.setAttribute(
-					MVCPortlet.MVC_PATH,
-					"/html/portlet/portal_instances/error.jsp");
+				actionResponse.setRenderParameter(
+					"mvcPath", "/html/portlet/portal_instances/error.jsp");
 			}
 			else if (e instanceof CompanyMxException ||
 					 e instanceof CompanyVirtualHostException ||
