@@ -76,19 +76,21 @@ public class EditInstanceMVCActionCommand extends BaseMVCActionCommand {
 			sendRedirect(actionRequest, actionResponse, redirect);
 		}
 		catch (Exception e) {
+			String mvcPath =
+				"/html/portlet/portal_instances/error.jsp";
+
 			if (e instanceof NoSuchCompanyException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
-
-				actionResponse.setRenderParameter(
-					"mvcPath", "/html/portlet/portal_instances/error.jsp");
 			}
 			else if (e instanceof CompanyMxException ||
 					 e instanceof CompanyVirtualHostException ||
 					 e instanceof CompanyWebIdException) {
 
 				SessionErrors.add(actionRequest, e.getClass());
+
+				mvcPath = "/html/portlet/portal_instances/edit_instance.jsp";
 			}
 			else if (e instanceof RequiredCompanyException) {
 				SessionErrors.add(actionRequest, e.getClass());
@@ -96,6 +98,8 @@ public class EditInstanceMVCActionCommand extends BaseMVCActionCommand {
 			else {
 				throw e;
 			}
+
+			actionResponse.setRenderParameter("mvcPath", mvcPath);
 		}
 	}
 
