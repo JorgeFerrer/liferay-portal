@@ -26,7 +26,6 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.blogs.web.constants.BlogsPortletKeys" %><%@
-page import="com.liferay.blogs.web.settings.internal.BlogsPortletInstanceSettings" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.RowChecker" %><%@
 page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
@@ -116,6 +115,9 @@ page import="com.liferay.portlet.blogsadmin.search.EntrySearchTerms" %><%@
 page import="com.liferay.portlet.documentlibrary.FileSizeException" %><%@
 page import="com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil" %><%@
 page import="com.liferay.portlet.trash.util.TrashUtil" %><%@
+page import="com.liferay.blogs.web.configuration.BlogsPortletInstanceConfiguration" %><%@
+page import="com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator" %><%@
+page import="com.liferay.blogs.web.display.context.BlogsPortletInstanceSettingsHelper" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
 
 <%@ page import="java.text.Format" %>
