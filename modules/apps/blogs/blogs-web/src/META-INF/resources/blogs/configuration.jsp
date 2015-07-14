@@ -28,33 +28,14 @@ blogsPortletInstanceSettings = BlogsPortletInstanceSettings.getInstance(layout, 
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= configurationRenderURL %>" />
 
-	<%
-	String tabs2Names = "display-settings";
-
-	if (PortalUtil.isRSSFeedsEnabled()) {
-		tabs2Names += ",rss";
-	}
-	%>
-
 	<liferay-ui:tabs
-		names="<%= tabs2Names %>"
+		names="display-settings"
 		refresh="<%= false %>"
 	>
 
 		<liferay-ui:section>
 			<%@ include file="/blogs/display_settings.jspf" %>
 		</liferay-ui:section>
-
-		<c:if test="<%= PortalUtil.isRSSFeedsEnabled() %>">
-			<liferay-ui:section>
-				<liferay-ui:rss-settings
-					delta="<%= blogsPortletInstanceSettings.getRssDelta() %>"
-					displayStyle="<%= blogsPortletInstanceSettings.getRssDisplayStyle() %>"
-					enabled="<%= blogsPortletInstanceSettings.isEnableRSS() %>"
-					feedType="<%= blogsPortletInstanceSettings.getRssFeedType() %>"
-				/>
-			</liferay-ui:section>
-		</c:if>
 	</liferay-ui:tabs>
 
 	<aui:button-row>

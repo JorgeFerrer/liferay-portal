@@ -29,6 +29,10 @@ if (Validator.isNotNull(portletResource)) {
 BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
 BlogsPortletInstanceSettings blogsPortletInstanceSettings = BlogsPortletInstanceSettings.getInstance(layout, portletId);
 
+BlogsWebRequestHelper blogsWebRequestHelper = new BlogsWebRequestHelper(request);
+
+com.liferay.blogs.settings.BlogsGroupServiceSettings rssBlogsGroupServiceSettings = blogsWebRequestHelper.getBlogsGroupServiceSettings();
+
 int pageAbstractLength = PropsValues.BLOGS_PAGE_ABSTRACT_LENGTH;
 
 boolean showEditEntryPermissions = true;

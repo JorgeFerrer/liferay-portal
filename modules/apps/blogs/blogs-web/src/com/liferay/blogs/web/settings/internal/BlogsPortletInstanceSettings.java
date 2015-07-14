@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.model.Layout;
-import com.liferay.portal.util.PortalUtil;
 
 import java.util.Map;
 
@@ -74,21 +73,6 @@ public class BlogsPortletInstanceSettings {
 		return _typedSettings.getIntegerValue("pageDelta");
 	}
 
-	@Settings.Property(name = "rssDelta")
-	public int getRssDelta() {
-		return _typedSettings.getIntegerValue("rssDelta");
-	}
-
-	@Settings.Property(name = "rssDisplayStyle")
-	public String getRssDisplayStyle() {
-		return _typedSettings.getValue("rssDisplayStyle");
-	}
-
-	@Settings.Property(name = "rssFeedType")
-	public String getRssFeedType() {
-		return _typedSettings.getValue("rssFeedType");
-	}
-
 	public String getSocialBookmarksDisplayPosition() {
 		return _typedSettings.getValue("socialBookmarksDisplayPosition");
 	}
@@ -121,15 +105,6 @@ public class BlogsPortletInstanceSettings {
 		return _typedSettings.getBooleanValue("enableRelatedAssets");
 	}
 
-	@Settings.Property(name = "enableRss")
-	public boolean isEnableRSS() {
-		if (!PortalUtil.isRSSFeedsEnabled()) {
-			return false;
-		}
-
-		return _typedSettings.getBooleanValue("enableRss");
-	}
-
 	public boolean isEnableSocialBookmarks() {
 		return _typedSettings.getBooleanValue("enableSocialBookmarks");
 	}
@@ -141,11 +116,6 @@ public class BlogsPortletInstanceSettings {
 			"enableComments", PropsKeys.BLOGS_ENTRY_COMMENTS_ENABLED);
 		fallbackKeys.add(
 			"pageDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		fallbackKeys.add(
-			"rssDelta", PropsKeys.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA);
-		fallbackKeys.add(
-			"rssDisplayStyle", PropsKeys.RSS_FEED_DISPLAY_STYLE_DEFAULT);
-		fallbackKeys.add("rssFeedType", PropsKeys.RSS_FEED_TYPE_DEFAULT);
 		fallbackKeys.add(
 			"socialBookmarksTypes", PropsKeys.SOCIAL_BOOKMARK_TYPES);
 
