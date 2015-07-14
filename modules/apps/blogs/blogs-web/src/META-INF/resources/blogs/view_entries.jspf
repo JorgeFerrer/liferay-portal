@@ -25,11 +25,11 @@
 </c:if>
 
 <div class="subscribe">
-	<c:if test="<%= blogsPortletInstanceSettings.isEnableRSS() %>">
+	<c:if test="<%= rssBlogsGroupServiceSettings.enableRss() %>">
 		<liferay-ui:rss
-			delta="<%= blogsPortletInstanceSettings.getRssDelta() %>"
-			displayStyle="<%= blogsPortletInstanceSettings.getRssDisplayStyle() %>"
-			feedType="<%= blogsPortletInstanceSettings.getRssFeedType() %>"
+			delta="<%= GetterUtil.getInteger(rssBlogsGroupServiceSettings.rssDelta()) %>"
+			displayStyle="<%= rssBlogsGroupServiceSettings.rssDisplayStyle() %>"
+			feedType="<%= rssBlogsGroupServiceSettings.rssFeedType() %>"
 			url='<%= themeDisplay.getPathMain() + "/blogs/rss" %>'
 		/>
 	</c:if>
