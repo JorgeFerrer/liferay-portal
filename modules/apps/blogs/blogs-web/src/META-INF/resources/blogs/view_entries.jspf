@@ -74,10 +74,11 @@
 <%
 Map<String, Object> contextObjects = new HashMap<String, Object>();
 
-contextObjects.put("blogsPortletInstanceSettings", blogsPortletInstanceSettings);
+contextObjects.put("blogsPortletInstanceSettingsHelper", blogsPortletInstanceSettingsHelper);
+contextObjects.put("blogsPortletInstanceConfiguration", blogsPortletInstanceConfiguration);
 %>
 
-<liferay-ui:ddm-template-renderer className="<%= BlogsEntry.class.getName() %>" contextObjects="<%= contextObjects %>" displayStyle="<%= blogsPortletInstanceSettings.getDisplayStyle() %>" displayStyleGroupId="<%= blogsPortletInstanceSettings.getDisplayStyleGroupId(themeDisplay.getScopeGroupId()) %>" entries="<%= _convertToBlogEntries(results) %>">
+<liferay-ui:ddm-template-renderer className="<%= BlogsEntry.class.getName() %>" contextObjects="<%= contextObjects %>" displayStyle="<%= blogsPortletInstanceConfiguration.displayStyle() %>" displayStyleGroupId="<%= blogsPortletInstanceSettingsHelper.getDisplayStyleGroupId(themeDisplay.getScopeGroupId()) %>" entries="<%= _convertToBlogEntries(results) %>">
 
 	<%
 	int index = 0;
