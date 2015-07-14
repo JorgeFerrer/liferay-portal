@@ -12,22 +12,26 @@
  * details.
  */
 
-package com.liferay.blogs.web.configuration;
+package com.liferay.blogs.configuration;
 
-import com.liferay.portal.kernel.util.GetterUtil;
+import aQute.bnd.annotation.metatype.Meta;
 
 /**
  * @author Sergio González
  */
-public class BlogsWebConfigurationValues {
+@Meta.OCD(id = "com.liferay.blogs.configuration.BlogsSystemConfiguration")
+public interface BlogsSystemConfiguration {
 
-	public static final String DISPLAY_TEMPLATES_CONFIG = GetterUtil.getString(
-		BlogsWebConfigurationUtil.get("display.templates.config"));
+	@Meta.AD(
+		deflt = "com/liferay/blogs/web/template/dependencies/portlet-display-templates.xml",
+		required = false
+	)
+	public String displayTemplatesConfig();
 
-	public static final String ENTRY_CHECK_INTERVAL = GetterUtil.getString(
-		BlogsWebConfigurationUtil.get("entry.check.interval"));
+	@Meta.AD(deflt = "1", required = false)
+	public int entryCheckInterval();
 
-	public static final String LINKBACK_JOB_INTERVAL = GetterUtil.getString(
-		BlogsWebConfigurationUtil.get("linkback.job.interval"));
+	@Meta.AD(deflt = "5", required = false)
+	public int linkbackJobInterval();
 
 }

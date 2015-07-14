@@ -85,7 +85,7 @@ public class BlogsWebRequestHelper extends BaseRequestHelper {
 
 		try {
 			if (_blogsPortletInstanceConfiguration == null) {
-				ThemeDisplay themeDisplay =  getThemeDisplay();
+				ThemeDisplay themeDisplay = getThemeDisplay();
 
 				PortletDisplay portletDisplay =
 					themeDisplay.getPortletDisplay();
