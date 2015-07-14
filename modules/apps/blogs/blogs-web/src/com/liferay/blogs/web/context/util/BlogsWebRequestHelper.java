@@ -16,13 +16,15 @@ package com.liferay.blogs.web.context.util;
 
 import com.liferay.blogs.service.util.BlogsServiceComponentProvider;
 import com.liferay.blogs.settings.BlogsGroupServiceSettings;
+import com.liferay.blogs.web.configuration.BlogsPortletInstanceConfiguration;
+import com.liferay.portal.kernel.display.context.util.BaseRequestHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ParameterMapSettingsLocator;
+import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.blogs.util.BlogsConstants;
@@ -32,17 +34,16 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Sergio González
  */
-public class BlogsWebRequestHelper {
+public class BlogsWebRequestHelper extends BaseRequestHelper {
 
 	public BlogsWebRequestHelper(HttpServletRequest request) {
-		_request = request;
+		super(request);
 	}
 
 	public BlogsGroupServiceSettings getBlogsGroupServiceSettings() {
 		try {
 			if (_blogsGroupServiceSettings == null) {
-				ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-					WebKeys.THEME_DISPLAY);
+				ThemeDisplay themeDisplay = getThemeDisplay();
 
 				PortletDisplay portletDisplay =
 					themeDisplay.getPortletDisplay();
@@ -58,7 +59,7 @@ public class BlogsWebRequestHelper {
 					_blogsGroupServiceSettings = settingsFactory.getSettings(
 						BlogsGroupServiceSettings.class,
 						new ParameterMapSettingsLocator(
-							_request.getParameterMap(),
+							getRequest().getParameterMap(),
 							new GroupServiceSettingsLocator(
 								themeDisplay.getSiteGroupId(),
 								BlogsConstants.SERVICE_NAME)));
@@ -79,7 +80,51 @@ public class BlogsWebRequestHelper {
 		}
 	}
 
+	public BlogsPortletInstanceConfiguration
+		getBlogsPortletInstanceConfiguration() {
+
+		try {
+			if (_blogsPortletInstanceConfiguration == null) {
+				ThemeDisplay themeDisplay =  getThemeDisplay();
+
+				PortletDisplay portletDisplay =
+					themeDisplay.getPortletDisplay();
+
+				BlogsServiceComponentProvider blogsServiceComponentProvider =
+					BlogsServiceComponentProvider.
+						getBlogsServiceComponentProvider();
+
+				SettingsFactory settingsFactory =
+					blogsServiceComponentProvider.getSettingsFactory();
+
+				if (Validator.isNotNull(portletDisplay.getPortletResource())) {
+					_blogsPortletInstanceConfiguration =
+						settingsFactory.getSettings(
+							BlogsPortletInstanceConfiguration.class,
+						new ParameterMapSettingsLocator(
+							getRequest().getParameterMap(),
+							new PortletInstanceSettingsLocator(
+								themeDisplay.getLayout(),
+								portletDisplay.getPortletResource())));
+				}
+				else {
+					_blogsPortletInstanceConfiguration =
+						settingsFactory.getSettings(
+							BlogsPortletInstanceConfiguration.class,
+						new PortletInstanceSettingsLocator(
+							themeDisplay.getLayout(), portletDisplay.getId()));
+				}
+			}
+
+			return _blogsPortletInstanceConfiguration;
+		}
+		catch (PortalException pe) {
+			throw new SystemException(pe);
+		}
+	}
+
 	private BlogsGroupServiceSettings _blogsGroupServiceSettings;
-	private final HttpServletRequest _request;
+	private BlogsPortletInstanceConfiguration
+		_blogsPortletInstanceConfiguration;
 
 }

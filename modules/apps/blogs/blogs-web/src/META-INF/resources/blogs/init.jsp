@@ -26,10 +26,10 @@ if (Validator.isNotNull(portletResource)) {
 	portletName = portletResource;
 }
 
-BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
-BlogsPortletInstanceSettings blogsPortletInstanceSettings = BlogsPortletInstanceSettings.getInstance(layout, portletId);
-
 BlogsWebRequestHelper blogsWebRequestHelper = new BlogsWebRequestHelper(request);
+
+BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
+BlogsPortletInstanceSettingsHelper blogsPortletInstanceSettingsHelper = new BlogsPortletInstanceSettingsHelper(blogsWebRequestHelper);
 
 com.liferay.blogs.settings.BlogsGroupServiceSettings rssBlogsGroupServiceSettings = blogsWebRequestHelper.getBlogsGroupServiceSettings();
 

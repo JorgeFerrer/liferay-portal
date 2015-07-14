@@ -12,13 +12,29 @@
  * details.
  */
 
-package com.liferay.blogs.constants;
+package com.liferay.blogs.web.settings.internal;
+
+import com.liferay.blogs.web.configuration.BlogsPortletInstanceConfiguration;
+import com.liferay.blogs.web.constants.BlogsPortletKeys;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Sergio González
  */
-public class BlogsConstants {
+@Component
+public class BlogsPortletInstanceSettingsIdMapping
+	implements SettingsIdMapping {
 
-	public static final String SERVICE_NAME = "com.liferay.blogs";
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return BlogsPortletInstanceConfiguration.class;
+	}
+
+	@Override
+	public String getSettingsId() {
+		return BlogsPortletKeys.BLOGS;
+	}
 
 }
