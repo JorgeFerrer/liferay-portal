@@ -270,8 +270,6 @@ public class RolesAdminPortlet extends MVCPortlet {
 
 		String[] selectedTargets = StringUtil.split(
 			ParamUtil.getString(actionRequest, "selectedTargets"));
-		String[] unselectedTargets = StringUtil.split(
-			ParamUtil.getString(actionRequest, "unselectedTargets"));
 
 		for (Map.Entry<String, List<String>> entry :
 				resourceActionsMap.entrySet()) {
@@ -282,13 +280,17 @@ public class RolesAdminPortlet extends MVCPortlet {
 			actions = ListUtil.sort(
 				actions, new ActionComparator(themeDisplay.getLocale()));
 
+			boolean relatedPortletDisplayTemplate = portletResource.equals(
+				PortletKeys.PORTLET_DISPLAY_TEMPLATE) &&
+				!selResource.equals(PortletKeys.PORTLET_DISPLAY_TEMPLATE);
+
 			for (String actionId : actions) {
 				String target = selResource + actionId;
 
 				boolean selected = ArrayUtil.contains(selectedTargets, target);
 
-				if (!selected &&
-					!ArrayUtil.contains(unselectedTargets, target)) {
+				if (!selected && relatedPortletDisplayTemplate &&
+					!actionId.equals(ActionKeys.ADD_PORTLET_DISPLAY_TEMPLATE)) {
 
 					continue;
 				}
