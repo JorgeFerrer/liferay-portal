@@ -14,10 +14,10 @@
 
 package com.liferay.blogs.web.portlet.action;
 
-import com.liferay.blogs.web.settings.internal.BlogsPortletInstanceSettings;
+import com.liferay.blogs.settings.BlogsGroupServiceSettings;
+import com.liferay.blogs.web.context.util.BlogsWebRequestHelper;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.struts.StrutsAction;
-import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.RSSUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -29,8 +29,6 @@ import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.blogs.service.BlogsEntryServiceUtil;
 
 import java.util.Date;
-
-import javax.portlet.PortletConfig;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -115,19 +113,13 @@ public class RSSAction extends BaseRSSStrutsAction {
 	protected boolean isRSSFeedsEnabled(HttpServletRequest request)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		BlogsWebRequestHelper blogsWebRequestHelper = new BlogsWebRequestHelper(
+			request);
 
-		Layout layout = themeDisplay.getLayout();
+		BlogsGroupServiceSettings rssBlogsGroupServiceSettings =
+			blogsWebRequestHelper.getBlogsGroupServiceSettings();
 
-		PortletConfig portletConfig = (PortletConfig)request.getAttribute(
-			JavaConstants.JAVAX_PORTLET_CONFIG);
-
-		BlogsPortletInstanceSettings blogsPortletInstanceSettings =
-			BlogsPortletInstanceSettings.getInstance(
-				layout, portletConfig.getPortletName());
-
-		return blogsPortletInstanceSettings.isEnableRSS();
+		return rssBlogsGroupServiceSettings.enableRss();
 	}
 
 }

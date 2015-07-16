@@ -26,8 +26,12 @@ if (Validator.isNotNull(portletResource)) {
 	portletName = portletResource;
 }
 
+BlogsWebRequestHelper blogsWebRequestHelper = new BlogsWebRequestHelper(request);
+
 BlogsGroupServiceSettings blogsGroupServiceSettings = BlogsGroupServiceSettings.getInstance(scopeGroupId);
-BlogsPortletInstanceSettings blogsPortletInstanceSettings = BlogsPortletInstanceSettings.getInstance(layout, portletId);
+BlogsPortletInstanceSettingsHelper blogsPortletInstanceSettingsHelper = new BlogsPortletInstanceSettingsHelper(blogsWebRequestHelper);
+
+com.liferay.blogs.settings.BlogsGroupServiceSettings rssBlogsGroupServiceSettings = blogsWebRequestHelper.getBlogsGroupServiceSettings();
 
 int pageAbstractLength = PropsValues.BLOGS_PAGE_ABSTRACT_LENGTH;
 

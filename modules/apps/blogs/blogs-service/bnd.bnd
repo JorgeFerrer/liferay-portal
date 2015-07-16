@@ -1,6 +1,8 @@
 Bundle-Name: Liferay Blogs Service
 Bundle-SymbolicName: com.liferay.blogs.service
 Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.blogs.service.util
 Include-Resource:\
 	classes,\
 	@lib/jericho-html.jar
