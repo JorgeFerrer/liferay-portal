@@ -15,6 +15,7 @@
 package com.liferay.portal.service;
 
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import org.junit.Assert;
@@ -28,7 +29,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jorge Ferrer
@@ -51,6 +54,13 @@ public class ModelPermissionsFactoryTest extends PowerMockito {
 
         when(
             RoleLocalServiceUtil.getDefaultGroupRole(Mockito.anyLong())
+        ).thenReturn(
+            siteMemberRole
+        );
+
+        when(
+            RoleLocalServiceUtil.getRole(
+                Mockito.anyLong(), Mockito.eq(RoleConstants.SITE_MEMBER))
         ).thenReturn(
             siteMemberRole
         );
@@ -160,6 +170,73 @@ public class ModelPermissionsFactoryTest extends PowerMockito {
             _COMPANY_ID, 0, groupPermissions, guestPermissions);
 
         Assert.assertTrue(modelPermissions.getRoles().isEmpty());
+    }
+
+    @Test
+    public void testCreateWithoutParameters() throws Exception {
+        Map<String, String[]> parameterMap = new HashMap<>();
+
+        ModelPermissions modelPermissions =
+            ModelPermissionsFactory.create(parameterMap);
+
+        List<Role> roles = modelPermissions.getRoles();
+
+        Assert.assertEquals(0, roles.size());
+    }
+
+    @Test
+    public void testCreateWithParameterForOneRole() throws Exception {
+        Map<String, String[]> parameterMap = new HashMap<>();
+
+        String[] permissions = {"VIEW"};
+
+        parameterMap.put(
+            ModelPermissionsFactory.MODEL_PERMISSIONS_PREFIX +
+                RoleConstants.GUEST,
+            permissions);
+
+        ModelPermissions modelPermissions =
+            ModelPermissionsFactory.create(parameterMap);
+
+        List<Role> roles = modelPermissions.getRoles();
+
+        Assert.assertEquals(1, roles.size());
+
+        Role role = roles.get(0);
+
+        Assert.assertEquals(RoleConstants.GUEST, role.getName());
+        Assert.assertEquals(
+            ListUtil.fromArray(permissions),
+            modelPermissions.getActionIds(role));
+    }
+
+    @Test
+    public void testCreateWithParameterForTwoRoles() throws Exception {
+        Map<String, String[]> parameterMap = new HashMap<>();
+
+        String[] permissions = {"VIEW"};
+
+        parameterMap.put(
+            ModelPermissionsFactory.MODEL_PERMISSIONS_PREFIX +
+                RoleConstants.GUEST,
+            permissions);
+        parameterMap.put(
+            ModelPermissionsFactory.MODEL_PERMISSIONS_PREFIX +
+                RoleConstants.SITE_MEMBER,
+            permissions);
+
+        ModelPermissions modelPermissions =
+            ModelPermissionsFactory.create(parameterMap);
+
+        List<Role> roles = modelPermissions.getRoles();
+
+        Assert.assertEquals(2, roles.size());
+
+        Role role = roles.get(0);
+
+        Assert.assertEquals(
+            ListUtil.fromArray(permissions),
+            modelPermissions.getActionIds(role));
     }
 
     private static final long _COMPANY_ID = 1;

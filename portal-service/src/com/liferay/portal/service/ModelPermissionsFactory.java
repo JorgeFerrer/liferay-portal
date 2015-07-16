@@ -29,6 +29,8 @@ import java.util.Map;
  */
 public class ModelPermissionsFactory {
 
+    public static final String MODEL_PERMISSIONS_PREFIX = "modelPermissions.";
+
     public static ModelPermissions create(
             long companyId, long groupId, String[] groupPermissions,
             String[] guestPermissions)
@@ -63,5 +65,49 @@ public class ModelPermissionsFactory {
 
         return modelPermissions;
     }
+
+    public static ModelPermissions create(HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+
+        return create(parameterMap);
+    }
+
+    public static ModelPermissions create(Map<String, String[]> parameterMap) {
+        ModelPermissions modelPermissions = new ModelPermissions();
+
+        for (String param : parameterMap.keySet()) {
+            if (!param.startsWith(MODEL_PERMISSIONS_PREFIX)) {
+                continue;
+            }
+
+            String roleName = param.substring(
+                MODEL_PERMISSIONS_PREFIX.length());
+            String[] actionIds = parameterMap.get(param);
+
+            Role role = null;
+
+            try {
+                role = RoleLocalServiceUtil.getRole(
+                    CompanyThreadLocal.getCompanyId(), roleName);
+            }
+            catch (PortalException pe) {
+                if (_log.isInfoEnabled()) {
+                    _log.info(
+                        "Couldn't find role named " + roleName +
+                            ". Ignoring it.");
+                }
+
+                continue;
+            }
+
+            modelPermissions.addRolePermissions(role, actionIds);
+        }
+
+        return modelPermissions;
+    }
+
+    private static final Log _log = LogFactoryUtil.getLog(
+        ModelPermissionsFactory.class);
+
 
 }
