@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.security.pacl.permission.PortalMessageBusPermis
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.kernel.security.pacl.permission.PortalServicePermission;
 import com.liferay.portal.kernel.security.pacl.permission.PortalSocketPermission;
+import com.liferay.portal.kernel.url.URLContainer;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.CentralizedThreadLocal;
 import com.liferay.portal.kernel.util.ClassLoaderUtil;
@@ -80,6 +81,9 @@ import com.liferay.portlet.PortletRequestImpl;
 import com.liferay.portlet.PortletResponseImpl;
 import com.liferay.portlet.PortletURLImpl;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Member;
@@ -118,6 +122,10 @@ import javax.servlet.ServletContext;
 
 import javax.sql.DataSource;
 
+import org.eclipse.osgi.internal.permadmin.EquinoxSecurityManager;
+
+import org.osgi.framework.BundleReference;
+
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.beans.factory.BeanFactory;
 
@@ -133,11 +141,29 @@ import org.springframework.beans.factory.BeanFactory;
  * @author Raymond Augé
  * @author Zsolt Berentey
  */
-public class PortalSecurityManagerImpl extends SecurityManager
+public class PortalSecurityManagerImpl extends EquinoxSecurityManager
 	implements PortalSecurityManager {
 
-	public PortalSecurityManagerImpl() {
+	public PortalSecurityManagerImpl()
+		throws IllegalAccessException, NoSuchMethodException,
+			   SecurityException {
+
 		_originalSecurityManager = System.getSecurityManager();
+
+		Lookup lookup = MethodHandles.lookup();
+
+		Class<?> clazz = getClass();
+
+		clazz = clazz.getSuperclass();
+
+		Method method = clazz.getDeclaredMethod(
+			"internalCheckPermission", Permission.class, Object.class);
+
+		method.setAccessible(true);
+
+		MethodHandle methodHandle = lookup.unreflect(method);
+
+		_checkPermissionMethodHandle = methodHandle.bindTo(this);
 
 		initClasses();
 
@@ -223,7 +249,11 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 		ClassLoader clazzClassLoader = ClassLoaderUtil.getClassLoader(clazz);
 
-		if ((accessibility == Member.PUBLIC) || PACLUtil.hasSameOrigin(clazz)) {
+		if ((accessibility == Member.PUBLIC) ||
+			((clazzClassLoader != null) &&
+			 !BundleReference.class.isInstance(clazzClassLoader) &&
+			 PACLUtil.hasSameOrigin(clazz))) {
+
 			_checkMemberAccessClassLoader.set(clazzClassLoader);
 
 			return;
@@ -298,7 +328,10 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			}
 		}
 
-		AccessController.checkPermission(permission);
+		AccessController.doPrivileged(
+			new PermissionAction(
+				_checkPermissionMethodHandle, permission,
+				getSecurityContext()));
 	}
 
 	@Override
@@ -382,9 +415,6 @@ public class PortalSecurityManagerImpl extends SecurityManager
 		initClass(ActivePACLPolicy.class);
 		initClass(BaseTemplateManager.class);
 		initClass(CentralizedThreadLocal.class);
-		initClass(
-			com.liferay.portal.kernel.security.pacl.permission.
-				CheckMemberAccessPermission.class);
 		initClass(ConcurrentIdentityHashMap.class);
 		initClass(ConcurrentReferenceKeyHashMap.class);
 		initClass(ConcurrentReferenceValueHashMap.class);
@@ -541,6 +571,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 	private static final RuntimePermission _checkMemberAccessPermission =
 		new RuntimePermission("accessDeclaredMembers");
 
+	private final MethodHandle _checkPermissionMethodHandle;
 	private SecurityManager _originalSecurityManager;
 	private final PortalPolicy _portalPolicy;
 
@@ -565,9 +596,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			}
 
 			if (classLoader == ClassLoaderUtil.getPortalClassLoader()) {
-				int stackIndex = Reflection.getStackIndex(5, 5);
-
-				Class<?> callerClass = Reflection.getCallerClass(stackIndex);
+				Class<?> callerClass = Reflection.getCallerClass(5);
 
 				ClassLoader callerClassLoader = ClassLoaderUtil.getClassLoader(
 					callerClass);
@@ -835,11 +864,11 @@ public class PortalSecurityManagerImpl extends SecurityManager
 
 		@Override
 		public void initPolicy(
-			String servletContextName, ClassLoader classLoader,
-			Properties properties) {
+			String contextName, URLContainer urlContainer,
+			ClassLoader classLoader, Properties properties) {
 
 			PACLPolicy paclPolicy = PACLPolicyManager.buildPACLPolicy(
-				servletContextName, classLoader, properties);
+				contextName, urlContainer, classLoader, properties);
 
 			PACLPolicyManager.register(classLoader, paclPolicy);
 		}
@@ -1073,15 +1102,15 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				return;
 			}
 
-			String classLoaderReferenceId = "portal";
+			String contextName = "portal";
 
 			if (paclPolicy != null) {
-				classLoaderReferenceId = paclPolicy.getServletContextName();
+				contextName = paclPolicy.getContextName();
 			}
 
 			Permission permission = new PortalRuntimePermission(
 				PACLConstants.PORTAL_RUNTIME_PERMISSION_GET_CLASSLOADER, null,
-				classLoaderReferenceId);
+				contextName);
 
 			securityManager.checkPermission(permission);
 		}
@@ -1111,9 +1140,7 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				return;
 			}
 
-			int stackIndex = Reflection.getStackIndex(5, 5);
-
-			Class<?> callerClass = Reflection.getCallerClass(stackIndex);
+			Class<?> callerClass = Reflection.getCallerClass(5);
 
 			if (clazz == callerClass) {
 
@@ -1251,16 +1278,16 @@ public class PortalSecurityManagerImpl extends SecurityManager
 				return;
 			}
 
-			String servletContextName = "portal";
+			String contextName = "portal";
 
 			if (paclPolicy != null) {
-				servletContextName = paclPolicy.getServletContextName();
+				contextName = paclPolicy.getContextName();
 			}
 
 			PortalServicePermission portalServicePermission =
 				new PortalServicePermission(
 					PACLConstants.PORTAL_SERVICE_PERMISSION_SERVICE,
-					servletContextName, className, methodName);
+					contextName, className, methodName);
 
 			securityManager.checkPermission(portalServicePermission);
 		}
@@ -1418,6 +1445,35 @@ public class PortalSecurityManagerImpl extends SecurityManager
 			return new TemplateControlContext(
 				accessControlContext, paclPolicy.getClassLoader());
 		}
+
+	}
+
+	private static class PermissionAction implements PrivilegedAction<Void> {
+
+		public PermissionAction(
+			MethodHandle checkPermissionMethodHandle, Permission permission,
+			Object context) {
+
+			_checkPermissionMethodHandle = checkPermissionMethodHandle;
+			_permission = permission;
+			_context = context;
+		}
+
+		@Override
+		public Void run() {
+			try {
+				_checkPermissionMethodHandle.invokeExact(_permission, _context);
+			}
+			catch (Throwable t) {
+				ReflectionUtil.throwException(t);
+			}
+
+			return null;
+		}
+
+		private final MethodHandle _checkPermissionMethodHandle;
+		private final Object _context;
+		private final Permission _permission;
 
 	}
 

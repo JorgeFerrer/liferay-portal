@@ -42,11 +42,6 @@ public class TermQueryImpl extends BaseQueryImpl implements TermQuery {
 		return _queryTerm;
 	}
 
-	public void setAnalyzer(String analyzer) {
-		_analyzer = analyzer;
-	}
-
-	private String _analyzer;
 	private final QueryTerm _queryTerm;
 
 }

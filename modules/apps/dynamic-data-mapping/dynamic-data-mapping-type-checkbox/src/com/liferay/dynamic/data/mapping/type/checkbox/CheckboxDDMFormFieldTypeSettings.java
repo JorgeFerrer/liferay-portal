@@ -29,6 +29,7 @@ public interface CheckboxDDMFormFieldTypeSettings
 	@DDMFormField(
 		dataType = "boolean", label = "%predefined-value", type = "checkbox"
 	)
+	@Override
 	public LocalizedValue predefinedValue();
 
 }
