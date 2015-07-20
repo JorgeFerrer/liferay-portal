@@ -76,15 +76,19 @@ public class VersionTest {
 	@Test
 	public void testSnapshot() {
 		Version version = Version.getInstance("1-SNAPSHOT");
+
 		Assert.assertEquals("1", version.toString());
 
 		version = Version.getInstance("1.1-SNAPSHOT");
+
 		Assert.assertEquals("1.1", version.toString());
 
 		version = Version.getInstance("1.1.1-SNAPSHOT");
+
 		Assert.assertEquals("1.1.1", version.toString());
 
 		version = Version.getInstance("1.1.1.1-SNAPSHOT");
+
 		Assert.assertEquals("1.1.1.1", version.toString());
 
 		assertPrevious("1", "2-SNAPSHOT");
