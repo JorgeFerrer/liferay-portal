@@ -55,6 +55,6 @@ public class BlogsPortletInstanceSettingsHelper {
 	private final BlogsPortletInstanceConfiguration
 		_blogsPortletInstanceConfiguration;
 	private long _displayStyleGroupId;
-	private HttpServletRequest _request;
+	private final HttpServletRequest _request;
 
 }
