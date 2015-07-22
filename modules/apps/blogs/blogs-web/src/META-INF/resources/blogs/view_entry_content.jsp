@@ -196,7 +196,7 @@ AssetEntry assetEntry = (AssetEntry)request.getAttribute("view_entry_content.jsp
 							<aui:a href="<%= viewEntryURL %>"><liferay-ui:message arguments='<%= new Object[] {"hide-accessible", HtmlUtil.escape(entry.getTitle())} %>' key="read-more-x-about-x" translateArguments="<%= false %>" /> &raquo;</aui:a>
 						</div>
 					</c:when>
-					<c:when test="<%= blogsPortletInstanceConfiguration.dDisplayStyle().equals(BlogsUtil.DISPLAY_STYLE_FULL_CONTENT) || viewSingleEntry %>">
+					<c:when test="<%= blogsPortletInstanceConfiguration.displayStyle().equals(BlogsUtil.DISPLAY_STYLE_FULL_CONTENT) || viewSingleEntry %>">
 						<div>
 							<%= entry.getContent() %>
 						</div>
