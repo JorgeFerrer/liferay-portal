@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.permission.ModelPermissions;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portlet.shopping.DuplicateItemFieldNameException;
 import com.liferay.portlet.shopping.DuplicateItemSKUException;
@@ -157,8 +158,7 @@ public class ShoppingItemLocalServiceImpl
 		}
 		else {
 			addItemResources(
-				item, serviceContext.getGroupPermissions(),
-				serviceContext.getGuestPermissions());
+				item, serviceContext.getModelPermissions());
 		}
 
 		// Images
@@ -211,12 +211,12 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public void addItemResources(
-			long itemId, String[] groupPermissions, String[] guestPermissions)
+			long itemId, ModelPermissions modelPermissions)
 		throws PortalException {
 
 		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
 
-		addItemResources(item, groupPermissions, guestPermissions);
+		addItemResources(item, modelPermissions);
 	}
 
 	@Override
@@ -233,14 +233,12 @@ public class ShoppingItemLocalServiceImpl
 
 	@Override
 	public void addItemResources(
-			ShoppingItem item, String[] groupPermissions,
-			String[] guestPermissions)
+			ShoppingItem item, ModelPermissions modelPermissions)
 		throws PortalException {
 
 		resourceLocalService.addModelResources(
 			item.getCompanyId(), item.getGroupId(), item.getUserId(),
-			ShoppingItem.class.getName(), item.getItemId(), groupPermissions,
-			guestPermissions);
+			ShoppingItem.class.getName(), item.getItemId(), modelPermissions);
 	}
 
 	@Override
