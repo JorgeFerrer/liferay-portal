@@ -42,9 +42,11 @@ portletURL.setParameter("mvcRenderCommandName", "/blogs/view");
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 
 	<%
-	SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, GetterUtil.getInteger(blogsPortletInstanceConfiguration.pageDelta()), portletURL, null, null);
+	int pageDelta = GetterUtil.getInteger(blogsPortletInstanceConfiguration.pageDelta());
 
-	searchContainer.setDelta(GetterUtil.getInteger(blogsPortletInstanceConfiguration.pageDelta()));
+	SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, pageDelta, portletURL, null, null);
+
+	searchContainer.setDelta(pageDelta);
 	searchContainer.setDeltaConfigurable(false);
 
 	int total = 0;
