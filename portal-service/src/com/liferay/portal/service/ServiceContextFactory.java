@@ -193,6 +193,14 @@ public class ServiceContextFactory {
 			serviceContext.setAddGuestPermissions(addGuestPermissions);
 			serviceContext.setGroupPermissions(groupPermissions);
 			serviceContext.setGuestPermissions(guestPermissions);
+
+			if ((groupPermissions != null) || (guestPermissions != null)) {
+				modelPermissions = ModelPermissionsFactory.create(
+					themeDisplay.getCompanyId(), themeDisplay.getSiteGroupId(),
+					groupPermissions, guestPermissions);
+			}
+
+			serviceContext.setModelPermissions(modelPermissions);
 		}
 
 		// Portlet preferences ids
