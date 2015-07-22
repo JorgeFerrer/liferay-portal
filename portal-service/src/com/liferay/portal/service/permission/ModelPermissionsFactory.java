@@ -24,6 +24,7 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 
 import java.util.Map;
 
+import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -105,6 +106,12 @@ public class ModelPermissionsFactory {
 		}
 
 		return modelPermissions;
+	}
+
+	public static ModelPermissions create(PortletRequest portletRequest) {
+		Map<String, String[]> parameterMap = portletRequest.getParameterMap();
+
+		return create(parameterMap);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
