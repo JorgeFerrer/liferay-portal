@@ -264,8 +264,7 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				serviceContext.isAddGuestPermissions());
 		}
 		else {
-			addEntryResources(
-				entry, serviceContext.getModelPermissions());
+			addEntryResources(entry, serviceContext.getModelPermissions());
 		}
 
 		// Asset

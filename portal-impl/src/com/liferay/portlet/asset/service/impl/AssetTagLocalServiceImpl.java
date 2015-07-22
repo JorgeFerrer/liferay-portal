@@ -144,8 +144,7 @@ public class AssetTagLocalServiceImpl extends AssetTagLocalServiceBaseImpl {
 	 *         or if a portal exception occurred
 	 */
 	@Override
-	public void addTagResources(
-			AssetTag tag, ModelPermissions modelPermissions)
+	public void addTagResources(AssetTag tag, ModelPermissions modelPermissions)
 		throws PortalException {
 
 		resourceLocalService.addModelResources(

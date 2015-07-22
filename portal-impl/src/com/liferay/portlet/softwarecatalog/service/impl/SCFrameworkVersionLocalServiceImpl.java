@@ -99,8 +99,7 @@ public class SCFrameworkVersionLocalServiceImpl
 		SCFrameworkVersion frameworkVersion =
 			scFrameworkVersionPersistence.findByPrimaryKey(frameworkVersionId);
 
-		addFrameworkVersionResources(
-			frameworkVersion, modelPermissions);
+		addFrameworkVersionResources(frameworkVersion, modelPermissions);
 	}
 
 	@Override

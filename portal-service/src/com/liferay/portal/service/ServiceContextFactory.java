@@ -567,11 +567,9 @@ public class ServiceContextFactory {
 			serviceContext.setGroupPermissions(groupPermissions);
 			serviceContext.setGuestPermissions(guestPermissions);
 
-			ModelPermissions modelPermissions =
-				ModelPermissionsFactory.create(
-					serviceContext.getCompanyId(),
-					serviceContext.getScopeGroupId(),
-					groupPermissions, guestPermissions);
+			ModelPermissions modelPermissions = ModelPermissionsFactory.create(
+				serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
+				groupPermissions, guestPermissions);
 
 			serviceContext.setModelPermissions(modelPermissions);
 		}

@@ -157,8 +157,7 @@ public class ShoppingItemLocalServiceImpl
 				serviceContext.isAddGuestPermissions());
 		}
 		else {
-			addItemResources(
-				item, serviceContext.getModelPermissions());
+			addItemResources(item, serviceContext.getModelPermissions());
 		}
 
 		// Images
@@ -210,8 +209,7 @@ public class ShoppingItemLocalServiceImpl
 	}
 
 	@Override
-	public void addItemResources(
-			long itemId, ModelPermissions modelPermissions)
+	public void addItemResources(long itemId, ModelPermissions modelPermissions)
 		throws PortalException {
 
 		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);

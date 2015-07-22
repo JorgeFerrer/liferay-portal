@@ -224,8 +224,7 @@ public class CalEventLocalServiceImpl extends CalEventLocalServiceBaseImpl {
 				serviceContext.isAddGuestPermissions());
 		}
 		else {
-			addEventResources(
-				event, serviceContext.getModelPermissions());
+			addEventResources(event, serviceContext.getModelPermissions());
 		}
 
 		// Asset

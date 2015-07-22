@@ -138,8 +138,7 @@ public class DLFolderLocalServiceImpl extends DLFolderLocalServiceBaseImpl {
 					repositoryId, DLFolderConstants.getClassName());
 			}
 
-			addFolderResources(
-				dlFolder, serviceContext.getModelPermissions());
+			addFolderResources(dlFolder, serviceContext.getModelPermissions());
 		}
 
 		// Parent folder
