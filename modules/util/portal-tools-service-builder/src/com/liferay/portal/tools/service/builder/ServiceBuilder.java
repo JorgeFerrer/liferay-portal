@@ -2375,6 +2375,10 @@ public class ServiceBuilder {
 
 		String content = _processTemplate(_tplModelImpl, context);
 
+		if (entity.getName().equals("Account")) {
+			ToolsUtil.print("content-1", content, true);
+		}
+
 		// Write file
 
 		File modelFile = new File(

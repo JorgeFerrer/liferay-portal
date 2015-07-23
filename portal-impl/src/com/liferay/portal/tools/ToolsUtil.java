@@ -174,6 +174,18 @@ public class ToolsUtil {
 		return false;
 	}
 
+	public static void print(String name, String content, boolean print) {
+		if (!print) {
+			return;
+		}
+
+		System.out.println(
+			"----------------start printing: " + name + "----------------");
+		System.out.println(content);
+		System.out.println(
+			"----------------finish printing: " + name + "----------------");
+	}
+
 	public static String stripFullyQualifiedClassNames(String content)
 		throws IOException {
 
@@ -268,14 +280,24 @@ public class ToolsUtil {
 			Map<String, Object> jalopySettings, Set<String> modifiedFileNames)
 		throws IOException {
 
+		boolean print = false;
+
+		if (content.contains("public class AccountModelImpl")) {
+			print = true;
+		}
+
 		String packagePath = _getPackagePath(file);
+
+		print("packagePath", packagePath, print);
 
 		String className = file.getName();
 
 		className = className.substring(0, className.length() - 5);
 
 		content = JavaImportsFormatter.stripJavaImports(
-			content, packagePath, className);
+			content, packagePath, className, print);
+
+		print("content-2", content, print);
 
 		content = stripFullyQualifiedClassNames(content);
 

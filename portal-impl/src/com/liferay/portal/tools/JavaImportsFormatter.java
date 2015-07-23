@@ -46,10 +46,12 @@ public class JavaImportsFormatter extends ImportsFormatter {
 	}
 
 	public static String stripJavaImports(
-			String content, String packageDir, String className)
+			String content, String packageDir, String className, boolean print)
 		throws IOException {
 
 		String imports = getImports(content);
+
+		ToolsUtil.print("packageDir", packageDir, print);
 
 		if (Validator.isNull(imports)) {
 			return content;
@@ -76,8 +78,13 @@ public class JavaImportsFormatter extends ImportsFormatter {
 
 			String importPackage = line.substring(x + 7, y);
 
+			ToolsUtil.print("import", line, print);
+			ToolsUtil.print("importPackage", importPackage, print);
+
 			if (importPackage.equals(packageDir) ||
 				importPackage.equals("java.lang")) {
+
+				ToolsUtil.print("continue", "continue", print);
 
 				continue;
 			}
@@ -90,9 +97,13 @@ public class JavaImportsFormatter extends ImportsFormatter {
 			}
 		}
 
+		ToolsUtil.print("sb", sb.toString(), print);
+
 		ImportsFormatter importsFormatter = new JavaImportsFormatter();
 
 		String newImports = importsFormatter.format(sb.toString());
+
+		ToolsUtil.print("newImports", newImports, print);
 
 		if (!imports.equals(newImports)) {
 			content = StringUtil.replaceFirst(content, imports, newImports);
@@ -109,6 +120,8 @@ public class JavaImportsFormatter extends ImportsFormatter {
 		content = content.replaceFirst(
 			"(?m)^[ \t]*((?:package|import) .*;)\\s*^[ \t]*/\\*\\*",
 			"$1\n\n/**");
+
+		ToolsUtil.print("content-3", content, print);
 
 		return content;
 	}
