@@ -41,26 +41,6 @@ public class ModelPermissionsFactory {
 		return create(parameterMap);
 	}
 
-	public static ModelPermissions create(
-			String[] groupPermissions,
-			String[] guestPermissions)
-		throws PortalException {
-
-		ModelPermissions modelPermissions = new ModelPermissions();
-
-		if ((groupPermissions != null) && (groupPermissions.length > 0)) {
-			modelPermissions.addRolePermissions(
-				RoleConstants.DEFAULT_GROUP_ROLE, groupPermissions);
-		}
-
-		if ((guestPermissions != null) && (guestPermissions.length > 0)) {
-			modelPermissions.addRolePermissions(
-				RoleConstants.GUEST, guestPermissions);
-		}
-
-		return modelPermissions;
-	}
-
 	public static ModelPermissions create(Map<String, String[]> parameterMap) {
 		ModelPermissions modelPermissions = new ModelPermissions();
 
@@ -98,6 +78,25 @@ public class ModelPermissionsFactory {
 		Map<String, String[]> parameterMap = portletRequest.getParameterMap();
 
 		return create(parameterMap);
+	}
+
+	public static ModelPermissions create(
+			String[] groupPermissions, String[] guestPermissions)
+		throws PortalException {
+
+		ModelPermissions modelPermissions = new ModelPermissions();
+
+		if ((groupPermissions != null) && (groupPermissions.length > 0)) {
+			modelPermissions.addRolePermissions(
+				RoleConstants.DEFAULT_GROUP_ROLE, groupPermissions);
+		}
+
+		if ((guestPermissions != null) && (guestPermissions.length > 0)) {
+			modelPermissions.addRolePermissions(
+				RoleConstants.GUEST, guestPermissions);
+		}
+
+		return modelPermissions;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
