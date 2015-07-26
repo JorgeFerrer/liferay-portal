@@ -14,12 +14,15 @@
 
 package com.liferay.portal.service.permission;
 
+import com.liferay.portal.kernel.util.ListUtil;
+
 import java.io.Serializable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Jorge Ferrer
@@ -30,20 +33,20 @@ public class ModelPermissions implements Cloneable, Serializable {
 	}
 
 	public void addRolePermissions(String roleName, String actionId) {
-		List<String> roleNames = _actionsMap.get(actionId);
+		Set<String> roleNames = _actionsMap.get(actionId);
 
 		if (roleNames == null) {
-			roleNames = new ArrayList<>();
+			roleNames = new HashSet<>();
 
 			_actionsMap.put(actionId, roleNames);
 		}
 
 		roleNames.add(roleName);
 
-		List<String> actionIds = _roleNamesMap.get(roleName);
+		Set<String> actionIds = _roleNamesMap.get(roleName);
 
 		if (actionIds == null) {
-			actionIds = new ArrayList<>();
+			actionIds = new HashSet<>();
 
 			_roleNamesMap.put(roleName, actionIds);
 		}
@@ -73,25 +76,21 @@ public class ModelPermissions implements Cloneable, Serializable {
 		return actionIds.toArray(new String[actionIds.size()]);
 	}
 
-	public List<String> getActionIdsList(String roleName) {
-		List<String> actionIds = _roleNamesMap.get(roleName);
+	public List getActionIdsList(String roleName) {
+		Set<String> actionIds = _roleNamesMap.get(roleName);
 
-		if (actionIds == null) {
-			actionIds = new ArrayList<>();
-		}
-
-		return actionIds;
+		return ListUtil.fromCollection(actionIds);
 	}
 
 	public Collection<String> getRoleNames() {
 		return _roleNamesMap.keySet();
 	}
 
-	public List<String> getRolesWithPermission(String actionId) {
-		List<String> roles = _actionsMap.get(actionId);
+	public Set<String> getRolesWithPermission(String actionId) {
+		Set<String> roles = _actionsMap.get(actionId);
 
 		if (roles == null) {
-			roles = new ArrayList<>();
+			roles = new HashSet<>();
 		}
 
 		return roles;
@@ -106,7 +105,7 @@ public class ModelPermissions implements Cloneable, Serializable {
 		_roleNamesMap.putAll(roleNamesMap);
 	}
 
-	private final HashMap<String, List<String>> _actionsMap = new HashMap<>();
-	private final HashMap<String, List<String>> _roleNamesMap = new HashMap<>();
+	private final HashMap<String, Set<String>> _actionsMap = new HashMap<>();
+	private final HashMap<String, Set<String>> _roleNamesMap = new HashMap<>();
 
 }

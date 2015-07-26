@@ -22,8 +22,8 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -129,8 +129,8 @@ public class ModelPermissionsFactoryTest extends PowerMockito {
 
 		Assert.assertEquals(2, roleNames.size());
 
-		List<String> viewActionIdRoles =
-			modelPermissions.getRolesWithPermission(ActionKeys.VIEW);
+		Set<String> viewActionIdRoles = modelPermissions.getRolesWithPermission(
+			ActionKeys.VIEW);
 
 		Assert.assertEquals(2, viewActionIdRoles.size());
 	}
