@@ -12,13 +12,28 @@
  * details.
  */
 
-package com.liferay.blogs.settings;
+package com.liferay.blogs.configuration.internal;
+
+import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
+import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+import com.liferay.portlet.blogs.util.BlogsConstants;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Sergio González
  */
-public interface BlogsGroupServiceConfigurationOverride {
+@Component
+public class BlogsGroupServiceSettingsIdMapping implements SettingsIdMapping {
 
-	public boolean enableRss();
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return BlogsGroupServiceConfiguration.class;
+	}
+
+	@Override
+	public String getSettingsId() {
+		return BlogsConstants.SERVICE_NAME;
+	}
 
 }

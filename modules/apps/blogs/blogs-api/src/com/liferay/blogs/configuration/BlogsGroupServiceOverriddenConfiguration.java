@@ -12,23 +12,16 @@
  * details.
  */
 
-package com.liferay.blogs.settings.internal;
+package com.liferay.blogs.configuration;
 
-import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
-import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
-
-import org.osgi.service.component.annotations.Component;
+import com.liferay.blogs.configuration.internal.BlogsGroupServiceConfigurationOverrideImpl;
+import com.liferay.portal.kernel.settings.Settings;
 
 /**
  * @author Sergio González
  */
-@Component
-public class BlogsGroupServiceConfigurationBeanDeclaration
-	implements ConfigurationBeanDeclaration {
-
-	@Override
-	public Class<?> getConfigurationBeanClass() {
-		return BlogsGroupServiceConfiguration.class;
-	}
-
+@Settings.OverrideClass(BlogsGroupServiceConfigurationOverrideImpl.class)
+public interface BlogsGroupServiceOverriddenConfiguration
+	extends BlogsGroupServiceConfiguration,
+	BlogsGroupServiceConfigurationOverride {
 }
