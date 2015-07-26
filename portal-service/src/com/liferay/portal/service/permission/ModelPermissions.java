@@ -40,6 +40,10 @@ public class ModelPermissions implements Cloneable, Serializable {
 	}
 
 	public void addRolePermissions(String roleName, String[] actionIds) {
+		if (actionIds == null) {
+			return;
+		}
+
 		for (String actionId : actionIds) {
 			addRolePermissions(roleName, actionId);
 		}
