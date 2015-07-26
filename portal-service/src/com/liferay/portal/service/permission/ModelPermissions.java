@@ -30,11 +30,23 @@ public class ModelPermissions implements Cloneable, Serializable {
 	}
 
 	public void addRolePermissions(String roleName, String actionId) {
-		List<String> roleNames = getRolesWithPermission(actionId);
+		List<String> roleNames = _actionsMap.get(actionId);
+
+		if (roleNames == null) {
+			roleNames = new ArrayList<>();
+
+			_actionsMap.put(actionId, roleNames);
+		}
 
 		roleNames.add(roleName);
 
-		List<String> actionIds = getActionIdsList(roleName);
+		List<String> actionIds = _roleNamesMap.get(roleName);
+
+		if (actionIds == null) {
+			actionIds = new ArrayList<>();
+
+			_roleNamesMap.put(roleName, actionIds);
+		}
 
 		actionIds.add(actionId);
 	}
@@ -66,8 +78,6 @@ public class ModelPermissions implements Cloneable, Serializable {
 
 		if (actionIds == null) {
 			actionIds = new ArrayList<>();
-
-			_roleNamesMap.put(roleName, actionIds);
 		}
 
 		return actionIds;
@@ -82,8 +92,6 @@ public class ModelPermissions implements Cloneable, Serializable {
 
 		if (roles == null) {
 			roles = new ArrayList<>();
-
-			_actionsMap.put(actionId, roles);
 		}
 
 		return roles;
