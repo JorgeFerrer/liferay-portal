@@ -193,13 +193,6 @@ public class ServiceContextFactory {
 			serviceContext.setAddGuestPermissions(addGuestPermissions);
 			serviceContext.setGroupPermissions(groupPermissions);
 			serviceContext.setGuestPermissions(guestPermissions);
-
-			if ((groupPermissions != null) || (guestPermissions != null)) {
-				modelPermissions = ModelPermissionsFactory.create(
-					groupPermissions, guestPermissions);
-			}
-
-			serviceContext.setModelPermissions(modelPermissions);
 		}
 
 		// Portlet preferences ids
@@ -408,13 +401,6 @@ public class ServiceContextFactory {
 			serviceContext.setAddGuestPermissions(addGuestPermissions);
 			serviceContext.setGroupPermissions(groupPermissions);
 			serviceContext.setGuestPermissions(guestPermissions);
-
-			if ((groupPermissions != null) || (guestPermissions != null)) {
-				modelPermissions = ModelPermissionsFactory.create(
-					groupPermissions, guestPermissions);
-			}
-
-			serviceContext.setModelPermissions(modelPermissions);
 		}
 
 		// Portlet preferences ids
@@ -561,14 +547,12 @@ public class ServiceContextFactory {
 		String[] guestPermissions = PortalUtil.getGuestPermissions(
 			portletRequest, className);
 
-		if ((groupPermissions != null) || (guestPermissions != null)) {
+		if (groupPermissions != null) {
 			serviceContext.setGroupPermissions(groupPermissions);
+		}
+
+		if (guestPermissions != null) {
 			serviceContext.setGuestPermissions(guestPermissions);
-
-			ModelPermissions modelPermissions = ModelPermissionsFactory.create(
-				groupPermissions, guestPermissions);
-
-			serviceContext.setModelPermissions(modelPermissions);
 		}
 
 		// Expando
