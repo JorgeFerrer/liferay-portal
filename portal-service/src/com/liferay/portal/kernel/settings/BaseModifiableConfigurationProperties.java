@@ -19,13 +19,14 @@ import com.liferay.portal.kernel.util.StringPool;
 /**
  * @author Iván Zaera
  */
-public abstract class BaseModifiableSettings
-	extends BaseSettings implements ModifiableConfigurationProperties {
+public abstract class BaseModifiableConfigurationProperties
+	extends BaseConfigurationProperties
+	implements ModifiableConfigurationProperties {
 
-	public BaseModifiableSettings() {
+	public BaseModifiableConfigurationProperties() {
 	}
 
-	public BaseModifiableSettings(
+	public BaseModifiableConfigurationProperties(
 		ConfigurationProperties parentConfigurationProperties) {
 
 		super(parentConfigurationProperties);

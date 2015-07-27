@@ -20,8 +20,8 @@ import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.ConfigurationLocator;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
+import com.liferay.portal.kernel.settings.FallbackConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
-import com.liferay.portal.kernel.settings.FallbackSettings;
 import com.liferay.portal.kernel.settings.PortalSettings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsException;
@@ -76,7 +76,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 			portletItem = getPortletItem(groupId, portletId, name);
 
-			return new ArchivedSettingsImpl(portletItem);
+			return new ArchivedConfigurationPropertiesImpl(portletItem);
 		}
 		catch (PortalException pe) {
 			throw new SettingsException(pe);
@@ -95,7 +95,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 				com.liferay.portal.model.PortletPreferences.class.getName());
 
 		for (PortletItem portletItem : portletItems) {
-			archivedSettingsList.add(new ArchivedSettingsImpl(portletItem));
+			archivedSettingsList.add(
+				new ArchivedConfigurationPropertiesImpl(portletItem));
 		}
 
 		return archivedSettingsList;
@@ -197,7 +198,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		FallbackKeys fallbackKeys = _fallbackKeysMap.get(settingsId);
 
 		if (fallbackKeys != null) {
-			configurationProperties = new FallbackSettings(
+			configurationProperties = new FallbackConfigurationProperties(
 				configurationProperties, fallbackKeys);
 		}
 

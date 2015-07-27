@@ -17,9 +17,10 @@ package com.liferay.portal.kernel.settings;
 /**
  * @author Iván Zaera
  */
-public class FallbackSettings extends BaseSettings {
+public class FallbackConfigurationProperties
+	extends BaseConfigurationProperties {
 
-	public FallbackSettings(
+	public FallbackConfigurationProperties(
 		ConfigurationProperties parentConfigurationProperties,
 		FallbackKeys fallbackKeys) {
 

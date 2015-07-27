@@ -34,7 +34,8 @@ public class ParameterMapSettingsLocator implements ConfigurationLocator {
 		ConfigurationProperties configurationProperties =
 			_configurationLocator.getSettings();
 
-		return new ParameterMapSettings(_parameterMap, configurationProperties);
+		return new ParameterMapConfigurationProperties(
+			_parameterMap, configurationProperties);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ package com.liferay.portal.kernel.portlet;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
-import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
+import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
@@ -38,7 +38,8 @@ public class DefaultConfigurationAction
 
 	@Override
 	protected ConfigurationProperties getSettings(ActionRequest actionRequest) {
-		return new PortletPreferencesSettings(actionRequest.getPreferences());
+		return new PortletPreferencesConfigurationProperties(
+			actionRequest.getPreferences());
 	}
 
 	@Override
@@ -47,8 +48,8 @@ public class DefaultConfigurationAction
 			ConfigurationProperties configurationProperties)
 		throws PortalException {
 
-		PortletPreferencesSettings portletPreferencesSettings =
-			(PortletPreferencesSettings)configurationProperties;
+		PortletPreferencesConfigurationProperties portletPreferencesSettings =
+			(PortletPreferencesConfigurationProperties)configurationProperties;
 
 		postProcess(
 			companyId, portletRequest,

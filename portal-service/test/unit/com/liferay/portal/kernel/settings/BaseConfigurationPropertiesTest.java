@@ -24,62 +24,72 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class BaseSettingsTest extends PowerMockito {
+public class BaseConfigurationPropertiesTest extends PowerMockito {
 
-	public BaseSettingsTest() {
-		_parentConfigurationProperties = new MemorySettings();
+	public BaseConfigurationPropertiesTest() {
+		_parentConfigurationProperties = new MemoryConfigurationProperties();
 
-		_baseSettings = new MemorySettings(_parentConfigurationProperties);
+		_baseConfigurationProperties = new MemoryConfigurationProperties(
+			_parentConfigurationProperties);
 	}
 
 	@Test
 	public void testGetModifiableSettingsForModifiableBaseSettings() {
-		BaseSettings baseSettings = new MemorySettings();
+		BaseConfigurationProperties baseConfigurationProperties =
+			new MemoryConfigurationProperties();
 
 		Assert.assertTrue(
-			baseSettings instanceof ModifiableConfigurationProperties);
+			baseConfigurationProperties
+				instanceof ModifiableConfigurationProperties);
 		Assert.assertSame(
-			baseSettings, baseSettings.getModifiableConfigurationProperties());
+			baseConfigurationProperties,
+			baseConfigurationProperties.getModifiableConfigurationProperties());
 	}
 
 	@Test
 	public void testGetModifiableSettingsForUnmodifiableBaseSettings() {
 		ModifiableConfigurationProperties modifiableConfigurationProperties =
-			new MemorySettings();
-		BaseSettings baseSettings = new ParameterMapSettings(
-			Collections.<String, String[]> emptyMap(),
+			new MemoryConfigurationProperties();
+		BaseConfigurationProperties baseConfigurationProperties =
+			new ParameterMapConfigurationProperties(
+				Collections.<String, String[]> emptyMap(),
 			modifiableConfigurationProperties);
 
 		Assert.assertFalse(
-			baseSettings instanceof ModifiableConfigurationProperties);
+			baseConfigurationProperties
+				instanceof ModifiableConfigurationProperties);
 		Assert.assertSame(
 			modifiableConfigurationProperties,
-			baseSettings.getModifiableConfigurationProperties());
+			baseConfigurationProperties.getModifiableConfigurationProperties());
 	}
 
 	@Test
 	public void testGetParentConfigurationProperties() {
 		Assert.assertSame(
 			_parentConfigurationProperties,
-			_baseSettings.getParentConfigurationProperties());
+			_baseConfigurationProperties.getParentConfigurationProperties());
 	}
 
 	@Test
 	public void testGetValueReturnsDefaultWhenValueAndParentNotSet() {
 		Assert.assertEquals(
-			_DEFAULT_VALUE, _baseSettings.getValue(_KEY, _DEFAULT_VALUE));
+			_DEFAULT_VALUE,
+			_baseConfigurationProperties.getValue(_KEY, _DEFAULT_VALUE));
 		Assert.assertArrayEquals(
-			_DEFAULT_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
+			_DEFAULT_VALUES,
+			_baseConfigurationProperties.getValues(_KEY, _DEFAULT_VALUES));
 
 		_parentConfigurationProperties.setValue(_KEY, _VALUE);
 
 		Assert.assertEquals(
-			_VALUE, _baseSettings.getValue(_KEY, _DEFAULT_VALUE));
+			_VALUE,
+			_baseConfigurationProperties.getValue(_KEY, _DEFAULT_VALUE));
 
 		_parentConfigurationProperties.setValues(_KEY, _VALUES);
 
 		Assert.assertArrayEquals(
-			_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
+			_VALUES,
+			_baseConfigurationProperties.getValues(_KEY, _DEFAULT_VALUES));
 	}
 
 	private static final String _DEFAULT_VALUE = "defaultValue";
@@ -94,7 +104,7 @@ public class BaseSettingsTest extends PowerMockito {
 
 	private static final String[] _VALUES = {"value0", "value1"};
 
-	private final BaseSettings _baseSettings;
-	private final MemorySettings _parentConfigurationProperties;
+	private final BaseConfigurationProperties _baseConfigurationProperties;
+	private final MemoryConfigurationProperties _parentConfigurationProperties;
 
 }

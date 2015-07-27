@@ -34,13 +34,16 @@ import javax.portlet.ValidatorException;
  * @author Jorge Ferrer
  * @author Iván Zaera
  */
-public class PortletPreferencesSettings extends BaseModifiableSettings {
+public class PortletPreferencesConfigurationProperties
+	extends BaseModifiableConfigurationProperties {
 
-	public PortletPreferencesSettings(PortletPreferences portletPreferences) {
+	public PortletPreferencesConfigurationProperties(
+		PortletPreferences portletPreferences) {
+
 		this(portletPreferences, null);
 	}
 
-	public PortletPreferencesSettings(
+	public PortletPreferencesConfigurationProperties(
 		PortletPreferences portletPreferences,
 		ConfigurationProperties parentConfigurationProperties) {
 
@@ -171,7 +174,7 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	private static final String _NULL_VALUE = "NULL_VALUE";
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PortletPreferencesSettings.class);
+		PortletPreferencesConfigurationProperties.class);
 
 	private final PortletPreferences _portletPreferences;
 

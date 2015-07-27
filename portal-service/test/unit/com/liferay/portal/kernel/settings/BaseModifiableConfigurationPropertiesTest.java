@@ -24,46 +24,52 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class BaseModifiableSettingsTest extends PowerMockito {
+public class BaseModifiableConfigurationPropertiesTest extends PowerMockito {
 
 	@Test
 	public void testReset() {
-		_baseModifiableSettings.setValue("key1", "value2");
-		_baseModifiableSettings.setValue("key2", "value2");
+		_baseModifiableConfigurationProperties.setValue("key1", "value2");
+		_baseModifiableConfigurationProperties.setValue("key2", "value2");
 
 		Assert.assertEquals(
-			2, _baseModifiableSettings.getModifiedKeys().size());
+			2, _baseModifiableConfigurationProperties.getModifiedKeys().size());
 
-		_baseModifiableSettings.reset();
+		_baseModifiableConfigurationProperties.reset();
 
 		Assert.assertEquals(
-			0, _baseModifiableSettings.getModifiedKeys().size());
+			0, _baseModifiableConfigurationProperties.getModifiedKeys().size());
 	}
 
 	@Test
 	public void testSetValues() {
-		_baseModifiableSettings.setValue("key1", "value1");
-		_baseModifiableSettings.setValue("key2", "value2");
+		_baseModifiableConfigurationProperties.setValue("key1", "value1");
+		_baseModifiableConfigurationProperties.setValue("key2", "value2");
 
 		ModifiableConfigurationProperties sourceModifiableSettings =
-			new MemorySettings();
+			new MemoryConfigurationProperties();
 
 		sourceModifiableSettings.setValue("otherKey", "otherValue");
 
-		_baseModifiableSettings.setValues(sourceModifiableSettings);
+		_baseModifiableConfigurationProperties.setValues(
+			sourceModifiableSettings);
 
-		Collection<String> keys = _baseModifiableSettings.getModifiedKeys();
+		Collection<String> keys =
+			_baseModifiableConfigurationProperties.getModifiedKeys();
 
 		Assert.assertEquals(3, keys.size());
 		Assert.assertEquals(
-			"otherValue", _baseModifiableSettings.getValue("otherKey", null));
+			"otherValue",
+			_baseModifiableConfigurationProperties.getValue("otherKey", null));
 		Assert.assertEquals(
-			"value1", _baseModifiableSettings.getValue("key1", null));
+			"value1",
+			_baseModifiableConfigurationProperties.getValue("key1", null));
 		Assert.assertEquals(
-			"value2", _baseModifiableSettings.getValue("key2", null));
+			"value2",
+			_baseModifiableConfigurationProperties.getValue("key2", null));
 	}
 
-	private final BaseModifiableSettings _baseModifiableSettings =
-		new MemorySettings();
+	private final BaseModifiableConfigurationProperties
+		_baseModifiableConfigurationProperties =
+			new MemoryConfigurationProperties();
 
 }

@@ -22,10 +22,11 @@ import java.lang.reflect.Method;
 /**
  * @author Iván Zaera
  */
-public class ConfigurationBeanSettings extends BaseSettings
+public class ConfigurationBeanConfigurationProperties
+	extends BaseConfigurationProperties
 	implements ConfigurationProperties {
 
-	public ConfigurationBeanSettings(
+	public ConfigurationBeanConfigurationProperties(
 		LocationVariableResolver locationVariableResolver,
 		Object configurationBean,
 		ConfigurationProperties parentConfigurationProperties) {

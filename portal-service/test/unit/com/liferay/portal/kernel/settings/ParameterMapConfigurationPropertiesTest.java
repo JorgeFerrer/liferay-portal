@@ -25,11 +25,12 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class ParameterMapSettingsTest extends PowerMockito {
+public class ParameterMapConfigurationPropertiesTest extends PowerMockito {
 
-	public ParameterMapSettingsTest() {
-		_parameterMapSettings = new ParameterMapSettings(
-			_parameterMap, _parentConfigurationProperties);
+	public ParameterMapConfigurationPropertiesTest() {
+		_parameterMapConfigurationProperties =
+			new ParameterMapConfigurationProperties(
+				_parameterMap, _parentConfigurationProperties);
 	}
 
 	@Test
@@ -40,7 +41,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 		Assert.assertArrayEquals(
 			values,
-			_parameterMapSettings.getValues(
+			_parameterMapConfigurationProperties.getValues(
 				"key", new String[] {"defaultValue"}));
 	}
 
@@ -52,7 +53,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 		Assert.assertArrayEquals(
 			values,
-			_parameterMapSettings.getValues(
+			_parameterMapConfigurationProperties.getValues(
 				"key", new String[] {"defaultValue"}));
 	}
 
@@ -64,7 +65,8 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 		Assert.assertEquals(
 			"requestValue",
-			_parameterMapSettings.getValue("key", "defaultValue"));
+			_parameterMapConfigurationProperties.getValue(
+				"key", "defaultValue"));
 	}
 
 	@Test
@@ -73,12 +75,14 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 		Assert.assertEquals(
 			"settingsValue",
-			_parameterMapSettings.getValue("key", "defaultValue"));
+			_parameterMapConfigurationProperties.getValue(
+				"key", "defaultValue"));
 	}
 
 	private final Map<String, String[]> _parameterMap = new HashMap<>();
-	private final ParameterMapSettings _parameterMapSettings;
-	private final MemorySettings _parentConfigurationProperties =
-		new MemorySettings();
+	private final ParameterMapConfigurationProperties
+		_parameterMapConfigurationProperties;
+	private final MemoryConfigurationProperties _parentConfigurationProperties =
+		new MemoryConfigurationProperties();
 
 }

@@ -24,35 +24,42 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class MemorySettingsTest extends PowerMockito {
+public class MemoryConfigurationPropertiesTest extends PowerMockito {
 
 	@Test
 	public void testSetAndGetValue() {
-		_memorySettings.setValue("key", "value");
+		_memoryConfigurationProperties.setValue("key", "value");
 
-		Collection<String> keys = _memorySettings.getModifiedKeys();
+		Collection<String> keys =
+			_memoryConfigurationProperties.getModifiedKeys();
 
 		Assert.assertEquals(1, keys.size());
-		Assert.assertEquals("value", _memorySettings.getValue("key", null));
+		Assert.assertEquals(
+			"value", _memoryConfigurationProperties.getValue("key", null));
 	}
 
 	@Test
 	public void testSetAndGetValues() {
-		_memorySettings.setValues("key", new String[] {"value1", "value2"});
+		_memoryConfigurationProperties.setValues(
+			"key",
+			new String[] {"value1", "value2"});
 
-		Collection<String> keys = _memorySettings.getModifiedKeys();
+		Collection<String> keys =
+			_memoryConfigurationProperties.getModifiedKeys();
 
 		Assert.assertEquals(1, keys.size());
 
-		String[] values = _memorySettings.getValues("key", null);
+		String[] values = _memoryConfigurationProperties.getValues("key", null);
 
 		Assert.assertEquals(2, values.length);
 		Assert.assertEquals("value1", values[0]);
 		Assert.assertEquals("value2", values[1]);
 
-		Assert.assertEquals("value1", _memorySettings.getValue("key", null));
+		Assert.assertEquals(
+			"value1", _memoryConfigurationProperties.getValue("key", null));
 	}
 
-	private final MemorySettings _memorySettings = new MemorySettings();
+	private final MemoryConfigurationProperties _memoryConfigurationProperties =
+		new MemoryConfigurationProperties();
 
 }

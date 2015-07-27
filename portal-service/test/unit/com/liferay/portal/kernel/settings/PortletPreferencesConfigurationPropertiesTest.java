@@ -28,7 +28,7 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class PortletPreferencesSettingsTest {
+public class PortletPreferencesConfigurationPropertiesTest {
 
 	@Before
 	public void setUp() {
@@ -51,15 +51,16 @@ public class PortletPreferencesSettingsTest {
 		);
 
 		ModifiableConfigurationProperties modifiableConfigurationProperties =
-			new MemorySettings();
+			new MemoryConfigurationProperties();
 
 		modifiableConfigurationProperties.setValue(
 			_DEFAULT_SETTINGS_SINGLE_KEY, _DEFAULT_SETTINGS_SINGLE_VALUE);
 		modifiableConfigurationProperties.setValues(
 			_DEFAULT_SETTINGS_MULTIPLE_KEY, _DEFAULT_SETTINGS_MULTIPLE_VALUES);
 
-		_portletPreferencesSettings = new PortletPreferencesSettings(
-			_portletPreferences, modifiableConfigurationProperties);
+		_portletPreferencesSettings =
+			new PortletPreferencesConfigurationProperties(
+				_portletPreferences, modifiableConfigurationProperties);
 	}
 
 	@Test
@@ -164,6 +165,7 @@ public class PortletPreferencesSettingsTest {
 		"portletValue";
 
 	private PortletPreferences _portletPreferences;
-	private PortletPreferencesSettings _portletPreferencesSettings;
+	private PortletPreferencesConfigurationProperties
+		_portletPreferencesSettings;
 
 }

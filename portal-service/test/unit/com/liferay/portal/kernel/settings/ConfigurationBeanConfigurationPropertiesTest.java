@@ -23,7 +23,7 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class ConfigurationBeanSettingsTest extends PowerMockito {
+public class ConfigurationBeanConfigurationPropertiesTest extends PowerMockito {
 
 	@Before
 	public void setUp() {
@@ -31,15 +31,16 @@ public class ConfigurationBeanSettingsTest extends PowerMockito {
 
 		_mockLocationVariableResolver = mock(LocationVariableResolver.class);
 
-		_configurationBeanSettings = new ConfigurationBeanSettings(
-			_mockLocationVariableResolver, _configurationBean, null);
+		_configurationBeanConfigurationProperties =
+			new ConfigurationBeanConfigurationProperties(
+				_mockLocationVariableResolver, _configurationBean, null);
 	}
 
 	@Test
 	public void testGetValuesWithExistingKey() {
 		Assert.assertArrayEquals(
 			_configurationBean.stringArrayValue(),
-			_configurationBeanSettings.getValues(
+			_configurationBeanConfigurationProperties.getValues(
 				"stringArrayValue", new String[] {"defaultValue"}));
 	}
 
@@ -49,14 +50,15 @@ public class ConfigurationBeanSettingsTest extends PowerMockito {
 
 		Assert.assertArrayEquals(
 			defaultValue,
-			_configurationBeanSettings.getValues("missingKey", defaultValue));
+			_configurationBeanConfigurationProperties.getValues(
+				"missingKey", defaultValue));
 	}
 
 	@Test
 	public void testGetValueWithExistingBooleanValue() {
 		Assert.assertEquals(
 			String.valueOf(_configurationBean.booleanValue()),
-			_configurationBeanSettings.getValue(
+			_configurationBeanConfigurationProperties.getValue(
 				"booleanValue", "defaultValue"));
 	}
 
@@ -67,14 +69,16 @@ public class ConfigurationBeanSettingsTest extends PowerMockito {
 
 		Assert.assertEquals(
 			localizedValuesMap.getDefaultValue(),
-			_configurationBeanSettings.getValue("localizedValuesMap", null));
+			_configurationBeanConfigurationProperties.getValue(
+				"localizedValuesMap", null));
 	}
 
 	@Test
 	public void testGetValueWithExistingStringValue() {
 		Assert.assertEquals(
 			_configurationBean.stringValue(),
-			_configurationBeanSettings.getValue("stringValue", "defaultValue"));
+			_configurationBeanConfigurationProperties.getValue(
+				"stringValue", "defaultValue"));
 	}
 
 	@Test
@@ -97,7 +101,7 @@ public class ConfigurationBeanSettingsTest extends PowerMockito {
 
 		Assert.assertEquals(
 			expectedValue,
-			_configurationBeanSettings.getValue(
+			_configurationBeanConfigurationProperties.getValue(
 				"locationVariableValue", "defaultValue"));
 	}
 
@@ -105,21 +109,24 @@ public class ConfigurationBeanSettingsTest extends PowerMockito {
 	public void testGetValueWithMissingKey() {
 		Assert.assertEquals(
 			"defaultValue",
-			_configurationBeanSettings.getValue("missingKey", "defaultValue"));
+			_configurationBeanConfigurationProperties.getValue(
+				"missingKey", "defaultValue"));
 	}
 
 	@Test
 	public void testGetValueWithNullConfigurationBean() {
-		_configurationBeanSettings = new ConfigurationBeanSettings(
-			null, null, null);
+		_configurationBeanConfigurationProperties =
+			new ConfigurationBeanConfigurationProperties(null, null, null);
 
 		Assert.assertEquals(
 			"defaultValue",
-			_configurationBeanSettings.getValue("anyKey", "defaultValue"));
+			_configurationBeanConfigurationProperties.getValue(
+				"anyKey", "defaultValue"));
 	}
 
 	private ConfigurationBean _configurationBean;
-	private ConfigurationBeanSettings _configurationBeanSettings;
+	private ConfigurationBeanConfigurationProperties
+		_configurationBeanConfigurationProperties;
 	private LocationVariableResolver _mockLocationVariableResolver;
 
 	private static class ConfigurationBean {

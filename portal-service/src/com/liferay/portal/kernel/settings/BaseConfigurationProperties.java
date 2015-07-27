@@ -21,12 +21,15 @@ import com.liferay.portal.kernel.util.Validator;
  * @author Brian Wing Shun Chan
  * @author Iván Zaera
  */
-public abstract class BaseSettings implements ConfigurationProperties {
+public abstract class BaseConfigurationProperties
+	implements ConfigurationProperties {
 
-	public BaseSettings() {
+	public BaseConfigurationProperties() {
 	}
 
-	public BaseSettings(ConfigurationProperties parentConfigurationProperties) {
+	public BaseConfigurationProperties(
+		ConfigurationProperties parentConfigurationProperties) {
+
 		this.parentConfigurationProperties = parentConfigurationProperties;
 	}
 

@@ -17,7 +17,7 @@ package com.liferay.portlet.documentlibrary;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
@@ -60,10 +60,12 @@ public class DLPortletInstanceSettings {
 			SettingsFactoryUtil.getSettings(
 				new PortletInstanceSettingsLocator(layout, portletId));
 
-		ConfigurationProperties parameterMapSettings = new ParameterMapSettings(
-			parameterMap, configurationProperties);
+		ConfigurationProperties parameterMapConfigurationProperties =
+			new ParameterMapConfigurationProperties(
+				parameterMap, configurationProperties);
 
-		return new DLPortletInstanceSettings(parameterMapSettings);
+		return new DLPortletInstanceSettings(
+			parameterMapConfigurationProperties);
 	}
 
 	public DLPortletInstanceSettings(

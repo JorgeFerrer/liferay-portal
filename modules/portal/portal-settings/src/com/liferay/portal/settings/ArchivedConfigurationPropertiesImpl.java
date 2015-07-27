@@ -17,9 +17,9 @@ package com.liferay.portal.settings;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
-import com.liferay.portal.kernel.settings.BaseModifiableSettings;
+import com.liferay.portal.kernel.settings.BaseModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
-import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
+import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
@@ -37,10 +37,10 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public class ArchivedSettingsImpl
-	extends BaseModifiableSettings implements ArchivedSettings {
+public class ArchivedConfigurationPropertiesImpl
+	extends BaseModifiableConfigurationProperties implements ArchivedSettings {
 
-	public ArchivedSettingsImpl(PortletItem portletItem) {
+	public ArchivedConfigurationPropertiesImpl(PortletItem portletItem) {
 		_portletItem = portletItem;
 	}
 
@@ -161,13 +161,14 @@ public class ArchivedSettingsImpl
 			throw new RuntimeException("Unable to load settings", se);
 		}
 
-		_portletPreferencesSettings = new PortletPreferencesSettings(
-			portletPreferences);
+		_portletPreferencesSettings =
+			new PortletPreferencesConfigurationProperties(portletPreferences);
 
 		return _portletPreferencesSettings;
 	}
 
 	private final PortletItem _portletItem;
-	private PortletPreferencesSettings _portletPreferencesSettings;
+	private PortletPreferencesConfigurationProperties
+		_portletPreferencesSettings;
 
 }

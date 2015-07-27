@@ -25,9 +25,9 @@ import org.powermock.api.mockito.PowerMockito;
 /**
  * @author Iván Zaera
  */
-public class FallbackSettingsTest extends PowerMockito {
+public class FallbackConfigurationPropertiesTest extends PowerMockito {
 
-	public FallbackSettingsTest() {
+	public FallbackConfigurationPropertiesTest() {
 		_configurationProperties = mock(ConfigurationProperties.class);
 
 		_fallbackKeys = new FallbackKeys();
@@ -36,7 +36,7 @@ public class FallbackSettingsTest extends PowerMockito {
 		_fallbackKeys.add("key2", "key7");
 		_fallbackKeys.add("key3", "key5");
 
-		_fallbackSettings = new FallbackSettings(
+		_fallbackConfigurationProperties = new FallbackConfigurationProperties(
 			_configurationProperties, _fallbackKeys);
 	}
 
@@ -51,7 +51,8 @@ public class FallbackSettingsTest extends PowerMockito {
 			mockValues
 		);
 
-		String[] values = _fallbackSettings.getValues("key1", defaultValues);
+		String[] values = _fallbackConfigurationProperties.getValues(
+			"key1", defaultValues);
 
 		Assert.assertArrayEquals(mockValues, values);
 
@@ -62,7 +63,8 @@ public class FallbackSettingsTest extends PowerMockito {
 	public void testGetValuesWhenUnconfigured() {
 		String[] defaultValues = {"default"};
 
-		String[] values = _fallbackSettings.getValues("key1", defaultValues);
+		String[] values = _fallbackConfigurationProperties.getValues(
+			"key1", defaultValues);
 
 		Assert.assertArrayEquals(defaultValues, values);
 
@@ -77,7 +79,8 @@ public class FallbackSettingsTest extends PowerMockito {
 			"value"
 		);
 
-		String value = _fallbackSettings.getValue("key1", "default");
+		String value = _fallbackConfigurationProperties.getValue(
+			"key1", "default");
 
 		Assert.assertEquals("value", value);
 
@@ -86,7 +89,8 @@ public class FallbackSettingsTest extends PowerMockito {
 
 	@Test
 	public void testGetValueWhenUnconfigured() {
-		String value = _fallbackSettings.getValue("key1", "default");
+		String value = _fallbackConfigurationProperties.getValue(
+			"key1", "default");
 
 		Assert.assertEquals("default", value);
 
@@ -114,7 +118,8 @@ public class FallbackSettingsTest extends PowerMockito {
 	}
 
 	private final ConfigurationProperties _configurationProperties;
+	private final FallbackConfigurationProperties
+		_fallbackConfigurationProperties;
 	private final FallbackKeys _fallbackKeys;
-	private final FallbackSettings _fallbackSettings;
 
 }

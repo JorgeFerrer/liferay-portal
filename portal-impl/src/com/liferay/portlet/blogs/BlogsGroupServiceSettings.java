@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -55,7 +55,8 @@ public class BlogsGroupServiceSettings {
 					groupId, BlogsConstants.SERVICE_NAME));
 
 		return new BlogsGroupServiceSettings(
-			new ParameterMapSettings(parameterMap, configurationProperties));
+			new ParameterMapConfigurationProperties(
+				parameterMap, configurationProperties));
 	}
 
 	public BlogsGroupServiceSettings(

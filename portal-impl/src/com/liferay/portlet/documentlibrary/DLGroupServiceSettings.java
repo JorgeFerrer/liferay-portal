@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -54,10 +54,11 @@ public class DLGroupServiceSettings {
 				new GroupServiceSettingsLocator(
 					groupId, DLConstants.SERVICE_NAME));
 
-		ConfigurationProperties parameterMapSettings = new ParameterMapSettings(
-			parameterMap, configurationProperties);
+		ConfigurationProperties parameterMapConfigurationProperties =
+			new ParameterMapConfigurationProperties(
+				parameterMap, configurationProperties);
 
-		return new DLGroupServiceSettings(parameterMapSettings);
+		return new DLGroupServiceSettings(parameterMapConfigurationProperties);
 	}
 
 	public DLGroupServiceSettings(

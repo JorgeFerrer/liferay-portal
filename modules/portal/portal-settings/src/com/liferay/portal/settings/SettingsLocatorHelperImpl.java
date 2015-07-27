@@ -21,10 +21,10 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
 import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
-import com.liferay.portal.kernel.settings.ConfigurationBeanSettings;
+import com.liferay.portal.kernel.settings.ConfigurationBeanConfigurationProperties;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocationVariableResolver;
-import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
+import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
 import com.liferay.portal.kernel.settings.PropertiesSettings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
@@ -74,7 +74,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		long companyId, String settingsId,
 		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getCompanyPortletPreferences(companyId, settingsId),
 			parentConfigurationProperties);
 	}
@@ -84,7 +84,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		String settingsId,
 		ConfigurationProperties parentConfigurationProperties) {
 
-		return new ConfigurationBeanSettings(
+		return new ConfigurationBeanConfigurationProperties(
 			new LocationVariableResolver(
 				getResourceManager(settingsId),
 				SettingsFactoryUtil.getSettingsFactory()),
@@ -111,7 +111,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		long groupId, String settingsId,
 		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getGroupPortletPreferences(groupId, settingsId),
 			parentConfigurationProperties);
 	}
@@ -125,7 +125,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	public ConfigurationProperties getPortalPreferencesSettings(
 		long companyId, ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getPortalPreferences(companyId), parentConfigurationProperties);
 	}
 
@@ -164,7 +164,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		Layout layout, String portletId,
 		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getPortletInstancePortletPreferences(layout, portletId),
 			parentConfigurationProperties);
 	}

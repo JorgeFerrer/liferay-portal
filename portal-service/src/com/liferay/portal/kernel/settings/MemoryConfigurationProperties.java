@@ -14,26 +14,56 @@
 
 package com.liferay.portal.kernel.settings;
 
-import com.liferay.portal.kernel.util.StringPool;
-
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
  * @author Iván Zaera
  */
-public class ParameterMapSettings extends BaseSettings {
+public class MemoryConfigurationProperties
+	extends BaseModifiableConfigurationProperties {
 
-	public static final String PREFERENCES_PREFIX = "preferences--";
+	public MemoryConfigurationProperties() {
+	}
 
-	public static final String SETTINGS_PREFIX = "settings--";
-
-	public ParameterMapSettings(
-		Map<String, String[]> parameterMap,
+	public MemoryConfigurationProperties(
 		ConfigurationProperties parentConfigurationProperties) {
 
 		super(parentConfigurationProperties);
+	}
 
-		_parameterMap = parameterMap;
+	@Override
+	public Collection<String> getModifiedKeys() {
+		return new HashSet<>(_map.keySet());
+	}
+
+	@Override
+	public void reset(String key) {
+		_map.remove(key);
+	}
+
+	@Override
+	public ModifiableConfigurationProperties setValue(
+		String key, String value) {
+
+		_map.put(key, new String[] { value });
+
+		return this;
+	}
+
+	@Override
+	public ModifiableConfigurationProperties setValues(
+		String key, String[] values) {
+
+		_map.put(key, values);
+
+		return this;
+	}
+
+	@Override
+	public void store() {
 	}
 
 	@Override
@@ -49,21 +79,9 @@ public class ParameterMapSettings extends BaseSettings {
 
 	@Override
 	protected String[] doGetValues(String key) {
-		String[] values = _parameterMap.get(key);
-
-		if (values == null) {
-			values = _parameterMap.get(
-				PREFERENCES_PREFIX + key + StringPool.DOUBLE_DASH);
-		}
-
-		if (values == null) {
-			values = _parameterMap.get(
-				SETTINGS_PREFIX + key + StringPool.DOUBLE_DASH);
-		}
-
-		return values;
+		return _map.get(key);
 	}
 
-	private final Map<String, String[]> _parameterMap;
+	private final Map<String, String[]> _map = new HashMap<>();
 
 }

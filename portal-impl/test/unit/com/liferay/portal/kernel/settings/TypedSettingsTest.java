@@ -38,7 +38,7 @@ public class TypedSettingsTest extends PowerMockito {
 		localizationUtil.setLocalization(new LocalizationImpl());
 
 		ModifiableConfigurationProperties modifiableConfigurationProperties =
-			new MemorySettings();
+			new MemoryConfigurationProperties();
 
 		modifiableConfigurationProperties.setValue(_KEY, "valueDefault");
 		modifiableConfigurationProperties.setValue(

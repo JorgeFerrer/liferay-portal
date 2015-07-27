@@ -22,7 +22,7 @@ import java.util.Properties;
  * @author Jorge Ferrer
  * @author Iván Zaera
  */
-public class PropertiesSettings extends BaseSettings {
+public class PropertiesSettings extends BaseConfigurationProperties {
 
 	public PropertiesSettings(
 		LocationVariableResolver locationVariableResolver,
