@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.util.PortalUtil;
 
 import javax.portlet.ActionRequest;
@@ -58,8 +58,8 @@ public class JournalConfigurationAction
 			ConfigurationProperties configurationProperties)
 		throws PortalException {
 
-		ModifiableSettings modifiableSettings =
-			configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			portletRequest);
@@ -71,67 +71,74 @@ public class JournalConfigurationAction
 			journalWebRequestHelper.getJournalGroupServiceConfiguration();
 
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleAddedBody",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleAddedBody",
 			journalGroupServiceConfiguration.emailArticleAddedBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleAddedSubject",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleAddedSubject",
 			journalGroupServiceConfiguration.emailArticleAddedSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalDeniedBody",
 			journalGroupServiceConfiguration.emailArticleApprovalDeniedBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalDeniedSubject",
 			journalGroupServiceConfiguration.
 				emailArticleApprovalDeniedSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalGrantedBody",
 			journalGroupServiceConfiguration.emailArticleApprovalGrantedBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalGrantedSubject",
 			journalGroupServiceConfiguration.
 				emailArticleApprovalGrantedSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalRequestedBody",
 			journalGroupServiceConfiguration.
 				emailArticleApprovalRequestedBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleApprovalRequestedSubject",
 			journalGroupServiceConfiguration.
 				emailArticleApprovalRequestedSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleMovedFromFolderBody",
 			journalGroupServiceConfiguration.emailArticleMovedFromFolderBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleMovedFromFolderSubject",
 			journalGroupServiceConfiguration.
 				emailArticleMovedFromFolderSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleMovedToFolderBody",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleMovedToFolderBody",
 			journalGroupServiceConfiguration.emailArticleMovedToFolderBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings,
+			portletRequest, modifiableConfigurationProperties,
 			"emailArticleMovedToFolderSubject",
 			journalGroupServiceConfiguration.
 				emailArticleMovedToFolderSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleReviewBody",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleReviewBody",
 			journalGroupServiceConfiguration.emailArticleReviewBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleReviewSubject",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleReviewSubject",
 			journalGroupServiceConfiguration.emailArticleReviewSubject());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleUpdatedBody",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleUpdatedBody",
 			journalGroupServiceConfiguration.emailArticleUpdatedBody());
 		removeDefaultValue(
-			portletRequest, modifiableSettings, "emailArticleUpdatedSubject",
+			portletRequest, modifiableConfigurationProperties,
+			"emailArticleUpdatedSubject",
 			journalGroupServiceConfiguration.emailArticleUpdatedSubject());
 	}
 

@@ -15,7 +15,7 @@
 package com.liferay.wiki.web.settings.internal;
 
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.wiki.web.settings.WikiPortletInstanceSettingsOverride;
 
@@ -50,10 +50,10 @@ public class WikiPortletInstanceSettingsOverrideImpl
 		ConfigurationProperties configurationProperties =
 			_typedSettings.getWrappedSettings();
 
-		ModifiableSettings modifiableSettings =
-			configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.store();
+		modifiableConfigurationProperties.store();
 	}
 
 	private final TypedSettings _typedSettings;

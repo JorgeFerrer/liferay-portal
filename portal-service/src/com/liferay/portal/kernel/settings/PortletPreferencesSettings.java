@@ -80,7 +80,9 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public ModifiableSettings setValue(String key, String value) {
+	public ModifiableConfigurationProperties setValue(
+		String key, String value) {
+
 		try {
 			_portletPreferences.setValue(key, value);
 		}
@@ -95,7 +97,9 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public ModifiableSettings setValues(String key, String[] values) {
+	public ModifiableConfigurationProperties setValues(
+		String key, String[] values) {
+
 		try {
 			_portletPreferences.setValues(key, values);
 		}

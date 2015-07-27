@@ -44,14 +44,18 @@ public class MemorySettings extends BaseModifiableSettings {
 	}
 
 	@Override
-	public ModifiableSettings setValue(String key, String value) {
+	public ModifiableConfigurationProperties setValue(
+		String key, String value) {
+
 		_map.put(key, new String[] { value });
 
 		return this;
 	}
 
 	@Override
-	public ModifiableSettings setValues(String key, String[] values) {
+	public ModifiableConfigurationProperties setValues(
+		String key, String[] values) {
+
 		_map.put(key, values);
 
 		return this;

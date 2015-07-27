@@ -126,10 +126,10 @@ public class TypedSettings {
 	}
 
 	public void reset(String key) {
-		ModifiableSettings modifiableSettings =
-			_configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.reset(key);
+		modifiableConfigurationProperties.reset(key);
 	}
 
 	public void setBooleanValue(String key, boolean value) {
@@ -145,17 +145,17 @@ public class TypedSettings {
 	}
 
 	public void setValue(String key, String value) {
-		ModifiableSettings modifiableSettings =
-			_configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.setValue(key, value);
+		modifiableConfigurationProperties.setValue(key, value);
 	}
 
 	public void setValues(String key, String[] values) {
-		ModifiableSettings modifiableSettings =
-			_configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.setValues(key, values);
+		modifiableConfigurationProperties.setValues(key, values);
 	}
 
 	private final Collection<Locale> _availableLocales;

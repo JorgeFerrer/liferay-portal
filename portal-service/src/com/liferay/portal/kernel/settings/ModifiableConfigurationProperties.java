@@ -23,7 +23,8 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public interface ModifiableSettings extends ConfigurationProperties {
+public interface ModifiableConfigurationProperties
+	extends ConfigurationProperties {
 
 	public Collection<String> getModifiedKeys();
 
@@ -31,11 +32,13 @@ public interface ModifiableSettings extends ConfigurationProperties {
 
 	public void reset(String key);
 
-	public ModifiableSettings setValue(String key, String value);
+	public ModifiableConfigurationProperties setValue(String key, String value);
 
-	public ModifiableSettings setValues(ModifiableSettings modifiableSettings);
+	public ModifiableConfigurationProperties setValues(
+		ModifiableConfigurationProperties modifiableConfigurationProperties);
 
-	public ModifiableSettings setValues(String key, String[] values);
+	public ModifiableConfigurationProperties setValues(
+		String key, String[] values);
 
 	public void store() throws IOException, ValidatorException;
 

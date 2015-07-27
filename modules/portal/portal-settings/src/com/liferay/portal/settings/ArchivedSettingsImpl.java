@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.BaseModifiableSettings;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
@@ -65,9 +65,10 @@ public class ArchivedSettingsImpl
 
 	@Override
 	public Collection<String> getModifiedKeys() {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
 
-		return modifiableSettings.getModifiedKeys();
+		return modifiableConfigurationProperties.getModifiedKeys();
 	}
 
 	@Override
@@ -82,51 +83,63 @@ public class ArchivedSettingsImpl
 
 	@Override
 	public void reset(String key) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
 
-		modifiableSettings.reset(key);
+		modifiableConfigurationProperties.reset(key);
 	}
 
 	@Override
-	public ModifiableSettings setValue(String key, String value) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+	public ModifiableConfigurationProperties setValue(
+		String key, String value) {
 
-		modifiableSettings.setValue(key, value);
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
+
+		modifiableConfigurationProperties.setValue(key, value);
 
 		return this;
 	}
 
 	@Override
-	public ModifiableSettings setValues(String key, String[] values) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+	public ModifiableConfigurationProperties setValues(
+		String key, String[] values) {
 
-		modifiableSettings.setValues(key, values);
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
+
+		modifiableConfigurationProperties.setValues(key, values);
 
 		return this;
 	}
 
 	@Override
 	public void store() throws IOException, ValidatorException {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
 
-		modifiableSettings.store();
+		modifiableConfigurationProperties.store();
 	}
 
 	@Override
 	protected String doGetValue(String key) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
 
-		return modifiableSettings.getValue(key, null);
+		return modifiableConfigurationProperties.getValue(key, null);
 	}
 
 	@Override
 	protected String[] doGetValues(String key) {
-		ModifiableSettings modifiableSettings = _getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_getModifiableConfigurationProperties();
 
-		return modifiableSettings.getValues(key, null);
+		return modifiableConfigurationProperties.getValues(key, null);
 	}
 
-	private ModifiableSettings _getModifiableSettings() {
+	private ModifiableConfigurationProperties
+		_getModifiableConfigurationProperties() {
+
 		if (_portletPreferencesSettings != null) {
 			return _portletPreferencesSettings;
 		}

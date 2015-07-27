@@ -50,15 +50,16 @@ public class PortletPreferencesSettingsTest {
 			_PORTLET_PREFERENCES_MULTIPLE_VALUES
 		);
 
-		ModifiableSettings modifiableSettings = new MemorySettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			new MemorySettings();
 
-		modifiableSettings.setValue(
+		modifiableConfigurationProperties.setValue(
 			_DEFAULT_SETTINGS_SINGLE_KEY, _DEFAULT_SETTINGS_SINGLE_VALUE);
-		modifiableSettings.setValues(
+		modifiableConfigurationProperties.setValues(
 			_DEFAULT_SETTINGS_MULTIPLE_KEY, _DEFAULT_SETTINGS_MULTIPLE_VALUES);
 
 		_portletPreferencesSettings = new PortletPreferencesSettings(
-			_portletPreferences, modifiableSettings);
+			_portletPreferences, modifiableConfigurationProperties);
 	}
 
 	@Test

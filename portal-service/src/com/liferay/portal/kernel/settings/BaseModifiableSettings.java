@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.util.StringPool;
  * @author Iván Zaera
  */
 public abstract class BaseModifiableSettings
-	extends BaseSettings implements ModifiableSettings {
+	extends BaseSettings implements ModifiableConfigurationProperties {
 
 	public BaseModifiableSettings() {
 	}
@@ -39,9 +39,11 @@ public abstract class BaseModifiableSettings
 	}
 
 	@Override
-	public ModifiableSettings setValues(ModifiableSettings modifiableSettings) {
-		for (String key : modifiableSettings.getModifiedKeys()) {
-			String[] values = modifiableSettings.getValues(
+	public ModifiableConfigurationProperties setValues(
+		ModifiableConfigurationProperties modifiableConfigurationProperties) {
+
+		for (String key : modifiableConfigurationProperties.getModifiedKeys()) {
+			String[] values = modifiableConfigurationProperties.getValues(
 				key, StringPool.EMPTY_ARRAY);
 
 			if (values.length == 1) {

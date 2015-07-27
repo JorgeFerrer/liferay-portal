@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
@@ -406,8 +406,9 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 				new PortletInstanceSettingsLocator(
 					themeDisplay.getLayout(), portlet.getPortletId()));
 
-		ModifiableSettings portletInstanceModifiableSettings =
-			portletInstanceSettings.getModifiableSettings();
+		ModifiableConfigurationProperties
+			portletInstanceModifiableConfigurationProperties =
+				portletInstanceSettings.getModifiableConfigurationProperties();
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
@@ -416,9 +417,10 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
 				name);
 
-		portletInstanceModifiableSettings.setValues(archivedSettings);
+		portletInstanceModifiableConfigurationProperties.setValues(
+			archivedSettings);
 
-		portletInstanceModifiableSettings.store();
+		portletInstanceModifiableConfigurationProperties.store();
 	}
 
 	@Override
@@ -466,10 +468,12 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 				new PortletInstanceSettingsLocator(
 					themeDisplay.getLayout(), portlet.getPortletId()));
 
-		ModifiableSettings portletInstanceModifiableSettings =
-			portletInstanceSettings.getModifiableSettings();
+		ModifiableConfigurationProperties
+			portletInstanceModifiableConfigurationProperties =
+				portletInstanceSettings.getModifiableConfigurationProperties();
 
-		archivedSettings.setValues(portletInstanceModifiableSettings);
+		archivedSettings.setValues(
+			portletInstanceModifiableConfigurationProperties);
 
 		archivedSettings.store();
 	}

@@ -31,15 +31,18 @@ public abstract class BaseSettings implements ConfigurationProperties {
 	}
 
 	@Override
-	public ModifiableSettings getModifiableSettings() {
-		if (this instanceof ModifiableSettings) {
-			return (ModifiableSettings)this;
+	public ModifiableConfigurationProperties
+		getModifiableConfigurationProperties() {
+
+		if (this instanceof ModifiableConfigurationProperties) {
+			return (ModifiableConfigurationProperties)this;
 		}
 		else if (parentConfigurationProperties == null) {
 			return null;
 		}
 		else {
-			return parentConfigurationProperties.getModifiableSettings();
+			return parentConfigurationProperties.
+				getModifiableConfigurationProperties();
 		}
 	}
 

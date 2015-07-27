@@ -26,7 +26,8 @@ import java.lang.annotation.Target;
  */
 public interface ConfigurationProperties {
 
-	public ModifiableSettings getModifiableSettings();
+	public ModifiableConfigurationProperties
+		getModifiableConfigurationProperties();
 
 	public ConfigurationProperties getParentSettings();
 

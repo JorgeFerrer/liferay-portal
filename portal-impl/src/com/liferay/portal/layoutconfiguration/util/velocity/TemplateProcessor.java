@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.ClassUtil;
@@ -237,18 +237,19 @@ public class TemplateProcessor implements ColumnProcessor {
 				new PortletInstanceSettingsLocator(
 					themeDisplay.getLayout(), portletId));
 
-		ModifiableSettings modifiableSettings =
-			configurationProperties.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
 		for (Map.Entry<String, ?> entry : defaultSettingsMap.entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
 
 			if (value instanceof String) {
-				modifiableSettings.setValue(key, (String)value);
+				modifiableConfigurationProperties.setValue(key, (String)value);
 			}
 			else if (value instanceof String[]) {
-				modifiableSettings.setValues(key, (String[])value);
+				modifiableConfigurationProperties.setValues(
+					key, (String[])value);
 			}
 			else {
 				throw new IllegalArgumentException(
@@ -257,7 +258,7 @@ public class TemplateProcessor implements ColumnProcessor {
 			}
 		}
 
-		modifiableSettings.store();
+		modifiableConfigurationProperties.store();
 
 		return processPortlet(portletId);
 	}

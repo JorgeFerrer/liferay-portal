@@ -45,7 +45,8 @@ public class BaseModifiableSettingsTest extends PowerMockito {
 		_baseModifiableSettings.setValue("key1", "value1");
 		_baseModifiableSettings.setValue("key2", "value2");
 
-		ModifiableSettings sourceModifiableSettings = new MemorySettings();
+		ModifiableConfigurationProperties sourceModifiableSettings =
+			new MemorySettings();
 
 		sourceModifiableSettings.setValue("otherKey", "otherValue");
 
