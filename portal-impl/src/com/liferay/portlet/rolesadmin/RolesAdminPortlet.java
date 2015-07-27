@@ -280,10 +280,20 @@ public class RolesAdminPortlet extends MVCPortlet {
 			actions = ListUtil.sort(
 				actions, new ActionComparator(themeDisplay.getLocale()));
 
+			boolean relatedPortletDisplayTemplate = portletResource.equals(
+				PortletKeys.PORTLET_DISPLAY_TEMPLATE) &&
+				!selResource.equals(PortletKeys.PORTLET_DISPLAY_TEMPLATE);
+
 			for (String actionId : actions) {
 				String target = selResource + actionId;
 
 				boolean selected = ArrayUtil.contains(selectedTargets, target);
+
+				if (!selected && relatedPortletDisplayTemplate &&
+					!actionId.equals(ActionKeys.ADD_PORTLET_DISPLAY_TEMPLATE)) {
+
+					continue;
+				}
 
 				String[] groupIds = StringUtil.split(
 					ParamUtil.getString(actionRequest, "groupIds" + target));
