@@ -33,7 +33,7 @@ public class OpenIdCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return OpenIdConstants.SERVICE_NAME;
 	}
 

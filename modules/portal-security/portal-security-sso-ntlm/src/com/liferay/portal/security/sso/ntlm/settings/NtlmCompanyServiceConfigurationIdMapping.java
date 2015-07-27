@@ -33,7 +33,7 @@ public class NtlmCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return NtlmConstants.SERVICE_NAME;
 	}
 

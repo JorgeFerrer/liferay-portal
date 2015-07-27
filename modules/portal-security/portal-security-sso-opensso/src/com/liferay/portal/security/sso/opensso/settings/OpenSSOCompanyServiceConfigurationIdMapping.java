@@ -33,7 +33,7 @@ public class OpenSSOCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return OpenSSOConstants.SERVICE_NAME;
 	}
 

@@ -33,7 +33,7 @@ public class RequestParameterAutoLoginCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return RequestParameterAutoLoginConstants.SERVICE_NAME;
 	}
 

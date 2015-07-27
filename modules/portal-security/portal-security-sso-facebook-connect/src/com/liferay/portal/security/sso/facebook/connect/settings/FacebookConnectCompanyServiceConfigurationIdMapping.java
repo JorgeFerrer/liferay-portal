@@ -33,7 +33,7 @@ public class FacebookConnectCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return FacebookConnectConstants.SERVICE_NAME;
 	}
 

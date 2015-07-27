@@ -33,7 +33,7 @@ public class SitesDirectoryPortletInstanceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return SitesDirectoryPortletKeys.SITES_DIRECTORY;
 	}
 

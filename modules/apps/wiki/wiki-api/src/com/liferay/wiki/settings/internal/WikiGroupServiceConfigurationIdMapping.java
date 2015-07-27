@@ -33,7 +33,7 @@ public class WikiGroupServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return WikiConstants.SERVICE_NAME;
 	}
 

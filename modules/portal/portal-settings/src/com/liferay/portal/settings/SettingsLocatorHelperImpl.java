@@ -251,7 +251,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		ConfigurationIdMapping configurationIdMapping) {
 
 		_configurationBeanClasses.put(
-			configurationIdMapping.getSettingsId(),
+			configurationIdMapping.getConfigurationPid(),
 			configurationIdMapping.getConfigurationBeanClass());
 	}
 
@@ -275,7 +275,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		ConfigurationIdMapping configurationIdMapping) {
 
 		_configurationBeanClasses.remove(
-			configurationIdMapping.getSettingsId());
+			configurationIdMapping.getConfigurationPid());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

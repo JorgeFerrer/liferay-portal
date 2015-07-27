@@ -33,7 +33,7 @@ public class LanguagePortletInstanceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return LanguagePortletKeys.LANGUAGE;
 	}
 

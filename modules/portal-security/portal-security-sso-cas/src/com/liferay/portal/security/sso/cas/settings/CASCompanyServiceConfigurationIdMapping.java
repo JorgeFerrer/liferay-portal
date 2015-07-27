@@ -33,7 +33,7 @@ public class CASCompanyServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return CASConstants.SERVICE_NAME;
 	}
 

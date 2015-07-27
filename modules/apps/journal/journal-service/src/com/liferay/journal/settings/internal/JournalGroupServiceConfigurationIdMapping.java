@@ -33,7 +33,7 @@ public class JournalGroupServiceConfigurationIdMapping
 	}
 
 	@Override
-	public String getSettingsId() {
+	public String getConfigurationPid() {
 		return JournalConstants.SERVICE_NAME;
 	}
 
