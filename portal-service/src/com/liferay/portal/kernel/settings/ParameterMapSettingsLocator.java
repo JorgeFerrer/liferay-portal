@@ -30,10 +30,11 @@ public class ParameterMapSettingsLocator implements ConfigurationLocator {
 	}
 
 	@Override
-	public Settings getSettings() throws SettingsException {
-		Settings settings = _configurationLocator.getSettings();
+	public ConfigurationProperties getSettings() throws SettingsException {
+		ConfigurationProperties configurationProperties =
+			_configurationLocator.getSettings();
 
-		return new ParameterMapSettings(_parameterMap, settings);
+		return new ParameterMapSettings(_parameterMap, configurationProperties);
 	}
 
 	@Override

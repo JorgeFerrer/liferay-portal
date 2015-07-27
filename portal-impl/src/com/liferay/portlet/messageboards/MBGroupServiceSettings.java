@@ -15,11 +15,11 @@
 package com.liferay.portlet.messageboards;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * @author Jorge Ferrer
  */
-@Settings.Config(settingsIds = MBConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(settingsIds = MBConstants.SERVICE_NAME)
 public class MBGroupServiceSettings {
 
 	public static final String[] ALL_KEYS = {};
@@ -42,27 +42,33 @@ public class MBGroupServiceSettings {
 	public static MBGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(groupId, MBConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, MBConstants.SERVICE_NAME));
 
-		return new MBGroupServiceSettings(settings);
+		return new MBGroupServiceSettings(configurationProperties);
 	}
 
 	public static MBGroupServiceSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(groupId, MBConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, MBConstants.SERVICE_NAME));
 
 		ParameterMapSettings parameterMapSettings = new ParameterMapSettings(
-			parameterMap, settings);
+			parameterMap, configurationProperties);
 
 		return new MBGroupServiceSettings(parameterMapSettings);
 	}
 
-	public MBGroupServiceSettings(Settings settings) {
-		_typedSettings = new TypedSettings(settings);
+	public MBGroupServiceSettings(
+		ConfigurationProperties configurationProperties) {
+
+		_typedSettings = new TypedSettings(configurationProperties);
 	}
 
 	public String getEmailFromAddress() {
@@ -135,18 +141,18 @@ public class MBGroupServiceSettings {
 		return _typedSettings.getValue("recentPostsDateOffset");
 	}
 
-	@Settings.Property(name = "rssDelta")
+	@ConfigurationProperties.Property(name = "rssDelta")
 	public int getRSSDelta() {
 		return _typedSettings.getIntegerValue("rssDelta");
 	}
 
-	@Settings.Property(name = "rssDisplayStyle")
+	@ConfigurationProperties.Property(name = "rssDisplayStyle")
 	public String getRSSDisplayStyle() {
 		return _typedSettings.getValue(
 			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_FULL_CONTENT);
 	}
 
-	@Settings.Property(name = "rssFeedType")
+	@ConfigurationProperties.Property(name = "rssFeedType")
 	public String getRSSFeedType() {
 		return _typedSettings.getValue(
 			"rssFeedType", RSSUtil.getFeedType(RSSUtil.ATOM, 1.0));
@@ -176,7 +182,7 @@ public class MBGroupServiceSettings {
 		return _typedSettings.getBooleanValue("enableRatings");
 	}
 
-	@Settings.Property(name = "enableRss")
+	@ConfigurationProperties.Property(name = "enableRss")
 	public boolean isEnableRSS() {
 		if (!PortalUtil.isRSSFeedsEnabled()) {
 			return false;

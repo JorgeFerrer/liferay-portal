@@ -19,10 +19,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
 import com.liferay.portal.kernel.settings.ConfigurationLocator;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.FallbackSettings;
 import com.liferay.portal.kernel.settings.PortalSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
@@ -102,8 +102,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getServerSettings(String settingsId) {
-		Settings portalPropertiesSettings =
+	public ConfigurationProperties getServerSettings(String settingsId) {
+		ConfigurationProperties portalPropertiesSettings =
 			_settingsLocatorHelper.getPortalPropertiesSettings();
 
 		return _settingsLocatorHelper.getConfigurationBeanSettings(
@@ -115,12 +115,14 @@ public class SettingsFactoryImpl implements SettingsFactory {
 			Class<T> clazz, ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = getSettings(configurationLocator);
+		ConfigurationProperties configurationProperties = getSettings(
+			configurationLocator);
 
 		Class<?> settingsOverrideClass = getOverrideClass(clazz);
 
 		try {
-			TypedSettings typedSettings = new TypedSettings(settings);
+			TypedSettings typedSettings = new TypedSettings(
+				configurationProperties);
 
 			Object settingsOverrideInstance = null;
 
@@ -147,13 +149,15 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getSettings(ConfigurationLocator configurationLocator)
+	public ConfigurationProperties getSettings(
+			ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = configurationLocator.getSettings();
+		ConfigurationProperties configurationProperties =
+			configurationLocator.getSettings();
 
 		return applyFallbackKeys(
-			configurationLocator.getSettingsId(), settings);
+			configurationLocator.getSettingsId(), configurationProperties);
 	}
 
 	@Override
@@ -171,17 +175,19 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		SettingsDescriptor settingsDescriptor = new AnnotatedSettingsDescriptor(
 			settingsClass);
 
-		Settings.Config settingsConfig = settingsClass.getAnnotation(
-			Settings.Config.class);
+		ConfigurationProperties.Config settingsConfig =
+			settingsClass.getAnnotation(ConfigurationProperties.Config.class);
 
 		for (String settingsId : settingsConfig.settingsIds()) {
 			register(settingsId, settingsDescriptor, fallbackKeys);
 		}
 	}
 
-	protected Settings applyFallbackKeys(String settingsId, Settings settings) {
-		if (settings instanceof FallbackKeys) {
-			return settings;
+	protected ConfigurationProperties applyFallbackKeys(
+		String settingsId, ConfigurationProperties configurationProperties) {
+
+		if (configurationProperties instanceof FallbackKeys) {
+			return configurationProperties;
 		}
 
 		settingsId = PortletConstants.getRootPortletId(settingsId);
@@ -189,10 +195,11 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		FallbackKeys fallbackKeys = _fallbackKeysMap.get(settingsId);
 
 		if (fallbackKeys != null) {
-			settings = new FallbackSettings(settings, fallbackKeys);
+			configurationProperties = new FallbackSettings(
+				configurationProperties, fallbackKeys);
 		}
 
-		return settings;
+		return configurationProperties;
 	}
 
 	protected long getCompanyId(long groupId) throws SettingsException {
@@ -207,8 +214,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	protected <T> Class<?> getOverrideClass(Class<T> clazz) {
-		Settings.OverrideClass overrideClass = clazz.getAnnotation(
-			Settings.OverrideClass.class);
+		ConfigurationProperties.OverrideClass overrideClass =
+			clazz.getAnnotation(ConfigurationProperties.OverrideClass.class);
 
 		if (overrideClass == null) {
 			return null;

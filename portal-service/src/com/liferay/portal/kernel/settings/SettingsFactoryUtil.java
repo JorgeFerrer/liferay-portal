@@ -41,11 +41,11 @@ public class SettingsFactoryUtil {
 			groupId, portletId);
 	}
 
-	public static Settings getServerSettings(String settingsId) {
+	public static ConfigurationProperties getServerSettings(String settingsId) {
 		return getSettingsFactory().getServerSettings(settingsId);
 	}
 
-	public static Settings getSettings(
+	public static ConfigurationProperties getSettings(
 			ConfigurationLocator configurationLocator)
 		throws SettingsException {
 

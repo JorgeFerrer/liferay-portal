@@ -29,13 +29,14 @@ public interface SettingsFactory {
 	public List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
 		long groupId, String portletId);
 
-	public Settings getServerSettings(String settingsId);
+	public ConfigurationProperties getServerSettings(String settingsId);
 
 	public <T> T getSettings(
 			Class<T> clazz, ConfigurationLocator configurationLocator)
 		throws SettingsException;
 
-	public Settings getSettings(ConfigurationLocator configurationLocator)
+	public ConfigurationProperties getSettings(
+			ConfigurationLocator configurationLocator)
 		throws SettingsException;
 
 	public SettingsDescriptor getSettingsDescriptor(String settingsId);

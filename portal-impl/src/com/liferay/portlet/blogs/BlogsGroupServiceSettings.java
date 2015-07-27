@@ -15,11 +15,11 @@
 package com.liferay.portlet.blogs;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -31,40 +31,44 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-@Settings.Config(settingsIds = BlogsConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(settingsIds = BlogsConstants.SERVICE_NAME)
 public class BlogsGroupServiceSettings {
 
 	public static BlogsGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				groupId, BlogsConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, BlogsConstants.SERVICE_NAME));
 
-		return new BlogsGroupServiceSettings(settings);
+		return new BlogsGroupServiceSettings(configurationProperties);
 	}
 
 	public static BlogsGroupServiceSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				groupId, BlogsConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, BlogsConstants.SERVICE_NAME));
 
 		return new BlogsGroupServiceSettings(
-			new ParameterMapSettings(parameterMap, settings));
+			new ParameterMapSettings(parameterMap, configurationProperties));
 	}
 
-	public BlogsGroupServiceSettings(Settings settings) {
-		_typedSettings = new TypedSettings(settings);
+	public BlogsGroupServiceSettings(
+		ConfigurationProperties configurationProperties) {
+
+		_typedSettings = new TypedSettings(configurationProperties);
 	}
 
 	public LocalizedValuesMap getEmailEntryAddedBody() {
 		return _typedSettings.getLocalizedValuesMap("emailEntryAddedBody");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailEntryAddedBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailEntryAddedBody(), "emailEntryAddedBody");
@@ -74,7 +78,7 @@ public class BlogsGroupServiceSettings {
 		return _typedSettings.getLocalizedValuesMap("emailEntryAddedSubject");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailEntryAddedSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailEntryAddedSubject(), "emailEntryAddedSubject");
@@ -84,7 +88,7 @@ public class BlogsGroupServiceSettings {
 		return _typedSettings.getLocalizedValuesMap("emailEntryUpdatedBody");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailEntryUpdatedBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailEntryUpdatedBody(), "emailEntryUpdatedBody");
@@ -94,7 +98,7 @@ public class BlogsGroupServiceSettings {
 		return _typedSettings.getLocalizedValuesMap("emailEntryUpdatedSubject");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailEntryUpdatedSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailEntryUpdatedSubject(), "emailEntryUpdatedSubject");

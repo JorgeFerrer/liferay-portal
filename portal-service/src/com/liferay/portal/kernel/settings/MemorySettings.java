@@ -27,8 +27,10 @@ public class MemorySettings extends BaseModifiableSettings {
 	public MemorySettings() {
 	}
 
-	public MemorySettings(Settings parentSettings) {
-		super(parentSettings);
+	public MemorySettings(
+		ConfigurationProperties parentConfigurationProperties) {
+
+		super(parentConfigurationProperties);
 	}
 
 	@Override

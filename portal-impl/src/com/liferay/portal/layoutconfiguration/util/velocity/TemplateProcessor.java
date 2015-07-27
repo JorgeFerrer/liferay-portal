@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.portlet.PortletJSONUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.ClassUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -232,12 +232,13 @@ public class TemplateProcessor implements ColumnProcessor {
 		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new PortletInstanceSettingsLocator(
-				themeDisplay.getLayout(), portletId));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new PortletInstanceSettingsLocator(
+					themeDisplay.getLayout(), portletId));
 
 		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+			configurationProperties.getModifiableSettings();
 
 		for (Map.Entry<String, ?> entry : defaultSettingsMap.entrySet()) {
 			String key = entry.getKey();

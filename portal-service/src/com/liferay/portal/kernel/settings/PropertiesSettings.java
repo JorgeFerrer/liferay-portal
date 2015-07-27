@@ -33,9 +33,10 @@ public class PropertiesSettings extends BaseSettings {
 
 	public PropertiesSettings(
 		LocationVariableResolver locationVariableResolver,
-		Properties properties, Settings parentSettings) {
+		Properties properties,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		super(parentSettings);
+		super(parentConfigurationProperties);
 
 		_locationVariableResolver = locationVariableResolver;
 		_properties = properties;

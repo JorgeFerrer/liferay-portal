@@ -21,13 +21,13 @@ import com.liferay.portal.kernel.util.Validator;
  * @author Brian Wing Shun Chan
  * @author Iván Zaera
  */
-public abstract class BaseSettings implements Settings {
+public abstract class BaseSettings implements ConfigurationProperties {
 
 	public BaseSettings() {
 	}
 
-	public BaseSettings(Settings parentSettings) {
-		this.parentSettings = parentSettings;
+	public BaseSettings(ConfigurationProperties parentConfigurationProperties) {
+		this.parentConfigurationProperties = parentConfigurationProperties;
 	}
 
 	@Override
@@ -35,17 +35,17 @@ public abstract class BaseSettings implements Settings {
 		if (this instanceof ModifiableSettings) {
 			return (ModifiableSettings)this;
 		}
-		else if (parentSettings == null) {
+		else if (parentConfigurationProperties == null) {
 			return null;
 		}
 		else {
-			return parentSettings.getModifiableSettings();
+			return parentConfigurationProperties.getModifiableSettings();
 		}
 	}
 
 	@Override
-	public Settings getParentSettings() {
-		return parentSettings;
+	public ConfigurationProperties getParentSettings() {
+		return parentConfigurationProperties;
 	}
 
 	@Override
@@ -56,8 +56,8 @@ public abstract class BaseSettings implements Settings {
 
 		String value = doGetValue(key);
 
-		if ((value == null) && (parentSettings != null)) {
-			value = parentSettings.getValue(key, defaultValue);
+		if ((value == null) && (parentConfigurationProperties != null)) {
+			value = parentConfigurationProperties.getValue(key, defaultValue);
 		}
 
 		if (Validator.isNull(value)) {
@@ -75,8 +75,10 @@ public abstract class BaseSettings implements Settings {
 
 		String[] values = doGetValues(key);
 
-		if (ArrayUtil.isEmpty(values) && (parentSettings != null)) {
-			values = parentSettings.getValues(key, defaultValue);
+		if (ArrayUtil.isEmpty(values) &&
+			(parentConfigurationProperties != null)) {
+
+			values = parentConfigurationProperties.getValues(key, defaultValue);
 		}
 
 		if (ArrayUtil.isEmpty(values)) {
@@ -90,6 +92,6 @@ public abstract class BaseSettings implements Settings {
 
 	protected abstract String[] doGetValues(String key);
 
-	protected Settings parentSettings;
+	protected ConfigurationProperties parentConfigurationProperties;
 
 }

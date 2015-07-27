@@ -41,9 +41,10 @@ public class PortletPreferencesSettings extends BaseModifiableSettings {
 	}
 
 	public PortletPreferencesSettings(
-		PortletPreferences portletPreferences, Settings parentSettings) {
+		PortletPreferences portletPreferences,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		super(parentSettings);
+		super(parentConfigurationProperties);
 
 		_portletPreferences = portletPreferences;
 	}

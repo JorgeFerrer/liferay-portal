@@ -28,9 +28,10 @@ public class ParameterMapSettings extends BaseSettings {
 	public static final String SETTINGS_PREFIX = "settings--";
 
 	public ParameterMapSettings(
-		Map<String, String[]> parameterMap, Settings parentSettings) {
+		Map<String, String[]> parameterMap,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		super(parentSettings);
+		super(parentConfigurationProperties);
 
 		_parameterMap = parameterMap;
 	}

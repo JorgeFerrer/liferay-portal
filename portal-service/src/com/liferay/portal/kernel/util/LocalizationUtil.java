@@ -17,8 +17,8 @@ package com.liferay.portal.kernel.util;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.xml.Document;
 
 import java.util.ArrayList;
@@ -302,29 +302,35 @@ public class LocalizationUtil {
 	}
 
 	public static String getSettingsValue(
-		Settings settings, String key, String languageId) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId) {
 
-		return getLocalization().getSettingsValue(settings, key, languageId);
+		return getLocalization().getSettingsValue(
+			configurationProperties, key, languageId);
 	}
 
 	public static String getSettingsValue(
-		Settings settings, String key, String languageId, boolean useDefault) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault) {
 
 		return getLocalization().getSettingsValue(
-			settings, key, languageId, useDefault);
+			configurationProperties, key, languageId, useDefault);
 	}
 
 	public static String[] getSettingsValues(
-		Settings settings, String key, String languageId) {
-
-		return getLocalization().getSettingsValues(settings, key, languageId);
-	}
-
-	public static String[] getSettingsValues(
-		Settings settings, String key, String languageId, boolean useDefault) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId) {
 
 		return getLocalization().getSettingsValues(
-			settings, key, languageId, useDefault);
+			configurationProperties, key, languageId);
+	}
+
+	public static String[] getSettingsValues(
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault) {
+
+		return getLocalization().getSettingsValues(
+			configurationProperties, key, languageId, useDefault);
 	}
 
 	public static String getXml(

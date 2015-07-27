@@ -23,7 +23,7 @@ import javax.portlet.ValidatorException;
 /**
  * @author Iván Zaera
  */
-public interface ModifiableSettings extends Settings {
+public interface ModifiableSettings extends ConfigurationProperties {
 
 	public Collection<String> getModifiedKeys();
 

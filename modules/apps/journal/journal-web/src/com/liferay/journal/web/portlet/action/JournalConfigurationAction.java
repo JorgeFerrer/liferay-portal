@@ -20,8 +20,8 @@ import com.liferay.journal.web.context.util.JournalWebRequestHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.util.PortalUtil;
 
 import javax.portlet.ActionRequest;
@@ -54,11 +54,12 @@ public class JournalConfigurationAction
 
 	@Override
 	public void postProcess(
-			long companyId, PortletRequest portletRequest, Settings settings)
+			long companyId, PortletRequest portletRequest,
+			ConfigurationProperties configurationProperties)
 		throws PortalException {
 
 		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+			configurationProperties.getModifiableSettings();
 
 		HttpServletRequest request = PortalUtil.getHttpServletRequest(
 			portletRequest);

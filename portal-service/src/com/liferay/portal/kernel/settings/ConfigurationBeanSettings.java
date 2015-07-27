@@ -23,13 +23,14 @@ import java.lang.reflect.Method;
  * @author Iván Zaera
  */
 public class ConfigurationBeanSettings extends BaseSettings
-	implements Settings {
+	implements ConfigurationProperties {
 
 	public ConfigurationBeanSettings(
 		LocationVariableResolver locationVariableResolver,
-		Object configurationBean, Settings parentSettings) {
+		Object configurationBean,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		super(parentSettings);
+		super(parentConfigurationProperties);
 
 		_locationVariableResolver = locationVariableResolver;
 		_configurationBean = configurationBean;

@@ -24,11 +24,11 @@ import java.lang.annotation.Target;
  * @author Jorge Ferrer
  * @author Iván Zaera
  */
-public interface Settings {
+public interface ConfigurationProperties {
 
 	public ModifiableSettings getModifiableSettings();
 
-	public Settings getParentSettings();
+	public ConfigurationProperties getParentSettings();
 
 	public String getValue(String key, String defaultValue);
 

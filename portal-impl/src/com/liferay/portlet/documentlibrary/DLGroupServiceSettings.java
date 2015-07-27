@@ -15,11 +15,11 @@
 package com.liferay.portlet.documentlibrary;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -31,40 +31,46 @@ import java.util.Map;
 /**
  * @author Adolfo Pérez
  */
-@Settings.Config(settingsIds = DLConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(settingsIds = DLConstants.SERVICE_NAME)
 public class DLGroupServiceSettings {
 
 	public static DLGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(groupId, DLConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, DLConstants.SERVICE_NAME));
 
-		return new DLGroupServiceSettings(settings);
+		return new DLGroupServiceSettings(configurationProperties);
 	}
 
 	public static DLGroupServiceSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(groupId, DLConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, DLConstants.SERVICE_NAME));
 
-		Settings parameterMapSettings = new ParameterMapSettings(
-			parameterMap, settings);
+		ConfigurationProperties parameterMapSettings = new ParameterMapSettings(
+			parameterMap, configurationProperties);
 
 		return new DLGroupServiceSettings(parameterMapSettings);
 	}
 
-	public DLGroupServiceSettings(Settings settings) {
-		_typedSettings = new TypedSettings(settings);
+	public DLGroupServiceSettings(
+		ConfigurationProperties configurationProperties) {
+
+		_typedSettings = new TypedSettings(configurationProperties);
 	}
 
 	public LocalizedValuesMap getEmailFileEntryAddedBody() {
 		return _typedSettings.getLocalizedValuesMap("emailFileEntryAddedBody");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailFileEntryAddedBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailFileEntryAddedBody(), "emailFileEntryAdded");
@@ -75,7 +81,7 @@ public class DLGroupServiceSettings {
 			"emailFileEntryAddedSubject");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailFileEntryAddedSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailFileEntryAddedSubject(), "emailFileEntryAddedSubject");
@@ -86,7 +92,7 @@ public class DLGroupServiceSettings {
 			"emailFileEntryUpdatedBody");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailFileEntryUpdatedBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailFileEntryUpdatedBody(), "emailFileEntryUpdatedBody");
@@ -97,7 +103,7 @@ public class DLGroupServiceSettings {
 			"emailFileEntryUpdatedSubject");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailFileEntryUpdatedSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailFileEntryUpdatedSubject(), "emailFileEntryUpdatedSubject");

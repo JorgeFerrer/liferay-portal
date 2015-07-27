@@ -27,9 +27,9 @@ import org.powermock.api.mockito.PowerMockito;
 public class BaseSettingsTest extends PowerMockito {
 
 	public BaseSettingsTest() {
-		_parentSettings = new MemorySettings();
+		_parentConfigurationProperties = new MemorySettings();
 
-		_baseSettings = new MemorySettings(_parentSettings);
+		_baseSettings = new MemorySettings(_parentConfigurationProperties);
 	}
 
 	@Test
@@ -53,7 +53,8 @@ public class BaseSettingsTest extends PowerMockito {
 
 	@Test
 	public void testGetParentSettings() {
-		Assert.assertSame(_parentSettings, _baseSettings.getParentSettings());
+		Assert.assertSame(
+			_parentConfigurationProperties, _baseSettings.getParentSettings());
 	}
 
 	@Test
@@ -63,12 +64,12 @@ public class BaseSettingsTest extends PowerMockito {
 		Assert.assertArrayEquals(
 			_DEFAULT_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
 
-		_parentSettings.setValue(_KEY, _VALUE);
+		_parentConfigurationProperties.setValue(_KEY, _VALUE);
 
 		Assert.assertEquals(
 			_VALUE, _baseSettings.getValue(_KEY, _DEFAULT_VALUE));
 
-		_parentSettings.setValues(_KEY, _VALUES);
+		_parentConfigurationProperties.setValues(_KEY, _VALUES);
 
 		Assert.assertArrayEquals(
 			_VALUES, _baseSettings.getValues(_KEY, _DEFAULT_VALUES));
@@ -87,6 +88,6 @@ public class BaseSettingsTest extends PowerMockito {
 	private static final String[] _VALUES = {"value0", "value1"};
 
 	private final BaseSettings _baseSettings;
-	private final MemorySettings _parentSettings;
+	private final MemorySettings _parentConfigurationProperties;
 
 }

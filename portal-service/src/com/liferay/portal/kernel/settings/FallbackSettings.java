@@ -20,16 +20,17 @@ package com.liferay.portal.kernel.settings;
 public class FallbackSettings extends BaseSettings {
 
 	public FallbackSettings(
-		Settings parentSettings, FallbackKeys fallbackKeys) {
+		ConfigurationProperties parentConfigurationProperties,
+		FallbackKeys fallbackKeys) {
 
-		super(parentSettings);
+		super(parentConfigurationProperties);
 
 		_fallbackKeys = fallbackKeys;
 	}
 
 	@Override
 	protected String doGetValue(String key) {
-		String value = parentSettings.getValue(key, null);
+		String value = parentConfigurationProperties.getValue(key, null);
 
 		if (value != null) {
 			return value;
@@ -38,7 +39,7 @@ public class FallbackSettings extends BaseSettings {
 		String[] fallbackKeysArray = _fallbackKeys.get(key);
 
 		for (String fallbackKey : fallbackKeysArray) {
-			value = parentSettings.getValue(fallbackKey, null);
+			value = parentConfigurationProperties.getValue(fallbackKey, null);
 
 			if (value != null) {
 				return value;
@@ -50,7 +51,7 @@ public class FallbackSettings extends BaseSettings {
 
 	@Override
 	protected String[] doGetValues(String key) {
-		String[] values = parentSettings.getValues(key, null);
+		String[] values = parentConfigurationProperties.getValues(key, null);
 
 		if (values != null) {
 			return values;
@@ -59,7 +60,7 @@ public class FallbackSettings extends BaseSettings {
 		String[] fallbackKeysArray = _fallbackKeys.get(key);
 
 		for (String fallbackKey : fallbackKeysArray) {
-			values = parentSettings.getValues(fallbackKey, null);
+			values = parentConfigurationProperties.getValues(fallbackKey, null);
 
 			if (values != null) {
 				return values;

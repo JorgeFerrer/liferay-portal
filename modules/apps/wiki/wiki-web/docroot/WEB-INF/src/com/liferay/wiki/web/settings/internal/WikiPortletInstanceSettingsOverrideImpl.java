@@ -14,8 +14,8 @@
 
 package com.liferay.wiki.web.settings.internal;
 
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.wiki.web.settings.WikiPortletInstanceSettingsOverride;
 
@@ -47,10 +47,11 @@ public class WikiPortletInstanceSettingsOverrideImpl
 
 	@Override
 	public void store() throws IOException, ValidatorException {
-		Settings settings = _typedSettings.getWrappedSettings();
+		ConfigurationProperties configurationProperties =
+			_typedSettings.getWrappedSettings();
 
 		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+			configurationProperties.getModifiableSettings();
 
 		modifiableSettings.store();
 	}

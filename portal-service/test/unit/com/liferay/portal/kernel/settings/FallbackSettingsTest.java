@@ -28,7 +28,7 @@ import org.powermock.api.mockito.PowerMockito;
 public class FallbackSettingsTest extends PowerMockito {
 
 	public FallbackSettingsTest() {
-		_settings = mock(Settings.class);
+		_configurationProperties = mock(ConfigurationProperties.class);
 
 		_fallbackKeys = new FallbackKeys();
 
@@ -36,7 +36,8 @@ public class FallbackSettingsTest extends PowerMockito {
 		_fallbackKeys.add("key2", "key7");
 		_fallbackKeys.add("key3", "key5");
 
-		_fallbackSettings = new FallbackSettings(_settings, _fallbackKeys);
+		_fallbackSettings = new FallbackSettings(
+			_configurationProperties, _fallbackKeys);
 	}
 
 	@Test
@@ -45,7 +46,7 @@ public class FallbackSettingsTest extends PowerMockito {
 		String[] mockValues = {"value"};
 
 		when(
-			_settings.getValues("key2", null)
+			_configurationProperties.getValues("key2", null)
 		).thenReturn(
 			mockValues
 		);
@@ -71,7 +72,7 @@ public class FallbackSettingsTest extends PowerMockito {
 	@Test
 	public void testGetValueWhenConfigured() {
 		when(
-			_settings.getValue("key2", null)
+			_configurationProperties.getValue("key2", null)
 		).thenReturn(
 			"value"
 		);
@@ -93,27 +94,27 @@ public class FallbackSettingsTest extends PowerMockito {
 	}
 
 	protected void verifyGetValue(String... keys) {
-		InOrder inOrder = Mockito.inOrder(_settings);
+		InOrder inOrder = Mockito.inOrder(_configurationProperties);
 
 		for (String key : keys) {
-			inOrder.verify(_settings);
+			inOrder.verify(_configurationProperties);
 
-			_settings.getValue(key, null);
+			_configurationProperties.getValue(key, null);
 		}
 	}
 
 	protected void verifyGetValues(String... keys) {
-		InOrder inOrder = Mockito.inOrder(_settings);
+		InOrder inOrder = Mockito.inOrder(_configurationProperties);
 
 		for (String key : keys) {
-			inOrder.verify(_settings);
+			inOrder.verify(_configurationProperties);
 
-			_settings.getValues(key, null);
+			_configurationProperties.getValues(key, null);
 		}
 	}
 
+	private final ConfigurationProperties _configurationProperties;
 	private final FallbackKeys _fallbackKeys;
 	private final FallbackSettings _fallbackSettings;
-	private final Settings _settings;
 
 }

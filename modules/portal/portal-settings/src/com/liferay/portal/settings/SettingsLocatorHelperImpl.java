@@ -22,10 +22,10 @@ import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
 import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.settings.ConfigurationBeanSettings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocationVariableResolver;
 import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
 import com.liferay.portal.kernel.settings.PropertiesSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
@@ -70,23 +70,25 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getCompanyPortletPreferencesSettings(
-		long companyId, String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getCompanyPortletPreferencesSettings(
+		long companyId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return new PortletPreferencesSettings(
 			getCompanyPortletPreferences(companyId, settingsId),
-			parentSettings);
+			parentConfigurationProperties);
 	}
 
 	@Override
-	public Settings getConfigurationBeanSettings(
-		String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getConfigurationBeanSettings(
+		String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return new ConfigurationBeanSettings(
 			new LocationVariableResolver(
 				getResourceManager(settingsId),
 				SettingsFactoryUtil.getSettingsFactory()),
-			getConfigurationBean(settingsId), parentSettings);
+			getConfigurationBean(settingsId), parentConfigurationProperties);
 	}
 
 	public PortletPreferences getGroupPortletPreferences(
@@ -105,11 +107,13 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getGroupPortletPreferencesSettings(
-		long groupId, String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getGroupPortletPreferencesSettings(
+		long groupId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return new PortletPreferencesSettings(
-			getGroupPortletPreferences(groupId, settingsId), parentSettings);
+			getGroupPortletPreferences(groupId, settingsId),
+			parentConfigurationProperties);
 	}
 
 	public PortletPreferences getPortalPreferences(long companyId) {
@@ -118,11 +122,11 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortalPreferencesSettings(
-		long companyId, Settings parentSettings) {
+	public ConfigurationProperties getPortalPreferencesSettings(
+		long companyId, ConfigurationProperties parentConfigurationProperties) {
 
 		return new PortletPreferencesSettings(
-			getPortalPreferences(companyId), parentSettings);
+			getPortalPreferences(companyId), parentConfigurationProperties);
 	}
 
 	public Properties getPortalProperties() {
@@ -130,7 +134,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortalPropertiesSettings() {
+	public ConfigurationProperties getPortalPropertiesSettings() {
 		return new PropertiesSettings(
 			new LocationVariableResolver(
 				new ClassLoaderResourceManager(
@@ -156,12 +160,13 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortletInstancePortletPreferencesSettings(
-		Layout layout, String portletId, Settings parentSettings) {
+	public ConfigurationProperties getPortletInstancePortletPreferencesSettings(
+		Layout layout, String portletId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return new PortletPreferencesSettings(
 			getPortletInstancePortletPreferences(layout, portletId),
-			parentSettings);
+			parentConfigurationProperties);
 	}
 
 	@Activate

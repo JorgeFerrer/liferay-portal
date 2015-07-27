@@ -29,7 +29,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 	public ParameterMapSettingsTest() {
 		_parameterMapSettings = new ParameterMapSettings(
-			_parameterMap, _parentSettings);
+			_parameterMap, _parentConfigurationProperties);
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 	public void testGetValuesWhenFoundInSettings() {
 		String[] values = {"settingsValue1", "settingsValue2"};
 
-		_parentSettings.setValues("key", values);
+		_parentConfigurationProperties.setValues("key", values);
 
 		Assert.assertArrayEquals(
 			values,
@@ -60,7 +60,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 	public void testGetValueWhenFoundInParameterMap() {
 		_parameterMap.put("preferences--key--", new String[] {"requestValue"});
 
-		_parentSettings.setValue("key", "settingsValue");
+		_parentConfigurationProperties.setValue("key", "settingsValue");
 
 		Assert.assertEquals(
 			"requestValue",
@@ -69,7 +69,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 	@Test
 	public void testGetValueWhenFoundInSettings() {
-		_parentSettings.setValue("key", "settingsValue");
+		_parentConfigurationProperties.setValue("key", "settingsValue");
 
 		Assert.assertEquals(
 			"settingsValue",
@@ -78,6 +78,7 @@ public class ParameterMapSettingsTest extends PowerMockito {
 
 	private final Map<String, String[]> _parameterMap = new HashMap<>();
 	private final ParameterMapSettings _parameterMapSettings;
-	private final MemorySettings _parentSettings = new MemorySettings();
+	private final MemorySettings _parentConfigurationProperties =
+		new MemorySettings();
 
 }

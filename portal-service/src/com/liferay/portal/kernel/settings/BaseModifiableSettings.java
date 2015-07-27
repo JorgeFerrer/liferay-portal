@@ -25,8 +25,10 @@ public abstract class BaseModifiableSettings
 	public BaseModifiableSettings() {
 	}
 
-	public BaseModifiableSettings(Settings parentSettings) {
-		super(parentSettings);
+	public BaseModifiableSettings(
+		ConfigurationProperties parentConfigurationProperties) {
+
+		super(parentConfigurationProperties);
 	}
 
 	@Override

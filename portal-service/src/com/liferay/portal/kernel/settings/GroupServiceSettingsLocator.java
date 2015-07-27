@@ -30,21 +30,21 @@ public class GroupServiceSettingsLocator implements ConfigurationLocator {
 	}
 
 	@Override
-	public Settings getSettings() throws SettingsException {
+	public ConfigurationProperties getSettings() throws SettingsException {
 		long companyId = getCompanyId(_groupId);
 
-		Settings portalPropertiesSettings =
+		ConfigurationProperties portalPropertiesSettings =
 			_settingsLocatorHelper.getPortalPropertiesSettings();
 
-		Settings configurationBeanSettings =
+		ConfigurationProperties configurationBeanSettings =
 			_settingsLocatorHelper.getConfigurationBeanSettings(
 				_serviceName, portalPropertiesSettings);
 
-		Settings portalPreferencesSettings =
+		ConfigurationProperties portalPreferencesSettings =
 			_settingsLocatorHelper.getPortalPreferencesSettings(
 				companyId, configurationBeanSettings);
 
-		Settings companyPortletPreferencesSettings =
+		ConfigurationProperties companyPortletPreferencesSettings =
 			_settingsLocatorHelper.getCompanyPortletPreferencesSettings(
 				companyId, _serviceName, portalPreferencesSettings);
 

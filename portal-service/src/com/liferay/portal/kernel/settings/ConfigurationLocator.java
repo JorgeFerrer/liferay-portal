@@ -20,7 +20,7 @@ package com.liferay.portal.kernel.settings;
  */
 public interface ConfigurationLocator {
 
-	public Settings getSettings() throws SettingsException;
+	public ConfigurationProperties getSettings() throws SettingsException;
 
 	public String getSettingsId();
 
