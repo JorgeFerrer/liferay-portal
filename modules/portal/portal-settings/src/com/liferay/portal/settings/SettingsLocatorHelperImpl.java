@@ -29,7 +29,7 @@ import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
-import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+import com.liferay.portal.kernel.settings.definition.ConfigurationIdMapping;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Group;
@@ -247,10 +247,12 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC
 	)
-	protected void setSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
+	protected void setConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
 		_configurationBeanClasses.put(
-			settingsIdMapping.getSettingsId(),
-			settingsIdMapping.getConfigurationBeanClass());
+			configurationIdMapping.getSettingsId(),
+			configurationIdMapping.getConfigurationBeanClass());
 	}
 
 	protected void unsetConfigurationBeanDeclaration(
@@ -269,8 +271,11 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		_configurationBeanManagedServices.remove(configurationBeanClass);
 	}
 
-	protected void unsetSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
-		_configurationBeanClasses.remove(settingsIdMapping.getSettingsId());
+	protected void unsetConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
+		_configurationBeanClasses.remove(
+			configurationIdMapping.getSettingsId());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
