@@ -102,7 +102,8 @@ public class LocationVariableResolverTest extends PowerMockito {
 
 	@Test
 	public void testResolveVariableWithServerProperty() {
-		Settings mockSettings = mock(Settings.class);
+		ConfigurationProperties mockSettings = mock(
+			ConfigurationProperties.class);
 
 		final String expectedValue = "test@liferay.com";
 

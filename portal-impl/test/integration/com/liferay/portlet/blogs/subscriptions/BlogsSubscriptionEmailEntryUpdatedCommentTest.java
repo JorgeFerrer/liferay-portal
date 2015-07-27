@@ -16,9 +16,9 @@ package com.liferay.portlet.blogs.subscriptions;
 
 import com.dumbster.smtp.MailMessage;
 
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
@@ -177,22 +177,23 @@ public class BlogsSubscriptionEmailEntryUpdatedCommentTest {
 	}
 
 	protected void setUpBlogsGroupServiceSettings() throws Exception {
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				_group.getGroupId(), BlogsConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					_group.getGroupId(), BlogsConstants.SERVICE_NAME));
 
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
 		String subscriptionBodyPreferencesKey =
 			LocalizationUtil.getLocalizedName(
 				"emailEntryUpdatedBody",
 				LocaleUtil.toLanguageId(LocaleUtil.getDefault()));
 
-		modifiableSettings.setValue(
+		modifiableConfigurationProperties.setValue(
 			subscriptionBodyPreferencesKey, "[$BLOGS_ENTRY_UPDATE_COMMENT$]");
 
-		modifiableSettings.store();
+		modifiableConfigurationProperties.store();
 	}
 
 	@DeleteAfterTestRun

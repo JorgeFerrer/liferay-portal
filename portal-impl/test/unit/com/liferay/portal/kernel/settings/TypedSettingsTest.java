@@ -37,15 +37,19 @@ public class TypedSettingsTest extends PowerMockito {
 
 		localizationUtil.setLocalization(new LocalizationImpl());
 
-		ModifiableSettings modifiableSettings = new MemorySettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			new MemoryConfigurationProperties();
 
-		modifiableSettings.setValue(_KEY, "valueDefault");
-		modifiableSettings.setValue(_KEY + "_en_GB", "value_en_GB");
-		modifiableSettings.setValue(_KEY + "_en_US", "value_en_US");
-		modifiableSettings.setValue(_KEY + "_es_ES", "value_es_ES");
+		modifiableConfigurationProperties.setValue(_KEY, "valueDefault");
+		modifiableConfigurationProperties.setValue(
+			_KEY + "_en_GB", "value_en_GB");
+		modifiableConfigurationProperties.setValue(
+			_KEY + "_en_US", "value_en_US");
+		modifiableConfigurationProperties.setValue(
+			_KEY + "_es_ES", "value_es_ES");
 
 		_typedSettings = new TypedSettings(
-			modifiableSettings, _AVAILABLE_LOCALES);
+			modifiableConfigurationProperties, _AVAILABLE_LOCALES);
 	}
 
 	@Test

@@ -36,7 +36,7 @@ public class PropertiesSettingsTest extends PowerMockito {
 
 		_mockLocationVariableResolver = mock(LocationVariableResolver.class);
 
-		_propertiesSettings = new PropertiesSettings(
+		_propertiesSettings = new PropertiesConfiguration(
 			_mockLocationVariableResolver, _properties);
 	}
 
@@ -144,6 +144,6 @@ public class PropertiesSettingsTest extends PowerMockito {
 
 	private LocationVariableResolver _mockLocationVariableResolver;
 	private Properties _properties;
-	private PropertiesSettings _propertiesSettings;
+	private PropertiesConfiguration _propertiesSettings;
 
 }

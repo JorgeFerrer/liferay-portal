@@ -14,7 +14,7 @@
 
 package com.liferay.portal.settings;
 
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -55,8 +55,8 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 		Method[] methods = _settingsClass.getMethods();
 
 		for (Method method : methods) {
-			Settings.Property settingsProperty = method.getAnnotation
-				(Settings.Property.class);
+			ConfigurationProperties.Property settingsProperty =
+				method.getAnnotation(ConfigurationProperties.Property.class);
 
 			if ((settingsProperty != null) && settingsProperty.ignore()) {
 				continue;
@@ -77,8 +77,9 @@ public class AnnotatedSettingsDescriptor implements SettingsDescriptor {
 	}
 
 	private String _getPropertyName(Method propertyMethod) {
-		Settings.Property settingsProperty = propertyMethod.getAnnotation(
-			Settings.Property.class);
+		ConfigurationProperties.Property settingsProperty =
+			propertyMethod.getAnnotation(
+				ConfigurationProperties.Property.class);
 
 		if (settingsProperty!= null) {
 			String name = settingsProperty.name();

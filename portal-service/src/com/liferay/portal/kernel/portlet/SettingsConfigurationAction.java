@@ -18,10 +18,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -121,19 +121,20 @@ public abstract class SettingsConfigurationAction
 		UnicodeProperties properties = PropertiesParamUtil.getProperties(
 			actionRequest, _parameterNamePrefix);
 
-		Settings settings = getSettings(actionRequest);
+		ConfigurationProperties configurationProperties = getSettings(
+			actionRequest);
 
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
 		for (Map.Entry<String, String> entry : properties.entrySet()) {
 			String name = entry.getKey();
 			String value = entry.getValue();
 
-			String oldValue = settings.getValue(name, null);
+			String oldValue = configurationProperties.getValue(name, null);
 
 			if (!StringUtil.equalsIgnoreBreakLine(value, oldValue)) {
-				modifiableSettings.setValue(name, value);
+				modifiableConfigurationProperties.setValue(name, value);
 			}
 		}
 
@@ -148,19 +149,22 @@ public abstract class SettingsConfigurationAction
 				String name = entry.getKey();
 				String[] values = entry.getValue();
 
-				String[] oldValues = settings.getValues(name, null);
+				String[] oldValues = configurationProperties.getValues(
+					name, null);
 
 				if (!Validator.equals(values, oldValues)) {
-					modifiableSettings.setValues(name, values);
+					modifiableConfigurationProperties.setValues(name, values);
 				}
 			}
 		}
 
-		postProcess(themeDisplay.getCompanyId(), actionRequest, settings);
+		postProcess(
+			themeDisplay.getCompanyId(), actionRequest,
+			configurationProperties);
 
 		if (SessionErrors.isEmpty(actionRequest)) {
 			try {
-				modifiableSettings.store();
+				modifiableConfigurationProperties.store();
 			}
 			catch (ValidatorException ve) {
 				SessionErrors.add(
@@ -238,7 +242,7 @@ public abstract class SettingsConfigurationAction
 		return selPortletConfig;
 	}
 
-	protected Settings getSettings(ActionRequest actionRequest)
+	protected ConfigurationProperties getSettings(ActionRequest actionRequest)
 		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -287,7 +291,8 @@ public abstract class SettingsConfigurationAction
 
 	@SuppressWarnings("unused")
 	protected void postProcess(
-			long companyId, PortletRequest portletRequest, Settings settings)
+			long companyId, PortletRequest portletRequest,
+			ConfigurationProperties configurationProperties)
 		throws PortalException {
 	}
 

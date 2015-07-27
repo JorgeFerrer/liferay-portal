@@ -21,21 +21,25 @@ import com.liferay.portal.model.Layout;
  */
 public interface SettingsLocatorHelper {
 
-	public Settings getCompanyPortletPreferencesSettings(
-		long companyId, String settingsId, Settings parentSettings);
+	public ConfigurationProperties getCompanyPortletPreferencesSettings(
+		long companyId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties);
 
-	public Settings getConfigurationBeanSettings(
-		String settingsId, Settings parentSettings);
+	public ConfigurationProperties getConfigurationBeanSettings(
+		String settingsId,
+		ConfigurationProperties parentConfigurationProperties);
 
-	public Settings getGroupPortletPreferencesSettings(
-		long groupId, String settingsId, Settings parentSettings);
+	public ConfigurationProperties getGroupPortletPreferencesSettings(
+		long groupId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties);
 
-	public Settings getPortalPreferencesSettings(
-		long companyId, Settings parentSettings);
+	public ConfigurationProperties getPortalPreferencesSettings(
+		long companyId, ConfigurationProperties parentConfigurationProperties);
 
-	public Settings getPortalPropertiesSettings();
+	public ConfigurationProperties getPortalPropertiesSettings();
 
-	public Settings getPortletInstancePortletPreferencesSettings(
-		Layout layout, String portletId, Settings parentSettings);
+	public ConfigurationProperties getPortletInstancePortletPreferencesSettings(
+		Layout layout, String portletId,
+		ConfigurationProperties parentConfigurationProperties);
 
 }

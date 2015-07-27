@@ -16,12 +16,14 @@ package com.liferay.blogs.settings;
 
 import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
 import com.liferay.blogs.settings.internal.BlogsGroupServiceSettingsOverrideImpl;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 
 /**
  * @author Sergio González
  */
-@Settings.OverrideClass(BlogsGroupServiceSettingsOverrideImpl.class)
+@ConfigurationProperties.OverrideClass(
+	BlogsGroupServiceSettingsOverrideImpl.class
+)
 public interface BlogsGroupServiceSettings
 	extends BlogsGroupServiceConfiguration, BlogsGroupServiceSettingsOverride {
 }

@@ -19,28 +19,31 @@ import java.util.Map;
 /**
  * @author Ivan Zaera
  */
-public class ParameterMapSettingsLocator implements SettingsLocator {
+public class ParameterMapSettingsLocator implements ConfigurationLocator {
 
 	public ParameterMapSettingsLocator(
-		Map<String, String[]> parameterMap, SettingsLocator settingsLocator) {
+		Map<String, String[]> parameterMap,
+		ConfigurationLocator configurationLocator) {
 
 		_parameterMap = parameterMap;
-		_settingsLocator = settingsLocator;
+		_configurationLocator = configurationLocator;
 	}
 
 	@Override
-	public Settings getSettings() throws SettingsException {
-		Settings settings = _settingsLocator.getSettings();
+	public ConfigurationProperties getSettings() throws SettingsException {
+		ConfigurationProperties configurationProperties =
+			_configurationLocator.getSettings();
 
-		return new ParameterMapSettings(_parameterMap, settings);
+		return new ParameterMapConfigurationProperties(
+			_parameterMap, configurationProperties);
 	}
 
 	@Override
 	public String getSettingsId() {
-		return _settingsLocator.getSettingsId();
+		return _configurationLocator.getSettingsId();
 	}
 
+	private final ConfigurationLocator _configurationLocator;
 	private final Map<String, String[]> _parameterMap;
-	private final SettingsLocator _settingsLocator;
 
 }

@@ -17,7 +17,7 @@ package com.liferay.portal.kernel.portlet;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -114,7 +114,8 @@ public class BaseJSPSettingsConfigurationAction
 	}
 
 	protected void removeDefaultValue(
-		PortletRequest portletRequest, ModifiableSettings modifiableSettings,
+		PortletRequest portletRequest,
+		ModifiableConfigurationProperties modifiableConfigurationProperties,
 		String key, LocalizedValuesMap localizedMap) {
 
 		String defaultValue = localizedMap.getDefaultValue();
@@ -129,7 +130,7 @@ public class BaseJSPSettingsConfigurationAction
 			if (defaultValue.equals(value) ||
 				StringUtil.equalsIgnoreBreakLine(defaultValue, value)) {
 
-				modifiableSettings.reset(languageKeyId);
+				modifiableConfigurationProperties.reset(languageKeyId);
 			}
 		}
 	}

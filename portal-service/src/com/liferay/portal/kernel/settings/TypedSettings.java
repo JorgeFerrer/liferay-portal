@@ -29,14 +29,15 @@ import java.util.Locale;
  */
 public class TypedSettings {
 
-	public TypedSettings(Settings settings) {
-		this(settings, LanguageUtil.getAvailableLocales());
+	public TypedSettings(ConfigurationProperties configurationProperties) {
+		this(configurationProperties, LanguageUtil.getAvailableLocales());
 	}
 
 	public TypedSettings(
-		Settings settings, Collection<Locale> availableLocales) {
+		ConfigurationProperties configurationProperties,
+		Collection<Locale> availableLocales) {
 
-		_settings = settings;
+		_configurationProperties = configurationProperties;
 		_availableLocales = availableLocales;
 	}
 
@@ -109,7 +110,7 @@ public class TypedSettings {
 	}
 
 	public String getValue(String key, String defaultValue) {
-		return _settings.getValue(key, defaultValue);
+		return _configurationProperties.getValue(key, defaultValue);
 	}
 
 	public String[] getValues(String key) {
@@ -117,18 +118,18 @@ public class TypedSettings {
 	}
 
 	public String[] getValues(String key, String[] defaultValue) {
-		return _settings.getValues(key, defaultValue);
+		return _configurationProperties.getValues(key, defaultValue);
 	}
 
-	public Settings getWrappedSettings() {
-		return _settings;
+	public ConfigurationProperties getWrappedSettings() {
+		return _configurationProperties;
 	}
 
 	public void reset(String key) {
-		ModifiableSettings modifiableSettings =
-			_settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.reset(key);
+		modifiableConfigurationProperties.reset(key);
 	}
 
 	public void setBooleanValue(String key, boolean value) {
@@ -144,20 +145,20 @@ public class TypedSettings {
 	}
 
 	public void setValue(String key, String value) {
-		ModifiableSettings modifiableSettings =
-			_settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.setValue(key, value);
+		modifiableConfigurationProperties.setValue(key, value);
 	}
 
 	public void setValues(String key, String[] values) {
-		ModifiableSettings modifiableSettings =
-			_settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			_configurationProperties.getModifiableConfigurationProperties();
 
-		modifiableSettings.setValues(key, values);
+		modifiableConfigurationProperties.setValues(key, values);
 	}
 
 	private final Collection<Locale> _availableLocales;
-	private final Settings _settings;
+	private final ConfigurationProperties _configurationProperties;
 
 }

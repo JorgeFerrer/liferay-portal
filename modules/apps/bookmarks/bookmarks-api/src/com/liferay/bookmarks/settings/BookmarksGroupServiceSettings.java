@@ -16,12 +16,14 @@ package com.liferay.bookmarks.settings;
 
 import com.liferay.bookmarks.configuration.BookmarksGroupServiceConfiguration;
 import com.liferay.bookmarks.settings.internal.BookmarksGroupServiceSettingsOverrideImpl;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 
 /**
  * @author Iván Zaera
  */
-@Settings.OverrideClass(BookmarksGroupServiceSettingsOverrideImpl.class)
+@ConfigurationProperties.OverrideClass(
+	BookmarksGroupServiceSettingsOverrideImpl.class
+)
 public interface BookmarksGroupServiceSettings
 	extends BookmarksGroupServiceConfiguration,
 			BookmarksGroupServiceSettingsOverride {
