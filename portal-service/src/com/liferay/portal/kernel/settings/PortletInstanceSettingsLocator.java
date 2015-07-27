@@ -23,7 +23,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
  * @author Ivan Zaera
  * @author Jorge Ferrer
  */
-public class PortletInstanceSettingsLocator implements SettingsLocator {
+public class PortletInstanceSettingsLocator implements ConfigurationLocator {
 
 	public PortletInstanceSettingsLocator(Layout layout, String portletId) {
 		_layout = layout;

@@ -18,6 +18,7 @@ import com.liferay.portal.NoSuchPortletItemException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
 import com.liferay.portal.kernel.settings.ArchivedSettings;
+import com.liferay.portal.kernel.settings.ConfigurationLocator;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.FallbackSettings;
 import com.liferay.portal.kernel.settings.PortalSettings;
@@ -25,7 +26,6 @@ import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
-import com.liferay.portal.kernel.settings.SettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
@@ -111,10 +111,11 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public <T> T getSettings(Class<T> clazz, SettingsLocator settingsLocator)
+	public <T> T getSettings(
+			Class<T> clazz, ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = getSettings(settingsLocator);
+		Settings settings = getSettings(configurationLocator);
 
 		Class<?> settingsOverrideClass = getOverrideClass(clazz);
 
@@ -146,12 +147,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getSettings(SettingsLocator settingsLocator)
+	public Settings getSettings(ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = settingsLocator.getSettings();
+		Settings settings = configurationLocator.getSettings();
 
-		return applyFallbackKeys(settingsLocator.getSettingsId(), settings);
+		return applyFallbackKeys(
+			configurationLocator.getSettingsId(), settings);
 	}
 
 	@Override

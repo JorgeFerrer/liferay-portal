@@ -45,10 +45,11 @@ public class SettingsFactoryUtil {
 		return getSettingsFactory().getServerSettings(settingsId);
 	}
 
-	public static Settings getSettings(SettingsLocator settingsLocator)
+	public static Settings getSettings(
+			ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		return getSettingsFactory().getSettings(settingsLocator);
+		return getSettingsFactory().getSettings(configurationLocator);
 	}
 
 	public static SettingsDescriptor getSettingsDescriptor(String settingsId) {

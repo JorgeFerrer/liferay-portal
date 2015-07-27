@@ -18,7 +18,7 @@ package com.liferay.portal.kernel.settings;
  * @author Ivan Zaera
  * @author Jorge Ferrer
  */
-public interface SettingsLocator {
+public interface ConfigurationLocator {
 
 	public Settings getSettings() throws SettingsException;
 

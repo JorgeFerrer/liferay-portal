@@ -31,10 +31,11 @@ public interface SettingsFactory {
 
 	public Settings getServerSettings(String settingsId);
 
-	public <T> T getSettings(Class<T> clazz, SettingsLocator settingsLocator)
+	public <T> T getSettings(
+			Class<T> clazz, ConfigurationLocator configurationLocator)
 		throws SettingsException;
 
-	public Settings getSettings(SettingsLocator settingsLocator)
+	public Settings getSettings(ConfigurationLocator configurationLocator)
 		throws SettingsException;
 
 	public SettingsDescriptor getSettingsDescriptor(String settingsId);

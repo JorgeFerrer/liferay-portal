@@ -22,7 +22,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
  * @author Ivan Zaera
  * @author Jorge Ferrer
  */
-public class GroupServiceSettingsLocator implements SettingsLocator {
+public class GroupServiceSettingsLocator implements ConfigurationLocator {
 
 	public GroupServiceSettingsLocator(long groupId, String serviceName) {
 		_groupId = groupId;
