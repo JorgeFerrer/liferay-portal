@@ -175,11 +175,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		SettingsDescriptor settingsDescriptor = new AnnotatedSettingsDescriptor(
 			settingsClass);
 
-		ConfigurationProperties.Config settingsConfig =
+		ConfigurationProperties.Config configurationPropertiesConfig =
 			settingsClass.getAnnotation(ConfigurationProperties.Config.class);
 
-		for (String settingsId : settingsConfig.settingsIds()) {
-			register(settingsId, settingsDescriptor, fallbackKeys);
+		for (String configurationPid :
+				configurationPropertiesConfig.configurationPids()) {
+
+			register(configurationPid, settingsDescriptor, fallbackKeys);
 		}
 	}
 

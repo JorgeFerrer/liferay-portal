@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * @author Adolfo Pérez
  */
-@ConfigurationProperties.Config(settingsIds = DLConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(configurationPids = DLConstants.SERVICE_NAME)
 public class DLGroupServiceSettings {
 
 	public static DLGroupServiceSettings getInstance(long groupId)

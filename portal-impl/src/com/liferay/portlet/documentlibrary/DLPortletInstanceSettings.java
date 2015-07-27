@@ -34,7 +34,7 @@ import java.util.Map;
  * @author Sergio González
  */
 @ConfigurationProperties.Config(
-	settingsIds = {
+	configurationPids = {
 		PortletKeys.DOCUMENT_LIBRARY, PortletKeys.DOCUMENT_LIBRARY_ADMIN,
 		PortletKeys.DOCUMENT_LIBRARY_DISPLAY, PortletKeys.MEDIA_GALLERY_DISPLAY
 	}

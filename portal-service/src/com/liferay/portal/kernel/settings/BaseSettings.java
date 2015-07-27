@@ -47,7 +47,7 @@ public abstract class BaseSettings implements ConfigurationProperties {
 	}
 
 	@Override
-	public ConfigurationProperties getParentSettings() {
+	public ConfigurationProperties getParentConfigurationProperties() {
 		return parentConfigurationProperties;
 	}
 

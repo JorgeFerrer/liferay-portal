@@ -54,7 +54,7 @@ public class AnnotatedSettingsDescriptorTest {
 	}
 
 	@ConfigurationProperties.Config(
-		settingsIds = {"settingsId.1", "settingsId.2"}
+		configurationPids = {"settingsId.1", "settingsId.2"}
 	)
 	public class MockSettings {
 

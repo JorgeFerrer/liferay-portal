@@ -29,7 +29,7 @@ public interface ConfigurationProperties {
 	public ModifiableConfigurationProperties
 		getModifiableConfigurationProperties();
 
-	public ConfigurationProperties getParentSettings();
+	public ConfigurationProperties getParentConfigurationProperties();
 
 	public String getValue(String key, String defaultValue);
 
@@ -39,7 +39,7 @@ public interface ConfigurationProperties {
 	@Target(ElementType.TYPE)
 	public @interface Config {
 
-		public String[] settingsIds();
+		public String[] configurationPids();
 
 	}
 

@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * @author Iván Zaera
  */
-@ConfigurationProperties.Config(settingsIds = BlogsConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(configurationPids = BlogsConstants.SERVICE_NAME)
 public class BlogsGroupServiceSettings {
 
 	public static BlogsGroupServiceSettings getInstance(long groupId)

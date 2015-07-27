@@ -39,7 +39,9 @@ import java.util.TreeSet;
  * @author Brian Wing Shun Chan
  * @author Eduardo Garcia
  */
-@ConfigurationProperties.Config(settingsIds = ShoppingConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(
+	configurationPids = ShoppingConstants.SERVICE_NAME
+)
 public class ShoppingGroupServiceSettings {
 
 	public static final String CC_NONE = "none";

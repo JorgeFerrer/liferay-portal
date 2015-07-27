@@ -58,9 +58,10 @@ public class BaseSettingsTest extends PowerMockito {
 	}
 
 	@Test
-	public void testGetParentSettings() {
+	public void testGetParentConfigurationProperties() {
 		Assert.assertSame(
-			_parentConfigurationProperties, _baseSettings.getParentSettings());
+			_parentConfigurationProperties,
+			_baseSettings.getParentConfigurationProperties());
 	}
 
 	@Test

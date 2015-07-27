@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * @author Jorge Ferrer
  */
-@ConfigurationProperties.Config(settingsIds = MBConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(configurationPids = MBConstants.SERVICE_NAME)
 public class MBGroupServiceSettings {
 
 	public static final String[] ALL_KEYS = {};
