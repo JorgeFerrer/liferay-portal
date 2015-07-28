@@ -19,9 +19,10 @@ import java.util.Map;
 /**
  * @author Ivan Zaera
  */
-public class ParameterMapSettingsLocator implements ConfigurationLocator {
+public class ParameterMapConfigurationPropertiesLocator
+	implements ConfigurationLocator {
 
-	public ParameterMapSettingsLocator(
+	public ParameterMapConfigurationPropertiesLocator(
 		Map<String, String[]> parameterMap,
 		ConfigurationLocator configurationLocator) {
 
