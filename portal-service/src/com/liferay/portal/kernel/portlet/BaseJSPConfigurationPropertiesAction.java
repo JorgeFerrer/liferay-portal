@@ -42,8 +42,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Iván Zaera
  */
-public class BaseJSPSettingsConfigurationAction
-	extends SettingsConfigurationAction
+public class BaseJSPConfigurationPropertiesAction
+	extends ConfigurationPropertiesAction
 	implements ConfigurationAction, ResourceServingConfigurationAction {
 
 	public String getJspPath(HttpServletRequest request) {
@@ -136,7 +136,7 @@ public class BaseJSPSettingsConfigurationAction
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		BaseJSPSettingsConfigurationAction.class);
+		BaseJSPConfigurationPropertiesAction.class);
 
 	private ServletContext _servletContext;
 

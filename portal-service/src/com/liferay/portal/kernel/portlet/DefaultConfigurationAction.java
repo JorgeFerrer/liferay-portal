@@ -29,7 +29,7 @@ import javax.portlet.ReadOnlyException;
  * @author Iván Zaera
  */
 public class DefaultConfigurationAction
-	extends BaseJSPSettingsConfigurationAction
+	extends BaseJSPConfigurationPropertiesAction
 	implements ConfigurationAction, ResourceServingConfigurationAction {
 
 	public DefaultConfigurationAction() {
@@ -86,7 +86,7 @@ public class DefaultConfigurationAction
 
 		// Legacy configuration actions that are not based on Settings must
 		// ignore this method to avoid failures due to multi valued keys not
-		// registering with SettingsConfigurationAction
+		// registering with ConfigurationPropertiesAction
 
 	}
 

@@ -2,8 +2,8 @@
 
 <javadocs>
 	<javadoc>
-		<name>WikiGroupServiceSettingsConfigurationAction</name>
-		<type>com.liferay.wiki.web.admin.portlet.action.WikiGroupServiceSettingsConfigurationAction</type>
+		<name>WikiGroupServiceConfigurationPropertiesAction</name>
+		<type>com.liferay.wiki.web.admin.portlet.action.WikiGroupServiceConfigurationPropertiesAction</type>
 		<author><![CDATA[Iván Zaera]]></author>
 		<method>
 			<name>processAction</name>
@@ -3254,8 +3254,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>WikiGroupServiceSettingsConfigurationAction</name>
-		<type>com.liferay.wiki.web.wiki.portlet.action.WikiGroupServiceSettingsConfigurationAction</type>
+		<name>WikiGroupServiceConfigurationPropertiesAction</name>
+		<type>com.liferay.wiki.web.wiki.portlet.action.WikiGroupServiceConfigurationPropertiesAction</type>
 		<author><![CDATA[Bruno Farache]]></author>
 		<method>
 			<name>processAction</name>

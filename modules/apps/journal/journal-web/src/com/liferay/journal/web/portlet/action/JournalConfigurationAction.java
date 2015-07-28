@@ -18,7 +18,7 @@ import com.liferay.journal.configuration.JournalGroupServiceConfiguration;
 import com.liferay.journal.constants.JournalPortletKeys;
 import com.liferay.journal.web.context.util.JournalWebRequestHelper;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction;
+import com.liferay.portal.kernel.portlet.BaseJSPConfigurationPropertiesAction;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
 	service = ConfigurationAction.class
 )
 public class JournalConfigurationAction
-	extends BaseJSPSettingsConfigurationAction {
+	extends BaseJSPConfigurationPropertiesAction {
 
 	@Override
 	public String getJspPath(HttpServletRequest request) {

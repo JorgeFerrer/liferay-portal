@@ -62,11 +62,11 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Iván Zaera
  */
-public abstract class SettingsConfigurationAction
+public abstract class ConfigurationPropertiesAction
 	extends LiferayPortlet
 	implements ConfigurationAction, ResourceServingConfigurationAction {
 
-	public SettingsConfigurationAction() {
+	public ConfigurationPropertiesAction() {
 		setParameterNamePrefix("preferences--");
 	}
 
