@@ -21,7 +21,8 @@ import java.util.Date;
 /**
  * @author Iván Zaera
  */
-public interface ArchivedSettings extends ModifiableConfigurationProperties {
+public interface ArchivedConfigurationProperties
+	extends ModifiableConfigurationProperties {
 
 	public void delete() throws IOException;
 

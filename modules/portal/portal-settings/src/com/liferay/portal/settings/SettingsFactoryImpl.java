@@ -17,7 +17,7 @@ package com.liferay.portal.settings;
 import com.liferay.portal.NoSuchPortletItemException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
-import com.liferay.portal.kernel.settings.ArchivedSettings;
+import com.liferay.portal.kernel.settings.ArchivedConfigurationProperties;
 import com.liferay.portal.kernel.settings.ConfigurationLocator;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackConfigurationProperties;
@@ -67,7 +67,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public ArchivedSettings getPortletInstanceArchivedSettings(
+	public ArchivedConfigurationProperties
+		getPortletInstanceArchivedConfigurationProperties(
 			long groupId, String portletId, String name)
 		throws SettingsException {
 
@@ -84,10 +85,12 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-		long groupId, String portletId) {
+	public List<ArchivedConfigurationProperties>
+		getPortletInstanceArchivedConfigurationPropertiesList(
+			long groupId, String portletId) {
 
-		List<ArchivedSettings> archivedSettingsList = new ArrayList<>();
+		List<ArchivedConfigurationProperties>
+			archivedConfigurationPropertiesList = new ArrayList<>();
 
 		List<PortletItem> portletItems =
 			PortletItemLocalServiceUtil.getPortletItems(
@@ -95,11 +98,11 @@ public class SettingsFactoryImpl implements SettingsFactory {
 				com.liferay.portal.model.PortletPreferences.class.getName());
 
 		for (PortletItem portletItem : portletItems) {
-			archivedSettingsList.add(
+			archivedConfigurationPropertiesList.add(
 				new ArchivedConfigurationPropertiesImpl(portletItem));
 		}
 
-		return archivedSettingsList;
+		return archivedConfigurationPropertiesList;
 	}
 
 	@Override

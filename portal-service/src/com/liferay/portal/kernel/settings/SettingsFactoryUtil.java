@@ -26,19 +26,23 @@ import java.util.List;
  */
 public class SettingsFactoryUtil {
 
-	public static ArchivedSettings getPortletInstanceArchivedSettings(
+	public static ArchivedConfigurationProperties
+		getPortletInstanceArchivedConfigurationProperties(
 			long groupId, String portletId, String name)
 		throws SettingsException {
 
-		return getSettingsFactory().getPortletInstanceArchivedSettings(
-			groupId, portletId, name);
+		return getSettingsFactory().
+			getPortletInstanceArchivedConfigurationProperties(
+				groupId, portletId, name);
 	}
 
-	public static List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-		long groupId, String portletId) {
+	public static List<ArchivedConfigurationProperties>
+		getPortletInstanceArchivedConfigurationPropertiesList(
+			long groupId, String portletId) {
 
-		return getSettingsFactory().getPortletInstanceArchivedSettingsList(
-			groupId, portletId);
+		return getSettingsFactory().
+			getPortletInstanceArchivedConfigurationPropertiesList(
+				groupId, portletId);
 	}
 
 	public static ConfigurationProperties getServerSettings(String settingsId) {

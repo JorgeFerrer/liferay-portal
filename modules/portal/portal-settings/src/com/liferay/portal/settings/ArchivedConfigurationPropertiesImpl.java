@@ -16,7 +16,7 @@ package com.liferay.portal.settings;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.settings.ArchivedSettings;
+import com.liferay.portal.kernel.settings.ArchivedConfigurationProperties;
 import com.liferay.portal.kernel.settings.BaseModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
@@ -38,7 +38,8 @@ import javax.portlet.ValidatorException;
  * @author Iván Zaera
  */
 public class ArchivedConfigurationPropertiesImpl
-	extends BaseModifiableConfigurationProperties implements ArchivedSettings {
+	extends BaseModifiableConfigurationProperties
+	implements ArchivedConfigurationProperties {
 
 	public ArchivedConfigurationPropertiesImpl(PortletItem portletItem) {
 		_portletItem = portletItem;

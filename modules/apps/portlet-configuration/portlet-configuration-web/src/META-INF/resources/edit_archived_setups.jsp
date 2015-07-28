@@ -61,36 +61,36 @@ portletURL.setParameter("portletResource", portletResource);
 	headerNames.add("modified-date");
 	headerNames.add(StringPool.BLANK);
 
-	SearchContainer<ArchivedSettings> searchContainer = new SearchContainer<ArchivedSettings>(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, "there-are-no-archived-setups");
+	SearchContainer<ArchivedConfigurationProperties> searchContainer = new SearchContainer<ArchivedConfigurationProperties>(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, "there-are-no-archived-setups");
 
-	List<ArchivedSettings> archivedSettingsList = SettingsFactoryUtil.getPortletInstanceArchivedSettingsList(scopeGroupId, selPortlet.getRootPortletId());
+	List<ArchivedConfigurationProperties> archivedConfigurationPropertiesList = SettingsFactoryUtil.getPortletInstanceArchivedConfigurationPropertiesList(scopeGroupId, selPortlet.getRootPortletId());
 
-	int total = archivedSettingsList.size();
+	int total = archivedConfigurationPropertiesList.size();
 
 	searchContainer.setTotal(total);
 
-	List<ArchivedSettings> results = ListUtil.subList(archivedSettingsList, searchContainer.getStart(), searchContainer.getEnd());
+	List<ArchivedConfigurationProperties> results = ListUtil.subList(archivedConfigurationPropertiesList, searchContainer.getStart(), searchContainer.getEnd());
 
 	searchContainer.setResults(results);
 
 	List resultRows = searchContainer.getResultRows();
 
 	for (int i = 0; i < results.size(); i++) {
-		ArchivedSettings archivedSettings = results.get(i);
+		ArchivedConfigurationProperties archivedConfigurationProperties = results.get(i);
 
-		ResultRow row = new ResultRow(new Object[] {archivedSettings, portletResource}, archivedSettings.getName(), i);
+		ResultRow row = new ResultRow(new Object[] {archivedConfigurationProperties, portletResource}, archivedConfigurationProperties.getName(), i);
 
 		// Name
 
-		row.addText(archivedSettings.getName());
+		row.addText(archivedConfigurationProperties.getName());
 
 		// User
 
-		row.addText(archivedSettings.getUserName());
+		row.addText(archivedConfigurationProperties.getUserName());
 
 		// Date
 
-		row.addDate(archivedSettings.getModifiedDate());
+		row.addDate(archivedConfigurationProperties.getModifiedDate());
 
 		// Action
 

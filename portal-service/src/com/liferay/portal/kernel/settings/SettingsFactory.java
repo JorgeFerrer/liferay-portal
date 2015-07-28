@@ -22,12 +22,14 @@ import java.util.List;
  */
 public interface SettingsFactory {
 
-	public ArchivedSettings getPortletInstanceArchivedSettings(
+	public ArchivedConfigurationProperties
+		getPortletInstanceArchivedConfigurationProperties(
 			long groupId, String portletId, String name)
 		throws SettingsException;
 
-	public List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-		long groupId, String portletId);
+	public List<ArchivedConfigurationProperties>
+		getPortletInstanceArchivedConfigurationPropertiesList(
+			long groupId, String portletId);
 
 	public ConfigurationProperties getServerSettings(String settingsId);
 

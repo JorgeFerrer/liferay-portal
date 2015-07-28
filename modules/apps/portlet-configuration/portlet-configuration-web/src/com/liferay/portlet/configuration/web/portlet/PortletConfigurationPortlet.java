@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.portlet.PortletLayoutListener;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.settings.ArchivedSettings;
+import com.liferay.portal.kernel.settings.ArchivedConfigurationProperties;
 import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
@@ -131,12 +131,13 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		ArchivedSettings archivedSettings =
-			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
-				name);
+		ArchivedConfigurationProperties archivedConfigurationProperties =
+			SettingsFactoryUtil.
+				getPortletInstanceArchivedConfigurationProperties(
+					themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
+					name);
 
-		archivedSettings.delete();
+		archivedConfigurationProperties.delete();
 	}
 
 	public void editConfiguration(
@@ -412,13 +413,14 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		ArchivedSettings archivedSettings =
-			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
-				name);
+		ArchivedConfigurationProperties archivedConfigurationProperties =
+			SettingsFactoryUtil.
+				getPortletInstanceArchivedConfigurationProperties(
+					themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
+					name);
 
 		portletInstanceModifiableConfigurationProperties.setValues(
-			archivedSettings);
+			archivedConfigurationProperties);
 
 		portletInstanceModifiableConfigurationProperties.store();
 	}
@@ -458,10 +460,11 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		ArchivedSettings archivedSettings =
-			SettingsFactoryUtil.getPortletInstanceArchivedSettings(
-				themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
-				name);
+		ArchivedConfigurationProperties archivedConfigurationProperties =
+			SettingsFactoryUtil.
+				getPortletInstanceArchivedConfigurationProperties(
+					themeDisplay.getSiteGroupId(), portlet.getRootPortletId(),
+					name);
 
 		ConfigurationProperties portletInstanceSettings =
 			SettingsFactoryUtil.getSettings(
@@ -472,10 +475,10 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 			portletInstanceModifiableConfigurationProperties =
 				portletInstanceSettings.getModifiableConfigurationProperties();
 
-		archivedSettings.setValues(
+		archivedConfigurationProperties.setValues(
 			portletInstanceModifiableConfigurationProperties);
 
-		archivedSettings.store();
+		archivedConfigurationProperties.store();
 	}
 
 	public void updateRolePermissions(
