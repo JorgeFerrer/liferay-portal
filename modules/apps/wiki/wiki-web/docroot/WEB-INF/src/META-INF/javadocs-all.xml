@@ -2,8 +2,8 @@
 
 <javadocs>
 	<javadoc>
-		<name>WikiGroupServiceSettingsConfigurationAction</name>
-		<type>com.liferay.wiki.web.admin.portlet.action.WikiGroupServiceSettingsConfigurationAction</type>
+		<name>WikiGroupServiceConfigurationPropertiesAction</name>
+		<type>com.liferay.wiki.web.admin.portlet.action.WikiGroupServiceConfigurationPropertiesAction</type>
 		<author><![CDATA[Iván Zaera]]></author>
 		<method>
 			<name>processAction</name>
@@ -1315,8 +1315,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>WikiAdminPortletInstanceSettingsIdMapping</name>
-		<type>com.liferay.wiki.web.settings.internal.WikiAdminPortletInstanceSettingsIdMapping</type>
+		<name>WikiAdminPortletInstanceConfigurationIdMapping</name>
+		<type>com.liferay.wiki.web.settings.internal.WikiAdminPortletInstanceConfigurationIdMapping</type>
 		<author><![CDATA[Iván Zaera]]></author>
 		<method>
 			<name>getConfigurationBeanClass</name>
@@ -1332,8 +1332,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>WikiDisplayPortletInstanceSettingsIdMapping</name>
-		<type>com.liferay.wiki.web.settings.internal.WikiDisplayPortletInstanceSettingsIdMapping</type>
+		<name>WikiDisplayPortletInstanceConfigurationIdMapping</name>
+		<type>com.liferay.wiki.web.settings.internal.WikiDisplayPortletInstanceConfigurationIdMapping</type>
 		<author><![CDATA[Iván Zaera]]></author>
 		<method>
 			<name>getConfigurationBeanClass</name>
@@ -1360,8 +1360,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>WikiPortletInstanceSettingsIdMapping</name>
-		<type>com.liferay.wiki.web.settings.internal.WikiPortletInstanceSettingsIdMapping</type>
+		<name>WikiPortletInstanceConfigurationIdMapping</name>
+		<type>com.liferay.wiki.web.settings.internal.WikiPortletInstanceConfigurationIdMapping</type>
 		<author><![CDATA[Iván Zaera]]></author>
 		<method>
 			<name>getConfigurationBeanClass</name>
@@ -3254,8 +3254,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>WikiGroupServiceSettingsConfigurationAction</name>
-		<type>com.liferay.wiki.web.wiki.portlet.action.WikiGroupServiceSettingsConfigurationAction</type>
+		<name>WikiGroupServiceConfigurationPropertiesAction</name>
+		<type>com.liferay.wiki.web.wiki.portlet.action.WikiGroupServiceConfigurationPropertiesAction</type>
 		<author><![CDATA[Bruno Farache]]></author>
 		<method>
 			<name>processAction</name>

@@ -20,7 +20,7 @@ import com.liferay.journal.service.util.JournalServiceComponentProvider;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ParameterMapSettingsLocator;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationPropertiesLocator;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -60,7 +60,7 @@ public class JournalWebRequestHelper {
 					_journalGroupServiceConfiguration =
 						settingsFactory.getSettings(
 							JournalGroupServiceConfiguration.class,
-						new ParameterMapSettingsLocator(
+						new ParameterMapConfigurationPropertiesLocator(
 							_request.getParameterMap(),
 							new GroupServiceSettingsLocator(
 								themeDisplay.getSiteGroupId(),

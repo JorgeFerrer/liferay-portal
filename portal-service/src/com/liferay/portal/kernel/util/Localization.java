@@ -15,8 +15,8 @@
 package com.liferay.portal.kernel.util;
 
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.xml.Document;
 
 import java.util.Locale;
@@ -398,7 +398,8 @@ public interface Localization {
 	 * @return the localized settings value
 	 */
 	public String getSettingsValue(
-		Settings settings, String key, String languageId);
+		ConfigurationProperties configurationProperties, String key,
+		String languageId);
 
 	/**
 	 * Returns the localized settings value for the key in the language,
@@ -415,7 +416,8 @@ public interface Localization {
 	 *         language, an empty string is returned.
 	 */
 	public String getSettingsValue(
-		Settings settings, String key, String languageId, boolean useDefault);
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault);
 
 	/**
 	 * Returns the localized settings values for the key in the language. The
@@ -428,7 +430,8 @@ public interface Localization {
 	 * @return the localized settings values
 	 */
 	public String[] getSettingsValues(
-		Settings settings, String key, String languageId);
+		ConfigurationProperties configurationProperties, String key,
+		String languageId);
 
 	/**
 	 * Returns the localized settings values for the key in the language,
@@ -445,7 +448,8 @@ public interface Localization {
 	 *         language, an empty array is returned.
 	 */
 	public String[] getSettingsValues(
-		Settings settings, String key, String languageId, boolean useDefault);
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault);
 
 	public String getXml(LocalizedValuesMap localizedValuesMap, String key);
 

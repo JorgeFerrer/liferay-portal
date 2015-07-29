@@ -21,8 +21,8 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ClassLoaderUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -688,25 +688,28 @@ public class LocalizationImpl implements Localization {
 
 	@Override
 	public String getSettingsValue(
-		Settings settings, String key, String languageId) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId) {
 
-		return getSettingsValue(settings, key, languageId, true);
+		return getSettingsValue(configurationProperties, key, languageId, true);
 	}
 
 	@Override
 	public String getSettingsValue(
-		Settings settings, String key, String languageId, boolean useDefault) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault) {
 
 		String localizedKey = getLocalizedName(key, languageId);
 
-		String value = settings.getValue(localizedKey, StringPool.BLANK);
+		String value = configurationProperties.getValue(
+			localizedKey, StringPool.BLANK);
 
 		if (useDefault && Validator.isNull(value)) {
-			value = settings.getValue(
+			value = configurationProperties.getValue(
 				_getDefaultLocalizedName(key), StringPool.BLANK);
 
 			if (Validator.isNull(value)) {
-				value = settings.getValue(key, StringPool.BLANK);
+				value = configurationProperties.getValue(key, StringPool.BLANK);
 			}
 		}
 
@@ -715,25 +718,29 @@ public class LocalizationImpl implements Localization {
 
 	@Override
 	public String[] getSettingsValues(
-		Settings settings, String key, String languageId) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId) {
 
-		return getSettingsValues(settings, key, languageId, true);
+		return getSettingsValues(
+			configurationProperties, key, languageId, true);
 	}
 
 	@Override
 	public String[] getSettingsValues(
-		Settings settings, String key, String languageId, boolean useDefault) {
+		ConfigurationProperties configurationProperties, String key,
+		String languageId, boolean useDefault) {
 
 		String localizedKey = getLocalizedName(key, languageId);
 
-		String[] values = settings.getValues(localizedKey, new String[0]);
+		String[] values = configurationProperties.getValues(
+			localizedKey, new String[0]);
 
 		if (useDefault && ArrayUtil.isEmpty(values)) {
-			values = settings.getValues(
+			values = configurationProperties.getValues(
 				_getDefaultLocalizedName(key), new String[0]);
 
 			if (ArrayUtil.isEmpty(values)) {
-				values = settings.getValues(key, new String[0]);
+				values = configurationProperties.getValues(key, new String[0]);
 			}
 		}
 

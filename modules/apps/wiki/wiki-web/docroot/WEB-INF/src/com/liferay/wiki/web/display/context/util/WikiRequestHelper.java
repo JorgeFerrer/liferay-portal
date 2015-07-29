@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.display.context.util.BaseStrutsRequestHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ParameterMapSettingsLocator;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationPropertiesLocator;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -63,7 +63,7 @@ public class WikiRequestHelper extends BaseStrutsRequestHelper {
 				if (Validator.isNotNull(portletResource)) {
 					_wikiGroupServiceSettings = settingsFactory.getSettings(
 						WikiGroupServiceSettings.class,
-						new ParameterMapSettingsLocator(
+						new ParameterMapConfigurationPropertiesLocator(
 							getRequest().getParameterMap(),
 							new GroupServiceSettingsLocator(
 								getSiteGroupId(), WikiConstants.SERVICE_NAME)));
@@ -107,7 +107,7 @@ public class WikiRequestHelper extends BaseStrutsRequestHelper {
 				if (Validator.isNotNull(portletResource)) {
 					_wikiPortletInstanceSettings = settingsFactory.getSettings(
 						WikiPortletInstanceSettings.class,
-						new ParameterMapSettingsLocator(
+						new ParameterMapConfigurationPropertiesLocator(
 							getRequest().getParameterMap(),
 							new PortletInstanceSettingsLocator(
 								getLayout(), getResourcePortletId())));

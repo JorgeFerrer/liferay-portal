@@ -16,8 +16,8 @@ package com.liferay.portal.kernel.portlet;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
+import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import javax.portlet.ActionRequest;
@@ -29,7 +29,7 @@ import javax.portlet.ReadOnlyException;
  * @author Iván Zaera
  */
 public class DefaultConfigurationAction
-	extends BaseJSPSettingsConfigurationAction
+	extends BaseJSPConfigurationPropertiesAction
 	implements ConfigurationAction, ResourceServingConfigurationAction {
 
 	public DefaultConfigurationAction() {
@@ -37,8 +37,23 @@ public class DefaultConfigurationAction
 	}
 
 	@Override
-	protected Settings getSettings(ActionRequest actionRequest) {
-		return new PortletPreferencesSettings(actionRequest.getPreferences());
+	protected ConfigurationProperties getSettings(ActionRequest actionRequest) {
+		return new PortletPreferencesConfigurationProperties(
+			actionRequest.getPreferences());
+	}
+
+	@Override
+	protected void postProcess(
+			long companyId, PortletRequest portletRequest,
+			ConfigurationProperties configurationProperties)
+		throws PortalException {
+
+		PortletPreferencesConfigurationProperties portletPreferencesSettings =
+			(PortletPreferencesConfigurationProperties)configurationProperties;
+
+		postProcess(
+			companyId, portletRequest,
+			portletPreferencesSettings.getPortletPreferences());
 	}
 
 	@SuppressWarnings("unused")
@@ -46,19 +61,6 @@ public class DefaultConfigurationAction
 			long companyId, PortletRequest portletRequest,
 			PortletPreferences portletPreferences)
 		throws PortalException {
-	}
-
-	@Override
-	protected void postProcess(
-			long companyId, PortletRequest portletRequest, Settings settings)
-		throws PortalException {
-
-		PortletPreferencesSettings portletPreferencesSettings =
-			(PortletPreferencesSettings)settings;
-
-		postProcess(
-			companyId, portletRequest,
-			portletPreferencesSettings.getPortletPreferences());
 	}
 
 	protected void removeDefaultValue(
@@ -84,7 +86,7 @@ public class DefaultConfigurationAction
 
 		// Legacy configuration actions that are not based on Settings must
 		// ignore this method to avoid failures due to multi valued keys not
-		// registering with SettingsConfigurationAction
+		// registering with ConfigurationPropertiesAction
 
 	}
 

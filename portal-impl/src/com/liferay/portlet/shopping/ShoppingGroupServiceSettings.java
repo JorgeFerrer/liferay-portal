@@ -15,11 +15,11 @@
 package com.liferay.portlet.shopping;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.kernel.settings.ParameterMapSettings;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ParameterMapConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -39,7 +39,9 @@ import java.util.TreeSet;
  * @author Brian Wing Shun Chan
  * @author Eduardo Garcia
  */
-@Settings.Config(settingsIds = ShoppingConstants.SERVICE_NAME)
+@ConfigurationProperties.Config(
+	configurationPids = ShoppingConstants.SERVICE_NAME
+)
 public class ShoppingGroupServiceSettings {
 
 	public static final String CC_NONE = "none";
@@ -92,29 +94,36 @@ public class ShoppingGroupServiceSettings {
 	public static ShoppingGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				groupId, ShoppingConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, ShoppingConstants.SERVICE_NAME));
 
-		return new ShoppingGroupServiceSettings(settings);
+		return new ShoppingGroupServiceSettings(configurationProperties);
 	}
 
 	public static ShoppingGroupServiceSettings getInstance(
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				groupId, ShoppingConstants.SERVICE_NAME));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					groupId, ShoppingConstants.SERVICE_NAME));
 
-		ParameterMapSettings parameterMapSettings = new ParameterMapSettings(
-			parameterMap, settings);
+		ParameterMapConfigurationProperties
+			parameterMapConfigurationProperties =
+				new ParameterMapConfigurationProperties(
+					parameterMap, configurationProperties);
 
-		return new ShoppingGroupServiceSettings(parameterMapSettings);
+		return new ShoppingGroupServiceSettings(
+			parameterMapConfigurationProperties);
 	}
 
-	public ShoppingGroupServiceSettings(Settings settings) {
-		_typedSettings = new TypedSettings(settings);
+	public ShoppingGroupServiceSettings(
+		ConfigurationProperties configurationProperties) {
+
+		_typedSettings = new TypedSettings(configurationProperties);
 	}
 
 	public String[][] getAlternativeShipping() {
@@ -135,7 +144,7 @@ public class ShoppingGroupServiceSettings {
 		return alternativeShipping;
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getAlternativeShippingName(int altShipping) {
 		String altShippingName = StringPool.BLANK;
 
@@ -177,7 +186,7 @@ public class ShoppingGroupServiceSettings {
 		return emailOrderConfirmationBody;
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailOrderConfirmationBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailOrderConfirmationBody(), "emailOrderConfirmationBody");
@@ -191,7 +200,7 @@ public class ShoppingGroupServiceSettings {
 		return emailOrderConfirmationSubject;
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailOrderConfirmationSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailOrderConfirmationSubject(),
@@ -202,7 +211,7 @@ public class ShoppingGroupServiceSettings {
 		return _typedSettings.getLocalizedValuesMap("emailOrderShippingBody");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailOrderShippingBodyXml() {
 		return LocalizationUtil.getXml(
 			getEmailOrderShippingBody(), "emailOrderShippingBody");
@@ -213,7 +222,7 @@ public class ShoppingGroupServiceSettings {
 			"emailOrderShippingSubject");
 	}
 
-	@Settings.Property(ignore = true)
+	@ConfigurationProperties.Property(ignore = true)
 	public String getEmailOrderShippingSubjectXml() {
 		return LocalizationUtil.getXml(
 			getEmailOrderShippingSubject(), "emailOrderShippingSubject");

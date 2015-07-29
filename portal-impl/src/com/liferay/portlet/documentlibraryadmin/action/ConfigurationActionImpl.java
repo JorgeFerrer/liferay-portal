@@ -14,7 +14,7 @@
 
 package com.liferay.portlet.documentlibraryadmin.action;
 
-import com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction;
+import com.liferay.portal.kernel.portlet.BaseJSPConfigurationPropertiesAction;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -28,7 +28,7 @@ import javax.portlet.PortletConfig;
  * @author Sergio González
  */
 public class ConfigurationActionImpl
-	extends BaseJSPSettingsConfigurationAction {
+	extends BaseJSPConfigurationPropertiesAction {
 
 	@Override
 	public void processAction(

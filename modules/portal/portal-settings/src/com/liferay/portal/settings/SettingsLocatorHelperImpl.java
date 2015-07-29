@@ -21,15 +21,15 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
 import com.liferay.portal.kernel.resource.manager.ResourceManager;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
-import com.liferay.portal.kernel.settings.ConfigurationBeanSettings;
+import com.liferay.portal.kernel.settings.ConfigurationBeanConfigurationProperties;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.LocationVariableResolver;
-import com.liferay.portal.kernel.settings.PortletPreferencesSettings;
+import com.liferay.portal.kernel.settings.PortletPreferencesConfigurationProperties;
 import com.liferay.portal.kernel.settings.PropertiesSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
-import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+import com.liferay.portal.kernel.settings.definition.ConfigurationIdMapping;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Group;
@@ -70,23 +70,25 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getCompanyPortletPreferencesSettings(
-		long companyId, String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getCompanyPortletPreferencesSettings(
+		long companyId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getCompanyPortletPreferences(companyId, settingsId),
-			parentSettings);
+			parentConfigurationProperties);
 	}
 
 	@Override
-	public Settings getConfigurationBeanSettings(
-		String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getConfigurationBeanSettings(
+		String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		return new ConfigurationBeanSettings(
+		return new ConfigurationBeanConfigurationProperties(
 			new LocationVariableResolver(
 				getResourceManager(settingsId),
 				SettingsFactoryUtil.getSettingsFactory()),
-			getConfigurationBean(settingsId), parentSettings);
+			getConfigurationBean(settingsId), parentConfigurationProperties);
 	}
 
 	public PortletPreferences getGroupPortletPreferences(
@@ -105,11 +107,13 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getGroupPortletPreferencesSettings(
-		long groupId, String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getGroupPortletPreferencesSettings(
+		long groupId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
-			getGroupPortletPreferences(groupId, settingsId), parentSettings);
+		return new PortletPreferencesConfigurationProperties(
+			getGroupPortletPreferences(groupId, settingsId),
+			parentConfigurationProperties);
 	}
 
 	public PortletPreferences getPortalPreferences(long companyId) {
@@ -118,11 +122,11 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortalPreferencesSettings(
-		long companyId, Settings parentSettings) {
+	public ConfigurationProperties getPortalPreferencesSettings(
+		long companyId, ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
-			getPortalPreferences(companyId), parentSettings);
+		return new PortletPreferencesConfigurationProperties(
+			getPortalPreferences(companyId), parentConfigurationProperties);
 	}
 
 	public Properties getPortalProperties() {
@@ -130,7 +134,7 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortalPropertiesSettings() {
+	public ConfigurationProperties getPortalPropertiesSettings() {
 		return new PropertiesSettings(
 			new LocationVariableResolver(
 				new ClassLoaderResourceManager(
@@ -156,12 +160,13 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 	}
 
 	@Override
-	public Settings getPortletInstancePortletPreferencesSettings(
-		Layout layout, String portletId, Settings parentSettings) {
+	public ConfigurationProperties getPortletInstancePortletPreferencesSettings(
+		Layout layout, String portletId,
+		ConfigurationProperties parentConfigurationProperties) {
 
-		return new PortletPreferencesSettings(
+		return new PortletPreferencesConfigurationProperties(
 			getPortletInstancePortletPreferences(layout, portletId),
-			parentSettings);
+			parentConfigurationProperties);
 	}
 
 	@Activate
@@ -247,10 +252,12 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC
 	)
-	protected void setSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
+	protected void setConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
 		_configurationBeanClasses.put(
-			settingsIdMapping.getSettingsId(),
-			settingsIdMapping.getConfigurationBeanClass());
+			configurationIdMapping.getConfigurationPid(),
+			configurationIdMapping.getConfigurationBeanClass());
 	}
 
 	protected void unsetConfigurationBeanDeclaration(
@@ -269,8 +276,11 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		_configurationBeanManagedServices.remove(configurationBeanClass);
 	}
 
-	protected void unsetSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
-		_configurationBeanClasses.remove(settingsIdMapping.getSettingsId());
+	protected void unsetConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
+		_configurationBeanClasses.remove(
+			configurationIdMapping.getConfigurationPid());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

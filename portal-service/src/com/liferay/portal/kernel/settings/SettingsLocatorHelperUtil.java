@@ -23,48 +23,52 @@ import com.liferay.registry.collections.ServiceTrackerList;
  */
 public class SettingsLocatorHelperUtil {
 
-	public static Settings getCompanyPortletPreferencesSettings(
-		long companyId, String settingsId, Settings parentSettings) {
+	public static ConfigurationProperties getCompanyPortletPreferencesSettings(
+		long companyId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return getSettingsLocatorHelper().getCompanyPortletPreferencesSettings(
-			companyId, settingsId, parentSettings);
+			companyId, settingsId, parentConfigurationProperties);
 	}
 
 	public static SettingsLocatorHelper getSettingsLocatorHelper() {
 		return _settingsLocatorHelpers.get(0);
 	}
 
-	public Settings getConfigurationBeanSettings(
-		String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getConfigurationBeanSettings(
+		String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return getSettingsLocatorHelper().getConfigurationBeanSettings(
-			settingsId, parentSettings);
+			settingsId, parentConfigurationProperties);
 	}
 
-	public Settings getGroupPortletPreferencesSettings(
-		long groupId, String settingsId, Settings parentSettings) {
+	public ConfigurationProperties getGroupPortletPreferencesSettings(
+		long groupId, String settingsId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return getSettingsLocatorHelper().getGroupPortletPreferencesSettings(
-			groupId, settingsId, parentSettings);
+			groupId, settingsId, parentConfigurationProperties);
 	}
 
-	public Settings getPortalPreferencesSettings(
-		long companyId, Settings parentSettings) {
+	public ConfigurationProperties getPortalPreferencesSettings(
+		long companyId, ConfigurationProperties parentConfigurationProperties) {
 
 		return getSettingsLocatorHelper().getPortalPreferencesSettings(
-			companyId, parentSettings);
+			companyId, parentConfigurationProperties);
 	}
 
-	public Settings getPortalPropertiesSettings() {
+	public ConfigurationProperties getPortalPropertiesSettings() {
 		return getSettingsLocatorHelper().getPortalPropertiesSettings();
 	}
 
-	public Settings getPortletInstancePortletPreferencesSettings(
-		Layout layout, String portletId, Settings parentSettings) {
+	public ConfigurationProperties getPortletInstancePortletPreferencesSettings(
+		Layout layout, String portletId,
+		ConfigurationProperties parentConfigurationProperties) {
 
 		return getSettingsLocatorHelper().
 			getPortletInstancePortletPreferencesSettings(
-				layout, portletId, parentSettings);
+				layout, portletId, parentConfigurationProperties);
 	}
 
 	private static final ServiceTrackerList<SettingsLocatorHelper>

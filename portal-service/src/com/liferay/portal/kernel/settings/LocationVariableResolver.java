@@ -124,11 +124,12 @@ public class LocationVariableResolver {
 
 		String serviceName = location.substring(0, i);
 
-		Settings settings = _settingsFactory.getServerSettings(serviceName);
+		ConfigurationProperties configurationProperties =
+			_settingsFactory.getServerSettings(serviceName);
 
 		String property = location.substring(i+1);
 
-		return settings.getValue(property, null);
+		return configurationProperties.getValue(property, null);
 	}
 
 	private static final String _LOCATION_VARIABLE_END = "}";

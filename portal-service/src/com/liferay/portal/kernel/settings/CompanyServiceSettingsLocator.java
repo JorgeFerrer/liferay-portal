@@ -18,7 +18,7 @@ package com.liferay.portal.kernel.settings;
  * @author Ivan Zaera
  * @author Jorge Ferrer
  */
-public class CompanyServiceSettingsLocator implements SettingsLocator {
+public class CompanyServiceSettingsLocator implements ConfigurationLocator {
 
 	public CompanyServiceSettingsLocator(long companyId, String serviceName) {
 		_companyId = companyId;
@@ -26,15 +26,15 @@ public class CompanyServiceSettingsLocator implements SettingsLocator {
 	}
 
 	@Override
-	public Settings getSettings() {
-		Settings portalPropertiesSettings =
+	public ConfigurationProperties getSettings() {
+		ConfigurationProperties portalPropertiesSettings =
 			_settingsLocatorHelper.getPortalPropertiesSettings();
 
-		Settings configurationBeanSettings =
+		ConfigurationProperties configurationBeanSettings =
 			_settingsLocatorHelper.getConfigurationBeanSettings(
 				_serviceName, portalPropertiesSettings);
 
-		Settings portalPreferencesSettings =
+		ConfigurationProperties portalPreferencesSettings =
 			_settingsLocatorHelper.getPortalPreferencesSettings(
 				_companyId, configurationBeanSettings);
 

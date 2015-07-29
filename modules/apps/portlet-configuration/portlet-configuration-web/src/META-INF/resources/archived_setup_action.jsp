@@ -21,7 +21,7 @@ ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_
 
 Object[] objects = (Object[])row.getObject();
 
-ArchivedSettings archivedSettings = (ArchivedSettings)objects[0];
+ArchivedConfigurationProperties archivedConfigurationProperties = (ArchivedConfigurationProperties)objects[0];
 portletResource = (String)objects[1];
 %>
 
@@ -31,7 +31,7 @@ portletResource = (String)objects[1];
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="portletConfiguration" value="<%= Boolean.TRUE.toString() %>" />
 		<portlet:param name="portletResource" value="<%= portletResource %>" />
-		<portlet:param name="name" value="<%= archivedSettings.getName() %>" />
+		<portlet:param name="name" value="<%= archivedConfigurationProperties.getName() %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon
@@ -45,7 +45,7 @@ portletResource = (String)objects[1];
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="portletConfiguration" value="<%= Boolean.TRUE.toString() %>" />
 		<portlet:param name="portletResource" value="<%= portletResource %>" />
-		<portlet:param name="name" value="<%= archivedSettings.getName() %>" />
+		<portlet:param name="name" value="<%= archivedConfigurationProperties.getName() %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete

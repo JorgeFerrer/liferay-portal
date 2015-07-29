@@ -14,7 +14,7 @@
 
 package com.liferay.portal.settings;
 
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -53,14 +53,16 @@ public class AnnotatedSettingsDescriptorTest {
 		Assert.assertTrue(multiValuedKeys.containsAll(expectedMultiValuedKeys));
 	}
 
-	@Settings.Config(settingsIds = {"settingsId.1", "settingsId.2"})
+	@ConfigurationProperties.Config(
+		configurationPids = {"settingsId.1", "settingsId.2"}
+	)
 	public class MockSettings {
 
 		public boolean getBoolean() {
 			return false;
 		}
 
-		@Settings.Property(ignore = true)
+		@ConfigurationProperties.Property(ignore = true)
 		public String getIgnoredProperty() {
 			return "";
 		}
@@ -69,7 +71,7 @@ public class AnnotatedSettingsDescriptorTest {
 			return 0;
 		}
 
-		@Settings.Property(name = "unrenamedProperty")
+		@ConfigurationProperties.Property(name = "unrenamedProperty")
 		public String getRenamedProperty() {
 			return "";
 		}

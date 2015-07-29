@@ -15,7 +15,7 @@
 package com.liferay.blogs.web.portlet.action;
 
 import com.liferay.blogs.web.constants.BlogsPortletKeys;
-import com.liferay.portal.kernel.portlet.BaseJSPSettingsConfigurationAction;
+import com.liferay.portal.kernel.portlet.BaseJSPConfigurationPropertiesAction;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 	service = ConfigurationAction.class
 )
 public class BlogsAdminConfigurationAction
-	extends BaseJSPSettingsConfigurationAction {
+	extends BaseJSPConfigurationPropertiesAction {
 
 	@Override
 	public String getJspPath(HttpServletRequest httpServletRequest) {

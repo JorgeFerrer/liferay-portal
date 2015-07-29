@@ -1960,7 +1960,7 @@ This affects any Java code calling the method `render` on a
 
 The method `render` was used to return the path of a JSP, including the
 configuration of a portlet. That method is now available for configurations
-extending the `BaseJSPSettingsConfigurationAction` class, and is called
+extending the `BaseJSPConfigurationPropertiesAction` class, and is called
 `getJspPath`.
 
 If any logic was added to override the `render` method, it can now be added in

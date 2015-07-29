@@ -17,19 +17,19 @@ package com.liferay.portal.settings;
 import com.liferay.portal.NoSuchPortletItemException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.pacl.DoPrivileged;
-import com.liferay.portal.kernel.settings.ArchivedSettings;
+import com.liferay.portal.kernel.settings.ArchivedConfigurationProperties;
+import com.liferay.portal.kernel.settings.ConfigurationLocator;
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
+import com.liferay.portal.kernel.settings.FallbackConfigurationProperties;
 import com.liferay.portal.kernel.settings.FallbackKeys;
-import com.liferay.portal.kernel.settings.FallbackSettings;
 import com.liferay.portal.kernel.settings.PortalSettings;
-import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsDescriptor;
 import com.liferay.portal.kernel.settings.SettingsException;
 import com.liferay.portal.kernel.settings.SettingsFactory;
-import com.liferay.portal.kernel.settings.SettingsLocator;
 import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
-import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
+import com.liferay.portal.kernel.settings.definition.ConfigurationIdMapping;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.PortletItem;
@@ -67,7 +67,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public ArchivedSettings getPortletInstanceArchivedSettings(
+	public ArchivedConfigurationProperties
+		getPortletInstanceArchivedConfigurationProperties(
 			long groupId, String portletId, String name)
 		throws SettingsException {
 
@@ -76,7 +77,7 @@ public class SettingsFactoryImpl implements SettingsFactory {
 
 			portletItem = getPortletItem(groupId, portletId, name);
 
-			return new ArchivedSettingsImpl(portletItem);
+			return new ArchivedConfigurationPropertiesImpl(portletItem);
 		}
 		catch (PortalException pe) {
 			throw new SettingsException(pe);
@@ -84,10 +85,12 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public List<ArchivedSettings> getPortletInstanceArchivedSettingsList(
-		long groupId, String portletId) {
+	public List<ArchivedConfigurationProperties>
+		getPortletInstanceArchivedConfigurationPropertiesList(
+			long groupId, String portletId) {
 
-		List<ArchivedSettings> archivedSettingsList = new ArrayList<>();
+		List<ArchivedConfigurationProperties>
+			archivedConfigurationPropertiesList = new ArrayList<>();
 
 		List<PortletItem> portletItems =
 			PortletItemLocalServiceUtil.getPortletItems(
@@ -95,15 +98,16 @@ public class SettingsFactoryImpl implements SettingsFactory {
 				com.liferay.portal.model.PortletPreferences.class.getName());
 
 		for (PortletItem portletItem : portletItems) {
-			archivedSettingsList.add(new ArchivedSettingsImpl(portletItem));
+			archivedConfigurationPropertiesList.add(
+				new ArchivedConfigurationPropertiesImpl(portletItem));
 		}
 
-		return archivedSettingsList;
+		return archivedConfigurationPropertiesList;
 	}
 
 	@Override
-	public Settings getServerSettings(String settingsId) {
-		Settings portalPropertiesSettings =
+	public ConfigurationProperties getServerSettings(String settingsId) {
+		ConfigurationProperties portalPropertiesSettings =
 			_settingsLocatorHelper.getPortalPropertiesSettings();
 
 		return _settingsLocatorHelper.getConfigurationBeanSettings(
@@ -111,15 +115,18 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public <T> T getSettings(Class<T> clazz, SettingsLocator settingsLocator)
+	public <T> T getSettings(
+			Class<T> clazz, ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = getSettings(settingsLocator);
+		ConfigurationProperties configurationProperties = getSettings(
+			configurationLocator);
 
 		Class<?> settingsOverrideClass = getOverrideClass(clazz);
 
 		try {
-			TypedSettings typedSettings = new TypedSettings(settings);
+			TypedSettings typedSettings = new TypedSettings(
+				configurationProperties);
 
 			Object settingsOverrideInstance = null;
 
@@ -146,12 +153,15 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	@Override
-	public Settings getSettings(SettingsLocator settingsLocator)
+	public ConfigurationProperties getSettings(
+			ConfigurationLocator configurationLocator)
 		throws SettingsException {
 
-		Settings settings = settingsLocator.getSettings();
+		ConfigurationProperties configurationProperties =
+			configurationLocator.getSettings();
 
-		return applyFallbackKeys(settingsLocator.getSettingsId(), settings);
+		return applyFallbackKeys(
+			configurationLocator.getSettingsId(), configurationProperties);
 	}
 
 	@Override
@@ -169,17 +179,21 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		SettingsDescriptor settingsDescriptor = new AnnotatedSettingsDescriptor(
 			settingsClass);
 
-		Settings.Config settingsConfig = settingsClass.getAnnotation(
-			Settings.Config.class);
+		ConfigurationProperties.Config configurationPropertiesConfig =
+			settingsClass.getAnnotation(ConfigurationProperties.Config.class);
 
-		for (String settingsId : settingsConfig.settingsIds()) {
-			register(settingsId, settingsDescriptor, fallbackKeys);
+		for (String configurationPid :
+				configurationPropertiesConfig.configurationPids()) {
+
+			register(configurationPid, settingsDescriptor, fallbackKeys);
 		}
 	}
 
-	protected Settings applyFallbackKeys(String settingsId, Settings settings) {
-		if (settings instanceof FallbackKeys) {
-			return settings;
+	protected ConfigurationProperties applyFallbackKeys(
+		String settingsId, ConfigurationProperties configurationProperties) {
+
+		if (configurationProperties instanceof FallbackKeys) {
+			return configurationProperties;
 		}
 
 		settingsId = PortletConstants.getRootPortletId(settingsId);
@@ -187,10 +201,11 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		FallbackKeys fallbackKeys = _fallbackKeysMap.get(settingsId);
 
 		if (fallbackKeys != null) {
-			settings = new FallbackSettings(settings, fallbackKeys);
+			configurationProperties = new FallbackConfigurationProperties(
+				configurationProperties, fallbackKeys);
 		}
 
-		return settings;
+		return configurationProperties;
 	}
 
 	protected long getCompanyId(long groupId) throws SettingsException {
@@ -205,8 +220,8 @@ public class SettingsFactoryImpl implements SettingsFactory {
 	}
 
 	protected <T> Class<?> getOverrideClass(Class<T> clazz) {
-		Settings.OverrideClass overrideClass = clazz.getAnnotation(
-			Settings.OverrideClass.class);
+		ConfigurationProperties.OverrideClass overrideClass =
+			clazz.getAnnotation(ConfigurationProperties.OverrideClass.class);
 
 		if (overrideClass == null) {
 			return null;
@@ -276,11 +291,13 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC
 	)
-	protected void setSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
-		String settingsId = settingsIdMapping.getSettingsId();
+	protected void setConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
+		String settingsId = configurationIdMapping.getConfigurationPid();
 
 		Class<?> configurationBeanClass =
-			settingsIdMapping.getConfigurationBeanClass();
+			configurationIdMapping.getConfigurationBeanClass();
 
 		ConfigurationBeanClassSettingsDescriptor
 			configurationBeanClassSettingsDescriptor =
@@ -315,8 +332,10 @@ public class SettingsFactoryImpl implements SettingsFactory {
 		unregister(settingsId);
 	}
 
-	protected void unsetSettingsIdMapping(SettingsIdMapping settingsIdMapping) {
-		unregister(settingsIdMapping.getSettingsId());
+	protected void unsetConfigurationIdMapping(
+		ConfigurationIdMapping configurationIdMapping) {
+
+		unregister(configurationIdMapping.getConfigurationPid());
 	}
 
 	private final ConcurrentMap<String, FallbackKeys> _fallbackKeysMap =

@@ -16,9 +16,9 @@ package com.liferay.portlet.subscriptions.test;
 
 import com.dumbster.smtp.MailMessage;
 
+import com.liferay.portal.kernel.settings.ConfigurationProperties;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.ModifiableSettings;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.ModifiableConfigurationProperties;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -136,12 +136,13 @@ public abstract class BaseSubscriptionLocalizedContentTestCase
 			String bodyPreferenceName)
 		throws Exception {
 
-		Settings settings = SettingsFactoryUtil.getSettings(
-			new GroupServiceSettingsLocator(
-				group.getGroupId(), getServiceName()));
+		ConfigurationProperties configurationProperties =
+			SettingsFactoryUtil.getSettings(
+				new GroupServiceSettingsLocator(
+					group.getGroupId(), getServiceName()));
 
-		ModifiableSettings modifiableSettings =
-			settings.getModifiableSettings();
+		ModifiableConfigurationProperties modifiableConfigurationProperties =
+			configurationProperties.getModifiableConfigurationProperties();
 
 		for (Map.Entry<Locale, String> localizedContent :
 				localizedContents.entrySet()) {
@@ -154,11 +155,11 @@ public abstract class BaseSubscriptionLocalizedContentTestCase
 
 			String content = localizedContent.getValue();
 
-			modifiableSettings.setValue(
+			modifiableConfigurationProperties.setValue(
 				subscriptionBodyPreferencesKey, content);
 		}
 
-		modifiableSettings.store();
+		modifiableConfigurationProperties.store();
 	}
 
 	protected static final String GERMAN_BODY = "Hallo Welt";

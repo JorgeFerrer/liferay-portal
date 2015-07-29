@@ -128,8 +128,8 @@
 		</method>
 	</javadoc>
 	<javadoc>
-		<name>BookmarksGroupServiceSettingsConfigurationAction</name>
-		<type>com.liferay.bookmarks.web.portlet.action.BookmarksGroupServiceSettingsConfigurationAction</type>
+		<name>BookmarksGroupServiceConfigurationPropertiesAction</name>
+		<type>com.liferay.bookmarks.web.portlet.action.BookmarksGroupServiceConfigurationPropertiesAction</type>
 		<author><![CDATA[Sergio González]]></author>
 		<method>
 			<name>processAction</name>
