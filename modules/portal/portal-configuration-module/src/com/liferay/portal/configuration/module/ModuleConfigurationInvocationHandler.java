@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.settings;
+package com.liferay.portal.configuration.module;
 
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.TypedSettings;
@@ -26,14 +26,15 @@ import java.lang.reflect.Method;
 /**
  * @author Iván Zaera
  */
-public class SettingsInvocationHandler<S> implements InvocationHandler {
+public class ModuleConfigurationInvocationHandler<S>
+	implements InvocationHandler {
 
-	public SettingsInvocationHandler(
-		Class<S> clazz, Object settingsOverrideInstance,
+	public ModuleConfigurationInvocationHandler(
+		Class<S> clazz, Object configurationOverrideInstance,
 		TypedSettings typedSettings) {
 
 		_clazz = clazz;
-		_settingsOverrideInstance = settingsOverrideInstance;
+		_configurationOverrideInstance = configurationOverrideInstance;
 		_typedSettings = typedSettings;
 	}
 
@@ -47,9 +48,9 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args)
 		throws InvocationTargetException {
 
-		if (_settingsOverrideInstance != null) {
+		if (_configurationOverrideInstance != null) {
 			try {
-				return _invokeSettingsOverride(method, args);
+				return _invokeConfigurationOverride(method, args);
 			}
 			catch (InvocationTargetException ite) {
 				throw ite;
@@ -66,15 +67,15 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 		}
 	}
 
-	private Object _invokeSettingsOverride(Method method, Object[] args)
+	private Object _invokeConfigurationOverride(Method method, Object[] args)
 		throws IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
 
-		Class<?> clazz = _settingsOverrideInstance.getClass();
+		Class<?> clazz = _configurationOverrideInstance.getClass();
 
 		method = clazz.getMethod(method.getName(), method.getParameterTypes());
 
-		return method.invoke(_settingsOverrideInstance, args);
+		return method.invoke(_configurationOverrideInstance, args);
 	}
 
 	private Object _invokeTypedSettings(Method method)
@@ -115,7 +116,7 @@ public class SettingsInvocationHandler<S> implements InvocationHandler {
 	}
 
 	private final Class<S> _clazz;
-	private final Object _settingsOverrideInstance;
+	private final Object _configurationOverrideInstance;
 	private final TypedSettings _typedSettings;
 
 }

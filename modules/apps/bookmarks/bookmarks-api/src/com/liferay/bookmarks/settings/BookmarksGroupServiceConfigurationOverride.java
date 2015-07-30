@@ -12,29 +12,21 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.internal;
-
-import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
-import com.liferay.wiki.constants.WikiPortletKeys;
-import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
-
-import org.osgi.service.component.annotations.Component;
+package com.liferay.bookmarks.settings;
 
 /**
  * @author Iván Zaera
  */
-@Component
-public class WikiDisplayPortletInstanceSettingsIdMapping
-	implements SettingsIdMapping {
+public interface BookmarksGroupServiceConfigurationOverride {
 
-	@Override
-	public Class<?> getConfigurationBeanClass() {
-		return WikiPortletInstanceConfiguration.class;
-	}
+	public String emailEntryAddedBodyXml();
 
-	@Override
-	public String getSettingsId() {
-		return WikiPortletKeys.WIKI_DISPLAY;
-	}
+	public String emailEntryAddedSubjectXml();
+
+	public String emailEntryUpdatedBodyXml();
+
+	public String emailEntryUpdatedSubjectXml();
+
+	public long rootFolderId();
 
 }

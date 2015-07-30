@@ -12,17 +12,13 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings;
-
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
-import com.liferay.wiki.web.settings.internal.WikiPortletInstanceSettingsOverrideImpl;
+package com.liferay.blogs.configuration;
 
 /**
- * @author Iván Zaera
+ * @author Sergio González
  */
-@Settings.OverrideClass(WikiPortletInstanceSettingsOverrideImpl.class)
-public interface WikiPortletInstanceSettings
-	extends WikiPortletInstanceConfiguration,
-		WikiPortletInstanceSettingsOverride {
+public interface BlogsGroupServiceConfigurationOverride {
+
+	public boolean enableRss();
+
 }

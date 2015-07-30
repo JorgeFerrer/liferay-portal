@@ -12,16 +12,17 @@
  * details.
  */
 
-package com.liferay.blogs.settings;
+package com.liferay.portal.kernel.configuration.module;
 
-import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
-import com.liferay.blogs.settings.internal.BlogsGroupServiceSettingsOverrideImpl;
-import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.portal.kernel.settings.SettingsLocator;
 
 /**
- * @author Sergio González
+ * @author Jorge Ferrer
  */
-@Settings.OverrideClass(BlogsGroupServiceSettingsOverrideImpl.class)
-public interface BlogsGroupServiceSettings
-	extends BlogsGroupServiceConfiguration, BlogsGroupServiceSettingsOverride {
+public interface ModuleConfigurationFactory {
+
+	public <T> T getConfiguration(
+			Class<T> clazz, SettingsLocator settingsLocator)
+		throws ModuleConfigurationException;
+
 }

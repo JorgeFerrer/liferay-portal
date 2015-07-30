@@ -12,21 +12,23 @@
  * details.
  */
 
-package com.liferay.bookmarks.settings;
+package com.liferay.wiki.web.configuration.internal;
+
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Iván Zaera
  */
-public interface BookmarksGroupServiceSettingsOverride {
+@Component
+public class WikiPortletInstanceConfigurationBeanDeclaration
+	implements ConfigurationBeanDeclaration {
 
-	public String emailEntryAddedBodyXml();
-
-	public String emailEntryAddedSubjectXml();
-
-	public String emailEntryUpdatedBodyXml();
-
-	public String emailEntryUpdatedSubjectXml();
-
-	public long rootFolderId();
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return WikiPortletInstanceConfiguration.class;
+	}
 
 }

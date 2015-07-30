@@ -12,17 +12,21 @@
  * details.
  */
 
-package com.liferay.bookmarks.settings;
-
-import com.liferay.bookmarks.configuration.BookmarksGroupServiceConfiguration;
-import com.liferay.bookmarks.settings.internal.BookmarksGroupServiceSettingsOverrideImpl;
-import com.liferay.portal.kernel.settings.Settings;
+package com.liferay.wiki.settings;
 
 /**
  * @author Iván Zaera
  */
-@Settings.OverrideClass(BookmarksGroupServiceSettingsOverrideImpl.class)
-public interface BookmarksGroupServiceSettings
-	extends BookmarksGroupServiceConfiguration,
-			BookmarksGroupServiceSettingsOverride {
+public interface WikiGroupServiceConfigurationOverride {
+
+	public String emailPageAddedBodyXml();
+
+	public String emailPageAddedSubjectXml();
+
+	public String emailPageUpdatedBodyXml();
+
+	public String emailPageUpdatedSubjectXml();
+
+	public boolean enableRss();
+
 }

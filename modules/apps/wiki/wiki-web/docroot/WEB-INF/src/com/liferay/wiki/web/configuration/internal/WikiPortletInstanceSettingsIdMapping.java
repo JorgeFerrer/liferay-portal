@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.internal;
+package com.liferay.wiki.web.configuration.internal;
 
 import com.liferay.portal.kernel.settings.definition.SettingsIdMapping;
 import com.liferay.wiki.constants.WikiPortletKeys;

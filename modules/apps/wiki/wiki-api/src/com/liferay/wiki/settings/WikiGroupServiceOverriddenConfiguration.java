@@ -12,13 +12,17 @@
  * details.
  */
 
-package com.liferay.blogs.settings;
+package com.liferay.wiki.settings;
+
+import com.liferay.portal.kernel.settings.Settings;
+import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
+import com.liferay.wiki.settings.internal.WikiGroupServiceConfigurationOverrideImpl;
 
 /**
- * @author Sergio González
+ * @author Iván Zaera
  */
-public interface BlogsGroupServiceSettingsOverride {
-
-	public boolean enableRss();
-
+@Settings.OverrideClass(WikiGroupServiceConfigurationOverrideImpl.class)
+public interface WikiGroupServiceOverriddenConfiguration
+	extends WikiGroupServiceConfiguration,
+		WikiGroupServiceConfigurationOverride {
 }

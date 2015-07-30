@@ -12,23 +12,29 @@
  * details.
  */
 
-package com.liferay.wiki.web.settings.internal;
+package com.liferay.portal.kernel.configuration.module;
 
-import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
-import com.liferay.wiki.web.configuration.WikiPortletInstanceConfiguration;
-
-import org.osgi.service.component.annotations.Component;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Iván Zaera
+ * @author Jürgen Kappler
+ * @author Jorge Ferrer
  */
-@Component
-public class WikiPortletInstanceConfigurationBeanDeclaration
-	implements ConfigurationBeanDeclaration {
+public class ModuleConfigurationException extends PortalException {
 
-	@Override
-	public Class<?> getConfigurationBeanClass() {
-		return WikiPortletInstanceConfiguration.class;
+	public ModuleConfigurationException() {
+	}
+
+	public ModuleConfigurationException(String msg) {
+		super(msg);
+	}
+
+	public ModuleConfigurationException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
+	public ModuleConfigurationException(Throwable cause) {
+		super(cause);
 	}
 
 }

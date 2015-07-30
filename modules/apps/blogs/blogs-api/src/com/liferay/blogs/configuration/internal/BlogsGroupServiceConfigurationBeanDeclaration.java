@@ -12,16 +12,23 @@
  * details.
  */
 
-package com.liferay.wiki.settings;
+package com.liferay.blogs.configuration.internal;
 
-import com.liferay.portal.kernel.settings.Settings;
-import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
-import com.liferay.wiki.settings.internal.WikiGroupServiceSettingsOverrideImpl;
+import com.liferay.blogs.configuration.BlogsGroupServiceConfiguration;
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Iván Zaera
+ * @author Sergio González
  */
-@Settings.OverrideClass(WikiGroupServiceSettingsOverrideImpl.class)
-public interface WikiGroupServiceSettings
-	extends WikiGroupServiceConfiguration, WikiGroupServiceSettingsOverride {
+@Component
+public class BlogsGroupServiceConfigurationBeanDeclaration
+	implements ConfigurationBeanDeclaration {
+
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return BlogsGroupServiceConfiguration.class;
+	}
+
 }
