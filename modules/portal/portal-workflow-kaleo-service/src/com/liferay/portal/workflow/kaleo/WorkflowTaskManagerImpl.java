@@ -252,7 +252,6 @@ public class WorkflowTaskManagerImpl implements WorkflowTaskManager {
 
 				String assigneeClassName =
 					calculatedKaleoTaskAssignment.getAssigneeClassName();
-
 				long assigneeClassPK =
 					calculatedKaleoTaskAssignment.getAssigneeClassPK();
 

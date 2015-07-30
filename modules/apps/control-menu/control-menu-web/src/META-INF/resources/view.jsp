@@ -105,7 +105,7 @@ if (user.isSetupComplete() || themeDisplay.isImpersonated()) {
 
 					<li>
 						<liferay-ui:icon
-							iconCssClass="icon-edit"
+							iconCssClass="icon-cog"
 							label="edit"
 							linkCssClass="control-menu-icon"
 							url="<%= editPageURLString %>"
@@ -144,6 +144,32 @@ if (user.isSetupComplete() || themeDisplay.isImpersonated()) {
 								);
 							</aui:script>
 						</c:if>
+					</li>
+				</c:if>
+
+				<c:if test="<%= (user.isSetupComplete() || themeDisplay.isImpersonated()) && themeDisplay.isShowStagingIcon() %>">
+					<li>
+						<liferay-ui:icon
+							iconCssClass="icon-circle-blank"
+							id="stagingBarButton"
+							label="staging"
+							linkCssClass="control-menu-icon"
+							url="javascript:;"
+						/>
+
+						<liferay-util:buffer var="stagingContent">
+							<liferay-portlet:runtime portletName="<%= PortletKeys.STAGING_BAR %>" />
+						</liferay-util:buffer>
+
+						<aui:script sandbox="<%= true %>">
+							$('#<portlet:namespace />stagingBarButton').popover(
+								{
+									content: '<%= HtmlUtil.escapeJS(stagingContent) %>',
+									html: true,
+									placement: 'top'
+								}
+							);
+						</aui:script>
 					</li>
 				</c:if>
 

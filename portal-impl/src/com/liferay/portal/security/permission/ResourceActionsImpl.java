@@ -34,25 +34,19 @@ import com.liferay.portal.kernel.xml.DocumentType;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.UnsecureSAXReaderUtil;
 import com.liferay.portal.model.Group;
-import com.liferay.portal.model.LayoutPrototype;
-import com.liferay.portal.model.LayoutSetPrototype;
 import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.PasswordPolicy;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletConstants;
 import com.liferay.portal.model.ResourceAction;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.portal.service.PortletLocalService;
 import com.liferay.portal.service.ResourceActionLocalService;
 import com.liferay.portal.service.RoleLocalService;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.portlet.expando.model.ExpandoColumn;
-import com.liferay.portlet.mobiledevicerules.model.MDRRuleGroup;
 import com.liferay.registry.collections.ServiceTrackerCollections;
 import com.liferay.registry.collections.ServiceTrackerMap;
 import com.liferay.util.JS;
@@ -91,18 +85,6 @@ public class ResourceActionsImpl implements ResourceActions {
 	}
 
 	public void afterPropertiesSet() {
-		_organizationModelResources = new HashSet<>();
-
-		for (String resource : getOrganizationModelResources()) {
-			_organizationModelResources.add(resource);
-		}
-
-		_portalModelResources = new HashSet<>();
-
-		for (String resource : getPortalModelResources()) {
-			_portalModelResources.add(resource);
-		}
-
 		_portletResourceActionsBags = new HashMap<>();
 		_modelResourceActionsBags = new HashMap<>();
 
@@ -330,12 +312,14 @@ public class ResourceActionsImpl implements ResourceActions {
 
 	@Override
 	public String[] getOrganizationModelResources() {
-		return _ORGANIZATION_MODEL_RESOURCES;
+		return _organizationModelResources.toArray(
+			new String[_organizationModelResources.size()]);
 	}
 
 	@Override
 	public String[] getPortalModelResources() {
-		return _PORTAL_MODEL_RESOURCES;
+		return _portalModelResources.toArray(
+			new String[_portalModelResources.size()]);
 	}
 
 	@Override
@@ -1041,6 +1025,18 @@ public class ResourceActionsImpl implements ResourceActions {
 
 		String name = modelResourceElement.elementTextTrim("model-name");
 
+		if (GetterUtil.getBoolean(
+				modelResourceElement.attributeValue("organization"))) {
+
+			_organizationModelResources.add(name);
+		}
+
+		if (GetterUtil.getBoolean(
+				modelResourceElement.attributeValue("portal"))) {
+
+			_portalModelResources.add(name);
+		}
+
 		ModelResourceActionsBag modelResourceActionsBag =
 			getModelResourceActionsBag(name);
 
@@ -1230,24 +1226,12 @@ public class ResourceActionsImpl implements ResourceActions {
 
 	private static final String _MODEL_RESOURCE_NAME_PREFIX = "model.resource.";
 
-	private static final String[] _ORGANIZATION_MODEL_RESOURCES = {
-		Organization.class.getName(), PasswordPolicy.class.getName(),
-		User.class.getName()
-	};
-
-	private static final String[] _PORTAL_MODEL_RESOURCES = {
-		ExpandoColumn.class.getName(), LayoutPrototype.class.getName(),
-		LayoutSetPrototype.class.getName(), MDRRuleGroup.class.getName(),
-		Organization.class.getName(), PasswordPolicy.class.getName(),
-		Role.class.getName(), User.class.getName(), UserGroup.class.getName()
-	};
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		ResourceActionsImpl.class);
 
 	private Map<String, ModelResourceActionsBag> _modelResourceActionsBags;
-	private Set<String> _organizationModelResources;
-	private Set<String> _portalModelResources;
+	private final Set<String> _organizationModelResources = new HashSet<>();
+	private final Set<String> _portalModelResources = new HashSet<>();
 	private Map<String, PortletResourceActionsBag> _portletResourceActionsBags;
 	private final ServiceTrackerMap<String, List<ResourceBundle>>
 		_resourceBundles;
