@@ -2,7 +2,9 @@ import com.liferay.gradle.util.FileUtil
 
 buildscript {
 	repositories {
-		mavenLocal()
+		if (!Boolean.getBoolean("maven.local.ignore")) {
+			mavenLocal()
+		}
 
 		maven {
 			url "http://cdn.repository.liferay.com/nexus/content/groups/public"
@@ -14,6 +16,8 @@ buildscript {
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.maven.plugin.builder", version: "1.0.2"
 	}
 }
+
+buildDir = new File(rootDir.parentFile, "build")
 
 gradle.beforeProject {
 	Project project ->
@@ -28,7 +32,12 @@ gradle.beforeProject {
 gradle.taskGraph.useFilter {
 	Task task ->
 
-	if (task.name == "compileJSP") {
+	if (task.name == "buildService") {
+		if (!FileUtil.exists(task.project, "service.xml")) {
+			return false
+		}
+	}
+	else if (task.name == "compileJSP") {
 		FileTree jspFileTree = fileTree(dir: task.project.projectDir, excludes: ["**/custom_jsps/**/*", "**/dependencies/**/*"], includes: ["docroot/**/*.jsp", "src/META-INF/resources/**/*.jsp"])
 
 		if (jspFileTree.empty) {

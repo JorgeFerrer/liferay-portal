@@ -17,6 +17,7 @@ package com.liferay.asset.publisher.web.context;
 import com.liferay.asset.publisher.web.configuration.AssetPublisherWebConfigurationValues;
 import com.liferay.asset.publisher.web.constants.AssetPublisherPortletKeys;
 import com.liferay.asset.publisher.web.util.AssetPublisherUtil;
+import com.liferay.dynamic.data.mapping.util.DDMIndexerUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -56,7 +57,6 @@ import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
 import com.liferay.portlet.asset.service.AssetEntryServiceUtil;
 import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
 import com.liferay.portlet.asset.util.AssetUtil;
-import com.liferay.portlet.dynamicdatamapping.util.DDMIndexerUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -392,7 +392,7 @@ public class AssetPublisherDisplayContext {
 		return _extensions;
 	}
 
-	public String[] getExtensions(AssetRenderer assetRenderer) {
+	public String[] getExtensions(AssetRenderer<?> assetRenderer) {
 		final String[] supportedConversions =
 			assetRenderer.getSupportedConversions();
 
@@ -1103,7 +1103,7 @@ public class AssetPublisherDisplayContext {
 			return;
 		}
 
-		AssetRendererFactory assetRendererFactory =
+		AssetRendererFactory<?> assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.
 				getAssetRendererFactoryByClassNameId(classNameIds[0]);
 
@@ -1155,7 +1155,7 @@ public class AssetPublisherDisplayContext {
 				baseModelSearchResult.getBaseModels();
 
 			if (!assetEntries.isEmpty() && (start < groupTotal)) {
-				AssetRendererFactory groupAssetRendererFactory =
+				AssetRendererFactory<?> groupAssetRendererFactory =
 					AssetRendererFactoryRegistryUtil.
 						getAssetRendererFactoryByClassNameId(classNameId);
 
@@ -1356,7 +1356,7 @@ public class AssetPublisherDisplayContext {
 		if (Validator.isNotNull(_ddmStructureFieldName) &&
 			Validator.isNotNull(_ddmStructureFieldValue)) {
 
-			AssetRendererFactory assetRendererFactory =
+			AssetRendererFactory<?> assetRendererFactory =
 				AssetRendererFactoryRegistryUtil.
 					getAssetRendererFactoryByClassNameId(classNameIds[0]);
 

@@ -419,12 +419,17 @@ public abstract class BaseMobileDriverImpl
 
 	@Override
 	public boolean isPartialText(String locator, String value) {
-		throw new UnsupportedOperationException();
+		return WebDriverHelper.isPartialText(this, locator, value);
 	}
 
 	@Override
 	public boolean isSelectedLabel(String selectLocator, String pattern) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isSikuliImagePresent(String image) throws Exception {
+		return LiferaySeleniumHelper.isSikuliImagePresent(this, image);
 	}
 
 	@Override
@@ -445,6 +450,16 @@ public abstract class BaseMobileDriverImpl
 	@Override
 	public boolean isValue(String locator, String value) {
 		return value.equals(getValue(locator, "1"));
+	}
+
+	@Override
+	public void javaScriptMouseDown(String locator) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void javaScriptMouseUp(String locator) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

@@ -3282,7 +3282,7 @@ public class DDLRecordSetPersistenceImpl extends BasePersistenceImpl<DDLRecordSe
 				ddlRecordSet.setNew(false);
 			}
 			else {
-				session.merge(ddlRecordSet);
+				ddlRecordSet = (DDLRecordSet)session.merge(ddlRecordSet);
 			}
 		}
 		catch (Exception e) {
@@ -3391,6 +3391,7 @@ public class DDLRecordSetPersistenceImpl extends BasePersistenceImpl<DDLRecordSe
 		ddlRecordSetImpl.setDescription(ddlRecordSet.getDescription());
 		ddlRecordSetImpl.setMinDisplayRows(ddlRecordSet.getMinDisplayRows());
 		ddlRecordSetImpl.setScope(ddlRecordSet.getScope());
+		ddlRecordSetImpl.setLastPublishDate(ddlRecordSet.getLastPublishDate());
 
 		return ddlRecordSetImpl;
 	}

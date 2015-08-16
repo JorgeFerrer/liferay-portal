@@ -17,7 +17,12 @@ package com.liferay.product.menu.site.administration.application.list;
 import com.liferay.application.list.BaseJSPPanelCategory;
 import com.liferay.application.list.PanelCategory;
 import com.liferay.application.list.constants.PanelCategoryKeys;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.permission.GroupPermissionUtil;
 
 import java.util.Locale;
 
@@ -32,7 +37,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.ROOT,
+		"panel.category.key=" + PanelCategoryKeys.SITES,
 		"service.ranking:Integer=100"
 	},
 	service = PanelCategory.class
@@ -46,7 +51,7 @@ public class SiteAdministrationPanelCategory extends BaseJSPPanelCategory {
 
 	@Override
 	public String getJspPath() {
-		return "/META-INF/resources/site_administration.jsp";
+		return "/META-INF/resources/sites/site_administration.jsp";
 	}
 
 	@Override
@@ -56,12 +61,27 @@ public class SiteAdministrationPanelCategory extends BaseJSPPanelCategory {
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "sites");
+		return LanguageUtil.get(locale, "site-administration");
 	}
 
 	@Override
 	public String getParentCategoryKey() {
-		return PanelCategoryKeys.ROOT;
+		return PanelCategoryKeys.SITES;
+	}
+
+	@Override
+	public boolean hasAccessPermission(
+			PermissionChecker permissionChecker, Group group)
+		throws PortalException {
+
+		if (GroupPermissionUtil.contains(
+				permissionChecker, group,
+				ActionKeys.VIEW_SITE_ADMINISTRATION)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override

@@ -27,9 +27,13 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Repository;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.service.BackgroundTaskLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
+
+import java.io.File;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,23 @@ import java.util.List;
  * @author Brian Wing Shun Chan
  */
 public class BackgroundTaskImpl extends BackgroundTaskBaseImpl {
+
+	@Override
+	public void addAttachment(long userId, String fileName, File file)
+		throws PortalException {
+
+		BackgroundTaskLocalServiceUtil.addBackgroundTaskAttachment(
+			userId, getBackgroundTaskId(), fileName, file);
+	}
+
+	@Override
+	public void addAttachment(
+			long userId, String fileName, InputStream inputStream)
+		throws PortalException {
+
+		BackgroundTaskLocalServiceUtil.addBackgroundTaskAttachment(
+			userId, getBackgroundTaskId(), fileName, inputStream);
+	}
 
 	@Override
 	public Folder addAttachmentsFolder() throws PortalException {

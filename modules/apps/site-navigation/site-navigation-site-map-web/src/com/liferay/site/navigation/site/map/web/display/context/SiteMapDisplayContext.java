@@ -14,7 +14,7 @@
 
 package com.liferay.site.navigation.site.map.web.display.context;
 
-import com.liferay.portal.kernel.settings.SettingsException;
+import com.liferay.portal.kernel.configuration.module.ConfigurationException;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
+import com.liferay.portal.model.LayoutType;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.permission.LayoutPermissionUtil;
@@ -42,7 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SiteMapDisplayContext {
 
 	public SiteMapDisplayContext(HttpServletRequest request)
-		throws SettingsException {
+		throws ConfigurationException {
 
 		_request = request;
 
@@ -174,10 +175,16 @@ public class SiteMapDisplayContext {
 		String layoutURL = PortalUtil.getLayoutURL(layout, themeDisplay);
 		String target = PortalUtil.getLayoutTarget(layout);
 
-		sb.append("<a href=\"");
-		sb.append(layoutURL);
-		sb.append("\" ");
-		sb.append(target);
+		sb.append("<a");
+
+		LayoutType layoutType = layout.getLayoutType();
+
+		if (layoutType.isBrowsable()) {
+			sb.append(" href=\"");
+			sb.append(layoutURL);
+			sb.append("\" ");
+			sb.append(target);
+		}
 
 		if (Validator.isNotNull(cssClass)) {
 			sb.append(" class=\"");

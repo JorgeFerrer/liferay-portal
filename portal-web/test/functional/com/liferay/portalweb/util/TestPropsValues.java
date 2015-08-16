@@ -234,11 +234,17 @@ public class TestPropsValues
 	public static final boolean SAVE_SOURCE = GetterUtil.getBoolean(
 		TestPropsUtil.get("save.source"));
 
+	public static final String SELENIUM_CHROME_DRIVER_EXECUTABLE =
+		TestPropsUtil.get("selenium.chrome.driver.executable");
+
 	public static final String SELENIUM_EXECUTABLE_DIR_NAME = TestPropsUtil.get(
 		"selenium.executable.dir");
 
 	public static final String SELENIUM_HOST = TestPropsUtil.get(
 		"selenium.host");
+
+	public static final String SELENIUM_IE_DRIVER_EXECUTABLE =
+		TestPropsUtil.get("selenium.ie.driver.executable");
 
 	public static final String SELENIUM_IMPLEMENTATION = TestPropsUtil.get(
 		"selenium.implementation");

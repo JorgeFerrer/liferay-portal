@@ -19,27 +19,22 @@
 <%
 PanelCategory panelCategory = (PanelCategory)request.getAttribute("liferay-application-list:panel:panelCategory");
 PanelCategoryRegistry panelCategoryRegistry = (PanelCategoryRegistry)request.getAttribute(ApplicationListWebKeys.PANEL_CATEGORY_REGISTRY);
+
+List<PanelCategory> childPanelCategories = panelCategoryRegistry.getChildPanelCategories(panelCategory, permissionChecker, themeDisplay.getScopeGroup());
 %>
 
-<div class="portal-add-content">
-	<div class="panel-group">
-		<liferay-ui:panel-container
-			accordion="<%= true %>"
-			extended="<%= true %>"
-			id="<%= StringUtil.replace(panelCategory.getKey(), StringPool.PERIOD, StringPool.UNDERLINE) %>"
-			persistState="<%= true %>"
-		>
+<c:if test="<%= !childPanelCategories.isEmpty() %>">
+	<div class="list-group">
 
-			<%
-			for (PanelCategory childPanelCategory : panelCategoryRegistry.getChildPanelCategories(panelCategory)) {
-			%>
+		<%
+		for (PanelCategory childPanelCategory : childPanelCategories) {
+		%>
 
 				<liferay-application-list:panel-category-content panelCategory="<%= childPanelCategory %>" />
 
-			<%
-			}
-			%>
+		<%
+		}
+		%>
 
-		</liferay-ui:panel-container>
 	</div>
-</div>
+</c:if>

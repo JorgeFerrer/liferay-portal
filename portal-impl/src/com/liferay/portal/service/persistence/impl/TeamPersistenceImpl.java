@@ -2812,7 +2812,7 @@ public class TeamPersistenceImpl extends BasePersistenceImpl<Team>
 				team.setNew(false);
 			}
 			else {
-				session.merge(team);
+				team = (Team)session.merge(team);
 			}
 		}
 		catch (Exception e) {
@@ -2912,6 +2912,7 @@ public class TeamPersistenceImpl extends BasePersistenceImpl<Team>
 		teamImpl.setGroupId(team.getGroupId());
 		teamImpl.setName(team.getName());
 		teamImpl.setDescription(team.getDescription());
+		teamImpl.setLastPublishDate(team.getLastPublishDate());
 
 		return teamImpl;
 	}

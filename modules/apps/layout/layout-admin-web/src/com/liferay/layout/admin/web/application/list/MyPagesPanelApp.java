@@ -14,11 +14,19 @@
 
 package com.liferay.layout.admin.web.application.list;
 
-import com.liferay.application.list.BaseControlPanelEntryPanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.layout.admin.web.constants.LayoutAdminPortletKeys;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.PortletLocalService;
+import com.liferay.portal.util.PortalUtil;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -34,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = PanelApp.class
 )
-public class MyPagesPanelApp extends BaseControlPanelEntryPanelApp {
+public class MyPagesPanelApp extends GroupPagesPanelApp {
 
 	@Override
 	public String getParentCategoryKey() {
@@ -46,11 +54,40 @@ public class MyPagesPanelApp extends BaseControlPanelEntryPanelApp {
 		return LayoutAdminPortletKeys.MY_PAGES;
 	}
 
+	@Override
+	public boolean hasAccessPermission(
+			PermissionChecker permissionChecker, Group group)
+		throws PortalException {
+
+		User user = permissionChecker.getUser();
+
+		return super.hasAccessPermission(permissionChecker, user.getGroup());
+	}
+
+	@Override
+	protected Group getGroup(HttpServletRequest request) {
+		Group group = null;
+
+		try {
+			User user = PortalUtil.getUser(request);
+
+			return user.getGroup();
+		}
+		catch (PortalException pe) {
+			_log.error(pe, pe);
+		}
+
+		return group;
+	}
+
 	@Reference(unbind = "-")
 	protected void setPortletLocalService(
 		PortletLocalService portletLocalService) {
 
 		_portletLocalService = portletLocalService;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		MyPagesPanelApp.class);
 
 }

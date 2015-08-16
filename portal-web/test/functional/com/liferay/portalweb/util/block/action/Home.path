@@ -90,7 +90,7 @@
 </tr>
 <tr>
 	<td>SITE_NAME</td>
-	<td>//h1[@class='site-title']/a/span</td>
+	<td>//div[@id='heading']/span[@class='site-name']</td>
 	<td></td>
 </tr>
 <tr>
@@ -572,7 +572,7 @@
 </tr>
 <tr>
 	<td>SITE_ADMINISTRATION_PORTLET_TITLE</td>
-	<td>//h2[@id='cpPortletTitle']/span[@class='portlet-title-text']</td>
+	<td>//span[contains(@class,'header-toolbar-title')]</td>
 	<td></td>
 </tr>
 <tr>

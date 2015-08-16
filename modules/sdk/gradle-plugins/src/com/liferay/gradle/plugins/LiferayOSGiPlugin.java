@@ -29,6 +29,8 @@ import com.liferay.gradle.plugins.xsd.builder.XSDBuilderPlugin;
 import com.liferay.gradle.util.FileUtil;
 import com.liferay.gradle.util.GradleUtil;
 import com.liferay.gradle.util.Validator;
+import com.liferay.gradle.util.copy.ExcludeExistingFileAction;
+import com.liferay.gradle.util.copy.RenameDependencyClosure;
 
 import groovy.lang.Closure;
 
@@ -363,11 +365,15 @@ public class LiferayOSGiPlugin extends LiferayJavaPlugin {
 		Copy copy = GradleUtil.addTask(
 			project, COPY_LIBS_TASK_NAME, Copy.class);
 
+		File libDir = getLibDir(project);
+
+		copy.eachFile(new ExcludeExistingFileAction(libDir));
+
 		Configuration configuration = GradleUtil.getConfiguration(
 			project, JavaPlugin.RUNTIME_CONFIGURATION_NAME);
 
 		copy.from(configuration);
-		copy.into(getLibDir(project));
+		copy.into(libDir);
 
 		Closure<String> closure = new RenameDependencyClosure(
 			project, configuration.getName());
@@ -620,13 +626,6 @@ public class LiferayOSGiPlugin extends LiferayJavaPlugin {
 	}
 
 	@Override
-	protected void configureTaskBuildServiceSpringNamespaces(
-		BuildServiceTask buildServiceTask) {
-
-		buildServiceTask.setSpringNamespaces(new String[] {"beans", "osgi"});
-	}
-
-	@Override
 	protected void configureTaskBuildServiceSqlDirName(
 		BuildServiceTask buildServiceTask) {
 
@@ -666,9 +665,13 @@ public class LiferayOSGiPlugin extends LiferayJavaPlugin {
 
 		super.configureTaskDeploy(project, liferayExtension);
 
-		Copy copy = (Copy)GradleUtil.getTask(project, DEPLOY_TASK_NAME);
+		Task task = GradleUtil.getTask(project, DEPLOY_TASK_NAME);
 
-		configureTaskDeployRename(copy);
+		if (!(task instanceof Copy)) {
+			return;
+		}
+
+		configureTaskDeployRename((Copy)task);
 	}
 
 	@Override

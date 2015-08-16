@@ -42,8 +42,8 @@ import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.permission.DLFolderPermission;
 import com.liferay.portlet.documentlibrary.util.DLUtil;
 import com.liferay.portlet.trash.RestoreEntryException;
-import com.liferay.portlet.trash.TrashEntryConstants;
 import com.liferay.portlet.trash.model.TrashEntry;
+import com.liferay.portlet.trash.model.TrashEntryConstants;
 
 import javax.portlet.PortletRequest;
 
@@ -172,7 +172,7 @@ public class DLFolderTrashHandler extends DLBaseTrashHandler {
 
 	@Override
 	public TrashRenderer getTrashRenderer(long classPK) throws PortalException {
-		AssetRendererFactory assetRendererFactory =
+		AssetRendererFactory<?> assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
 				DLFolder.class.getName());
 

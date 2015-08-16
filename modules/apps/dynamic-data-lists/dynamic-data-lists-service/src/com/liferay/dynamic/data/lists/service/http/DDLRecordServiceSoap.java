@@ -68,12 +68,30 @@ import java.rmi.RemoteException;
 public class DDLRecordServiceSoap {
 	public static com.liferay.dynamic.data.lists.model.DDLRecordSoap addRecord(
 		long groupId, long recordSetId, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues ddmFormValues,
+		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.dynamic.data.lists.model.DDLRecord returnValue = DDLRecordServiceUtil.addRecord(groupId,
 					recordSetId, displayIndex, ddmFormValues, serviceContext);
+
+			return com.liferay.dynamic.data.lists.model.DDLRecordSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.dynamic.data.lists.model.DDLRecordSoap addRecord(
+		long groupId, long recordSetId, int displayIndex,
+		com.liferay.dynamic.data.mapping.storage.Fields fields,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.dynamic.data.lists.model.DDLRecord returnValue = DDLRecordServiceUtil.addRecord(groupId,
+					recordSetId, displayIndex, fields, serviceContext);
 
 			return com.liferay.dynamic.data.lists.model.DDLRecordSoap.toSoapModel(returnValue);
 		}
@@ -161,12 +179,32 @@ public class DDLRecordServiceSoap {
 
 	public static com.liferay.dynamic.data.lists.model.DDLRecordSoap updateRecord(
 		long recordId, boolean majorVersion, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues ddmFormValues,
+		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.dynamic.data.lists.model.DDLRecord returnValue = DDLRecordServiceUtil.updateRecord(recordId,
 					majorVersion, displayIndex, ddmFormValues, serviceContext);
+
+			return com.liferay.dynamic.data.lists.model.DDLRecordSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.dynamic.data.lists.model.DDLRecordSoap updateRecord(
+		long recordId, boolean majorVersion, int displayIndex,
+		com.liferay.dynamic.data.mapping.storage.Fields fields,
+		boolean mergeFields,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.dynamic.data.lists.model.DDLRecord returnValue = DDLRecordServiceUtil.updateRecord(recordId,
+					majorVersion, displayIndex, fields, mergeFields,
+					serviceContext);
 
 			return com.liferay.dynamic.data.lists.model.DDLRecordSoap.toSoapModel(returnValue);
 		}

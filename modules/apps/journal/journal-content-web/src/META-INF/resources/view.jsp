@@ -22,7 +22,7 @@ JournalArticleDisplay articleDisplay = journalContentDisplayContext.getArticleDi
 
 journalContentDisplayContext.incrementViewCounter();
 
-AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(JournalArticle.class.getName());
+AssetRendererFactory<JournalArticle> assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClass(JournalArticle.class);
 %>
 
 <c:choose>
@@ -88,7 +88,7 @@ AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.get
 							<c:when test="<%= !article.isApproved() %>">
 
 								<%
-								AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(article.getResourcePrimKey());
+								AssetRenderer<JournalArticle> assetRenderer = assetRendererFactory.getAssetRenderer(article.getResourcePrimKey());
 								%>
 
 								<c:choose>
@@ -127,7 +127,7 @@ AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.get
 				<%
 				JournalArticle latestArticle = journalContentDisplayContext.getLatestArticle();
 
-				AssetRenderer latestArticleAssetRenderer = assetRendererFactory.getAssetRenderer(latestArticle.getResourcePrimKey());
+				AssetRenderer<JournalArticle> latestArticleAssetRenderer = assetRendererFactory.getAssetRenderer(latestArticle.getResourcePrimKey());
 
 				PortletURL latestArticleEditURL = latestArticleAssetRenderer.getURLEdit(liferayPortletRequest, liferayPortletResponse, LiferayWindowState.POP_UP, redirectURL);
 
@@ -151,7 +151,7 @@ AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.get
 				DDMTemplate ddmTemplate = journalContentDisplayContext.getDDMTemplate();
 				%>
 
-				<liferay-portlet:renderURL portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" var="editTemplateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+				<liferay-portlet:renderURL portletName="<%= PortletProviderUtil.getPortletId(DDMTemplate.class.getName(), PortletProvider.Action.EDIT) %>" var="editTemplateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 					<portlet:param name="mvcPath" value="/edit_template.jsp" />
 					<portlet:param name="redirect" value="<%= redirectURL.toString() %>" />
 					<portlet:param name="showBackURL" value="<%= Boolean.FALSE.toString() %>" />

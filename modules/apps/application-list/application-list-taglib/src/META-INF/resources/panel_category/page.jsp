@@ -19,39 +19,43 @@
 <%
 PanelAppRegistry panelAppRegistry = (PanelAppRegistry)request.getAttribute(ApplicationListWebKeys.PANEL_APP_REGISTRY);
 PanelCategory panelCategory = (PanelCategory)request.getAttribute("liferay-application-list:panel-category:panelCategory");
+PanelCategoryRegistry panelCategoryRegistry = (PanelCategoryRegistry)request.getAttribute(ApplicationListWebKeys.PANEL_CATEGORY_REGISTRY);
 
-PanelCategoryHelper panelCategoryHelper = new PanelCategoryHelper(panelAppRegistry, panelCategory);
-
-String panelPageCategoryId = "panel-manage-" + StringUtil.replace(panelCategory.getKey(), StringPool.PERIOD, StringPool.UNDERLINE);
+List<PanelApp> panelApps = panelAppRegistry.getPanelApps(panelCategory, permissionChecker, themeDisplay.getScopeGroup());
 %>
 
-<liferay-ui:panel
-	collapsible="<%= true %>"
-	cssClass="list-unstyled panel-page-category"
-	extended="<%= true %>"
-	id="<%= panelPageCategoryId %>"
-	parentId="<%= StringUtil.replace(panelCategory.getParentCategoryKey(), StringPool.PERIOD, StringPool.UNDERLINE) %>"
-	persistState="<%= true %>"
-	state='<%= panelCategoryHelper.containsPortlet(themeDisplay.getPpid()) ? "open" : "closed" %>'
-	title="<%= panelCategory.getLabel(themeDisplay.getLocale()) %>"
->
+<c:if test="<%= !panelApps.isEmpty() %>">
 
-	<ul aria-labelledby="<%= panelPageCategoryId %>" class="category-portlets list-unstyled" role="menu">
+	<%
+	PanelCategoryHelper panelCategoryHelper = new PanelCategoryHelper(panelAppRegistry, panelCategoryRegistry);
 
-		<%
-		for (PanelApp panelApp : panelAppRegistry.getPanelApps(panelCategory)) {
-		%>
+	boolean containsActivePortlet = panelCategoryHelper.containsPortlet(themeDisplay.getPpid(), panelCategory);
 
-			<c:if test="<%= panelApp.hasAccessPermission(permissionChecker, themeDisplay.getScopeGroup()) %>">
-				<liferay-application-list:panel-app
-					panelApp="<%= panelApp %>"
-					panelCategory="<%= panelCategory %>"
-				/>
-			</c:if>
+	String panelPageCategoryId = "panel-manage-" + StringUtil.replace(panelCategory.getKey(), StringPool.PERIOD, StringPool.UNDERLINE);
+	%>
 
-		<%
-		}
-		%>
+	<a aria-expanded="false" class="collapse-icon <%= containsActivePortlet ? StringPool.BLANK : "collapsed" %> list-group-heading" data-toggle="collapse" href="#<%= panelPageCategoryId %>">
+		<%= panelCategory.getLabel(themeDisplay.getLocale()) %>
+	</a>
 
-	</ul>
-</liferay-ui:panel>
+	<div class="collapse <%= containsActivePortlet ? "in" : StringPool.BLANK %>" id="<%= panelPageCategoryId %>">
+		<div class="list-group-item">
+			<ul aria-labelledby="<%= panelPageCategoryId %>" class="nav nav-equal-height" role="menu">
+
+				<%
+				for (PanelApp panelApp : panelApps) {
+				%>
+
+					<liferay-application-list:panel-app
+						panelApp="<%= panelApp %>"
+						panelCategory="<%= panelCategory %>"
+					/>
+
+				<%
+				}
+				%>
+
+			</ul>
+		</div>
+	</div>
+</c:if>

@@ -47,9 +47,7 @@
 		}
 		%>
 
-		<portlet:actionURL secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>" var="loginURL">
-			<portlet:param name="struts_action" value="/login/login" />
-		</portlet:actionURL>
+		<portlet:actionURL name="/login/login" secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>" var="loginURL" />
 
 		<aui:form action="<%= loginURL %>" autocomplete='<%= PropsValues.COMPANY_SECURITY_LOGIN_FORM_AUTOCOMPLETE ? "on" : "off" %>' cssClass="sign-in-form" method="post" name="fm">
 			<aui:input name="saveLastPath" type="hidden" value="<%= false %>" />
@@ -96,7 +94,7 @@
 			</c:choose>
 
 			<liferay-ui:error exception="<%= AuthException.class %>" message="authentication-failed" />
-			<liferay-ui:error exception="<%= CompanyMaxUsersException.class %>" message="unable-to-login-because-the-maximum-number-of-users-has-been-reached" />
+			<liferay-ui:error exception="<%= CompanyMaxUsersException.class %>" message="unable-to-log-in-because-the-maximum-number-of-users-has-been-reached" />
 			<liferay-ui:error exception="<%= CookieNotSupportedException.class %>" message="authentication-failed-please-enable-browser-cookies" />
 			<liferay-ui:error exception="<%= NoSuchUserException.class %>" message="authentication-failed" />
 			<liferay-ui:error exception="<%= PasswordExpiredException.class %>" message="your-password-has-expired" />

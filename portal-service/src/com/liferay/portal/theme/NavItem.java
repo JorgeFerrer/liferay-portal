@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.LayoutType;
 import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
@@ -83,6 +84,25 @@ public class NavItem implements Serializable {
 			WebKeys.THEME_DISPLAY);
 		_layout = layout;
 		_contextObjects = contextObjects;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof NavItem)) {
+			return false;
+		}
+
+		NavItem navItem = (NavItem)obj;
+
+		if (Validator.equals(getLayoutId(), navItem.getLayoutId())) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -233,6 +253,11 @@ public class NavItem implements Serializable {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return _layout.hashCode();
+	}
+
 	public void icon() throws Exception {
 		Object velocityTaglib = _contextObjects.get("theme");
 
@@ -242,9 +267,23 @@ public class NavItem implements Serializable {
 		method.invoke(velocityTaglib, _layout);
 	}
 
+	public boolean isBrowsable() {
+		LayoutType layoutType = _layout.getLayoutType();
+
+		return layoutType.isBrowsable();
+	}
+
 	public boolean isChildSelected() throws PortalException {
 		return _layout.isChildSelected(
 			_themeDisplay.isTilesSelectable(), _themeDisplay.getLayout());
+	}
+
+	public boolean isInNavigation(List<NavItem> navItems) {
+		if (navItems == null) {
+			return false;
+		}
+
+		return navItems.contains(this);
 	}
 
 	public boolean isSelected() throws Exception {

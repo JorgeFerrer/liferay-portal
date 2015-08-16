@@ -62,13 +62,13 @@ public interface DDLRecordLocalService extends BaseLocalService,
 	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
 	public com.liferay.dynamic.data.lists.model.DDLRecord addRecord(
 		long userId, long groupId, long recordSetId, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues ddmFormValues,
+		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws PortalException;
 
 	public com.liferay.dynamic.data.lists.model.DDLRecord addRecord(
 		long userId, long groupId, long recordSetId, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.Fields fields,
+		com.liferay.dynamic.data.mapping.storage.Fields fields,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws PortalException;
 
@@ -449,13 +449,13 @@ public interface DDLRecordLocalService extends BaseLocalService,
 	@com.liferay.portal.kernel.search.Indexable(type = IndexableType.REINDEX)
 	public com.liferay.dynamic.data.lists.model.DDLRecord updateRecord(
 		long userId, long recordId, boolean majorVersion, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues ddmFormValues,
+		com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws PortalException;
 
 	public com.liferay.dynamic.data.lists.model.DDLRecord updateRecord(
 		long userId, long recordId, boolean majorVersion, int displayIndex,
-		com.liferay.portlet.dynamicdatamapping.storage.Fields fields,
+		com.liferay.dynamic.data.mapping.storage.Fields fields,
 		boolean mergeFields,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws PortalException;

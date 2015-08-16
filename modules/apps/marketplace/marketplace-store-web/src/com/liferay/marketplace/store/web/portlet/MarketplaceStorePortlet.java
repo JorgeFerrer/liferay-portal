@@ -22,6 +22,7 @@ import com.liferay.marketplace.store.web.constants.MarketplaceStorePortletKeys;
 import com.liferay.marketplace.store.web.oauth.util.OAuthManager;
 import com.liferay.marketplace.store.web.util.MarketplaceLicenseUtil;
 import com.liferay.marketplace.util.MarketplaceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.Constants;
@@ -49,9 +50,13 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import org.scribe.model.Token;
 
 /**
  * @author Ryan Park
@@ -212,29 +217,6 @@ public class MarketplaceStorePortlet extends RemoteMVCPortlet {
 		jsonObject.put("message", "success");
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
-	}
-
-	@Override
-	public void processAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException {
-
-		try {
-			if (!isProcessActionRequest(actionRequest)) {
-				return;
-			}
-
-			if (!callActionMethod(actionRequest, actionResponse)) {
-				return;
-			}
-		}
-		catch (PortletException pe) {
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-			jsonObject.put("message", "fail");
-
-			writeJSON(actionRequest, actionResponse, jsonObject);
-		}
 	}
 
 	public void uninstallApp(
@@ -409,6 +391,31 @@ public class MarketplaceStorePortlet extends RemoteMVCPortlet {
 		return true;
 	}
 
+	@Override
+	protected void doDispatch(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		try {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			Token accessToken = _oAuthManager.getAccessToken(
+				themeDisplay.getUser());
+
+			if (accessToken == null) {
+				include("/login.jsp", renderRequest, renderResponse);
+
+				return;
+			}
+		}
+		catch (PortalException pe) {
+			throw new PortletException(pe);
+		}
+
+		super.doDispatch(renderRequest, renderResponse);
+	}
+
 	protected JSONObject getAppJSONObject(long remoteAppId) throws Exception {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -449,8 +456,8 @@ public class MarketplaceStorePortlet extends RemoteMVCPortlet {
 	}
 
 	@Override
-	protected String getServerNamespace() {
-		return PortalUtil.getPortletNamespace(_OSB_PORTLET_ID);
+	protected String getServerPortletId() {
+		return _OSB_PORTLET_ID;
 	}
 
 	@Override

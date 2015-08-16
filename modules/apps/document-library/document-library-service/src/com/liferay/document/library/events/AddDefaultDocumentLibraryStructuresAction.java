@@ -14,10 +14,21 @@
 
 package com.liferay.document.library.events;
 
+import com.liferay.dynamic.data.mapping.io.DDMFormXSDDeserializer;
+import com.liferay.dynamic.data.mapping.model.DDMForm;
+import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
+import com.liferay.dynamic.data.mapping.model.DDMStructureConstants;
+import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
+import com.liferay.dynamic.data.mapping.storage.StorageType;
+import com.liferay.dynamic.data.mapping.util.DDM;
+import com.liferay.dynamic.data.mapping.util.DDMBeanCopyUtil;
+import com.liferay.dynamic.data.mapping.util.DefaultDDMStructureHelper;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.metadata.RawMetadataProcessorUtil;
+import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.upgrade.util.UpgradeProcessUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -40,15 +51,6 @@ import com.liferay.portlet.documentlibrary.model.DLFileEntryType;
 import com.liferay.portlet.documentlibrary.model.DLFileEntryTypeConstants;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryTypeLocalService;
 import com.liferay.portlet.documentlibrary.util.RawMetadataProcessor;
-import com.liferay.portlet.dynamicdatamapping.io.DDMFormXSDDeserializer;
-import com.liferay.portlet.dynamicdatamapping.model.DDMForm;
-import com.liferay.portlet.dynamicdatamapping.model.DDMFormLayout;
-import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
-import com.liferay.portlet.dynamicdatamapping.model.DDMStructureConstants;
-import com.liferay.portlet.dynamicdatamapping.service.DDMStructureLocalService;
-import com.liferay.portlet.dynamicdatamapping.storage.StorageType;
-import com.liferay.portlet.dynamicdatamapping.util.DDM;
-import com.liferay.portlet.dynamicdatamapping.util.DefaultDDMStructureUtil;
 
 import java.io.StringReader;
 
@@ -59,8 +61,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.servlet.ServletContext;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -131,7 +131,7 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 		Locale locale = PortalUtil.getSiteDefaultLocale(groupId);
 
 		String definition =
-			DefaultDDMStructureUtil.getDynamicDDMStructureDefinition(
+			_defaultDDMStructureHelper.getDynamicDDMStructureDefinition(
 				AddDefaultDocumentLibraryStructuresAction.class.
 					getClassLoader(),
 				"com/liferay/document/library/events/dependencies" +
@@ -140,7 +140,8 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 
 		DDMForm ddmForm = _ddmFormXSDDeserializer.deserialize(definition);
 
-		serviceContext.setAttribute("ddmForm", ddmForm);
+		serviceContext.setAttribute(
+			"ddmForm", DDMBeanCopyUtil.copyDDMForm(ddmForm));
 
 		DLFileEntryType dlFileEntryType =
 			_dlFileEntryTypeLocalService.fetchFileEntryType(
@@ -349,7 +350,7 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 
 		serviceContext.setUserId(defaultUserId);
 
-		DefaultDDMStructureUtil.addDDMStructures(
+		_defaultDDMStructureHelper.addDDMStructures(
 			defaultUserId, group.getGroupId(),
 			PortalUtil.getClassNameId(DLFileEntryMetadata.class),
 			AddDefaultDocumentLibraryStructuresAction.class.getClassLoader(),
@@ -408,6 +409,13 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 	}
 
 	@Reference
+	protected void setDefaultDDMStructureHelper(
+		DefaultDDMStructureHelper defaultDDMStructureHelper) {
+
+		_defaultDDMStructureHelper = defaultDDMStructureHelper;
+	}
+
+	@Reference
 	protected void setDLFileEntryTypeLocalService(
 		DLFileEntryTypeLocalService dlFileEntryTypeLocalService) {
 
@@ -419,8 +427,9 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 		_groupLocalService = groupLocalService;
 	}
 
-	@Reference(target = "(original.bean=true)", unbind = "-")
-	protected void setServletContext(ServletContext servletContext) {
+	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
+	protected void setModuleServiceLifecycle(
+		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
 
 	@Reference
@@ -432,6 +441,7 @@ public class AddDefaultDocumentLibraryStructuresAction extends SimpleAction {
 	private DDM _ddm;
 	private DDMFormXSDDeserializer _ddmFormXSDDeserializer;
 	private DDMStructureLocalService _ddmStructureLocalService;
+	private DefaultDDMStructureHelper _defaultDDMStructureHelper;
 	private DLFileEntryTypeLocalService _dlFileEntryTypeLocalService;
 	private GroupLocalService _groupLocalService;
 	private UserLocalService _userLocalService;

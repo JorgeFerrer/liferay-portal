@@ -17,7 +17,12 @@ package com.liferay.product.menu.site.administration.application.list;
 import com.liferay.application.list.BasePanelCategory;
 import com.liferay.application.list.PanelCategory;
 import com.liferay.application.list.constants.PanelCategoryKeys;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.permission.PortalPermissionUtil;
 
 import java.util.Locale;
 
@@ -29,7 +34,7 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.SITES,
+		"panel.category.key=" + PanelCategoryKeys.SITES_ALL_SITES,
 		"service.ranking:Integer=100"
 	},
 	service = PanelCategory.class
@@ -53,7 +58,21 @@ public class AdministrationPanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getParentCategoryKey() {
-		return PanelCategoryKeys.SITES;
+		return PanelCategoryKeys.SITES_ALL_SITES;
+	}
+
+	@Override
+	public boolean hasAccessPermission(
+			PermissionChecker permissionChecker, Group group)
+		throws PortalException {
+
+		if (PortalPermissionUtil.contains(
+				permissionChecker, ActionKeys.VIEW_CONTROL_PANEL)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 }

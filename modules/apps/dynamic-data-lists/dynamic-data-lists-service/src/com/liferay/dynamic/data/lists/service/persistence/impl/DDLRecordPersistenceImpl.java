@@ -3181,7 +3181,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 				ddlRecord.setNew(false);
 			}
 			else {
-				session.merge(ddlRecord);
+				ddlRecord = (DDLRecord)session.merge(ddlRecord);
 			}
 		}
 		catch (Exception e) {
@@ -3331,6 +3331,7 @@ public class DDLRecordPersistenceImpl extends BasePersistenceImpl<DDLRecord>
 		ddlRecordImpl.setRecordSetId(ddlRecord.getRecordSetId());
 		ddlRecordImpl.setVersion(ddlRecord.getVersion());
 		ddlRecordImpl.setDisplayIndex(ddlRecord.getDisplayIndex());
+		ddlRecordImpl.setLastPublishDate(ddlRecord.getLastPublishDate());
 
 		return ddlRecordImpl;
 	}

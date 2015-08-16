@@ -8,7 +8,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.poshi.runner", version: "latest.release"
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.poshi.runner", version: "1.0.5"
 	}
 }
 
@@ -29,6 +29,10 @@ poshiRunner {
 		poshiProperty "product.names", project.properties["productNames"]
 	}
 
+	if (project.hasProperty("projectDir")) {
+		poshiProperty "project.dir", project.properties["projectDir"]
+	}
+
 	if (project.hasProperty("saveScreenshot")) {
 		poshiProperty "save.screenshot", project.properties["saveScreenshot"]
 	}
@@ -37,7 +41,9 @@ poshiRunner {
 		poshiProperty "selenium.logger.enabled", project.properties["seleniumLoggerEnabled"]
 	}
 
-	poshiProperty "test.base.dir.name", "test/functional"
+	if (project.hasProperty("testBaseDirName")) {
+		poshiProperty "test.base.dir.name", project.properties["testBaseDirName"]
+	}
 
 	if (project.hasProperty("testCaseAvailablePropertyNames")) {
 		poshiProperty "test.case.available.property.names", project.properties["testCaseAvailablePropertyNames"]
@@ -53,7 +59,7 @@ poshiRunner {
 		poshiProperty "test.skip.tear.down", project.properties["testSkipTearDown"]
 	}
 
-	version = "1.0.9"
+	version = "1.0.12"
 }
 
 repositories {
@@ -62,4 +68,8 @@ repositories {
 	maven {
 		url "http://cdn.repository.liferay.com/nexus/content/groups/public"
 	}
+}
+
+runPoshi {
+	jvmArgs "-Dfile.encoding=UTF-8"
 }

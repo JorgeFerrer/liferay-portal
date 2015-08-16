@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.model.StagedModel;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.dynamicdatamapping.model.DDMForm;
-import com.liferay.portlet.dynamicdatamapping.model.DDMFormLayout;
 import com.liferay.portlet.dynamicdatamapping.storage.DDMFormValues;
 import com.liferay.portlet.exportimport.lar.PortletDataContext;
 import com.liferay.portlet.exportimport.lar.PortletDataException;
@@ -32,6 +31,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.portlet.PortletRequest;
 
 /**
  * @author Leonardo Barros
@@ -65,8 +66,7 @@ public interface DDMStructureManager {
 			long userId, long groupId, String parentStructureKey,
 			long classNameId, String structureKey, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, DDMForm ddmForm,
-			DDMFormLayout ddmFormLayout, String storageType, int type,
-			ServiceContext serviceContext)
+			String storageType, int type, ServiceContext serviceContext)
 		throws PortalException;
 
 	public void deleteStructure(long structureId) throws PortalException;
@@ -97,12 +97,13 @@ public interface DDMStructureManager {
 	public List<DDMStructure> getClassStructures(
 		long companyId, long classNameId, int start, int end);
 
+	public DDMForm getDDMForm(PortletRequest portletRequest)
+		throws PortalException;
+
 	public JSONArray getDDMFormFieldsJSONArray(long structureId, String script)
 		throws PortalException;
 
 	public Class<?> getDDMStructureModelClass();
-
-	public DDMFormLayout getDefaultDDMFormLayout(DDMForm ddmForm);
 
 	public Serializable getIndexedFieldValue(
 			Serializable fieldValue, String fieldType)
@@ -119,11 +120,12 @@ public interface DDMStructureManager {
 
 	public List<DDMStructure> getStructures(long[] groupIds, long classNameId);
 
+	public int getStructureStorageLinksCount(long structureId);
+
 	public DDMStructure updateStructure(
 			long userId, long structureId, long parentStructureId,
 			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			DDMForm ddmForm, DDMFormLayout ddmFormLayout,
-			ServiceContext serviceContext)
+			DDMForm ddmForm, ServiceContext serviceContext)
 		throws PortalException;
 
 	public void updateStructureDefinition(

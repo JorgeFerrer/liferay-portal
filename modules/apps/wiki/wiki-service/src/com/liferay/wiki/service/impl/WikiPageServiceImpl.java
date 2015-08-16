@@ -14,13 +14,13 @@
 
 package com.liferay.wiki.service.impl;
 
+import com.liferay.portal.kernel.configuration.module.ConfigurationFactory;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
@@ -35,6 +35,8 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.RSSUtil;
+import com.liferay.wiki.configuration.WikiGroupServiceConfiguration;
+import com.liferay.wiki.configuration.WikiGroupServiceOverriddenConfiguration;
 import com.liferay.wiki.constants.WikiConstants;
 import com.liferay.wiki.constants.WikiPortletKeys;
 import com.liferay.wiki.exception.NoSuchPageException;
@@ -44,7 +46,6 @@ import com.liferay.wiki.model.WikiPageConstants;
 import com.liferay.wiki.service.base.WikiPageServiceBaseImpl;
 import com.liferay.wiki.service.permission.WikiNodePermissionChecker;
 import com.liferay.wiki.service.permission.WikiPagePermissionChecker;
-import com.liferay.wiki.settings.WikiGroupServiceSettings;
 import com.liferay.wiki.util.WikiUtil;
 import com.liferay.wiki.util.comparator.PageCreateDateComparator;
 
@@ -109,7 +110,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 	}
 
 	@Override
-	public void addPageAttachment(
+	public FileEntry addPageAttachment(
 			long nodeId, String title, String fileName, File file,
 			String mimeType)
 		throws PortalException {
@@ -117,12 +118,12 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermissionChecker.check(
 			getPermissionChecker(), nodeId, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.addPageAttachment(
+		return wikiPageLocalService.addPageAttachment(
 			getUserId(), nodeId, title, fileName, file, mimeType);
 	}
 
 	@Override
-	public void addPageAttachment(
+	public FileEntry addPageAttachment(
 			long nodeId, String title, String fileName, InputStream inputStream,
 			String mimeType)
 		throws PortalException {
@@ -130,12 +131,12 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermissionChecker.check(
 			getPermissionChecker(), nodeId, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.addPageAttachment(
+		return wikiPageLocalService.addPageAttachment(
 			getUserId(), nodeId, title, fileName, inputStream, mimeType);
 	}
 
 	@Override
-	public void addPageAttachments(
+	public List<FileEntry> addPageAttachments(
 			long nodeId, String title,
 			List<ObjectValuePair<String, InputStream>> inputStreamOVPs)
 		throws PortalException {
@@ -143,12 +144,12 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermissionChecker.check(
 			getPermissionChecker(), nodeId, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.addPageAttachments(
+		return wikiPageLocalService.addPageAttachments(
 			getUserId(), nodeId, title, inputStreamOVPs);
 	}
 
 	@Override
-	public void addTempFileEntry(
+	public FileEntry addTempFileEntry(
 			long nodeId, String folderName, String fileName,
 			InputStream inputStream, String mimeType)
 		throws PortalException {
@@ -158,7 +159,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		WikiNodePermissionChecker.check(
 			getPermissionChecker(), node, ActionKeys.ADD_ATTACHMENT);
 
-		wikiPageLocalService.addTempFileEntry(
+		return wikiPageLocalService.addTempFileEntry(
 			node.getGroupId(), getUserId(), folderName, fileName, inputStream,
 			mimeType);
 	}
@@ -864,16 +865,16 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 			else {
 				String value = null;
 
-				WikiGroupServiceSettings wikiGroupServiceSettings =
-					settingsFactory.getSettings(
-						WikiGroupServiceSettings.class,
+				WikiGroupServiceConfiguration wikiGroupServiceConfiguration =
+					configurationFactory.getConfiguration(
+						WikiGroupServiceOverriddenConfiguration.class,
 						new GroupServiceSettingsLocator(
 							page.getGroupId(), WikiConstants.SERVICE_NAME));
 
 				if (displayStyle.equals(RSSUtil.DISPLAY_STYLE_ABSTRACT)) {
 					value = StringUtil.shorten(
 						HtmlUtil.extractText(page.getContent()),
-						wikiGroupServiceSettings.rssAbstractLength(),
+						wikiGroupServiceConfiguration.rssAbstractLength(),
 						StringPool.BLANK);
 				}
 				else if (displayStyle.equals(RSSUtil.DISPLAY_STYLE_TITLE)) {
@@ -937,7 +938,7 @@ public class WikiPageServiceImpl extends WikiPageServiceBaseImpl {
 		}
 	}
 
-	@ServiceReference(type = SettingsFactory.class)
-	protected SettingsFactory settingsFactory;
+	@ServiceReference(type = ConfigurationFactory.class)
+	protected ConfigurationFactory configurationFactory;
 
 }

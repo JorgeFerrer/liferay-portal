@@ -50,13 +50,13 @@ Group ddmTemplateGroup = GroupLocalServiceUtil.getGroup(ddmTemplateGroupId);
 
 	<%
 	for (DDMTemplate curDDMTemplate : DDMTemplateManagerUtil.getTemplates(PortalUtil.getCurrentAndAncestorSiteGroupIds(scopeGroupId), classNameId, 0L)) {
+		if (!DDMTemplateManagerUtil.hasPermission(permissionChecker, scopeGroupId, curDDMTemplate.getTemplateId(), PortletKeys.PORTLET_DISPLAY_TEMPLATE, ActionKeys.VIEW) || !DDMTemplateManager.TEMPLATE_TYPE_DISPLAY.equals(curDDMTemplate.getType())) {
+			continue;
+		}
+
 		Map<String, Object> data = new HashMap<String, Object>();
 
 		data.put("displaystylegroupid", curDDMTemplate.getGroupId());
-
-		if (!DDMTemplateManagerUtil.hasPermission(permissionChecker, scopeGroupId, curDDMTemplate.getTemplateId(), PortletKeys.PORTLET_DISPLAY_TEMPLATE, ActionKeys.VIEW)) {
-			continue;
-		}
 	%>
 
 		<aui:option data="<%= data %>" label="<%= HtmlUtil.escape(curDDMTemplate.getName(locale)) %>" selected="<%= (portletDisplayDDMTemplate != null) && (curDDMTemplate.getTemplateId() == portletDisplayDDMTemplate.getTemplateId()) %>" value="<%= PortletDisplayTemplateManager.DISPLAY_STYLE_PREFIX + curDDMTemplate.getTemplateKey() %>" />
@@ -75,7 +75,7 @@ Group ddmTemplateGroup = GroupLocalServiceUtil.getGroup(ddmTemplateGroupId);
 	url="javascript:;"
 />
 
-<liferay-portlet:renderURL plid="<%= themeDisplay.getPlid() %>" portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" var="basePortletURL">
+<liferay-portlet:renderURL plid="<%= themeDisplay.getPlid() %>" portletName="<%= PortletProviderUtil.getPortletId(com.liferay.dynamic.data.mapping.model.DDMTemplate.class.getName(), PortletProvider.Action.VIEW) %>" var="basePortletURL">
 	<portlet:param name="showHeader" value="<%= Boolean.FALSE.toString() %>" />
 </liferay-portlet:renderURL>
 

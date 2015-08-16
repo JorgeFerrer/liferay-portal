@@ -5783,7 +5783,7 @@ public class DLFileVersionPersistenceImpl extends BasePersistenceImpl<DLFileVers
 				dlFileVersion.setNew(false);
 			}
 			else {
-				session.merge(dlFileVersion);
+				dlFileVersion = (DLFileVersion)session.merge(dlFileVersion);
 			}
 		}
 		catch (Exception e) {
@@ -6008,6 +6008,7 @@ public class DLFileVersionPersistenceImpl extends BasePersistenceImpl<DLFileVers
 		dlFileVersionImpl.setVersion(dlFileVersion.getVersion());
 		dlFileVersionImpl.setSize(dlFileVersion.getSize());
 		dlFileVersionImpl.setChecksum(dlFileVersion.getChecksum());
+		dlFileVersionImpl.setLastPublishDate(dlFileVersion.getLastPublishDate());
 		dlFileVersionImpl.setStatus(dlFileVersion.getStatus());
 		dlFileVersionImpl.setStatusByUserId(dlFileVersion.getStatusByUserId());
 		dlFileVersionImpl.setStatusByUserName(dlFileVersion.getStatusByUserName());

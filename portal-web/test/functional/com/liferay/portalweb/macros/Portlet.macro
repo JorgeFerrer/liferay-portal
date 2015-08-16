@@ -92,7 +92,19 @@
 			</then>
 		</if>
 
-		<execute function="Click#clickAtSidebarClickAtWaitForScript" locator1="Dockbar#ADD_ICON" value1="Add" />
+		<var method="TestPropsUtil#get('browser.type')" name="browserType" />
+
+		<if>
+			<contains string="${browserType}" substring="iexplore" />
+			<then>
+				<execute function="MouseDown#javaScriptMouseDown" locator1="Dockbar#ADD_ICON" />
+
+				<execute function="MouseUp#javaScriptMouseUp" locator1="Dockbar#ADD_ICON" />
+			</then>
+			<else>
+				<execute function="Click#clickAt" locator1="Dockbar#ADD_ICON" />
+			</else>
+		</if>
 
 		<execute function="AssertClick#assertTextClickAtAddApplication" locator1="DockbarAddpanelapplications#APPLICATIONS_TAB" value1="Applications" />
 		<execute function="Type#sendKeysApplicationSearch" locator1="DockbarAddpanelapplications#SEARCH_FIELD" value1="${portletName}" />
@@ -102,7 +114,6 @@
 
 		<if>
 			<or>
-				<equals arg1="${portletName}" arg2="Calendar" />
 				<equals arg1="${portletName}" arg2="Documents and Media" />
 				<equals arg1="${portletName}" arg2="Knowledge Base Display" />
 				<equals arg1="${portletName}" arg2="Media Gallery" />
