@@ -48,6 +48,7 @@ public class VerifyProcessSuite extends VerifyProcess {
 		verify(new VerifySocial());
 		verify(new VerifyUser());
 		verify(new VerifyWorkflow());
+		verify(new VerifySiteRole());
 
 		// VerifyBlogsTrackbacks looks at every blog comment to see if it is a
 		// trackback and verifies that the source URL is a valid URL.
