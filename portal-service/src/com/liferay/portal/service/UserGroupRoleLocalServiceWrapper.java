@@ -324,6 +324,12 @@ public class UserGroupRoleLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRolesByRole(
+		long roleId) {
+		return _userGroupRoleLocalService.getUserGroupRolesByRole(roleId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRolesByUserUserGroupAndGroup(
 		long userId, long groupId) {
 		return _userGroupRoleLocalService.getUserGroupRolesByUserUserGroupAndGroup(userId,
