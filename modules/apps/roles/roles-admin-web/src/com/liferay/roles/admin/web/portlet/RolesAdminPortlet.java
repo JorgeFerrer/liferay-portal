@@ -37,7 +37,9 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.model.UserGroupRole;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.membershippolicy.SiteMembershipPolicyUtil;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.security.permission.comparator.ActionComparator;
@@ -50,6 +52,7 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.RoleServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -465,6 +468,15 @@ public class RolesAdminPortlet extends MVCPortlet {
 					ResourceConstants.SCOPE_GROUP_TEMPLATE,
 					String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID),
 					roleId, actionId);
+
+				// See LPS-57385
+
+				List<UserGroupRole> modifiedUserGroupRoles =
+					UserGroupRoleLocalServiceUtil.getUserGroupRolesByRole(
+						roleId);
+
+				SiteMembershipPolicyUtil.checkRoles(
+					modifiedUserGroupRoles, null);
 			}
 			else if (scope == ResourceConstants.SCOPE_GROUP) {
 				ResourcePermissionServiceUtil.removeResourcePermissions(

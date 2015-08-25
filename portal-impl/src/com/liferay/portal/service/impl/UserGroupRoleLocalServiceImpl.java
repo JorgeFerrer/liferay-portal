@@ -218,6 +218,11 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	@Override
+	public List<UserGroupRole> getUserGroupRolesByRole(long roleId) {
+		return userGroupRolePersistence.findByRoleId(roleId);
+	}
+
+	@Override
 	public List<UserGroupRole> getUserGroupRolesByUserUserGroupAndGroup(
 		long userId, long groupId) {
 

@@ -249,6 +249,10 @@ public interface UserGroupRoleLocalService extends BaseLocalService,
 		long groupId, long roleId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRolesByRole(
+		long roleId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.model.UserGroupRole> getUserGroupRolesByUserUserGroupAndGroup(
 		long userId, long groupId);
 
