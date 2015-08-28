@@ -14,29 +14,52 @@
 
 package com.liferay.amazon.rankings.web.configuration;
 
-import aQute.bnd.annotation.metatype.Meta;
+import com.liferay.amazon.rankings.web.configuration.Hint.OptionType;
+import com.liferay.amazon.rankings.web.configuration.Hint.StringType;
+
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
 /**
  * @author Jorge Ferrer
  */
-@Meta.OCD(
+@Hint.Category(category = "category.content")
+@ObjectClassDefinition(
 	id = "com.liferay.amazon.rankings.web.configuration.AmazonRankingsConfiguration"
 )
 public interface AmazonRankingsConfiguration {
 
-	@Meta.AD(required = false)
+	@AttributeDefinition(required = false)
 	public String amazonAccessKeyId();
 
-	@Meta.AD(required = false)
+	@AttributeDefinition(required = false)
 	public String amazonAssociateTag();
 
-	@Meta.AD(required = false)
+	@AttributeDefinition(required = false)
 	public String amazonSecretAccessKey();
 
-	@Meta.AD(
-		deflt = "0066620996|0131412752|0201633612|0310205719|0310241448",
+	@AttributeDefinition(required = false)
+	@Hint.OptionInput(type = OptionType.CHECKBOX)
+	public ColorOptions option();
+
+	enum ColorOptions {
+		RED, YELLOW, BLUE
+	}
+
+	@AttributeDefinition(
+		defaultValue = {
+			"0066620996","0131412752","0201633612","0310205719","0310241448"
+		},
 		required = false
 	)
 	public String[] isbns();
+
+	@AttributeDefinition
+	@Hint.NumericInput(hidden = true)
+	public long companyId();
+
+	@AttributeDefinition(required = false)
+	@Hint.StringInput(type = StringType.EDITOR)
+	public String html();
 
 }

@@ -5,3 +5,4 @@ Include-Resource:\
 	classes,\
 	META-INF/resources=src/META-INF/resources
 Web-ContextPath: /amazon-rankings-web
+-metatypeannotations: com.liferay.amazon.rankings.web.configuration.AmazonRankingsConfiguration
