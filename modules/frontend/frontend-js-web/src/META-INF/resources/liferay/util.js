@@ -36,7 +36,8 @@
 				}
 			);
 
-			Util.addInputCancel = function() {};
+			Util.addInputCancel = function() {
+			};
 		},
 
 		addParams: function(params, url) {
@@ -1502,7 +1503,7 @@
 
 						Liferay._editControlsState = docBody.hasClass(visibleClass) ? 'visible' : 'hidden';
 
-						Liferay.Store('liferay_toggle_controls', Liferay._editControlsState);
+						Liferay.Store('com.liferay.frontend.js.web_toggleControls', Liferay._editControlsState);
 
 						Liferay.fire(
 							'toggleControls',

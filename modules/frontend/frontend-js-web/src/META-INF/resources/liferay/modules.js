@@ -59,6 +59,7 @@
 						path: 'alloyeditor.js',
 						requires: [
 							'alloy-editor',
+							'aui-component',
 							'liferay-portlet-base'
 						]
 					},
@@ -628,6 +629,7 @@
 							}
 						},
 						requires: [
+							'event-mouseenter',
 							'node-focusmanager',
 							'plugin'
 						]
