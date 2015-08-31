@@ -52,7 +52,7 @@ FileTree fileTree = fileTree(rootDir) {
 		include "apps/portlet-configuration/*/build.gradle"
 		include "apps/portlet-css/*/build.gradle"
 		include "apps/portlet-display-template/*/build.gradle"
-		include "apps/product-menu/*/build.gradle"
+		include "apps/product-navigation/*/build.gradle"
 		include "apps/quick-note/*/build.gradle"
 		include "apps/ratings/*/build.gradle"
 		include "apps/roles/*/build.gradle"
@@ -103,4 +103,21 @@ fileTree.each {
 	moduleDirName = moduleDirName.replaceFirst("/build.gradle", "")
 
 	include ":" + moduleDirName.replaceAll("[\\/]", ":")
+}
+
+String testClassGroupIndex = System.getProperty("test.class.group.index")
+
+if (testClassGroupIndex) {
+	Properties properties = new Properties()
+
+	File file = new File(rootDir, "../test.class.file.names.properties")
+
+	properties.load(new StringReader(file.text.replace("\\", "/")))
+
+	String testClassGroup = properties["TEST_CLASS_GROUP_" + testClassGroupIndex]
+	String testClassGroups = properties["TEST_CLASS_GROUPS"]
+
+	gradle.ext.testClasses = testClassGroup.tokenize(",")
+	gradle.ext.testClassGroupIndex = testClassGroupIndex
+	gradle.ext.testClassGroups = testClassGroups
 }

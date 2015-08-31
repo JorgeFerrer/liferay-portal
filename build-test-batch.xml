@@ -13,12 +13,10 @@
 	<property name="default.test.results.suite.dir" value="${default.test.results.dir}/test-suite" />
 	<property name="default.test.results.suite.file.name" value="TESTS-${test.batch.name}_${axis.variable}_suite.xml" />
 
-	<macrodef name="build-testray-result">
+	<macrodef name="apply-properties-to-testray-results">
 		<attribute name="test.results.file" />
 
 		<sequential>
-			<echo>Build testray result: @{test.results.file}.</echo>
-
 			<if>
 				<isset property="testray.logs.report" />
 				<then>
@@ -96,57 +94,22 @@
 			<replaceregexp
 				file="@{test.results.file}"
 				flags="g"
-				match="\^"
-				replace=""
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="&gt;([^&gt;^&lt;]*)&lt;"
-				replace="&gt;${line.separator}&lt;"
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="^\s*&lt;/?environment[^&gt;]*&gt;[\s]"
-				replace=""
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="^\s*&lt;/?propert[^&gt;]*&gt;[\s]"
-				replace=""
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="^\s*&lt;/?attachments[^&gt;]*&gt;[\s]"
-				replace=""
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="^\s*&lt;/?file[^&gt;]*&gt;[\s]"
-				replace=""
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="&lt;testcase[^&lt;]*?&lt;skipped[\s\S]*?testcase&gt;"
-				replace=""
+				match="(.*classname=&quot;\S+\.(\w+).*name=&quot;(\w+)[\s\S]+?)(\$\{testray\.testcase\.name\})"
+				replace="\1\2#\3"
 			/>
 
 			<replaceregexp
 				file="@{test.results.file}"
 				flags="g"
-				match="(\s*&lt;testcase[^/\n]*)/&gt;"
-				replace="\1&gt;${line.separator}&lt;/testcase&gt;"
+				match="(&lt;/?)error"
+				replace="\1failure"
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="g"
+				match="(&lt;failure\s*)type"
+				replace="\1message"
 			/>
 
 			<replaceregexp
@@ -160,13 +123,6 @@
 				flags="g"
 				match="&lt;testcase[^&gt;]*&gt;"
 				replace="\0${test.case.attachments}${line.separator}${test.case.properties}"
-			/>
-
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="g"
-				match="(.*classname=&quot;\S+\.(\w+).*name=&quot;(\w+)[\s\S]+?)(\$\{testray\.testcase\.name\})"
-				replace="\1\2#\3"
 			/>
 
 			<replaceregexp
@@ -187,27 +143,22 @@
 					/>
 				</then>
 			</if>
+		</sequential>
+	</macrodef>
 
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="g"
-				match="(&lt;/?)error"
-				replace="\1failure"
-			/>
+	<macrodef name="build-testray-result">
+		<attribute name="test.results.file" />
 
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="g"
-				match="(&lt;failure\s*)type"
-				replace="\1message"
-			/>
+		<sequential>
+			<echo>Build testray result: @{test.results.file}.</echo>
 
-			<replaceregexp
-				file="@{test.results.file}"
-				flags="gm"
-				match="&gt;[^&gt;]*&lt;"
-				replace="&gt;${line.separator}&lt;"
-			/>
+			<format-testray-results test.results.file="@{test.results.file}" />
+
+			<clean-testray-results test.results.file="@{test.results.file}" />
+
+			<apply-properties-to-testray-results test.results.file="@{test.results.file}" />
+
+			<format-testray-results test.results.file="@{test.results.file}" />
 		</sequential>
 	</macrodef>
 
@@ -240,6 +191,97 @@
 					<copy file="javac.output.txt" tofile="${env.TOP_LEVEL_SHARED_DIR}/javac.output.txt" />
 				</then>
 			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="clean-restart-sybase">
+		<attribute name="retry" default="false" />
+		<sequential>
+			<exec executable="service">
+				<arg line="sybase stop" />
+			</exec>
+
+			<waitfor maxwait="60" maxwaitunit="second">
+				<not>
+					<socket server="localhost" port="5000" />
+				</not>
+			</waitfor>
+
+			<sleep if:true="@{retry}" seconds="10" />
+
+			<antcall target="clean-up-sybase-processes" />
+
+			<if if:true="@{retry}">
+				<available file="/opt/sybase.tar.gz" />
+				<then>
+					<delete dir="/opt/sybase" />
+
+					<exec executable="tar" failonerror="true">
+						<arg line="xf /opt/sybase.tar.gz -C /" />
+					</exec>
+
+					<exec executable="hostname" failonerror="true" outputproperty="hostname" />
+
+					<echo file="/opt/sybase/interfaces">lportal
+		master tcp ether ${hostname} 5000
+		query tcp ether ${hostname} 5000
+					</echo>
+				</then>
+				<else>
+					<fail message="Unable to reset Sybase installation due to missing /opt/sybase.tar.gz." />
+				</else>
+			</if>
+
+			<exec executable="service" failonerror="true">
+				<arg line="sybase start" />
+			</exec>
+
+			<waitfor maxwait="60" maxwaitunit="second">
+				<socket server="localhost" port="5000" />
+			</waitfor>
+
+			<sleep if:true="@{retry}" seconds="10" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="clean-testray-results">
+		<attribute name="test.results.file" />
+
+		<sequential>
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="^\s*&lt;/?attachments[^&gt;]*&gt;[\s]"
+				replace=""
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="^\s*&lt;/?environment[^&gt;]*&gt;[\s]"
+				replace=""
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="^\s*&lt;/?file[^&gt;]*&gt;[\s]"
+				replace=""
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="^\s*&lt;/?propert[^&gt;]*&gt;[\s]"
+				replace=""
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="&lt;testcase[^&lt;]*?&lt;skipped[\s\S]*?testcase&gt;"
+				replace=""
+			/>
 		</sequential>
 	</macrodef>
 
@@ -353,6 +395,33 @@
 					</exec>
 				</action>
 			</database-test-action>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="format-testray-results">
+		<attribute name="test.results.file" />
+
+		<sequential>
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="g"
+				match="\^"
+				replace=""
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="gm"
+				match="&gt;([^&gt;^&lt;]*)&lt;"
+				replace="&gt;${line.separator}&lt;"
+			/>
+
+			<replaceregexp
+				file="@{test.results.file}"
+				flags="g"
+				match="(\s*&lt;testcase[^/\n]*)/&gt;"
+				replace="\1&gt;${line.separator}&lt;/testcase&gt;"
+			/>
 		</sequential>
 	</macrodef>
 
@@ -624,6 +693,8 @@
 				<finally>
 					<property name="job.failure.message" value="" />
 
+					<echo>${job.failure.message}</echo>
+
 					<if>
 						<isset property="testray.results.dir" />
 						<then>
@@ -754,10 +825,9 @@
 
 							<antcall target="prepare-system-ext-properties" inheritAll="false" />
 
-							<ant dir="modules" target="test-class-group" inheritAll="false">
-								<property name="test.class.group.index" value="${axis.variable}" />
-								<property name="test.type" value="integration" />
-							</ant>
+							<gradle-execute dir="modules" task="testIntegration">
+								<arg value="-Dtest.class.group.index=${axis.variable}" />
+							</gradle-execute>
 
 							<ant dir="portal-service" target="test-class" inheritAll="false">
 								<property name="test.class" value="PortalLogAssertorTest" />
@@ -789,7 +859,7 @@
 			<echo>Sending testray results to @{testray.results.dir}.</echo>
 
 			<copy failonerror="false" todir="@{testray.results.dir}">
-				<fileset dir="@{test.results.suite.dir}" erroronmissing="false" includes="TESTS-*.xml" />
+				<fileset dir="@{test.results.suite.dir}" erroronmissingdir="false" includes="TESTS-*.xml" />
 			</copy>
 		</sequential>
 	</macrodef>
@@ -854,6 +924,10 @@
 		<run-integration-test database.type="postgresql" />
 	</target>
 
+	<target name="integration-sybase">
+		<run-integration-test database.type="sybase" />
+	</target>
+
 	<target name="modules-integration-db2">
 		<run-modules-integration-test database.type="db2" />
 	</target>
@@ -870,16 +944,26 @@
 		<run-modules-integration-test database.type="postgresql" />
 	</target>
 
+	<target name="modules-integration-sybase">
+		<run-modules-integration-test database.type="sybase" />
+	</target>
+
 	<target name="modules-unit">
 		<property name="testray.main.component.name" value="Unit" />
 		<property name="testray.testcase.priority" value="4" />
 
 		<run-batch-test>
 			<test-action>
-				<ant dir="modules" target="test-class-group" inheritAll="false">
-					<property name="test.class.group.index" value="${axis.variable}" />
-					<property name="test.type" value="unit" />
-				</ant>
+				<gradle-execute dir="modules" task="test">
+					<arg value="-Dtest.class.group.index=${axis.variable}" />
+				</gradle-execute>
+
+				<if>
+					<equals arg1="${axis.variable}" arg2="0" />
+					<then>
+						<gradle-execute dir="modules" task="compileJSP" />
+					</then>
+				</if>
 			</test-action>
 
 			<test-set-up>
@@ -916,7 +1000,7 @@
 						<run-build-selenium />
 
 						<if>
-							<equals arg1="${TEST_PORTAL_WEB}" arg2="true" />
+							<equals arg1="${env.TEST_PORTAL_WEB}" arg2="true" />
 							<then>
 								<run-source-formatter />
 							</then>
@@ -937,17 +1021,108 @@
 
 		<run-batch-test>
 			<test-action>
-				<ant dir="modules/util/portal-tools-service-builder" target="clean" />
+				<gradle-execute dir="modules/util/portal-tools-service-builder" task="deploy">
+					<arg value="clean" />
+				</gradle-execute>
 
-				<ant dir="modules/util/portal-tools-service-builder" target="deploy" />
-
-				<ant dir="portal-impl" target="build-services" />
+				<exec dir="portal-impl" executable="ant" failonerror="true">
+					<arg value="build-services" />
+				</exec>
 			</test-action>
 
 			<test-set-up>
 				<prepare-test-build />
 			</test-set-up>
 		</run-batch-test>
+	</target>
+
+	<target name="sybase-service-start">
+		<local name="database.type" />
+
+		<property name="database.type" value="sybase" />
+
+		<get-database-property property.name="database.password" />
+		<get-database-property property.name="database.schema" />
+		<get-database-property property.name="database.username" />
+
+		<clean-restart-sybase />
+
+		<echo file="create-header.sql">use master
+dump transaction master with no_log
+go
+alter database master on master=232
+go
+drop database lportal
+go
+exec sp_configure 'lock scheme', 0, datarows
+go
+create database lportal on master = "250m"
+go
+exec sp_dboption 'lportal', 'allow nulls by default' , true
+go
+exec sp_dboption 'lportal', 'select into/bulkcopy/pllsort' , true
+go</echo>
+
+		<retry retrycount="10">
+			<sequential>
+				<local name="output.content" />
+				<local name="return.code" />
+
+				<exec executable="${sybase.executable}" outputproperty="output.content" resultproperty="return.code">
+					<arg value="-i" />
+					<arg value="create-header.sql" />
+					<arg value="-P" />
+					<arg value="${database.password}" />
+					<arg value="-S" />
+					<arg value="${database.schema}" />
+					<arg value="-U" />
+					<arg value="${database.username}" />
+				</exec>
+
+				<echo>Return code: ${return.code}
+Output content:
+${output.content}</echo>
+
+				<if>
+					<or>
+						<contains string="${output.content}" substring="Database 'lportal' already exists" />
+						<contains string="${output.content}" substring="The model database is unavailable. It is being used to create a new database." />
+					</or>
+					<then>
+						<clean-restart-sybase retry="true" />
+
+						<fail message="Output content: ${output.content}" />
+					</then>
+				</if>
+
+				<if>
+					<not>
+						<equals arg1="${return.code}" arg2="0" />
+					</not>
+					<then>
+						<clean-restart-sybase retry="true" />
+
+						<fail message="Return code: ${return.code}"  />
+					</then>
+				</if>
+			</sequential>
+		</retry>
+
+		<delete file="create-header.sql" />
+	</target>
+
+	<target name="sybase-service-stop">
+		<exec executable="service">
+			<arg line="sybase stop" />
+		</exec>
+
+		<waitfor maxwait="60" maxwaitunit="second">
+			<not>
+				<socket server="localhost" port="5000" />
+			</not>
+		</waitfor>
+
+		<antcall target="clean-up-sybase-processes" />
 	</target>
 
 	<target name="tck">

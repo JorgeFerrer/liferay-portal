@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="portal" basedir="." default="compile" xmlns:antelope="antlib:ise.antelope.tasks">
+<project name="portal" basedir="." default="compile" xmlns:antelope="antlib:ise.antelope.tasks" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 	<import file="build-common.xml" />
 
 	<macrodef name="setup-jrebel">
@@ -93,7 +93,10 @@
 
 				<setup-sdk />
 
-				<ant dir="${project.dir}/modules" target="clean" inheritAll="false" />
+				<gradle-execute dir="${project.dir}/modules" task="clean">
+					<arg value="--parallel" />
+					<arg value="-Dportal.build=true" />
+				</gradle-execute>
 			</sequential>
 
 			<delete dir="${doc.dir}" />
@@ -204,7 +207,9 @@
 
 		<delete file="javac.output.txt" />
 
-		<ant dir="modules/core/registry-api" target="compile" inheritAll="false" />
+		<gradle-execute dir="modules/core/registry-api" task="classes">
+			<arg value="--parallel" />
+		</gradle-execute>
 
 		<ant dir="portal-service" target="compile" inheritAll="false" />
 
@@ -324,11 +329,20 @@
 			</then>
 		</if>
 
+		<ant dir="portal-web" target="war" inheritAll="false" />
+
+		<antcall target="install-portal-snapshots" />
+
 		<stopwatch name="modules.stopwatch" />
 
-		<ant dir="${project.dir}/modules/core/registry-api" target="deploy" inheritAll="false" />
+		<gradle-execute dir="${project.dir}/modules/core/registry-api" task="deploy">
+			<arg value="--parallel" />
+		</gradle-execute>
 
-		<ant dir="${project.dir}/modules" target="deploy" inheritAll="false" />
+		<gradle-execute dir="${project.dir}/modules" task="deploy">
+			<arg value="--parallel" />
+			<arg value="-Dportal.build=true" />
+		</gradle-execute>
 
 		<stopwatch action="elapsed" name="modules.stopwatch" />
 
@@ -541,6 +555,16 @@
 		</DTDDoc>
 	</target>
 
+	<target name="install-portal-snapshots">
+		<install-portal-snapshot artifact.dir="portal-impl" artifact.name="portal-impl" />
+		<install-portal-snapshot artifact.dir="portal-service" artifact.name="portal-service" />
+		<install-portal-snapshot artifact.dir="portal-web" artifact.name="portal-web" />
+		<install-portal-snapshot artifact.dir="util-bridges" artifact.name="util-bridges" />
+		<install-portal-snapshot artifact.dir="util-java" artifact.name="util-java" />
+		<install-portal-snapshot artifact.dir="util-slf4j" artifact.name="util-slf4j" />
+		<install-portal-snapshot artifact.dir="util-taglib" artifact.name="util-taglib" />
+	</target>
+
 	<target name="jar">
 		<ant dir="portal-service" target="jar" inheritAll="false" />
 
@@ -722,13 +746,9 @@
 	</target>
 
 	<target name="sort-xml-attributes">
-		<path id="source.formatter.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.source.formatter/lib" includes="*.jar" />
-		</path>
-
 		<java
 			classname="com.liferay.portal.tools.source.formatter.XMLAttributesSorter"
-			classpathref="source.formatter.classpath"
+			classpathref="portal.tools.classpath"
 			fork="true"
 			newenvironment="true"
 		>
@@ -908,44 +928,6 @@ print AdminControl.invoke(appManager, 'startApplication', 'liferay-portal')
 			<arg value="--dry-run" />
 			<arg value="-Dmaven.local.ignore=true" />
 		</gradle-execute>
-	</target>
-
-	<target name="update-ivy-cache">
-		<execute>
-			git reset --hard HEAD
-			git clean -d -f
-
-			rm -fr .ivy
-
-			ant setup-sdk
-
-			ant -f modules/apps/build.xml clean
-			ant -f modules/core/build.xml clean
-			ant -f modules/portal/build.xml clean
-			ant -f modules/portal-cache/build.xml clean
-			ant -f modules/portal-security/build.xml clean
-			ant -f modules/portal-store/build.xml clean
-			ant -f modules/sdk/build.xml clean
-			ant -f modules/test/build.xml clean
-			ant -f modules/third-party/build.xml clean
-			ant -f modules/util/build.xml clean
-
-			ant -f modules/core/registry-api/build.xml deploy
-			ant -f modules/core/registry-test/build.xml compile-test
-
-			ant -f modules/apps/build.xml compile-test
-			ant -f modules/core/build.xml compile-test
-			ant -f modules/portal/build.xml compile-test
-			ant -f modules/portal-cache/build.xml compile-test
-			ant -f modules/portal-security/build.xml compile-test
-			ant -f modules/portal-store/build.xml compile-test
-			ant -f modules/sdk/build.xml compile-test
-			ant -f modules/test/build.xml compile-test
-			ant -f modules/third-party/build.xml compile-test
-			ant -f modules/util/build.xml compile-test
-
-			ant -f portal-service/build.xml test-class -Dtest.class=StringUtilTest
-		</execute>
 	</target>
 
 	<target name="update-plugins-to-svn-revision">

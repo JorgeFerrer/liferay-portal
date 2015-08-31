@@ -67,7 +67,7 @@ public class AddLayoutPrototypeAction {
 		Layout layout = DefaultLayoutPrototypesUtil.addLayoutPrototype(
 			companyId, defaultUserId, "layout-prototype-web-content-title",
 			"layout-prototype-web-content-description", "2_columns_ii",
-			layoutPrototypes);
+			layoutPrototypes, AddLayoutPrototypeAction.class.getClassLoader());
 
 		if (layout == null) {
 			return;

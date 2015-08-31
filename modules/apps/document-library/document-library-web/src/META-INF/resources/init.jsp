@@ -27,16 +27,18 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.document.library.web.constants.DLPortletKeys" %><%@
-page import="com.liferay.document.library.web.display.context.DLDisplayContextProviderUtil" %><%@
-page import="com.liferay.document.library.web.display.context.IGDisplayContextProviderUtil" %><%@
+page import="com.liferay.document.library.web.display.context.DLDisplayContextProvider" %><%@
+page import="com.liferay.document.library.web.display.context.IGDisplayContextProvider" %><%@
 page import="com.liferay.document.library.web.display.context.logic.DLPortletInstanceSettingsHelper" %><%@
 page import="com.liferay.document.library.web.display.context.logic.DLVisualizationHelper" %><%@
 page import="com.liferay.document.library.web.display.context.util.DLDisplayRequestHelper" %><%@
 page import="com.liferay.document.library.web.display.context.util.DLRequestHelper" %><%@
 page import="com.liferay.document.library.web.display.context.util.IGRequestHelper" %><%@
+page import="com.liferay.document.library.web.portlet.action.EditFileEntryMVCActionCommand" %><%@
 page import="com.liferay.document.library.web.search.EntriesChecker" %><%@
 page import="com.liferay.document.library.web.settings.internal.DLPortletInstanceSettings" %><%@
 page import="com.liferay.document.library.web.util.DLBreadcrumbUtil" %><%@
+page import="com.liferay.document.library.web.util.DLWebComponentProvider" %><%@
 page import="com.liferay.dynamic.data.mapping.service.DDMStorageLinkLocalServiceUtil" %><%@
 page import="com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil" %><%@
 page import="com.liferay.dynamic.data.mapping.storage.StorageEngineUtil" %><%@
@@ -251,6 +253,11 @@ WindowState windowState = liferayPortletRequest.getWindowState();
 PortletURL currentURLObj = PortletURLUtil.getCurrent(liferayPortletRequest, liferayPortletResponse);
 
 String currentURL = currentURLObj.toString();
+
+DLWebComponentProvider dlWebComponentProvider = DLWebComponentProvider.getDLWebComponentProvider();
+
+DLDisplayContextProvider dlDisplayContextProvider = dlWebComponentProvider.getDLDisplayContextProvider();
+IGDisplayContextProvider igDisplayContextProvider = dlWebComponentProvider.getIGDisplayContextProvider();
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZone);

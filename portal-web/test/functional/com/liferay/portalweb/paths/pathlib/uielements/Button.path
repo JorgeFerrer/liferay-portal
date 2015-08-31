@@ -110,7 +110,7 @@
 </tr>
 <tr>
 	<td>CANCEL</td>
-	<td>//a[contains(@id,'cancel') and contains(@class,'btn')] | //button[contains(.,'Cancel')]</td>
+	<td>//a[contains(@class,'cancel') and contains(@class,'btn')] | //button[contains(.,'Cancel')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -126,6 +126,11 @@
 <tr>
 	<td>CHANGE_NODE</td>
 	<td>//button[contains(.,'Change Node')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHANGE_PARENT</td>
+	<td>//button[contains(.,'Change Parent')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -166,6 +171,11 @@
 <tr>
 	<td>CLOSE_SIDE_NAVIGATION</td>
 	<td>//span[contains(@class,'sidenav-close')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COG</td>
+	<td>//button[contains(@id,'settingsIcon')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -339,6 +349,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>PLUS</td>
+	<td>//span[contains(@class,'icon-plus')]/../../button</td>
+	<td></td>
+</tr>
+<tr>
 	<td>POST</td>
 	<td>//button[contains(.,'Post')]</td>
 	<td></td>
@@ -400,12 +415,12 @@
 </tr>
 <tr>
 	<td>SAVE</td>
-	<td>//button[contains(.,'Save')]</td>
+	<td>//button[contains(.,'Save')] | //div[@class='button-holder ']/button[contains(.,'Save')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SAVE_AND_CHECKIN</td>
-	<td>//button[contains(.,'Save and Checkin')]</td>
+	<td>//button[contains(.,'Save and Check In')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -431,6 +446,11 @@
 <tr>
 	<td>SEARCH</td>
 	<td>//button[contains(.,'Search')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEARCH_2</td>
+	<td>xpath=(//button[contains(.,'Search')])[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -525,7 +545,7 @@
 </tr>
 <tr>
 	<td>VIEW_HISTORY</td>
-	<td>//button[contains(.,'View History')]</td>
+	<td>//a[contains(.,'View History')]</td>
 	<td></td>
 </tr>
 <tr>

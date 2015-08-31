@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.SearchEngineUtil;
+import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -41,6 +42,8 @@ import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionCacheUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
+import com.liferay.portal.security.permission.PermissionUpdateHandler;
+import com.liferay.portal.security.permission.PermissionUpdateHandlerRegistryUtil;
 import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.service.base.ResourcePermissionLocalServiceBaseImpl;
 import com.liferay.portal.util.PropsValues;
@@ -55,6 +58,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 
 /**
@@ -667,25 +671,29 @@ public class ResourcePermissionLocalServiceImpl
 				"The list of resources must contain at least two values");
 		}
 
-		Resource firstResource = resources.get(0);
+		Resource individualResource = resources.get(0);
 
-		if (firstResource.getScope() != ResourceConstants.SCOPE_INDIVIDUAL) {
+		if (individualResource.getScope() !=
+				ResourceConstants.SCOPE_INDIVIDUAL) {
+
 			throw new IllegalArgumentException(
 				"The first resource must be an individual scope");
 		}
 
-		Resource lastResource = resources.get(size - 1);
+		Resource companyResource = resources.get(size - 1);
 
-		if (lastResource.getScope() != ResourceConstants.SCOPE_COMPANY) {
+		if (companyResource.getScope() != ResourceConstants.SCOPE_COMPANY) {
 			throw new IllegalArgumentException(
 				"The last resource must be a company scope");
 		}
 
 		// See LPS-47464
 
-		if (resourcePermissionPersistence.countByC_N_S_P(
-				firstResource.getCompanyId(), firstResource.getName(),
-				firstResource.getScope(), firstResource.getPrimKey()) < 1) {
+		if (!isRootResource(individualResource) &&
+			resourcePermissionPersistence.countByC_N_S_P(
+				individualResource.getCompanyId(), individualResource.getName(),
+				individualResource.getScope(),
+				individualResource.getPrimKey()) < 1) {
 
 			return false;
 		}
@@ -1322,6 +1330,9 @@ public class ResourcePermissionLocalServiceImpl
 					companyId, name, scope, primKey, ownerId, roleId, actionIds,
 					ResourcePermissionConstants.OPERATOR_SET, false);
 			}
+
+			TransactionCommitCallbackUtil.registerCallback(
+				new UpdateResourcePermissionCallable(name, primKey));
 		}
 		finally {
 			PermissionThreadLocal.setFlushResourcePermissionEnabled(
@@ -1342,6 +1353,25 @@ public class ResourcePermissionLocalServiceImpl
 
 		if (roleId == guestRole.getRoleId()) {
 			return true;
+		}
+
+		return false;
+	}
+
+	protected boolean isRootResource(Resource resource) {
+		List<String> portletNames = ResourceActionsUtil.getPortletNames();
+
+		for (String portletName : portletNames) {
+			String rootResource =
+				ResourceActionsUtil.getPortletRootModelResource(portletName);
+
+			if (rootResource == null) {
+				continue;
+			}
+
+			if (rootResource.equals(resource.getName())) {
+				return true;
+			}
 		}
 
 		return false;
@@ -1502,5 +1532,32 @@ public class ResourcePermissionLocalServiceImpl
 
 	private static final String _UPDATE_ACTION_IDS =
 		ResourcePermissionLocalServiceImpl.class.getName() + ".updateActionIds";
+
+	private class UpdateResourcePermissionCallable implements Callable<Void> {
+
+		public UpdateResourcePermissionCallable(String name, String primKey) {
+			_name = name;
+			_primKey = primKey;
+		}
+
+		@Override
+		public Void call() {
+			PermissionUpdateHandler permissionUpdateHandler =
+				PermissionUpdateHandlerRegistryUtil.getPermissionUpdateHandler(
+					_name);
+
+			if (permissionUpdateHandler == null) {
+				return null;
+			}
+
+			permissionUpdateHandler.updatedPermission(_primKey);
+
+			return null;
+		}
+
+		private final String _name;
+		private final String _primKey;
+
+	}
 
 }
