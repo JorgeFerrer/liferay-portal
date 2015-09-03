@@ -14,14 +14,10 @@
 
 package com.liferay.gradle.plugins.js.module.config.generator;
 
+import com.liferay.gradle.plugins.node.tasks.ExecuteNodeTask;
 import com.liferay.gradle.util.FileUtil;
 import com.liferay.gradle.util.GradleUtil;
 import com.liferay.gradle.util.StringUtil;
-import com.liferay.gradle.util.Validator;
-
-import com.moowork.gradle.node.NodeExtension;
-import com.moowork.gradle.node.task.NodeTask;
-import com.moowork.gradle.node.task.SetupTask;
 
 import groovy.lang.Closure;
 
@@ -54,7 +50,7 @@ import org.gradle.util.GUtil;
 /**
  * @author Andrea Di Giorgi
  */
-public class ConfigJSModulesTask extends NodeTask {
+public class ConfigJSModulesTask extends ExecuteNodeTask {
 
 	public ConfigJSModulesTask() {
 		dependsOn(
@@ -62,7 +58,6 @@ public class ConfigJSModulesTask extends NodeTask {
 				DOWNLOAD_LFR_MODULE_CONFIG_GENERATOR_TASK_NAME);
 		dependsOn(
 			BasePlugin.CLEAN_TASK_NAME + StringUtil.capitalize(getName()));
-		dependsOn(SetupTask.NAME);
 
 		onlyIf(
 			new Spec<Task>() {
@@ -79,26 +74,6 @@ public class ConfigJSModulesTask extends NodeTask {
 					}
 
 					return false;
-				}
-
-			});
-
-		Project project = getProject();
-
-		project.afterEvaluate(
-			new Action<Project>() {
-
-				@Override
-				public void execute(Project project) {
-					NodeExtension nodeExtension = GradleUtil.getExtension(
-						project, NodeExtension.class);
-
-					File scriptFile = new File(
-						nodeExtension.getNodeModulesDir(),
-						"node_modules/lfr-module-config-generator/bin" +
-							"/index.js");
-
-					setScript(scriptFile);
 				}
 
 			});
@@ -129,7 +104,7 @@ public class ConfigJSModulesTask extends NodeTask {
 	}
 
 	@Override
-	public void exec() {
+	public void executeNode() {
 		Project project = getProject();
 
 		project.copy(
@@ -145,7 +120,7 @@ public class ConfigJSModulesTask extends NodeTask {
 
 		setArgs(getCompleteArgs());
 
-		super.exec();
+		super.executeNode();
 
 		project.copy(
 			new Action<CopySpec>() {
@@ -309,25 +284,31 @@ public class ConfigJSModulesTask extends NodeTask {
 	protected List<Object> getCompleteArgs() {
 		List<Object> completeArgs = new ArrayList<>();
 
+		File scriptFile = new File(
+			getNodeDir(),
+			"node_modules/lfr-module-config-generator/bin/index.js");
+
+		completeArgs.add(FileUtil.getAbsolutePath(scriptFile));
+
 		GUtil.addToCollection(completeArgs, getArgs());
 
 		String configVariable = getConfigVariable();
 
-		if (Validator.isNotNull(configVariable)) {
+		if (configVariable != null) {
 			completeArgs.add("--config");
 			completeArgs.add(configVariable);
 		}
 
 		String moduleExtension = getModuleExtension();
 
-		if (Validator.isNotNull(moduleExtension)) {
+		if (moduleExtension != null) {
 			completeArgs.add("--extension");
 			completeArgs.add(moduleExtension);
 		}
 
 		String moduleFormat = getModuleFormat();
 
-		if (Validator.isNotNull(moduleFormat)) {
+		if (moduleFormat != null) {
 			completeArgs.add("--format");
 			completeArgs.add(moduleFormat);
 		}

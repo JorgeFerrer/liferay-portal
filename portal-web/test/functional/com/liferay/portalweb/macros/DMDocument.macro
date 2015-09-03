@@ -596,7 +596,7 @@
 					</then>
 				</if>
 
-				<execute function="AssertClick" locator1="Button#SAVE_AND_CHECKIN" value1="Save and Checkin" />
+				<execute function="AssertClick" locator1="Button#SAVE_AND_CHECKIN" value1="Save and Check In" />
 			</then>
 		</if>
 
@@ -1019,7 +1019,7 @@
 			</then>
 		</if>
 
-		<execute function="AssertClick" locator1="Button#SAVE_AND_CHECKIN" value1="Save and Checkin" />
+		<execute function="AssertClick" locator1="Button#SAVE_AND_CHECKIN" value1="Save and Check In" />
 
 		<execute function="AssertTextEquals#assertPartialText" locator1="PGDocumentsandmediaDocument#SUCCESS_MESSAGE" value1="Your request completed successfully." />
 	</command>
@@ -2278,7 +2278,7 @@
 
 	<command name="viewStagingDetailsPG">
 		<execute function="Click" locator1="Toolbar#ADD" />
-		<execute function="AssertTextEquals" locator1="MenuItem#FOLDER" value1="Folder" />
+		<execute function="AssertTextEquals" locator1="MenuItem#FOLDER_DM" value1="Folder" />
 		<execute function="AssertTextEquals" locator1="MenuItem#SHORTCUT" value1="Shortcut" />
 		<execute function="AssertTextEquals" locator1="MenuItem#REPOSITORY" value1="Repository" />
 		<execute function="AssertTextEquals" locator1="MenuItem#MULTIPLE_DOCUMENTS" value1="Multiple Documents" />

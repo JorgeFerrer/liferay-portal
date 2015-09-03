@@ -71,9 +71,11 @@
 
 		<execute function="AssertClick" locator1="SitePages#NAVIGATION_PUBLIC_PAGES" value1="Public Pages" />
 
+		<execute macro-mobile="MobileNavigator#clickReorderIcon" />
+
 		<execute function="AssertClick" locator1="SitePages#TOOLBAR_ADD_PAGE" value1="Add Page" />
 
-		<execute function="Type#mouseOverFocusType" locator1="TextInput#NAME" value1="${pageName}" />
+		<execute function="Type#typeClickAt" locator1="TextInput#NAME" value1="${pageName}" />
 
 		<var name="key_pageType" value="${pageTemplateName}" />
 
@@ -130,6 +132,8 @@
 				</then>
 			</elseif>
 		</if>
+
+		<execute macro-mobile="MobileNavigator#clickReorderButton" />
 
 		<var name="key_pageName" value="${pageName}" />
 
@@ -221,7 +225,7 @@
 	</command>
 
 	<command name="deleteLivePG">
-		<execute function="Click#clickAtSidebarClickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 		<execute function="ClickNoError" locator1="ControlMenu#EDIT_LIVE_DELETE" />
 
 		<execute function="Confirm#waitForConfirmation" value1="Are you sure you want to delete the selected page?" />
@@ -237,12 +241,12 @@
 	</command>
 
 	<command name="editPageLayoutColumn">
-		<execute function="Click#clickAtSidebarClickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 
 		<if>
 			<condition function="IsElementNotPresent#isNotVisible" locator1="TextInput#NAME" />
 			<then>
-				<execute function="AssertClick" locator1="ControlMenuEditPanel#DETAILS_PANEL_TOGGLE" value1="Details" />
+				<execute function="AssertClick" locator1="SitePagesEditPage#DETAILS_PANEL_TOGGLE" value1="Details" />
 			</then>
 		</if>
 
@@ -586,7 +590,7 @@
 	</command>
 
 	<command name="gotoEdit">
-		<execute function="Click#clickAtSidebarClickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 	</command>
 
 	<command name="gotoMyAccount">
@@ -612,11 +616,16 @@
 
 		<execute function="AssertClick" locator1="ProductMenu#PRODUCT_MENU_TABS_MY_SPACE_NAVIGATION" value1="My Space" />
 
-		<var name="key_portletCategoryName" value="My Account" />
-
-		<execute function="AssertClick" locator1="ProductMenu#PRODUCT_MENU_PANEL_MY_SPACE_PANEL_TITLE" value1="My Account" />
-
 		<var name="key_portletName" value="${portletName}" />
+
+		<if>
+			<condition function="IsElementNotPresent" locator1="ProductMenu#PRODUCT_MENU_PANEL_MENU_ITEM" />
+			<then>
+				<var name="key_portletCategoryName" value="My Account" />
+
+				<execute function="AssertClick" locator1="ProductMenu#PRODUCT_MENU_PANEL_MY_SPACE_PANEL_TITLE" value1="My Account" />
+			</then>
+		</if>
 
 		<execute function="AssertClick" locator1="ProductMenu#PRODUCT_MENU_PANEL_MENU_ITEM" value1="${portletName}" />
 	</command>
@@ -738,6 +747,25 @@
 				</execute>
 			</else>
 		</if>
+	</command>
+
+	<command name="gotoPublishingtools">
+		<description message="Navigate to Site Administration > Publishing tools > ${portletName}." />
+
+		<execute macro="Page#gotoCmdCP">
+			<var name="friendlyURL" value="${friendlyURL}" />
+			<var name="nodePort" value="${nodePort}" />
+			<var name="pageAccess" value="${pageAccess}" />
+			<var name="pageStaging" value="${pageStaging}" />
+			<var name="portletCategoryName" value="Publishing tools" />
+			<var name="portletName" value="${portletName}" />
+			<var name="siteName" value="${siteName}" />
+			<var name="siteNameURL" value="${siteNameURL}" />
+			<var name="siteScopeName" value="${siteScopeName}" />
+			<var name="siteURL" value="${siteURL}" />
+			<var name="specificURL" value="${specificURL}" />
+			<var name="virtualHostsURL" value="${virtualHostsURL}" />
+		</execute>
 	</command>
 
 	<command name="gotoSALocalizedCP">
@@ -1015,12 +1043,12 @@
 	</command>
 
 	<command name="viewFriendlyURLLanguageOptionsPG">
-		<execute function="Click#clickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 
 		<if>
 			<condition function="IsElementPresent" locator1="SitePagesEditPage#FRIENDLY_URL_TITLE" />
 			<then>
-				<execute function="Click" locator1="ControlMenuEditPanel#DETAILS_PANEL_TOGGLE" />
+				<execute function="Click" locator1="SitePagesEditPage#DETAILS_PANEL_TOGGLE" />
 			</then>
 		</if>
 
@@ -1045,7 +1073,7 @@
 	</command>
 
 	<command name="viewPageFriendURLPG">
-		<execute function="Click#clickAtSidebarClickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 
 		<execute function="AssertTextNotPresent" locator1="SitePagesEditPage#FRIENDLY_URL_FIELD" value1="${pageName}" />
 		<execute function="AssertTextEquals" locator1="SitePagesEditPage#FRIENDLY_URL_FIELD" value1="/2" />
@@ -1063,7 +1091,7 @@
 			</then>
 		</if>
 
-		<execute function="Click#clickAt" locator1="Icon#EDIT" />
+		<execute function="Click" locator1="ControlMenu#EDIT_COG" />
 
 		<var name="key_defaultSiteLanguageKey" value="${defaultSiteLanguageKey}" />
 

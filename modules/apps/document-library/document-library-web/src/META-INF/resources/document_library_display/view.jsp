@@ -31,7 +31,7 @@ long folderId = BeanParamUtil.getLong(folder, request, "folderId", defaultFolder
 
 boolean defaultFolderView = false;
 
-if ((folder == null) && (defaultFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID)) {
+if (defaultFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 	defaultFolderView = true;
 }
 
@@ -257,7 +257,7 @@ request.setAttribute("view.jsp-useAssetEntryQuery", String.valueOf(useAssetEntry
 		>
 
 			<liferay-ui:search-container-results
-				results="<%= DLAppServiceUtil.getGroupFileEntries(repositoryId, groupFileEntriesUserId, defaultFolderId, null, status, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
+				results="<%= DLAppServiceUtil.getGroupFileEntries(repositoryId, groupFileEntriesUserId, defaultFolderId, null, status, searchContainer.getStart(), searchContainer.getEnd(), new RepositoryModelModifiedDateComparator()) %>"
 			/>
 
 			<liferay-ui:search-container-row

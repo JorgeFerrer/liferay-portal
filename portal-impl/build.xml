@@ -262,13 +262,9 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="build-lang-cmd">
-		<path id="lang.builder.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.lang.builder/lib" includes="*.jar" />
-		</path>
-
 		<java
 			classname="com.liferay.lang.builder.LangBuilder"
-			classpathref="lang.builder.classpath"
+			classpathref="portal.tools.classpath"
 			fork="true"
 			newenvironment="true"
 		>
@@ -619,13 +615,9 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 	</target>
 
 	<target name="build-service">
-		<path id="service.builder.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.portal.tools.service.builder/lib" includes="*.jar" />
-		</path>
-
 		<java
 			classname="com.liferay.portal.tools.service.builder.ServiceBuilder"
-			classpathref="service.builder.classpath"
+			classpathref="portal.tools.classpath"
 			fork="true"
 			newenvironment="true"
 			outputproperty="build-service.output"
@@ -786,7 +778,9 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 		<antcall target="build-service-portal" />
 		<antcall target="build-service-portlets" />
 
-		<ant dir="../modules" target="build-service" />
+		<gradle-execute dir="../modules" task="buildService">
+			<arg value="-Dportal.build=true" />
+		</gradle-execute>
 	</target>
 
 	<target name="build-themes">
@@ -803,13 +797,9 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 					<property name="upgrade.table.dir" value="${upgrade.table.dir}" />
 				</ant>
 
-				<path id="upgrade.table.builder.classpath">
-					<fileset dir="${sdk.dir}/dependencies/com.liferay.portal.tools.upgrade.table.builder/lib" includes="*.jar" />
-				</path>
-
 				<java
 					classname="com.liferay.portal.tools.upgrade.table.builder.UpgradeTableBuilder"
-					classpathref="upgrade.table.builder.classpath"
+					classpathref="portal.tools.classpath"
 					fork="true"
 					newenvironment="true"
 				>
@@ -823,7 +813,7 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 
 	<target name="build-wsdd" depends="compile">
 		<path id="wsdd.builder.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.portal.tools.wsdd.builder/lib" includes="*.jar" />
+			<path refid="portal.tools.classpath" />
 			<path refid="project.classpath" />
 		</path>
 
@@ -987,7 +977,7 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 
 	<target name="format-source">
 		<path id="source.formatter.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.source.formatter/lib" includes="*.jar" />
+			<path refid="portal.tools.classpath" />
 			<path refid="project.classpath" />
 		</path>
 
@@ -1011,19 +1001,22 @@ svn://svn.liferay.com/repos/public/alloy/trunk/sandbox/taglibs.
 			<jvmarg value="-Xss2048k" />
 			<jvmarg value="-Dsource.formatter.check.unprocessed.exceptions=${source.formatter.check.unprocessed.exceptions}" />
 			<jvmarg value="-Dsource.formatter.excludes=${source.formatter.excludes}" />
+			<arg value="format.local.changes=${format.local.changes}" />
 		</java>
 
 		<delete file="ServiceBuilder.temp" />
 	</target>
 
-	<target name="format-tld">
-		<path id="tld.formatter.classpath">
-			<fileset dir="${sdk.dir}/dependencies/com.liferay.tld.formatter/lib" includes="*.jar" />
-		</path>
+	<target name="format-source-local-changes">
+		<antcall target="format-source">
+			<param name="format.local.changes" value="true" />
+		</antcall>
+	</target>
 
+	<target name="format-tld">
 		<java
 			classname="com.liferay.tld.formatter.TLDFormatter"
-			classpathref="tld.formatter.classpath"
+			classpathref="portal.tools.classpath"
 			dir="${project.dir}"
 			fork="true"
 			newenvironment="true"

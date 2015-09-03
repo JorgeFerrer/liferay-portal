@@ -188,6 +188,12 @@ public class PortletDataContextImpl implements PortletDataContext {
 		}
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link
+	 *             BaseStagedModelDataHandler#exportAssetTags(
+	 *             PortletDataContext, StagedModel)}
+	 */
+	@Deprecated
 	@Override
 	public void addAssetTags(Class<?> clazz, long classPK) {
 		String[] tagNames = AssetTagLocalServiceUtil.getTagNames(
@@ -247,7 +253,6 @@ public class PortletDataContextImpl implements PortletDataContext {
 					classedModel);
 
 				addAssetLinks(clazz, classPK);
-				addAssetTags(clazz, classPK);
 				addExpando(element, path, classedModel, clazz);
 				addLocks(clazz, String.valueOf(classPK));
 				addPermissions(clazz, classPK);
@@ -399,7 +404,14 @@ public class PortletDataContextImpl implements PortletDataContext {
 			String roleName = role.getName();
 
 			if (role.isTeam()) {
-				roleName = PermissionExporter.ROLE_TEAM_PREFIX + roleName;
+				try {
+					roleName =
+						PermissionExporter.ROLE_TEAM_PREFIX +
+							role.getDescriptiveName();
+				}
+				catch (PortalException pe) {
+					_log.error(pe, pe);
+				}
 			}
 
 			KeyValuePair permission = new KeyValuePair(

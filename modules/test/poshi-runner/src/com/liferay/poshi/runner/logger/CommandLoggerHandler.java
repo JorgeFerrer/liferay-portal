@@ -129,10 +129,12 @@ public final class CommandLoggerHandler {
 		List<LoggerElement> runLineLoggerElements =
 			childContainerLoggerElement.loggerElements("li");
 
-		LoggerElement runLineLoggerElement = runLineLoggerElements.get(
-			runLineLoggerElements.size() - 1);
+		if (!runLineLoggerElements.isEmpty()) {
+			LoggerElement runLineLoggerElement = runLineLoggerElements.get(
+				runLineLoggerElements.size() - 1);
 
-		runLineLoggerElement.addClassName("error-line");
+			runLineLoggerElement.addClassName("error-line");
+		}
 	}
 
 	private static LoggerElement _getButtonLoggerElement(int btnLinkId) {
@@ -164,7 +166,7 @@ public final class CommandLoggerHandler {
 		loggerElement.setClassName("console errorPanel toggle");
 
 		loggerElement.addChildLoggerElement(
-			SummaryLoggerHandler.getSummaryLogLoggerElement());
+			SummaryLoggerHandler.getSummarySnapshotLoggerElement());
 
 		return loggerElement;
 	}
@@ -233,7 +235,6 @@ public final class CommandLoggerHandler {
 			if (PoshiRunnerVariablesUtil.containsKeyInExecuteMap(locatorKey)) {
 				sb.append(_getLineItemText("misc", " with "));
 				sb.append(_getLineItemText("param-type", locatorKey));
-				sb.append(_getLineItemText("misc", "&nbsp;"));
 
 				String paramValue =
 					PoshiRunnerVariablesUtil.getValueFromExecuteMap(locatorKey);
@@ -246,7 +247,6 @@ public final class CommandLoggerHandler {
 			if (PoshiRunnerVariablesUtil.containsKeyInExecuteMap(valueKey)) {
 				sb.append(_getLineItemText("misc", " with "));
 				sb.append(_getLineItemText("param-type", valueKey));
-				sb.append(_getLineItemText("misc", "&nbsp;"));
 
 				String paramValue =
 					PoshiRunnerVariablesUtil.getValueFromExecuteMap(valueKey);
@@ -317,7 +317,6 @@ public final class CommandLoggerHandler {
 			sb.append(_getLineItemText("misc", " with parameters"));
 
 			for (String argument : arguments) {
-				sb.append(_getLineItemText("misc", "&nbsp;"));
 				sb.append(_getLineItemText("param-value", argument));
 			}
 		}

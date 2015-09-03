@@ -32,7 +32,8 @@ AUI.add(
 				'<span class="icon icon-loading lfr-tree-loading-icon"></span>' +
 			'</div>';
 
-		var LayoutsTreeBase = function() {};
+		var LayoutsTreeBase = function() {
+		};
 
 		LayoutsTreeBase.ATTRS = {
 			incomplete: {
@@ -81,8 +82,6 @@ AUI.add(
 					A.Node.create(TREE_LOADING_EL_TPL),
 					boundingBox
 				);
-
-				instance.set('lazyLoad', false);
 
 				instance._treeId = instance.get(STR_BOUNDING_BOX).attr('data-treeid');
 

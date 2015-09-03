@@ -15,7 +15,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath group: "com.liferay", name: "com.liferay.gradle.plugins", version: "+"
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins", version: "1.0.4"
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.maven.plugin.builder", version: "1.0.2"
 	}
 }
@@ -91,26 +91,46 @@ gradle.taskGraph.useFilter {
 		}
 	}
 	else if (task.name == "configJSModules") {
-		FileTree esJsFileTree = fileTree(dir: task.project.projectDir, exclude: "**/samples/**", include: "**/*.es.js")
-
-		if (!FileUtil.exists(task.project, "bower.json") || esJsFileTree.empty) {
+		if (!FileUtil.exists(task.project, "bower.json")) {
 			return false
 		}
 	}
 	else if (task.name == "test") {
-		if (!FileUtil.exists(task.project, "test/unit")) {
+		if (!_hasTestClasses(task.project, "test/unit")) {
 			return false
 		}
 	}
 	else if (task.name == "testIntegration") {
-		if (!FileUtil.exists(task.project, "test/integration")) {
+		if (!_hasTestClasses(task.project, "test/integration")) {
 			return false
 		}
 	}
 	else if (task.name == "transpileJS") {
-		FileTree esJsFileTree = fileTree(dir: task.project.projectDir, exclude: "**/samples/**", include: "**/*.es.js")
+		FileTree esJsFileTree = fileTree(dir: task.project.projectDir, exclude: "**/samples/**", include: "src/**/*.es.js")
 
 		if (esJsFileTree.empty) {
+			return false
+		}
+	}
+
+	return true
+}
+
+private boolean _hasTestClasses(Project project, String testClassesDirName) {
+	File testClassesDir = project.file(testClassesDirName)
+
+	if (!testClassesDir.exists()) {
+		return false
+	}
+
+	if (project.gradle.hasProperty("testClassGroupIndex")) {
+		List<String> testJavaClasses = project.gradle.testClasses.collect {
+			it.replace ".class", ".java"
+		}
+
+		FileTree testJavaClassesFileTree = project.fileTree(dir: testClassesDir, includes: testJavaClasses)
+
+		if (testJavaClassesFileTree.empty) {
 			return false
 		}
 	}

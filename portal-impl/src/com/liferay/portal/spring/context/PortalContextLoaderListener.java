@@ -15,7 +15,6 @@
 package com.liferay.portal.spring.context;
 
 import com.liferay.portal.bean.BeanLocatorImpl;
-import com.liferay.portal.dao.jdbc.util.DataSourceWrapper;
 import com.liferay.portal.dao.orm.hibernate.FieldInterceptionHelperUtil;
 import com.liferay.portal.deploy.hot.CustomJspBagRegistryUtil;
 import com.liferay.portal.deploy.hot.IndexerPostProcessorRegistry;
@@ -166,9 +165,9 @@ public class PortalContextLoaderListener extends ContextLoaderListener {
 			_log.error(e, e);
 		}
 
-		closeDataSource("counterDataSourceWrapper");
+		closeDataSource("counterDataSourceImpl");
 
-		closeDataSource("liferayDataSourceWrapper");
+		closeDataSource("liferayDataSourceImpl");
 
 		try {
 			super.contextDestroyed(servletContextEvent);
@@ -300,6 +299,10 @@ public class PortalContextLoaderListener extends ContextLoaderListener {
 			SchedulerEngineHelper.class,
 			SingleDestinationMessageSenderFactory.class);
 
+		ClassLoader portalClassLoader = ClassLoaderUtil.getPortalClassLoader();
+
+		ClassLoaderPool.register(_portalServletContextName, portalClassLoader);
+
 		PortalContextLoaderLifecycleThreadLocal.setInitializing(true);
 
 		try {
@@ -335,10 +338,6 @@ public class PortalContextLoaderListener extends ContextLoaderListener {
 			SingleVMPoolUtil.clear();
 			WebCachePoolUtil.clear();
 		}
-
-		ClassLoader portalClassLoader = ClassLoaderUtil.getPortalClassLoader();
-
-		ClassLoaderPool.register(_portalServletContextName, portalClassLoader);
 
 		ServletContextPool.put(_portalServletContextName, servletContext);
 
@@ -392,10 +391,7 @@ public class PortalContextLoaderListener extends ContextLoaderListener {
 	}
 
 	protected void closeDataSource(String name) {
-		DataSourceWrapper dataSourceWrapper =
-			(DataSourceWrapper)PortalBeanLocatorUtil.locate(name);
-
-		DataSource dataSource = dataSourceWrapper.getWrappedDataSource();
+		DataSource dataSource = (DataSource)PortalBeanLocatorUtil.locate(name);
 
 		if (dataSource instanceof Closeable) {
 			try {

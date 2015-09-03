@@ -5,6 +5,7 @@ FileTree fileTree = fileTree(rootDir) {
 		exclude "apps/journal/journal-content-asset-addon-entry/build.gradle"
 		exclude "apps/mentions/mentions-editor-config/build.gradle"
 		exclude "apps/social/social-networking-*/build.gradle"
+		exclude "frontend/frontend-js-metal-web/build.gradle"
 		exclude "portal/portal-search-solr/build.gradle"
 		exclude "portal/portal-taglib-aui-form-extension-sample/build.gradle"
 
@@ -49,10 +50,11 @@ FileTree fileTree = fileTree(rootDir) {
 		include "apps/plugins-admin/*/build.gradle"
 		include "apps/polls/*/build.gradle"
 		include "apps/portal-instances/*/build.gradle"
+		include "apps/portal-settings/*/build.gradle"
 		include "apps/portlet-configuration/*/build.gradle"
 		include "apps/portlet-css/*/build.gradle"
 		include "apps/portlet-display-template/*/build.gradle"
-		include "apps/product-menu/*/build.gradle"
+		include "apps/product-navigation/*/build.gradle"
 		include "apps/quick-note/*/build.gradle"
 		include "apps/ratings/*/build.gradle"
 		include "apps/roles/*/build.gradle"
@@ -103,4 +105,21 @@ fileTree.each {
 	moduleDirName = moduleDirName.replaceFirst("/build.gradle", "")
 
 	include ":" + moduleDirName.replaceAll("[\\/]", ":")
+}
+
+String testClassGroupIndex = System.getProperty("test.class.group.index")
+
+if (testClassGroupIndex) {
+	Properties properties = new Properties()
+
+	File file = new File(rootDir, "../test.class.file.names.properties")
+
+	properties.load(new StringReader(file.text.replace("\\", "/")))
+
+	String testClassGroup = properties["TEST_CLASS_GROUP_" + testClassGroupIndex]
+	String testClassGroups = properties["TEST_CLASS_GROUPS"]
+
+	gradle.ext.testClasses = testClassGroup.tokenize(",")
+	gradle.ext.testClassGroupIndex = testClassGroupIndex
+	gradle.ext.testClassGroups = testClassGroups
 }

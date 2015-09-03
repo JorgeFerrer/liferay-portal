@@ -59,6 +59,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>checkboxData</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>checkboxDisabled</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -114,6 +119,16 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>resultRow</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>rowChecker</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>showCheckbox</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -143,5 +158,35 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+	</tag>
+	<tag>
+		<name>management-bar</name>
+		<tag-class>com.liferay.frontend.taglib.servlet.taglib.ManagementBarTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>includeCheckBox</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>management-bar-buttons</name>
+		<tag-class>com.liferay.frontend.taglib.servlet.taglib.ManagementBarButtonsTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>management-bar-filters</name>
+		<tag-class>com.liferay.frontend.taglib.servlet.taglib.ManagementBarFiltersTag</tag-class>
+		<body-content>JSP</body-content>
 	</tag>
 </taglib>

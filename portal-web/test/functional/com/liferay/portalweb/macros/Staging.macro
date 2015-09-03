@@ -1,7 +1,8 @@
 <definition>
 	<command name="activateStagingCP">
-		<execute function="AssertClick" locator1="NavListItem#STAGING" value1="Staging" />
-		<execute function="AssertTextEquals" locator1="ProductMenu#PRODUCT_MENU_PANEL_SITE_SELECTOR" value1="${siteName}" />
+		<var name="key_siteName" value="${siteName}" />
+
+		<execute function="AssertTextEquals" locator1="ProductMenu#PRODUCT_MENU_PANEL_SITE_ADMINISTRATION_SITE_NAME" value1="${siteName}" />
 
 		<if>
 			<equals arg1="${remoteStaging}" arg2="true" />
@@ -28,8 +29,8 @@
 		<if>
 			<equals arg1="${pageVersioningEnabled}" arg2="true" />
 			<then>
-				<execute function="Check" locator1="SiteSettingsStaging#ENABLED_ON_PUBLIC_PAGES_CHECKBOX" />
-				<execute function="Check" locator1="SiteSettingsStaging#ENABLED_ON_PRIVATE_PAGES_CHECKBOX" />
+				<execute function="Check" locator1="Checkbox#ENABLED_ON_PUBLIC_PAGES" />
+				<execute function="Check" locator1="Checkbox#ENABLED_ON_PRIVATE_PAGES" />
 			</then>
 		</if>
 
@@ -37,9 +38,9 @@
 			<var name="key_contentName" value="${contentName}" />
 
 			<if>
-				<condition function="IsElementPresent" locator1="SiteSettingsStaging#CONTENT_CHECKBOX" />
+				<condition function="IsElementPresent" locator1="Checkbox#STAGED_CONTENT" />
 				<then>
-					<execute function="Check" locator1="SiteSettingsStaging#CONTENT_CHECKBOX" />
+					<execute function="Check" locator1="Checkbox#STAGED_CONTENT" />
 				</then>
 			</if>
 		</for>
@@ -49,7 +50,7 @@
 			<then>
 				<var name="key_contentName" value="${uncheckContent}" />
 
-				<execute function="Uncheck" locator1="SiteSettingsStaging#CONTENT_CHECKBOX" />
+				<execute function="Uncheck" locator1="Checkbox#STAGED_CONTENT" />
 			</then>
 		</if>
 
@@ -381,12 +382,10 @@
 	</command>
 
 	<command name="deactivateStagingCP">
-		<execute function="AssertClick" locator1="NavListItem#STAGING" value1="Staging" />
 
 		<if>
 			<condition function="IsElementPresent" locator1="SiteSettingsStaging#ENABLED_ON_PUBLIC_PAGES_CHECKBOX" />
 			<then>
-				<execute function="AssertClick" locator1="NavListItem#STAGING" value1="Staging" />
 				<execute function="Check" locator1="SiteSettingsStaging#NONE_RADIO" />
 				<execute function="AssertClickNoError" locator1="Button#SAVE" value1="Save" />
 				<execute function="Confirm" value1="Are you sure you want to deactivate staging for ${siteName}?" />
@@ -627,8 +626,8 @@
 
 		<execute function="Copy" locator1="SitesEditSite#SITE_ID" value1="siteID" />
 
-		<execute macro="Page#gotoConfigurationCP">
-			<var name="portletName" value="Site Settings" />
+		<execute macro="Page#gotoPublishingtools">
+			<var name="portletName" value="Staging Configuration" />
 			<var name="siteScopeName" value="${siteName}" />
 		</execute>
 

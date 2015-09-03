@@ -24,8 +24,8 @@
 			<var name="sitePagePrivacy" value="Public" />
 		</execute>
 
-		<execute macro="Page#gotoConfigurationCP">
-			<var name="portletName" value="Site Settings" />
+		<execute macro="Page#gotoPublishingtools">
+			<var name="portletName" value="Staging Configuration" />
 			<var name="siteName" value="Site Name" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -170,7 +170,7 @@
 		</execute>
 	</command>
 
-	<command name="HideFoldersFromRelatedAssetsSelector" priority="4">
+	<command known-issues="LPS-56754" name="HideFoldersFromRelatedAssetsSelector" priority="4">
 		<execute macro="Page#gotoCP">
 			<var name="portletName" value="Sites" />
 		</execute>

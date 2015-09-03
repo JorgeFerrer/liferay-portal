@@ -195,7 +195,7 @@
 </tr>
 <tr>
 	<td>KEYWORDS</td>
-	<td>//input[@title='keywords']</td>
+	<td>//input[contains(@title,'keywords')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -349,6 +349,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>SEARCH_2</td>
+	<td>xpath=(//input[@title='Search'])[2]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SELECT_FILES</td>
 	<td>//div[contains(@id,'uploaderContent') and contains(.,'Select Files')]/input</td>
 	<td></td>
@@ -380,7 +385,7 @@
 </tr>
 <tr>
 	<td>SUBJECT</td>
-	<td>//input[contains(@id,'subject')]</td>
+	<td>//input[contains(@id,'subject')] | //input[contains(@id,'Subject')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -406,6 +411,11 @@
 <tr>
 	<td>TOTAL_PAID</td>
 	<td>//div[label[contains(.,'Total Paid')]]//input[@type='input']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TRASH_ENTRIES_MAX_AGE</td>
+	<td>//input[contains(@id,'trashEntriesMaxAge')]</td>
 	<td></td>
 </tr>
 <tr>

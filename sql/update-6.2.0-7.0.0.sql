@@ -81,4 +81,5 @@ alter table Subscription add groupId LONG;
 
 alter table Team add uuid_ VARCHAR(75);
 
+alter table UserNotificationEvent add deliveryType INTEGER;
 alter table UserNotificationEvent add actionRequired BOOLEAN;
