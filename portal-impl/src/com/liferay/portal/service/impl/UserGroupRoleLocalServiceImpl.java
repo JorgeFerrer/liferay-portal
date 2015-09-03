@@ -101,7 +101,7 @@ public class UserGroupRoleLocalServiceImpl
 			Role role = userGroupRole.getRole();
 
 			if (role.getType() == roleType) {
-				deleteUserGroupRolesByRoleId(role.getRoleId());
+				deleteUserGroupRole(userGroupRole);
 			}
 		}
 	}
