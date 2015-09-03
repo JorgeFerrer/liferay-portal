@@ -95,8 +95,7 @@ public class UserGroupGroupRoleLocalServiceImpl
 			Role role = userGroupGroupRole.getRole();
 
 			if (role.getType() == roleType) {
-				userGroupGroupRolePersistence.removeByG_R(
-					groupId, role.getRoleId());
+				userGroupGroupRolePersistence.remove(userGroupGroupRole);
 			}
 		}
 
