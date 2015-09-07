@@ -16,12 +16,13 @@ package com.liferay.microblogs.service.permission;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.permission.BaseResourcePermissionChecker;
 import com.liferay.portal.security.permission.PermissionChecker;
 
 /**
  * @author Jonathan Lee
  */
-public class MicroblogsPermission {
+public class MicroblogsPermission extends BaseResourcePermissionChecker {
 
 	public static final String RESOURCE_NAME = "com.liferay.microblogs";
 
@@ -39,6 +40,13 @@ public class MicroblogsPermission {
 
 		return permissionChecker.hasPermission(
 			groupId, RESOURCE_NAME, groupId, actionId);
+	}
+
+	@Override
+	public Boolean checkResource(
+		PermissionChecker permissionChecker, long classPK, String actionId) {
+
+		return contains(permissionChecker, classPK, actionId);
 	}
 
 }
