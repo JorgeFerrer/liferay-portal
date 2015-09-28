@@ -18,8 +18,12 @@
 <%
 String selectedPortletId = StringPool.BLANK;
 
+boolean hideMarkups = false;
+
 if (selLayout != null) {
 	selectedPortletId = GetterUtil.getString(selLayout.getTypeSettingsProperty("fullPageApplicationPortlet"));
+
+	hideMarkups = GetterUtil.getBoolean(selLayout.getTypeSettingsProperty("hideMarkups"));
 }
 
 ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language", themeDisplay.getLocale(), getClass());
@@ -34,7 +38,7 @@ ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language",
 		String ppid = portlet.getPortletId();
 
 		if (portlet.isInstanceable()) {
-			PortletInstance portletInstance = new PortletInstance(ppid);
+			PortletInstance portletInstance = PortletInstance.fromPortletInstanceKey(ppid);
 
 			ppid = portletInstance.toString();
 		}
@@ -48,4 +52,4 @@ ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language",
 
 </aui:select>
 
-<aui:input label="<%= LanguageUtil.get(resourceBundle, "hide-markups") %>" name="TypeSettingsProperties--hideMarkups--" type="checkbox" />
+<aui:input checked="<%= hideMarkups %>" label="<%= LanguageUtil.get(resourceBundle, "hide-markups") %>" name="TypeSettingsProperties--hideMarkups--"  type="checkbox" />
