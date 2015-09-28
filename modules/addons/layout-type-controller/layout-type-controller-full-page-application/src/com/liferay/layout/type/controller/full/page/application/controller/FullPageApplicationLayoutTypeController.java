@@ -17,6 +17,7 @@ package com.liferay.layout.type.controller.full.page.application.controller;
 import com.liferay.layout.type.controller.full.page.application.constants.FullPageApplicationLayoutTypeControllerConstants;
 import com.liferay.layout.type.controller.full.page.application.constants.FullPageApplicationLayoutTypeControllerWebKeys;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PredicateFilter;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -73,9 +74,8 @@ public class FullPageApplicationLayoutTypeController
 		UnicodeProperties typeSettingsProperties =
 			layout.getTypeSettingsProperties();
 
-		String hideMarkups = typeSettingsProperties.getProperty("hideMarkups");
-
-		_hideMarkups = hideMarkups.equals("true");
+		_hideMarkups = GetterUtil.getBoolean(
+			typeSettingsProperties.getProperty("hideMarkups"));
 
 		return super.includeLayoutContent(request, response, layout);
 	}

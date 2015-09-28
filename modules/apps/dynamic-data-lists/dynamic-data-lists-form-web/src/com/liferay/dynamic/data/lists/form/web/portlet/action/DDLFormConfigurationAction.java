@@ -56,11 +56,11 @@ public class DDLFormConfigurationAction extends DefaultConfigurationAction {
 			ActionResponse actionResponse)
 		throws Exception {
 
-		PortletPreferencesImpl portletPreferences =
-			(PortletPreferencesImpl)actionRequest.getPreferences();
-
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
+
+		PortletPreferencesImpl portletPreferences =
+			(PortletPreferencesImpl)actionRequest.getPreferences();
 
 		Layout layout = PortletConfigurationLayoutUtil.getLayout(themeDisplay);
 
