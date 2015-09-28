@@ -19,6 +19,8 @@ import com.liferay.layout.type.controller.full.page.application.constants.FullPa
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PredicateFilter;
+import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutTypeController;
 import com.liferay.portal.model.Portlet;
@@ -54,7 +56,28 @@ public class FullPageApplicationLayoutTypeController
 
 	@Override
 	public String getURL() {
-		return _URL;
+		if (_hideMarkups) {
+			return _URL_WITH_NO_MARKUPS;
+		}
+		else {
+			return _URL;
+		}
+	}
+
+	@Override
+	public boolean includeLayoutContent(
+			HttpServletRequest request, HttpServletResponse response,
+			Layout layout)
+		throws Exception {
+
+		UnicodeProperties typeSettingsProperties =
+			layout.getTypeSettingsProperties();
+
+		String hideMarkups = typeSettingsProperties.getProperty("hideMarkups");
+
+		_hideMarkups = hideMarkups.equals("true");
+
+		return super.includeLayoutContent(request, response, layout);
 	}
 
 	@Override
@@ -145,7 +168,13 @@ public class FullPageApplicationLayoutTypeController
 		"${liferay:mainPath}/portal/layout?p_l_id=${liferay:plid}" +
 			"&p_v_l_s_g_id=${liferay:pvlsgid}";
 
+	private static final String _URL_WITH_NO_MARKUPS =
+			"${liferay:mainPath}/portal/layout?p_l_id=${liferay:plid}" +
+				"&p_v_l_s_g_id=${liferay:pvlsgid}&p_p_state=pop_up";
+
 	private static final String _VIEW_PAGE =
 		"/layout/view/full_page_application.jsp";
+
+	private boolean _hideMarkups;
 
 }
