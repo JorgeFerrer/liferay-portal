@@ -31,9 +31,16 @@ ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language",
 	List<Portlet> portlets = (List<Portlet>)request.getAttribute(FullPageApplicationLayoutTypeControllerWebKeys.FULL_PAGE_APPLICATION_PORTLETS);
 
 	for (Portlet portlet : portlets) {
+		String ppid = portlet.getPortletId();
+
+		if (portlet.isInstanceable()) {
+			PortletInstance portletInstance = new PortletInstance(ppid);
+
+			ppid = portletInstance.toString();
+		}
 	%>
 
-		<aui:option label="<%= portlet.getDisplayName() %>" selected="<%= (Validator.equals(selectedPortletId, portlet.getPortletId())) %>" value="<%= portlet.getPortletId() %>" />
+		<aui:option label="<%= portlet.getDisplayName() %>" selected="<%= (Validator.equals(selectedPortletId, ppid)) %>" value="<%= ppid %>" />
 
 	<%
 	}
