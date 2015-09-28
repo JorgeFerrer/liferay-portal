@@ -52,4 +52,4 @@ ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language",
 
 </aui:select>
 
-<aui:input checked="<%= hideMarkups %>" label="<%= LanguageUtil.get(resourceBundle, "hide-markups") %>" name="TypeSettingsProperties--hideMarkups--"  type="checkbox" />
+<aui:input checked="<%= hideMarkups %>" label='<%= LanguageUtil.get(resourceBundle, "hide-markups") %>' name="TypeSettingsProperties--hideMarkups--" type="checkbox" />
