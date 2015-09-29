@@ -82,6 +82,8 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 			<aui:button-row cssClass="ddl-form-builder-buttons">
 				<aui:button cssClass="btn-lg" id="submit" label="save" primary="<%= true %>" type="submit" />
 
+                <aui:button cssClass="btn-lg" onClick='<%= renderResponse.getNamespace() + "save(true);" %>' value='<%= LanguageUtil.get(request, "saveAndPublish") %>' />
+
 				<aui:button cssClass="btn-lg" href="<%= redirect %>" name="cancelButton" type="cancel" />
 			</aui:button-row>
 		</div>
@@ -134,3 +136,5 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 		</aui:script>
 	</aui:form>
 </div>
+
+				<aui:button cssClass="btn-lg" onClick='<%= renderResponse.getNamespace() + "save(true);" %>' value='<%= LanguageUtil.get(request, "saveAndPublish") %>' />
