@@ -31,12 +31,23 @@ import com.liferay.dynamic.data.mapping.storage.StorageType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseTransactionalMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PropertiesParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.LayoutTypePortlet;
+import com.liferay.portal.service.LayoutServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PropsValues;
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -44,6 +55,7 @@ import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletPreferences;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -121,7 +133,19 @@ public class AddRecordSetMVCActionCommand
 
 		DDMStructure ddmStructure = addDDMStructure(actionRequest);
 
-		addRecordSet(actionRequest, ddmStructure.getStructureId());
+		DDLRecordSet recordSet = addRecordSet(
+			actionRequest, ddmStructure.getStructureId());
+
+		boolean publish = GetterUtil.getBoolean(
+			ParamUtil.getString(actionRequest, "publish"));
+
+		if (publish) {
+			String url = publish(
+				actionRequest, actionResponse, recordSet.getRecordSetId());
+
+			_ddlRecordSetService.updateRecordSet(
+				recordSet.getRecordSetId(), url);
+		}
 	}
 
 	protected DDMForm getDDMForm(ActionRequest actionRequest)
@@ -159,6 +183,70 @@ public class AddRecordSetMVCActionCommand
 		return localizedMap;
 	}
 
+	protected String publish(
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			long recordSetId)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long groupId = themeDisplay.getSiteGroupId();
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			Layout.class.getName(), actionRequest);
+
+		String name = ParamUtil.getString(actionRequest, "name");
+		String description = ParamUtil.getString(actionRequest, "description");
+
+		Map<Locale, String> friendlyURLMap =
+			LocalizationUtil.getLocalizationMap(actionRequest, "friendlyURL");
+		Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
+			actionRequest, "title");
+		Map<Locale, String> keywordsMap = LocalizationUtil.getLocalizationMap(
+			actionRequest, "keywords");
+		Map<Locale, String> robotsMap = LocalizationUtil.getLocalizationMap(
+			actionRequest, "robots");
+
+		UnicodeProperties typeSettingsProperties =
+			PropertiesParamUtil.getProperties(
+				actionRequest, "TypeSettingsProperties--");
+
+		String portletId = typeSettingsProperties.getProperty(
+			"singlePortletApplication");
+
+		serviceContext.setAttribute("layout.instanceable.allowed", true);
+
+		Layout layout = LayoutServiceUtil.addLayout(
+			groupId, false, 0, getLocalizedMap(themeDisplay.getLocale(), name),
+			titleMap, getLocalizedMap(themeDisplay.getLocale(), description),
+			keywordsMap, robotsMap, "single_portlet_application",
+			typeSettingsProperties.toString(), true, friendlyURLMap,
+			serviceContext);
+
+		LayoutTypePortlet layoutTypePortlet =
+			(LayoutTypePortlet)layout.getLayoutType();
+
+		layoutTypePortlet.setLayoutTemplateId(
+			themeDisplay.getUserId(), PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID);
+
+		LayoutServiceUtil.updateLayout(
+			groupId, false, layout.getLayoutId(), layout.getTypeSettings());
+
+		storePortletPreferences(layout, portletId, recordSetId);
+
+		StringBundler sb = new StringBundler(4);
+
+		Group group = themeDisplay.getSiteGroup();
+
+		sb.append(themeDisplay.getPortalURL());
+		sb.append(group.getPathFriendlyURL(false, themeDisplay));
+		sb.append(group.getFriendlyURL());
+		sb.append(layout.getFriendlyURL());
+
+		return sb.toString();
+	}
+
 	@Reference
 	protected void setDDLRecordSetService(
 		DDLRecordSetService ddlRecordSetService) {
@@ -185,6 +273,19 @@ public class AddRecordSetMVCActionCommand
 		DDMStructureService ddmStructureService) {
 
 		_ddmStructureService = ddmStructureService;
+	}
+
+	protected void storePortletPreferences(
+			Layout layout, String portletId, long recordSetId)
+		throws Exception {
+
+		PortletPreferences portletPreferences =
+			PortletPreferencesFactoryUtil.getStrictPortletSetup(
+				layout, portletId);
+
+		portletPreferences.setValue("recordSetId", String.valueOf(recordSetId));
+
+		portletPreferences.store();
 	}
 
 	private DDLRecordSetService _ddlRecordSetService;
