@@ -25,8 +25,16 @@ if (Validator.isNull(ppid)) {
 	ppid = typeSettingsProperties.getProperty("fullPageApplicationPortlet");
 }
 
-String velocityTemplateId = theme.getThemeId() + LayoutTemplateConstants.STANDARD_SEPARATOR + "max";
-String velocityTemplateContent = LayoutTemplateLocalServiceUtil.getContent("max", true, theme.getThemeId());
+String layoutTemplateId = "max";
+
+String hideMarkups = typeSettingsProperties.getProperty("hideMarkups");
+
+if (hideMarkups.equals("true")) {
+	layoutTemplateId = "pop_up";
+}
+
+String velocityTemplateId = theme.getThemeId() + LayoutTemplateConstants.STANDARD_SEPARATOR + layoutTemplateId;
+String velocityTemplateContent = LayoutTemplateLocalServiceUtil.getContent(layoutTemplateId, true, theme.getThemeId());
 
 if (Validator.isNotNull(velocityTemplateContent)) {
 	RuntimePageUtil.processTemplate(request, response, ppid, new StringTemplateResource(velocityTemplateId, velocityTemplateContent));

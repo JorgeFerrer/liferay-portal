@@ -18,8 +18,12 @@
 <%
 String selectedPortletId = StringPool.BLANK;
 
+boolean hideMarkups = false;
+
 if (selLayout != null) {
 	selectedPortletId = GetterUtil.getString(selLayout.getTypeSettingsProperty("fullPageApplicationPortlet"));
+
+	hideMarkups = GetterUtil.getBoolean(selLayout.getTypeSettingsProperty("hideMarkups"));
 }
 
 ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language", themeDisplay.getLocale(), getClass());
@@ -31,12 +35,21 @@ ResourceBundle resourceBundle = ResourceBundleUtil.getBundle("content.Language",
 	List<Portlet> portlets = (List<Portlet>)request.getAttribute(FullPageApplicationLayoutTypeControllerWebKeys.FULL_PAGE_APPLICATION_PORTLETS);
 
 	for (Portlet portlet : portlets) {
+		String ppid = portlet.getPortletId();
+
+		if (portlet.isInstanceable()) {
+			PortletInstance portletInstance = PortletInstance.fromPortletInstanceKey(ppid);
+
+			ppid = portletInstance.toString();
+		}
 	%>
 
-		<aui:option label="<%= portlet.getDisplayName() %>" selected="<%= (Validator.equals(selectedPortletId, portlet.getPortletId())) %>" value="<%= portlet.getPortletId() %>" />
+		<aui:option label="<%= portlet.getDisplayName() %>" selected="<%= (Validator.equals(selectedPortletId, ppid)) %>" value="<%= ppid %>" />
 
 	<%
 	}
 	%>
 
 </aui:select>
+
+<aui:input checked="<%= hideMarkups %>" label='<%= LanguageUtil.get(resourceBundle, "hide-markups") %>' name="TypeSettingsProperties--hideMarkups--" type="checkbox" />

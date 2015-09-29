@@ -30,6 +30,7 @@ page import="com.liferay.portal.layoutconfiguration.util.RuntimePageUtil" %><%@
 page import="com.liferay.portal.model.Layout" %><%@
 page import="com.liferay.portal.model.LayoutTemplateConstants" %><%@
 page import="com.liferay.portal.model.Portlet" %><%@
+page import="com.liferay.portal.model.PortletInstance" %><%@
 page import="com.liferay.portal.service.LayoutTemplateLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.WebKeys" %>
 
