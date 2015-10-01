@@ -37,7 +37,6 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import java.util.List;
 
 /**
@@ -127,8 +126,8 @@ public class UpgradePermission extends UpgradeProcess {
 			else if (scope == ResourceConstants.SCOPE_GROUP) {
 				ResourceBlockLocalServiceUtil.setGroupScopePermissions(
 					resourcePermission.getCompanyId(),
-					GetterUtil.getLong(resourcePermission.getPrimaryKey()),
-					name, resourcePermission.getRoleId(),
+					GetterUtil.getLong(resourcePermission.getPrimKey()), name,
+					resourcePermission.getRoleId(),
 					resourcePermission.getActionIds());
 			}
 		}
