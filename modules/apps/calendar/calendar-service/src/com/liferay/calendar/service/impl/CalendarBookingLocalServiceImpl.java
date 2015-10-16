@@ -165,7 +165,7 @@ public class CalendarBookingLocalServiceImpl
 		}
 
 		calendarBooking.setVEventUid(vEventUid);
-		calendarBooking.setTitleMap(titleMap);
+		calendarBooking.setTitleMap(titleMap, serviceContext.getLocale());
 		calendarBooking.setDescriptionMap(descriptionMap);
 		calendarBooking.setLocation(location);
 		calendarBooking.setStartTime(startTimeJCalendar.getTimeInMillis());
@@ -815,7 +815,8 @@ public class CalendarBookingLocalServiceImpl
 
 		updatedTitleMap.putAll(titleMap);
 
-		calendarBooking.setTitleMap(updatedTitleMap);
+		calendarBooking.setTitleMap(
+			updatedTitleMap, serviceContext.getLocale());
 
 		Map<Locale, String> updatedDescriptionMap =
 			calendarBooking.getDescriptionMap();

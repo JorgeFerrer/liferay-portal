@@ -112,6 +112,7 @@ page import="com.liferay.journal.web.search.FeedDisplayTerms" %><%@
 page import="com.liferay.journal.web.search.FeedSearch" %><%@
 page import="com.liferay.journal.web.search.FeedSearchTerms" %><%@
 page import="com.liferay.journal.web.util.JournalPortletUtil" %><%@
+page import="com.liferay.journal.web.util.JournalResultRowSplitter" %><%@
 page import="com.liferay.journal.web.util.JournalSearcher" %><%@
 page import="com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion" %><%@
 page import="com.liferay.portal.LocaleException" %><%@
@@ -224,7 +225,7 @@ String currentURL = currentURLObj.toString();
 
 PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
 
-JournalDisplayContext journalDisplayContext = new JournalDisplayContext(request, portletPreferences);
+JournalDisplayContext journalDisplayContext = new JournalDisplayContext(request, liferayPortletResponse, portletPreferences);
 
 JournalWebRequestHelper journalWebRequestHelper = new JournalWebRequestHelper(request);
 

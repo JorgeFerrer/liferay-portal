@@ -21,10 +21,7 @@ import com.liferay.dynamic.data.mapping.upgrade.v1_0_0.UpgradeSchema;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
-import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
-
-import java.util.Arrays;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -39,9 +36,8 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 	public void register(Registry registry) {
 		registry.register(
 			"com.liferay.dynamic.data.mapping.service", "0.0.1", "1.0.0",
-			Arrays.<UpgradeStep>asList(
-				new UpgradeSchema(), new UpgradeClassNames(),
-				new UpgradeDynamicDataMapping(), new UpgradeLastPublishDate()));
+			new UpgradeSchema(), new UpgradeClassNames(),
+			new UpgradeDynamicDataMapping(), new UpgradeLastPublishDate());
 	}
 
 	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")

@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -204,6 +205,21 @@ public class RemoteMVCPortlet extends MVCPortlet {
 		}
 	}
 
+	protected String getClientPortletId() {
+		return StringPool.BLANK;
+	}
+
+	protected String getFileName(String contentDisposition) {
+		int pos = contentDisposition.indexOf("filename=\"");
+
+		if (pos == -1) {
+			return StringPool.BLANK;
+		}
+
+		return contentDisposition.substring(
+			pos + 10, contentDisposition.length() - 1);
+	}
+
 	protected Response getResponse(User user, OAuthRequest oAuthRequest)
 		throws Exception {
 
@@ -311,7 +327,23 @@ public class RemoteMVCPortlet extends MVCPortlet {
 
 		Response response = getResponse(themeDisplay.getUser(), oAuthRequest);
 
-		PortletResponseUtil.write(resourceResponse, response.getStream());
+		String contentType = response.getHeader(HttpHeaders.CONTENT_TYPE);
+
+		if (contentType.startsWith(ContentTypes.APPLICATION_OCTET_STREAM)) {
+			String contentDisposition = response.getHeader(
+				HttpHeaders.CONTENT_DISPOSITION);
+			int contentLength = GetterUtil.getInteger(
+				response.getHeader(HttpHeaders.CONTENT_LENGTH));
+
+			PortletResponseUtil.sendFile(
+				resourceRequest, resourceResponse,
+				getFileName(contentDisposition), response.getStream(),
+				contentLength, contentType,
+				HttpHeaders.CONTENT_DISPOSITION_ATTACHMENT);
+		}
+		else {
+			PortletResponseUtil.write(resourceResponse, response.getStream());
+		}
 	}
 
 	protected void setBaseRequestParameters(
@@ -325,7 +357,8 @@ public class RemoteMVCPortlet extends MVCPortlet {
 
 		addOAuthParameter(oAuthRequest, "clientAuthToken", clientAuthToken);
 
-		addOAuthParameter(oAuthRequest, "clientPortletId", getPortletName());
+		addOAuthParameter(
+			oAuthRequest, "clientPortletId", getClientPortletId());
 		addOAuthParameter(
 			oAuthRequest, "clientURL",
 			PortalUtil.getCurrentCompleteURL(httpServletRequest));

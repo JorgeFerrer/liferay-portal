@@ -17,10 +17,7 @@ package com.liferay.bookmarks.web.upgrade;
 import com.liferay.bookmarks.web.upgrade.v1_0_0.UpgradeAdminPortlets;
 import com.liferay.bookmarks.web.upgrade.v1_0_0.UpgradePortletPreferences;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
-import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
-
-import java.util.Arrays;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -35,8 +32,7 @@ public class BookmarksWebUpgrade implements UpgradeStepRegistrator {
 	public void register(Registry registry) {
 		registry.register(
 			"com.liferay.bookmarks.web", "0.0.1", "1.0.0",
-			Arrays.<UpgradeStep>asList(
-				new UpgradeAdminPortlets(), new UpgradePortletPreferences()));
+			new UpgradeAdminPortlets(), new UpgradePortletPreferences());
 	}
 
 	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")

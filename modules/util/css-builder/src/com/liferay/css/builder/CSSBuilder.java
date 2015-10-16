@@ -261,7 +261,7 @@ public class CSSBuilder {
 			try {
 				_sassCompiler = new RubySassCompiler();
 
-				System.out.println("Using ruby Sass compiler");
+				System.out.println("Using Ruby Sass compiler");
 			}
 			catch (Exception e) {
 				System.out.println(

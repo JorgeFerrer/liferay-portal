@@ -16,8 +16,6 @@ package com.liferay.portal.upgrade.registry;
 
 import com.liferay.portal.kernel.upgrade.UpgradeStep;
 
-import java.util.Collection;
-
 /**
  * @author Carlos Sierra Andrés
  */
@@ -29,7 +27,7 @@ public interface UpgradeStepRegistrator {
 
 		public void register(
 			String bundleSymbolicName, String fromSchemaVersionString,
-			String toSchemaVersionString, Collection<UpgradeStep> upgradeSteps);
+			String toSchemaVersionString, UpgradeStep... upgradeSteps);
 
 	}
 
