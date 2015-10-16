@@ -2424,7 +2424,7 @@ cannot call the `application-list-api` from the portal context.
 
 *Overview:*
 - All references to the `msnSn` column in the Contacts table have been removed from portal.
-- Any reference to Windows Live Messenger have been removed from the properties, tests, classes, and frontend.
+- All references to Windows Live Messenger have been removed from the properties, tests, classes, and frontend.
 - `getMsnSn` and `setMsnSn` have been removed from the Contact and LDAPUser models.
 
 *The following classes have been removed:*
