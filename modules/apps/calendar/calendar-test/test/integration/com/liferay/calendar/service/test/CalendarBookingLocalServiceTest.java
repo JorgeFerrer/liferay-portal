@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
@@ -73,6 +74,35 @@ public class CalendarBookingLocalServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		_user = UserTestUtil.addUser();
+	}
+
+	@Test
+	public void testAddCalendarBooking() throws PortalException {
+		ServiceContext serviceContext = createServiceContext();
+
+		CalendarResource calendarResource =
+			CalendarResourceUtil.getUserCalendarResource(
+				_user.getUserId(), serviceContext);
+
+		Calendar calendar = calendarResource.getDefaultCalendar();
+
+		long startTime = System.currentTimeMillis();
+
+		serviceContext.setLanguageId("fr_FR");
+
+		CalendarBooking calendarBooking =
+			CalendarBookingLocalServiceUtil.addCalendarBooking(
+				_user.getUserId(), calendar.getCalendarId(), new long[0],
+				CalendarBookingConstants.PARENT_CALENDAR_BOOKING_ID_DEFAULT,
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomString(), startTime,
+				startTime + (Time.HOUR * 10), false, null, 0, null, 0, null,
+				serviceContext);
+
+		Assert.assertEquals(
+			"fr_FR",
+			LocalizationUtil.getDefaultLanguageId(calendarBooking.getTitle()));
 	}
 
 	@Test
@@ -594,6 +624,89 @@ public class CalendarBookingLocalServiceTest {
 			startTime + (Time.HOUR * 10), false,
 			RecurrenceSerializer.serialize(recurrence), 0, null, 0, null,
 			serviceContext);
+	}
+
+	@Test
+	public void testUpdateCalendarBookingPreservesChildStatus()
+		throws PortalException {
+
+		ServiceContext serviceContext = createServiceContext();
+
+		CalendarResource calendarResource =
+			CalendarResourceUtil.getUserCalendarResource(
+				_user.getUserId(), serviceContext);
+
+		Calendar calendar = calendarResource.getDefaultCalendar();
+
+		Calendar invitedCalendar = CalendarLocalServiceUtil.addCalendar(
+			_user.getUserId(), _user.getGroupId(),
+			calendarResource.getCalendarResourceId(),
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(),
+			calendarResource.getTimeZoneId(), RandomTestUtil.randomInt(), false,
+			false, false, serviceContext);
+
+		long startTime = System.currentTimeMillis();
+
+		serviceContext.setWorkflowAction(WorkflowConstants.ACTION_PUBLISH);
+
+		CalendarBooking calendarBooking =
+			CalendarBookingLocalServiceUtil.addCalendarBooking(
+				_user.getUserId(), calendar.getCalendarId(),
+				new long[] { invitedCalendar.getCalendarId() },
+				CalendarBookingConstants.PARENT_CALENDAR_BOOKING_ID_DEFAULT,
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomLocaleStringMap(),
+				RandomTestUtil.randomString(), startTime, startTime + 36000000,
+				false, null, 0, null, 0, null, serviceContext);
+
+		CalendarBooking childCalendarBooking = getChildCalendarBooking(
+			calendarBooking);
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_PENDING, childCalendarBooking.getStatus());
+
+		childCalendarBooking = CalendarBookingLocalServiceUtil.updateStatus(
+			_user.getUserId(), childCalendarBooking,
+			CalendarBookingWorkflowConstants.STATUS_MAYBE, serviceContext);
+
+		calendarBooking = CalendarBookingLocalServiceUtil.updateCalendarBooking(
+			_user.getUserId(), calendarBooking.getCalendarBookingId(),
+			calendarBooking.getCalendarId(),
+			new long[] { invitedCalendar.getCalendarId() },
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomString(), startTime, startTime + 36000000,
+			calendarBooking.getAllDay(), calendarBooking.getRecurrence(),
+			calendarBooking.getFirstReminder(),
+			calendarBooking.getFirstReminderType(),
+			calendarBooking.getSecondReminder(),
+			calendarBooking.getSecondReminderType(), serviceContext);
+
+		childCalendarBooking = getChildCalendarBooking(calendarBooking);
+
+		Assert.assertEquals(
+			CalendarBookingWorkflowConstants.STATUS_MAYBE,
+			childCalendarBooking.getStatus());
+
+		calendarBooking = CalendarBookingLocalServiceUtil.updateCalendarBooking(
+			_user.getUserId(), calendarBooking.getCalendarBookingId(),
+			calendarBooking.getCalendarId(),
+			new long[] { invitedCalendar.getCalendarId() },
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomString(), startTime, startTime + 37000000,
+			calendarBooking.getAllDay(), calendarBooking.getRecurrence(),
+			calendarBooking.getFirstReminder(),
+			calendarBooking.getFirstReminderType(),
+			calendarBooking.getSecondReminder(),
+			calendarBooking.getSecondReminderType(), serviceContext);
+
+		childCalendarBooking = getChildCalendarBooking(calendarBooking);
+
+		Assert.assertNotEquals(
+			CalendarBookingWorkflowConstants.STATUS_MAYBE,
+			childCalendarBooking.getStatus());
 	}
 
 	@Test

@@ -14,15 +14,12 @@
 
 package com.liferay.portal.workflow.kaleo.upgrade;
 
-import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 import com.liferay.portal.workflow.kaleo.upgrade.v1_0_0.UpgradeKaleoTaskInstanceToken;
 import com.liferay.portal.workflow.kaleo.upgrade.v1_1_0.UpgradeWorkflowContext;
 import com.liferay.portal.workflow.kaleo.upgrade.v1_2_0.UpgradeKaleoLog;
 import com.liferay.portal.workflow.kaleo.upgrade.v1_2_0.UpgradeKaleoNotificationRecipient;
 import com.liferay.portal.workflow.kaleo.upgrade.v1_3_0.UpgradeKaleoInstance;
-
-import java.util.Arrays;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -38,21 +35,17 @@ public class KaleoServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register(
 			bundleSymbolicName, "0.0.1", "1.0.0",
-			Arrays.<UpgradeStep>asList(new UpgradeKaleoTaskInstanceToken()));
+			new UpgradeKaleoTaskInstanceToken());
 
 		registry.register(
-			bundleSymbolicName, "1.0.0", "1.1.0",
-			Arrays.<UpgradeStep>asList(new UpgradeWorkflowContext()));
+			bundleSymbolicName, "1.0.0", "1.1.0", new UpgradeWorkflowContext());
 
 		registry.register(
-			bundleSymbolicName, "1.1.0", "1.2.0",
-			Arrays.<UpgradeStep>asList(
-				new UpgradeKaleoLog(),
-				new UpgradeKaleoNotificationRecipient()));
+			bundleSymbolicName, "1.1.0", "1.2.0", new UpgradeKaleoLog(),
+			new UpgradeKaleoNotificationRecipient());
 
 		registry.register(
-			bundleSymbolicName, "1.2.0", "1.3.0",
-			Arrays.<UpgradeStep>asList(new UpgradeKaleoInstance()));
+			bundleSymbolicName, "1.2.0", "1.3.0", new UpgradeKaleoInstance());
 	}
 
 }

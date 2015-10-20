@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -27,6 +28,8 @@ import com.liferay.portal.util.WebKeys;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+
+import java.util.ResourceBundle;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -72,7 +75,11 @@ public class ViewChartMVCResourceCommand extends BaseMVCResourceCommand {
 
 		StringBundler sb = new StringBundler(5);
 
-		sb.append(themeDisplay.translate("used-memory"));
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", themeDisplay.getLocale(), getClass());
+
+		sb.append(ResourceBundleUtil.getString(resourceBundle, "used-memory"));
+
 		sb.append(StringPool.SPACE);
 		sb.append(StringPool.FORWARD_SLASH);
 		sb.append(StringPool.SPACE);
@@ -81,13 +88,15 @@ public class ViewChartMVCResourceCommand extends BaseMVCResourceCommand {
 			valueDataset = new DefaultValueDataset(
 				(usedMemory * 100) / totalMemory);
 
-			sb.append(themeDisplay.translate("total-memory"));
+			sb.append(
+				ResourceBundleUtil.getString(resourceBundle, "total-memory"));
 		}
 		else {
 			valueDataset = new DefaultValueDataset(
 				(usedMemory * 100) / maxMemory);
 
-			sb.append(themeDisplay.translate("maximum-memory"));
+			sb.append(
+				ResourceBundleUtil.getString(resourceBundle, "maximum-memory"));
 		}
 
 		MeterPlot meterPlot = getMeterPlot(themeDisplay, valueDataset);

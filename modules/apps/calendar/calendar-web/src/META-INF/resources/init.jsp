@@ -76,6 +76,7 @@ page import="com.liferay.portal.kernel.json.JSONSerializer" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.servlet.BrowserSnifferUtil" %><%@
+page import="com.liferay.portal.kernel.util.ArrayUtil" %><%@
 page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.DateUtil" %><%@
@@ -100,6 +101,7 @@ page import="com.liferay.portal.security.permission.ResourceActionsUtil" %><%@
 page import="com.liferay.portal.service.GroupServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil" %><%@
+page import="com.liferay.portal.service.WorkflowInstanceLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
 page import="com.liferay.portal.util.SessionClicks" %><%@
 page import="com.liferay.portal.util.comparator.UserScreenNameComparator" %><%@
@@ -147,7 +149,7 @@ if (userCalendarResource != null) {
 
 int defaultDuration = GetterUtil.getInteger(portletPreferences.getValue("defaultDuration", null), 60);
 String defaultView = portletPreferences.getValue("defaultView", "week");
-boolean isoTimeFormat = GetterUtil.getBoolean(portletPreferences.getValue("isoTimeFormat", null), !DateUtil.isFormatAmPm(locale));
+String timeFormat = GetterUtil.getString(portletPreferences.getValue("timeFormat", "locale"));
 String timeZoneId = portletPreferences.getValue("timeZoneId", user.getTimeZoneId());
 boolean usePortalTimeZone = GetterUtil.getBoolean(portletPreferences.getValue("usePortalTimeZone", Boolean.TRUE.toString()));
 int weekStartsOn = GetterUtil.getInteger(portletPreferences.getValue("weekStartsOn", null), 0);
@@ -171,7 +173,9 @@ Format dateFormatLongDate = FastDateFormatFactoryUtil.getDate(FastDateFormatCons
 
 Format dateFormatTime = null;
 
-if (isoTimeFormat) {
+boolean useIsoTimeFormat = timeFormat.equals("24-hour") || (timeFormat.equals("locale") && !DateUtil.isFormatAmPm(locale));
+
+if (useIsoTimeFormat) {
 	dateFormatTime = FastDateFormatFactoryUtil.getSimpleDateFormat("HH:mm", locale, userTimeZone);
 }
 else {

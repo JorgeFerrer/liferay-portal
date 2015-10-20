@@ -19,7 +19,14 @@
 <%
 Folder attachmentsFolder = BlogsEntryLocalServiceUtil.addAttachmentsFolder(themeDisplay.getUserId(), scopeGroupId);
 
-String displayStyle = ParamUtil.getString(request, "displayStyle", "icon");
+String displayStyle = ParamUtil.getString(request, "displayStyle");
+
+if (Validator.isNull(displayStyle)) {
+	displayStyle = portalPreferences.getValue(BlogsPortletKeys.BLOGS_ADMIN, "images-display-style", "icon");
+}
+else {
+	portalPreferences.setValue(BlogsPortletKeys.BLOGS_ADMIN, "images-display-style", displayStyle);
+}
 
 String orderByCol = ParamUtil.getString(request, "orderByCol", "title");
 String orderByType = ParamUtil.getString(request, "orderByType", "asc");
@@ -36,22 +43,24 @@ String keywords = ParamUtil.getString(request, "keywords");
 	checkBoxContainerId="imagesSearchContainer"
 	includeCheckBox="<%= true %>"
 >
-	<liferay-frontend:management-bar-buttons>
-		<liferay-frontend:management-bar-display-buttons
-			displayStyleURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
-			displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
-			selectedDisplayStyle="<%= displayStyle %>"
-		/>
-	</liferay-frontend:management-bar-buttons>
+	<c:if test="<%= Validator.isNull(keywords) %>">
+		<liferay-frontend:management-bar-buttons>
+			<liferay-frontend:management-bar-display-buttons
+				displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
+				portletURL="<%= portletURL %>"
+				selectedDisplayStyle="<%= displayStyle %>"
+			/>
+		</liferay-frontend:management-bar-buttons>
 
-	<liferay-frontend:management-bar-filters>
-		<liferay-frontend:management-bar-sort
-			orderByCol="<%= orderByCol %>"
-			orderByType="<%= orderByType %>"
-			orderColumns='<%= new String[] {"title", "size"} %>'
-			portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
-		/>
-	</liferay-frontend:management-bar-filters>
+		<liferay-frontend:management-bar-filters>
+			<liferay-frontend:management-bar-sort
+				orderByCol="<%= orderByCol %>"
+				orderByType="<%= orderByType %>"
+				orderColumns='<%= new String[] {"title", "size"} %>'
+				portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
+			/>
+		</liferay-frontend:management-bar-filters>
+	</c:if>
 
 	<liferay-frontend:management-bar-action-buttons>
 

@@ -20,6 +20,8 @@ AUI.add(
 
 				Liferay.Data.sharedResources = Liferay.Data.sharedResources.concat(newResources);
 
+				Liferay.DOMTaskRunner.runTasks(frag);
+
 				content = frag;
 			}
 
@@ -43,6 +45,8 @@ AUI.add(
 
 									Surface.sendRedirect(redirect, instance.get('title'));
 								}
+
+								Liferay.DOMTaskRunner.reset();
 
 								Liferay.fire(
 									'surfaceEndNavigate',
@@ -129,6 +133,13 @@ AUI.add(
 						if (!surface && Surface.isPortletSurface(portletId)) {
 							Surface.app.addSurfaces(surfaceId);
 						}
+					}
+				);
+
+				Liferay.on(
+					'*:portletRefreshed',
+					function(event) {
+						Surface.clearCache();
 					}
 				);
 

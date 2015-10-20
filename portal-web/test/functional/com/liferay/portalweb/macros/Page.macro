@@ -59,6 +59,7 @@
 	<command name="addPG" summary="Add a page named '${pageName}'">
 		<execute macro="Page#gotoPagesCP">
 			<var name="friendlyURL" value="${friendlyURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageAccess" value="${pageAccess}" />
 			<var name="pageStaging" value="${pageStaging}" />
 			<var name="portletName" value="Site Pages" />
@@ -574,6 +575,13 @@
 				<var name="key_portletName" value="${portletName}" />
 
 				<execute function="AssertClick" locator1="ProductMenu#PRODUCT_MENU_PANEL_MENU_ITEM" value1="${portletName}" />
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${portletName}" arg2="Portal Settings" />
+			<then>
+				<execute function="Pause" locator1="5000" />
 			</then>
 		</if>
 	</command>

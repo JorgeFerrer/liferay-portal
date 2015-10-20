@@ -238,12 +238,10 @@ public class DB2DB extends BaseDB {
 					line = StringUtil.replace(
 						"alter table @table@ add column @new-column@ @type@;\n",
 						REWORD_TEMPLATE, template);
-
-					line = line + StringUtil.replace(
+					line += StringUtil.replace(
 						"update @table@ set @new-column@ = @old-column@;\n",
 						REWORD_TEMPLATE, template);
-
-					line = line + StringUtil.replace(
+					line += StringUtil.replace(
 						"alter table @table@ drop column @old-column@",
 						REWORD_TEMPLATE, template);
 				}

@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.io.unsync.UnsyncBufferedReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -36,7 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -266,6 +264,71 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 
 				processErrorMessage(
 					fileName, "Use " + s + ": " + fileName + " " + lineCount);
+			}
+		}
+	}
+
+	protected void checkModulesFile(
+		String fileName, String absolutePath, String packagePath,
+		String content) {
+
+		// LPS-56706 and LPS-57722
+
+		if (fileName.endsWith("Test.java")) {
+			if (absolutePath.contains("/test/integration/")) {
+				if (content.contains("@RunWith(Arquillian.class)") &&
+					content.contains("import org.powermock.")) {
+
+					processErrorMessage(
+						fileName,
+						"Do not use PowerMock inside Arquillian tests: " +
+							fileName);
+				}
+
+				if (!packagePath.endsWith(".test")) {
+					processErrorMessage(
+						fileName,
+						"Module integration test must be under a test " +
+							"subpackage" + fileName);
+				}
+			}
+			else if (absolutePath.contains("/test/unit/") &&
+					 packagePath.endsWith(".test")) {
+
+				processErrorMessage(
+					fileName,
+					"Module unit test should not be under a test subpackage" +
+						fileName);
+			}
+		}
+
+		// LPS-57358
+
+		if (content.contains("ProxyFactory.newServiceTrackedInstance(")) {
+			processErrorMessage(
+				fileName,
+				"Do not use ProxyFactory.newServiceTrackedInstance in " +
+					"modules: " + fileName);
+		}
+
+		// LPS-59076
+
+		if (_checkModulesServiceUtil) {
+			if (!fileName.endsWith("MessageListener.java") &&
+				content.contains("@Component") &&
+				content.contains("ServiceUtil.")) {
+
+				processErrorMessage(
+					fileName,
+					"OSGI Component should not call ServiceUtil: " + fileName);
+			}
+
+			if (!absolutePath.contains("/modules/core/") &&
+				!absolutePath.contains("/test/") &&
+				content.contains("import com.liferay.registry.Registry")) {
+
+				processErrorMessage(
+					fileName, "Do not use Registry in modules: " + fileName);
 			}
 		}
 	}
@@ -853,52 +916,13 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 					fileName);
 		}
 
-		// LPS-56706 and LPS-57722
-
-		if (portalSource && isModulesFile(absolutePath) &&
-			fileName.endsWith("Test.java")) {
-
-			if (absolutePath.contains("/test/integration/")) {
-				if (newContent.contains("@RunWith(Arquillian.class)") &&
-					newContent.contains("import org.powermock.")) {
-
-					processErrorMessage(
-						fileName,
-						"Do not use PowerMock inside Arquillian tests: " +
-							fileName);
-				}
-
-				if (!packagePath.endsWith(".test")) {
-					processErrorMessage(
-						fileName,
-						"Module integration test must be under a test " +
-							"subpackage" + fileName);
-				}
-			}
-			else if (absolutePath.contains("/test/unit/") &&
-					 packagePath.endsWith(".test")) {
-
-				processErrorMessage(
-					fileName,
-					"Module unit test should not be under a test subpackage" +
-						fileName);
-			}
+		if (portalSource && isModulesFile(absolutePath)) {
+			checkModulesFile(fileName, absolutePath, packagePath, newContent);
 		}
 
 		// LPS-48156
 
 		newContent = checkPrincipalException(newContent);
-
-		// LPS-57358
-
-		if (portalSource && isModulesFile(absolutePath) &&
-			newContent.contains("ProxyFactory.newServiceTrackedInstance(")) {
-
-			processErrorMessage(
-				fileName,
-				"Do not use ProxyFactory.newServiceTrackedInstance in " +
-					"modules: " + fileName);
-		}
 
 		// LPS-58529
 
@@ -909,17 +933,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				fileName,
 				"Use ResourceBundleUtil.getBundle instead of " +
 					"ResourceBundle.getBundle: " + fileName);
-		}
-
-		// LPS-59076
-
-		if (_checkModulesServiceUtil && isModulesFile(absolutePath) &&
-			newContent.contains("@Component") &&
-			newContent.contains("ServiceUtil.")) {
-
-			processErrorMessage(
-				fileName,
-				"OSGI Component should not call ServiceUtil: " + fileName);
 		}
 
 		newContent = getCombinedLinesContent(
@@ -1548,26 +1561,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 
 				checkEmptyCollection(trimmedLine, fileName, lineCount);
 
-				Matcher matcher = _unassignedVariablePattern.matcher(
-					trimmedLine);
-
-				if (matcher.find()) {
-					String defaultValue = null;
-
-					if (StringUtil.isLowerCase(matcher.group(2))) {
-						defaultValue = _DEFAULT_PRIMITIVE_VALUES.get(
-							matcher.group(1));
-					}
-					else {
-						defaultValue = "null";
-					}
-
-					if (defaultValue != null) {
-						line = StringUtil.replaceLast(
-							line, ";", " = " + defaultValue + ";");
-					}
-				}
-
 				if (trimmedLine.startsWith("* @deprecated") &&
 					_addMissingDeprecationReleaseVersion) {
 
@@ -1657,19 +1650,45 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				if (!trimmedLine.startsWith(StringPool.DOUBLE_SLASH) &&
 					!trimmedLine.startsWith(StringPool.STAR)) {
 
-					if ((line.contains(" && ") || line.contains(" || ")) &&
-						line.endsWith(StringPool.OPEN_PARENTHESIS)) {
-
-						processErrorMessage(
-							fileName,
-							"line break: " + fileName + " " + lineCount);
-					}
-
 					String strippedQuotesLine = stripQuotes(
 						trimmedLine, CharPool.QUOTE);
 
 					strippedQuotesLine = stripQuotes(
 						strippedQuotesLine, CharPool.APOSTROPHE);
+
+					if (line.endsWith(StringPool.OPEN_PARENTHESIS)) {
+						if (line.contains(" && ") || line.contains(" || ")) {
+							processErrorMessage(
+								fileName,
+								"line break: " + fileName + " " + lineCount);
+						}
+
+						int pos = strippedQuotesLine.indexOf(" + ");
+
+						if (pos != -1) {
+							String linePart = strippedQuotesLine.substring(
+								0, pos);
+
+							int closeBracketCount = StringUtil.count(
+								linePart, StringPool.CLOSE_BRACKET);
+							int closeParenthesisCount = StringUtil.count(
+								linePart, StringPool.CLOSE_PARENTHESIS);
+							int openBracketCount = StringUtil.count(
+								linePart, StringPool.OPEN_BRACKET);
+							int openParenthesisCount = StringUtil.count(
+								linePart, StringPool.OPEN_PARENTHESIS);
+
+							if ((openBracketCount == closeBracketCount) &&
+								(openParenthesisCount ==
+									closeParenthesisCount)) {
+
+								processErrorMessage(
+									fileName,
+									"line break: " + fileName + " " +
+										lineCount);
+							}
+						}
+					}
 
 					if (!trimmedLine.startsWith(StringPool.CLOSE_CURLY_BRACE) &&
 						strippedQuotesLine.contains(
@@ -1861,7 +1880,8 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 					if (trimmedLine.startsWith(StringPool.CLOSE_CURLY_BRACE) &&
 						line.endsWith(StringPool.OPEN_CURLY_BRACE)) {
 
-						matcher = _lineBreakPattern.matcher(trimmedLine);
+						Matcher matcher = _lineBreakPattern.matcher(
+							trimmedLine);
 
 						if (!matcher.find()) {
 							processErrorMessage(
@@ -3216,13 +3236,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 		return line;
 	}
 
-	private static final Map<String, String> _DEFAULT_PRIMITIVE_VALUES =
-		MapUtil.fromArray(
-			new String[] {
-				"boolean", "false", "char", "'\\0'", "byte", "0", "double",
-				"0.0d", "float", "0.0f", "int", "0", "long", "0L", "short", "0"
-			});
-
 	private static final String[] _INCLUDES = new String[] {"**/*.java"};
 
 	private static final int _MAX_LINE_LENGTH = 80;
@@ -3278,8 +3291,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 	private List<String> _testAnnotationsExclusionFiles;
 	private Pattern _throwsSystemExceptionPattern = Pattern.compile(
 		"(\n\t+.*)throws(.*) SystemException(.*)( \\{|;\n)");
-	private Pattern _unassignedVariablePattern = Pattern.compile(
-		"^(([a-zA-Z])[a-zA-Z0-9]*) [_a-zA-Z]+[_a-zA-Z0-9]*;$");
 	private List<String> _upgradeServiceUtilExclusionFiles;
 
 }

@@ -78,6 +78,9 @@ if (ddlDisplayContext.isAdminPortlet()) {
 
 	renderResponse.setTitle((record != null) ? LanguageUtil.format(request, "edit-x", ddmStructure.getName(locale), false) : LanguageUtil.format(request, "new-x", ddmStructure.getName(locale), false));
 }
+else {
+	renderResponse.setTitle(recordSet.getName(locale));
+}
 %>
 
 <portlet:actionURL name="addRecord" var="addRecordURL">

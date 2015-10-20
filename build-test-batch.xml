@@ -946,9 +946,11 @@
 		<sequential>
 			<echo>Sending testray results to @{testray.results.dir}.</echo>
 
-			<copy failonerror="false" todir="@{testray.results.dir}">
-				<fileset dir="@{test.results.suite.dir}" erroronmissingdir="false" includes="TESTS-*.xml" />
-			</copy>
+			<for list="uat" param="testray.base.dir.name">
+				<sequential>
+					<rsync rsync.dest="testray-results/@{testray.base.dir.name}" rsync.src="@{test.results.suite.dir}" />
+				</sequential>
+			</for>
 		</sequential>
 	</macrodef>
 
@@ -1114,6 +1116,34 @@
 				<prepare-test-build />
 			</test-set-up>
 		</run-batch-test>
+	</target>
+
+	<target name="ruby-sass-compiler">
+		<echo file="build.${user.name}.properties">sass.compiler.class.name=ruby</echo>
+
+		<antcall target="setup-sdk" inheritAll="false" />
+
+		<record action="start" name="${project.dir}/sass-compiler-log" />
+
+		<gradle-execute dir="modules" task="buildCSS" />
+
+		<ant dir="portal-web" target="build-css" inheritAll="false" />
+
+		<record action="stop" name="${project.dir}/sass-compiler-log" />
+
+		<fail message="The Sass compiler is not using Ruby.">
+			<condition>
+				<and>
+					<not>
+						<resourcecontains resource="${project.dir}/sass-compiler-log" substring="Using Ruby Sass compiler" />
+					</not>
+					<or>
+						<resourcecontains resource="${project.dir}/sass-compiler-log" substring="Unable to load Ruby compiler, falling back to native" />
+						<resourcecontains resource="${project.dir}/sass-compiler-log" substring="Using native Sass compiler" />
+					</or>
+				</and>
+			</condition>
+		</fail>
 	</target>
 
 	<target name="service-builder">
