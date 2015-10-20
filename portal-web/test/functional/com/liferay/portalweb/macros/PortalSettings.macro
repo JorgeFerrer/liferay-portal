@@ -111,7 +111,7 @@
 	<command name="configureTimeZone">
 		<execute function="AssertClick" locator1="NavListItem#DISPLAY_SETTINGS" value1="Display Settings" />
 
-		<execute function="Select" locator1="CPSitesettingsDisplaysettings#TIME_ZONE_SELECT" value1="${timeZone}" />
+		<execute function="Select" locator1="Select#TIME_ZONE" value1="${timeZone}" />
 
 		<execute macro="PortalSettings#_saveDisplaySettings" />
 	</command>
@@ -447,16 +447,6 @@
 		<execute function="AssertTextEquals" locator1="PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_LAST_NAME_ATTRIBUTE_HEADER" value1="Last Name Attribute" />
 		<execute function="AssertTextEquals" locator1="PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_LAST_NAME_ATTRIBUTE_FIELD" value1="sn" />
 		<execute function="AssertElementPresent" locator1="PortalSettingsAuthentication#AUTHENTICATION_OPEN_SSO_TEST_OPEN_SSO_CONFIGURATION_BUTTON" value1="Test OpenSSO Configuration" />
-	</command>
-
-	<command name="viewAuthenticationSiteMinderCP">
-		<execute function="AssertClick" locator1="NavListItem#AUTHENTICATION" value1="Authentication" />
-
-		<execute function="AssertClick" locator1="NavTab#SITE_MINDER" value1="SiteMinder" />
-		<execute function="AssertElementPresent" locator1="PortalSettingsAuthentication#AUTHENTICATION_SITE_MINDER_ENABLED_CHECKBOX" />
-		<execute function="AssertElementPresent" locator1="PortalSettingsAuthentication#AUTHENTICATION_SITE_MINDER_IMPORT_FROM_LDAP_CHECKBOX" />
-		<execute function="AssertTextEquals" locator1="PortalSettingsAuthentication#AUTHENTICATION_SITE_MINDER_USER_HEADER_HEADER" value1="User Header" />
-		<execute function="AssertTextEquals" locator1="PortalSettingsAuthentication#AUTHENTICATION_SITE_MINDER_USER_HEADER_FIELD" value1="SM_USER" />
 	</command>
 
 	<command name="viewConfigurationUsersDefaultUserAssociationsOrganizationSitesCP">

@@ -61,7 +61,7 @@ portletURL.setParameter("displayStyle", displayStyle);
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);
 
-renderResponse.setTitle((category != null) ? HtmlUtil.escape(category.getTitle(locale)) : HtmlUtil.escape(vocabulary.getTitle(locale)));
+renderResponse.setTitle((category != null) ? category.getTitle(locale) : vocabulary.getTitle(locale));
 
 AssetCategoryUtil.addPortletBreadcrumbEntry(vocabulary, category, request, renderResponse);
 %>
@@ -91,8 +91,8 @@ AssetCategoryUtil.addPortletBreadcrumbEntry(vocabulary, category, request, rende
 		</liferay-portlet:renderURL>
 
 		<liferay-frontend:management-bar-display-buttons
-			displayStyleURL="<%= displayStyleURL %>"
 			displayViews='<%= new String[] {"list"} %>'
+			portletURL="<%= displayStyleURL %>"
 			selectedDisplayStyle="<%= displayStyle %>"
 		/>
 	</liferay-frontend:management-bar-buttons>

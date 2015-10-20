@@ -46,10 +46,6 @@ public class CardTag extends IncludeTag {
 		_actionJspServletContext = actionJspServletContext;
 	}
 
-	public void setBackgroundImage(boolean backgroundImage) {
-		_backgroundImage = backgroundImage;
-	}
-
 	public void setCheckboxChecked(boolean checkboxChecked) {
 		_checkboxChecked = checkboxChecked;
 	}
@@ -86,18 +82,6 @@ public class CardTag extends IncludeTag {
 		_data = data;
 	}
 
-	public void setFooter(String footer) {
-		_footer = footer;
-	}
-
-	public void setHeader(String header) {
-		_header = header;
-	}
-
-	public void setHorizontal(boolean horizontal) {
-		_horizontal = horizontal;
-	}
-
 	public void setImageCSSClass(String imageCSSClass) {
 		_imageCSSClass = imageCSSClass;
 	}
@@ -125,22 +109,6 @@ public class CardTag extends IncludeTag {
 		_showCheckbox = showCheckbox;
 	}
 
-	public void setSmallImageCSSClass(String smallImageCSSClass) {
-		_smallImageCSSClass = smallImageCSSClass;
-	}
-
-	public void setSmallImageUrl(String smallImageUrl) {
-		_smallImageUrl = smallImageUrl;
-	}
-
-	public void setSubtitle(String subtitle) {
-		_subtitle = subtitle;
-	}
-
-	public void setTitle(String title) {
-		_title = title;
-	}
-
 	public void setUrl(String url) {
 		_url = url;
 	}
@@ -149,7 +117,6 @@ public class CardTag extends IncludeTag {
 	protected void cleanUp() {
 		_actionJsp = null;
 		_actionJspServletContext = null;
-		_backgroundImage = true;
 		_checkboxChecked = null;
 		_checkboxCSSClass = null;
 		_checkboxData = null;
@@ -159,18 +126,11 @@ public class CardTag extends IncludeTag {
 		_checkboxValue = null;
 		_cssClass = null;
 		_data = null;
-		_footer = null;
-		_header = null;
-		_horizontal = false;
 		_imageUrl = null;
 		_imageCSSClass = null;
 		_resultRow = null;
 		_rowChecker = null;
 		_showCheckbox = false;
-		_smallImageCSSClass = null;
-		_smallImageUrl = null;
-		_subtitle = null;
-		_title = null;
 		_url = null;
 	}
 
@@ -183,22 +143,11 @@ public class CardTag extends IncludeTag {
 	}
 
 	@Override
-	protected String getPage() {
-		if (_horizontal) {
-			return "/card/horizontal.jsp";
-		}
-
-		return "/card/vertical.jsp";
-	}
-
-	@Override
 	protected void setAttributes(HttpServletRequest request) {
 		request.setAttribute("liferay-frontend:card:actionJsp", _actionJsp);
 		request.setAttribute(
 			"liferay-frontend:card:actionJspServletContext",
 			getActionJspServletContext());
-		request.setAttribute(
-			"liferay-frontend:card:backgroundImage", _backgroundImage);
 		request.setAttribute(
 			"liferay-frontend:card:checkboxChecked",
 			String.valueOf(_checkboxChecked));
@@ -216,8 +165,6 @@ public class CardTag extends IncludeTag {
 			"liferay-frontend:card:checkboxValue", _checkboxValue);
 		request.setAttribute("liferay-frontend:card:cssClass", _cssClass);
 		request.setAttribute("liferay-frontend:card:data", _data);
-		request.setAttribute("liferay-frontend:card:footer", _footer);
-		request.setAttribute("liferay-frontend:card:header", _header);
 		request.setAttribute(
 			"liferay-frontend:card:imageCSSClass", _imageCSSClass);
 		request.setAttribute("liferay-frontend:card:imageUrl", _imageUrl);
@@ -231,12 +178,6 @@ public class CardTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-frontend:card:showCheckbox", _showCheckbox);
 
-		request.setAttribute(
-			"liferay-frontend:card:smallImageCSSClass", _smallImageCSSClass);
-		request.setAttribute(
-			"liferay-frontend:card:smallImageUrl", _smallImageUrl);
-		request.setAttribute("liferay-frontend:card:subtitle", _subtitle);
-		request.setAttribute("liferay-frontend:card:title", _title);
 		request.setAttribute("liferay-frontend:card:url", _url);
 
 		request.setAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW, _resultRow);
@@ -244,7 +185,6 @@ public class CardTag extends IncludeTag {
 
 	private String _actionJsp;
 	private ServletContext _actionJspServletContext;
-	private boolean _backgroundImage = true;
 	private Boolean _checkboxChecked;
 	private String _checkboxCSSClass;
 	private Map<String, Object> _checkboxData;
@@ -254,18 +194,11 @@ public class CardTag extends IncludeTag {
 	private String _checkboxValue;
 	private String _cssClass;
 	private Map<String, Object> _data;
-	private String _footer;
-	private String _header;
-	private boolean _horizontal = false;
 	private String _imageCSSClass;
 	private String _imageUrl;
 	private ResultRow _resultRow;
 	private RowChecker _rowChecker;
 	private boolean _showCheckbox;
-	private String _smallImageCSSClass;
-	private String _smallImageUrl;
-	private String _subtitle;
-	private String _title;
 	private String _url;
 
 }

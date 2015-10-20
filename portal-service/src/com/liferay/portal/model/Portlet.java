@@ -69,21 +69,29 @@ public interface Portlet extends PortletModel, PersistedModel {
 		};
 
 	/**
-	* Adds a supported processing event.
+	* Adds an application type.
+	*
+	* @param applicationType an application type
+	*/
+	public void addApplicationType(
+		com.liferay.portal.kernel.application.type.ApplicationType applicationType);
+
+	/**
+	* Adds a processing event.
 	*/
 	public void addProcessingEvent(
 		com.liferay.portal.kernel.xml.QName processingEvent);
 
 	/**
-	* Adds a supported public render parameter.
+	* Adds a public render parameter.
 	*
-	* @param publicRenderParameter a supported public render parameter
+	* @param publicRenderParameter a public render parameter
 	*/
 	public void addPublicRenderParameter(
 		com.liferay.portal.model.PublicRenderParameter publicRenderParameter);
 
 	/**
-	* Adds a supported publishing event.
+	* Adds a publishing event.
 	*/
 	public void addPublishingEvent(
 		com.liferay.portal.kernel.xml.QName publishingEvent);
@@ -136,18 +144,25 @@ public interface Portlet extends PortletModel, PersistedModel {
 	public boolean getAjaxable();
 
 	/**
-	* Returns a list of all portlet modes supported by the portlet.
+	* Returns the portlet modes of the portlet.
 	*
-	* @return a list of all portlet modes supported by the portlet
+	* @return the portlet modes of the portlet
 	*/
 	public java.util.Set<java.lang.String> getAllPortletModes();
 
 	/**
-	* Returns a list of all window states supported by the portlet.
+	* Returns the window states of the portlet.
 	*
-	* @return a list of all window states supported by the portlet
+	* @return the window states of the portlet
 	*/
 	public java.util.Set<java.lang.String> getAllWindowStates();
+
+	/**
+	* Returns the application types of the portlet.
+	*
+	* @return the application types of the portlet
+	*/
+	public java.util.Set<com.liferay.portal.kernel.application.type.ApplicationType> getApplicationTypes();
 
 	/**
 	* Returns the names of the classes that represent asset types associated
@@ -729,56 +744,54 @@ public interface Portlet extends PortletModel, PersistedModel {
 	public boolean getPrivateSessionAttributes();
 
 	/**
-	* Returns the supported processing event from a namespace URI and a local
-	* part.
+	* Returns the processing event from a namespace URI and a local part.
 	*
 	* @param uri the namespace URI
 	* @param localPart the local part
-	* @return the supported processing event from a namespace URI and a local
-	part
+	* @return the processing event from a namespace URI and a local part
 	*/
 	public com.liferay.portal.kernel.xml.QName getProcessingEvent(
 		java.lang.String uri, java.lang.String localPart);
 
 	/**
-	* Returns the supported processing events of the portlet.
+	* Returns the processing events of the portlet.
 	*
-	* @return supported processing events of the portlet
+	* @return the processing events of the portlet
 	*/
 	public java.util.Set<com.liferay.portal.kernel.xml.QName> getProcessingEvents();
 
 	/**
-	* Returns the supported public render parameter from an identifier.
+	* Returns the public render parameter from an identifier.
 	*
 	* @param identifier the identifier
-	* @return the supported public render parameter from an identifier
+	* @return the public render parameter from an identifier
 	*/
 	public com.liferay.portal.model.PublicRenderParameter getPublicRenderParameter(
 		java.lang.String identifier);
 
 	/**
-	* Returns the supported public render parameter from a namespace URI and a
-	* local part.
+	* Returns the spublic render parameter from a namespace URI and a local
+	* part.
 	*
 	* @param uri the namespace URI
 	* @param localPart the local part
-	* @return the supported public render parameter from a namespace URI and a
-	local part
+	* @return the spublic render parameter from a namespace URI and a local
+	part
 	*/
 	public com.liferay.portal.model.PublicRenderParameter getPublicRenderParameter(
 		java.lang.String uri, java.lang.String localPart);
 
 	/**
-	* Returns the supported public render parameters of the portlet.
+	* Returns the public render parameters of the portlet.
 	*
-	* @return the supported public render parameters of the portlet
+	* @return the public render parameters of the portlet
 	*/
 	public java.util.Set<com.liferay.portal.model.PublicRenderParameter> getPublicRenderParameters();
 
 	/**
-	* Returns the supported publishing events of the portlet.
+	* Returns the publishing events of the portlet.
 	*
-	* @return supported publishing events of the portlet
+	* @return the publishing events of the portlet
 	*/
 	public java.util.Set<com.liferay.portal.kernel.xml.QName> getPublishingEvents();
 
@@ -993,7 +1006,7 @@ public interface Portlet extends PortletModel, PersistedModel {
 	/**
 	* Returns the supported locales of the portlet.
 	*
-	* @return supported locales of the portlet
+	* @return the supported locales of the portlet
 	*/
 	public java.util.Set<java.lang.String> getSupportedLocales();
 
@@ -1540,6 +1553,14 @@ public interface Portlet extends PortletModel, PersistedModel {
 	public void setAjaxable(boolean ajaxable);
 
 	/**
+	* Sets the application types of the portlet.
+	*
+	* @param applicationTypes the application types of the portlet
+	*/
+	public void setApplicationTypes(
+		java.util.Set<com.liferay.portal.kernel.application.type.ApplicationType> applicationTypes);
+
+	/**
 	* Sets the names of the classes that represent asset types associated with
 	* the portlet.
 	*
@@ -1730,8 +1751,6 @@ public interface Portlet extends PortletModel, PersistedModel {
 	URL routes of the portlet
 	*/
 	public void setFriendlyURLRoutes(java.lang.String friendlyURLRoutes);
-
-	public void setFullPageDisplayable(boolean fullPageDisplayable);
 
 	/**
 	* Sets a list of CSS files that will be referenced from the page's header
@@ -2025,26 +2044,25 @@ public interface Portlet extends PortletModel, PersistedModel {
 	public void setPrivateSessionAttributes(boolean privateSessionAttributes);
 
 	/**
-	* Sets the supported processing events of the portlet.
+	* Sets the processing events of the portlet.
 	*
-	* @param processingEvents the supported processing events of the portlet
+	* @param processingEvents the processing events of the portlet
 	*/
 	public void setProcessingEvents(
 		java.util.Set<com.liferay.portal.kernel.xml.QName> processingEvents);
 
 	/**
-	* Sets the supported public render parameters of the portlet.
+	* Sets the public render parameters of the portlet.
 	*
-	* @param publicRenderParameters the supported public render parameters of
-	the portlet
+	* @param publicRenderParameters the public render parameters of the portlet
 	*/
 	public void setPublicRenderParameters(
 		java.util.Set<com.liferay.portal.model.PublicRenderParameter> publicRenderParameters);
 
 	/**
-	* Sets the supported publishing events of the portlet.
+	* Sets the publishing events of the portlet.
 	*
-	* @param publishingEvents the supported publishing events of the portlet
+	* @param publishingEvents the publishing events of the portlet
 	*/
 	public void setPublishingEvents(
 		java.util.Set<com.liferay.portal.kernel.xml.QName> publishingEvents);

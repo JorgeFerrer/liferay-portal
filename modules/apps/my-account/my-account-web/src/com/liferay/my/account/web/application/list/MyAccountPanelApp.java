@@ -18,8 +18,6 @@ import com.liferay.application.list.BaseControlPanelEntryPanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.my.account.web.constants.MyAccountPortletKeys;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Portlet;
 
 import org.osgi.service.component.annotations.Component;
@@ -47,11 +45,8 @@ public class MyAccountPanelApp extends BaseControlPanelEntryPanelApp {
 		target = "(javax.portlet.name=" + MyAccountPortletKeys.MY_ACCOUNT + ")",
 		unbind = "-"
 	)
-	protected final void setPortlet(Portlet portlet) {
+	public void setPortlet(Portlet portlet) {
 		super.setPortlet(portlet);
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		MyAccountPanelApp.class);
 
 }

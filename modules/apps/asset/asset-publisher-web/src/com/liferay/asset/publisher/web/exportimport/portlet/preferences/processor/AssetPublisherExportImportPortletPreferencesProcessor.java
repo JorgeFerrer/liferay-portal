@@ -22,6 +22,7 @@ import com.liferay.dynamic.data.mapping.service.persistence.DDMStructureUtil;
 import com.liferay.exportimport.portlet.preferences.processor.Capability;
 import com.liferay.exportimport.portlet.preferences.processor.ExportImportPortletPreferencesProcessor;
 import com.liferay.exportimport.portlet.preferences.processor.base.BaseExportImportPortletPreferencesProcessor;
+import com.liferay.exportimport.portlet.preferences.processor.capability.ReferencedStagedModelImporterCapability;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.portal.NoSuchGroupException;
 import com.liferay.portal.NoSuchLayoutException;
@@ -39,6 +40,7 @@ import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.StagedModel;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.CompanyLocalService;
@@ -48,6 +50,8 @@ import com.liferay.portal.service.PortletLocalService;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.asset.model.AssetCategory;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.model.AssetRenderer;
 import com.liferay.portlet.asset.model.AssetVocabulary;
 import com.liferay.portlet.asset.service.AssetCategoryLocalService;
 import com.liferay.portlet.asset.service.AssetVocabularyLocalService;
@@ -96,7 +100,8 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 	public List<Capability> getImportCapabilities() {
 		return ListUtil.toList(
 			new Capability[] {
-				_assetPublisherPortletDisplayTemplateImportCapability
+				_assetPublisherPortletDisplayTemplateImportCapability,
+				_referencedStagedModelImporterCapability
 			});
 	}
 
@@ -107,6 +112,8 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 		throws PortletDataException {
 
 		try {
+			exportAssetObjects(portletDataContext, portletPreferences);
+
 			return updateExportPortletPreferences(
 				portletDataContext, portletDataContext.getPortletId(),
 				portletPreferences);
@@ -128,6 +135,37 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 		}
 		catch (Exception e) {
 			return portletPreferences;
+		}
+	}
+
+	protected void exportAssetObjects(
+			PortletDataContext portletDataContext,
+			PortletPreferences portletPreferences)
+		throws Exception {
+
+		Layout layout = _layoutLocalService.getLayout(
+			portletDataContext.getPlid());
+
+		long[] groupIds = AssetPublisherUtil.getGroupIds(
+			portletPreferences, portletDataContext.getScopeGroupId(), layout);
+
+		List<AssetEntry> assetEntries = AssetPublisherUtil.getAssetEntries(
+			null, portletPreferences,
+			PermissionThreadLocal.getPermissionChecker(), groupIds, false,
+			false);
+
+		for (AssetEntry assetEntry : assetEntries) {
+			AssetRenderer<?> assetRenderer = assetEntry.getAssetRenderer();
+
+			if ((assetRenderer == null) ||
+				!(assetRenderer.getAssetObject() instanceof StagedModel)) {
+
+				continue;
+			}
+
+			StagedModelDataHandlerUtil.exportReferenceStagedModel(
+				portletDataContext, portletDataContext.getPortletId(),
+				(StagedModel)assetRenderer.getAssetObject());
 		}
 	}
 
@@ -391,6 +429,15 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 		_portletLocalService = portletLocalService;
 	}
 
+	@Reference(unbind = "-")
+	protected void setReferencedStagedModelImporterCapability(
+		ReferencedStagedModelImporterCapability
+			referencedStagedModelImporterCapability) {
+
+		_referencedStagedModelImporterCapability =
+			referencedStagedModelImporterCapability;
+	}
+
 	protected void updateExportClassNameIds(
 			PortletPreferences portletPreferences, String key)
 		throws Exception {
@@ -630,12 +677,6 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 			PortletPreferences portletPreferences)
 		throws Exception {
 
-		StagedModelDataHandlerUtil.importReferenceStagedModels(
-			portletDataContext, AssetVocabulary.class);
-
-		StagedModelDataHandlerUtil.importReferenceStagedModels(
-			portletDataContext, AssetCategory.class);
-
 		Company company = _companyLocalService.getCompanyById(
 			portletDataContext.getCompanyId());
 
@@ -785,5 +826,7 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 	private LayoutLocalService _layoutLocalService;
 	private OrganizationLocalService _organizationLocalService;
 	private PortletLocalService _portletLocalService;
+	private ReferencedStagedModelImporterCapability
+		_referencedStagedModelImporterCapability;
 
 }

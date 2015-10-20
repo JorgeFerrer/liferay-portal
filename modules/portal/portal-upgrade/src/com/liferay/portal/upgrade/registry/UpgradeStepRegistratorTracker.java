@@ -44,17 +44,6 @@ public class UpgradeStepRegistratorTracker {
 	public static List<ServiceRegistration<UpgradeStep>> register(
 		BundleContext bundleContext, String bundleSymbolicName,
 		String fromSchemaVersionString, String toSchemaVersionString,
-		Collection<UpgradeStep> upgradeSteps) {
-
-		return register(
-			bundleContext, bundleSymbolicName, fromSchemaVersionString,
-			toSchemaVersionString,
-			upgradeSteps.toArray(new UpgradeStep[upgradeSteps.size()]));
-	}
-
-	public static List<ServiceRegistration<UpgradeStep>> register(
-		BundleContext bundleContext, String bundleSymbolicName,
-		String fromSchemaVersionString, String toSchemaVersionString,
 		UpgradeStep ... upgradeSteps) {
 
 		List<ServiceRegistration<UpgradeStep>> serviceRegistrations =
@@ -218,8 +207,7 @@ public class UpgradeStepRegistratorTracker {
 			@Override
 			public void register(
 				final String bundleSymbolicName, String fromSchemaVersionString,
-				String toSchemaVersionString,
-				Collection<UpgradeStep> upgradeSteps) {
+				String toSchemaVersionString, UpgradeStep... upgradeSteps) {
 
 				List<UpgradeInfo> upgradeInfos = createUpgradeInfos(
 					fromSchemaVersionString, toSchemaVersionString,
