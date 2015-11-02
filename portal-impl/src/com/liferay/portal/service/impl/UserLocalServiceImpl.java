@@ -486,7 +486,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public void addOrganizationUsers(long organizationId, long[] userIds)
 		throws PortalException {
 
-		organizationPersistence.addUsers(organizationId, userIds);
+		Organization organization = organizationPersistence.findByPrimaryKey(
+			organizationId);
+
+		organizationPersistence.addUsers(
+			organization.getOrganizationId(), userIds);
 
 		reindex(userIds);
 
