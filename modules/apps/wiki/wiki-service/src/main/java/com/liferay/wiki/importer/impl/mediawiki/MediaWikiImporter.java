@@ -191,9 +191,14 @@ public class MediaWikiImporter implements WikiImporter {
 				readAssetTagNames(userId, node, content));
 
 			if (Validator.isNull(redirectTitle)) {
-				_translator.setStrictImportMode(strictImportMode);
+				if (Validator.equals(
+						_wikiGroupServiceConfiguration.defaultFormat(),
+						"creole")) {
 
-				content = _translator.translate(content);
+					_translator.setStrictImportMode(strictImportMode);
+
+					content = _translator.translate(content);
+				}
 			}
 			else {
 				content =
@@ -214,8 +219,9 @@ public class MediaWikiImporter implements WikiImporter {
 
 			_wikiPageLocalService.updatePage(
 				authorUserId, node.getNodeId(), title, page.getVersion(),
-				content, summary, true, "creole", parentTitle, redirectTitle,
-				serviceContext);
+				content, summary, true,
+				_wikiGroupServiceConfiguration.defaultFormat(), parentTitle,
+				redirectTitle, serviceContext);
 		}
 		catch (Exception e) {
 			throw new PortalException("Error importing page " + title, e);
