@@ -199,6 +199,12 @@ public class MediaWikiImporter implements WikiImporter {
 
 					content = _translator.translate(content);
 				}
+				else {
+					content = content.replaceAll(
+						_imagesPattern.pattern(),
+						"$1$2" + SHARED_IMAGES_TITLE + StringPool.SLASH +
+						"$3$4");
+				}
 			}
 			else {
 				content =
@@ -716,6 +722,8 @@ public class MediaWikiImporter implements WikiImporter {
 
 	private static final Pattern _categoriesPattern = Pattern.compile(
 		"\\[\\[[Cc]ategory:([^\\]]*)\\]\\][\\n]*");
+	private static final Pattern _imagesPattern = Pattern.compile(
+		"(\\[\\[Image|File)(:)([^\\]]*)(\\]\\])", Pattern.DOTALL);
 	private static final Pattern _parentPattern = Pattern.compile(
 		"\\{{2}OtherTopics\\|([^\\}]*)\\}{2}");
 	private static final Pattern _redirectPattern = Pattern.compile(
