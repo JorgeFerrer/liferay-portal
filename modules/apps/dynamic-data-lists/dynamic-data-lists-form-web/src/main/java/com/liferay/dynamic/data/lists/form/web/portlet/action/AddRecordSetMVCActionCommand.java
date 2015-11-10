@@ -31,22 +31,17 @@ import com.liferay.dynamic.data.mapping.storage.StorageType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseTransactionalMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PropertiesParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.service.LayoutServiceUtil;
+import com.liferay.portal.model.PortletInstance;
+import com.liferay.portal.service.LayoutService;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 import java.util.HashMap;
@@ -93,7 +88,7 @@ public class AddRecordSetMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDMStructure.class.getName(), actionRequest);
 
-		return _ddmStructureService.addStructure(
+		return ddmStructureService.addStructure(
 			groupId, DDMStructureConstants.DEFAULT_PARENT_STRUCTURE_ID,
 			PortalUtil.getClassNameId(DDLRecordSet.class), structureKey,
 			getLocalizedMap(themeDisplay.getLocale(), name),
@@ -118,7 +113,7 @@ public class AddRecordSetMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecordSet.class.getName(), actionRequest);
 
-		return _ddlRecordSetService.addRecordSet(
+		return ddlRecordSetService.addRecordSet(
 			groupId, ddmStructureId, recordSetKey,
 			getLocalizedMap(themeDisplay.getLocale(), name),
 			getLocalizedMap(themeDisplay.getLocale(), description),
@@ -126,67 +121,26 @@ public class AddRecordSetMVCActionCommand
 			DDLRecordSetConstants.SCOPE_FORMS, serviceContext);
 	}
 
-	@Override
-	protected void doTransactionalCommand(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+	protected void addRecordSetLayout(
+			ActionRequest actionRequest, DDLRecordSet recordSet)
 		throws Exception {
 
-		DDMStructure ddmStructure = addDDMStructure(actionRequest);
+		PortletInstance portletInstance = new PortletInstance(
+			DDLFormPortletKeys.DYNAMIC_DATA_LISTS_FORM);
 
-		DDLRecordSet recordSet = addRecordSet(
-			actionRequest, ddmStructure.getStructureId());
+		String portletId = String.valueOf(portletInstance);
 
-		boolean publish = GetterUtil.getBoolean(
-			ParamUtil.getString(actionRequest, "publish"));
+		Layout layout = addSinglePortletApplicationLayout(
+			actionRequest, portletId);
 
-		if (publish) {
-			String url = publish(
-				actionRequest, actionResponse, recordSet.getRecordSetId());
+		storePortletPreferences(layout, portletId, recordSet.getRecordSetId());
 
-			_ddlRecordSetService.updateRecordSet(
-				recordSet.getRecordSetId(), url);
-		}
+		updateRecordSetPlid(recordSet, layout.getPlid());
 	}
 
-	protected DDMForm getDDMForm(ActionRequest actionRequest)
+	protected Layout addSinglePortletApplicationLayout(
+			ActionRequest actionRequest, String portletId)
 		throws PortalException {
-
-		try {
-			String definition = ParamUtil.getString(
-				actionRequest, "definition");
-
-			return _ddmFormJSONDeserializer.deserialize(definition);
-		}
-		catch (PortalException pe) {
-			throw new StructureDefinitionException(pe);
-		}
-	}
-
-	protected DDMFormLayout getDDMFormLayout(ActionRequest actionRequest)
-		throws PortalException {
-
-		try {
-			String layout = ParamUtil.getString(actionRequest, "layout");
-
-			return _ddmFormLayoutJSONDeserializer.deserialize(layout);
-		}
-		catch (PortalException pe) {
-			throw new StructureLayoutException(pe);
-		}
-	}
-
-	protected Map<Locale, String> getLocalizedMap(Locale locale, String value) {
-		Map<Locale, String> localizedMap = new HashMap<>();
-
-		localizedMap.put(locale, value);
-
-		return localizedMap;
-	}
-
-	protected String publish(
-			ActionRequest actionRequest, ActionResponse actionResponse,
-			long recordSetId)
-		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -208,71 +162,104 @@ public class AddRecordSetMVCActionCommand
 		Map<Locale, String> robotsMap = LocalizationUtil.getLocalizationMap(
 			actionRequest, "robots");
 
-		UnicodeProperties typeSettingsProperties =
-			PropertiesParamUtil.getProperties(
-				actionRequest, "TypeSettingsProperties--");
+		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
 
-		String portletId = typeSettingsProperties.getProperty(
-			"singlePortletApplication");
+		typeSettingsProperties.setProperty(
+			"singlePortletApplication", portletId);
 
 		serviceContext.setAttribute("layout.instanceable.allowed", true);
 
-		Layout layout = LayoutServiceUtil.addLayout(
+		return layoutService.addLayout(
 			groupId, false, 0, getLocalizedMap(themeDisplay.getLocale(), name),
 			titleMap, getLocalizedMap(themeDisplay.getLocale(), description),
 			keywordsMap, robotsMap, "single_portlet_application",
 			typeSettingsProperties.toString(), true, friendlyURLMap,
 			serviceContext);
+	}
 
-		LayoutTypePortlet layoutTypePortlet =
-			(LayoutTypePortlet)layout.getLayoutType();
+	@Override
+	protected void doTransactionalCommand(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-		layoutTypePortlet.setLayoutTemplateId(
-			themeDisplay.getUserId(), PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID);
+		DDMStructure ddmStructure = addDDMStructure(actionRequest);
 
-		LayoutServiceUtil.updateLayout(
-			groupId, false, layout.getLayoutId(), layout.getTypeSettings());
+		DDLRecordSet recordSet = addRecordSet(
+			actionRequest, ddmStructure.getStructureId());
 
-		storePortletPreferences(layout, portletId, recordSetId);
+		boolean publish = ParamUtil.getBoolean(actionRequest, "publish");
 
-		StringBundler sb = new StringBundler(4);
+		if (publish) {
+			addRecordSetLayout(actionRequest, recordSet);
+		}
+	}
 
-		Group group = themeDisplay.getSiteGroup();
+	protected DDMForm getDDMForm(ActionRequest actionRequest)
+		throws PortalException {
 
-		sb.append(themeDisplay.getPortalURL());
-		sb.append(group.getPathFriendlyURL(false, themeDisplay));
-		sb.append(group.getFriendlyURL());
-		sb.append(layout.getFriendlyURL());
+		try {
+			String definition = ParamUtil.getString(
+				actionRequest, "definition");
 
-		return sb.toString();
+			return ddmFormJSONDeserializer.deserialize(definition);
+		}
+		catch (PortalException pe) {
+			throw new StructureDefinitionException(pe);
+		}
+	}
+
+	protected DDMFormLayout getDDMFormLayout(ActionRequest actionRequest)
+		throws PortalException {
+
+		try {
+			String layout = ParamUtil.getString(actionRequest, "layout");
+
+			return ddmFormLayoutJSONDeserializer.deserialize(layout);
+		}
+		catch (PortalException pe) {
+			throw new StructureLayoutException(pe);
+		}
+	}
+
+	protected Map<Locale, String> getLocalizedMap(Locale locale, String value) {
+		Map<Locale, String> localizedMap = new HashMap<>();
+
+		localizedMap.put(locale, value);
+
+		return localizedMap;
 	}
 
 	@Reference
 	protected void setDDLRecordSetService(
 		DDLRecordSetService ddlRecordSetService) {
 
-		_ddlRecordSetService = ddlRecordSetService;
+		this.ddlRecordSetService = ddlRecordSetService;
 	}
 
 	@Reference
 	protected void setDDMFormJSONDeserializer(
 		DDMFormJSONDeserializer ddmFormJSONDeserializer) {
 
-		_ddmFormJSONDeserializer = ddmFormJSONDeserializer;
+		this.ddmFormJSONDeserializer = ddmFormJSONDeserializer;
 	}
 
 	@Reference
 	protected void setDDMFormLayoutJSONDeserializer(
 		DDMFormLayoutJSONDeserializer ddmFormLayoutJSONDeserializer) {
 
-		_ddmFormLayoutJSONDeserializer = ddmFormLayoutJSONDeserializer;
+		this.ddmFormLayoutJSONDeserializer = ddmFormLayoutJSONDeserializer;
 	}
 
 	@Reference
 	protected void setDDMStructureService(
 		DDMStructureService ddmStructureService) {
 
-		_ddmStructureService = ddmStructureService;
+		this.ddmStructureService = ddmStructureService;
+	}
+
+	@Reference
+	protected void setLayoutService(LayoutService layoutService) {
+		this.layoutService = layoutService;
 	}
 
 	protected void storePortletPreferences(
@@ -288,9 +275,27 @@ public class AddRecordSetMVCActionCommand
 		portletPreferences.store();
 	}
 
-	private DDLRecordSetService _ddlRecordSetService;
-	private DDMFormJSONDeserializer _ddmFormJSONDeserializer;
-	private DDMFormLayoutJSONDeserializer _ddmFormLayoutJSONDeserializer;
-	private DDMStructureService _ddmStructureService;
+	protected void updateRecordSetPlid(DDLRecordSet recordSet, long plid)
+		throws PortalException {
+
+		UnicodeProperties settingsProperties =
+			recordSet.getSettingsProperties();
+
+		if (plid > 0) {
+			settingsProperties.setProperty("plid", String.valueOf(plid));
+		}
+		else {
+			settingsProperties.remove("plid");
+		}
+
+		ddlRecordSetService.updateRecordSet(
+			recordSet.getRecordSetId(), settingsProperties.toString());
+	}
+
+	protected DDLRecordSetService ddlRecordSetService;
+	protected DDMFormJSONDeserializer ddmFormJSONDeserializer;
+	protected DDMFormLayoutJSONDeserializer ddmFormLayoutJSONDeserializer;
+	protected DDMStructureService ddmStructureService;
+	protected LayoutService layoutService;
 
 }

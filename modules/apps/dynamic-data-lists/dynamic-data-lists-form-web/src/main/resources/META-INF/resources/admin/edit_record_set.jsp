@@ -47,11 +47,25 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 		<aui:input name="recordSetId" type="hidden" value="<%= recordSetId %>" />
 		<aui:input name="groupId" type="hidden" value="<%= groupId %>" />
 		<aui:input name="ddmStructureId" type="hidden" value="<%= ddmStructureId %>" />
+		<aui:input name="publish" type="hidden" />
 
 		<liferay-ui:error exception="<%= RecordSetNameException.class %>" message="please-enter-a-valid-form-name" />
 		<liferay-ui:error exception="<%= StructureDefinitionException .class %>" message="please-enter-a-valid-form-definition" />
 		<liferay-ui:error exception="<%= StructureLayoutException .class %>" message="please-enter-a-valid-form-layout" />
 		<liferay-ui:error exception="<%= StructureNameException .class %>" message="please-enter-a-valid-form-name" />
+
+		<c:if test="<%= ddlFormAdminDisplayContext.isRecordSetPublished() %>">
+			<div class="alert alert-dismissible alert-success ddl-form-alert" data-dismiss="alert">
+				<div class="container-fluid-1280">
+					<button class="close" type="button">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+
+					<liferay-ui:message key="form-published-at" />: <a href="<%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %>" target="_PARENT"><%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %></a>
+					<span class="icon-external-link"></span>
+				</div>
+			</div>
+		</c:if>
 
 		<aui:fieldset cssClass="ddl-form-basic-info">
 			<div class="container-fluid-1280">
@@ -80,14 +94,42 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 
 		<div class="container-fluid-1280">
 			<aui:button-row cssClass="ddl-form-builder-buttons">
-				<aui:button cssClass="btn-lg" id="submit" label="save" primary="<%= true %>" type="submit" />
 
-                <aui:button cssClass="btn-lg" onClick='<%= renderResponse.getNamespace() + "save(true);" %>' value='<%= LanguageUtil.get(request, "saveAndPublish") %>' />
+				<%
+				String taglibOnClick = renderResponse.getNamespace() + "save()";
+				%>
+
+				<aui:button cssClass="btn-lg" id="submit" onClick="<%= taglibOnClick %>" primary="<%= true %>" value="save">
+					<c:choose>
+						<c:when test="<%= !ddlFormAdminDisplayContext.isRecordSetPublished() %>">
+							<li cssClass="btn-lg">
+
+								<%
+								taglibOnClick = renderResponse.getNamespace() + "save(true)";
+								%>
+
+								<aui:a href="javascript:;" onClick="<%= taglibOnClick %>"><%= LanguageUtil.get(request, "save-and-publish-live-page") %></aui:a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li cssClass="btn-lg">
+
+								<%
+								taglibOnClick = renderResponse.getNamespace() + "save(false)";
+								%>
+
+								<aui:a href="javascript:;" onClick="<%= taglibOnClick %>"><%= LanguageUtil.get(request, "save-and-unpublish-live-page") %></aui:a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</aui:button>
 
 				<aui:button cssClass="btn-lg" href="<%= redirect %>" name="cancelButton" type="cancel" />
 			</aui:button-row>
 		</div>
 		<aui:script>
+			var formPortlet = null;
+
 			var initHandler = Liferay.after(
 				'form:registered',
 				function(event) {
@@ -107,7 +149,7 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 							function() {
 								Liferay.DDM.Renderer.FieldTypes.register(fieldTypes);
 
-								new Liferay.DDL.Portlet(
+								formPortlet = new Liferay.DDL.Portlet(
 									{
 										definition: <%= ddlFormAdminDisplayContext.getSerializedDDMForm() %>,
 										editForm: event.form,
@@ -133,8 +175,18 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 			};
 
 			Liferay.on('destroyPortlet', clearPortletHandlers);
+
+			function <portlet:namespace />save(publish) {
+				var A = new AUI()
+
+				if (A.Lang.isBoolean(publish)) {
+					<portlet:namespace />editForm.<portlet:namespace />publish.value = publish;
+				}
+
+				formPortlet._onSubmitEditForm();
+
+				<portlet:namespace />editForm.submit();
+			}
 		</aui:script>
 	</aui:form>
 </div>
-
-				<aui:button cssClass="btn-lg" onClick='<%= renderResponse.getNamespace() + "save(true);" %>' value='<%= LanguageUtil.get(request, "saveAndPublish") %>' />
