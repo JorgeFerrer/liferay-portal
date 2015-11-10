@@ -357,6 +357,63 @@ public class DDLFormAdminDisplayContext {
 		}
 	}
 
+protected Layout fetchRecordSetLayout() throws PortalException {
+		long plid = getRecordSetPlid();
+
+		_layout = LayoutLocalServiceUtil.fetchLayout(plid);
+
+		return _layout;
+	}
+
+public boolean isRecordSetPublished() throws PortalException {
+		DDLRecordSet recordSet = getRecordSet();
+
+		if (recordSet == null) {
+			return false;
+		}
+
+		Layout layout = fetchRecordSetLayout();
+
+		if (layout == null) {
+			return false;
+		}
+
+		return true;
+	}
+
+public String getRecordSetLayoutURL() throws PortalException {
+		Layout layout = fetchRecordSetLayout();
+
+		if (layout == null) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		ThemeDisplay themeDisplay =
+			_ddlFormAdminRequestHelper.getThemeDisplay();
+
+		Group group = themeDisplay.getSiteGroup();
+
+		sb.append(themeDisplay.getPortalURL());
+		sb.append(group.getPathFriendlyURL(false, themeDisplay));
+		sb.append(group.getFriendlyURL());
+		sb.append(layout.getFriendlyURL());
+
+		return sb.toString();
+	}
+
+	protected long getRecordSetPlid() throws PortalException {
+		DDLRecordSet recordSet = getRecordSet();
+
+		if (recordSet == null) {
+			return 0;
+		}
+
+		return GetterUtil.getLong(
+			recordSet.getSettingsProperty("plid", StringPool.BLANK));
+	}
+
 	private static final ServiceTracker
 		<DDMFormRenderer, DDMFormRenderer> _ddmFormRendererServiceTracker;
 
