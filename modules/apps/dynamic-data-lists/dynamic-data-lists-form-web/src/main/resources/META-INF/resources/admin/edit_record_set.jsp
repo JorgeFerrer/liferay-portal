@@ -55,7 +55,7 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 		<liferay-ui:error exception="<%= StructureNameException .class %>" message="please-enter-a-valid-form-name" />
 
 		<c:if test="<%= ddlFormAdminDisplayContext.isRecordSetPublished() %>">
-			<div class="alert alert-dismissible alert-success ddl-form-alert" data-dismiss="alert">
+			<div class="alert alert-success ddl-form-alert">
 				<div class="container-fluid-1280">
 					<button class="close" type="button">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -94,31 +94,16 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 
 		<div class="container-fluid-1280">
 			<aui:button-row cssClass="ddl-form-builder-buttons">
-
-				<%
-				String taglibOnClick = renderResponse.getNamespace() + "save()";
-				%>
-
-				<aui:button cssClass="btn-lg" id="submit" onClick="<%= taglibOnClick %>" primary="<%= true %>" value="save">
+				<aui:button cssClass="btn-lg ddl-button" disabled="<%= true %>" id="submit" primary="<%= true %>" type="submit" value="save">
 					<c:choose>
 						<c:when test="<%= !ddlFormAdminDisplayContext.isRecordSetPublished() %>">
-							<li cssClass="btn-lg">
-
-								<%
-								taglibOnClick = renderResponse.getNamespace() + "save(true)";
-								%>
-
-								<aui:a href="javascript:;" onClick="<%= taglibOnClick %>"><%= LanguageUtil.get(request, "save-and-publish-live-page") %></aui:a>
+							<li>
+								<aui:a cssClass="ddl-button publish save" href="javascript:;"><%= LanguageUtil.get(request, "save-and-publish-live-page") %></aui:a>
 							</li>
 						</c:when>
 						<c:otherwise>
-							<li cssClass="btn-lg">
-
-								<%
-								taglibOnClick = renderResponse.getNamespace() + "save(false)";
-								%>
-
-								<aui:a href="javascript:;" onClick="<%= taglibOnClick %>"><%= LanguageUtil.get(request, "save-and-unpublish-live-page") %></aui:a>
+							<li>
+								<aui:a cssClass="ddl-button save unpublish" href="javascript:;"><%= LanguageUtil.get(request, "save-and-unpublish-live-page") %></aui:a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -128,8 +113,6 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 			</aui:button-row>
 		</div>
 		<aui:script>
-			var formPortlet = null;
-
 			var initHandler = Liferay.after(
 				'form:registered',
 				function(event) {
@@ -149,7 +132,7 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 							function() {
 								Liferay.DDM.Renderer.FieldTypes.register(fieldTypes);
 
-								formPortlet = new Liferay.DDL.Portlet(
+								new Liferay.DDL.Portlet(
 									{
 										definition: <%= ddlFormAdminDisplayContext.getSerializedDDMForm() %>,
 										editForm: event.form,
@@ -175,18 +158,6 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 			};
 
 			Liferay.on('destroyPortlet', clearPortletHandlers);
-
-			function <portlet:namespace />save(publish) {
-				var A = new AUI()
-
-				if (A.Lang.isBoolean(publish)) {
-					<portlet:namespace />editForm.<portlet:namespace />publish.value = publish;
-				}
-
-				formPortlet._onSubmitEditForm();
-
-				<portlet:namespace />editForm.submit();
-			}
 		</aui:script>
 	</aui:form>
 </div>

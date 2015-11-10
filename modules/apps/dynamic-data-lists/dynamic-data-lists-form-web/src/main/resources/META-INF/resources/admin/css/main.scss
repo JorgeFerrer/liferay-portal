@@ -9,9 +9,11 @@
 
 .portlet-forms {
 	.ddl-form-alert {
+		border-radius: 0;
 		position: absolute;
 		top: 0;
 		width: 100%;
+		z-index: 500;
 	}
 
 	.ddl-form-builder-buttons {
