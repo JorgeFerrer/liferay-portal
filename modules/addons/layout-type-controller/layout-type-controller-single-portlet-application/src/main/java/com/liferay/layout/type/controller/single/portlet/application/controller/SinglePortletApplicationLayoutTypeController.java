@@ -18,6 +18,7 @@ import com.liferay.layout.type.controller.full.page.application.controller.FullP
 import com.liferay.layout.type.controller.single.portlet.application.constants.SinglePortletApplicationLayoutTypeControllerConstants;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.LayoutTypeController;
+import com.liferay.portal.service.PortletLocalService;
 
 import javax.servlet.ServletContext;
 
@@ -53,6 +54,13 @@ public class SinglePortletApplicationLayoutTypeController
 	@Override
 	protected String getViewPage() {
 		return _VIEW_PAGE;
+	}
+
+	@Reference(unbind = "-")
+	protected void setPortletLocalService(
+		PortletLocalService portletLocalService) {
+
+		this.portletLocalService = portletLocalService;
 	}
 
 	@Reference(
