@@ -17,15 +17,6 @@ package com.liferay.dynamic.data.lists.form.web.portlet.action;
 import com.liferay.dynamic.data.lists.form.web.constants.DDLFormPortletKeys;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
-import com.liferay.portal.kernel.portlet.PortletConfigurationLayoutUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.PortletPreferencesImpl;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -48,25 +39,6 @@ public class DDLFormConfigurationAction extends DefaultConfigurationAction {
 	@Override
 	public String getJspPath(HttpServletRequest request) {
 		return "/display/configuration.jsp";
-	}
-
-	@Override
-	public void processAction(
-			PortletConfig portletConfig, ActionRequest actionRequest,
-			ActionResponse actionResponse)
-		throws Exception {
-
-		PortletPreferencesImpl portletPreferences =
-			(PortletPreferencesImpl)actionRequest.getPreferences();
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		Layout layout = PortletConfigurationLayoutUtil.getLayout(themeDisplay);
-
-		portletPreferences.setPlid(layout.getPlid());
-
-		super.processAction(portletConfig, actionRequest, actionResponse);
 	}
 
 	@Override
