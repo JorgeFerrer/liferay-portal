@@ -14,6 +14,9 @@
 
 package com.liferay.layout.type.controller.single.portlet.application.constants;
 
+/**
+ * @author Leonardo Barros
+ */
 public class SinglePortletApplicationLayoutTypeControllerConstants {
 
 	public static final String LAYOUT_TYPE_SINGLE_PORTLET_APPLICATION =
