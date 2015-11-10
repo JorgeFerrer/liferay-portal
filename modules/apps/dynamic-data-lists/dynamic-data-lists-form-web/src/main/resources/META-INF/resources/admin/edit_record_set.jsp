@@ -58,11 +58,16 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 			<div class="alert alert-success ddl-form-alert">
 				<div class="container-fluid-1280">
 					<button class="close" type="button">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only"><liferay-ui:message key="close" /></span>
 					</button>
 
-					<liferay-ui:message key="form-published-at" />: <a href="<%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %>" target="_PARENT"><%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %></a>
-					<span class="icon-external-link"></span>
+					<liferay-util:buffer var="publishedLink">
+						<a href="<%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %>" target="_parent"><%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %></a>
+						<span class="icon-external-link"></span>
+					</liferay-util:buffer>
+
+					<liferay-ui:message arguments="<%= new Object[] { publishedLink } %>" key="form-published-at-x" />
 				</div>
 			</div>
 		</c:if>

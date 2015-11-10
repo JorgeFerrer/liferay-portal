@@ -85,7 +85,7 @@
 <c:if test="<%= dropdown %>">
 	<button aria-expanded="false" class="btn btn-primary dropdown-toggle <%= cssClass %>" data-toggle="dropdown" <%= disabled ? "disabled" : StringPool.BLANK %> id="<%= id %>Toggle" type="button">
 		<span class="caret"></span>
-		<span class="sr-only">Toggle Dropdown</span>
+		<span class="sr-only"><liferay-ui:message key="toggle-dropdown" /></span>
 	</button>
 </c:if>
 
