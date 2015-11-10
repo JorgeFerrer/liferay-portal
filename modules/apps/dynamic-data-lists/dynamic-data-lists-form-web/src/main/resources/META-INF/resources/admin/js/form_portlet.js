@@ -84,8 +84,7 @@ AUI.add(
 
 						var buttons = instance.all('.ddl-button');
 
-						buttons.removeAttribute('disabled');
-						buttons.removeClass('disabled');
+						Liferay.Util.toggleDisabled(buttons, false);
 					},
 
 					serializeFormBuilder: function() {
