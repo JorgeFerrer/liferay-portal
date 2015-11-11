@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.LayoutTypePortletConstants;
 import com.liferay.portal.model.PortletInstance;
 import com.liferay.portal.service.LayoutService;
 import com.liferay.portal.service.ServiceContext;
@@ -164,6 +165,9 @@ public class AddRecordSetMVCActionCommand
 
 		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
 
+		typeSettingsProperties.setProperty(
+			LayoutTypePortletConstants.LAYOUT_TEMPLATE_ID, "1_column");
+		typeSettingsProperties.setProperty("column-1", portletId);
 		typeSettingsProperties.setProperty(
 			"singlePortletApplication", portletId);
 
