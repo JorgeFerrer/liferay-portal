@@ -63,7 +63,7 @@ renderResponse.setTitle((recordSet == null) ? LanguageUtil.get(request, "new-for
 					</button>
 
 					<liferay-util:buffer var="publishedLink">
-						<a href="<%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %>" target="_parent"><%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %></a>
+						<a href="<%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %>" target="_blank"><%= ddlFormAdminDisplayContext.getRecordSetLayoutURL() %></a>
 						<span class="icon-external-link"></span>
 					</liferay-util:buffer>
 
