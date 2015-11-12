@@ -26,15 +26,19 @@ import com.liferay.dynamic.data.mapping.service.DDMStructureLinkLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.portal.util.PortletKeys;
 
 import java.util.Date;
 import java.util.List;
@@ -163,6 +167,10 @@ public class DDLRecordSetLocalServiceImpl
 		ddmStructureLinkLocalService.deleteStructureLinks(
 			classNameLocalService.getClassNameId(DDLRecordSet.class),
 			recordSet.getRecordSetId());
+
+		// Layout
+
+		deleteRecordSetLayout(recordSet);
 
 		// Workflow
 
@@ -334,6 +342,28 @@ public class DDLRecordSetLocalServiceImpl
 		return ddlRecordSetPersistence.update(recordSet);
 	}
 
+	protected void deleteRecordSetLayout(DDLRecordSet recordSet)
+		throws PortalException {
+
+		long plid = GetterUtil.getLong(
+			recordSet.getSettingsProperty("plid", StringPool.BLANK));
+
+		Layout layout = layoutLocalService.fetchLayout(plid);
+
+		if (layout == null) {
+			return;
+		}
+
+		// Layout
+
+		layoutLocalService.deleteLayout(layout.getPlid(), new ServiceContext());
+
+		// Portlet Preferences
+
+		portletPreferencesLocalService.deletePortletPreferences(
+			0, PortletKeys.PREFS_OWNER_TYPE_LAYOUT, layout.getPlid());
+	}
+
 	protected DDLRecordSet doUpdateRecordSet(
 			long ddmStructureId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, int minDisplayRows,
@@ -436,7 +466,9 @@ public class DDLRecordSetLocalServiceImpl
 		String requireCaptcha = settingsProperties.getProperty(
 			"requireCaptcha");
 
-		if (!Validator.isBoolean(requireCaptcha)) {
+		if (Validator.isNotNull(requireCaptcha) &&
+			!Validator.isBoolean(requireCaptcha)) {
+
 			throw new RecordSetSettingsException(
 				"The property \"requireCaptcha\" is not a boolean");
 		}
