@@ -552,13 +552,11 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 
 		int[] types = RoleConstants.TYPES_REGULAR;
 
-		if (group.isOrganization()) {
-			if (group.isSite()) {
-				types = RoleConstants.TYPES_ORGANIZATION_AND_REGULAR_AND_SITE;
-			}
-			else {
-				types = RoleConstants.TYPES_ORGANIZATION_AND_REGULAR;
-			}
+		if (group.isOrganization() && group.isSite()) {
+			types = RoleConstants.TYPES_ORGANIZATION_AND_REGULAR_AND_SITE;
+		}
+		else if (group.isOrganization()) {
+			types = RoleConstants.TYPES_ORGANIZATION_AND_REGULAR;
 		}
 		else if (group.isLayout() || group.isLayoutSetPrototype() ||
 				 group.isSite() || group.isUser()) {
