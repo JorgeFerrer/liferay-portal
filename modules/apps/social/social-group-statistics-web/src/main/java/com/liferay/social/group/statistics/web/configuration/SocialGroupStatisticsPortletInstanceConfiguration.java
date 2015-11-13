@@ -15,6 +15,7 @@
 package com.liferay.social.group.statistics.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
+
 import com.liferay.configuration.admin.ConfigurationAdmin;
 
 /**
