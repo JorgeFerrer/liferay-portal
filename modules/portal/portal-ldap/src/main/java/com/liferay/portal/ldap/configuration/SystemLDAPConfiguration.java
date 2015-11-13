@@ -16,6 +16,8 @@ package com.liferay.portal.ldap.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
+import com.liferay.configuration.admin.ConfigurationAdmin;
+
 /**
  * @author Michael C. Han
  */
