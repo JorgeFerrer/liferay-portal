@@ -44,14 +44,21 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PrefsParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowEngineManagerUtil;
 import com.liferay.portal.kernel.workflow.WorkflowHandler;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
 import java.util.List;
@@ -183,6 +190,28 @@ public class DDLFormAdminDisplayContext {
 		return _recordSet;
 	}
 
+	public String getRecordSetLayoutURL() throws PortalException {
+		Layout layout = fetchRecordSetLayout();
+
+		if (layout == null) {
+			return StringPool.BLANK;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		ThemeDisplay themeDisplay =
+			_ddlFormAdminRequestHelper.getThemeDisplay();
+
+		Group group = themeDisplay.getSiteGroup();
+
+		sb.append(themeDisplay.getPortalURL());
+		sb.append(group.getPathFriendlyURL(false, themeDisplay));
+		sb.append(group.getFriendlyURL());
+		sb.append(layout.getFriendlyURL());
+
+		return sb.toString();
+	}
+
 	public List<DDLRecordSet> getSearchContainerResults(
 			SearchContainer<DDLRecordSet> searchContainer)
 		throws PortalException {
@@ -283,6 +312,22 @@ public class DDLFormAdminDisplayContext {
 		return false;
 	}
 
+	public boolean isRecordSetPublished() throws PortalException {
+		DDLRecordSet recordSet = getRecordSet();
+
+		if (recordSet == null) {
+			return false;
+		}
+
+		Layout layout = fetchRecordSetLayout();
+
+		if (layout == null) {
+			return false;
+		}
+
+		return true;
+	}
+
 	public boolean isShowAddRecordSetButton() {
 		return DDLPermission.contains(
 			_ddlFormAdminRequestHelper.getPermissionChecker(),
@@ -337,6 +382,14 @@ public class DDLFormAdminDisplayContext {
 		return ddmFormRenderingContext;
 	}
 
+	protected Layout fetchRecordSetLayout() throws PortalException {
+		long plid = getRecordSetPlid();
+
+		_layout = LayoutLocalServiceUtil.fetchLayout(plid);
+
+		return _layout;
+	}
+
 	protected DDMFormRenderer getDDMFormRenderer() {
 		return _ddmFormRendererServiceTracker.getService();
 	}
@@ -345,6 +398,17 @@ public class DDLFormAdminDisplayContext {
 		long recordId = ParamUtil.getLong(_renderRequest, "recordId");
 
 		return DDLRecordLocalServiceUtil.fetchDDLRecord(recordId);
+	}
+
+	protected long getRecordSetPlid() throws PortalException {
+		DDLRecordSet recordSet = getRecordSet();
+
+		if (recordSet == null) {
+			return 0;
+		}
+
+		return GetterUtil.getLong(
+			recordSet.getSettingsProperty("plid", StringPool.BLANK));
 	}
 
 	protected void setDDMFormFieldReadOnly(DDMFormField ddmFormField) {
@@ -374,6 +438,7 @@ public class DDLFormAdminDisplayContext {
 	private DDMStructure _ddmStucture;
 	private String _displayStyle;
 	private String[] _displayViews;
+	private Layout _layout;
 	private final PortletPreferences _portletPreferences;
 	private DDLRecordSet _recordSet;
 	private final RenderRequest _renderRequest;
