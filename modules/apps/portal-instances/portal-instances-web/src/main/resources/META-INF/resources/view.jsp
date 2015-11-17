@@ -20,6 +20,8 @@
 	<c:when test="<%= permissionChecker.isOmniadmin() %>">
 
 		<%
+		String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
+
 		int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 
 		PortletURL portletURL = renderResponse.createRenderURL();
@@ -32,6 +34,23 @@
 				<aui:nav-item label="instances" selected="<%= true %>" />
 			</aui:nav>
 		</aui:nav-bar>
+
+		<liferay-frontend:management-bar>
+			<liferay-frontend:management-bar-filters>
+				<liferay-frontend:management-bar-navigation
+					navigationKeys='<%= new String[] {"all"} %>'
+					portletURL="<%= renderResponse.createRenderURL() %>"
+				/>
+			</liferay-frontend:management-bar-filters>
+
+			<liferay-frontend:management-bar-buttons>
+				<liferay-frontend:management-bar-display-buttons
+					displayViews='<%= new String[] {"list"} %>'
+					portletURL="<%= renderResponse.createRenderURL() %>"
+					selectedDisplayStyle="<%= displayStyle %>"
+				/>
+			</liferay-frontend:management-bar-buttons>
+		</liferay-frontend:management-bar>
 
 		<portlet:renderURL var="redirectURL">
 			<portlet:param name="mvcRenderCommandName" value="/portal_instances/view" />
