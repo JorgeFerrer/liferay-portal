@@ -30,14 +30,12 @@ try {
 }
 catch (Exception e) {
 }
-%>
 
-<liferay-ui:header
-	backURL="<%= redirect %>"
-	escapeXml="<%= false %>"
-	localizeTitle="<%= (selCompany == null) %>"
-	title='<%= (selCompany == null) ? "new-portal-instance" : HtmlUtil.escape(selCompany.getName()) %>'
-/>
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(redirect);
+
+renderResponse.setTitle((selCompany == null) ? "new-portal-instance" : HtmlUtil.escape(selCompany.getName()));
+%>
 
 <portlet:actionURL name="/portal_instances/edit_instance" var="editInstanceURL" />
 
