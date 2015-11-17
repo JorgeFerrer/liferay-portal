@@ -27,6 +27,12 @@
 		portletURL.setParameter("mvcRenderCommandName", "/portal_instances/view");
 		%>
 
+		<aui:nav-bar markupView="lexicon">
+			<aui:nav cssClass="navbar-nav">
+				<aui:nav-item label="instances" selected="<%= true %>" />
+			</aui:nav>
+		</aui:nav-bar>
+
 		<portlet:renderURL var="redirectURL">
 			<portlet:param name="mvcRenderCommandName" value="/portal_instances/view" />
 			<portlet:param name="cur" value="<%= String.valueOf(cur) %>" />
