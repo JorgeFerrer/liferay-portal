@@ -27,15 +27,12 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("mvcPath", "/view_attributes.jsp");
 portletURL.setParameter("redirect", redirect);
 portletURL.setParameter("modelResource", modelResource);
-%>
 
-<liferay-ui:header
-	backURL="<%= redirect %>"
-	localizeTitle="<%= false %>"
-	title="<%= modelResourceName %>"
-/>
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(redirect);
 
-<%
+renderResponse.setTitle(modelResourceName);
+
 ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.getCompanyId(), modelResource);
 
 List<String> attributeNames = Collections.list(expandoBridge.getAttributeNames());
