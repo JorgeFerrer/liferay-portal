@@ -32,7 +32,7 @@
 			<portlet:param name="cur" value="<%= String.valueOf(cur) %>" />
 		</portlet:renderURL>
 
-		<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+		<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" />
 			<aui:input name="redirect" type="hidden" value="<%= redirectURL %>" />
 			<aui:input name="className" type="hidden" />
@@ -41,6 +41,8 @@
 		</aui:form>
 	</c:when>
 	<c:otherwise>
-		<liferay-util:include page="/html/portal/portlet_access_denied.jsp" />
+		<div class="container-fluid-1280">
+			<liferay-util:include page="/html/portal/portlet_access_denied.jsp" />
+		</div>
 	</c:otherwise>
 </c:choose>
