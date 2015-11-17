@@ -29,6 +29,12 @@ List<CustomAttributesDisplay> customAttributesDisplays = PortletLocalServiceUtil
 Collections.sort(customAttributesDisplays, new CustomAttributesDisplayComparator(locale));
 %>
 
+<aui:nav-bar markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
+		<aui:nav-item label="custom-fields" selected="<%= true %>" />
+	</aui:nav>
+</aui:nav-bar>
+
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
 		emptyResultsMessage='<%= LanguageUtil.get(request, "custom-fields-are-not-enabled-for-any-resource") %>'
