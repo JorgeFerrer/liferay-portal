@@ -38,65 +38,65 @@ ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.
 List<String> attributeNames = Collections.list(expandoBridge.getAttributeNames());
 %>
 
-<liferay-ui:search-container
-	emptyResultsMessage='<%= LanguageUtil.format(request, "no-custom-fields-are-defined-for-x", modelResourceName, false) %>'
-	iteratorURL="<%= portletURL %>"
->
-	<liferay-ui:search-container-results
-		results="<%= attributeNames %>"
-		total="<%= attributeNames.size() %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="java.lang.String"
-		modelVar="name"
-		stringKey="<%= true %>"
+<div class="container-fluid-1280">
+	<liferay-ui:search-container
+		emptyResultsMessage='<%= LanguageUtil.format(request, "no-custom-fields-are-defined-for-x", modelResourceName, false) %>'
+		iteratorURL="<%= portletURL %>"
 	>
-
-		<%
-		int type = expandoBridge.getAttributeType(name);
-
-		ExpandoColumn expandoColumn = ExpandoColumnLocalServiceUtil.getDefaultTableColumn(company.getCompanyId(), modelResource, name);
-
-		UnicodeProperties typeSettings = expandoColumn.getTypeSettingsProperties();
-		%>
-
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value="/edit_expando.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="columnId" value="<%= String.valueOf(expandoColumn.getColumnId()) %>" />
-			<portlet:param name="modelResource" value="<%= modelResource %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:search-container-row-parameter
-			name="expandoColumn"
-			value="<%= expandoColumn %>"
+		<liferay-ui:search-container-results
+			results="<%= attributeNames %>"
+			total="<%= attributeNames.size() %>"
 		/>
 
-		<liferay-ui:search-container-row-parameter
-			name="modelResource"
-			value="<%= modelResource %>"
-		/>
+		<liferay-ui:search-container-row
+			className="java.lang.String"
+			modelVar="name"
+			stringKey="<%= true %>"
+		>
 
-		<%@ include file="/attribute_columns.jspf" %>
-	</liferay-ui:search-container-row>
+			<%
+			int type = expandoBridge.getAttributeType(name);
 
-	<c:if test="<%= PortletPermissionUtil.contains(permissionChecker, ExpandoPortletKeys.EXPANDO, ActionKeys.ADD_EXPANDO) %>">
-		<portlet:renderURL var="addExpandoURL">
-			<portlet:param name="mvcPath" value="/edit_expando.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="modelResource" value="<%= modelResource %>" />
-		</portlet:renderURL>
+			ExpandoColumn expandoColumn = ExpandoColumnLocalServiceUtil.getDefaultTableColumn(company.getCompanyId(), modelResource, name);
 
-		<aui:button-row>
-			<aui:button href="<%= addExpandoURL %>" value="add-custom-field" />
-		</aui:button-row>
+			UnicodeProperties typeSettings = expandoColumn.getTypeSettingsProperties();
+			%>
 
-		<br />
-	</c:if>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcPath" value="/edit_expando.jsp" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="columnId" value="<%= String.valueOf(expandoColumn.getColumnId()) %>" />
+				<portlet:param name="modelResource" value="<%= modelResource %>" />
+			</portlet:renderURL>
 
-	<liferay-ui:search-iterator paginate="<%= false %>" />
-</liferay-ui:search-container>
+			<liferay-ui:search-container-row-parameter
+				name="expandoColumn"
+				value="<%= expandoColumn %>"
+			/>
+
+			<liferay-ui:search-container-row-parameter
+				name="modelResource"
+				value="<%= modelResource %>"
+			/>
+
+			<%@ include file="/attribute_columns.jspf" %>
+		</liferay-ui:search-container-row>
+
+		<c:if test="<%= PortletPermissionUtil.contains(permissionChecker, ExpandoPortletKeys.EXPANDO, ActionKeys.ADD_EXPANDO) %>">
+			<portlet:renderURL var="addExpandoURL">
+				<portlet:param name="mvcPath" value="/edit_expando.jsp" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="modelResource" value="<%= modelResource %>" />
+			</portlet:renderURL>
+
+			<aui:button-row cssClass="text-center">
+				<aui:button cssClass="btn-lg btn-primary" href="<%= addExpandoURL %>" value="add-custom-field" />
+			</aui:button-row>
+		</c:if>
+
+		<liferay-ui:search-iterator markupView="lexicon" paginate="<%= false %>" />
+	</liferay-ui:search-container>
+</div>
 
 <%
 PortalUtil.addPortletBreadcrumbEntry(request, modelResourceName, portletURL.toString());

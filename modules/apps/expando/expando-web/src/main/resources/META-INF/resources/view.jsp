@@ -29,76 +29,76 @@ List<CustomAttributesDisplay> customAttributesDisplays = PortletLocalServiceUtil
 Collections.sort(customAttributesDisplays, new CustomAttributesDisplayComparator(locale));
 %>
 
-<liferay-ui:search-container
-	emptyResultsMessage='<%= LanguageUtil.get(request, "custom-fields-are-not-enabled-for-any-resource") %>'
-	iteratorURL="<%= portletURL %>"
->
-	<liferay-ui:search-container-results
-		results="<%= customAttributesDisplays %>"
-		total="<%= customAttributesDisplays.size() %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="com.liferay.portlet.expando.model.CustomAttributesDisplay"
-		modelVar="customAttributesDisplay"
-		stringKey="<%= true %>"
+<div class="container-fluid-1280">
+	<liferay-ui:search-container
+		emptyResultsMessage='<%= LanguageUtil.get(request, "custom-fields-are-not-enabled-for-any-resource") %>'
+		iteratorURL="<%= portletURL %>"
 	>
-		<liferay-ui:search-container-row-parameter
-			name="customAttributesDisplay"
-			value="<%= customAttributesDisplay %>"
+		<liferay-ui:search-container-results
+			results="<%= customAttributesDisplays %>"
+			total="<%= customAttributesDisplays.size() %>"
 		/>
 
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value="/view_attributes.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="modelResource" value="<%= customAttributesDisplay.getClassName() %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="resource"
+		<liferay-ui:search-container-row
+			className="com.liferay.portlet.expando.model.CustomAttributesDisplay"
+			modelVar="customAttributesDisplay"
+			stringKey="<%= true %>"
 		>
-			<liferay-ui:icon
-				iconCssClass="<%= customAttributesDisplay.getIconCssClass() %>"
-				label="<%= true %>"
-				message="<%= ResourceActionsUtil.getModelResource(locale, customAttributesDisplay.getClassName()) %>"
+			<liferay-ui:search-container-row-parameter
+				name="customAttributesDisplay"
+				value="<%= customAttributesDisplay %>"
 			/>
-		</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="custom-fields"
-		>
+			<portlet:renderURL var="rowURL">
+				<portlet:param name="mvcPath" value="/view_attributes.jsp" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="modelResource" value="<%= customAttributesDisplay.getClassName() %>" />
+			</portlet:renderURL>
 
-			<%
-			ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.getCompanyId(), customAttributesDisplay.getClassName());
+			<liferay-ui:search-container-column-text
+				href="<%= rowURL %>"
+				name="resource"
+			>
+				<liferay-ui:icon
+					iconCssClass="<%= customAttributesDisplay.getIconCssClass() %>"
+					label="<%= true %>"
+					message="<%= ResourceActionsUtil.getModelResource(locale, customAttributesDisplay.getClassName()) %>"
+				/>
+			</liferay-ui:search-container-column-text>
 
-			List<String> attributeNames = Collections.list(expandoBridge.getAttributeNames());
+			<liferay-ui:search-container-column-text
+				name="custom-fields"
+			>
 
-			String[] localizedNames = new String[attributeNames.size()];
+				<%
+				ExpandoBridge expandoBridge = ExpandoBridgeFactoryUtil.getExpandoBridge(company.getCompanyId(), customAttributesDisplay.getClassName());
 
-			int i = 0;
+				List<String> attributeNames = Collections.list(expandoBridge.getAttributeNames());
 
-			for (String name : attributeNames) {
-				String localizedName = LanguageUtil.get(request, name);
+				String[] localizedNames = new String[attributeNames.size()];
 
-				if (name.equals(localizedName)) {
-					localizedName = TextFormatter.format(name, TextFormatter.J);
+				int i = 0;
+
+				for (String name : attributeNames) {
+					String localizedName = LanguageUtil.get(request, name);
+
+					if (name.equals(localizedName)) {
+						localizedName = TextFormatter.format(name, TextFormatter.J);
+					}
+
+					localizedNames[i++] = HtmlUtil.escape(localizedName);
 				}
+				%>
 
-				localizedNames[i++] = HtmlUtil.escape(localizedName);
-			}
-			%>
+				<%= StringUtil.merge(localizedNames, StringPool.COMMA_AND_SPACE) %>
+			</liferay-ui:search-container-column-text>
 
-			<%= StringUtil.merge(localizedNames, StringPool.COMMA_AND_SPACE) %>
-		</liferay-ui:search-container-column-text>
+			<liferay-ui:search-container-column-jsp
+				cssClass="list-group-item-field"
+				path="/resource_action.jsp"
+			/>
+		</liferay-ui:search-container-row>
 
-		<liferay-ui:search-container-column-jsp
-			align="right"
-			cssClass="entry-action"
-			path="/resource_action.jsp"
-		/>
-	</liferay-ui:search-container-row>
-
-	<liferay-ui:search-iterator paginate="<%= false %>" />
-</liferay-ui:search-container>
+		<liferay-ui:search-iterator markupView="lexicon" paginate="<%= false %>" />
+	</liferay-ui:search-container>
+</div>

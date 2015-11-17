@@ -76,7 +76,6 @@
 </liferay-ui:search-container-column-text>
 
 <liferay-ui:search-container-column-jsp
-	align="right"
-	cssClass="entry-action"
+	cssClass="list-group-item-field"
 	path="/expando_action.jsp"
 />
