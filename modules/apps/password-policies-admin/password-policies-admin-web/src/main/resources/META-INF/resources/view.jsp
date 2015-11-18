@@ -30,16 +30,7 @@ PasswordPolicySearch searchContainer = new PasswordPolicySearch(renderRequest, p
 
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
 	<aui:nav cssClass="navbar-nav">
-		<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_PASSWORD_POLICY) %>">
-			<portlet:renderURL var="viewPasswordPoliciesURL" />
-
-			<portlet:renderURL var="addPasswordPolicyURL">
-				<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
-				<portlet:param name="redirect" value="<%= viewPasswordPoliciesURL %>" />
-			</portlet:renderURL>
-
-			<aui:nav-item href="<%= addPasswordPolicyURL %>" iconCssClass="icon-plus" label="add" />
-		</c:if>
+		<aui:nav-item label="password-policies" selected="<%= true %>" />
 	</aui:nav>
 
 	<c:if test="<%= !passwordPolicyEnabled %>">
@@ -130,3 +121,16 @@ PasswordPolicySearch searchContainer = new PasswordPolicySearch(renderRequest, p
 		<liferay-ui:search-iterator markupView="lexicon" searchContainer="<%= searchContainer %>" />
 	</c:if>
 </aui:form>
+
+<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_PASSWORD_POLICY) %>">
+	<portlet:renderURL var="viewPasswordPoliciesURL" />
+
+	<portlet:renderURL var="addPasswordPolicyURL">
+		<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
+		<portlet:param name="redirect" value="<%= viewPasswordPoliciesURL %>" />
+	</portlet:renderURL>
+
+	<liferay-frontend:add-menu>
+		<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add") %>' url="<%= addPasswordPolicyURL.toString() %>" />
+	</liferay-frontend:add-menu>
+</c:if>
