@@ -49,11 +49,26 @@ portletDisplay.setURLBack(redirect);
 renderResponse.setTitle(passwordPolicy.getName());
 %>
 
-<liferay-ui:tabs
-	names="users,organizations"
-	param="tabs2"
-	url="<%= portletURL.toString() %>"
-/>
+<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
+
+		<%
+		PortletURL usersURL = PortletURLUtil.clone(portletURL, renderResponse);
+
+		usersURL.setParameter("tabs2", "users");
+		%>
+
+		<aui:nav-item href="<%= usersURL.toString() %>" label="users" selected='<%= tabs2.equals("users") %>' />
+
+		<%
+		PortletURL userGroupsURL = PortletURLUtil.clone(portletURL, renderResponse);
+
+		userGroupsURL.setParameter("tabs2", "organizations");
+		%>
+
+		<aui:nav-item href="<%= userGroupsURL.toString() %>" label="organizations" selected='<%= tabs2.equals("organizations") %>' />
+	</aui:nav>
+</aui:nav-bar>
 
 <portlet:actionURL name="editPasswordPolicyAssignments" var="editPasswordPolicyAssignmentsURL" />
 
