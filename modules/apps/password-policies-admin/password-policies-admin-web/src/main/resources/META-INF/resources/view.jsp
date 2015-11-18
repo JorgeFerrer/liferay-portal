@@ -24,9 +24,39 @@ pageContext.setAttribute("portletURL", portletURL);
 String portletURLString = portletURL.toString();
 
 boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company.getCompanyId());
+
+PasswordPolicySearch searchContainer = new PasswordPolicySearch(renderRequest, portletURL);
 %>
 
-<aui:form action="<%= portletURLString %>" method="get" name="fm">
+<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
+		<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_PASSWORD_POLICY) %>">
+			<portlet:renderURL var="viewPasswordPoliciesURL" />
+
+			<portlet:renderURL var="addPasswordPolicyURL">
+				<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
+				<portlet:param name="redirect" value="<%= viewPasswordPoliciesURL %>" />
+			</portlet:renderURL>
+
+			<aui:nav-item href="<%= addPasswordPolicyURL %>" iconCssClass="icon-plus" label="add" />
+		</c:if>
+	</aui:nav>
+
+	<c:if test="<%= !passwordPolicyEnabled %>">
+
+		<%
+		PortletURL searchURL = renderResponse.createRenderURL();
+		%>
+
+		<aui:nav-bar-search searchContainer="<%= searchContainer %>">
+			<aui:form action="<%= searchURL %>" name="searchFm">
+				<liferay-ui:input-search autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" markupView="lexicon" />
+			</aui:form>
+		</aui:nav-bar-search>
+	</c:if>
+</aui:nav-bar>
+
+<aui:form action="<%= portletURLString %>" cssClass="container-fluid-1280" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="portletURL" />
 
 	<c:if test="<%= passwordPolicyEnabled %>">
@@ -36,35 +66,10 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 	</c:if>
 
 	<%
-	PasswordPolicySearch searchContainer = new PasswordPolicySearch(renderRequest, portletURL);
-
 	List headerNames = searchContainer.getHeaderNames();
 
 	headerNames.add(StringPool.BLANK);
 	%>
-
-	<aui:nav-bar>
-		<aui:nav cssClass="navbar-nav">
-			<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_PASSWORD_POLICY) %>">
-				<portlet:renderURL var="viewPasswordPoliciesURL" />
-
-				<portlet:renderURL var="addPasswordPolicyURL">
-					<portlet:param name="mvcPath" value="/edit_password_policy.jsp" />
-					<portlet:param name="redirect" value="<%= viewPasswordPoliciesURL %>" />
-				</portlet:renderURL>
-
-				<aui:nav-item href="<%= addPasswordPolicyURL %>" iconCssClass="icon-plus" label="add" />
-			</c:if>
-		</aui:nav>
-
-		<c:if test="<%= !passwordPolicyEnabled %>">
-			<aui:nav-bar-search searchContainer="<%= searchContainer %>">
-				<div class="col-xs-12 form-search">
-					<liferay-ui:input-search autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" name="<%= PasswordPolicyDisplayTerms.NAME %>" placeholder='<%= LanguageUtil.get(request, "keywords") %>' />
-				</div>
-			</aui:nav-bar-search>
-		</c:if>
-	</aui:nav-bar>
 
 	<div class="alert alert-info">
 		<liferay-ui:message key="when-no-password-policy-is-assigned-to-a-user,-either-explicitly-or-through-an-organization,-the-default-password-policy-is-used" />
@@ -75,11 +80,11 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 		<%
 		PasswordPolicyDisplayTerms searchTerms = (PasswordPolicyDisplayTerms)searchContainer.getSearchTerms();
 
-		int total = PasswordPolicyLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getName());
+		int total = PasswordPolicyLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getKeywords());
 
 		searchContainer.setTotal(total);
 
-		List results = PasswordPolicyLocalServiceUtil.search(company.getCompanyId(), searchTerms.getName(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+		List results = PasswordPolicyLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
 
 		searchContainer.setResults(results);
 
@@ -114,7 +119,7 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 
 			// Action
 
-			row.addJSP("/password_policy_action.jsp", "entry-action", application, request, response);
+			row.addJSP("/password_policy_action.jsp", "list-group-item-field", application, request, response);
 
 			// Add result row
 
@@ -122,6 +127,6 @@ boolean passwordPolicyEnabled = LDAPSettingsUtil.isPasswordPolicyEnabled(company
 		}
 		%>
 
-		<liferay-ui:search-iterator searchContainer="<%= searchContainer %>" />
+		<liferay-ui:search-iterator markupView="lexicon" searchContainer="<%= searchContainer %>" />
 	</c:if>
 </aui:form>

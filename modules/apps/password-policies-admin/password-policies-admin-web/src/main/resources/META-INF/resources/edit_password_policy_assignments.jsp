@@ -57,7 +57,7 @@ renderResponse.setTitle(passwordPolicy.getName());
 
 <portlet:actionURL name="editPasswordPolicyAssignments" var="editPasswordPolicyAssignmentsURL" />
 
-<aui:form action="<%= editPasswordPolicyAssignmentsURL %>" method="post" name="fm">
+<aui:form action="<%= editPasswordPolicyAssignmentsURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="tabs1" type="hidden" value="<%= tabs1 %>" />
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 	<aui:input name="tabs3" type="hidden" value="<%= tabs3 %>" />
@@ -144,7 +144,7 @@ renderResponse.setTitle(passwordPolicy.getName());
 
 				<aui:button onClick="<%= taglibOnClick %>" value="update-associations" />
 
-				<liferay-ui:search-iterator />
+				<liferay-ui:search-iterator markupView="lexicon" />
 			</liferay-ui:search-container>
 		</c:when>
 		<c:when test='<%= tabs2.equals("organizations") %>'>
@@ -253,7 +253,7 @@ renderResponse.setTitle(passwordPolicy.getName());
 
 				<aui:button onClick="<%= taglibOnClick %>" value="update-associations" />
 
-				<liferay-ui:search-iterator />
+				<liferay-ui:search-iterator markupView="lexicon" />
 			</liferay-ui:search-container>
 		</c:when>
 	</c:choose>

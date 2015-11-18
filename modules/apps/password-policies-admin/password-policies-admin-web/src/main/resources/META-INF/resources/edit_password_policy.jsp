@@ -35,7 +35,7 @@ renderResponse.setTitle((passwordPolicy == null) ? "new-password-policy" : passw
 
 <portlet:actionURL name="editPasswordPolicy" var="editPasswordPolicyURL" />
 
-<aui:form action="<%= editPasswordPolicyURL %>" method="post" name="fm">
+<aui:form action="<%= editPasswordPolicyURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="passwordPolicyId" type="hidden" value="<%= passwordPolicyId %>" />
 
@@ -222,9 +222,9 @@ renderResponse.setTitle((passwordPolicy == null) ? "new-password-policy" : passw
 	</liferay-ui:panel-container>
 
 	<aui:button-row>
-		<aui:button type="submit" />
+		<aui:button cssClass="btn-lg" type="submit" />
 
-		<aui:button href="<%= redirect %>" type="cancel" />
+		<aui:button cssClass="btn-lg" href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
 
