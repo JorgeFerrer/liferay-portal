@@ -42,13 +42,12 @@ portletURL.setParameter("tabs2", tabs2);
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, tabs2), portletURL.toString());
 
 portletURL.setParameter("tabs3", tabs3);
-%>
 
-<liferay-ui:header
-	backURL="<%= redirect %>"
-	localizeTitle="<%= false %>"
-	title="<%= passwordPolicy.getName() %>"
-/>
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(redirect);
+
+renderResponse.setTitle(passwordPolicy.getName());
+%>
 
 <liferay-ui:tabs
 	names="users,organizations"

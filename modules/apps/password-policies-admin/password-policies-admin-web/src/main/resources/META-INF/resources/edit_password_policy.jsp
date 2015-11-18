@@ -26,13 +26,12 @@ long passwordPolicyId = ParamUtil.getLong(request, "passwordPolicyId");
 PasswordPolicy passwordPolicy = PasswordPolicyLocalServiceUtil.fetchPasswordPolicy(passwordPolicyId);
 
 boolean defaultPolicy = BeanParamUtil.getBoolean(passwordPolicy, request, "defaultPolicy");
-%>
 
-<liferay-ui:header
-	backURL="<%= backURL %>"
-	localizeTitle="<%= (passwordPolicy == null) %>"
-	title='<%= (passwordPolicy == null) ? "new-password-policy" : passwordPolicy.getName() %>'
-/>
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(backURL.toString());
+
+renderResponse.setTitle((passwordPolicy == null) ? "new-password-policy" : passwordPolicy.getName());
+%>
 
 <portlet:actionURL name="editPasswordPolicy" var="editPasswordPolicyURL" />
 
