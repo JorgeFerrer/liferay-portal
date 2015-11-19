@@ -68,14 +68,14 @@ ConfigurationModel factoryConfigurationModel = (ConfigurationModel)request.getAt
 			modelVar="configurationModel"
 		>
 			<portlet:renderURL var="editURL">
-				<portlet:param name="mvcPath" value="/edit_configuration.jsp" />
+				<portlet:param name="mvcRenderCommandName" value="/edit-configuration" />
 				<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
 				<portlet:param name="pid" value="<%= configurationModel.getID() %>" />
 			</portlet:renderURL>
 
 			<portlet:renderURL var="viewFactoryInstancesURL">
+				<portlet:param name="mvcRenderCommandName" value="/view-factory-instances" />
 				<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
-				<portlet:param name="viewType" value="factoryInstances" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text name="name">
@@ -140,7 +140,7 @@ ConfigurationModel factoryConfigurationModel = (ConfigurationModel)request.getAt
 							/>
 
 							<portlet:renderURL var="createFactoryConfigURL">
-								<portlet:param name="mvcPath" value="/edit_configuration.jsp" />
+								<portlet:param name="mvcRenderCommandName" value="/edit-configuration" />
 								<portlet:param name="factoryPid" value="<%= configurationModel.getID() %>" />
 							</portlet:renderURL>
 
