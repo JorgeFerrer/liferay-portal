@@ -20,6 +20,10 @@
 List<String> configurationCategories = (List<String>)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_CATEGORIES);
 String configurationCategory = (String)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_CATEGORY);
 ConfigurationModelIterator configurationModelIterator = (ConfigurationModelIterator)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_ITERATOR);
+
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("configurationCategory", configurationCategory);
 %>
 
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
@@ -49,6 +53,7 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
 		emptyResultsMessage="no-configurations-were-found"
+		iteratorURL="<%= portletURL %>"
 		total="<%= configurationModelIterator.getTotal() %>"
 	>
 		<liferay-ui:search-container-results
