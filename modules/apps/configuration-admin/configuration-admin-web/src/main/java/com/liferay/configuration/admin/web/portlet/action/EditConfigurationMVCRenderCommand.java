@@ -70,12 +70,11 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		String factoryPid = ParamUtil.getString(renderRequest, "factoryPid");
-
 		ConfigurationHelper configurationHelper = new ConfigurationHelper(
 			_bundleContext, _configurationAdmin, _extendedMetaTypeService,
 			themeDisplay.getLanguageId());
 
+		String factoryPid = ParamUtil.getString(renderRequest, "factoryPid");
 		String pid = ParamUtil.getString(renderRequest, "pid", factoryPid);
 
 		ConfigurationModel configurationModel =
