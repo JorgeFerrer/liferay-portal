@@ -98,7 +98,7 @@ public class ViewFactoryInstancesMVCRenderCommand implements MVCRenderCommand {
 			ConfigurationAdminWebKeys.FACTORY_CONFIGURATION_MODEL,
 			factoryConfigurationModel);
 
-		return "/view.jsp";
+		return "/view_factory_instances.jsp";
 	}
 
 	@Reference(unbind = "-")
