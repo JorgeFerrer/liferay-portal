@@ -21,9 +21,12 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 ConfigurationModel factoryConfigurationModel = (ConfigurationModel)request.getAttribute(ConfigurationAdminWebKeys.FACTORY_CONFIGURATION_MODEL);
 
 String redirect = ParamUtil.getString(request, "redirect");
-%>
 
-<liferay-ui:header backURL="<%= redirect %>" title="<%= factoryConfigurationModel.getName() %>" />
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(redirect);
+
+renderResponse.setTitle(factoryConfigurationModel.getName());
+%>
 
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
