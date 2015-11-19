@@ -64,11 +64,13 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 				<portlet:param name="mvcRenderCommandName" value="/edit-configuration" />
 				<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
 				<portlet:param name="pid" value="<%= configurationModel.getID() %>" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
 			</portlet:renderURL>
 
 			<portlet:renderURL var="viewFactoryInstancesURL">
 				<portlet:param name="mvcRenderCommandName" value="/view-factory-instances" />
 				<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text name="name">
@@ -129,6 +131,7 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 							<portlet:renderURL var="createFactoryConfigURL">
 								<portlet:param name="mvcRenderCommandName" value="/edit-configuration" />
 								<portlet:param name="factoryPid" value="<%= configurationModel.getID() %>" />
+								<portlet:param name="redirect" value="<%= currentURL %>" />
 							</portlet:renderURL>
 
 							<liferay-ui:icon
@@ -148,6 +151,7 @@ ConfigurationModelIterator configurationModelIterator = (ConfigurationModelItera
 								<portlet:actionURL name="deleteConfiguration" var="deleteConfigActionURL">
 									<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
 									<portlet:param name="pid" value="<%= configurationModel.getID() %>" />
+									<portlet:param name="redirect" value="<%= currentURL %>" />
 								</portlet:actionURL>
 
 								<liferay-ui:icon
