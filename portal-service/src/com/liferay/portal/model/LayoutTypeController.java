@@ -28,6 +28,8 @@ public interface LayoutTypeController extends Serializable {
 
 	public String[] getConfigurationActionUpdate();
 
+	public LayoutTypeController getCustomLayoutController(Layout layout);
+
 	public String getType();
 
 	public String getURL();
@@ -61,4 +63,5 @@ public interface LayoutTypeController extends Serializable {
 	public boolean matches(
 		HttpServletRequest request, String friendlyURL, Layout layout);
 
+	public boolean isAllowCustomLayoutControllerPerLayout();
 }
