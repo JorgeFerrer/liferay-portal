@@ -62,6 +62,7 @@ import com.liferay.portal.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.LayoutClone;
 import com.liferay.portal.util.LayoutCloneFactory;
+import com.liferay.portal.util.LayoutTypeControllerTracker;
 import com.liferay.portal.util.LayoutTypePortletFactoryUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortletKeys;
@@ -898,6 +899,18 @@ public class LayoutImpl extends LayoutBaseImpl {
 
 		LayoutTypeController layoutTypeController =
 			layoutType.getLayoutTypeController();
+
+		if (layoutTypeController.isAllowCustomLayoutControllerPerLayout()){
+			Layout layout = layoutType.getLayout();
+
+			LayoutTypeController customLayoutTypeController =
+				layoutTypeController.getCustomLayoutController(layout);
+
+			if (customLayoutTypeController != null) {
+				layoutTypeController = customLayoutTypeController;
+			}
+
+		}
 
 		return layoutTypeController.includeLayoutContent(
 			request, response, this);
