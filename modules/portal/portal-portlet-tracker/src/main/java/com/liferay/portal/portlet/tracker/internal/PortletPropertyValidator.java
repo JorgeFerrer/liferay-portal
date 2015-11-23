@@ -77,6 +77,7 @@ public class PortletPropertyValidator {
 			"com.liferay.portlet.header-portlet-javascript",
 			"com.liferay.portlet.icon", "com.liferay.portlet.instanceable",
 			"com.liferay.portlet.layout-cacheable",
+			"com.liferay.portlet.layout-type-controller",
 			"com.liferay.portlet.maximize-edit",
 			"com.liferay.portlet.maximize-help",
 			"com.liferay.portlet.parent-struts-path",
