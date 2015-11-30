@@ -38,7 +38,9 @@ renderResponse.setTitle(configurationModel.getName());
 		<aui:input name="pid" type="hidden" value="<%= configurationModel.getID() %>" />
 
 		<div class="lfr-ddm-container" id="lfr-ddm-container">
-			<%= ddmFormHTML %>
+			<aui:fieldset-group>
+				<%= ddmFormHTML %>
+			</aui:fieldset-group>
 		</div>
 
 		<aui:button-row>
