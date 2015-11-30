@@ -28,6 +28,18 @@ portletDisplay.setURLBack(redirect);
 renderResponse.setTitle(factoryConfigurationModel.getName());
 %>
 
+<liferay-frontend:add-menu>
+	<portlet:renderURL var="createFactoryConfigURL">
+		<portlet:param name="mvcRenderCommandName" value="/edit_configuration" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="factoryPid" value="<%= factoryConfigurationModel.getID() %>" />
+	</portlet:renderURL>
+
+	<liferay-frontend:add-menu-item
+			title="<%= LanguageUtil.format(request, "add-x", factoryConfigurationModel.getName()) %>"
+			url="<%= createFactoryConfigURL %>" />
+</liferay-frontend:add-menu>
+
 <div class="container-fluid-1280">
 	<liferay-ui:search-container
 		emptyResultsMessage="no-configurations-were-found"
