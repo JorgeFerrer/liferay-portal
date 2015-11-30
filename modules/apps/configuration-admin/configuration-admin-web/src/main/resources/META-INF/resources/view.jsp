@@ -132,18 +132,6 @@ portletURL.setParameter("configurationCategory", configurationCategory);
 								method="post"
 								url="<%= viewFactoryInstancesURL %>"
 							/>
-
-							<portlet:renderURL var="createFactoryConfigURL">
-								<portlet:param name="mvcRenderCommandName" value="/edit_configuration" />
-								<portlet:param name="redirect" value="<%= currentURL %>" />
-								<portlet:param name="factoryPid" value="<%= configurationModel.getID() %>" />
-							</portlet:renderURL>
-
-							<liferay-ui:icon
-								message="add"
-								method="post"
-								url="<%= createFactoryConfigURL %>"
-							/>
 						</c:when>
 						<c:otherwise>
 							<liferay-ui:icon
