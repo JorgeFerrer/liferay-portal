@@ -45,7 +45,7 @@ renderResponse.setTitle(factoryConfigurationModel.getName());
 	</portlet:renderURL>
 
 	<liferay-frontend:add-menu-item
-			title="<%= LanguageUtil.format(request, "add-x", factoryConfigurationModel.getName()) %>"
+			title='<%= LanguageUtil.format(request, "add-x", factoryConfigurationModel.getName()) %>'
 			url="<%= createFactoryConfigURL %>" />
 </liferay-frontend:add-menu>
 
