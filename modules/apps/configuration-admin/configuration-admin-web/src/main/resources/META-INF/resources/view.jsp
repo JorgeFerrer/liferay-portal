@@ -90,32 +90,6 @@ portletURL.setParameter("configurationCategory", configurationCategory);
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
-				align="center"
-				name="status"
-			>
-				<c:choose>
-					<c:when test="<%= configurationModel.isFactory() %>">
-						<liferay-ui:icon
-							cssClass="icon-plus-sign-2"
-							message="factory"
-						/>
-					</c:when>
-					<c:when test="<%= configurationModel.getConfiguration() != null %>">
-						<liferay-ui:icon
-							cssClass="icon-check"
-							message="active"
-						/>
-					</c:when>
-					<c:otherwise>
-						<liferay-ui:icon
-							cssClass="icon-check-empty"
-							message="not-active"
-						/>
-					</c:otherwise>
-				</c:choose>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
 				align="right"
 				cssClass="entry-action"
 				name=""

@@ -68,26 +68,6 @@ renderResponse.setTitle(factoryConfigurationModel.getName());
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
-				align="center"
-				name="status"
-			>
-				<c:choose>
-					<c:when test="<%= configurationModel.getConfiguration() != null %>">
-						<liferay-ui:icon
-							cssClass="icon-check"
-							message="active"
-						/>
-					</c:when>
-					<c:otherwise>
-						<liferay-ui:icon
-							cssClass="icon-check-empty"
-							message="not-active"
-						/>
-					</c:otherwise>
-				</c:choose>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
 				align="right"
 				cssClass="entry-action"
 				name=""
