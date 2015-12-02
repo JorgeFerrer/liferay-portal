@@ -1,0 +1,9 @@
+Bundle-Name: Software Catalog API
+Bundle-SymbolicName: com.liferay.software.catalog.api
+Bundle-Version: 1.0.0
+Export-Package: \
+	com.liferay.software.catalog.exception,\
+	com.liferay.software.catalog.model,\
+	com.liferay.software.catalog.service,\
+	com.liferay.software.catalog.service.persistence
+Include-Resource: classes

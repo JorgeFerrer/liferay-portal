@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="com.liferay.software.catalog.service.SCFrameworkVersionLocalService" class="com.liferay.software.catalog.service.impl.SCFrameworkVersionLocalServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.SCFrameworkVersionService" class="com.liferay.software.catalog.service.impl.SCFrameworkVersionServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.persistence.SCFrameworkVersionPersistence" class="com.liferay.software.catalog.service.persistence.impl.SCFrameworkVersionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.software.catalog.service.SCLicenseLocalService" class="com.liferay.software.catalog.service.impl.SCLicenseLocalServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.SCLicenseService" class="com.liferay.software.catalog.service.impl.SCLicenseServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.persistence.SCLicensePersistence" class="com.liferay.software.catalog.service.persistence.impl.SCLicensePersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.software.catalog.service.SCProductEntryLocalService" class="com.liferay.software.catalog.service.impl.SCProductEntryLocalServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.SCProductEntryService" class="com.liferay.software.catalog.service.impl.SCProductEntryServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.persistence.SCProductEntryPersistence" class="com.liferay.software.catalog.service.persistence.impl.SCProductEntryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.software.catalog.service.SCProductScreenshotLocalService" class="com.liferay.software.catalog.service.impl.SCProductScreenshotLocalServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.persistence.SCProductScreenshotPersistence" class="com.liferay.software.catalog.service.persistence.impl.SCProductScreenshotPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.software.catalog.service.SCProductVersionLocalService" class="com.liferay.software.catalog.service.impl.SCProductVersionLocalServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.SCProductVersionService" class="com.liferay.software.catalog.service.impl.SCProductVersionServiceImpl" />
+	<bean id="com.liferay.software.catalog.service.persistence.SCProductVersionPersistence" class="com.liferay.software.catalog.service.persistence.impl.SCProductVersionPersistenceImpl" parent="basePersistence" />
+</beans>

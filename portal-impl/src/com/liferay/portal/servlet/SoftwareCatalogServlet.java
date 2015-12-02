@@ -34,7 +34,7 @@ import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalInstances;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.softwarecatalog.service.SCProductEntryLocalServiceUtil;
+//import com.liferay.portlet.softwarecatalog.service.SCProductEntryLocalServiceUtil;
 
 import java.io.IOException;
 
@@ -74,10 +74,10 @@ public class SoftwareCatalogServlet extends HttpServlet {
 				_log.debug("Maximum number of versions " + maxNumOfVersions);
 			}
 
-			String repositoryXML =
-				SCProductEntryLocalServiceUtil.getRepositoryXML(
-					groupId, version, baseImageURL, oldestDate,
-					maxNumOfVersions, repoSettings);
+			String repositoryXML = "";
+//				SCProductEntryLocalServiceUtil.getRepositoryXML(
+//					groupId, version, baseImageURL, oldestDate,
+//					maxNumOfVersions, repoSettings);
 
 			ServletResponseUtil.sendFile(
 				request, response, null,

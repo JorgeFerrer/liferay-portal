@@ -1,0 +1,30 @@
+Bundle-Name: Software Catalog Web
+Bundle-SymbolicName: com.liferay.software.catalog.web
+Bundle-Version: 1.0.0
+Import-Package:\
+	com.liferay.portal.kernel.module.framework,\
+	com.liferay.portal.kernel.plugin,\
+	com.liferay.portal.kernel.portlet.bridges.mvc,\
+	com.liferay.portal.kernel.servlet,\
+	com.liferay.portal.kernel.upload,\
+	com.liferay.portal.kernel.util,\
+	com.liferay.portal.model,\
+	com.liferay.portal.service,\
+	com.liferay.portal.upgrade.registry,\
+	com.liferay.portal.util,\
+	com.liferay.software.catalog.exception,\
+	com.liferay.software.catalog.model,\
+	com.liferay.software.catalog.service,\
+	com.liferay.software.catalog.web.constants,\
+	com.liferay.software.catalog.web.upgrade,\
+	javax.portlet,\
+	javax.servlet.http,\
+	org.osgi.service.component.annotations,\
+	*
+Include-Resource:\
+	classes,\
+	META-INF/resources=src/main/resources/META-INF/resources,\
+	@lib/com.liferay.software.catalog.api.jar,\
+	@lib/com.liferay.software.catalog.service.jar
+Require-SchemaVersion: 1.0.0
+Web-ContextPath: /software-catalog-web

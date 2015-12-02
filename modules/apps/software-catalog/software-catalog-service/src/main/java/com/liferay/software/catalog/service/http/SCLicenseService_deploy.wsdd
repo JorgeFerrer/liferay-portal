@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_SC_SCLicenseService" provider="java:RPC" style="rpc" use="encoded">
+		<typeMapping xmlns:ns="http://model.catalog.software.liferay.com" qname="ns:SCLicenseSoap" type="java:com.liferay.software.catalog.model.SCLicenseSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.catalog.software.liferay.com" xmlns:rtns="http://model.catalog.software.liferay.com" name="addLicense" qname="operNS:addLicense" returnQName="addLicenseReturn" returnType="rtns:SCLicenseSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="url" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="openSource" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="active" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="recommended" type="tns:boolean"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.catalog.software.liferay.com" name="deleteLicense" qname="operNS:deleteLicense" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="licenseId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.catalog.software.liferay.com" xmlns:rtns="http://model.catalog.software.liferay.com" name="getLicense" qname="operNS:getLicense" returnQName="getLicenseReturn" returnType="rtns:SCLicenseSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="licenseId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.catalog.software.liferay.com" xmlns:rtns="http://model.catalog.software.liferay.com" name="updateLicense" qname="operNS:updateLicense" returnQName="updateLicenseReturn" returnType="rtns:SCLicenseSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="licenseId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="url" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="openSource" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="active" type="tns:boolean"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="recommended" type="tns:boolean"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="addLicense deleteLicense getLicense updateLicense" />
+		<parameter name="className" value="com.liferay.software.catalog.service.http.SCLicenseServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.catalog.software.liferay.com" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="SCLicenseServiceSoap" />
+		<parameter name="wsdlServiceElement" value="SCLicenseServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_SC_SCLicenseService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.catalog.software.liferay.com" />
+	</service>
+</deployment>

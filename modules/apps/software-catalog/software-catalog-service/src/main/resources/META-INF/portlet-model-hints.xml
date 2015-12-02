@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.software.catalog.model.SCFrameworkVersion">
+		<field name="frameworkVersionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="url" type="String" />
+		<field name="active" type="boolean" />
+		<field name="priority" type="int" />
+	</model>
+	<model name="com.liferay.software.catalog.model.SCLicense">
+		<field name="licenseId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="name" type="String" />
+		<field name="url" type="String" />
+		<field name="openSource" type="boolean" />
+		<field name="active" type="boolean" />
+		<field name="recommended" type="boolean" />
+	</model>
+	<model name="com.liferay.software.catalog.model.SCProductEntry">
+		<field name="productEntryId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="type" type="String" />
+		<field name="tags" type="String" />
+		<field name="shortDescription" type="String" />
+		<field name="longDescription" type="String" />
+		<field name="pageURL" type="String" />
+		<field name="author" type="String" />
+		<field name="repoGroupId" type="String" />
+		<field name="repoArtifactId" type="String" />
+	</model>
+	<model name="com.liferay.software.catalog.model.SCProductScreenshot">
+		<field name="productScreenshotId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="productEntryId" type="long" />
+		<field name="thumbnailId" type="long" />
+		<field name="fullImageId" type="long" />
+		<field name="priority" type="int" />
+	</model>
+	<model name="com.liferay.software.catalog.model.SCProductVersion">
+		<field name="productVersionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="productEntryId" type="long" />
+		<field name="version" type="String" />
+		<field name="changeLog" type="String" />
+		<field name="downloadPageURL" type="String" />
+		<field name="directDownloadURL" type="String" />
+		<field name="repoStoreArtifact" type="boolean" />
+	</model>
+</model-hints>
