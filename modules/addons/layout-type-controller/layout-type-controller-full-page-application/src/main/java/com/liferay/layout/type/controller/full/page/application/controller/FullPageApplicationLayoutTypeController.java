@@ -19,11 +19,16 @@ import com.liferay.layout.type.controller.full.page.application.constants.FullPa
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PredicateFilter;
+import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.model.LayoutTypeController;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.impl.BaseLayoutTypeControllerImpl;
 import com.liferay.portal.service.PortletLocalService;
+import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.util.LayoutTypeControllerTracker;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
 import java.util.List;
@@ -70,6 +75,41 @@ public class FullPageApplicationLayoutTypeController
 	@Override
 	public boolean isFullPageDisplayable() {
 		return true;
+	}
+
+	@Override
+	public boolean isAllowCustomLayoutControllerPerLayout() {
+		return true;
+	}
+
+	@Override
+	public LayoutTypeController getCustomLayoutController(Layout layout) {
+		LayoutTypeController layoutTypeController = null;
+
+		UnicodeProperties typeSettingsProperties =
+			layout.getTypeSettingsProperties();
+
+		String portletId =
+			typeSettingsProperties.get("fullPageApplicationPortlet");
+
+		if(Validator.isNotNull(portletId)) {
+
+			Portlet portlet =
+				PortletLocalServiceUtil.getPortletById(portletId);
+
+			if (portlet.isFullPageDisplayable()) {
+					String customController = portlet.getCustomController();
+
+					if(Validator.isNotNull()) {
+					layoutTypeController =
+						LayoutTypeControllerTracker.getLayoutTypeController(
+							customController);
+					}
+			}
+
+		}
+
+		return layoutTypeController;
 	}
 
 	@Override

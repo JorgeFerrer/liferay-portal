@@ -149,6 +149,16 @@ public abstract class BaseLayoutTypeControllerImpl
 		}
 	}
 
+	@Override
+	public boolean isAllowCustomLayoutControllerPerLayout() {
+		return false;
+	}
+
+	@Override
+	public LayoutTypeController getCustomLayoutController(Layout layout) {
+		return null;
+	}
+
 	protected void addAttributes(HttpServletRequest request) {
 	}
 
