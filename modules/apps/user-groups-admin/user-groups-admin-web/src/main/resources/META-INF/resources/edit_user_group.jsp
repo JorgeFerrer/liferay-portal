@@ -191,7 +191,7 @@ if (userGroup != null) {
 										/>
 									</c:when>
 									<c:otherwise>
-										<liferay-ui:message key="this-user-group-does-not-have-any-public-pages" />
+										<liferay-ui:message key="this-user-group-does-not-have-any-profile-pages" />
 									</c:otherwise>
 								</c:choose>
 
@@ -255,7 +255,7 @@ if (userGroup != null) {
 										/>
 									</c:when>
 									<c:otherwise>
-										<liferay-ui:message key="this-user-group-does-not-have-any-private-pages" />
+										<liferay-ui:message key="this-user-group-does-not-have-any-dashboard-pages" />
 									</c:otherwise>
 								</c:choose>
 
