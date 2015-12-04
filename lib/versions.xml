@@ -1609,14 +1609,14 @@
 			</library>
 			<library>
 				<file-name>lib/portal/commons-validator.jar</file-name>
-				<version>1.3.1</version>
+				<version>1.5.0</version>
 				<project-name>Commons Validator</project-name>
 				<project-url>http://commons.apache.org/validator</project-url>
 				<licenses>
 					<license>
 						<license-name>Apache License 2.0</license-name>
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
-						<copyright-notice>Copyright (c) 2001-2006 The Apache Software Foundation</copyright-notice>
+						<copyright-notice>Copyright (c) 2001-2015 The Apache Software Foundation</copyright-notice>
 					</license>
 				</licenses>
 			</library>
