@@ -92,7 +92,10 @@ MarketplaceAppManagerUtil.addPortletBreadcrumbEntry(appDisplay, request, renderR
 		showParentGroups="<%= false %>"
 	/>
 
-	<liferay-ui:search-container>
+	<liferay-ui:search-container
+		id="moduleGroupDisplays"
+		iteratorURL="<%= portletURL %>"
+	>
 		<liferay-ui:search-container-results>
 
 			<%
@@ -117,6 +120,12 @@ MarketplaceAppManagerUtil.addPortletBreadcrumbEntry(appDisplay, request, renderR
 			className="com.liferay.marketplace.app.manager.web.util.ModuleGroupDisplay"
 			modelVar="moduleGroupDisplay"
 		>
+			<liferay-ui:search-container-column-text>
+				<liferay-util:include page="/icon.jsp" servletContext="<%= application %>">
+					<liferay-util:param name="iconURL" value='<%= PortalUtil.getPathContext(request) + "/images/icons.svg#module-groups" %>' />
+				</liferay-util:include>
+			</liferay-ui:search-container-column-text>
+
 			<liferay-ui:search-container-column-text colspan="<%= 2 %>">
 				<h5>
 					<a href="<%= HtmlUtil.escapeHREF(moduleGroupDisplay.getDisplayURL(renderResponse)) %>">
