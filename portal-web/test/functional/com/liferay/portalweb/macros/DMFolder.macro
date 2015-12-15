@@ -143,6 +143,13 @@
 		</execute>
 
 		<if>
+			<condition function="IsElementNotPresent#isNotVisible" locator1="DocumentsAndMediaEditFolder#WORKFLOW_PARENT_FOLDER_RADIO" />
+			<then>
+				<execute function="Click" locator1="DocumentsAndMediaEditFolder#WORKFLOW_DOCUMENT_TYPE_RESTRICTIONS_TOGGLE" />
+			</then>
+		</if>
+
+		<if>
 			<equals arg1="${workflowRestriction}" arg2="Parent Folder" />
 			<then>
 				<execute function="Click" locator1="DocumentsAndMediaEditFolder#WORKFLOW_PARENT_FOLDER_RADIO" />
@@ -270,7 +277,9 @@
 	<command name="gotoCP">
 		<var name="key_dmFolderName" value="${dmFolderName}" />
 
-		<execute function="AssertClick" locator1="DocumentsAndMedia#ICON_FOLDER_TITLE" value1="${dmFolderName}" />
+		<execute function="AssertClick#assertTextClickAtAndWait" locator1="DocumentsAndMedia#ICON_FOLDER_TITLE" value1="${dmFolderName}" />
+
+		<execute function="AssertVisible" locator1="DocumentsAndMedia#BREADCRUMB_FOLDER_NAME" />
 	</command>
 
 	<command name="gotoEditCP">

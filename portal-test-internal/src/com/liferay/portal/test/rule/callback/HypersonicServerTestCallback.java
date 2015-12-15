@@ -69,7 +69,7 @@ public class HypersonicServerTestCallback
 
 		server.stop();
 
-		deleteFolder(Paths.get(_HSQL_TEMP));
+		deleteFolder(Paths.get(_HYPERSONIC_TEMP_DIR_NAME));
 	}
 
 	@Override
@@ -119,18 +119,21 @@ public class HypersonicServerTestCallback
 			Statement statement = connection.createStatement()) {
 
 			statement.execute(
-				"BACKUP DATABASE TO '" + _HSQL_TEMP + "' BLOCKING AS FILES");
+				"BACKUP DATABASE TO '" + _HYPERSONIC_TEMP_DIR_NAME +
+					"' BLOCKING AS FILES");
 		}
 
 		server.setErrWriter(
 			new UnsyncPrintWriter(
-				new File(_HSQL_TEMP, _databaseName + ".err.log")));
+				new File(
+					_HYPERSONIC_TEMP_DIR_NAME, _databaseName + ".err.log")));
 		server.setLogWriter(
 			new UnsyncPrintWriter(
-				new File(_HSQL_TEMP, _databaseName + ".std.log")));
+				new File(
+					_HYPERSONIC_TEMP_DIR_NAME, _databaseName + ".std.log")));
 
 		server.setDatabaseName(0, _databaseName);
-		server.setDatabasePath(0, _HSQL_TEMP + _databaseName);
+		server.setDatabasePath(0, _HYPERSONIC_TEMP_DIR_NAME + _databaseName);
 
 		server.start();
 
@@ -191,10 +194,7 @@ public class HypersonicServerTestCallback
 			});
 	}
 
-	private static final String _HSQL_HOME =
-		PropsValues.LIFERAY_HOME + "/data/hypersonic/";
-
-	private static final String _HSQL_TEMP =
+	private static final String _HYPERSONIC_TEMP_DIR_NAME =
 		PropsValues.LIFERAY_HOME + "/data/hypersonic_temp/";
 
 	private final String _databaseName;

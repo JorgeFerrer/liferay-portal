@@ -17,7 +17,7 @@ package com.liferay.bookmarks.web.portlet.action;
 import com.liferay.bookmarks.constants.BookmarksPortletKeys;
 import com.liferay.bookmarks.constants.BookmarksWebKeys;
 import com.liferay.bookmarks.exception.NoSuchFolderException;
-import com.liferay.bookmarks.web.portlet.toolbar.item.BookmarksPortletToolbarContributor;
+import com.liferay.bookmarks.web.portlet.toolbar.contributor.BookmarksPortletToolbarContributor;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.security.auth.PrincipalException;
@@ -72,7 +72,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	@Reference(unbind = "-")
-	protected void setDLPortletToolbarContributor(
+	protected void setBookmarksPortletToolbarContributor(
 		BookmarksPortletToolbarContributor bookmarksPortletToolbarContributor) {
 
 		_bookmarksPortletToolbarContributor =

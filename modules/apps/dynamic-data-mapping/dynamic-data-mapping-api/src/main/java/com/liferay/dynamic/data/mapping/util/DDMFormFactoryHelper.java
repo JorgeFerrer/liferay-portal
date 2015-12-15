@@ -224,9 +224,7 @@ public class DDMFormFactoryHelper {
 	}
 
 	public boolean isLocalizableValue(String value) {
-		if (isLocalizableDDMForm() &&
-			StringUtil.startsWith(value, StringPool.PERCENT)) {
-
+		if (StringUtil.startsWith(value, StringPool.PERCENT)) {
 			return true;
 		}
 
@@ -270,7 +268,8 @@ public class DDMFormFactoryHelper {
 		return new AggregateResourceBundle(
 			portalResourceBundle,
 			ResourceBundleUtil.getBundle(
-				"content.Language", locale, getClass()));
+				getResourceBundleBaseName(_clazz), locale,
+				_clazz.getClassLoader()));
 	}
 
 	protected String getResourceBundleBaseName(Class<?> clazz) {
@@ -284,28 +283,7 @@ public class DDMFormFactoryHelper {
 			return ddmForm.localization();
 		}
 
-		for (Class<?> interfaceClass : clazz.getInterfaces()) {
-			if (!interfaceClass.isAnnotationPresent(DDMForm.class)) {
-				continue;
-			}
-
-			String resourceBundleBaseName = getResourceBundleBaseName(
-				interfaceClass);
-
-			if (Validator.isNotNull(resourceBundleBaseName)) {
-				return resourceBundleBaseName;
-			}
-		}
-
-		return null;
-	}
-
-	protected boolean isLocalizableDDMForm() {
-		if (Validator.isNotNull(getResourceBundleBaseName(_clazz))) {
-			return true;
-		}
-
-		return false;
+		return "content.Language";
 	}
 
 	protected void setAvailableLocales() {
