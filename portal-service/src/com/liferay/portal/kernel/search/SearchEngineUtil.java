@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyFactory;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.registry.Registry;
 import com.liferay.registry.RegistryUtil;
@@ -813,6 +814,8 @@ public class SearchEngineUtil {
 		PortalRuntimePermission.checkSearchEngine(searchEngineId);
 
 		_searchEngines.put(searchEngineId, searchEngine);
+
+		searchEngine.initialize(CompanyConstants.SYSTEM);
 
 		for (Long companyId : _companyIds.keySet()) {
 			searchEngine.initialize(companyId);
