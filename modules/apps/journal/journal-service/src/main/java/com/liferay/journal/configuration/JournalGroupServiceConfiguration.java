@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.settings.LocalizedValuesMap;
  */
 @ConfigurationAdmin(
 	category = "web-experience-management",
-	scope= ConfigurationAdmin.Scope.GROUP
+	scope = ConfigurationAdmin.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.journal.configuration.JournalGroupServiceConfiguration",

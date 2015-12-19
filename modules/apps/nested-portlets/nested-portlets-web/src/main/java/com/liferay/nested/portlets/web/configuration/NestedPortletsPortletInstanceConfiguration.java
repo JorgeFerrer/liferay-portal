@@ -23,7 +23,7 @@ import com.liferay.configuration.admin.ConfigurationAdmin;
  */
 @ConfigurationAdmin(
 	category = "web-experience-management",
-	scope=ConfigurationAdmin.Scope.PORTLET_INSTANCE
+	scope = ConfigurationAdmin.Scope.PORTLET_INSTANCE
 )
 @Meta.OCD(
 	id = "com.liferay.nested.portlets.web.configuration.NestedPortletsPortletInstanceConfiguration",

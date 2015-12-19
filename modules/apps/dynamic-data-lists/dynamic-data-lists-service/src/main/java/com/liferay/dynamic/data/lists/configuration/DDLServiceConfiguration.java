@@ -22,8 +22,7 @@ import com.liferay.configuration.admin.ConfigurationAdmin;
  * @author Lino Alves
  */
 @ConfigurationAdmin(
-	category = "productivity",
-	scope= ConfigurationAdmin.Scope.GROUP
+	category = "productivity", scope = ConfigurationAdmin.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.dynamic.data.lists.configuration.DDLServiceConfiguration",

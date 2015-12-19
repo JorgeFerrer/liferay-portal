@@ -23,7 +23,7 @@ import com.liferay.configuration.admin.ConfigurationAdmin;
  */
 @ConfigurationAdmin(
 	category = "collaboration",
-	scope=ConfigurationAdmin.Scope.PORTLET_INSTANCE
+	scope = ConfigurationAdmin.Scope.PORTLET_INSTANCE
 )
 @Meta.OCD(
 	id = "com.liferay.blogs.web.configuration.BlogsPortletInstanceConfiguration",

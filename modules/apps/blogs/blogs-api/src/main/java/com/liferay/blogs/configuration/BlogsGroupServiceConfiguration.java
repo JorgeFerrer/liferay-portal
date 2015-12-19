@@ -22,7 +22,7 @@ import com.liferay.configuration.admin.ConfigurationAdmin;
  * @author Sergio González
  */
 @ConfigurationAdmin(
-	category = "collaboration", scope= ConfigurationAdmin.Scope.GROUP
+	category = "collaboration", scope = ConfigurationAdmin.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.blogs.configuration.BlogsGroupServiceConfiguration",

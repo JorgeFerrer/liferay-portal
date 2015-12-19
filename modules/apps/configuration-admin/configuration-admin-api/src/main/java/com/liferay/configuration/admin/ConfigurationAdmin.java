@@ -65,5 +65,7 @@ public @interface ConfigurationAdmin {
 		}
 
 		private final String _value;
+
 	}
+
 }

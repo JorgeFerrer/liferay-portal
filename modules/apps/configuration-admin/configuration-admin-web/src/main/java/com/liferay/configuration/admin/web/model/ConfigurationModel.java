@@ -62,14 +62,6 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 		return GetterUtil.get(extensionAttributes.get("category"), "other");
 	}
 
-	public String getScope() {
-		Map<String, String> extensionAttributes =
-			_extendedObjectClassDefinition.getExtensionAttributes(
-				ConfigurationAdmin.XML_NAMESPACE);
-
-		return extensionAttributes.get("scope");
-	}
-
 	public Configuration getConfiguration() {
 		return _configuration;
 	}
@@ -147,6 +139,14 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 	@Override
 	public String getName() {
 		return _extendedObjectClassDefinition.getName();
+	}
+
+	public String getScope() {
+		Map<String, String> extensionAttributes =
+			_extendedObjectClassDefinition.getExtensionAttributes(
+				ConfigurationAdmin.XML_NAMESPACE);
+
+		return extensionAttributes.get("scope");
 	}
 
 	public boolean isFactory() {
