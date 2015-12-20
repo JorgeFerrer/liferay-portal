@@ -44,6 +44,7 @@ public @interface ConfigurationAdmin {
 	public Scope scope() default Scope.SYSTEM;
 
 	public enum Scope {
+
 		COMPANY("company"), GROUP("group"),
 		PORTLET_INSTANCE("portlet-instance"), SYSTEM("system");
 
