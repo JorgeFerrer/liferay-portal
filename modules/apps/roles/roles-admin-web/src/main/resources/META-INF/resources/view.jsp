@@ -130,6 +130,7 @@ String portletURLString = portletURL.toString();
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="title"
+				orderable="true"
 			>
 				<liferay-ui:icon
 					iconCssClass="<%= RolesAdminUtil.getIconCssClass(role) %>"
@@ -141,7 +142,9 @@ String portletURLString = portletURL.toString();
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="type"
+				orderable="true"
 				value="<%= LanguageUtil.get(request, role.getTypeLabel()) %>"
+				
 			/>
 
 			<c:if test="<%= (PropsValues.ROLES_ORGANIZATION_SUBTYPES.length > 0) || (PropsValues.ROLES_REGULAR_SUBTYPES.length > 0) || (PropsValues.ROLES_SITE_SUBTYPES.length > 0) %>">
@@ -155,6 +158,7 @@ String portletURLString = portletURL.toString();
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="description"
+				orderable="true"
 				value="<%= HtmlUtil.escape(role.getDescription(locale)) %>"
 			/>
 
