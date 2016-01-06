@@ -977,17 +977,22 @@ public class OrganizationLocalServiceImpl
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
 
-		if (!includeSpecifiedOrganization) {
+		if (includeSpecifiedOrganization) {
 			organizationsTree.add(organization);
 		}
 		else {
-			organizationsTree.add(organization.getParentOrganization());
+			List<Organization> subOrganizations = getSuborganizations(
+				organization.getCompanyId(), organizationId);
+
+			organizationsTree.addAll(subOrganizations);
 		}
 
-		params.put("usersOrgsTree", organizationsTree);
+		if (organizationsTree.size() > 0) {
+			params.put("usersOrgsTree", organizationsTree);
 
-		if (userFinder.countByUser(userId, params) > 0) {
-			return true;
+			if (userFinder.countByUser(userId, params) > 0) {
+				return true;
+			}
 		}
 
 		return false;
