@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1450899001567
+Bnd-LastModified: 1452047989516
 Bundle-ManifestVersion: 2
 Bundle-Name: system.packages.extra
 Bundle-SymbolicName: system.packages.extra
 Bundle-Vendor: Liferay, Inc.
 Bundle-Version: 7.0.0
-Created-By: 1.7.0_71 (Oracle Corporation)
+Created-By: 1.7.0_40 (Oracle Corporation)
 Export-Package: com.liferay.ibm.icu;version="4.0.1",com.liferay.ibm.icu.
  impl;version="4.0.1";uses:="com.liferay.ibm.icu.math,com.liferay.ibm.ic
  u.text,com.liferay.ibm.icu.util",com.liferay.ibm.icu.impl.coll;version=
@@ -4115,10 +4115,11 @@ Export-Package: com.liferay.ibm.icu;version="4.0.1",com.liferay.ibm.icu.
  ache.commons.chain,org.apache.commons.chain.generic,org.apache.commons.
  chain.web";version="7.0.0",org.apache.tools.bzip2;version="7.0.0",org.a
  pache.tools.mail;version="7.0.0",org.apache.tools.tar;version="7.0.0",o
- rg.apache.tools.zip;version="7.0.0",org.apache.xml.serializer;version="
- 2.7.1",org.objectweb.asm.attrs;version="5.0.1"
-Git-Descriptor: 1e05324-dirty
-Git-SHA: 1e0532409a4fc4c73d9ad12b19f27427261a9eb1
+ rg.apache.tools.zip;version="7.0.0",org.apache.commons.validator.routin
+ es;version="1.5.0",org.apache.xml.serializer;version="2.7.1",org.object
+ web.asm.attrs;version="5.0.1"
+Git-Descriptor: 59e0883-dirty
+Git-SHA: 59e0883d8aae97b66f236669999dd5ac87b250aa
 Import-Package: aQute.bnd.annotation,aQute.bnd.annotation.headers,aQute.
  bnd.build,aQute.bnd.component,aQute.bnd.differ,aQute.bnd.header;version
  ="[1.4,2)",aQute.bnd.make,aQute.bnd.make.component,aQute.bnd.make.metat
