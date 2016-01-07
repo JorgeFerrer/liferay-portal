@@ -189,7 +189,10 @@ public class ContactIndexer extends BaseIndexer<Contact> {
 					try {
 						Document document = getDocument(contact);
 
-						indexableActionableDynamicQuery.addDocuments(document);
+						if (document != null) {
+							indexableActionableDynamicQuery.addDocuments(
+								document);
+						}
 					}
 					catch (PortalException pe) {
 						if (_log.isWarnEnabled()) {
