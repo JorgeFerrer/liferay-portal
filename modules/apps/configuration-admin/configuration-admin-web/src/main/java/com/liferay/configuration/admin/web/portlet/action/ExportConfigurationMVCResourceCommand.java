@@ -84,11 +84,11 @@ public class ExportConfigurationMVCResourceCommand
 			return false;
 		}
 
-		String pid = ParamUtil.getString(resourceRequest, "pid");
+		String fileName = getFileName(resourceRequest);
 
 		try {
 			PortletResponseUtil.sendFile(
-				resourceRequest, resourceResponse, pid + ".cfg",
+				resourceRequest, resourceResponse, fileName,
 				getPropertiesAsBytes(resourceRequest, resourceResponse),
 				ContentTypes.TEXT_XML_UTF8);
 		}
@@ -97,6 +97,12 @@ public class ExportConfigurationMVCResourceCommand
 		}
 
 		return true;
+	}
+
+	protected String getFileName(ResourceRequest resourceRequest) {
+		String pid = ParamUtil.getString(resourceRequest, "pid");
+
+		return pid + ".cfg";
 	}
 
 	protected Properties getProperties(
@@ -168,7 +174,8 @@ public class ExportConfigurationMVCResourceCommand
 
 		propertiesString =
 			"##\n## Deploy this file to a Liferay installation to apply the " +
-				"configuration.\n##\n"+ propertiesString;
+				"configuration.\n## Make sure the file name is " +
+					getFileName(resourceRequest) + "\n##\n"+ propertiesString;
 
 		return propertiesString.getBytes();
 	}
