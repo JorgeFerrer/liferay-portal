@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -85,9 +86,18 @@ public class ExportConfigurationMVCResourceCommand
 	}
 
 	protected String getFileName(ResourceRequest resourceRequest) {
+		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
 		String pid = ParamUtil.getString(resourceRequest, "pid");
 
-		return pid + ".cfg";
+		String fileName = pid;
+
+		if (Validator.isNotNull(factoryPid) && !factoryPid.equals(pid)) {
+			String factoryInstanceId = pid.substring(factoryPid.length() + 1);
+
+			fileName = factoryPid + StringPool.DASH + factoryInstanceId;
+		}
+
+		return fileName + ".cfg";
 	}
 
 	protected Properties getProperties(
