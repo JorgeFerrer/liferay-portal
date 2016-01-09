@@ -15,7 +15,6 @@
 package com.liferay.configuration.admin.web.portlet.action;
 
 import com.liferay.configuration.admin.ExtendedAttributeDefinition;
-import com.liferay.configuration.admin.ExtendedMetaTypeService;
 import com.liferay.configuration.admin.web.constants.ConfigurationAdminPortletKeys;
 import com.liferay.configuration.admin.web.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.util.AttributeDefinitionUtil;
@@ -38,12 +37,8 @@ import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-import org.osgi.framework.BundleContext;
 import org.osgi.service.cm.Configuration;
-import org.osgi.service.cm.ConfigurationAdmin;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.AttributeDefinition;
 
@@ -64,16 +59,6 @@ import org.osgi.service.metatype.AttributeDefinition;
 )
 public class ExportConfigurationMVCResourceCommand
 	implements MVCResourceCommand {
-
-	@Activate
-	public void activate(BundleContext bundleContext) {
-		_bundleContext = bundleContext;
-	}
-
-	@Deactivate
-	public void deactivate() {
-		_bundleContext = null;
-	}
 
 	@Override
 	public boolean serveResource(
@@ -181,29 +166,12 @@ public class ExportConfigurationMVCResourceCommand
 	}
 
 	@Reference(unbind = "-")
-	protected void setConfigurationAdmin(
-		ConfigurationAdmin configurationAdmin) {
-
-		_configurationAdmin = configurationAdmin;
-	}
-
-	@Reference(unbind = "-")
 	protected void setConfigurationModelRetriever(
 		ConfigurationModelRetriever configurationModelRetriever) {
 
 		_configurationModelRetriever = configurationModelRetriever;
 	}
 
-	@Reference(unbind = "-")
-	protected void setExtendedMetaTypeService(
-		ExtendedMetaTypeService extendedMetaTypeService) {
-
-		_extendedMetaTypeService = extendedMetaTypeService;
-	}
-
-	private BundleContext _bundleContext;
-	private volatile ConfigurationAdmin _configurationAdmin;
 	private volatile ConfigurationModelRetriever _configurationModelRetriever;
-	private volatile ExtendedMetaTypeService _extendedMetaTypeService;
 
 }
