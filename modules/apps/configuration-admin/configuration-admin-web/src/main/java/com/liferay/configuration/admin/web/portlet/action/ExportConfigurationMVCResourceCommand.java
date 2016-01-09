@@ -126,13 +126,17 @@ public class ExportConfigurationMVCResourceCommand
 			return properties;
 		}
 
+		Configuration configuration =
+			_configurationModelRetriever.getConfiguration(pid);
+
+		if (configuration == null) {
+			return properties;
+		}
+
 		ExtendedAttributeDefinition[] attributeDefinitions =
 			configurationModel.getAttributeDefinitions(ConfigurationModel.ALL);
 
 		for (AttributeDefinition attributeDefinition : attributeDefinitions) {
-			Configuration configuration =
-				_configurationModelRetriever.getConfiguration(pid);
-
 			String[] values = AttributeDefinitionUtil.getProperty(
 				attributeDefinition, configuration);
 
