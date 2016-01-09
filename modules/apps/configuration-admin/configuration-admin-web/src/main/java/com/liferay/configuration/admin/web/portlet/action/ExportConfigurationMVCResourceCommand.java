@@ -84,9 +84,7 @@ public class ExportConfigurationMVCResourceCommand
 			return false;
 		}
 
-		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
-
-		String pid = ParamUtil.getString(resourceRequest, "pid", factoryPid);
+		String pid = ParamUtil.getString(resourceRequest, "pid");
 
 		try {
 			PortletResponseUtil.sendFile(
@@ -116,7 +114,7 @@ public class ExportConfigurationMVCResourceCommand
 
 		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
 
-		String pid = ParamUtil.getString(resourceRequest, "pid", factoryPid);
+		String pid = ParamUtil.getString(resourceRequest, "pid");
 
 		ConfigurationModel configurationModel = configurationModels.get(pid);
 
@@ -132,7 +130,8 @@ public class ExportConfigurationMVCResourceCommand
 			configurationModel.getAttributeDefinitions(ConfigurationModel.ALL);
 
 		for (AttributeDefinition attributeDefinition : attributeDefinitions) {
-			Configuration configuration = configurationModel.getConfiguration();
+			Configuration configuration =
+				_configurationModelRetriever.getConfiguration(pid);
 
 			String[] values = AttributeDefinitionUtil.getProperty(
 				attributeDefinition, configuration);
