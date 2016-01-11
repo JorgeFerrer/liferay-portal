@@ -981,18 +981,13 @@ public class OrganizationLocalServiceImpl
 			organizationsTree.add(organization);
 		}
 		else {
-			List<Organization> subOrganizations = getSuborganizations(
-				organization.getCompanyId(), organizationId);
-
-			organizationsTree.addAll(subOrganizations);
+			organizationsTree.addAll(organization.getSuborganizations());
 		}
 
-		if (organizationsTree.size() > 0) {
-			params.put("usersOrgsTree", organizationsTree);
+		params.put("usersOrgsTree", organizationsTree);
 
-			if (userFinder.countByUser(userId, params) > 0) {
-				return true;
-			}
+		if (userFinder.countByUser(userId, params) > 0) {
+			return true;
 		}
 
 		return false;
