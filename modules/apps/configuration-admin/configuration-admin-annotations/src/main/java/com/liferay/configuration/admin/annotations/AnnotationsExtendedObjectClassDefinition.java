@@ -16,7 +16,7 @@ package com.liferay.configuration.admin.annotations;
 
 import com.liferay.configuration.admin.ExtendedAttributeDefinition;
 import com.liferay.configuration.admin.ExtendedObjectClassDefinition;
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -125,22 +125,22 @@ public class AnnotationsExtendedObjectClassDefinition
 	}
 
 	protected void processConfigurationAdminFields() {
-		ConfigurationAdmin configurationAdmin =
-			_configurationBeanClass.getAnnotation(ConfigurationAdmin.class);
+		ObjectClassDefinitionExt objectClassDefinitionExt =
+			_configurationBeanClass.getAnnotation(ObjectClassDefinitionExt.class);
 
-		if (configurationAdmin != null) {
+		if (objectClassDefinitionExt != null) {
 			Map<String, String> map = new HashMap<>();
 
-			map.put("category", configurationAdmin.category());
+			map.put("category", objectClassDefinitionExt.category());
 			map.put(
 				"factoryInstanceLabelAttribute",
-				configurationAdmin.factoryInstanceLabelAttribute());
+				objectClassDefinitionExt.factoryInstanceLabelAttribute());
 
-			ConfigurationAdmin.Scope scope = configurationAdmin.scope();
+			ObjectClassDefinitionExt.Scope scope = objectClassDefinitionExt.scope();
 
 			map.put("scope", scope.toString());
 
-			_extensionAttributes.put(ConfigurationAdmin.XML_NAMESPACE, map);
+			_extensionAttributes.put(ObjectClassDefinitionExt.XML_NAMESPACE, map);
 		}
 	}
 
