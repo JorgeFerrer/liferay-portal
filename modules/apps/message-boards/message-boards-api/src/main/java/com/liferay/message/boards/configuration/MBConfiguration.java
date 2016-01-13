@@ -16,12 +16,12 @@ package com.liferay.message.boards.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Sergio González
  */
-@ConfigurationAdmin(category = "collaboration")
+@ObjectClassDefinitionExt(category = "collaboration")
 @Meta.OCD(
 	id = "com.liferay.message.boards.configuration.MBConfiguration",
 	localization = "content/Language", name = "%mb.configuration.name"

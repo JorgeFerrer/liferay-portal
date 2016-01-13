@@ -16,12 +16,12 @@ package com.liferay.workflow.instance.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Inácio Nery
  */
-@ConfigurationAdmin(category = "productivity")
+@ObjectClassDefinitionExt(category = "productivity")
 @Meta.OCD(
 	id = "com.liferay.workflow.instance.web.configuration.WorkflowInstanceWebConfiguration"
 )

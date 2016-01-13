@@ -16,12 +16,12 @@ package com.liferay.portal.template.velocity.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Peter Fellwock
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.portal.template.velocity.configuration.VelocityEngineConfiguration",
 	localization = "content/Language",

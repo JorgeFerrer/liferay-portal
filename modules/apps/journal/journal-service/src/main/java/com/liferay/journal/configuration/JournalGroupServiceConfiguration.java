@@ -17,14 +17,14 @@ package com.liferay.journal.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Juergen Kappler
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "web-experience-management",
-	scope = ConfigurationAdmin.Scope.GROUP
+	scope = ObjectClassDefinitionExt.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.journal.configuration.JournalGroupServiceConfiguration",

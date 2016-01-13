@@ -16,12 +16,12 @@ package com.liferay.portal.wab.extender.internal.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Iván Zaera
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.portal.wab.extender.internal.configuration.WabExtenderConfiguration",
 	localization = "content/Language", name = "%wab.extender.configuration.name"

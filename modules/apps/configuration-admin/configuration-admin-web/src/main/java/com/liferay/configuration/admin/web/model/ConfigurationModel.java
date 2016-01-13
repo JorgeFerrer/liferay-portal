@@ -19,7 +19,7 @@ import com.liferay.configuration.admin.ExtendedObjectClassDefinition;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +57,7 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 	public String getCategory() {
 		Map<String, String> extensionAttributes =
 			_extendedObjectClassDefinition.getExtensionAttributes(
-				ConfigurationAdmin.XML_NAMESPACE);
+				ObjectClassDefinitionExt.XML_NAMESPACE);
 
 		return GetterUtil.get(extensionAttributes.get("category"), "other");
 	}
@@ -129,7 +129,7 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 	public String getLabelAttribute() {
 		Map<String, String> extensionAttributes =
 			_extendedObjectClassDefinition.getExtensionAttributes(
-				ConfigurationAdmin.XML_NAMESPACE);
+				ObjectClassDefinitionExt.XML_NAMESPACE);
 
 		return GetterUtil.get(
 			extensionAttributes.get("factoryInstanceLabelAttribute"),
@@ -144,7 +144,7 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 	public String getScope() {
 		Map<String, String> extensionAttributes =
 			_extendedObjectClassDefinition.getExtensionAttributes(
-				ConfigurationAdmin.XML_NAMESPACE);
+				ObjectClassDefinitionExt.XML_NAMESPACE);
 
 		return extensionAttributes.get("scope");
 	}

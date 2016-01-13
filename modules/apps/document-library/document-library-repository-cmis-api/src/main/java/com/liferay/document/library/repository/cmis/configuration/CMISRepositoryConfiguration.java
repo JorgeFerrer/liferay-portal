@@ -16,12 +16,12 @@ package com.liferay.document.library.repository.cmis.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Adolfo Pérez
  */
-@ConfigurationAdmin(category = "collaboration")
+@ObjectClassDefinitionExt(category = "collaboration")
 @Meta.OCD(
 	id = "com.liferay.document.library.repository.cmis.configuration.CMISRepositoryConfiguration",
 	localization = "content/Language",

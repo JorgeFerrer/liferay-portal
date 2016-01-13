@@ -16,12 +16,12 @@ package com.liferay.portal.cxf.common.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Carlos Sierra Andrés
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "platform", factoryInstanceLabelAttribute = "contextPath"
 )
 @Meta.OCD(

@@ -16,14 +16,14 @@ package com.liferay.wiki.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Iván Zaera
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "collaboration",
-	scope = ConfigurationAdmin.Scope.PORTLET_INSTANCE
+	scope = ObjectClassDefinitionExt.Scope.PORTLET_INSTANCE
 )
 @Meta.OCD(
 	id = "com.liferay.wiki.configuration.WikiPortletInstanceConfiguration",

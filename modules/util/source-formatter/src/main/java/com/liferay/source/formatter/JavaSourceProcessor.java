@@ -2363,11 +2363,11 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 
 		if (!absolutePath.contains("/test/") &&
 			content.contains("@Meta.OCD") &&
-			!content.contains("@ConfigurationAdmin")) {
+			!content.contains("@ObjectClassDefinitionExt")) {
 
 			processErrorMessage(
 				fileName,
-				"Specify category using @ConfigurationAdmin: " + fileName);
+				"Specify category using @ObjectClassDefinitionExt: " + fileName);
 		}
 
 		return content;

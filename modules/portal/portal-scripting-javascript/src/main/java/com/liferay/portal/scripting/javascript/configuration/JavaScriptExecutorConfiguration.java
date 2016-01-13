@@ -16,12 +16,12 @@ package com.liferay.portal.scripting.javascript.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Michael C. Han
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.portal.scripting.javascript.configuration.JavaScriptExecutorConfiguration",
 	localization = "content/Language",

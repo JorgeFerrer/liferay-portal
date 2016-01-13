@@ -16,12 +16,12 @@ package com.liferay.site.navigation.menu.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Juergen Kappler
  */
-@ConfigurationAdmin(category = "web-experience-management")
+@ObjectClassDefinitionExt(category = "web-experience-management")
 @Meta.OCD(
 	id = "com.liferay.site.navigation.menu.web.configuration.SiteNavigationMenuWebConfiguration",
 	localization = "content/Language",

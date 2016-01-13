@@ -16,12 +16,12 @@ package com.liferay.ip.geocoder.internal;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Julio Camarero
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.ip.geocoder.internal.IPGeocoderConfiguration",
 	localization = "content/Language",

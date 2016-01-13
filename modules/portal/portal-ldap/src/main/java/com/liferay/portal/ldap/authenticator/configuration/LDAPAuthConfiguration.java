@@ -17,14 +17,14 @@ package com.liferay.portal.ldap.authenticator.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.ldap.configuration.CompanyScopedConfiguration;
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Michael C. Han
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "platform", factoryInstanceLabelAttribute = "companyId",
-	scope = ConfigurationAdmin.Scope.COMPANY
+	scope = ObjectClassDefinitionExt.Scope.COMPANY
 )
 @Meta.OCD(
 	factory = true,

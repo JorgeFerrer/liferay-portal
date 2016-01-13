@@ -16,12 +16,12 @@ package com.liferay.journal.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Jürgen Kappler
  */
-@ConfigurationAdmin(category = "web-experience-management")
+@ObjectClassDefinitionExt(category = "web-experience-management")
 @Meta.OCD(
 	id = "com.liferay.journal.web.configuration.JournalWebConfiguration",
 	localization = "content/Language", name = "%journal.web.configuration.name"

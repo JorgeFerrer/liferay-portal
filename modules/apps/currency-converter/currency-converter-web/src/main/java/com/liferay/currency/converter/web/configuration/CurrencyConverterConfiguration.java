@@ -16,12 +16,12 @@ package com.liferay.currency.converter.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Peter Fellwock
  */
-@ConfigurationAdmin(category = "other")
+@ObjectClassDefinitionExt(category = "other")
 @Meta.OCD(
 	id = "com.liferay.currency.converter.web.configuration.CurrencyConverterConfiguration",
 	localization = "content/Language",

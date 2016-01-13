@@ -16,12 +16,12 @@ package com.liferay.document.library.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Sergio González
  */
-@ConfigurationAdmin(category = "collaboration")
+@ObjectClassDefinitionExt(category = "collaboration")
 @Meta.OCD(
 	id = "com.liferay.document.library.web.configuration.DLConfiguration",
 	localization = "content/Language", name = "%dl.configuration.name"

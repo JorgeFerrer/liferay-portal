@@ -16,13 +16,13 @@ package com.liferay.portal.security.auth.verifier.digest.authentication.module.c
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 import com.liferay.portal.security.auth.verifier.module.configuration.BaseAuthVerifierConfiguration;
 
 /**
  * @author Tomas Polesovsky
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "platform", factoryInstanceLabelAttribute = "urlsIncludes"
 )
 @Meta.OCD(

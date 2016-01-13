@@ -16,12 +16,12 @@ package com.liferay.portal.security.auto.login.basic.auth.header.module.configur
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Tomas Polesovsky
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.portal.security.auto.login.basic.auth.header.module.configuration.BasicAuthHeaderAutoLoginConfiguration",
 	localization = "content/Language",

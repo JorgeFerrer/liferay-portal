@@ -16,14 +16,14 @@ package com.liferay.asset.categories.navigation.web.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Juergen Kappler
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "web-experience-management",
-	scope = ConfigurationAdmin.Scope.PORTLET_INSTANCE
+	scope = ObjectClassDefinitionExt.Scope.PORTLET_INSTANCE
 )
 @Meta.OCD(
 	id = "com.liferay.asset.categories.navigation.web.configuration.AssetCategoriesNavigationPortletInstanceConfiguration",

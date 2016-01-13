@@ -16,12 +16,12 @@ package com.liferay.portal.store.file.system.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Manuel de la Peña
  */
-@ConfigurationAdmin(category = "platform")
+@ObjectClassDefinitionExt(category = "platform")
 @Meta.OCD(
 	id = "com.liferay.portal.store.file.system.configuration.AdvancedFileSystemStoreConfiguration",
 	localization = "content/Language",

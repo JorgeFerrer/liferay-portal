@@ -17,13 +17,13 @@ package com.liferay.wiki.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Iván Zaera
  */
-@ConfigurationAdmin(
-	category = "collaboration", scope = ConfigurationAdmin.Scope.GROUP
+@ObjectClassDefinitionExt(
+	category = "collaboration", scope = ObjectClassDefinitionExt.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.wiki.configuration.WikiGroupServiceConfiguration",

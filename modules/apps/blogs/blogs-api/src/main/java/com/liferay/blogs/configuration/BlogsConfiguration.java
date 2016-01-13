@@ -16,12 +16,12 @@ package com.liferay.blogs.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Sergio González
  */
-@ConfigurationAdmin(category = "collaboration")
+@ObjectClassDefinitionExt(category = "collaboration")
 @Meta.OCD(
 	id = "com.liferay.blogs.configuration.BlogsConfiguration",
 	localization = "content/Language", name = "%blogs.configuration.name"

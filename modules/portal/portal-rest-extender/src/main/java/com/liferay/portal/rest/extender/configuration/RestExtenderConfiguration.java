@@ -16,14 +16,14 @@ package com.liferay.portal.rest.extender.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
-import com.liferay.portal.metatype.annotations.ConfigurationAdmin;
+import com.liferay.portal.metatype.annotations.ObjectClassDefinitionExt;
 
 /**
  * @author Carlos Sierra Andrés
  */
-@ConfigurationAdmin(
+@ObjectClassDefinitionExt(
 	category = "platform", factoryInstanceLabelAttribute = "companyId",
-	scope = ConfigurationAdmin.Scope.COMPANY
+	scope = ObjectClassDefinitionExt.Scope.COMPANY
 )
 @Meta.OCD(
 	factory = true,
