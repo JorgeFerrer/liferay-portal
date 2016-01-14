@@ -970,8 +970,6 @@ public class OrganizationLocalServiceImpl
 			return userPersistence.containsOrganization(userId, organizationId);
 		}
 
-		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-
 		List<Organization> organizationsTree = new ArrayList<>();
 
 		Organization organization = organizationPersistence.findByPrimaryKey(
@@ -984,10 +982,14 @@ public class OrganizationLocalServiceImpl
 			organizationsTree.addAll(organization.getSuborganizations());
 		}
 
-		params.put("usersOrgsTree", organizationsTree);
+		if (!ListUtil.isEmpty(organizationsTree)) {
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
-		if (userFinder.countByUser(userId, params) > 0) {
-			return true;
+			params.put("usersOrgsTree", organizationsTree);
+
+			if (userFinder.countByUser(userId, params) > 0) {
+				return true;
+			}
 		}
 
 		return false;
