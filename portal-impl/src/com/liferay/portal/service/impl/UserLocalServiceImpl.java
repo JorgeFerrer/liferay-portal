@@ -388,8 +388,26 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		long[] groupIds = user.getGroupIds();
 
-		for (long groupRoleId : groupRoleIdsSet) {
-			for (long groupId : groupIds) {
+		for (long groupId : groupIds) {
+			Group group = groupLocalService.getGroup(groupId);
+
+			UnicodeProperties typeSettingsProperties =
+				group.getTypeSettingsProperties();
+
+			long[] defaultSiteRoleIds = StringUtil.split(
+				typeSettingsProperties.getProperty("defaultSiteRoleIds"), 0L);
+
+			for (long defaultSiteRoleId : defaultSiteRoleIds) {
+				UserGroupRolePK defaultUserGroupRolePk = new UserGroupRolePK(
+					userId, groupId, defaultSiteRoleId);
+
+				UserGroupRole defaultUserGroupRole =
+					userGroupRolePersistence.create(defaultUserGroupRolePk);
+
+				userGroupRolesSet.add(defaultUserGroupRole);
+			}
+
+			for (long groupRoleId : groupRoleIdsSet) {
 				UserGroupRolePK userGroupRolePK = new UserGroupRolePK(
 					userId, groupId, groupRoleId);
 
