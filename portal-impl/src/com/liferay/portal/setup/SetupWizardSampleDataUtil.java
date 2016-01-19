@@ -193,15 +193,13 @@ public class SetupWizardSampleDataUtil {
 			"Chicago", 19014L, 19L, OrganizationConstants.TYPE_LOCATION, "ORD"
 		},
 		{
-			"Consulting", 19005L, 19L,
-			OrganizationConstants.TYPE_REGULAR_ORGANIZATION
+			"Consulting", 19005L, 19L, OrganizationConstants.TYPE_ORGANIZATION
 		},
 		{
 			"Dalian", 0L, 2L, OrganizationConstants.TYPE_LOCATION, "DLC"
 		},
 		{
-			"Engineering", 19005L, 19L,
-			OrganizationConstants.TYPE_REGULAR_ORGANIZATION
+			"Engineering", 19005L, 19L, OrganizationConstants.TYPE_ORGANIZATION
 		},
 		{
 			"Frankfurt", 0L, 4L, OrganizationConstants.TYPE_LOCATION, "FRA"
@@ -220,8 +218,7 @@ public class SetupWizardSampleDataUtil {
 			"Madrid", 0L, 15L, OrganizationConstants.TYPE_LOCATION, "MAD"
 		},
 		{
-			"Marketing", 19005L, 19L,
-			OrganizationConstants.TYPE_REGULAR_ORGANIZATION
+			"Marketing", 19005L, 19L, OrganizationConstants.TYPE_ORGANIZATION
 		},
 		{
 			"New York", 19033L, 19L, OrganizationConstants.TYPE_LOCATION, "NYC"
@@ -230,16 +227,14 @@ public class SetupWizardSampleDataUtil {
 			"Saint Paulo", 0L, 48L, OrganizationConstants.TYPE_LOCATION, "GRU"
 		},
 		{
-			"Sales", 19005L, 19L,
-			OrganizationConstants.TYPE_REGULAR_ORGANIZATION
+			"Sales", 19005L, 19L, OrganizationConstants.TYPE_ORGANIZATION
 		},
 		{
 			"San Francisco", 19005L, 19L, OrganizationConstants.TYPE_LOCATION,
 			"SFO"
 		},
 		{
-			"Support", 19005L, 19L,
-			OrganizationConstants.TYPE_REGULAR_ORGANIZATION
+			"Support", 19005L, 19L, OrganizationConstants.TYPE_ORGANIZATION
 		}
 	};
 
