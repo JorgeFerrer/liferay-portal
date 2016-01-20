@@ -932,7 +932,7 @@ public class OrganizationLocalServiceImpl
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
 
-		if (!includeSpecifiedOrganization) {
+		if (includeSpecifiedOrganization) {
 			organizationsTree.add(organization);
 		}
 		else {
