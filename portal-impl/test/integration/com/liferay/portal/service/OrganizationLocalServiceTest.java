@@ -440,6 +440,119 @@ public class OrganizationLocalServiceTest {
 			organizationB.getGroupId(), groupAA.getParentGroupId());
 	}
 
+	@Test
+	public void testOrganizationMembershipWithDirectAssignment()
+		throws Exception {
+
+		Organization organizationA = OrganizationTestUtil.addOrganization(
+			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+			"Organization A", false);
+
+		_organizations.add(organizationA);
+
+		long userId = TestPropsValues.getUserId();
+
+		UserLocalServiceUtil.addOrganizationUser(
+			organizationA.getOrganizationId(), userId);
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganizations(userId));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId()));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, false));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, true));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, false));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, true));
+	}
+
+	@Test
+	public void testOrganizationMembershipWithoutAssignment() throws Exception {
+		Organization organizationA = OrganizationTestUtil.addOrganization(
+			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+			"Organization A", false);
+
+		_organizations.add(organizationA);
+
+		long userId = TestPropsValues.getUserId();
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganizations(userId));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId()));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, false));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, true));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, false));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, true));
+	}
+
+	@Test
+	public void testOrganizationMembershipWithSuborganizationAssignment()
+		throws Exception {
+
+		Organization organizationA = OrganizationTestUtil.addOrganization(
+			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+			"Organization A", false);
+
+		Organization organizationAA = OrganizationTestUtil.addOrganization(
+			organizationA.getOrganizationId(), "Organization AA", false);
+
+		_organizations.add(organizationAA);
+		_organizations.add(organizationA);
+
+		long userId = TestPropsValues.getUserId();
+
+		UserLocalServiceUtil.addOrganizationUser(
+			organizationAA.getOrganizationId(), userId);
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId()));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, false));
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), false, true));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, false));
+
+		Assert.assertTrue(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				userId, organizationA.getOrganizationId(), true, true));
+	}
+
 	@DeleteAfterTestRun
 	private final List<Organization> _organizations = new ArrayList<>();
 
