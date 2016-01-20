@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,34 +12,21 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
-package com.liferay.portal.parser.bbcode;
+<%@ include file="/init.jsp" %>
 
-/**
- * @author Iliyan Peychev
- */
-public class BBCodeItem {
+<%
+String navigationName = ParamUtil.getString(request, "navigationName");
+%>
 
-	public BBCodeItem(int type, String attribute, String value) {
-		_type = type;
-		_attribute = attribute;
-		_value = value;
-	}
-
-	public String getAttribute() {
-		return _attribute;
-	}
-
-	public int getType() {
-		return _type;
-	}
-
-	public String getValue() {
-		return _value;
-	}
-
-	private final String _attribute;
-	private final int _type;
-	private final String _value;
-
-}
+<c:if test="<%= Validator.isNotNull(navigationName) %>">
+	<aui:nav-bar markupView="lexicon">
+		<aui:nav cssClass="navbar-nav">
+			<aui:nav-item
+				label="<%= navigationName %>"
+				selected="<%= true %>"
+			/>
+		</aui:nav>
+	</aui:nav-bar>
+</c:if>
