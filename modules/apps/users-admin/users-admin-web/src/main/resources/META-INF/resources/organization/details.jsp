@@ -33,7 +33,8 @@ if (parentOrganizationId <= 0) {
 	}
 }
 
-String type = BeanParamUtil.getString(organization, request, "type", PropsValues.ORGANIZATIONS_TYPES[0]);
+String[] organizationsTypes = PropsValues.ORGANIZATIONS_TYPES;
+String type = BeanParamUtil.getString(organization, request, "type", organizationsTypes[0]);
 long regionId = BeanParamUtil.getLong(organization, request, "regionId");
 long countryId = BeanParamUtil.getLong(organization, request, "countryId");
 
@@ -86,7 +87,7 @@ User selUser = (User)request.getAttribute("user.selUser");
 				<aui:select name="type">
 
 					<%
-					for (String curType : PropsValues.ORGANIZATIONS_TYPES) {
+					for (String curType : organizationsTypes) {
 					%>
 
 						<aui:option label="<%= curType %>" selected="<%= type.equals(curType) %>" />
@@ -304,7 +305,7 @@ if (parentOrganization != null) {
 			function(event) {
 
 				<%
-				for (String curType : PropsValues.ORGANIZATIONS_TYPES) {
+				for (String curType : organizationsTypes) {
 				%>
 
 					if ($(event.currentTarget).val() == '<%= curType %>') {
