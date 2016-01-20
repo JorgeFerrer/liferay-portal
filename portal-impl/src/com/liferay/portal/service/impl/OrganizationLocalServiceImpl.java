@@ -936,7 +936,12 @@ public class OrganizationLocalServiceImpl
 			organizationsTree.add(organization);
 		}
 		else {
-			organizationsTree.add(organization.getParentOrganization());
+			Organization parentOrganization =
+				organization.getParentOrganization();
+
+			if (parentOrganization != null) {
+				organizationsTree.add(organization.getParentOrganization());
+			}
 		}
 
 		params.put("usersOrgsTree", organizationsTree);
