@@ -71,13 +71,8 @@ public class ExportConfigurationMVCResourceCommand
 			return false;
 		}
 
-		String fileName = getFileName(resourceRequest);
-
 		try {
-			PortletResponseUtil.sendFile(
-				resourceRequest, resourceResponse, fileName,
-				getPropertiesAsBytes(resourceRequest, resourceResponse),
-				ContentTypes.TEXT_XML_UTF8);
+			exportPid(resourceRequest, resourceResponse);
 		}
 		catch (Exception e) {
 			throw new PortletException(e);
@@ -86,10 +81,27 @@ public class ExportConfigurationMVCResourceCommand
 		return true;
 	}
 
-	protected String getFileName(ResourceRequest resourceRequest) {
+	protected void exportPid(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
+
 		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
 		String pid = ParamUtil.getString(resourceRequest, "pid");
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String languageId = themeDisplay.getLanguageId();
+
+		String fileName = getFileName(factoryPid, pid);
+
+		PortletResponseUtil.sendFile(
+			resourceRequest, resourceResponse, fileName,
+			getPropertiesAsBytes(languageId, factoryPid, pid),
+			ContentTypes.TEXT_XML_UTF8);
+	}
+
+	private String getFileName(String factoryPid, String pid) {
 		String fileName = pid;
 
 		if (Validator.isNotNull(factoryPid) && !factoryPid.equals(pid)) {
@@ -102,20 +114,13 @@ public class ExportConfigurationMVCResourceCommand
 	}
 
 	protected Properties getProperties(
-			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			String languageId, String factoryPid, String pid)
 		throws Exception {
 
 		Properties properties = new Properties();
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		Map<String, ConfigurationModel> configurationModels =
-			_configurationModelRetriever.getConfigurationModels(
-				themeDisplay.getLanguageId());
-
-		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
-		String pid = ParamUtil.getString(resourceRequest, "pid");
+			_configurationModelRetriever.getConfigurationModels(languageId);
 
 		ConfigurationModel configurationModel = configurationModels.get(pid);
 
@@ -159,18 +164,17 @@ public class ExportConfigurationMVCResourceCommand
 	}
 
 	protected byte[] getPropertiesAsBytes(
-			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			String languageId, String factoryPid, String pid)
 		throws Exception {
 
 		StringBundler sb = new StringBundler(5);
 
 		sb.append("##\n## To apply the configuration, deploy this file to a ");
 		sb.append("Liferay installation with the file name ");
-		sb.append(getFileName(resourceRequest));
+		sb.append(getFileName(factoryPid, pid));
 		sb.append(".\n##\n\n");
 
-		Properties properties = getProperties(
-			resourceRequest, resourceResponse);
+		Properties properties = getProperties(languageId, factoryPid, pid);
 
 		sb.append(PropertiesUtil.toString(properties));
 
