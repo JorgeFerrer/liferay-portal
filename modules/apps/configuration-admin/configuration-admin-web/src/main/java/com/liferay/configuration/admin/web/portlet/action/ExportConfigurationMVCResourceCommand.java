@@ -35,6 +35,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 
 import java.io.FileInputStream;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -110,9 +111,24 @@ public class ExportConfigurationMVCResourceCommand
 		for (ConfigurationModel configurationModel :
 				configurationModels.values()) {
 
-			if (!configurationModel.isFactory() &&
-				(configurationModel.getConfiguration() != null)) {
+			if (configurationModel.isFactory()) {
+				String curFactoryPid = configurationModel.getFactoryPid();
 
+				List<ConfigurationModel> factoryInstances =
+					_configurationModelRetriever.getFactoryInstances(
+						configurationModel);
+
+				for (ConfigurationModel factoryInstance : factoryInstances) {
+					String curPid = factoryInstance.getID();
+					String curFileName = getFileName(curFactoryPid, curPid);
+
+					zipWriter.addEntry(
+						curFileName,
+						getPropertiesAsBytes(
+							languageId, curFactoryPid, curPid));
+				}
+			}
+			else if (configurationModel.getConfiguration() != null) {
 				String curPid = configurationModel.getID();
 				String curFileName = getFileName(null, curPid);
 
