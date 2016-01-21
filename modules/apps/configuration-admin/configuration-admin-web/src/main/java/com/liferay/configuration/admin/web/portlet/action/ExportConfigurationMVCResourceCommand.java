@@ -222,6 +222,10 @@ public class ExportConfigurationMVCResourceCommand
 				value = StringUtil.merge(values, "\n");
 			}
 
+			if (value == null) {
+				value = StringPool.BLANK;
+			}
+
 			properties.setProperty(attributeDefinition.getID(), value);
 		}
 
